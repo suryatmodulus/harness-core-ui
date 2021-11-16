@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Spinner, Tabs } from '@blueprintjs/core'
 import { Button, Layout, PageError } from '@wings-software/uicore'
 import { get, merge } from 'lodash-es'
@@ -20,6 +20,7 @@ import {
 } from '@pipeline/components/execution/StepDetails/tabs/HarnessApprovalTab/HarnessApprovalTab'
 import { PipelineDetailsTab } from '@pipeline/components/execution/StepDetails/tabs/PipelineDetailsTab/PipelineDetailsTab'
 import { InputOutputTab } from '@pipeline/components/execution/StepDetails/tabs/InputOutputTab/InputOutputTab'
+import { NoApprovalInstance } from '../NoApprovalInstanceCreated'
 import tabCss from '../DefaultView/DefaultView.module.scss'
 
 export interface HarnessApprovalViewProps extends StepDetailProps {
@@ -50,7 +51,8 @@ export function HarnessApprovalView(props: HarnessApprovalViewProps): React.Reac
     error
   } = useGetApprovalInstance({
     approvalInstanceId,
-    mock
+    mock,
+    lazy: true
   })
 
   const {
@@ -62,6 +64,12 @@ export function HarnessApprovalView(props: HarnessApprovalViewProps): React.Reac
     lazy: !isWaiting,
     mock: getApprovalAuthorizationMock
   })
+
+  useEffect(() => {
+    if (approvalInstanceId) {
+      refetch()
+    }
+  }, [])
 
   useDeepCompareEffect(() => {
     setApprovalData(data?.data as ApprovalData)
@@ -89,17 +97,21 @@ export function HarnessApprovalView(props: HarnessApprovalViewProps): React.Reac
         id="Approval"
         title={getString('approvalStage.title')}
         panel={
-          <HarnessApprovalTab
-            approvalInstanceId={approvalInstanceId}
-            approvalData={approvalData}
-            isWaiting={isWaiting}
-            authData={authData}
-            updateState={updatedData => {
-              setApprovalData(updatedData)
-              refetchAuthData()
-            }}
-            stepParameters={step.stepParameters}
-          />
+          approvalInstanceId ? (
+            <HarnessApprovalTab
+              approvalInstanceId={approvalInstanceId}
+              approvalData={approvalData}
+              isWaiting={isWaiting}
+              authData={authData}
+              updateState={updatedData => {
+                setApprovalData(updatedData)
+                refetchAuthData()
+              }}
+              stepParameters={step.stepParameters}
+            />
+          ) : (
+            <NoApprovalInstance />
+          )
         }
       />
       <Tabs.Tab id="PipelineDetails" title={getString('common.pipelineDetails')} panel={<PipelineDetailsTab />} />

@@ -297,6 +297,7 @@ export interface StringsMap {
   'common.module.cv': string
   'common.monthly': string
   'common.moreInfo': string
+  'common.moreOptions': string
   'common.moreRefineSearch': string
   'common.mostActiveServices': string
   'common.move': string
@@ -2364,6 +2365,7 @@ export interface StringsMap {
   'pipeline.myDeploymentsText': string
   'pipeline.neverRan': string
   'pipeline.newPipelineText': string
+  'pipeline.noApprovalInstanceCreated': string
   'pipeline.noBuckets': string
   'pipeline.noBuildsText': string
   'pipeline.noDeploymentText': string

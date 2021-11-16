@@ -33,7 +33,14 @@ describe('SUCCESS', () => {
   test('show tabs when data is present and authorized', async () => {
     const { container, getByText } = render(
       <TestWrapper>
-        <JiraApprovalView step={{ status: 'ResourceWaiting' }} />
+        <JiraApprovalView
+          step={{
+            status: 'ResourceWaiting',
+            // eslint-disable-next-line
+            // @ts-ignore
+            executableResponses: [{ async: { callbackIds: ['approvalInstanceId'] } }]
+          }}
+        />
       </TestWrapper>
     )
 
@@ -43,6 +50,20 @@ describe('SUCCESS', () => {
       fireEvent.click(getByText('common.refresh'))
     })
     await waitFor(() => expect(mockJiraApprovalData.refetch).toBeCalled())
+  })
+
+  test('show text when approvalInstanceId is absent', async () => {
+    const { queryByText } = render(
+      <TestWrapper>
+        <JiraApprovalView
+          step={{
+            status: 'ResourceWaiting'
+          }}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(queryByText('pipeline.noApprovalInstanceCreated')).toBeTruthy())
   })
 })
 

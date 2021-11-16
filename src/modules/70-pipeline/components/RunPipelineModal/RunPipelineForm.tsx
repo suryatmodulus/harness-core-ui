@@ -154,7 +154,6 @@ function RunPipelineFormBasic({
   const history = useHistory()
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
-  const [triggerValidation, setTriggerValidation] = useState(false)
   const [runClicked, setRunClicked] = useState(false)
   const { RUN_INDIVIDUAL_STAGE } = useFeatureFlags()
   const [expressionFormState, setExpressionFormState] = useState<KVPair>({})
@@ -385,10 +384,6 @@ function RunPipelineFormBasic({
   const yamlTemplate = React.useMemo(() => {
     return parse(template?.data?.inputSetTemplateYaml || '')?.pipeline
   }, [template?.data?.inputSetTemplateYaml])
-
-  useEffect(() => {
-    setTriggerValidation(true)
-  }, [currentPipeline])
 
   React.useEffect(() => {
     const parsedPipelineYaml = parse(template?.data?.inputSetTemplateYaml || '') || {}
@@ -683,39 +678,33 @@ function RunPipelineFormBasic({
     }
   }, [yamlHandler, lastYaml])
 
-  useEffect(() => {
-    let errors: FormikErrors<InputSetDTO> = formErrors
-
-    if (
-      triggerValidation &&
-      currentPipeline?.pipeline &&
-      template?.data?.inputSetTemplateYaml &&
-      yamlTemplate &&
-      pipeline &&
-      runClicked
-    ) {
-      errors = validatePipeline({
-        pipeline: { ...clearRuntimeInput(currentPipeline.pipeline) },
-        template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
-        originalPipeline: currentPipeline.pipeline,
-        getString,
-        viewType: StepViewType.DeploymentForm
-      }) as any
-      setFormErrors(errors)
-      // triggerValidation should be true every time 'currentPipeline' changes
-      // and it needs to be set as false here so that we do not trigger it indefinitely
-      setTriggerValidation(false)
+  const getFormErrors = async (
+    latestPipeline: { pipeline: PipelineInfoConfig },
+    latestYamlTemplate: PipelineInfoConfig,
+    orgPipeline: PipelineInfoConfig | undefined
+  ) => {
+    let errors = formErrors
+    function validateErrors(): Promise<FormikErrors<InputSetDTO>> {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          const validatedErrors =
+            (validatePipeline({
+              pipeline: { ...clearRuntimeInput(latestPipeline.pipeline) },
+              template: latestYamlTemplate,
+              originalPipeline: orgPipeline,
+              getString,
+              viewType: StepViewType.DeploymentForm
+            }) as any) || formErrors
+          resolve(validatedErrors)
+        }, 300)
+      })
     }
-  }, [
-    existingProvide,
-    currentPipeline,
-    getString,
-    pipeline,
-    template?.data?.inputSetTemplateYaml,
-    yamlTemplate,
-    selectedInputSets,
-    existingProvide
-  ])
+    if (latestPipeline?.pipeline && latestYamlTemplate && orgPipeline) {
+      errors = await validateErrors()
+      setFormErrors(errors)
+    }
+    return errors
+  }
 
   if (
     loadingPipeline ||
@@ -829,32 +818,11 @@ function RunPipelineFormBasic({
         }}
         enableReinitialize
         validate={async values => {
-          let errors: FormikErrors<InputSetDTO> = formErrors
-          setCurrentPipeline({ ...currentPipeline, pipeline: values as PipelineInfoConfig })
-
-          function validateErrors(): Promise<FormikErrors<InputSetDTO>> {
-            return new Promise(resolve => {
-              setTimeout(() => {
-                const validatedErrors =
-                  (validatePipeline({
-                    pipeline: values as PipelineInfoConfig,
-                    template: yamlTemplate?.pipeline,
-                    originalPipeline: pipeline,
-                    getString,
-                    viewType: StepViewType.DeploymentForm
-                  }) as any) || formErrors
-                resolve(validatedErrors)
-              }, 300)
-            })
-          }
-
-          errors = await validateErrors()
-
-          if (typeof errors !== undefined && runClicked) {
-            setFormErrors(errors)
-          }
+          const latestPipeline = { ...currentPipeline, pipeline: values as PipelineInfoConfig }
+          setCurrentPipeline(latestPipeline)
+          const runPipelineFormErrors = await getFormErrors(latestPipeline, yamlTemplate, pipeline)
           // https://github.com/formium/formik/issues/1392
-          throw errors
+          throw runPipelineFormErrors
         }}
       >
         {({ submitForm, values }) => {
@@ -918,8 +886,7 @@ function RunPipelineFormBasic({
                       />
                     </div>
                   </div>
-
-                  <ErrorsStrip formErrors={formErrors} />
+                  {runClicked ? <ErrorsStrip formErrors={formErrors} /> : null}
                 </>
               )}
               {RUN_INDIVIDUAL_STAGE && (
@@ -1073,7 +1040,7 @@ function RunPipelineFormBasic({
                         },
                         permission: PermissionIdentifier.EXECUTE_PIPELINE
                       }}
-                      disabled={blockedStagesSelected || getErrorsList(formErrors).errorCount > 0}
+                      disabled={blockedStagesSelected || (getErrorsList(formErrors).errorCount > 0 && runClicked)}
                     />
                     <div className={css.secondaryButton}>
                       <Button

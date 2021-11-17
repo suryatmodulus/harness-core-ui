@@ -5,7 +5,6 @@ declare const styles: {
   readonly updateTemplateSettingsDialog: string
   readonly expandSearch: string
   readonly loading: string
-  readonly illustration: string
   readonly gitFilter: string
 }
 export default styles

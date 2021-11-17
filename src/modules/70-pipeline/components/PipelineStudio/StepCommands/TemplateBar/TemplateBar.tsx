@@ -1,6 +1,7 @@
 import React from 'react'
-import { Color, Container, Icon, Layout, Popover, Text } from '@wings-software/uicore'
+import { Color, Container, Icon, IconName, Layout, Popover, Text } from '@wings-software/uicore'
 import { Menu, Position } from '@blueprintjs/core'
+import cx from 'classnames'
 import type { TemplateStepData } from '@pipeline/utils/tempates'
 import type { StepOrStepGroupOrTemplateStepData } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import css from './TemplateBar.module.scss'
@@ -11,17 +12,26 @@ export interface TemplateBarProps {
   onRemoveTemplate?: () => void
 }
 
+interface TemplateMenuItem {
+  icon?: IconName
+  label: string
+  disabled?: boolean
+  onClick: () => void
+}
+
 export const TemplateBar: React.FC<TemplateBarProps> = (props): JSX.Element => {
   const { step, onChangeTemplate, onRemoveTemplate } = props
   const [menuOpen, setMenuOpen] = React.useState(false)
 
-  const getItems = (): { label: string; onClick: () => void }[] => {
+  const getItems = (): TemplateMenuItem[] => {
     return [
       {
+        icon: 'command-switch',
         label: 'Change Template',
         onClick: () => onChangeTemplate?.(step)
       },
       {
+        icon: 'main-trash',
         label: 'Remove Template',
         onClick: () => onRemoveTemplate?.()
       }
@@ -48,6 +58,8 @@ export const TemplateBar: React.FC<TemplateBarProps> = (props): JSX.Element => {
             setMenuOpen(nextOpenState)
           }}
           position={Position.BOTTOM_RIGHT}
+          className={css.main}
+          portalClassName={css.popover}
         >
           <Icon
             name={'more'}
@@ -61,15 +73,20 @@ export const TemplateBar: React.FC<TemplateBarProps> = (props): JSX.Element => {
           <Menu style={{ minWidth: 'unset' }} onClick={e => e.stopPropagation()}>
             {getItems()?.map(item => {
               return (
-                <Menu.Item
-                  text={item.label}
+                <li
                   key={item.label}
-                  onClick={(e: React.MouseEvent) => {
+                  className={cx(css.menuItem, { [css.disabled]: item.disabled })}
+                  onClick={e => {
                     e.stopPropagation()
-                    item.onClick()
-                    setMenuOpen(false)
+                    if (!item.disabled) {
+                      item.onClick()
+                      setMenuOpen(false)
+                    }
                   }}
-                />
+                >
+                  {item.icon && <Icon name={item.icon} size={12} />}
+                  <Text lineClamp={1}>{item.label}</Text>
+                </li>
               )
             })}
           </Menu>

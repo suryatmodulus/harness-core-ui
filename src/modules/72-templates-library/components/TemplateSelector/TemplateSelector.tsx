@@ -31,7 +31,7 @@ import routes from '@common/RouteDefinitions'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
-import NoResultsView from '@templates-library/pages/TemplatesPage/views/NoResultsView'
+import NoResultsView from '@templates-library/pages/TemplatesPage/views/NoResultsView/NoResultsView'
 import { TemplateDetails } from '../TemplateDetails/TemplateDetails'
 import css from './TemplateSelector.module.scss'
 
@@ -205,6 +205,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
                   text={getString('templatesLibrary.templatesPage.noTemplates', {
                     scope: selectedScope.label.toLowerCase()
                   })}
+                  minimal={true}
                 />
               )}
               {!!templateData?.data?.content?.length && (
@@ -267,7 +268,12 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
             </Layout.Vertical>
           ) : (
             <Container padding={{ top: 'xxlarge', right: 'xlarge', bottom: 'xxlarge', left: 'xlarge' }} height={'100%'}>
-              <Layout.Vertical className={css.empty} height={'100%'} flex={{ align: 'center-center' }}>
+              <Layout.Vertical
+                className={css.empty}
+                spacing={'large'}
+                height={'100%'}
+                flex={{ align: 'center-center' }}
+              >
                 <img src={templateIllustration} className={css.illustration} />
                 <Text className={css.placeholder} color={Color.GREY_700}>
                   {getString('templatesLibrary.selectTemplateToPreview')}

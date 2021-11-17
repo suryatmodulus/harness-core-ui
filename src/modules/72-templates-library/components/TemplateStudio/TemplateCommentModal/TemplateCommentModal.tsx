@@ -43,7 +43,10 @@ export const TemplateCommentModal = (props: UpdateTemplateModalProps) => {
                 </Layout.Vertical>
               </Container>
               <Container>
-                <Layout.Vertical spacing="small">
+                <Layout.Vertical spacing="xxlarge">
+                  <Text className={css.infoText} color={Color.GREY_900}>
+                    {getString('templatesLibrary.updateTemplateModal.info')}
+                  </Text>
                   <Container>
                     <Layout.Horizontal spacing="small" flex={{ alignItems: 'flex-end', justifyContent: 'flex-start' }}>
                       <Button
@@ -54,9 +57,6 @@ export const TemplateCommentModal = (props: UpdateTemplateModalProps) => {
                       <Button text={getString('cancel')} variation={ButtonVariation.SECONDARY} onClick={onClose} />
                     </Layout.Horizontal>
                   </Container>
-                  <Text color={Color.GREY_400} font={{ size: 'xsmall', weight: 'semi-bold' }}>
-                    {getString('templatesLibrary.updateTemplateModal.info')}
-                  </Text>
                 </Layout.Vertical>
               </Container>
             </Layout.Vertical>

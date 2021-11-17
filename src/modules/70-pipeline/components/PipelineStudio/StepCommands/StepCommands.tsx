@@ -18,6 +18,8 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { TemplateBar } from '@pipeline/components/PipelineStudio/StepCommands/TemplateBar/TemplateBar'
+import useCurrentModule from '@common/hooks/useCurrentModule'
+import { ModuleName } from 'framework/types/ModuleName'
 import { StepCommandsProps, StepCommandsViews } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 
@@ -71,6 +73,8 @@ export function StepCommands(
   const stepRef = React.useRef<FormikProps<unknown> | null>(null)
   const advancedConfRef = React.useRef<FormikProps<unknown> | null>(null)
   const isTemplateStep = !!(step as TemplateStepData)?.template
+
+  const { isModule } = useCurrentModule()
 
   async function handleTabChange(newTab: StepCommandTabs, prevTab: StepCommandTabs): Promise<void> {
     if (prevTab === StepCommandTabs.StepConfiguration && stepRef.current) {
@@ -192,26 +196,29 @@ export function StepCommands(
               title={isStepGroup ? getString('stepGroupConfiguration') : getString('stepConfiguration')}
               panel={getStepWidgetWithFormikRef()}
             />
-            <Tab
-              id={StepCommandTabs.Advanced}
-              title={getString('advancedTitle')}
-              panel={
-                <AdvancedStepsWithRef
-                  step={step}
-                  isReadonly={isReadonly}
-                  stepsFactory={stepsFactory}
-                  allowableTypes={allowableTypes}
-                  onChange={onChange}
-                  onUpdate={onUpdate}
-                  hiddenPanels={hiddenPanels}
-                  isStepGroup={isStepGroup}
-                  hasStepGroupAncestor={hasStepGroupAncestor}
-                  ref={advancedConfRef}
-                  stageType={stageType}
-                  stepType={stepType}
-                />
-              }
-            />
+            {!isModule(ModuleName.CF) && (
+              <Tab
+                id={StepCommandTabs.Advanced}
+                title={getString('advancedTitle')}
+                panel={
+                  <AdvancedStepsWithRef
+                    step={step}
+                    isReadonly={isReadonly}
+                    stepsFactory={stepsFactory}
+                    allowableTypes={allowableTypes}
+                    onChange={onChange}
+                    onUpdate={onUpdate}
+                    hiddenPanels={hiddenPanels}
+                    isStepGroup={isStepGroup}
+                    hasStepGroupAncestor={hasStepGroupAncestor}
+                    ref={advancedConfRef}
+                    stageType={stageType}
+                    stepType={stepType}
+                  />
+                }
+              />
+            )}
+
             {templatesEnabled && !isStepGroup && viewType === StepCommandsViews.Pipeline ? (
               <>
                 <Expander />

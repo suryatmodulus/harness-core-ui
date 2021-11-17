@@ -6,6 +6,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
+
 import { StepCommandsWithRef } from '../StepCommands'
 
 jest.mock('@common/components/MonacoEditor/MonacoEditor')
@@ -86,6 +87,37 @@ describe('<StepCommands /> tests', () => {
     })
     expect(container).toMatchSnapshot()
   })
+
+  test('should hide advanced tab for feature flags module', async () => {
+    const { queryByText } = render(
+      <TestWrapper
+        path="/account/:accountId/:module/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/-1/pipeline-studio"
+        pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy', module: 'cf' }}
+      >
+        <StepCommandsWithRef
+          step={{
+            identifier: 'testStep',
+            name: 'testStep',
+            type: 'Run',
+            spec: {
+              connectorRef: 'account.dockerdev',
+              image: 'maven:3-openjdk-8',
+              command: 'mvn clean compile war:war'
+            }
+          }}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
+          onUpdate={jest.fn()}
+          stepsFactory={stepFactory}
+          isStepGroup={false}
+          isReadonly={false}
+          ref={{ current: null }}
+        />
+      </TestWrapper>
+    )
+
+    expect(queryByText('advancedTitle')).not.toBeInTheDocument()
+  })
+
   test('renders ok without tabs', async () => {
     const { queryByText, container } = render(
       <TestWrapper>

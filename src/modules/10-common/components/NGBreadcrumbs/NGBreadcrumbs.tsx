@@ -1,7 +1,8 @@
 import React from 'react'
 import { Breadcrumbs as UiCoreBreadcrumbs, BreadcrumbsProps, Breadcrumb } from '@wings-software/uicore'
-
+import { defaults } from 'lodash-es'
 import { useLocation, useParams } from 'react-router-dom'
+
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { ProjectPathProps, SecretsPathProps, ModulePathParams } from '@common/interfaces/RouteInterfaces'
 import { getModuleIcon } from '@common/utils/utils'
@@ -12,14 +13,17 @@ import { useStrings } from 'framework/strings'
 
 export interface NGBreadcrumbsProps extends BreadcrumbsProps {
   orgBreadCrumbOptional: boolean
+  customPathParams?: Partial<ProjectPathProps & SecretsPathProps & ModulePathParams>
 }
 export const NGBreadcrumbs: React.FC<Partial<NGBreadcrumbsProps>> = ({
   links = [],
   className = '',
-  orgBreadCrumbOptional = false
+  orgBreadCrumbOptional = false,
+  customPathParams = {}
 }) => {
   const { getString } = useStrings()
-  const params = useParams<ProjectPathProps & SecretsPathProps & ModulePathParams>()
+  const originalParams = useParams<ProjectPathProps & SecretsPathProps & ModulePathParams>()
+  const params = defaults(customPathParams, originalParams)
   const { module, projectIdentifier, orgIdentifier } = params
   const { selectedProject, selectedOrg } = useAppStore()
   const { pathname } = useLocation()

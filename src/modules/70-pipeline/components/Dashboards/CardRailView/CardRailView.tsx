@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { Container, Link, Text, Icon, Color } from '@wings-software/uicore'
+import { Container, Text, Icon, Color, Layout, FontVariation } from '@wings-software/uicore'
 import classnames from 'classnames'
 import { Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -7,7 +7,6 @@ import EmptyRepositories from './EmptyRepositories.svg'
 import EmptyFailedBuilds from './EmptyFailedBuilds.svg'
 import EmptyActiveBuilds from './EmptyActiveBuilds.svg'
 import RepoIconUrl from './RepoIcon.svg'
-import FailedBuildIconUrl from './FailedBuildIcon.svg'
 import NoServices from '../images/NoServices.svg'
 import NoDeployments from '../images/NoDeployments.svg'
 import Active from './Active.svg'
@@ -22,21 +21,15 @@ export interface CardRailViewProps {
     | 'FAILED_DEPLOYMENT'
     | 'ACTIVE_DEPLOYMENT'
     | 'PENDING_DEPLOYMENT'
-  titleSideContent?: React.ReactNode
   isLoading?: boolean
   onShowAll?(): void
   isCIPage?: boolean
   children?: React.ReactNode
 }
 
-export default function CardRailView({
-  contentType,
-  titleSideContent,
-  isLoading,
-  onShowAll,
-  children,
-  isCIPage
-}: CardRailViewProps) {
+export default function CardRailView({ contentType, isLoading, onShowAll, children, isCIPage }: CardRailViewProps) {
+  const [rateToggle, setRateToggle] = useState<'SUCCESS' | 'FAILURE'>('SUCCESS')
+  const showRateToggle = false
   const { getString } = useStrings()
   const contentRef = useRef<HTMLDivElement>(null)
   const [scrollbarVisible, setScrollbarVisible] = useState(false)
@@ -51,9 +44,9 @@ export default function CardRailView({
   }
 
   const icons = {
-    REPOSITORY: isCIPage ? <img height={15} width={16} src={RepoIconUrl} /> : RepoIconUrl,
-    FAILED_BUILD: <img src={FailedBuildIconUrl} />,
-    ACTIVE_BUILD: <Icon name="ci-pending-build" className={styles.pendingBuildIcon} />,
+    REPOSITORY: isCIPage ? <Icon name="repository" /> : RepoIconUrl,
+    FAILED_BUILD: <Icon name="execution-warning" size={20} color={Color.RED_500} />,
+    ACTIVE_BUILD: <img src={Active} className={styles.activeDepIcon} />,
     WORKLOAD: <img height={15} width={16} src={RepoIconUrl} />,
     FAILED_DEPLOYMENT: <Icon name="execution-warning" size={20} color={Color.RED_500} />,
     ACTIVE_DEPLOYMENT: <img src={Active} className={styles.activeDepIcon} />,
@@ -95,6 +88,28 @@ export default function CardRailView({
     return () => window.removeEventListener('resize', onResize)
   })
 
+  const RateToggle = (): JSX.Element => {
+    return (
+      <Layout.Horizontal flex>
+        <Text
+          font={{ variation: FontVariation.TINY, weight: 'semi-bold' }}
+          onClick={() => setRateToggle('SUCCESS')}
+          className={classnames(styles.status, { [styles.selectedStatus]: rateToggle === 'SUCCESS' })}
+        >
+          {getString('pipeline.dashboards.successRate')}
+        </Text>
+        &nbsp;<Text font={{ variation: FontVariation.TINY }}>|</Text>&nbsp;
+        <Text
+          font={{ variation: FontVariation.TINY, weight: 'semi-bold' }}
+          onClick={() => setRateToggle('FAILURE')}
+          className={classnames(styles.status, { [styles.selectedStatus]: rateToggle === 'FAILURE' })}
+        >
+          {getString('common.failureRate')}
+        </Text>
+      </Layout.Horizontal>
+    )
+  }
+
   const isEmpty = !isLoading && React.Children.count(children) === 0
   return (
     <Container className={styles.main}>
@@ -105,7 +120,7 @@ export default function CardRailView({
             {titles[contentType]} ({React.Children.count(children)})
           </Text>
         </Container>
-        {titleSideContent}
+        {showRateToggle && contentType === 'REPOSITORY' ? <RateToggle /> : null}
       </Container>
       <Container
         ref={contentRef}
@@ -130,9 +145,9 @@ export default function CardRailView({
         {!isEmpty && !isLoading && children}
       </Container>
       {onShowAll && !isEmpty && !isLoading && (
-        <Link className={styles.showMoreLink} withoutHref onClick={onShowAll}>
+        <a className={styles.showMoreLink} rel="noreferrer" target="_blank" onClick={onShowAll}>
           {getString('seeAll')}
-        </Link>
+        </a>
       )}
     </Container>
   )

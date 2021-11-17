@@ -13,5 +13,7 @@ declare const styles: {
   readonly showMoreLink: string
   readonly pendingBuildIcon: string
   readonly activeDepIcon: string
+  readonly selectedStatus: string
+  readonly status: string
 }
 export default styles

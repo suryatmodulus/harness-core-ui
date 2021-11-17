@@ -6,10 +6,10 @@ exports[`PipelineBuildExecutionsChart shows data correctly 1`] = `
     class="StyledProps--font StyledProps--main main"
   >
     <div
-      class="Layout--horizontal StyledProps--main"
+      class="Layout--horizontal StyledProps--main marginBottom4"
     >
       <p
-        class="StyledProps--font StyledProps--main StyledProps--margin-right-small"
+        class="StyledProps--font StyledProps--main StyledProps--margin-right-small StyledProps--font-variation-h5"
       >
         executionsText
       </p>

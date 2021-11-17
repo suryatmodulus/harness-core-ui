@@ -22,7 +22,6 @@ declare const styles: {
   readonly triggerInfo: string
   readonly triggerType: string
   readonly timers: string
-  readonly timerIcon: string
   readonly duration: string
   readonly timeAgo: string
   readonly ignoreFailedTooltip: string

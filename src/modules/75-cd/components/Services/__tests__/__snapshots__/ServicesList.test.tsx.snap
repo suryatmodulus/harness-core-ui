@@ -74,7 +74,7 @@ exports[`ServicesList render 1`] = `
                 <span
                   class="bp3-button-text"
                 >
-                  cd.serviceDashboard.6months
+                  common.duration.6months
                 </span>
                 <span
                   class="bp3-icon bp3-icon-caret-down StyledProps--main"

@@ -539,7 +539,7 @@ dashboards:
   noActiveDeployments: 'No Active Deployments'
   noPendingDeployments: 'No Pending Deployments found'
   buildExecutions: Build Executions
-  buildHealth: Build health
+  buildHealth: Builds Health
   totalBuilds: Total Builds
   testCycleTimeSaved: Test Cycle Time Saved
   successfulBuilds: Successful Builds

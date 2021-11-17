@@ -392,7 +392,7 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
         </p>
       </div>
       <p
-        class="StyledProps--font StyledProps--main commitId"
+        class="StyledProps--font StyledProps--main commitId StyledProps--font-variation-small"
         data-name="commitId"
       >
         <a
@@ -410,7 +410,7 @@ exports[`CIExecutionSummary tests Shows Successful summary 1`] = `
             class="bp3-popover-target Text--targetClass"
           >
             <p
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-small"
               style="cursor: pointer;"
               tabindex="0"
             >

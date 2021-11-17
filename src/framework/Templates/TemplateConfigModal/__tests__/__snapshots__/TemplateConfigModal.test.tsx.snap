@@ -482,7 +482,11 @@ exports[`CREATE MODE if form changesupdate the preview card: changed value shoul
                           />
                         </svg>
                       </span>
-                      <span />
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        
+                      </p>
                     </div>
                   </span>
                 </span>

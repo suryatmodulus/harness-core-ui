@@ -64,7 +64,7 @@ export const ServiceInstancesWidget: React.FC<ServiceInstanceWidgetProps> = prop
     [prodCount, nonProdCount]
   )
   const title = getString('cd.serviceDashboard.servicesInLast', {
-    period: getString('cd.serviceDashboard.6months')
+    period: getString('common.duration.6months')
   })
   return (
     <Card className={css.card}>

@@ -29,29 +29,10 @@
   }
 }
 
-@mixin border-mixin($radius, $width, $color) {
-  .leftBorder {
-    background-color: $color;
-    position: absolute;
-    left: 0px;
-    top: -0.3px;
-    bottom: -0.3px;
-    width: $width;
-    border-top-left-radius: $radius;
-    border-bottom-left-radius: $radius;
-  }
-}
-
 .times {
-  font-size: var(--ci-font-size-xsmall) !important;
-  white-space: nowrap !important;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  .timeIcon {
-    margin-left: var(--spacing-small) !important;
-    margin-right: var(--spacing-xsmall) !important;
-  }
   &.timesColored {
     color: var(--red-500) !important;
   }
@@ -62,7 +43,6 @@
 
 .repositoryCard {
   @include card-mixin(4px);
-  @include border-mixin(6px, 4px, var(--grey-300));
   padding: var(--spacing-medium) var(--spacing-large) var(--spacing-small) !important;
   .mainContent {
     display: flex;
@@ -78,7 +58,6 @@
       grid-row-gap: var(--spacing-xsmall);
       margin-top: var(--spacing-small) !important;
       .statHeader {
-        text-transform: uppercase;
         color: var(--grey-400);
         font-size: var(--ci-font-size-small) !important;
       }
@@ -95,7 +74,10 @@
           margin-left: var(--spacing-xsmall);
         }
         .rateDiffValue {
-          font-size: var(--ci-font-size-small) !important;
+          font-size: 10px;
+          font-weight: 600;
+          line-height: 12px;
+          letter-spacing: 0.5px;
         }
       }
     }
@@ -109,36 +91,25 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    p {
-      font-size: var(--ci-font-size-small) !important;
-      line-height: 1.2 !important;
-    }
     .avatarWrapper {
       display: flex;
       align-items: center;
-      > div {
-        margin-left: 0px;
-      }
+      flex: 4;
     }
   }
 }
 
-.successBorder {
-  border-left: 1px solid var(--ci-color-green-500);
+.userLabel {
+  padding-top: 5px;
+  flex: 1;
 }
 
-.errorBorder {
-  border-left: 1px solid var(--ci-color-red-500);
+.message {
+  flex: 2;
+  word-break: break-word !important;
 }
 
-.repoCard {
-  :global {
-    .bp3-popover-content {
-      height: calc(2 * var(--spacing-xxxlarge));
-      background-color: var(--grey-100);
-    }
-    .bp3-popover-arrow-fill {
-      fill: var(--grey-100);
-    }
-  }
+.buildStatus {
+  border-radius: 6px;
+  border-left-width: 4px;
 }

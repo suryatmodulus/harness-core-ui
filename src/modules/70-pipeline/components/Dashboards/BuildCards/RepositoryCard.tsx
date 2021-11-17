@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
-import { Container, Text, Avatar, Icon, Color } from '@wings-software/uicore'
+import { Container, Text, Icon, Color, FontVariation, Layout } from '@wings-software/uicore'
 import moment from 'moment'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import merge from 'lodash-es/merge'
 import type { RepositoryBuildInfo } from 'services/ci'
 import { ExecutionStatusEnum } from '@pipeline/utils/statusHelpers'
+import { UserLabel } from '@common/exports'
+import { useStrings } from 'framework/strings'
 import { diffStartAndEndTime, roundNumber, FailedStatus, ActiveStatus, mapToExecutionStatus } from '../shared'
 import styles from './BuildCards.module.scss'
 
@@ -32,7 +34,6 @@ export default function RepositoryCard({
   title,
   message,
   username,
-  avatarUrl,
   startTime,
   endTime,
   count,
@@ -45,6 +46,7 @@ export default function RepositoryCard({
   onClick,
   className
 }: RepositoryCardProps) {
+  const { getString } = useStrings()
   const [chartOptions, setChartOptions] = useState(defaultChartOptions)
   const duration = diffStartAndEndTime(startTime, endTime)
   const mapTime = (value: RepositoryBuildInfo) => (value?.time ? moment(value.time).format('YYYY-MM-DD') : '')
@@ -72,9 +74,13 @@ export default function RepositoryCard({
     }
   }, [countList])
 
-  const borderCls = successRateDiff >= 0 ? styles.successBorder : styles.errorBorder
+  const rateColor = successRateDiff >= 0 ? 'var(--ci-color-green-500)' : 'var(--ci-color-red-500)'
   return (
-    <Container className={cx(styles.repositoryCard, className, borderCls)} onClick={onClick}>
+    <Container
+      className={cx(styles.repositoryCard, styles.buildStatus, className)}
+      onClick={onClick}
+      style={{ borderLeftColor: mapStatusToColor(lastBuildStatus) }}
+    >
       <Text className={styles.title} color={Color.BLACK} lineClamp={1}>
         {title}
       </Text>
@@ -82,10 +88,10 @@ export default function RepositoryCard({
         <Container>
           <Container className={styles.cardStats}>
             <Text font={{ size: 'small' }} className={styles.statHeader}>
-              {countLabel}
+              {countLabel.toUpperCase()}
             </Text>
             <Text font={{ size: 'small' }} className={styles.statHeader}>
-              success rate
+              {getString('pipeline.dashboards.successRate').toUpperCase()}
             </Text>
             <Text className={styles.statContent}>{count}</Text>
             <Container className={styles.statWrap}>
@@ -94,13 +100,13 @@ export default function RepositoryCard({
                 size={14}
                 name={successRateDiff >= 0 ? 'caret-up' : 'caret-down'}
                 style={{
-                  color: successRateDiff >= 0 ? 'var(--ci-color-green-500)' : 'var(--ci-color-red-500)'
+                  color: rateColor
                 }}
               />
               <Text
                 className={styles.rateDiffValue}
                 style={{
-                  color: successRateDiff >= 0 ? 'var(--ci-color-green-500)' : 'var(--ci-color-red-500)'
+                  color: rateColor
                 }}
               >
                 {Math.abs(roundNumber(successRateDiff)!)}%
@@ -112,26 +118,43 @@ export default function RepositoryCard({
           <HighchartsReact highcharts={Highcharts} options={chartOptions} />
         </Container>
       </Container>
-      <Container className={styles.cardFooter}>
-        <Container className={styles.avatarWrapper}>
-          {username && <Avatar name={username} src={avatarUrl} size="small" className={styles.repoCard} />}
-          <Text font={{ size: 'small' }} color={Color.BLACK} lineClamp={2}>
-            {message}
-          </Text>
-        </Container>
-        <Container className={styles.times}>
-          {moment(startTime).fromNow()}
-          {duration !== undefined && (
-            <>
-              <Icon size={10} name="time" className={styles.timeIcon} />
-              {duration}
-            </>
+      <Layout.Horizontal className={styles.cardFooter} spacing="small">
+        <Layout.Horizontal className={styles.avatarWrapper} spacing="small">
+          {username && (
+            <UserLabel
+              name={username}
+              textProps={{
+                lineClamp: 1,
+                font: { variation: FontVariation.TINY },
+                alwaysShowTooltip: false
+              }}
+              iconProps={{ color: Color.GREY_900 }}
+              className={styles.userLabel}
+            />
           )}
-        </Container>
-      </Container>
-      {typeof lastBuildStatus !== 'undefined' && (
-        <div className={styles.leftBorder} style={{ backgroundColor: mapStatusToColor(lastBuildStatus) }} />
-      )}
+          {message ? (
+            <Text font={{ variation: FontVariation.TINY }} lineClamp={2} className={styles.message}>
+              {message}
+            </Text>
+          ) : null}
+        </Layout.Horizontal>
+        <Layout.Horizontal flex={{ justifyContent: 'end' }} className={styles.times} spacing="xsmall">
+          {startTime ? (
+            <Layout.Horizontal flex spacing="xsmall">
+              <Icon size={10} name="calendar" color={Color.GREY_900} />
+              <Text font={{ variation: FontVariation.TINY }} lineClamp={1}>
+                {moment(startTime).fromNow()}
+              </Text>
+            </Layout.Horizontal>
+          ) : null}
+          {duration ? (
+            <Layout.Horizontal flex spacing="xsmall">
+              <Icon size={10} name="time" color={Color.GREY_900} />
+              <Text font={{ variation: FontVariation.TINY }}>{duration}</Text>
+            </Layout.Horizontal>
+          ) : null}
+        </Layout.Horizontal>
+      </Layout.Horizontal>
     </Container>
   )
 }
@@ -139,9 +162,9 @@ export default function RepositoryCard({
 function mapStatusToColor(status?: string) {
   const mappedStatus = mapToExecutionStatus(status)
   if (mappedStatus === ExecutionStatusEnum.Success) {
-    return 'var(--ci-color-green-400)'
+    return 'var(--ci-color-green-500)'
   } else if (Object.prototype.hasOwnProperty.call(FailedStatus, mappedStatus!)) {
-    return 'var(--ci-color-red-400)'
+    return 'var(--ci-color-red-500)'
   } else if (Object.prototype.hasOwnProperty.call(ActiveStatus, mappedStatus!)) {
     return 'var(--ci-color-orange-500)'
   }

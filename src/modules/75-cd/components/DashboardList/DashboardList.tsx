@@ -6,8 +6,8 @@ import type { TableProps } from '@common/components/Table/Table'
 // import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import { PageSpinner } from '@common/components'
 import ServiceDetailsEmptyState from '@cd/icons/ServiceDetailsEmptyState.svg'
+import { TimeRangeSelector } from '@common/components/TimeRangeSelector/TimeRangeSelector'
 import { DeploymentsTimeRangeContext } from '../Services/common'
-import { TimeRangeSelector } from '../TimeRangeSelector/TimeRangeSelector'
 import css from '@cd/components/DashboardList/DashboardList.module.scss'
 
 const PAGE_SIZE = 10

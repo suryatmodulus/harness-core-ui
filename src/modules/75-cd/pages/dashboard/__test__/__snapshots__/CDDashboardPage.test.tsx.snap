@@ -329,7 +329,7 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
           class="StyledProps--font StyledProps--main content"
         >
           <div
-            class="StyledProps--font StyledProps--main repositoryCard hoverService errorBorder"
+            class="StyledProps--font StyledProps--main repositoryCard buildStatus hoverService"
           >
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main title StyledProps--color StyledProps--color-black"
@@ -371,12 +371,12 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main statHeader StyledProps--font-size-small"
                   >
-                    Deployments
+                    DEPLOYMENTS
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main statHeader StyledProps--font-size-small"
                   >
-                    success rate
+                    PIPELINE.DASHBOARDS.SUCCESSRATE
                   </p>
                   <p
                     class="StyledProps--font StyledProps--main statContent"
@@ -426,40 +426,71 @@ exports[`CDDashboardPage snapshot test should render properly 1`] = `
               </div>
             </div>
             <div
-              class="StyledProps--font StyledProps--main cardFooter"
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main cardFooter"
             >
               <div
-                class="StyledProps--font StyledProps--main avatarWrapper"
-              >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-black"
-                  style="--text-line-clamp: 2;"
-                />
-              </div>
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main avatarWrapper"
+              />
               <div
-                class="StyledProps--font StyledProps--main times"
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main times StyledProps--flex StyledProps--flex-justifyContent-end"
               >
-                in a month
-                <span
-                  class="bp3-icon bp3-icon-time StyledProps--main timeIcon"
-                  icon="time"
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex"
                 >
-                  <svg
-                    data-icon="time"
-                    height="10"
-                    viewBox="0 0 16 16"
-                    width="10"
+                  <span
+                    class="bp3-icon bp3-icon-calendar StyledProps--main StyledProps--color StyledProps--color-grey900"
+                    icon="calendar"
                   >
-                    <desc>
-                      time
-                    </desc>
-                    <path
-                      d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm1-6.41V4c0-.55-.45-1-1-1s-1 .45-1 1v4c0 .28.11.53.29.71l2 2a1.003 1.003 0 001.42-1.42L9 7.59z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-                9m
+                    <svg
+                      data-icon="calendar"
+                      height="10"
+                      viewBox="0 0 16 16"
+                      width="10"
+                    >
+                      <desc>
+                        calendar
+                      </desc>
+                      <path
+                        d="M11 3c.6 0 1-.5 1-1V1c0-.6-.4-1-1-1s-1 .4-1 1v1c0 .5.4 1 1 1zm3-2h-1v1c0 1.1-.9 2-2 2s-2-.9-2-2V1H6v1c0 1.1-.9 2-2 2s-2-.9-2-2V1H1c-.6 0-1 .5-1 1v12c0 .6.4 1 1 1h13c.6 0 1-.4 1-1V2c0-.6-.5-1-1-1zM5 13H2v-3h3v3zm0-4H2V6h3v3zm4 4H6v-3h3v3zm0-4H6V6h3v3zm4 4h-3v-3h3v3zm0-4h-3V6h3v3zM4 3c.6 0 1-.5 1-1V1c0-.6-.4-1-1-1S3 .4 3 1v1c0 .5.4 1 1 1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-tiny"
+                    style="--text-line-clamp: 1;"
+                  >
+                    in a month
+                  </p>
+                </div>
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-time StyledProps--main StyledProps--color StyledProps--color-grey900"
+                    icon="time"
+                  >
+                    <svg
+                      data-icon="time"
+                      height="10"
+                      viewBox="0 0 16 16"
+                      width="10"
+                    >
+                      <desc>
+                        time
+                      </desc>
+                      <path
+                        d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm1-6.41V4c0-.55-.45-1-1-1s-1 .45-1 1v4c0 .28.11.53.29.71l2 2a1.003 1.003 0 001.42-1.42L9 7.59z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-variation-tiny"
+                  >
+                    9m
+                  </p>
+                </div>
               </div>
             </div>
           </div>

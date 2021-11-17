@@ -15,7 +15,7 @@ import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import ExecutionCard from '@pipeline/components/ExecutionCard/ExecutionCard'
 import { CardVariant } from '@pipeline/utils/constants'
-import { TimeRangeSelector, TimeRangeSelectorProps } from '@cd/components/TimeRangeSelector/TimeRangeSelector'
+import { TimeRangeSelector, TimeRangeSelectorProps } from '@common/components/TimeRangeSelector/TimeRangeSelector'
 import { DeploymentsTimeRangeContext } from '@cd/components/Services/common'
 
 import DeploymentsHealthCards from './DeploymentsHealthCards'
@@ -122,7 +122,7 @@ export const CDDashboardPage: React.FC = () => {
             <Container className={styles.executionsWrapper}>
               <DeploymentExecutionsChart range={timeRange} setRange={setTimeRange} title="Deployments" />
             </Container>
-            <CardRailView contentType="WORKLOAD" isLoading={loadingWorkloads} titleSideContent={<></>}>
+            <CardRailView contentType="WORKLOAD" isLoading={loadingWorkloads}>
               {workloadsData?.data?.workloadDeploymentInfoList?.map((workload, i) => (
                 <WorkloadCard
                   key={i}
@@ -139,7 +139,6 @@ export const CDDashboardPage: React.FC = () => {
             <CardRailView
               contentType="FAILED_DEPLOYMENT"
               isLoading={loading && !refetchingDeployments}
-              titleSideContent={false}
               onShowAll={() =>
                 history.push(
                   routes.toDeployments({ projectIdentifier, orgIdentifier, accountId, module: 'cd' }) +
@@ -158,7 +157,6 @@ export const CDDashboardPage: React.FC = () => {
             <CardRailView
               contentType="ACTIVE_DEPLOYMENT"
               isLoading={loading && !refetchingDeployments}
-              titleSideContent={false}
               onShowAll={() =>
                 history.push(
                   routes.toDeployments({ projectIdentifier, orgIdentifier, accountId, module: 'cd' }) +

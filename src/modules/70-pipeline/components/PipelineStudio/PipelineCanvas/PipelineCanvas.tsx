@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
+import { Classes, Dialog, IDialogProps, Intent } from '@blueprintjs/core'
 import cx from 'classnames'
 import {
   useModalHook,
@@ -178,6 +178,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     contentText: getString('pipelines-studio.pipelineUpdatedError'),
     titleText: getString('pipelines-studio.pipelineUpdated'),
     confirmButtonText: getString('update'),
+    intent: Intent.WARNING,
     onCloseDialog: isConfirmed => {
       if (isConfirmed) {
         fetchPipeline({ forceFetch: true, forceUpdate: true })
@@ -202,6 +203,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     contentText: isYamlError ? getString('navigationYamlError') : getString('navigationCheckText'),
     titleText: isYamlError ? getString('navigationYamlErrorTitle') : getString('navigationCheckTitle'),
     confirmButtonText: getString('confirm'),
+    intent: Intent.WARNING,
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
         deletePipelineCache(gitDetails).then(() => {

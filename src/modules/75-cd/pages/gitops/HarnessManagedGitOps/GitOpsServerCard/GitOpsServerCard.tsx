@@ -12,7 +12,7 @@ import {
   Icon,
   useConfirmationDialog
 } from '@wings-software/uicore'
-import { Menu, Classes, Position } from '@blueprintjs/core'
+import { Menu, Classes, Position, Intent } from '@blueprintjs/core'
 import type { GitopsProviderResponse } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { TagsPopover } from '@common/components'
@@ -57,6 +57,8 @@ const ProviderCard: React.FC<ProviderCardProps> = props => {
     titleText: getString('cd.confirmGitOpsServerDeleteTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         onDelete && onDelete(provider)

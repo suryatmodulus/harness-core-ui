@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Prompt } from 'react-router-dom'
-import { useConfirmationDialog } from '@wings-software/uicore'
+import { Intent, useConfirmationDialog } from '@wings-software/uicore'
 import type * as History from 'history'
 import { useStrings } from 'framework/strings'
 
@@ -39,6 +39,7 @@ export const NavigationCheck = ({ when, navigate, shouldBlockNavigation, textPro
     contentText: textProps?.contentText || getString('navigationCheckText'),
     titleText: textProps?.titleText || getString('navigationCheckTitle'),
     confirmButtonText: textProps?.confirmButtonText || getString('confirm'),
+    intent: Intent.WARNING,
     onCloseDialog: isConfirmed => {
       if (isConfirmed) {
         handleConfirmNavigationClick()

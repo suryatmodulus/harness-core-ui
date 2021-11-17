@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { defaultTo, pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { TextArea } from '@blueprintjs/core'
+import { Intent, TextArea } from '@blueprintjs/core'
 import { Text, useConfirmationDialog, useToaster } from '@wings-software/uicore'
 import { EntityGitDetails, useDeleteInputSetForPipeline, useSoftDeletePipeline } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
@@ -174,6 +174,8 @@ export default function useDeleteConfirmationDialog(
     titleText: `${getString('delete')} ${useGetEntityText(entityType)}`,
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */
       if (isConfirmed) {

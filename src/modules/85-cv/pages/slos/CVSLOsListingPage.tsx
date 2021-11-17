@@ -1,18 +1,29 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Button, Container, Text, Color, useToaster, ButtonVariation, FontVariation } from '@wings-software/uicore'
+import {
+  Button,
+  Container,
+  Text,
+  useToaster,
+  ButtonVariation,
+  FontVariation,
+  SelectOption,
+  CardSelect,
+  CardSelectType,
+  Color
+} from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
-import { useDeleteSLOData, useGetServiceLevelObjectives } from 'services/cv'
+import { useDeleteSLOData, useGetAllJourneys, useGetServiceLevelObjectives } from 'services/cv'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import Card from '@cv/components/Card/Card'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import { LIST_SLOS_OFFSET, LIST_SLOS_PAGESIZE } from './CVSLOsListingPage.constants'
-import { getSLOsData } from './components/CVCreateSLO/CVSLOsListingPage.utils'
+import { getSLOsData, getUserJourneys } from './components/CVCreateSLO/CVSLOsListingPage.utils'
 import type { SLOForm } from './components/CVCreateSLO/components/CreateSLOForm/CreateSLO.types'
 import type { CVSLOsListingPageProps } from './CVSLOsListingPage.types'
 import css from './CVSLOsListingPage.module.scss'
@@ -23,6 +34,7 @@ function CVSLOsListingPage(props: CVSLOsListingPageProps): JSX.Element {
   const history = useHistory()
   const { showError, showSuccess, clear } = useToaster()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
+  const [selectedUserJourney, setSelectedUserJourney] = useState<SelectOption>({ label: '', value: '' })
 
   const getSLOsQueryParams = useMemo(
     () => ({
@@ -31,16 +43,34 @@ function CVSLOsListingPage(props: CVSLOsListingPageProps): JSX.Element {
       orgIdentifier,
       offset: LIST_SLOS_OFFSET,
       pageSize: LIST_SLOS_PAGESIZE,
-      monitoredServiceIdentifier
+      monitoredServiceIdentifier,
+      ...(selectedUserJourney?.value && {
+        userJourneys: [selectedUserJourney?.value as string]
+      })
     }),
-    [accountId, monitoredServiceIdentifier, orgIdentifier, projectIdentifier]
+    [accountId, monitoredServiceIdentifier, orgIdentifier, projectIdentifier, selectedUserJourney]
   )
   const {
     data: SLOsData,
     loading: loadingSLOs,
     refetch: fetchSLOs,
     error: SLOsError
-  } = useGetServiceLevelObjectives({ queryParams: getSLOsQueryParams })
+  } = useGetServiceLevelObjectives({
+    queryParams: getSLOsQueryParams,
+    queryParamStringifyOptions: {
+      arrayFormat: 'repeat'
+    }
+  })
+
+  const { data: userJourneysData } = useGetAllJourneys({
+    queryParams: {
+      orgIdentifier,
+      projectIdentifier,
+      accountId,
+      offset: 0,
+      pageSize: 100
+    }
+  })
 
   const { mutate: deleteSLO, loading: deleteSLOLoading } = useDeleteSLOData({
     queryParams: {
@@ -50,7 +80,17 @@ function CVSLOsListingPage(props: CVSLOsListingPageProps): JSX.Element {
     }
   })
 
+  // Fetching new SLOs whenever filters are applied
+  useEffect(() => {
+    if (selectedUserJourney?.value) {
+      fetchSLOs()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedUserJourney])
+
   const SLOsList = useMemo(() => getSLOsData(SLOsData), [SLOsData])
+
+  const userJourneys = useMemo(() => getUserJourneys(userJourneysData), [userJourneysData])
 
   const onDelete = useCallback(async (identifier: string, name: string) => {
     try {
@@ -127,6 +167,40 @@ function CVSLOsListingPage(props: CVSLOsListingPageProps): JSX.Element {
     [accountId, monitoredServiceIdentifier, orgIdentifier, projectIdentifier]
   )
 
+  const renderFilters = useCallback(
+    userJourneysInfo => {
+      if (!isEmpty(userJourneysInfo)) {
+        return userJourneysInfo.map((userJourney: SelectOption) => {
+          return (
+            <CardSelect
+              key={userJourney.value as string}
+              type={CardSelectType.CardView}
+              data={userJourneysInfo}
+              cardClassName={css.userJourney}
+              renderItem={({ label }) => (
+                <>
+                  <Text
+                    flex={{ alignItems: 'center', justifyContent: 'center' }}
+                    color={Color.GREY_900}
+                    font={{ variation: FontVariation.SMALL_SEMI }}
+                    height={24}
+                  >
+                    {label}
+                  </Text>
+                </>
+              )}
+              selected={selectedUserJourney}
+              onChange={setSelectedUserJourney}
+            />
+          )
+        })
+      } else {
+        return <></>
+      }
+    },
+    [selectedUserJourney]
+  )
+
   return (
     <>
       {!monitoredServiceIdentifier ? (
@@ -152,6 +226,7 @@ function CVSLOsListingPage(props: CVSLOsListingPageProps): JSX.Element {
           />
         </>
       ) : null}
+      <Container className={css.filterContainer}>{renderFilters(userJourneys)}</Container>
       <Page.Body
         loading={loadingSLOs || deleteSLOLoading}
         error={getErrorMessage(SLOsError)}

@@ -111,6 +111,50 @@ exports[`Test CVSLOsListingPage component should render CVSLOsListingPage page a
     </div>
   </div>
   <div
+    class="StyledProps--font StyledProps--main filterContainer"
+  >
+    <div
+      class=""
+    >
+      <div
+        class="bp3-card bp3-interactive bp3-elevation-0 Card--card userJourney Card--interactive"
+        data-index="0"
+        tabindex="0"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-center StyledProps--color StyledProps--color-grey900 StyledProps--font-variation-small-semi"
+          style="height: 24px;"
+        >
+          journey-3
+        </p>
+      </div>
+      <div
+        class="bp3-card bp3-interactive bp3-elevation-0 Card--card userJourney Card--interactive"
+        data-index="1"
+        tabindex="0"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-center StyledProps--color StyledProps--color-grey900 StyledProps--font-variation-small-semi"
+          style="height: 24px;"
+        >
+          journey-2
+        </p>
+      </div>
+      <div
+        class="bp3-card bp3-interactive bp3-elevation-0 Card--card userJourney Card--interactive"
+        data-index="2"
+        tabindex="0"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-center StyledProps--color StyledProps--color-grey900 StyledProps--font-variation-small-semi"
+          style="height: 24px;"
+        >
+          Test-1
+        </p>
+      </div>
+    </div>
+  </div>
+  <div
     class="StyledProps--font StyledProps--main PageBody--pageBody pageBody"
     data-name="page-body"
   >

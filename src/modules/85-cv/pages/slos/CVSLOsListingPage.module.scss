@@ -26,10 +26,25 @@
   width: 100%;
 }
 
+.filterContainer {
+  display: flex;
+  padding: var(--spacing-medium) var(--spacing-xlarge) var(--spacing-none) var(--spacing-xlarge) !important;
+}
+
+.userJourney {
+  padding: var(--spacing-xsmall) var(--spacing-small) !important;
+  background: var(--white-color-1);
+  border: 1px solid;
+  box-sizing: border-box;
+  box-shadow: inset 0px 0.5px 4px rgba(96, 97, 112, 0.32);
+  border-radius: var(--spacing-2);
+  margin: var(--spacing-none) var(--spacing-small) var(--spacing-small) var(--spacing-none);
+}
+
 .sloCard {
   height: 439px;
   min-width: 49%;
-  margin: var(--spacing-xsmall) !important;
+  margin: var(--spacing-xsmall) var(--spacing-xsmall) var(--spacing-xsmall) var(--spacing-none) !important;
   border-radius: var(--spacing-3);
   display: flex;
   flex-direction: column;
@@ -66,4 +81,5 @@
 
 .pageBody {
   --page-header-height: 146px !important;
+  padding: var(--spacing-none) var(--spacing-xlarge) var(--spacing-medium) var(--spacing-xlarge) !important;
 }

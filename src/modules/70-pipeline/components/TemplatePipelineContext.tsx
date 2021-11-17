@@ -27,7 +27,8 @@ import { PipelineStages, PipelineStagesProps } from '@pipeline/components/Pipeli
 import { StageType } from '@pipeline/utils/stageHelpers'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
-import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { LICENSE_STATE_VALUES } from 'framework/LicenseStore/licenseStoreUtil'
 import type { PipelineSelectionState } from '@pipeline/components/PipelineStudio/PipelineQueryParamState/usePipelineQueryParam'
 import type { GetPipelineQueryParams } from 'services/pipeline-ng'
 

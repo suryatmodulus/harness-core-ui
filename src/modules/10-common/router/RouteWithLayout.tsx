@@ -5,7 +5,8 @@ import type { RouteProps as RouterRouteprops } from 'react-router-dom'
 import { ModalProvider } from '@wings-software/uicore'
 import { DefaultLayout } from '@common/layouts'
 import SidebarProvider, { SidebarContext } from '@common/navigation/SidebarProvider'
-import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { LICENSE_STATE_VALUES } from 'framework/LicenseStore/licenseStoreUtil'
 import type { LicenseRedirectProps } from 'framework/LicenseStore/LicenseStoreContext'
 
 export interface RouteWithLayoutProps extends RouterRouteprops {

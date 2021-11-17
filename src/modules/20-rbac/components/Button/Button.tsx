@@ -6,7 +6,7 @@ import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
 import { useFeature } from '@common/hooks/useFeatures'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import type { FeatureProps } from 'framework/featureStore/FeaturesContext'
+import type { FeatureProps } from 'framework/featureStore/featureStoreUtil'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
 
 export interface ButtonProps extends CoreButtonProps {

@@ -1,18 +1,20 @@
 import { capitalize } from 'lodash-es'
 import { Editions, RestrictionType } from '@common/constants/SubscriptionTypes'
 import { useDeepCompareEffect } from '@common/hooks'
-import {
-  useFeaturesContext,
+import { useFeaturesContext } from 'framework/featureStore/FeaturesContext'
+import type { AvailabilityRestrictionDTO } from 'services/cd-ng'
+import { FeatureFlag } from '@common/featureFlags'
+import type {
   FeatureRequestOptions,
   FeatureRequest,
   CheckFeatureReturn,
   FeaturesRequest,
-  CheckFeaturesReturn
-} from 'framework/featureStore/FeaturesContext'
-import type { AvailabilityRestrictionDTO } from 'services/cd-ng'
-import { FeatureFlag } from '@common/featureFlags'
-import type { ModuleType, RestrictionMetadataMap } from 'framework/featureStore/FeaturesContext'
+  CheckFeaturesReturn,
+  ModuleType,
+  RestrictionMetadataMap
+} from 'framework/featureStore/featureStoreUtil'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { useFeatureFlag } from './useFeatureFlag'
 
 interface FeatureProps {
@@ -28,11 +30,17 @@ interface FeaturesProps {
 export function useFeature(props: FeatureProps): CheckFeatureReturn {
   const { requestFeatures, checkFeature, requestLimitFeature, checkLimitFeature, getRestrictionType } =
     useFeaturesContext()
+  const { licenseInformation, CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE } =
+    useLicenseStore()
 
   const featureEnforced = useFeatureFlag(FeatureFlag.FEATURE_ENFORCEMENT_ENABLED)
 
   const { featureRequest, options } = props
-  const restrictionType = getRestrictionType(featureRequest)
+  const restrictionType = getRestrictionType({
+    featureRequest,
+    licenseInformation,
+    licenseState: { CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE }
+  })
   const isLimit = restrictionType && restrictionType !== RestrictionType.AVAILABILITY
 
   useDeepCompareEffect(() => {
@@ -60,6 +68,8 @@ export function useFeature(props: FeatureProps): CheckFeatureReturn {
 export function useFeatures(props: FeaturesProps): CheckFeaturesReturn {
   const { requestFeatures, checkFeature, requestLimitFeature, checkLimitFeature, getRestrictionType } =
     useFeaturesContext()
+  const { licenseInformation, CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE } =
+    useLicenseStore()
 
   const featureEnforced = useFeatureFlag(FeatureFlag.FEATURE_ENFORCEMENT_ENABLED)
 
@@ -70,7 +80,11 @@ export function useFeatures(props: FeaturesProps): CheckFeaturesReturn {
     const accLimitFeatures: FeatureIdentifier[] = []
     const accAvailFeatures: FeatureIdentifier[] = []
     featuresRequest?.featureNames.forEach(featureName => {
-      const restrictionType = getRestrictionType({ featureName })
+      const restrictionType = getRestrictionType({
+        featureRequest: { featureName },
+        licenseInformation,
+        licenseState: { CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE }
+      })
       const isLimit = restrictionType && restrictionType !== RestrictionType.AVAILABILITY
       if (isLimit) {
         accLimitFeatures.push(featureName)
@@ -128,8 +142,14 @@ export function useFeatureModule(featureName: FeatureIdentifier): ModuleType {
 
 export function useFeatureRequiredPlans(featureName: FeatureIdentifier): string[] {
   const { featureMap, getEdition } = useFeaturesContext()
+  const { licenseInformation, CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE } =
+    useLicenseStore()
   const moduleType = featureMap.get(featureName)?.moduleType
-  const currentEdition = getEdition(moduleType)
+  const currentEdition = getEdition({
+    moduleType,
+    licenseInformation,
+    licenseState: { CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE }
+  })
   return getRequiredPlans(currentEdition, featureMap.get(featureName)?.restrictionMetadataMap)
 }
 

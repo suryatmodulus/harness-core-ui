@@ -5,11 +5,8 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { MinimalLayout, EmptyLayout } from '@common/layouts'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
-import {
-  LicenseRedirectProps,
-  LICENSE_STATE_NAMES,
-  LICENSE_STATE_VALUES
-} from 'framework/LicenseStore/LicenseStoreContext'
+import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
+import { LICENSE_STATE_VALUES } from 'framework/LicenseStore/licenseStoreUtil'
 import { RouteWithLayout } from './RouteWithLayout'
 
 describe('RouteWithLayout', () => {

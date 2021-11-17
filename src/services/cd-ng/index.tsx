@@ -536,7 +536,7 @@ export interface AddTargetsToVariationTargetMapYamlSpec {
 
 export interface AddUsers {
   emails: string[]
-  roleBindings: RoleBinding[]
+  roleBindings?: RoleBinding[]
   userGroups?: string[]
 }
 
@@ -732,6 +732,7 @@ export type AuditFilterProperties = FilterProperties & {
     | 'REVOKE_INVITE'
     | 'ADD_COLLABORATOR'
     | 'REMOVE_COLLABORATOR'
+    | 'REVOKE_TOKEN'
     | 'ADD_MEMBERSHIP'
     | 'REMOVE_MEMBERSHIP'
   )[]
@@ -1499,6 +1500,7 @@ export type DatadogConnectorDTO = ConnectorConfigDTO & {
 }
 
 export interface DelegateConfiguration {
+  accountVersion?: boolean
   action?: 'SELF_DESTRUCT'
   delegateVersions?: string[]
 }
@@ -2686,6 +2688,10 @@ export interface FeatureRestrictionDetailRequestDTO {
     | 'TWO_FACTOR_AUTH_SUPPORT'
     | 'CUSTOM_ROLES'
     | 'CUSTOM_RESOURCE_GROUPS'
+    | 'MAX_TOTAL_BUILDS'
+    | 'MAX_BUILDS_PER_MONTH'
+    | 'ACTIVE_COMMITTERS'
+    | 'TEST_INTELLIGENCE'
     | 'K8S_BG_SWAP_SERVICES'
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_APPLY'
@@ -2727,6 +2733,10 @@ export interface FeatureRestrictionDetailsDTO {
     | 'TWO_FACTOR_AUTH_SUPPORT'
     | 'CUSTOM_ROLES'
     | 'CUSTOM_RESOURCE_GROUPS'
+    | 'MAX_TOTAL_BUILDS'
+    | 'MAX_BUILDS_PER_MONTH'
+    | 'ACTIVE_COMMITTERS'
+    | 'TEST_INTELLIGENCE'
     | 'K8S_BG_SWAP_SERVICES'
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_APPLY'
@@ -2769,6 +2779,10 @@ export interface FeatureRestrictionMetadataDTO {
     | 'TWO_FACTOR_AUTH_SUPPORT'
     | 'CUSTOM_ROLES'
     | 'CUSTOM_RESOURCE_GROUPS'
+    | 'MAX_TOTAL_BUILDS'
+    | 'MAX_BUILDS_PER_MONTH'
+    | 'ACTIVE_COMMITTERS'
+    | 'TEST_INTELLIGENCE'
     | 'K8S_BG_SWAP_SERVICES'
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_APPLY'
@@ -3285,7 +3299,7 @@ export type GithubConnector = ConnectorConfigDTO & {
   apiAccess?: GithubApiAccess
   authentication: GithubAuthentication
   delegateSelectors?: string[]
-  executeOnManager?: boolean
+  executeOnDelegate?: boolean
   type: 'Account' | 'Repo'
   url: string
   validationRepo?: string
@@ -3975,6 +3989,10 @@ export type LDAPSettings = NGAuthSettings & {
   userSettingsList?: LdapUserSettings[]
 }
 
+export interface LandingDashboardRequestCD {
+  orgProjectIdentifiers: OrgProjectIdentifier[]
+}
+
 export interface LastWorkloadInfo {
   deploymentType?: string
   endTime?: number
@@ -4251,9 +4269,10 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export type OAuthSettings = NGAuthSettings & {
+export interface OAuthSettings {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
+  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -4298,6 +4317,11 @@ export type OpenshiftManifest = ManifestAttributes & {
 export type OpenshiftParamManifest = ManifestAttributes & {
   metadata?: string
   store?: StoreConfigWrapper
+}
+
+export interface OrgProjectIdentifier {
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface Organization {
@@ -5547,6 +5571,15 @@ export interface ResponseMapEditionSetEditionActionDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseMapModuleTypeLong {
+  correlationId?: string
+  data?: {
+    [key: string]: number
+  }
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseMapServiceDefinitionTypeListExecutionStrategyType {
   correlationId?: string
   data?: {
@@ -6650,6 +6683,7 @@ export interface SamlLinkGroupRequest {
 export type SamlSettings = SSOSettings & {
   accountId: string
   authorizationEnabled?: boolean
+  entityIdentifier?: string
   groupMembershipAttr?: string
   logoutUrl?: string
   origin: string
@@ -7879,6 +7913,8 @@ export type GitSyncConfigRequestBody = GitSyncConfig
 
 export type GitSyncSettingsDTORequestBody = GitSyncSettingsDTO
 
+export type LandingDashboardRequestCDRequestBody = LandingDashboardRequestCD
+
 export type OrganizationRequestRequestBody = OrganizationRequest
 
 export type ProjectRequestRequestBody = ProjectRequest
@@ -7909,13 +7945,11 @@ export type UserFilterRequestBody = UserFilter
 
 export type UserGroupDTORequestBody = UserGroupDTO
 
+export type GetBuildDetailsForEcrWithYamlBodyRequestBody = string
+
 export type UnsubscribeBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
-
-export type UploadSamlMetaDataRequestBody = void
-
-export type WebhookCatcherBodyRequestBody = string
 
 export interface GetAccountNGPathParams {
   accountIdentifier: string
@@ -9804,7 +9838,7 @@ export type GetBuildDetailsForEcrWithYamlProps = Omit<
     ResponseEcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForEcrWithYamlQueryParams,
-    WebhookCatcherBodyRequestBody,
+    GetBuildDetailsForEcrWithYamlBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -9818,7 +9852,7 @@ export const GetBuildDetailsForEcrWithYaml = (props: GetBuildDetailsForEcrWithYa
     ResponseEcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForEcrWithYamlQueryParams,
-    WebhookCatcherBodyRequestBody,
+    GetBuildDetailsForEcrWithYamlBodyRequestBody,
     void
   >
     verb="POST"
@@ -9833,7 +9867,7 @@ export type UseGetBuildDetailsForEcrWithYamlProps = Omit<
     ResponseEcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForEcrWithYamlQueryParams,
-    WebhookCatcherBodyRequestBody,
+    GetBuildDetailsForEcrWithYamlBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -9847,7 +9881,7 @@ export const useGetBuildDetailsForEcrWithYaml = (props: UseGetBuildDetailsForEcr
     ResponseEcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForEcrWithYamlQueryParams,
-    WebhookCatcherBodyRequestBody,
+    GetBuildDetailsForEcrWithYamlBodyRequestBody,
     void
   >('POST', `/artifacts/ecr/getBuildDetailsV2`, { base: getConfig('ng/api'), ...props })
 
@@ -9859,7 +9893,7 @@ export const getBuildDetailsForEcrWithYamlPromise = (
     ResponseEcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForEcrWithYamlQueryParams,
-    WebhookCatcherBodyRequestBody,
+    GetBuildDetailsForEcrWithYamlBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -9868,7 +9902,7 @@ export const getBuildDetailsForEcrWithYamlPromise = (
     ResponseEcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForEcrWithYamlQueryParams,
-    WebhookCatcherBodyRequestBody,
+    GetBuildDetailsForEcrWithYamlBodyRequestBody,
     void
   >('POST', getConfig('ng/api'), `/artifacts/ecr/getBuildDetailsV2`, props, signal)
 
@@ -10248,7 +10282,7 @@ export type GetBuildDetailsForGcrWithYamlProps = Omit<
     ResponseGcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForGcrWithYamlQueryParams,
-    WebhookCatcherBodyRequestBody,
+    GetBuildDetailsForEcrWithYamlBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -10262,7 +10296,7 @@ export const GetBuildDetailsForGcrWithYaml = (props: GetBuildDetailsForGcrWithYa
     ResponseGcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForGcrWithYamlQueryParams,
-    WebhookCatcherBodyRequestBody,
+    GetBuildDetailsForEcrWithYamlBodyRequestBody,
     void
   >
     verb="POST"
@@ -10277,7 +10311,7 @@ export type UseGetBuildDetailsForGcrWithYamlProps = Omit<
     ResponseGcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForGcrWithYamlQueryParams,
-    WebhookCatcherBodyRequestBody,
+    GetBuildDetailsForEcrWithYamlBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -10291,7 +10325,7 @@ export const useGetBuildDetailsForGcrWithYaml = (props: UseGetBuildDetailsForGcr
     ResponseGcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForGcrWithYamlQueryParams,
-    WebhookCatcherBodyRequestBody,
+    GetBuildDetailsForEcrWithYamlBodyRequestBody,
     void
   >('POST', `/artifacts/gcr/getBuildDetailsV2`, { base: getConfig('ng/api'), ...props })
 
@@ -10303,7 +10337,7 @@ export const getBuildDetailsForGcrWithYamlPromise = (
     ResponseGcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForGcrWithYamlQueryParams,
-    WebhookCatcherBodyRequestBody,
+    GetBuildDetailsForEcrWithYamlBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -10312,7 +10346,7 @@ export const getBuildDetailsForGcrWithYamlPromise = (
     ResponseGcrResponseDTO,
     Failure | Error,
     GetBuildDetailsForGcrWithYamlQueryParams,
-    WebhookCatcherBodyRequestBody,
+    GetBuildDetailsForEcrWithYamlBodyRequestBody,
     void
   >('POST', getConfig('ng/api'), `/artifacts/gcr/getBuildDetailsV2`, props, signal)
 
@@ -10951,7 +10985,7 @@ export interface UploadSamlMetaDataQueryParams {
 }
 
 export type UploadSamlMetaDataProps = Omit<
-  MutateProps<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>,
+  MutateProps<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -10959,7 +10993,7 @@ export type UploadSamlMetaDataProps = Omit<
  * Create SAML Config
  */
 export const UploadSamlMetaData = (props: UploadSamlMetaDataProps) => (
-  <Mutate<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>
+  <Mutate<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, void, void>
     verb="POST"
     path={`/authentication-settings/saml-metadata-upload`}
     base={getConfig('ng/api')}
@@ -10968,7 +11002,7 @@ export const UploadSamlMetaData = (props: UploadSamlMetaDataProps) => (
 )
 
 export type UseUploadSamlMetaDataProps = Omit<
-  UseMutateProps<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>,
+  UseMutateProps<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -10976,7 +11010,7 @@ export type UseUploadSamlMetaDataProps = Omit<
  * Create SAML Config
  */
 export const useUploadSamlMetaData = (props: UseUploadSamlMetaDataProps) =>
-  useMutate<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>(
+  useMutate<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, void, void>(
     'POST',
     `/authentication-settings/saml-metadata-upload`,
     { base: getConfig('ng/api'), ...props }
@@ -10986,16 +11020,10 @@ export const useUploadSamlMetaData = (props: UseUploadSamlMetaDataProps) =>
  * Create SAML Config
  */
 export const uploadSamlMetaDataPromise = (
-  props: MutateUsingFetchProps<
-    RestResponseSSOConfig,
-    unknown,
-    UploadSamlMetaDataQueryParams,
-    UploadSamlMetaDataRequestBody,
-    void
-  >,
+  props: MutateUsingFetchProps<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, void, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>(
+  mutateUsingFetch<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, void, void>(
     'POST',
     getConfig('ng/api'),
     `/authentication-settings/saml-metadata-upload`,
@@ -11008,7 +11036,7 @@ export interface UpdateSamlMetaDataQueryParams {
 }
 
 export type UpdateSamlMetaDataProps = Omit<
-  MutateProps<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>,
+  MutateProps<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -11016,7 +11044,7 @@ export type UpdateSamlMetaDataProps = Omit<
  * Edit SAML Config
  */
 export const UpdateSamlMetaData = (props: UpdateSamlMetaDataProps) => (
-  <Mutate<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>
+  <Mutate<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, void, void>
     verb="PUT"
     path={`/authentication-settings/saml-metadata-upload`}
     base={getConfig('ng/api')}
@@ -11025,7 +11053,7 @@ export const UpdateSamlMetaData = (props: UpdateSamlMetaDataProps) => (
 )
 
 export type UseUpdateSamlMetaDataProps = Omit<
-  UseMutateProps<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>,
+  UseMutateProps<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -11033,7 +11061,7 @@ export type UseUpdateSamlMetaDataProps = Omit<
  * Edit SAML Config
  */
 export const useUpdateSamlMetaData = (props: UseUpdateSamlMetaDataProps) =>
-  useMutate<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>(
+  useMutate<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, void, void>(
     'PUT',
     `/authentication-settings/saml-metadata-upload`,
     { base: getConfig('ng/api'), ...props }
@@ -11043,16 +11071,10 @@ export const useUpdateSamlMetaData = (props: UseUpdateSamlMetaDataProps) =>
  * Edit SAML Config
  */
 export const updateSamlMetaDataPromise = (
-  props: MutateUsingFetchProps<
-    RestResponseSSOConfig,
-    unknown,
-    UpdateSamlMetaDataQueryParams,
-    UploadSamlMetaDataRequestBody,
-    void
-  >,
+  props: MutateUsingFetchProps<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, void, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>(
+  mutateUsingFetch<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, void, void>(
     'PUT',
     getConfig('ng/api'),
     `/authentication-settings/saml-metadata-upload`,
@@ -14485,7 +14507,7 @@ export const getEnvironmentPromise = (
 export interface GetEnvironmentListQueryParams {
   page?: number
   size?: number
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
   searchTerm?: string
@@ -14538,7 +14560,7 @@ export const getEnvironmentListPromise = (
   )
 
 export interface CreateEnvironmentV2QueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type CreateEnvironmentV2Props = Omit<
@@ -14615,7 +14637,7 @@ export const createEnvironmentV2Promise = (
   >('POST', getConfig('ng/api'), `/environmentsV2`, props, signal)
 
 export interface UpdateEnvironmentV2QueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type UpdateEnvironmentV2Props = Omit<
@@ -14694,7 +14716,7 @@ export const updateEnvironmentV2Promise = (
 export interface GetEnvironmentAccessListQueryParams {
   page?: number
   size?: number
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
   searchTerm?: string
@@ -14752,7 +14774,7 @@ export const getEnvironmentAccessListPromise = (
   )
 
 export interface UpsertEnvironmentV2QueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type UpsertEnvironmentV2Props = Omit<
@@ -14829,7 +14851,7 @@ export const upsertEnvironmentV2Promise = (
   >('PUT', getConfig('ng/api'), `/environmentsV2/upsert`, props, signal)
 
 export interface DeleteEnvironmentV2QueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
 }
@@ -14882,7 +14904,7 @@ export const deleteEnvironmentV2Promise = (
   )
 
 export interface GetEnvironmentV2QueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
   deleted?: boolean
@@ -15666,7 +15688,7 @@ export type GetListOfBranchesWithStatusProps = Omit<
 >
 
 /**
- * Gets list of branches with their status by Git Config Identifier
+ * Gets list of branches with their status by Git Sync Config Identifier
  */
 export const GetListOfBranchesWithStatus = (props: GetListOfBranchesWithStatusProps) => (
   <Get<ResponseGitBranchListDTO, Failure | Error, GetListOfBranchesWithStatusQueryParams, void>
@@ -15682,7 +15704,7 @@ export type UseGetListOfBranchesWithStatusProps = Omit<
 >
 
 /**
- * Gets list of branches with their status by Git Config Identifier
+ * Gets list of branches with their status by Git Sync Config Identifier
  */
 export const useGetListOfBranchesWithStatus = (props: UseGetListOfBranchesWithStatusProps) =>
   useGet<ResponseGitBranchListDTO, Failure | Error, GetListOfBranchesWithStatusQueryParams, void>(
@@ -15691,7 +15713,7 @@ export const useGetListOfBranchesWithStatus = (props: UseGetListOfBranchesWithSt
   )
 
 /**
- * Gets list of branches with their status by Git Config Identifier
+ * Gets list of branches with their status by Git Sync Config Identifier
  */
 export const getListOfBranchesWithStatusPromise = (
   props: GetUsingFetchProps<ResponseGitBranchListDTO, Failure | Error, GetListOfBranchesWithStatusQueryParams, void>,
@@ -16240,7 +16262,7 @@ export type ListGitToHarnessErrorsForCommitProps = Omit<
   ListGitToHarnessErrorsForCommitPathParams
 
 /**
- * Gets Error list for a particular commit
+ * Gets Error list for a particular Commit
  */
 export const ListGitToHarnessErrorsForCommit = ({ commitId, ...props }: ListGitToHarnessErrorsForCommitProps) => (
   <Get<
@@ -16267,7 +16289,7 @@ export type UseListGitToHarnessErrorsForCommitProps = Omit<
   ListGitToHarnessErrorsForCommitPathParams
 
 /**
- * Gets Error list for a particular commit
+ * Gets Error list for a particular Commit
  */
 export const useListGitToHarnessErrorsForCommit = ({ commitId, ...props }: UseListGitToHarnessErrorsForCommitProps) =>
   useGet<
@@ -16282,7 +16304,7 @@ export const useListGitToHarnessErrorsForCommit = ({ commitId, ...props }: UseLi
   })
 
 /**
- * Gets Error list for a particular commit
+ * Gets Error list for a particular Commit
  */
 export const listGitToHarnessErrorsForCommitPromise = (
   {
@@ -16500,77 +16522,6 @@ export const updateGitSyncSettingPromise = (
     props,
     signal
   )
-
-export interface WebhookCatcherQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export interface WebhookCatcherPathParams {
-  entityToken: string
-}
-
-export type WebhookCatcherProps = Omit<
-  MutateProps<
-    RestResponse,
-    unknown,
-    WebhookCatcherQueryParams,
-    WebhookCatcherBodyRequestBody,
-    WebhookCatcherPathParams
-  >,
-  'path' | 'verb'
-> &
-  WebhookCatcherPathParams
-
-export const WebhookCatcher = ({ entityToken, ...props }: WebhookCatcherProps) => (
-  <Mutate<RestResponse, unknown, WebhookCatcherQueryParams, WebhookCatcherBodyRequestBody, WebhookCatcherPathParams>
-    verb="POST"
-    path={`/git-sync-trigger/webhook/${entityToken}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseWebhookCatcherProps = Omit<
-  UseMutateProps<
-    RestResponse,
-    unknown,
-    WebhookCatcherQueryParams,
-    WebhookCatcherBodyRequestBody,
-    WebhookCatcherPathParams
-  >,
-  'path' | 'verb'
-> &
-  WebhookCatcherPathParams
-
-export const useWebhookCatcher = ({ entityToken, ...props }: UseWebhookCatcherProps) =>
-  useMutate<RestResponse, unknown, WebhookCatcherQueryParams, WebhookCatcherBodyRequestBody, WebhookCatcherPathParams>(
-    'POST',
-    (paramsInPath: WebhookCatcherPathParams) => `/git-sync-trigger/webhook/${paramsInPath.entityToken}`,
-    { base: getConfig('ng/api'), pathParams: { entityToken }, ...props }
-  )
-
-export const webhookCatcherPromise = (
-  {
-    entityToken,
-    ...props
-  }: MutateUsingFetchProps<
-    RestResponse,
-    unknown,
-    WebhookCatcherQueryParams,
-    WebhookCatcherBodyRequestBody,
-    WebhookCatcherPathParams
-  > & { entityToken: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    RestResponse,
-    unknown,
-    WebhookCatcherQueryParams,
-    WebhookCatcherBodyRequestBody,
-    WebhookCatcherPathParams
-  >('POST', getConfig('ng/api'), `/git-sync-trigger/webhook/${entityToken}`, props, signal)
 
 export interface IsGitSyncEnabledQueryParams {
   accountIdentifier?: string
@@ -17849,19 +17800,31 @@ export const validateJiraCredentialsPromise = (
 
 export interface GetActiveDeploymentStatsQueryParams {
   accountIdentifier: string
-  orgProjectIdentifiers: string[]
 }
 
 export type GetActiveDeploymentStatsProps = Omit<
-  GetProps<ResponsePipelinesExecutionDashboardInfo, Failure | Error, GetActiveDeploymentStatsQueryParams, void>,
-  'path'
+  MutateProps<
+    ResponsePipelinesExecutionDashboardInfo,
+    Failure | Error,
+    GetActiveDeploymentStatsQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Get active deployment stats
  */
 export const GetActiveDeploymentStats = (props: GetActiveDeploymentStatsProps) => (
-  <Get<ResponsePipelinesExecutionDashboardInfo, Failure | Error, GetActiveDeploymentStatsQueryParams, void>
+  <Mutate<
+    ResponsePipelinesExecutionDashboardInfo,
+    Failure | Error,
+    GetActiveDeploymentStatsQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >
+    verb="POST"
     path={`/landingDashboards/activeDeploymentStats`}
     base={getConfig('ng/api')}
     {...props}
@@ -17869,56 +17832,79 @@ export const GetActiveDeploymentStats = (props: GetActiveDeploymentStatsProps) =
 )
 
 export type UseGetActiveDeploymentStatsProps = Omit<
-  UseGetProps<ResponsePipelinesExecutionDashboardInfo, Failure | Error, GetActiveDeploymentStatsQueryParams, void>,
-  'path'
+  UseMutateProps<
+    ResponsePipelinesExecutionDashboardInfo,
+    Failure | Error,
+    GetActiveDeploymentStatsQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Get active deployment stats
  */
 export const useGetActiveDeploymentStats = (props: UseGetActiveDeploymentStatsProps) =>
-  useGet<ResponsePipelinesExecutionDashboardInfo, Failure | Error, GetActiveDeploymentStatsQueryParams, void>(
-    `/landingDashboards/activeDeploymentStats`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<
+    ResponsePipelinesExecutionDashboardInfo,
+    Failure | Error,
+    GetActiveDeploymentStatsQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >('POST', `/landingDashboards/activeDeploymentStats`, { base: getConfig('ng/api'), ...props })
 
 /**
  * Get active deployment stats
  */
 export const getActiveDeploymentStatsPromise = (
-  props: GetUsingFetchProps<
+  props: MutateUsingFetchProps<
     ResponsePipelinesExecutionDashboardInfo,
     Failure | Error,
     GetActiveDeploymentStatsQueryParams,
+    LandingDashboardRequestCDRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponsePipelinesExecutionDashboardInfo, Failure | Error, GetActiveDeploymentStatsQueryParams, void>(
-    getConfig('ng/api'),
-    `/landingDashboards/activeDeploymentStats`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponsePipelinesExecutionDashboardInfo,
+    Failure | Error,
+    GetActiveDeploymentStatsQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/landingDashboards/activeDeploymentStats`, props, signal)
 
 export interface GetActiveServicesQueryParams {
   accountIdentifier: string
-  orgProjectIdentifiers: string[]
   startTime: number
   endTime: number
   sortBy: 'DEPLOYMENTS' | 'INSTANCES'
 }
 
 export type GetActiveServicesProps = Omit<
-  GetProps<ResponseServicesDashboardInfo, Failure | Error, GetActiveServicesQueryParams, void>,
-  'path'
+  MutateProps<
+    ResponseServicesDashboardInfo,
+    Failure | Error,
+    GetActiveServicesQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Get Most Active Services
  */
 export const GetActiveServices = (props: GetActiveServicesProps) => (
-  <Get<ResponseServicesDashboardInfo, Failure | Error, GetActiveServicesQueryParams, void>
+  <Mutate<
+    ResponseServicesDashboardInfo,
+    Failure | Error,
+    GetActiveServicesQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >
+    verb="POST"
     path={`/landingDashboards/activeServices`}
     base={getConfig('ng/api')}
     {...props}
@@ -17926,51 +17912,79 @@ export const GetActiveServices = (props: GetActiveServicesProps) => (
 )
 
 export type UseGetActiveServicesProps = Omit<
-  UseGetProps<ResponseServicesDashboardInfo, Failure | Error, GetActiveServicesQueryParams, void>,
-  'path'
+  UseMutateProps<
+    ResponseServicesDashboardInfo,
+    Failure | Error,
+    GetActiveServicesQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Get Most Active Services
  */
 export const useGetActiveServices = (props: UseGetActiveServicesProps) =>
-  useGet<ResponseServicesDashboardInfo, Failure | Error, GetActiveServicesQueryParams, void>(
-    `/landingDashboards/activeServices`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<
+    ResponseServicesDashboardInfo,
+    Failure | Error,
+    GetActiveServicesQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >('POST', `/landingDashboards/activeServices`, { base: getConfig('ng/api'), ...props })
 
 /**
  * Get Most Active Services
  */
 export const getActiveServicesPromise = (
-  props: GetUsingFetchProps<ResponseServicesDashboardInfo, Failure | Error, GetActiveServicesQueryParams, void>,
+  props: MutateUsingFetchProps<
+    ResponseServicesDashboardInfo,
+    Failure | Error,
+    GetActiveServicesQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseServicesDashboardInfo, Failure | Error, GetActiveServicesQueryParams, void>(
-    getConfig('ng/api'),
-    `/landingDashboards/activeServices`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseServicesDashboardInfo,
+    Failure | Error,
+    GetActiveServicesQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/landingDashboards/activeServices`, props, signal)
 
 export interface GetDeploymentStatsSummaryQueryParams {
   accountIdentifier: string
-  orgProjectIdentifiers: string[]
   startTime: number
   endTime: number
   groupBy: 'DAY' | 'WEEK' | 'MONTH'
 }
 
 export type GetDeploymentStatsSummaryProps = Omit<
-  GetProps<ResponseDeploymentStatsSummary, Failure | Error, GetDeploymentStatsSummaryQueryParams, void>,
-  'path'
+  MutateProps<
+    ResponseDeploymentStatsSummary,
+    Failure | Error,
+    GetDeploymentStatsSummaryQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Get deployment stats summary
  */
 export const GetDeploymentStatsSummary = (props: GetDeploymentStatsSummaryProps) => (
-  <Get<ResponseDeploymentStatsSummary, Failure | Error, GetDeploymentStatsSummaryQueryParams, void>
+  <Mutate<
+    ResponseDeploymentStatsSummary,
+    Failure | Error,
+    GetDeploymentStatsSummaryQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >
+    verb="POST"
     path={`/landingDashboards/deploymentStatsSummary`}
     base={getConfig('ng/api')}
     {...props}
@@ -17978,52 +17992,66 @@ export const GetDeploymentStatsSummary = (props: GetDeploymentStatsSummaryProps)
 )
 
 export type UseGetDeploymentStatsSummaryProps = Omit<
-  UseGetProps<ResponseDeploymentStatsSummary, Failure | Error, GetDeploymentStatsSummaryQueryParams, void>,
-  'path'
+  UseMutateProps<
+    ResponseDeploymentStatsSummary,
+    Failure | Error,
+    GetDeploymentStatsSummaryQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Get deployment stats summary
  */
 export const useGetDeploymentStatsSummary = (props: UseGetDeploymentStatsSummaryProps) =>
-  useGet<ResponseDeploymentStatsSummary, Failure | Error, GetDeploymentStatsSummaryQueryParams, void>(
-    `/landingDashboards/deploymentStatsSummary`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<
+    ResponseDeploymentStatsSummary,
+    Failure | Error,
+    GetDeploymentStatsSummaryQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >('POST', `/landingDashboards/deploymentStatsSummary`, { base: getConfig('ng/api'), ...props })
 
 /**
  * Get deployment stats summary
  */
 export const getDeploymentStatsSummaryPromise = (
-  props: GetUsingFetchProps<
+  props: MutateUsingFetchProps<
     ResponseDeploymentStatsSummary,
     Failure | Error,
     GetDeploymentStatsSummaryQueryParams,
+    LandingDashboardRequestCDRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseDeploymentStatsSummary, Failure | Error, GetDeploymentStatsSummaryQueryParams, void>(
-    getConfig('ng/api'),
-    `/landingDashboards/deploymentStatsSummary`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseDeploymentStatsSummary,
+    Failure | Error,
+    GetDeploymentStatsSummaryQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/landingDashboards/deploymentStatsSummary`, props, signal)
 
 export interface GetEnvCountQueryParams {
   accountIdentifier: string
-  orgProjectIdentifiers: string[]
   startTime: number
   endTime: number
 }
 
-export type GetEnvCountProps = Omit<GetProps<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, void>, 'path'>
+export type GetEnvCountProps = Omit<
+  MutateProps<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, LandingDashboardRequestCDRequestBody, void>,
+  'path' | 'verb'
+>
 
 /**
  * Get environments count
  */
 export const GetEnvCount = (props: GetEnvCountProps) => (
-  <Get<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, void>
+  <Mutate<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, LandingDashboardRequestCDRequestBody, void>
+    verb="POST"
     path={`/landingDashboards/envCount`}
     base={getConfig('ng/api')}
     {...props}
@@ -18031,50 +18059,70 @@ export const GetEnvCount = (props: GetEnvCountProps) => (
 )
 
 export type UseGetEnvCountProps = Omit<
-  UseGetProps<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, void>,
-  'path'
+  UseMutateProps<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, LandingDashboardRequestCDRequestBody, void>,
+  'path' | 'verb'
 >
 
 /**
  * Get environments count
  */
 export const useGetEnvCount = (props: UseGetEnvCountProps) =>
-  useGet<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, void>(`/landingDashboards/envCount`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, LandingDashboardRequestCDRequestBody, void>(
+    'POST',
+    `/landingDashboards/envCount`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
  * Get environments count
  */
 export const getEnvCountPromise = (
-  props: GetUsingFetchProps<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, void>,
+  props: MutateUsingFetchProps<
+    ResponseEnvCount,
+    Failure | Error,
+    GetEnvCountQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseEnvCount, Failure | Error, GetEnvCountQueryParams, void>(
-    getConfig('ng/api'),
-    `/landingDashboards/envCount`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseEnvCount,
+    Failure | Error,
+    GetEnvCountQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/landingDashboards/envCount`, props, signal)
 
 export interface GetServicesCountQueryParams {
   accountIdentifier: string
-  orgProjectIdentifiers: string[]
   startTime: number
   endTime: number
 }
 
 export type GetServicesCountProps = Omit<
-  GetProps<ResponseServicesCount, Failure | Error, GetServicesCountQueryParams, void>,
-  'path'
+  MutateProps<
+    ResponseServicesCount,
+    Failure | Error,
+    GetServicesCountQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Get services count
  */
 export const GetServicesCount = (props: GetServicesCountProps) => (
-  <Get<ResponseServicesCount, Failure | Error, GetServicesCountQueryParams, void>
+  <Mutate<
+    ResponseServicesCount,
+    Failure | Error,
+    GetServicesCountQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >
+    verb="POST"
     path={`/landingDashboards/servicesCount`}
     base={getConfig('ng/api')}
     {...props}
@@ -18082,50 +18130,78 @@ export const GetServicesCount = (props: GetServicesCountProps) => (
 )
 
 export type UseGetServicesCountProps = Omit<
-  UseGetProps<ResponseServicesCount, Failure | Error, GetServicesCountQueryParams, void>,
-  'path'
+  UseMutateProps<
+    ResponseServicesCount,
+    Failure | Error,
+    GetServicesCountQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Get services count
  */
 export const useGetServicesCount = (props: UseGetServicesCountProps) =>
-  useGet<ResponseServicesCount, Failure | Error, GetServicesCountQueryParams, void>(
-    `/landingDashboards/servicesCount`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<
+    ResponseServicesCount,
+    Failure | Error,
+    GetServicesCountQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >('POST', `/landingDashboards/servicesCount`, { base: getConfig('ng/api'), ...props })
 
 /**
  * Get services count
  */
 export const getServicesCountPromise = (
-  props: GetUsingFetchProps<ResponseServicesCount, Failure | Error, GetServicesCountQueryParams, void>,
+  props: MutateUsingFetchProps<
+    ResponseServicesCount,
+    Failure | Error,
+    GetServicesCountQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseServicesCount, Failure | Error, GetServicesCountQueryParams, void>(
-    getConfig('ng/api'),
-    `/landingDashboards/servicesCount`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseServicesCount,
+    Failure | Error,
+    GetServicesCountQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/landingDashboards/servicesCount`, props, signal)
 
 export interface GetTopProjectsQueryParams {
   accountIdentifier: string
-  orgProjectIdentifiers: string[]
   startTime: number
   endTime: number
 }
 
 export type GetTopProjectsProps = Omit<
-  GetProps<ResponseProjectsDashboardInfo, Failure | Error, GetTopProjectsQueryParams, void>,
-  'path'
+  MutateProps<
+    ResponseProjectsDashboardInfo,
+    Failure | Error,
+    GetTopProjectsQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Get Top Projects as per Deployments
  */
 export const GetTopProjects = (props: GetTopProjectsProps) => (
-  <Get<ResponseProjectsDashboardInfo, Failure | Error, GetTopProjectsQueryParams, void>
+  <Mutate<
+    ResponseProjectsDashboardInfo,
+    Failure | Error,
+    GetTopProjectsQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >
+    verb="POST"
     path={`/landingDashboards/topProjects`}
     base={getConfig('ng/api')}
     {...props}
@@ -18133,86 +18209,48 @@ export const GetTopProjects = (props: GetTopProjectsProps) => (
 )
 
 export type UseGetTopProjectsProps = Omit<
-  UseGetProps<ResponseProjectsDashboardInfo, Failure | Error, GetTopProjectsQueryParams, void>,
-  'path'
+  UseMutateProps<
+    ResponseProjectsDashboardInfo,
+    Failure | Error,
+    GetTopProjectsQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Get Top Projects as per Deployments
  */
 export const useGetTopProjects = (props: UseGetTopProjectsProps) =>
-  useGet<ResponseProjectsDashboardInfo, Failure | Error, GetTopProjectsQueryParams, void>(
-    `/landingDashboards/topProjects`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<
+    ResponseProjectsDashboardInfo,
+    Failure | Error,
+    GetTopProjectsQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >('POST', `/landingDashboards/topProjects`, { base: getConfig('ng/api'), ...props })
 
 /**
  * Get Top Projects as per Deployments
  */
 export const getTopProjectsPromise = (
-  props: GetUsingFetchProps<ResponseProjectsDashboardInfo, Failure | Error, GetTopProjectsQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseProjectsDashboardInfo, Failure | Error, GetTopProjectsQueryParams, void>(
-    getConfig('ng/api'),
-    `/landingDashboards/topProjects`,
-    props,
-    signal
-  )
-
-export interface GetModuleLicenseByAccountAndModuleTypeQueryParams {
-  accountIdentifier: string
-  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
-}
-
-export type GetModuleLicenseByAccountAndModuleTypeProps = Omit<
-  GetProps<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByAccountAndModuleTypeQueryParams, void>,
-  'path'
->
-
-/**
- * Gets Module License By Account And ModuleType
- */
-export const GetModuleLicenseByAccountAndModuleType = (props: GetModuleLicenseByAccountAndModuleTypeProps) => (
-  <Get<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByAccountAndModuleTypeQueryParams, void>
-    path={`/licenses`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetModuleLicenseByAccountAndModuleTypeProps = Omit<
-  UseGetProps<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByAccountAndModuleTypeQueryParams, void>,
-  'path'
->
-
-/**
- * Gets Module License By Account And ModuleType
- */
-export const useGetModuleLicenseByAccountAndModuleType = (props: UseGetModuleLicenseByAccountAndModuleTypeProps) =>
-  useGet<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByAccountAndModuleTypeQueryParams, void>(
-    `/licenses`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Gets Module License By Account And ModuleType
- */
-export const getModuleLicenseByAccountAndModuleTypePromise = (
-  props: GetUsingFetchProps<
-    ResponseModuleLicenseDTO,
+  props: MutateUsingFetchProps<
+    ResponseProjectsDashboardInfo,
     Failure | Error,
-    GetModuleLicenseByAccountAndModuleTypeQueryParams,
+    GetTopProjectsQueryParams,
+    LandingDashboardRequestCDRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseModuleLicenseDTO, Failure | Error, GetModuleLicenseByAccountAndModuleTypeQueryParams, void>(
-    getConfig('ng/api'),
-    `/licenses`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseProjectsDashboardInfo,
+    Failure | Error,
+    GetTopProjectsQueryParams,
+    LandingDashboardRequestCDRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/landingDashboards/topProjects`, props, signal)
 
 export interface GetAccountLicensesQueryParams {
   accountIdentifier?: string
@@ -18629,6 +18667,69 @@ export const startTrialLicensePromise = (
     StartTrialDTORequestBody,
     void
   >('POST', getConfig('ng/api'), `/licenses/trial`, props, signal)
+
+export interface GetLastModifiedTimeForAllModuleTypesQueryParams {
+  accountIdentifier: string
+}
+
+export type GetLastModifiedTimeForAllModuleTypesProps = Omit<
+  MutateProps<ResponseMapModuleTypeLong, Failure | Error, GetLastModifiedTimeForAllModuleTypesQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Get Last Modified Time For All Module Types
+ */
+export const GetLastModifiedTimeForAllModuleTypes = (props: GetLastModifiedTimeForAllModuleTypesProps) => (
+  <Mutate<ResponseMapModuleTypeLong, Failure | Error, GetLastModifiedTimeForAllModuleTypesQueryParams, void, void>
+    verb="POST"
+    path={`/licenses/versions`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetLastModifiedTimeForAllModuleTypesProps = Omit<
+  UseMutateProps<
+    ResponseMapModuleTypeLong,
+    Failure | Error,
+    GetLastModifiedTimeForAllModuleTypesQueryParams,
+    void,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Last Modified Time For All Module Types
+ */
+export const useGetLastModifiedTimeForAllModuleTypes = (props: UseGetLastModifiedTimeForAllModuleTypesProps) =>
+  useMutate<ResponseMapModuleTypeLong, Failure | Error, GetLastModifiedTimeForAllModuleTypesQueryParams, void, void>(
+    'POST',
+    `/licenses/versions`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get Last Modified Time For All Module Types
+ */
+export const getLastModifiedTimeForAllModuleTypesPromise = (
+  props: MutateUsingFetchProps<
+    ResponseMapModuleTypeLong,
+    Failure | Error,
+    GetLastModifiedTimeForAllModuleTypesQueryParams,
+    void,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseMapModuleTypeLong,
+    Failure | Error,
+    GetLastModifiedTimeForAllModuleTypesQueryParams,
+    void,
+    void
+  >('POST', getConfig('ng/api'), `/licenses/versions`, props, signal)
 
 export interface GetLicensesAndSummaryQueryParams {
   moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
@@ -19712,7 +19813,7 @@ export type DeleteProjectProps = Omit<
 >
 
 /**
- * Delete a project by identifier
+ * Delete a Project by identifier
  */
 export const DeleteProject = (props: DeleteProjectProps) => (
   <Mutate<ResponseBoolean, Failure | Error, DeleteProjectQueryParams, string, void>
@@ -19729,7 +19830,7 @@ export type UseDeleteProjectProps = Omit<
 >
 
 /**
- * Delete a project by identifier
+ * Delete a Project by identifier
  */
 export const useDeleteProject = (props: UseDeleteProjectProps) =>
   useMutate<ResponseBoolean, Failure | Error, DeleteProjectQueryParams, string, void>('DELETE', `/projects`, {
@@ -19738,7 +19839,7 @@ export const useDeleteProject = (props: UseDeleteProjectProps) =>
   })
 
 /**
- * Delete a project by identifier
+ * Delete a Project by identifier
  */
 export const deleteProjectPromise = (
   props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteProjectQueryParams, string, void>,
@@ -19834,7 +19935,7 @@ export type PutProjectProps = Omit<
   PutProjectPathParams
 
 /**
- * Update a project by identifier
+ * Update a Project by identifier
  */
 export const PutProject = ({ identifier, ...props }: PutProjectProps) => (
   <Mutate<
@@ -19864,7 +19965,7 @@ export type UsePutProjectProps = Omit<
   PutProjectPathParams
 
 /**
- * Update a project by identifier
+ * Update a Project by identifier
  */
 export const usePutProject = ({ identifier, ...props }: UsePutProjectProps) =>
   useMutate<
@@ -19880,7 +19981,7 @@ export const usePutProject = ({ identifier, ...props }: UsePutProjectProps) =>
   })
 
 /**
- * Update a project by identifier
+ * Update a Project by identifier
  */
 export const putProjectPromise = (
   {
@@ -21420,7 +21521,7 @@ export const getServicePromise = (
 export interface GetServiceListQueryParams {
   page?: number
   size?: number
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
   searchTerm?: string
@@ -21473,7 +21574,7 @@ export const getServiceListPromise = (
   )
 
 export interface CreateServiceV2QueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type CreateServiceV2Props = Omit<
@@ -21536,7 +21637,7 @@ export const createServiceV2Promise = (
   >('POST', getConfig('ng/api'), `/servicesV2`, props, signal)
 
 export interface UpdateServiceV2QueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type UpdateServiceV2Props = Omit<
@@ -21599,7 +21700,7 @@ export const updateServiceV2Promise = (
   >('PUT', getConfig('ng/api'), `/servicesV2`, props, signal)
 
 export interface CreateServicesV2QueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type CreateServicesV2Props = Omit<
@@ -21678,7 +21779,7 @@ export const createServicesV2Promise = (
 export interface GetServiceAccessListQueryParams {
   page?: number
   size?: number
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
   searchTerm?: string
@@ -21731,7 +21832,7 @@ export const getServiceAccessListPromise = (
   )
 
 export interface UpsertServiceV2QueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type UpsertServiceV2Props = Omit<
@@ -21794,7 +21895,7 @@ export const upsertServiceV2Promise = (
   >('PUT', getConfig('ng/api'), `/servicesV2/upsert`, props, signal)
 
 export interface DeleteServiceV2QueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
 }
@@ -21846,7 +21947,7 @@ export const deleteServiceV2Promise = (
   )
 
 export interface GetServiceV2QueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
   deleted?: boolean

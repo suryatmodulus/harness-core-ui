@@ -17,7 +17,8 @@ import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineCo
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
 import { useQueryParams } from '@common/hooks'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { LICENSE_STATE_VALUES } from 'framework/LicenseStore/licenseStoreUtil'
 import { FeatureFlag } from '@common/featureFlags'
 import css from './CFPipelineStudio.module.scss'
 

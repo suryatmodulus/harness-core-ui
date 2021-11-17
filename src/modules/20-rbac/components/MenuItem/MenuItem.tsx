@@ -4,7 +4,7 @@ import { IMenuItemProps, Menu, MenuItem, PopoverInteractionKind } from '@bluepri
 import { Popover } from '@wings-software/uicore'
 import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
 import { useFeature } from '@common/hooks/useFeatures'
-import type { FeatureProps } from 'framework/featureStore/FeaturesContext'
+import type { FeatureProps } from 'framework/featureStore/featureStoreUtil'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { getTooltip } from '@rbac/utils/utils'
 import css from './MenuItem.module.scss'

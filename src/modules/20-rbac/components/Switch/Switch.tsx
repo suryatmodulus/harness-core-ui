@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Switch as CoreSwitch, SwitchProps as CoreSwitchProps, Popover } from '@wings-software/uicore'
 import { PopoverInteractionKind } from '@blueprintjs/core'
-import type { FeatureRequest } from 'framework/featureStore/FeaturesContext'
+import type { FeatureRequest } from 'framework/featureStore/featureStoreUtil'
 import { useFeature } from '@common/hooks/useFeatures'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
 

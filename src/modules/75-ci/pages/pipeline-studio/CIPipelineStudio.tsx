@@ -18,7 +18,8 @@ import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStud
 
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
-import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { LICENSE_STATE_VALUES } from 'framework/LicenseStore/licenseStoreUtil'
 import { FeatureFlag } from '@common/featureFlags'
 import type { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import { TemplateDrawer } from '@templates-library/components/TemplateDrawer/TemplateDrawer'

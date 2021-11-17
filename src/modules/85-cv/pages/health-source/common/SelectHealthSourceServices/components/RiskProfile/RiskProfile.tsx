@@ -13,10 +13,11 @@ import css from './RiskProfile.module.scss'
 interface RiskProfileProps {
   metricPackResponse: ReturnType<typeof useGetMetricPacks>
   labelNamesResponse: ReturnType<typeof useGetLabelNames>
+  continuousVerificationEnabled?: boolean
 }
 
 export function RiskProfile(props: RiskProfileProps): JSX.Element {
-  const { metricPackResponse, labelNamesResponse } = props
+  const { metricPackResponse, labelNamesResponse, continuousVerificationEnabled } = props
   const { error, loading, data } = metricPackResponse
   const { getString } = useStrings()
   const { showError, clear } = useToaster()
@@ -73,11 +74,13 @@ export function RiskProfile(props: RiskProfileProps): JSX.Element {
           name={FieldNames.LOWER_BASELINE_DEVIATION}
         />
       </Container>
-      <FormInput.Select
-        name={FieldNames.SERVICE_INSTANCE}
-        label={<ServiceInstanceLabel />}
-        items={transformedLabelNames}
-      />
+      {continuousVerificationEnabled ? (
+        <FormInput.Select
+          name={FieldNames.SERVICE_INSTANCE}
+          label={<ServiceInstanceLabel />}
+          items={transformedLabelNames}
+        />
+      ) : null}
     </Container>
   )
 }

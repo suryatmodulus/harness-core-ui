@@ -247,6 +247,7 @@ onboarding:
       source: Source selection is required
 selectCreateService: Select or create a service
 monitoringSources:
+  assign: Assign
   mapMetricsToServices: Map Metric(s) to Harness Services
   mapQueriesToServices: Map Queries to Harness Services
   metricPackValidation: Metric Pack Validation

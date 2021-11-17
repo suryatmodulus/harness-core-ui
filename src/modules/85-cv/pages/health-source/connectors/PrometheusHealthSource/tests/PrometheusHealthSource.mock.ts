@@ -23,10 +23,14 @@ export const MockManualQueryData = {
             envFilter: [{ labelName: 'namespace', labelValue: 'cv-demo', queryFilterString: 'namespace="cv-demo"' }],
             additionalFilters: null,
             aggregation: 'count',
-            riskProfile: {
-              category: 'Infrastructure',
-              metricType: 'INFRA',
-              thresholdTypes: ['ACT_WHEN_LOWER', 'ACT_WHEN_HIGHER']
+            analysis: {
+              liveMonitoring: { enabled: true },
+              deploymentVerification: { enabled: true, serviceInstanceFieldName: 'serviceInstanceFieldName' },
+              riskProfile: {
+                category: 'Infrastructure',
+                metricType: 'INFRA',
+                thresholdTypes: ['ACT_WHEN_LOWER', 'ACT_WHEN_HIGHER']
+              }
             }
           }
         ]

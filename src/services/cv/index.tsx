@@ -125,6 +125,12 @@ export interface AlertRuleDTO {
   uuid?: string
 }
 
+export interface AnalysisDTO {
+  deploymentVerification?: DeploymentVerificationDTO
+  liveMonitoring?: LiveMonitoringDTO
+  riskProfile?: RiskProfile
+}
+
 export interface AnalysisResult {
   count?: number
   label?: number
@@ -168,6 +174,11 @@ export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
   username?: string
 }
 
+export interface AppDynamicsFileDefinition {
+  name?: string
+  type?: 'leaf' | 'folder'
+}
+
 export type AppDynamicsHealthSourceSpec = HealthSourceSpec & {
   applicationName?: string
   feature: string
@@ -178,6 +189,13 @@ export type AppDynamicsHealthSourceSpec = HealthSourceSpec & {
 export interface AppDynamicsTier {
   id?: number
   name?: string
+}
+
+export interface AppdynamicsMetricDataResponse {
+  dataPoints?: DataPoint[]
+  endTime?: number
+  responseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
+  startTime?: number
 }
 
 export interface AppdynamicsMetricValueValidationResponse {
@@ -639,6 +657,7 @@ export interface DataCollectionRequest {
     | 'APPDYNAMICS_FETCH_APPS'
     | 'APPDYNAMICS_FETCH_TIERS'
     | 'APPDYNAMICS_GET_METRIC_DATA'
+    | 'APPDYNAMICS_FETCH_METRIC_STRUCTURE'
     | 'NEWRELIC_APPS_REQUEST'
     | 'NEWRELIC_VALIDATION_REQUEST'
     | 'PROMETHEUS_METRIC_LIST_GET'
@@ -752,6 +771,11 @@ export interface DeploymentTimeSeriesAnalysisDTO {
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   transactionMetricSummaries?: TransactionMetricHostData[]
+}
+
+export interface DeploymentVerificationDTO {
+  enabled?: boolean
+  serviceInstanceFieldName?: string
 }
 
 export interface DeploymentVerificationJobInstanceSummary {
@@ -1938,6 +1962,10 @@ export interface LearningEngineTask {
   verificationTaskId?: string
 }
 
+export interface LiveMonitoringDTO {
+  enabled?: boolean
+}
+
 export interface LiveMonitoringLogAnalysisClusterDTO {
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
@@ -2535,8 +2563,8 @@ export type PrometheusHealthSourceSpec = HealthSourceSpec & {
 export interface PrometheusMetricDefinition {
   additionalFilters?: PrometheusFilter[]
   aggregation?: string
+  analysis?: AnalysisDTO
   envFilter?: PrometheusFilter[]
-  envIdentifier?: string
   groupName?: string
   isManualQuery?: boolean
   metricName?: string
@@ -2544,8 +2572,8 @@ export interface PrometheusMetricDefinition {
   query?: string
   riskProfile?: RiskProfile
   serviceFilter?: PrometheusFilter[]
-  serviceIdentifier?: string
   serviceInstanceFieldName?: string
+  sli?: Slidto
 }
 
 export interface PrometheusSampleData {
@@ -2574,6 +2602,13 @@ export interface Response {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseAppdynamicsMetricDataResponse {
+  correlationId?: string
+  data?: AppdynamicsMetricDataResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseBoolean {
   correlationId?: string
   data?: boolean
@@ -2598,6 +2633,13 @@ export interface ResponseHistoricalTrend {
 export interface ResponseInputSetTemplateResponse {
   correlationId?: string
   data?: InputSetTemplateResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListAppDynamicsFileDefinition {
+  correlationId?: string
+  data?: AppDynamicsFileDefinition[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3667,6 +3709,10 @@ export type RollingSLOTargetSpec = SLOTargetSpec & {
   periodLength: string
 }
 
+export interface Slidto {
+  enabled?: boolean
+}
+
 export interface SLIMetricSpec {
   metricName?: string
 }
@@ -3838,6 +3884,7 @@ export interface StackdriverDashboardDetail {
 }
 
 export interface StackdriverDefinition {
+  analysis?: AnalysisDTO
   dashboardName?: string
   dashboardPath?: string
   isManualQuery?: boolean
@@ -3846,6 +3893,7 @@ export interface StackdriverDefinition {
   metricTags?: string[]
   riskProfile?: RiskProfile
   serviceInstanceField?: string
+  sli?: Slidto
 }
 
 export type StackdriverLogHealthSourceSpec = HealthSourceSpec & {
@@ -5865,6 +5913,66 @@ export const getAppDynamicsApplicationsPromise = (
     props,
     signal
   )
+
+export interface GetAppdynamicsMetricDataByPathQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  connectorIdentifier: string
+  appName: string
+  baseFolder: string
+  tier: string
+  metricPath: string
+}
+
+export type GetAppdynamicsMetricDataByPathProps = Omit<
+  GetProps<ResponseAppdynamicsMetricDataResponse, Failure | Error, GetAppdynamicsMetricDataByPathQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all appdynamics metric data for an application and a metric path
+ */
+export const GetAppdynamicsMetricDataByPath = (props: GetAppdynamicsMetricDataByPathProps) => (
+  <Get<ResponseAppdynamicsMetricDataResponse, Failure | Error, GetAppdynamicsMetricDataByPathQueryParams, void>
+    path={`/appdynamics/metric-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAppdynamicsMetricDataByPathProps = Omit<
+  UseGetProps<ResponseAppdynamicsMetricDataResponse, Failure | Error, GetAppdynamicsMetricDataByPathQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all appdynamics metric data for an application and a metric path
+ */
+export const useGetAppdynamicsMetricDataByPath = (props: UseGetAppdynamicsMetricDataByPathProps) =>
+  useGet<ResponseAppdynamicsMetricDataResponse, Failure | Error, GetAppdynamicsMetricDataByPathQueryParams, void>(
+    `/appdynamics/metric-data`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get all appdynamics metric data for an application and a metric path
+ */
+export const getAppdynamicsMetricDataByPathPromise = (
+  props: GetUsingFetchProps<
+    ResponseAppdynamicsMetricDataResponse,
+    Failure | Error,
+    GetAppdynamicsMetricDataByPathQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseAppdynamicsMetricDataResponse,
+    Failure | Error,
+    GetAppdynamicsMetricDataByPathQueryParams,
+    void
+  >(getConfig('cv/api'), `/appdynamics/metric-data`, props, signal)
 
 export interface GetAppDynamicsMetricDataQueryParams {
   accountId: string

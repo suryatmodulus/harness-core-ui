@@ -26,5 +26,5 @@ export default function CFPipelineDeploymentList(): React.ReactElement {
     )
   }
 
-  return <PipelineDeploymentList onRunPipeline={onRunPipeline} />
+  return <PipelineDeploymentList onRunPipeline={onRunPipeline} showHealthAndExecution />
 }

@@ -10,7 +10,8 @@ import {
   SelectOption,
   CardSelect,
   CardSelectType,
-  Color
+  Color,
+  Icon
 } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { Page } from '@common/exports'
@@ -22,7 +23,12 @@ import { useDeleteSLOData, useGetAllJourneys, useGetServiceLevelObjectives } fro
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import Card from '@cv/components/Card/Card'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
-import { LIST_SLOS_OFFSET, LIST_SLOS_PAGESIZE } from './CVSLOsListingPage.constants'
+import {
+  LIST_SLOS_OFFSET,
+  LIST_SLOS_PAGESIZE,
+  LIST_USER_JOURNEYS_OFFSET,
+  LIST_USER_JOURNEYS_PAGESIZE
+} from './CVSLOsListingPage.constants'
 import { getSLOsData, getUserJourneys } from './components/CVCreateSLO/CVSLOsListingPage.utils'
 import type { SLOForm } from './components/CVCreateSLO/components/CreateSLOForm/CreateSLO.types'
 import type { CVSLOsListingPageProps } from './CVSLOsListingPage.types'
@@ -62,13 +68,13 @@ function CVSLOsListingPage(props: CVSLOsListingPageProps): JSX.Element {
     }
   })
 
-  const { data: userJourneysData } = useGetAllJourneys({
+  const { data: userJourneysData, loading: userJourneysLoading } = useGetAllJourneys({
     queryParams: {
       orgIdentifier,
       projectIdentifier,
       accountId,
-      offset: 0,
-      pageSize: 100
+      offset: LIST_USER_JOURNEYS_OFFSET,
+      pageSize: LIST_USER_JOURNEYS_PAGESIZE
     }
   })
 
@@ -89,7 +95,6 @@ function CVSLOsListingPage(props: CVSLOsListingPageProps): JSX.Element {
   }, [selectedUserJourney])
 
   const SLOsList = useMemo(() => getSLOsData(SLOsData), [SLOsData])
-
   const userJourneys = useMemo(() => getUserJourneys(userJourneysData), [userJourneysData])
 
   const onDelete = useCallback(async (identifier: string, name: string) => {
@@ -104,102 +109,95 @@ function CVSLOsListingPage(props: CVSLOsListingPageProps): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const renderSLOsCards = useCallback(
-    SLOs => {
-      if (!isEmpty(SLOs)) {
-        return SLOs.map((slo: SLOForm) => {
-          return (
-            <Card key={slo.identifier} className={css.sloCard}>
-              <Container data-testid={'sloCard'}>
-                <Container className={css.sloTitle}>
-                  <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.GREY_600}>
-                    {slo.name}
-                  </Text>
-                  {!monitoredServiceIdentifier ? (
-                    <ContextMenuActions
-                      titleText={getString('common.delete', { name: slo.name })}
-                      contentText={
-                        <Text color={Color.GREY_800}>{getString('cv.slos.confirmDeleteSLO', { name: slo.name })}</Text>
-                      }
-                      confirmButtonText={getString('yes')}
-                      deleteLabel={getString('cv.slos.deleteSLO')}
-                      onDelete={() => onDelete(slo.identifier, slo.name)}
-                      editLabel={getString('cv.slos.editSLO')}
-                      onEdit={() => {
-                        history.push({
-                          pathname: routes.toCVEditSLOs({
-                            accountId,
-                            projectIdentifier,
-                            orgIdentifier,
-                            identifier: slo.identifier,
-                            module: 'cv'
-                          })
+  const renderSLOsCards = useCallback(() => {
+    if (userJourneysLoading) {
+      return <Icon name="spinner" size={24} color={Color.PRIMARY_7} />
+    } else if (!isEmpty(SLOsList)) {
+      return SLOsList.map((slo: SLOForm) => {
+        return (
+          <Card key={slo.identifier} className={css.sloCard}>
+            <Container data-testid={'sloCard'}>
+              <Container className={css.sloTitle}>
+                <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.GREY_600}>
+                  {slo.name}
+                </Text>
+                {!monitoredServiceIdentifier ? (
+                  <ContextMenuActions
+                    titleText={getString('common.delete', { name: slo.name })}
+                    contentText={
+                      <Text color={Color.GREY_800}>{getString('cv.slos.confirmDeleteSLO', { name: slo.name })}</Text>
+                    }
+                    confirmButtonText={getString('yes')}
+                    deleteLabel={getString('cv.slos.deleteSLO')}
+                    onDelete={() => onDelete(slo.identifier, slo.name)}
+                    editLabel={getString('cv.slos.editSLO')}
+                    onEdit={() => {
+                      history.push({
+                        pathname: routes.toCVEditSLOs({
+                          accountId,
+                          projectIdentifier,
+                          orgIdentifier,
+                          identifier: slo.identifier,
+                          module: 'cv'
                         })
-                      }}
-                    />
-                  ) : null}
-                </Container>
-                <Container className={css.sloHeader}>
-                  <Container className={css.sloBasicInfo}>
-                    <Text font={{ size: 'small' }} color={Color.GREY_400} padding={{ top: 'xsmall' }}>{`${getString(
-                      'connectors.cdng.monitoredService.label'
-                    )} : ${slo.monitoredServiceRef}`}</Text>
-                    <Text font={{ size: 'small' }} color={Color.GREY_400} padding={{ top: 'xsmall' }}>{`${getString(
-                      'cv.slos.sliType'
-                    )} : ${slo.serviceLevelIndicators.type}`}</Text>
-                    <Text
-                      font={{ size: 'small' }}
-                      color={Color.GREY_400}
-                      padding={{ top: 'xsmall', bottom: 'small' }}
-                    >{`${getString('cv.slos.healthSource')} : ${slo.healthSourceRef}`}</Text>
-                  </Container>
-                </Container>
-                <hr className={css.seperator} />
+                      })
+                    }}
+                  />
+                ) : null}
               </Container>
-            </Card>
-          )
-        })
-      } else {
-        return <></>
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [accountId, monitoredServiceIdentifier, orgIdentifier, projectIdentifier]
-  )
-
-  const renderFilters = useCallback(
-    userJourneysInfo => {
-      if (!isEmpty(userJourneysInfo)) {
-        return userJourneysInfo.map((userJourney: SelectOption) => {
-          return (
-            <CardSelect
-              key={userJourney.value as string}
-              type={CardSelectType.CardView}
-              data={userJourneysInfo}
-              cardClassName={css.userJourney}
-              renderItem={({ label }) => (
-                <>
+              <Container className={css.sloHeader}>
+                <Container className={css.sloBasicInfo}>
+                  <Text font={{ size: 'small' }} color={Color.GREY_400} padding={{ top: 'xsmall' }}>{`${getString(
+                    'connectors.cdng.monitoredService.label'
+                  )} : ${slo.monitoredServiceRef}`}</Text>
+                  <Text font={{ size: 'small' }} color={Color.GREY_400} padding={{ top: 'xsmall' }}>{`${getString(
+                    'cv.slos.sliType'
+                  )} : ${slo.serviceLevelIndicators.type}`}</Text>
                   <Text
-                    flex={{ alignItems: 'center', justifyContent: 'center' }}
-                    color={Color.GREY_900}
-                    font={{ variation: FontVariation.SMALL_SEMI }}
-                    height={24}
-                  >
-                    {label}
-                  </Text>
-                </>
-              )}
-              selected={selectedUserJourney}
-              onChange={setSelectedUserJourney}
-            />
-          )
-        })
-      } else {
-        return <></>
-      }
-    },
-    [selectedUserJourney]
-  )
+                    font={{ size: 'small' }}
+                    color={Color.GREY_400}
+                    padding={{ top: 'xsmall', bottom: 'small' }}
+                  >{`${getString('cv.slos.healthSource')} : ${slo.healthSourceRef}`}</Text>
+                </Container>
+              </Container>
+              <hr className={css.seperator} />
+            </Container>
+          </Card>
+        )
+      })
+    } else {
+      return <></>
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [SLOsList, accountId, monitoredServiceIdentifier, orgIdentifier, projectIdentifier, userJourneysLoading])
+
+  const renderFilters = useCallback(() => {
+    if (!isEmpty(userJourneys)) {
+      return (
+        <CardSelect
+          type={CardSelectType.CardView}
+          data={userJourneys}
+          cardClassName={css.userJourney}
+          renderItem={({ label }) => (
+            <>
+              <Text
+                flex={{ alignItems: 'center', justifyContent: 'center' }}
+                color={Color.GREY_900}
+                font={{ variation: FontVariation.SMALL_SEMI }}
+                height={24}
+              >
+                {label}
+              </Text>
+            </>
+          )}
+          selected={selectedUserJourney}
+          onChange={setSelectedUserJourney}
+        />
+      )
+    } else {
+      return <></>
+    }
+  }, [selectedUserJourney, userJourneys])
 
   return (
     <>
@@ -226,7 +224,7 @@ function CVSLOsListingPage(props: CVSLOsListingPageProps): JSX.Element {
           />
         </>
       ) : null}
-      <Container className={css.filterContainer}>{renderFilters(userJourneys)}</Container>
+      <Container className={css.filterContainer}>{renderFilters()}</Container>
       <Page.Body
         loading={loadingSLOs || deleteSLOLoading}
         error={getErrorMessage(SLOsError)}
@@ -238,7 +236,7 @@ function CVSLOsListingPage(props: CVSLOsListingPageProps): JSX.Element {
         }}
         className={css.pageBody}
       >
-        <Container className={css.slosContainer}>{renderSLOsCards(SLOsList)}</Container>
+        <Container className={css.slosContainer}>{renderSLOsCards()}</Container>
       </Page.Body>
     </>
   )

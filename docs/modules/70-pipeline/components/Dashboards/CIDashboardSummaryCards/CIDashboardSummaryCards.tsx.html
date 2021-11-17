@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.68% </span>
+                <span class="strong">92.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>38/41</span>
+                <span class='fraction'>37/40</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">79.26% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>130/169</span>
+                <span class='fraction'>149/188</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.68% </span>
+                <span class="strong">92.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>38/41</span>
+                <span class='fraction'>37/40</span>
             </div>
         
             
@@ -264,8 +264,15 @@
 <a name='L205'></a><a href='#L205'>205</a>
 <a name='L206'></a><a href='#L206'>206</a>
 <a name='L207'></a><a href='#L207'>207</a>
-<a name='L208'></a><a href='#L208'>208</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -273,10 +280,14 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -385,6 +396,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -472,16 +488,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect } from 'react'
-import { Container, Text, Icon, Color } from '@wings-software/uicore'
+import { Container, Text, Icon, Color, FontVariation } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import classnames from 'classnames'
 import { useParams } from 'react-router-dom'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
+import type { GetDataError } from 'restful-react'
+import type { TimeRangeSelectorProps } from '@common/components/TimeRangeSelector/TimeRangeSelector'
+import type { Failure } from 'services/cd-ng'
 import { useGetBuildHealth } from 'services/ci'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { RangeSelectorWithTitle } from '../RangeSelector'
 import { roundNumber, formatDuration, useErrorHandler, useRefetchCall } from '../shared'
 import styles from './CIDashboardSummaryCards.module.scss'
 &nbsp;
@@ -493,12 +511,13 @@ export interface SummaryCardProps {
   rateDuration?: number
   isLoading?: boolean
   neutralColor?: boolean
+  primaryChartOptions?: any
 }
 &nbsp;
-export default function CIDashboardSummaryCards() {
+export default function CIDashboardSummaryCards(props: { timeRange?: TimeRangeSelectorProps }) {
+  const { timeRange } = props
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, accountId } = useParams&lt;ProjectPathProps&gt;()
-  const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
   const [chartOptions, setChartOptions] = useState&lt;any&gt;(null)
 &nbsp;
   const { data, loading, error, refetch } = useGetBuildHealth({
@@ -506,12 +525,12 @@ export default function CIDashboardSummaryCards() {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startTime: range[0],
-      endTime: range[1]
+      startTime: timeRange?.range[0]?.getTime() || 0,
+      endTime: timeRange?.range[1]?.getTime() || 0
     }
   })
 &nbsp;
-  useErrorHandler(error)
+  useErrorHandler(error as GetDataError&lt;Failure | Error&gt; | null)
   const refetching = useRefetchCall(refetch, loading)
   const showLoader = loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!refetching</span>
 &nbsp;
@@ -541,7 +560,9 @@ export default function CIDashboardSummaryCards() {
 &nbsp;
   return (
     &lt;Container&gt;
-      &lt;RangeSelectorWithTitle title={getString('pipeline.dashboards.buildHealth')} onRangeSelected={setRange} /&gt;
+      &lt;Container className={styles.marginBottom4}&gt;
+        &lt;Text font={{ variation: FontVariation.H5 }}&gt;{getString('pipeline.dashboards.buildHealth')}&lt;/Text&gt;
+      &lt;/Container&gt;
       &lt;Container className={styles.summaryCards}&gt;
         &lt;SummaryCard
           title={getString('pipeline.dashboards.totalBuilds')}
@@ -549,9 +570,7 @@ export default function CIDashboardSummaryCards() {
           subContent={chartOptions &amp;&amp; &lt;HighchartsReact highcharts={Highcharts} options={chartOptions} /&gt;}
           rate={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>uilds<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ate}
           isLoading={showLoader}
-          neutralColor
         /&gt;
-        {/* &lt;SummaryCard title={getString('pipeline.dashboards.testCycleTimeSaved')} /&gt; */}
         &lt;SummaryCard
           title={getString('pipeline.dashboards.successfulBuilds')}
           text={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>uilds<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccess<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ount}
@@ -583,11 +602,11 @@ export function SummaryCard({
   let isIncrease = false
   let isDecrease = false
   if (typeof rate !== 'undefined') {
-    isIncrease = rate &gt; 0
+    isIncrease = rate &gt;= 0
     isDecrease = rate &lt; 0
     rateFormatted = `${Math.abs(roundNumber(rate!)!)}%`
   } else <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof rateDuration === 'number') {
-<span class="cstat-no" title="statement not covered" >    isIncrease = rateDuration &gt; 0</span>
+<span class="cstat-no" title="statement not covered" >    isIncrease = rateDuration &gt;= 0</span>
 <span class="cstat-no" title="statement not covered" >    isDecrease = rateDuration &lt; 0</span>
 <span class="cstat-no" title="statement not covered" >    rateFormatted = formatDuration(rateDuration)</span>
   }
@@ -612,10 +631,15 @@ export function SummaryCard({
         &lt;/Container&gt;
         {!isEmpty &amp;&amp; !isLoading &amp;&amp; (
           &lt;Container className={styles.diffContent}&gt;
+            {/* &lt;HighchartsReact highcharts={Highcharts} options={primaryChartOptions} /&gt; */}
+            &lt;Icon
+              size={14}
+              name={isIncrease ? 'caret-up' : 'caret-down'}
+              style={{
+                color: isIncrease ? 'var(--green-600)' : 'var(--ci-color-red-500)'
+              }}
+            /&gt;
             &lt;Text&gt;{rateFormatted}&lt;/Text&gt;
-            {(isIncrease || isDecrease) &amp;&amp; (
-              &lt;Icon name="fat-arrow-up" style={isDecrease ? { transform: 'rotate(180deg)' } : {}} size={18} /&gt;
-            )}
           &lt;/Container&gt;
         )}
       &lt;/Container&gt;
@@ -685,7 +709,7 @@ const defaultChartOptions: Highcharts.Options = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 17 2021 09:09:14 GMT+0000 (Greenwich Mean Time)
+                at Wed Nov 17 2021 10:39:45 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

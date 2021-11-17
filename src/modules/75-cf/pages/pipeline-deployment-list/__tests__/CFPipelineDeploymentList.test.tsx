@@ -54,7 +54,9 @@ jest.mock('services/pipeline-ng', () => ({
     loading: false,
     cancel: jest.fn()
   })),
-  useGetInputsetYaml: jest.fn(() => ({ data: null, loading: false }))
+  useGetInputsetYaml: jest.fn(() => ({ data: null, loading: false })),
+  useGetPipelinedHealth: jest.fn(() => ({ data: null, loading: false })),
+  useGetPipelineExecution: jest.fn(() => ({ data: null, loading: false }))
 }))
 
 const getListGitSync = jest.fn(() => Promise.resolve(gitConfigs))

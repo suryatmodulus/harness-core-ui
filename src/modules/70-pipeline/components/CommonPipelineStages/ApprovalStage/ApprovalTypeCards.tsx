@@ -1,11 +1,12 @@
 import React from 'react'
 import type { FormikValues } from 'formik'
-import { Layout, ThumbnailSelect } from '@wings-software/uicore'
-import type { Item } from '@wings-software/uicore/dist/components/ThumbnailSelect/ThumbnailSelect'
+import { Layout } from '@wings-software/uicore'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { RbacThumbnailItem, RbacThumbnailSelect } from '@rbac/components/RbacThumbnailSelect/RbacThumbnailSelect'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './ApprovalStageMinimalMode.module.scss'
 
-export const approvalTypeCardsData: Item[] = [
+export const approvalTypeCardsData: RbacThumbnailItem[] = [
   {
     label: 'Harness Approval',
     value: StepType.HarnessApproval,
@@ -14,7 +15,12 @@ export const approvalTypeCardsData: Item[] = [
   {
     label: 'Jira',
     value: StepType.JiraApproval,
-    icon: 'service-jira'
+    icon: 'service-jira',
+    featureProps: {
+      featureRequest: {
+        featureName: FeatureIdentifier.INTEGRATED_APPROVALS_WITH_JIRA
+      }
+    }
   },
   {
     label: 'ServiceNow',
@@ -37,7 +43,7 @@ Used in both minimal view as well as detailed view
 export const ApprovalTypeCards = ({ isReadonly }: { formikProps: FormikValues; isReadonly?: boolean }) => {
   return (
     <Layout.Vertical>
-      <ThumbnailSelect
+      <RbacThumbnailSelect
         name="approvalType"
         items={approvalTypeCardsData}
         className={css.approvalTypesThumbnail}

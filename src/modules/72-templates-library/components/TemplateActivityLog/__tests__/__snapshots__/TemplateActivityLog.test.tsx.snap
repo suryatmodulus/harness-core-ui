@@ -84,7 +84,7 @@ exports[`API SUCCESS if content is displayed: response data 1`] = `
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
                 style="--text-line-clamp: 2; width: 350px;"
               >
-                templatesLibrary.sampleTemplateAuditComment
+                someauditactivity
               </p>
             </div>
           </div>

@@ -59,6 +59,12 @@ export const mockApiSuccessResponse: UseGetMockDataWithMutateAndRefetch<Response
               username: 'Admin'
             }
           },
+          auditEventData: {
+            // eslint-disable-next-line
+            // @ts-ignore
+            comments: 'someauditactivity',
+            type: ''
+          },
           module: 'TEMPLATESERVICE',
           resource: {
             type: 'TEMPLATE',

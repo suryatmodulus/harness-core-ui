@@ -17,20 +17,19 @@ import {
 import { defaultTo } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { TemplateSummaryResponse, useGetTemplateList } from 'services/template-ng'
 import type { TemplateType } from '@templates-library/utils/templatesUtils'
 import { useStrings } from 'framework/strings'
 import templateIllustration from '@templates-library/pages/TemplatesPage/images/templates-illustration.svg'
 import { PageSpinner } from '@common/components'
-import { useMutateAsGet } from '@common/hooks'
+import { useMutateAsGet, useQueryParams } from '@common/hooks'
 import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import TemplatesView from '@templates-library/pages/TemplatesPage/views/TemplatesView'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import routes from '@common/RouteDefinitions'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
-import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import NoResultsView from '@templates-library/pages/TemplatesPage/views/NoResultsView/NoResultsView'
 import { TemplateDetails } from '../TemplateDetails/TemplateDetails'
 import css from './TemplateSelector.module.scss'
@@ -48,9 +47,9 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
   const { getString } = useStrings()
   const [page, setPage] = useState(0)
   const [view, setView] = useState<Views>(Views.GRID)
-  const [gitFilter, setGitFilter] = useState<GitFilterScope | null>(null)
   const [searchParam, setSearchParam] = useState('')
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { isGitSyncEnabled } = useAppStore()
   const scopeOptions: SelectOption[] = [
     {
@@ -83,17 +82,17 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
       searchTerm: searchParam,
       page,
       size: 20,
-      ...(gitFilter?.repo &&
-        gitFilter.branch && {
-          repoIdentifier: gitFilter.repo,
-          branch: gitFilter.branch
+      ...(isGitSyncEnabled &&
+        selectedScope.value === Scope.PROJECT && {
+          repoIdentifier: repoIdentifier,
+          branch: branch,
+          getDefaultFromOtherRepo: true
         })
     }
-  }, [accountId, orgId, projectId, searchParam, page, gitFilter])
+  }, [accountId, orgId, projectId, searchParam, page, repoIdentifier, branch, selectedScope, isGitSyncEnabled])
 
   const reset = React.useCallback((): void => {
     searchRef.current.clear()
-    setGitFilter(null)
   }, [searchRef])
 
   const {
@@ -161,18 +160,6 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
                     onChange={item => setSelectedScope(item)}
                     filterable={false}
                   />
-                  {isGitSyncEnabled && selectedScope.value === Scope.PROJECT && (
-                    <GitSyncStoreProvider>
-                      <GitFilters
-                        onChange={filter => {
-                          setGitFilter(filter)
-                          setPage(0)
-                        }}
-                        className={css.gitFilter}
-                        defaultValue={defaultTo(gitFilter, undefined)}
-                      />
-                    </GitSyncStoreProvider>
-                  )}
                   <ExpandingSearchInput
                     alwaysExpanded
                     className={css.searchBox}

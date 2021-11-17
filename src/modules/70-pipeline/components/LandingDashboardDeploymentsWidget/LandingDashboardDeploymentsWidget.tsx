@@ -382,25 +382,38 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
     const servicesData: StackedSummaryInterface[] | undefined = response?.mostActiveServicesList?.activeServices?.map(
       service => {
         return {
-          label: defaultTo(service.serviceInfo?.serviceName, ''),
+          label: defaultTo(defaultTo(service.serviceInfo?.serviceName, service.serviceInfo?.serviceIdentifier), ''),
           labelTooltip: renderTooltipForServiceLabel(service),
           labelLink: getServiceDetailsLink(service),
-          barSectionsData: [
-            {
-              count: defaultTo(service.countWithSuccessFailureDetails?.successCount, 0),
-              color: Color.GREEN_500
-            },
-            {
-              count: defaultTo(service.countWithSuccessFailureDetails?.failureCount, 0),
-              color: Color.RED_500
-            }
-          ],
+          barSectionsData:
+            sortByValue === 'INSTANCES'
+              ? [
+                  {
+                    count: defaultTo(service.countWithSuccessFailureDetails?.count, 0),
+                    color: Color.GREEN_500
+                  }
+                ]
+              : [
+                  {
+                    count: defaultTo(service.countWithSuccessFailureDetails?.successCount, 0),
+                    color: Color.GREEN_500
+                  },
+                  {
+                    count: defaultTo(service.countWithSuccessFailureDetails?.failureCount, 0),
+                    color: Color.RED_500
+                  }
+                ],
           trend: `${Math.round(
             service.countWithSuccessFailureDetails?.countChangeAndCountChangeRateInfo?.countChangeRate ?? 0
           )}%`
         }
       }
     )
+    if (sortByValue === 'INSTANCES') {
+      return servicesData?.sort((a, b) => {
+        return b.barSectionsData[0].count - a.barSectionsData[0].count
+      })
+    }
     return servicesData?.sort((a, b) => {
       return (
         b.barSectionsData[0].count +
@@ -497,7 +510,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
           <div className={css.mostActiveServicesChartContainer}>
             <StackedSummaryTable
               barLength={185}
-              columnHeaders={['SERVICES', 'DEPLOYMENTS']}
+              columnHeaders={['SERVICES', sortByValue]}
               summaryData={defaultTo(mostActiveServicesData, [])}
             />
           </div>

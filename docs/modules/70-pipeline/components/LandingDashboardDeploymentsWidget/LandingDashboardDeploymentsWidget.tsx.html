@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.19% </span>
+                <span class="strong">74.26% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>100/133</span>
+                <span class='fraction'>101/136</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.97% </span>
+                <span class="strong">53.05% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>204/378</span>
+                <span class='fraction'>209/394</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.41% </span>
+                <span class="strong">70% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>21/29</span>
+                <span class='fraction'>21/30</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.62% </span>
+                <span class="strong">73.68% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>97/130</span>
+                <span class='fraction'>98/133</span>
             </div>
         
             
@@ -567,7 +567,20 @@
 <a name='L508'></a><a href='#L508'>508</a>
 <a name='L509'></a><a href='#L509'>509</a>
 <a name='L510'></a><a href='#L510'>510</a>
-<a name='L511'></a><a href='#L511'>511</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L511'></a><a href='#L511'>511</a>
+<a name='L512'></a><a href='#L512'>512</a>
+<a name='L513'></a><a href='#L513'>513</a>
+<a name='L514'></a><a href='#L514'>514</a>
+<a name='L515'></a><a href='#L515'>515</a>
+<a name='L516'></a><a href='#L516'>516</a>
+<a name='L517'></a><a href='#L517'>517</a>
+<a name='L518'></a><a href='#L518'>518</a>
+<a name='L519'></a><a href='#L519'>519</a>
+<a name='L520'></a><a href='#L520'>520</a>
+<a name='L521'></a><a href='#L521'>521</a>
+<a name='L522'></a><a href='#L522'>522</a>
+<a name='L523'></a><a href='#L523'>523</a>
+<a name='L524'></a><a href='#L524'>524</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -968,6 +981,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1461,25 +1487,38 @@ const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
     const servicesData: StackedSummaryInterface[] | undefined = response<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ostActiveServicesList<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ctiveServices<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(
       service =&gt; {
         return {
-          label: defaultTo(service.serviceInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceName, ''),
+          label: defaultTo(defaultTo(service.serviceInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceName, service.serviceInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceIdentifier), ''),
           labelTooltip: renderTooltipForServiceLabel(service),
           labelLink: getServiceDetailsLink(service),
-          barSectionsData: [
-            {
-              count: defaultTo(service.countWithSuccessFailureDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccessCount, 0),
-              color: Color.GREEN_500
-            },
-            {
-              count: defaultTo(service.countWithSuccessFailureDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ailureCount, 0),
-              color: Color.RED_500
-            }
-          ],
+          barSectionsData:
+            sortByValue === 'INSTANCES'
+              ? <span class="branch-0 cbranch-no" title="branch not covered" >[</span>
+                  {
+                    count: defaultTo(service.countWithSuccessFailureDetails?.count, 0),
+                    color: Color.GREEN_500
+                  }
+                ]
+              : [
+                  {
+                    count: defaultTo(service.countWithSuccessFailureDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccessCount, 0),
+                    color: Color.GREEN_500
+                  },
+                  {
+                    count: defaultTo(service.countWithSuccessFailureDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ailureCount, 0),
+                    color: Color.RED_500
+                  }
+                ],
           trend: `${Math.round(
             service.countWithSuccessFailureDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ountChangeAndCountChangeRateInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ountChangeRate ?? <span class="branch-1 cbranch-no" title="branch not covered" >0</span>
           )}%`
         }
       }
     )
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (sortByValue === 'INSTANCES') {
+<span class="cstat-no" title="statement not covered" >      return servicesData?.sort(<span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        return b.barSectionsData[0].count - a.barSectionsData[0].count</span>
+      })
+    }
     return servicesData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ort(<span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; {
 <span class="cstat-no" title="statement not covered" >      return (</span>
         b.barSectionsData[0].count +
@@ -1576,7 +1615,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () =&gt; {
           &lt;div className={css.mostActiveServicesChartContainer}&gt;
             &lt;StackedSummaryTable
               barLength={185}
-              columnHeaders={['SERVICES', 'DEPLOYMENTS']}
+              columnHeaders={['SERVICES', sortByValue]}
               summaryData={defaultTo(mostActiveServicesData, [])}
             /&gt;
           &lt;/div&gt;
@@ -1594,7 +1633,7 @@ export default LandingDashboardDeploymentsWidget
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 17 2021 06:48:40 GMT+0000 (Greenwich Mean Time)
+                at Wed Nov 17 2021 09:09:14 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

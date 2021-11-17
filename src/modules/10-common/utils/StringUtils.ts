@@ -41,6 +41,8 @@ export const regexName = /^[A-Za-z0-9_-][A-Za-z0-9 _-]*$/
 
 export const regexIdentifier = /^[a-zA-Z_.][0-9a-zA-Z_$]*$/
 
+export const regexVersionLabel = /^[0-9a-zA-Z][\S]*$/
+
 export const HarnessFolderName = /^[A-Za-z0-9_\-/][A-Za-z0-9 _\-/]*$/
 
 export const GitSuffixRegex = /.git(\/)*$/g

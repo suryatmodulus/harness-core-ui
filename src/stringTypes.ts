@@ -538,7 +538,9 @@ export interface StringsMap {
   'common.validation.email.format': string
   'common.validation.email.required': string
   'common.validation.fieldCannotbeLongerThanN': string
+  'common.validation.fieldIsRequired': string
   'common.validation.fieldMustBeAlphanumeric': string
+  'common.validation.fieldMustStartWithAlphanumericAndCanNotHaveSpace': string
   'common.validation.fileIsRequired': string
   'common.validation.formatMustBeAlphanumeric': string
   'common.validation.groupAttributeIsRequired': string
@@ -2727,8 +2729,6 @@ export interface StringsMap {
   'templatesLibrary.createNewModal.heading': string
   'templatesLibrary.createNewModal.label': string
   'templatesLibrary.createNewModal.namePlaceholder': string
-  'templatesLibrary.createNewModal.validation.name': string
-  'templatesLibrary.createNewModal.validation.versionLabel': string
   'templatesLibrary.createNewModal.versionLabel': string
   'templatesLibrary.createNewModal.versionPlaceholder': string
   'templatesLibrary.created': string

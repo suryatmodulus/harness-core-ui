@@ -11,10 +11,17 @@ import {
   Layout,
   SelectOption,
   Utils,
-  useToaster
+  useToaster,
+  Accordion
 } from '@wings-software/uicore'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetNewRelicApplications, AppdynamicsValidationResponse, MetricPackDTO } from 'services/cv'
+import {
+  useGetNewRelicApplications,
+  AppdynamicsValidationResponse,
+  MetricPackDTO,
+  useGetLabelNames,
+  useGetMetricPacks
+} from 'services/cv'
 import { Connectors } from '@connectors/constants'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useStrings } from 'framework/strings'
@@ -23,16 +30,35 @@ import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFoot
 import MetricsVerificationModal from '@cv/components/MetricsVerificationModal/MetricsVerificationModal'
 import ValidationStatus from '@cv/pages/components/ValidationStatus/ValidationStatus'
 import { StatusOfValidation } from '@cv/pages/components/ValidationStatus/ValidationStatus.constants'
+
+import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
+import { MultiItemsSideNav } from '@cv/components/MultiItemsSideNav/MultiItemsSideNav'
+import { SetupSourceCardHeader } from '@cv/components/CVSetupSourcesView/SetupSourceCardHeader/SetupSourceCardHeader'
+import {
+  initializeCreatedMetrics,
+  initializePrometheusGroupNames,
+  initializeSelectedMetricsMap,
+  transformPrometheusHealthSourceToSetupSource,
+  updateSelectedMetricsMap
+} from '../PrometheusHealthSource/PrometheusHealthSource.utils'
+import {
+  CreatedMetricsWithSelectedIndex,
+  MapPrometheusQueryToService,
+  PrometheusMonitoringSourceFieldNames,
+  SelectedAndMappedMetrics
+} from '../PrometheusHealthSource/PrometheusHealthSource.constants'
+import { validateNewRelic } from './NewRelicHealthSource.utils'
+import { HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
+import MetricPack from '../MetrickPack'
 import {
   getOptions,
   getInputGroupProps,
   validateMetrics,
   createMetricDataFormik
 } from '../MonitoredServiceConnector.utils'
-
-import MetricPack from '../MetrickPack'
-import { HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
-import { validateNewRelic } from './NewRelicHealthSource.utils'
+import { PrometheusGroupName } from '../PrometheusHealthSource/components/PrometheusGroupName/PrometheusGroupName'
+import { PrometheusRiskProfile } from '../PrometheusHealthSource/components/PrometheusRiskProfile/PrometheusRiskProfile'
+import { PrometheusQueryViewer } from '../PrometheusHealthSource/components/PrometheusQueryViewer/PrometheusQueryViewer'
 import css from './NewrelicMonitoredSource.module.scss'
 
 const guid = Utils.randomId()
@@ -51,6 +77,7 @@ export default function NewRelicHealthSource({
 
   const [selectedMetricPacks, setSelectedMetricPacks] = useState<MetricPackDTO[]>([])
   const [validationResultData, setValidationResultData] = useState<AppdynamicsValidationResponse[]>()
+  const [labelNameTracingId] = useMemo(() => [Utils.randomId(), Utils.randomId()], [])
   const [newRelicValidation, setNewRelicValidation] = useState<{
     status: string
     result: AppdynamicsValidationResponse[] | []
@@ -58,9 +85,39 @@ export default function NewRelicHealthSource({
     status: '',
     result: []
   })
+  const [rerenderKey, setRerenderKey] = useState('')
+
+  console.log('WWWWWW', newRelicData)
+  console.log('ddddd', rerenderKey)
+
+  const transformedSourceData = useMemo(
+    () => transformPrometheusHealthSourceToSetupSource(newRelicData),
+    [newRelicData]
+  )
+
+  const [{ selectedMetric, mappedMetrics }, setMappedMetrics] = useState<SelectedAndMappedMetrics>(
+    initializeSelectedMetricsMap(
+      getString('cv.monitoringSources.newRelic.newRelicMetric'),
+      transformedSourceData.mappedServicesAndEnvs
+    )
+  )
+
+  const [prometheusGroupNames, setPrometheusGroupName] = useState<SelectOption[]>(
+    initializePrometheusGroupNames(mappedMetrics, getString)
+  )
+
+  const [{ createdMetrics }, setCreatedMetrics] = useState<CreatedMetricsWithSelectedIndex>(
+    initializeCreatedMetrics(getString('cv.monitoringSources.newRelic.newRelicMetric'), selectedMetric, mappedMetrics)
+  )
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const connectorIdentifier = newRelicData?.connectorRef?.connector?.identifier || newRelicData?.connectorRef
+  const labelNamesResponse = useGetLabelNames({
+    queryParams: { projectIdentifier, orgIdentifier, accountId, connectorIdentifier, tracingId: labelNameTracingId }
+  })
+  const metricPackResponse = useGetMetricPacks({
+    queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'NEW_RELIC' }
+  })
 
   const {
     data: applicationsData,
@@ -225,6 +282,119 @@ export default function NewRelicHealthSource({
                 </Layout.Horizontal>
               </Layout.Vertical>
             </CardWithOuterTitle>
+            <SetupSourceLayout
+              leftPanelContent={
+                <MultiItemsSideNav
+                  defaultMetricName={getString('cv.monitoringSources.newRelic.newRelicMetric')}
+                  tooptipMessage={getString('cv.monitoringSources.gcoLogs.addQueryTooltip')}
+                  addFieldLabel={getString('cv.monitoringSources.addMetric')}
+                  createdMetrics={createdMetrics}
+                  defaultSelectedMetric={selectedMetric}
+                  renamedMetric={formik.values?.metricName}
+                  isValidInput={formik.isValid}
+                  onRemoveMetric={(removedMetric, updatedMetric, updatedList, smIndex) => {
+                    setMappedMetrics(oldState => {
+                      const { selectedMetric: oldMetric, mappedMetrics: oldMappedMetric } = oldState
+                      const updatedMap = new Map(oldMappedMetric)
+
+                      if (updatedMap.has(removedMetric)) {
+                        updatedMap.delete(removedMetric)
+                      } else {
+                        // handle case where user updates the metric name for current selected metric
+                        updatedMap.delete(oldMetric)
+                      }
+
+                      // update map with current values
+                      if (formik.values?.metricName !== removedMetric) {
+                        updatedMap.set(
+                          updatedMetric,
+                          { ...(formik.values as MapPrometheusQueryToService) } || { metricName: updatedMetric }
+                        )
+                      } else {
+                        setRerenderKey(Utils.randomId())
+                      }
+
+                      setCreatedMetrics({ selectedMetricIndex: smIndex, createdMetrics: updatedList })
+                      return { selectedMetric: updatedMetric, mappedMetrics: updatedMap }
+                    })
+                  }}
+                  onSelectMetric={(newMetric, updatedList, smIndex) => {
+                    setCreatedMetrics({ selectedMetricIndex: smIndex, createdMetrics: updatedList })
+                    setMappedMetrics(oldState => {
+                      return updateSelectedMetricsMap({
+                        updatedMetric: newMetric,
+                        oldMetric: oldState.selectedMetric,
+                        mappedMetrics: oldState.mappedMetrics,
+                        formikProps: formik
+                      })
+                    })
+                    setRerenderKey(Utils.randomId())
+                  }}
+                />
+              }
+              content={
+                // add css
+                <Container>
+                  <SetupSourceCardHeader
+                    mainHeading={getString('cv.monitoringSources.prometheus.querySpecificationsAndMappings')}
+                    subHeading={getString('cv.monitoringSources.prometheus.customizeQuery')}
+                  />
+                  <Layout.Horizontal spacing="xlarge">
+                    <Accordion activeId="metricToService">
+                      <Accordion.Panel
+                        id="metricToService"
+                        summary={getString('cv.monitoringSources.mapMetricsToServices')}
+                        details={
+                          <>
+                            <FormInput.Text
+                              label={getString('cv.monitoringSources.metricNameLabel')}
+                              name={PrometheusMonitoringSourceFieldNames.METRIC_NAME}
+                            />
+                            <PrometheusGroupName
+                              groupNames={prometheusGroupNames}
+                              onChange={formik.setFieldValue}
+                              item={formik.values?.groupName}
+                              setPrometheusGroupNames={setPrometheusGroupName}
+                            />
+                          </>
+                        }
+                      />
+                      <Accordion.Panel
+                        id="riskProfile"
+                        summary={getString('cv.monitoringSources.riskProfile')}
+                        details={
+                          <PrometheusRiskProfile
+                            metricPackResponse={metricPackResponse}
+                            labelNamesResponse={labelNamesResponse}
+                          />
+                        }
+                      />
+                    </Accordion>
+                    <PrometheusQueryViewer
+                      onChange={(fieldName, value) => {
+                        if (
+                          fieldName === PrometheusMonitoringSourceFieldNames.IS_MANUAL_QUERY &&
+                          value === true &&
+                          formik.values
+                        ) {
+                          formik.values.prometheusMetric = undefined
+                          formik.values.serviceFilter = undefined
+                          formik.values.envFilter = undefined
+                          formik.values.additionalFilter = undefined
+                          formik.values.prometheusMetric = undefined
+                          formik.values.aggregator = undefined
+                          formik.setValues({ ...formik.values, isManualQuery: true })
+                        } else {
+                          formik.setFieldValue(fieldName, value)
+                        }
+                      }}
+                      values={formik.values}
+                      connectorIdentifier={connectorIdentifier}
+                    />
+                  </Layout.Horizontal>
+                </Container>
+              }
+            />
             <DrawerFooter isSubmit onPrevious={onPrevious} onNext={formik.submitForm} />
           </FormikForm>
         )

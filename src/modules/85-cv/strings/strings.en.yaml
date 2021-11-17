@@ -368,6 +368,7 @@ monitoringSources:
     selectedApplications: Selected Applications
     oneMetricMappingValidationSubtext: You need to map an application to a Harness Environment and Service.
     totalMappedApplications: '{{total}} Application(s) mapped'
+    newRelicMetric: NewRelic Metric
   prometheus:
     prometheusMetrics: Prometheus Metrics
     provideQueryToSeeRecords: Provide query to see records from Prometheus

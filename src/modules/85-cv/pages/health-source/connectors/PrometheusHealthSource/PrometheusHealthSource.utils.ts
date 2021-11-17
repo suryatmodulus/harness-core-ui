@@ -56,6 +56,7 @@ export function initializeSelectedMetricsMap(
   defaultSelectedMetricName: string,
   mappedServicesAndEnvs?: Map<string, MapPrometheusQueryToService>
 ): SelectedAndMappedMetrics {
+  console.log('RRRRRRRRR', defaultSelectedMetricName, mappedServicesAndEnvs)
   return {
     selectedMetric: (Array.from(mappedServicesAndEnvs?.keys() || [])?.[0] as string) || defaultSelectedMetricName,
     mappedMetrics:
@@ -205,13 +206,14 @@ export function transformPrometheusHealthSourceToSetupSource(sourceData: any): P
   const healthSource: UpdatedHealthSource = sourceData?.healthSourceList?.find(
     (source: UpdatedHealthSource) => source.name === sourceData.healthSourceName
   )
-
+  console.log('SSSSSSSSSSSSSSSS', sourceData)
+  const metricName = (sourceData.type || sourceData.sourceType) + ' Metric'
   if (!healthSource) {
     return {
       isEdit: false,
       healthSourceIdentifier: sourceData.healthSourceIdentifier,
       mappedServicesAndEnvs: new Map([
-        ['Prometheus Metric', { metricName: 'Prometheus Metric', isManualQuery: false, query: '' }]
+        [metricName, { metricName: metricName, isManualQuery: sourceData.type ? true : false, query: '' }]
       ]),
       healthSourceName: sourceData.healthSourceName,
       connectorRef: sourceData.connectorRef,

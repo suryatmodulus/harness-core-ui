@@ -1,5 +1,5 @@
 .gitSyncErrorsPanel {
-  height: calc(100% - 60px);
+  height: calc(100% - 64px);
   overflow: auto;
 }
 
@@ -16,4 +16,17 @@
   background: var(--primary-7) !important;
   color: var(--white) !important;
   padding: 0 !important;
+}
+
+.drawer > div {
+  height: 100%;
+  border: 0px;
+}
+
+.hide {
+  display: none;
+}
+
+.hover {
+  cursor: pointer;
 }

@@ -10,7 +10,11 @@ import {
   useModalHook,
   Button,
   PillToggle,
-  PillToggleProps
+  PillToggleProps,
+  Text,
+  Icon,
+  FontVariation,
+  Color
 } from '@wings-software/uicore'
 import {
   GitErrorExperienceSubTab,
@@ -28,10 +32,18 @@ import {
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { PageSpinner } from '@common/components'
+import { downloadYamlAsFile } from '@common/utils/downloadYamlUtils'
 import { useStrings } from 'framework/strings'
 import type { GitSyncErrorMessageProps } from '@gitsync/components/GitSyncErrorMessage/GitSyncErrorMessageItem'
 import { GitSyncErrorMessage, parseCommitItems } from '@gitsync/components/GitSyncErrorMessage/GitSyncErrorMessage'
 import styles from '@gitsync/pages/errors/GitSyncErrorsPanel/GitSyncErrorsPanel.module.scss'
+
+interface SelectedFile {
+  fileName: string
+  filePath: string
+  type: string
+  content: string
+}
 
 const parseDataForCommitView = (data: GitSyncErrorAggregateByCommitDTO[] = []): GitSyncErrorMessageProps[] => {
   return data.map(item => ({
@@ -48,19 +60,27 @@ const parseDataForCommitView = (data: GitSyncErrorAggregateByCommitDTO[] = []): 
 
 const parseDataForFileView = (
   data: GitSyncErrorDTO[],
-  onShowDetails: (yamlContent: string) => void
+  onShowDetails: (fileData: SelectedFile) => void
 ): GitSyncErrorMessageProps[] => {
   return data.map(item => ({
     mode: 'FILE',
     title: item.completeFilePath || '',
+    repo: item.repoId,
+    branch: item.branchName,
     timestamp: item.createdAt,
+    commitId: defaultTo(item.additionalErrorDetails?.gitCommitId, ''),
     items: [
       {
         reason: item.failureReason || '',
         ...(item.additionalErrorDetails?.yamlContent
           ? {
               showDetails: () => {
-                onShowDetails(item.additionalErrorDetails?.yamlContent)
+                onShowDetails({
+                  fileName: defaultTo((item.completeFilePath || '').split('/').pop(), ''),
+                  filePath: item.repoUrl + '/' + item.completeFilePath,
+                  type: defaultTo(item.entityType, ''),
+                  content: item.additionalErrorDetails?.yamlContent
+                })
               }
             }
           : {})
@@ -133,7 +153,7 @@ export const GitSyncErrorsPanel: React.FC = () => {
   const isFileView = view === GitErrorExperienceSubTab.ALL_ERRORS_FILE_VIEW
 
   const [pageIndex, setPageIndex] = useState(0)
-  const [selectedYaml, setSelectedYaml] = useState('')
+  const [selectedFile, setSelectedFile] = useState<SelectedFile>()
 
   const { getString } = useStrings()
 
@@ -164,11 +184,43 @@ export const GitSyncErrorsPanel: React.FC = () => {
   }
 
   const [showModal, hideDrawer] = useModalHook(() => {
+    const download = (): void => {
+      downloadYamlAsFile(selectedFile?.content, defaultTo(selectedFile?.fileName, ''))
+    }
+
+    const openFile = (): void => {
+      window.open(selectedFile?.filePath, '_blank')
+    }
+
+    const renderCustomHeader = (): JSX.Element => (
+      <Layout.Horizontal
+        flex={{ justifyContent: 'space-between' }}
+        padding={{ left: 'xlarge', right: 'xlarge', top: 'large', bottom: 'large' }}
+      >
+        <Layout.Horizontal flex={{ alignItems: 'center' }}>
+          <Icon name="main-applications" size={20} color={Color.GREY_400} margin={{ right: 'large' }} />
+          <Text font={{ variation: FontVariation.H5 }}>{getString('gitsync.fileContent')}</Text>
+        </Layout.Horizontal>
+        <Layout.Horizontal flex={{ alignItems: 'center' }}>
+          <Icon
+            name="command-install"
+            size={18}
+            color={Color.GREY_400}
+            margin={{ right: 'xlarge' }}
+            onClick={download}
+            className={styles.hover}
+          />
+          <Icon name="main-share" size={18} color={Color.GREY_400} onClick={openFile} className={styles.hover} />
+        </Layout.Horizontal>
+      </Layout.Horizontal>
+    )
+
     return (
       <Drawer
         onClose={() => {
           hideDrawer()
         }}
+        className={styles.drawer}
         {...drawerProps}
       >
         <Button
@@ -181,19 +233,20 @@ export const GitSyncErrorsPanel: React.FC = () => {
           }}
         />
         <YAMLBuilder
-          entityType={'' as GetYamlSchemaQueryParams['entityType']}
+          entityType={selectedFile?.type as GetYamlSchemaQueryParams['entityType']}
           fileName={getString('gitsync.fileContent')}
           isReadOnlyMode
           isEditModeSupported={false}
-          existingYaml={selectedYaml}
+          existingYaml={selectedFile?.content}
           showSnippetSection={false}
+          renderCustomHeader={renderCustomHeader}
         />
       </Drawer>
     )
-  }, [selectedYaml])
+  }, [selectedFile])
 
-  const onShowDetails = (yamlContent: string): void => {
-    setSelectedYaml(yamlContent)
+  const onShowDetails = (fileData: SelectedFile): void => {
+    setSelectedFile(fileData)
     showModal()
   }
 
@@ -212,7 +265,7 @@ export const GitSyncErrorsPanel: React.FC = () => {
       : parseDataForConnectivityView(data?.data?.content)
 
     return (
-      <Layout.Vertical height="100%">
+      <Layout.Vertical height="calc(100% - 16px)">
         <Layout.Vertical className={styles.gitSyncErrorsPanel}>
           {parsedData.map(item => (
             <GitSyncErrorMessage key={item.commitId} {...item} />

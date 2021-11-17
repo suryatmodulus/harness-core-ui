@@ -2755,7 +2755,7 @@ exports[`Test TerraformApply should be able to edit inline config 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="spec.configuration.spec.configFiles.store.spec.folderPath"
-                      placeholder="pipeline.manifestType.pathPlaceholder"
+                      placeholder="pipeline.manifestType.folderPathPlaceholder"
                       type="text"
                       value=""
                     />

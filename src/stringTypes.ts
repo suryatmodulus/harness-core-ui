@@ -2313,6 +2313,7 @@ export interface StringsMap {
   'pipeline.manifestType.commitId': string
   'pipeline.manifestType.commitPlaceholder': string
   'pipeline.manifestType.filePathPlaceholder': string
+  'pipeline.manifestType.folderPathPlaceholder': string
   'pipeline.manifestType.folderPathRequired': string
   'pipeline.manifestType.gitConnectorLabel': string
   'pipeline.manifestType.gitFetchTypeLabel': string

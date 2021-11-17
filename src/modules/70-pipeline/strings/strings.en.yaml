@@ -184,6 +184,7 @@ manifestType:
   bucketNamePlaceholder: Enter Bucket Name
   bucketPlaceHolder: Select or Add bucket name
   pathPlaceholder: Enter File Path
+  folderPathPlaceholder: Enter Folder Path
   chartPathPlaceholder: Enter Chart Path
   bucketName: Bucket Name
   gitFetchTypeLabel: Git Fetch Type

@@ -91,15 +91,19 @@ export const getTemplateTypesByRef = (params: GetTemplateListQueryParams, templa
       })
     )
   })
-  return Promise.all(promises).then(responses => {
-    const templateTypes = {}
-    responses.forEach(response => {
-      response.data?.content?.forEach(item => {
-        set(templateTypes, item.identifier || '', parse(item.yaml || '').template.spec.type)
+  return Promise.all(promises)
+    .then(responses => {
+      const templateTypes = {}
+      responses.forEach(response => {
+        response.data?.content?.forEach(item => {
+          set(templateTypes, item.identifier || '', parse(item.yaml || '').template.spec.type)
+        })
       })
+      return templateTypes
     })
-    return templateTypes
-  })
+    .catch(_error => {
+      return {}
+    })
 }
 
 export const getPipelineByIdentifier = (
@@ -288,6 +292,19 @@ export const findAllByKey = (keyToFind: string, obj?: PipelineInfoConfig): strin
     : []
 }
 
+const getTemplateType = async (pipeline: PipelineInfoConfig, queryParams: GetPipelineQueryParams) => {
+  const templateRefs = findAllByKey('templateRef', pipeline)
+  return await getTemplateTypesByRef(
+    {
+      accountIdentifier: queryParams.accountIdentifier,
+      orgIdentifier: queryParams.orgIdentifier,
+      projectIdentifier: queryParams.projectIdentifier,
+      templateListType: 'Stable'
+    },
+    templateRefs
+  )
+}
+
 const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipelineUnboundProps): Promise<void> => {
   const { dispatch, queryParams, pipelineIdentifier: identifier, gitDetails } = props
   const { forceFetch = false, forceUpdate = false, newPipelineId, signal, repoIdentifier, branch } = params
@@ -318,8 +335,8 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
         ? pipelineWithGitDetails.gitDetails
         : data?.gitDetails ?? {}
     }
-    let templateRefs = []
     if (data && !forceUpdate) {
+      const templateTypes = data.pipeline ? await getTemplateType(data.pipeline, queryParams) : {}
       dispatch(
         PipelineContextActions.success({
           error: '',
@@ -329,12 +346,13 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           isUpdated: !isEqual(pipeline, data.pipeline),
           gitDetails: pipelineWithGitDetails?.gitDetails?.objectId
             ? pipelineWithGitDetails.gitDetails
-            : defaultTo(data?.gitDetails, {})
+            : defaultTo(data?.gitDetails, {}),
+          templateTypes
         })
       )
-      templateRefs = findAllByKey('templateRef', data.pipeline)
     } else if (IdbPipeline) {
       await IdbPipeline.put(IdbPipelineStoreName, payload)
+      const templateTypes = await getTemplateType(pipeline, queryParams)
       dispatch(
         PipelineContextActions.success({
           error: '',
@@ -342,11 +360,12 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           originalPipeline: cloneDeep(pipeline),
           isBEPipelineUpdated: false,
           isUpdated: false,
-          gitDetails: payload.gitDetails
+          gitDetails: payload.gitDetails,
+          templateTypes
         })
       )
-      templateRefs = findAllByKey('templateRef', pipeline)
     } else {
+      const templateTypes = await getTemplateType(pipeline, queryParams)
       dispatch(
         PipelineContextActions.success({
           error: '',
@@ -354,23 +373,8 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           originalPipeline: cloneDeep(pipeline),
           isBEPipelineUpdated: false,
           isUpdated: false,
-          gitDetails: pipelineWithGitDetails?.gitDetails?.objectId ? pipelineWithGitDetails.gitDetails : {}
-        })
-      )
-      templateRefs = findAllByKey('templateRef', pipeline)
-    }
-    if (templateRefs.length > 0) {
-      dispatch(
-        PipelineContextActions.setTemplateTypes({
-          templateTypes: await getTemplateTypesByRef(
-            {
-              accountIdentifier: queryParams.accountIdentifier,
-              orgIdentifier: queryParams.orgIdentifier,
-              projectIdentifier: queryParams.projectIdentifier,
-              templateListType: 'Stable'
-            },
-            templateRefs
-          )
+          gitDetails: pipelineWithGitDetails?.gitDetails?.objectId ? pipelineWithGitDetails.gitDetails : {},
+          templateTypes
         })
       )
     }
@@ -850,12 +854,14 @@ export const PipelineProvider: React.FC<{
   })
 
   React.useEffect(() => {
-    abortControllerRef.current = new AbortController()
-    fetchPipeline({ forceFetch: true, signal: abortControllerRef.current?.signal })
+    if (state.isDBInitialized) {
+      abortControllerRef.current = new AbortController()
+      fetchPipeline({ forceFetch: true, signal: abortControllerRef.current?.signal })
 
-    return () => {
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort()
+      return () => {
+        if (abortControllerRef.current) {
+          abortControllerRef.current.abort()
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -12,7 +12,8 @@ export const ManifestDataType: Record<ManifestTypes, ManifestTypes> = {
   HelmChart: 'HelmChart',
   Kustomize: 'Kustomize',
   OpenshiftTemplate: 'OpenshiftTemplate',
-  OpenshiftParam: 'OpenshiftParam'
+  OpenshiftParam: 'OpenshiftParam',
+  KustomizePatches: 'KustomizePatches'
 }
 
 export const ManifestStoreMap: { [key: string]: ManifestStores } = {
@@ -50,7 +51,8 @@ export const manifestTypeIcons: Record<ManifestTypes, IconName> = {
   HelmChart: 'service-helm',
   Kustomize: 'kustamize',
   OpenshiftTemplate: 'openshift',
-  OpenshiftParam: 'openshift-params'
+  OpenshiftParam: 'openshift-params',
+  KustomizePatches: 'kustomizeparam'
 }
 
 export const manifestTypeLabels: Record<ManifestTypes, StringKeys> = {
@@ -59,7 +61,8 @@ export const manifestTypeLabels: Record<ManifestTypes, StringKeys> = {
   HelmChart: 'pipeline.manifestTypeLabels.HelmChartLabel',
   Kustomize: 'pipeline.manifestTypeLabels.KustomizeLabel',
   OpenshiftTemplate: 'pipeline.manifestTypeLabels.OpenshiftTemplate',
-  OpenshiftParam: 'pipeline.manifestTypeLabels.OpenshiftParam'
+  OpenshiftParam: 'pipeline.manifestTypeLabels.OpenshiftParam',
+  KustomizePatches: 'pipeline.manifestTypeLabels.KustomizePatches'
 }
 
 export const helmVersions: Array<{ label: string; value: HelmVersionOptions }> = [

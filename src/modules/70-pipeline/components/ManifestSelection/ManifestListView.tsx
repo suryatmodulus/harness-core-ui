@@ -24,6 +24,8 @@ import { get, set } from 'lodash-es'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import produce from 'immer'
 import { useStrings } from 'framework/strings'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import GitDetailsStep from '@connectors/components/CreateConnector/commonSteps/GitDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
@@ -84,6 +86,7 @@ import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariab
 import HelmWithS3 from './ManifestWizardSteps/HelmWithS3/HelmWithS3'
 import KustomizeWithGIT from './ManifestWizardSteps/KustomizeWithGIT/KustomizeWithGIT'
 import OpenShiftParamWithGit from './ManifestWizardSteps/OpenShiftParam/OSWithGit'
+import KustomizePatchDetails from './ManifestWizardSteps/KustomizePatchesDetails/KustomizePatchesDetails'
 import css from './ManifestSelection.module.scss'
 
 const ManifestListView = ({
@@ -119,6 +122,15 @@ const ManifestListView = ({
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
+  const { VARIABLE_SUPPORT_FOR_KUSTOMIZE } = useFeatureFlags()
+  React.useEffect(() => {
+    if (
+      VARIABLE_SUPPORT_FOR_KUSTOMIZE &&
+      !allowedManifestTypes['Kubernetes'].includes(ManifestDataType.KustomizePatches)
+    ) {
+      allowedManifestTypes['Kubernetes'].push(ManifestDataType.KustomizePatches)
+    }
+  }, [VARIABLE_SUPPORT_FOR_KUSTOMIZE])
 
   const removeManifestConfig = (index: number): void => {
     listOfManifests.splice(index, 1)
@@ -317,6 +329,12 @@ const ManifestListView = ({
         manifestDetailStep = <OpenShiftParamWithGit {...lastStepProps()} />
         break
 
+      case selectedManifest === ManifestDataType.KustomizePatches &&
+        [ManifestStoreMap.Git, ManifestStoreMap.Github, ManifestStoreMap.GitLab, ManifestStoreMap.Bitbucket].includes(
+          manifestStore as ManifestStores
+        ):
+        manifestDetailStep = <KustomizePatchDetails {...lastStepProps()} />
+        break
       case [ManifestDataType.K8sManifest, ManifestDataType.Values].includes(selectedManifest as ManifestTypes) &&
         [ManifestStoreMap.Git, ManifestStoreMap.Github, ManifestStoreMap.GitLab, ManifestStoreMap.Bitbucket].includes(
           manifestStore as ManifestStores

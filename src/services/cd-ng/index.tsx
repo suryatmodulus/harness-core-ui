@@ -4092,7 +4092,14 @@ export interface ManifestAttributes {
 export interface ManifestConfig {
   identifier: string
   spec: ManifestAttributes
-  type: 'HelmChart' | 'K8sManifest' | 'Kustomize' | 'OpenshiftParam' | 'OpenshiftTemplate' | 'Values'
+  type:
+    | 'HelmChart'
+    | 'K8sManifest'
+    | 'Kustomize'
+    | 'OpenshiftParam'
+    | 'OpenshiftTemplate'
+    | 'Values'
+    | 'KustomizePatches'
 }
 
 export interface ManifestConfigWrapper {

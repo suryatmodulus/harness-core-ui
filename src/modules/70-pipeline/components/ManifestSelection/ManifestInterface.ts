@@ -16,6 +16,7 @@ export type ManifestTypes =
   | 'Kustomize'
   | 'OpenshiftTemplate'
   | 'OpenshiftParam'
+  | 'KustomizePatches'
 
 export type ManifestStores = 'Git' | 'Github' | 'GitLab' | 'Bitbucket' | 'Http' | 'S3' | 'Gcs'
 export type HelmVersionOptions = 'V2' | 'V3'
@@ -117,6 +118,15 @@ export interface OpenShiftTemplateGITDataType {
   gitFetchType: 'Branch' | 'Commit'
   path: string
   skipResourceVersioning: boolean
+}
+
+export interface KustomizePatchDataType {
+  identifier: string
+  branch: string | undefined
+  commitId: string | undefined
+  gitFetchType: 'Branch' | 'Commit'
+  paths: string[] | any
+  repoName?: string | any
 }
 export interface KustomizeWithGITDataType {
   identifier: string

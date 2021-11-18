@@ -11,7 +11,8 @@ import {
   PageHeader,
   useConfirmationDialog,
   useToaster,
-  Page
+  Page,
+  ExpandingSearchInput
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Column } from 'react-table'
@@ -32,16 +33,17 @@ const Policies: React.FC = () => {
   const { getString } = useStrings()
   useDocumentTitle(getString('common.policies'))
   const [pageIndex, setPageIndex] = useState(0)
-  // const [searchTerm, setsearchTerm] = useState<string>('')
+  const [searchTerm, setsearchTerm] = useState<string>('')
   const queryParams = useMemo(
     () => ({
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
       per_page: String(LIST_FETCHING_PAGE_SIZE),
-      page: String(pageIndex)
+      page: String(pageIndex),
+      searchTerm: searchTerm
     }),
-    [accountId, pageIndex, orgIdentifier, projectIdentifier]
+    [accountId, pageIndex, orgIdentifier, projectIdentifier, searchTerm]
   )
 
   const { data: policyList, loading: fetchingPolicies, error, refetch, response } = useGetPolicyList({ queryParams })
@@ -179,19 +181,19 @@ const Policies: React.FC = () => {
     <>
       <PageHeader
         title={<Layout.Horizontal>{newUserGroupsBtn()}</Layout.Horizontal>}
-        // toolbar={
-        //   <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
-        //     <ExpandingSearchInput
-        //       alwaysExpanded
-        //       placeholder={getString('common.policy.policySearch')}
-        //       onChange={text => {
-        //         setsearchTerm(text.trim())
-        //         setPage(0)
-        //       }}
-        //       width={250}
-        //     />
-        //   </Layout.Horizontal>
-        // }
+        toolbar={
+          <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
+            <ExpandingSearchInput
+              alwaysExpanded
+              placeholder={getString('common.policy.policySearch')}
+              onChange={(text: string) => {
+                setsearchTerm(text.trim())
+                setPageIndex(0)
+              }}
+              width={250}
+            />
+          </Layout.Horizontal>
+        }
       />
       <Page.Body
         loading={fetchingPolicies}
@@ -208,6 +210,7 @@ const Policies: React.FC = () => {
           className={css.table}
           columns={columns}
           data={policyList || []}
+          sortable
           onRowClick={data => {
             history.push(
               routes.toGovernanceEditPolicy({

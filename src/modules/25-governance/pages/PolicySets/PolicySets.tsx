@@ -13,7 +13,8 @@ import {
   Utils,
   useConfirmationDialog,
   useToaster,
-  Page
+  Page,
+  ExpandingSearchInput
 } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
@@ -35,7 +36,7 @@ const PolicySets: React.FC = () => {
   useDocumentTitle(getString('common.policies'))
   // const [, setPage] = useState(0)
   const [pageIndex, setPageIndex] = useState(0)
-  // const [searchTerm, setsearchTerm] = useState<string>('')
+  const [searchTerm, setsearchTerm] = useState<string>('')
 
   const queryParams = useMemo(
     () => ({
@@ -43,9 +44,10 @@ const PolicySets: React.FC = () => {
       orgIdentifier,
       projectIdentifier,
       per_page: String(LIST_FETCHING_PAGE_SIZE),
-      page: String(pageIndex)
+      page: String(pageIndex),
+      searchTerm: searchTerm
     }),
-    [accountId, orgIdentifier, projectIdentifier, pageIndex]
+    [accountId, orgIdentifier, projectIdentifier, pageIndex, searchTerm]
   )
 
   const [policySetData, setPolicySetData] = React.useState<any>()
@@ -307,7 +309,22 @@ const PolicySets: React.FC = () => {
 
   return (
     <>
-      <PageHeader title={<Layout.Horizontal>{newUserGroupsBtn()}</Layout.Horizontal>} />
+      <PageHeader
+        title={<Layout.Horizontal>{newUserGroupsBtn()}</Layout.Horizontal>}
+        toolbar={
+          <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
+            <ExpandingSearchInput
+              alwaysExpanded
+              placeholder={getString('common.policy.policySearch')}
+              onChange={(text: string) => {
+                setsearchTerm(text.trim())
+                setPageIndex(0)
+              }}
+              width={250}
+            />
+          </Layout.Horizontal>
+        }
+      />
       <Page.Body
         loading={fetchingPolicieSets}
         error={(error?.data as Error)?.message || error?.message}

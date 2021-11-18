@@ -3,7 +3,7 @@ import { ThumbnailSelect, ThumbnailSelectProps } from '@wings-software/uicore'
 import type { Item } from '@wings-software/uicore/dist/components/ThumbnailSelect/ThumbnailSelect'
 import type { PermissionIdentifier } from 'microfrontends'
 import type { PermissionsRequest } from '@rbac/hooks/usePermission'
-import type { FeatureProps } from 'framework/featureStore/FeaturesContext'
+import type { FeatureProps } from 'framework/featureStore/featureStoreUtil'
 import { useFeature } from '@common/hooks/useFeatures'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
 

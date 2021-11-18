@@ -16,7 +16,6 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
-import css from './NewTemplatePopover.module.scss'
 
 export function NewTemplatePopover(): React.ReactElement {
   const handleAddTemplate = () => undefined
@@ -59,7 +58,6 @@ export function NewTemplatePopover(): React.ReactElement {
       position={Position.BOTTOM}
       disabled={isReadonly}
       setMenuOpen={setMenuOpen}
-      className={css.newTemplatePopover}
       usePortal={false}
     >
       <RbacButton

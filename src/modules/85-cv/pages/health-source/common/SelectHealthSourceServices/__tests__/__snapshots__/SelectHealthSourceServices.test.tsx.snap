@@ -98,7 +98,7 @@ exports[`Validate SelectHealthSourceServices should not render RiskProfile when 
 </div>
 `;
 
-exports[`Validate SelectHealthSourceServices should render RiskProfile when continuousVerification and healthScore are false 1`] = `
+exports[`Validate SelectHealthSourceServices should render RiskProfile when continuousVerification and healthScore are true 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -191,246 +191,246 @@ exports[`Validate SelectHealthSourceServices should render RiskProfile when cont
             </label>
           </div>
         </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main main"
+      >
         <div
-          class="StyledProps--font StyledProps--main main"
+          class="bp3-form-group"
         >
-          <div
-            class="bp3-form-group"
+          <label
+            class="bp3-label"
+            for="riskCategory"
           >
-            <label
-              class="bp3-label"
-              for="riskCategory"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="runtimeInputsTest_riskCategory"
             >
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="runtimeInputsTest_riskCategory"
-              >
-                cv.monitoringSources.riskCategoryLabel
-              </span>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
+              cv.monitoringSources.riskCategoryLabel
+            </span>
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
             <div
-              class="bp3-form-content"
+              class="StyledProps--main"
             >
+              
               <div
-                class="StyledProps--main"
+                class=""
               >
-                
-                <div
-                  class=""
+                <label
+                  class="RadioButton--radio StyledProps--main"
                 >
-                  <label
-                    class="RadioButton--radio StyledProps--main"
-                  >
-                    <input
-                      class="RadioButton--input"
-                      name="riskCategory"
-                      type="radio"
-                      value="Errors/ERROR"
-                    />
-                    <span
-                      class="RadioButton--radioIcon"
-                    />
-                    Errors
-                  </label>
-                  <label
-                    class="RadioButton--radio StyledProps--main"
-                  >
-                    <input
-                      class="RadioButton--input"
-                      name="riskCategory"
-                      type="radio"
-                      value="Infrastructure/INFRA"
-                    />
-                    <span
-                      class="RadioButton--radioIcon"
-                    />
-                    Infrastructure
-                  </label>
-                  <label
-                    class="RadioButton--radio StyledProps--main"
-                  >
-                    <input
-                      class="RadioButton--input"
-                      name="riskCategory"
-                      type="radio"
-                      value="Performance/ERROR"
-                    />
-                    <span
-                      class="RadioButton--radioIcon"
-                    />
-                    Performance/Other
-                  </label>
-                  <label
-                    class="RadioButton--radio StyledProps--main"
-                  >
-                    <input
-                      class="RadioButton--input"
-                      name="riskCategory"
-                      type="radio"
-                      value="Performance/THROUGHPUT"
-                    />
-                    <span
-                      class="RadioButton--radioIcon"
-                    />
-                    Performance/Throughput
-                  </label>
-                  <label
-                    class="RadioButton--radio StyledProps--main"
-                  >
-                    <input
-                      class="RadioButton--input"
-                      name="riskCategory"
-                      type="radio"
-                      value="Performance/RESP_TIME"
-                    />
-                    <span
-                      class="RadioButton--radioIcon"
-                    />
-                    Performance/Response Time
-                  </label>
-                </div>
+                  <input
+                    class="RadioButton--input"
+                    name="riskCategory"
+                    type="radio"
+                    value="Errors/ERROR"
+                  />
+                  <span
+                    class="RadioButton--radioIcon"
+                  />
+                  Errors
+                </label>
+                <label
+                  class="RadioButton--radio StyledProps--main"
+                >
+                  <input
+                    class="RadioButton--input"
+                    name="riskCategory"
+                    type="radio"
+                    value="Infrastructure/INFRA"
+                  />
+                  <span
+                    class="RadioButton--radioIcon"
+                  />
+                  Infrastructure
+                </label>
+                <label
+                  class="RadioButton--radio StyledProps--main"
+                >
+                  <input
+                    class="RadioButton--input"
+                    name="riskCategory"
+                    type="radio"
+                    value="Performance/ERROR"
+                  />
+                  <span
+                    class="RadioButton--radioIcon"
+                  />
+                  Performance/Other
+                </label>
+                <label
+                  class="RadioButton--radio StyledProps--main"
+                >
+                  <input
+                    class="RadioButton--input"
+                    name="riskCategory"
+                    type="radio"
+                    value="Performance/THROUGHPUT"
+                  />
+                  <span
+                    class="RadioButton--radioIcon"
+                  />
+                  Performance/Throughput
+                </label>
+                <label
+                  class="RadioButton--radio StyledProps--main"
+                >
+                  <input
+                    class="RadioButton--input"
+                    name="riskCategory"
+                    type="radio"
+                    value="Performance/RESP_TIME"
+                  />
+                  <span
+                    class="RadioButton--radioIcon"
+                  />
+                  Performance/Response Time
+                </label>
               </div>
             </div>
           </div>
-          <div
-            class="StyledProps--font StyledProps--main checkBoxGroup"
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main checkBoxGroup"
+        >
+          <p
+            class="StyledProps--font StyledProps--main groupLabel"
           >
-            <p
-              class="StyledProps--font StyledProps--main groupLabel"
-            >
-              cv.monitoringSources.baselineDeviation
-            </p>
+            cv.monitoringSources.baselineDeviation
+          </p>
+          <div
+            class="bp3-form-group"
+          >
             <div
-              class="bp3-form-group"
+              class="bp3-form-content"
             >
-              <div
-                class="bp3-form-content"
+              <label
+                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
               >
-                <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+                <input
+                  name="higherBaselineDeviation"
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <span
+                  class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                  data-tooltip-id="runtimeInputsTest_higherBaselineDeviation"
                 >
-                  <input
-                    name="higherBaselineDeviation"
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  <span
-                    class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                    data-tooltip-id="runtimeInputsTest_higherBaselineDeviation"
-                  >
-                    cv.monitoringSources.higherCounts
-                  </span>
-                </label>
-              </div>
-            </div>
-            <div
-              class="bp3-form-group"
-            >
-              <div
-                class="bp3-form-content"
-              >
-                <label
-                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
-                >
-                  <input
-                    name="lowerBaselineDeviation"
-                    type="checkbox"
-                  />
-                  <span
-                    class="bp3-control-indicator"
-                  />
-                  <span
-                    class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                    data-tooltip-id="runtimeInputsTest_lowerBaselineDeviation"
-                  >
-                    cv.monitoringSources.lowerCounts
-                  </span>
-                </label>
-              </div>
+                  cv.monitoringSources.higherCounts
+                </span>
+              </label>
             </div>
           </div>
           <div
             class="bp3-form-group"
           >
-            <label
-              class="bp3-label"
-              for="serviceInstance"
-            >
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="runtimeInputsTest_serviceInstance"
-              >
-                <div
-                  class="StyledProps--font StyledProps--main main"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main primaryLabel"
-                  >
-                    cv.monitoringSources.serviceInstanceIdentifier
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main secondaryLabel"
-                  >
-                    cv.monitoringSources.optionalServiceInstanceLabel
-                  </p>
-                </div>
-              </span>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
             <div
               class="bp3-form-content"
             >
+              <label
+                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+              >
+                <input
+                  name="lowerBaselineDeviation"
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <span
+                  class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                  data-tooltip-id="runtimeInputsTest_lowerBaselineDeviation"
+                >
+                  cv.monitoringSources.lowerCounts
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+        >
+          <label
+            class="bp3-label"
+            for="serviceInstance"
+          >
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="runtimeInputsTest_serviceInstance"
+            >
               <div
-                class="bp3-popover-wrapper Select--main bp3-fill"
+                class="StyledProps--font StyledProps--main main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main primaryLabel"
+                >
+                  cv.monitoringSources.serviceInstanceIdentifier
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main secondaryLabel"
+                >
+                  cv.monitoringSources.optionalServiceInstanceLabel
+                </p>
+              </div>
+            </span>
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-popover-wrapper Select--main bp3-fill"
+            >
+              <div
+                class="bp3-popover-target"
               >
                 <div
-                  class="bp3-popover-target"
+                  class="bp3-input-group"
                 >
-                  <div
-                    class="bp3-input-group"
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="serviceInstance"
+                    placeholder="- Select -"
+                    style="padding-right: 0px;"
+                    type="text"
+                    value=""
+                  />
+                  <span
+                    class="bp3-input-action"
                   >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="serviceInstance"
-                      placeholder="- Select -"
-                      style="padding-right: 0px;"
-                      type="text"
-                      value=""
-                    />
                     <span
-                      class="bp3-input-action"
+                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                      icon="chevron-down"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                        icon="chevron-down"
+                      <svg
+                        data-icon="chevron-down"
+                        height="14"
+                        viewBox="0 0 16 16"
+                        width="14"
                       >
-                        <svg
-                          data-icon="chevron-down"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
-                        >
-                          <desc>
-                            chevron-down
-                          </desc>
-                          <path
-                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
+                        <desc>
+                          chevron-down
+                        </desc>
+                        <path
+                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </span>
-                  </div>
+                  </span>
                 </div>
               </div>
             </div>

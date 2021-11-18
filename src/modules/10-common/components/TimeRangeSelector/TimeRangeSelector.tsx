@@ -39,22 +39,22 @@ export const TimeRangeSelector: React.FC<{
     },
     {
       dateRange: [startOfDay(moment().subtract(1, 'month').add(1, 'day')), startOfDay(moment())],
-      label: getString('cd.serviceDashboard.month'),
+      label: getString('common.duration.month'),
       includeTime: true
     },
     {
       dateRange: [startOfDay(moment().subtract(3, 'month').add(1, 'day')), startOfDay(moment())],
-      label: getString('cd.serviceDashboard.3months'),
+      label: getString('common.duration.3months'),
       includeTime: true
     },
     {
       dateRange: [startOfDay(moment().subtract(6, 'month').add(1, 'day')), startOfDay(moment())],
-      label: getString('cd.serviceDashboard.6months'),
+      label: getString('common.duration.6months'),
       includeTime: true
     },
     {
       dateRange: [startOfDay(moment().subtract(1, 'year').add(1, 'day')), startOfDay(moment())],
-      label: getString('cd.serviceDashboard.year'),
+      label: getString('common.duration.year'),
       includeTime: true
     }
   ] as IDateRangeShortcut[]

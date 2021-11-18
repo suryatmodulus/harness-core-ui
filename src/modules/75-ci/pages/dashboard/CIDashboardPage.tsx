@@ -1,22 +1,24 @@
 import React, { useState } from 'react'
-import { Container, Text, PageHeader } from '@wings-software/uicore'
+import { Container, PageHeader } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { camelCase } from 'lodash-es'
+import type { GetDataError } from 'restful-react'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { Failure } from 'services/cd-ng'
 import { BuildActiveInfo, BuildFailureInfo, CIWebhookInfoDTO, useGetBuilds, useGetRepositoryBuild } from 'services/ci'
 import { useStrings } from 'framework/strings'
+import { TimeRangeSelector, TimeRangeSelectorProps } from '@common/components/TimeRangeSelector/TimeRangeSelector'
 import CIDashboardSummaryCards from '@pipeline/components/Dashboards/CIDashboardSummaryCards/CIDashboardSummaryCards'
 import CardRailView from '@pipeline/components/Dashboards/CardRailView/CardRailView'
 import BuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecutionsChart/BuildExecutionsChart'
 import RepositoryCard from '@pipeline/components/Dashboards/BuildCards/RepositoryCard'
-import RangeSelector from '@pipeline/components/Dashboards/RangeSelector'
 import { ActiveStatus, FailedStatus, useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import ExecutionCard from '@pipeline/components/ExecutionCard/ExecutionCard'
 import { CardVariant } from '@pipeline/utils/constants'
-import type { PipelineExecutionSummary } from 'services/pipeline-ng'
+import type { ExecutionTriggerInfo, PipelineExecutionSummary } from 'services/pipeline-ng'
 import styles from './CIDashboardPage.module.scss'
 
 function buildInfoToExecutionSummary(buildInfo: BuildActiveInfo | BuildFailureInfo): PipelineExecutionSummary {
@@ -39,6 +41,9 @@ function buildInfoToExecutionSummary(buildInfo: BuildActiveInfo | BuildFailureIn
         ciExecutionInfoDTO,
         branch: buildInfo.branch as any
       }
+    },
+    executionTriggerInfo: {
+      triggerType: buildInfo.triggerType as ExecutionTriggerInfo['triggerType']
     }
   }
 }
@@ -47,7 +52,11 @@ export const CIDashboardPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const history = useHistory()
   const { getString } = useStrings()
-  const [repositoriesRange, setRepositoriesRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
+  const last30daysInMs = 30 * 24 * 60 * 60000
+  const [timeRange, setTimeRange] = useState<TimeRangeSelectorProps>({
+    range: [new Date(Date.now() - last30daysInMs), new Date(Date.now())],
+    label: ''
+  })
 
   const { data, loading, error, refetch } = useGetBuilds({
     queryParams: {
@@ -67,35 +76,38 @@ export const CIDashboardPage: React.FC = () => {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startTime: repositoriesRange[0],
-      endTime: repositoriesRange[1]
+      startTime: timeRange?.range[0]?.getTime() || 0,
+      endTime: timeRange?.range[1]?.getTime() || 0
     }
   })
 
   const refetchingBuilds = useRefetchCall(refetch, loading)
   const refetchingRepos = useRefetchCall(refetchRepos, loadingRepositories)
 
-  useErrorHandler(error, undefined, 'ci.get.build.error')
-  useErrorHandler(repoError, undefined, 'ci.get.repo.error')
+  useErrorHandler(error as GetDataError<Failure | Error> | null, undefined, 'ci.get.build.error')
+  useErrorHandler(repoError as GetDataError<Failure | Error> | null, undefined, 'ci.get.repo.error')
 
   return (
     <>
-      <PageHeader title={getString('overview')} breadcrumbs={<NGBreadcrumbs links={[]} />} />
+      <PageHeader
+        title={getString('overview')}
+        breadcrumbs={<NGBreadcrumbs links={[]} />}
+        toolbar={
+          <>
+            <TimeRangeSelector timeRange={timeRange?.range} setTimeRange={setTimeRange} minimal />
+          </>
+        }
+      />
       <Page.Body
         className={styles.content}
         loading={loading && !refetchingBuilds && loadingRepositories && !refetchingRepos}
       >
         <Container className={styles.page} padding="large">
-          <CIDashboardSummaryCards />
+          <CIDashboardSummaryCards timeRange={timeRange} />
           <Container className={styles.executionsWrapper}>
-            <BuildExecutionsChart isCIPage={true} />
+            <BuildExecutionsChart isCIPage={true} timeRange={timeRange} />
           </Container>
-          <CardRailView
-            contentType="REPOSITORY"
-            isCIPage={true}
-            isLoading={loadingRepositories && !refetchingRepos}
-            titleSideContent={<RangeSelector onRangeSelected={setRepositoriesRange} />}
-          >
+          <CardRailView contentType="REPOSITORY" isCIPage={true} isLoading={loadingRepositories && !refetchingRepos}>
             {repositoriesData?.data?.repositoryInfo?.map((repo, index) => (
               <RepositoryCard
                 key={index}
@@ -116,9 +128,6 @@ export const CIDashboardPage: React.FC = () => {
           <CardRailView
             contentType="FAILED_BUILD"
             isLoading={loading && !refetchingBuilds}
-            titleSideContent={
-              !!data?.data?.failed?.length && <Text font={{ size: 'small' }}>Top {data?.data?.failed?.length}</Text>
-            }
             onShowAll={() =>
               history.push(
                 routes.toDeployments({ projectIdentifier, orgIdentifier, accountId, module: 'ci' }) +
@@ -139,9 +148,6 @@ export const CIDashboardPage: React.FC = () => {
           <CardRailView
             contentType="ACTIVE_BUILD"
             isLoading={loading && !refetchingBuilds}
-            titleSideContent={
-              !!data?.data?.active?.length && <Text font={{ size: 'small' }}>Top {data?.data?.active?.length}</Text>
-            }
             onShowAll={() =>
               history.push(
                 routes.toDeployments({ projectIdentifier, orgIdentifier, accountId, module: 'ci' }) +

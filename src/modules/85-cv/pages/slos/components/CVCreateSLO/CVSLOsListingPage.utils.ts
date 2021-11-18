@@ -1,4 +1,5 @@
-import type { ResponsePageServiceLevelObjectiveResponse } from 'services/cv'
+import type { SelectOption } from '@wings-software/uicore'
+import type { ResponsePageServiceLevelObjectiveResponse, ResponsePageUserJourneyResponse } from 'services/cv'
 import type { SLOForm } from './components/CreateSLOForm/CreateSLO.types'
 
 export const getSLOsData = (SLOsData: ResponsePageServiceLevelObjectiveResponse | null): SLOForm[] => {
@@ -12,4 +13,11 @@ export const getSLOsData = (SLOsData: ResponsePageServiceLevelObjectiveResponse 
       }
     }
   }) || []) as SLOForm[]
+}
+
+export const getUserJourneys = (userJourneyData: ResponsePageUserJourneyResponse | null): SelectOption[] => {
+  return (userJourneyData?.data?.content?.map(el => ({
+    label: el?.userJourney?.name,
+    value: el?.userJourney?.identifier
+  })) || []) as SelectOption[]
 }

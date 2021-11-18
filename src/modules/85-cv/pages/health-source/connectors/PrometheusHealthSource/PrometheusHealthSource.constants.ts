@@ -14,7 +14,10 @@ export const PrometheusMonitoringSourceFieldNames = {
   AGGREGATOR: 'aggregator',
   SERVICE_INSTANCE: 'serviceInstance',
   GROUP_NAME: 'groupName',
-  IS_MANUAL_QUERY: 'isManualQuery'
+  IS_MANUAL_QUERY: 'isManualQuery',
+  CONTINUOUS_VERIFICATION: 'continuousVerification',
+  HEALTH_SCORE: 'healthScore',
+  SLI: 'sli'
 }
 
 export interface PrometheusSetupSource {
@@ -41,6 +44,9 @@ export type MapPrometheusQueryToService = {
   lowerBaselineDeviation?: boolean
   higherBaselineDeviation?: boolean
   groupName?: SelectOption
+  sli?: boolean
+  continuousVerification?: boolean
+  healthScore?: boolean
 }
 
 export type RiskProfileCatgory = 'Performance' | 'Errors' | 'Infrastructure'

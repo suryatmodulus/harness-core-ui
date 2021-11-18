@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { first } from 'lodash-es'
-import { Text, Button, Icon, Utils, Container } from '@wings-software/uicore'
+import { Text, Button, Icon, Utils, Container, FontVariation, Layout, Color } from '@wings-software/uicore'
 import { Collapse } from '@blueprintjs/core'
 import type { CIBuildCommit } from 'services/ci'
 import { String, useStrings } from 'framework/strings'
@@ -35,7 +35,7 @@ export function CommitId({ commitId, commitLink }: CommitIdProps): React.ReactEl
   }
 
   return (
-    <Text data-name="commitId" className={css.commitId}>
+    <Text data-name="commitId" className={css.commitId} font={{ variation: FontVariation.SMALL }}>
       {commitLink ? (
         <a className={css.label} href={commitLink} rel="noreferrer" target="_blank" onClick={handleLinkClick}>
           {slicedCommitId}
@@ -51,6 +51,7 @@ export function CommitId({ commitId, commitLink }: CommitIdProps): React.ReactEl
           onClosed: handleCopyButtonTooltipClosed
         }}
         style={{ cursor: 'pointer' }}
+        font={{ variation: FontVariation.SMALL }}
       >
         <Icon name="copy" size={14} onClick={handleCopyButtonClick} />
       </Text>
@@ -63,16 +64,17 @@ export interface LastCommitProps {
 }
 
 export function LastCommit({ lastCommit }: LastCommitProps): React.ReactElement {
+  const { message, id, link } = lastCommit
   return (
-    <Text className={css.lastCommit}>
-      <Icon className={css.icon} name="git-commit" size={14} />
-      <div style={{ fontSize: 0 }}>
-        <Text className={css.message} tooltip={<Container padding="small">{lastCommit.message}</Container>}>
-          {lastCommit.message}
+    <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing="small">
+      <Icon className={css.icon} name="git-commit" size={14} color={Color.GREY_700} />
+      {message ? (
+        <Text className={css.message} title={message} font={{ variation: FontVariation.SMALL }} lineClamp={1}>
+          {message}
         </Text>
-      </div>
-      {lastCommit?.id && <CommitId commitId={lastCommit.id} commitLink={lastCommit.link} />}
-    </Text>
+      ) : null}
+      {id ? <CommitId commitId={id} commitLink={link} /> : null}
+    </Layout.Horizontal>
   )
 }
 
@@ -83,6 +85,7 @@ export interface CommitsInfoProps {
 
 export function CommitsInfo(props: CommitsInfoProps): React.ReactElement | null {
   const [showCommits, setShowCommits] = React.useState(false)
+  const { getString } = useStrings()
 
   const { commits = [], authorAvatar } = props
   const lastCommit = first(commits || [])
@@ -92,11 +95,13 @@ export function CommitsInfo(props: CommitsInfoProps): React.ReactElement | null 
     setShowCommits(status => !status)
   }
 
-  if (!lastCommit) return null
-
   return (
     <div className={css.commitsInfo}>
-      <LastCommit lastCommit={lastCommit} />
+      {lastCommit?.message && lastCommit?.id ? (
+        <LastCommit lastCommit={lastCommit} />
+      ) : (
+        <Text font={{ variation: FontVariation.SMALL }}>{getString('common.noInfo')}</Text>
+      )}
       {commits && commits.length > 1 ? (
         <React.Fragment>
           <div className={css.divider} data-show={showCommits} />
@@ -115,7 +120,7 @@ export function CommitsInfo(props: CommitsInfoProps): React.ReactElement | null 
               return (
                 <div className={css.commit} key={i}>
                   <div style={{ fontSize: 0 }}>
-                    <Text className={css.commitText} tooltip={<Container padding="small">{commit.message}</Container>}>
+                    <Text className={css.commitText} title={commit.message} font={{ variation: FontVariation.SMALL }}>
                       {commit.message}
                     </Text>
                   </div>

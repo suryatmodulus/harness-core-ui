@@ -528,7 +528,11 @@ exports[`<TemplateSelector /> tests snapshot test 1`] = `
                                             />
                                           </svg>
                                         </span>
-                                        <span />
+                                        <p
+                                          class="StyledProps--font StyledProps--main"
+                                        >
+                                          
+                                        </p>
                                       </div>
                                     </span>
                                   </span>
@@ -697,7 +701,7 @@ exports[`<TemplateSelector /> tests snapshot test 1`] = `
           style="height: 100%;"
         >
           <div
-            class="Layout--vertical StyledProps--main empty StyledProps--flex StyledProps--flex-align-center-center"
+            class="Layout--vertical Layout--layout-spacing-large StyledProps--main empty StyledProps--flex StyledProps--flex-align-center-center"
             style="height: 100%;"
           >
             <img

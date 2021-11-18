@@ -62,30 +62,10 @@ exports[`CardRailView renders correctly while loading="true" 1`] = `
       <div
         class="StyledProps--font StyledProps--main headerTitle"
       >
-        <span
-          class="bp3-icon StyledProps--main pendingBuildIcon"
-          data-icon="ci-pending-build"
-        >
-          <svg
-            fill="none"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g
-              clip-path="url(#ci-pending-build_svg__clip0)"
-              fill="#383946"
-            >
-              <path
-                d="M10.576 4.4V2.544C10.576 1.36 9.616.4 8.432.4H2.544C1.36.4.4 1.36.4 2.544v5.872c0 1.184.96 2.144 2.144 2.144h1.84c.304 2.816 2.688 5.024 5.584 5.024a5.613 5.613 0 005.616-5.616c.016-2.88-2.192-5.28-5.008-5.568zM1.584 8.416V2.544a.98.98 0 01.976-.976h5.872a.98.98 0 01.976.976v1.84a5.618 5.618 0 00-4.992 4.992H2.544a.943.943 0 01-.96-.96zm8.4 6a4.432 4.432 0 110-8.863 4.432 4.432 0 010 8.863z"
-              />
-              <path
-                d="M12.016 9.392h-1.44V7.44a.601.601 0 00-.592-.592.601.601 0 00-.592.592v2.544c0 .32.272.592.592.592h2.032c.32 0 .592-.272.592-.592a.601.601 0 00-.592-.592z"
-              />
-            </g>
-          </svg>
-        </span>
+        <img
+          class="activeDepIcon"
+          src="test-file-stub"
+        />
         <div
           class="Text--withDocsTooltip"
           data-tooltip-id="overview_ACTIVE_BUILD"

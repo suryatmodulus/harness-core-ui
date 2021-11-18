@@ -140,6 +140,10 @@ export interface StringsMap {
   'common.disable': string
   'common.discard': string
   'common.duplicateId': string
+  'common.duration.3months': string
+  'common.duration.6months': string
+  'common.duration.month': string
+  'common.duration.year': string
   'common.durationPrefix': string
   'common.editVariable': string
   'common.editVariableType': string
@@ -311,6 +315,7 @@ export interface StringsMap {
   'common.noConnectorAvailable': string
   'common.noDelegateForTask': string
   'common.noDeployments': string
+  'common.noInfo': string
   'common.noRefData': string
   'common.note': string
   'common.noteAccountSwitch': string
@@ -2313,6 +2318,7 @@ export interface StringsMap {
   'pipeline.manifestType.commitId': string
   'pipeline.manifestType.commitPlaceholder': string
   'pipeline.manifestType.filePathPlaceholder': string
+  'pipeline.manifestType.folderPathPlaceholder': string
   'pipeline.manifestType.folderPathRequired': string
   'pipeline.manifestType.gitConnectorLabel': string
   'pipeline.manifestType.gitFetchTypeLabel': string
@@ -2848,9 +2854,7 @@ export interface StringsMap {
   'cd.searchPlaceholder': string
   'cd.secretManagerRequired': string
   'cd.serviceCreated': string
-  'cd.serviceDashboard.3months': string
   'cd.serviceDashboard.6monthTrend': string
-  'cd.serviceDashboard.6months': string
   'cd.serviceDashboard.activeServiceInstancesLabel': string
   'cd.serviceDashboard.artifact': string
   'cd.serviceDashboard.buildName': string
@@ -2863,7 +2867,6 @@ export interface StringsMap {
   'cd.serviceDashboard.instanceCountHistory': string
   'cd.serviceDashboard.instanceDetails': string
   'cd.serviceDashboard.lastDeployment': string
-  'cd.serviceDashboard.month': string
   'cd.serviceDashboard.noActiveServiceInstances': string
   'cd.serviceDashboard.noActiveServices': string
   'cd.serviceDashboard.noDeployments': string
@@ -2880,7 +2883,6 @@ export interface StringsMap {
   'cd.serviceDashboard.servicesInLast': string
   'cd.serviceDashboard.totalPipelines': string
   'cd.serviceDashboard.totalServices': string
-  'cd.serviceDashboard.year': string
   'cd.serviceUpdated': string
   'cd.setUpProvisionerBtnText': string
   'cd.setupGitOpsServerStep': string
@@ -4278,6 +4280,7 @@ export interface StringsMap {
   'cv.monitoringSources.appD.validationsFailed': string
   'cv.monitoringSources.appD.validationsPassed': string
   'cv.monitoringSources.appD.verificationsInProgress': string
+  'cv.monitoringSources.assign': string
   'cv.monitoringSources.backToMapping': string
   'cv.monitoringSources.baselineDeviation': string
   'cv.monitoringSources.buildYourQuery': string

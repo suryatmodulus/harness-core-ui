@@ -4,6 +4,8 @@ declare const styles: {
   readonly header: string
   readonly title: string
   readonly slosContainer: string
+  readonly filterContainer: string
+  readonly userJourney: string
   readonly sloCard: string
   readonly sloHeader: string
   readonly sloBasicInfo: string

@@ -3,5 +3,7 @@
 declare const styles: {
   readonly main: string
   readonly infoText: string
+  readonly illustration: string
+  readonly minimal: string
 }
 export default styles

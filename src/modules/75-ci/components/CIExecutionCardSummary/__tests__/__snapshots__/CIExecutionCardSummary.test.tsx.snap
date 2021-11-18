@@ -70,11 +70,11 @@ exports[`<CIExecutionCardSummary /> tests branch snapshot 1`] = `
     <div
       class="commitsInfo"
     >
-      <p
-        class="StyledProps--font StyledProps--main lastCommit"
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
       >
         <span
-          class="bp3-icon bp3-icon-git-commit StyledProps--main icon"
+          class="bp3-icon bp3-icon-git-commit StyledProps--main icon StyledProps--color StyledProps--color-grey700"
           icon="git-commit"
         >
           <svg
@@ -92,26 +92,15 @@ exports[`<CIExecutionCardSummary /> tests branch snapshot 1`] = `
             />
           </svg>
         </span>
-        <div
-          style="font-size: 0px;"
-        >
-          <span
-            class="bp3-popover-wrapper"
-          >
-            <span
-              class="bp3-popover-target Text--targetClass"
-            >
-              <p
-                class="StyledProps--font StyledProps--main message"
-                tabindex="0"
-              >
-                fix: [CDNG-11399]: setting page number as 1 for polling (#4731)
-              </p>
-            </span>
-          </span>
-        </div>
         <p
-          class="StyledProps--font StyledProps--main commitId"
+          class="StyledProps--font Text--lineclamp StyledProps--main message StyledProps--font-variation-small"
+          style="--text-line-clamp: 1;"
+          title="fix: [CDNG-11399]: setting page number as 1 for polling (#4731)"
+        >
+          fix: [CDNG-11399]: setting page number as 1 for polling (#4731)
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main commitId StyledProps--font-variation-small"
           data-name="commitId"
         >
           <a
@@ -129,7 +118,7 @@ exports[`<CIExecutionCardSummary /> tests branch snapshot 1`] = `
               class="bp3-popover-target Text--targetClass"
             >
               <p
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-small"
                 style="cursor: pointer;"
                 tabindex="0"
               >
@@ -161,7 +150,7 @@ exports[`<CIExecutionCardSummary /> tests branch snapshot 1`] = `
             </span>
           </span>
         </p>
-      </p>
+      </div>
     </div>
   </div>
 </div>

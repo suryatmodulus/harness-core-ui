@@ -79,7 +79,7 @@ describe('TriggersPage Triggers tests', () => {
       }
       fireEvent.click(deleteButton)
       await waitFor(() => expect(result.current.getString('pipeline.triggers.confirmDelete')).not.toBeNull())
-      const confirmDeleteButton = document.body.querySelector('[class*="dialog"] [class*="intent-primary"]')
+      const confirmDeleteButton = document.body.querySelector('[class*="dialog"] [class*="intent-danger"]')
       if (!confirmDeleteButton) {
         throw Error('No error button')
       }

@@ -11,5 +11,6 @@ declare const styles: {
   readonly diffContent: string
   readonly variantIncrease: string
   readonly variantDecrease: string
+  readonly marginBottom4: string
 }
 export default styles

@@ -131,17 +131,17 @@ export function AppWithAuthentication(props: AppProps): React.ReactElement {
         <TooltipContextProvider initialTooltipDictionary={tooltipDictionary}>
           <AppStoreProvider>
             <AppErrorBoundary>
-              <LicenseStoreProvider>
-                <PermissionsProvider>
-                  <FeaturesProvider>
+              <FeaturesProvider>
+                <LicenseStoreProvider>
+                  <PermissionsProvider>
                     <RouteDestinations />
                     <NGTooltipEditorPortal
                       showTooltipEditor={showTooltipEditor}
                       onEditorClose={() => setShowTooltipEditor(false)}
                     />
-                  </FeaturesProvider>
-                </PermissionsProvider>
-              </LicenseStoreProvider>
+                  </PermissionsProvider>
+                </LicenseStoreProvider>
+              </FeaturesProvider>
             </AppErrorBoundary>
           </AppStoreProvider>
         </TooltipContextProvider>

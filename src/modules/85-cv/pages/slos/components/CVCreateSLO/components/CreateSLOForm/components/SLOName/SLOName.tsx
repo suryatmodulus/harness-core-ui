@@ -9,6 +9,7 @@ import { HarnessServiceAsFormField } from '@cv/components/HarnessServiceAndEnvir
 import { useGetAllJourneys, useSaveUserJourney } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
+import { LIST_USER_JOURNEYS_OFFSET, LIST_USER_JOURNEYS_PAGESIZE } from '@cv/pages/slos/CVSLOsListingPage.constants'
 import type { SLONameProps } from './SLOName.types'
 import { getUserJourneysData } from './SLOName.utils'
 import css from './SLOName.module.scss'
@@ -34,8 +35,8 @@ export default function SLOName(props: SLONameProps): JSX.Element {
       orgIdentifier,
       projectIdentifier,
       accountId,
-      offset: 0,
-      pageSize: 100
+      offset: LIST_USER_JOURNEYS_OFFSET,
+      pageSize: LIST_USER_JOURNEYS_PAGESIZE
     }
   })
 

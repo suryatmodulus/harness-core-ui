@@ -9,17 +9,14 @@ import qs from 'qs'
 
 import { enableMapSet } from 'immer'
 import { AppStoreContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
-import {
-  LicenseStoreContext,
-  LicenseStoreContextProps,
-  LICENSE_STATE_VALUES
-} from 'framework/LicenseStore/LicenseStoreContext'
+import { LicenseStoreContext, LicenseStoreContextProps } from 'framework/LicenseStore/LicenseStoreContext'
+import { LICENSE_STATE_VALUES } from 'framework/LicenseStore/licenseStoreUtil'
 import { withAccountId, accountPathProps } from '@common/utils/routeUtils'
 import type { Project } from 'services/cd-ng'
 import { StringsContext } from 'framework/strings'
 
 import { FeaturesContext, FeaturesContextProps } from 'framework/featureStore/FeaturesContext'
-import type { FeatureDetail, FeatureMetaData } from 'framework/featureStore/FeaturesContext'
+import type { FeatureDetail, FeatureMetaData } from 'framework/featureStore/featureStoreUtil'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import './testUtils.scss'
 import { PermissionsContext, PermissionsContextProps } from 'framework/rbac/PermissionsContext'
@@ -149,6 +146,7 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
       >
         <LicenseStoreContext.Provider
           value={{
+            versionMap: {},
             licenseInformation: {},
             CI_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
             FF_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,

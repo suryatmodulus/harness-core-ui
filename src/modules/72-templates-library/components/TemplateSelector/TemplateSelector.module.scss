@@ -3,10 +3,10 @@
     border: 1px dashed var(--grey-300);
     border-radius: 4px;
     .illustration {
-      width: 220px;
+      width: 117px;
     }
     .placeholder {
-      font-size: var(--form-input-font-size);
+      font-size: 13px !important;
     }
   }
 
@@ -14,7 +14,7 @@
     padding: var(--spacing-xlarge) 0px !important;
     background: #f3f8fb !important;
     box-shadow: var(--elevation-3);
-    z-index: 1;
+    z-index: 2;
   }
 
   .gitFilter {

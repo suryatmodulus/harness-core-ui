@@ -157,7 +157,7 @@ export const TemplateActivityLog = (props: TemplateActivityLogProps) => {
               style={{ overflow: 'auto' }}
               width={'100%'}
               height={'100%'}
-              padding={{ top: 'medium', bottom: 'medium', left: 'huge' }}
+              padding={{ top: 'medium', bottom: 'medium', left: 'xxlarge' }}
             >
               {templateActivityLogs?.data?.content?.map((auditEvent, index) => (
                 <TemplateActivity

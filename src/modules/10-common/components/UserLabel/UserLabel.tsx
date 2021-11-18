@@ -1,5 +1,5 @@
 import React from 'react'
-import { Color, Icon, Layout, Text, Avatar } from '@wings-software/uicore'
+import { Color, Icon, Layout, Text, Avatar, TextProps } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import cx from 'classnames'
 
@@ -12,12 +12,13 @@ export interface UserLabelProps {
   profilePictureUrl?: string
   className?: string
   iconProps?: Omit<IconProps, 'name'>
+  textProps?: TextProps
 }
 
 const handleClickOnPopoverContent = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => e.stopPropagation()
 
 export function UserLabel(props: UserLabelProps): React.ReactElement {
-  const { name, email, profilePictureUrl, className, iconProps } = props
+  const { name, email, profilePictureUrl, className, iconProps, textProps } = props
 
   return (
     <div className={css.wrapper}>
@@ -56,7 +57,7 @@ export function UserLabel(props: UserLabelProps): React.ReactElement {
           ) : (
             <Icon name="user" size={18} {...iconProps} />
           )}
-          <span>{name}</span>
+          <Text {...textProps}>{name}</Text>
         </div>
       </Popover>
     </div>

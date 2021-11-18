@@ -11,7 +11,7 @@ exports[`API SUCCESS if content is displayed: response data 1`] = `
       style="height: 100%;"
     >
       <div
-        class="StyledProps--font StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--padding-left-huge"
+        class="StyledProps--font StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--padding-left-xxlarge"
         style="overflow: auto; width: 100%; height: 100%;"
       >
         <div

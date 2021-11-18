@@ -1,5 +1,5 @@
 import React, { SyntheticEvent } from 'react'
-import { Dialog, Drawer, Position } from '@blueprintjs/core'
+import { Dialog, Drawer, Intent, Position } from '@blueprintjs/core'
 import {
   Button,
   Icon,
@@ -471,6 +471,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     contentText: getString('pipeline.stepConfigHasChanges'),
     titleText: stepData?.name || getString('pipeline.closeStepConfig'),
     confirmButtonText: getString('applyChanges'),
+    intent: Intent.WARNING,
     onCloseDialog: isConfirmed => {
       if (isConfirmed) {
         applyChanges()

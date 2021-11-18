@@ -18,7 +18,7 @@ export type AddRuleYaml = PatchInstruction & {
 export interface AddRuleYamlSpec {
   clauses?: Clause[]
   distribution?: DistributionYamlSpec
-  priority: number
+  priority?: number
   serve?: Serve
 }
 
@@ -64,6 +64,19 @@ export interface AuthorInfo {
   url?: string
 }
 
+export type AwsVmBuildJobInfo = BuildJobEnvInfo & {
+  workDir?: string
+}
+
+export type AwsVmInfraYaml = Infrastructure & {
+  spec: AwsVmInfraYamlSpec
+  type: 'KubernetesDirect' | 'UseFromStage' | 'AwsVm'
+}
+
+export interface AwsVmInfraYamlSpec {
+  poolId: string
+}
+
 export type BarrierStepInfo = StepSpecType & {
   barrierRef: string
 }
@@ -83,13 +96,19 @@ export interface BuildActiveInfo {
   commit?: string
   commitID?: string
   endTs?: number
+  gitInfo?: GitInfo
   pipelineIdentifier?: string
   piplineName?: string
+  planExecutionId?: string
+  serviceInfoList?: ServiceDeploymentInfo[]
   startTs?: number
   status?: string
+  triggerType?: string
 }
 
 export interface BuildCount {
+  aborted?: number
+  expired?: number
   failed?: number
   success?: number
   total?: number
@@ -106,10 +125,14 @@ export interface BuildFailureInfo {
   commit?: string
   commitID?: string
   endTs?: number
+  gitInfo?: GitInfo
   pipelineIdentifier?: string
   piplineName?: string
+  planExecutionId?: string
+  serviceInfoList?: ServiceDeploymentInfo[]
   startTs?: number
   status?: string
+  triggerType?: string
 }
 
 export interface BuildHealth {
@@ -124,7 +147,7 @@ export interface BuildInfo {
 }
 
 export interface BuildJobEnvInfo {
-  type?: 'K8'
+  type?: 'K8' | 'AWS_VM'
 }
 
 export interface BuildRepositoryCount {
@@ -213,7 +236,7 @@ export interface Clause {
 }
 
 export interface ClauseYamlSpec {
-  attribute: string
+  attribute?: string
   op: string
   values: string[]
 }
@@ -382,6 +405,8 @@ export interface Error {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -556,6 +581,8 @@ export interface Error {
     | 'USAGE_RESTRICTION_ERROR'
     | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
     | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_API_TASK_EXCEPTION'
+    | 'KUBERNETES_TASK_EXCEPTION'
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
@@ -670,13 +697,24 @@ export interface Error {
   correlationId?: string
   detailedMessage?: string
   message?: string
+  metadata?: ErrorMetadataDTO
   responseMessages?: ResponseMessage[]
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ErrorMetadataDTO {
+  type?: string
 }
 
 export interface ExecutionElementConfig {
   rollbackSteps?: ExecutionWrapperConfig[]
   steps: ExecutionWrapperConfig[]
+}
+
+export interface ExecutionTarget {
+  connectorRef?: string
+  host?: string
+  workingDirectory?: string
 }
 
 export interface ExecutionWrapperConfig {
@@ -691,6 +729,8 @@ export interface Failure {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -865,6 +905,8 @@ export interface Failure {
     | 'USAGE_RESTRICTION_ERROR'
     | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
     | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_API_TASK_EXCEPTION'
+    | 'KUBERNETES_TASK_EXCEPTION'
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
@@ -1019,6 +1061,15 @@ export type GCRStepInfo = StepSpecType & {
   target?: string
 }
 
+export interface GitInfo {
+  commit?: string
+  commitID?: string
+  eventType?: string
+  repoName?: string
+  sourceBranch?: string
+  targetBranch?: string
+}
+
 export type HarnessApprovalStepInfo = StepSpecType & {
   approvalMessage: string
   approverInputs?: ApproverInputInfo[]
@@ -1062,7 +1113,17 @@ export interface ImageDetails {
 }
 
 export interface Infrastructure {
-  type?: 'KubernetesDirect' | 'UseFromStage'
+  type?: 'KubernetesDirect' | 'UseFromStage' | 'AwsVm'
+}
+
+export type InitializeStepInfo = StepSpecType & {
+  accountId: string
+  buildJobEnvInfo: BuildJobEnvInfo
+  ciCodebase?: CodeBase
+  executionElementConfig: ExecutionElementConfig
+  infrastructure: Infrastructure
+  skipGitClone: boolean
+  timeout?: number
 }
 
 export interface InputSetValidator {
@@ -1148,7 +1209,7 @@ export type K8BuildJobEnvInfo = BuildJobEnvInfo & {
 
 export type K8sDirectInfraYaml = Infrastructure & {
   spec: K8sDirectInfraYamlSpec
-  type: 'KubernetesDirect' | 'UseFromStage'
+  type: 'KubernetesDirect' | 'UseFromStage' | 'AwsVm'
 }
 
 export interface K8sDirectInfraYamlSpec {
@@ -1181,17 +1242,6 @@ export interface LastRepositoryInfo {
 export interface Limits {
   cpu?: string
   memory?: string
-}
-
-export type LiteEngineTaskStepInfo = StepSpecType & {
-  accountId: string
-  buildJobEnvInfo: BuildJobEnvInfo
-  ciCodebase?: CodeBase
-  executionElementConfig: ExecutionElementConfig
-  infrastructure: Infrastructure
-  skipGitClone: boolean
-  timeout?: number
-  usePVC: boolean
 }
 
 export interface ManualFailureSpecConfig {
@@ -1284,6 +1334,18 @@ export interface ParameterFieldInteger {
   value?: number
 }
 
+export interface ParameterFieldMapStringJsonNode {
+  expression?: boolean
+  expressionValue?: string
+  inputSetValidator?: InputSetValidator
+  jsonResponseField?: boolean
+  responseField?: string
+  typeString?: boolean
+  value?: {
+    [key: string]: JsonNode
+  }
+}
+
 export interface PartialSchemaDTO {
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   namespace?: string
@@ -1301,7 +1363,7 @@ export interface PatchInstruction {
     | 'UpdateRule'
     | 'AddTargetsToVariationTargetMap'
     | 'RemoveTargetsToVariationTargetMap'
-    | 'AddSegmentsToVariationTargetMap'
+    | 'AddSegmentToVariationTargetMap'
     | 'RemoveSegmentsToVariationTargetMap'
 }
 
@@ -1310,11 +1372,10 @@ export type PluginStepInfo = StepSpecType & {
   image: string
   imagePullPolicy?: 'Always' | 'Never' | 'IfNotPresent'
   privileged?: boolean
+  reports?: UnitTestReport
   resources?: ContainerResource
   runAsUser?: number
-  settings?: {
-    [key: string]: string
-  }
+  settings?: ParameterFieldMapStringJsonNode
 }
 
 export interface PodSetupInfo {
@@ -1431,6 +1492,8 @@ export interface ResponseMessage {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -1605,6 +1668,8 @@ export interface ResponseMessage {
     | 'USAGE_RESTRICTION_ERROR'
     | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
     | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_API_TASK_EXCEPTION'
+    | 'KUBERNETES_TASK_EXCEPTION'
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
@@ -1840,6 +1905,12 @@ export type RunTestsStepInfo = StepSpecType & {
   testAnnotations?: string
 }
 
+export type SampleErrorMetadataDTO = ErrorMetadataDTO & {
+  sampleMap?: {
+    [key: string]: string
+  }
+}
+
 export type SaveCacheGCSStepInfo = StepSpecType & {
   archiveFormat?: 'Tar' | 'Gzip'
   bucket: string
@@ -1877,6 +1948,11 @@ export interface Serve {
   variation?: string
 }
 
+export interface ServiceDeploymentInfo {
+  serviceName?: string
+  serviceTag?: string
+}
+
 export type SetFeatureFlagStateYaml = PatchInstruction & {
   identifier: string
   spec: SetFeatureFlagStateYamlSpec
@@ -1905,6 +1981,30 @@ export type SetOnVariationYaml = PatchInstruction & {
 
 export interface SetOnVariationYamlSpec {
   variation: string
+}
+
+export interface ShellScriptBaseSource {
+  type?: string
+}
+
+export type ShellScriptInlineSource = ShellScriptBaseSource & {
+  script?: string
+}
+
+export interface ShellScriptSourceWrapper {
+  spec: ShellScriptBaseSource
+  type: string
+}
+
+export type ShellScriptStepInfo = StepSpecType & {
+  delegateSelectors?: string[]
+  environmentVariables?: NGVariable[]
+  executionTarget?: ExecutionTarget
+  metadata?: string
+  onDelegate: boolean
+  outputVariables?: NGVariable[]
+  shell: 'Bash' | 'PowerShell'
+  source: ShellScriptSourceWrapper
 }
 
 export interface StackTraceElement {
@@ -1948,6 +2048,7 @@ export interface StepElementConfig {
   identifier: string
   name: string
   spec?: StepSpecType
+  template?: TemplateLinkConfig
   timeout?: string
   type: string
   when?: StepWhenCondition
@@ -1983,6 +2084,12 @@ export type StringNGVariable = NGVariable & {
 
 export type TagBuildSpec = BuildSpec & {
   tag: string
+}
+
+export interface TemplateLinkConfig {
+  templateInputs?: JsonNode
+  templateRef: string
+  versionLabel?: string
 }
 
 export interface Throwable {

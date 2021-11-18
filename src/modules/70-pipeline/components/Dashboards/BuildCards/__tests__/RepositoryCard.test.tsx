@@ -5,7 +5,7 @@ import RepositoryCard from '../RepositoryCard'
 
 jest.mock('moment', () => {
   const original = jest.requireActual('moment')
-  original().__proto__.fromNow = () => '6 hours ago'
+  original().__proto__.fromNow = () => 'SOME_FIXED_TIME'
   return original
 })
 

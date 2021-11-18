@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Container, Text, Layout } from '@wings-software/uicore'
+import noop from 'lodash/noop'
+import { Container, Text, Layout, FontVariation } from '@wings-software/uicore'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import moment from 'moment'
@@ -7,10 +8,12 @@ import merge from 'lodash-es/merge'
 import { Spinner } from '@blueprintjs/core'
 
 import { useParams } from 'react-router-dom'
+import type { GetDataError } from 'restful-react'
 import { useGetBuildExecution } from 'services/ci'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
+import { FailedStatus, useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
+import type { Failure } from 'services/cd-ng'
 import NoDeployments from '../images/NoDeployments.svg'
 import styles from './BuildExecutionsChart.module.scss'
 
@@ -21,6 +24,8 @@ export interface ExecutionsChartProps {
     time?: number
     success?: number
     failed?: number
+    aborted?: number
+    expired?: number
   }>
   loading: boolean
   range: number[]
@@ -31,41 +36,42 @@ export interface ExecutionsChartProps {
 }
 
 export default function BuildExecutionsChart(props: any) {
-  const { isCIPage } = props
+  const { isCIPage, timeRange } = props
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
-  const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
 
   const { data, loading, error, refetch } = useGetBuildExecution({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startTime: range[0],
-      endTime: range[1]
+      startTime: timeRange?.range[0]?.getTime() || 0,
+      endTime: timeRange?.range[1]?.getTime() || 0
     }
   })
 
-  useErrorHandler(error)
+  useErrorHandler(error as GetDataError<Failure | Error> | null)
   const refetching = useRefetchCall(refetch, loading)
 
   const chartData = useMemo(() => {
     if (data?.data?.buildExecutionInfoList?.length) {
       return data.data.buildExecutionInfoList.map(val => ({
         time: val.time,
-        success: val.builds!.success,
-        failed: val.builds!.failed
+        success: val.builds?.success,
+        failed: val.builds?.failed,
+        aborted: val.builds?.aborted,
+        expired: val.builds?.expired
       }))
     }
   }, [data])
 
   return (
     <ExecutionsChart
-      titleText={getString('pipeline.dashboards.buildExecutions')}
+      titleText={getString('buildsText')}
       data={chartData}
       loading={loading && !refetching}
-      range={range}
-      onRangeChange={setRange}
+      range={timeRange}
+      onRangeChange={noop}
       yAxisTitle="# of builds"
       isCIPage={isCIPage}
     />
@@ -91,18 +97,22 @@ export function ExecutionsChart({
   )
   const successful: number[] = []
   const failed: number[] = []
+  const expired: number[] = []
+  const aborted: number[] = []
   const empty: number[] = []
   const xCategories: string[] = []
   useEffect(() => {
     if (data?.length) {
       let totalMax = data.reduce((acc, curr) => {
-        return Math.max(curr.success! + curr.failed!, acc)
+        return Math.max((curr?.success || 0) + (curr?.failed || 0) + (curr?.aborted || 0) + (curr?.expired || 0), acc)
       }, 0)
       totalMax = Math.ceil(Math.max(totalMax * 1.2, 10))
       data.forEach(val => {
-        successful.push(val.success!)
-        failed.push(val.failed!)
-        empty.push(totalMax - val.success! - val.failed!)
+        successful.push(val?.success || 0)
+        failed.push(val?.failed || 0)
+        aborted.push(val?.aborted || 0)
+        expired.push(val?.expired || 0)
+        empty.push(totalMax - ((val?.success || 0) + (val?.failed || 0) + (val?.aborted || 0) + (val?.expired || 0)))
         xCategories.push(moment(val.time).format('YYYY-MM-DD'))
       })
       setChartOptions(
@@ -141,6 +151,20 @@ export function ExecutionsChart({
               color: successColor || 'var(--ci-color-green-500)',
               data: successful,
               legendIndex: 0
+            },
+            {
+              type: 'column',
+              name: FailedStatus.Aborted,
+              color: 'var(--grey-500)',
+              data: aborted,
+              legendIndex: 2
+            },
+            {
+              type: 'column',
+              name: FailedStatus.Expired,
+              color: 'var(--yellow-900)',
+              data: expired,
+              legendIndex: 3
             }
           ]
         })
@@ -155,10 +179,16 @@ export function ExecutionsChart({
   const successData = chartOptions?.series?.find(item => item.name === 'Successful') as any
   const successCount = successData?.data?.every((item: any) => item === 0)
 
+  const abortedData = chartOptions?.series?.find(item => item.name === FailedStatus.Aborted) as any
+  const abortedCount = successData?.data?.every((item: any) => item === 0)
+
+  const expiredData = chartOptions?.series?.find(item => item.name === FailedStatus.Expired) as any
+  const expiredCount = successData?.data?.every((item: any) => item === 0)
+
   return (
     <Container className={styles.main}>
-      <Layout.Horizontal>
-        <Text margin={{ right: 'small' }} className={titleCls}>
+      <Layout.Horizontal className={styles.marginBottom4}>
+        <Text margin={{ right: 'small' }} className={titleCls} font={{ variation: FontVariation.H5 }}>
           {titleText}
         </Text>
         {loading && <Spinner size={15} />}
@@ -168,7 +198,8 @@ export function ExecutionsChart({
         <Container className={styles.chartWrapper}>
           <HighchartsReact highcharts={Highcharts} options={chartOptions} />
         </Container>
-      ) : (!failedData && !successData) || (failedCount && successCount) ? (
+      ) : (!failedData && !successData && !abortedData && !expiredData) ||
+        (failedCount && successCount && abortedCount && expiredCount) ? (
         <Container className={styles.emptyView}>
           <Container className={styles.emptyViewCard}>
             <img src={NoDeployments} />
@@ -223,12 +254,12 @@ const defaultChartOptions: Highcharts.Options = {
   },
   credits: undefined,
   legend: {
-    align: 'right',
-    verticalAlign: 'top',
-    symbolHeight: 12,
-    symbolWidth: 19,
-    symbolRadius: 7,
-    squareSymbol: false,
+    align: 'center',
+    verticalAlign: 'bottom',
+    symbolHeight: 9,
+    symbolWidth: 9,
+    symbolRadius: 2,
+    squareSymbol: true,
     itemStyle: {
       fontWeight: '400',
       fontSize: '10',

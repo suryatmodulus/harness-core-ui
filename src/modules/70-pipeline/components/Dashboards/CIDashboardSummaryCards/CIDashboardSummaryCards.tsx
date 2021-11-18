@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Text, Icon, Color } from '@wings-software/uicore'
+import { Container, Text, Icon, Color, FontVariation } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import classnames from 'classnames'
 import { useParams } from 'react-router-dom'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
+import type { GetDataError } from 'restful-react'
+import type { TimeRangeSelectorProps } from '@common/components/TimeRangeSelector/TimeRangeSelector'
+import type { Failure } from 'services/cd-ng'
 import { useGetBuildHealth } from 'services/ci'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { RangeSelectorWithTitle } from '../RangeSelector'
 import { roundNumber, formatDuration, useErrorHandler, useRefetchCall } from '../shared'
 import styles from './CIDashboardSummaryCards.module.scss'
 
@@ -20,12 +22,13 @@ export interface SummaryCardProps {
   rateDuration?: number
   isLoading?: boolean
   neutralColor?: boolean
+  primaryChartOptions?: any
 }
 
-export default function CIDashboardSummaryCards() {
+export default function CIDashboardSummaryCards(props: { timeRange?: TimeRangeSelectorProps }) {
+  const { timeRange } = props
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
-  const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
   const [chartOptions, setChartOptions] = useState<any>(null)
 
   const { data, loading, error, refetch } = useGetBuildHealth({
@@ -33,12 +36,12 @@ export default function CIDashboardSummaryCards() {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      startTime: range[0],
-      endTime: range[1]
+      startTime: timeRange?.range[0]?.getTime() || 0,
+      endTime: timeRange?.range[1]?.getTime() || 0
     }
   })
 
-  useErrorHandler(error)
+  useErrorHandler(error as GetDataError<Failure | Error> | null)
   const refetching = useRefetchCall(refetch, loading)
   const showLoader = loading && !refetching
 
@@ -68,7 +71,9 @@ export default function CIDashboardSummaryCards() {
 
   return (
     <Container>
-      <RangeSelectorWithTitle title={getString('pipeline.dashboards.buildHealth')} onRangeSelected={setRange} />
+      <Container className={styles.marginBottom4}>
+        <Text font={{ variation: FontVariation.H5 }}>{getString('pipeline.dashboards.buildHealth')}</Text>
+      </Container>
       <Container className={styles.summaryCards}>
         <SummaryCard
           title={getString('pipeline.dashboards.totalBuilds')}
@@ -76,9 +81,7 @@ export default function CIDashboardSummaryCards() {
           subContent={chartOptions && <HighchartsReact highcharts={Highcharts} options={chartOptions} />}
           rate={data?.data?.builds?.total?.rate}
           isLoading={showLoader}
-          neutralColor
         />
-        {/* <SummaryCard title={getString('pipeline.dashboards.testCycleTimeSaved')} /> */}
         <SummaryCard
           title={getString('pipeline.dashboards.successfulBuilds')}
           text={data?.data?.builds?.success?.count}
@@ -110,11 +113,11 @@ export function SummaryCard({
   let isIncrease = false
   let isDecrease = false
   if (typeof rate !== 'undefined') {
-    isIncrease = rate > 0
+    isIncrease = rate >= 0
     isDecrease = rate < 0
     rateFormatted = `${Math.abs(roundNumber(rate!)!)}%`
   } else if (typeof rateDuration === 'number') {
-    isIncrease = rateDuration > 0
+    isIncrease = rateDuration >= 0
     isDecrease = rateDuration < 0
     rateFormatted = formatDuration(rateDuration)
   }
@@ -139,10 +142,15 @@ export function SummaryCard({
         </Container>
         {!isEmpty && !isLoading && (
           <Container className={styles.diffContent}>
+            {/* <HighchartsReact highcharts={Highcharts} options={primaryChartOptions} /> */}
+            <Icon
+              size={14}
+              name={isIncrease ? 'caret-up' : 'caret-down'}
+              style={{
+                color: isIncrease ? 'var(--green-600)' : 'var(--ci-color-red-500)'
+              }}
+            />
             <Text>{rateFormatted}</Text>
-            {(isIncrease || isDecrease) && (
-              <Icon name="fat-arrow-up" style={isDecrease ? { transform: 'rotate(180deg)' } : {}} size={18} />
-            )}
           </Container>
         )}
       </Container>

@@ -19,7 +19,7 @@ import {
   TableV2
 } from '@wings-software/uicore'
 import copy from 'clipboard-copy'
-import { Classes, Menu, Position } from '@blueprintjs/core'
+import { Classes, Intent, Menu, Position } from '@blueprintjs/core'
 import { isUndefined, isEmpty, sum } from 'lodash-es'
 import cx from 'classnames'
 import { NGTriggerDetailsResponse, useDeleteTrigger, useUpdateTrigger } from 'services/pipeline-ng'
@@ -94,6 +94,8 @@ const RenderColumnMenu: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
     titleText: column.getString('pipeline.triggers.triggerLabel'),
     confirmButtonText: column.getString('delete'),
     cancelButtonText: column.getString('cancel'),
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */
       if (isConfirmed) {

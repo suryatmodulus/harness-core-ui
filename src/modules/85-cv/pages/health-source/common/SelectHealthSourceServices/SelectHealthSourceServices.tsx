@@ -7,12 +7,11 @@ import type { SelectHealthSourceServicesProps } from './SelectHealthSourceServic
 import css from './SelectHealthSourceServices.module.scss'
 
 export default function SelectHealthSourceServices({
-  formik,
+  values,
   metricPackResponse,
   labelNamesResponse
 }: SelectHealthSourceServicesProps): JSX.Element {
   const { getString } = useStrings()
-  const { values } = formik
   const { continuousVerification, healthScore } = values
   return (
     <Container className={css.main}>
@@ -24,10 +23,14 @@ export default function SelectHealthSourceServices({
         />
         <FormInput.CheckBox label={getString('cv.healthScore')} name={HealthSourceServices.HEALTHSCORE} />
         <FormInput.CheckBox label={getString('cv.slos.sli')} name={HealthSourceServices.SLI} />
-        {(continuousVerification || healthScore) && (
-          <RiskProfile metricPackResponse={metricPackResponse} labelNamesResponse={labelNamesResponse} />
-        )}
       </Container>
+      {(continuousVerification || healthScore) && (
+        <RiskProfile
+          metricPackResponse={metricPackResponse}
+          labelNamesResponse={labelNamesResponse}
+          continuousVerificationEnabled={continuousVerification}
+        />
+      )}
     </Container>
   )
 }

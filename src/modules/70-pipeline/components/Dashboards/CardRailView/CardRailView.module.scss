@@ -3,7 +3,6 @@
   min-height: 0;
   display: flex;
 
-  height: 458px;
   width: 431px;
   flex-direction: column;
   .headerTitle {
@@ -77,7 +76,8 @@
   }
   .showMoreLink {
     align-self: end;
-    margin-top: 2px !important;
+    margin-top: var(--spacing-xsmall) !important;
+    margin-right: var(--spacing-3) !important;
     color: var(--ci-color-blue-500) !important;
   }
 }
@@ -89,4 +89,16 @@
 .activeDepIcon {
   height: 24px;
   width: 24px;
+}
+
+.selectedStatus {
+  cursor: pointer;
+  color: var(--primary-7) !important;
+}
+
+.status {
+  cursor: pointer;
+  &:hover {
+    color: var(--primary-7) !important;
+  }
 }

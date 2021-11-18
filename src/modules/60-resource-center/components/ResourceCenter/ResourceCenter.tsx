@@ -4,24 +4,26 @@ import { Icon, Text, Layout, Color, IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 import resourceImage from './images/resource-center.svg'
 import css from './ResourceCenter.module.scss'
-const getButton = (buttonText: string, buttonIcon: IconName) => {
+const getButton = (buttonText: string, buttonIcon: IconName, link: string) => {
   return (
-    <Layout.Vertical
-      flex={{ align: 'center-center' }}
-      spacing="small"
-      padding={'small'}
-      className={cx(css.bottombutton)}
-    >
-      <Icon name={buttonIcon} size={24} />
-      <Text
-        font={{ weight: 'semi-bold', align: 'center' }}
-        padding={{ bottom: 'xsmall' }}
-        color={Color.PRIMARY_3}
-        className={css.text}
+    <a href={link} rel="noreferrer" target="_blank">
+      <Layout.Vertical
+        flex={{ align: 'center-center' }}
+        spacing="small"
+        padding={'small'}
+        className={cx(css.bottombutton)}
       >
-        {buttonText}
-      </Text>
-    </Layout.Vertical>
+        <Icon name={buttonIcon} size={24} />
+        <Text
+          font={{ weight: 'semi-bold', align: 'center' }}
+          padding={{ bottom: 'xsmall' }}
+          color={Color.PRIMARY_3}
+          className={css.text}
+        >
+          {buttonText}
+        </Text>
+      </Layout.Vertical>
+    </a>
   )
 }
 
@@ -77,10 +79,10 @@ export const ResourceCenter = () => {
           {'Other useful resources'}
         </Text>
         <Layout.Horizontal flex={{ justifyContent: 'space-around' }}>
-          {getButton('Search', 'thinner-search')}
-          {getButton('Docs', 'file')}
-          {getButton('Community', 'people')}
-          {getButton('Site Status', 'new-notification')}
+          {getButton('Search', 'thinner-search', 'javascript:void(0);')}
+          {getButton('Docs', 'file', 'https://docs.harness.io/')}
+          {getButton('Community', 'person', 'https://community.harness.io/')}
+          {getButton('Site Status', 'new-notification', 'javascript:void(0);')}
         </Layout.Horizontal>
       </Layout.Vertical>
     </div>

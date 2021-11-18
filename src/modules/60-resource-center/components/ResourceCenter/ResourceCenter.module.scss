@@ -32,6 +32,10 @@ $col2: var(--primary-9);
   min-width: 88px;
   min-height: 88px;
   border-radius: var(--spacing-2);
+  &:hover {
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0) !important;
+  }
 
   svg {
     color: var(--primary-1) !important;

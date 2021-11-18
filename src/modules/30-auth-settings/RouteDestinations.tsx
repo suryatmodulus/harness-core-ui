@@ -17,7 +17,7 @@ import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import { AccountSideNavProps } from '@common/RouteDestinations'
-import AuditTrail from 'modules/20-audit-trail/pages/audit-trail/AuditTrail'
+import AuditTrail from 'modules/20-audit-trail/pages/AuditTrail/AuditTrail'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.ACCOUNT, {
   icon: 'nav-settings',

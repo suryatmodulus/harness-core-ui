@@ -31,7 +31,7 @@ describe('CREATE MODE', () => {
     act(() => {
       fireEvent.click(getByText('save'))
     })
-    await waitFor(() => expect(queryByText('templatesLibrary.createNewModal.validation.name')).toBeTruthy())
+    await waitFor(() => expect(queryByText('common.validation.fieldIsRequired')).toBeTruthy())
   })
 
   test('if form changesupdate the preview card', async () => {

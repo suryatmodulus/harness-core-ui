@@ -26,9 +26,6 @@ createNewModal:
   label: Label
   namePlaceholder: Template Name
   versionPlaceholder: 'Ex: Version1'
-  validation:
-    name: Template name is required
-    versionLabel: Version Label is required
 saveAsNewLabelModal:
   heading: 'Save as new version'
 updateTemplateModal:

@@ -14,7 +14,8 @@ import {
   TableV2,
   useConfirmationDialog,
   useToaster,
-  Page
+  Page,
+  SelectOption
 } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
@@ -25,8 +26,10 @@ import { useStrings } from 'framework/strings'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { OptionsMenuButton } from '@common/components'
 import { getErrorMessage, LIST_FETCHING_PAGE_SIZE } from '@governance/utils/GovernanceUtils'
+import PolicySortDropDown from '@governance/components/PolicySort/PolicySortDropDown'
 import PolicySetWizard from './components/PolicySetWizard'
 import PolicyIcon from './PolicySetIcon.svg'
+import { Sort, SortFields } from '../../utils/Enums'
 import css from './PolicySets.module.scss'
 
 const PolicySets: React.FC = () => {
@@ -36,16 +39,32 @@ const PolicySets: React.FC = () => {
   // const [, setPage] = useState(0)
   const [pageIndex, setPageIndex] = useState(0)
   // const [searchTerm, setsearchTerm] = useState<string>('')
-
+  const [sort, setSort] = useState<string[]>([SortFields.LastUpdatedAt, Sort.DESC])
+  const sortOptions: SelectOption[] = [
+    {
+      label: getString('lastUpdatedSort'),
+      value: SortFields.LastUpdatedAt
+    },
+    {
+      label: getString('AZ09'),
+      value: SortFields.AZ09
+    },
+    {
+      label: getString('ZA90'),
+      value: SortFields.ZA90
+    }
+  ]
+  const [selectedSort, setSelectedSort] = useState<SelectOption>(sortOptions[1])
   const queryParams = useMemo(
     () => ({
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
       per_page: String(LIST_FETCHING_PAGE_SIZE),
-      page: String(pageIndex)
+      page: String(pageIndex),
+      sort
     }),
-    [accountId, orgIdentifier, projectIdentifier, pageIndex]
+    [accountId, orgIdentifier, projectIdentifier, pageIndex, sort]
   )
 
   const [policySetData, setPolicySetData] = React.useState<any>()
@@ -69,7 +88,8 @@ const PolicySets: React.FC = () => {
     refetch,
     response
   } = useGetPolicySetList({
-    queryParams
+    queryParams,
+    queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
 
   const itemCount = useMemo(() => parseInt(response?.headers?.get('x-total-items') || '0'), [response])
@@ -307,7 +327,18 @@ const PolicySets: React.FC = () => {
 
   return (
     <>
-      <PageHeader title={<Layout.Horizontal>{newUserGroupsBtn()}</Layout.Horizontal>} />
+      <PageHeader
+        title={<Layout.Horizontal>{newUserGroupsBtn()}</Layout.Horizontal>}
+        toolbar={
+          <PolicySortDropDown
+            sortOptions={sortOptions}
+            selectedSort={selectedSort}
+            setSort={setSort}
+            setSelectedSort={setSelectedSort}
+            setPageIndex={setPageIndex}
+          />
+        }
+      />
       <Page.Body
         loading={fetchingPolicieSets}
         error={(error?.data as Error)?.message || error?.message}

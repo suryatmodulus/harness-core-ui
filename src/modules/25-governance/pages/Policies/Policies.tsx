@@ -12,7 +12,8 @@ import {
   useConfirmationDialog,
   useToaster,
   Page,
-  TableV2
+  TableV2,
+  SelectOption
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Column } from 'react-table'
@@ -24,7 +25,9 @@ import { OptionsMenuButton } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { getErrorMessage, LIST_FETCHING_PAGE_SIZE } from '@governance/utils/GovernanceUtils'
 import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
+import PolicySortDropDown from '@governance/components/PolicySort/PolicySortDropDown'
 import PolicyIcon from './Policy.svg'
+import { Sort, SortFields } from '../../utils/Enums'
 import css from './Policies.module.scss'
 
 const Policies: React.FC = () => {
@@ -32,19 +35,42 @@ const Policies: React.FC = () => {
   const { getString } = useStrings()
   useDocumentTitle(getString('common.policies'))
   const [pageIndex, setPageIndex] = useState(0)
-  // const [searchTerm, setsearchTerm] = useState<string>('')
+  // const [searchTerm, setSearchTerm] = useState<string>('')
+  const [sort, setSort] = useState<string[]>([SortFields.AZ09, Sort.DESC])
+  const sortOptions: SelectOption[] = [
+    {
+      label: getString('lastUpdatedSort'),
+      value: SortFields.LastUpdatedAt
+    },
+    {
+      label: getString('AZ09'),
+      value: SortFields.AZ09
+    },
+    {
+      label: getString('ZA90'),
+      value: SortFields.ZA90
+    }
+  ]
+  const [selectedSort, setSelectedSort] = useState<SelectOption>(sortOptions[1])
   const queryParams = useMemo(
     () => ({
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
       per_page: String(LIST_FETCHING_PAGE_SIZE),
-      page: String(pageIndex)
+      page: String(pageIndex),
+      sort
     }),
-    [accountId, pageIndex, orgIdentifier, projectIdentifier]
+    [accountId, pageIndex, orgIdentifier, projectIdentifier, sort]
   )
 
-  const { data: policyList, loading: fetchingPolicies, error, refetch, response } = useGetPolicyList({ queryParams })
+  const {
+    data: policyList,
+    loading: fetchingPolicies,
+    error,
+    refetch,
+    response
+  } = useGetPolicyList({ queryParams, queryParamStringifyOptions: { arrayFormat: 'comma' } })
   const itemCount = useMemo(() => parseInt(response?.headers?.get('x-total-items') || '0'), [response])
   const pageCount = useMemo(() => parseInt(response?.headers?.get('x-total-pages') || '0'), [response])
   const pageSize = useMemo(() => parseInt(response?.headers?.get('x-page-size') || '0'), [response])
@@ -179,19 +205,26 @@ const Policies: React.FC = () => {
     <>
       <PageHeader
         title={<Layout.Horizontal>{newUserGroupsBtn()}</Layout.Horizontal>}
-        // toolbar={
-        //   <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
-        //     <ExpandingSearchInput
-        //       alwaysExpanded
-        //       placeholder={getString('common.policy.policySearch')}
-        //       onChange={text => {
-        //         setsearchTerm(text.trim())
-        //         setPage(0)
-        //       }}
-        //       width={250}
-        //     />
-        //   </Layout.Horizontal>
-        // }
+        toolbar={
+          <PolicySortDropDown
+            sortOptions={sortOptions}
+            selectedSort={selectedSort}
+            setSort={setSort}
+            setSelectedSort={setSelectedSort}
+            setPageIndex={setPageIndex}
+          />
+          //   <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
+          //     <ExpandingSearchInput
+          //       alwaysExpanded
+          //       placeholder={getString('common.policy.policySearch')}
+          //       onChange={text => {
+          //         setsearchTerm(text.trim())
+          //         setPage(0)
+          //       }}
+          //       width={250}
+          //     />
+          //   </Layout.Horizontal>
+        }
       />
       <Page.Body
         loading={fetchingPolicies}

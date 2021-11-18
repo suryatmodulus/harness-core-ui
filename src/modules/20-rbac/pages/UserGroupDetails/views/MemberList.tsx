@@ -9,7 +9,7 @@ import {
   Popover,
   Container,
   NoDataCard,
-  ReactTable,
+  TableV2,
   useConfirmationDialog
 } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
@@ -193,7 +193,7 @@ const MemberList: React.FC<{ ssoLinked?: boolean }> = ({ ssoLinked }) => {
   if (users?.length)
     return (
       <Container className={css.memberList}>
-        <ReactTable<UserInfo>
+        <TableV2<UserInfo>
           data={users}
           columns={columns}
           hideHeaders={true}

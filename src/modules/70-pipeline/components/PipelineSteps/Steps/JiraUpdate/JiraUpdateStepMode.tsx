@@ -71,6 +71,7 @@ const FormContent = ({
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
   const [selectedProjectKey, setSelectedProjectKey] = useState<string>('')
   const [selectedIssueTypeKey, setSelectedIssueTypeKey] = useState<string>('')
+  const [connectorValueType, setConnectorValueType] = useState<MultiTypeInputType>(MultiTypeInputType.FIXED)
 
   const commonParams = {
     accountIdentifier: accountId,
@@ -82,7 +83,9 @@ const FormContent = ({
 
   useEffect(() => {
     // If connector value changes in form, fetch projects
-    if (connectorRefFixedValue) {
+    // second block is needed so that we don't fetch projects if type is expression
+    // CDC-15633
+    if (connectorRefFixedValue && connectorValueType === MultiTypeInputType.FIXED) {
       refetchProjects({
         queryParams: {
           ...commonParams,
@@ -242,6 +245,15 @@ const FormContent = ({
           selected={formik?.values?.spec.connectorRef as string}
           disabled={isApprovalStepFieldDisabled(readonly)}
           gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
+          onChange={(value: any, _unused, multiType) => {
+            // Clear dependent fields
+            setConnectorValueType(multiType)
+            if (value?.record?.identifier !== connectorRefFixedValue) {
+              if (multiType !== MultiTypeInputType.FIXED) {
+                setProjectOptions([])
+              }
+            }
+          }}
         />
         {getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions

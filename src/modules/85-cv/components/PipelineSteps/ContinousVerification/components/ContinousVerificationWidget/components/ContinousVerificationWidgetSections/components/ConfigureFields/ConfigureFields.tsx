@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { FormInput } from '@wings-software/uicore'
+import { FormInput, MultiTypeInputType } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import cx from 'classnames'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -10,10 +10,14 @@ import { defaultDeploymentTag, VerificationTypes } from './constants'
 import { BaselineSelect, Duration, VerificationSensitivity } from '../VerificationJobFields/VerificationJobFields'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export default function ConfigureFields(props: { formik: FormikProps<ContinousVerificationData> }): React.ReactElement {
+export default function ConfigureFields(props: {
+  formik: FormikProps<ContinousVerificationData>
+  allowableTypes: MultiTypeInputType[]
+}): React.ReactElement {
   const {
     formik: { values: formValues, setFieldValue },
-    formik
+    formik,
+    allowableTypes
   } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
@@ -29,6 +33,7 @@ export default function ConfigureFields(props: { formik: FormikProps<ContinousVe
                 name={`spec.spec.sensitivity`}
                 expressions={expressions}
                 formik={formik}
+                allowableTypes={allowableTypes}
               />
             </div>
             <div className={cx(stepCss.formGroup)}>
@@ -37,6 +42,7 @@ export default function ConfigureFields(props: { formik: FormikProps<ContinousVe
                 label={getString('duration')}
                 expressions={expressions}
                 formik={formik}
+                allowableTypes={allowableTypes}
               />
             </div>
             <div className={cx(stepCss.formGroup)}>
@@ -45,6 +51,7 @@ export default function ConfigureFields(props: { formik: FormikProps<ContinousVe
                 label={getString('connectors.cdng.baseline')}
                 expressions={expressions}
                 formik={formik}
+                allowableTypes={allowableTypes}
               />
             </div>
           </>
@@ -60,6 +67,7 @@ export default function ConfigureFields(props: { formik: FormikProps<ContinousVe
                 name={`spec.spec.sensitivity`}
                 expressions={expressions}
                 formik={formik}
+                allowableTypes={allowableTypes}
               />
             </div>
             <div className={cx(stepCss.formGroup)}>
@@ -68,6 +76,7 @@ export default function ConfigureFields(props: { formik: FormikProps<ContinousVe
                 label={getString('duration')}
                 expressions={expressions}
                 formik={formik}
+                allowableTypes={allowableTypes}
               />
             </div>
             <div className={cx(stepCss.formGroup)}>
@@ -106,7 +115,7 @@ export default function ConfigureFields(props: { formik: FormikProps<ContinousVe
           <FormInput.MultiTextInput
             label={getString('connectors.cdng.artifactTag')}
             name="spec.spec.deploymentTag"
-            multiTextInputProps={{ expressions }}
+            multiTextInputProps={{ expressions, allowableTypes }}
           />
         </div>
       </>

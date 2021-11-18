@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useMemo, useRef, SetStateActio
 import { Intent, ProgressBar } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { get, omit } from 'lodash-es'
-import { Button, Color, Icon, Container, Text, useIsMounted, Layout } from '@wings-software/uicore'
+import { Button, Color, Icon, Container, Text, useIsMounted, Layout, TableV2 } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { CellProps, Column, Renderer } from 'react-table'
 import type { orderType, sortType, serverSortProps } from '@common/components/Table/react-table-config'
@@ -10,7 +10,6 @@ import { TestSuite, useTestCaseSummary, TestCase, TestCaseSummaryQueryParams } f
 import { useStrings } from 'framework/strings'
 import { CopyText } from '@common/components/CopyText/CopyText'
 import { Duration } from '@common/exports'
-import Table from '@common/components/Table/Table'
 import useExpandErrorModal from '@pipeline/components/ExpandErrorModal/useExpandErrorModal'
 import { renderFailureRate } from './TestsUtils'
 import { TestsFailedPopover } from './TestsFailedPopover'
@@ -515,7 +514,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           )}
           {!loading && !error && (
             <Container ref={tableRef}>
-              <Table<TestCase>
+              <TableV2<TestCase>
                 className={cx(css.testSuiteTable, !!onShowCallGraphForClass && css.clickable)}
                 columns={columns}
                 data={data?.content || []}

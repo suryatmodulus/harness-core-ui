@@ -5,7 +5,7 @@ import {
   Button,
   ButtonVariation,
   PageError,
-  ReactTable,
+  TableV2,
   useConfirmationDialog,
   useToaster
 } from '@wings-software/uicore'
@@ -208,7 +208,7 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
           <PageError message={error.message || getString('somethingWentWrong')} onClick={() => refetch()} />
         ) : null}
         {!loading && !settingDefault && !error && accounts ? (
-          <ReactTable columns={columns} data={accounts} sortable={false} />
+          <TableV2 columns={columns} data={accounts} sortable={false} />
         ) : null}
       </Container>
     </>

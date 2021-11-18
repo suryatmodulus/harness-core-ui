@@ -10,13 +10,13 @@ import {
   Icon,
   Select,
   MultiSelectOption,
-  ButtonVariation
+  ButtonVariation,
+  TableV2
 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Menu, PopoverInteractionKind, Position, Tag } from '@blueprintjs/core'
 import { startCase } from 'lodash-es'
 import produce from 'immer'
-import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import type { NotificationRules, PipelineEvent } from 'services/pipeline-ng'
 import { getIconByNotificationMethod } from '@notifications/Utils/Utils'
@@ -292,7 +292,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
         </Layout.Horizontal>
       </Container>
       <Container padding={{ bottom: 'huge' }} className={css.content}>
-        <Table<NotificationRulesItem>
+        <TableV2<NotificationRulesItem>
           columns={columns}
           data={data}
           className={css.notificationTable}

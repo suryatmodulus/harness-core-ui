@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import ReactTimeago from 'react-timeago'
 import { useParams } from 'react-router-dom'
 import { defaultTo } from 'lodash-es'
+import cx from 'classnames'
 import { Card, Color, Icon, IconName, Layout, Text, useToaster } from '@wings-software/uicore'
 import { GitSyncErrorDTO, listGitToHarnessErrorsForCommitPromise } from 'services/cd-ng'
 import {
@@ -144,7 +145,12 @@ export const GitSyncErrorMessage: React.FC<GitSyncErrorMessageProps> = props => 
     <Card className={styles.gitSyncErrorMessage} data-testid="gitSyncErrorMessage">
       <Layout.Vertical>
         <Layout.Horizontal className={styles.section} flex={{ justifyContent: 'space-between' }}>
-          <Text font={{ weight: 'bold' }} color={Color.GREY_900} data-testid="gitSyncErrorTitle">
+          <Text
+            font={{ weight: 'bold' }}
+            color={Color.GREY_900}
+            className={cx(styles.title, { [styles.titleDirection]: mode === 'FILE' })}
+            data-testid="gitSyncErrorTitle"
+          >
             {title}
           </Text>
           <Layout.Horizontal flex={{ alignItems: 'center' }}>

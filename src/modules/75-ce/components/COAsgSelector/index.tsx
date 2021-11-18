@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import type { CellProps } from 'react-table'
 import { isEmpty as _isEmpty } from 'lodash-es'
 import { Radio } from '@blueprintjs/core'
-import { Text, Color, Container, ExpandingSearchInput, Layout, Button, Icon } from '@wings-software/uicore'
+import { Text, Color, Container, ExpandingSearchInput, Layout, Button, Icon, TableV2 } from '@wings-software/uicore'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
-import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import type { ASGMinimal, PortConfig, TargetGroupMinimal } from 'services/lw'
 import { Utils } from '@ce/common/Utils'
@@ -129,7 +128,7 @@ const COAsgSelector: React.FC<COAsgSelectorprops> = props => {
             </Layout.Horizontal>
           )}
           {!props.loading && (
-            <Table<ASGMinimal>
+            <TableV2<ASGMinimal>
               data={(props.scalingGroups || []).slice(
                 pageIndex * TOTAL_ITEMS_PER_PAGE,
                 pageIndex * TOTAL_ITEMS_PER_PAGE + TOTAL_ITEMS_PER_PAGE

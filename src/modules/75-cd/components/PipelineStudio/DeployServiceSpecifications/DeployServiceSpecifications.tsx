@@ -291,7 +291,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         <DeployServiceErrors />
         <div className={stageCss.contentSection}>
           {previousStageList.length > 0 && (
-            <Container margin={{ bottom: 'xlarge' }}>
+            <Container margin={{ bottom: 'xlarge', left: 'xlarge' }}>
               <PropagateWidget
                 setupModeType={setupModeType}
                 selectedPropagatedState={selectedPropagatedState}

@@ -337,7 +337,7 @@ describe('SegmentsPage', () => {
 
     await waitFor(() => expect(getAllByText(container, 'segment1')).toBeTruthy())
 
-    fireEvent.click(container.getElementsByClassName('row card clickable')[0] as HTMLElement)
+    fireEvent.click(container.getElementsByClassName('TableV2--row TableV2--card TableV2--clickable')[0] as HTMLElement)
 
     expect(
       getByText(container, '/account/dummy/cf/orgs/dummy/projects/dummy/target-management/target-groups/segment1')

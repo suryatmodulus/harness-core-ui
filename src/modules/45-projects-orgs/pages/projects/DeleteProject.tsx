@@ -4,6 +4,7 @@ import { useToaster, useConfirmationDialog } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { Project, useDeleteProject } from 'services/cd-ng'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 
 interface UseDeleteProjectDialogReturn {
   openDialog: () => void
@@ -11,6 +12,7 @@ interface UseDeleteProjectDialogReturn {
 
 const useDeleteProjectDialog = (data: Project, onSuccess: () => void): UseDeleteProjectDialogReturn => {
   const { accountId } = useParams<AccountPathProps>()
+  const { updateAppStore } = useAppStore()
   const { mutate: deleteProject } = useDeleteProject({
     queryParams: {
       accountIdentifier: accountId,
@@ -35,6 +37,7 @@ const useDeleteProjectDialog = (data: Project, onSuccess: () => void): UseDelete
             showSuccess(
               getString('projectCard.successMessage', { projectName: data.name || /* istanbul ignore next */ '' })
             )
+          updateAppStore({ selectedProject: undefined, selectedOrg: undefined })
           onSuccess()
         } catch (err) {
           /* istanbul ignore next */

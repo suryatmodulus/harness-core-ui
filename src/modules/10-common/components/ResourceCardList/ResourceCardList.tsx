@@ -47,7 +47,7 @@ const ResourceCardList: React.FC<ResourceCardListProps> = ({ items }) => {
       ? [
           {
             label: <String stringID="common.templates" />,
-            icon: 'template-library',
+            icon: 'templates-icon',
             route: routes.toTemplates({ accountId, orgIdentifier }),
             colorClass: css.templates
           } as ResourceOption

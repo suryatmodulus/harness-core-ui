@@ -28,12 +28,18 @@ const KubernetesServiceSpecEditable: React.FC<KubernetesServiceInputFormProps> =
   } = usePipelineContext()
 
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
-  // Default deployment type needs to be changed to null, after native helm integration
-  const deploymentType = get(stage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+  const isDeploymentTypeSelected = (): string => {
+    if (isPropagating) {
+      const parentStageId = get(stage, 'stage.spec.serviceConfig.useFromStage.stage', null)
+      const parentStage = getStageFromPipeline<DeploymentStageElementConfig>(parentStageId || '')
+      return get(parentStage, 'stage.stage.spec.serviceConfig.serviceDefinition.type', null)
+    }
+    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type', null)
+  }
 
   return (
     <div className={css.serviceDefinition}>
-      {!!deploymentType && (
+      {!!isDeploymentTypeSelected() && (
         <>
           <Card
             className={css.sectionCard}

@@ -16,7 +16,7 @@ addVariable: Add Variable
 advanced: '{{ $.advancedTitle }}'
 editVariable: Edit variable
 editVariableType: Edit variable type
-removeThisVariable: Remove This Variable
+removeThisVariable: Remove This variable
 optionalConfig: Optional Configuration
 optionalLabel: (optional)
 headers: Headers
@@ -41,6 +41,7 @@ member: Member
 showMore: Show More
 showLess: Show Less
 moreInfo: More Info
+moreOptions: More options
 viewText: View
 PermissibleActions: Permissible Actions
 My: My
@@ -107,6 +108,8 @@ validation:
   fileIsRequired: File is required
   yamlFilePath: 'File path can only contain valid file/folder name (should contain alphanumerics, _ and -) sepaerated by / and should end with .yaml.'
   variableAlreadyExists: Variable with same name already exists
+  fieldIsRequired: '{{ name }} is required'
+  fieldMustStartWithAlphanumericAndCanNotHaveSpace: '{{ name }} must start with alphanumerics and should not contain whitespace'
   fieldCannotbeLongerThanN: '{{ name }} cannot be longer than {{ n }} characters'
   fieldMustBeAlphanumeric: '{{ name }} can only contain alphanumerics, _ and $'
   groupAttributeIsRequired: Group Attribute is required
@@ -612,7 +615,7 @@ suggestionsLabel: 'Suggestions:'
 refreshPage: refresh your page.
 files: Files
 template:
-  saveAsNewTemplateHeading: Save as New Template
+  saveAsNewTemplateHeading: Save as new Template
   saveTemplate:
     publishTemplate: Template published successfully
     errorWhileSaving: Error occurred saving Template
@@ -626,6 +629,7 @@ viewLatest: View latest
 viewUsage: View Usage
 selected: 'Selected:'
 friendlyMessage: Friendly message
+noInfo: No information available
 startFree: Start Free
 start14dayTrial: Start 14 day trial
 upgrade: Upgrade
@@ -633,3 +637,8 @@ contactSupport: Contact Support
 or: Or
 startFreePlan: Start {{module}} Free Plan
 exploreAllPlans: Explore all plans
+duration:
+  month: 'Last month'
+  3months: 'Last 3 months'
+  6months: 'Last 6 months'
+  year: 'Last 1 year'

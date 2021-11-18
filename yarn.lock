@@ -5175,10 +5175,10 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity "sha1-ysIPyG9R4L+RaI01ZkrRo8+EwSQ= sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA=="
 
-"@wings-software/uicore@0.1.442":
-  version "0.1.442"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.442/221c12445891d32fba67f8090c54fcb8a9739c9109fbae906dbcb8502173be8c#a26f24794e7be25d054dc09a23e334e557e561cd"
-  integrity sha512-tkLLY5XgQPKoTskU81IFkpP5iqlA7dmqke0vtPZWBA4ZdZ5ShfNofhiXTNEy5KSH2iKUDCqz8Hs94bbo8e5iug==
+"@wings-software/uicore@0.1.452":
+  version "0.1.452"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.452/469ae484d9ed85b34c6d07958cb5cbee2508d7097e2b54422756aa255c34b05f#1de68d5080c383e19d2fab08db15232a6e68cba8"
+  integrity sha512-zV10UDGjBazA3m7qLZ+tl9kVwm1NsUIWy0gU+AYXcF/0NQ2B8VmB+AJ96Sc265eIC7MfPTPgnKU7xBEYcuEZKA==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -10789,10 +10789,10 @@ highcharts-react-official@3.0.0:
   resolved "https://registry.yarnpkg.com/highcharts-react-official/-/highcharts-react-official-3.0.0.tgz#f2e81ed59d299c3473a0dd5ba5df24028875226a"
   integrity sha512-VefJgDY2hkT9gfppsQGrRF2g5u8d9dtfHGcx2/xqiP+PkZXCqalw9xOeKVCRvJKTOh0coiDFwvVjOvB7KaGl4A==
 
-highcharts@9.1.0:
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-9.1.0.tgz#2cdb38e2e03530b4fde022bb05fbce5b34651e39"
-  integrity "sha1-LNs44uA1MLT94CK7BfvOWzRlHjk= sha512-K7HUuKhEylZ1pMdzGR35kPgUmpp0MDNpaWhEMkGiC5Jfzg/endtTLHJN2lsFqEO+xoN7AykBK98XaJPEpsrLyA=="
+highcharts@9.2.0:
+  version "9.2.0"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-9.2.0.tgz#be3c2fb995fdbb1c1b841b6069b2f68f20bcfa64"
+  integrity sha512-ci5K1bS6epjjCm1eJXn08NULMlvaMU/FLGtOGHFXVAHP/mDf13J0wGzVd9e4Af+8V3fYnYDf0HKAVk3ytgQETw==
 
 highlight.js@^10.1.1, highlight.js@~10.4.0:
   version "10.4.1"

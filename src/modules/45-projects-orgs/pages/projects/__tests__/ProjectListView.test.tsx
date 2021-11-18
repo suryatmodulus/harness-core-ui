@@ -105,7 +105,7 @@ describe('Project List', () => {
       })
     }),
     test('Click row', async () => {
-      const row = container.getElementsByClassName('row card clickable')[0]
+      const row = container.getElementsByClassName('TableV2--row TableV2--card TableV2--clickable')[0]
       await fireEvent.click(row!)
       await waitFor(() => getByTestId('location'))
       expect(

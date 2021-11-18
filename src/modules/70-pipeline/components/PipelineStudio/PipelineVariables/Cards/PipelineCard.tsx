@@ -46,7 +46,7 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
           name={lowerCase(getString('tagsLabel'))}
           tags={variablePipeline.tags}
           fqn="pipeline.tags"
-          className={css.variablePaddingTagL1}
+          className={css.variablePaddingTagL0}
         />
       )}
       <NestedAccordionPanel

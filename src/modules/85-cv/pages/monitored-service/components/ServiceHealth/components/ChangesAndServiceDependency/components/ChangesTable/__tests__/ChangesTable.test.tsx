@@ -177,10 +177,9 @@ describe('Change table', () => {
         />
       </TestWrapper>
     )
-
     // verify row renders
     await waitFor(() =>
-      expect(container.querySelectorAll('.body [role="row"]').length).toEqual(mockData.resource.content.length)
+      expect(container.querySelectorAll('.TableV2--body [role="row"]').length).toEqual(mockData.resource.content.length)
     )
     // verify changesource name
     await waitFor(() => expect(getByText('Demo Test PD')).toBeTruthy())

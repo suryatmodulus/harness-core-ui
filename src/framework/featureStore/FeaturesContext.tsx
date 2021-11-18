@@ -5,80 +5,56 @@ import produce from 'immer'
 import { useParams } from 'react-router-dom'
 import { useToaster } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { useLicenseStore, LICENSE_STATE_VALUES } from 'framework/LicenseStore/LicenseStoreContext'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import {
   useGetEnabledFeatureRestrictionDetailByAccountId,
   useGetFeatureRestrictionDetail,
   useGetAllFeatureRestrictionMetadata,
-  RestrictionMetadataDTO,
-  FeatureRestrictionDetailsDTO,
-  FeatureRestrictionDetailRequestDTO
+  FeatureRestrictionDetailRequestDTO,
+  ModuleLicenseDTO
 } from 'services/cd-ng'
 import type { RestrictionType } from '@common/constants/SubscriptionTypes'
 import { Editions } from '@common/constants/SubscriptionTypes'
+import { LICENSE_STATE_VALUES } from 'framework/LicenseStore/licenseStoreUtil'
 
 import type { FeatureIdentifier } from './FeatureIdentifier'
-
-export interface FeatureDetail {
-  featureName: FeatureIdentifier
-  enabled: boolean
-  moduleType: ModuleType
-  limit?: number
-  count?: number
-  apiFail?: boolean
-}
-
-export type ModuleType = FeatureRestrictionDetailsDTO['moduleType']
-
-export interface FeatureRequest {
-  featureName: FeatureIdentifier
-}
-
-export interface FeaturesRequest {
-  featureNames: FeatureIdentifier[]
-}
-
-export interface FeatureProps {
-  featureRequest: FeatureRequest
-  isPermissionPrioritized?: boolean
-}
-
-export interface CheckFeatureReturn {
-  enabled: boolean
-  featureDetail?: FeatureDetail
-}
-
-export interface CheckFeaturesReturn {
-  features: Map<FeatureIdentifier, CheckFeatureReturn>
-}
-export interface FeatureMetaData {
-  moduleType: ModuleType
-  restrictionMetadataMap: RestrictionMetadataMap
-}
-
-export interface RestrictionMetadataMap {
-  [key: string]: RestrictionMetadataDTO
-}
+import type {
+  FeatureDetail,
+  FeatureMetaData,
+  ModuleType,
+  FeatureRequest,
+  FeaturesRequest,
+  FeatureRequestOptions,
+  CheckFeatureReturn
+} from './featureStoreUtil'
 
 type Features = Map<FeatureIdentifier, FeatureDetail>
 type FeatureMap = Map<FeatureIdentifier, FeatureMetaData>
 
-export interface FeatureRequestOptions {
-  skipCache?: boolean
-  skipCondition?: (featureRequest: FeatureRequest | FeaturesRequest) => boolean
+interface GetHighestEditionProps {
+  licenseInformation?: { [key: string]: ModuleLicenseDTO } | Record<string, undefined>
+  licenseState: {
+    [key: string]: LICENSE_STATE_VALUES
+  }
+}
+interface GetEditionProps extends GetHighestEditionProps {
+  moduleType: ModuleType
+}
+
+interface GetRestrictionTypeProps extends GetHighestEditionProps {
+  featureRequest?: FeatureRequest
 }
 
 export interface FeaturesContextProps {
   // features only cache enabled features
   features: Features
   featureMap: FeatureMap
-  getEdition: (moduleType: ModuleType) => Editions | undefined
+  getEdition: (props: GetEditionProps) => Editions | undefined
   requestFeatures: (featureRequest: FeatureRequest | FeaturesRequest, options?: FeatureRequestOptions) => void
   checkFeature: (featureName: FeatureIdentifier) => CheckFeatureReturn
   requestLimitFeature: (featureRequest: FeatureRequest) => void
   checkLimitFeature: (featureName: FeatureIdentifier) => CheckFeatureReturn
-  getRestrictionType: (featureRequest?: FeatureRequest) => RestrictionType | undefined
+  getRestrictionType: (props: GetRestrictionTypeProps) => RestrictionType | undefined
 }
 
 const defaultReturn = {
@@ -121,8 +97,6 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
   const { getString } = useStrings()
 
   const { accountId } = useParams<AccountPathProps>()
-  const { licenseInformation, CI_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE, CD_LICENSE_STATE } =
-    useLicenseStore()
 
   const {
     data: enabledFeatureList,
@@ -186,6 +160,21 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gettingFeatureMetadataError])
 
+  async function getEnabledFeatureList(featureRequest: FeatureRequest | FeaturesRequest): Promise<void> {
+    // check if this request is already queued
+    if (pendingAvailRequests.length === 0) {
+      pendingAvailRequests.push(featureRequest)
+    } else {
+      return
+    }
+    await getEnabledFeatures({})
+    // reset the queque
+    pendingAvailRequests = []
+
+    // reset hasErr
+    setHasErr(false)
+  }
+
   // this function is called from `useFeature` hook to cache all enabled AVAILABILITY features
   async function requestFeatures(
     featureRequest: FeatureRequest | FeaturesRequest,
@@ -204,20 +193,7 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
       return
     }
 
-    // check if this request is already queued
-    if (pendingAvailRequests.length === 0) {
-      pendingAvailRequests.push(featureRequest)
-    } else {
-      return
-    }
-
-    await getEnabledFeatures({})
-
-    // reset the queque
-    pendingAvailRequests = []
-
-    // reset hasErr
-    setHasErr(false)
+    getEnabledFeatureList(featureRequest)
   }
 
   function checkFeature(featureName: FeatureIdentifier): CheckFeatureReturn {
@@ -323,8 +299,10 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     return Editions.FREE
   }
 
-  function getHighestEdition(): Editions {
+  function getHighestEdition({ licenseInformation, licenseState }: GetHighestEditionProps): Editions {
     let edition = Editions.FREE
+
+    const { CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE } = licenseState
 
     if (CI_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE) {
       edition = compareEditions(licenseInformation?.['CI']?.edition as Editions, edition)
@@ -345,15 +323,17 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     return edition
   }
 
-  function getEdition(moduleType: ModuleType): Editions | undefined {
+  function getEdition({ moduleType, licenseInformation, licenseState }: GetEditionProps): Editions | undefined {
     // if no license available, reture undefined for default
     if (licenseInformation === undefined || isEmpty(licenseInformation)) {
       return undefined
     }
 
+    const { CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE } = licenseState
+
     switch (moduleType) {
       case 'CORE': {
-        return getHighestEdition()
+        return getHighestEdition({ licenseInformation, licenseState })
       }
       case 'CI': {
         if (CI_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE) {
@@ -385,11 +365,15 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
   }
 
   // find restrictionType by featureName and edition
-  function getRestrictionType(featureRequest?: FeatureRequest): RestrictionType | undefined {
+  function getRestrictionType({
+    featureRequest,
+    licenseInformation,
+    licenseState
+  }: GetRestrictionTypeProps): RestrictionType | undefined {
     if (featureRequest) {
       const featureMetadata = featureMap.get(featureRequest.featureName)
       const { moduleType, restrictionMetadataMap } = featureMetadata || {}
-      const edition = getEdition(moduleType)
+      const edition = getEdition({ moduleType, licenseInformation, licenseState })
       if (edition) {
         return restrictionMetadataMap?.[edition]?.restrictionType as RestrictionType
       }

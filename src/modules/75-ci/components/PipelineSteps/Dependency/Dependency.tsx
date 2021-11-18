@@ -140,10 +140,16 @@ export class Dependency extends PipelineStep<DependencyData> {
   }: ValidateInputSetProps<DependencyData>): FormikErrors<DependencyData> {
     const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
-      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), {
-        getString,
-        type: StepType.Dependency
-      })
+      return validateInputSet(
+        data,
+        template,
+        getInputSetViewValidateFieldsConfig(isRequired),
+        {
+          getString,
+          type: StepType.Dependency
+        },
+        viewType
+      )
     }
 
     return {}

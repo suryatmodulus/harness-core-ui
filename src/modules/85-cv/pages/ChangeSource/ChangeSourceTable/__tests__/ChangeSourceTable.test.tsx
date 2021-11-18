@@ -33,7 +33,7 @@ describe('Test Change Source Table', () => {
       </TestWrapper>
     )
     // verify single row renders
-    await waitFor(() => expect(container.querySelectorAll('.body [role="row"]').length).toEqual(1))
+    await waitFor(() => expect(container.querySelectorAll('.TableV2--body  [role="row"]').length).toEqual(1))
     // verify changesource name
     await waitFor(() => expect(getByText('Harness CD')).toBeTruthy())
     // verify changesource type

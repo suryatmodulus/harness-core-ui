@@ -8,7 +8,7 @@ import {
   startOfDay,
   TimeRangeSelector,
   TimeRangeSelectorProps
-} from '@cd/components/TimeRangeSelector/TimeRangeSelector'
+} from '@common/components/TimeRangeSelector/TimeRangeSelector'
 import { useStrings } from 'framework/strings'
 import { DeploymentsTimeRangeContext } from '@cd/components/Services/common'
 import { DeploymentsWidget } from '@cd/components/Services/DeploymentsWidget/DeploymentsWidget'
@@ -53,7 +53,7 @@ export const ServiceDetailsContent: React.FC = () => {
   const { getString } = useStrings()
   const [timeRange, setTimeRange] = useState<TimeRangeSelectorProps>({
     range: [startOfDay(moment().subtract(1, 'month').add(1, 'day')), startOfDay(moment())],
-    label: getString('cd.serviceDashboard.month')
+    label: getString('common.duration.month')
   })
 
   return (

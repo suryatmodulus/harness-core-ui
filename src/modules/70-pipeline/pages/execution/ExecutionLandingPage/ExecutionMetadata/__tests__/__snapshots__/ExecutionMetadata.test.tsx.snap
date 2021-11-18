@@ -133,9 +133,11 @@ exports[`<ExecutionMetadata.test /> tests Tag type 1`] = `
                   />
                 </svg>
               </span>
-              <span>
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
                 Admin
-              </span>
+              </p>
             </div>
           </span>
         </span>

@@ -1043,7 +1043,7 @@ validation:
   nexusServerURL: 'Nexus URL is required'
   nexusVersion: 'Version is required'
   artifactoryServerURL: 'Artifactory URL is required'
-  timeout10SecMinimum: 'Min Timeout is 10 seconds'
+  timeout10SecMinimum: 'Minimum Timeout is 10 seconds'
   tagsRequired: Tags is required
   environmentVariablesRequired: Environment Variables is required
   settingsRequired: Settings is required

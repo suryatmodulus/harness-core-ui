@@ -76,7 +76,9 @@ export function HarnessApprovalTab(props: HarnessApprovalTabProps): React.ReactE
                 </div>
               ) : null}
             </div>
-            <div className={css.reviewMsg}>{approvalData?.details?.approvalMessage}</div>
+            <Text intent="warning" font={{ align: 'center' }} lineClamp={1} width={500}>
+              {approvalData?.details?.approvalMessage}
+            </Text>
           </div>
         </React.Fragment>
       ) : (

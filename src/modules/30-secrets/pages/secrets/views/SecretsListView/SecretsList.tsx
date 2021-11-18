@@ -12,10 +12,10 @@ import {
   Popover,
   TagsPopover,
   useConfirmationDialog,
-  useToaster
+  useToaster,
+  TableV2
 } from '@wings-software/uicore'
 import { String, useStrings } from 'framework/strings'
-import Table from '@common/components/Table/Table'
 import { SecretResponseWrapper, useDeleteSecretV2 } from 'services/cd-ng'
 import type { PageSecretResponseWrapper, SecretTextSpecDTO } from 'services/cd-ng'
 import { getStringForType } from '@secrets/utils/SSHAuthUtils'
@@ -258,7 +258,7 @@ const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch, gotoPage })
   )
 
   return (
-    <Table<SecretResponseWrapper>
+    <TableV2<SecretResponseWrapper>
       className={css.table}
       columns={columns}
       data={data}

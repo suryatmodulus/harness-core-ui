@@ -21,7 +21,6 @@ import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFoot
 import { useGetLabelNames, useGetMetricNames, useGetMetricPacks } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import { PrometheusQueryBuilder } from './components/PrometheusQueryBuilder/PrometheusQueryBuilder'
-import { PrometheusRiskProfile } from './components/PrometheusRiskProfile/PrometheusRiskProfile'
 import {
   validateMappings,
   initializePrometheusGroupNames,
@@ -42,6 +41,7 @@ import { PrometheusGroupName } from './components/PrometheusGroupName/Prometheus
 import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import { updateMultiSelectOption } from './components/PrometheusQueryBuilder/components/PrometheusFilterSelector/utils'
 import { PrometheusQueryViewer } from './components/PrometheusQueryViewer/PrometheusQueryViewer'
+import SelectHealthSourceServices from '../../common/SelectHealthSourceServices/SelectHealthSourceServices'
 import css from './PrometheusHealthSource.module.scss'
 
 export interface PrometheusHealthSourceProps {
@@ -226,10 +226,15 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
                       />
                     )}
                     <Accordion.Panel
-                      id="riskProfile"
-                      summary={getString('cv.monitoringSources.riskProfile')}
+                      id="assign"
+                      summary={getString('cv.monitoringSources.assign')}
                       details={
-                        <PrometheusRiskProfile
+                        <SelectHealthSourceServices
+                          values={{
+                            sli: !!formikProps?.values?.sli,
+                            healthScore: !!formikProps?.values?.healthScore,
+                            continuousVerification: !!formikProps?.values?.continuousVerification
+                          }}
                           metricPackResponse={metricPackResponse}
                           labelNamesResponse={labelNamesResponse}
                         />
@@ -265,7 +270,13 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
             isSubmit
             onPrevious={onPrevious}
             onNext={async () => {
+              formikProps.setTouched({
+                ...formikProps.touched,
+                sli: true
+              })
+
               if (Object.keys(formikProps.errors || {})?.length > 0) {
+                formikProps.validateForm()
                 return
               }
               const updatedMetric = formikProps.values

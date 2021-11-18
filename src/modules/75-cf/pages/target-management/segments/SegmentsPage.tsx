@@ -3,10 +3,18 @@ import { useParams, useHistory } from 'react-router-dom'
 import moment from 'moment'
 import ReactTimeago from 'react-timeago'
 import { Intent } from '@blueprintjs/core'
-import { Color, Container, ExpandingSearchInput, FlexExpander, Layout, Pagination, Text } from '@wings-software/uicore'
+import {
+  Color,
+  Container,
+  ExpandingSearchInput,
+  FlexExpander,
+  Layout,
+  Pagination,
+  TableV2,
+  Text
+} from '@wings-software/uicore'
 import type { Cell, Column } from 'react-table'
 import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
-import Table from '@common/components/Table/Table'
 import {
   CF_DEFAULT_PAGE_SIZE,
   getErrorMessage,
@@ -276,7 +284,7 @@ export const SegmentsPage: React.FC = () => {
     />
   ) : (
     <Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}>
-      <Table<Segment>
+      <TableV2<Segment>
         columns={columns}
         data={segmentsData?.segments || []}
         onRowClick={segment => {

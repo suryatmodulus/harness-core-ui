@@ -16,7 +16,7 @@ inputsCount: 'Total Inputs: {{count}}'
 templateUpdatedError: The Template is updated by someone else. Do you want to take the latest Template? You might lose your saved Template settings.
 openInTemplateStudio: Open in Template Studio
 templatesPage:
-  noTemplates: There are no templates in your {{scope}}
+  noTemplates: There are no templates in your {{scope}}.
 editModal:
   heading: 'Edit {{ entity }} Template'
 createNewModal:
@@ -25,17 +25,14 @@ createNewModal:
   versionLabel: Version Label
   label: Label
   namePlaceholder: Template Name
-  versionPlaceholder: 'Ex: Version 1'
-  validation:
-    name: Template name is required
-    versionLabel: Version Label is required
+  versionPlaceholder: 'Ex: Version1'
 saveAsNewLabelModal:
-  heading: 'Save as New Version Label'
+  heading: 'Save as new version'
 updateTemplateModal:
   heading: 'Save {{ name }} ({{ version }})'
   addCommentPlaceholder: Add a comment
   commentLabel: Comment
-  info: '*By saving, all pipelines referencing the default version will receive your changes.'
+  info: 'By saving, all pipelines referencing the stable version will receive your changes.'
 templateSettingsModal:
   scopeLabel: Save To
   defaultVersionLabel: Stable Version
@@ -46,6 +43,6 @@ fetchingActivityLogs: Fetching activity logs
 created: created
 updated: updated
 default: set default to
-sampleTemplateAuditComment: Changed service configuration from Kubernetes to Azure
+sampleTemplateAuditComment: --
 setAsStableTitle: Set as Stable?
 setAsStableText: 'Are you sure you want to set {{version}} as stable version?'

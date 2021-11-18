@@ -6,14 +6,14 @@ exports[`Activity List render all activity 1`] = `
     class="Layout--vertical StyledProps--main activity"
   >
     <div
-      class="table"
+      class="TableV2--table"
     >
       <div
-        class="header"
+        class="TableV2--header"
         role="row"
       >
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 25%;"
@@ -25,7 +25,7 @@ exports[`Activity List render all activity 1`] = `
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 50%;"
@@ -37,7 +37,7 @@ exports[`Activity List render all activity 1`] = `
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 25%;"
@@ -50,14 +50,14 @@ exports[`Activity List render all activity 1`] = `
         </div>
       </div>
       <div
-        class="body"
+        class="TableV2--body"
       >
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -77,7 +77,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -88,7 +88,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -133,11 +133,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -157,7 +157,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -168,7 +168,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -213,11 +213,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -237,7 +237,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -248,7 +248,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -293,11 +293,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -317,7 +317,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -328,7 +328,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -373,11 +373,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -397,7 +397,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -408,7 +408,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -453,11 +453,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -477,7 +477,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -488,7 +488,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -533,11 +533,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -557,7 +557,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -568,7 +568,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -613,11 +613,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -637,7 +637,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -648,7 +648,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -693,11 +693,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -717,7 +717,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -728,7 +728,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -773,11 +773,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -797,7 +797,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -808,7 +808,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -853,11 +853,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -877,7 +877,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -888,7 +888,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -933,11 +933,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -957,7 +957,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -968,7 +968,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -1013,11 +1013,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -1037,7 +1037,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -1048,7 +1048,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -1093,11 +1093,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -1117,7 +1117,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -1128,7 +1128,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -1173,11 +1173,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -1197,7 +1197,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -1208,7 +1208,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -1253,11 +1253,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -1277,7 +1277,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -1288,7 +1288,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -1333,11 +1333,11 @@ exports[`Activity List render all activity 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -1357,7 +1357,7 @@ exports[`Activity List render all activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -1368,7 +1368,7 @@ exports[`Activity List render all activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -1421,14 +1421,14 @@ exports[`Activity List render only connectivity check activity 1`] = `
     class="Layout--vertical StyledProps--main activity"
   >
     <div
-      class="table"
+      class="TableV2--table"
     >
       <div
-        class="header"
+        class="TableV2--header"
         role="row"
       >
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 25%;"
@@ -1440,7 +1440,7 @@ exports[`Activity List render only connectivity check activity 1`] = `
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 50%;"
@@ -1452,7 +1452,7 @@ exports[`Activity List render only connectivity check activity 1`] = `
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 25%;"
@@ -1465,14 +1465,14 @@ exports[`Activity List render only connectivity check activity 1`] = `
         </div>
       </div>
       <div
-        class="body"
+        class="TableV2--body"
       >
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >
@@ -1492,7 +1492,7 @@ exports[`Activity List render only connectivity check activity 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -1503,7 +1503,7 @@ exports[`Activity List render only connectivity check activity 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 25%;"
           >

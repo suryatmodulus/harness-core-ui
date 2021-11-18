@@ -128,14 +128,14 @@ exports[`ASG selection modal component should add the selected ASG 1`] = `
         class="StyledProps--font StyledProps--main"
       >
         <div
-          class="table"
+          class="TableV2--table"
         >
           <div
-            class="header"
+            class="TableV2--header"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 5%;"
@@ -147,7 +147,7 @@ exports[`ASG selection modal component should add the selected ASG 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 70%;"
@@ -159,7 +159,7 @@ exports[`ASG selection modal component should add the selected ASG 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 10%;"
@@ -171,7 +171,7 @@ exports[`ASG selection modal component should add the selected ASG 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 10%;"
@@ -184,14 +184,14 @@ exports[`ASG selection modal component should add the selected ASG 1`] = `
             </div>
           </div>
           <div
-            class="body"
+            class="TableV2--body"
           >
             <div
-              class="row card"
+              class="TableV2--row TableV2--card"
               role="row"
             >
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 5%;"
               >
@@ -208,7 +208,7 @@ exports[`ASG selection modal component should add the selected ASG 1`] = `
                 </label>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 70%;"
               >
@@ -220,7 +220,7 @@ exports[`ASG selection modal component should add the selected ASG 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 10%;"
               >
@@ -232,7 +232,7 @@ exports[`ASG selection modal component should add the selected ASG 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 10%;"
               >
@@ -446,14 +446,14 @@ exports[`ASG selection modal component should refresh the list 1`] = `
         class="StyledProps--font StyledProps--main"
       >
         <div
-          class="table"
+          class="TableV2--table"
         >
           <div
-            class="header"
+            class="TableV2--header"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 5%;"
@@ -465,7 +465,7 @@ exports[`ASG selection modal component should refresh the list 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 70%;"
@@ -477,7 +477,7 @@ exports[`ASG selection modal component should refresh the list 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 10%;"
@@ -489,7 +489,7 @@ exports[`ASG selection modal component should refresh the list 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 10%;"
@@ -502,14 +502,14 @@ exports[`ASG selection modal component should refresh the list 1`] = `
             </div>
           </div>
           <div
-            class="body"
+            class="TableV2--body"
           >
             <div
-              class="row card"
+              class="TableV2--row TableV2--card"
               role="row"
             >
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 5%;"
               >
@@ -526,7 +526,7 @@ exports[`ASG selection modal component should refresh the list 1`] = `
                 </label>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 70%;"
               >
@@ -538,7 +538,7 @@ exports[`ASG selection modal component should refresh the list 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 10%;"
               >
@@ -550,7 +550,7 @@ exports[`ASG selection modal component should refresh the list 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 10%;"
               >
@@ -764,14 +764,14 @@ exports[`ASG selection modal component should render successfully 1`] = `
         class="StyledProps--font StyledProps--main"
       >
         <div
-          class="table"
+          class="TableV2--table"
         >
           <div
-            class="header"
+            class="TableV2--header"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 5%;"
@@ -783,7 +783,7 @@ exports[`ASG selection modal component should render successfully 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 70%;"
@@ -795,7 +795,7 @@ exports[`ASG selection modal component should render successfully 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 10%;"
@@ -807,7 +807,7 @@ exports[`ASG selection modal component should render successfully 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 10%;"
@@ -820,14 +820,14 @@ exports[`ASG selection modal component should render successfully 1`] = `
             </div>
           </div>
           <div
-            class="body"
+            class="TableV2--body"
           >
             <div
-              class="row card"
+              class="TableV2--row TableV2--card"
               role="row"
             >
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 5%;"
               >
@@ -844,7 +844,7 @@ exports[`ASG selection modal component should render successfully 1`] = `
                 </label>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 70%;"
               >
@@ -856,7 +856,7 @@ exports[`ASG selection modal component should render successfully 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 10%;"
               >
@@ -868,7 +868,7 @@ exports[`ASG selection modal component should render successfully 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 10%;"
               >

@@ -184,6 +184,7 @@ manifestType:
   bucketNamePlaceholder: Enter Bucket Name
   bucketPlaceHolder: Select or Add bucket name
   pathPlaceholder: Enter File Path
+  folderPathPlaceholder: Enter Folder Path
   chartPathPlaceholder: Enter Chart Path
   bucketName: Bucket Name
   gitFetchTypeLabel: Git Fetch Type
@@ -538,7 +539,7 @@ dashboards:
   noActiveDeployments: 'No Active Deployments'
   noPendingDeployments: 'No Pending Deployments found'
   buildExecutions: Build Executions
-  buildHealth: Build health
+  buildHealth: Builds Health
   totalBuilds: Total Builds
   testCycleTimeSaved: Test Cycle Time Saved
   successfulBuilds: Successful Builds
@@ -726,6 +727,7 @@ stepCommonFields:
     mustBeANumber: '{{label}} must be a number'
 ciCodebase:
   prCloneStrategy: Pull Request Clone Strategy
+  buildType: CI Codebase Build Type
 tagDependencyRequired: required to fetch the tags
 myDeploymentsText: My Deployments
 myBuildsText: My Builds
@@ -848,4 +850,8 @@ policyEvaluations:
   policySetName: 'Policy Set: {{name}}'
   emptyPolicySet: This policy set does not have any policies attached to it.
   policySetsApplied: '{{pipelineName}}: Policy Sets applied'
-expressionsReplaced: Some expression were replaced.
+expressionsReplaced: 'Pipeline updated with {{count}} expression(s) replaced. Please provide the value(s) for new expression(s).'
+runstageError: '{{count}} Error(s): Unable to run stages.'
+stageDependencyError: 'Stage {{stageId}} has a ‘useFromStage’ dependency on Stage {{dependentStage}}. Please select Stage {{dependentStage}} to run Stage {{stageId}}.'
+noApprovalInstanceCreated: Approval instance not created, no details to display
+approvalTypeRequired: Approval type is required

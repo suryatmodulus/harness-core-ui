@@ -12,11 +12,15 @@ exports[`GraphSummaryCard Render GraphSummaryCard 1`] = `
       <div
         class="StyledProps--font StyledProps--main"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey0 StyledProps--font-variation-h6"
+        <a
+          href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoringservices/edit/identifier?view=GRID&"
         >
-          SERVICENAME
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-variation-h6"
+          >
+            SERVICENAME
+          </p>
+        </a>
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey0 StyledProps--font-variation-small"
         >

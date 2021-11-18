@@ -36,7 +36,7 @@ export const CICodebaseHeader: React.FC<CICodebaseHeaderProps> = props => {
           </Container>
         ) : null}
         {branch ? (
-          <Container flex padding={{ left: 'small' }}>
+          <Container flex padding={{ left: repo ? 'small' : 0 }}>
             <Icon name="git-new-branch" size={12} color="primary7" />
             <Text
               lineClamp={1}

@@ -21,7 +21,7 @@ export const getTimePeriods = (getString: UseStringsReturn['getString']): Select
     { value: TimePeriodEnum.TWENTY_FOUR_HOURS, label: getString('cv.monitoredServices.serviceHealth.last24Hrs') },
     { value: TimePeriodEnum.THREE_DAYS, label: getString('cv.monitoredServices.serviceHealth.last3Days') },
     { value: TimePeriodEnum.SEVEN_DAYS, label: getString('cv.monitoredServices.serviceHealth.last7Days') },
-    { value: TimePeriodEnum.THIRTY_DAYS, label: getString('cd.serviceDashboard.month') }
+    { value: TimePeriodEnum.THIRTY_DAYS, label: getString('common.duration.month') }
   ]
 }
 

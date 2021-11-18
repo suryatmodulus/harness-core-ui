@@ -148,6 +148,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
     })
       .then(response => {
         setLoadingBranchList(false)
+        modalErrorHandler?.hide()
         if (response.status !== 'SUCCESS') {
           throw response
         } else {
@@ -163,7 +164,6 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                 : []
             )
           } else {
-            modalErrorHandler?.hide()
             modalErrorHandler?.showDanger(getString('common.git.noBranchesFound'))
           }
         }
@@ -385,6 +385,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                                 ),
                                 getRepoUrlForConnectorType(formValues, (e.target as HTMLInputElement)?.value)
                               )
+                            setTestStatus(TestStatus.NOT_INITIATED)
                           }}
                         />
                         {formValues.gitConnector?.connector?.spec?.type !== GitUrlType.REPO ? (
@@ -403,7 +404,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                         ) : null}
                       </Layout.Vertical>
                       {formValues.gitConnector?.connector?.identifier ? (
-                        <Container flex>
+                        <Container flex className={css.testConnection}>
                           <TestConnectionWidget
                             testStatus={testStatus}
                             onTest={() => {

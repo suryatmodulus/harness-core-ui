@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon, Tag, TagsPopover } from '@wings-software/uicore'
+import { Card, Color, FontVariation, Icon, Tag, TagsPopover, Text } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Popover } from '@blueprintjs/core'
 import { defaultTo, get, isEmpty } from 'lodash-es'
@@ -224,27 +224,41 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                 get(pipelineExecution, 'moduleInfo.ci.ciExecutionInfoDTO.author.avatar') ||
                 get(pipelineExecution, 'executionTriggerInfo.triggeredBy.avatar')
               }
+              textProps={{
+                font: { variation: variant === CardVariant.Minimal ? FontVariation.TINY : FontVariation.SMALL }
+              }}
+              iconProps={{ color: Color.GREY_900 }}
             />
-            <String
-              className={css.triggerType}
-              stringID={mapTriggerTypeToStringID(get(pipelineExecution, 'executionTriggerInfo.triggerType'))}
-            />
+            <Text font={{ variation: variant === CardVariant.Minimal ? FontVariation.TINY : FontVariation.SMALL }}>
+              <String
+                className={css.triggerType}
+                stringID={mapTriggerTypeToStringID(get(pipelineExecution, 'executionTriggerInfo.triggerType'))}
+              />
+            </Text>
           </div>
           <div className={css.timers}>
-            <Duration
-              icon="time"
-              className={css.duration}
-              iconProps={{ size: 14, className: css.timerIcon }}
-              startTime={pipelineExecution?.startTs}
-              durationText={variant === CardVariant.Default ? undefined : ' '}
-              endTime={pipelineExecution?.endTs}
-            />
             <TimeAgoPopover
-              iconProps={{ size: 14, className: css.timerIcon }}
+              iconProps={{
+                size: variant === CardVariant.Minimal ? 10 : 14,
+                color: Color.GREY_900
+              }}
               icon="calendar"
               time={defaultTo(pipelineExecution?.startTs, 0)}
               inline={false}
               className={css.timeAgo}
+              font={{ variation: variant === CardVariant.Minimal ? FontVariation.TINY : FontVariation.SMALL }}
+            />
+            <Duration
+              icon="time"
+              className={css.duration}
+              iconProps={{
+                size: variant === CardVariant.Minimal ? 10 : 14,
+                color: Color.GREY_900
+              }}
+              startTime={pipelineExecution?.startTs}
+              durationText={variant === CardVariant.Default ? undefined : ' '}
+              endTime={pipelineExecution?.endTs}
+              font={{ variation: variant === CardVariant.Minimal ? FontVariation.TINY : FontVariation.SMALL }}
             />
           </div>
         </div>

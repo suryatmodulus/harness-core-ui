@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Card, Text, Layout, Container, Color, Icon, Button, ButtonVariation } from '@wings-software/uicore'
+import { Card, Text, Layout, Container, Color, Icon, Button, ButtonVariation, TableV2 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 
@@ -18,7 +18,6 @@ import {
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
-import Table from '@common/components/Table/Table'
 import formatCost from '@ce/utils/formatCost'
 import { getViewFilterForId } from '@ce/utils/perspectiveUtils'
 import EmptyView from '@ce/images/empty-state.svg'
@@ -174,7 +173,7 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
         </Layout.Horizontal>
 
         {data.length ? (
-          <Table<RecommendationItemDto>
+          <TableV2<RecommendationItemDto>
             onRowClick={({ id, resourceType, resourceName }) => {
               history.push(
                 resourceTypeToRoute[resourceType]({
@@ -222,7 +221,7 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
               // }
             ]}
             pagination={pagination}
-          ></Table>
+          ></TableV2>
         ) : (
           <Container className={css.errorContainer}>
             <img src={EmptyView} />

@@ -13,11 +13,11 @@ import {
   Container,
   PageError,
   Layout,
-  Icon
+  Icon,
+  TableV2
 } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import Table from '@common/components/Table/Table'
 import { useGetexamples, Example } from 'services/pm'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { getErrorMessage } from '@governance/utils/GovernanceUtils'
@@ -91,7 +91,7 @@ export const SelectPolicyModalButton: React.FC<SelectPolicyModalButtonProps & Bu
           {loading && <ContainerSpinner />}
           {error && <PageError message={getErrorMessage(error)} onClick={() => refetch()} />}
           {!error && !loading && examples && (
-            <Table<Example>
+            <TableV2<Example>
               columns={columns}
               data={examples || []}
               onRowClick={example => {

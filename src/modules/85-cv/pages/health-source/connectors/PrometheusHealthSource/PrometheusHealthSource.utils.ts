@@ -127,6 +127,12 @@ export function validateMappings(
     }
   }
 
+  if (![values.sli, values.continuousVerification, values.healthScore].find(i => i)) {
+    requiredFieldErrors[PrometheusMonitoringSourceFieldNames.SLI] = getString(
+      'cv.monitoringSources.gco.mapMetricsToServicesPage.validation.baseline'
+    )
+  }
+
   if (values.lowerBaselineDeviation !== true && values.higherBaselineDeviation !== true) {
     requiredFieldErrors[PrometheusMonitoringSourceFieldNames.LOWER_BASELINE_DEVIATION] = getString(
       'cv.monitoringSources.prometheus.validation.deviation'
@@ -179,8 +185,7 @@ export function transformLabelToPrometheusFilter(options?: MultiSelectOption[]):
   }
 
   for (const option of options) {
-    const value = option.label.split(':')
-    filters.push({ labelName: value[0], labelValue: value[1] })
+    filters.push({ labelName: option.label, labelValue: option.value as string })
   }
 
   return filters
@@ -239,11 +244,16 @@ export function transformPrometheusHealthSourceToSetupSource(sourceData: any): P
         envFilter: generateMultiSelectOptionListFromPrometheusFilter(metricDefinition.envFilter),
         additionalFilter: generateMultiSelectOptionListFromPrometheusFilter(metricDefinition.additionalFilters),
         aggregator: metricDefinition.aggregation,
-        riskCategory: `${metricDefinition.riskProfile?.category}/${metricDefinition.riskProfile?.metricType}`,
-        serviceInstance: metricDefinition.serviceInstanceFieldName,
-        lowerBaselineDeviation: metricDefinition.riskProfile?.thresholdTypes?.includes('ACT_WHEN_LOWER') || false,
-        higherBaselineDeviation: metricDefinition.riskProfile?.thresholdTypes?.includes('ACT_WHEN_HIGHER') || false,
-        groupName: { label: metricDefinition.groupName || '', value: metricDefinition.groupName || '' }
+        riskCategory: `${metricDefinition?.analysis?.riskProfile?.category}/${metricDefinition?.analysis?.riskProfile?.metricType}`,
+        serviceInstance: metricDefinition?.analysis?.deploymentVerification?.serviceInstanceFieldName,
+        lowerBaselineDeviation:
+          metricDefinition?.analysis?.riskProfile?.thresholdTypes?.includes('ACT_WHEN_LOWER') || false,
+        higherBaselineDeviation:
+          metricDefinition?.analysis?.riskProfile?.thresholdTypes?.includes('ACT_WHEN_HIGHER') || false,
+        groupName: { label: metricDefinition.groupName || '', value: metricDefinition.groupName || '' },
+        continuousVerification: metricDefinition?.analysis?.deploymentVerification?.enabled,
+        healthScore: metricDefinition?.analysis?.liveMonitoring?.enabled,
+        sli: metricDefinition.sli?.enabled
       })
     }
   }
@@ -277,7 +287,10 @@ export function transformPrometheusSetupSourceToHealthSource(setupSource: Promet
       additionalFilter,
       riskCategory,
       lowerBaselineDeviation,
-      higherBaselineDeviation
+      higherBaselineDeviation,
+      sli,
+      continuousVerification,
+      healthScore
     }: MapPrometheusQueryToService = entry[1]
 
     if (!groupName || !metricName || !riskCategory) {
@@ -306,12 +319,16 @@ export function transformPrometheusSetupSourceToHealthSource(setupSource: Promet
       envFilter: transformLabelToPrometheusFilter(envFilter),
       additionalFilters: transformLabelToPrometheusFilter(additionalFilter),
       aggregation: aggregator,
-      serviceInstanceFieldName: serviceInstance,
       groupName: groupName.value as string,
-      riskProfile: {
-        category: category as RiskProfileCatgory,
-        metricType: metricType as MetricDefinition['type'],
-        thresholdTypes
+      sli: { enabled: sli },
+      analysis: {
+        riskProfile: {
+          category: category as RiskProfileCatgory,
+          metricType: metricType as MetricDefinition['type'],
+          thresholdTypes
+        },
+        liveMonitoring: { enabled: healthScore },
+        deploymentVerification: { enabled: continuousVerification, serviceInstanceFieldName: serviceInstance }
       }
     })
   }

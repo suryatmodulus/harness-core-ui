@@ -54,7 +54,14 @@ describe('SUCCESS', () => {
   test('show tabs when data is present and authorized', async () => {
     const { getByText, queryByText } = render(
       <TestWrapper>
-        <HarnessApprovalView step={{ status: 'ResourceWaiting' }} />
+        <HarnessApprovalView
+          step={{
+            status: 'ResourceWaiting',
+            // eslint-disable-next-line
+            // @ts-ignore
+            executableResponses: [{ async: { callbackIds: ['approvalInstanceId'] } }]
+          }}
+        />
       </TestWrapper>
     )
     await waitFor(() => expect(queryByText('common.approve')).toBeTruthy())
@@ -68,6 +75,19 @@ describe('SUCCESS', () => {
       fireEvent.click(getByText('common.approve'))
     })
     await waitFor(() => expect(mockAuthData.refetch).toBeCalled())
+  })
+
+  test('show text when approvalInstanceId is absent', async () => {
+    const { queryByText } = render(
+      <TestWrapper>
+        <HarnessApprovalView
+          step={{
+            status: 'ResourceWaiting'
+          }}
+        />
+      </TestWrapper>
+    )
+    await waitFor(() => expect(queryByText('pipeline.noApprovalInstanceCreated')).toBeTruthy())
   })
 })
 

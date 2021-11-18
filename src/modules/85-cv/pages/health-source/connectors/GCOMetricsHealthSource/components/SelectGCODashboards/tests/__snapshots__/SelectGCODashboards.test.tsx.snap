@@ -94,14 +94,14 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                   </div>
                 </div>
                 <div
-                  class="table"
+                  class="TableV2--table"
                 >
                   <div
-                    class="header"
+                    class="TableV2--header"
                     role="row"
                   >
                     <div
-                      class="cell"
+                      class="TableV2--cell"
                       colspan="1"
                       role="columnheader"
                       style="width: 10%;"
@@ -113,7 +113,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                       </p>
                     </div>
                     <div
-                      class="cell"
+                      class="TableV2--cell"
                       colspan="1"
                       role="columnheader"
                       style="width: 90%;"
@@ -139,14 +139,14 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                     </div>
                   </div>
                   <div
-                    class="body"
+                    class="TableV2--body"
                   >
                     <div
-                      class="row card clickable"
+                      class="TableV2--row TableV2--card TableV2--clickable"
                       role="row"
                     >
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 10%;"
                       >
@@ -155,7 +155,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                         />
                       </div>
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 90%;"
                       >
@@ -196,11 +196,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="TableV2--row TableV2--card TableV2--clickable"
                       role="row"
                     >
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 10%;"
                       >
@@ -209,7 +209,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                         />
                       </div>
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 90%;"
                       >
@@ -250,11 +250,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="TableV2--row TableV2--card TableV2--clickable"
                       role="row"
                     >
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 10%;"
                       >
@@ -263,7 +263,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                         />
                       </div>
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 90%;"
                       >
@@ -304,11 +304,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="TableV2--row TableV2--card TableV2--clickable"
                       role="row"
                     >
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 10%;"
                       >
@@ -317,7 +317,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                         />
                       </div>
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 90%;"
                       >
@@ -358,11 +358,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="TableV2--row TableV2--card TableV2--clickable"
                       role="row"
                     >
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 10%;"
                       >
@@ -371,7 +371,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                         />
                       </div>
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 90%;"
                       >
@@ -412,11 +412,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="TableV2--row TableV2--card TableV2--clickable"
                       role="row"
                     >
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 10%;"
                       >
@@ -425,7 +425,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                         />
                       </div>
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 90%;"
                       >
@@ -466,11 +466,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="TableV2--row TableV2--card TableV2--clickable"
                       role="row"
                     >
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 10%;"
                       >
@@ -479,7 +479,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                         />
                       </div>
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 90%;"
                       >
@@ -520,11 +520,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="TableV2--row TableV2--card TableV2--clickable"
                       role="row"
                     >
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 10%;"
                       >
@@ -533,7 +533,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                         />
                       </div>
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 90%;"
                       >
@@ -574,11 +574,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="TableV2--row TableV2--card TableV2--clickable"
                       role="row"
                     >
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 10%;"
                       >
@@ -587,7 +587,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                         />
                       </div>
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 90%;"
                       >
@@ -628,11 +628,11 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="TableV2--row TableV2--card TableV2--clickable"
                       role="row"
                     >
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 10%;"
                       >
@@ -641,7 +641,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
                         />
                       </div>
                       <div
-                        class="cell"
+                        class="TableV2--cell"
                         role="cell"
                         style="width: 90%;"
                       >

@@ -396,7 +396,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                 </div>
               </div>
 
-              <Layout.Horizontal spacing="xxlarge" className={css.saveBtn}>
+              <Layout.Horizontal spacing="xxlarge">
                 <Button
                   text={getString('back')}
                   variation={ButtonVariation.SECONDARY}

@@ -9,7 +9,7 @@ import { useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components'
 import type { ApprovalStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import type { ApprovalStageMinimalModeProps, ApprovalStageMinimalValues } from './types'
-import { ApprovalTypeCards, approvalTypeCardsData } from './ApprovalTypeCards'
+import { ApprovalTypeCards } from './ApprovalTypeCards'
 
 import css from './ApprovalStageMinimalMode.module.scss'
 
@@ -18,7 +18,7 @@ const getInitialValues = (data?: StageElementWrapper<ApprovalStageElementConfig>
   name: data?.stage?.name || '',
   description: data?.stage?.description,
   tags: data?.stage?.tags || {},
-  approvalType: (data?.stage?.spec as any)?.approvalType || approvalTypeCardsData[0].value
+  approvalType: (data?.stage?.spec as any)?.approvalType
 })
 
 export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> = props => {
@@ -58,7 +58,8 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
         initialValues={getInitialValues(data)}
         validationSchema={Yup.object().shape({
           name: NameSchema({ requiredErrorMsg: getString('approvalStage.stageNameRequired') }),
-          identifier: IdentifierSchema()
+          identifier: IdentifierSchema(),
+          approvalType: Yup.string().required(getString('pipeline.approvalTypeRequired'))
         })}
         validate={handleValidate}
         onSubmit={(values: ApprovalStageMinimalValues) => handleSubmit(values)}

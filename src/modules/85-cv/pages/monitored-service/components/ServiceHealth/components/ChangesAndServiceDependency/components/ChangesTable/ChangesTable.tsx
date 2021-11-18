@@ -3,12 +3,11 @@ import { noop } from 'lodash-es'
 import type { IDrawerProps } from '@blueprintjs/core'
 import { useParams, Link } from 'react-router-dom'
 import type { Column } from 'react-table'
-import { Text, Icon, Color, Container, NoDataCard, PageError } from '@wings-software/uicore'
+import { Text, Icon, Color, Container, NoDataCard, PageError, TableV2 } from '@wings-software/uicore'
 import Card from '@cv/components/Card/Card'
 import { useStrings } from 'framework/strings'
 import { useChangeEventList } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { Table } from '@common/components'
 import { getCVMonitoringServicesSearchParam, getErrorMessage } from '@cv/utils/CommonUtils'
 import { MonitoredServiceEnum } from '@cv/pages/monitored-service/MonitoredServicePage.constants'
 import routes from '@common/RouteDefinitions'
@@ -104,7 +103,7 @@ export default function ChangesTable({
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startTime, endTime, page])
+  }, [startTime, endTime, page, changeEventListQueryParams])
 
   const columns: Column<any>[] = useMemo(
     () =>
@@ -189,7 +188,7 @@ export default function ChangesTable({
       return (
         <Card className={css.cardContainer}>
           {content?.length ? (
-            <Table
+            <TableV2
               onRowClick={showDrawer}
               sortable={true}
               columns={columns}
@@ -224,7 +223,7 @@ export default function ChangesTable({
     } else {
       return (
         <Card className={css.cardContainer}>
-          <Table
+          <TableV2
             onRowClick={info => {
               showDrawer(info)
             }}

@@ -220,14 +220,12 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-grey600"
-          style="text-transform: capitalize;"
         >
           variableLabel
            
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-grey600"
-          style="text-transform: capitalize;"
         >
           common.input
            
@@ -340,57 +338,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                     class="variablesListTable variablePaddingL0"
                   >
                     <div
-                      class="variableListRow"
+                      class="variableListRow variable-list-row"
                     >
-                      <div
-                        class="main"
+                      <span
+                        class="nameSection"
                       >
-                        <div
-                          class="text variable-name-cell"
-                        >
-                          <span
-                            class="nameSection"
-                          >
-                            name
-                          </span>
-                        </div>
-                        <div
-                          class="bp3-popover-wrapper btnWrapper"
-                        >
-                          <span
-                            class="bp3-popover-target"
-                          >
-                            <button
-                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                              data-name="copy-alt"
-                              tabindex="0"
-                              type="button"
-                            >
-                              <span
-                                class="bp3-icon StyledProps--main"
-                                data-icon="copy-alt"
-                              >
-                                <svg
-                                  fill="none"
-                                  height="16"
-                                  viewBox="0 0 8 9"
-                                  width="16"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    clip-rule="evenodd"
-                                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                    fill="currentColor"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          </span>
-                        </div>
-                      </div>
+                        name
+                      </span>
                       <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                         style="--text-line-clamp: 1;"
                       >
                         <span
@@ -401,57 +357,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                       </p>
                     </div>
                     <div
-                      class="variableListRow"
+                      class="variableListRow variable-list-row"
                     >
-                      <div
-                        class="main"
+                      <span
+                        class="nameSection"
                       >
-                        <div
-                          class="text variable-name-cell"
-                        >
-                          <span
-                            class="nameSection"
-                          >
-                            description
-                          </span>
-                        </div>
-                        <div
-                          class="bp3-popover-wrapper btnWrapper"
-                        >
-                          <span
-                            class="bp3-popover-target"
-                          >
-                            <button
-                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                              data-name="copy-alt"
-                              tabindex="0"
-                              type="button"
-                            >
-                              <span
-                                class="bp3-icon StyledProps--main"
-                                data-icon="copy-alt"
-                              >
-                                <svg
-                                  fill="none"
-                                  height="16"
-                                  viewBox="0 0 8 9"
-                                  width="16"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    clip-rule="evenodd"
-                                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                    fill="currentColor"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          </span>
-                        </div>
-                      </div>
+                        description
+                      </span>
                       <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                         style="--text-line-clamp: 1;"
                       >
                         <span
@@ -461,96 +375,54 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                     </div>
                   </div>
                   <div
-                    class="variableListRowItem variableBorderBottom variablePaddingTagL1"
+                    class="variablesListTable variablePaddingTagL0"
                   >
                     <div
-                      class="nameSection"
+                      class="variableListRow variable-list-row"
                     >
-                      <div
-                        class="main"
+                      <span
+                        class="nameSection"
                       >
-                        <div
-                          class="text variable-name-cell"
-                        >
-                          <span
-                            class=""
-                          >
-                            tags label
-                          </span>
-                        </div>
-                        <div
-                          class="bp3-popover-wrapper btnWrapper"
+                        tags label
+                      </span>
+                      <div
+                        class="tagsValueSection"
+                      >
+                        <span
+                          class="bp3-popover-wrapper"
                         >
                           <span
                             class="bp3-popover-target"
                           >
-                            <button
-                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                              data-name="copy-alt"
+                            <div
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
                               tabindex="0"
-                              type="button"
                             >
                               <span
                                 class="bp3-icon StyledProps--main"
-                                data-icon="copy-alt"
+                                data-icon="main-tags"
                               >
                                 <svg
-                                  fill="none"
-                                  height="16"
-                                  viewBox="0 0 8 9"
-                                  width="16"
+                                  height="15"
+                                  viewBox="0 0 14 14"
+                                  width="15"
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
                                   <path
-                                    clip-rule="evenodd"
-                                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                    fill="currentColor"
-                                    fill-rule="evenodd"
+                                    d="M7 0h-.2c-.2 0-.4.1-.6.3l-6 6c-.3.3-.3.8 0 1.1L2 9.1l4.6 4.6c.3.3.8.3 1.1 0l6-6c.2-.1.3-.3.3-.5v-.7-.3-1.3-2c0-.5-.4-1-1-1h-.9V1c0-.5-.4-1-1-1H7zm0 .6h4.2c.2 0 .4.2.4.4v.9h-1.1c-.3-.3-.5-.4-.8-.4s-.4.1-.6.3h-.5c-.2.1-.4.1-.6.3l-6 6s-.1.1-.1.2L.7 6.9c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1c0 .1.1.1.1.1zm1.9 1.8H13c.2 0 .4.2.4.4v4.3s0 .2-.1.2l-6 6c-.1.1-.2.1-.3 0L2.5 8.8c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1zm2.7.9c-.2 0-.5.1-.6.3-.4.4-.4.9 0 1.3s.9.4 1.3 0 .4-.9 0-1.3c-.3-.2-.5-.3-.7-.3zm0 .7c.1 0 .2 0 .2.1.1.1.1.3 0 .4s-.3.1-.4 0-.1-.3 0-.4c0-.1.1-.1.2-.1z"
+                                    fill="#4d5969"
                                   />
                                 </svg>
                               </span>
-                            </button>
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="valueSection"
-                    >
-                      <span
-                        class="bp3-popover-wrapper"
-                      >
-                        <span
-                          class="bp3-popover-target"
-                        >
-                          <div
-                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-                            tabindex="0"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="main-tags"
-                            >
-                              <svg
-                                height="15"
-                                viewBox="0 0 14 14"
-                                width="15"
-                                xmlns="http://www.w3.org/2000/svg"
+                              <p
+                                class="StyledProps--font StyledProps--main"
                               >
-                                <path
-                                  d="M7 0h-.2c-.2 0-.4.1-.6.3l-6 6c-.3.3-.3.8 0 1.1L2 9.1l4.6 4.6c.3.3.8.3 1.1 0l6-6c.2-.1.3-.3.3-.5v-.7-.3-1.3-2c0-.5-.4-1-1-1h-.9V1c0-.5-.4-1-1-1H7zm0 .6h4.2c.2 0 .4.2.4.4v.9h-1.1c-.3-.3-.5-.4-.8-.4s-.4.1-.6.3h-.5c-.2.1-.4.1-.6.3l-6 6s-.1.1-.1.2L.7 6.9c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1c0 .1.1.1.1.1zm1.9 1.8H13c.2 0 .4.2.4.4v4.3s0 .2-.1.2l-6 6c-.1.1-.2.1-.3 0L2.5 8.8c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1zm2.7.9c-.2 0-.5.1-.6.3-.4.4-.4.9 0 1.3s.9.4 1.3 0 .4-.9 0-1.3c-.3-.2-.5-.3-.7-.3zm0 .7c.1 0 .2 0 .2.1.1.1.1.3 0 .4s-.3.1-.4 0-.1-.3 0-.4c0-.1.1-.1.2-.1z"
-                                  fill="#4d5969"
-                                />
-                              </svg>
-                            </span>
-                            <p
-                              class="StyledProps--font StyledProps--main"
-                            >
-                              1
-                            </p>
-                          </div>
+                                1
+                              </p>
+                            </div>
+                          </span>
                         </span>
-                      </span>
+                      </div>
                     </div>
                   </div>
                   <div
@@ -694,57 +566,20 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               </button>
                             </div>
                             <div
-                              class="variableListTable"
+                              class="variableListTable variable-list-row"
                             >
-                              <div
-                                class="main"
+                              <p
+                                class="StyledProps--font Text--lineclamp StyledProps--main variableNameCell"
+                                style="--text-line-clamp: 1;"
                               >
-                                <div
-                                  class="text variable-name-cell"
+                                <span
+                                  class=""
                                 >
-                                  <span
-                                    class=""
-                                  >
-                                    pvar
-                                  </span>
-                                </div>
-                                <div
-                                  class="bp3-popover-wrapper btnWrapper"
-                                >
-                                  <span
-                                    class="bp3-popover-target"
-                                  >
-                                    <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                      data-name="copy-alt"
-                                      tabindex="0"
-                                      type="button"
-                                    >
-                                      <span
-                                        class="bp3-icon StyledProps--main"
-                                        data-icon="copy-alt"
-                                      >
-                                        <svg
-                                          fill="none"
-                                          height="16"
-                                          viewBox="0 0 8 9"
-                                          width="16"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            clip-rule="evenodd"
-                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                            fill="currentColor"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </button>
-                                  </span>
-                                </div>
-                              </div>
+                                  pvar
+                                </span>
+                              </p>
                               <div
-                                class="valueRow variable-value-cell"
+                                class="valueRow"
                               >
                                 <div>
                                   <div
@@ -892,57 +727,20 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               </div>
                             </div>
                             <div
-                              class="variableListTable"
+                              class="variableListTable variable-list-row"
                             >
-                              <div
-                                class="main"
+                              <p
+                                class="StyledProps--font Text--lineclamp StyledProps--main variableNameCell"
+                                style="--text-line-clamp: 1;"
                               >
-                                <div
-                                  class="text variable-name-cell"
+                                <span
+                                  class=""
                                 >
-                                  <span
-                                    class=""
-                                  >
-                                    pvar2
-                                  </span>
-                                </div>
-                                <div
-                                  class="bp3-popover-wrapper btnWrapper"
-                                >
-                                  <span
-                                    class="bp3-popover-target"
-                                  >
-                                    <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                      data-name="copy-alt"
-                                      tabindex="0"
-                                      type="button"
-                                    >
-                                      <span
-                                        class="bp3-icon StyledProps--main"
-                                        data-icon="copy-alt"
-                                      >
-                                        <svg
-                                          fill="none"
-                                          height="16"
-                                          viewBox="0 0 8 9"
-                                          width="16"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            clip-rule="evenodd"
-                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                            fill="currentColor"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </button>
-                                  </span>
-                                </div>
-                              </div>
+                                  pvar2
+                                </span>
+                              </p>
                               <div
-                                class="valueRow variable-value-cell"
+                                class="valueRow"
                               >
                                 <div>
                                   <div
@@ -1174,7 +972,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           class="StyledProps--font StyledProps--main StyledProps--font-variation-h6"
                         >
                           <p
-                            class="StyledProps--font StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-black"
+                            class="StyledProps--font StyledProps--main StyledProps--font-variation-h6 StyledProps--color StyledProps--color-black"
                           >
                             Stage: stage_1
                           </p>
@@ -1202,57 +1000,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                             class="variablesListTable variablePaddingL0"
                           >
                             <div
-                              class="variableListRow"
+                              class="variableListRow variable-list-row"
                             >
-                              <div
-                                class="main"
+                              <span
+                                class="nameSection"
                               >
-                                <div
-                                  class="text variable-name-cell"
-                                >
-                                  <span
-                                    class="nameSection"
-                                  >
-                                    name
-                                  </span>
-                                </div>
-                                <div
-                                  class="bp3-popover-wrapper btnWrapper"
-                                >
-                                  <span
-                                    class="bp3-popover-target"
-                                  >
-                                    <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                      data-name="copy-alt"
-                                      tabindex="0"
-                                      type="button"
-                                    >
-                                      <span
-                                        class="bp3-icon StyledProps--main"
-                                        data-icon="copy-alt"
-                                      >
-                                        <svg
-                                          fill="none"
-                                          height="16"
-                                          viewBox="0 0 8 9"
-                                          width="16"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            clip-rule="evenodd"
-                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                            fill="currentColor"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </button>
-                                  </span>
-                                </div>
-                              </div>
+                                name
+                              </span>
                               <p
-                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                 style="--text-line-clamp: 1;"
                               >
                                 <span
@@ -1263,57 +1019,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               </p>
                             </div>
                             <div
-                              class="variableListRow"
+                              class="variableListRow variable-list-row"
                             >
-                              <div
-                                class="main"
+                              <span
+                                class="nameSection"
                               >
-                                <div
-                                  class="text variable-name-cell"
-                                >
-                                  <span
-                                    class="nameSection"
-                                  >
-                                    description
-                                  </span>
-                                </div>
-                                <div
-                                  class="bp3-popover-wrapper btnWrapper"
-                                >
-                                  <span
-                                    class="bp3-popover-target"
-                                  >
-                                    <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                      data-name="copy-alt"
-                                      tabindex="0"
-                                      type="button"
-                                    >
-                                      <span
-                                        class="bp3-icon StyledProps--main"
-                                        data-icon="copy-alt"
-                                      >
-                                        <svg
-                                          fill="none"
-                                          height="16"
-                                          viewBox="0 0 8 9"
-                                          width="16"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            clip-rule="evenodd"
-                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                            fill="currentColor"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </button>
-                                  </span>
-                                </div>
-                              </div>
+                                description
+                              </span>
                               <p
-                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                 style="--text-line-clamp: 1;"
                               >
                                 <span
@@ -1463,57 +1177,20 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                       </button>
                                     </div>
                                     <div
-                                      class="variableListTable"
+                                      class="variableListTable variable-list-row"
                                     >
-                                      <div
-                                        class="main"
+                                      <p
+                                        class="StyledProps--font Text--lineclamp StyledProps--main variableNameCell"
+                                        style="--text-line-clamp: 1;"
                                       >
-                                        <div
-                                          class="text variable-name-cell"
+                                        <span
+                                          class=""
                                         >
-                                          <span
-                                            class=""
-                                          >
-                                            stage_var1
-                                          </span>
-                                        </div>
-                                        <div
-                                          class="bp3-popover-wrapper btnWrapper"
-                                        >
-                                          <span
-                                            class="bp3-popover-target"
-                                          >
-                                            <button
-                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                              data-name="copy-alt"
-                                              tabindex="0"
-                                              type="button"
-                                            >
-                                              <span
-                                                class="bp3-icon StyledProps--main"
-                                                data-icon="copy-alt"
-                                              >
-                                                <svg
-                                                  fill="none"
-                                                  height="16"
-                                                  viewBox="0 0 8 9"
-                                                  width="16"
-                                                  xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                  <path
-                                                    clip-rule="evenodd"
-                                                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                    fill="currentColor"
-                                                    fill-rule="evenodd"
-                                                  />
-                                                </svg>
-                                              </span>
-                                            </button>
-                                          </span>
-                                        </div>
-                                      </div>
+                                          stage_var1
+                                        </span>
+                                      </p>
                                       <div
-                                        class="valueRow variable-value-cell"
+                                        class="valueRow"
                                       >
                                         <div>
                                           <div
@@ -1661,57 +1338,20 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                       </div>
                                     </div>
                                     <div
-                                      class="variableListTable"
+                                      class="variableListTable variable-list-row"
                                     >
-                                      <div
-                                        class="main"
+                                      <p
+                                        class="StyledProps--font Text--lineclamp StyledProps--main variableNameCell"
+                                        style="--text-line-clamp: 1;"
                                       >
-                                        <div
-                                          class="text variable-name-cell"
+                                        <span
+                                          class=""
                                         >
-                                          <span
-                                            class=""
-                                          >
-                                            stage_var2
-                                          </span>
-                                        </div>
-                                        <div
-                                          class="bp3-popover-wrapper btnWrapper"
-                                        >
-                                          <span
-                                            class="bp3-popover-target"
-                                          >
-                                            <button
-                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                              data-name="copy-alt"
-                                              tabindex="0"
-                                              type="button"
-                                            >
-                                              <span
-                                                class="bp3-icon StyledProps--main"
-                                                data-icon="copy-alt"
-                                              >
-                                                <svg
-                                                  fill="none"
-                                                  height="16"
-                                                  viewBox="0 0 8 9"
-                                                  width="16"
-                                                  xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                  <path
-                                                    clip-rule="evenodd"
-                                                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                    fill="currentColor"
-                                                    fill-rule="evenodd"
-                                                  />
-                                                </svg>
-                                              </span>
-                                            </button>
-                                          </span>
-                                        </div>
-                                      </div>
+                                          stage_var2
+                                        </span>
+                                      </p>
                                       <div
-                                        class="valueRow variable-value-cell"
+                                        class="valueRow"
                                       >
                                         <div>
                                           <div
@@ -1967,57 +1607,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     class="variablesListTable variablePaddingL2"
                                   >
                                     <div
-                                      class="variableListRow"
+                                      class="variableListRow variable-list-row"
                                     >
-                                      <div
-                                        class="main"
+                                      <span
+                                        class="nameSection"
                                       >
-                                        <div
-                                          class="text variable-name-cell"
-                                        >
-                                          <span
-                                            class="nameSection"
-                                          >
-                                            name
-                                          </span>
-                                        </div>
-                                        <div
-                                          class="bp3-popover-wrapper btnWrapper"
-                                        >
-                                          <span
-                                            class="bp3-popover-target"
-                                          >
-                                            <button
-                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                              data-name="copy-alt"
-                                              tabindex="0"
-                                              type="button"
-                                            >
-                                              <span
-                                                class="bp3-icon StyledProps--main"
-                                                data-icon="copy-alt"
-                                              >
-                                                <svg
-                                                  fill="none"
-                                                  height="16"
-                                                  viewBox="0 0 8 9"
-                                                  width="16"
-                                                  xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                  <path
-                                                    clip-rule="evenodd"
-                                                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                    fill="currentColor"
-                                                    fill-rule="evenodd"
-                                                  />
-                                                </svg>
-                                              </span>
-                                            </button>
-                                          </span>
-                                        </div>
-                                      </div>
+                                        name
+                                      </span>
                                       <p
-                                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                         style="--text-line-clamp: 1;"
                                       >
                                         <span
@@ -2443,57 +2041,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             class="variablesListTable variablePaddingL3"
                                           >
                                             <div
-                                              class="variableListRow"
+                                              class="variableListRow variable-list-row"
                                             >
-                                              <div
-                                                class="main"
+                                              <span
+                                                class="nameSection"
                                               >
-                                                <div
-                                                  class="text variable-name-cell"
-                                                >
-                                                  <span
-                                                    class="nameSection"
-                                                  >
-                                                    name
-                                                  </span>
-                                                </div>
-                                                <div
-                                                  class="bp3-popover-wrapper btnWrapper"
-                                                >
-                                                  <span
-                                                    class="bp3-popover-target"
-                                                  >
-                                                    <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                                      data-name="copy-alt"
-                                                      tabindex="0"
-                                                      type="button"
-                                                    >
-                                                      <span
-                                                        class="bp3-icon StyledProps--main"
-                                                        data-icon="copy-alt"
-                                                      >
-                                                        <svg
-                                                          fill="none"
-                                                          height="16"
-                                                          viewBox="0 0 8 9"
-                                                          width="16"
-                                                          xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                          <path
-                                                            clip-rule="evenodd"
-                                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                            fill="currentColor"
-                                                            fill-rule="evenodd"
-                                                          />
-                                                        </svg>
-                                                      </span>
-                                                    </button>
-                                                  </span>
-                                                </div>
-                                              </div>
+                                                name
+                                              </span>
                                               <p
-                                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                                 style="--text-line-clamp: 1;"
                                               >
                                                 <span
@@ -2504,57 +2060,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                               </p>
                                             </div>
                                             <div
-                                              class="variableListRow"
+                                              class="variableListRow variable-list-row"
                                             >
-                                              <div
-                                                class="main"
+                                              <span
+                                                class="nameSection"
                                               >
-                                                <div
-                                                  class="text variable-name-cell"
-                                                >
-                                                  <span
-                                                    class="nameSection"
-                                                  >
-                                                    timeout
-                                                  </span>
-                                                </div>
-                                                <div
-                                                  class="bp3-popover-wrapper btnWrapper"
-                                                >
-                                                  <span
-                                                    class="bp3-popover-target"
-                                                  >
-                                                    <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                                      data-name="copy-alt"
-                                                      tabindex="0"
-                                                      type="button"
-                                                    >
-                                                      <span
-                                                        class="bp3-icon StyledProps--main"
-                                                        data-icon="copy-alt"
-                                                      >
-                                                        <svg
-                                                          fill="none"
-                                                          height="16"
-                                                          viewBox="0 0 8 9"
-                                                          width="16"
-                                                          xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                          <path
-                                                            clip-rule="evenodd"
-                                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                            fill="currentColor"
-                                                            fill-rule="evenodd"
-                                                          />
-                                                        </svg>
-                                                      </span>
-                                                    </button>
-                                                  </span>
-                                                </div>
-                                              </div>
+                                                timeout
+                                              </span>
                                               <p
-                                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                                 style="--text-line-clamp: 1;"
                                               >
                                                 <span
@@ -2673,57 +2187,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             class="variablesListTable variablePaddingL3"
                                           >
                                             <div
-                                              class="variableListRow"
+                                              class="variableListRow variable-list-row"
                                             >
-                                              <div
-                                                class="main"
+                                              <span
+                                                class="nameSection"
                                               >
-                                                <div
-                                                  class="text variable-name-cell"
-                                                >
-                                                  <span
-                                                    class="nameSection"
-                                                  >
-                                                    name
-                                                  </span>
-                                                </div>
-                                                <div
-                                                  class="bp3-popover-wrapper btnWrapper"
-                                                >
-                                                  <span
-                                                    class="bp3-popover-target"
-                                                  >
-                                                    <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                                      data-name="copy-alt"
-                                                      tabindex="0"
-                                                      type="button"
-                                                    >
-                                                      <span
-                                                        class="bp3-icon StyledProps--main"
-                                                        data-icon="copy-alt"
-                                                      >
-                                                        <svg
-                                                          fill="none"
-                                                          height="16"
-                                                          viewBox="0 0 8 9"
-                                                          width="16"
-                                                          xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                          <path
-                                                            clip-rule="evenodd"
-                                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                            fill="currentColor"
-                                                            fill-rule="evenodd"
-                                                          />
-                                                        </svg>
-                                                      </span>
-                                                    </button>
-                                                  </span>
-                                                </div>
-                                              </div>
+                                                name
+                                              </span>
                                               <p
-                                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                                 style="--text-line-clamp: 1;"
                                               >
                                                 <span
@@ -2838,57 +2310,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                     class="variablesListTable variablePaddingL3"
                                                   >
                                                     <div
-                                                      class="variableListRow"
+                                                      class="variableListRow variable-list-row"
                                                     >
-                                                      <div
-                                                        class="main"
+                                                      <span
+                                                        class="nameSection"
                                                       >
-                                                        <div
-                                                          class="text variable-name-cell"
-                                                        >
-                                                          <span
-                                                            class="nameSection"
-                                                          >
-                                                            name
-                                                          </span>
-                                                        </div>
-                                                        <div
-                                                          class="bp3-popover-wrapper btnWrapper"
-                                                        >
-                                                          <span
-                                                            class="bp3-popover-target"
-                                                          >
-                                                            <button
-                                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                                              data-name="copy-alt"
-                                                              tabindex="0"
-                                                              type="button"
-                                                            >
-                                                              <span
-                                                                class="bp3-icon StyledProps--main"
-                                                                data-icon="copy-alt"
-                                                              >
-                                                                <svg
-                                                                  fill="none"
-                                                                  height="16"
-                                                                  viewBox="0 0 8 9"
-                                                                  width="16"
-                                                                  xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                  <path
-                                                                    clip-rule="evenodd"
-                                                                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                                    fill="currentColor"
-                                                                    fill-rule="evenodd"
-                                                                  />
-                                                                </svg>
-                                                              </span>
-                                                            </button>
-                                                          </span>
-                                                        </div>
-                                                      </div>
+                                                        name
+                                                      </span>
                                                       <p
-                                                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                                        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                                         style="--text-line-clamp: 1;"
                                                       >
                                                         <span
@@ -2899,57 +2329,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                       </p>
                                                     </div>
                                                     <div
-                                                      class="variableListRow"
+                                                      class="variableListRow variable-list-row"
                                                     >
-                                                      <div
-                                                        class="main"
+                                                      <span
+                                                        class="nameSection"
                                                       >
-                                                        <div
-                                                          class="text variable-name-cell"
-                                                        >
-                                                          <span
-                                                            class="nameSection"
-                                                          >
-                                                            timeout
-                                                          </span>
-                                                        </div>
-                                                        <div
-                                                          class="bp3-popover-wrapper btnWrapper"
-                                                        >
-                                                          <span
-                                                            class="bp3-popover-target"
-                                                          >
-                                                            <button
-                                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                                              data-name="copy-alt"
-                                                              tabindex="0"
-                                                              type="button"
-                                                            >
-                                                              <span
-                                                                class="bp3-icon StyledProps--main"
-                                                                data-icon="copy-alt"
-                                                              >
-                                                                <svg
-                                                                  fill="none"
-                                                                  height="16"
-                                                                  viewBox="0 0 8 9"
-                                                                  width="16"
-                                                                  xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                  <path
-                                                                    clip-rule="evenodd"
-                                                                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                                    fill="currentColor"
-                                                                    fill-rule="evenodd"
-                                                                  />
-                                                                </svg>
-                                                              </span>
-                                                            </button>
-                                                          </span>
-                                                        </div>
-                                                      </div>
+                                                        timeout
+                                                      </span>
                                                       <p
-                                                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                                        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                                         style="--text-line-clamp: 1;"
                                                       >
                                                         <span
@@ -3068,57 +2456,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                     class="variablesListTable variablePaddingL3"
                                                   >
                                                     <div
-                                                      class="variableListRow"
+                                                      class="variableListRow variable-list-row"
                                                     >
-                                                      <div
-                                                        class="main"
+                                                      <span
+                                                        class="nameSection"
                                                       >
-                                                        <div
-                                                          class="text variable-name-cell"
-                                                        >
-                                                          <span
-                                                            class="nameSection"
-                                                          >
-                                                            name
-                                                          </span>
-                                                        </div>
-                                                        <div
-                                                          class="bp3-popover-wrapper btnWrapper"
-                                                        >
-                                                          <span
-                                                            class="bp3-popover-target"
-                                                          >
-                                                            <button
-                                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                                              data-name="copy-alt"
-                                                              tabindex="0"
-                                                              type="button"
-                                                            >
-                                                              <span
-                                                                class="bp3-icon StyledProps--main"
-                                                                data-icon="copy-alt"
-                                                              >
-                                                                <svg
-                                                                  fill="none"
-                                                                  height="16"
-                                                                  viewBox="0 0 8 9"
-                                                                  width="16"
-                                                                  xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                  <path
-                                                                    clip-rule="evenodd"
-                                                                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                                    fill="currentColor"
-                                                                    fill-rule="evenodd"
-                                                                  />
-                                                                </svg>
-                                                              </span>
-                                                            </button>
-                                                          </span>
-                                                        </div>
-                                                      </div>
+                                                        name
+                                                      </span>
                                                       <p
-                                                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                                        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                                         style="--text-line-clamp: 1;"
                                                       >
                                                         <span
@@ -3129,57 +2475,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                       </p>
                                                     </div>
                                                     <div
-                                                      class="variableListRow"
+                                                      class="variableListRow variable-list-row"
                                                     >
-                                                      <div
-                                                        class="main"
+                                                      <span
+                                                        class="nameSection"
                                                       >
-                                                        <div
-                                                          class="text variable-name-cell"
-                                                        >
-                                                          <span
-                                                            class="nameSection"
-                                                          >
-                                                            timeout
-                                                          </span>
-                                                        </div>
-                                                        <div
-                                                          class="bp3-popover-wrapper btnWrapper"
-                                                        >
-                                                          <span
-                                                            class="bp3-popover-target"
-                                                          >
-                                                            <button
-                                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                                              data-name="copy-alt"
-                                                              tabindex="0"
-                                                              type="button"
-                                                            >
-                                                              <span
-                                                                class="bp3-icon StyledProps--main"
-                                                                data-icon="copy-alt"
-                                                              >
-                                                                <svg
-                                                                  fill="none"
-                                                                  height="16"
-                                                                  viewBox="0 0 8 9"
-                                                                  width="16"
-                                                                  xmlns="http://www.w3.org/2000/svg"
-                                                                >
-                                                                  <path
-                                                                    clip-rule="evenodd"
-                                                                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                                    fill="currentColor"
-                                                                    fill-rule="evenodd"
-                                                                  />
-                                                                </svg>
-                                                              </span>
-                                                            </button>
-                                                          </span>
-                                                        </div>
-                                                      </div>
+                                                        timeout
+                                                      </span>
                                                       <p
-                                                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                                        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                                         style="--text-line-clamp: 1;"
                                                       >
                                                         <span
@@ -3286,7 +2590,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           class="StyledProps--font StyledProps--main StyledProps--font-variation-h6"
                         >
                           <p
-                            class="StyledProps--font StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-black"
+                            class="StyledProps--font StyledProps--main StyledProps--font-variation-h6 StyledProps--color StyledProps--color-black"
                           >
                             Stage: stage_2
                           </p>
@@ -3314,57 +2618,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                             class="variablesListTable variablePaddingL0"
                           >
                             <div
-                              class="variableListRow"
+                              class="variableListRow variable-list-row"
                             >
-                              <div
-                                class="main"
+                              <span
+                                class="nameSection"
                               >
-                                <div
-                                  class="text variable-name-cell"
-                                >
-                                  <span
-                                    class="nameSection"
-                                  >
-                                    name
-                                  </span>
-                                </div>
-                                <div
-                                  class="bp3-popover-wrapper btnWrapper"
-                                >
-                                  <span
-                                    class="bp3-popover-target"
-                                  >
-                                    <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                      data-name="copy-alt"
-                                      tabindex="0"
-                                      type="button"
-                                    >
-                                      <span
-                                        class="bp3-icon StyledProps--main"
-                                        data-icon="copy-alt"
-                                      >
-                                        <svg
-                                          fill="none"
-                                          height="16"
-                                          viewBox="0 0 8 9"
-                                          width="16"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            clip-rule="evenodd"
-                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                            fill="currentColor"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </button>
-                                  </span>
-                                </div>
-                              </div>
+                                name
+                              </span>
                               <p
-                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                 style="--text-line-clamp: 1;"
                               >
                                 <span
@@ -3375,57 +2637,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               </p>
                             </div>
                             <div
-                              class="variableListRow"
+                              class="variableListRow variable-list-row"
                             >
-                              <div
-                                class="main"
+                              <span
+                                class="nameSection"
                               >
-                                <div
-                                  class="text variable-name-cell"
-                                >
-                                  <span
-                                    class="nameSection"
-                                  >
-                                    description
-                                  </span>
-                                </div>
-                                <div
-                                  class="bp3-popover-wrapper btnWrapper"
-                                >
-                                  <span
-                                    class="bp3-popover-target"
-                                  >
-                                    <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                      data-name="copy-alt"
-                                      tabindex="0"
-                                      type="button"
-                                    >
-                                      <span
-                                        class="bp3-icon StyledProps--main"
-                                        data-icon="copy-alt"
-                                      >
-                                        <svg
-                                          fill="none"
-                                          height="16"
-                                          viewBox="0 0 8 9"
-                                          width="16"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            clip-rule="evenodd"
-                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                            fill="currentColor"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </button>
-                                  </span>
-                                </div>
-                              </div>
+                                description
+                              </span>
                               <p
-                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                 style="--text-line-clamp: 1;"
                               >
                                 <span
@@ -3683,57 +2903,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     class="variablesListTable variablePaddingL2"
                                   >
                                     <div
-                                      class="variableListRow"
+                                      class="variableListRow variable-list-row"
                                     >
-                                      <div
-                                        class="main"
+                                      <span
+                                        class="nameSection"
                                       >
-                                        <div
-                                          class="text variable-name-cell"
-                                        >
-                                          <span
-                                            class="nameSection"
-                                          >
-                                            name
-                                          </span>
-                                        </div>
-                                        <div
-                                          class="bp3-popover-wrapper btnWrapper"
-                                        >
-                                          <span
-                                            class="bp3-popover-target"
-                                          >
-                                            <button
-                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                              data-name="copy-alt"
-                                              tabindex="0"
-                                              type="button"
-                                            >
-                                              <span
-                                                class="bp3-icon StyledProps--main"
-                                                data-icon="copy-alt"
-                                              >
-                                                <svg
-                                                  fill="none"
-                                                  height="16"
-                                                  viewBox="0 0 8 9"
-                                                  width="16"
-                                                  xmlns="http://www.w3.org/2000/svg"
-                                                >
-                                                  <path
-                                                    clip-rule="evenodd"
-                                                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                    fill="currentColor"
-                                                    fill-rule="evenodd"
-                                                  />
-                                                </svg>
-                                              </span>
-                                            </button>
-                                          </span>
-                                        </div>
-                                      </div>
+                                        name
+                                      </span>
                                       <p
-                                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                         style="--text-line-clamp: 1;"
                                       >
                                         <span
@@ -4159,57 +3337,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             class="variablesListTable variablePaddingL3"
                                           >
                                             <div
-                                              class="variableListRow"
+                                              class="variableListRow variable-list-row"
                                             >
-                                              <div
-                                                class="main"
+                                              <span
+                                                class="nameSection"
                                               >
-                                                <div
-                                                  class="text variable-name-cell"
-                                                >
-                                                  <span
-                                                    class="nameSection"
-                                                  >
-                                                    name
-                                                  </span>
-                                                </div>
-                                                <div
-                                                  class="bp3-popover-wrapper btnWrapper"
-                                                >
-                                                  <span
-                                                    class="bp3-popover-target"
-                                                  >
-                                                    <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                                      data-name="copy-alt"
-                                                      tabindex="0"
-                                                      type="button"
-                                                    >
-                                                      <span
-                                                        class="bp3-icon StyledProps--main"
-                                                        data-icon="copy-alt"
-                                                      >
-                                                        <svg
-                                                          fill="none"
-                                                          height="16"
-                                                          viewBox="0 0 8 9"
-                                                          width="16"
-                                                          xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                          <path
-                                                            clip-rule="evenodd"
-                                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                            fill="currentColor"
-                                                            fill-rule="evenodd"
-                                                          />
-                                                        </svg>
-                                                      </span>
-                                                    </button>
-                                                  </span>
-                                                </div>
-                                              </div>
+                                                name
+                                              </span>
                                               <p
-                                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                                 style="--text-line-clamp: 1;"
                                               >
                                                 <span
@@ -4220,57 +3356,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                               </p>
                                             </div>
                                             <div
-                                              class="variableListRow"
+                                              class="variableListRow variable-list-row"
                                             >
-                                              <div
-                                                class="main"
+                                              <span
+                                                class="nameSection"
                                               >
-                                                <div
-                                                  class="text variable-name-cell"
-                                                >
-                                                  <span
-                                                    class="nameSection"
-                                                  >
-                                                    timeout
-                                                  </span>
-                                                </div>
-                                                <div
-                                                  class="bp3-popover-wrapper btnWrapper"
-                                                >
-                                                  <span
-                                                    class="bp3-popover-target"
-                                                  >
-                                                    <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                                      data-name="copy-alt"
-                                                      tabindex="0"
-                                                      type="button"
-                                                    >
-                                                      <span
-                                                        class="bp3-icon StyledProps--main"
-                                                        data-icon="copy-alt"
-                                                      >
-                                                        <svg
-                                                          fill="none"
-                                                          height="16"
-                                                          viewBox="0 0 8 9"
-                                                          width="16"
-                                                          xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                          <path
-                                                            clip-rule="evenodd"
-                                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                            fill="currentColor"
-                                                            fill-rule="evenodd"
-                                                          />
-                                                        </svg>
-                                                      </span>
-                                                    </button>
-                                                  </span>
-                                                </div>
-                                              </div>
+                                                timeout
+                                              </span>
                                               <p
-                                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                                 style="--text-line-clamp: 1;"
                                               >
                                                 <span
@@ -4373,7 +3467,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           class="StyledProps--font StyledProps--main StyledProps--font-variation-h6"
                         >
                           <p
-                            class="StyledProps--font StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-black"
+                            class="StyledProps--font StyledProps--main StyledProps--font-variation-h6 StyledProps--color StyledProps--color-black"
                           >
                             Stage: parallel_stage_1
                           </p>
@@ -4401,57 +3495,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                             class="variablesListTable variablePaddingL0"
                           >
                             <div
-                              class="variableListRow"
+                              class="variableListRow variable-list-row"
                             >
-                              <div
-                                class="main"
+                              <span
+                                class="nameSection"
                               >
-                                <div
-                                  class="text variable-name-cell"
-                                >
-                                  <span
-                                    class="nameSection"
-                                  >
-                                    name
-                                  </span>
-                                </div>
-                                <div
-                                  class="bp3-popover-wrapper btnWrapper"
-                                >
-                                  <span
-                                    class="bp3-popover-target"
-                                  >
-                                    <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                      data-name="copy-alt"
-                                      tabindex="0"
-                                      type="button"
-                                    >
-                                      <span
-                                        class="bp3-icon StyledProps--main"
-                                        data-icon="copy-alt"
-                                      >
-                                        <svg
-                                          fill="none"
-                                          height="16"
-                                          viewBox="0 0 8 9"
-                                          width="16"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            clip-rule="evenodd"
-                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                            fill="currentColor"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </button>
-                                  </span>
-                                </div>
-                              </div>
+                                name
+                              </span>
                               <p
-                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                 style="--text-line-clamp: 1;"
                               >
                                 <span
@@ -4462,57 +3514,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               </p>
                             </div>
                             <div
-                              class="variableListRow"
+                              class="variableListRow variable-list-row"
                             >
-                              <div
-                                class="main"
+                              <span
+                                class="nameSection"
                               >
-                                <div
-                                  class="text variable-name-cell"
-                                >
-                                  <span
-                                    class="nameSection"
-                                  >
-                                    description
-                                  </span>
-                                </div>
-                                <div
-                                  class="bp3-popover-wrapper btnWrapper"
-                                >
-                                  <span
-                                    class="bp3-popover-target"
-                                  >
-                                    <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                      data-name="copy-alt"
-                                      tabindex="0"
-                                      type="button"
-                                    >
-                                      <span
-                                        class="bp3-icon StyledProps--main"
-                                        data-icon="copy-alt"
-                                      >
-                                        <svg
-                                          fill="none"
-                                          height="16"
-                                          viewBox="0 0 8 9"
-                                          width="16"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            clip-rule="evenodd"
-                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                            fill="currentColor"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </button>
-                                  </span>
-                                </div>
-                              </div>
+                                description
+                              </span>
                               <p
-                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                 style="--text-line-clamp: 1;"
                               >
                                 <span
@@ -5180,57 +4190,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             class="variablesListTable variablePaddingL3"
                                           >
                                             <div
-                                              class="variableListRow"
+                                              class="variableListRow variable-list-row"
                                             >
-                                              <div
-                                                class="main"
+                                              <span
+                                                class="nameSection"
                                               >
-                                                <div
-                                                  class="text variable-name-cell"
-                                                >
-                                                  <span
-                                                    class="nameSection"
-                                                  >
-                                                    name
-                                                  </span>
-                                                </div>
-                                                <div
-                                                  class="bp3-popover-wrapper btnWrapper"
-                                                >
-                                                  <span
-                                                    class="bp3-popover-target"
-                                                  >
-                                                    <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                                      data-name="copy-alt"
-                                                      tabindex="0"
-                                                      type="button"
-                                                    >
-                                                      <span
-                                                        class="bp3-icon StyledProps--main"
-                                                        data-icon="copy-alt"
-                                                      >
-                                                        <svg
-                                                          fill="none"
-                                                          height="16"
-                                                          viewBox="0 0 8 9"
-                                                          width="16"
-                                                          xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                          <path
-                                                            clip-rule="evenodd"
-                                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                            fill="currentColor"
-                                                            fill-rule="evenodd"
-                                                          />
-                                                        </svg>
-                                                      </span>
-                                                    </button>
-                                                  </span>
-                                                </div>
-                                              </div>
+                                                name
+                                              </span>
                                               <p
-                                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                                 style="--text-line-clamp: 1;"
                                               >
                                                 <span
@@ -5241,57 +4209,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                               </p>
                                             </div>
                                             <div
-                                              class="variableListRow"
+                                              class="variableListRow variable-list-row"
                                             >
-                                              <div
-                                                class="main"
+                                              <span
+                                                class="nameSection"
                                               >
-                                                <div
-                                                  class="text variable-name-cell"
-                                                >
-                                                  <span
-                                                    class="nameSection"
-                                                  >
-                                                    timeout
-                                                  </span>
-                                                </div>
-                                                <div
-                                                  class="bp3-popover-wrapper btnWrapper"
-                                                >
-                                                  <span
-                                                    class="bp3-popover-target"
-                                                  >
-                                                    <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                                      data-name="copy-alt"
-                                                      tabindex="0"
-                                                      type="button"
-                                                    >
-                                                      <span
-                                                        class="bp3-icon StyledProps--main"
-                                                        data-icon="copy-alt"
-                                                      >
-                                                        <svg
-                                                          fill="none"
-                                                          height="16"
-                                                          viewBox="0 0 8 9"
-                                                          width="16"
-                                                          xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                          <path
-                                                            clip-rule="evenodd"
-                                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                            fill="currentColor"
-                                                            fill-rule="evenodd"
-                                                          />
-                                                        </svg>
-                                                      </span>
-                                                    </button>
-                                                  </span>
-                                                </div>
-                                              </div>
+                                                timeout
+                                              </span>
                                               <p
-                                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                                 style="--text-line-clamp: 1;"
                                               >
                                                 <span
@@ -5394,7 +4320,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           class="StyledProps--font StyledProps--main StyledProps--font-variation-h6"
                         >
                           <p
-                            class="StyledProps--font StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-black"
+                            class="StyledProps--font StyledProps--main StyledProps--font-variation-h6 StyledProps--color StyledProps--color-black"
                           >
                             Stage: parallel_stage_2
                           </p>
@@ -5422,57 +4348,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                             class="variablesListTable variablePaddingL0"
                           >
                             <div
-                              class="variableListRow"
+                              class="variableListRow variable-list-row"
                             >
-                              <div
-                                class="main"
+                              <span
+                                class="nameSection"
                               >
-                                <div
-                                  class="text variable-name-cell"
-                                >
-                                  <span
-                                    class="nameSection"
-                                  >
-                                    name
-                                  </span>
-                                </div>
-                                <div
-                                  class="bp3-popover-wrapper btnWrapper"
-                                >
-                                  <span
-                                    class="bp3-popover-target"
-                                  >
-                                    <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                      data-name="copy-alt"
-                                      tabindex="0"
-                                      type="button"
-                                    >
-                                      <span
-                                        class="bp3-icon StyledProps--main"
-                                        data-icon="copy-alt"
-                                      >
-                                        <svg
-                                          fill="none"
-                                          height="16"
-                                          viewBox="0 0 8 9"
-                                          width="16"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            clip-rule="evenodd"
-                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                            fill="currentColor"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </button>
-                                  </span>
-                                </div>
-                              </div>
+                                name
+                              </span>
                               <p
-                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                 style="--text-line-clamp: 1;"
                               >
                                 <span
@@ -5483,57 +4367,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               </p>
                             </div>
                             <div
-                              class="variableListRow"
+                              class="variableListRow variable-list-row"
                             >
-                              <div
-                                class="main"
+                              <span
+                                class="nameSection"
                               >
-                                <div
-                                  class="text variable-name-cell"
-                                >
-                                  <span
-                                    class="nameSection"
-                                  >
-                                    description
-                                  </span>
-                                </div>
-                                <div
-                                  class="bp3-popover-wrapper btnWrapper"
-                                >
-                                  <span
-                                    class="bp3-popover-target"
-                                  >
-                                    <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                      data-name="copy-alt"
-                                      tabindex="0"
-                                      type="button"
-                                    >
-                                      <span
-                                        class="bp3-icon StyledProps--main"
-                                        data-icon="copy-alt"
-                                      >
-                                        <svg
-                                          fill="none"
-                                          height="16"
-                                          viewBox="0 0 8 9"
-                                          width="16"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                          <path
-                                            clip-rule="evenodd"
-                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                            fill="currentColor"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </button>
-                                  </span>
-                                </div>
-                              </div>
+                                description
+                              </span>
                               <p
-                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                 style="--text-line-clamp: 1;"
                               >
                                 <span
@@ -6201,57 +5043,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             class="variablesListTable variablePaddingL3"
                                           >
                                             <div
-                                              class="variableListRow"
+                                              class="variableListRow variable-list-row"
                                             >
-                                              <div
-                                                class="main"
+                                              <span
+                                                class="nameSection"
                                               >
-                                                <div
-                                                  class="text variable-name-cell"
-                                                >
-                                                  <span
-                                                    class="nameSection"
-                                                  >
-                                                    name
-                                                  </span>
-                                                </div>
-                                                <div
-                                                  class="bp3-popover-wrapper btnWrapper"
-                                                >
-                                                  <span
-                                                    class="bp3-popover-target"
-                                                  >
-                                                    <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                                      data-name="copy-alt"
-                                                      tabindex="0"
-                                                      type="button"
-                                                    >
-                                                      <span
-                                                        class="bp3-icon StyledProps--main"
-                                                        data-icon="copy-alt"
-                                                      >
-                                                        <svg
-                                                          fill="none"
-                                                          height="16"
-                                                          viewBox="0 0 8 9"
-                                                          width="16"
-                                                          xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                          <path
-                                                            clip-rule="evenodd"
-                                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                            fill="currentColor"
-                                                            fill-rule="evenodd"
-                                                          />
-                                                        </svg>
-                                                      </span>
-                                                    </button>
-                                                  </span>
-                                                </div>
-                                              </div>
+                                                name
+                                              </span>
                                               <p
-                                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                                 style="--text-line-clamp: 1;"
                                               >
                                                 <span
@@ -6262,57 +5062,15 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                               </p>
                                             </div>
                                             <div
-                                              class="variableListRow"
+                                              class="variableListRow variable-list-row"
                                             >
-                                              <div
-                                                class="main"
+                                              <span
+                                                class="nameSection"
                                               >
-                                                <div
-                                                  class="text variable-name-cell"
-                                                >
-                                                  <span
-                                                    class="nameSection"
-                                                  >
-                                                    timeout
-                                                  </span>
-                                                </div>
-                                                <div
-                                                  class="bp3-popover-wrapper btnWrapper"
-                                                >
-                                                  <span
-                                                    class="bp3-popover-target"
-                                                  >
-                                                    <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                                      data-name="copy-alt"
-                                                      tabindex="0"
-                                                      type="button"
-                                                    >
-                                                      <span
-                                                        class="bp3-icon StyledProps--main"
-                                                        data-icon="copy-alt"
-                                                      >
-                                                        <svg
-                                                          fill="none"
-                                                          height="16"
-                                                          viewBox="0 0 8 9"
-                                                          width="16"
-                                                          xmlns="http://www.w3.org/2000/svg"
-                                                        >
-                                                          <path
-                                                            clip-rule="evenodd"
-                                                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                                            fill="currentColor"
-                                                            fill-rule="evenodd"
-                                                          />
-                                                        </svg>
-                                                      </span>
-                                                    </button>
-                                                  </span>
-                                                </div>
-                                              </div>
+                                                timeout
+                                              </span>
                                               <p
-                                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body"
+                                                class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
                                                 style="--text-line-clamp: 1;"
                                               >
                                                 <span

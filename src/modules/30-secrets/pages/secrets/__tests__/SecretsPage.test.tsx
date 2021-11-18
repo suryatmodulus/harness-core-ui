@@ -86,7 +86,7 @@ describe('Secrets List', () => {
 
   test('render', () => {
     expect(container).toMatchSnapshot()
-    expect(container.querySelectorAll('div.row').length).toBe(4)
+    expect(container.querySelectorAll('.TableV2--row').length).toBe(4)
   })
   test('Edit SSH', async () => {
     const menu = container?.querySelector("[data-icon='Options']")

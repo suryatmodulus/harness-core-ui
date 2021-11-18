@@ -78,7 +78,8 @@ describe('MonitoredServiceDependenciesChart Tests', () => {
           environmentIdentifier: 'env-1',
           orgIdentifier: undefined,
           projectIdentifier: undefined,
-          serviceIdentifier: 'service-1'
+          serviceIdentifier: 'service-1',
+          servicesAtRiskFilter: false
         }
       })
     )

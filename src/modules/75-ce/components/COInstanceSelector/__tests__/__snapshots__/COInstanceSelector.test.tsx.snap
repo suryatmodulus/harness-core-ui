@@ -133,14 +133,14 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
         class="StyledProps--font StyledProps--main"
       >
         <div
-          class="table instancesTable"
+          class="TableV2--table instancesTable"
         >
           <div
-            class="header"
+            class="TableV2--header"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 5%;"
@@ -152,7 +152,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 35%;"
@@ -164,7 +164,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 15%;"
@@ -176,7 +176,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 15%;"
@@ -188,7 +188,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 15%;"
@@ -200,7 +200,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 10%;"
@@ -213,14 +213,14 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
             </div>
           </div>
           <div
-            class="body"
+            class="TableV2--body"
           >
             <div
-              class="row card"
+              class="TableV2--row TableV2--card"
               role="row"
             >
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 5%;"
               >
@@ -236,7 +236,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
                 </label>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 35%;"
               >
@@ -250,7 +250,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 15%;"
               >
@@ -262,7 +262,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 15%;"
               >
@@ -274,7 +274,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 15%;"
               >
@@ -286,7 +286,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 10%;"
               >
@@ -512,14 +512,14 @@ exports[`Instance Selector Modal should show data 1`] = `
         class="StyledProps--font StyledProps--main"
       >
         <div
-          class="table instancesTable"
+          class="TableV2--table instancesTable"
         >
           <div
-            class="header"
+            class="TableV2--header"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 5%;"
@@ -531,7 +531,7 @@ exports[`Instance Selector Modal should show data 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 35%;"
@@ -543,7 +543,7 @@ exports[`Instance Selector Modal should show data 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 15%;"
@@ -555,7 +555,7 @@ exports[`Instance Selector Modal should show data 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 15%;"
@@ -567,7 +567,7 @@ exports[`Instance Selector Modal should show data 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 15%;"
@@ -579,7 +579,7 @@ exports[`Instance Selector Modal should show data 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               colspan="1"
               role="columnheader"
               style="width: 10%;"
@@ -592,14 +592,14 @@ exports[`Instance Selector Modal should show data 1`] = `
             </div>
           </div>
           <div
-            class="body"
+            class="TableV2--body"
           >
             <div
-              class="row card"
+              class="TableV2--row TableV2--card"
               role="row"
             >
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 5%;"
               >
@@ -615,7 +615,7 @@ exports[`Instance Selector Modal should show data 1`] = `
                 </label>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 35%;"
               >
@@ -629,7 +629,7 @@ exports[`Instance Selector Modal should show data 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 15%;"
               >
@@ -641,7 +641,7 @@ exports[`Instance Selector Modal should show data 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 15%;"
               >
@@ -653,7 +653,7 @@ exports[`Instance Selector Modal should show data 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 15%;"
               >
@@ -665,7 +665,7 @@ exports[`Instance Selector Modal should show data 1`] = `
                 </p>
               </div>
               <div
-                class="cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 10%;"
               >

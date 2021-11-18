@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
+import { isEqual } from 'lodash-es'
 
 import isEmpty from 'lodash/isEmpty'
 import { PageSpinner } from '@wings-software/uicore'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 
-import { AccountLicenseDTO, ModuleLicenseDTO, useGetAccountLicenses } from 'services/cd-ng'
+import { ModuleLicenseDTO, useGetAccountLicenses, useGetLastModifiedTimeForAllModuleTypes } from 'services/cd-ng'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import GenericErrorPage, { GENERIC_ERROR_CODES } from '@common/pages/GenericError/GenericErrorPage'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import { useStrings } from 'framework/strings'
-
-export enum LICENSE_STATE_VALUES {
-  ACTIVE = 'ACTIVE',
-  DELETED = 'DELETED',
-  EXPIRED = 'EXPIRED',
-  NOT_STARTED = 'NOT_STARTED'
-}
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { useFeaturesContext } from 'framework/featureStore/FeaturesContext'
+import { VersionMap, LICENSE_STATE_VALUES } from './licenseStoreUtil'
 
 // Only keep GA modules for now
 export interface LicenseStoreContextProps {
-  readonly licenseInformation: AccountLicenseDTO['moduleLicenses'] | Record<string, undefined>
+  readonly licenseInformation: { [key: string]: ModuleLicenseDTO } | Record<string, undefined>
+  readonly versionMap: VersionMap
   readonly CI_LICENSE_STATE: LICENSE_STATE_VALUES
   readonly FF_LICENSE_STATE: LICENSE_STATE_VALUES
   readonly CCM_LICENSE_STATE: LICENSE_STATE_VALUES
@@ -32,12 +31,15 @@ export interface LicenseStoreContextProps {
 }
 
 export interface LicenseRedirectProps {
-  licenseStateName: keyof Omit<LicenseStoreContextProps, 'licenseInformation' | 'updateLicenseStore'>
+  licenseStateName: keyof Omit<LicenseStoreContextProps, 'licenseInformation' | 'updateLicenseStore' | 'versionMap'>
   startTrialRedirect: () => React.ReactElement
   expiredTrialRedirect: () => React.ReactElement
 }
 
-type licenseStateNames = keyof Omit<LicenseStoreContextProps, 'licenseInformation' | 'updateLicenseStore'>
+type licenseStateNames = keyof Omit<
+  LicenseStoreContextProps,
+  'licenseInformation' | 'updateLicenseStore' | 'versionMap'
+>
 
 export const LICENSE_STATE_NAMES: { [T in licenseStateNames]: T } = {
   CI_LICENSE_STATE: 'CI_LICENSE_STATE',
@@ -48,6 +50,7 @@ export const LICENSE_STATE_NAMES: { [T in licenseStateNames]: T } = {
 
 export const LicenseStoreContext = React.createContext<LicenseStoreContextProps>({
   licenseInformation: {},
+  versionMap: {},
   CI_LICENSE_STATE: LICENSE_STATE_VALUES.NOT_STARTED,
   FF_LICENSE_STATE: LICENSE_STATE_VALUES.NOT_STARTED,
   CCM_LICENSE_STATE: LICENSE_STATE_VALUES.NOT_STARTED,
@@ -58,9 +61,6 @@ export const LicenseStoreContext = React.createContext<LicenseStoreContextProps>
 export function useLicenseStore(): LicenseStoreContextProps {
   return React.useContext(LicenseStoreContext)
 }
-
-// 1000 milliseconds * 60 seconds * 60 minutes * 2 hours
-const POLL_INTERVAL = 1000 * 60 * 60 * 2
 
 export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const { currentUserInfo } = useAppStore()
@@ -80,6 +80,7 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
 
   const [state, setState] = useState<Omit<LicenseStoreContextProps, 'updateLicenseStore' | 'strings'>>({
     licenseInformation: {},
+    versionMap: {},
     CI_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : LICENSE_STATE_VALUES.NOT_STARTED,
     FF_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : LICENSE_STATE_VALUES.NOT_STARTED,
     CCM_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : LICENSE_STATE_VALUES.NOT_STARTED,
@@ -87,8 +88,8 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
   })
 
   const {
-    data,
-    refetch,
+    data: accountLicensesData,
+    refetch: getAccountLicenses,
     error,
     loading: getAccountLicensesLoading
   } = useGetAccountLicenses({
@@ -96,6 +97,85 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
       accountIdentifier: accountId
     }
   })
+
+  const { mutate: getVersionMap } = useGetLastModifiedTimeForAllModuleTypes({
+    queryParams: {
+      accountIdentifier: accountId
+    },
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
+  })
+
+  useEffect(() => {
+    getVersionMap()
+      .then(response => {
+        setState(prevState => ({
+          ...prevState,
+          versionMap: response.data || {}
+        }))
+      })
+      .catch(_err => {
+        // do nothing
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // 1000 milliseconds * 60 seconds * 1 minute
+  const POLL_VERSION_INTERVAL = 1000 * 60 * 1
+
+  const { requestFeatures } = useFeaturesContext()
+
+  /*
+   * this is to poll versionMap every minute
+   * if versionMap changes, refresh license
+   * and refresh feature context
+   * if versionMap call fails, stop calling
+   */
+  useEffect(() => {
+    let getVersionTimeOut = setTimeout(() => {
+      pollVersionMap(state.versionMap)
+    }, POLL_VERSION_INTERVAL)
+
+    async function pollVersionMap(versionMap: VersionMap): Promise<void> {
+      try {
+        const response = await getVersionMap()
+        const latestVersionMap = response.data
+        if (latestVersionMap && !isEqual(latestVersionMap, versionMap)) {
+          // refresh licenses
+          getAccountLicenses()
+
+          // refresh feature context
+          requestFeatures(
+            { featureName: FeatureIdentifier.BUILDS },
+            {
+              skipCache: true
+            }
+          )
+
+          // refresh versionMap
+          setState(prevState => ({
+            ...prevState,
+            versionMap: response.data || {}
+          }))
+        }
+
+        // set next poll
+        getVersionTimeOut = setTimeout(() => {
+          pollVersionMap(latestVersionMap || versionMap)
+        }, POLL_VERSION_INTERVAL)
+      } catch (_err) {
+        clearTimeout(getVersionTimeOut)
+      }
+    }
+
+    return () => {
+      clearTimeout(getVersionTimeOut)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const [isLoading, setIsLoading] = useState(true)
 
@@ -115,7 +195,7 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
   }
 
   useEffect(() => {
-    const allLicenses = data?.data?.allModuleLicenses || {}
+    const allLicenses = accountLicensesData?.data?.allModuleLicenses || {}
     const licenses: { [key: string]: ModuleLicenseDTO } = {}
     Object.keys(allLicenses).forEach((key: string) => {
       const moduleLicenses = allLicenses[key]
@@ -147,19 +227,7 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
       setIsLoading(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.data?.allModuleLicenses, currentUserInfo])
-
-  useEffect(() => {
-    const INTERVAL_ID = setInterval(() => {
-      refetch()
-    }, POLL_INTERVAL)
-    return () => {
-      clearInterval(INTERVAL_ID)
-    }
-    // refetch is a new instance on each render which will cause
-    // useEffect to go into an infinite loop
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [accountLicensesData?.data?.allModuleLicenses, currentUserInfo])
 
   function updateLicenseStore(
     updateData: Partial<
@@ -263,6 +331,8 @@ export function handleUpdateLicenseStore(
   }
 }
 
-export const isCDCommunity = (license: { [p: string]: ModuleLicenseDTO } | undefined | Record<string, undefined>) => {
-  return license?.CD?.edition === 'COMMUNITY'
+export const isCDCommunity = (
+  license: { [p: string]: ModuleLicenseDTO } | undefined | Record<string, undefined>
+): boolean => {
+  return license?.CD?.edition === Editions.COMMUNITY
 }

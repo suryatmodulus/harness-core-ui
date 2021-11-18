@@ -26,6 +26,7 @@ import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTo
 import {
   DeleteFeatureFlagQueryParams,
   Feature,
+  GitSyncErrorResponse,
   PatchFeatureQueryParams,
   useDeleteFeatureFlag,
   usePatchFeature,
@@ -39,7 +40,7 @@ import { getErrorMessage, showToaster, useFeatureFlagTypeToStringMapping } from 
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
-import type { GitSyncFormValues, UseGitSync } from '@cf/hooks/useGitSync'
+import { GitSyncFormValues, GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
 import { FlagTypeVariations } from '../CreateFlagDialog/FlagDialogUtils'
 import patch from '../../utils/instructions'
 import { VariationTypeIcon } from '../VariationTypeIcon/VariationTypeIcon'
@@ -217,8 +218,12 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
               refetchFlag()
               showToaster(getString('cf.messages.flagUpdated'))
             })
-            .catch(() => {
-              patch.feature.reset()
+            .catch(error => {
+              if (error.status === GIT_SYNC_ERROR_CODE) {
+                gitSync.handleError(error.data as GitSyncErrorResponse)
+              } else {
+                patch.feature.reset()
+              }
             })
         })
         .onEmptyPatch(hideEditDetailsModal)
@@ -338,8 +343,12 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
 
       history.replace(featureFlagListURL)
       showToaster(getString('cf.messages.flagDeleted'))
-    } catch (error) {
-      showError(getErrorMessage(error), 0, 'cf.delete.ff.error')
+    } catch (error: any) {
+      if (error.status === GIT_SYNC_ERROR_CODE) {
+        gitSync.handleError(error.data as GitSyncErrorResponse)
+      } else {
+        showError(getErrorMessage(error), 0, 'cf.delete.ff.error')
+      }
     }
   }
 

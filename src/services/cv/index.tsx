@@ -125,6 +125,12 @@ export interface AlertRuleDTO {
   uuid?: string
 }
 
+export interface AnalysisDTO {
+  deploymentVerification?: DeploymentVerificationDTO
+  liveMonitoring?: LiveMonitoringDTO
+  riskProfile?: RiskProfile
+}
+
 export interface AnalysisResult {
   count?: number
   label?: number
@@ -168,6 +174,11 @@ export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
   username?: string
 }
 
+export interface AppDynamicsFileDefinition {
+  name?: string
+  type?: 'leaf' | 'folder'
+}
+
 export type AppDynamicsHealthSourceSpec = HealthSourceSpec & {
   applicationName?: string
   feature: string
@@ -178,6 +189,13 @@ export type AppDynamicsHealthSourceSpec = HealthSourceSpec & {
 export interface AppDynamicsTier {
   id?: number
   name?: string
+}
+
+export interface AppdynamicsMetricDataResponse {
+  dataPoints?: DataPoint[]
+  endTime?: number
+  responseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
+  startTime?: number
 }
 
 export interface AppdynamicsMetricValueValidationResponse {
@@ -607,6 +625,11 @@ export interface CountByTag {
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
 }
 
+export interface CountServiceDTO {
+  allServicesCount?: number
+  servicesAtRiskCount?: number
+}
+
 export interface CrossAccountAccess {
   crossAccountRoleArn: string
   externalId?: string
@@ -634,6 +657,7 @@ export interface DataCollectionRequest {
     | 'APPDYNAMICS_FETCH_APPS'
     | 'APPDYNAMICS_FETCH_TIERS'
     | 'APPDYNAMICS_GET_METRIC_DATA'
+    | 'APPDYNAMICS_FETCH_METRIC_STRUCTURE'
     | 'NEWRELIC_APPS_REQUEST'
     | 'NEWRELIC_VALIDATION_REQUEST'
     | 'PROMETHEUS_METRIC_LIST_GET'
@@ -747,6 +771,11 @@ export interface DeploymentTimeSeriesAnalysisDTO {
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   transactionMetricSummaries?: TransactionMetricHostData[]
+}
+
+export interface DeploymentVerificationDTO {
+  enabled?: boolean
+  serviceInstanceFieldName?: string
 }
 
 export interface DeploymentVerificationJobInstanceSummary {
@@ -1550,7 +1579,7 @@ export type GithubConnector = ConnectorConfigDTO & {
   apiAccess?: GithubApiAccess
   authentication: GithubAuthentication
   delegateSelectors?: string[]
-  executeOnManager?: boolean
+  executeOnDelegate?: boolean
   type: 'Account' | 'Repo'
   url: string
   validationRepo?: string
@@ -1931,6 +1960,10 @@ export interface LearningEngineTask {
   uuid?: string
   validUntil?: string
   verificationTaskId?: string
+}
+
+export interface LiveMonitoringDTO {
+  enabled?: boolean
 }
 
 export interface LiveMonitoringLogAnalysisClusterDTO {
@@ -2530,8 +2563,8 @@ export type PrometheusHealthSourceSpec = HealthSourceSpec & {
 export interface PrometheusMetricDefinition {
   additionalFilters?: PrometheusFilter[]
   aggregation?: string
+  analysis?: AnalysisDTO
   envFilter?: PrometheusFilter[]
-  envIdentifier?: string
   groupName?: string
   isManualQuery?: boolean
   metricName?: string
@@ -2539,8 +2572,8 @@ export interface PrometheusMetricDefinition {
   query?: string
   riskProfile?: RiskProfile
   serviceFilter?: PrometheusFilter[]
-  serviceIdentifier?: string
   serviceInstanceFieldName?: string
+  sli?: Slidto
 }
 
 export interface PrometheusSampleData {
@@ -2569,6 +2602,13 @@ export interface Response {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseAppdynamicsMetricDataResponse {
+  correlationId?: string
+  data?: AppdynamicsMetricDataResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseBoolean {
   correlationId?: string
   data?: boolean
@@ -2593,6 +2633,13 @@ export interface ResponseHistoricalTrend {
 export interface ResponseInputSetTemplateResponse {
   correlationId?: string
   data?: InputSetTemplateResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListAppDynamicsFileDefinition {
+  correlationId?: string
+  data?: AppDynamicsFileDefinition[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3662,6 +3709,10 @@ export type RollingSLOTargetSpec = SLOTargetSpec & {
   periodLength: string
 }
 
+export interface Slidto {
+  enabled?: boolean
+}
+
 export interface SLIMetricSpec {
   metricName?: string
 }
@@ -3833,6 +3884,7 @@ export interface StackdriverDashboardDetail {
 }
 
 export interface StackdriverDefinition {
+  analysis?: AnalysisDTO
   dashboardName?: string
   dashboardPath?: string
   isManualQuery?: boolean
@@ -3841,6 +3893,7 @@ export interface StackdriverDefinition {
   metricTags?: string[]
   riskProfile?: RiskProfile
   serviceInstanceField?: string
+  sli?: Slidto
 }
 
 export type StackdriverLogHealthSourceSpec = HealthSourceSpec & {
@@ -5861,6 +5914,66 @@ export const getAppDynamicsApplicationsPromise = (
     signal
   )
 
+export interface GetAppdynamicsMetricDataByPathQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  connectorIdentifier: string
+  appName: string
+  baseFolder: string
+  tier: string
+  metricPath: string
+}
+
+export type GetAppdynamicsMetricDataByPathProps = Omit<
+  GetProps<ResponseAppdynamicsMetricDataResponse, Failure | Error, GetAppdynamicsMetricDataByPathQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all appdynamics metric data for an application and a metric path
+ */
+export const GetAppdynamicsMetricDataByPath = (props: GetAppdynamicsMetricDataByPathProps) => (
+  <Get<ResponseAppdynamicsMetricDataResponse, Failure | Error, GetAppdynamicsMetricDataByPathQueryParams, void>
+    path={`/appdynamics/metric-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAppdynamicsMetricDataByPathProps = Omit<
+  UseGetProps<ResponseAppdynamicsMetricDataResponse, Failure | Error, GetAppdynamicsMetricDataByPathQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all appdynamics metric data for an application and a metric path
+ */
+export const useGetAppdynamicsMetricDataByPath = (props: UseGetAppdynamicsMetricDataByPathProps) =>
+  useGet<ResponseAppdynamicsMetricDataResponse, Failure | Error, GetAppdynamicsMetricDataByPathQueryParams, void>(
+    `/appdynamics/metric-data`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get all appdynamics metric data for an application and a metric path
+ */
+export const getAppdynamicsMetricDataByPathPromise = (
+  props: GetUsingFetchProps<
+    ResponseAppdynamicsMetricDataResponse,
+    Failure | Error,
+    GetAppdynamicsMetricDataByPathQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseAppdynamicsMetricDataResponse,
+    Failure | Error,
+    GetAppdynamicsMetricDataByPathQueryParams,
+    void
+  >(getConfig('cv/api'), `/appdynamics/metric-data`, props, signal)
+
 export interface GetAppDynamicsMetricDataQueryParams {
   accountId: string
   orgIdentifier: string
@@ -7183,6 +7296,7 @@ export interface ListMonitoredServiceQueryParams {
   offset?: number
   pageSize?: number
   filter?: string
+  servicesAtRiskFilter?: boolean
 }
 
 export type ListMonitoredServiceProps = Omit<
@@ -7305,6 +7419,134 @@ export const saveMonitoredServicePromise = (
     MonitoredServiceDTORequestBody,
     void
   >('POST', getConfig('cv/api'), `/monitored-service`, props, signal)
+
+export interface GetAllMonitoredServicesWithTimeSeriesHealthSourcesQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type GetAllMonitoredServicesWithTimeSeriesHealthSourcesProps = Omit<
+  GetProps<
+    ResponseListMonitoredServiceWithHealthSources,
+    unknown,
+    GetAllMonitoredServicesWithTimeSeriesHealthSourcesQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * get all of monitored service data with time series health sources
+ */
+export const GetAllMonitoredServicesWithTimeSeriesHealthSources = (
+  props: GetAllMonitoredServicesWithTimeSeriesHealthSourcesProps
+) => (
+  <Get<
+    ResponseListMonitoredServiceWithHealthSources,
+    unknown,
+    GetAllMonitoredServicesWithTimeSeriesHealthSourcesQueryParams,
+    void
+  >
+    path={`/monitored-service/all/time-series-health-sources`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetAllMonitoredServicesWithTimeSeriesHealthSourcesProps = Omit<
+  UseGetProps<
+    ResponseListMonitoredServiceWithHealthSources,
+    unknown,
+    GetAllMonitoredServicesWithTimeSeriesHealthSourcesQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * get all of monitored service data with time series health sources
+ */
+export const useGetAllMonitoredServicesWithTimeSeriesHealthSources = (
+  props: UseGetAllMonitoredServicesWithTimeSeriesHealthSourcesProps
+) =>
+  useGet<
+    ResponseListMonitoredServiceWithHealthSources,
+    unknown,
+    GetAllMonitoredServicesWithTimeSeriesHealthSourcesQueryParams,
+    void
+  >(`/monitored-service/all/time-series-health-sources`, { base: getConfig('cv/api'), ...props })
+
+/**
+ * get all of monitored service data with time series health sources
+ */
+export const getAllMonitoredServicesWithTimeSeriesHealthSourcesPromise = (
+  props: GetUsingFetchProps<
+    ResponseListMonitoredServiceWithHealthSources,
+    unknown,
+    GetAllMonitoredServicesWithTimeSeriesHealthSourcesQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseListMonitoredServiceWithHealthSources,
+    unknown,
+    GetAllMonitoredServicesWithTimeSeriesHealthSourcesQueryParams,
+    void
+  >(getConfig('cv/api'), `/monitored-service/all/time-series-health-sources`, props, signal)
+
+export interface GetCountOfServicesQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  environmentIdentifier?: string
+  filter?: string
+}
+
+export type GetCountOfServicesProps = Omit<
+  GetProps<CountServiceDTO, unknown, GetCountOfServicesQueryParams, void>,
+  'path'
+>
+
+/**
+ * get count of types of services like Monitored Service, Services at Risk
+ */
+export const GetCountOfServices = (props: GetCountOfServicesProps) => (
+  <Get<CountServiceDTO, unknown, GetCountOfServicesQueryParams, void>
+    path={`/monitored-service/count-of-services`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetCountOfServicesProps = Omit<
+  UseGetProps<CountServiceDTO, unknown, GetCountOfServicesQueryParams, void>,
+  'path'
+>
+
+/**
+ * get count of types of services like Monitored Service, Services at Risk
+ */
+export const useGetCountOfServices = (props: UseGetCountOfServicesProps) =>
+  useGet<CountServiceDTO, unknown, GetCountOfServicesQueryParams, void>(`/monitored-service/count-of-services`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * get count of types of services like Monitored Service, Services at Risk
+ */
+export const getCountOfServicesPromise = (
+  props: GetUsingFetchProps<CountServiceDTO, unknown, GetCountOfServicesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<CountServiceDTO, unknown, GetCountOfServicesQueryParams, void>(
+    getConfig('cv/api'),
+    `/monitored-service/count-of-services`,
+    props,
+    signal
+  )
 
 export interface CreateDefaultMonitoredServiceQueryParams {
   accountId: string
@@ -8689,6 +8931,7 @@ export interface GetServiceDependencyGraphQueryParams {
   environmentIdentifier?: string
   envIdentifier?: string
   serviceIdentifier?: string
+  servicesAtRiskFilter: boolean
 }
 
 export type GetServiceDependencyGraphProps = Omit<

@@ -1,12 +1,15 @@
 import { useParams } from 'react-router-dom'
+import React, { useState, useMemo, useEffect } from 'react'
 import * as yup from 'yup'
 import type { ObjectSchema } from 'yup'
-import { useMemo } from 'react'
+import { useModalHook } from '@wings-software/uicore'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { GitRepo, useGetGitRepo, usePatchGitRepo } from 'services/cf'
+import { GitRepo, GitSyncErrorResponse, useGetGitRepo, usePatchGitRepo } from 'services/cf'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { useStrings } from 'framework/strings'
+import GitErrorModal from '@cf/components/GitErrorModal/GitErrorModal'
+import InvalidYamlModal from '@cf/components/InvalidYamlModal/InvalidYamlModal'
 
 export interface GitDetails {
   branch: string
@@ -31,10 +34,14 @@ export interface UseGitSync {
   isGitSyncPaused: boolean
   isGitSyncActionsEnabled: boolean
   gitSyncLoading: boolean
+  apiError: string
   handleAutoCommit: (newAutoCommitValue: boolean) => Promise<void>
   handleGitPause: (newGitPauseValue: boolean) => Promise<void>
   getGitSyncFormMeta: (autoCommitMessage?: string) => GitSyncFormMeta
+  handleError: (error: GitSyncErrorResponse) => void
 }
+
+export const GIT_SYNC_ERROR_CODE = 424
 
 export const useGitSync = (): UseGitSync => {
   const { projectIdentifier, accountId, orgIdentifier } = useParams<ProjectPathProps & ModulePathParams>()
@@ -76,6 +83,49 @@ export const useGitSync = (): UseGitSync => {
   const isGitSyncPaused = useMemo<boolean>(
     () => !!(FF_GITSYNC && getGitRepo?.data?.repoSet && !getGitRepo?.data?.repoDetails?.enabled),
     [FF_GITSYNC, getGitRepo?.data?.repoDetails?.enabled, getGitRepo?.data?.repoSet]
+  )
+
+  useEffect(() => {
+    if (getGitRepo.data?.repoDetails?.yamlError) {
+      showInvalidYamlModal()
+    } else {
+      hideInvalidYamlModal()
+    }
+  }, [getGitRepo.data?.repoDetails?.yamlError])
+
+  const [apiError, setApiError] = useState<string>('')
+
+  const handleError = (error: GitSyncErrorResponse): void => {
+    setApiError(error.message)
+    showErrorModal()
+  }
+
+  const [showErrorModal, hideErrorModal] = useModalHook(
+    () => (
+      <GitErrorModal
+        onClose={hideErrorModal}
+        onSubmit={() => {
+          const newGitPauseValue = false
+          handleGitPause(newGitPauseValue)
+          hideErrorModal()
+        }}
+        apiError={apiError}
+      />
+    ),
+    [apiError]
+  )
+
+  const [showInvalidYamlModal, hideInvalidYamlModal] = useModalHook(
+    () => (
+      <InvalidYamlModal
+        handleRetry={() => getGitRepo.refetch()}
+        isLoading={getGitRepo.loading}
+        apiError={getGitRepo.data?.repoDetails?.yamlError}
+        flagsYamlFilename={getGitRepo.data?.repoDetails?.filePath}
+        handleClose={hideInvalidYamlModal}
+      />
+    ),
+    [getGitRepo.data?.repoDetails?.yamlError, getGitRepo.loading]
   )
 
   const getGitSyncFormMeta = (autoCommitMessage?: string): GitSyncFormMeta => ({
@@ -140,8 +190,10 @@ export const useGitSync = (): UseGitSync => {
     isGitSyncPaused,
     isGitSyncActionsEnabled,
     gitSyncLoading: getGitRepo.loading || patchGitRepo.loading,
+    apiError,
     handleAutoCommit,
     handleGitPause,
-    getGitSyncFormMeta
+    getGitSyncFormMeta,
+    handleError
   }
 }

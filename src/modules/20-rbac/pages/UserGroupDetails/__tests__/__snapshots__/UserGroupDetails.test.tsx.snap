@@ -226,17 +226,17 @@ exports[`UserGroupDetails Test render data 1`] = `
         class="StyledProps--font StyledProps--main memberList"
       >
         <div
-          class="ReactTable--table"
+          class="TableV2--table"
         >
           <div
-            class="ReactTable--body"
+            class="TableV2--body"
           >
             <div
-              class="ReactTable--row ReactTable--card"
+              class="TableV2--row TableV2--card"
               role="row"
             >
               <div
-                class="ReactTable--cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 45%;"
               >
@@ -270,7 +270,7 @@ exports[`UserGroupDetails Test render data 1`] = `
                 </div>
               </div>
               <div
-                class="ReactTable--cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 50%;"
               >
@@ -281,7 +281,7 @@ exports[`UserGroupDetails Test render data 1`] = `
                 </p>
               </div>
               <div
-                class="ReactTable--cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 5%;"
               >
@@ -325,11 +325,11 @@ exports[`UserGroupDetails Test render data 1`] = `
               </div>
             </div>
             <div
-              class="ReactTable--row ReactTable--card"
+              class="TableV2--row TableV2--card"
               role="row"
             >
               <div
-                class="ReactTable--cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 45%;"
               >
@@ -363,7 +363,7 @@ exports[`UserGroupDetails Test render data 1`] = `
                 </div>
               </div>
               <div
-                class="ReactTable--cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 50%;"
               >
@@ -374,7 +374,7 @@ exports[`UserGroupDetails Test render data 1`] = `
                 </p>
               </div>
               <div
-                class="ReactTable--cell"
+                class="TableV2--cell"
                 role="cell"
                 style="width: 5%;"
               >

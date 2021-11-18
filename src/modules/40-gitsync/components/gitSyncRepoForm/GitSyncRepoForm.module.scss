@@ -46,6 +46,11 @@
     .formButton {
       padding: 0 var(--spacing-large) !important;
     }
+
+    .testConnection {
+      align-self: flex-start;
+      margin-top: var(--spacing-8);
+    }
   }
 
   .helpText {

@@ -8,5 +8,6 @@ declare const styles: {
   readonly emptyView: string
   readonly emptyViewItem: string
   readonly emptyViewCard: string
+  readonly marginBottom4: string
 }
 export default styles

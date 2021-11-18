@@ -16,7 +16,8 @@ import {
   Formik,
   Pagination,
   SelectOption,
-  ExpandingSearchInput
+  ExpandingSearchInput,
+  TableV2
 } from '@wings-software/uicore'
 
 import { Select } from '@blueprintjs/select'
@@ -33,7 +34,6 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import routes from '@common/RouteDefinitions'
-import Table from '@common/components/Table/Table'
 
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
@@ -567,7 +567,7 @@ const FoldersPage: React.FC = () => {
 
         {filteredFoldersList && filteredFoldersList.length > 0 && layoutView === LayoutViews.LIST && (
           <Container className={css.folderMasonry}>
-            <Table<FolderInterface>
+            <TableV2<FolderInterface>
               className={css.table}
               columns={columns}
               data={filteredFoldersList || []}

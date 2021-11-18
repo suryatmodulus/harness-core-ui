@@ -1,6 +1,6 @@
 import React from 'react'
 import { IFormGroupProps, IInputGroupProps, HTMLInputProps, Popover, Menu } from '@blueprintjs/core'
-import { FormInput, Button, Icon, Utils } from '@wings-software/uicore'
+import { FormInput, Button, Icon, Utils, TextInput } from '@wings-software/uicore'
 import cx from 'classnames'
 
 import { useStrings } from 'framework/strings'
@@ -29,6 +29,10 @@ export interface TextInputWithCopyBtnProps extends Omit<IFormGroupProps, 'labelF
   onChange?: IInputGroupProps['onChange']
   localName?: string
   fullName?: string
+  outerClassName?: string
+  textInputClassName?: string
+  popoverWrapperClassName?: string
+  staticDisplayValue?: string
 }
 
 export function TextInputWithCopyBtn(props: TextInputWithCopyBtnProps): React.ReactElement {
@@ -36,20 +40,30 @@ export function TextInputWithCopyBtn(props: TextInputWithCopyBtnProps): React.Re
   const { getString } = useStrings()
 
   return (
-    <div className={cx(css.textInputWithCopyBtn, { [css.disabled]: disabled })}>
-      <FormInput.Text
-        {...rest}
-        inputGroup={{ disabled }}
-        disabled={disabled}
-        className={cx(css.input, rest.className)}
-      />
+    <div className={cx(css.textInputWithCopyBtn, props.outerClassName, { [css.disabled]: disabled })}>
+      {props.staticDisplayValue ? (
+        // Render a non formik text component if the display value is static
+        <TextInput
+          {...rest}
+          value={props.staticDisplayValue}
+          disabled={true}
+          className={cx(css.input, props.textInputClassName, rest.className)}
+        />
+      ) : (
+        <FormInput.Text
+          {...rest}
+          inputGroup={{ disabled }}
+          disabled={disabled}
+          className={cx(css.input, props.textInputClassName, rest.className)}
+        />
+      )}
       <Popover
         interactionKind="click"
         minimal
         position="bottom-right"
         wrapperTagName="div"
         targetTagName="div"
-        className={css.popoverWrapper}
+        className={cx(props.popoverWrapperClassName, css.popoverWrapper)}
         popoverClassName={css.popover}
       >
         <Button icon="copy-alt" className={css.btn} iconProps={{ size: 12 }} disabled={!localName && !fullName} />

@@ -37,7 +37,7 @@ const SelectExistingInputsOrProvideNew = ({
           />
         </RadioGroup>
         <span className={css.helpSection}>
-          <Icon name="question" className={css.helpIcon} />
+          <Icon name="question" className={css.helpIcon} intent="primary" />
           <Text
             data-testid="input-set-description-tooltip"
             tooltipProps={{

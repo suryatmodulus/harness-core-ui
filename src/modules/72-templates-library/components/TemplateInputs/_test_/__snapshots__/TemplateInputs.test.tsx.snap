@@ -293,7 +293,6 @@ exports[`<TemplateInputs /> tests snapshot test 1`] = `
                 >
                   <div
                     class="Layout--horizontal StyledProps--main MultiTypeInput--main MultiTypeInput--disabled"
-                    inputmode="numeric"
                   >
                     <div
                       class="TextInput--main MultiTypeInput--input"

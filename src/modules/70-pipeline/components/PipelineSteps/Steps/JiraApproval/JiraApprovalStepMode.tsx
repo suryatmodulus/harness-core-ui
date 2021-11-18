@@ -73,6 +73,7 @@ const FormContent = ({
   const [fieldList, setFieldList] = useState<JiraFieldNG[]>([])
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
   const [projectMetadata, setProjectMetadata] = useState<JiraProjectNG>()
+  const [connectorValueType, setConnectorValueType] = useState<MultiTypeInputType>(MultiTypeInputType.FIXED)
 
   const commonParams = {
     accountIdentifier: accountId,
@@ -94,7 +95,9 @@ const FormContent = ({
 
   useEffect(() => {
     // If connector value changes in form, fetch projects
-    if (connectorRefFixedValue) {
+    // second block is needed so that we don't fetch projects if type is expression
+    // CDC-15633
+    if (connectorRefFixedValue && connectorValueType === MultiTypeInputType.FIXED) {
       refetchProjects({
         queryParams: {
           ...commonParams,
@@ -221,11 +224,12 @@ const FormContent = ({
           type="Jira"
           enableConfigureOptions={false}
           selected={formik?.values?.spec.connectorRef as string}
-          onChange={(value: any) => {
+          onChange={(value: any, _unused, multiType) => {
             // Clear dependent fields
+            setConnectorValueType(multiType)
             if (value?.record?.identifier !== connectorRefFixedValue) {
               resetForm(formik, 'connectorRef')
-              if (value !== MultiTypeInputType.FIXED) {
+              if (multiType !== MultiTypeInputType.FIXED) {
                 setProjectOptions([])
                 setProjectMetadata(undefined)
               }

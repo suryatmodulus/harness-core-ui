@@ -192,6 +192,7 @@ const pipelineContextMock: PipelineContextInterface = {
         return true
       }
     },
+    getStepIconColor: () => undefined,
     getStepData: () => ({
       icon: 'run-step',
       name: 'Configure Run Step',

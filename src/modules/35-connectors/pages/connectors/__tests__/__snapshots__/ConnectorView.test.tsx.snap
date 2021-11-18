@@ -29,7 +29,6 @@ exports[`Connector Details Page Edit and save connector YAML 1`] = `
               disabled=""
               id="saveYAMLChanges"
               tabindex="-1"
-              title=""
               type="button"
             >
               <span
@@ -699,7 +698,6 @@ exports[`Connector Details Page Edit details test 1`] = `
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
           
-           
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
@@ -710,7 +708,6 @@ exports[`Connector Details Page Edit details test 1`] = `
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
         >
           
-           
         </p>
       </div>
     </div>
@@ -877,7 +874,6 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
           
-           
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
@@ -888,7 +884,6 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
         >
           
-           
         </p>
       </div>
     </div>
@@ -1055,7 +1050,6 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
           
-           
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
@@ -1066,7 +1060,6 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
         >
           
-           
         </p>
       </div>
     </div>
@@ -1233,7 +1226,6 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
         >
           
-           
         </p>
         <p
           class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
@@ -1244,7 +1236,6 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
           class="StyledProps--font StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-medium"
         >
           
-           
         </p>
       </div>
     </div>

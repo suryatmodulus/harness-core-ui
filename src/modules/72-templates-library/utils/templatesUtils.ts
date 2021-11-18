@@ -16,14 +16,18 @@ export interface TemplateTypeOption {
   disabled?: boolean
 }
 
-export const getAllowedTemplateTypes = (getString: UseStringsReturn['getString']): TemplateTypeOption[] => [
+export const getAllowedTemplateTypes = (
+  getString: UseStringsReturn['getString'],
+  disableStageTemplates: boolean
+): TemplateTypeOption[] => [
   {
     label: getString('step'),
     value: TemplateType.Step
   },
   {
     label: getString('templatesLibrary.stageTemplate'),
-    value: TemplateType.Stage
+    value: TemplateType.Stage,
+    disabled: disableStageTemplates
   },
   {
     label: getString('common.pipeline'),

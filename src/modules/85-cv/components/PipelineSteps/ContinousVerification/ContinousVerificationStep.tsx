@@ -30,17 +30,28 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
   protected defaultValues: ContinousVerificationData = cvDefaultValues
 
   renderStep(props: StepProps<ContinousVerificationData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep } = props
+    const {
+      initialValues,
+      onUpdate,
+      stepViewType,
+      inputSetData,
+      formikRef,
+      customStepProps,
+      isNewStep,
+      allowableTypes,
+      onChange
+    } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <ContinousVerificationInputSetStepFormik
-          initialValues={this.getInitialValues(initialValues)}
-          onUpdate={data => onUpdate?.(this.processFormData(data))}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
           stepViewType={stepViewType}
           readonly={!!inputSetData?.readonly}
           template={inputSetData?.template}
           path={inputSetData?.path || ''}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -56,6 +67,8 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
         initialValues={this.getInitialValues(initialValues)}
         onUpdate={data => onUpdate?.(this.processFormData(data))}
         isNewStep={isNewStep}
+        onChange={data => onChange?.(this.processFormData(data))}
+        allowableTypes={allowableTypes}
         stepViewType={stepViewType}
         ref={formikRef}
       />

@@ -6,8 +6,6 @@ declare const styles: {
   readonly header: string
   readonly name: string
   readonly submitBtn: string
-  readonly activityContainer: string
-  readonly activitySummary: string
   readonly fullWidth: string
   readonly readOnly: string
   readonly connectorWrp: string

@@ -22,7 +22,7 @@ import { getErrorMessage, useValidateVariationValues } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
 import { FormikEffect, FormikEffectProps } from '@common/components/FormikEffect/FormikEffect'
-import { Feature, PatchFeatureQueryParams, usePatchFeature, Variation } from 'services/cf'
+import { Feature, GitSyncErrorResponse, PatchFeatureQueryParams, usePatchFeature, Variation } from 'services/cf'
 import type { PermissionsRequest } from '@rbac/hooks/usePermission'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
@@ -30,7 +30,7 @@ import { PageSpinner } from '@common/components'
 
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 
-import type { UseGitSync } from '@cf/hooks/useGitSync'
+import { GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
 import patch from '../../utils/instructions'
 
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
@@ -167,9 +167,13 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
 
           hideModal()
           onSuccess()
-        } catch (error) {
-          showError(getErrorMessage(error), 0, 'cf.submit.patch.error')
-          patch.feature.reset()
+        } catch (error: any) {
+          if (error.status === GIT_SYNC_ERROR_CODE) {
+            gitSync.handleError(error.data as GitSyncErrorResponse)
+          } else {
+            showError(getErrorMessage(error), 0, 'cf.submit.patch.error')
+            patch.feature.reset()
+          }
         }
       })
     }

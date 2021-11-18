@@ -25,7 +25,6 @@ declare const styles: {
   readonly headerContainer: string
   readonly squareCardContainer: string
   readonly manifestIcon: string
-  readonly saveBtn: string
   readonly tfVarStore: string
   readonly formContainerStepOne: string
   readonly tfRemoteForm: string

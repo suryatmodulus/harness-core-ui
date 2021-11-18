@@ -11,6 +11,10 @@ export interface ApiKey {
    */
   apiKey: string
   identifier: string
+  /**
+   * The hashed API key
+   */
+  key?: string
   name: string
   type: 'Server' | 'Client'
 }
@@ -54,6 +58,7 @@ export interface Distribution {
 export interface Environment {
   apiKeys: ApiKeys
   description?: string
+  id?: string
   identifier: string
   name: string
   project: string
@@ -112,6 +117,13 @@ export interface FeatureEvaluations {
   evaluations?: FeatureEvaluation[]
 }
 
+/**
+ * Feature flags yaml for a project
+ */
+export interface FeatureFlagsYaml {
+  yaml: string
+}
+
 export interface FeatureMetric {
   identifier?: string
   name?: string
@@ -152,9 +164,11 @@ export interface GitRepo {
   branch: string
   enabled?: boolean
   filePath: string
+  lastSync?: number
   objectId: string
   repoIdentifier: string
   rootFolder: string
+  yamlError?: string
 }
 
 export interface GitRepoResp {
@@ -400,6 +414,8 @@ export type FeatureFlagRequestRequestBody = {
 
 export type FeaturePatchRequestRequestBody = GitSyncPatchOperation
 
+export type FeatureYamlRequestRequestBody = FeatureFlagsYaml
+
 export type GitRepoPatchRequestRequestBody = PatchOperation
 
 export interface GitRepoRequestRequestBody {
@@ -514,12 +530,22 @@ export type FeatureResponseResponse = Feature
 /**
  * OK
  */
+export type FeatureYamlResponseResponse = FeatureFlagsYaml
+
+/**
+ * OK
+ */
 export type FeaturesResponseResponse = Features
 
 /**
  * OK
  */
 export type GitRepoResponseResponse = GitRepoResp
+
+/**
+ * An error with git syncing
+ */
+export type GitSyncErrorResponse = Error
 
 /**
  * Internal server error
@@ -1700,6 +1726,7 @@ export type CreateFeatureFlagProps = Omit<
     | UnauthenticatedResponse
     | UnauthorizedResponse
     | ConflictResponse
+    | GitSyncErrorResponse
     | InternalServerErrorResponse,
     CreateFeatureFlagQueryParams,
     FeatureFlagRequestRequestBody,
@@ -1720,6 +1747,7 @@ export const CreateFeatureFlag = (props: CreateFeatureFlagProps) => (
     | UnauthenticatedResponse
     | UnauthorizedResponse
     | ConflictResponse
+    | GitSyncErrorResponse
     | InternalServerErrorResponse,
     CreateFeatureFlagQueryParams,
     FeatureFlagRequestRequestBody,
@@ -1739,6 +1767,7 @@ export type UseCreateFeatureFlagProps = Omit<
     | UnauthenticatedResponse
     | UnauthorizedResponse
     | ConflictResponse
+    | GitSyncErrorResponse
     | InternalServerErrorResponse,
     CreateFeatureFlagQueryParams,
     FeatureFlagRequestRequestBody,
@@ -1759,6 +1788,7 @@ export const useCreateFeatureFlag = (props: UseCreateFeatureFlagProps) =>
     | UnauthenticatedResponse
     | UnauthorizedResponse
     | ConflictResponse
+    | GitSyncErrorResponse
     | InternalServerErrorResponse,
     CreateFeatureFlagQueryParams,
     FeatureFlagRequestRequestBody,
@@ -1839,6 +1869,159 @@ export const useGetFeatureMetrics = (props: UseGetFeatureMetricsProps) =>
     void
   >(`/admin/features/metrics`, { base: getConfig('cf'), ...props })
 
+export interface GetFlagsYamlQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+}
+
+export type GetFlagsYamlProps = Omit<
+  GetProps<
+    FeatureYamlResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetFlagsYamlQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get feature flags yaml
+ *
+ * Used to retrieve the entire feature flags yaml for a project
+ */
+export const GetFlagsYaml = (props: GetFlagsYamlProps) => (
+  <Get<
+    FeatureYamlResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetFlagsYamlQueryParams,
+    void
+  >
+    path={`/admin/features/yaml`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseGetFlagsYamlProps = Omit<
+  UseGetProps<
+    FeatureYamlResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetFlagsYamlQueryParams,
+    void
+  >,
+  'path'
+>
+
+/**
+ * Get feature flags yaml
+ *
+ * Used to retrieve the entire feature flags yaml for a project
+ */
+export const useGetFlagsYaml = (props: UseGetFlagsYamlProps) =>
+  useGet<
+    FeatureYamlResponseResponse,
+    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    GetFlagsYamlQueryParams,
+    void
+  >(`/admin/features/yaml`, { base: getConfig('cf'), ...props })
+
+export interface UpdateFlagsYamlQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * Organization Identifier
+   */
+  org: string
+  /**
+   * Project
+   */
+  project: string
+}
+
+export type UpdateFlagsYamlProps = Omit<
+  MutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UpdateFlagsYamlQueryParams,
+    FeatureYamlRequestRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Update feature flags yaml file
+ *
+ * Update feature flags yaml
+ */
+export const UpdateFlagsYaml = (props: UpdateFlagsYamlProps) => (
+  <Mutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UpdateFlagsYamlQueryParams,
+    FeatureYamlRequestRequestBody,
+    void
+  >
+    verb="PUT"
+    path={`/admin/features/yaml`}
+    base={getConfig('cf')}
+    {...props}
+  />
+)
+
+export type UseUpdateFlagsYamlProps = Omit<
+  UseMutateProps<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UpdateFlagsYamlQueryParams,
+    FeatureYamlRequestRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Update feature flags yaml file
+ *
+ * Update feature flags yaml
+ */
+export const useUpdateFlagsYaml = (props: UseUpdateFlagsYamlProps) =>
+  useMutate<
+    void,
+    | BadRequestResponse
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | ConflictResponse
+    | InternalServerErrorResponse,
+    UpdateFlagsYamlQueryParams,
+    FeatureYamlRequestRequestBody,
+    void
+  >('PUT', `/admin/features/yaml`, { base: getConfig('cf'), ...props })
+
 export interface DeleteFeatureFlagQueryParams {
   /**
    * Account
@@ -1861,7 +2044,11 @@ export interface DeleteFeatureFlagQueryParams {
 export type DeleteFeatureFlagProps = Omit<
   MutateProps<
     void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | GitSyncErrorResponse
+    | InternalServerErrorResponse,
     DeleteFeatureFlagQueryParams,
     string,
     void
@@ -1877,7 +2064,11 @@ export type DeleteFeatureFlagProps = Omit<
 export const DeleteFeatureFlag = (props: DeleteFeatureFlagProps) => (
   <Mutate<
     void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | GitSyncErrorResponse
+    | InternalServerErrorResponse,
     DeleteFeatureFlagQueryParams,
     string,
     void
@@ -1892,7 +2083,11 @@ export const DeleteFeatureFlag = (props: DeleteFeatureFlagProps) => (
 export type UseDeleteFeatureFlagProps = Omit<
   UseMutateProps<
     void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | GitSyncErrorResponse
+    | InternalServerErrorResponse,
     DeleteFeatureFlagQueryParams,
     string,
     void
@@ -1908,7 +2103,11 @@ export type UseDeleteFeatureFlagProps = Omit<
 export const useDeleteFeatureFlag = (props: UseDeleteFeatureFlagProps) =>
   useMutate<
     void,
-    UnauthenticatedResponse | UnauthorizedResponse | NotFoundResponse | InternalServerErrorResponse,
+    | UnauthenticatedResponse
+    | UnauthorizedResponse
+    | NotFoundResponse
+    | GitSyncErrorResponse
+    | InternalServerErrorResponse,
     DeleteFeatureFlagQueryParams,
     string,
     void
@@ -2031,6 +2230,7 @@ export type PatchFeatureProps = Omit<
     | UnauthorizedResponse
     | NotFoundResponse
     | ConflictResponse
+    | GitSyncErrorResponse
     | InternalServerErrorResponse,
     PatchFeatureQueryParams,
     FeaturePatchRequestRequestBody,
@@ -2053,6 +2253,7 @@ export const PatchFeature = ({ identifier, ...props }: PatchFeatureProps) => (
     | UnauthorizedResponse
     | NotFoundResponse
     | ConflictResponse
+    | GitSyncErrorResponse
     | InternalServerErrorResponse,
     PatchFeatureQueryParams,
     FeaturePatchRequestRequestBody,
@@ -2073,6 +2274,7 @@ export type UsePatchFeatureProps = Omit<
     | UnauthorizedResponse
     | NotFoundResponse
     | ConflictResponse
+    | GitSyncErrorResponse
     | InternalServerErrorResponse,
     PatchFeatureQueryParams,
     FeaturePatchRequestRequestBody,
@@ -2095,6 +2297,7 @@ export const usePatchFeature = ({ identifier, ...props }: UsePatchFeatureProps) 
     | UnauthorizedResponse
     | NotFoundResponse
     | ConflictResponse
+    | GitSyncErrorResponse
     | InternalServerErrorResponse,
     PatchFeatureQueryParams,
     FeaturePatchRequestRequestBody,

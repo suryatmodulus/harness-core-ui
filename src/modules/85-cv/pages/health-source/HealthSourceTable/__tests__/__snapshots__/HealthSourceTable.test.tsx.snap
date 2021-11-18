@@ -14,14 +14,14 @@ exports[`HealthSource table Verify HealthSource Table in CV 1`] = `
         connectors.cdng.healthSources.label
       </p>
       <div
-        class="table healthSourceTableWrapper"
+        class="TableV2--table healthSourceTableWrapper"
       >
         <div
-          class="header"
+          class="TableV2--header"
           role="row"
         >
           <div
-            class="cell sortable"
+            class="TableV2--cell TableV2--sortable"
             colspan="1"
             role="columnheader"
             style="width: 30%;"
@@ -53,7 +53,7 @@ exports[`HealthSource table Verify HealthSource Table in CV 1`] = `
             </span>
           </div>
           <div
-            class="cell sortable"
+            class="TableV2--cell TableV2--sortable"
             colspan="1"
             role="columnheader"
             style="width: 35%;"
@@ -65,7 +65,7 @@ exports[`HealthSource table Verify HealthSource Table in CV 1`] = `
             </p>
           </div>
           <div
-            class="cell sortable"
+            class="TableV2--cell TableV2--sortable"
             colspan="1"
             role="columnheader"
             style="width: 35%;"
@@ -98,21 +98,21 @@ exports[`HealthSource table Verify HealthSource Table in CV 1`] = `
           </div>
         </div>
         <div
-          class="body"
+          class="TableV2--body"
         >
           <div
-            class="row card clickable"
+            class="TableV2--row TableV2--card TableV2--clickable"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 30%;"
             >
               dasdsadasd
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 35%;"
             >
@@ -123,7 +123,7 @@ exports[`HealthSource table Verify HealthSource Table in CV 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 35%;"
             >
@@ -161,18 +161,18 @@ exports[`HealthSource table Verify HealthSource Table in CV 1`] = `
             </div>
           </div>
           <div
-            class="row card clickable"
+            class="TableV2--row TableV2--card TableV2--clickable"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 30%;"
             >
               AppD 101
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 35%;"
             >
@@ -183,7 +183,7 @@ exports[`HealthSource table Verify HealthSource Table in CV 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 35%;"
             >
@@ -275,14 +275,14 @@ exports[`HealthSource table Verify HealthSource Table in Verify step 1`] = `
         </a>
       </div>
       <div
-        class="table table"
+        class="TableV2--table table"
       >
         <div
-          class="header"
+          class="TableV2--header"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 60%;"
@@ -294,7 +294,7 @@ exports[`HealthSource table Verify HealthSource Table in Verify step 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 40%;"
@@ -307,14 +307,14 @@ exports[`HealthSource table Verify HealthSource Table in Verify step 1`] = `
           </div>
         </div>
         <div
-          class="body"
+          class="TableV2--body"
         >
           <div
-            class="row card"
+            class="TableV2--row TableV2--card"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 60%;"
             >
@@ -350,7 +350,7 @@ exports[`HealthSource table Verify HealthSource Table in Verify step 1`] = `
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 40%;"
             >
@@ -381,11 +381,11 @@ exports[`HealthSource table Verify HealthSource Table in Verify step 1`] = `
             </div>
           </div>
           <div
-            class="row card"
+            class="TableV2--row TableV2--card"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 60%;"
             >
@@ -421,7 +421,7 @@ exports[`HealthSource table Verify HealthSource Table in Verify step 1`] = `
               </div>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 40%;"
             >

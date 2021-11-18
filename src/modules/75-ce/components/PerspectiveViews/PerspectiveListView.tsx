@@ -2,9 +2,8 @@ import React, { useMemo, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import moment from 'moment'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Icon, Text, Layout, Button, Popover, Container, IconName } from '@wings-software/uicore'
+import { Icon, Text, Layout, Button, Popover, Container, IconName, TableV2 } from '@wings-software/uicore'
 import { Menu, Position } from '@blueprintjs/core'
-import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
 import { QlceView, ViewTimeRangeType, ViewState, ViewType } from 'services/ce/services'
 import { SOURCE_ICON_MAPPING } from '@ce/utils/perspectiveUtils'
@@ -188,7 +187,7 @@ const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
     []
   )
   return (
-    <Table<QlceView>
+    <TableV2<QlceView>
       onRowClick={row => {
         row.id && row.viewState && row.name && navigateToPerspectiveDetailsPage(row.id, row.viewState, row.name)
       }}

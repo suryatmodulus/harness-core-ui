@@ -63,8 +63,7 @@ describe('EnvironmentsPage', () => {
     expect(getAllByText(document.body, mockEnvironments.data.content[1].name)).toBeDefined()
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Should go to edit page by clicking a row', async () => {
+  test('Should go to edit page by clicking a row', async () => {
     mockImport('services/cd-ng', {
       useGetEnvironmentListForProject: () => ({
         data: mockEnvironments,
@@ -83,9 +82,9 @@ describe('EnvironmentsPage', () => {
       </TestWrapper>
     )
 
-    fireEvent.click(container.getElementsByClassName('row card clickable')[0] as HTMLElement)
+    fireEvent.click(container.querySelector('[role="row"]:not(:first-of-type)') as HTMLElement)
 
-    expect(getByText(container, '/account/dummy/cf/orgs/dummy/projects/dummy/environments/foobar')).toBeDefined()
+    expect(getByText(container, '/account/dummy/cf/orgs/dummy/projects/dummy/environments/QB')).toBeDefined()
   })
 
   test('Should go to edit page by clicking edit', async () => {

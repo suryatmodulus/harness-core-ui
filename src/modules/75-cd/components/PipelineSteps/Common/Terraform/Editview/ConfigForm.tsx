@@ -198,7 +198,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.MultiTextInput
                     label={getString('cd.folderPath')}
-                    placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                    placeholder={getString('pipeline.manifestType.folderPathPlaceholder')}
                     name="spec.configuration.spec.configFiles.store.spec.folderPath"
                     multiTextInputProps={{ expressions, allowableTypes: props.allowableTypes }}
                   />

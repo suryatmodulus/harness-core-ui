@@ -3,7 +3,13 @@ import { useParams } from 'react-router-dom'
 import { Container, FlexExpander, Heading, Layout, Text, PageError, useToaster } from '@wings-software/uicore'
 import type { HeadingProps } from '@wings-software/uicore/dist/components/Heading/Heading'
 import { useStrings } from 'framework/strings'
-import { SegmentFlag, SegmentFlagsResponseResponse, useGetSegmentFlags, usePatchFeature } from 'services/cf'
+import {
+  GitSyncErrorResponse,
+  SegmentFlag,
+  SegmentFlagsResponseResponse,
+  useGetSegmentFlags,
+  usePatchFeature
+} from 'services/cf'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { getErrorMessage, EntityAddingMode } from '@cf/utils/CFUtils'
 import { OptionsMenuButton } from '@common/components'
@@ -17,7 +23,7 @@ import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 
 import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
-import type { GitSyncFormValues, UseGitSync } from '@cf/hooks/useGitSync'
+import { GitSyncFormValues, GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
 import { DetailHeading } from '../DetailHeading'
 
 interface FlagsUseSegmentProps {
@@ -82,7 +88,13 @@ export const FlagsUseSegment = ({ gitSync }: FlagsUseSegmentProps): ReactElement
         }
         refetchFlags()
       })
-      .catch(exception => showError(getErrorMessage(exception), undefined, 'cf.path.feature.error'))
+      .catch(e => {
+        if (e.status === GIT_SYNC_ERROR_CODE) {
+          gitSync.handleError(e.data as GitSyncErrorResponse)
+        } else {
+          showError(getErrorMessage(e), undefined, 'cf.path.feature.error')
+        }
+      })
   }
 
   const removeSegmentToVariationTargetMap = async (
@@ -118,7 +130,13 @@ export const FlagsUseSegment = ({ gitSync }: FlagsUseSegmentProps): ReactElement
       .then(async () => {
         await refetchFlags()
       })
-      .catch(exception => showError(getErrorMessage(exception), undefined, 'cf.patch.feature.error'))
+      .catch(e => {
+        if (e.status === GIT_SYNC_ERROR_CODE) {
+          gitSync.handleError(e.data as GitSyncErrorResponse)
+        } else {
+          showError(getErrorMessage(e), undefined, 'cf.path.feature.error')
+        }
+      })
   }
 
   return (

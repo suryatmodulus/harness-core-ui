@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react'
 import get from 'lodash-es/get'
-import { Button } from '@wings-software/uicore'
+import { Button, TableV2 } from '@wings-software/uicore'
 import type { RbacResourceRendererProps } from '@rbac/factories/RbacFactory'
 import { useListDelegateProfilesNg, DelegateProfileDetailsNg } from 'services/cd-ng'
-import Table from '@common/components/Table/Table'
 import { PageSpinner } from '@common/components'
 
 type CellType = { row: { original: DelegateProfileDetailsNg } }
@@ -33,7 +32,7 @@ const DelegateConfigurationResourceRenderer: React.FC<RbacResourceRendererProps>
   )
 
   return filteredConfigurations && !loading ? (
-    <Table
+    <TableV2
       columns={[
         {
           Header: '',

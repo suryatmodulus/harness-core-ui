@@ -338,7 +338,7 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="spec.configuration.spec.configFiles.store.spec.folderPath"
-                      placeholder="pipeline.manifestType.pathPlaceholder"
+                      placeholder="pipeline.manifestType.folderPathPlaceholder"
                       type="text"
                       value="test-folder"
                     />
@@ -674,7 +674,7 @@ exports[`TF Config Form tests initial render 1`] = `
                       autocomplete="off"
                       class="bp3-input"
                       name="spec.configuration.spec.configFiles.store.spec.folderPath"
-                      placeholder="pipeline.manifestType.pathPlaceholder"
+                      placeholder="pipeline.manifestType.folderPathPlaceholder"
                       type="text"
                       value=""
                     />

@@ -1,10 +1,6 @@
 .commitsInfo {
   position: relative;
-  padding-left: var(--spacing-7);
-
-  .lastCommit {
-    transform: translateX(calc(-1 * var(--spacing-7)));
-  }
+  padding-left: var(--spacing-1);
 
   .moreCommits {
     padding: 0 var(--spacing-3) 0 0 !important;
@@ -100,11 +96,9 @@
   }
 
   .message {
-    font-size: var(--font-size-small) !important;
     white-space: nowrap !important;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: var(--grey-900) !important;
     flex: 0 1 auto;
     max-width: 500px;
   }
@@ -137,4 +131,8 @@
   align-items: center;
   justify-content: flex-end;
   cursor: pointer;
+}
+
+.noInfo {
+  padding-top: var(--spacing-1) !important;
 }

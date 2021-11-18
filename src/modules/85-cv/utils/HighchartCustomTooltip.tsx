@@ -5,7 +5,6 @@ import type {
 } from 'highcharts'
 import { useEffect, useState, useRef } from 'react'
 import ReactDOM from 'react-dom'
-import { isEmpty } from 'lodash-es'
 
 const generateTooltipId = (chartId: number): string => `highcharts-custom-tooltip-${chartId}`
 
@@ -19,7 +18,7 @@ export const HighchartCustomTooltip: React.FC<Props> = ({ chart, children }) => 
   const [context, setContext] = useState<TooltipFormatterContextObject | null>(null)
 
   useEffect(() => {
-    if (chart && !isEmpty(chart)) {
+    if (chart?.tooltip && chart.update) {
       const formatter: TooltipFormatterCallbackFunction = function () {
         // Ensures that tooltip DOM container is rendered before React portal is created.
         if (!isInit.current) {
@@ -43,7 +42,7 @@ export const HighchartCustomTooltip: React.FC<Props> = ({ chart, children }) => 
     }
   }, [chart])
 
-  const node = chart && !isEmpty(chart) && document.getElementById(generateTooltipId(chart.index))
+  const node = chart?.index && document.getElementById(generateTooltipId(chart.index))
 
   return node && context ? ReactDOM.createPortal(children(context), node) : null
 }

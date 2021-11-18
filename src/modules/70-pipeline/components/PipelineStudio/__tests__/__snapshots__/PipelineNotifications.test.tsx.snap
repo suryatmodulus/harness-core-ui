@@ -90,14 +90,14 @@ exports[`Test PipelineNotifications should test render 1`] = `
       class="StyledProps--font StyledProps--main content StyledProps--padding-bottom-huge"
     >
       <div
-        class="table notificationTable"
+        class="TableV2--table notificationTable"
       >
         <div
-          class="header"
+          class="TableV2--header"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 15%;"
@@ -109,7 +109,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 20%;"
@@ -121,7 +121,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 35%;"
@@ -133,7 +133,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 28%;"
@@ -145,7 +145,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
             </p>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             colspan="1"
             role="columnheader"
             style="width: 2%;"
@@ -158,7 +158,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
           </div>
         </div>
         <div
-          class="body"
+          class="TableV2--body"
         />
       </div>
     </div>

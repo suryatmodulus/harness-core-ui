@@ -26,6 +26,8 @@ import type { UseSaveSuccessResponse } from '@common/modals/SaveToGitDialog/useS
 import GitContextForm, { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
+import { regexVersionLabel } from '@common/utils/StringUtils'
 import { DefaultNewTemplateId, DefaultNewVersionLabel } from '../templates'
 import css from './TemplateConfigModal.module.scss'
 
@@ -68,6 +70,8 @@ export interface ConfigModalProps {
 interface BasicDetailsInterface extends ConfigModalProps {
   setPreviewValues: Dispatch<SetStateAction<NGTemplateInfoConfigWithGitDetails>>
 }
+
+const MAX_VERSION_LABEL_LENGTH = 63
 
 const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
   const { initialValues, setPreviewValues, onClose, modalProps, showGitFields, gitDetails } = props
@@ -114,6 +118,8 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
     return getString('start')
   }, [isEdit, isGitSyncEnabled, getString])
 
+  const versionLabelText = getString('templatesLibrary.createNewModal.versionLabel')
+
   return (
     <Container width={'55%'} className={css.basicDetails} background={Color.FORM_BG} padding={'huge'}>
       {loading && <PageSpinner />}
@@ -131,10 +137,32 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
         formName={formName}
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(getString('templatesLibrary.createNewModal.validation.name')),
+          name: NameSchema({
+            requiredErrorMsg: getString('common.validation.fieldIsRequired', {
+              name: getString('templatesLibrary.createNewModal.namePlaceholder')
+            })
+          }),
+          identifier: IdentifierSchema(),
           versionLabel: Yup.string()
             .trim()
-            .required(getString('templatesLibrary.createNewModal.validation.versionLabel')),
+            .required(
+              getString('common.validation.fieldIsRequired', {
+                name: versionLabelText
+              })
+            )
+            .matches(
+              regexVersionLabel,
+              getString('common.validation.fieldMustStartWithAlphanumericAndCanNotHaveSpace', {
+                name: versionLabelText
+              })
+            )
+            .max(
+              MAX_VERSION_LABEL_LENGTH,
+              getString('common.validation.fieldCannotbeLongerThanN', {
+                name: versionLabelText,
+                n: MAX_VERSION_LABEL_LENGTH
+              })
+            ),
           ...(isGitSyncEnabled && showGitFields
             ? {
                 repo: Yup.string().trim().required(getString('common.git.validation.repoRequired')),
@@ -164,7 +192,7 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
                     <FormInput.Text
                       name="versionLabel"
                       placeholder={getString('templatesLibrary.createNewModal.versionPlaceholder')}
-                      label={getString('templatesLibrary.createNewModal.versionLabel')}
+                      label={versionLabelText}
                       disabled={!!disabledFields?.includes(Fields.VersionLabel) || isReadonly}
                     />
                     {isGitSyncEnabled && showGitFields && (

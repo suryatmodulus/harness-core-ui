@@ -1,10 +1,9 @@
 import React, { useMemo } from 'react'
 import get from 'lodash-es/get'
-import { Button } from '@wings-software/uicore'
+import { Button, TableV2 } from '@wings-software/uicore'
 import type { RbacResourceRendererProps } from '@rbac/factories/RbacFactory'
 import type { DelegateGroupDetails } from 'services/portal'
 import { useGetDelegateGroupsV2 } from 'services/portal'
-import Table from '@common/components/Table/Table'
 import { PageSpinner } from '@common/components'
 
 type CellType = { row: { original: DelegateGroupDetails } }
@@ -34,7 +33,7 @@ const DelegateResourceRenderer: React.FC<RbacResourceRendererProps> = ({
   )
 
   return filteredDelegateGroupDetails && !loading ? (
-    <Table
+    <TableV2
       columns={[
         {
           Header: '',

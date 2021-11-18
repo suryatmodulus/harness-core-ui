@@ -10,7 +10,8 @@ import {
   Page,
   PageSpinner,
   // useModalHook,
-  Icon
+  Icon,
+  TableV2
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { IconName } from '@blueprintjs/icons'
@@ -18,7 +19,6 @@ import { Classes, Menu, Popover, Position } from '@blueprintjs/core'
 // import { Dialog, IconName, IDialogProps } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
 import { AccessPoint, useAccessPointActivity, useAccessPointRules, useAllAccessPoints } from 'services/lw'
-import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
@@ -301,7 +301,7 @@ const COLoadBalancerList: React.FC = () => {
             </>
             {allAccessPoints?.length > 0 && (
               <Page.Body className={css.pageContainer}>
-                <Table<AccessPoint>
+                <TableV2<AccessPoint>
                   data={allAccessPoints || []}
                   className={css.table}
                   columns={[

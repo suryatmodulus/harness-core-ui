@@ -30,7 +30,13 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { PipelineStageWrapper } from '@pipeline/utils/pipelineTypes'
-import { getTemplateListPromise, GetTemplateListQueryParams } from 'services/template-ng'
+import {
+  getTemplateListPromise,
+  GetTemplateListQueryParams,
+  ResponsePageTemplateSummaryResponse
+} from 'services/template-ng'
+import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -59,19 +65,45 @@ interface PipelineInfoConfigWithGitDetails extends PipelineInfoConfig {
 const logger = loggerFor(ModuleName.CD)
 
 export const getTemplateTypesByRef = (params: GetTemplateListQueryParams, templateRefs: string[]) => {
-  return getTemplateListPromise({
-    body: {
-      filterType: 'Template',
-      templateIdentifiers: templateRefs
-    },
-    queryParams: params
-  }).then(response => {
-    const templateTypes = {}
-    response.data?.content?.forEach(item => {
-      set(templateTypes, item.identifier || '', parse(item.yaml || '').template.spec.type)
-    })
-    return templateTypes
+  const scopedTemplates = templateRefs.reduce((a: { [key: string]: string[] }, b) => {
+    const identifier = getIdentifierFromValue(b)
+    const scope = getScopeFromValue(b)
+    if (a[scope]) {
+      a[scope].push(identifier)
+    } else {
+      a[scope] = [identifier]
+    }
+    return a
+  }, {})
+  const promises: Promise<ResponsePageTemplateSummaryResponse>[] = []
+  Object.keys(scopedTemplates).forEach(scope => {
+    promises.push(
+      getTemplateListPromise({
+        body: {
+          filterType: 'Template',
+          templateIdentifiers: scopedTemplates[scope]
+        },
+        queryParams: {
+          ...params,
+          projectIdentifier: scope === Scope.PROJECT ? params.projectIdentifier : undefined,
+          orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? params.orgIdentifier : undefined
+        }
+      })
+    )
   })
+  return Promise.all(promises)
+    .then(responses => {
+      const templateTypes = {}
+      responses.forEach(response => {
+        response.data?.content?.forEach(item => {
+          set(templateTypes, item.identifier || '', parse(item.yaml || '').template.spec.type)
+        })
+      })
+      return templateTypes
+    })
+    .catch(_error => {
+      return {}
+    })
 }
 
 export const getPipelineByIdentifier = (
@@ -260,6 +292,19 @@ export const findAllByKey = (keyToFind: string, obj?: PipelineInfoConfig): strin
     : []
 }
 
+const getTemplateType = async (pipeline: PipelineInfoConfig, queryParams: GetPipelineQueryParams) => {
+  const templateRefs = findAllByKey('templateRef', pipeline)
+  return await getTemplateTypesByRef(
+    {
+      accountIdentifier: queryParams.accountIdentifier,
+      orgIdentifier: queryParams.orgIdentifier,
+      projectIdentifier: queryParams.projectIdentifier,
+      templateListType: 'Stable'
+    },
+    templateRefs
+  )
+}
+
 const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipelineUnboundProps): Promise<void> => {
   const { dispatch, queryParams, pipelineIdentifier: identifier, gitDetails } = props
   const { forceFetch = false, forceUpdate = false, newPipelineId, signal, repoIdentifier, branch } = params
@@ -290,8 +335,8 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
         ? pipelineWithGitDetails.gitDetails
         : data?.gitDetails ?? {}
     }
-    let templateRefs = []
     if (data && !forceUpdate) {
+      const templateTypes = data.pipeline ? await getTemplateType(data.pipeline, queryParams) : {}
       dispatch(
         PipelineContextActions.success({
           error: '',
@@ -301,12 +346,13 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           isUpdated: !isEqual(pipeline, data.pipeline),
           gitDetails: pipelineWithGitDetails?.gitDetails?.objectId
             ? pipelineWithGitDetails.gitDetails
-            : defaultTo(data?.gitDetails, {})
+            : defaultTo(data?.gitDetails, {}),
+          templateTypes
         })
       )
-      templateRefs = findAllByKey('templateRef', data.pipeline)
     } else if (IdbPipeline) {
       await IdbPipeline.put(IdbPipelineStoreName, payload)
+      const templateTypes = await getTemplateType(pipeline, queryParams)
       dispatch(
         PipelineContextActions.success({
           error: '',
@@ -314,11 +360,12 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           originalPipeline: cloneDeep(pipeline),
           isBEPipelineUpdated: false,
           isUpdated: false,
-          gitDetails: payload.gitDetails
+          gitDetails: payload.gitDetails,
+          templateTypes
         })
       )
-      templateRefs = findAllByKey('templateRef', pipeline)
     } else {
+      const templateTypes = await getTemplateType(pipeline, queryParams)
       dispatch(
         PipelineContextActions.success({
           error: '',
@@ -326,23 +373,8 @@ const _fetchPipeline = async (props: FetchPipelineBoundProps, params: FetchPipel
           originalPipeline: cloneDeep(pipeline),
           isBEPipelineUpdated: false,
           isUpdated: false,
-          gitDetails: pipelineWithGitDetails?.gitDetails?.objectId ? pipelineWithGitDetails.gitDetails : {}
-        })
-      )
-      templateRefs = findAllByKey('templateRef', pipeline)
-    }
-    if (templateRefs.length > 0) {
-      dispatch(
-        PipelineContextActions.setTemplateTypes({
-          templateTypes: await getTemplateTypesByRef(
-            {
-              accountIdentifier: queryParams.accountIdentifier,
-              orgIdentifier: queryParams.orgIdentifier,
-              projectIdentifier: queryParams.projectIdentifier,
-              templateListType: 'Stable'
-            },
-            templateRefs
-          )
+          gitDetails: pipelineWithGitDetails?.gitDetails?.objectId ? pipelineWithGitDetails.gitDetails : {},
+          templateTypes
         })
       )
     }
@@ -392,32 +424,36 @@ const _softFetchPipeline = async (
     gitDetails.branch || ''
   )
   if (IdbPipeline) {
-    const data: PipelinePayload = await IdbPipeline.get(IdbPipelineStoreName, id)
-    if (data?.pipeline && !isEqual(data.pipeline, pipeline)) {
-      const isUpdated = !isEqual(originalPipeline, data.pipeline)
-      if (!isEmpty(selectionState.selectedStageId) && selectionState.selectedStageId) {
-        const stage = _getStageFromPipeline(selectionState.selectedStageId, data.pipeline).stage
-        if (isNil(stage)) {
-          dispatch(
-            PipelineContextActions.success({
-              error: '',
-              pipeline: data.pipeline,
-              isUpdated,
-              pipelineView: {
-                ...pipelineView,
-                isSplitViewOpen: false,
-                isDrawerOpened: false,
-                drawerData: { type: DrawerTypes.StepConfig },
-                splitViewData: {}
-              }
-            })
-          )
+    try {
+      const data: PipelinePayload = await IdbPipeline.get(IdbPipelineStoreName, id)
+      if (data?.pipeline && !isEqual(data.pipeline, pipeline)) {
+        const isUpdated = !isEqual(originalPipeline, data.pipeline)
+        if (!isEmpty(selectionState.selectedStageId) && selectionState.selectedStageId) {
+          const stage = _getStageFromPipeline(selectionState.selectedStageId, data.pipeline).stage
+          if (isNil(stage)) {
+            dispatch(
+              PipelineContextActions.success({
+                error: '',
+                pipeline: data.pipeline,
+                isUpdated,
+                pipelineView: {
+                  ...pipelineView,
+                  isSplitViewOpen: false,
+                  isDrawerOpened: false,
+                  drawerData: { type: DrawerTypes.StepConfig },
+                  splitViewData: {}
+                }
+              })
+            )
+          } else {
+            dispatch(PipelineContextActions.success({ error: '', pipeline: data.pipeline, isUpdated }))
+          }
         } else {
           dispatch(PipelineContextActions.success({ error: '', pipeline: data.pipeline, isUpdated }))
         }
-      } else {
-        dispatch(PipelineContextActions.success({ error: '', pipeline: data.pipeline, isUpdated }))
       }
+    } catch (err) {
+      dispatch(PipelineContextActions.success({ error: 'DB is not initialized' }))
     }
   } else {
     dispatch(PipelineContextActions.success({ error: 'DB is not initialized' }))
@@ -818,12 +854,14 @@ export const PipelineProvider: React.FC<{
   })
 
   React.useEffect(() => {
-    abortControllerRef.current = new AbortController()
-    fetchPipeline({ forceFetch: true, signal: abortControllerRef.current?.signal })
+    if (state.isDBInitialized) {
+      abortControllerRef.current = new AbortController()
+      fetchPipeline({ forceFetch: true, signal: abortControllerRef.current?.signal })
 
-    return () => {
-      if (abortControllerRef.current) {
-        abortControllerRef.current.abort()
+      return () => {
+        if (abortControllerRef.current) {
+          abortControllerRef.current.abort()
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

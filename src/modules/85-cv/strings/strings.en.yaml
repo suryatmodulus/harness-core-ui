@@ -41,6 +41,7 @@ selectWorkload: Select Workload
 riskTimeline: Risk Timeline
 perHeatMapCell: per heat map cell
 allServices: All Services
+servicesAtRisk: Services at Risk
 searchForAService: Search for a service
 trafficSplit: Traffic Split Percentage (optional)
 pinABaseline: Pin a baseline
@@ -246,6 +247,7 @@ onboarding:
       source: Source selection is required
 selectCreateService: Select or create a service
 monitoringSources:
+  assign: Assign
   mapMetricsToServices: Map Metric(s) to Harness Services
   mapQueriesToServices: Map Queries to Harness Services
   metricPackValidation: Metric Pack Validation
@@ -556,13 +558,13 @@ monitoredServices:
   monitoredServiceUpdated: Monitoring Service updated
   monitoredServiceToggle: 'Monitored Service successfully {{enabled}}'
   showingAllServices: Showing all Services ({{ serviceCount }})
+  showingServiceAtRisk: Showing Services at Risk ({{ serviceCount }})
   noAvailableData: No available data.
-  noServiceAvailable: No service available
   dependencyHealth: Dependency Health
   dependenciesHealth: Dependencies Health
   healthScoreDataNotAvailable: Health score data not available.
-  healthScoreDataNotAvailableForServiceHealth: Health score data not available for service health.
-  healthScoreDataNotAvailableForDependencyHealth: Health score data not available for dependency health.
+  serviceHealthScoreDataNotAvailable: Service Health score data not available.
+  dependencyHealthScoreDataNotAvailable: Dependency Health score data not available.
   failedToFetchHealthScore: Failed to fetch health score data.
   failedToFetchSummaryData: Failed to fetch summary data
   changeMonitoredServiceType: Change Monitored Service Type

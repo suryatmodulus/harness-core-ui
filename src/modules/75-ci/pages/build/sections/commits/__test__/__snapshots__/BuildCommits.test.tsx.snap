@@ -88,9 +88,11 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
                       </span>
                     </span>
                   </div>
-                  <span>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
                     userid
-                  </span>
+                  </p>
                 </div>
               </span>
             </span>
@@ -110,7 +112,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
             </span>
           </span>
           <p
-            class="StyledProps--font StyledProps--main commitId"
+            class="StyledProps--font StyledProps--main commitId StyledProps--font-variation-small"
             data-name="commitId"
           >
             <a
@@ -128,7 +130,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
                 class="bp3-popover-target Text--targetClass"
               >
                 <p
-                  class="StyledProps--font StyledProps--main"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-small"
                   style="cursor: pointer;"
                   tabindex="0"
                 >
@@ -217,9 +219,11 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
                       </span>
                     </span>
                   </div>
-                  <span>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                  >
                     userid
-                  </span>
+                  </p>
                 </div>
               </span>
             </span>
@@ -239,7 +243,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
             </span>
           </span>
           <p
-            class="StyledProps--font StyledProps--main commitId"
+            class="StyledProps--font StyledProps--main commitId StyledProps--font-variation-small"
             data-name="commitId"
           >
             <a
@@ -257,7 +261,7 @@ exports[`BuildCommits snapshot test should render properly 1`] = `
                 class="bp3-popover-target Text--targetClass"
               >
                 <p
-                  class="StyledProps--font StyledProps--main"
+                  class="StyledProps--font StyledProps--main StyledProps--font-variation-small"
                   style="cursor: pointer;"
                   tabindex="0"
                 >

@@ -78,7 +78,7 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
         </Container>
         <Container>
           <Tag className={cx(css.version, { [css.empty]: !template.versionLabel })}>
-            {template.versionLabel || 'Version 1'}
+            {template.versionLabel || 'Version1'}
           </Tag>
         </Container>
         <Container height={1} background={Color.GREY_100} />

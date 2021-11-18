@@ -140,6 +140,10 @@ export interface StringsMap {
   'common.disable': string
   'common.discard': string
   'common.duplicateId': string
+  'common.duration.3months': string
+  'common.duration.6months': string
+  'common.duration.month': string
+  'common.duration.year': string
   'common.durationPrefix': string
   'common.editVariable': string
   'common.editVariableType': string
@@ -297,6 +301,7 @@ export interface StringsMap {
   'common.module.cv': string
   'common.monthly': string
   'common.moreInfo': string
+  'common.moreOptions': string
   'common.moreRefineSearch': string
   'common.mostActiveServices': string
   'common.move': string
@@ -310,6 +315,7 @@ export interface StringsMap {
   'common.noConnectorAvailable': string
   'common.noDelegateForTask': string
   'common.noDeployments': string
+  'common.noInfo': string
   'common.noRefData': string
   'common.note': string
   'common.noteAccountSwitch': string
@@ -538,7 +544,9 @@ export interface StringsMap {
   'common.validation.email.format': string
   'common.validation.email.required': string
   'common.validation.fieldCannotbeLongerThanN': string
+  'common.validation.fieldIsRequired': string
   'common.validation.fieldMustBeAlphanumeric': string
+  'common.validation.fieldMustStartWithAlphanumericAndCanNotHaveSpace': string
   'common.validation.fileIsRequired': string
   'common.validation.formatMustBeAlphanumeric': string
   'common.validation.groupAttributeIsRequired': string
@@ -2005,6 +2013,7 @@ export interface StringsMap {
   'pipeline.approvalStep.validation.minimumCountOne': string
   'pipeline.approvalStep.validation.minimumCountRequired': string
   'pipeline.approvalStep.validation.userGroups': string
+  'pipeline.approvalTypeRequired': string
   'pipeline.artifactsSelection.artifactDetails': string
   'pipeline.artifactsSelection.artifactTyperequired': string
   'pipeline.artifactsSelection.existingDocker.enterTagRegex': string
@@ -2026,6 +2035,7 @@ export interface StringsMap {
   'pipeline.barriers.tooltips.timeout': string
   'pipeline.barriers.validation.barrierNamerequired': string
   'pipeline.buildRepo': string
+  'pipeline.ciCodebase.buildType': string
   'pipeline.ciCodebase.prCloneStrategy': string
   'pipeline.clickHere': string
   'pipeline.clickToExpandErrorDetails': string
@@ -2310,6 +2320,7 @@ export interface StringsMap {
   'pipeline.manifestType.commitId': string
   'pipeline.manifestType.commitPlaceholder': string
   'pipeline.manifestType.filePathPlaceholder': string
+  'pipeline.manifestType.folderPathPlaceholder': string
   'pipeline.manifestType.folderPathRequired': string
   'pipeline.manifestType.gitConnectorLabel': string
   'pipeline.manifestType.gitFetchTypeLabel': string
@@ -2363,6 +2374,7 @@ export interface StringsMap {
   'pipeline.myDeploymentsText': string
   'pipeline.neverRan': string
   'pipeline.newPipelineText': string
+  'pipeline.noApprovalInstanceCreated': string
   'pipeline.noBuckets': string
   'pipeline.noBuildsText': string
   'pipeline.noDeploymentText': string
@@ -2412,6 +2424,7 @@ export interface StringsMap {
   'pipeline.runFailedStages': string
   'pipeline.runModalNoPipelineText': string
   'pipeline.runPipelineForm.notifyOnlyMe': string
+  'pipeline.runstageError': string
   'pipeline.savingInProgress': string
   'pipeline.scriptInputVariables': string
   'pipeline.scriptOutputVariables': string
@@ -2425,6 +2438,7 @@ export interface StringsMap {
   'pipeline.serviceDependencyText': string
   'pipeline.singleStageExecution': string
   'pipeline.sslVerify': string
+  'pipeline.stageDependencyError': string
   'pipeline.stageVariables': string
   'pipeline.stagetoRetryFrom': string
   'pipeline.startTime': string
@@ -2727,8 +2741,6 @@ export interface StringsMap {
   'templatesLibrary.createNewModal.heading': string
   'templatesLibrary.createNewModal.label': string
   'templatesLibrary.createNewModal.namePlaceholder': string
-  'templatesLibrary.createNewModal.validation.name': string
-  'templatesLibrary.createNewModal.validation.versionLabel': string
   'templatesLibrary.createNewModal.versionLabel': string
   'templatesLibrary.createNewModal.versionPlaceholder': string
   'templatesLibrary.created': string
@@ -2842,9 +2854,7 @@ export interface StringsMap {
   'cd.searchPlaceholder': string
   'cd.secretManagerRequired': string
   'cd.serviceCreated': string
-  'cd.serviceDashboard.3months': string
   'cd.serviceDashboard.6monthTrend': string
-  'cd.serviceDashboard.6months': string
   'cd.serviceDashboard.activeServiceInstancesLabel': string
   'cd.serviceDashboard.artifact': string
   'cd.serviceDashboard.buildName': string
@@ -2857,7 +2867,6 @@ export interface StringsMap {
   'cd.serviceDashboard.instanceCountHistory': string
   'cd.serviceDashboard.instanceDetails': string
   'cd.serviceDashboard.lastDeployment': string
-  'cd.serviceDashboard.month': string
   'cd.serviceDashboard.noActiveServiceInstances': string
   'cd.serviceDashboard.noActiveServices': string
   'cd.serviceDashboard.noDeployments': string
@@ -2874,7 +2883,6 @@ export interface StringsMap {
   'cd.serviceDashboard.servicesInLast': string
   'cd.serviceDashboard.totalPipelines': string
   'cd.serviceDashboard.totalServices': string
-  'cd.serviceDashboard.year': string
   'cd.serviceUpdated': string
   'cd.setUpProvisionerBtnText': string
   'cd.setupGitOpsServerStep': string
@@ -3635,9 +3643,15 @@ export interface StringsMap {
   'cf.gitSync.commitChanges': string
   'cf.gitSync.commitMsgRequired': string
   'cf.gitSync.flagName': string
+  'cf.gitSync.gitErrorModalTitle': string
+  'cf.gitSync.gitServiceApiError': string
+  'cf.gitSync.goToGit': string
+  'cf.gitSync.invalidYaml': string
   'cf.gitSync.saveFlagToGit': string
   'cf.gitSync.syncingPaused': string
   'cf.gitSync.toggleGitSyncPause': string
+  'cf.gitSync.tryAgain': string
+  'cf.gitSync.turnOffGitAndContinue': string
   'cf.homepage.learnMore': string
   'cf.homepage.slogan': string
   'cf.learnMore': string
@@ -3884,6 +3898,7 @@ export interface StringsMap {
   'cf.testTheFlag.verifyText': string
   'ci.advancedLabel': string
   'ci.annotations': string
+  'ci.artifactoryConnectorLabel': string
   'ci.ciTrialHomePage.startTrial.description': string
   'ci.ciTrialHomePage.startTrial.startBtn.description': string
   'ci.clipboardCopyFail': string
@@ -4177,6 +4192,7 @@ export interface StringsMap {
   'cv.monitoredServices.deleteService': string
   'cv.monitoredServices.dependenciesHealth': string
   'cv.monitoredServices.dependencyHealth': string
+  'cv.monitoredServices.dependencyHealthScoreDataNotAvailable': string
   'cv.monitoredServices.editMonitoredServices': string
   'cv.monitoredServices.editService': string
   'cv.monitoredServices.environmentValidation': string
@@ -4184,8 +4200,6 @@ export interface StringsMap {
   'cv.monitoredServices.failedToFetchSummaryData': string
   'cv.monitoredServices.filterlabel': string
   'cv.monitoredServices.healthScoreDataNotAvailable': string
-  'cv.monitoredServices.healthScoreDataNotAvailableForDependencyHealth': string
-  'cv.monitoredServices.healthScoreDataNotAvailableForServiceHealth': string
   'cv.monitoredServices.monitoredServiceCreated': string
   'cv.monitoredServices.monitoredServiceDeleted': string
   'cv.monitoredServices.monitoredServiceDetails': string
@@ -4197,7 +4211,6 @@ export interface StringsMap {
   'cv.monitoredServices.nameValidation': string
   'cv.monitoredServices.newMonitoredServices': string
   'cv.monitoredServices.noAvailableData': string
-  'cv.monitoredServices.noServiceAvailable': string
   'cv.monitoredServices.serviceAndEnvironment': string
   'cv.monitoredServices.serviceDependencies.noData': string
   'cv.monitoredServices.serviceHealth.anamolies': string
@@ -4215,8 +4228,10 @@ export interface StringsMap {
   'cv.monitoredServices.serviceHealth.serviceDependencies.states.needsAttention': string
   'cv.monitoredServices.serviceHealth.serviceDependencies.states.observe': string
   'cv.monitoredServices.serviceHealth.serviceDependencies.states.unhealthy': string
+  'cv.monitoredServices.serviceHealthScoreDataNotAvailable': string
   'cv.monitoredServices.serviceValidation': string
   'cv.monitoredServices.showingAllServices': string
+  'cv.monitoredServices.showingServiceAtRisk': string
   'cv.monitoredServices.table.changes': string
   'cv.monitoredServices.table.healthMonitoring': string
   'cv.monitoredServices.table.lastestHealthTrend': string
@@ -4265,6 +4280,7 @@ export interface StringsMap {
   'cv.monitoringSources.appD.validationsFailed': string
   'cv.monitoringSources.appD.validationsPassed': string
   'cv.monitoringSources.appD.verificationsInProgress': string
+  'cv.monitoringSources.assign': string
   'cv.monitoringSources.backToMapping': string
   'cv.monitoringSources.baselineDeviation': string
   'cv.monitoringSources.buildYourQuery': string
@@ -4487,6 +4503,7 @@ export interface StringsMap {
   'cv.serviceDashboardPage.thirtyDays': string
   'cv.serviceDashboardPage.twelveHours': string
   'cv.serviceHealthTrend': string
+  'cv.servicesAtRisk': string
   'cv.setup': string
   'cv.share': string
   'cv.showLess': string

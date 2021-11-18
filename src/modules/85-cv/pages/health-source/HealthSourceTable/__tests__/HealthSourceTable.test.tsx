@@ -68,7 +68,7 @@ describe('HealthSource table', () => {
     )
 
     //render rows based on data
-    await waitFor(() => expect(container.querySelectorAll('.body [role="row"]').length).toEqual(2))
+    await waitFor(() => expect(container.querySelectorAll('.TableV2--body [role="row"]').length).toEqual(2))
 
     fireEvent.click(container.querySelector('.context-menu-mock-delete')!)
     await waitFor(() => expect(healthSourceTableProps.onDelete).toHaveBeenCalled())
@@ -94,7 +94,7 @@ describe('HealthSource table', () => {
     )
 
     //render rows based on data
-    await waitFor(() => expect(container.querySelectorAll('.body [role="row"]').length).toEqual(2))
+    await waitFor(() => expect(container.querySelectorAll('.TableV2--body [role="row"]').length).toEqual(2))
 
     userEvent.click(container.querySelector('span[icon="edit"]')!)
     await waitFor(() => expect(healthSourceTableProps.onEdit).toHaveBeenCalled())

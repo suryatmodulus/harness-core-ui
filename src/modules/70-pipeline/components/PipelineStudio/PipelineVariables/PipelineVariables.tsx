@@ -126,18 +126,10 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
             <div className={css.searchActions}></div>
           </div>
           <div className={css.variableListHeader}>
-            <Text
-              font={{ variation: FontVariation.SMALL_BOLD }}
-              style={{ textTransform: 'capitalize' }}
-              color={Color.GREY_600}
-            >
+            <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.GREY_600}>
               {getString('variableLabel')}{' '}
             </Text>
-            <Text
-              font={{ variation: FontVariation.SMALL_BOLD }}
-              style={{ textTransform: 'capitalize' }}
-              color={Color.GREY_600}
-            >
+            <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.GREY_600}>
               {getString('common.input')}{' '}
             </Text>
           </div>

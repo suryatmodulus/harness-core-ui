@@ -7,7 +7,9 @@ declare const styles: {
   readonly graphContainer: string
   readonly filterCard: string
   readonly filterSelect: string
+  readonly pageContainer: string
   readonly pageBody: string
+  readonly noDataContainer: string
   readonly dependencyGraph: string
   readonly graphSummaryCard: string
   readonly infrastructureIconPadding: string

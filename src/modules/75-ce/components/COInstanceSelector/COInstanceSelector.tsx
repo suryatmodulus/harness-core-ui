@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import type { CellProps } from 'react-table'
 import { isEmpty as _isEmpty } from 'lodash-es'
-import { Text, Color, Container, ExpandingSearchInput, Layout, Checkbox, Button, Icon } from '@wings-software/uicore'
-import Table from '@common/components/Table/Table'
+import {
+  Text,
+  Color,
+  Container,
+  ExpandingSearchInput,
+  Layout,
+  Checkbox,
+  Button,
+  Icon,
+  TableV2
+} from '@wings-software/uicore'
 import type { GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useStrings } from 'framework/strings'
@@ -132,7 +141,7 @@ const COInstanceSelector: React.FC<COInstanceSelectorprops> = props => {
             </Layout.Horizontal>
           )}
           {!props.loading && (
-            <Table
+            <TableV2
               className={css.instancesTable}
               data={(instances || []).slice(
                 pageIndex * TOTAL_ITEMS_PER_PAGE,

@@ -2,12 +2,11 @@
 // this is an auto-generated file
 declare const styles: {
   readonly times: string
-  readonly timeIcon: string
   readonly timesColored: string
+  readonly timeIcon: string
   readonly repositoryCard: string
   readonly titleAndMessage: string
   readonly title: string
-  readonly leftBorder: string
   readonly mainContent: string
   readonly cardStats: string
   readonly statHeader: string
@@ -17,8 +16,8 @@ declare const styles: {
   readonly chartWrapper: string
   readonly cardFooter: string
   readonly avatarWrapper: string
-  readonly successBorder: string
-  readonly errorBorder: string
-  readonly repoCard: string
+  readonly userLabel: string
+  readonly message: string
+  readonly buildStatus: string
 }
 export default styles

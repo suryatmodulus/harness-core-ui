@@ -10,7 +10,7 @@ import {
   ServiceInstanceWidgetProps
 } from '@cd/components/Services/ServiceInstancesWidget/ServiceInstancesWidget'
 import { MostActiveServicesWidget } from '@cd/components/Services/MostActiveServicesWidget/MostActiveServicesWidget'
-import { startOfDay, TimeRangeSelectorProps } from '@cd/components/TimeRangeSelector/TimeRangeSelector'
+import { startOfDay, TimeRangeSelectorProps } from '@common/components/TimeRangeSelector/TimeRangeSelector'
 import { DeploymentsWidget } from '@cd/components/Services/DeploymentsWidget/DeploymentsWidget'
 import { ServicesList, ServicesListProps } from '@cd/components/Services/ServicesList/ServicesList'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -24,7 +24,7 @@ export const ServicesContent: React.FC = () => {
 
   const [timeRange, setTimeRange] = useState<TimeRangeSelectorProps>({
     range: [startOfDay(moment().subtract(1, 'month').add(1, 'day')), startOfDay(moment())],
-    label: getString('cd.serviceDashboard.month')
+    label: getString('common.duration.month')
   })
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps & ModulePathParams>()

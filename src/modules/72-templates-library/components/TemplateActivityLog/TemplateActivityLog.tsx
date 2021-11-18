@@ -77,7 +77,7 @@ const TimelineIndicators = ({ last }: { last: boolean }) => {
 
 const TemplateActivity = ({ auditEvent, last }: TemplateActivityProps) => {
   /* Rendering a single audit activity */
-  const { action, authenticationInfo, resource, timestamp } = auditEvent
+  const { action, authenticationInfo, resource, timestamp, auditEventData } = auditEvent
   const { labels } = authenticationInfo
   const { getString } = useStrings()
 
@@ -101,7 +101,7 @@ const TemplateActivity = ({ auditEvent, last }: TemplateActivityProps) => {
           border={{ radius: 4, color: Color.PRIMARY_6 }}
         >
           <Text font={{ size: 'small' }} width={350} lineClamp={2}>
-            {getString('templatesLibrary.sampleTemplateAuditComment')}
+            {(auditEventData as any)?.comments || getString('templatesLibrary.sampleTemplateAuditComment')}
           </Text>
         </Container>
       </div>
@@ -157,7 +157,7 @@ export const TemplateActivityLog = (props: TemplateActivityLogProps) => {
               style={{ overflow: 'auto' }}
               width={'100%'}
               height={'100%'}
-              padding={{ top: 'medium', bottom: 'medium', left: 'huge' }}
+              padding={{ top: 'medium', bottom: 'medium', left: 'xxlarge' }}
             >
               {templateActivityLogs?.data?.content?.map((auditEvent, index) => (
                 <TemplateActivity

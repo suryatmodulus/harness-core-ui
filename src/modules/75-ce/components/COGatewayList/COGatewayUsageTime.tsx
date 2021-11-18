@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Text, Color, ModalErrorHandler, ModalErrorHandlerBinding, Page } from '@wings-software/uicore'
+import { Text, Color, ModalErrorHandler, ModalErrorHandlerBinding, Page, TableV2 } from '@wings-software/uicore'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
 import type { CellProps } from 'react-table'
-import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import { Service, SessionReportRow, useGatewaySessionReport } from 'services/lw'
 import { getTimestamp } from './Utils'
@@ -98,7 +97,7 @@ const COGatewayUsageTime: React.FC<COGatewayUsageTimeProps> = props => {
     <Page.Body className={css.pageContainer}>
       <ModalErrorHandler bind={setModalErrorHandler} />
       {sessionReportRows.length ? (
-        <Table<SessionReportRow>
+        <TableV2<SessionReportRow>
           data={sessionReportRows}
           className={css.table}
           columns={[

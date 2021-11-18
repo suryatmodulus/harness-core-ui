@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Color, Layout, Text, Card } from '@wings-software/uicore'
+import { Container, Color, Layout, Text, Card, TableV2 } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 
 import {
@@ -11,7 +11,6 @@ import {
   GitEntityFilterProperties,
   ListGitSyncEntitiesByTypePathParams
 } from 'services/cd-ng'
-import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -43,7 +42,7 @@ export const EntityListView: React.FC<EntityListViewProps> = props => {
   return (
     <>
       {props.hideHeaders ? getEntityHeaderText(data) : null}
-      <Table<GitSyncEntityDTO> className={css.table} columns={getTableColumns()} data={data.gitSyncEntities || []} />
+      <TableV2<GitSyncEntityDTO> className={css.table} columns={getTableColumns()} data={data.gitSyncEntities || []} />
     </>
   )
 }

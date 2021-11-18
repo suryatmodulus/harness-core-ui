@@ -1,5 +1,4 @@
 import React from 'react'
-import * as Yup from 'yup'
 import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
@@ -13,7 +12,7 @@ import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './PluginStepFunctionConfigs'
 import type { PluginStepProps, PluginStepData, PluginStepDataUI } from './PluginStep'
@@ -22,7 +21,7 @@ import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const PluginStepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly, onChange, stepViewType, allowableTypes }: PluginStepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly, stepViewType, allowableTypes, onChange }: PluginStepProps,
   formikRef: StepFormikFowardRef<PluginStepData>
 ): JSX.Element => {
   const {
@@ -46,18 +45,24 @@ export const PluginStepBase = (
       )}
       formName="pluginStep"
       validate={valuesToValidate => {
-        return validate(valuesToValidate, editViewValidateFieldsConfig, {
-          initialValues,
-          steps: currentStage?.stage?.spec?.execution?.steps || {},
-          serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
-          getString
-        })
+        const schemaValues = getFormValuesInCorrectFormat<PluginStepDataUI, PluginStepData>(
+          valuesToValidate,
+          transformValuesFieldsConfig
+        )
+        onChange?.(schemaValues)
+        return validate(
+          valuesToValidate,
+          editViewValidateFieldsConfig,
+          {
+            initialValues,
+            steps: currentStage?.stage?.spec?.execution?.steps || {},
+            serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
+            getString
+          },
+          stepViewType
+        )
       }}
-      validationSchema={Yup.object().shape({
-        ...getNameAndIdentifierSchema(getString, stepViewType)
-      })}
       onSubmit={(_values: PluginStepDataUI) => {
-        onChange?.(getFormValuesInCorrectFormat<PluginStepDataUI, PluginStepData>(_values, transformValuesFieldsConfig))
         const schemaValues = getFormValuesInCorrectFormat<PluginStepDataUI, PluginStepData>(
           _values,
           transformValuesFieldsConfig

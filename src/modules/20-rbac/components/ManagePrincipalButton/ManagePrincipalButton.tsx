@@ -3,7 +3,7 @@ import React from 'react'
 import type { ButtonProps } from '@wings-software/uicore'
 import RbacButton from '@rbac/components/Button/Button'
 import type { PermissionRequest } from '@rbac/hooks/usePermission'
-import type { FeatureRequest } from 'framework/featureStore/FeaturesContext'
+import type { FeatureRequest } from 'framework/featureStore/featureStoreUtil'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 

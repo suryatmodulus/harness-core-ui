@@ -66,14 +66,14 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
       </div>
     </div>
     <div
-      class="table table"
+      class="TableV2--table table"
     >
       <div
-        class="header"
+        class="TableV2--header"
         role="row"
       >
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 15%;"
@@ -85,7 +85,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 20%;"
@@ -97,7 +97,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 15%;"
@@ -109,7 +109,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 50%;"
@@ -122,14 +122,14 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
         </div>
       </div>
       <div
-        class="body"
+        class="TableV2--body"
       >
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -170,7 +170,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -185,7 +185,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -200,7 +200,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -479,11 +479,11 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -524,7 +524,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -539,7 +539,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -554,7 +554,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -904,14 +904,14 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
       </div>
     </div>
     <div
-      class="table table"
+      class="TableV2--table table"
     >
       <div
-        class="header"
+        class="TableV2--header"
         role="row"
       >
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 15%;"
@@ -923,7 +923,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 20%;"
@@ -935,7 +935,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 15%;"
@@ -947,7 +947,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 50%;"
@@ -960,14 +960,14 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
         </div>
       </div>
       <div
-        class="body"
+        class="TableV2--body"
       >
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -1008,7 +1008,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -1023,7 +1023,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -1038,7 +1038,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -1294,11 +1294,11 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -1339,7 +1339,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -1354,7 +1354,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -1369,7 +1369,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -1719,14 +1719,14 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
       </div>
     </div>
     <div
-      class="table table"
+      class="TableV2--table table"
     >
       <div
-        class="header"
+        class="TableV2--header"
         role="row"
       >
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 15%;"
@@ -1738,7 +1738,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 20%;"
@@ -1750,7 +1750,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 15%;"
@@ -1762,7 +1762,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 50%;"
@@ -1775,14 +1775,14 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
         </div>
       </div>
       <div
-        class="body"
+        class="TableV2--body"
       >
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -1823,7 +1823,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -1838,7 +1838,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -1853,7 +1853,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -2141,11 +2141,11 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -2186,7 +2186,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -2201,7 +2201,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -2216,7 +2216,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -2566,14 +2566,14 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
       </div>
     </div>
     <div
-      class="table table"
+      class="TableV2--table table"
     >
       <div
-        class="header"
+        class="TableV2--header"
         role="row"
       >
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 15%;"
@@ -2585,7 +2585,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 20%;"
@@ -2597,7 +2597,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 15%;"
@@ -2609,7 +2609,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
           </p>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 50%;"
@@ -2622,14 +2622,14 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
         </div>
       </div>
       <div
-        class="body"
+        class="TableV2--body"
       >
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -2670,7 +2670,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -2685,7 +2685,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -2700,7 +2700,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >
@@ -2979,11 +2979,11 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
           </div>
         </div>
         <div
-          class="row card"
+          class="TableV2--row TableV2--card"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -3024,7 +3024,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -3039,7 +3039,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 15%;"
           >
@@ -3054,7 +3054,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 50%;"
           >

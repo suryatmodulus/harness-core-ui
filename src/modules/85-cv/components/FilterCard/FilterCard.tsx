@@ -21,7 +21,7 @@ const FilterCard: React.FC<FilterCardProps> = ({ data, cardClassName, selected, 
             {title}
           </Text>
           <Text color={Color.BLACK} font={{ variation: FontVariation.H2 }} className={css.lineHeight}>
-            {count}
+            {count ?? 0}
           </Text>
         </>
       )}

@@ -119,7 +119,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     theme = 'LIGHT',
     yamlSanityConfig,
     onChange,
-    onErrorCallback
+    onErrorCallback,
+    renderCustomHeader
   } = props
   setUpEditor(theme)
   const params = useParams()
@@ -202,6 +203,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
 
   useEffect(() => {
     if (existingYaml) {
+      setCurrentYaml(existingYaml)
       yamlRef.current = existingYaml
       verifyYAML(existingYaml)
     }
@@ -564,14 +566,14 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
           pane2Style={{ minWidth: MIN_SNIPPET_SECTION_WIDTH }}
         >
           <div className={css.editor}>
-            {renderHeader()}
+            {(renderCustomHeader || renderHeader)()}
             {renderEditor()}
           </div>
           {showSnippetSection ? renderSnippetSection() : null}
         </SplitPane>
       ) : (
         <div className={css.editor}>
-          {renderHeader()}
+          {(renderCustomHeader || renderHeader)()}
           {renderEditor()}
         </div>
       )}

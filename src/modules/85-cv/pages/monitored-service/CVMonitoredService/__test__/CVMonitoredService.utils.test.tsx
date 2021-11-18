@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
-import { Table } from '@common/components'
+import { TableV2 } from '@wings-software/uicore'
+
 import type { RiskData } from 'services/cv'
 import { RiskValues, getRiskColorValue, getRiskLabelStringId } from '@cv/utils/CommonUtils'
 import {
@@ -85,7 +86,7 @@ describe('Test util functions', () => {
 
   test('should render tags', async () => {
     const { container, getByText } = render(
-      <Table
+      <TableV2
         sortable={true}
         columns={[
           {

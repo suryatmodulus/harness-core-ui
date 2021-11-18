@@ -42,10 +42,10 @@ exports[`Custom Variables can add a string variable 1`] = `
       </button>
     </div>
     <div
-      class="variableListTable"
+      class="variableListTable variable-list-row"
     >
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main variable-name-cell"
+        class="StyledProps--font Text--lineclamp StyledProps--main variableNameCell"
         style="--text-line-clamp: 1;"
       >
         <span
@@ -55,7 +55,7 @@ exports[`Custom Variables can add a string variable 1`] = `
         </span>
       </p>
       <div
-        class="valueRow variable-value-cell"
+        class="valueRow"
       >
         <div>
           <div

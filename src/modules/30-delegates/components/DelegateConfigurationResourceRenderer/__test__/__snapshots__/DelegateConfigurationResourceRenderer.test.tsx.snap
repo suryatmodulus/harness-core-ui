@@ -3,10 +3,10 @@
 exports[`Create DelegateConfigurationResourceRenderer render data 1`] = `
 <div>
   <div
-    class="table"
+    class="TableV2--table"
   >
     <div
-      class="body"
+      class="TableV2--body"
     />
   </div>
 </div>

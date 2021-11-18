@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useMemo } from 'react'
-import { Color, FormInput, Text } from '@wings-software/uicore'
+import { Color, FormInput, Text, useToaster } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
-import { useGetMonitoredService, useListMonitoredService } from 'services/cv'
+import { useGetAllMonitoredServicesWithTimeSeriesHealthSources } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import type { SLIProps } from './SLI.types'
 import {
   getHealthSourcesOptions,
@@ -24,55 +25,27 @@ export default function SLI(props: SLIProps): JSX.Element {
     children
   } = props
   const { getString } = useStrings()
+  const { showError } = useToaster()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
 
-  const paramsForGetMonitoredService = useMemo(() => {
-    return {
-      identifier: values?.monitoredServiceRef,
-      queryParams: {
-        orgIdentifier,
-        projectIdentifier,
-        accountId
-      },
-      lazy: true
-    }
-  }, [accountId, values?.monitoredServiceRef, orgIdentifier, projectIdentifier])
-
-  // This will be replaced by the new endpoint once it is available
   const {
     data: monitoredServicesData,
     loading: monitoredServicesLoading,
-    refetch: fetchMonitoredServices
-  } = useListMonitoredService({
+    error: monitoredServicesDataError
+  } = useGetAllMonitoredServicesWithTimeSeriesHealthSources({
     queryParams: {
-      offset: 0,
-      pageSize: 100,
       orgIdentifier,
       projectIdentifier,
       accountId
-    },
-    lazy: true
+    }
   })
 
-  // Api to fetch details for a monitored service
-  const {
-    data: monitoredServiceDataById,
-    refetch: fetchMonitoredServiceData,
-    loading: getMonitoredServiceLoading
-  } = useGetMonitoredService(paramsForGetMonitoredService)
-
   useEffect(() => {
-    fetchMonitoredServices()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  // fetching monitored service details whenever monitored service is selected
-  useEffect(() => {
-    if (values?.monitoredServiceRef) {
-      fetchMonitoredServiceData()
+    if (monitoredServicesDataError) {
+      showError(getErrorMessage(monitoredServicesDataError))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values?.monitoredServiceRef])
+  }, [monitoredServicesDataError])
 
   const renderSelectedMetricTypeLayout = useCallback(() => {
     if (values?.serviceLevelIndicators?.spec?.type === SLIMetricEnum.RATIO) {
@@ -87,8 +60,8 @@ export default function SLI(props: SLIProps): JSX.Element {
   )
 
   const healthSourcesOptions = useMemo(
-    () => getHealthSourcesOptions(monitoredServiceDataById),
-    [monitoredServiceDataById]
+    () => getHealthSourcesOptions(monitoredServicesData, values?.monitoredServiceRef),
+    [values?.monitoredServiceRef, monitoredServicesData]
   )
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,7 +90,7 @@ export default function SLI(props: SLIProps): JSX.Element {
       <CardWithOuterTitle className={css.sliElement}>
         <FormInput.Select
           name="healthSourceRef"
-          placeholder={getMonitoredServiceLoading ? getString('loading') : getString('cv.slos.selectHealthsource')}
+          placeholder={monitoredServicesLoading ? getString('loading') : getString('cv.slos.selectHealthsource')}
           items={healthSourcesOptions}
           className={css.dropdown}
         />

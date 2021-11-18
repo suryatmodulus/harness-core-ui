@@ -1,5 +1,4 @@
 import React, { Dispatch, useState, SetStateAction } from 'react'
-import * as Yup from 'yup'
 import {
   Formik,
   Layout,
@@ -84,9 +83,6 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
         }}
         formName={`create${templates?.[0]?.templateEntityType || ''}Template`}
         enableReinitialize={true}
-        validationSchema={Yup.object().shape({
-          name: Yup.string().required(getString('templatesLibrary.createNewModal.validation.name'))
-        })}
       >
         <FormikForm>
           <Layout.Vertical spacing={'huge'}>

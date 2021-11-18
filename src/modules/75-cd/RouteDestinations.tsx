@@ -137,17 +137,6 @@ const RedirectToAccessControlHome = (): React.ReactElement => {
   return <Redirect to={routes.toUsers({ accountId, projectIdentifier, orgIdentifier, module })} />
 }
 
-const HandleGitOpsRedirect = (): React.ReactElement => {
-  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
-  const { ARGO_PHASE2_MANAGED } = useFeatureFlags()
-
-  if (ARGO_PHASE2_MANAGED) {
-    return <Redirect to={routes.toHarnessManagedGitOps({ accountId, projectIdentifier, orgIdentifier, module })} />
-  } else {
-    return <Redirect to={routes.toNativeArgo({ accountId, projectIdentifier, orgIdentifier, module })} />
-  }
-}
-
 const RedirectToGitSyncHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier, module } =
     useParams<PipelineType<ProjectPathProps & ModulePathParams>>()
@@ -222,6 +211,24 @@ const RedirectToModuleTrialHome = (): React.ReactElement => {
       })}
     />
   )
+}
+
+const GitOpsPage = (): React.ReactElement | null => {
+  const { ARGO_PHASE1, ARGO_PHASE2_MANAGED } = useFeatureFlags()
+
+  if (ARGO_PHASE2_MANAGED) {
+    return <ChildAppMounter ChildApp={GitOpsServersList} />
+  }
+
+  if (ARGO_PHASE1) {
+    return (
+      <GitOpsServersPage>
+        <GitOpsModalContainer />
+      </GitOpsServersPage>
+    )
+  }
+
+  return null
 }
 
 const RedirectToSubscriptions = (): React.ReactElement => {
@@ -824,27 +831,8 @@ export default (
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
       path={[routes.toGitOps({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })]}
-      exact
     >
-      <HandleGitOpsRedirect />
-    </RouteWithLayout>
-
-    <RouteWithLayout
-      sidebarProps={CDSideNavProps}
-      path={routes.toHarnessManagedGitOps({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
-    >
-      <GitOpsServersPage>
-        <ChildAppMounter ChildApp={GitOpsServersList} />
-      </GitOpsServersPage>
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CDSideNavProps}
-      path={routes.toNativeArgo({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
-    >
-      <GitOpsServersPage>
-        <GitOpsModalContainer />
-      </GitOpsServersPage>
+      <GitOpsPage />
     </RouteWithLayout>
 
     {GovernanceRouteDestinations({

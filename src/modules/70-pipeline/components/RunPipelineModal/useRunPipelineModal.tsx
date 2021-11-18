@@ -33,7 +33,11 @@ export const useRunPipelineModal = (
 
   const [inputSetYaml, setInputSetYaml] = useState('')
 
-  const { data: runPipelineInputsetData, loading } = useGetInputsetYaml({
+  const {
+    data: runPipelineInputsetData,
+    loading,
+    refetch: fetchExecutionData
+  } = useGetInputsetYaml({
     planExecutionId: planExecutionId ?? '',
     queryParams: {
       orgIdentifier,
@@ -44,7 +48,8 @@ export const useRunPipelineModal = (
       headers: {
         'content-type': 'application/yaml'
       }
-    }
+    },
+    lazy: true
   })
 
   useEffect(() => {
@@ -83,9 +88,6 @@ export const useRunPipelineModal = (
     isCloseButtonShown: false
   }
 
-  const onCloseRunPipelineModal = (): void => {
-    hideRunPipelineModal()
-  }
   const [showRunPipelineModal, hideRunPipelineModal] = useModalHook(
     () =>
       loading ? (
@@ -104,24 +106,37 @@ export const useRunPipelineModal = (
               branch={branch}
               inputSetSelected={getInputSetSelected()}
               onClose={() => {
-                onCloseRunPipelineModal()
+                hideRunPipelineModal()
               }}
               stagesExecuted={stagesExecuted}
+              executionIdentifier={planExecutionId}
             />
             <Button
               aria-label="close modal"
               icon="cross"
               variation={ButtonVariation.ICON}
-              onClick={() => onCloseRunPipelineModal()}
+              onClick={() => hideRunPipelineModal()}
               className={css.crossIcon}
             />
           </Layout.Vertical>
         </Dialog>
       ),
-    [loading, inputSetYaml, branch, repoIdentifier, pipelineIdentifier]
+    [
+      loading,
+      inputSetYaml,
+      branch,
+      repoIdentifier,
+      pipelineIdentifier,
+      inputSetSelected,
+      stagesExecuted,
+      planExecutionId
+    ]
   )
 
   const open = useCallback(() => {
+    if (planExecutionId) {
+      fetchExecutionData()
+    }
     showRunPipelineModal()
   }, [showRunPipelineModal])
 

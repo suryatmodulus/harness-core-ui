@@ -1,5 +1,4 @@
 import React from 'react'
-import * as Yup from 'yup'
 import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
@@ -13,7 +12,7 @@ import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './SaveCacheS3StepFunctionConfigs'
 import type { SaveCacheS3StepProps, SaveCacheS3StepData, SaveCacheS3StepDataUI } from './SaveCacheS3Step'
@@ -23,7 +22,7 @@ import { ArchiveFormatOptions } from '../../../constants/Constants'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const SaveCacheS3StepBase = (
-  { initialValues, onUpdate, isNewStep = true, readonly, onChange, stepViewType, allowableTypes }: SaveCacheS3StepProps,
+  { initialValues, onUpdate, isNewStep = true, readonly, stepViewType, allowableTypes, onChange }: SaveCacheS3StepProps,
   formikRef: StepFormikFowardRef<SaveCacheS3StepData>
 ): JSX.Element => {
   const {
@@ -46,20 +45,24 @@ export const SaveCacheS3StepBase = (
       )}
       formName="savedS3Cache"
       validate={valuesToValidate => {
-        return validate(valuesToValidate, editViewValidateFieldsConfig, {
-          initialValues,
-          steps: currentStage?.stage?.spec?.execution?.steps || {},
-          serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
-          getString
-        })
-      }}
-      validationSchema={Yup.object().shape({
-        ...getNameAndIdentifierSchema(getString, stepViewType)
-      })}
-      onSubmit={(_values: SaveCacheS3StepDataUI) => {
-        onChange?.(
-          getFormValuesInCorrectFormat<SaveCacheS3StepDataUI, SaveCacheS3StepData>(_values, transformValuesFieldsConfig)
+        const schemaValues = getFormValuesInCorrectFormat<SaveCacheS3StepDataUI, SaveCacheS3StepData>(
+          valuesToValidate,
+          transformValuesFieldsConfig
         )
+        onChange?.(schemaValues)
+        return validate(
+          valuesToValidate,
+          editViewValidateFieldsConfig,
+          {
+            initialValues,
+            steps: currentStage?.stage?.spec?.execution?.steps || {},
+            serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
+            getString
+          },
+          stepViewType
+        )
+      }}
+      onSubmit={(_values: SaveCacheS3StepDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<SaveCacheS3StepDataUI, SaveCacheS3StepData>(
           _values,
           transformValuesFieldsConfig

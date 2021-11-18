@@ -196,14 +196,14 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
             class="Layout--horizontal StyledProps--main topProjectsWrapper"
           >
             <div
-              class="ReactTable--table overviewSummary"
+              class="TableV2--table overviewSummary"
             >
               <div
-                class="ReactTable--header ReactTable--minimal"
+                class="TableV2--header TableV2--minimal"
                 role="row"
               >
                 <div
-                  class="ReactTable--cell"
+                  class="TableV2--cell"
                   colspan="1"
                   role="columnheader"
                   style="width: 40%;"
@@ -215,7 +215,7 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                   </p>
                 </div>
                 <div
-                  class="ReactTable--cell"
+                  class="TableV2--cell"
                   colspan="1"
                   role="columnheader"
                   style="width: 60%;"
@@ -272,14 +272,14 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                 </div>
               </div>
               <div
-                class="ReactTable--body"
+                class="TableV2--body"
               >
                 <div
-                  class="ReactTable--row ReactTable--minimal"
+                  class="TableV2--row TableV2--minimal"
                   role="row"
                 >
                   <div
-                    class="ReactTable--cell"
+                    class="TableV2--cell"
                     role="cell"
                     style="width: 40%;"
                   >
@@ -289,18 +289,22 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                       <div
                         class="bp3-popover-target"
                       >
-                        <p
-                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
-                          style="cursor: unset; --text-line-clamp: 1;"
+                        <a
+                          class=""
+                          href="/account/undefined/home/orgs/default/projects/dev_test/details"
                           tabindex="0"
                         >
-                          dev test
-                        </p>
+                          <label
+                            class="links"
+                          >
+                            dev test
+                          </label>
+                        </a>
                       </div>
                     </div>
                   </div>
                   <div
-                    class="ReactTable--cell"
+                    class="TableV2--cell"
                     role="cell"
                     style="width: 60%;"
                   >
@@ -356,11 +360,11 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                   </div>
                 </div>
                 <div
-                  class="ReactTable--row ReactTable--minimal"
+                  class="TableV2--row TableV2--minimal"
                   role="row"
                 >
                   <div
-                    class="ReactTable--cell"
+                    class="TableV2--cell"
                     role="cell"
                     style="width: 40%;"
                   >
@@ -370,18 +374,22 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                       <div
                         class="bp3-popover-target"
                       >
-                        <p
-                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
-                          style="cursor: unset; --text-line-clamp: 1;"
+                        <a
+                          class=""
+                          href="/account/undefined/home/orgs/default/projects/test18/details"
                           tabindex="0"
                         >
-                          test18
-                        </p>
+                          <label
+                            class="links"
+                          >
+                            test18
+                          </label>
+                        </a>
                       </div>
                     </div>
                   </div>
                   <div
-                    class="ReactTable--cell"
+                    class="TableV2--cell"
                     role="cell"
                     style="width: 60%;"
                   >
@@ -437,11 +445,11 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                   </div>
                 </div>
                 <div
-                  class="ReactTable--row ReactTable--minimal"
+                  class="TableV2--row TableV2--minimal"
                   role="row"
                 >
                   <div
-                    class="ReactTable--cell"
+                    class="TableV2--cell"
                     role="cell"
                     style="width: 40%;"
                   >
@@ -451,18 +459,22 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                       <div
                         class="bp3-popover-target"
                       >
-                        <p
-                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
-                          style="cursor: unset; --text-line-clamp: 1;"
+                        <a
+                          class=""
+                          href="/account/undefined/home/orgs/default/projects/test19/details"
                           tabindex="0"
                         >
-                          test19
-                        </p>
+                          <label
+                            class="links"
+                          >
+                            test19
+                          </label>
+                        </a>
                       </div>
                     </div>
                   </div>
                   <div
-                    class="ReactTable--cell"
+                    class="TableV2--cell"
                     role="cell"
                     style="width: 60%;"
                   >
@@ -518,11 +530,11 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                   </div>
                 </div>
                 <div
-                  class="ReactTable--row ReactTable--minimal"
+                  class="TableV2--row TableV2--minimal"
                   role="row"
                 >
                   <div
-                    class="ReactTable--cell"
+                    class="TableV2--cell"
                     role="cell"
                     style="width: 40%;"
                   >
@@ -532,18 +544,22 @@ exports[`LandingDashboard At a Glance LandingDashboard rendering 1`] = `
                       <div
                         class="bp3-popover-target"
                       >
-                        <p
-                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-primary7"
-                          style="cursor: unset; --text-line-clamp: 1;"
+                        <a
+                          class=""
+                          href="/account/undefined/home/orgs/default/projects/locust/details"
                           tabindex="0"
                         >
-                          locust
-                        </p>
+                          <label
+                            class="links"
+                          >
+                            locust
+                          </label>
+                        </a>
                       </div>
                     </div>
                   </div>
                   <div
-                    class="ReactTable--cell"
+                    class="TableV2--cell"
                     role="cell"
                     style="width: 60%;"
                   >

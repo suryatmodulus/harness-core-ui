@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react'
 import ReactTimeago from 'react-timeago'
 import type { Column, Renderer, CellProps } from 'react-table'
-import { Text, Color, Layout } from '@wings-software/uicore'
+import { Text, Color, Layout, TableV2 } from '@wings-software/uicore'
 
-import Table from '@common/components/Table/Table'
 import type { EntitySetupUsageDTO, PageEntitySetupUsageDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import ResourceDetailFactory from '@common/factories/ResourceDetailFactory'
@@ -82,7 +81,7 @@ const SecretReferencesList: React.FC<SecretsListProps> = ({ secrets, gotoPage })
   )
 
   return (
-    <Table<EntitySetupUsageDTO>
+    <TableV2<EntitySetupUsageDTO>
       className={css.table}
       columns={columns}
       data={data}

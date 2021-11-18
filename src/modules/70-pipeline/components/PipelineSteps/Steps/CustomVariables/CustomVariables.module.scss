@@ -234,3 +234,56 @@
   background-color: var(--orange-400);
   padding: 0px 2px;
 }
+
+.copyTextRow {
+  width: 300px;
+  margin: var(--spacing-small) 0;
+
+  :global {
+    .bp3-form-group {
+      margin: 0;
+    }
+  }
+}
+
+.copyTextInput {
+  input[type='text'] {
+    height: 22px !important;
+
+    &:hover {
+      border-color: var(--primary-6) !important;
+    }
+  }
+}
+
+.copyTextPopoverWrapper {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  bottom: 1px;
+
+  &::before {
+    height: 20px !important;
+  }
+
+  &::after {
+    height: 20px !important;
+  }
+
+  :global {
+    .bp3-button {
+      height: 20px !important;
+    }
+  }
+}
+
+.variableNameCell {
+  background: var(--primary-bg) !important;
+  box-sizing: border-box;
+  width: 300px;
+  border-radius: var(--spacing-2);
+}
+
+.hoveredRow {
+  background-color: var(--primary-1);
+}

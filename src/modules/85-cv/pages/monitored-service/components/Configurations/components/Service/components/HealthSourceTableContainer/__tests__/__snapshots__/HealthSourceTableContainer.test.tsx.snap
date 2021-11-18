@@ -14,14 +14,14 @@ exports[`Validate should close drawer 1`] = `
         connectors.cdng.healthSources.label
       </p>
       <div
-        class="table healthSourceTableWrapper"
+        class="TableV2--table healthSourceTableWrapper"
       >
         <div
-          class="header"
+          class="TableV2--header"
           role="row"
         >
           <div
-            class="cell sortable"
+            class="TableV2--cell TableV2--sortable"
             colspan="1"
             role="columnheader"
             style="width: 30%;"
@@ -53,7 +53,7 @@ exports[`Validate should close drawer 1`] = `
             </span>
           </div>
           <div
-            class="cell sortable"
+            class="TableV2--cell TableV2--sortable"
             colspan="1"
             role="columnheader"
             style="width: 35%;"
@@ -65,7 +65,7 @@ exports[`Validate should close drawer 1`] = `
             </p>
           </div>
           <div
-            class="cell sortable"
+            class="TableV2--cell TableV2--sortable"
             colspan="1"
             role="columnheader"
             style="width: 35%;"
@@ -98,21 +98,21 @@ exports[`Validate should close drawer 1`] = `
           </div>
         </div>
         <div
-          class="body"
+          class="TableV2--body"
         >
           <div
-            class="row card clickable"
+            class="TableV2--row TableV2--card TableV2--clickable"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 30%;"
             >
               test appd
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 35%;"
             >
@@ -123,7 +123,7 @@ exports[`Validate should close drawer 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 35%;"
             >
@@ -236,14 +236,14 @@ exports[`Validate should render HealthSourceTableContainer with data 1`] = `
         connectors.cdng.healthSources.label
       </p>
       <div
-        class="table healthSourceTableWrapper"
+        class="TableV2--table healthSourceTableWrapper"
       >
         <div
-          class="header"
+          class="TableV2--header"
           role="row"
         >
           <div
-            class="cell sortable"
+            class="TableV2--cell TableV2--sortable"
             colspan="1"
             role="columnheader"
             style="width: 30%;"
@@ -275,7 +275,7 @@ exports[`Validate should render HealthSourceTableContainer with data 1`] = `
             </span>
           </div>
           <div
-            class="cell sortable"
+            class="TableV2--cell TableV2--sortable"
             colspan="1"
             role="columnheader"
             style="width: 35%;"
@@ -287,7 +287,7 @@ exports[`Validate should render HealthSourceTableContainer with data 1`] = `
             </p>
           </div>
           <div
-            class="cell sortable"
+            class="TableV2--cell TableV2--sortable"
             colspan="1"
             role="columnheader"
             style="width: 35%;"
@@ -320,21 +320,21 @@ exports[`Validate should render HealthSourceTableContainer with data 1`] = `
           </div>
         </div>
         <div
-          class="body"
+          class="TableV2--body"
         >
           <div
-            class="row card clickable"
+            class="TableV2--row TableV2--card TableV2--clickable"
             role="row"
           >
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 30%;"
             >
               test appd
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 35%;"
             >
@@ -345,7 +345,7 @@ exports[`Validate should render HealthSourceTableContainer with data 1`] = `
               </p>
             </div>
             <div
-              class="cell"
+              class="TableV2--cell"
               role="cell"
               style="width: 35%;"
             >

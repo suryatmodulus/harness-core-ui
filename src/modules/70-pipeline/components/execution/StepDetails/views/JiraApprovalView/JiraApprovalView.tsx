@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { get, merge } from 'lodash-es'
 import { Spinner, Tabs } from '@blueprintjs/core'
 import { Layout, Button, PageError } from '@wings-software/uicore'
@@ -15,7 +15,7 @@ import {
   JiraApprovalTab,
   ApprovalData
 } from '@pipeline/components/execution/StepDetails/tabs/JiraApprovalTab/JiraApprovalTab'
-
+import { NoApprovalInstance } from '../NoApprovalInstanceCreated'
 import tabCss from '../DefaultView/DefaultView.module.scss'
 
 export const REFRESH_APPROVAL = 'REFRESH_APPROVAL'
@@ -40,8 +40,15 @@ export function JiraApprovalView(props: JiraApprovalViewProps): React.ReactEleme
     refetch
   } = useGetApprovalInstance({
     approvalInstanceId,
-    mock
+    mock,
+    lazy: true
   })
+
+  useEffect(() => {
+    if (approvalInstanceId) {
+      refetch()
+    }
+  }, [])
 
   if (error) {
     return (
@@ -64,7 +71,13 @@ export function JiraApprovalView(props: JiraApprovalViewProps): React.ReactEleme
       <Tabs.Tab
         id="Approval"
         title={getString('approvalStage.title')}
-        panel={<JiraApprovalTab approvalData={data?.data as ApprovalData} isWaiting={isWaiting} />}
+        panel={
+          approvalInstanceId ? (
+            <JiraApprovalTab approvalData={data?.data as ApprovalData} isWaiting={isWaiting} />
+          ) : (
+            <NoApprovalInstance />
+          )
+        }
       />
       <Tabs.Tab id="PipelineDetails" title={getString('common.pipelineDetails')} panel={<PipelineDetailsTab />} />
       <Tabs.Tab

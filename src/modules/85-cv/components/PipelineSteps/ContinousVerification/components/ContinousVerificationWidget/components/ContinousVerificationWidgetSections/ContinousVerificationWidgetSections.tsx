@@ -7,14 +7,21 @@ import MonitoredService from './components/MonitoredService/MonitoredService'
 
 export function ContinousVerificationWidgetSections({
   formik,
-  isNewStep
+  isNewStep,
+  stepViewType,
+  allowableTypes
 }: ContinousVerificationWidgetSectionsProps): JSX.Element {
   return (
     <>
-      <BaseContinousVerification formik={formik} isNewStep={isNewStep} />
+      <BaseContinousVerification
+        formik={formik}
+        isNewStep={isNewStep}
+        stepViewType={stepViewType}
+        allowableTypes={allowableTypes}
+      />
       <SelectVerificationType />
       <MonitoredService formik={formik} />
-      {formik?.values?.spec?.type ? <ConfigureFields formik={formik} /> : null}
+      {formik?.values?.spec?.type ? <ConfigureFields formik={formik} allowableTypes={allowableTypes} /> : null}
     </>
   )
 }

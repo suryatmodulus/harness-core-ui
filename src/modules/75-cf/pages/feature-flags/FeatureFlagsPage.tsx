@@ -11,7 +11,8 @@ import {
   Pagination,
   Text,
   Utils,
-  HarnessDocTooltip
+  HarnessDocTooltip,
+  TableV2
 } from '@wings-software/uicore'
 import { noop } from 'lodash-es'
 import { Classes, Position, Switch } from '@blueprintjs/core'
@@ -20,12 +21,12 @@ import type { MutateMethod } from 'restful-react'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { useConfirmAction } from '@common/hooks'
-import Table from '@common/components/Table/Table'
 import {
   DeleteFeatureFlagQueryParams,
   Feature,
   Features,
   FeatureState,
+  GitSyncErrorResponse,
   useDeleteFeatureFlag,
   useGetAllFeatures
 } from 'services/cf'
@@ -61,7 +62,7 @@ import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOp
 import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import GitSyncActions from '@cf/components/GitSyncActions/GitSyncActions'
-import { GitDetails, GitSyncFormValues, useGitSync, UseGitSync } from '@cf/hooks/useGitSync'
+import { GitDetails, GitSyncFormValues, GIT_SYNC_ERROR_CODE, useGitSync, UseGitSync } from '@cf/hooks/useGitSync'
 import imageURL from './Feature_Flags_LP.svg'
 import { FeatureFlagStatus, FlagStatus } from './FlagStatus'
 import { FlagResult } from './FlagResult'
@@ -105,7 +106,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({
     [activeEnvironment]
   )
 
-  const handleFlagToggle = (gitSyncFormValues?: GitSyncFormValues): void => {
+  const handleFlagToggle = async (gitSyncFormValues?: GitSyncFormValues): Promise<void> => {
     let gitDetails: GitDetails | undefined
 
     if (gitSync.isAutoCommitEnabled) {
@@ -116,9 +117,9 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({
 
     try {
       if (status) {
-        toggleFeatureFlag.off(data.identifier, gitDetails)
+        await toggleFeatureFlag.off(data.identifier, gitDetails)
       } else {
-        toggleFeatureFlag.on(data.identifier, gitDetails)
+        await toggleFeatureFlag.on(data.identifier, gitDetails)
       }
 
       if (gitSyncFormValues?.autoCommit) {
@@ -127,8 +128,12 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({
 
       setStatus(!status)
       update(!status)
-    } catch (error) {
-      showError(getErrorMessage(error), 0, 'cf.toggle.ff.status.error')
+    } catch (error: any) {
+      if (error.status === GIT_SYNC_ERROR_CODE) {
+        gitSync.handleError(error.data as GitSyncErrorResponse)
+      } else {
+        showError(getErrorMessage(error), 0, 'cf.toggle.ff.status.error')
+      }
     }
   }
 
@@ -375,8 +380,12 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ gitSync, deleteFlag, cell
 
       showToaster(getString('cf.messages.flagDeleted'))
       refetch?.()
-    } catch (error) {
-      showError(getErrorMessage(error), undefined, 'cf.delete.ff.error')
+    } catch (error: any) {
+      if (error.status === GIT_SYNC_ERROR_CODE) {
+        gitSync.handleError(error.data as GitSyncErrorResponse)
+      } else {
+        showError(getErrorMessage(error), 0, 'cf.toggle.ff.status.error')
+      }
     }
   }
 
@@ -525,9 +534,9 @@ const FeatureFlagsPage: React.FC = () => {
     [toggleFeatureFlag.loading, deleteFlag.loading]
   )
 
-  const error = flagsError || envsError || deleteFlag.error || toggleFeatureFlag.error
-
   const gitSync = useGitSync()
+
+  const error = flagsError || envsError || deleteFlag.error || toggleFeatureFlag.error
 
   const columns: Column<Feature>[] = useMemo(
     () => [
@@ -669,7 +678,7 @@ const FeatureFlagsPage: React.FC = () => {
           {hasFeatureFlags && (
             <Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}>
               <Container className={css.list}>
-                <Table<Feature>
+                <TableV2<Feature>
                   columns={columns}
                   data={features?.features || []}
                   onRowClick={feature => {

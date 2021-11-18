@@ -7,7 +7,12 @@ declare const styles: {
   readonly selectedSearchText: string
   readonly currentSelection: string
   readonly variableListRowItem: string
-  readonly valueSection: string
   readonly variableBorderBottom: string
+  readonly copyOptionTextInput: string
+  readonly copyOptionPopoverWrapper: string
+  readonly nameSectionWithCopy: string
+  readonly hoveredRow: string
+  readonly valueSection: string
+  readonly tagsValueSection: string
 }
 export default styles

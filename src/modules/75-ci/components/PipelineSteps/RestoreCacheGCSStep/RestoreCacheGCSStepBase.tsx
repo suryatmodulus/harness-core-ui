@@ -1,5 +1,4 @@
 import React from 'react'
-import * as Yup from 'yup'
 import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import { Connectors } from '@connectors/constants'
@@ -13,7 +12,7 @@ import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
-import { getNameAndIdentifierSchema, validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './RestoreCacheGCSStepFunctionConfigs'
 import type {
@@ -32,9 +31,9 @@ export const RestoreCacheGCSStepBase = (
     onUpdate,
     isNewStep = true,
     readonly,
-    onChange,
     stepViewType,
-    allowableTypes
+    allowableTypes,
+    onChange
   }: RestoreCacheGCSStepProps,
   formikRef: StepFormikFowardRef<RestoreCacheGCSStepData>
 ): JSX.Element => {
@@ -58,22 +57,23 @@ export const RestoreCacheGCSStepBase = (
       )}
       formName="restoreCacheGcs"
       validate={valuesToValidate => {
-        onChange?.(
-          getFormValuesInCorrectFormat<RestoreCacheGCSStepDataUI, RestoreCacheGCSStepData>(
-            valuesToValidate,
-            transformValuesFieldsConfig
-          )
+        const schemaValues = getFormValuesInCorrectFormat<RestoreCacheGCSStepDataUI, RestoreCacheGCSStepData>(
+          valuesToValidate,
+          transformValuesFieldsConfig
         )
-        return validate(valuesToValidate, editViewValidateFieldsConfig, {
-          initialValues,
-          steps: currentStage?.stage?.spec?.execution?.steps || {},
-          serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
-          getString
-        })
+        onChange?.(schemaValues)
+        return validate(
+          valuesToValidate,
+          editViewValidateFieldsConfig,
+          {
+            initialValues,
+            steps: currentStage?.stage?.spec?.execution?.steps || {},
+            serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
+            getString
+          },
+          stepViewType
+        )
       }}
-      validationSchema={Yup.object().shape({
-        ...getNameAndIdentifierSchema(getString, stepViewType)
-      })}
       onSubmit={(_values: RestoreCacheGCSStepDataUI) => {
         const schemaValues = getFormValuesInCorrectFormat<RestoreCacheGCSStepDataUI, RestoreCacheGCSStepData>(
           _values,

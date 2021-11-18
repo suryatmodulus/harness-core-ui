@@ -14,7 +14,8 @@ import {
   ModalErrorHandlerBinding,
   ModalErrorHandler,
   Tag,
-  useToaster
+  useToaster,
+  TableV2
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { CellProps, Renderer, Column } from 'react-table'
@@ -22,7 +23,6 @@ import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { pick, capitalize } from 'lodash-es'
 import { Menu, Classes, Position, Dialog } from '@blueprintjs/core'
-import Table from '@common/components/Table/Table'
 import {
   GitSyncConfig,
   GitSyncFolderConfigDTO,
@@ -548,7 +548,7 @@ const GitSyncRepoTab: React.FC = () => {
         </Container>
       </Layout.Horizontal>
 
-      <Table<GitSyncConfig> className={css.table} columns={columns} data={gitSyncRepos || []} />
+      <TableV2<GitSyncConfig> className={css.table} columns={columns} data={gitSyncRepos || []} />
     </Container>
   )
 }

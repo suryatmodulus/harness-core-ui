@@ -5,10 +5,15 @@ import { FormikForm } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { initialFormData } from '@cv/pages/slos/__tests__/CVSLOsListingPage.mock'
 import type { StringKeys } from 'framework/strings'
-import type { ResponsePageMonitoredServiceListItemDTO } from 'services/cv'
+import type { ResponseListMonitoredServiceWithHealthSources } from 'services/cv'
 import SLI from '../SLI'
-import { getMonitoredServicesOptions, getSliMetricOptions, getSliTypeOptions } from '../SLI.utils'
-import { expectedMonitoredServiceOptions, mockedMonitoredServiceData } from './SLI.mock'
+import {
+  getHealthSourcesOptions,
+  getMonitoredServicesOptions,
+  getSliMetricOptions,
+  getSliTypeOptions
+} from '../SLI.utils'
+import { expectedHealthSourcesOptions, expectedMonitoredServiceOptions, mockedMonitoredServiceData } from './SLI.mock'
 
 function WrapperComponent(props: { initialValues: any }): JSX.Element {
   const { initialValues } = props
@@ -36,7 +41,7 @@ jest.mock('services/cv', () => ({
     error: null,
     refetch: jest.fn()
   })),
-  useListMonitoredService: jest.fn().mockImplementation(() => {
+  useGetAllMonitoredServicesWithTimeSeriesHealthSources: jest.fn().mockImplementation(() => {
     return { data: {}, refetch: jest.fn(), error: null, loading: false }
   })
 }))
@@ -57,9 +62,17 @@ describe('Test SLI component', () => {
 
   test('verify getMonitoredServicesOptions method', async () => {
     const actualMonitoredServiceOptions = getMonitoredServicesOptions(
-      mockedMonitoredServiceData as ResponsePageMonitoredServiceListItemDTO
+      mockedMonitoredServiceData as ResponseListMonitoredServiceWithHealthSources
     )
     expect(actualMonitoredServiceOptions).toEqual(expectedMonitoredServiceOptions)
+  })
+
+  test('verify healthSourcesOptions method', async () => {
+    const actualHealthSources = getHealthSourcesOptions(
+      mockedMonitoredServiceData as ResponseListMonitoredServiceWithHealthSources,
+      'Service_102_QA'
+    )
+    expect(actualHealthSources).toEqual(expectedHealthSourcesOptions)
   })
 
   test('verify getSliTypeOptions method', async () => {

@@ -1,7 +1,7 @@
 addVariable: Add Variable
 editVariable: Edit variable
 editVariableType: Edit variable type
-removeThisVariable: Remove This Variable
+removeThisVariable: Remove this variable
 foo:
   bar:
     baz: 'test'

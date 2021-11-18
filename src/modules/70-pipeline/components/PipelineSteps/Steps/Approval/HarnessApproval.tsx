@@ -4,7 +4,7 @@ import { parse } from 'yaml'
 import { isEmpty, get } from 'lodash-es'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { connect, FormikErrors, yupToFormErrors } from 'formik'
-import { getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-software/uicore'
+import { getMultiTypeFromValue, IconName, MultiTypeInputType, Color } from '@wings-software/uicore'
 import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { getUserGroupListPromise } from 'services/cd-ng'
 import { loggerFor } from 'framework/logging/logging'
@@ -40,6 +40,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
   protected type = StepType.HarnessApproval
   protected stepName = 'Manual Approval'
   protected stepIcon: IconName = 'harness-with-color'
+  protected stepIconColor: string = Color.PRIMARY_4
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.HarnessApproval'
   // initialValues on mount
   protected defaultValues: HarnessApprovalData = {

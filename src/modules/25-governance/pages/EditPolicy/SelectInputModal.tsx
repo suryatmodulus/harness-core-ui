@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
-import { Layout, Formik, FormikForm, FormInput, Text, Color, Intent, Radio } from '@wings-software/uicore'
+import { Layout, Formik, FormikForm, FormInput, Text, Color, Intent, Radio, TableV2 } from '@wings-software/uicore'
 
 import type { CellProps, Renderer, Column } from 'react-table'
 import ReactTimeago from 'react-timeago'
 import { setPageNumber } from '@common/utils/utils'
 
-import Table from '@common/components/Table/Table'
 import { useGetEvaluationList, Evaluation, GetEvaluationListQueryParams } from 'services/pm'
 import { EvaluationStatus, LIST_FETCHING_PAGE_SIZE } from '@governance/utils/GovernanceUtils'
 import { EvaluationStatusLabel } from '@governance/components/EvaluationStatus/EvaluationStatusLabel'
@@ -226,7 +225,7 @@ const SelectInputModal: React.FC<{ handleOnSelect: (data: string) => void }> = p
       <Layout.Vertical>
         {isEvaluationTableVisible && evaluationsList?.length !== 0 && (
           <Layout.Horizontal>
-            <Table<Evaluation>
+            <TableV2<Evaluation>
               className={css.table}
               columns={columns}
               data={evaluationsList as Evaluation[]}

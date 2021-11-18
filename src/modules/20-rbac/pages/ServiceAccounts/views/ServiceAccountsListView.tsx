@@ -7,7 +7,7 @@ import {
   Color,
   Layout,
   Popover,
-  ReactTable,
+  TableV2,
   Text,
   useConfirmationDialog
 } from '@wings-software/uicore'
@@ -273,7 +273,7 @@ const ServiceAccountsListView: React.FC<ServiceAccountsListViewProps> = ({
   )
 
   return (
-    <ReactTable
+    <TableV2
       data={data?.content || []}
       columns={columns}
       className={css.table}

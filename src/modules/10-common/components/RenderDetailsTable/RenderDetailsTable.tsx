@@ -46,39 +46,39 @@ export const RenderDetailsTable: React.FC<RenderDetailsSectionProps> = props => 
       </Text>
 
       {props.data.map((item, index) => {
-        if (item.value && (item.label === getString('tagsLabel') ? Object.keys(item.value).length : true)) {
-          return (
-            <Layout.Vertical
-              className={css.detailsSectionRowWrapper}
-              spacing="xsmall"
-              padding={{ top: 'medium', bottom: 'medium' }}
-              key={`${item.value}${index}`}
-            >
-              <Text font={{ size: 'small' }}>{item.label}</Text>
-              {item.label === getString('tagsLabel') && typeof item.value === 'object' ? (
-                renderTags(item.value as tagsType)
-              ) : (
-                <Layout.Horizontal spacing="small" className={css.detailsSectionRow}>
-                  <Text inline color={item.valueColor || Color.BLACK}>
-                    {item.value}
-                  </Text>
-                  {item.iconData?.icon ? (
-                    <Layout.Horizontal spacing="small">
-                      <Icon
-                        inline={true}
-                        name={item.iconData.icon}
-                        size={14}
-                        color={item.iconData.color}
-                        title={item.iconData.text}
-                      />
-                      <Text inline>{item.iconData.text}</Text>
-                    </Layout.Horizontal>
-                  ) : null}
-                </Layout.Horizontal>
-              )}
-            </Layout.Vertical>
-          )
-        }
+        return item.value && (item.label === getString('tagsLabel') ? Object.keys(item.value).length : true) ? (
+          <Layout.Vertical
+            className={css.detailsSectionRowWrapper}
+            spacing="xsmall"
+            padding={{ top: 'medium', bottom: 'medium' }}
+            key={`${item.value}${index}`}
+          >
+            <Text font={{ size: 'small' }}>{item.label}</Text>
+            {item.label === getString('tagsLabel') && typeof item.value === 'object' ? (
+              renderTags(item.value as tagsType)
+            ) : (
+              <Layout.Horizontal spacing="small" className={css.detailsSectionRow}>
+                <Text inline color={item.valueColor || Color.BLACK}>
+                  {item.value}
+                </Text>
+                {item.iconData?.icon ? (
+                  <Layout.Horizontal spacing="small">
+                    <Icon
+                      inline={true}
+                      name={item.iconData.icon}
+                      size={14}
+                      color={item.iconData.color}
+                      title={item.iconData.text}
+                    />
+                    <Text inline>{item.iconData.text}</Text>
+                  </Layout.Horizontal>
+                ) : null}
+              </Layout.Horizontal>
+            )}
+          </Layout.Vertical>
+        ) : (
+          <></>
+        )
       })}
     </Container>
   )

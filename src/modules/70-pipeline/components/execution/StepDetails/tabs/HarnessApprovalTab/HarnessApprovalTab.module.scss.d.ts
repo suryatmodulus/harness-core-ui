@@ -4,7 +4,6 @@ declare const styles: {
   readonly info: string
   readonly timer: string
   readonly duration: string
-  readonly reviewMsg: string
   readonly infoHeader: string
   readonly statusMsg: string
   readonly heading: string

@@ -97,7 +97,7 @@ export class S3Step extends PipelineStep<S3StepData> {
   }: ValidateInputSetProps<S3StepData>): FormikErrors<S3StepData> {
     const isRequired = viewType === StepViewType.DeploymentForm
     if (getString) {
-      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString })
+      return validateInputSet(data, template, getInputSetViewValidateFieldsConfig(isRequired), { getString }, viewType)
     }
 
     return {}

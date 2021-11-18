@@ -12,6 +12,7 @@ import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration
 import { PubSubPipelineActions } from '@pipeline/factories/PubSubPipelineAction'
 import { PipelineActions } from '@pipeline/factories/PubSubPipelineAction/types'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { useDeepCompareEffect } from '@common/hooks'
 import { StageInputSetForm } from './StageInputSetForm'
 import { CICodebaseInputSetForm } from './CICodebaseInputSetForm'
 import { StepWidget } from '../AbstractSteps/StepWidget'
@@ -185,7 +186,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
             MultiTypeInputType.RUNTIME && (
             <>
               <Layout.Horizontal spacing="small" padding={{ top: 'medium', left: 'large', right: 0, bottom: 0 }}>
-                <Text color={Color.BLACK_100} font={{ weight: 'semi-bold' }}>
+                <Text data-name="ci-codebase-title" color={Color.BLACK_100} font={{ weight: 'semi-bold' }}>
                   {getString('ciCodebase')}
                 </Text>
               </Layout.Horizontal>
@@ -240,7 +241,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
 export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props => {
   const [template, setTemplate] = React.useState(props.template)
   const accountPathProps = useParams<AccountPathProps>()
-  React.useEffect(() => {
+  useDeepCompareEffect(() => {
     if (props.isRunPipelineForm) {
       PubSubPipelineActions.publish(PipelineActions.RunPipeline, {
         pipeline: props.originalPipeline,
@@ -252,7 +253,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
         }
       })
     }
-  }, [])
+  }, [props?.template])
   return (
     <PipelineVariablesContextProvider pipeline={props.originalPipeline}>
       <PipelineInputSetFormInternal {...props} template={template} />

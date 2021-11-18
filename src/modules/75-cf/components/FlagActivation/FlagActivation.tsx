@@ -29,7 +29,8 @@ import {
   VariationMap,
   TargetMap,
   PatchFeatureQueryParams,
-  GitDetails
+  GitDetails,
+  GitSyncErrorResponse
 } from 'services/cf'
 import { useStrings } from 'framework/strings'
 import { extraOperatorReference } from '@cf/constants'
@@ -43,7 +44,7 @@ import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import type { FeatureFlagPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
-import type { UseGitSync } from '@cf/hooks/useGitSync'
+import { GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -318,7 +319,11 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
               formikActions.resetForm()
             })
             .catch(err => {
-              showError(get(err, 'data.message', err?.message), 0)
+              if (err.status === GIT_SYNC_ERROR_CODE) {
+                gitSync.handleError(err.data as GitSyncErrorResponse)
+              } else {
+                showError(get(err, 'data.message', err?.message), 0)
+              }
             })
             .finally(() => {
               patch.feature.reset()

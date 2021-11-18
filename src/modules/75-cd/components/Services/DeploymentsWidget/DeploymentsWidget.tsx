@@ -5,7 +5,7 @@ import type { SeriesAreaOptions } from 'highcharts'
 import { Card, Color, Container, Layout, Text, PageError } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
-import { getBucketSizeForTimeRange } from '@cd/components/TimeRangeSelector/TimeRangeSelector'
+import { getBucketSizeForTimeRange } from '@common/components/TimeRangeSelector/TimeRangeSelector'
 import { PageSpinner, TimeSeriesAreaChart } from '@common/components'
 import type { TimeSeriesAreaChartProps } from '@common/components/TimeSeriesAreaChart/TimeSeriesAreaChart'
 import {

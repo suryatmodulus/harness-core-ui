@@ -5,7 +5,6 @@ import * as Yup from 'yup'
 import {
   Button,
   ButtonVariation,
-  Color,
   Formik,
   FormikForm,
   FormInput,
@@ -15,7 +14,8 @@ import {
   Text,
   PageSpinner,
   VisualYamlSelectedView as SelectedView,
-  VisualYamlToggle
+  VisualYamlToggle,
+  Heading
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
@@ -101,7 +101,7 @@ const dialogProps: Omit<IDialogProps, 'isOpen'> = {
   canEscapeKeyClose: true,
   canOutsideClickClose: true,
   enforceFocus: false,
-  style: { minWidth: 700, minHeight: 600 }
+  style: { minWidth: 700 }
 }
 
 const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
@@ -611,8 +611,11 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                           </GitSyncStoreProvider>
                         )}
                         <Layout.Vertical padding={{ top: 'large', bottom: 'xxxlarge' }} spacing="small">
-                          <Text font={{ size: 'medium' }}>{getString('inputSets.selectInputSets')}</Text>
-                          <Text icon="info-sign" iconProps={{ color: Color.PRIMARY_4, size: 23, padding: 'small' }}>
+                          <Heading level={5}>{getString('inputSets.selectInputSets')}</Heading>
+                          <Text
+                            icon="info-sign"
+                            iconProps={{ intent: 'primary', size: 16, padding: { left: 0, right: 'small' } }}
+                          >
                             {getString('inputSets.selectInputSetsHelp')}
                           </Text>
                           <Layout.Vertical padding={{ top: 'xxxlarge', bottom: 'large' }}>
@@ -672,7 +675,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                           </Layout.Vertical>
                         </Layout.Vertical>
                       </div>
-                      <div className={Classes.DIALOG_FOOTER}>
+                      <Layout.Horizontal padding={{ top: 'medium' }}>
                         <Button
                           variation={ButtonVariation.PRIMARY}
                           type="submit"
@@ -680,8 +683,8 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                           disabled={isReadOnly}
                         />
                         &nbsp; &nbsp;
-                        <Button variation={ButtonVariation.SECONDARY} onClick={closeForm} text={getString('cancel')} />
-                      </div>
+                        <Button variation={ButtonVariation.TERTIARY} onClick={closeForm} text={getString('cancel')} />
+                      </Layout.Horizontal>
                     </FormikForm>
                   ) : (
                     <div className={css.editor}>
@@ -715,7 +718,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                           disabled={isReadOnly}
                         />
                         &nbsp; &nbsp;
-                        <Button variation={ButtonVariation.SECONDARY} onClick={closeForm} text={getString('cancel')} />
+                        <Button variation={ButtonVariation.TERTIARY} onClick={closeForm} text={getString('cancel')} />
                       </Layout.Horizontal>
                     </div>
                   )}

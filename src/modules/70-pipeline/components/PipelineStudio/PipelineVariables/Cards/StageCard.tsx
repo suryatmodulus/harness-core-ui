@@ -51,7 +51,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
       addDomId
       summary={
         <VariableAccordionSummary>
-          <Text font={{ variation: FontVariation.SMALL_SEMI }} color={Color.BLACK}>
+          <Text font={{ variation: FontVariation.H6 }} color={Color.BLACK}>
             {`Stage: ${originalStage.name}`}
           </Text>
         </VariableAccordionSummary>

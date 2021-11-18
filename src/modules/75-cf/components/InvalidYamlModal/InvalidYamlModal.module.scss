@@ -1,0 +1,11 @@
+// ui-core dialog footer doesn't span the width of the dialog by default
+// Cant override this easily so have to space the children themselves.
+.modal-footer {
+  & > a {
+    margin-left: 140px;
+
+    & > span {
+      margin-left: 10px !important;
+    }
+  }
+}

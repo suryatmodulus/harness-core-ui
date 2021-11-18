@@ -120,7 +120,7 @@ export const TimeLine = ({
         }}
         height={150}
         className={css.main}
-        data-testid={'HealthScoreChartContainer'}
+        data-testid={'TimelineChartContainer'}
         ref={containerRef}
       >
         <TimelineSlider

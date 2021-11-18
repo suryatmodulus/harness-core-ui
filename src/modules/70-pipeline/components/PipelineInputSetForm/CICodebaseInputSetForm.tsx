@@ -68,11 +68,20 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
   useEffect(() => {
     const type = get(formik?.values, codeBaseTypePath, '') as CodeBaseType
     setCodeBaseType(type)
-    savedValues.current = Object.assign(savedValues.current, {
-      [type]: get(formik?.values, `${formattedPath}properties.ci.codebase.build.spec.${inputNames[type]}`, '')
-    })
-    handleTypeChange(type)
   }, [formik?.values])
+
+  useEffect(() => {
+    if (codeBaseType) {
+      savedValues.current = Object.assign(savedValues.current, {
+        [codeBaseType]: get(
+          formik?.values,
+          `${formattedPath}properties.ci.codebase.build.spec.${inputNames[codeBaseType]}`,
+          ''
+        )
+      })
+      handleTypeChange(codeBaseType)
+    }
+  }, [codeBaseType])
 
   const handleTypeChange = (newType: CodeBaseType): void => {
     const buildSpecPath = `${formattedPath}properties.ci.codebase.build.spec.${inputNames[newType]}`

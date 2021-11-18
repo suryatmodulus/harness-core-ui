@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Container, Text, Utils, PageError, NoDataCard } from '@wings-software/uicore'
+import { Color, Container, Text, Utils, PageError, NoDataCard, TableV2 } from '@wings-software/uicore'
 import type { CellProps } from 'react-table'
 import { Classes } from '@blueprintjs/core'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { StackdriverDashboardDTO, useGetStackdriverDashboards } from 'services/cv'
-import { Table } from '@common/components'
 import { TableFilter } from '@cv/components/TableFilter/TableFilter'
 import { useStrings } from 'framework/strings'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
@@ -124,7 +123,7 @@ export function SelectGCODashboards(): JSX.Element {
               setFilterAndPageOffset({ pageOffset: 0, filteredDashboard: filterValue })
             }
           />
-          <Table<TableData>
+          <TableV2<TableData>
             data={tableData || []}
             onRowClick={(rowData, index) => {
               const newTableData = [...tableData]

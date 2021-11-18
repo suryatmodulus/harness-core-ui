@@ -1192,14 +1192,14 @@ exports[`UsersPage Test render data 1`] = `
     data-name="page-body"
   >
     <div
-      class="table table"
+      class="TableV2--table table"
     >
       <div
-        class="header"
+        class="TableV2--header"
         role="row"
       >
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 30%;"
@@ -1216,7 +1216,7 @@ exports[`UsersPage Test render data 1`] = `
           </div>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 45%;"
@@ -1233,7 +1233,7 @@ exports[`UsersPage Test render data 1`] = `
           </div>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 20%;"
@@ -1250,7 +1250,7 @@ exports[`UsersPage Test render data 1`] = `
           </div>
         </div>
         <div
-          class="cell"
+          class="TableV2--cell"
           colspan="1"
           role="columnheader"
           style="width: 5%;"
@@ -1268,14 +1268,14 @@ exports[`UsersPage Test render data 1`] = `
         </div>
       </div>
       <div
-        class="body"
+        class="TableV2--body"
       >
         <div
-          class="row card clickable"
+          class="TableV2--row TableV2--card TableV2--clickable"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 30%;"
           >
@@ -1315,7 +1315,7 @@ exports[`UsersPage Test render data 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 45%;"
           >
@@ -1378,7 +1378,7 @@ exports[`UsersPage Test render data 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -1393,7 +1393,7 @@ exports[`UsersPage Test render data 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 5%;"
           >
@@ -1437,11 +1437,11 @@ exports[`UsersPage Test render data 1`] = `
           </div>
         </div>
         <div
-          class="row card clickable"
+          class="TableV2--row TableV2--card TableV2--clickable"
           role="row"
         >
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 30%;"
           >
@@ -1487,7 +1487,7 @@ exports[`UsersPage Test render data 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 45%;"
           >
@@ -1550,7 +1550,7 @@ exports[`UsersPage Test render data 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 20%;"
           >
@@ -1565,7 +1565,7 @@ exports[`UsersPage Test render data 1`] = `
             </div>
           </div>
           <div
-            class="cell"
+            class="TableV2--cell"
             role="cell"
             style="width: 5%;"
           >

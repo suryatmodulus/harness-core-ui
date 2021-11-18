@@ -65,6 +65,7 @@ export abstract class Step<T> {
   protected abstract type: StepType
   protected abstract defaultValues: T
   protected abstract stepIcon: IconName
+  protected stepIconColor?: string
   protected abstract stepName: string
   protected stepDescription: keyof StringsMap | undefined
   protected _hasStepVariables = false
@@ -92,6 +93,10 @@ export abstract class Step<T> {
 
   getIconName(): IconName {
     return this.stepIcon
+  }
+
+  getIconColor(): string | undefined {
+    return this.stepIconColor
   }
 
   getDescription(): keyof StringsMap | undefined {

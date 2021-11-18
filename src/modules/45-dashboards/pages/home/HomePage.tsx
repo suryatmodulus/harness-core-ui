@@ -17,7 +17,8 @@ import {
   Checkbox,
   ExpandingSearchInput,
   Pagination,
-  SelectOption
+  SelectOption,
+  TableV2
 } from '@wings-software/uicore'
 
 import { Select } from '@blueprintjs/select'
@@ -34,7 +35,6 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import Table from '@common/components/Table/Table'
 
 import routes from '@common/RouteDefinitions'
 
@@ -879,7 +879,7 @@ const HomePage: React.FC = () => {
 
         {filteredDashboardList && filteredDashboardList.length > 0 && layoutView === LayoutViews.LIST && (
           <Container className={css.masonry}>
-            <Table<DashboardInterface> className={css.table} columns={columns} data={filteredDashboardList || []} />
+            <TableV2<DashboardInterface> className={css.table} columns={columns} data={filteredDashboardList || []} />
           </Container>
         )}
 

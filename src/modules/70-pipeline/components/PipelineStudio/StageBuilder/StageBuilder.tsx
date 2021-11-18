@@ -205,6 +205,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     titleText: getString('deletePipelineStage'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
     onCloseDialog: async (isConfirmed: boolean) => {
       if (deleteId && isConfirmed) {
         const cloned = cloneDeep(pipeline)

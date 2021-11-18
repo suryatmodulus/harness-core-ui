@@ -1,12 +1,11 @@
 import React, { useMemo } from 'react'
 import moment from 'moment'
 
-import { Layout, Text, Icon, Color, IconName, Container } from '@wings-software/uicore'
+import { Layout, Text, Icon, Color, IconName, Container, TableV2 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer, Column } from 'react-table'
 import type { DateRange } from '@blueprintjs/datetime'
 import { useStrings } from 'framework/strings'
-import Table from '@common/components/Table/Table'
 
 import type { ResponsePageActivity, Activity, ResponseConnectivityCheckSummary } from 'services/cd-ng'
 
@@ -164,7 +163,7 @@ const ActivityList: React.FC<ActivityListProps> = props => {
   return (
     <Layout.Vertical className={css.activity}>
       {dataArray?.length ? (
-        <Table<AllActivity> columns={columns} data={dataArray || []} />
+        <TableV2<AllActivity> columns={columns} data={dataArray || []} />
       ) : (
         <Container height={'200px'}>
           <Page.NoDataCard icon="nav-dashboard" message={getString('activityHistory.noData')} />

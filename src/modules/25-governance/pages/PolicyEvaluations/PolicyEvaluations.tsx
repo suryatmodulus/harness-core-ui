@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 // import * as moment from 'moment'
-import { Text, Color, Layout, Intent, Popover, Button, Container } from '@wings-software/uicore'
+import { Text, Color, Layout, Intent, Popover, Button, Container, TableV2 } from '@wings-software/uicore'
 // import { useGet } from 'restful-react'
 import ReactTimeago from 'react-timeago'
 import { Position, PopoverInteractionKind } from '@blueprintjs/core'
@@ -14,7 +14,6 @@ import { Page } from '@common/exports'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 
 import { setPageNumber } from '@common/utils/utils'
-import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
 
 import { useGetEvaluationList, Evaluation, EvaluationDetail } from 'services/pm'
@@ -236,7 +235,7 @@ const PolicyEvaluations: React.FC = () => {
           message: getString('common.policy.noPolicyEvalResult')
         }}
       >
-        <Table<Evaluation>
+        <TableV2<Evaluation>
           className={css.table}
           columns={columns}
           data={evaluationsList as Evaluation[]}

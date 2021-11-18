@@ -6,12 +6,13 @@ import { Button, ButtonSize, ButtonVariation, Color, FontVariation, Layout, Text
 import type { PopoverPosition } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { FeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
-import { useLicenseStore, LICENSE_STATE_VALUES } from 'framework/LicenseStore/LicenseStoreContext'
+import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { LICENSE_STATE_VALUES } from 'framework/LicenseStore/licenseStoreUtil'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useFeatureModule, useFeatureRequiredPlans } from '@common/hooks/useFeatures'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
-import type { ModuleType } from 'framework/featureStore/FeaturesContext'
+import type { ModuleType } from 'framework/featureStore/featureStoreUtil'
 import css from './FeatureWarning.module.scss'
 
 interface FeatureWarningTooltipProps {

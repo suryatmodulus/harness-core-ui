@@ -1,6 +1,15 @@
 .gitSyncErrorMessage {
   margin-bottom: var(--spacing-medium);
   .section {
+    .title {
+      white-space: nowrap !important;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      padding-right: var(--spacing-small);
+    }
+    .titleDirection {
+      direction: rtl;
+    }
     &:not(:last-child) {
       border-bottom: 1px solid var(--grey-100);
       margin-bottom: var(--spacing-small) !important;

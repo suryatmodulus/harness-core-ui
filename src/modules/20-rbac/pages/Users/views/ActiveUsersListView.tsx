@@ -10,7 +10,8 @@ import {
   ButtonVariation,
   useConfirmationDialog,
   useToaster,
-  Page
+  Page,
+  TableV2
 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu } from '@blueprintjs/core'
@@ -26,7 +27,6 @@ import {
   useUnlockUser,
   checkIfLastAdminPromise
 } from 'services/cd-ng'
-import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
@@ -412,7 +412,7 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({
             }
       }
     >
-      <Table<UserAggregate>
+      <TableV2<UserAggregate>
         className={css.table}
         columns={columns}
         data={data?.data?.content || []}

@@ -12,7 +12,7 @@ import {
   PageError
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { Feature, GitDetails, Target, useGetAllFeatures, Variation } from 'services/cf'
+import { Feature, GitDetails, GitSyncErrorResponse, Target, useGetAllFeatures, Variation } from 'services/cf'
 import { ItemContainer } from '@cf/components/ItemContainer/ItemContainer'
 import routes from '@common/RouteDefinitions'
 import { CF_DEFAULT_PAGE_SIZE, FlagsSortByField, getErrorMessage, SortOrder } from '@cf/utils/CFUtils'
@@ -30,7 +30,7 @@ import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 
 import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
 
-import type { GitSyncFormValues, UseGitSync } from '@cf/hooks/useGitSync'
+import { GitSyncFormValues, GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import { DetailHeading } from '../DetailHeading'
 import css from './FlagSettings.module.scss'
@@ -131,8 +131,13 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null; gitSyn
         setLoadingFeaturesInBackground(false)
       })
       return true
-    } catch (e) {
-      showError(getErrorMessage(e), 0, 'cf.serve.flag.variant.error')
+    } catch (e: any) {
+      if (e.status === GIT_SYNC_ERROR_CODE) {
+        gitSync.handleError(e.data as GitSyncErrorResponse)
+      } else {
+        showError(getErrorMessage(e), 0, 'cf.serve.flag.variant.error')
+      }
+
       return false
     }
   }

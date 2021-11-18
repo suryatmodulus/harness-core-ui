@@ -17,7 +17,14 @@ export default function MonitoredServiceDependenciesChart(props: MonitoredServic
   const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const queryParams = useMemo(
-    () => ({ accountId, orgIdentifier, projectIdentifier, serviceIdentifier, environmentIdentifier: envIdentifier }),
+    () => ({
+      accountId,
+      orgIdentifier,
+      projectIdentifier,
+      serviceIdentifier,
+      environmentIdentifier: envIdentifier,
+      servicesAtRiskFilter: false // Remove once made it as optional
+    }),
     [accountId, envIdentifier, orgIdentifier, projectIdentifier, serviceIdentifier]
   )
   const {

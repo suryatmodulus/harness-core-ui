@@ -208,10 +208,10 @@ exports[`Terraform Var Store tests initial render 1`] = `
           class="formContainerStepOne"
         />
         <div
-          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
+          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main saveBtn Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
+            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
             disabled=""
             tabindex="-1"
             type="submit"
@@ -590,10 +590,10 @@ exports[`Terraform Var Store tests on edit mode for tf var store  1`] = `
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
+          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main saveBtn Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
+            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
             disabled=""
             tabindex="-1"
             type="submit"
@@ -972,10 +972,10 @@ exports[`Terraform Var Store tests select one of the types 1`] = `
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
+          class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main saveBtn Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
+            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
             disabled=""
             tabindex="-1"
             type="submit"

@@ -121,7 +121,16 @@ export const useRunPipelineModal = (
           </Layout.Vertical>
         </Dialog>
       ),
-    [loading, inputSetYaml, branch, repoIdentifier, pipelineIdentifier]
+    [
+      loading,
+      inputSetYaml,
+      branch,
+      repoIdentifier,
+      pipelineIdentifier,
+      inputSetSelected,
+      stagesExecuted,
+      planExecutionId
+    ]
   )
 
   const open = useCallback(() => {

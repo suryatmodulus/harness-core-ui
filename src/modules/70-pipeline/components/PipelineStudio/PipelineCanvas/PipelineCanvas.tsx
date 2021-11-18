@@ -306,6 +306,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         location.reload()
       }
       trackEvent(isYaml ? PipelineActions.PipelineCreatedViaYAML : PipelineActions.PipelineCreatedViaVisual, {})
+      trackEvent(PipelineActions.PipelineCreated, {})
     } else {
       clear()
       setSchemaErrorView(true)
@@ -548,6 +549,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         })
       }
       hideModal()
+      trackEvent(PipelineActions.StartedPipelineCreation, { module })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [hideModal, pipeline, updatePipeline]

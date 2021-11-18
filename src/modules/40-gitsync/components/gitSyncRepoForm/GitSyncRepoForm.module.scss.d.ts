@@ -9,6 +9,7 @@ declare const styles: {
   readonly connectorTypeIcon: string
   readonly formElm: string
   readonly formButton: string
+  readonly testConnection: string
   readonly helpText: string
   readonly noSpacing: string
   readonly placeholder: string

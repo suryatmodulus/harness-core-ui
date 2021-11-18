@@ -5,7 +5,7 @@ import type { PermissionIdentifier } from 'microfrontends'
 import type { PermissionsRequest } from '@rbac/hooks/usePermission'
 import type { FeatureProps } from 'framework/featureStore/featureStoreUtil'
 import { useFeature } from '@common/hooks/useFeatures'
-import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
+import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 
 export interface RbacFields {
   disabled: boolean

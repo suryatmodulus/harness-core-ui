@@ -160,6 +160,7 @@ export interface StringsMap {
   'common.expiryDate': string
   'common.exploreAllPlans': string
   'common.explorePlans': string
+  'common.exploreSaaSPlans': string
   'common.extendTrial.description': string
   'common.extendTrial.doItLater': string
   'common.extendTrial.expiryDate': string
@@ -292,6 +293,7 @@ export interface StringsMap {
   'common.logs.delegateSelectionLogs': string
   'common.logs.noLogsText': string
   'common.manage': string
+  'common.manageSubscription': string
   'common.member': string
   'common.modified': string
   'common.module.cd': string
@@ -322,6 +324,7 @@ export interface StringsMap {
   'common.notificationPreferences': string
   'common.ok': string
   'common.on': string
+  'common.onPremSaaSPlansMsg': string
   'common.optionalConfig': string
   'common.optionalLabel': string
   'common.options': string

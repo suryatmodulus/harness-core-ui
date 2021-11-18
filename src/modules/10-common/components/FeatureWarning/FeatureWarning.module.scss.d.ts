@@ -5,6 +5,8 @@ declare const styles: {
   readonly explorePlans: string
   readonly expanded: string
   readonly tooltip: string
-  readonly warningBanner: string
+  readonly bgColorOrange: string
+  readonly bgColorWhite: string
+  readonly infoIcon: string
 }
 export default styles

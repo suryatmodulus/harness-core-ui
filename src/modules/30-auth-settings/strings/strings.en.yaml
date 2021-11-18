@@ -124,7 +124,7 @@ cdCommunityPlan:
   saasTitle2: 'Harness offers a variety of exciting SaaS plans'
   communityLinkText: 'Supported by Community'
   enterpriseLinkText: 'Go to Enterprise'
-  saasLinkText: 'Explore SaaS Plans'
+  saasLinkText: '{{$.common.exploreSaaSPlans}}'
   harnessLinkText: 'Explore All Harness Plans'
   communityPlanStrings:
     item1: 'Unlimited Developers'

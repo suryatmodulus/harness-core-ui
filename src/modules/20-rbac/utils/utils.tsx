@@ -27,7 +27,7 @@ import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
 import type { FeatureRequest } from 'framework/featureStore/featureStoreUtil'
 import type { PermissionsRequest } from '@rbac/hooks/usePermission'
-import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
+import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 import css from './utils.module.scss'
 
 export interface UserItem extends MultiSelectOption {

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
-import { FeatureWarningBanner } from '@common/components/FeatureWarning/FeatureWarning'
+import FeatureWarningBanner from '@common/components/FeatureWarning/FeatureWarningBanner'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useStrings } from 'framework/strings'
 import ResourceGroupsList from '@rbac/pages/ResourceGroups/views/ResourceGroupsList'

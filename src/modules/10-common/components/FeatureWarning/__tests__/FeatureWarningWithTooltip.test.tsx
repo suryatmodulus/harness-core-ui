@@ -2,10 +2,9 @@ import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import {
-  FeatureWarning,
   FeatureWarningWithTooltip,
   FeatureWarningTooltip
-} from '@common/components/FeatureWarning/FeatureWarning'
+} from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
@@ -23,14 +22,6 @@ useFeatureRequiredPlansMock.mockImplementation(() => {
 })
 
 describe('FeatureWarning', () => {
-  test('FeatureWarning', () => {
-    const { container } = render(
-      <TestWrapper path={routes.toRoleDetails({ ...accountPathProps })} pathParams={{ accountId: 'dummy' }}>
-        <FeatureWarning featureName={FeatureIdentifier.MULTIPLE_ORGANIZATIONS} />
-      </TestWrapper>
-    )
-    expect(container).toMatchSnapshot()
-  })
   test('FeatureWarningWithTooltip', () => {
     const { container } = render(
       <TestWrapper path={routes.toRoleDetails({ ...accountPathProps })} pathParams={{ accountId: 'dummy' }}>

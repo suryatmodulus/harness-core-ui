@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OnPremFeatureWarningInfoBanner OnPremFeatureWarningInfoBanner 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--small bgColorWhite StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+  >
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary10 StyledProps--font-variation-small"
+          style="display: flex; align-items: center;"
+        >
+          <span
+            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-small StyledProps--color StyledProps--color-primary7"
+            data-icon="stars"
+          >
+            <svg
+              height="25"
+              viewBox="0 0 41 36"
+              width="25"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M18.993 3.042c.33-1.015 1.767-1.015 2.096 0l2.677 8.237c.147.454.57.762 1.048.762h8.66c1.068 0 1.512 1.366.649 1.993l-7.007 5.091c-.387.28-.548.778-.4 1.232l2.676 8.237c.33 1.015-.832 1.86-1.696 1.232l-7.007-5.09c-.386-.281-.91-.281-1.295 0l-7.007 5.09c-.864.628-2.026-.217-1.696-1.232l2.677-8.237a1.102 1.102 0 00-.4-1.232l-7.008-5.09c-.863-.628-.42-1.994.648-1.994h8.661c.477 0 .9-.308 1.048-.762z"
+                fill="#2bb1f2"
+              />
+              <g
+                clip-rule="evenodd"
+                fill-rule="evenodd"
+              >
+                <path
+                  d="M23.067 10.494l-2.676-8.237a.367.367 0 00-.699 0l-2.676 8.237a1.837 1.837 0 01-1.747 1.27H6.608a.367.367 0 00-.216.664l7.007 5.09c.644.468.913 1.297.667 2.054l-2.676 8.237c-.11.339.277.62.565.41l7.007-5.09a1.836 1.836 0 012.159 0l7.007 5.09a.367.367 0 00.565-.41l-2.676-8.237a1.836 1.836 0 01.667-2.053l7.007-5.091a.367.367 0 00-.216-.665h-8.661c-.796 0-1.501-.512-1.747-1.269zM21.09 2.03c-.33-1.015-1.766-1.015-2.096 0l-2.676 8.237c-.147.454-.57.762-1.048.762H6.608c-1.068 0-1.511 1.366-.648 1.993l7.007 5.091c.386.28.548.778.4 1.232l-2.676 8.237c-.33 1.015.832 1.86 1.696 1.232l7.007-5.09c.386-.281.909-.281 1.295 0l7.007 5.09c.864.628 2.026-.217 1.696-1.232l-2.677-8.237a1.102 1.102 0 01.4-1.232l7.008-5.09c.863-.628.42-1.994-.648-1.994h-8.661c-.478 0-.9-.308-1.048-.762zM8.116.253c.202 0 .367.165.367.368v2.617a.367.367 0 01-.735 0V.62c0-.203.165-.368.368-.368zM4.332 4.338c0-.202.164-.367.367-.367h2.432a.367.367 0 110 .735H4.7a.367.367 0 01-.367-.368zm4.329 0c0-.202.164-.367.367-.367h2.253a.367.367 0 110 .735H9.028a.367.367 0 01-.367-.368zm-.545.726c.202 0 .367.165.367.368v2.557a.367.367 0 11-.735 0V5.432c0-.203.165-.368.368-.368zM36.963 17.12c.203 0 .367.164.367.367v2.617a.367.367 0 11-.734 0v-2.617c0-.203.164-.367.367-.367zm-3.783 4.085c0-.203.164-.367.367-.367h2.432a.367.367 0 110 .734h-2.432a.367.367 0 01-.367-.367zm4.328 0c0-.203.165-.367.368-.367h2.253a.367.367 0 110 .734h-2.253a.367.367 0 01-.368-.367zm-.545.726c.203 0 .367.164.367.367v2.557a.367.367 0 01-.734 0v-2.557c0-.203.164-.367.367-.367zM4.455 18.822c.203 0 .368.165.368.367v2.617a.367.367 0 11-.735 0V19.19c0-.203.165-.367.367-.367zM.672 22.907c0-.203.164-.367.367-.367h2.432a.367.367 0 010 .734H1.039a.367.367 0 01-.367-.367zm4.329 0c0-.203.164-.367.367-.367H7.62a.367.367 0 010 .734H5.368A.367.367 0 015 22.907zm-.546.726c.203 0 .368.164.368.367v2.557a.367.367 0 11-.735 0V24c0-.203.165-.367.367-.367zM33.307.253c.203 0 .367.165.367.368v2.617a.367.367 0 01-.734 0V.62c0-.203.164-.368.367-.368zm-3.784 4.085c0-.202.165-.367.368-.367h2.432a.367.367 0 010 .735H29.89a.367.367 0 01-.368-.368zm4.33 0c0-.202.164-.367.366-.367h2.254a.367.367 0 010 .735H34.22a.367.367 0 01-.368-.368zm-.546.726c.203 0 .367.165.367.368v2.557a.367.367 0 01-.734 0V5.432c0-.203.164-.368.367-.368z"
+                />
+                <path
+                  d="M20.123 27.334c.203 0 .368.165.368.367v2.617a.367.367 0 01-.735 0v-2.617c0-.202.165-.367.367-.367zM16.34 31.42c0-.203.164-.367.367-.367h2.432a.367.367 0 010 .735h-2.432a.367.367 0 01-.367-.368zm4.329 0c0-.203.164-.367.367-.367h2.253a.367.367 0 010 .735h-2.253a.367.367 0 01-.367-.368zm-.546.726c.203 0 .368.165.368.367v2.557a.367.367 0 01-.735 0v-2.557c0-.202.165-.367.367-.367z"
+                />
+              </g>
+            </svg>
+          </span>
+          common.onPremSaaSPlansMsg
+        </p>
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--variation Button--variation-secondary Button--size Button--small"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            common.exploreSaaSPlans
+          </span>
+        </button>
+      </div>
+    </div>
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
+      type="button"
+    >
+      <span
+        class="bp3-icon bp3-icon-cross StyledProps--main"
+        icon="cross"
+      >
+        <svg
+          data-icon="cross"
+          height="18"
+          viewBox="0 0 16 16"
+          width="18"
+        >
+          <desc>
+            cross
+          </desc>
+          <path
+            d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+</div>
+`;

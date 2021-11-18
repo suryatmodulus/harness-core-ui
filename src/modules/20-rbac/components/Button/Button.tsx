@@ -7,7 +7,7 @@ import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
 import { useFeature } from '@common/hooks/useFeatures'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { FeatureProps } from 'framework/featureStore/featureStoreUtil'
-import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
+import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 
 export interface ButtonProps extends CoreButtonProps {
   permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }

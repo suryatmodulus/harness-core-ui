@@ -27,7 +27,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { PermissionRequest } from '@auth-settings/pages/Configuration/Configuration'
 import { useFeature } from '@common/hooks/useFeatures'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
-import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
+import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 import css from './SAMLProvider.module.scss'
 import cssConfiguration from '@auth-settings/pages/Configuration/Configuration.module.scss'
 

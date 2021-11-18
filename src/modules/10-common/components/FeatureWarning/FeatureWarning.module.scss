@@ -26,8 +26,14 @@
   text-align: left;
 }
 
-.warningBanner {
+.bgColorOrange {
   background-color: var(--orange-50) !important;
-  box-shadow: var(--card-shadow);
-  padding: var(--spacing-small) var(--spacing-xlarge) !important ;
+}
+
+.bgColorWhite {
+  background-color: var(--white) !important;
+}
+
+.infoIcon {
+  color: var(--primary-6) !important;
 }

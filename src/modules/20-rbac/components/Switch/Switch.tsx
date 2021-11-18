@@ -4,7 +4,7 @@ import { Switch as CoreSwitch, SwitchProps as CoreSwitchProps, Popover } from '@
 import { PopoverInteractionKind } from '@blueprintjs/core'
 import type { FeatureRequest } from 'framework/featureStore/featureStoreUtil'
 import { useFeature } from '@common/hooks/useFeatures'
-import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
+import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 
 interface SwitchProps extends CoreSwitchProps {
   featureProps: FeatureProps

@@ -5,7 +5,7 @@ import { Classes, IPopoverProps, PopoverInteractionKind, Position } from '@bluep
 import { isEmpty, isNil } from 'lodash-es'
 import cx from 'classnames'
 import { iconMap } from '@pipeline/components/PipelineStudio/StepPalette/iconMap'
-import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarning'
+import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 import type { StepData } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'

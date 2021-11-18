@@ -596,7 +596,7 @@ lastConnectedOn: Last connected on
 selectAVersion:
   title: Select a version to proceed
   description: Define pipelines that enable you to improve your deployment times, manage your integrations and view your services all in one place.
-explorePlans: Explore Plans
+explorePlans: Explore plans
 feature:
   upgradeRequired:
     title: Upgrade Required
@@ -642,3 +642,6 @@ duration:
   3months: 'Last 3 months'
   6months: 'Last 6 months'
   year: 'Last 1 year'
+exploreSaaSPlans: Explore SaaS plans
+onPremSaaSPlansMsg: Did you know, Harness also offers a range of exciting SaaS plans?
+manageSubscription: Manage subscription

@@ -14,7 +14,7 @@ import {
 import { cloneDeep, noop, uniqBy } from 'lodash-es'
 import { Drawer, IDrawerProps, Position } from '@blueprintjs/core'
 import cx from 'classnames'
-import { FeatureWarningWithTooltip } from '@common/components/FeatureWarning/FeatureWarning'
+import { FeatureWarningWithTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 import { useStrings } from 'framework/strings'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useFeature } from '@common/hooks/useFeatures'

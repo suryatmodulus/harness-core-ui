@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.91% </span>
+                <span class="strong">87.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>30/33</span>
+                <span class='fraction'>29/33</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">85.29% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>29/34</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">77.78% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>7/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">87.5% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>28/32</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>8/10</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">90.63% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/32</span>
+                <span class='fraction'>28/32</span>
             </div>
         
             
@@ -190,7 +190,12 @@
 <a name='L131'></a><a href='#L131'>131</a>
 <a name='L132'></a><a href='#L132'>132</a>
 <a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
@@ -225,7 +230,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">138x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -276,9 +286,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">134x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">134x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -315,6 +322,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">134x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -358,7 +368,11 @@ export const useRunPipelineModal = (
 &nbsp;
   const [inputSetYaml, setInputSetYaml] = useState('')
 &nbsp;
-  const { data: runPipelineInputsetData, loading } = useGetInputsetYaml({
+  const {
+    data: runPipelineInputsetData,
+    loading,
+    refetch: fetchExecutionData
+  } = useGetInputsetYaml({
     planExecutionId: planExecutionId ?? '',
     queryParams: {
       orgIdentifier,
@@ -369,7 +383,8 @@ export const useRunPipelineModal = (
       headers: {
         'content-type': 'application/yaml'
       }
-    }
+    },
+    lazy: true
   })
 &nbsp;
   useEffect(() =&gt; {
@@ -408,9 +423,6 @@ export const useRunPipelineModal = (
     isCloseButtonShown: false
   }
 &nbsp;
-  const onCloseRunPipelineModal = (): void =&gt; {
-    hideRunPipelineModal()
-  }
   const [showRunPipelineModal, hideRunPipelineModal] = useModalHook(
     () =&gt;
       loading ? (
@@ -429,7 +441,7 @@ export const useRunPipelineModal = (
               branch={branch}
               inputSetSelected={getInputSetSelected()}
               onClose={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                onCloseRunPipelineModal()</span>
+<span class="cstat-no" title="statement not covered" >                hideRunPipelineModal()</span>
               }}
               stagesExecuted={stagesExecuted}
               executionIdentifier={planExecutionId}
@@ -438,7 +450,7 @@ export const useRunPipelineModal = (
               aria-label="close modal"
               icon="cross"
               variation={ButtonVariation.ICON}
-              onClick={() =&gt; onCloseRunPipelineModal()}
+              onClick={() =&gt; hideRunPipelineModal()}
               className={css.crossIcon}
             /&gt;
           &lt;/Layout.Vertical&gt;
@@ -448,6 +460,9 @@ export const useRunPipelineModal = (
   )
 &nbsp;
   const open = useCallback(() =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (planExecutionId) {
+<span class="cstat-no" title="statement not covered" >      fetchExecutionData()</span>
+    }
     showRunPipelineModal()
   }, [showRunPipelineModal])
 &nbsp;
@@ -463,7 +478,7 @@ export const useRunPipelineModal = (
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 17 2021 19:49:31 GMT+0000 (Greenwich Mean Time)
+                at Thu Nov 18 2021 02:50:26 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

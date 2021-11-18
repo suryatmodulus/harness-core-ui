@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.23% </span>
+                <span class="strong">74.49% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>72/97</span>
+                <span class='fraction'>73/98</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.25% </span>
+                <span class="strong">52.31% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>144/281</span>
+                <span class='fraction'>147/281</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">75.26% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>72/96</span>
+                <span class='fraction'>73/97</span>
             </div>
         
             
@@ -576,7 +576,8 @@
 <a name='L517'></a><a href='#L517'>517</a>
 <a name='L518'></a><a href='#L518'>518</a>
 <a name='L519'></a><a href='#L519'>519</a>
-<a name='L520'></a><a href='#L520'>520</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L520'></a><a href='#L520'>520</a>
+<a name='L521'></a><a href='#L521'>521</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -727,6 +728,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -741,7 +743,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -963,6 +964,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1245,6 +1247,7 @@ const GitSyncRepoForm: React.FC&lt;ModalConfigureProps &amp; GitSyncRepoFormProp
     })
       .then(response =&gt; {
         setLoadingBranchList(false)
+        modalErrorHandler<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>ide()
         <span class="missing-if-branch" title="if path not taken" >I</span>if (response.status !== 'SUCCESS') {
 <span class="cstat-no" title="statement not covered" >          throw response</span>
         } else {
@@ -1260,7 +1263,6 @@ const GitSyncRepoForm: React.FC&lt;ModalConfigureProps &amp; GitSyncRepoFormProp
                 : <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
             )
           } else {
-<span class="cstat-no" title="statement not covered" >            modalErrorHandler?.hide()</span>
 <span class="cstat-no" title="statement not covered" >            modalErrorHandler?.showDanger(getString('common.git.noBranchesFound'))</span>
           }
         }
@@ -1482,6 +1484,7 @@ const GitSyncRepoForm: React.FC&lt;ModalConfigureProps &amp; GitSyncRepoFormProp
                                 ),
                                 getRepoUrlForConnectorType(formValues, (e.target as HTMLInputElement)?.value)
                               )
+<span class="cstat-no" title="statement not covered" >                            setTestStatus(TestStatus.NOT_INITIATED)</span>
                           }}
                         /&gt;
                         {formValues.gitConnector?.connector?.spec?.type !== GitUrlType.REPO ? (
@@ -1500,7 +1503,7 @@ const GitSyncRepoForm: React.FC&lt;ModalConfigureProps &amp; GitSyncRepoFormProp
                         ) : null}
                       &lt;/Layout.Vertical&gt;
                       {formValues.gitConnector?.connector?.identifier ? (
-                        &lt;Container flex&gt;
+                        &lt;Container flex className={css.testConnection}&gt;
                           &lt;TestConnectionWidget
                             testStatus={testStatus}
                             onTest={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
@@ -1621,7 +1624,7 @@ export default GitSyncRepoForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 18 2021 08:17:54 GMT+0000 (Greenwich Mean Time)
+                at Thu Nov 18 2021 09:33:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

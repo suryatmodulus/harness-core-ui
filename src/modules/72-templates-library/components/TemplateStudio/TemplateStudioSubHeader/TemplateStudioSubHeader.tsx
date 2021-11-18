@@ -11,7 +11,6 @@ import {
   VisualYamlSelectedView as SelectedView,
   VisualYamlToggle
 } from '@wings-software/uicore'
-import { get, isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import type { TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
@@ -36,7 +35,7 @@ export const TemplateStudioSubHeader: (props: TemplateStudioSubHeaderProps) => J
   onGitBranchChange
 }) => {
   const { state, fetchTemplate, view, isReadonly } = React.useContext(TemplateContext)
-  const { template, isUpdated } = state
+  const { isUpdated } = state
   const { getString } = useStrings()
   const { templateIdentifier } = useParams<TemplateStudioPathProps>()
   const isYaml = view === SelectedView.YAML
@@ -81,10 +80,7 @@ export const TemplateStudioSubHeader: (props: TemplateStudioSubHeaderProps) => J
             {!isReadonly && (
               <Container>
                 <Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center' }}>
-                  <SaveTemplatePopover
-                    disabled={!isUpdated || isEmpty(get(template.spec, 'type'))}
-                    getErrors={getErrors}
-                  />
+                  <SaveTemplatePopover getErrors={getErrors} />
                   {templateIdentifier !== DefaultNewTemplateId && (
                     <Button
                       disabled={!isUpdated}

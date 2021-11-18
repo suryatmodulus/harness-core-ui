@@ -1,4 +1,4 @@
-import { render, waitFor, queryByText, fireEvent, getByText } from '@testing-library/react'
+import { render, waitFor, queryByText, fireEvent, getByText, RenderResult } from '@testing-library/react'
 import { act } from 'react-test-renderer'
 import React from 'react'
 import type { ConnectorResponse, ConnectorInfoDTO } from 'services/cd-ng'
@@ -40,13 +40,13 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 describe('Connector Details Page', () => {
-  const setup = (type = 'Git') =>
+  const setup = (type = 'Git'): RenderResult =>
     render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <ConnectorView
           type={type as ConnectorInfoDTO['type']}
           response={GitHttp.data.content as ConnectorResponse}
-          refetchConnector={() => new Promise(resolve => resolve(GitHttp.data.content as ConnectorResponse))}
+          refetchConnector={() => Promise.resolve()}
           mockMetaData={mockMetaData as any}
           mockSnippetData={mockSnippetData as any}
           mockSchemaData={mockSchemaData as any}
@@ -114,7 +114,7 @@ describe('Connector Details Page', () => {
         <ConnectorView
           type={'DockerRegistry'}
           response={connectorWithGitData as ConnectorResponse}
-          refetchConnector={() => new Promise(resolve => resolve(connectorWithGitData as ConnectorResponse))}
+          refetchConnector={() => Promise.resolve()}
           mockMetaData={mockMetaData as any}
           mockSnippetData={mockSnippetData as any}
           mockSchemaData={mockSchemaData as any}

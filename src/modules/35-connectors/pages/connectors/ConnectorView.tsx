@@ -1,68 +1,43 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { isEmpty, noop, omit } from 'lodash-es'
 import {
-  Button,
   Layout,
   Container,
-  Icon,
-  Text,
-  Color,
   ButtonVariation,
-  shouldShowError,
   VisualYamlSelectedView as SelectedView,
   VisualYamlToggle,
-  useConfirmationDialog,
   useToaster
 } from '@wings-software/uicore'
-import { parse } from 'yaml'
-import { StringUtils } from '@common/exports'
-import {
+import type { ToasterProps } from '@wings-software/uicore/dist/hooks/useToaster/useToaster'
+import type {
   ConnectorInfoDTO,
   ConnectorResponse,
   ResponseJsonNode,
   ResponseYamlSnippets,
-  ResponsePageSecretResponseWrapper,
-  ConnectorConnectivityDetails,
-  useGetYamlSchema,
-  Connector,
-  EntityGitDetails,
-  useUpdateConnector,
-  CreateConnectorQueryParams
+  ResponsePageSecretResponseWrapper
 } from 'services/cd-ng'
-import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
-import TestConnection from '@connectors/components/TestConnection/TestConnection'
-import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
+import type { YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import type { UseGetMockData } from '@common/utils/testUtils'
-import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
-import { ConnectorStatus } from '@connectors/constants'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { UseSaveSuccessResponse, useSaveToGitDialog } from '@common/modals/SaveToGitDialog/useSaveToGitDialog'
-import type { SaveToGitFormInterface } from '@common/components/SaveToGitForm/SaveToGitForm'
-import { getReadableDateTime } from '@common/utils/dateUtils'
-import { getUrlValueByType, isSMConnector } from './utils/ConnectorUtils'
+import ConnectorActivityDetails from '@connectors/components/ConnectorActivityDetails/ConnectorActivityDetails'
+import ConnectorYAMLEditor from '@connectors/components/ConnectorYAMLEditor/ConnectorYAMLEditor'
 import SavedConnectorDetails from './views/savedDetailsView/SavedConnectorDetails'
 import css from './ConnectorView.module.scss'
 
 export interface ConnectorViewProps {
   type: ConnectorInfoDTO['type']
   response: ConnectorResponse
-  refetchConnector: () => Promise<any>
+  refetchConnector: () => Promise<void>
   mockMetaData?: UseGetMockData<ResponseYamlSnippets>
   mockSnippetData?: UseGetMockData<ResponseJsonNode>
   mockSchemaData?: UseGetMockData<ResponseJsonNode>
   mockSecretData?: UseGetMockData<ResponsePageSecretResponseWrapper>
-}
-
-interface ConnectorActivityDetailsProp {
-  connector: ConnectorResponse
 }
 
 interface ConnectorViewState {
@@ -74,32 +49,60 @@ interface ConnectorViewState {
   setSelectedView: (selection: SelectedView) => void
 }
 
-const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) => {
-  const { showSuccess, showError } = useToaster()
+interface ModeSwitchHandlers {
+  setSelectedView: (selection: SelectedView) => void
+  setConnector: (object: ConnectorInfoDTO) => void
+  setConnectorForYaml: (object: ConnectorInfoDTO) => void
+  showError: ToasterProps['showError']
+}
+
+const getInitialConnectorData = (response: ConnectorResponse): ConnectorInfoDTO =>
+  response?.connector || ({} as ConnectorInfoDTO)
+
+const handleModeSwitch = (
+  newView: SelectedView,
+  selectedView: SelectedView,
+  connector: ConnectorInfoDTO,
+  handlers: ModeSwitchHandlers
+): boolean => {
+  const { setSelectedView, setConnector, setConnectorForYaml, showError } = handlers
+
+  if (newView === selectedView) {
+    return false
+  } else {
+    if (newView === SelectedView.VISUAL) {
+      try {
+        setSelectedView(newView)
+        setConnector(connector)
+        setConnectorForYaml(connector)
+      } /* istanbul ignore next */ catch (err) {
+        showError(err.name ? `${err.name}: ${err.message}` : err)
+      }
+    } else {
+      setSelectedView(SelectedView.YAML)
+    }
+    return true
+  }
+}
+
+const ConnectorView: React.FC<ConnectorViewProps> = props => {
+  const { showError } = useToaster()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     accountId: string
     projectIdentifier: string
     orgIdentifier: string
   }>()
-  const { mutate: updateConnector, loading: updating } = useUpdateConnector({
-    queryParams: { accountIdentifier: accountId }
-  })
+
   const isEntityInvalid = props.response.entityValidityDetails?.valid === false
   const [enableEdit, setEnableEdit] = useState(false)
   const [selectedView, setSelectedView] = useState<SelectedView>(
     isEntityInvalid ? SelectedView.YAML : SelectedView.VISUAL
   )
-  const [connector, setConnector] = useState<ConnectorInfoDTO>(props.response?.connector || ({} as ConnectorInfoDTO))
-  const [connectorForYaml, setConnectorForYaml] = useState<ConnectorInfoDTO>(
-    props.response?.connector || ({} as ConnectorInfoDTO)
-  )
+  const [connector, setConnector] = useState<ConnectorInfoDTO>(getInitialConnectorData(props.response))
+  const [connectorForYaml, setConnectorForYaml] = useState<ConnectorInfoDTO>(getInitialConnectorData(props.response))
 
-  const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
-  const [isValidYAML] = React.useState<boolean>(true)
   const { getString } = useStrings()
   const isHarnessManaged = props.response?.harnessManaged
-  const [hasConnectorChanged, setHasConnectorChanged] = useState<boolean>(false)
-  const { isGitSyncEnabled } = useAppStore()
 
   const [canEditConnector] = usePermission(
     {
@@ -117,10 +120,6 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     []
   )
 
-  const onConnectorChange = (isEditorDirty: boolean): void => {
-    setHasConnectorChanged(isEditorDirty)
-  }
-
   const state: ConnectorViewState = {
     enableEdit,
     setEnableEdit,
@@ -128,76 +127,6 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     setConnector,
     selectedView,
     setSelectedView
-  }
-
-  const handleModeSwitch = (newView: SelectedView): boolean => {
-    if (newView === selectedView) return false
-    if (newView === SelectedView.VISUAL) {
-      try {
-        const connectorJSONEq = props.response?.connector || ({} as ConnectorInfoDTO)
-        setSelectedView(newView)
-        setConnector(connectorJSONEq)
-        setConnectorForYaml(connectorJSONEq)
-      } /* istanbul ignore next */ catch (err) {
-        showError(err.name ? `${err.name}: ${err.message}` : err)
-      }
-    } else {
-      setSelectedView(SelectedView.YAML)
-    }
-    return true
-  }
-
-  const { openSaveToGitDialog } = useSaveToGitDialog<Connector>({
-    onSuccess: (
-      gitDetails: SaveToGitFormInterface,
-      payload?: Connector,
-      objectId?: string
-    ): Promise<UseSaveSuccessResponse> => handleSaveYaml({ gitData: gitDetails, payload }, objectId),
-    onClose: noop
-  })
-
-  /* excluding below method from coverage since it's called only by YAMLBuilder */
-  /* istanbul ignore next */
-  const handleSaveYaml = async (
-    connectorData?: {
-      gitData?: SaveToGitFormInterface
-      payload?: Connector
-    },
-    objectId?: EntityGitDetails['objectId']
-  ): Promise<UseSaveSuccessResponse> => {
-    const { gitData, payload } = connectorData || {}
-    const connectorJSONEq = !isEmpty(payload) ? payload : parse(yamlHandler?.getLatestYaml?.() || '')
-    const errorMap = yamlHandler?.getYAMLValidationErrorMap?.()
-    if (errorMap && errorMap.size > 0) {
-      showError(getString('yamlBuilder.yamlError'))
-      return {
-        status: 'ERROR'
-      }
-    } else {
-      let queryParams: CreateConnectorQueryParams = {}
-      if (gitData) {
-        queryParams = {
-          accountIdentifier: accountId,
-          ...omit(gitData, 'sourceBranch')
-        }
-      }
-      const response = await updateConnector(connectorJSONEq, {
-        queryParams: {
-          ...queryParams,
-          lastObjectId: objectId ?? props.response?.gitDetails?.objectId,
-          baseBranch: props.response?.gitDetails?.branch
-        }
-      })
-      if (response.status === 'SUCCESS' && response?.data?.connector) {
-        setEnableEdit(false)
-        setConnector(response?.data?.connector)
-        setConnectorForYaml(response?.data?.connector)
-      }
-      return {
-        status: response.status,
-        nextCallback: () => props.refetchConnector()
-      }
-    }
   }
 
   const { openConnectorModal } = useCreateConnectorModal({
@@ -218,127 +147,6 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
       setConnectorForYaml(props.response.connector)
     }
   }, [props.response])
-
-  const {
-    data: connectorSchema,
-    loading: isFetchingSchema,
-    refetch
-  } = useGetYamlSchema({
-    queryParams: {
-      entityType: 'Connectors',
-      projectIdentifier,
-      orgIdentifier,
-      scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
-    },
-    mock: props.mockSchemaData,
-    lazy: true
-  })
-
-  React.useEffect(() => {
-    if (selectedView === SelectedView.YAML && enableEdit) {
-      refetch()
-    }
-  }, [enableEdit])
-
-  const RenderConnectorStatus = (status: ConnectorConnectivityDetails['status']): React.ReactElement => {
-    if (status !== 'SUCCESS' && status !== 'FAILURE') {
-      return (
-        <Text inline={true} font={{ size: 'medium' }}>
-          {getString('na')}
-        </Text>
-      )
-    }
-    return (
-      <>
-        <Icon
-          inline={true}
-          name={status === 'SUCCESS' ? 'deployment-success-new' : 'warning-sign'}
-          size={18}
-          padding={{ left: 'medium' }}
-          color={status === 'SUCCESS' ? Color.GREEN_500 : Color.RED_500}
-        ></Icon>
-        <Text inline={true} font={{ size: 'medium' }} color={status === 'SUCCESS' ? Color.GREEN_500 : Color.RED_500}>
-          {status === ConnectorStatus.FAILURE ? getString('failed') : getString('success')}
-        </Text>
-      </>
-    )
-  }
-
-  const ConnectorActivityDetails: React.FC<ConnectorActivityDetailsProp> = (
-    activityDetailsProp: ConnectorActivityDetailsProp
-  ) => {
-    const lastTestedAt = getReadableDateTime(
-      activityDetailsProp.connector?.status?.testedAt,
-      StringUtils.DEFAULT_DATE_FORMAT
-    )
-    const lastConnectedAt = getReadableDateTime(
-      activityDetailsProp.connector?.status?.lastConnectedAt,
-      StringUtils.DEFAULT_DATE_FORMAT
-    )
-
-    return (
-      <Layout.Vertical className={css.activityContainer}>
-        <Container className={css.activitySummary}>
-          <Layout.Horizontal spacing="small">
-            <Text font={{ weight: 'bold', size: 'medium' }} inline={true} color={Color.GREY_800}>
-              {getString('connectivityStatus')}
-            </Text>
-            {RenderConnectorStatus(activityDetailsProp.connector?.status?.status)}
-          </Layout.Horizontal>
-          <Text margin={{ top: 'small', bottom: 'small' }}>
-            {getString('lastStatusCheckAt')} {lastTestedAt ? `${lastTestedAt}` : getString('na')}
-          </Text>
-          <Text margin={{ top: 'small', bottom: 'medium' }}>
-            {getString('lastSuccessfulStatusCheckAt')} {lastConnectedAt ? `${lastConnectedAt}` : getString('na')}
-          </Text>
-          <TestConnection
-            connector={connector}
-            gitDetails={activityDetailsProp?.connector.gitDetails}
-            // ToDo:  delegateName={connector?.spec?.credential?.spec?.delegateName || ''}
-            testUrl={getUrlValueByType(connector?.type || '', connector)}
-            refetchConnector={props.refetchConnector}
-          />
-        </Container>
-        <Container>
-          <Text
-            font={{ weight: 'bold', size: 'medium' }}
-            margin={{ top: 'large', bottom: 'large' }}
-            color={Color.GREY_800}
-          >
-            {getString('changeHistory')}
-          </Text>
-          <Text color={Color.GREY_800}>{getString('lastUpdated')}</Text>
-          <Text margin={{ top: 'small', bottom: 'small' }}>
-            {getReadableDateTime(activityDetailsProp.connector.lastModifiedAt, StringUtils.DEFAULT_DATE_FORMAT)}{' '}
-          </Text>
-          <Text color={Color.GREY_800}>{getString('connectorCreated')}</Text>
-          <Text margin={{ top: 'small', bottom: 'medium' }}>
-            {getReadableDateTime(activityDetailsProp.connector.createdAt, StringUtils.DEFAULT_DATE_FORMAT)}{' '}
-          </Text>
-        </Container>
-      </Layout.Vertical>
-    )
-  }
-
-  const { openDialog } = useConfirmationDialog({
-    cancelButtonText: getString('cancel'),
-    contentText: getString('continueWithoutSavingText'),
-    titleText: getString('continueWithoutSavingTitle'),
-    confirmButtonText: getString('confirm'),
-    onCloseDialog: isConfirmed => {
-      if (isConfirmed) {
-        setEnableEdit(false)
-        setConnectorForYaml(props.response?.connector || ({} as ConnectorInfoDTO))
-        setHasConnectorChanged(false)
-      }
-    }
-  })
-
-  const resetEditor = (event: React.MouseEvent<Element, MouseEvent>): void => {
-    event.preventDefault()
-    event.stopPropagation()
-    openDialog()
-  }
 
   const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
     fileName: `${connectorForYaml?.name ?? 'Connector'}.yaml`,
@@ -362,7 +170,12 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
               initialSelectedView={isEntityInvalid ? SelectedView.YAML : SelectedView.VISUAL}
               disableYaml={isEntityInvalid} /* Todo - Update the name of this prop to disableSwitch */
               beforeOnChange={(nextMode, callback) => {
-                const shouldSwitchMode = handleModeSwitch(nextMode)
+                const shouldSwitchMode = handleModeSwitch(
+                  nextMode,
+                  selectedView,
+                  getInitialConnectorData(props.response),
+                  { setSelectedView, setConnector, setConnectorForYaml, showError }
+                )
                 shouldSwitchMode && callback(nextMode)
               }}
             />
@@ -396,74 +209,18 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
           {/* Edit mode */}
           {enableEdit ? (
             selectedView === SelectedView.YAML ? (
-              <>
-                {isFetchingSchema || (!isGitSyncEnabled && updating) ? (
-                  <PageSpinner
-                    message={
-                      updating ? getString('connectors.updating', { name: connector?.name }) : getString('loading')
-                    }
-                  />
-                ) : null}
-                <div className={css.fullWidth}>
-                  <YamlBuilder
-                    {...yamlBuilderReadOnlyModeProps}
-                    // snippets={snippetMetaData?.data?.yamlSnippets}
-                    // onSnippetCopy={onSnippetCopy}
-                    // snippetFetchResponse={snippetFetchResponse}
-                    schema={connectorSchema?.data}
-                    isReadOnlyMode={false}
-                    bind={setYamlHandler}
-                    onChange={onConnectorChange}
-                    showSnippetSection={false}
-                  />
-                  <Layout.Horizontal spacing="small">
-                    <Button
-                      id="saveYAMLChanges"
-                      intent="primary"
-                      text={getString('saveChanges')}
-                      onClick={() => {
-                        if (isGitSyncEnabled && !isSMConnector(connector.type)) {
-                          openSaveToGitDialog({
-                            isEditing: true,
-                            resource: {
-                              type: 'Connectors',
-                              name: props.response.connector?.name || '',
-                              identifier: props.response.connector?.identifier || '',
-                              gitDetails: props.response.gitDetails
-                            },
-                            payload: parse(yamlHandler?.getLatestYaml?.() || '')
-                          })
-                        } else {
-                          handleSaveYaml()
-                            .then(res => {
-                              if (res.status === 'SUCCESS') {
-                                showSuccess(getString('connectors.updatedSuccessfully'))
-                                res.nextCallback?.()
-                              } else {
-                                /* TODO handle error with API status 200 */
-                              }
-                            })
-                            .catch(e => {
-                              if (shouldShowError(e)) {
-                                showError(e.data?.message || e.message)
-                              }
-                            })
-                        }
-                      }}
-                      margin={{ top: 'large' }}
-                      title={isValidYAML ? '' : getString('invalidYaml')}
-                      disabled={!isGitSyncEnabled && !hasConnectorChanged}
-                      variation={ButtonVariation.PRIMARY}
-                    />
-                    <Button
-                      text={getString('cancel')}
-                      margin={{ top: 'large' }}
-                      onClick={resetEditor}
-                      variation={ButtonVariation.TERTIARY}
-                    />
-                  </Layout.Horizontal>
-                </div>
-              </>
+              <ConnectorYAMLEditor
+                responsedata={props.response}
+                connector={connector}
+                setConnector={setConnector}
+                yamlBuilderProps={yamlBuilderReadOnlyModeProps}
+                enableEdit={enableEdit}
+                setEnableEdit={setEnableEdit}
+                selectedView={selectedView}
+                setSelectedView={setSelectedView}
+                setConnectorForYaml={setConnectorForYaml}
+                refetchConnector={props.refetchConnector}
+              ></ConnectorYAMLEditor>
             ) : null
           ) : /* View-only mode */
           selectedView === SelectedView.VISUAL ? (
@@ -485,7 +242,10 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
         </Layout.Horizontal>
       </Layout.Vertical>
       {selectedView === SelectedView.VISUAL ? (
-        <ConnectorActivityDetails connector={props.response}></ConnectorActivityDetails>
+        <ConnectorActivityDetails
+          responsedata={props.response}
+          refetchConnector={props.refetchConnector}
+        ></ConnectorActivityDetails>
       ) : null}
     </Layout.Horizontal>
   )

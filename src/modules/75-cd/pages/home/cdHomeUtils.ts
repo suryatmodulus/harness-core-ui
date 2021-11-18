@@ -55,7 +55,7 @@ export function openModal(props: OpenModalProps): void {
   if (modal && !gettingProjects && !gettingPipelines) {
     // selectedProject exists and no pipelines, forward to create pipeline
     if (selectedProject && !pipelinesExist) {
-      pushToPipelineStudio('-1', selectedProject)
+      pushToPipelineStudio('-1', selectedProject, `?modal=${modal}`)
     } else if (!selectedProject && !projectsExist) {
       // selectedProject doesnot exist and projects donot exist, open project modal
       openProjectModal()

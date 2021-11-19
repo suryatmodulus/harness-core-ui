@@ -20,6 +20,7 @@ import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/Pipeline
 import { EvaluationModal } from '@governance/modal/EvaluationModal/EvaluationModal'
 import ExecutionContext, { GraphCanvasState } from '@pipeline/context/ExecutionContext'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import useTabVisible from '@common/hooks/useTabVisible'
 import { ExecutionHeader } from './ExecutionHeader/ExecutionHeader'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
@@ -53,13 +54,14 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
     offsetY: 0,
     zoom: 100
   })
-
+  const { isGitSyncEnabled } = useAppStore()
   const { data, refetch, loading, error } = useGetExecutionDetail({
     planExecutionId: executionIdentifier,
     queryParams: {
       orgIdentifier,
       projectIdentifier,
       accountIdentifier: accountId,
+      isGitSyncEnabled,
       stageNodeId: isEmpty(queryParams.stage || autoSelectedStageId)
         ? undefined
         : queryParams.stage || autoSelectedStageId

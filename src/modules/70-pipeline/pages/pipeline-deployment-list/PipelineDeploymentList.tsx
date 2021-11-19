@@ -11,6 +11,7 @@ import {
 } from 'services/pipeline-ng'
 import { String, useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { Page, StringUtils } from '@common/exports'
 import { useQueryParams, useMutateAsGet, useUpdateQueryParams } from '@common/hooks'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -44,6 +45,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   const [pollingRequest, setPollingRequest] = React.useState(false)
   const [pipelineDataElements, setData] = React.useState<number | undefined>()
   const history = useHistory()
+  const { isGitSyncEnabled } = useAppStore()
   const queryParams = useQueryParams<QueryParams>({
     processQueryParams(params: StringQueryParams) {
       let filters = {}
@@ -64,7 +66,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         searchTerm: params.searchTerm,
         filters,
         repoIdentifier: params.repoIdentifier,
-        branch: params.branch
+        branch: params.branch,
+        isGitSyncEnabled
       }
     }
   })
@@ -119,7 +122,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       status,
       repoIdentifier,
       branch,
-      searchTerm
+      searchTerm,
+      isGitSyncEnabled
     },
     queryParamStringifyOptions: {
       arrayFormat: 'repeat'

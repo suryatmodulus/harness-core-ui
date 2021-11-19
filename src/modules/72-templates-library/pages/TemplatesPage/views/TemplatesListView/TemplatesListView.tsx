@@ -17,6 +17,7 @@ type CustomColumn<T extends Record<string, any>> = Column<T> & {
   onOpenEdit?: (template: TemplateSummaryResponse) => void
   onOpenSettings?: (templateIdentifier: string) => void
   onDelete?: (template: TemplateSummaryResponse) => void
+  onDeleteTemplate?: (commitMsg: string, versions?: string[]) => Promise<void>
 }
 
 const RenderColumnMenu: Renderer<CellProps<TemplateSummaryResponse>> = ({ row, column }) => {
@@ -30,6 +31,7 @@ const RenderColumnMenu: Renderer<CellProps<TemplateSummaryResponse>> = ({ row, c
         onOpenEdit={(column as CustomColumn<TemplateSummaryResponse>).onOpenEdit}
         onOpenSettings={(column as CustomColumn<TemplateSummaryResponse>).onOpenSettings}
         onDelete={(column as CustomColumn<TemplateSummaryResponse>).onDelete}
+        onDeleteTemplate={(column as CustomColumn<TemplateSummaryResponse>).onDeleteTemplate}
       />
     </Layout.Horizontal>
   )
@@ -109,7 +111,17 @@ const RenderColumnLabel: Renderer<CellProps<TemplateSummaryResponse>> = ({ row }
 
 export const TemplatesListView: React.FC<TemplatesViewProps> = (props): JSX.Element => {
   const { getString } = useStrings()
-  const { data, selectedIdentifier, gotoPage, onPreview, onOpenEdit, onOpenSettings, onDelete, onSelect } = props
+  const {
+    data,
+    selectedIdentifier,
+    gotoPage,
+    onPreview,
+    onOpenEdit,
+    onOpenSettings,
+    onDelete,
+    onSelect,
+    onDeleteTemplate
+  } = props
   const { isGitSyncEnabled } = useAppStore()
   const hideMenu = !onPreview && !onOpenEdit && !onOpenSettings && !onDelete
 
@@ -164,7 +176,8 @@ export const TemplatesListView: React.FC<TemplatesViewProps> = (props): JSX.Elem
         onPreview,
         onOpenEdit,
         onOpenSettings,
-        onDelete
+        onDelete,
+        onDeleteTemplate
       }
     ],
     [isGitSyncEnabled, onPreview, onOpenEdit, onOpenSettings, onDelete]

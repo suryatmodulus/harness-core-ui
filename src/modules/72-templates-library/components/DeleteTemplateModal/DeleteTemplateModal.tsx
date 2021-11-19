@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {
   Container,
   Layout,
@@ -27,13 +27,13 @@ import {
 import { TemplatePreview } from '@templates-library/components/TemplatePreview/TemplatePreview'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDialog'
-import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
 import css from './DeleteTemplateModal.module.scss'
 
 export interface DeleteTemplateProps {
   template: TemplateSummaryResponse
   onClose: () => void
   onSuccess: () => void
+  onDeleteTemplateGitSync: (commitMsg: string, versions?: string[]) => Promise<void>
 }
 export interface CheckboxOptions {
   label: string
@@ -44,14 +44,13 @@ export interface CheckboxOptions {
 
 export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
   const { getString } = useStrings()
-  const { template, onClose, onSuccess } = props
+  const { template, onClose, onSuccess, onDeleteTemplateGitSync } = props
   const [checkboxOptions, setCheckboxOptions] = React.useState<CheckboxOptions[]>([])
   const [query, setQuery] = React.useState<string>('')
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { showSuccess, showError } = useToaster()
   const { isGitSyncEnabled } = useAppStore()
   const { mutate: deleteTemplates, loading: deleteLoading } = useDeleteTemplateVersionsOfIdentifier({})
-  const { setLoading } = useContext(TemplateContext)
 
   const {
     data: templateData,
@@ -71,13 +70,7 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
     queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
 
-  const { confirmDelete } = useDeleteConfirmationDialog(
-    template,
-    'template',
-    onSuccess,
-    template.identifier,
-    setLoading
-  )
+  const { confirmDelete } = useDeleteConfirmationDialog(template, 'template', onDeleteTemplateGitSync)
 
   React.useEffect(() => {
     if (templatesError) {

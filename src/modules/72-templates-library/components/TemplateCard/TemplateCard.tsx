@@ -23,11 +23,12 @@ export interface TemplateCardProps {
   onOpenEdit?: (template: NGTemplateInfoConfig | TemplateSummaryResponse) => void
   onOpenSettings?: (templateIdentifier: string) => void
   onDelete?: (template: TemplateSummaryResponse) => void
+  onDeleteTemplate?: (commitMsg: string, versions?: string[]) => Promise<void>
 }
 
 export function TemplateCard(props: TemplateCardProps): JSX.Element {
   const { getString } = useStrings()
-  const { template, onSelect, isSelected, onPreview, onOpenEdit, onOpenSettings, onDelete } = props
+  const { template, onSelect, isSelected, onPreview, onOpenEdit, onOpenSettings, onDelete, onDeleteTemplate } = props
 
   const { isGitSyncEnabled } = useAppStore()
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
@@ -50,6 +51,7 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
             onDelete={onDelete || noop}
             className={css.actionButton}
             position={Position.RIGHT_TOP}
+            onDeleteTemplate={onDeleteTemplate}
           />
         ) : (
           <div />

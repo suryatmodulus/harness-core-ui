@@ -25,6 +25,8 @@ interface InputSetListViewProps {
   gotoPage: (pageNumber: number) => void
   canUpdate?: boolean
   pipelineHasRuntimeInputs?: boolean
+  onDeleteInputSet: (commitMsg: string) => Promise<void>
+  onDelete: (inputSet: InputSetSummaryResponse) => void
 }
 
 export interface InputSetLocal extends InputSetSummaryResponse {
@@ -38,6 +40,8 @@ type CustomColumn<T extends Record<string, any>> = Column<T> & {
   goToInputSetDetail?: (inputSet?: InputSetSummaryResponse) => void
   cloneInputSet?: (identifier?: string) => void
   refetchInputSet?: () => void
+  onDeleteInputSet?: (commitMsg: string) => Promise<void>
+  onDelete?: (inputSet: InputSetSummaryResponse) => void
 }
 
 const getIconByType = (type: InputSetSummaryResponse['inputSetType']): IconName => {
@@ -126,18 +130,11 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
   const data = row.original
   const [menuOpen, setMenuOpen] = React.useState(false)
   const { getString } = useStrings()
-  const { pipelineIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-    pipelineIdentifier: string
-  }>()
 
   const { confirmDelete } = useDeleteConfirmationDialog(
     data,
     data.inputSetType === 'OVERLAY_INPUT_SET' ? 'overlayInputSet' : 'inputSet',
-    (column as any).refetchInputSet,
-    pipelineIdentifier
+    (column as any).onDeleteInputSet
   )
 
   return (
@@ -189,6 +186,7 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
             text={getString('delete')}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
+              ;(column as any).onDelete?.(data)
               confirmDelete()
               setMenuOpen(false)
             }}
@@ -207,7 +205,9 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
   refetchInputSet,
   cloneInputSet,
   canUpdate = true,
-  pipelineHasRuntimeInputs
+  pipelineHasRuntimeInputs,
+  onDeleteInputSet,
+  onDelete
 }): JSX.Element => {
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
@@ -251,7 +251,9 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
         goToInputSetDetail,
         refetchInputSet,
         cloneInputSet,
-        canUpdate
+        canUpdate,
+        onDeleteInputSet,
+        onDelete
       }
     ],
     [goToInputSetDetail, refetchInputSet, cloneInputSet, pipelineHasRuntimeInputs]

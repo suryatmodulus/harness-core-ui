@@ -10,6 +10,8 @@ interface PipelineGridViewProps {
   goToPipelineDetail: (pipeline?: PMSPipelineSummaryResponse) => void
   goToPipelineStudio: (pipeline?: PMSPipelineSummaryResponse) => void
   refetchPipeline: () => void
+  onDeletePipeline: (commitMsg: string) => Promise<void>
+  onDelete: (pipeline: PMSPipelineSummaryResponse) => void
 }
 
 export const PipelineGridView: React.FC<PipelineGridViewProps> = ({
@@ -17,7 +19,9 @@ export const PipelineGridView: React.FC<PipelineGridViewProps> = ({
   gotoPage,
   goToPipelineDetail,
   goToPipelineStudio,
-  refetchPipeline
+  refetchPipeline,
+  onDeletePipeline,
+  onDelete
 }): JSX.Element => {
   return (
     <>
@@ -32,6 +36,8 @@ export const PipelineGridView: React.FC<PipelineGridViewProps> = ({
               goToPipelineDetail={goToPipelineDetail}
               goToPipelineStudio={goToPipelineStudio}
               refetchPipeline={refetchPipeline}
+              onDeletePipeline={onDeletePipeline}
+              onDelete={onDelete}
             />
           )}
           keyOf={(item: PMSPipelineSummaryResponse) => item.identifier}

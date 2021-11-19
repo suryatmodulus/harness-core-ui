@@ -615,7 +615,8 @@ suggestionsLabel: 'Suggestions:'
 refreshPage: refresh your page.
 files: Files
 template:
-  saveAsNewTemplateHeading: Save as new Template
+  label: 'Template'
+  saveAsNewTemplateHeading: Save as New Template
   saveTemplate:
     publishTemplate: Template published successfully
     errorWhileSaving: Error occurred saving Template

@@ -521,6 +521,7 @@ export interface StringsMap {
   'common.switchAccountSearch': string
   'common.template.deleteTemplate.errorWhileDeleting': string
   'common.template.deleteTemplate.templatesDeleted': string
+  'common.template.label': string
   'common.template.saveAsNewTemplateHeading': string
   'common.template.saveTemplate.errorWhileSaving': string
   'common.template.saveTemplate.publishTemplate': string

@@ -1,16 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams } from 'react-router-dom'
-import { get, isEmpty } from 'lodash-es'
-import { FormInput, MultiTypeInputType, Container, Layout, Text, Radio, FontVariation } from '@wings-software/uicore'
+import { get, isEmpty, isUndefined } from 'lodash-es'
+import {
+  FormInput,
+  MultiTypeInputType,
+  Container,
+  Layout,
+  Text,
+  Radio,
+  FontVariation,
+  Icon
+} from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
+import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { ConnectorInfoDTO, PipelineInfoConfig, useGetConnector } from 'services/cd-ng'
 
 export interface CICodebaseInputSetFormProps {
   path: string
   readonly?: boolean
   formik?: FormikContext<any>
+  originalPipeline: PipelineInfoConfig
 }
+
+type CodeBaseType = 'branch' | 'tag' | 'PR'
 
 const inputNames = {
   branch: 'branch',
@@ -24,10 +38,24 @@ const defaultValues = {
   PR: '<+trigger.prNumber>'
 }
 
-const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseInputSetFormProps): JSX.Element => {
-  const { triggerIdentifier } = useParams<Record<string, string>>()
+const placeholderValues = {
+  branch: defaultValues['branch'],
+  tag: defaultValues['tag'],
+  PR: defaultValues['PR']
+}
+
+const CICodebaseInputSetFormInternal = ({
+  path,
+  readonly,
+  formik,
+  originalPipeline
+}: CICodebaseInputSetFormProps): JSX.Element => {
+  const { triggerIdentifier, accountId, projectIdentifier, orgIdentifier } = useParams<Record<string, string>>()
 
   const [isInputTouched, setIsInputTouched] = useState(false)
+  const [connectorType, setConnectorType] = useState<ConnectorInfoDTO['type']>()
+  const [connectorId, setConnectorId] = useState<string>('')
+  const [codeBaseType, setCodeBaseType] = useState<CodeBaseType>()
 
   const savedValues = useRef<Record<string, string>>({
     branch: '',
@@ -36,15 +64,8 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
   })
 
   const { getString } = useStrings()
-
   const { expressions } = useVariablesExpression()
-
   const formattedPath = isEmpty(path) ? '' : `${path}.`
-
-  const [codeBaseType, setCodeBaseType] = useState<CodeBaseType>()
-
-  type CodeBaseType = 'branch' | 'tag' | 'PR'
-
   const codeBaseTypePath = `${formattedPath}properties.ci.codebase.build.type`
 
   const inputLabels = {
@@ -53,21 +74,51 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
     PR: getString('pipeline.gitPullRequestNumber')
   }
 
-  const placeholderValues = {
-    branch: defaultValues['branch'],
-    tag: defaultValues['tag'],
-    PR: defaultValues['PR']
-  }
-
   const codeBaseInputFieldFormName = {
     branch: `${formattedPath}properties.ci.codebase.build.spec.branch`,
     tag: `${formattedPath}properties.ci.codebase.build.spec.tag`,
     PR: `${formattedPath}properties.ci.codebase.build.spec.number`
   }
 
+  const {
+    data: connectorDetails,
+    loading: loadingConnectorDetails,
+    refetch: getConnectorDetails
+  } = useGetConnector({
+    identifier: connectorId,
+    lazy: true
+  })
+
+  useEffect(() => {
+    if (connectorId) {
+      getConnectorDetails({
+        pathParams: {
+          identifier: connectorId
+        },
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier
+        }
+      })
+    }
+  }, [connectorId])
+
+  useEffect(() => {
+    if (!loadingConnectorDetails && !isUndefined(connectorDetails)) {
+      setConnectorType(get(connectorDetails, 'data.connector.type', '') as ConnectorInfoDTO['type'])
+    }
+  }, [loadingConnectorDetails, connectorDetails])
+
   useEffect(() => {
     const type = get(formik?.values, codeBaseTypePath, '') as CodeBaseType
     setCodeBaseType(type)
+    const typeOfConnector = get(formik?.values, 'connectorRef.connector.type', '') as ConnectorInfoDTO['type']
+    if (typeOfConnector) {
+      setConnectorType(typeOfConnector)
+    } else {
+      setConnectorId(getIdentifierFromValue(get(originalPipeline, 'properties.ci.codebase.connectorRef') as string))
+    }
   }, [formik?.values])
 
   useEffect(() => {
@@ -93,8 +144,6 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
     }
   }
 
-  const handleInputChange = (): void => setIsInputTouched(true)
-
   const renderCodeBaseTypeInput = (type: CodeBaseType): JSX.Element => {
     return (
       <Container>
@@ -107,7 +156,7 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
           }}
           placeholder={triggerIdentifier ? placeholderValues[type] : ''}
           disabled={readonly}
-          onChange={handleInputChange}
+          onChange={() => setIsInputTouched(true)}
         />
       </Container>
     )
@@ -115,37 +164,50 @@ const CICodebaseInputSetFormInternal = ({ path, readonly, formik }: CICodebaseIn
 
   return (
     <Layout.Vertical spacing="small">
-      <Layout.Horizontal
-        flex={{ justifyContent: 'start' }}
-        padding={{ top: 'small', left: 'xsmall', bottom: 'xsmall' }}
-        margin={{ left: 'large' }}
-        spacing="huge"
-      >
-        <Radio
-          label={inputLabels['branch']}
-          onClick={() => handleTypeChange('branch')}
-          checked={codeBaseType === 'branch'}
-          disabled={readonly}
-          font={{ variation: FontVariation.FORM_LABEL }}
-        />
-        <Radio
-          label={inputLabels['tag']}
-          onClick={() => handleTypeChange('tag')}
-          checked={codeBaseType === 'tag'}
-          disabled={readonly}
-          font={{ variation: FontVariation.FORM_LABEL }}
-        />
-        <Radio
-          label={inputLabels['PR']}
-          onClick={() => handleTypeChange('PR')}
-          checked={codeBaseType === 'PR'}
-          disabled={readonly}
-          font={{ variation: FontVariation.FORM_LABEL }}
-        />
-      </Layout.Horizontal>
-      {codeBaseType === 'branch' ? renderCodeBaseTypeInput('branch') : null}
-      {codeBaseType === 'tag' ? renderCodeBaseTypeInput('tag') : null}
-      {codeBaseType === 'PR' ? renderCodeBaseTypeInput('PR') : null}
+      {loadingConnectorDetails ? (
+        <Container flex={{ justifyContent: 'end' }}>
+          <Icon name="steps-spinner" size={25} />
+        </Container>
+      ) : (
+        <>
+          <Layout.Horizontal
+            flex={{ justifyContent: 'start' }}
+            padding={{ top: 'small', left: 'xsmall', bottom: 'xsmall' }}
+            margin={{ left: 'large' }}
+            spacing="huge"
+          >
+            <Radio
+              label={inputLabels['branch']}
+              onClick={() => handleTypeChange('branch')}
+              checked={codeBaseType === 'branch'}
+              disabled={readonly}
+              font={{ variation: FontVariation.FORM_LABEL }}
+              key="branch-radio-option"
+            />
+            <Radio
+              label={inputLabels['tag']}
+              onClick={() => handleTypeChange('tag')}
+              checked={codeBaseType === 'tag'}
+              disabled={readonly}
+              font={{ variation: FontVariation.FORM_LABEL }}
+              key="tag-radio-option"
+            />
+            {connectorType && connectorType !== 'Codecommit' ? (
+              <Radio
+                label={inputLabels['PR']}
+                onClick={() => handleTypeChange('PR')}
+                checked={codeBaseType === 'PR'}
+                disabled={readonly}
+                font={{ variation: FontVariation.FORM_LABEL }}
+                key="pr-radio-option"
+              />
+            ) : null}
+          </Layout.Horizontal>
+          {codeBaseType === 'branch' ? renderCodeBaseTypeInput('branch') : null}
+          {codeBaseType === 'tag' ? renderCodeBaseTypeInput('tag') : null}
+          {codeBaseType === 'PR' ? renderCodeBaseTypeInput('PR') : null}
+        </>
+      )}
     </Layout.Vertical>
   )
 }

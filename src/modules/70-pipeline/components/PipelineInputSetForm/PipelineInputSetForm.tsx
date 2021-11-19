@@ -193,7 +193,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
               <div className={css.topAccordion}>
                 <div className={css.accordionSummary}>
                   <div className={css.nestedAccordions} style={{ width: '50%' }}>
-                    <CICodebaseInputSetForm path={path} readonly={readonly} />
+                    <CICodebaseInputSetForm path={path} readonly={readonly} originalPipeline={props.originalPipeline} />
                   </div>
                 </div>
               </div>

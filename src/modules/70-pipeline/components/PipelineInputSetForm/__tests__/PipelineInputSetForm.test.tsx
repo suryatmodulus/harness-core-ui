@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { Formik, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
+import connector from '@connectors/pages/connectors/__tests__/mocks/get-connector-mock.json'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineInputSetForm, PipelineInputSetFormProps } from '../PipelineInputSetForm'
@@ -9,6 +10,15 @@ import { PipelineInputSetForm, PipelineInputSetFormProps } from '../PipelineInpu
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('@common/utils/YamlUtils', () => ({}))
+
+jest.mock('services/cd-ng', () => ({
+  useGetOrganizationAggregateDTO: jest.fn().mockImplementation(() => {
+    return { data: {} }
+  }),
+  useGetConnector: jest.fn().mockImplementation(() => {
+    return { data: connector, refetch: jest.fn(), error: null, loading: false }
+  })
+}))
 
 const getCommonProps = () => ({
   path: '/dummypath',
@@ -254,6 +264,29 @@ describe('CI enabled', () => {
     )
 
     expect(container).toMatchSnapshot('CI stage readonly mode')
+  })
+
+  test('PR Number build radio option should not be visible for CodeCommit type connector', () => {
+    connector.data.connector.type = 'Codecommit'
+    jest.mock('services/cd-ng', () => ({
+      useGetConnector: jest.fn().mockImplementation(() => {
+        return { data: connector, refetch: jest.fn(), error: null, loading: false }
+      })
+    }))
+    const props = getPropsForCIStage()
+    const { container } = render(
+      <Formik initialValues={{}} formName="pipelineInputSetFormTest" onSubmit={jest.fn()}>
+        {() => (
+          <TestWrapper>
+            <PipelineInputSetForm {...props} readonly={true} />
+          </TestWrapper>
+        )}
+      </Formik>
+    )
+
+    expect(container).toMatchSnapshot(
+      'PR Number build radio option should not be visible for CodeCommit type connector'
+    )
   })
 })
 

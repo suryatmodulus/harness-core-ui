@@ -28,6 +28,27 @@ const getButton = (buttonText: string, buttonIcon: IconName, link: string) => {
   )
 }
 
+const menuItems = (title: string, description: string) => {
+  return (
+    <>
+      <Layout.Vertical>
+        <Text font={{ weight: 'semi-bold', size: 'medium' }} padding={{ bottom: 'xsmall' }} color={Color.PRIMARY_3}>
+          {title}
+        </Text>
+        <Text
+          font={{ variation: FontVariation.BODY2 }}
+          padding={{ bottom: 'xsmall' }}
+          color={Color.WHITE}
+          className={css.text}
+        >
+          {description}
+        </Text>
+      </Layout.Vertical>
+      <Icon name={'chevron-right'} width={6} height={12} />
+    </>
+  )
+}
+
 export const ResourceCenter = () => {
   const { getString } = useStrings()
 
@@ -45,41 +66,20 @@ export const ResourceCenter = () => {
           flex={{ justifyContent: 'space-between' }}
           className={css.myticket}
         >
-          <Layout.Vertical>
-            <Text font={{ weight: 'semi-bold', size: 'medium' }} padding={{ bottom: 'xsmall' }} color={Color.PRIMARY_3}>
-              {getString('resourceCenter.ticketmenu.tickets')}
-            </Text>
-            <Text
-              font={{ variation: FontVariation.BODY2 }}
-              padding={{ bottom: 'xsmall' }}
-              color={Color.WHITE}
-              className={css.text}
-            >
-              {getString('resourceCenter.ticketmenu.ticketsDesc')}
-            </Text>
-          </Layout.Vertical>
-          <Icon name={'chevron-right'} width={6} height={12} />
+          {menuItems(
+            getString('resourceCenter.ticketmenu.tickets'),
+            getString('resourceCenter.ticketmenu.ticketsDesc')
+          )}
+          {/*<Icon name={'chevron-right'} width={6} height={12} />*/}
         </Layout.Horizontal>
         <Layout.Horizontal padding={{ top: 'medium' }} flex={{ justifyContent: 'space-between' }}>
-          <Layout.Vertical>
-            <Text font={{ weight: 'semi-bold', size: 'medium' }} padding={{ bottom: 'xsmall' }} color={Color.PRIMARY_3}>
-              {getString('resourceCenter.ticketmenu.submit')}
-            </Text>
-            <Text
-              font={{ variation: FontVariation.BODY2 }}
-              padding={{ bottom: 'xsmall' }}
-              color={Color.WHITE}
-              className={css.text}
-            >
-              {getString('resourceCenter.ticketmenu.submitDesc')}
-            </Text>
-          </Layout.Vertical>
-          <Icon name={'chevron-right'} width={6} height={12} />
+          {menuItems(getString('resourceCenter.ticketmenu.submit'), getString('resourceCenter.ticketmenu.submitDesc'))}
+          {/*<Icon name={'chevron-right'} width={6} height={12} />*/}
         </Layout.Horizontal>
       </Layout.Vertical>
       <Layout.Vertical className={css.allregions}>
         <Text font={{ weight: 'semi-bold' }} padding={{ bottom: 'medium' }} color={Color.WHITE} className={css.text}>
-          {'Other useful resources'}
+          {getString('resourceCenter.bottomlayout.desc')}
         </Text>
         <Layout.Horizontal flex={{ justifyContent: 'space-around' }}>
           {getButton(

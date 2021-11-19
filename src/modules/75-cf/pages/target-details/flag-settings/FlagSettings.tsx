@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import {
   Container,
@@ -90,7 +90,7 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null; gitSyn
 
   const [isGitSyncModalOpen, setIsGitSyncModalOpen] = useState(false)
 
-  const [selectedVariation, setSelectedVariation] = useState<Variation>()
+  // const [selectedVariation, setSelectedVariation] = useState<Variation>()
   const [selectedFeature, setSelectedFeature] = useState<Feature>()
 
   const { showError } = useToaster()
@@ -99,12 +99,12 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null; gitSyn
 
   const _useServeFlagVariationToTargets = useServeFeatureFlagVariationToTargets(patchParams)
 
-  const saveVariationChange = async (gitSyncFormValues?: GitSyncFormValues): Promise<boolean> => {
+  const saveVariationChange = async (newVariationData: {
+    gitSyncFormValues?: GitSyncFormValues
+    feature: Feature
+    variation: Variation
+  }): Promise<boolean> => {
     try {
-      if (!selectedVariation || !target || !selectedFeature) {
-        return false
-      }
-
       setLoadingFeaturesInBackground(true)
 
       let gitDetails: GitDetails | undefined
@@ -112,18 +112,18 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null; gitSyn
       if (gitSync?.isAutoCommitEnabled) {
         gitDetails = gitSyncInitialValues.gitDetails
       } else {
-        gitDetails = gitSyncFormValues?.gitDetails
+        gitDetails = newVariationData.gitSyncFormValues?.gitDetails
       }
 
       await _useServeFlagVariationToTargets(
-        selectedFeature,
-        selectedVariation.identifier,
-        [target.identifier],
+        newVariationData.feature,
+        newVariationData.variation.identifier,
+        [target?.identifier || ''],
         gitDetails
       )
 
-      if (!gitSync?.isAutoCommitEnabled && gitSyncFormValues?.autoCommit) {
-        await gitSync.handleAutoCommit(gitSyncFormValues.autoCommit)
+      if (!gitSync?.isAutoCommitEnabled && newVariationData.gitSyncFormValues?.autoCommit) {
+        await gitSync.handleAutoCommit(newVariationData.gitSyncFormValues.autoCommit)
       }
 
       await refetch().then(() => {
@@ -244,7 +244,7 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null; gitSyn
                   openGitSyncModal={() => setIsGitSyncModalOpen(true)}
                   setLoadingFeaturesInBackground={setLoadingFeaturesInBackground}
                   saveVariationChange={saveVariationChange}
-                  setSelectedVariation={setSelectedVariation}
+                  // setSelectedVariation={setSelectedVariation}
                   setSelectedFeature={setSelectedFeature}
                   refetch={async () => {
                     await refetch()
@@ -270,7 +270,8 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null; gitSyn
           <SaveFlagToGitModal
             flagName={selectedFeature?.name || ''}
             flagIdentifier={selectedFeature?.identifier || ''}
-            onSubmit={saveVariationChange}
+            // onSubmit={saveVariationChange} TODO
+            onSubmit={() => null}
             onClose={() => {
               setIsGitSyncModalOpen(false)
             }}
@@ -294,9 +295,13 @@ const FlagSettingsRow: React.FC<{
   isGitSyncEnabled: boolean
   isAutoCommitEnabled: boolean
   openGitSyncModal: () => void
-  setSelectedVariation: (variation: Variation) => void
+  // setSelectedVariation: (variation: Variation) => void
   setSelectedFeature: (feature: Feature) => void
-  saveVariationChange: (gitSyncFormvalues?: GitSyncFormValues) => Promise<boolean>
+  saveVariationChange: (newVariationData: {
+    gitSyncFormValues?: GitSyncFormValues
+    feature: Feature
+    variation: Variation
+  }) => Promise<boolean>
 }> = ({
   feature,
   index,
@@ -304,8 +309,8 @@ const FlagSettingsRow: React.FC<{
   isGitSyncEnabled,
   isAutoCommitEnabled,
   openGitSyncModal,
-  setSelectedVariation,
-  setSelectedFeature,
+  // setSelectedVariation,
+  // setSelectedFeature,
   saveVariationChange
 }) => {
   const { showError } = useToaster()
@@ -369,13 +374,12 @@ const FlagSettingsRow: React.FC<{
             selectedIdentifier={feature.evaluationIdentifier as string}
             onChange={async variation => {
               try {
-                setSelectedVariation(variation)
-                setSelectedFeature(feature)
-
+                // setSelectedVariation(variation)
+                // setSelectedFeature(feature)
                 if (isGitSyncEnabled && !isAutoCommitEnabled) {
                   openGitSyncModal()
                 } else {
-                  return saveVariationChange()
+                  return saveVariationChange({ variation, feature })
                 }
               } catch (error) {
                 showError(getErrorMessage(error), 0, 'cf.serve.flag.variant.error')
@@ -402,6 +406,7 @@ export const VariationSelect: React.FC<VariationSelectProps> = ({
   selectedIdentifier,
   onChange
 }) => {
+  const previousSelectedIdentifier = useRef(variations.findIndex(v => v.identifier === selectedIdentifier))
   const [index, setIndex] = useState<number>(variations.findIndex(v => v.identifier === selectedIdentifier))
   const value =
     index !== -1
@@ -421,6 +426,22 @@ export const VariationSelect: React.FC<VariationSelectProps> = ({
     resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
     permissions: [PermissionIdentifier.EDIT_FF_FEATUREFLAG]
   })
+
+  useEffect(() => {
+    const updateVariation = async (): Promise<void> => {
+      if (previousSelectedIdentifier.current !== index) {
+        const result = await onChange(variations[index])
+
+        if (!result) {
+          setIndex(previousSelectedIdentifier.current)
+        }
+
+        previousSelectedIdentifier.current = index
+      }
+    }
+
+    updateVariation()
+  }, [index])
 
   return (
     <Text
@@ -445,18 +466,10 @@ export const VariationSelect: React.FC<VariationSelectProps> = ({
         }))}
         value={value as SelectOption}
         onChange={async ({ value: _value }) => {
-          const oldIndex = index
           const newIndex = variations.findIndex(v => v.identifier === _value)
 
           if (newIndex !== -1 && newIndex !== index) {
             setIndex(newIndex)
-
-            const result = await onChange(variations[newIndex])
-
-            // If onChange does not return true, meaning it fails => go back to previous value
-            if (result !== true) {
-              setIndex(oldIndex)
-            }
           }
         }}
       />

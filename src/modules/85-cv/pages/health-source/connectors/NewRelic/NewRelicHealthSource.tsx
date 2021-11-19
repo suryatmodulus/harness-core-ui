@@ -57,8 +57,8 @@ import {
   createMetricDataFormik
 } from '../MonitoredServiceConnector.utils'
 import { PrometheusGroupName } from '../PrometheusHealthSource/components/PrometheusGroupName/PrometheusGroupName'
-import { PrometheusRiskProfile } from '../PrometheusHealthSource/components/PrometheusRiskProfile/PrometheusRiskProfile'
 import { PrometheusQueryViewer } from '../PrometheusHealthSource/components/PrometheusQueryViewer/PrometheusQueryViewer'
+import SelectHealthSourceServices from '../../common/SelectHealthSourceServices/SelectHealthSourceServices'
 import css from './NewrelicMonitoredSource.module.scss'
 
 const guid = Utils.randomId()
@@ -219,13 +219,9 @@ export default function NewRelicHealthSource({
                       setNewRelicValidation({ status: '', result: [] })
                       onValidate(item?.label, item?.value.toString(), formik?.values?.metricData)
                     }}
-                    value={
-                      !formik?.values?.newRelicApplication
-                        ? { label: '', value: '' }
-                        : applicationOptions.find(
-                            (item: SelectOption) => item.label === formik?.values?.newRelicApplication.label
-                          )
-                    }
+                    value={applicationOptions.find(
+                      (item: SelectOption) => item.label === formik?.values?.newRelicApplication.label
+                    )}
                     name={'newRelicApplication'}
                     placeholder={
                       applicationLoading
@@ -282,6 +278,7 @@ export default function NewRelicHealthSource({
                 </Layout.Horizontal>
               </Layout.Vertical>
             </CardWithOuterTitle>
+
             <SetupSourceLayout
               leftPanelContent={
                 <MultiItemsSideNav
@@ -359,13 +356,19 @@ export default function NewRelicHealthSource({
                           </>
                         }
                       />
+
                       <Accordion.Panel
-                        id="riskProfile"
-                        summary={getString('cv.monitoringSources.riskProfile')}
+                        id="assign"
+                        summary={getString('cv.monitoringSources.assign')}
                         details={
-                          <PrometheusRiskProfile
+                          <SelectHealthSourceServices
                             metricPackResponse={metricPackResponse}
                             labelNamesResponse={labelNamesResponse}
+                            values={{
+                              sli: !!formik?.values?.sli,
+                              healthScore: !!formik?.values?.healthScore,
+                              continuousVerification: !!formik?.values?.continuousVerification
+                            }}
                           />
                         }
                       />
@@ -388,7 +391,7 @@ export default function NewRelicHealthSource({
                           formik.setFieldValue(fieldName, value)
                         }
                       }}
-                      values={formik.values}
+                      values={{ ...formik.values, isManualQuery: true }}
                       connectorIdentifier={connectorIdentifier}
                     />
                   </Layout.Horizontal>

@@ -34,7 +34,7 @@ enum Agent {
 const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { prevStepData, onSuccess } = props
-  const [isSaaS, setIsSaaS] = useState<boolean | undefined>()
+  const [isSaaS, setIsSaaS] = useState<boolean | undefined>(true)
   const [loading, setLoading] = useState<boolean>(false)
   const [agent, setAgent] = useState<Agent | undefined>()
   const { getString } = useStrings()
@@ -60,7 +60,7 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
         const { saasGit } = res?.data || {}
         if (typeof saasGit !== 'undefined') {
           setAgent(saasGit ? Agent.Manager : Agent.Delegate)
-          setIsSaaS(saasGit)
+          // setIsSaaS(saasGit)
         }
       })
       .catch(e => {

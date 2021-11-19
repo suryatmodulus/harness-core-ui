@@ -12,6 +12,7 @@ import {
   StepProps,
   Text
 } from '@wings-software/uicore'
+import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import type {
   ConnectorConfigDTO,
@@ -21,10 +22,14 @@ import type {
   ResponseConnectorResponse
 } from 'services/cd-ng'
 import { PageSpinner } from '@common/components'
-import ConnectivityMode, { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
+import ConnectivityMode, {
+  ConnectivityCardItem,
+  ConnectivityModeType
+} from '@common/components/ConnectivityMode/ConnectivityMode'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import useCreateEditConnector, { BuildPayloadProps } from '@connectors/hooks/useCreateEditConnector'
+import css from './ConnectivityModeStep.module.scss'
 
 interface ConnectivityModeStepData extends BuildPayloadProps {
   connectivityMode: ConnectivityModeType
@@ -84,10 +89,9 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
   })
 
   let stepDataRef: ConnectorConfigDTO | null = null
-  const defaultInitialValues = { connectivityMode: ConnectivityModeType.Manager }
+  const defaultInitialValues = { connectivityMode: undefined }
 
   const connectorName = (prevStepData as ConnectorConfigDTO)?.name || (connectorInfo as ConnectorInfoDTO)?.name
-
   return (
     <>
       {!isGitSyncEnabled && loading ? (
@@ -106,6 +110,9 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
             ...defaultInitialValues,
             ...prevStepData
           }}
+          validationSchema={Yup.object().shape({
+            connectivityMode: Yup.string().required('Please select connectivity mode')
+          })}
           onSubmit={stepData => {
             if (props.submitOnNextStep || stepData.connectivityMode === ConnectivityModeType.Delegate) {
               nextStep?.({ ...prevStepData, ...stepData, projectIdentifier, orgIdentifier })
@@ -134,7 +141,7 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
           {formik => {
             return (
               <FormikForm>
-                <Layout.Vertical style={{ minHeight: 460 }} width={'700px'} spacing={'medium'}>
+                <Layout.Vertical style={{ minHeight: 460 }} spacing={'medium'}>
                   <Text
                     font={{ variation: FontVariation.H3 }}
                     color={Color.BLACK}
@@ -144,8 +151,9 @@ const ConnectivityModeStep: React.FC<StepProps<ConnectorConfigDTO> & Connectivit
                   </Text>
                   <ConnectivityMode
                     formik={formik}
-                    onChange={val => {
-                      props.setConnectivityMode?.(val)
+                    className={css.cardClass}
+                    onChange={(val: ConnectivityCardItem) => {
+                      props.setConnectivityMode?.(val.type)
                     }}
                   />
                 </Layout.Vertical>

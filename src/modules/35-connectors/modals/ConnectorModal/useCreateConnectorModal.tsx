@@ -107,9 +107,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
       setIsEditMode(isEditing)
       setType(connectorType)
       setConnectivityMode(
-        isEditing
-          ? getConnectivityMode(connector?.connectorInfo?.spec?.executeOnDelegate)
-          : ConnectivityModeType.Manager
+        isEditing ? getConnectivityMode(connector?.connectorInfo?.spec?.executeOnDelegate) : undefined
       )
       setModalProps(_modalProps || modalProps)
       showModal()

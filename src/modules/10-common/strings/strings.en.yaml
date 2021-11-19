@@ -9,7 +9,7 @@ orgSetup: Org Setup
 delegateForTask: '{{delegate}} for {{taskName}}'
 noDelegateForTask: 'No delegate found for {{taskName}}'
 connectThroughPlatform: 'Connect through Harness Platform'
-connectThroughDelegate: 'Connect through a Harness Delegate'
+connectThroughDelegate: 'Connect through Harness Delegate'
 connectThroughPlatformInfo: 'This option is meant for a SaaS Git provider.  Communication with the Git provider will be made through the Harness Platform.'
 connectThroughDelegateInfo: 'This option is meant for a Git Provider that is behind your corporate firewall. Communication wth the Git provider will be made through a Harness Delegate. You will need to install a Harness Delegate with this option. This option provides enhanced security but may result in slower response times.'
 pipeline: Pipeline

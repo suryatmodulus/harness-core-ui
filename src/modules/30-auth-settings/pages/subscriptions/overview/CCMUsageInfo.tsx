@@ -1,14 +1,13 @@
 import React from 'react'
-import { Layout } from '@wings-software/uicore'
+import { Layout, PageError } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { useGetLicensesAndSummary } from 'services/cd-ng'
+import type { CELicenseSummaryDTO } from 'services/cd-ng'
+import { ModuleName } from 'framework/types/ModuleName'
+import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import UsageInfoCard from './UsageInfoCard'
-
-export interface CCMUsageInfoProps {
-  activeCloudSpend: number
-  subscribedCloudSpend: number
-  subscribedCCMUsers: number
-  activeCCMUsers: number
-}
 
 const ActiveCloudSpend: React.FC<{ activeCloudSpend: number; subscribedCloudSpend: number }> = ({
   activeCloudSpend,
@@ -37,39 +36,35 @@ const ActiveCloudSpend: React.FC<{ activeCloudSpend: number; subscribedCloudSpen
   return <UsageInfoCard {...props} />
 }
 
-const ActiveUsers: React.FC<{ subscribedCCMUsers: number; activeCCMUsers: number }> = ({
-  subscribedCCMUsers,
-  activeCCMUsers
-}) => {
-  const { getString } = useStrings()
-  const leftHeader = getString('common.subscriptions.usage.ccmUsers')
-  //TO-DO: replace with tooltip
-  const tooltip = 'Active Clould Users tooltip placeholder'
-  const rightHeader = getString('common.subscriptions.usage.last60days')
-  const hasBar = true
-  const leftFooter = getString('common.totalHarnessUser')
-  const props = {
-    subscribed: subscribedCCMUsers,
-    usage: activeCCMUsers,
-    leftHeader,
-    tooltip,
-    rightHeader,
-    hasBar,
-    leftFooter
-  }
-  return <UsageInfoCard {...props} />
-}
+const CCMUsageInfo: React.FC = () => {
+  const { accountId } = useParams<AccountPathProps>()
 
-const CCMUsageInfo: React.FC<CCMUsageInfoProps> = ({
-  activeCloudSpend,
-  subscribedCloudSpend,
-  subscribedCCMUsers,
-  activeCCMUsers
-}) => {
+  const {
+    data: summaryData,
+    loading: loadingSummaryData,
+    error: summaryError,
+    refetch: refetchSummary
+  } = useGetLicensesAndSummary({
+    queryParams: { moduleType: ModuleName.CE },
+    accountIdentifier: accountId
+  })
+
+  const isLoading = loadingSummaryData
+
+  if (isLoading) {
+    return <ContainerSpinner />
+  }
+
+  if (summaryError) {
+    return <PageError message={(summaryError.data as Error)?.message} onClick={() => refetchSummary()} />
+  }
+
   return (
     <Layout.Horizontal spacing="large">
-      <ActiveCloudSpend activeCloudSpend={activeCloudSpend} subscribedCloudSpend={subscribedCloudSpend} />
-      <ActiveUsers subscribedCCMUsers={subscribedCCMUsers} activeCCMUsers={activeCCMUsers} />
+      <ActiveCloudSpend
+        activeCloudSpend={0}
+        subscribedCloudSpend={(summaryData?.data as CELicenseSummaryDTO).totalSpendLimit || 0}
+      />
     </Layout.Horizontal>
   )
 }

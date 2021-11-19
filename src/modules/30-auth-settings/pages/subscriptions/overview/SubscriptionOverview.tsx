@@ -4,7 +4,10 @@ import { Layout } from '@wings-software/uicore'
 import type { ModuleName } from 'framework/types/ModuleName'
 
 import type { ModuleLicenseDTO } from 'services/cd-ng'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import SubscriptionDetailsCard from './SubscriptionDetailsCard'
+import SubscriptionUsageCard from './SubscriptionUsageCard'
 import type { TrialInformation } from '../SubscriptionsPage'
 
 interface SubscriptionOverviewProps {
@@ -17,9 +20,8 @@ interface SubscriptionOverviewProps {
 
 const SubscriptionOverview: React.FC<SubscriptionOverviewProps> = props => {
   const { accountName, licenseData, module, trialInformation, refetchGetLicense } = props
+  const enabled = useFeatureFlag(FeatureFlag.VIEW_USAGE_ENABLED)
 
-  // Although this component currently contains 'almost' nothing
-  // it will be useful to leave this here for other components in the future
   return (
     <Layout.Vertical spacing="large" width={'90%'}>
       <SubscriptionDetailsCard
@@ -29,8 +31,7 @@ const SubscriptionOverview: React.FC<SubscriptionOverviewProps> = props => {
         trialInformation={trialInformation}
         refetchGetLicense={refetchGetLicense}
       />
-      {/* TO-DO: uncomment this when integrate with subscription data api */}
-      {/* {licenseData && <SubscriptionUsageCard module={module} />} */}
+      {enabled && licenseData && <SubscriptionUsageCard module={module} />}
     </Layout.Vertical>
   )
 }

@@ -200,6 +200,7 @@ export interface CIPipelineModuleInfo {
   branch?: string
   buildType?: string
   ciExecutionInfoDTO?: CIWebhookInfoDTO
+  isPrivateRepo?: boolean
   prNumber?: string
   repoName?: string
   tag?: string
@@ -218,6 +219,13 @@ export type CIServiceInfo = DependencySpecType & {
   privileged?: boolean
   resources?: ContainerResource
   runAsUser?: number
+}
+
+export interface CIUsageResult {
+  accountIdentifier?: string
+  activeCommitters?: UsageDataDTO
+  module?: string
+  timestamp?: number
 }
 
 export interface CIWebhookInfoDTO {
@@ -1400,6 +1408,14 @@ export interface PodsSetupInfo {
   podSetupInfoList?: PodSetupInfo[]
 }
 
+export interface ReferenceDTO {
+  accountIdentifier?: string
+  identifier?: string
+  name?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
 export type RemoveSegmentToVariationTargetMapYaml = PatchInstruction & {
   identifier: string
   spec: RemoveSegmentToVariationTargetMapYamlSpec
@@ -1454,6 +1470,13 @@ export interface Response {
 export interface ResponseCIPipelineModuleInfo {
   correlationId?: string
   data?: CIPipelineModuleInfo
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseCIUsageResult {
+  correlationId?: string
+  data?: CIUsageResult
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -2155,6 +2178,12 @@ export type UploadToS3StepInfo = StepSpecType & {
   target?: string
 }
 
+export interface UsageDataDTO {
+  count?: number
+  displayName?: string
+  references?: ReferenceDTO[]
+}
+
 export type UseFromStageInfraYaml = Infrastructure & {
   useFromStage: string
 }
@@ -2377,6 +2406,52 @@ export const getRepositoryBuildPromise = (
   getUsingFetch<ResponseDashboardBuildRepositoryInfo, Failure | Error, GetRepositoryBuildQueryParams, void>(
     getConfig('ci'),
     `/ci/repositoryBuild`,
+    props,
+    signal
+  )
+
+export interface GetUsageQueryParams {
+  accountIdentifier: string
+  timestamp: number
+}
+
+export type GetUsageProps = Omit<GetProps<ResponseCIUsageResult, Failure | Error, GetUsageQueryParams, void>, 'path'>
+
+/**
+ * Get usage
+ */
+export const GetUsage = (props: GetUsageProps) => (
+  <Get<ResponseCIUsageResult, Failure | Error, GetUsageQueryParams, void>
+    path={`/ci/usage/ci`}
+    base={getConfig('ci')}
+    {...props}
+  />
+)
+
+export type UseGetUsageProps = Omit<
+  UseGetProps<ResponseCIUsageResult, Failure | Error, GetUsageQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get usage
+ */
+export const useGetUsage = (props: UseGetUsageProps) =>
+  useGet<ResponseCIUsageResult, Failure | Error, GetUsageQueryParams, void>(`/ci/usage/ci`, {
+    base: getConfig('ci'),
+    ...props
+  })
+
+/**
+ * Get usage
+ */
+export const getUsagePromise = (
+  props: GetUsingFetchProps<ResponseCIUsageResult, Failure | Error, GetUsageQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseCIUsageResult, Failure | Error, GetUsageQueryParams, void>(
+    getConfig('ci'),
+    `/ci/usage/ci`,
     props,
     signal
   )

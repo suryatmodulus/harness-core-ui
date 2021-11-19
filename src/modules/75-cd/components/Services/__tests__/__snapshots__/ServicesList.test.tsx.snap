@@ -224,12 +224,14 @@ exports[`ServicesList render 1`] = `
               class="Layout--vertical StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey700 StyledProps--margin-bottom-xsmall"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey700 StyledProps--margin-bottom-xsmall"
+                style="--text-line-clamp: 1;"
               >
                 asdfasdf
               </p>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
+                style="--text-line-clamp: 1;"
               >
                 idLabel
               </p>

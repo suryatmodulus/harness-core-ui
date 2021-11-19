@@ -86,10 +86,10 @@ const RenderServiceName: Renderer<CellProps<ServiceListItem>> = ({ row }) => {
   const idLabel = getString('idLabel', { id })
   return (
     <Layout.Vertical>
-      <Text font={{ weight: 'semi-bold' }} color={Color.GREY_700} margin={{ bottom: 'xsmall' }}>
+      <Text font={{ weight: 'semi-bold' }} color={Color.GREY_700} margin={{ bottom: 'xsmall' }} lineClamp={1}>
         {name}
       </Text>
-      <Text font={{ size: 'small' }} color={Color.GREY_500}>
+      <Text font={{ size: 'small' }} color={Color.GREY_500} lineClamp={1}>
         {idLabel}
       </Text>
     </Layout.Vertical>

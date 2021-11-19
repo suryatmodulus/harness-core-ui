@@ -1,36 +1,45 @@
-import { Container, Text } from '@wings-software/uicore'
 import React from 'react'
+import { Container, Layout, Heading, Card, NoDataCard, FontVariation } from '@wings-software/uicore'
 import noServiceAvailableImage from '@cv/assets/noServiceAvailable.png'
 import { useStrings } from 'framework/strings'
-import Card from '@cv/components/Card/Card'
-import LogAnalysisContainer from './components/LogAnalysisContainer/LogAnalysisContainer'
+import LogAnalysis from '@cv/components/LogsAnalysis/LogAnalysis'
 import type { MetricsAndLogsProps } from './MetricsAndLogs.types'
 import MetricsAnalysisContainer from './components/MetricsAnalysisContainer/MetricsAnalysisContainer'
 import css from './MetricsAndLogs.module.scss'
 
-export default function MetricsAndLogs(props: MetricsAndLogsProps): JSX.Element {
-  const { startTime, endTime, serviceIdentifier, environmentIdentifier } = props
+const MetricsAndLogs: React.FC<MetricsAndLogsProps> = props => {
   const { getString } = useStrings()
 
-  return (
-    <Container className={css.metricsLogsContainer}>
-      <Text font={{ weight: 'bold', size: 'normal' }} padding={{ bottom: 'small' }}>
-        {getString('cv.monitoredServices.serviceHealth.metricsAndLogs')}
-      </Text>
+  const { startTime, endTime } = props
 
-      {startTime && endTime && serviceIdentifier && environmentIdentifier ? (
-        <Container className={css.analysisContainer} data-testid="analysis-view">
-          <MetricsAnalysisContainer {...props} />
-          <LogAnalysisContainer {...props} />
-        </Container>
+  return (
+    <Container margin={{ bottom: 'medium' }}>
+      <Heading level={2} font={{ variation: FontVariation.H6 }} padding={{ bottom: 'small' }}>
+        {getString('cv.monitoredServices.serviceHealth.metricsAndLogs')}
+      </Heading>
+
+      {startTime && endTime ? (
+        <Layout.Horizontal data-testid="analysis-view" spacing="medium">
+          <Card className={css.metricsAndLogsCard}>
+            <MetricsAnalysisContainer {...props} startTime={startTime} endTime={endTime} />
+          </Card>
+          <Card className={css.metricsAndLogsCard}>
+            <LogAnalysis {...props} startTime={startTime} endTime={endTime} />
+          </Card>
+        </Layout.Horizontal>
       ) : (
-        <Card>
-          <Container className={css.noTimeRangeSelected} data-testid="analysis-image-view">
-            <img src={noServiceAvailableImage} alt="" width={600} height={290} />
-            <Text>{getString('cv.monitoredServices.serviceHealth.selectTimeline')}</Text>
-          </Container>
+        <Card className={css.noServiceImageCard} data-testid="analysis-image-view">
+          <NoDataCard
+            image={noServiceAvailableImage}
+            message={getString('cv.monitoredServices.serviceHealth.selectTimeline')}
+            containerClassName={css.noDataCardContainer}
+            className={css.noDataCard}
+            imageClassName={css.noServiceImage}
+          />
         </Card>
       )}
     </Container>
   )
 }
+
+export default MetricsAndLogs

@@ -198,8 +198,8 @@ export default function ServiceHealth({
         <MetricsAndLogs
           serviceIdentifier={serviceIdentifier}
           environmentIdentifier={environmentIdentifier}
-          startTime={timeRange?.startTime as number}
-          endTime={timeRange?.endTime as number}
+          startTime={timeRange?.startTime}
+          endTime={timeRange?.endTime}
         />
       </Container>
     </>

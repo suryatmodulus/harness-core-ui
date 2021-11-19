@@ -1,12 +1,5 @@
 import type { SeriesLineOptions } from 'highcharts'
-import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
-import type {
-  LogData,
-  RestResponseListLogAnalysisClusterChartDTO,
-  RestResponsePageAnalyzedLogDataDTO,
-  RestResponsePageLogAnalysisClusterDTO
-} from 'services/cv'
-import type { ExecutionNode } from 'services/pipeline-ng'
+import type { LogData } from 'services/cv'
 
 export type LogAnalysisRowData = {
   clusterType: LogData['tag']
@@ -17,21 +10,20 @@ export type LogAnalysisRowData = {
   riskStatus: LogData['riskStatus']
 }
 
-export interface LogAnalysisContainerProps {
-  step: ExecutionNode
-  hostName?: string
+export interface LogAnalysisProps {
+  serviceIdentifier: string
+  environmentIdentifier: string
+  startTime: number
+  endTime: number
 }
 
-export interface LogAnalysisProps {
-  serviceIdentifier?: string
-  environmentIdentifier?: string
-  data: RestResponsePageAnalyzedLogDataDTO | RestResponsePageLogAnalysisClusterDTO | null
-  logAnalysisTableData?: LogAnalysisRowData[]
-  clusterChartData?: RestResponseListLogAnalysisClusterChartDTO | null
-  logsLoading: boolean
-  clusterChartLoading?: boolean
-  goToPage(val: number): void
-  setSelectedClusterType: (clusterType: SelectOption) => void
-  onChangeHealthSource: (selectedHealthSource: string) => void
-  showClusterChart?: boolean
+export enum LogEvents {
+  KNOWN = 'KNOWN',
+  UNKNOWN = 'UNKNOWN',
+  UNEXPECTED = 'UNEXPECTED'
+}
+
+export interface LogAnalysisContentProps extends LogAnalysisProps {
+  logEvent: LogEvents
+  healthSource?: string
 }

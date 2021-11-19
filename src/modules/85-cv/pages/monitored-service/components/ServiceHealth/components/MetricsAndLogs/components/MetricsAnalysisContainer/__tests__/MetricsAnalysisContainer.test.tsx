@@ -2,11 +2,11 @@ import React from 'react'
 import { render, waitFor, screen } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import MetricsAnalysisContainer from '../MetricsAnalysisContainer'
-import type { MetricsAndLogsProps } from '../../../MetricsAndLogs.types'
+import type { MetricsAnalysisProps } from '../MetricsAnalysisContainer.types'
 import { mockedHealthSourcesData } from '../../../__tests__/MetricsAndLogs.mock'
 import { mockedMetricsData } from './MetricsAnalysisContainer.mock'
 
-const WrapperComponent = (props: MetricsAndLogsProps): JSX.Element => {
+const WrapperComponent = (props: MetricsAnalysisProps): JSX.Element => {
   return (
     <TestWrapper>
       <MetricsAnalysisContainer {...props} />
@@ -42,7 +42,7 @@ describe('Unit tests for MetricsAnalysisContainer', () => {
     const { container } = render(<WrapperComponent {...props} />)
 
     // verify default filter is Anomalous Metrics
-    await waitFor(() => expect(container.querySelector('input[value="Anomalous Metrics"]')).toBeTruthy())
+    expect(container.querySelector('input[value="pipeline.verification.anomalousMetrics"]')).toBeInTheDocument()
 
     // Verify if number of records returned by the api for the first page matches with the number of records shown in the Metrics View
     await waitFor(() =>

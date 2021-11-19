@@ -1,3 +1,4 @@
+import type { AnalyzedLogDataDTO } from 'services/cv'
 import { RiskValues, getRiskColorValue } from '@cv/utils/CommonUtils'
 
 export const mockedLogAnalysisData = {
@@ -67,72 +68,60 @@ export const mockedLogAnalysisData = {
   }
 }
 
-export const mockedLogsData = {
-  metaData: {},
-  resource: {
-    totalPages: 1,
-    totalItems: 1,
-    pageItemCount: 1,
-    pageSize: 7,
-    content: [
-      {
-        projectIdentifier: 'Harshil',
-        orgIdentifier: 'CV',
-        environmentIdentifier: 'prod',
-        serviceIdentifier: 'service240',
-        logData: {
-          text: 'verification-svc',
-          label: 0,
-          count: 9000,
-          riskScore: 0,
-          riskStatus: RiskValues.HEALTHY,
-          trend: [
-            {
-              timestamp: 1632045240000,
-              count: 1000
-            },
-            {
-              timestamp: 1632045540000,
-              count: 1000
-            },
-            {
-              timestamp: 1632043440000,
-              count: 1000
-            },
-            {
-              timestamp: 1632044340000,
-              count: 1000
-            },
-            {
-              timestamp: 1632045840000,
-              count: 1000
-            },
-            {
-              timestamp: 1632043740000,
-              count: 1000
-            },
-            {
-              timestamp: 1632044640000,
-              count: 1000
-            },
-            {
-              timestamp: 1632044040000,
-              count: 1000
-            },
-            {
-              timestamp: 1632044940000,
-              count: 1000
-            }
-          ],
-          tag: 'KNOWN'
+export const mockedLogsData: AnalyzedLogDataDTO[] = [
+  {
+    projectIdentifier: 'Harshil',
+    orgIdentifier: 'CV',
+    environmentIdentifier: 'prod',
+    serviceIdentifier: 'service240',
+    logData: {
+      text: 'verification-svc',
+      label: 0,
+      count: 9000,
+      riskScore: 0,
+      riskStatus: RiskValues.HEALTHY,
+      trend: [
+        {
+          timestamp: 1632045240000,
+          count: 1000
+        },
+        {
+          timestamp: 1632045540000,
+          count: 1000
+        },
+        {
+          timestamp: 1632043440000,
+          count: 1000
+        },
+        {
+          timestamp: 1632044340000,
+          count: 1000
+        },
+        {
+          timestamp: 1632045840000,
+          count: 1000
+        },
+        {
+          timestamp: 1632043740000,
+          count: 1000
+        },
+        {
+          timestamp: 1632044640000,
+          count: 1000
+        },
+        {
+          timestamp: 1632044040000,
+          count: 1000
+        },
+        {
+          timestamp: 1632044940000,
+          count: 1000
         }
-      }
-    ],
-    pageIndex: 0,
-    empty: false
-  },
-  responseMessages: []
-}
+      ],
+      tag: 'KNOWN'
+    }
+  }
+]
 
 export const mockedLogData = {
   projectIdentifier: 'Harshil',

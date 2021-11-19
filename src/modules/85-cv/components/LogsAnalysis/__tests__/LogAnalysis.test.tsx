@@ -1,15 +1,18 @@
 import React from 'react'
 import { render, waitFor, screen, fireEvent, act } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import LogAnalysisContainer from '../LogAnalysisContainer'
-import type { MetricsAndLogsProps } from '../../../MetricsAndLogs.types'
-import { mockedLogAnalysisData } from './LogAnalysisContainer.mocks'
-import { mockedClustersData, mockedHealthSourcesData } from '../../../__tests__/MetricsAndLogs.mock'
+import LogAnalysis from '@cv/components/LogsAnalysis/LogAnalysis'
+import {
+  mockedClustersData,
+  mockedHealthSourcesData
+} from '@cv/pages/monitored-service/components/ServiceHealth/components/MetricsAndLogs/__tests__/MetricsAndLogs.mock'
+import type { LogAnalysisProps } from '../LogAnalysis.types'
+import { mockedLogAnalysisData } from './LogAnalysis.mocks'
 
-const WrapperComponent = (props: MetricsAndLogsProps): JSX.Element => {
+const WrapperComponent = (props: LogAnalysisProps): JSX.Element => {
   return (
     <TestWrapper>
-      <LogAnalysisContainer {...props} />
+      <LogAnalysis {...props} />
     </TestWrapper>
   )
 }

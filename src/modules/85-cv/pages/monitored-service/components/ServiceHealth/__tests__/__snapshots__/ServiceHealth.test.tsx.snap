@@ -268,34 +268,37 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main metricsLogsContainer"
+      class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
     >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal StyledProps--padding-bottom-small"
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-variation-h6 StyledProps--padding-bottom-small"
+        level="2"
       >
         cv.monitoredServices.serviceHealth.metricsAndLogs
-      </p>
+      </h2>
       <div
-        class="StyledProps--font StyledProps--main container"
+        class="bp3-card bp3-elevation-0 Card--card noServiceImageCard"
+        data-testid="analysis-image-view"
       >
         <div
-          class="StyledProps--font StyledProps--main content"
+          class="StyledProps--font StyledProps--main NoDataCard--noDataCard noDataCardContainer StyledProps--flex StyledProps--flex-align-center-center"
         >
           <div
-            class="StyledProps--font StyledProps--main noTimeRangeSelected"
-            data-testid="analysis-image-view"
+            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main noDataCard"
+            style="align-items: center; margin-top: -48px; width: 470px;"
           >
             <img
-              alt=""
-              height="290"
+              class="noServiceImage"
               src="test-file-stub"
-              width="600"
             />
             <p
-              class="StyledProps--font StyledProps--main"
+              class="StyledProps--font StyledProps--main NoDataCard--message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
             >
               cv.monitoredServices.serviceHealth.selectTimeline
             </p>
+            <div
+              class="NoDataCard--buttonContainer"
+            />
           </div>
         </div>
       </div>

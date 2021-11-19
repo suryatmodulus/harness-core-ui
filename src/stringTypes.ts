@@ -547,6 +547,7 @@ export interface StringsMap {
   'common.userGroups': string
   'common.validation.email.format': string
   'common.validation.email.required': string
+  'common.validation.entityIdIsRequired': string
   'common.validation.fieldCannotbeLongerThanN': string
   'common.validation.fieldIsRequired': string
   'common.validation.fieldMustBeAlphanumeric': string
@@ -905,6 +906,7 @@ export interface StringsMap {
   'authSettings.editSAMLProvider': string
   'authSettings.enableAtLeastOneSsoBeforeDisablingUserPasswordLogin': string
   'authSettings.enableAuthorization': string
+  'authSettings.enableEntityIdLabel': string
   'authSettings.enableHarnessAccountOrOauthLogin': string
   'authSettings.enableSamlProvider': string
   'authSettings.enableSamlProviderDescription': string
@@ -914,6 +916,7 @@ export interface StringsMap {
   'authSettings.enforcePasswordStrength': string
   'authSettings.enforceTwoFA': string
   'authSettings.enterSAMLEndPoint': string
+  'authSettings.entityIdLabel': string
   'authSettings.existingMembersWillReceiveAnEmailWithQRCode': string
   'authSettings.failedLoginsBeforeLocked': string
   'authSettings.failedLoginsBeforeLockedAccount': string

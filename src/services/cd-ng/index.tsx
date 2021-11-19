@@ -7930,9 +7930,9 @@ export type RoleAssignmentFilterRequestBody = RoleAssignmentFilter
 
 export type ScopingRuleDetailsNgArrayRequestBody = ScopingRuleDetailsNg[]
 
-export type SecretRequestWrapperRequestBody = SecretRequestWrapper
+export type SecretRequestWrapperRequestBody = void
 
-export type SecretRequestWrapper2RequestBody = void
+export type SecretRequestWrapper2RequestBody = SecretRequestWrapper
 
 export type ServiceAccountDTORequestBody = ServiceAccountDTO
 
@@ -7957,6 +7957,8 @@ export type GetBuildDetailsForEcrWithYamlBodyRequestBody = string
 export type UnsubscribeBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
+
+export type UploadSamlMetaDataRequestBody = void
 
 export interface GetAccountNGPathParams {
   accountIdentifier: string
@@ -10992,7 +10994,7 @@ export interface UploadSamlMetaDataQueryParams {
 }
 
 export type UploadSamlMetaDataProps = Omit<
-  MutateProps<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, void, void>,
+  MutateProps<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -11000,7 +11002,7 @@ export type UploadSamlMetaDataProps = Omit<
  * Create SAML Config
  */
 export const UploadSamlMetaData = (props: UploadSamlMetaDataProps) => (
-  <Mutate<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, void, void>
+  <Mutate<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>
     verb="POST"
     path={`/authentication-settings/saml-metadata-upload`}
     base={getConfig('ng/api')}
@@ -11009,7 +11011,7 @@ export const UploadSamlMetaData = (props: UploadSamlMetaDataProps) => (
 )
 
 export type UseUploadSamlMetaDataProps = Omit<
-  UseMutateProps<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, void, void>,
+  UseMutateProps<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -11017,7 +11019,7 @@ export type UseUploadSamlMetaDataProps = Omit<
  * Create SAML Config
  */
 export const useUploadSamlMetaData = (props: UseUploadSamlMetaDataProps) =>
-  useMutate<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, void, void>(
+  useMutate<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>(
     'POST',
     `/authentication-settings/saml-metadata-upload`,
     { base: getConfig('ng/api'), ...props }
@@ -11027,10 +11029,16 @@ export const useUploadSamlMetaData = (props: UseUploadSamlMetaDataProps) =>
  * Create SAML Config
  */
 export const uploadSamlMetaDataPromise = (
-  props: MutateUsingFetchProps<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, void, void>,
+  props: MutateUsingFetchProps<
+    RestResponseSSOConfig,
+    unknown,
+    UploadSamlMetaDataQueryParams,
+    UploadSamlMetaDataRequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, void, void>(
+  mutateUsingFetch<RestResponseSSOConfig, unknown, UploadSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/authentication-settings/saml-metadata-upload`,
@@ -11043,7 +11051,7 @@ export interface UpdateSamlMetaDataQueryParams {
 }
 
 export type UpdateSamlMetaDataProps = Omit<
-  MutateProps<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, void, void>,
+  MutateProps<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -11051,7 +11059,7 @@ export type UpdateSamlMetaDataProps = Omit<
  * Edit SAML Config
  */
 export const UpdateSamlMetaData = (props: UpdateSamlMetaDataProps) => (
-  <Mutate<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, void, void>
+  <Mutate<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>
     verb="PUT"
     path={`/authentication-settings/saml-metadata-upload`}
     base={getConfig('ng/api')}
@@ -11060,7 +11068,7 @@ export const UpdateSamlMetaData = (props: UpdateSamlMetaDataProps) => (
 )
 
 export type UseUpdateSamlMetaDataProps = Omit<
-  UseMutateProps<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, void, void>,
+  UseMutateProps<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -11068,7 +11076,7 @@ export type UseUpdateSamlMetaDataProps = Omit<
  * Edit SAML Config
  */
 export const useUpdateSamlMetaData = (props: UseUpdateSamlMetaDataProps) =>
-  useMutate<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, void, void>(
+  useMutate<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>(
     'PUT',
     `/authentication-settings/saml-metadata-upload`,
     { base: getConfig('ng/api'), ...props }
@@ -11078,10 +11086,16 @@ export const useUpdateSamlMetaData = (props: UseUpdateSamlMetaDataProps) =>
  * Edit SAML Config
  */
 export const updateSamlMetaDataPromise = (
-  props: MutateUsingFetchProps<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, void, void>,
+  props: MutateUsingFetchProps<
+    RestResponseSSOConfig,
+    unknown,
+    UpdateSamlMetaDataQueryParams,
+    UploadSamlMetaDataRequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, void, void>(
+  mutateUsingFetch<RestResponseSSOConfig, unknown, UpdateSamlMetaDataQueryParams, UploadSamlMetaDataRequestBody, void>(
     'PUT',
     getConfig('ng/api'),
     `/authentication-settings/saml-metadata-upload`,
@@ -22284,7 +22298,7 @@ export interface GetSourceCodeManagersQueryParams {
 }
 
 export type GetSourceCodeManagersProps = Omit<
-  GetProps<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>,
+  GetProps<ResponseListSourceCodeManagerDTO, Failure | Error, GetSourceCodeManagersQueryParams, void>,
   'path'
 >
 
@@ -22292,7 +22306,7 @@ export type GetSourceCodeManagersProps = Omit<
  * get source code manager information
  */
 export const GetSourceCodeManagers = (props: GetSourceCodeManagersProps) => (
-  <Get<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>
+  <Get<ResponseListSourceCodeManagerDTO, Failure | Error, GetSourceCodeManagersQueryParams, void>
     path={`/source-code-manager`}
     base={getConfig('ng/api')}
     {...props}
@@ -22300,7 +22314,7 @@ export const GetSourceCodeManagers = (props: GetSourceCodeManagersProps) => (
 )
 
 export type UseGetSourceCodeManagersProps = Omit<
-  UseGetProps<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>,
+  UseGetProps<ResponseListSourceCodeManagerDTO, Failure | Error, GetSourceCodeManagersQueryParams, void>,
   'path'
 >
 
@@ -22308,19 +22322,19 @@ export type UseGetSourceCodeManagersProps = Omit<
  * get source code manager information
  */
 export const useGetSourceCodeManagers = (props: UseGetSourceCodeManagersProps) =>
-  useGet<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>(`/source-code-manager`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useGet<ResponseListSourceCodeManagerDTO, Failure | Error, GetSourceCodeManagersQueryParams, void>(
+    `/source-code-manager`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
  * get source code manager information
  */
 export const getSourceCodeManagersPromise = (
-  props: GetUsingFetchProps<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>,
+  props: GetUsingFetchProps<ResponseListSourceCodeManagerDTO, Failure | Error, GetSourceCodeManagersQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseListSourceCodeManagerDTO, unknown, GetSourceCodeManagersQueryParams, void>(
+  getUsingFetch<ResponseListSourceCodeManagerDTO, Failure | Error, GetSourceCodeManagersQueryParams, void>(
     getConfig('ng/api'),
     `/source-code-manager`,
     props,
@@ -22328,7 +22342,7 @@ export const getSourceCodeManagersPromise = (
   )
 
 export type SaveSourceCodeManagersProps = Omit<
-  MutateProps<ResponseSourceCodeManagerDTO, unknown, void, SourceCodeManagerDTORequestBody, void>,
+  MutateProps<ResponseSourceCodeManagerDTO, Failure | Error, void, SourceCodeManagerDTORequestBody, void>,
   'path' | 'verb'
 >
 
@@ -22336,7 +22350,7 @@ export type SaveSourceCodeManagersProps = Omit<
  * save source code manager
  */
 export const SaveSourceCodeManagers = (props: SaveSourceCodeManagersProps) => (
-  <Mutate<ResponseSourceCodeManagerDTO, unknown, void, SourceCodeManagerDTORequestBody, void>
+  <Mutate<ResponseSourceCodeManagerDTO, Failure | Error, void, SourceCodeManagerDTORequestBody, void>
     verb="POST"
     path={`/source-code-manager`}
     base={getConfig('ng/api')}
@@ -22345,7 +22359,7 @@ export const SaveSourceCodeManagers = (props: SaveSourceCodeManagersProps) => (
 )
 
 export type UseSaveSourceCodeManagersProps = Omit<
-  UseMutateProps<ResponseSourceCodeManagerDTO, unknown, void, SourceCodeManagerDTORequestBody, void>,
+  UseMutateProps<ResponseSourceCodeManagerDTO, Failure | Error, void, SourceCodeManagerDTORequestBody, void>,
   'path' | 'verb'
 >
 
@@ -22353,7 +22367,7 @@ export type UseSaveSourceCodeManagersProps = Omit<
  * save source code manager
  */
 export const useSaveSourceCodeManagers = (props: UseSaveSourceCodeManagersProps) =>
-  useMutate<ResponseSourceCodeManagerDTO, unknown, void, SourceCodeManagerDTORequestBody, void>(
+  useMutate<ResponseSourceCodeManagerDTO, Failure | Error, void, SourceCodeManagerDTORequestBody, void>(
     'POST',
     `/source-code-manager`,
     { base: getConfig('ng/api'), ...props }
@@ -22363,10 +22377,16 @@ export const useSaveSourceCodeManagers = (props: UseSaveSourceCodeManagersProps)
  * save source code manager
  */
 export const saveSourceCodeManagersPromise = (
-  props: MutateUsingFetchProps<ResponseSourceCodeManagerDTO, unknown, void, SourceCodeManagerDTORequestBody, void>,
+  props: MutateUsingFetchProps<
+    ResponseSourceCodeManagerDTO,
+    Failure | Error,
+    void,
+    SourceCodeManagerDTORequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseSourceCodeManagerDTO, unknown, void, SourceCodeManagerDTORequestBody, void>(
+  mutateUsingFetch<ResponseSourceCodeManagerDTO, Failure | Error, void, SourceCodeManagerDTORequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/source-code-manager`,
@@ -22379,7 +22399,7 @@ export interface DeleteSourceCodeManagersQueryParams {
 }
 
 export type DeleteSourceCodeManagersProps = Omit<
-  MutateProps<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>,
+  MutateProps<ResponseBoolean, Failure | Error, DeleteSourceCodeManagersQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -22387,7 +22407,7 @@ export type DeleteSourceCodeManagersProps = Omit<
  * delete source code manager
  */
 export const DeleteSourceCodeManagers = (props: DeleteSourceCodeManagersProps) => (
-  <Mutate<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>
+  <Mutate<ResponseBoolean, Failure | Error, DeleteSourceCodeManagersQueryParams, string, void>
     verb="DELETE"
     path={`/source-code-manager`}
     base={getConfig('ng/api')}
@@ -22396,7 +22416,7 @@ export const DeleteSourceCodeManagers = (props: DeleteSourceCodeManagersProps) =
 )
 
 export type UseDeleteSourceCodeManagersProps = Omit<
-  UseMutateProps<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>,
+  UseMutateProps<ResponseBoolean, Failure | Error, DeleteSourceCodeManagersQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -22404,7 +22424,7 @@ export type UseDeleteSourceCodeManagersProps = Omit<
  * delete source code manager
  */
 export const useDeleteSourceCodeManagers = (props: UseDeleteSourceCodeManagersProps) =>
-  useMutate<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>(
+  useMutate<ResponseBoolean, Failure | Error, DeleteSourceCodeManagersQueryParams, string, void>(
     'DELETE',
     `/source-code-manager`,
     { base: getConfig('ng/api'), ...props }
@@ -22414,10 +22434,10 @@ export const useDeleteSourceCodeManagers = (props: UseDeleteSourceCodeManagersPr
  * delete source code manager
  */
 export const deleteSourceCodeManagersPromise = (
-  props: MutateUsingFetchProps<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>,
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteSourceCodeManagersQueryParams, string, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseBoolean, unknown, DeleteSourceCodeManagersQueryParams, string, void>(
+  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteSourceCodeManagersQueryParams, string, void>(
     'DELETE',
     getConfig('ng/api'),
     `/source-code-manager`,
@@ -22432,7 +22452,7 @@ export interface UpdateSourceCodeManagersPathParams {
 export type UpdateSourceCodeManagersProps = Omit<
   MutateProps<
     ResponseSourceCodeManagerDTO,
-    unknown,
+    Failure | Error,
     void,
     SourceCodeManagerDTORequestBody,
     UpdateSourceCodeManagersPathParams
@@ -22447,7 +22467,7 @@ export type UpdateSourceCodeManagersProps = Omit<
 export const UpdateSourceCodeManagers = ({ identifier, ...props }: UpdateSourceCodeManagersProps) => (
   <Mutate<
     ResponseSourceCodeManagerDTO,
-    unknown,
+    Failure | Error,
     void,
     SourceCodeManagerDTORequestBody,
     UpdateSourceCodeManagersPathParams
@@ -22462,7 +22482,7 @@ export const UpdateSourceCodeManagers = ({ identifier, ...props }: UpdateSourceC
 export type UseUpdateSourceCodeManagersProps = Omit<
   UseMutateProps<
     ResponseSourceCodeManagerDTO,
-    unknown,
+    Failure | Error,
     void,
     SourceCodeManagerDTORequestBody,
     UpdateSourceCodeManagersPathParams
@@ -22477,7 +22497,7 @@ export type UseUpdateSourceCodeManagersProps = Omit<
 export const useUpdateSourceCodeManagers = ({ identifier, ...props }: UseUpdateSourceCodeManagersProps) =>
   useMutate<
     ResponseSourceCodeManagerDTO,
-    unknown,
+    Failure | Error,
     void,
     SourceCodeManagerDTORequestBody,
     UpdateSourceCodeManagersPathParams
@@ -22496,7 +22516,7 @@ export const updateSourceCodeManagersPromise = (
     ...props
   }: MutateUsingFetchProps<
     ResponseSourceCodeManagerDTO,
-    unknown,
+    Failure | Error,
     void,
     SourceCodeManagerDTORequestBody,
     UpdateSourceCodeManagersPathParams
@@ -22505,7 +22525,7 @@ export const updateSourceCodeManagersPromise = (
 ) =>
   mutateUsingFetch<
     ResponseSourceCodeManagerDTO,
-    unknown,
+    Failure | Error,
     void,
     SourceCodeManagerDTORequestBody,
     UpdateSourceCodeManagersPathParams
@@ -25592,7 +25612,7 @@ export type PostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -25602,7 +25622,7 @@ export type PostSecretProps = Omit<
  * Create a secret
  */
 export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
     verb="POST"
     path={`/v2/secrets`}
     base={getConfig('ng/api')}
@@ -25615,7 +25635,7 @@ export type UsePostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -25629,7 +25649,7 @@ export const usePostSecret = (props: UsePostSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
 
@@ -25641,7 +25661,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -25650,7 +25670,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
 
@@ -26043,7 +26063,7 @@ export type PostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -26057,7 +26077,7 @@ export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >
     verb="POST"
@@ -26072,7 +26092,7 @@ export type UsePostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -26086,7 +26106,7 @@ export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
 
@@ -26098,7 +26118,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -26107,7 +26127,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 
@@ -26242,7 +26262,7 @@ export type PutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -26257,7 +26277,7 @@ export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >
     verb="PUT"
@@ -26272,7 +26292,7 @@ export type UsePutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -26287,7 +26307,7 @@ export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -26306,7 +26326,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -26315,7 +26335,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
 
@@ -26334,7 +26354,7 @@ export type PutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -26349,7 +26369,7 @@ export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >
     verb="PUT"
@@ -26364,7 +26384,7 @@ export type UsePutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -26379,7 +26399,7 @@ export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYam
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
     base: getConfig('ng/api'),
@@ -26398,7 +26418,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -26407,7 +26427,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
 

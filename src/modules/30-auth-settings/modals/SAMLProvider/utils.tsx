@@ -6,6 +6,8 @@ export interface FormValues {
   displayName: string
   authorizationEnabled: boolean
   groupMembershipAttr: string
+  entityIdEnabled: boolean
+  entityIdentifier: string
 }
 
 export enum Providers {
@@ -27,6 +29,10 @@ export const createFormData = (data: FormValues): FormData => {
   formData.set('authorizationEnabled', JSON.stringify(data.authorizationEnabled))
   formData.set('groupMembershipAttr', data.groupMembershipAttr)
   formData.set('ssoSetupType', AuthenticationMechanisms.SAML)
+
+  if (data.entityIdentifier) {
+    formData.set('entityIdentifier', data.entityIdentifier)
+  }
 
   const file = (data as any)?.files?.[0]
   file && formData.set('file', file)

@@ -113,6 +113,7 @@ validation:
   fieldCannotbeLongerThanN: '{{ name }} cannot be longer than {{ n }} characters'
   fieldMustBeAlphanumeric: '{{ name }} can only contain alphanumerics, _ and $'
   groupAttributeIsRequired: Group Attribute is required
+  entityIdIsRequired: Entity ID is required
   valueMustBeGreaterThanOrEqualToN: Value must be greater than or equal to {{ n }}
   valueMustBeLessThanOrEqualToN: Value must be less than or equal to {{ n }}
   valueMustBeANumber: Value must be number

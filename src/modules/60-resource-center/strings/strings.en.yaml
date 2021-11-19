@@ -1,1 +1,24 @@
-search 
+title: 'RESOURCE CENTER'
+ticketmenu:
+  tickets: 'My Tickets'
+  ticketsDesc: 'View and manage your tickets'
+  submit: 'Submit a ticket'
+  submitDesc: 'Get help from our expert system'
+bottomlayout:
+  desc: 'Other useful resources'
+  search:
+    icon: 'thinner-search'
+    #    text: 'Search'
+    link: 'javascript:void(0);'
+  docs:
+    icon: 'file'
+    text: 'Docs'
+    link: 'https://docs.harness.io/'
+  community:
+    icon: 'person'
+    #    text: 'Community'
+    link: 'https://community.harness.io/'
+  sitestatus:
+    icon: 'new-notification'
+    text: 'Site Status'
+    link: 'https://status.harness.io/'

@@ -2086,6 +2086,22 @@ export interface StringsMap {
   'projectsOrgs.welcomeSecondLine': string
   'projectsOrgs.whyCreateProject': string
   'projectsOrgs.youHaveNoProjects': string
+  'resourceCenter.bottomlayout.community.icon': string
+  'resourceCenter.bottomlayout.community.link': string
+  'resourceCenter.bottomlayout.desc': string
+  'resourceCenter.bottomlayout.docs.icon': string
+  'resourceCenter.bottomlayout.docs.link': string
+  'resourceCenter.bottomlayout.docs.text': string
+  'resourceCenter.bottomlayout.search.icon': string
+  'resourceCenter.bottomlayout.search.link': string
+  'resourceCenter.bottomlayout.sitestatus.icon': string
+  'resourceCenter.bottomlayout.sitestatus.link': string
+  'resourceCenter.bottomlayout.sitestatus.text': string
+  'resourceCenter.ticketmenu.submit': string
+  'resourceCenter.ticketmenu.submitDesc': string
+  'resourceCenter.ticketmenu.tickets': string
+  'resourceCenter.ticketmenu.ticketsDesc': string
+  'resourceCenter.title': string
   'pipeline.aboutYourStage.stageNamePlaceholder': string
   'pipeline.addStage.description': string
   'pipeline.addStage.title': string

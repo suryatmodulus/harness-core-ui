@@ -17,6 +17,7 @@ import userProfile from '@user-profile/strings/strings.en.yaml'
 import gitsync from '@gitsync/strings/strings.en.yaml'
 import dashboards from '@dashboards/strings/strings.en.yaml'
 import projectsOrgs from '@projects-orgs/strings/strings.en.yaml'
+import resourceCenter from '@resource-center/strings/strings.en.yaml'
 import pipeline from '@pipeline/strings/strings.en.yaml'
 import templatesLibrary from '@templates-library/strings/strings.en.yaml'
 import cd from '@cd/strings/strings.en.yaml'
@@ -41,6 +42,7 @@ export default function languageLoader() {
     gitsync,
     dashboards,
     projectsOrgs,
+    resourceCenter,
     pipeline,
     templatesLibrary,
     cd,

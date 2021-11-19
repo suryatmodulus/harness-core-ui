@@ -1,7 +1,8 @@
 import React from 'react'
-import { Icon, Text, Layout, Color, IconName } from '@wings-software/uicore'
+import { Icon, Text, Layout, Color, IconName, FontVariation } from '@wings-software/uicore'
 
 import cx from 'classnames'
+import { useStrings } from 'framework/strings'
 import resourceImage from './images/resource-center.svg'
 import css from './ResourceCenter.module.scss'
 const getButton = (buttonText: string, buttonIcon: IconName, link: string) => {
@@ -15,7 +16,7 @@ const getButton = (buttonText: string, buttonIcon: IconName, link: string) => {
       >
         <Icon name={buttonIcon} size={24} />
         <Text
-          font={{ weight: 'semi-bold', align: 'center' }}
+          font={{ variation: FontVariation.BODY2 }}
           padding={{ bottom: 'xsmall' }}
           color={Color.PRIMARY_3}
           className={css.text}
@@ -28,11 +29,13 @@ const getButton = (buttonText: string, buttonIcon: IconName, link: string) => {
 }
 
 export const ResourceCenter = () => {
+  const { getString } = useStrings()
+
   return (
     <div className={css.resourceCenter}>
       <Layout.Vertical flex={{ alignItems: 'baseline' }} className={css.allregions}>
         <Text color={Color.WHITE} padding={{ bottom: 'medium' }}>
-          RESOURCE CENTER
+          {getString('resourceCenter.title')}
         </Text>
         <img src={resourceImage} height={106} />
       </Layout.Vertical>
@@ -44,15 +47,15 @@ export const ResourceCenter = () => {
         >
           <Layout.Vertical>
             <Text font={{ weight: 'semi-bold', size: 'medium' }} padding={{ bottom: 'xsmall' }} color={Color.PRIMARY_3}>
-              {'My Tickets'}
+              {getString('resourceCenter.ticketmenu.tickets')}
             </Text>
             <Text
-              font={{ weight: 'semi-bold' }}
+              font={{ variation: FontVariation.BODY2 }}
               padding={{ bottom: 'xsmall' }}
               color={Color.WHITE}
               className={css.text}
             >
-              {'View and manage your tickets'}
+              {getString('resourceCenter.ticketmenu.ticketsDesc')}
             </Text>
           </Layout.Vertical>
           <Icon name={'chevron-right'} width={6} height={12} />
@@ -60,15 +63,15 @@ export const ResourceCenter = () => {
         <Layout.Horizontal padding={{ top: 'medium' }} flex={{ justifyContent: 'space-between' }}>
           <Layout.Vertical>
             <Text font={{ weight: 'semi-bold', size: 'medium' }} padding={{ bottom: 'xsmall' }} color={Color.PRIMARY_3}>
-              {'Submit a ticket'}
+              {getString('resourceCenter.ticketmenu.submit')}
             </Text>
             <Text
-              font={{ weight: 'semi-bold' }}
+              font={{ variation: FontVariation.BODY2 }}
               padding={{ bottom: 'xsmall' }}
               color={Color.WHITE}
               className={css.text}
             >
-              {'Get help from our expert system'}
+              {getString('resourceCenter.ticketmenu.submitDesc')}
             </Text>
           </Layout.Vertical>
           <Icon name={'chevron-right'} width={6} height={12} />
@@ -79,10 +82,26 @@ export const ResourceCenter = () => {
           {'Other useful resources'}
         </Text>
         <Layout.Horizontal flex={{ justifyContent: 'space-around' }}>
-          {getButton('Search', 'thinner-search', 'javascript:void(0);')}
-          {getButton('Docs', 'file', 'https://docs.harness.io/')}
-          {getButton('Community', 'person', 'https://community.harness.io/')}
-          {getButton('Site Status', 'new-notification', 'javascript:void(0);')}
+          {getButton(
+            getString('search'),
+            getString('resourceCenter.bottomlayout.search.icon') as IconName,
+            getString('resourceCenter.bottomlayout.search.link')
+          )}
+          {getButton(
+            getString('resourceCenter.bottomlayout.docs.text'),
+            getString('resourceCenter.bottomlayout.docs.icon') as IconName,
+            getString('resourceCenter.bottomlayout.docs.link')
+          )}
+          {getButton(
+            getString('authSettings.cdCommunityPlan.communityTitle'),
+            getString('resourceCenter.bottomlayout.community.icon') as IconName,
+            getString('resourceCenter.bottomlayout.community.link')
+          )}
+          {getButton(
+            getString('resourceCenter.bottomlayout.sitestatus.text'),
+            getString('resourceCenter.bottomlayout.sitestatus.icon') as IconName,
+            getString('resourceCenter.bottomlayout.sitestatus.link')
+          )}
         </Layout.Horizontal>
       </Layout.Vertical>
     </div>

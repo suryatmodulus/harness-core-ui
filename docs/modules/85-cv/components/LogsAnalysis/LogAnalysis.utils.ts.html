@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">76.92% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>40/52</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -83,26 +83,42 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -111,29 +127,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import type { UseStringsReturn } from 'framework/strings'
-import type { LogData } from 'services/cv'
-import { LogEvents } from './LogAnalysis.constants'
-&nbsp;
-export const mapClusterType = (type: string): LogData['tag'] =&gt; {
-  switch (type) {
-    case 'KNOWN_EVENT':
-      return 'KNOWN'
-    case 'UNKNOWN_EVENT':
-      return 'UNKNOWN'
-    case 'UNEXPECTED_FREQUENCY':
-      return 'UNEXPECTED'
-    default:
-      return 'KNOWN'
-  }
-}
+import type { AnalyzedLogDataDTO } from 'services/cv'
+import { getRiskColorValue } from '@cv/utils/CommonUtils'
+import { LogAnalysisRowData, LogEvents } from './LogAnalysis.types'
 &nbsp;
 export const getClusterTypes = (getString: UseStringsReturn['getString']): SelectOption[] =&gt; {
   return [
     { label: getString('pipeline.verification.logs.allEvents'), value: '' },
-    { label: getString('pipeline.verification.logs.knownEvent'), value: LogEvents.KNOWN_EVENT },
-    { label: getString('pipeline.verification.logs.unknownEvent'), value: LogEvents.UNKNOWN_EVENT },
-    { label: getString('pipeline.verification.logs.unexpectedFrequency'), value: LogEvents.UNEXPECTED_FREQUENCY }
+    { label: getString('pipeline.verification.logs.knownEvent'), value: LogEvents.KNOWN },
+    { label: getString('pipeline.verification.logs.unknownEvent'), value: LogEvents.UNKNOWN },
+    { label: getString('pipeline.verification.logs.unexpectedFrequency'), value: LogEvents.UNEXPECTED }
   ]
+}
+&nbsp;
+export function getLogAnalysisTableData(logsData: AnalyzedLogDataDTO[]): LogAnalysisRowData[] {
+  return (
+    logsData.map(log =&gt; ({
+      clusterType: log.logData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ag,
+      count: log.logData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ount ?? <span class="branch-1 cbranch-no" title="branch not covered" >0,</span>
+      message: log.logData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ext ?? <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+      messageFrequency: [
+        {
+          name: 'trendData',
+          type: 'line',
+          color: getRiskColorValue(log.logData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>iskStatus),
+          data: log.logData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>rend<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(t =&gt; t.count ?? <span class="branch-1 cbranch-no" title="branch not covered" >0)</span>
+        }
+      ],
+      riskScore: log.logData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>iskScore ?? 0,
+      riskStatus: log.logData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>iskStatus
+    })) ?? <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
+  )
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -142,7 +166,7 @@ export const getClusterTypes = (getString: UseStringsReturn['getString']): Selec
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 18 2021 23:19:39 GMT+0000 (Greenwich Mean Time)
+                at Fri Nov 19 2021 04:45:19 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

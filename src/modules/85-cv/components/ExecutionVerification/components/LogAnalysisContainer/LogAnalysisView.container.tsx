@@ -15,6 +15,8 @@ import type { LogAnalysisContainerProps } from './LogAnalysis.types'
 import { getActivityId } from '../../ExecutionVerificationView.utils'
 import { getClusterTypes } from './LogAnalysis.utils'
 
+type ClusterTypes = GetDeploymentLogAnalysisResultQueryParams['clusterTypes']
+
 export default function LogAnalysisContainer({ step, hostName }: LogAnalysisContainerProps): React.ReactElement {
   const { accountId } = useParams<AccountPathProps>()
   const { showError } = useToaster()
@@ -30,10 +32,8 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
       pageNumber: initialPageNumber,
       pageSize,
       ...(hostName && { hostName }),
-      ...(selectedClusterType?.value && {
-        clusterType: selectedClusterType?.value as GetDeploymentLogAnalysisResultQueryParams['clusterType']
-      }),
-      ...(selectedHealthSource && { healthSource: selectedHealthSource as any })
+      clusterTypes: selectedClusterType.value ? ([selectedClusterType.value] as ClusterTypes) : undefined,
+      healthSources: selectedHealthSource ? [selectedHealthSource] : undefined
     }
   }, [accountId, hostName, selectedClusterType?.value, selectedHealthSource])
 
@@ -41,10 +41,8 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
     return {
       accountId,
       ...(hostName && { hostName }),
-      ...(selectedClusterType?.value && {
-        clusterType: selectedClusterType?.value as any
-      }),
-      ...(selectedHealthSource && { healthSource: selectedHealthSource as any })
+      clusterTypes: selectedClusterType.value ? ([selectedClusterType.value] as ClusterTypes) : undefined,
+      healthSources: selectedHealthSource ? [selectedHealthSource] : undefined
     }
   }, [accountId, hostName, selectedClusterType?.value, selectedHealthSource])
 
@@ -119,7 +117,10 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
   const fetchLogsDataForHealthSource = useCallback(
     currentHealthSource => {
       fetchLogAnalysis({
-        queryParams: { ...logsAnalysisQueryParams, ...(currentHealthSource && { healthSource: currentHealthSource }) }
+        queryParams: {
+          ...logsAnalysisQueryParams,
+          healthSources: currentHealthSource ? [currentHealthSource] : undefined
+        }
       })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -129,7 +130,7 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
   const fetchLogsDataForCluster = useCallback(
     clusterType => {
       fetchLogAnalysis({
-        queryParams: { ...logsAnalysisQueryParams, ...(clusterType && { clusterType }) }
+        queryParams: { ...logsAnalysisQueryParams, clusterTypes: clusterType ? [clusterType] : undefined }
       })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -141,7 +142,7 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
       fetchClusterAnalysis({
         queryParams: {
           ...clusterAnalysisQueryParams,
-          ...(currentHealthSource && { healthSource: currentHealthSource })
+          healthSources: currentHealthSource ? [currentHealthSource] : undefined
         }
       })
     },
@@ -152,7 +153,7 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
   const fetchLogsClusterDataForCluster = useCallback(
     clusterType => {
       fetchClusterAnalysis({
-        queryParams: { ...clusterAnalysisQueryParams, ...(clusterType && { clusterType }) }
+        queryParams: { ...clusterAnalysisQueryParams, clusterTypes: clusterType ? [clusterType] : undefined }
       })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

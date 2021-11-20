@@ -376,7 +376,7 @@ describe('Unit tests for Deployment metrics', () => {
         queryParams: {
           accountId: undefined,
           anomalousMetricsOnly: true,
-          healthSources: 'Without_Monitored_service/Test_Appd',
+          healthSources: ['Without_Monitored_service/Test_Appd'],
           hostName: undefined,
           pageNumber: 0,
           pageSize: 10

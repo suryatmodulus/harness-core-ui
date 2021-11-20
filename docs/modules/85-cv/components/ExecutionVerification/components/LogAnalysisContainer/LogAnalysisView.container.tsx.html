@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>51/68</span>
+                <span class='fraction'>39/52</span>
             </div>
         
             
@@ -243,7 +243,8 @@
 <a name='L184'></a><a href='#L184'>184</a>
 <a name='L185'></a><a href='#L185'>185</a>
 <a name='L186'></a><a href='#L186'>186</a>
-<a name='L187'></a><a href='#L187'>187</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -260,6 +261,8 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -280,12 +283,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -364,6 +363,9 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -446,6 +448,8 @@ import type { LogAnalysisContainerProps } from './LogAnalysis.types'
 import { getActivityId } from '../../ExecutionVerificationView.utils'
 import { getClusterTypes } from './LogAnalysis.utils'
 &nbsp;
+type ClusterTypes = GetDeploymentLogAnalysisResultQueryParams['clusterTypes']
+&nbsp;
 export default function LogAnalysisContainer({ step, hostName }: LogAnalysisContainerProps): React.ReactElement {
   const { accountId } = useParams&lt;AccountPathProps&gt;()
   const { showError } = useToaster()
@@ -461,10 +465,8 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
       pageNumber: initialPageNumber,
       pageSize,
       ...(hostName &amp;&amp; { hostName }),
-      ...(selectedClusterType<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue &amp;&amp; {
-        clusterType: selectedClusterType<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue as GetDeploymentLogAnalysisResultQueryParams['clusterType']
-      }),
-      ...(selectedHealthSource &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >{ healthSource: selectedHealthSource as any })</span>
+      clusterTypes: selectedClusterType.value ? ([selectedClusterType.value] as ClusterTypes) : undefined,
+      healthSources: selectedHealthSource ? <span class="branch-0 cbranch-no" title="branch not covered" >[selectedHealthSource] </span>: undefined
     }
   }, [accountId, hostName, selectedClusterType<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue, selectedHealthSource])
 &nbsp;
@@ -472,10 +474,8 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
     return {
       accountId,
       ...(hostName &amp;&amp; { hostName }),
-      ...(selectedClusterType<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue &amp;&amp; {
-        clusterType: selectedClusterType<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue as any
-      }),
-      ...(selectedHealthSource &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >{ healthSource: selectedHealthSource as any })</span>
+      clusterTypes: selectedClusterType.value ? ([selectedClusterType.value] as ClusterTypes) : undefined,
+      healthSources: selectedHealthSource ? <span class="branch-0 cbranch-no" title="branch not covered" >[selectedHealthSource] </span>: undefined
     }
   }, [accountId, hostName, selectedClusterType<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue, selectedHealthSource])
 &nbsp;
@@ -550,7 +550,10 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
   const fetchLogsDataForHealthSource = useCallback(
     currentHealthSource =&gt; {
       fetchLogAnalysis({
-        queryParams: { ...logsAnalysisQueryParams, ...(currentHealthSource &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >{ healthSource: currentHealthSource })</span> }
+        queryParams: {
+          ...logsAnalysisQueryParams,
+          healthSources: currentHealthSource ? <span class="branch-0 cbranch-no" title="branch not covered" >[currentHealthSource] </span>: undefined
+        }
       })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -560,7 +563,7 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
   const fetchLogsDataForCluster = useCallback(
     clusterType =&gt; {
       fetchLogAnalysis({
-        queryParams: { ...logsAnalysisQueryParams, ...(clusterType &amp;&amp; { clusterType }) }
+        queryParams: { ...logsAnalysisQueryParams, clusterTypes: clusterType ? [clusterType] : undefined }
       })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -572,7 +575,7 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
       fetchClusterAnalysis({
         queryParams: {
           ...clusterAnalysisQueryParams,
-          ...(currentHealthSource &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >{ healthSource: currentHealthSource })</span>
+          healthSources: currentHealthSource ? <span class="branch-0 cbranch-no" title="branch not covered" >[currentHealthSource] </span>: undefined
         }
       })
     },
@@ -583,7 +586,7 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
   const fetchLogsClusterDataForCluster = useCallback(
     clusterType =&gt; {
       fetchClusterAnalysis({
-        queryParams: { ...clusterAnalysisQueryParams, ...(clusterType &amp;&amp; { clusterType }) }
+        queryParams: { ...clusterAnalysisQueryParams, clusterTypes: clusterType ? [clusterType] : undefined }
       })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -622,7 +625,7 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 19 2021 17:38:59 GMT+0000 (Greenwich Mean Time)
+                at Sat Nov 20 2021 07:08:59 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

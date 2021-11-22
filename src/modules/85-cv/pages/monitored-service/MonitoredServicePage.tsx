@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { TabId } from '@blueprintjs/core'
-import { Container, Tab, Tabs, PageError, Page, FlexExpander } from '@wings-software/uicore'
+import { Container, Tabs, PageError, Page, FlexExpander } from '@wings-software/uicore'
 import { useQueryParams } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -37,9 +37,6 @@ const ServiceHealthAndConfiguration: React.FC = () => {
     error
   } = useGetMonitoredService({
     identifier,
-    pathParams: {
-      identifier
-    },
     queryParams: {
       accountId,
       orgIdentifier,
@@ -57,19 +54,46 @@ const ServiceHealthAndConfiguration: React.FC = () => {
     return <Page.NoDataCard message={getString('noData')} />
   }
 
-  const PageBodyWrapper: React.FC = ({ children }) => {
-    return (
-      <Page.Body
-        loading={loading}
-        noData={{
-          when: () => !monitoredService
-        }}
-        className={css.pageBody}
-      >
-        {children}
-      </Page.Body>
-    )
-  }
+  const panelServiceHealth = (
+    <Page.Body
+      loading={loading}
+      noData={{
+        when: () => !monitoredService
+      }}
+      className={css.pageBody}
+    >
+      <ServiceHealth
+        hasChangeSource={!!monitoredService?.sources?.changeSources?.length}
+        monitoredServiceIdentifier={monitoredService?.identifier}
+        serviceIdentifier={monitoredService?.serviceRef as string}
+        environmentIdentifier={monitoredService?.environmentRef as string}
+      />
+    </Page.Body>
+  )
+
+  const panelSLO = (
+    <Page.Body
+      loading={loading}
+      noData={{
+        when: () => !monitoredService
+      }}
+      className={css.pageBody}
+    >
+      <CVSLOsListingPage monitoredServiceIdentifier={identifier} />
+    </Page.Body>
+  )
+
+  const panelConfigurations = (
+    <Page.Body
+      loading={loading}
+      noData={{
+        when: () => !monitoredService
+      }}
+      className={css.pageBody}
+    >
+      <Configurations />
+    </Page.Body>
+  )
 
   return (
     <>
@@ -83,39 +107,28 @@ const ServiceHealthAndConfiguration: React.FC = () => {
         className={css.header}
       />
       <Container className={css.monitoredServiceTabs}>
-        <Tabs id="monitoredServiceTabs" selectedTabId={selectedTabId} onChange={tabId => setSelectedTabId(tabId)}>
-          <Tab
-            id={MonitoredServiceEnum.ServiceHealth}
-            title={getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth')}
-            panel={
-              <PageBodyWrapper>
-                <ServiceHealth
-                  hasChangeSource={!!monitoredService?.sources?.changeSources?.length}
-                  monitoredServiceIdentifier={monitoredService?.identifier}
-                  serviceIdentifier={monitoredService?.serviceRef as string}
-                  environmentIdentifier={monitoredService?.environmentRef as string}
-                />
-              </PageBodyWrapper>
+        <Tabs
+          id="monitoredServiceTabs"
+          selectedTabId={selectedTabId}
+          onChange={tabId => setSelectedTabId(tabId)}
+          tabList={[
+            {
+              id: MonitoredServiceEnum.ServiceHealth,
+              title: getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth'),
+              panel: panelServiceHealth
+            },
+            {
+              id: MonitoredServiceEnum.SLOs,
+              title: getString('cv.slos.title'),
+              panel: panelSLO
+            },
+            {
+              id: MonitoredServiceEnum.Configurations,
+              title: getString('cv.monitoredServices.monitoredServiceTabs.configurations'),
+              panel: panelConfigurations
             }
-          />
-          <Tab
-            id={MonitoredServiceEnum.SLOs}
-            title={getString('cv.slos.title')}
-            panel={
-              <PageBodyWrapper>
-                <CVSLOsListingPage monitoredServiceIdentifier={identifier} />
-              </PageBodyWrapper>
-            }
-          />
-          <Tab
-            id={MonitoredServiceEnum.Configurations}
-            title={getString('cv.monitoredServices.monitoredServiceTabs.configurations')}
-            panel={
-              <PageBodyWrapper>
-                <Configurations />
-              </PageBodyWrapper>
-            }
-          />
+          ]}
+        >
           <FlexExpander />
           {selectedTabId === MonitoredServiceEnum.ServiceHealth && (
             <HealthScoreCard

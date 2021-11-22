@@ -7,43 +7,9 @@ export interface FlagPatchParams {
   environmentIdentifier: string
 }
 
-const makeInstruction = (
-  kind: string,
-  featureFlag: Feature,
-  variation: string,
-  targetIdentifiers: string[],
-  gitDetails?: GitDetails
-) => {
-  const removeInstructions: Array<{ kind: string; parameters: { variation: string; targets: string[] } }> = []
-  const variationMap = featureFlag.envProperties?.variationMap
-
-  // If there's some rules in variationMap for a target that about to be mapped with the featureMap
-  // Remove those rules first before adding new rules
-  variationMap?.forEach(({ targets: _targets, variation: _variation }) => {
-    const removeTargetIdentifiers: string[] = []
-
-    _targets
-      ?.map(t => t.identifier as string)
-      .forEach(_identifier => {
-        if (targetIdentifiers.includes(_identifier)) {
-          removeTargetIdentifiers.push(_identifier)
-        }
-      })
-
-    if (removeTargetIdentifiers.length) {
-      removeInstructions.push({
-        kind: 'removeTargetsToVariationTargetMap',
-        parameters: {
-          variation: _variation,
-          targets: removeTargetIdentifiers
-        }
-      })
-    }
-  })
-
+const makeInstruction = (kind: string, variation: string, targetIdentifiers: string[], gitDetails?: GitDetails) => {
   const instructions = {
     instructions: [
-      ...removeInstructions,
       {
         kind,
         parameters: {
@@ -72,7 +38,7 @@ const makePatchHook =
     })
 
     return (featureFlag: Feature, variation: any, targetIdentifiers: string[], gitDetails?: GitDetails) => {
-      const body = makeInstruction(patchKind, featureFlag, variation, targetIdentifiers, gitDetails)
+      const body = makeInstruction(patchKind, variation, targetIdentifiers, gitDetails)
 
       return mutate(body, { pathParams: { identifier: featureFlag.identifier } })
     }

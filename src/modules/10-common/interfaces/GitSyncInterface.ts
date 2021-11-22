@@ -23,5 +23,6 @@ export const Entities: Entity = {
   PIPELINES_STEPS: 'PipelineSteps',
   PROJECTS: 'Projects',
   SECRETS: 'Secrets',
-  SERVICE: 'Service'
+  SERVICE: 'Service',
+  TEMPLATE: 'Template'
 }

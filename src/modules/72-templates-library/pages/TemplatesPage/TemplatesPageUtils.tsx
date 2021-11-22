@@ -1,6 +1,10 @@
-import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
+import type { IconName } from '@wings-software/uicore'
+import { parse } from 'yaml'
+import type { UseStringsReturn } from 'framework/strings'
 import { TemplateType } from '@templates-library/utils/templatesUtils'
 import type { TemplateSummaryResponse } from 'services/template-ng'
+import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
+import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 
 export const templateColorStyleMap: { [keyof in TemplateType]: React.CSSProperties } = {
   [TemplateType.Step]: {
@@ -97,10 +101,18 @@ export enum SortFields {
   Name = 'name'
 }
 
-export const getIconsForTemplates = (_data: TemplateSummaryResponse): IconProps[] => {
-  const icons: IconProps[] = []
-  icons.push({ name: 'cd-main', size: 20 })
-  icons.push({ name: 'ci-main', size: 16 })
-  icons.push({ name: 'cv-main', size: 16 })
-  return icons
+export const getIconForTemplate = (
+  template: TemplateSummaryResponse,
+  getString: UseStringsReturn['getString']
+): IconName => {
+  const entityType = template.templateEntityType as TemplateType
+  const type = parse(template.yaml || '')?.template?.spec?.type || 'Deployment'
+  switch (entityType) {
+    case TemplateType.Step:
+      return factory.getStepIcon(type)
+    case TemplateType.Stage:
+      return stagesCollection.getStageAttributes(type, getString)?.icon ?? 'disable'
+    default:
+      return 'disable'
+  }
 }

@@ -8,7 +8,6 @@ declare const styles: {
   readonly tag: string
   readonly version: string
   readonly empty: string
-  readonly userLabel: string
   readonly actionButton: string
   readonly infoContainer: string
   readonly label: string

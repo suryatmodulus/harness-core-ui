@@ -19,6 +19,9 @@
     :global(.bp3-popover-wrapper) {
       display: inline-flex;
     }
+    :global(.bp3-popover-target) {
+      display: inline-flex;
+    }
     :global(.Card--dots) {
       right: -15px !important;
       top: -12px !important;
@@ -32,18 +35,12 @@
     }
     .version:global(.bp3-tag) {
       background-color: var(--grey-50);
-      color: var(--grey-800);
+      color: var(--grey-800) !important;
       border-radius: var(--spacing-1);
       font-size: var(--font-size-xsmall);
       border: 1px solid var(--grey-200);
       &.empty {
         color: var(--grey-400);
-      }
-    }
-    .userLabel {
-      margin-bottom: var(--spacing-3) !important;
-      :global(.bp3-popover-target) span {
-        font-size: var(--font-size-xsmall);
       }
     }
     > div:not(:last-child, :first-child) {

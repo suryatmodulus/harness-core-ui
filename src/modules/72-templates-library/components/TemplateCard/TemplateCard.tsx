@@ -3,8 +3,8 @@ import { defaultTo, isEmpty, noop } from 'lodash-es'
 import { Card, Text, Color, Container, Tag, Layout, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Position } from '@blueprintjs/core'
-import { TimeAgoPopover, UserLabel } from '@common/components'
-import { getIconsForTemplates, templateColorStyleMap } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
+import { TimeAgoPopover } from '@common/components'
+import { getIconForTemplate, templateColorStyleMap } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { TemplateTags } from '@templates-library/components/TemplateTags/TemplateTags'
 import { useStrings } from 'framework/strings'
 import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
@@ -36,7 +36,6 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
   const templateEntityType =
     (template as TemplateSummaryResponse)?.templateEntityType || (template as NGTemplateInfoConfig)?.type
   const style = templateColorStyleMap[templateEntityType]
-  const templateIcons = getIconsForTemplates(template)
   const showMenu = !onPreview && !onOpenEdit && !onOpenSettings && !onDelete
 
   return (
@@ -57,13 +56,7 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
           <div />
         )}
         <Container>
-          {!isEmpty(templateIcons) && (
-            <Layout.Horizontal spacing={'xsmall'}>
-              {templateIcons.map(iconObj => (
-                <Icon key={iconObj.name} name={iconObj.name} size={22} />
-              ))}
-            </Layout.Horizontal>
-          )}
+          <Icon name={getIconForTemplate(template, getString)} size={18} />
         </Container>
         <Container>
           <Text
@@ -78,18 +71,8 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
             {getString('idLabel', { id: template.identifier })}
           </Text>
         </Container>
-        <Container>
-          <Tag className={cx(css.version, { [css.empty]: !template.versionLabel })}>
-            {template.versionLabel || 'Version1'}
-          </Tag>
-        </Container>
+        {!!template.tags && !isEmpty(template.tags) && <TemplateTags tags={template.tags} />}
         <Container height={1} background={Color.GREY_100} />
-        {!!template.tags && !isEmpty(template.tags) && (
-          <>
-            <TemplateTags tags={template.tags} />
-            <Container height={1} background={Color.GREY_100} />
-          </>
-        )}
         {isGitSyncEnabled && !!template.gitDetails?.repoIdentifier && !!template.gitDetails.branch && (
           <>
             <Container className={css.infoContainer}>
@@ -134,23 +117,26 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
             <Container height={1} background={Color.GREY_100} />
           </>
         )}
-
-        <Container className={css.userLabel}>
-          <Layout.Horizontal>
-            <UserLabel name={''} />
-            {(template as TemplateSummaryResponse).lastUpdatedAt && (
+        <Container>
+          <Tag className={cx(css.version, { [css.empty]: !template.versionLabel })}>
+            {template.versionLabel || 'Version1'}
+          </Tag>
+        </Container>
+        {(template as TemplateSummaryResponse).lastUpdatedAt && (
+          <Container>
+            <Layout.Horizontal spacing={'xsmall'} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+              <Text font={{ size: 'xsmall' }} color={Color.GREY_800}>
+                {getString('lastUpdated')}
+              </Text>
               <TimeAgoPopover
-                font="small"
-                color={Color.BLACK}
+                font="xsmall"
+                color={Color.GREY_800}
                 time={defaultTo((template as TemplateSummaryResponse).lastUpdatedAt, 0)}
               />
-            )}
-          </Layout.Horizontal>
-        </Container>
-        <Text color={Color.PRIMARY_7} font={{ size: 'xsmall', weight: 'semi-bold' }}>
-          5 referenced
-        </Text>
-        <Container flex={{ justifyContent: 'center' }} padding={{ top: 'large' }}>
+            </Layout.Horizontal>
+          </Container>
+        )}
+        <Container flex={{ justifyContent: 'center' }} padding={{ top: 'medium' }}>
           <TemplateColor
             fill={style.fill as string}
             stroke={style.stroke as string}

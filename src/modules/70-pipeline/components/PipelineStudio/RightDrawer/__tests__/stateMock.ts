@@ -1,3 +1,4 @@
+import { TemplateDrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import type { PipelineContextInterface } from '../../PipelineContext/PipelineContext'
 import type { PipelineSelectionState } from '../../PipelineQueryParamState/usePipelineQueryParam'
 
@@ -156,6 +157,18 @@ const stateMock = {
       }
     }
   },
+  templateView: {
+    isTemplateDrawerOpened: true,
+    templateDrawerData: {
+      type: TemplateDrawerTypes.UseTemplate,
+      data: {
+        selectorData: {
+          templateType: 'Step',
+          childTypes: ['Http']
+        }
+      }
+    }
+  },
   schemaErrors: false,
   gitDetails: {},
   isLoading: false,
@@ -212,7 +225,7 @@ const pipelineContextMock: PipelineContextInterface = {
   renderPipelineStage: jest.fn(),
   fetchPipeline: () => new Promise<void>(() => undefined),
   updatePipelineView: jest.fn(),
-  updateTemplateView: () => undefined,
+  updateTemplateView: jest.fn(),
   updateStage: jest.fn().mockResolvedValue({}),
   getStageFromPipeline: () => ({ stage: stateMock.pipeline.stages[0] as any, parent: undefined }),
   setYamlHandler: () => undefined,

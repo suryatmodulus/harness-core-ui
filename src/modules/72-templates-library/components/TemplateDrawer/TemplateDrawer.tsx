@@ -11,6 +11,7 @@ import css from './TemplateDrawer.module.scss'
 export const TemplateDrawer: React.FC = (): JSX.Element => {
   const {
     state: {
+      isLoading,
       templateView: {
         isTemplateDrawerOpened,
         templateDrawerData: { type, data },
@@ -19,6 +20,10 @@ export const TemplateDrawer: React.FC = (): JSX.Element => {
     },
     updateTemplateView
   } = usePipelineContext()
+
+  if (isLoading) {
+    return <></>
+  }
 
   return (
     <Drawer

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">13.64% </span>
+                <span class="strong">16% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/22</span>
+                <span class='fraction'>4/25</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>1/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.52% </span>
+                <span class="strong">12.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/21</span>
+                <span class='fraction'>3/24</span>
             </div>
         
             
@@ -125,23 +125,37 @@
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,6 +199,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -195,22 +211,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { Chart as _Chart } from 'highcharts'
 import type { NetworkgraphOptions } from '@cv/components/DependencyGraph/DependencyGraph.types'
+import type { ServicePoint } from './ServiceDependencyGraph.types'
 &nbsp;
 interface Chart extends _Chart {
   sticky?: any
 }
 &nbsp;
+const destroySticky = <span class="fstat-no" title="function not covered" >(c</span>hart: Chart): void =&gt; {
+<span class="cstat-no" title="statement not covered" >  chart.sticky?.destroy()</span>
+<span class="cstat-no" title="statement not covered" >  delete chart.sticky</span>
+}
+&nbsp;
 export const getDependencyGraphOptions = (
-  setPoint: React.Dispatch&lt;React.SetStateAction&lt;{ sticky: any; point: any } | undefined&gt;&gt;
+  setPoint: (point?: ServicePoint) =&gt; void,
+  height: number | string
 ): NetworkgraphOptions =&gt; {
   return {
     chart: {
-      height: '40%',
+      height,
       spacing: [0, 0, 0, 0],
       events: {
         click: <span class="fstat-no" title="function not covered" >function () {</span>
-          ;<span class="cstat-no" title="statement not covered" >(this.series[0].chart as Chart)?.sticky.destroy()</span>
-          ;(<span class="cstat-no" title="statement not covered" >this.series[0].chart as Chart).sticky = undefined</span>
+<span class="cstat-no" title="statement not covered" >          destroySticky(this.series[0].chart)</span>
         }
       }
     },
@@ -252,7 +274,9 @@ export const getDependencyGraphOptions = (
 &nbsp;
 <span class="cstat-no" title="statement not covered" >              setPoint({</span>
                 sticky: chart.sticky,
-                point: this
+                serviceRef: (this as any).serviceRef,
+                environmentRef: (this as any).environmentRef,
+                destroySticky: <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >destroySticky(chart)</span>
               })
             }
           }
@@ -268,7 +292,7 @@ export const getDependencyGraphOptions = (
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 22 2021 12:46:22 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 23 2021 03:55:27 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

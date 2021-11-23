@@ -183,10 +183,11 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main StyledProps--flex"
+      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
     >
       <div
-        class="StyledProps--font StyledProps--main changesTable"
+        class="StyledProps--font StyledProps--main"
+        style="width: 60%;"
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal StyledProps--padding-bottom-medium"
@@ -230,37 +231,44 @@ exports[`Unit tests for ServiceHealth Verify if all the fields are rendered corr
         </div>
       </div>
       <div
-        class="StyledProps--font StyledProps--main serviceDependency"
+        class="StyledProps--font StyledProps--main"
+        style="width: 40%;"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal StyledProps--padding-bottom-medium"
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-variation-h6 StyledProps--padding-bottom-medium"
+          level="2"
         >
           pipeline.serviceDependenciesText
-        </p>
+        </h2>
         <div
           class="StyledProps--font StyledProps--main container"
         >
           <div
-            class="StyledProps--font StyledProps--main containerContent"
+            class="StyledProps--font StyledProps--main content"
           >
             <div
-              class="StyledProps--font StyledProps--main NoDataCard--noDataCard StyledProps--flex StyledProps--flex-align-center-center"
+              class="Layout--vertical StyledProps--main"
+              style="height: 458px;"
             >
               <div
-                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
-                style="align-items: center; margin-top: -48px; width: 470px;"
+                class="StyledProps--font StyledProps--main NoDataCard--noDataCard noDataContainer StyledProps--flex StyledProps--flex-align-center-center"
               >
-                <img
-                  src="test-file-stub"
-                />
-                <p
-                  class="StyledProps--font StyledProps--main NoDataCard--message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
-                >
-                  cv.monitoredServices.noAvailableData
-                </p>
                 <div
-                  class="NoDataCard--buttonContainer"
-                />
+                  class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+                  style="align-items: center; margin-top: -48px; width: 470px;"
+                >
+                  <img
+                    src="test-file-stub"
+                  />
+                  <p
+                    class="StyledProps--font StyledProps--main NoDataCard--message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
+                  >
+                    cv.monitoredServices.noAvailableData
+                  </p>
+                  <div
+                    class="NoDataCard--buttonContainer"
+                  />
+                </div>
               </div>
             </div>
           </div>

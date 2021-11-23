@@ -4,8 +4,10 @@ import type { Edge, ServiceSummaryDetails } from 'services/cv'
 export type NetworkgraphOptions = Omit<Options, 'type'>
 export interface Node {
   icon?: string
-  name: string
-  id: string
+  name?: string
+  id?: string
+  serviceRef?: string
+  environmentRef?: string
   status: ServiceSummaryDetails['riskLevel']
 }
 
@@ -23,6 +25,7 @@ export interface DependencyGraphProps {
   dependencyData: DependencyData
   options?: NetworkgraphOptions
   highchartsCallback?: (chart: Chart) => void
+  containerClassName?: string
 }
 
 export interface IconDetails {

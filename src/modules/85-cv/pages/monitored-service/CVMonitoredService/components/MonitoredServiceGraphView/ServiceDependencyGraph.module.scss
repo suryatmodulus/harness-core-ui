@@ -1,0 +1,67 @@
+// SummaryCard
+.graphSummaryCard {
+  border-radius: var(--spacing-small);
+
+  .serviceName {
+    text-transform: uppercase;
+  }
+
+  .serviceChanges {
+    text-transform: uppercase;
+  }
+
+  .serviceHealth {
+    text-transform: uppercase;
+  }
+}
+
+.noDataContainer {
+  height: 100% !important;
+}
+
+// CardView
+
+.loader {
+  position: absolute;
+  top: 48%;
+  left: 48%;
+}
+
+.dependencyGraphContainer {
+  height: 100%;
+  position: relative;
+
+  .dependencyGraph {
+    & > div {
+      overflow: visible !important;
+
+      & > div {
+        overflow: visible !important;
+
+        & > svg {
+          overflow: visible !important;
+        }
+      }
+    }
+  }
+}
+
+// PageView
+
+.filterCard {
+  margin-right: var(--spacing-small);
+  margin-bottom: var(--spacing-small);
+  padding: var(--spacing-small) var(--spacing-large) !important;
+}
+
+$headerHeight: 146px;
+
+.pageBody {
+  --page-header-height: #{$headerHeight} !important;
+}
+
+.noServiceAvailableImage {
+  width: 720px;
+  height: 350px;
+  margin-right: 40px;
+}

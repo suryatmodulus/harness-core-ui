@@ -274,13 +274,17 @@ export const mockedDependenciesResults = {
       icon: 'dependency-default-icon',
       id: 'service110_Test_env_102',
       name: 'service110',
-      status: RiskValues.NO_ANALYSIS
+      status: RiskValues.NO_ANALYSIS,
+      serviceRef: 'service110',
+      environmentRef: 'Test_env_200'
     },
     {
       icon: 'dependency-default-icon',
       id: 'Test_Service_103_Test_env_200',
       name: 'Test_Service_200',
-      status: RiskValues.NO_ANALYSIS
+      status: RiskValues.NO_ANALYSIS,
+      serviceRef: 'Test_Service_200',
+      environmentRef: 'Test_env_200'
     }
   ]
 }

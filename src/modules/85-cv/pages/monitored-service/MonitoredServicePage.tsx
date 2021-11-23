@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
-import type { TabId } from '@blueprintjs/core'
-import { Container, Tabs, PageError, Page, FlexExpander } from '@wings-software/uicore'
+import React from 'react'
+import { useHistory, useParams } from 'react-router-dom'
+import { Container, Tabs, PageError, Page, FlexExpander, Views } from '@wings-software/uicore'
 import { useQueryParams } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetMonitoredService } from 'services/cv'
-import { getErrorMessage } from '@cv/utils/CommonUtils'
+import routes from '@common/RouteDefinitions'
+import { getCVMonitoringServicesSearchParam, getErrorMessage } from '@cv/utils/CommonUtils'
 import DetailsBreadcrumb from '@cv/pages/monitored-service/views/DetailsBreadcrumb'
 import DetailsHeaderTitle from '@cv/pages/monitored-service/views/DetailsHeaderTitle'
 import DetailsToolbar from '@cv/pages/monitored-service/views/DetailsToolbar'
@@ -18,17 +18,13 @@ import CVSLOsListingPage from '../slos/CVSLOsListingPage'
 import css from './MonitoredServicePage.module.scss'
 
 const ServiceHealthAndConfiguration: React.FC = () => {
+  const history = useHistory()
   const { getString } = useStrings()
-  const { tab } = useQueryParams<{ tab?: MonitoredServiceEnum.Configurations }>()
+  const { tab = MonitoredServiceEnum.ServiceHealth, view } =
+    useQueryParams<{ tab?: MonitoredServiceEnum; view?: Views.GRID }>()
   const { orgIdentifier, projectIdentifier, accountId, identifier } = useParams<
     ProjectPathProps & { identifier: string }
   >()
-
-  const [selectedTabId, setSelectedTabId] = useState<TabId>(
-    tab === MonitoredServiceEnum.Configurations
-      ? MonitoredServiceEnum.Configurations
-      : MonitoredServiceEnum.ServiceHealth
-  )
 
   const {
     data: monitoredServiceData,
@@ -52,6 +48,24 @@ const ServiceHealthAndConfiguration: React.FC = () => {
 
   if (!loading && !monitoredService) {
     return <Page.NoDataCard message={getString('noData')} />
+  }
+
+  const onTabChange = (nextTab: MonitoredServiceEnum): void => {
+    if (nextTab !== tab) {
+      history.push({
+        pathname: routes.toCVAddMonitoringServicesEdit({
+          accountId,
+          orgIdentifier,
+          projectIdentifier,
+          identifier,
+          module: 'cv'
+        }),
+        search: getCVMonitoringServicesSearchParam({
+          view,
+          tab: nextTab
+        })
+      })
+    }
   }
 
   const panelServiceHealth = (
@@ -109,8 +123,8 @@ const ServiceHealthAndConfiguration: React.FC = () => {
       <Container className={css.monitoredServiceTabs}>
         <Tabs
           id="monitoredServiceTabs"
-          selectedTabId={selectedTabId}
-          onChange={tabId => setSelectedTabId(tabId)}
+          selectedTabId={tab}
+          onChange={onTabChange}
           tabList={[
             {
               id: MonitoredServiceEnum.ServiceHealth,
@@ -130,7 +144,7 @@ const ServiceHealthAndConfiguration: React.FC = () => {
           ]}
         >
           <FlexExpander />
-          {selectedTabId === MonitoredServiceEnum.ServiceHealth && (
+          {tab === MonitoredServiceEnum.ServiceHealth && (
             <HealthScoreCard
               serviceIdentifier={monitoredService?.serviceRef}
               environmentIdentifier={monitoredService?.environmentRef}

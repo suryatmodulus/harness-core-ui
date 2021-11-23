@@ -62,6 +62,8 @@ jest.mock('services/cv', () => ({
       loading: false
     }
   }),
+  useSetHealthMonitoringFlag: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useDeleteMonitoredService: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
   useGetAnomaliesSummary: jest.fn().mockImplementation(() => {
     return {
       data: {},

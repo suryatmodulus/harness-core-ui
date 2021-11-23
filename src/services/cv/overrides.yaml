@@ -85,6 +85,7 @@ allowpaths:
   - /monitored-service/{identifier}/overall-health-score
   - /monitored-service/overall-health-score
   - /monitored-service/list
+  - /monitored-service/service-details
   - /monitored-service/count-of-services
   - /log-dashboard/logs-data
   - /timeseries-dashboard/metrics

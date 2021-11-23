@@ -40,7 +40,7 @@ describe('Unit tests for DependencyGraph', () => {
 
   test.each(nodes)('Ensure %o node has been rendered', async ({ name }) => {
     render(<DependencyGraph dependencyData={{ data: graphData, nodes }} />)
-    await waitFor(() => expect(screen.findAllByText(name)).not.toBeNull())
+    await waitFor(() => expect(screen.findAllByText(name!)).not.toBeNull())
   })
 
   test('Ensure the correct number of LOW nodes have been rendered', () => {

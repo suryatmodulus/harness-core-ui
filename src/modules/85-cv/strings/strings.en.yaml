@@ -602,6 +602,7 @@ monitoredServices:
     noData: No data available for service dependencies
   assignLabel: Select the services you want to apply the metric
   continuousVerification: Continuous Verification
+dependenciesHealthWithCount: Dependencies Health ({{ count }})
 changeSource:
   alertText: Alert
   incident: Incident

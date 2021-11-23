@@ -3,7 +3,7 @@ import { Color, Utils, Views, SelectOption, MultiSelectOption } from '@wings-sof
 import type { UseStringsReturn } from 'framework/strings'
 import type { ResponseListEnvironmentResponse, EnvironmentResponse } from 'services/cd-ng'
 import type { StringsMap } from 'stringTypes'
-import { MonitoredServiceEnum } from '@cv/pages/monitored-service/MonitoredServicePage.constants'
+import type { MonitoredServiceEnum } from '@cv/pages/monitored-service/MonitoredServicePage.constants'
 
 export enum RiskValues {
   NO_DATA = 'NO_DATA',
@@ -106,7 +106,7 @@ export const getEnvironmentOptions = (
 
 interface GetCVMonitoringServicesSearchParamProps {
   view?: Views
-  tab?: MonitoredServiceEnum.Configurations
+  tab?: MonitoredServiceEnum
 }
 
 export const getCVMonitoringServicesSearchParam = ({ view, tab }: GetCVMonitoringServicesSearchParamProps): string => {
@@ -115,7 +115,7 @@ export const getCVMonitoringServicesSearchParam = ({ view, tab }: GetCVMonitorin
   if (view === Views.GRID) {
     searchParam = searchParam.concat(`view=${view}&`)
   }
-  if (tab === MonitoredServiceEnum.Configurations) {
+  if (tab) {
     searchParam = searchParam.concat(`tab=${tab}`)
   }
 

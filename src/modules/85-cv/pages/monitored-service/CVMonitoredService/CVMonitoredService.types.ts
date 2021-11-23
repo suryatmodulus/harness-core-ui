@@ -1,11 +1,5 @@
 import type { Color, FontVariation } from '@wings-software/uicore'
-import type {
-  CountServiceDTO,
-  MonitoredServiceListItemDTO,
-  PageMonitoredServiceListItemDTO,
-  RiskData
-} from 'services/cv'
-import type { DependencyData } from '@cv/components/DependencyGraph/DependencyGraph.types'
+import type { CountServiceDTO, PageMonitoredServiceListItemDTO, RiskData } from 'services/cv'
 
 export interface ContextMenuActionsProps {
   onEdit?(): void
@@ -25,31 +19,31 @@ export enum FilterTypes {
   INSIGHT = 'INSIGHT'
 }
 
-interface MonitoredServiceViewsProps {
+// MonitoredServiceListView
+
+export interface MonitoredServiceListProps {
+  page: number
+  setPage: (n: number) => void
+  createButton: JSX.Element
+  environmentIdentifier?: string
+  selectedFilter: FilterTypes
+  onFilter: (type: FilterTypes) => void
   serviceCountData: CountServiceDTO | null
-  monitoredServiceListData?: PageMonitoredServiceListItemDTO
+  serviceCountLoading?: boolean
+  serviceCountErrorMessage?: string
+  refetchServiceCountData: () => void
+}
+
+export interface MonitoredServiceListViewProps {
+  setPage: (n: number) => void
   selectedFilter: FilterTypes
   onFilter: (type: FilterTypes) => void
   onEditService: (identifier: string) => void
-  onDeleteService: (identifier: string) => Promise<void>
   onToggleService: (identifier: string, checked: boolean) => Promise<void>
-  healthMonitoringFlagLoading?: boolean
-}
-
-export interface MonitoredServiceListViewProps extends MonitoredServiceViewsProps {
-  setPage: React.Dispatch<React.SetStateAction<number>>
-}
-
-export interface MonitoredServiceGraphViewProps extends MonitoredServiceViewsProps {
-  monitoredServiceDependencyData: DependencyData | null
-}
-
-export interface GraphSummaryCardProps {
-  monitoredService: MonitoredServiceListItemDTO
-  onEditService: (identifier: string) => void
   onDeleteService: (identifier: string) => Promise<void>
-  onToggleService: MonitoredServiceViewsProps['onToggleService']
+  serviceCountData: CountServiceDTO | null
   healthMonitoringFlagLoading?: boolean
+  monitoredServiceListData?: PageMonitoredServiceListItemDTO
 }
 
 export interface RiskTagWithLabelProps {

@@ -10,8 +10,6 @@ declare const styles: {
   readonly pageContainer: string
   readonly pageBody: string
   readonly noDataContainer: string
-  readonly dependencyGraph: string
-  readonly graphSummaryCard: string
   readonly infrastructureIconPadding: string
   readonly noServiceAvailableImage: string
 }

@@ -1,97 +1,165 @@
-import React, { useState, useCallback } from 'react'
-import { createPortal } from 'react-dom'
-import { Layout, Container, NoDataCard } from '@wings-software/uicore'
+import React, { useState, useMemo, useEffect } from 'react'
+import { useParams, useHistory } from 'react-router-dom'
+import { useToaster, Views } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import noServiceAvailableImage from '@cv/assets/noServiceAvailable.png'
-import FilterCard from '@cv/components/FilterCard/FilterCard'
-import ServiceDependenciesLegend from '@cv/components/ServiceDependenciesLegend/ServiceDependenciesLegend'
-import { DependencyGraph } from '@cv/components/DependencyGraph/DependencyGraph'
-import GraphSummaryCard from '../GraphSummaryCard/GraphSummaryCard'
-import type { MonitoredServiceGraphViewProps } from '../../CVMonitoredService.types'
-import { getMonitoredServiceFilterOptions } from '../../CVMonitoredService.utils'
-import { getDependencyGraphOptions } from './MonitoredServiceGraphView.utils'
-import css from '../../CVMonitoredService.module.scss'
+import { useGetServiceDependencyGraph, useSetHealthMonitoringFlag, useDeleteMonitoredService } from 'services/cv'
+import { useQueryParams } from '@common/hooks'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import routes from '@common/RouteDefinitions'
+import { getDependencyData } from '@cv/components/DependencyGraph/DependencyGraph.utils'
+import { getCVMonitoringServicesSearchParam, getErrorMessage } from '@cv/utils/CommonUtils'
+import { FilterTypes } from '@cv/pages/monitored-service/CVMonitoredService/CVMonitoredService.types'
+import PageView from './views/PageView'
+import CardView from './views/CardView'
+import type { ServiceDependencyGraphProps, ServicePoint } from './ServiceDependencyGraph.types'
 
-const MonitoredServiceGraphView: React.FC<MonitoredServiceGraphViewProps> = ({
-  serviceCountData,
-  monitoredServiceListData,
-  monitoredServiceDependencyData,
+const ServiceDependencyGraph: React.FC<ServiceDependencyGraphProps> = ({
+  isPageView,
+  serviceIdentifier,
+  environmentIdentifier,
   selectedFilter,
   onFilter,
-  onEditService,
-  onDeleteService,
-  onToggleService,
-  healthMonitoringFlagLoading
+  createButton,
+  serviceCountData,
+  serviceCountLoading,
+  serviceCountErrorMessage,
+  refetchServiceCountData
 }) => {
+  const history = useHistory()
   const { getString } = useStrings()
-  const [point, setPoint] = useState<{ sticky: any; point: any }>()
+  const { showSuccess, showError } = useToaster()
+  const { view } = useQueryParams<{ view?: Views.GRID }>()
+  const { accountId, orgIdentifier, projectIdentifier, identifier } = useParams<
+    ProjectPathProps & { identifier: string }
+  >()
+  const pathParams = { accountId, orgIdentifier, projectIdentifier }
 
-  const renderDependencyData = useCallback(() => {
-    if (monitoredServiceDependencyData) {
-      return (
-        <DependencyGraph
-          dependencyData={monitoredServiceDependencyData}
-          options={getDependencyGraphOptions(setPoint)}
-        />
-      )
+  const [point, setPoint] = useState<ServicePoint>()
+
+  useEffect(() => {
+    point?.destroySticky()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projectIdentifier])
+
+  const {
+    data: serviceDependencyGraphData,
+    loading: serviceDependencyGraphLoading,
+    refetch: refetchServiceDependencyGraphData,
+    error: serviceDependencyGraphError
+  } = useGetServiceDependencyGraph({
+    queryParams: {
+      ...pathParams,
+      serviceIdentifier,
+      environmentIdentifier,
+      servicesAtRiskFilter: selectedFilter === FilterTypes.RISK
     }
+  })
 
-    return <></>
-  }, [monitoredServiceDependencyData])
+  const { mutate: setHealthMonitoringFlag, loading: healthMonitoringFlagLoading } = useSetHealthMonitoringFlag({
+    identifier: ''
+  })
 
-  const renderSummaryCard = (): JSX.Element => {
-    const monitoredService = monitoredServiceListData?.content?.find(
-      mService => mService.identifier === point?.point.id
-    )
+  const onToggleService = async (id: string, checked: boolean): Promise<void> => {
+    point?.destroySticky()
 
-    if (monitoredService && point?.sticky.element) {
-      return createPortal(
-        <foreignObject className="node" width="360px" height="435px">
-          <GraphSummaryCard
-            monitoredService={monitoredService}
-            onEditService={onEditService}
-            onDeleteService={onDeleteService}
-            onToggleService={onToggleService}
-            healthMonitoringFlagLoading={healthMonitoringFlagLoading}
-          />
-        </foreignObject>,
-        point.sticky.element
+    try {
+      const response = await setHealthMonitoringFlag(undefined, {
+        pathParams: {
+          identifier: id
+        },
+        queryParams: {
+          enable: checked,
+          ...pathParams
+        }
+      })
+
+      await Promise.all([refetchServiceDependencyGraphData(), refetchServiceCountData?.()])
+
+      const enabled = response.resource?.healthMonitoringEnabled
+
+      showSuccess(
+        getString('cv.monitoredServices.monitoredServiceToggle', { enabled: enabled ? 'enabled' : 'disabled' })
       )
+    } catch (e) {
+      showError(getErrorMessage(e))
     }
-
-    return <></>
   }
 
-  const filterOptions = getMonitoredServiceFilterOptions(getString, serviceCountData)
+  const { mutate: deleteMonitoredService, loading: deleteMonitoredServiceLoading } = useDeleteMonitoredService({
+    queryParams: pathParams
+  })
+
+  const onDeleteService = async (id: string): Promise<void> => {
+    point?.destroySticky()
+
+    try {
+      await deleteMonitoredService(id)
+
+      await Promise.all([refetchServiceDependencyGraphData(), refetchServiceCountData?.()])
+
+      if (id === identifier) {
+        history.push({
+          pathname: routes.toCVMonitoringServices({
+            accountId,
+            orgIdentifier,
+            projectIdentifier,
+            module: 'cv'
+          }),
+          search: getCVMonitoringServicesSearchParam({ view })
+        })
+      }
+
+      showSuccess(getString('cv.monitoredServices.monitoredServiceDeleted'))
+    } catch (e) {
+      showError(getErrorMessage(e))
+    }
+  }
+
+  const monitoredServiceDependencyData = useMemo(
+    () => getDependencyData(serviceDependencyGraphData),
+    [serviceDependencyGraphData]
+  )
+
+  const loading = serviceDependencyGraphLoading || healthMonitoringFlagLoading || deleteMonitoredServiceLoading
+
+  if (isPageView) {
+    return (
+      <PageView
+        point={point}
+        setPoint={setPoint}
+        loading={loading || serviceCountLoading}
+        errorMessage={serviceCountErrorMessage || getErrorMessage(serviceDependencyGraphError)}
+        retryOnError={() => {
+          if (serviceCountErrorMessage) {
+            refetchServiceCountData?.()
+          }
+          if (serviceDependencyGraphError) {
+            refetchServiceDependencyGraphData()
+          }
+        }}
+        monitoredServiceDependencyData={monitoredServiceDependencyData}
+        onToggleService={onToggleService}
+        onDeleteService={onDeleteService}
+        selectedFilter={selectedFilter}
+        onFilter={onFilter}
+        serviceCountData={serviceCountData}
+        createButton={createButton}
+      />
+    )
+  }
 
   return (
-    <Layout.Vertical
-      height="100%"
-      className={css.dependencyGraph}
-      padding={{ top: 'medium', left: 'xlarge', right: 'xlarge', bottom: 'xlarge' }}
-    >
-      <FilterCard
-        data={filterOptions}
-        cardClassName={css.filterCard}
-        selected={filterOptions.find(card => card.type === selectedFilter)}
-        onChange={item => onFilter(item.type)}
-      />
-      {monitoredServiceDependencyData?.nodes?.length ? (
-        <Container style={{ flexGrow: 1 }}>
-          {renderDependencyData()}
-          {renderSummaryCard()}
-        </Container>
-      ) : (
-        <NoDataCard
-          image={noServiceAvailableImage}
-          message={getString('cv.monitoredServices.youHaveNoMonitoredServices')}
-          imageClassName={css.noServiceAvailableImage}
-          containerClassName={css.noDataContainer}
-        />
-      )}
-      <ServiceDependenciesLegend margin={{ top: 'medium' }} />
-    </Layout.Vertical>
+    <CardView
+      point={point}
+      setPoint={setPoint}
+      loading={loading}
+      errorMessage={getErrorMessage(serviceDependencyGraphError)}
+      retryOnError={refetchServiceDependencyGraphData}
+      monitoredServiceDependencyData={monitoredServiceDependencyData}
+      onToggleService={onToggleService}
+      onDeleteService={onDeleteService}
+    />
   )
 }
 
-export default MonitoredServiceGraphView
+export default ServiceDependencyGraph

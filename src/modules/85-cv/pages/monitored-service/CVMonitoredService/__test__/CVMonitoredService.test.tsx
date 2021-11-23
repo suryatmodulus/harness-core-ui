@@ -129,7 +129,7 @@ describe('Monitored Service list', () => {
     userEvent.click(container.querySelector('.context-menu-mock-delete')!)
 
     expect(container.querySelectorAll('.TableV2--body [role="row"]')).toHaveLength(2)
-    await waitFor(() => expect(refetchServiceCountData).toBeCalledTimes(1))
+    await waitFor(() => expect(refetchServiceCountData).toBeCalledTimes(2))
   })
 
   test('Test Dependency Graph renders', async () => {
@@ -180,7 +180,7 @@ describe('Monitored Service list', () => {
         projectIdentifier: '1234_project'
       }
     })
-    waitFor(() => expect(refetchServiceCountData).toBeCalledTimes(1))
+    waitFor(() => expect(refetchServiceCountData).toBeCalledTimes(2))
   })
 
   test('Loading state', async () => {
@@ -213,7 +213,7 @@ describe('Monitored Service list', () => {
     userEvent.click(container.querySelectorAll('[data-name="on-btn"]')[0])
 
     expect(mutate).toHaveBeenCalled()
-    expect(refetchServiceCountData).toBeCalledTimes(0)
+    expect(refetchServiceCountData).toBeCalledTimes(1)
     waitFor(() => expect(screen.queryByText('Something went wrong')).toBeInTheDocument())
   })
 
@@ -232,7 +232,7 @@ describe('Monitored Service list', () => {
 
     userEvent.click(container.querySelector('[data-icon="offline-outline"]')!)
 
-    expect(refetchServiceCountData).toBeCalledTimes(1)
+    expect(refetchServiceCountData).toBeCalledTimes(2)
     expect(screen.queryByText(`cv.monitoredServices.showingServiceAtRisk`)).toBeInTheDocument()
     expect(container.querySelectorAll('.TableV2--body [role="row"]')).toHaveLength(
       updatedServiceCountData.servicesAtRiskCount!
@@ -250,7 +250,7 @@ describe('Monitored Service list', () => {
 
     userEvent.click(container.querySelector('[data-icon="offline-outline"]')!)
 
-    expect(refetchServiceCountData).toBeCalledTimes(1)
+    expect(refetchServiceCountData).toBeCalledTimes(2)
     expect(screen.queryByText(`cv.monitoredServices.showingServiceAtRisk`)).not.toBeInTheDocument()
     expect(screen.queryByText('cv.monitoredServices.youHaveNoMonitoredServices')).toBeInTheDocument()
   })

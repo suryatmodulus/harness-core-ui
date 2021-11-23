@@ -4139,6 +4139,7 @@ export interface StringsMap {
   'cv.dashboard.createProject': string
   'cv.dashboard.notStarted': string
   'cv.dashboard.subHeading': string
+  'cv.dependenciesHealthWithCount': string
   'cv.evaluationPeriod': string
   'cv.failures': string
   'cv.filter': string

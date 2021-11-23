@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Container, Select, SelectOption } from '@wings-software/uicore'
+import { Container, FontVariation, Heading, Layout, Select, SelectOption } from '@wings-software/uicore'
 import Card from '@cv/components/Card/Card'
 import { useStrings } from 'framework/strings'
 import ChangeTimeline from '@cv/components/ChangeTimeline/ChangeTimeline'
 import TimelineSlider from '@cv/components/ChangeTimeline/components/TimelineSlider/TimelineSlider'
 import type { RiskData } from 'services/cv'
 import type { ChangesInfoCardData } from '@cv/components/ChangeTimeline/ChangeTimeline.types'
+import ServiceDependencyGraph from '@cv/pages/monitored-service/CVMonitoredService/components/MonitoredServiceGraphView/MonitoredServiceGraphView'
 import {
   calculateLowestHealthScoreBar,
   calculateStartAndEndTimes,
@@ -21,7 +22,7 @@ import HealthScoreChart from './components/HealthScoreChart/HealthScoreChart'
 import MetricsAndLogs from './components/MetricsAndLogs/MetricsAndLogs'
 import AnomaliesCard from './components/AnomaliesCard/AnomaliesCard'
 import ChangesSourceCard from './components/ChangesSourceCard/ChangesSourceCard'
-import ChangesAndServiceDependency from './components/ChangesAndServiceDependency/ChangesAndServiceDependency'
+import ChangesTable from './components/ChangesAndServiceDependency/components/ChangesTable/ChangesTable'
 import css from './ServiceHealth.module.scss'
 
 export default function ServiceHealth({
@@ -186,15 +187,36 @@ export default function ServiceHealth({
             </Container>
           </>
         </Card>
-        <ChangesAndServiceDependency
-          hasChangeSource={hasChangeSource}
-          serviceIdentifier={serviceIdentifier}
-          environmentIdentifier={environmentIdentifier}
-          startTime={
-            showTimelineSlider ? (timeRange?.startTime as number) : changesTableAndSourceCardStartAndEndtime[0]
-          }
-          endTime={showTimelineSlider ? (timeRange?.endTime as number) : changesTableAndSourceCardStartAndEndtime[1]}
-        />
+
+        <Layout.Horizontal spacing="medium">
+          <Container width="60%">
+            <ChangesTable
+              startTime={
+                showTimelineSlider ? (timeRange?.startTime as number) : changesTableAndSourceCardStartAndEndtime[0]
+              }
+              endTime={
+                showTimelineSlider ? (timeRange?.endTime as number) : changesTableAndSourceCardStartAndEndtime[1]
+              }
+              hasChangeSource={hasChangeSource}
+              serviceIdentifier={serviceIdentifier}
+              environmentIdentifier={environmentIdentifier}
+            />
+          </Container>
+          <Container width="40%">
+            <Heading level={2} font={{ variation: FontVariation.H6 }} padding={{ bottom: 'medium' }}>
+              {getString('pipeline.serviceDependenciesText')}
+            </Heading>
+            <Card>
+              <Layout.Vertical height={458}>
+                <ServiceDependencyGraph
+                  serviceIdentifier={serviceIdentifier}
+                  environmentIdentifier={environmentIdentifier}
+                />
+              </Layout.Vertical>
+            </Card>
+          </Container>
+        </Layout.Horizontal>
+
         <MetricsAndLogs
           serviceIdentifier={serviceIdentifier}
           environmentIdentifier={environmentIdentifier}

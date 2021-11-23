@@ -1,21 +1,27 @@
 import type { Chart as _Chart } from 'highcharts'
 import type { NetworkgraphOptions } from '@cv/components/DependencyGraph/DependencyGraph.types'
+import type { ServicePoint } from './ServiceDependencyGraph.types'
 
 interface Chart extends _Chart {
   sticky?: any
 }
 
+const destroySticky = (chart: Chart): void => {
+  chart.sticky?.destroy()
+  delete chart.sticky
+}
+
 export const getDependencyGraphOptions = (
-  setPoint: React.Dispatch<React.SetStateAction<{ sticky: any; point: any } | undefined>>
+  setPoint: (point?: ServicePoint) => void,
+  height: number | string
 ): NetworkgraphOptions => {
   return {
     chart: {
-      height: '40%',
+      height,
       spacing: [0, 0, 0, 0],
       events: {
         click: function () {
-          ;(this.series[0].chart as Chart)?.sticky.destroy()
-          ;(this.series[0].chart as Chart).sticky = undefined
+          destroySticky(this.series[0].chart)
         }
       }
     },
@@ -57,7 +63,9 @@ export const getDependencyGraphOptions = (
 
               setPoint({
                 sticky: chart.sticky,
-                point: this
+                serviceRef: (this as any).serviceRef,
+                environmentRef: (this as any).environmentRef,
+                destroySticky: () => destroySticky(chart)
               })
             }
           }

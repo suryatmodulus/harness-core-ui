@@ -49,7 +49,7 @@ export const TemplateBar: React.FC<TemplateBarProps> = (props): JSX.Element => {
         <Icon size={11} color={Color.WHITE} name={'template-library'} />
         <Text style={{ flexGrow: 1 }} font={{ size: 'small' }} color={Color.WHITE}>
           {`Using Template: ${(step as TemplateStepData)?.template?.templateRef} (${
-            (step as TemplateStepData)?.template?.versionLabel
+            (step as TemplateStepData)?.template?.versionLabel || 'Stable'
           })`}
         </Text>
         <Popover

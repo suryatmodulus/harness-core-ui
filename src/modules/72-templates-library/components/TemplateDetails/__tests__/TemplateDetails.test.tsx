@@ -31,7 +31,7 @@ describe('<TemplateDetails /> tests', () => {
   test('snapshot test', async () => {
     const { container } = render(
       <TestWrapper>
-        <TemplateDetails accountId={'accountId'} templateIdentifier={'templateIdentifier'} />
+        <TemplateDetails accountId={'accountId'} templateIdentifier={'templateIdentifier'} versionLabel={'v4'} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

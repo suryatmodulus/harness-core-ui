@@ -6,5 +6,6 @@ declare const styles: {
   readonly openInStudio: string
   readonly topContainer: string
   readonly tabsContainer: string
+  readonly dropdown: string
 }
 export default styles

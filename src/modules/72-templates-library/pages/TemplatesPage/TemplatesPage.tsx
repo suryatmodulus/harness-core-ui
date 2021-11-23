@@ -272,18 +272,20 @@ export default function TemplatesPage(): React.ReactElement {
           </Layout.Vertical>
         )}
       </Page.Body>
-      <TemplateDetailsDrawer
-        templateIdentifier={selectedTemplate?.identifier}
-        versionLabel={selectedTemplate?.versionLabel}
-        gitDetails={selectedTemplate?.gitDetails}
-        onClose={() => {
-          setSelectedTemplate(undefined)
-        }}
-        accountId={accountId}
-        orgIdentifier={orgIdentifier}
-        projectIdentifier={projectIdentifier}
-        module={module}
-      />
+      {selectedTemplate && (
+        <TemplateDetailsDrawer
+          templateIdentifier={selectedTemplate.identifier || ''}
+          versionLabel={selectedTemplate.versionLabel || ''}
+          gitDetails={selectedTemplate?.gitDetails}
+          onClose={() => {
+            setSelectedTemplate(undefined)
+          }}
+          accountId={accountId}
+          orgIdentifier={orgIdentifier}
+          projectIdentifier={projectIdentifier}
+          module={module}
+        />
+      )}
     </>
   )
 }

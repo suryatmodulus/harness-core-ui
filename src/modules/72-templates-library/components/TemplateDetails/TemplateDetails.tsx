@@ -26,6 +26,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
+import { DefaultNewVersionLabel } from 'framework/Templates/templates'
 import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
 import { TemplateInputs } from '../TemplateInputs/TemplateInputs'
 import { TemplateYaml } from '../TemplateYaml/TemplateYaml'
@@ -34,8 +35,10 @@ import css from './TemplateDetails.module.scss'
 
 export interface TemplateDetailsProps {
   templateIdentifier: string
-  versionLabel?: string
+  versionLabel: string
+  allowStableSelection?: boolean
   setTemplate?: (template: TemplateSummaryResponse) => void
+  setVersion?: (versionLabel: string) => void
   accountId: string
   orgIdentifier?: string
   projectIdentifier?: string
@@ -57,8 +60,10 @@ export enum ParentTemplateTabs {
 export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
   const {
     templateIdentifier,
-    versionLabel = false,
+    versionLabel = '',
+    allowStableSelection = false,
     setTemplate,
+    setVersion,
     accountId,
     orgIdentifier,
     projectIdentifier,
@@ -71,6 +76,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
   const { isReadonly } = useContext(TemplateContext)
   const { isGitSyncEnabled } = useAppStore()
   const [selectedTemplate, setSelectedTemplate] = React.useState<TemplateSummaryResponse>()
+  const [selectedVersion, setSelectedVersion] = React.useState<string>(versionLabel)
   const [selectedParentTab, setSelectedParentTab] = React.useState<ParentTemplateTabs>(ParentTemplateTabs.BASIC)
   const [selectedTab, setSelectedTab] = React.useState<TemplateTabs>(TemplateTabs.YAML)
 
@@ -98,9 +104,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
 
   const onChange = React.useCallback(
     (option: SelectOption): void => {
-      const version = option.value?.toString() || ''
-      const newSelectedVersion = templateData?.data?.content?.find(item => item.versionLabel === version)
-      setSelectedTemplate(newSelectedVersion)
+      setSelectedVersion(defaultTo(option.value?.toString(), ''))
     },
     [templateData?.data?.content]
   )
@@ -112,25 +116,34 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
   }, [selectedTemplate])
 
   React.useEffect(() => {
-    if (!isEmpty(templateData?.data?.content)) {
-      setSelectedTemplate(
-        templateData?.data?.content?.find(item => item.versionLabel === versionLabel) ||
-          templateData?.data?.content?.[0]
-      )
-      const newVersionOptions = templateData?.data?.content?.map(item => {
-        return {
-          label: item.stableTemplate
-            ? getString('templatesLibrary.stableVersion', { entity: item.versionLabel })
-            : item.versionLabel,
-          value: item.versionLabel
-        } as SelectOption
-      }) || [{ label: '', value: '' } as SelectOption]
-      newVersionOptions.sort((a, b) => a.label.localeCompare(b.label))
-      setVersionOptions(newVersionOptions)
+    if (selectedVersion) {
+      if (selectedVersion === DefaultNewVersionLabel) {
+        setSelectedTemplate(templateData?.data?.content?.find(item => item.stableTemplate))
+      } else {
+        setSelectedTemplate(templateData?.data?.content?.find(item => item.versionLabel === selectedVersion))
+      }
+      setVersion?.(selectedVersion)
     }
+  }, [templateData?.data?.content, selectedVersion])
+
+  React.useEffect(() => {
+    const newVersionOptions = templateData?.data?.content?.map(item => {
+      return {
+        label: item.stableTemplate
+          ? getString('templatesLibrary.stableVersion', { entity: item.versionLabel })
+          : item.versionLabel,
+        value: item.versionLabel
+      } as SelectOption
+    }) || [{ label: '', value: '' } as SelectOption]
+    newVersionOptions.sort((a, b) => a.label.localeCompare(b.label))
+    if (allowStableSelection) {
+      newVersionOptions.unshift({ label: 'Always use the stable version', value: DefaultNewVersionLabel })
+    }
+    setVersionOptions(newVersionOptions)
   }, [templateData?.data?.content])
 
   React.useEffect(() => {
+    setSelectedVersion(versionLabel)
     reloadTemplates()
   }, [templateIdentifier])
 
@@ -224,7 +237,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
                                 <Text font={{ weight: 'semi-bold' }} color={Color.BLACK}>
                                   {getString('description')}
                                 </Text>
-                                <Text color={Color.GREY_900}>{selectedTemplate.description || '-'}</Text>
+                                <Text color={Color.GREY_900}>{defaultTo(selectedTemplate.description, '-')}</Text>
                               </Layout.Vertical>
                             </Container>
                             <Container>
@@ -246,16 +259,15 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
                                 <Text font={{ weight: 'semi-bold' }} color={Color.BLACK}>
                                   {getString('templatesLibrary.createNewModal.versionLabel')}
                                 </Text>
-                                {selectedTemplate.versionLabel && (
-                                  <DropDown
-                                    filterable={false}
-                                    items={versionOptions}
-                                    value={selectedTemplate.versionLabel}
-                                    onChange={onChange}
-                                    disabled={isReadonly}
-                                    width={300}
-                                  />
-                                )}
+                                <DropDown
+                                  filterable={false}
+                                  items={versionOptions}
+                                  value={selectedVersion}
+                                  onChange={onChange}
+                                  disabled={isReadonly}
+                                  width={300}
+                                  popoverClassName={css.dropdown}
+                                />
                               </Layout.Vertical>
                             </Container>
                           </Layout.Vertical>

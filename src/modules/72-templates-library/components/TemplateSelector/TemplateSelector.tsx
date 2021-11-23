@@ -12,13 +12,16 @@ import {
   SelectOption,
   Text,
   Views,
-  PageError
+  PageError,
+  useToaster
 } from '@wings-software/uicore'
-import { defaultTo } from 'lodash-es'
+import { defaultTo, get, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
+import produce from 'immer'
+import { parse } from 'yaml'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import type { GitQueryParams, ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { TemplateSummaryResponse, useGetTemplateList } from 'services/template-ng'
+import { getTemplateInputSetYamlPromise, TemplateSummaryResponse, useGetTemplateList } from 'services/template-ng'
 import type { TemplateType } from '@templates-library/utils/templatesUtils'
 import { useStrings } from 'framework/strings'
 import templateIllustration from '@templates-library/pages/TemplatesPage/images/templates-illustration.svg'
@@ -31,19 +34,28 @@ import routes from '@common/RouteDefinitions'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import NoResultsView from '@templates-library/pages/TemplatesPage/views/NoResultsView/NoResultsView'
+import type { TemplateConfig } from '@pipeline/utils/tempates'
+import { DefaultNewVersionLabel } from 'framework/Templates/templates'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { TemplateDetails } from '../TemplateDetails/TemplateDetails'
 import css from './TemplateSelector.module.scss'
 
 export interface TemplateSelectorProps {
   templateType: TemplateType
   childTypes: string[]
-  onUseTemplate?: (template: TemplateSummaryResponse) => void
+  onUseTemplate?: (templateConfig: TemplateConfig) => void
   onCopyToPipeline?: (template: TemplateSummaryResponse) => void
 }
 
 export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.Element => {
+  const {
+    state: { templateTypes },
+    setTemplateTypes
+  } = usePipelineContext()
   const { templateType, childTypes, onUseTemplate, onCopyToPipeline } = props
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateSummaryResponse | undefined>()
+  const [selectedVersion, setSelectedVersion] = useState<string>('')
   const { getString } = useStrings()
   const [page, setPage] = useState(0)
   const [view, setView] = useState<Views>(Views.GRID)
@@ -51,6 +63,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { isGitSyncEnabled } = useAppStore()
+  const { showError } = useToaster()
   const scopeOptions: SelectOption[] = [
     {
       value: Scope.PROJECT,
@@ -67,12 +80,16 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
   ]
   const [selectedScope, setSelectedScope] = useState<SelectOption>(scopeOptions[0])
   const searchRef = React.useRef<ExpandingSearchInputHandle>({} as ExpandingSearchInputHandle)
-  const orgId = React.useMemo(() => {
-    return selectedScope.value === Scope.PROJECT || selectedScope.value === Scope.ORG ? orgIdentifier : undefined
+  const { orgId, projectId } = React.useMemo(() => {
+    switch (selectedScope.value) {
+      case Scope.PROJECT:
+        return { orgId: orgIdentifier, projectId: projectIdentifier }
+      case Scope.ORG:
+        return { orgId: orgIdentifier }
+      default:
+        return {}
+    }
   }, [selectedScope, orgIdentifier])
-  const projectId = React.useMemo(() => {
-    return selectedScope.value === Scope.PROJECT ? projectIdentifier : undefined
-  }, [selectedScope, projectIdentifier])
   const queryParams = React.useMemo(() => {
     return {
       accountIdentifier: accountId,
@@ -110,24 +127,59 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
     queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
 
+  const getScopeBasedTemplateRef = React.useCallback((template?: TemplateSummaryResponse) => {
+    const templateIdentifier = defaultTo(template?.identifier, '')
+    const scope = getScopeFromDTO(defaultTo(template, {}))
+    return scope === Scope.PROJECT ? templateIdentifier : `${scope}.${templateIdentifier}`
+  }, [])
+
   const getTemplateDetails: React.ReactElement = React.useMemo(() => {
-    if (selectedTemplate) {
-      return (
-        <TemplateDetails
-          setTemplate={setSelectedTemplate}
-          templateIdentifier={selectedTemplate.identifier || ''}
-          versionLabel={selectedTemplate.versionLabel}
-          accountId={accountId}
-          orgIdentifier={orgId}
-          projectIdentifier={projectId}
-          module={module}
-          gitDetails={selectedTemplate.gitDetails}
-        />
-      )
-    } else {
-      return <></>
-    }
+    return (
+      <TemplateDetails
+        setTemplate={setSelectedTemplate}
+        setVersion={setSelectedVersion}
+        templateIdentifier={defaultTo(selectedTemplate?.identifier, '')}
+        versionLabel={defaultTo(selectedTemplate?.versionLabel, '')}
+        allowStableSelection={true}
+        accountId={accountId}
+        orgIdentifier={orgId}
+        projectIdentifier={projectId}
+        module={module}
+        gitDetails={selectedTemplate?.gitDetails}
+      />
+    )
   }, [selectedTemplate, accountId, orgId, projectId, module])
+
+  const onUseTemplateClick = React.useCallback(async () => {
+    const templateIdentifier = defaultTo(selectedTemplate?.identifier, '')
+    try {
+      const resp = await getTemplateInputSetYamlPromise({
+        templateIdentifier,
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier,
+          versionLabel: selectedVersion === DefaultNewVersionLabel ? '' : selectedVersion
+        }
+      })
+      if (resp && resp.status === 'SUCCESS') {
+        set(templateTypes, templateIdentifier, parse(defaultTo(selectedTemplate?.yaml, '')).template.spec.type)
+        setTemplateTypes(templateTypes)
+        const templateConfig = produce({} as TemplateConfig, draft => {
+          draft.templateRef = getScopeBasedTemplateRef(selectedTemplate)
+          if (selectedVersion !== DefaultNewVersionLabel) {
+            draft.versionLabel = selectedVersion
+          }
+          draft.templateInputs = parse(defaultTo(resp.data, ''))
+        })
+        onUseTemplate?.(templateConfig)
+      } else {
+        throw resp
+      }
+    } catch (err) {
+      showError(get(err, 'data.error', get(err, 'data.message', err?.message)))
+    }
+  }, [selectedTemplate, selectedVersion, accountId, orgIdentifier, projectIdentifier, onUseTemplate])
 
   useEffect(() => {
     setSelectedTemplate(undefined)
@@ -239,9 +291,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = (props): JSX.El
                   <Button
                     variation={ButtonVariation.PRIMARY}
                     text={getString('templatesLibrary.useTemplate')}
-                    onClick={() => {
-                      onUseTemplate?.(selectedTemplate)
-                    }}
+                    onClick={onUseTemplateClick}
                   />
                   <Button
                     variation={ButtonVariation.LINK}

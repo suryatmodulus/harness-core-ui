@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.78% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/9</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>5/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.78% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/9</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -110,12 +110,12 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,14 +124,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,23 +171,23 @@ import { NewTemplatePopover } from '@templates-library/pages/TemplatesPage/views
 import css from './NoResultsView.module.scss'
 &nbsp;
 export interface NoResultsViewProps {
-  hasSearchParam: boolean
-  onReset: () =&gt; void
+  hasSearchParam?: boolean
+  onReset?: () =&gt; void
   text: string
   minimal?: boolean
 }
 &nbsp;
-export default function <span class="fstat-no" title="function not covered" >NoResultsView(</span>{
-  hasSearchParam,
+export default function NoResultsView({
+  hasSearchParam = false,
   onReset,
   text,
   minimal = <span class="branch-0 cbranch-no" title="branch not covered" >false</span>
 }: NoResultsViewProps): React.ReactElement {
-  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  const { getString } = useStrings()
+  return (
     &lt;Container height={'100%'} className={css.main}&gt;
       {hasSearchParam ? (
-        &lt;Layout.Vertical height={'100%'} spacing={'xlarge'} flex={{ align: 'center-center' }}&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;Layout.Vertical height={'100%'} spacing={'xlarge'} flex={{ align: 'center-center' }}&gt;</span>
           &lt;Icon color={Color.GREY_400} name="template-library" size={50} /&gt;
           &lt;Text font={{ weight: 'bold', size: 'medium' }} color={Color.GREY_400}&gt;
             {getString('common.filters.noMatchingFilterData')}
@@ -201,16 +201,16 @@ export default function <span class="fstat-no" title="function not covered" >NoR
         &lt;/Layout.Vertical&gt;
       ) : (
         &lt;Layout.Vertical
-          spacing={minimal ? 'large' : 'xxxlarge'}
+          spacing={minimal ? 'large' : <span class="branch-1 cbranch-no" title="branch not covered" >'xxxlarge'}</span>
           height={'100%'}
           flex={{ align: 'center-center' }}
-          className={minimal ? css.minimal : ''}
+          className={minimal ? css.minimal : <span class="branch-1 cbranch-no" title="branch not covered" >''}</span>
         &gt;
           &lt;img src={templateIllustration} className={css.illustration} /&gt;
           &lt;Text className={css.infoText} color={Color.GREY_700}&gt;
             {text}
           &lt;/Text&gt;
-          {!minimal &amp;&amp; &lt;NewTemplatePopover /&gt;}
+          {!minimal &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;NewTemplatePopover /&gt;}</span>
         &lt;/Layout.Vertical&gt;
       )}
     &lt;/Container&gt;
@@ -223,7 +223,7 @@ export default function <span class="fstat-no" title="function not covered" >NoR
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 23 2021 05:32:11 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 23 2021 07:05:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

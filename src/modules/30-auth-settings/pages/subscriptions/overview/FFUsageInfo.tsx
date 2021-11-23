@@ -1,13 +1,7 @@
 import React from 'react'
-import moment from 'moment'
 import { Layout, PageError } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
-import type { GetDataError } from 'restful-react'
 import { useStrings } from 'framework/strings'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetLicensesAndSummary } from 'services/cd-ng'
-import { useGetLicenseUsage } from 'services/cf'
-import type { CFLicenseSummaryDTO, Failure } from 'services/cd-ng'
+import { useGetUsageAndLimit } from '@auth-settings/hooks/useGetUsageAndLimit'
 import { ModuleName } from 'framework/types/ModuleName'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import UsageInfoCard from './UsageInfoCard'
@@ -26,12 +20,12 @@ interface FeatureFlagsUsersCardProps {
   activeUsers: number
   rightHeader: string
   errors: {
-    usageError: GetDataError<void> | null
-    summaryError: GetDataError<Failure | Error> | null
+    usageErrorMsg?: string
+    limitErrorMsg?: string
   }
   refetches: {
-    refetchUsage: () => void
-    refetchSummary: () => void
+    refetchUsage?: () => void
+    refetchLimit?: () => void
   }
 }
 const FeatureFlagsUsersCard: React.FC<FeatureFlagsUsersCardProps> = ({
@@ -59,14 +53,14 @@ const FeatureFlagsUsersCard: React.FC<FeatureFlagsUsersCardProps> = ({
     rightFooter
   }
 
-  const { usageError, summaryError } = errors
-  const { refetchUsage, refetchSummary } = refetches
-  if (usageError) {
-    return <PageError message={usageError?.message} onClick={refetchUsage} />
+  const { usageErrorMsg, limitErrorMsg } = errors
+  const { refetchUsage, refetchLimit } = refetches
+  if (usageErrorMsg) {
+    return <PageError message={usageErrorMsg} onClick={refetchUsage} />
   }
 
-  if (summaryError) {
-    return <PageError message={summaryError.message} onClick={refetchSummary} />
+  if (limitErrorMsg) {
+    return <PageError message={limitErrorMsg} onClick={refetchLimit} />
   }
 
   return <UsageInfoCard {...props} />
@@ -74,8 +68,8 @@ const FeatureFlagsUsersCard: React.FC<FeatureFlagsUsersCardProps> = ({
 
 interface FeatureFlagsProps {
   featureFlags: number
-  refetch: () => void
-  error: GetDataError<Failure | Error> | null
+  refetch?: () => void
+  error?: string
 }
 
 const FeatureFlags: React.FC<FeatureFlagsProps> = ({ featureFlags, error, refetch }) => {
@@ -88,63 +82,37 @@ const FeatureFlags: React.FC<FeatureFlagsProps> = ({ featureFlags, error, refetc
   const props = { usage: featureFlags, leftHeader, tooltip, rightHeader, hasBar }
 
   if (error) {
-    return <PageError message={error.message} onClick={refetch} />
+    return <PageError message={error} onClick={refetch} />
   }
 
   return <UsageInfoCard {...props} />
 }
 
-const timestamp = moment.now()
-
 const FFUsageInfo: React.FC = () => {
-  const { accountId } = useParams<AccountPathProps>()
-  const {
-    data: usageData,
-    loading: loadingUsageData,
-    error: usageError,
-    refetch: refetchUsage
-  } = useGetLicenseUsage({
-    queryParams: {
-      accountIdentifier: accountId,
-      timestamp
-    }
-  })
+  const { limitData, usageData } = useGetUsageAndLimit(ModuleName.CF)
 
-  const {
-    data: summaryData,
-    loading: loadingSummaryData,
-    error: summaryError,
-    refetch: refetchSummary
-  } = useGetLicensesAndSummary({
-    queryParams: { moduleType: ModuleName.CF },
-    accountIdentifier: accountId
-  })
-
-  const isLoading = loadingUsageData || loadingSummaryData
+  const isLoading = limitData.loadingLimit || usageData.loadingUsage
 
   if (isLoading) {
     return <ContainerSpinner />
   }
 
-  const summary = summaryData?.data as CFLicenseSummaryDTO
+  const { usageErrorMsg, refetchUsage, usage } = usageData
+  const { limitErrorMsg, refetchLimit, limit } = limitData
 
   return (
     <Layout.Horizontal spacing="large">
       <FeatureFlagsUsersCard
-        errors={{ usageError, summaryError }}
+        errors={{ usageErrorMsg, limitErrorMsg }}
         refetches={{
-          refetchUsage: () => {
-            refetchUsage()
-          },
-          refetchSummary: () => {
-            refetchSummary()
-          }
+          refetchUsage,
+          refetchLimit
         }}
-        subscribedUsers={summary.totalClientMAUs || 0}
-        activeUsers={usageData?.activeClientMAUs?.count || 0}
-        rightHeader={usageData?.activeClientMAUs?.displayName || ''}
+        subscribedUsers={limit?.ff?.totalClientMAUs || 0}
+        activeUsers={usage?.ff?.activeClientMAUs?.count || 0}
+        rightHeader={usage?.ff?.activeClientMAUs?.displayName || ''}
       />
-      <FeatureFlags featureFlags={summary.totalFeatureFlagUnits || 0} error={summaryError} refetch={refetchSummary} />
+      <FeatureFlags featureFlags={limit?.ff?.totalFeatureFlagUnits || 0} error={limitErrorMsg} refetch={refetchLimit} />
     </Layout.Horizontal>
   )
 }

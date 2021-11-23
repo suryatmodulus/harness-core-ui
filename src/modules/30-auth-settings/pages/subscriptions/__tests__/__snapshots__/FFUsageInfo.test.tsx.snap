@@ -68,13 +68,13 @@ exports[`FFUsageInfo FFUsageInfo 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
           >
-            
+            Last 30 Days
           </p>
         </div>
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
         >
-          0
+          20
         </p>
         <div
           class="StyledProps--font StyledProps--main bar StyledProps--background-grey100 StyledProps--border StyledProps--margin-bottom-small"
@@ -82,7 +82,7 @@ exports[`FFUsageInfo FFUsageInfo 1`] = `
         >
           <div
             class="StyledProps--font StyledProps--main StyledProps--background-primary6 StyledProps--border"
-            style="width: 0%; height: 100%;"
+            style="width: 20%; height: 100%;"
           />
         </div>
         <div
@@ -98,7 +98,7 @@ exports[`FFUsageInfo FFUsageInfo 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color"
           >
-            0
+            20
             % 
             common.subscribed
           </p>
@@ -174,7 +174,7 @@ exports[`FFUsageInfo FFUsageInfo 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
         >
-          200
+          50
         </p>
         <div
           class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"

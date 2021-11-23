@@ -1,14 +1,9 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
-import moment from 'moment'
 import { Layout, PageError } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetLicensesAndSummary } from 'services/cd-ng'
-import { useGetUsage } from 'services/ci'
+import { useGetUsageAndLimit } from '@auth-settings/hooks/useGetUsageAndLimit'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { ModuleName } from 'framework/types/ModuleName'
-import type { CILicenseSummaryDTO } from 'services/cd-ng'
 import UsageInfoCard from './UsageInfoCard'
 
 interface ActiveUsersProps {
@@ -35,53 +30,33 @@ const ActiveUsers: React.FC<ActiveUsersProps> = ({ subscribedUsers, activeUsers,
   }
   return <UsageInfoCard {...props} />
 }
-const timestamp = moment.now()
 
 const CIUsageInfo: React.FC = () => {
-  const { accountId } = useParams<AccountPathProps>()
-  const {
-    data: usageData,
-    loading: loadingUsageData,
-    error: usageError,
-    refetch: refetchUsage
-  } = useGetUsage({
-    queryParams: {
-      accountIdentifier: accountId,
-      timestamp
-    }
-  })
+  const { limitData, usageData } = useGetUsageAndLimit(ModuleName.CI)
 
-  const {
-    data: summaryData,
-    loading: loadingSummaryData,
-    error: summaryError,
-    refetch: refetchSummary
-  } = useGetLicensesAndSummary({
-    queryParams: { moduleType: ModuleName.CI },
-    accountIdentifier: accountId
-  })
-
-  const isLoading = loadingUsageData || loadingSummaryData
+  const isLoading = limitData.loadingLimit || usageData.loadingUsage
 
   if (isLoading) {
     return <ContainerSpinner />
   }
 
-  if (usageError) {
-    return <PageError message={usageError?.message} onClick={() => refetchUsage()} />
+  const { usageErrorMsg, refetchUsage, usage } = usageData
+  const { limitErrorMsg, refetchLimit, limit } = limitData
+
+  if (usageErrorMsg) {
+    return <PageError message={usageErrorMsg} onClick={() => refetchUsage?.()} />
   }
 
-  if (summaryError) {
-    return <PageError message={(summaryError.data as Error)?.message} onClick={() => refetchSummary()} />
+  if (limitErrorMsg) {
+    return <PageError message={limitErrorMsg} onClick={() => refetchLimit?.()} />
   }
-  const summary = summaryData?.data as CILicenseSummaryDTO
 
   return (
     <Layout.Horizontal spacing="large">
       <ActiveUsers
-        rightHeader={usageData?.data?.activeCommitters?.displayName || ''}
-        subscribedUsers={summary.totalDevelopers || 0}
-        activeUsers={usageData?.data?.activeCommitters?.count || 0}
+        rightHeader={usage?.ci?.activeCommitters?.displayName || ''}
+        subscribedUsers={limit?.ci?.totalDevelopers || 0}
+        activeUsers={usage?.ci?.activeCommitters?.count || 0}
       />
     </Layout.Horizontal>
   )

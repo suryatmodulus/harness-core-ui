@@ -1,38 +1,35 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetLicensesAndSummary } from 'services/cd-ng'
-import { useGetUsage } from 'services/ci'
 
 import CIUsageInfo from '../overview/CIUsageInfo'
 
-jest.mock('services/cd-ng')
-const useGetLicensesAndSummaryMock = useGetLicensesAndSummary as jest.MockedFunction<any>
-useGetLicensesAndSummaryMock.mockImplementation(() => {
+jest.mock('@auth-settings/hooks/useGetUsageAndLimit', () => {
   return {
-    data: {
-      data: {
-        totalDevelopers: 100
-      },
-      status: 'SUCCESS'
+    useGetUsageAndLimit: () => {
+      return useGetUsageAndLimitReturnMock
     }
   }
 })
-jest.mock('services/ci')
-const useGetLicenseUsageMock = useGetUsage as jest.MockedFunction<any>
-useGetLicenseUsageMock.mockImplementation(() => {
-  return {
-    data: {
-      data: {
+const useGetUsageAndLimitReturnMock = {
+  limitData: {
+    limit: {
+      ci: {
+        totalDevelopers: 100
+      }
+    }
+  },
+  usageData: {
+    usage: {
+      ci: {
         activeCommitters: {
-          count: 23,
+          count: 20,
           displayName: 'Last 30 Days'
         }
-      },
-      status: 'SUCCESS'
+      }
     }
   }
-})
+}
 
 describe('CIUsageInfo', () => {
   test('CIUsageInfo', () => {

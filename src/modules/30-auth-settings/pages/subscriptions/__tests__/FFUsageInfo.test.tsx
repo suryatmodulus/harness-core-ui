@@ -1,39 +1,36 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetLicensesAndSummary } from 'services/cd-ng'
-import { useGetLicenseUsage } from 'services/cf'
 
 import FFUsageInfo from '../overview/FFUsageInfo'
 
-jest.mock('services/cd-ng')
-const useGetLicensesAndSummaryMock = useGetLicensesAndSummary as jest.MockedFunction<any>
-useGetLicensesAndSummaryMock.mockImplementation(() => {
+jest.mock('@auth-settings/hooks/useGetUsageAndLimit', () => {
   return {
-    data: {
-      data: {
-        totalClientMAUs: 100,
-        totalFeatureFlagUnits: 200
-      },
-      status: 'SUCCESS'
+    useGetUsageAndLimit: () => {
+      return useGetUsageAndLimitReturnMock
     }
   }
 })
-jest.mock('services/cf')
-const useGetLicenseUsageMock = useGetLicenseUsage as jest.MockedFunction<any>
-useGetLicenseUsageMock.mockImplementation(() => {
-  return {
-    data: {
-      data: {
+const useGetUsageAndLimitReturnMock = {
+  limitData: {
+    limit: {
+      ff: {
+        totalClientMAUs: 100,
+        totalFeatureFlagUnits: 50
+      }
+    }
+  },
+  usageData: {
+    usage: {
+      ff: {
         activeClientMAUs: {
-          count: 23,
+          count: 20,
           displayName: 'Last 30 Days'
         }
-      },
-      status: 'SUCCESS'
+      }
     }
   }
-})
+}
 
 describe('FFUsageInfo', () => {
   test('FFUsageInfo', () => {

@@ -74,7 +74,7 @@ exports[`CIUsageInfo CIUsageInfo 1`] = `
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
         >
-          23
+          20
         </p>
         <div
           class="StyledProps--font StyledProps--main bar StyledProps--background-grey100 StyledProps--border StyledProps--margin-bottom-small"
@@ -82,7 +82,7 @@ exports[`CIUsageInfo CIUsageInfo 1`] = `
         >
           <div
             class="StyledProps--font StyledProps--main StyledProps--background-primary6 StyledProps--border"
-            style="width: 23%; height: 100%;"
+            style="width: 20%; height: 100%;"
           />
         </div>
         <div

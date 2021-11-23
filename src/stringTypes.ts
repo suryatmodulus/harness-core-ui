@@ -807,47 +807,6 @@ export interface StringsMap {
   'rbac.usersPage.validation.role': string
   'rbac.youAreMissingTheFollowingPermission': string
   'rbac.youAreNotAuthorizedTo': string
-  'governance.clearOutput': string
-  'governance.deleteConfirmation': string
-  'governance.deleteDone': string
-  'governance.deletePolicySetConfirmation': string
-  'governance.deletePolicySetDone': string
-  'governance.deletePolicySetTitle': string
-  'governance.deleteTitle': string
-  'governance.editPolicy': string
-  'governance.emptyPolicySet': string
-  'governance.evaluatedOn': string
-  'governance.evaluatedTime': string
-  'governance.evaluationEmpty': string
-  'governance.evaluations': string
-  'governance.event': string
-  'governance.failureHeading': string
-  'governance.failureHeadingEvaluationDetail': string
-  'governance.failureModalTitle': string
-  'governance.formatInput': string
-  'governance.inputFailedEvaluation': string
-  'governance.inputSuccededEvaluation': string
-  'governance.noEvaluationForPipeline': string
-  'governance.noPolicySetForPipeline': string
-  'governance.onRun': string
-  'governance.onSave': string
-  'governance.policyIdentifier': string
-  'governance.policyName': string
-  'governance.policySetGroup': string
-  'governance.policySetGroupAccount': string
-  'governance.policySetGroupOrg': string
-  'governance.policySetGroupProject': string
-  'governance.policySetName': string
-  'governance.policySets': string
-  'governance.policySetsApplied': string
-  'governance.selectInput': string
-  'governance.selectSamplePolicy': string
-  'governance.successHeading': string
-  'governance.warn': string
-  'governance.warning': string
-  'governance.warningHeading': string
-  'governance.wizard.fieldArray': string
-  'governance.wizard.policyToEval': string
   'authSettings.SAMLProvider': string
   'authSettings.WhitelistedDomainsUpdated': string
   'authSettings.accountOrOAuthLogin': string

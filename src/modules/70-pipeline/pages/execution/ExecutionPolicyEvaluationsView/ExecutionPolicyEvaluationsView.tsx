@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Container } from '@wings-software/uicore'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
-import { EvaluationView } from '@governance/views/EvaluationView/EvaluationView'
+import { EvaluationView } from '@governance/EvaluationView'
 
 export default function ExecutionPolicyEvaluationsView(): React.ReactElement | null {
   const { accountId, module } = useParams<PipelineType<ExecutionPathProps>>()

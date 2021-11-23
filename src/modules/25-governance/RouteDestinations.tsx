@@ -1,19 +1,14 @@
 import React, { useEffect } from 'react'
 import { Route, useHistory, useParams } from 'react-router-dom'
+import { Container } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
 import { RouteWithLayout } from '@common/router'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import AccountSideNav from '@common/components/AccountSideNav/AccountSideNav'
 import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
-import Policies from './pages/Policies/Policies'
-import PolicyControlPage from './pages/PolicyControl/PolicyControlPage'
-import PolicySets from './pages/PolicySets/PolicySets'
-import PolicyEvaluations from './pages/PolicyEvaluations/PolicyEvaluations'
-import { EditPolicy } from './pages/EditPolicy/EditPolicy'
-import { PolicySetDetail } from './pages/PolicySetDetail/PolicySetDetail'
-import { EvaluationDetail } from './pages/EvaluationDetail/EvaluationDetail'
-import PolicyDashboard from './pages/PolicyDashboard/PolicyDashboard'
+import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
+import { GovernanceRemoteComponentMounter } from './GovernanceApp'
 
 export const AccountSideNavProps: SidebarContext = {
   navComponent: AccountSideNav,
@@ -46,68 +41,22 @@ export const GovernanceRouteDestinations: React.FC<{
       <Route path={routes.toGovernance(pathProps)} exact>
         <RedirectToDefaultGovernanceRoute />
       </Route>
-
-      <RouteWithLayout path={routes.toGovernancePolicyDashboard(pathProps)} exact sidebarProps={sidebarProps}>
-        <PolicyControlPage titleKey="overview">
-          <PolicyDashboard />
-        </PolicyControlPage>
-      </RouteWithLayout>
-
-      <RouteWithLayout path={routes.toGovernancePolicyListing(pathProps)} exact sidebarProps={sidebarProps}>
-        <PolicyControlPage titleKey="common.policies">
-          <Policies />
-        </PolicyControlPage>
-      </RouteWithLayout>
-
-      <RouteWithLayout path={routes.toGovernanceNewPolicy(pathProps)} exact sidebarProps={sidebarProps}>
-        <PolicyControlPage titleKey="common.policy.newPolicy">
-          <EditPolicy />
-        </PolicyControlPage>
-      </RouteWithLayout>
-
-      <RouteWithLayout
-        path={routes.toGovernanceEditPolicy({ ...pathProps, policyIdentifier: ':policyIdentifier' })}
-        exact
-        sidebarProps={sidebarProps}
-      >
-        <PolicyControlPage titleKey="governance.editPolicy">
-          <EditPolicy />
-        </PolicyControlPage>
-      </RouteWithLayout>
-
-      <RouteWithLayout path={routes.toGovernancePolicySetsListing(pathProps)} exact sidebarProps={sidebarProps}>
-        <PolicyControlPage titleKey="common.policy.policysets">
-          <PolicySets />
-        </PolicyControlPage>
-      </RouteWithLayout>
-
-      <RouteWithLayout
-        path={routes.toGovernancePolicySetDetail({
-          ...pathProps,
-          policySetIdentifier: ':policySetIdentifier'
-        })}
-        exact
-        sidebarProps={sidebarProps}
-      >
-        <PolicyControlPage titleKey="common.policy.policysets">
-          <PolicySetDetail />
-        </PolicyControlPage>
-      </RouteWithLayout>
-
-      <RouteWithLayout path={routes.toGovernanceEvaluationsListing(pathProps)} exact sidebarProps={sidebarProps}>
-        <PolicyControlPage titleKey="governance.evaluations">
-          <PolicyEvaluations />
-        </PolicyControlPage>
-      </RouteWithLayout>
-
-      <RouteWithLayout
-        path={routes.toGovernanceEvaluationDetail({ ...pathProps, evaluationId: ':evaluationId' })}
-        exact
-        sidebarProps={sidebarProps}
-      >
-        <PolicyControlPage titleKey="governance.evaluations">
-          <EvaluationDetail />
-        </PolicyControlPage>
+      <RouteWithLayout path={routes.toGovernance(pathProps)} sidebarProps={sidebarProps}>
+        <GovernanceRemoteComponentMounter
+          spinner={
+            <Container
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: '290px',
+                width: 'calc(100% - 290px)',
+                height: `100%`
+              }}
+            >
+              <ContainerSpinner />
+            </Container>
+          }
+        />
       </RouteWithLayout>
     </Route>
   )

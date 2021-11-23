@@ -8,6 +8,7 @@ const ExactSharedPackages = [
   'formik',
   'react-dom',
   'react',
+  'react-router-dom',
   '@wings-software/uicore',
   '@blueprintjs/core',
   '@blueprintjs/select',
@@ -15,7 +16,7 @@ const ExactSharedPackages = [
   'restful-react'
 ]
 
-module.exports = ({ enableGitOpsUI, enableGovernance }) => {
+module.exports = ({ enableGitOpsUI }) => {
   const remotes = {}
 
   if (enableGitOpsUI) {
@@ -23,9 +24,7 @@ module.exports = ({ enableGitOpsUI, enableGovernance }) => {
     remotes.gitopsui = "gitopsui@[window.getApiBaseUrl('gitops/remoteEntry.js')]"
   }
 
-  if (enableGovernance) {
-    remotes.governance = "opa@[window.getApiBaseUrl('pm/remoteEntry.js')]"
-  }
+  remotes.governance = "governance@[window.getApiBaseUrl('pm/remoteEntry.js')]"
 
   return {
     name: 'nextgenui',
@@ -34,9 +33,6 @@ module.exports = ({ enableGitOpsUI, enableGovernance }) => {
       {},
       mapValues(pick(packageJSON.dependencies, ExactSharedPackages), version => ({
         singleton: true,
-        requiredVersion: version
-      })),
-      mapValues(omit(packageJSON.dependencies, ExactSharedPackages), version => ({
         requiredVersion: version
       }))
     )

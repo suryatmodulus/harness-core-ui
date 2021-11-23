@@ -17,7 +17,7 @@ import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteI
 
 import { logsCache } from '@pipeline/components/LogsContent/LogsState/utils'
 import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/PipelineFeatureRestrictionFactory/PipelineFeatureRestrictionFactory'
-import { EvaluationModal } from '@governance/modal/EvaluationModal/EvaluationModal'
+import { EvaluationModal } from '@governance/EvaluationModal'
 import ExecutionContext, { GraphCanvasState } from '@pipeline/context/ExecutionContext'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import useTabVisible from '@common/hooks/useTabVisible'

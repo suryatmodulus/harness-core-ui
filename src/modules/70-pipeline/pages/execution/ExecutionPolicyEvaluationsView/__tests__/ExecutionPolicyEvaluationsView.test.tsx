@@ -9,7 +9,7 @@ describe('<ExecutionPolicyEvaluationsView /> tests', () => {
     mockImport('@pipeline/context/ExecutionContext', {
       useExecutionContext: jest.fn()
     })
-    mockImport('@governance/views/EvaluationView/EvaluationView', {
+    mockImport('@governance/EvaluationView', {
       EvaluationView: () => <div /> // eslint-disable-line react/display-name
     })
 
@@ -33,7 +33,7 @@ describe('<ExecutionPolicyEvaluationsView /> tests', () => {
         }
       }
     })
-    mockImport('@governance/views/EvaluationView/EvaluationView', {
+    mockImport('@governance/EvaluationView', {
       EvaluationView: () => <div /> // eslint-disable-line react/display-name
     })
 

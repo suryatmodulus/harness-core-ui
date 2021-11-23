@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   Color,
-  Heading,
   Container,
   MultiTypeInputType,
   Text,
@@ -24,6 +23,7 @@ import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelec
 import { useStrings } from 'framework/strings'
 import { StageForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { TemplateType } from '@templates-library/utils/templatesUtils'
+import NoResultsView from '@templates-library/pages/TemplatesPage/views/NoResultsView/NoResultsView'
 import css from './TemplateInputs.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -89,9 +89,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
           />
         )}
         {!loading && !inputSetError && !inputSetTemplate && (
-          <Heading level={2} font={{ weight: 'bold' }} color={Color.GREY_300}>
-            This template has no inputs
-          </Heading>
+          <NoResultsView minimal={true} text={getString('templatesLibrary.noInputsRequired')} />
         )}
         {!loading && !inputSetError && inputSetTemplate && (
           <Container height={'100%'} width={'100%'} className={css.inputsContainer}>

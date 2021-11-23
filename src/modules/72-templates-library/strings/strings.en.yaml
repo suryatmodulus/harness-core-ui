@@ -46,3 +46,4 @@ default: set default to
 sampleTemplateAuditComment: --
 setAsStableTitle: Set as Stable?
 setAsStableText: 'Are you sure you want to set {{version}} as stable version?'
+noInputsRequired: There are no templates inputs required.

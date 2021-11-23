@@ -6,14 +6,14 @@ import { NewTemplatePopover } from '@templates-library/pages/TemplatesPage/views
 import css from './NoResultsView.module.scss'
 
 export interface NoResultsViewProps {
-  hasSearchParam: boolean
-  onReset: () => void
+  hasSearchParam?: boolean
+  onReset?: () => void
   text: string
   minimal?: boolean
 }
 
 export default function NoResultsView({
-  hasSearchParam,
+  hasSearchParam = false,
   onReset,
   text,
   minimal = false

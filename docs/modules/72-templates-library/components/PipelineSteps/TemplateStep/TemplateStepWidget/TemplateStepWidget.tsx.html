@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.89% </span>
+                <span class="strong">92.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>40/45</span>
+                <span class='fraction'>37/40</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">27.03% </span>
+                <span class="strong">29.69% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>20/74</span>
+                <span class='fraction'>19/64</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>3/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.89% </span>
+                <span class="strong">92.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>40/45</span>
+                <span class='fraction'>37/40</span>
             </div>
         
             
@@ -228,18 +228,7 @@
 <a name='L169'></a><a href='#L169'>169</a>
 <a name='L170'></a><a href='#L170'>170</a>
 <a name='L171'></a><a href='#L171'>171</a>
-<a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a>
-<a name='L174'></a><a href='#L174'>174</a>
-<a name='L175'></a><a href='#L175'>175</a>
-<a name='L176'></a><a href='#L176'>176</a>
-<a name='L177'></a><a href='#L177'>177</a>
-<a name='L178'></a><a href='#L178'>178</a>
-<a name='L179'></a><a href='#L179'>179</a>
-<a name='L180'></a><a href='#L180'>180</a>
-<a name='L181'></a><a href='#L181'>181</a>
-<a name='L182'></a><a href='#L182'>182</a>
-<a name='L183'></a><a href='#L183'>183</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L172'></a><a href='#L172'>172</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -255,7 +244,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -321,16 +309,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -439,8 +417,7 @@ import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
-import { defaultTo, isEmpty, set } from 'lodash-es'
-import produce from 'immer'
+import { defaultTo } from 'lodash-es'
 import { NameSchema } from '@common/utils/Validation'
 import { setFormikRef, StepViewType, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
@@ -494,7 +471,7 @@ export function TemplateStepWidget(
       accountIdentifier: accountId,
       projectIdentifier: scope === Scope.PROJECT ? projectIdentifier : <span class="branch-1 cbranch-no" title="branch not covered" >undefined,</span>
       orgIdentifier: scope === Scope.PROJECT || <span class="branch-1 cbranch-no" title="branch not covered" >scope === Scope.ORG </span>? orgIdentifier : <span class="branch-1 cbranch-no" title="branch not covered" >undefined,</span>
-      versionLabel: initialValues.template.versionLabel
+      versionLabel: initialValues.template.versionLabel || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
     }
   })
 &nbsp;
@@ -505,16 +482,6 @@ export function TemplateStepWidget(
 <span class="cstat-no" title="statement not covered" >      showError(error.message, undefined, 'template.parse.inputSet.error')</span>
     }
   }, [templateInputYaml<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata])
-&nbsp;
-  React.useEffect(() =&gt; {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!isEmpty(inputSetTemplate) &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isEmpty(initialValues.template?.templateInputs))</span> {
-<span class="cstat-no" title="statement not covered" >      onUpdate?.(</span>
-        produce(initialValues, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >          set(draft, 'template.templateInputs', inputSetTemplate)</span>
-        })
-      )
-    }
-  }, [inputSetTemplate])
 &nbsp;
   return (
     &lt;Formik&lt;TemplateStepData /*TemplateStepFormData*/&gt;
@@ -610,7 +577,7 @@ export const TemplateStepWidgetWithRef = React.forwardRef(TemplateStepWidget)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 23 2021 03:55:27 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 23 2021 05:32:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

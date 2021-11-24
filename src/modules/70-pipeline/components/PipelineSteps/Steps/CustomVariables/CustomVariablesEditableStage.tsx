@@ -22,6 +22,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import type { NGVariable } from 'services/cd-ng'
 
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
+import type { AllNGVariables } from '@pipeline/utils/types'
 import type { CustomVariableEditableProps, CustomVariablesData } from './CustomVariableEditable'
 import { VariableType, labelStringMap } from './CustomVariableUtils'
 import AddEditCustomVariable, { VariableState } from './AddEditCustomVariable'
@@ -105,7 +106,8 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                 push(variable)
               }
 
-              function handleUpdate(index: number, variable: NGVariable): void {
+              function handleUpdate(index: number, variable: AllNGVariables): void {
+                variable.value = ''
                 replace(index, variable)
               }
 

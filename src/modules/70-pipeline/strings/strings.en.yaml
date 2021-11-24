@@ -445,8 +445,8 @@ triggers:
     autoAbortIssueComment: 'If a PR is updated with a new comment, Harness will automatically cancel active builds for the same PR.'
     eventPlaceholder: Select Event
   conditionsPanel:
-    subtitle: 'Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.'
-    subtitleManifest: 'Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your manifest version matches a certain value or pattern.'
+    subtitle: 'Specify the conditions for running the Pipeline. For example, when an artifact tag, label, filename, or build matches a certain value or pattern.'
+    subtitleManifest: 'Specify the conditions for running the Pipeline. For example, when an artifact tag, label, filename, or build matches a certain value or pattern.'
     sourceBranch: Source Branch
     sourceBranchPlaceholder: Enter Source Branch
     targetBranch: Target Branch
@@ -462,7 +462,7 @@ triggers:
     jexlCondition: 'JEXL Condition'
     jexlConditionPlaceholder: Enter JEXL Condition
     matchesValuePlaceholder: Enter Matches Value
-    manifestVersion: Manifest Version
+    manifestVersion: Manifest/Package Version
     artifactBuild: Artifact Build
   pipelineInputPanel:
     noRuntimeInputs: 'No Runtime Inputs'

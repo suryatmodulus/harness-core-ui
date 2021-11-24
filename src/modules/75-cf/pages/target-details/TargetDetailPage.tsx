@@ -191,7 +191,7 @@ export const TargetDetailPage: React.FC = () => {
       }
     >
       <Layout.Vertical height="100%" style={{ flexGrow: 1, background: 'var(--white)' }}>
-        {gitSync.isGitSyncEnabled && <TargetManagementToolbar gitSync={gitSync} />}
+        {gitSync.isGitSyncActionsEnabled && <TargetManagementToolbar gitSync={gitSync} />}
         <Layout.Horizontal height="100%">
           <TargetSettings target={target} />
           <FlagSettings target={target} gitSync={gitSync} />

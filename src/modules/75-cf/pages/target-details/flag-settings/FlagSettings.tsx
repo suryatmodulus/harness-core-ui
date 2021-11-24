@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import {
   Container,
@@ -86,61 +86,6 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null; gitSyn
     ]
   )
   const { data, loading: loadingFeatures, error, refetch } = useGetAllFeatures({ queryParams })
-  const [loadingFeaturesInBackground, setLoadingFeaturesInBackground] = useState(false)
-
-  const [isGitSyncModalOpen, setIsGitSyncModalOpen] = useState(false)
-
-  const [selectedVariation, setSelectedVariation] = useState<Variation>()
-  const [selectedFeature, setSelectedFeature] = useState<Feature>()
-
-  const { showError } = useToaster()
-
-  const { gitSyncInitialValues } = gitSync.getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATED_FLAG_VARIATIONS)
-
-  const _useServeFlagVariationToTargets = useServeFeatureFlagVariationToTargets(patchParams)
-
-  const saveVariationChange = async (gitSyncFormValues?: GitSyncFormValues): Promise<boolean> => {
-    try {
-      if (!selectedVariation || !target || !selectedFeature) {
-        return false
-      }
-
-      setLoadingFeaturesInBackground(true)
-
-      let gitDetails: GitDetails | undefined
-
-      if (gitSync?.isAutoCommitEnabled) {
-        gitDetails = gitSyncInitialValues.gitDetails
-      } else {
-        gitDetails = gitSyncFormValues?.gitDetails
-      }
-
-      await _useServeFlagVariationToTargets(
-        selectedFeature,
-        selectedVariation.identifier,
-        [target.identifier],
-        gitDetails
-      )
-
-      if (!gitSync?.isAutoCommitEnabled && gitSyncFormValues?.autoCommit) {
-        await gitSync.handleAutoCommit(gitSyncFormValues.autoCommit)
-      }
-
-      await refetch().then(() => {
-        setIsGitSyncModalOpen(false)
-        setLoadingFeaturesInBackground(false)
-      })
-      return true
-    } catch (e: any) {
-      if (e.status === GIT_SYNC_ERROR_CODE) {
-        gitSync.handleError(e.data as GitSyncErrorResponse)
-      } else {
-        showError(getErrorMessage(e), 0, 'cf.serve.flag.variant.error')
-      }
-
-      return false
-    }
-  }
 
   const FlagSettingsHeader: React.FC = () => {
     const textStyle = {
@@ -187,7 +132,7 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null; gitSyn
   }
   const noData = data?.features?.length === 0
   const hasData = (data?.features?.length || 0) >= 1
-  const loading = loadingFeatures && !loadingFeaturesInBackground
+  const loading = loadingFeatures
 
   return (
     <Container
@@ -239,16 +184,7 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null; gitSyn
                   feature={feature}
                   patchParams={patchParams}
                   key={feature.identifier}
-                  isGitSyncEnabled={gitSync.isGitSyncEnabled}
-                  isAutoCommitEnabled={gitSync.isAutoCommitEnabled}
-                  openGitSyncModal={() => setIsGitSyncModalOpen(true)}
-                  setLoadingFeaturesInBackground={setLoadingFeaturesInBackground}
-                  saveVariationChange={saveVariationChange}
-                  setSelectedVariation={setSelectedVariation}
-                  setSelectedFeature={setSelectedFeature}
-                  refetch={async () => {
-                    await refetch()
-                  }}
+                  gitSync={gitSync}
                 />
               ))}
             </Layout.Vertical>
@@ -266,16 +202,6 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null; gitSyn
             )}
           </>
         )}
-        {isGitSyncModalOpen && (
-          <SaveFlagToGitModal
-            flagName={selectedFeature?.name || ''}
-            flagIdentifier={selectedFeature?.identifier || ''}
-            onSubmit={saveVariationChange}
-            onClose={() => {
-              setIsGitSyncModalOpen(false)
-            }}
-          />
-        )}
 
         {loading && <ContainerSpinner />}
         {!loading && error && <PageError message={getErrorMessage(error)} onClick={() => refetch()} />}
@@ -289,26 +215,8 @@ const FlagSettingsRow: React.FC<{
   target: Target
   feature: Feature
   patchParams: FlagPatchParams
-  setLoadingFeaturesInBackground: React.Dispatch<React.SetStateAction<boolean>>
-  refetch: () => Promise<void>
-  isGitSyncEnabled: boolean
-  isAutoCommitEnabled: boolean
-  openGitSyncModal: () => void
-  setSelectedVariation: (variation: Variation) => void
-  setSelectedFeature: (feature: Feature) => void
-  saveVariationChange: (gitSyncFormvalues?: GitSyncFormValues) => Promise<boolean>
-}> = ({
-  feature,
-  index,
-  patchParams,
-  isGitSyncEnabled,
-  isAutoCommitEnabled,
-  openGitSyncModal,
-  setSelectedVariation,
-  setSelectedFeature,
-  saveVariationChange
-}) => {
-  const { showError } = useToaster()
+  gitSync: UseGitSync
+}> = ({ feature, index, patchParams, target, gitSync }) => {
   const { withActiveEnvironment } = useActiveEnvironment()
 
   return (
@@ -365,23 +273,12 @@ const FlagSettingsRow: React.FC<{
         <Container width={CellWidth.VARIATION} style={{ alignSelf: 'center' }}>
           <VariationSelect
             rowIndex={index}
+            patchParams={patchParams}
             variations={feature.variations}
             selectedIdentifier={feature.evaluationIdentifier as string}
-            onChange={async variation => {
-              try {
-                setSelectedVariation(variation)
-                setSelectedFeature(feature)
-
-                if (isGitSyncEnabled && !isAutoCommitEnabled) {
-                  openGitSyncModal()
-                } else {
-                  return saveVariationChange()
-                }
-              } catch (error) {
-                showError(getErrorMessage(error), 0, 'cf.serve.flag.variant.error')
-              }
-              return false
-            }}
+            feature={feature}
+            gitSync={gitSync}
+            target={target}
           />
         </Container>
       </Layout.Horizontal>
@@ -393,14 +290,20 @@ export interface VariationSelectProps {
   variations: Variation[]
   rowIndex: number
   selectedIdentifier: string
-  onChange: (variation: Variation) => boolean | Promise<boolean>
+  patchParams: FlagPatchParams
+  feature: Feature
+  target: Target
+  gitSync: UseGitSync
 }
 
 export const VariationSelect: React.FC<VariationSelectProps> = ({
   variations,
   rowIndex,
   selectedIdentifier,
-  onChange
+  target,
+  feature,
+  patchParams,
+  gitSync
 }) => {
   const [index, setIndex] = useState<number>(variations.findIndex(v => v.identifier === selectedIdentifier))
   const value =
@@ -421,45 +324,104 @@ export const VariationSelect: React.FC<VariationSelectProps> = ({
     resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
     permissions: [PermissionIdentifier.EDIT_FF_FEATUREFLAG]
   })
+  const [isGitSyncModalOpen, setIsGitSyncModalOpen] = useState(false)
+
+  const { showError } = useToaster()
+
+  const { gitSyncInitialValues } = gitSync.getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATED_FLAG_VARIATIONS)
+
+  const _useServeFlagVariationToTargets = useServeFeatureFlagVariationToTargets(patchParams)
+
+  const previousSelectedIdentifier = useRef(variations.findIndex(v => v.identifier === selectedIdentifier))
+
+  useEffect(() => {
+    const updateVariation = async (): Promise<void> => {
+      if (previousSelectedIdentifier.current !== index) {
+        if (gitSync.isGitSyncEnabled && !gitSync.isAutoCommitEnabled) {
+          setIsGitSyncModalOpen(true)
+        } else {
+          saveVariationChange()
+        }
+      }
+    }
+
+    updateVariation()
+  }, [index])
+
+  const saveVariationChange = async (gitSyncFormValues?: GitSyncFormValues): Promise<void> => {
+    try {
+      let gitDetails: GitDetails | undefined
+
+      if (gitSync?.isAutoCommitEnabled) {
+        gitDetails = gitSyncInitialValues.gitDetails
+      } else {
+        gitDetails = gitSyncFormValues?.gitDetails
+      }
+
+      await _useServeFlagVariationToTargets(feature, variations[index].identifier, [target.identifier], gitDetails)
+
+      if (!gitSync?.isAutoCommitEnabled && gitSyncFormValues?.autoCommit) {
+        await gitSync.handleAutoCommit(gitSyncFormValues.autoCommit)
+      }
+
+      previousSelectedIdentifier.current = index
+    } catch (e: any) {
+      if (e.status === GIT_SYNC_ERROR_CODE) {
+        gitSync.handleError(e.data as GitSyncErrorResponse)
+      } else {
+        showError(getErrorMessage(e), 0, 'cf.serve.flag.variant.error')
+      }
+      setIndex(previousSelectedIdentifier.current)
+    } finally {
+      setIsGitSyncModalOpen(false)
+    }
+  }
 
   return (
-    <Text
-      data-testid={`variation_select_${rowIndex}`}
-      tooltip={
-        !canEdit ? (
-          <RBACTooltip resourceType={ResourceType.ENVIRONMENT} permission={PermissionIdentifier.EDIT_FF_FEATUREFLAG} />
-        ) : undefined
-      }
-    >
-      <Select
-        disabled={!canEdit}
-        items={variations.map<SelectOption>((variation, _index) => ({
-          label: variation.name as string,
-          value: variation.identifier as string,
-          icon: {
-            name: 'full-circle',
-            style: {
-              color: CFVariationColors[_index]
+    <>
+      <Text
+        data-testid={`variation_select_${rowIndex}`}
+        tooltip={
+          !canEdit ? (
+            <RBACTooltip
+              resourceType={ResourceType.ENVIRONMENT}
+              permission={PermissionIdentifier.EDIT_FF_FEATUREFLAG}
+            />
+          ) : undefined
+        }
+      >
+        <Select
+          disabled={!canEdit}
+          items={variations.map<SelectOption>((variation, _index) => ({
+            label: variation.name as string,
+            value: variation.identifier as string,
+            icon: {
+              name: 'full-circle',
+              style: {
+                color: CFVariationColors[_index]
+              }
             }
-          }
-        }))}
-        value={value as SelectOption}
-        onChange={async ({ value: _value }) => {
-          const oldIndex = index
-          const newIndex = variations.findIndex(v => v.identifier === _value)
+          }))}
+          value={value as SelectOption}
+          onChange={async ({ value: _value }) => {
+            const newIndex = variations.findIndex(v => v.identifier === _value)
 
-          if (newIndex !== -1 && newIndex !== index) {
-            setIndex(newIndex)
-
-            const result = await onChange(variations[newIndex])
-
-            // If onChange does not return true, meaning it fails => go back to previous value
-            if (result !== true) {
-              setIndex(oldIndex)
+            if (newIndex !== -1 && newIndex !== index) {
+              setIndex(newIndex)
             }
-          }
-        }}
-      />
-    </Text>
+          }}
+        />
+      </Text>
+      {isGitSyncModalOpen && (
+        <SaveFlagToGitModal
+          flagName={feature?.name || ''}
+          flagIdentifier={feature?.identifier || ''}
+          onSubmit={saveVariationChange}
+          onClose={() => {
+            setIsGitSyncModalOpen(false)
+          }}
+        />
+      )}
+    </>
   )
 }

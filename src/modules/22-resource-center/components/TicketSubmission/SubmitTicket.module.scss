@@ -1,6 +1,39 @@
-
-
 .email {
   min-width: 192px;
   width: 192px;
+}
+
+.radiobuttongrid {
+  padding-left: var(--spacing-medium);
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: repeat(4, auto);
+  --box-border: var(--primary-3);
+  input {
+    position: unset;
+
+  }
+}
+.radiolocation {
+  grid-column: 1;
+}
+
+.radiodescription {
+  grid-column: 2;
+}
+
+.low {
+  grid-row: 1;
+}
+
+.normal {
+  grid-row: 2;
+}
+
+.high {
+  grid-row: 3;
+}
+
+.urgent {
+  grid-row: 4;
 }

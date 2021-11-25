@@ -161,11 +161,11 @@ const showAddArtifactManifest = ({
           fontWeight: 'normal',
           marginBottom: 'var(--spacing-small)'
         }}
-        data-tooltip-id="artifactManifestLabel"
+        data-tooltip-id="selectArtifactManifestLabel"
       >
         {isManifest ? getString('manifestsText') : getString(artifactStr)}
       </Label>
-      <HarnessDocTooltip tooltipId="artifactManifestLabel" useStandAlone={true} />
+      <HarnessDocTooltip tooltipId="selectArtifactManifestLabel" useStandAlone={true} />
       <Text
         data-name="plusAdd"
         style={{

@@ -595,7 +595,7 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots inital Render 1`
           >
             <label
               class="Label--main"
-              data-tooltip-id="artifactManifestLabel"
+              data-tooltip-id="selectArtifactManifestLabel"
               style="font-size: 13px; font-weight: normal;"
             >
               manifestsText

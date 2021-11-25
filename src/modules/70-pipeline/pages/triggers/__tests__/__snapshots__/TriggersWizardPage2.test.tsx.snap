@@ -4991,7 +4991,7 @@ exports[`Manifest Trigger Tests throws validation error when select artifact/man
                     >
                       <label
                         class="Label--main"
-                        data-tooltip-id="artifactManifestLabel"
+                        data-tooltip-id="selectArtifactManifestLabel"
                         style="font-size: 13px; font-weight: normal;"
                       >
                         manifestsText

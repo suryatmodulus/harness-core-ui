@@ -1,0 +1,45 @@
+{
+  "jsc": {
+    "baseUrl": "./src",
+    "paths": {
+      "@common/*": ["modules/10-common/*"],
+      "@notifications/*": ["modules/15-notifications/*"],
+      "@rbac/*": ["modules/20-rbac/*"],
+      "@governance/*": ["modules/25-governance/*"],
+      "@auth-settings/*": ["modules/30-auth-settings/*"],
+      "@secrets/*": ["modules/30-secrets/*"],
+      "@connectors/*": ["modules/35-connectors/*"],
+      "@user-profile/*": ["modules/35-user-profile/*"],
+      "@projects-orgs/*": ["modules/45-projects-orgs/*"],
+      "@delegates/*": ["modules/30-delegates/*"],
+      "@dashboards/*": ["modules/45-dashboards/*"],
+      "@gitsync/*": ["modules/40-gitsync/*"],
+      "@pipeline/*": ["modules/70-pipeline/*"],
+      "@templates-library/*": ["modules/72-templates-library/*"],
+      "@cd/*": ["modules/75-cd/*"],
+      "@cf/*": ["modules/75-cf/*"],
+      "@ci/*": ["modules/75-ci/*"],
+      "@cv/*": ["modules/85-cv/*"],
+      "@ce/*": ["modules/75-ce/*"]
+    },
+    "parser": {
+      "syntax": "typescript",
+      "tsx": true,
+      "decorators": false,
+      "dynamicImport": true
+    },
+    "transform": {
+      "react": {
+        "runtime": "classic",
+        "throwIfNamespace": true
+      }
+    },
+    "target": "es2016",
+    "externalHelpers": true,
+    "keepClassNames": true
+  },
+  "module": {
+    "type": "es6",
+    "ignoreDynamic": true
+  }
+}

@@ -446,7 +446,7 @@ triggers:
     eventPlaceholder: Select Event
   conditionsPanel:
     subtitle: 'Specify the conditions for running the Pipeline. For example, when an artifact tag, label, filename, or build matches a certain value or pattern.'
-    subtitleManifest: 'Specify the conditions for running the Pipeline. For example, when an artifact tag, label, filename, or build matches a certain value or pattern.'
+    subtitleManifest: '{{$.pipeline.triggers.conditionsPanel.subtitle}}'
     sourceBranch: Source Branch
     sourceBranchPlaceholder: Enter Source Branch
     targetBranch: Target Branch

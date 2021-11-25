@@ -11,6 +11,7 @@ module.exports = {
     __DEV__: false,
     __ON_PREM__: false
   },
+  testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/scripts/jest/setup-file.js', 'fake-indexeddb/auto', 'jest-canvas-mock'],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
@@ -40,8 +41,8 @@ module.exports = {
   ],
   coverageReporters: ['lcov', 'json-summary', 'json'],
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',
-    '^.+\\.js$': 'ts-jest',
+    '^.+\\.tsx?$': '@swc/jest',
+    '^.+\\.js$': '@swc/jest',
     '^.+\\.ya?ml$': '<rootDir>/scripts/jest/yaml-transform.js',
     '^.+\\.gql$': '<rootDir>/scripts/jest/gql-loader.js'
   },

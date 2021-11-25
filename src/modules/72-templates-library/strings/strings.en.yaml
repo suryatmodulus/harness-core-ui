@@ -28,11 +28,6 @@ createNewModal:
   versionPlaceholder: 'Ex: Version1'
 saveAsNewLabelModal:
   heading: 'Save as new version'
-updateTemplateModal:
-  heading: 'Save {{ name }} ({{ version }})'
-  addCommentPlaceholder: Add a comment
-  commentLabel: Comment
-  info: 'By saving, all pipelines referencing the stable version will receive your changes.'
 templateSettingsModal:
   scopeLabel: Save To
   defaultVersionLabel: Stable Version

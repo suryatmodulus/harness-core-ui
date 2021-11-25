@@ -97,6 +97,8 @@ export interface StringsMap {
   'common.cluster': string
   'common.comingSoon': string
   'common.comingSoon2': string
+  'common.commentModal.addCommentPlaceholder': string
+  'common.commentModal.commentLabel': string
   'common.comments': string
   'common.confictOccured': string
   'common.configureOptions.advancedHelp': string
@@ -2007,6 +2009,8 @@ export interface StringsMap {
   'pipeline.clickToExpandErrorDetails': string
   'pipeline.closeStepConfig': string
   'pipeline.collapseIsDisabledWhileStageIsRunning': string
+  'pipeline.commentModal.heading': string
+  'pipeline.commentModal.info': string
   'pipeline.conditionalExecution.belowExpression': string
   'pipeline.conditionalExecution.condition': string
   'pipeline.conditionalExecution.statusOption.all': string
@@ -2738,10 +2742,6 @@ export interface StringsMap {
   'templatesLibrary.templateUpdatedError': string
   'templatesLibrary.templatesLabel': string
   'templatesLibrary.templatesPage.noTemplates': string
-  'templatesLibrary.updateTemplateModal.addCommentPlaceholder': string
-  'templatesLibrary.updateTemplateModal.commentLabel': string
-  'templatesLibrary.updateTemplateModal.heading': string
-  'templatesLibrary.updateTemplateModal.info': string
   'templatesLibrary.updated': string
   'templatesLibrary.useTemplate': string
   'cd.GitOpsServerDelete': string

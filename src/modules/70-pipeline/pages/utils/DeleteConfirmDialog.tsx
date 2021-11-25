@@ -28,6 +28,7 @@ interface DeleteConfirmDialogContentProps {
   commitMsg: string
   onCommitMsgChange: (commitMsg: string) => void
   entityType: string
+  forceComments?: boolean
 }
 
 export const DeleteConfirmDialogContent: React.FC<DeleteConfirmDialogContentProps> = ({
@@ -35,7 +36,8 @@ export const DeleteConfirmDialogContent: React.FC<DeleteConfirmDialogContentProp
   entityName = '',
   commitMsg,
   onCommitMsgChange,
-  entityType = ''
+  entityType = '',
+  forceComments = false
 }): JSX.Element => {
   const { getString } = useStrings()
   return (
@@ -43,9 +45,9 @@ export const DeleteConfirmDialogContent: React.FC<DeleteConfirmDialogContentProp
       <Text margin={{ bottom: 'medium' }} title={entityName}>{`${getString(
         'common.git.confirmDelete'
       )} ${useGetEntityText(entityType)} ${entityName}?`}</Text>
-      {gitDetails?.objectId && (
+      {(gitDetails?.objectId || forceComments) && (
         <>
-          <Text>{getString('common.git.commitMessage')}</Text>
+          <Text>{forceComments ? getString('common.comments') : getString('common.git.commitMessage')}</Text>
           <TextArea
             value={commitMsg}
             onInput={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -65,7 +67,8 @@ interface DeleteMetaData {
 export default function useDeleteConfirmationDialog(
   entityData: PipelineDTO | InputSetLocal,
   entityType: string,
-  onDelete?: (commitMsg: string, versions?: string[]) => Promise<void>
+  onDelete?: (commitMsg: string, versions?: string[]) => Promise<void>,
+  forceComments = false
 ): { confirmDelete: (deleteMetaData?: DeleteMetaData) => void } {
   const { getString } = useStrings()
   const [deleteCallMetaData, setDeleteCallMetaData] = useState<DeleteMetaData>()
@@ -83,6 +86,7 @@ export default function useDeleteConfirmationDialog(
         gitDetails={entityData.gitDetails}
         commitMsg={commitMsg}
         onCommitMsgChange={setCommitMsg}
+        forceComments={forceComments}
       />
     ),
     titleText: `${getString('delete')} ${useGetEntityText(entityType)}`,

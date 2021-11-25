@@ -6,17 +6,7 @@ import type { TemplatesViewProps } from '@templates-library/pages/TemplatesPage/
 import css from './TemplatesGridView.module.scss'
 
 export const TemplatesGridView: React.FC<TemplatesViewProps> = (props): JSX.Element => {
-  const {
-    data,
-    selectedIdentifier,
-    gotoPage,
-    onSelect,
-    onPreview,
-    onOpenEdit,
-    onOpenSettings,
-    onDelete,
-    onDeleteTemplate
-  } = props
+  const { data, selectedIdentifier, gotoPage, onSelect, onPreview, onOpenEdit, onOpenSettings, onDelete } = props
 
   return (
     <Layout.Vertical height={'100%'}>
@@ -34,7 +24,6 @@ export const TemplatesGridView: React.FC<TemplatesViewProps> = (props): JSX.Elem
               onOpenEdit={onOpenEdit}
               onOpenSettings={onOpenSettings}
               onDelete={onDelete}
-              onDeleteTemplate={onDeleteTemplate}
             />
           )}
           keyOf={(item: TemplateSummaryResponse) => item.identifier}

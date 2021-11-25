@@ -17,14 +17,12 @@ interface ContextMenuProps extends PopoverProps {
   onOpenEdit?: (template: TemplateSummaryResponse) => void
   onOpenSettings?: (templateIdentifier: string) => void
   onDelete?: (template: TemplateSummaryResponse) => void
-  onDeleteTemplate?: (commitMsg: string, versions?: string[]) => Promise<void>
   className?: string
 }
 
 export const TemplateListCardContextMenu: React.FC<ContextMenuProps> = (props): JSX.Element => {
   const { getString } = useStrings()
-  const { template, onPreview, onOpenEdit, onOpenSettings, onDelete, onDeleteTemplate, className, ...popoverProps } =
-    props
+  const { template, onPreview, onOpenEdit, onOpenSettings, onDelete, className, ...popoverProps } = props
   const [menuOpen, setMenuOpen] = React.useState(false)
   const { accountId, orgIdentifier, projectIdentifier, templateIdentifier } = useParams<TemplateStudioPathProps>()
 

@@ -8,22 +8,17 @@ import {
   Views,
   Container,
   ExpandingSearchInputHandle,
-  PageError,
-  useToaster
+  PageError
 } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
-import { defaultTo, pick } from 'lodash-es'
+import { defaultTo } from 'lodash-es'
 import { TemplateSettingsModal } from '@templates-library/components/TemplateSettingsModal/TemplateSettingsModal'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { Sort, SortFields, TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { TemplateDetailsDrawer } from '@templates-library/components/TemplateDetailDrawer/TemplateDetailDrawer'
-import {
-  TemplateSummaryResponse,
-  useDeleteTemplateVersionsOfIdentifier,
-  useGetTemplateList
-} from 'services/template-ng'
+import { TemplateSummaryResponse, useGetTemplateList } from 'services/template-ng'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { NewTemplatePopover } from '@templates-library/pages/TemplatesPage/views/NewTemplatePopover'
@@ -55,8 +50,6 @@ export default function TemplatesPage(): React.ReactElement {
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
   const { isGitSyncEnabled } = useAppStore()
   const scope = getScopeFromDTO({ projectIdentifier, orgIdentifier, accountIdentifier: accountId })
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const { showSuccess, showError } = useToaster()
 
   const reset = React.useCallback((): void => {
     searchRef.current.clear()
@@ -74,7 +67,6 @@ export default function TemplatesPage(): React.ReactElement {
               hideDeleteTemplatesModal()
               reloadTemplates()
             }}
-            onDeleteTemplateGitSync={onDeleteTemplate}
           />
         </GitSyncStoreProvider>
       </Dialog>
@@ -145,45 +137,6 @@ export default function TemplatesPage(): React.ReactElement {
     )
   }
 
-  const { mutate: deleteTemplates } = useDeleteTemplateVersionsOfIdentifier({})
-
-  const onDeleteTemplate = async (commitMsg: string, versions?: string[]): Promise<void> => {
-    try {
-      hideDeleteTemplatesModal()
-      setIsLoading(true)
-      const gitParams = templateToDelete.gitDetails?.objectId
-        ? {
-            ...pick(templateToDelete.gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
-            commitMsg,
-            lastObjectId: templateToDelete.gitDetails?.objectId
-          }
-        : {}
-      const deleted = await deleteTemplates(defaultTo(templateToDelete.identifier, ''), {
-        queryParams: {
-          accountIdentifier: accountId,
-          orgIdentifier,
-          projectIdentifier,
-          ...gitParams
-        },
-        body: JSON.stringify({ templateVersionLabels: versions }),
-        headers: { 'content-type': 'application/json' }
-      })
-      setIsLoading(false)
-
-      /* istanbul ignore else */
-      if (deleted?.status === 'SUCCESS') {
-        showSuccess(getString('common.template.deleteTemplate.templatesDeleted', { name: templateToDelete.name }))
-      } else {
-        throw getString('somethingWentWrong')
-      }
-      reloadTemplates()
-    } catch (err) {
-      setIsLoading(false)
-      /* istanbul ignore next */
-      showError(err?.data?.message || err?.message, undefined, 'common.template.deleteTemplate.errorWhileDeleting')
-    }
-  }
-
   return (
     <>
       <Page.Header
@@ -197,7 +150,7 @@ export default function TemplatesPage(): React.ReactElement {
       />
 
       <Page.Body>
-        {(loading || isLoading) && <PageSpinner />}
+        {loading && <PageSpinner />}
         {!loading && error && (
           <PageError message={defaultTo((error.data as Error)?.message, error.message)} onClick={reloadTemplates} />
         )}
@@ -263,7 +216,6 @@ export default function TemplatesPage(): React.ReactElement {
                         showDeleteTemplatesModal()
                       }}
                       view={view}
-                      onDeleteTemplate={onDeleteTemplate}
                     />
                   </Container>
                 </Layout.Vertical>

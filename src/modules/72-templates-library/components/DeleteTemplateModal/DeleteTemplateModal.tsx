@@ -11,7 +11,7 @@ import {
   FormError,
   FormikForm
 } from '@wings-software/uicore'
-import { defaultTo, get, isEmpty } from 'lodash-es'
+import { defaultTo, get, isEmpty, pick } from 'lodash-es'
 import { Formik } from 'formik'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -33,7 +33,7 @@ export interface DeleteTemplateProps {
   template: TemplateSummaryResponse
   onClose: () => void
   onSuccess: () => void
-  onDeleteTemplateGitSync: (commitMsg: string, versions?: string[]) => Promise<void>
+  // onDeleteTemplateGitSync: (commitMsg: string, versions?: string[]) => Promise<void>
 }
 export interface CheckboxOptions {
   label: string
@@ -44,7 +44,7 @@ export interface CheckboxOptions {
 
 export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
   const { getString } = useStrings()
-  const { template, onClose, onSuccess, onDeleteTemplateGitSync } = props
+  const { template, onClose, onSuccess } = props
   const [checkboxOptions, setCheckboxOptions] = React.useState<CheckboxOptions[]>([])
   const [query, setQuery] = React.useState<string>('')
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
@@ -70,8 +70,6 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
     queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
 
-  const { confirmDelete } = useDeleteConfirmationDialog(template, 'template', onDeleteTemplateGitSync)
-
   React.useEffect(() => {
     if (templatesError) {
       onClose()
@@ -79,31 +77,36 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
     }
   }, [templatesError])
 
-  const performDelete = async (versions: string[]) => {
-    if (isGitSyncEnabled) {
-      confirmDelete({ versions })
-    } else {
-      try {
-        await deleteTemplates(defaultTo(template.identifier, ''), {
-          queryParams: {
-            accountIdentifier: accountId,
-            orgIdentifier,
-            projectIdentifier
-          },
-          body: JSON.stringify({ templateVersionLabels: versions }),
-          headers: { 'content-type': 'application/json' }
-        })
+  const performDelete = async (commitMsg: string, versions?: string[]): Promise<void> => {
+    try {
+      const resp = await deleteTemplates(defaultTo(template.identifier, ''), {
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier,
+          comments: commitMsg,
+          ...(isGitSyncEnabled &&
+            template.gitDetails?.objectId && {
+              ...pick(template.gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
+              commitMsg,
+              lastObjectId: template.gitDetails?.objectId
+            })
+        },
+        body: JSON.stringify({ templateVersionLabels: versions }),
+        headers: { 'content-type': 'application/json' }
+      })
+      if (resp?.status === 'SUCCESS') {
         showSuccess(getString('common.template.deleteTemplate.templatesDeleted', { name: template.name }))
         onSuccess?.()
-      } catch (error) {
-        showError(
-          error?.data?.message || error?.message || getString('common.template.deleteTemplate.errorWhileDeleting'),
-          undefined,
-          'template.delete.template.error'
-        )
+      } else {
+        throw getString('somethingWentWrong')
       }
+    } catch (err) {
+      showError(err?.data?.message || err?.message, undefined, 'common.template.deleteTemplate.errorWhileDeleting')
     }
   }
+
+  const { confirmDelete } = useDeleteConfirmationDialog(template, 'template', performDelete, true)
 
   React.useEffect(() => {
     if (templateData?.data?.content) {
@@ -144,7 +147,7 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
         <Formik<{ checkboxOptions: CheckboxOptions[] }>
           onSubmit={values => {
             const selectedVersions = values.checkboxOptions.filter(item => item.checked).map(item => item.value)
-            performDelete(selectedVersions)
+            confirmDelete({ versions: selectedVersions })
           }}
           enableReinitialize={true}
           initialValues={{ checkboxOptions: checkboxOptions }}

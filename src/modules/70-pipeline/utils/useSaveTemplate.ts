@@ -1,5 +1,5 @@
 import React from 'react'
-import { cloneDeep, defaultTo, isEmpty, omit } from 'lodash-es'
+import { cloneDeep, defaultTo, get, isEmpty, omit } from 'lodash-es'
 import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
 import { VisualYamlSelectedView as SelectedView } from '@wings-software/uicore'
@@ -21,6 +21,7 @@ import type { GitQueryParams, ModulePathParams, TemplateStudioPathProps } from '
 import { useQueryParams } from '@common/hooks'
 import type { PromiseExtraArgs } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
+import useCommentModal from '@common/hooks/CommentModal/useCommentModal'
 
 export interface FetchTemplateUnboundProps {
   forceFetch?: boolean
@@ -36,7 +37,6 @@ interface SaveTemplateObj {
 
 interface UseSaveTemplateReturnType {
   saveAndPublish: (updatedTemplate: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs) => Promise<void>
-  updateExistingLabel: (comments: string) => Promise<UseSaveSuccessResponse>
 }
 
 interface TemplateContextMetadata {
@@ -52,8 +52,7 @@ interface TemplateContextMetadata {
 
 export function useSaveTemplate(
   TemplateContextMetadata: TemplateContextMetadata,
-  hideConfigModal?: () => void,
-  hideCommentsModal?: () => void
+  hideConfigModal?: () => void
 ): UseSaveTemplateReturnType {
   const { template, yamlHandler, gitDetails, setLoading, fetchTemplate, deleteTemplateCache, view, isPipelineStudio } =
     TemplateContextMetadata
@@ -65,6 +64,7 @@ export function useSaveTemplate(
   const { getString } = useStrings()
   const { showSuccess, showError, clear } = useToaster()
   const history = useHistory()
+  const { getComments } = useCommentModal()
 
   const isYaml = view === SelectedView.YAML
 
@@ -93,88 +93,99 @@ export function useSaveTemplate(
     updatedGitDetails?: SaveToGitFormInterface,
     lastObject?: { lastObjectId?: string }
   ): Promise<UseSaveSuccessResponse> => {
-    const response = await updateExistingTemplateLabelPromise({
-      templateIdentifier: template.identifier,
-      versionLabel: template.versionLabel,
-      body: yamlStringify({ template: omit(cloneDeep(template), 'repo', 'branch') }),
-      queryParams: {
-        accountIdentifier: accountId,
-        projectIdentifier,
-        orgIdentifier,
-        comments,
-        ...(updatedGitDetails ?? {}),
-        ...(lastObject?.lastObjectId ? lastObject : {}),
-        ...(updatedGitDetails && updatedGitDetails.isNewBranch ? { baseBranch: branch } : {})
-      },
-      requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
-    })
-    hideCommentsModal?.()
-    if (response && response.status === 'SUCCESS') {
-      setLoading?.(false)
-      clear()
-      if (!isGitSyncEnabled) {
-        showSuccess(getString('common.template.updateTemplate.templateUpdated'))
-      }
-      await fetchTemplate?.({ forceFetch: true, forceUpdate: true })
-      if (updatedGitDetails?.isNewBranch) {
-        navigateToLocation(template.identifier, template.versionLabel, updatedGitDetails)
-      }
-    } else {
-      setLoading?.(false)
-      clear()
-      // This is done because when git sync is enabled, errors are displayed in a modal
-      if (!isGitSyncEnabled) {
-        showError(
-          getString('common.template.updateTemplate.errorWhileUpdating'),
-          undefined,
-          'template.update.template.error'
-        )
-      }
-      throw response
-    }
-    return { status: response?.status }
-  }
-
-  const saveAndPublishTemplate = async (
-    latestTemplate: NGTemplateInfoConfig,
-    updatedGitDetails?: SaveToGitFormInterface,
-    lastObject?: { lastObjectId?: string },
-    isEdit = false
-  ): Promise<UseSaveSuccessResponse> => {
-    if (isEdit) {
-      return updateExistingLabel(updatedGitDetails?.commitMsg, updatedGitDetails, lastObject)
-    } else {
-      const response = await createTemplatePromise({
-        body: yamlStringify({ template: omit(cloneDeep(latestTemplate), 'repo', 'branch') }),
+    try {
+      const response = await updateExistingTemplateLabelPromise({
+        templateIdentifier: template.identifier,
+        versionLabel: template.versionLabel,
+        body: yamlStringify({ template: omit(cloneDeep(template), 'repo', 'branch') }),
         queryParams: {
           accountIdentifier: accountId,
           projectIdentifier,
           orgIdentifier,
+          comments,
           ...(updatedGitDetails ?? {}),
+          ...(lastObject?.lastObjectId ? lastObject : {}),
           ...(updatedGitDetails && updatedGitDetails.isNewBranch ? { baseBranch: branch } : {})
         },
         requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
       })
-      hideConfigModal?.()
       setLoading?.(false)
       if (response && response.status === 'SUCCESS') {
-        clear()
         if (!isGitSyncEnabled) {
-          showSuccess(getString('common.template.saveTemplate.publishTemplate'))
+          clear()
+          showSuccess(getString('common.template.updateTemplate.templateUpdated'))
         }
-        await deleteTemplateCache?.()
-        if (!isPipelineStudio) {
-          navigateToLocation(latestTemplate.identifier, latestTemplate.versionLabel, updatedGitDetails)
+        await fetchTemplate?.({ forceFetch: true, forceUpdate: true })
+        if (updatedGitDetails?.isNewBranch) {
+          navigateToLocation(template.identifier, template.versionLabel, updatedGitDetails)
         }
+        return { status: response.status }
       } else {
-        clear()
-        // This is done because when git sync is enabled, errors are displayed in a modal
-        if (!isGitSyncEnabled) {
-          showError(getString('errorWhileSaving'), undefined, 'template.save.template.error')
-        }
         throw response
       }
-      return { status: response?.status }
+    } catch (error) {
+      if (!isGitSyncEnabled) {
+        clear()
+        showError(
+          get(error, 'data.error', get(error, 'data.message', error?.message)),
+          undefined,
+          'template.update.template.error'
+        )
+      }
+      return { status: 'FAILURE' }
+    }
+  }
+
+  const saveAndPublishTemplate = async (
+    latestTemplate: NGTemplateInfoConfig,
+    comments = '',
+    isEdit = false,
+    updatedGitDetails?: SaveToGitFormInterface,
+    lastObject?: { lastObjectId?: string }
+  ): Promise<UseSaveSuccessResponse> => {
+    setLoading?.(true)
+    if (isEdit) {
+      return updateExistingLabel(comments, updatedGitDetails, lastObject)
+    } else {
+      hideConfigModal?.()
+      try {
+        const response = await createTemplatePromise({
+          body: yamlStringify({ template: omit(cloneDeep(latestTemplate), 'repo', 'branch') }),
+          queryParams: {
+            accountIdentifier: accountId,
+            projectIdentifier,
+            orgIdentifier,
+            comments,
+            ...(updatedGitDetails ?? {}),
+            ...(updatedGitDetails && updatedGitDetails.isNewBranch ? { baseBranch: branch } : {})
+          },
+          requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
+        })
+        setLoading?.(false)
+        if (response && response.status === 'SUCCESS') {
+          if (!isGitSyncEnabled) {
+            clear()
+            showSuccess(getString('common.template.saveTemplate.publishTemplate'))
+          }
+          await deleteTemplateCache?.()
+          if (!isPipelineStudio) {
+            navigateToLocation(latestTemplate.identifier, latestTemplate.versionLabel, updatedGitDetails)
+          }
+          return { status: response.status }
+        } else {
+          throw response
+        }
+      } catch (error) {
+        if (!isGitSyncEnabled) {
+          clear()
+          showError(
+            get(error, 'data.error', get(error, 'data.message', error?.message)),
+            undefined,
+            'template.save.template.error'
+          )
+        }
+        return { status: 'FAILURE' }
+      }
     }
   }
 
@@ -196,9 +207,10 @@ export function useSaveTemplate(
 
     const response = await saveAndPublishTemplate(
       latestTemplate,
+      '',
+      isEdit,
       omit(updatedGitDetails, 'name', 'identifier'),
-      templateIdentifier !== DefaultNewTemplateId ? { lastObjectId: objectId } : {},
-      isEdit
+      templateIdentifier !== DefaultNewTemplateId ? { lastObjectId: objectId } : {}
     )
     return {
       status: response?.status
@@ -212,13 +224,11 @@ export function useSaveTemplate(
       objectId?: string,
       isEdit = false
     ): Promise<UseSaveSuccessResponse> =>
-      saveAngPublishWithGitInfo(gitData, payload, objectId || gitDetails?.objectId || '', isEdit),
-    onClose: () => setLoading?.(false)
+      saveAngPublishWithGitInfo(gitData, payload, objectId || gitDetails?.objectId || '', isEdit)
   })
 
   const saveAndPublish = React.useCallback(
     async (updatedTemplate: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs) => {
-      setLoading?.(true)
       const { isEdit } = extraInfo
       let latestTemplate: NGTemplateInfoConfig = defaultTo(updatedTemplate, template)
 
@@ -266,14 +276,20 @@ export function useSaveTemplate(
           payload: { template: omit(latestTemplate, 'repo', 'branch') }
         })
       } else {
-        await saveAndPublishTemplate(latestTemplate)
+        const comments = await getComments(
+          getString('pipeline.commentModal.heading', {
+            name: latestTemplate.name,
+            version: latestTemplate.versionLabel
+          }),
+          getString('pipeline.commentModal.info')
+        )
+        await saveAndPublishTemplate(latestTemplate, comments, isEdit)
       }
     },
     [template, templateIdentifier, gitDetails, isGitSyncEnabled, isYaml, yamlHandler, showError, showSuccess]
   )
 
   return {
-    saveAndPublish,
-    updateExistingLabel
+    saveAndPublish
   }
 }

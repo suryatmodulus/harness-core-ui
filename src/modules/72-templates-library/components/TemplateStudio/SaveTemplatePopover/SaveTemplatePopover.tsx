@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom'
 import type { FormikErrors } from 'formik'
 import { useStrings } from 'framework/strings'
 import type { ModulePathParams, TemplateStudioPathProps } from '@common/interfaces/RouteInterfaces'
-import { TemplateCommentModal } from '@templates-library/components/TemplateStudio/TemplateCommentModal/TemplateCommentModal'
 import { Fields, ModalProps, TemplateConfigModal } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
 import {
@@ -16,7 +15,6 @@ import {
 import { useSaveTemplate } from '@pipeline/utils/useSaveTemplate'
 import type { Failure } from 'services/template-ng'
 import { DefaultNewTemplateId } from 'framework/Templates/templates'
-import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import css from './SaveTemplatePopover.module.scss'
 export interface GetErrorResponse extends Omit<Failure, 'errors'> {
   errors?: FormikErrors<unknown>
@@ -33,7 +31,6 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
     deleteTemplateCache,
     view
   } = React.useContext(TemplateContext)
-  const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const { getString } = useStrings()
   const { getErrors } = props
   const { templateIdentifier } = useParams<TemplateStudioPathProps & ModulePathParams>()
@@ -60,26 +57,7 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
     [template, modalProps]
   )
 
-  const [showCommentsModal, hideCommentsModal] = useModalHook(() => {
-    return (
-      <Dialog enforceFocus={false} isOpen={true} className={css.commentsDialog}>
-        <TemplateCommentModal
-          title={getString('templatesLibrary.updateTemplateModal.heading', {
-            name: template.name,
-            version: template.versionLabel
-          })}
-          onClose={hideCommentsModal}
-          onSubmit={comments => {
-            hideCommentsModal()
-            setLoading(true)
-            updateExistingLabel(comments)
-          }}
-        />
-      </Dialog>
-    )
-  }, [template])
-
-  const { saveAndPublish, updateExistingLabel } = useSaveTemplate(
+  const { saveAndPublish } = useSaveTemplate(
     {
       template,
       yamlHandler,
@@ -89,8 +67,7 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
       deleteTemplateCache,
       view
     },
-    hideConfigModal,
-    hideCommentsModal
+    hideConfigModal
   )
 
   const checkErrors = React.useCallback(
@@ -112,20 +89,16 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
 
   const onUpdate = React.useCallback(() => {
     checkErrors(() => {
-      if (isGitSyncEnabled) {
-        saveAndPublish(template, { isEdit: true })
-      } else {
-        showCommentsModal()
-      }
+      saveAndPublish(template, { isEdit: true })
     })
-  }, [checkErrors, template, isGitSyncEnabled, saveAndPublish, showCommentsModal])
+  }, [checkErrors, saveAndPublish, template])
 
   const onSaveAsNewLabel = React.useCallback(() => {
     checkErrors(() => {
       setModalProps({
         title: getString('templatesLibrary.saveAsNewLabelModal.heading'),
         promise: saveAndPublish,
-        disabledFields: [],
+        disabledFields: [Fields.Identifier],
         emptyFields: [Fields.VersionLabel]
       })
       showConfigModal()

@@ -4,6 +4,7 @@ exports[`<TemplateDetails /> tests snapshot test 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main container"
+    data-template-id="manjutesttemplate"
     style="height: 100%;"
   >
     <div
@@ -421,6 +422,11 @@ exports[`<TemplateDetails /> tests snapshot test 1`] = `
         </div>
       </div>
     </div>
+  </div>
+  <div
+    data-testid="location"
+  >
+    /
   </div>
 </div>
 `;

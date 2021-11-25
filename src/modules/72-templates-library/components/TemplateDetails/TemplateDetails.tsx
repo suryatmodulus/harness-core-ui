@@ -177,7 +177,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
   )
 
   return (
-    <Container height={'100%'} className={css.container}>
+    <Container height={'100%'} className={css.container} data-template-id={templateIdentifier}>
       <Layout.Vertical flex={{ align: 'center-center' }} height={'100%'}>
         {loading && <PageSpinner />}
         {!loading && templatesError && (
@@ -237,7 +237,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
                                 <Text font={{ weight: 'semi-bold' }} color={Color.BLACK}>
                                   {getString('description')}
                                 </Text>
-                                <Text color={Color.GREY_900}>{defaultTo(selectedTemplate.description, '-')}</Text>
+                                <Text color={Color.GREY_900}>{selectedTemplate.description || '-'}</Text>
                               </Layout.Vertical>
                             </Container>
                             <Container>

@@ -66,6 +66,9 @@ logs:
   noLogsText: 'No logs found'
   delegateSelectionLogs: Delegate selection logs
 execute: Execute
+commentModal:
+  addCommentPlaceholder: Add a comment
+  commentLabel: Comment
 configureOptions:
   configureOptions: 'configure options'
   defaultValue: 'Default value'

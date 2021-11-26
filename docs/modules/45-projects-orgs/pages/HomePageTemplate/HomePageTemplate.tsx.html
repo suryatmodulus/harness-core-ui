@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">82.35% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/30</span>
+                <span class='fraction'>28/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">55.56% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>5/9</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.31% </span>
+                <span class="strong">81.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>23/29</span>
+                <span class='fraction'>27/33</span>
             </div>
         
             
@@ -191,7 +191,11 @@
 <a name='L132'></a><a href='#L132'>132</a>
 <a name='L133'></a><a href='#L133'>133</a>
 <a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -213,6 +217,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -269,7 +276,7 @@
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
@@ -325,17 +332,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState } from 'react'
 import {
+  ButtonVariation,
+  Color,
+  Container,
+  FlexExpander,
   Heading,
   Layout,
-  Text,
   Link as ExternalLink,
-  FlexExpander,
-  Container,
-  Color,
-  ButtonVariation,
-  Page
+  Page,
+  Text
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
@@ -349,6 +357,9 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { Editions } from '@common/constants/SubscriptionTypes'
 import RbacButton from '@rbac/components/Button/Button'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { ResourceCenter } from '@resource-center/components/ResourceCenter/ResourceCenter'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './HomePageTemplate.module.scss'
 &nbsp;
 export interface TrialBannerProps {
@@ -403,7 +414,7 @@ export const HomePageTemplate: React.FC&lt;HomePageTemplate&gt; = ({
   const bannerClassName = hasBanner ? css.hasBanner : css.hasNoBanner
   const { showSuccess } = useToaster()
   const { contactSales } = useQueryParams&lt;{ contactSales?: string }&gt;()
-&nbsp;
+  const rcEnabled = useFeatureFlag(FeatureFlag.RESOURCE_CENTER_ENABLED)
   useEffect(
     () =&gt; {
       <span class="missing-if-branch" title="if path not taken" >I</span>if (contactSales === 'success') {
@@ -456,6 +467,7 @@ export const HomePageTemplate: React.FC&lt;HomePageTemplate&gt; = ({
           &lt;/Layout.Vertical&gt;
         &lt;/Container&gt;
       &lt;/Page.Body&gt;
+      {rcEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;ResourceCenter /&gt;}</span>
     &lt;/&gt;
   )
 }
@@ -466,7 +478,7 @@ export const HomePageTemplate: React.FC&lt;HomePageTemplate&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 26 2021 10:28:35 GMT+0000 (Greenwich Mean Time)
+                at Fri Nov 26 2021 14:07:10 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

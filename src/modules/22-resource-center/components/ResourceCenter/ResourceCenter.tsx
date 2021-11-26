@@ -74,21 +74,21 @@ const ResourceCenterHome = () => {
           {getString('resourceCenter.bottomlayout.desc')}
         </Text>
         <Layout.Horizontal flex={{ justifyContent: 'space-around' }}>
-          {getButton(getString('search'), searchIcon, getString('resourceCenter.bottomlayout.search.link'))}
+          {getButton(getString('search'), 'thinner-search', 'https://search.harness.io/')}
           {getButton(
             getString('resourceCenter.bottomlayout.docs.text'),
-            docsIcon,
-            getString('resourceCenter.bottomlayout.docs.link')
+            'resource-center-docs-icon',
+            'https://docs.harness.io/'
           )}
           {getButton(
             getString('resourceCenter.bottomlayout.community.text'),
-            communityIcon,
-            getString('resourceCenter.bottomlayout.community.link')
+            'resource-center-community-icon',
+            'https://community.harness.io/'
           )}
           {getButton(
             getString('resourceCenter.bottomlayout.sitestatus.text'),
-            siteStatusIcon,
-            getString('resourceCenter.bottomlayout.sitestatus.link')
+            'right-bar-notification',
+            'https://status.harness.io/'
           )}
         </Layout.Horizontal>
       </Layout.Vertical>

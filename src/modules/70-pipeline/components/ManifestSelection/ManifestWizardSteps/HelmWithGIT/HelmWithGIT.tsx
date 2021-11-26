@@ -10,7 +10,6 @@ import {
   Color,
   StepProps,
   Accordion,
-  SelectOption,
   ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
@@ -25,7 +24,7 @@ import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from '
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
-import type { CommandFlags, HelmWithGITDataType } from '../../ManifestInterface'
+import type { HelmWithGITDataType } from '../../ManifestInterface'
 import {
   gitFetchTypeList,
   GitFetchTypes,
@@ -36,6 +35,7 @@ import {
   ManifestStoreMap
 } from '../../Manifesthelper'
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
+import { handleCommandFlagsSubmitData } from '../HelmWithGcs/HelmWithGcs'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from './HelmWithGIT.module.scss'
 
@@ -168,17 +168,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
       }
     }
 
-    if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
-      ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) =>
-        commandFlag.commandType && commandFlag.flag
-          ? {
-              commandType: (commandFlag.commandType as SelectOption)?.value as string,
-              flag: commandFlag.flag
-            }
-          : {}
-      )
-    }
-
+    handleCommandFlagsSubmitData(manifestObj, formData)
     handleSubmit(manifestObj)
   }
   return (
@@ -217,7 +207,7 @@ const HelmWithGIT: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGITPropType>
           commandFlags: Yup.array().of(
             Yup.object().shape({
               flag: Yup.string().when('commandType', {
-                is: val => val?.value !== undefined,
+                is: val => !isEmpty(val?.value),
                 then: Yup.string().required(getString('pipeline.manifestType.commandFlagRequired'))
               })
             })

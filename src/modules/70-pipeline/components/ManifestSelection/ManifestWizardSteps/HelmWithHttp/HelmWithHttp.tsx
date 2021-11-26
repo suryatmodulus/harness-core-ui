@@ -10,22 +10,22 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   Color,
-  SelectOption,
   ButtonVariation
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import cx from 'classnames'
-import { get } from 'lodash-es'
+import { get, isEmpty } from 'lodash-es'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
-import type { CommandFlags, HelmWithHTTPDataType } from '../../ManifestInterface'
+import type { HelmWithHTTPDataType } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 
 import { helmVersions, ManifestDataType, ManifestIdentifierValidation } from '../../Manifesthelper'
+import { handleCommandFlagsSubmitData } from '../HelmWithGcs/HelmWithGcs'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
@@ -109,17 +109,8 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
         }
       }
     }
-    if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
-      ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) =>
-        commandFlag.commandType && commandFlag.flag
-          ? {
-              commandType: (commandFlag.commandType as SelectOption)?.value as string,
-              flag: commandFlag.flag
-            }
-          : {}
-      )
-    }
 
+    handleCommandFlagsSubmitData(manifestObj, formData)
     handleSubmit(manifestObj)
   }
 
@@ -137,7 +128,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
           commandFlags: Yup.array().of(
             Yup.object().shape({
               flag: Yup.string().when('commandType', {
-                is: val => val?.value !== undefined,
+                is: val => !isEmpty(val?.value),
                 then: Yup.string().required(getString('pipeline.manifestType.commandFlagRequired'))
               })
             })

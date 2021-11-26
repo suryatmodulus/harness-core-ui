@@ -32,10 +32,12 @@ export default function AccountSideNav(): React.ReactElement {
         <SidebarLink exact label={getString('common.subscriptions.title')} to={routes.toSubscriptions({ accountId })} />
       )}
       <SidebarLink label={getString('orgsText')} to={routes.toOrganizations({ accountId })} />
-      <LaunchButton
-        launchButtonText={getString('common.cgLaunchText')}
-        redirectUrl={returnLaunchUrl(`#/account/${accountId}/dashboard`)}
-      />
+      {window.deploymentType !== 'COMMUNITY' && (
+        <LaunchButton
+          launchButtonText={getString('common.cgLaunchText')}
+          redirectUrl={returnLaunchUrl(`#/account/${accountId}/dashboard`)}
+        />
+      )}
     </Layout.Vertical>
   )
 }

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.86% </span>
+                <span class="strong">67.12% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>48/74</span>
+                <span class='fraction'>49/73</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34% </span>
+                <span class="strong">36.93% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>137/403</span>
+                <span class='fraction'>137/371</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">26.09% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/24</span>
+                <span class='fraction'>6/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.28% </span>
+                <span class="strong">67.61% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>47/72</span>
+                <span class='fraction'>48/71</span>
             </div>
         
             
@@ -581,16 +581,7 @@
 <a name='L522'></a><a href='#L522'>522</a>
 <a name='L523'></a><a href='#L523'>523</a>
 <a name='L524'></a><a href='#L524'>524</a>
-<a name='L525'></a><a href='#L525'>525</a>
-<a name='L526'></a><a href='#L526'>526</a>
-<a name='L527'></a><a href='#L527'>527</a>
-<a name='L528'></a><a href='#L528'>528</a>
-<a name='L529'></a><a href='#L529'>529</a>
-<a name='L530'></a><a href='#L530'>530</a>
-<a name='L531'></a><a href='#L531'>531</a>
-<a name='L532'></a><a href='#L532'>532</a>
-<a name='L533'></a><a href='#L533'>533</a>
-<a name='L534'></a><a href='#L534'>534</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">47x</span>
+<a name='L525'></a><a href='#L525'>525</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
@@ -621,6 +612,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
@@ -793,16 +785,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1128,7 +1110,7 @@ import { useParams } from 'react-router-dom'
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import cx from 'classnames'
-import { get, memoize } from 'lodash-es'
+import { get, isEmpty, memoize } from 'lodash-es'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import {
   Text,
@@ -1151,10 +1133,11 @@ import { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper, useGetBucket
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useListAwsRegions } from 'services/portal'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import type { CommandFlags, HelmWithS3DataType } from '../../ManifestInterface'
+import type { HelmWithS3DataType } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 &nbsp;
 import { helmVersions, ManifestDataType, ManifestIdentifierValidation } from '../../Manifesthelper'
+import { handleCommandFlagsSubmitData } from '../HelmWithGcs/HelmWithGcs'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 &nbsp;
@@ -1325,17 +1308,7 @@ const HelmWithS3: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWith
       }
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (formData?.commandFlags.length &amp;&amp; formData?.commandFlags[0].commandType) {</span>
-      ;<span class="cstat-no" title="statement not covered" >(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map(<span class="fstat-no" title="function not covered" >(c</span>ommandFlag: CommandFlags) =&gt;</span>
-<span class="cstat-no" title="statement not covered" >        commandFlag.commandType &amp;&amp; commandFlag.flag</span>
-          ? {
-              commandType: (commandFlag.commandType as SelectOption)?.value as string,
-              flag: commandFlag.flag
-            }
-          : {}
-      )
-    }
-&nbsp;
+<span class="cstat-no" title="statement not covered" >    handleCommandFlagsSubmitData(manifestObj, formData)</span>
 <span class="cstat-no" title="statement not covered" >    handleSubmit(manifestObj)</span>
   }
 &nbsp;
@@ -1361,7 +1334,7 @@ const HelmWithS3: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWith
           commandFlags: Yup.array().of(
             Yup.object().shape({
               flag: Yup.string().when('commandType', {
-                is: <span class="fstat-no" title="function not covered" >val </span>=&gt; <span class="cstat-no" title="statement not covered" >val?.value !== undefined,</span>
+                is: <span class="fstat-no" title="function not covered" >val </span>=&gt; <span class="cstat-no" title="statement not covered" >!isEmpty(val?.value),</span>
                 then: Yup.string().required(getString('pipeline.manifestType.commandFlagRequired'))
               })
             })
@@ -1663,7 +1636,7 @@ export default HelmWithS3
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 25 2021 10:38:14 GMT+0000 (Greenwich Mean Time)
+                at Fri Nov 26 2021 06:02:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.05% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>37/43</span>
+                <span class='fraction'>36/42</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.35% </span>
+                <span class="strong">58.86% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>127/207</span>
+                <span class='fraction'>103/175</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">63.64% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/12</span>
+                <span class='fraction'>7/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.05% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>37/43</span>
+                <span class='fraction'>36/42</span>
             </div>
         
             
@@ -342,18 +342,8 @@
 <a name='L283'></a><a href='#L283'>283</a>
 <a name='L284'></a><a href='#L284'>284</a>
 <a name='L285'></a><a href='#L285'>285</a>
-<a name='L286'></a><a href='#L286'>286</a>
-<a name='L287'></a><a href='#L287'>287</a>
-<a name='L288'></a><a href='#L288'>288</a>
-<a name='L289'></a><a href='#L289'>289</a>
-<a name='L290'></a><a href='#L290'>290</a>
-<a name='L291'></a><a href='#L291'>291</a>
-<a name='L292'></a><a href='#L292'>292</a>
-<a name='L293'></a><a href='#L293'>293</a>
-<a name='L294'></a><a href='#L294'>294</a>
-<a name='L295'></a><a href='#L295'>295</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">47x</span>
+<a name='L286'></a><a href='#L286'>286</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -378,6 +368,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-yes">47x</span>
@@ -462,17 +453,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -657,22 +639,22 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   Color,
-  SelectOption,
   ButtonVariation
 } from '@wings-software/uicore'
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import cx from 'classnames'
-import { get } from 'lodash-es'
+import { get, isEmpty } from 'lodash-es'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 &nbsp;
-import type { CommandFlags, HelmWithHTTPDataType } from '../../ManifestInterface'
+import type { HelmWithHTTPDataType } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 &nbsp;
 import { helmVersions, ManifestDataType, ManifestIdentifierValidation } from '../../Manifesthelper'
+import { handleCommandFlagsSubmitData } from '../HelmWithGcs/HelmWithGcs'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 &nbsp;
@@ -756,17 +738,8 @@ const HelmWithHttp: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWi
         }
       }
     }
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (formData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommandFlags.length &amp;&amp; formData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommandFlags[0].commandType) {
-      ;(manifestObj<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>anifest<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as any).commandFlags = formData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommandFlags.map((commandFlag: CommandFlags) =&gt;
-        commandFlag.commandType &amp;&amp; commandFlag.flag
-          ? {
-              commandType: (commandFlag.commandType as SelectOption)<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue as string,
-              flag: commandFlag.flag
-            }
-          : <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
-      )
-    }
 &nbsp;
+    handleCommandFlagsSubmitData(manifestObj, formData)
     handleSubmit(manifestObj)
   }
 &nbsp;
@@ -784,7 +757,7 @@ const HelmWithHttp: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWi
           commandFlags: Yup.array().of(
             Yup.object().shape({
               flag: Yup.string().when('commandType', {
-                is: val =&gt; val<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue !== undefined,
+                is: val =&gt; !isEmpty(val<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue),
                 then: Yup.string().required(getString('pipeline.manifestType.commandFlagRequired'))
               })
             })
@@ -946,7 +919,7 @@ export default HelmWithHttp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Nov 25 2021 10:38:14 GMT+0000 (Greenwich Mean Time)
+                at Fri Nov 26 2021 06:02:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

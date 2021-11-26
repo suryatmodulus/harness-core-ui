@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">88.24% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/16</span>
+                <span class='fraction'>15/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.91% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>34/46</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.67% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/15</span>
+                <span class='fraction'>14/16</span>
             </div>
         
             
@@ -116,14 +116,9 @@
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -131,10 +126,6 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -147,6 +138,13 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,30 +170,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback } from 'react'
 import { noop } from 'lodash-es'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button } from '@wings-software/uicore'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { TemplateDrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import type { TemplateType } from '@templates-library/utils/templatesUtils'
 import { TemplateSelector } from '../TemplateSelector/TemplateSelector'
 import css from './TemplateDrawer.module.scss'
 &nbsp;
@@ -205,12 +190,18 @@ export const TemplateDrawer: React.FC = (): JSX.Element =&gt; {
       isLoading,
       templateView: {
         isTemplateDrawerOpened,
-        templateDrawerData: { type, data },
-        templateDrawerData
+        templateDrawerData: { type }
       }
     },
     updateTemplateView
   } = usePipelineContext()
+&nbsp;
+  const closeTemplateView = useCallback(() =&gt; {
+    updateTemplateView({
+      isTemplateDrawerOpened: false,
+      templateDrawerData: { type: TemplateDrawerTypes.UseTemplate }
+    })
+  }, [updateTemplateView])
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (isLoading) {
 <span class="cstat-no" title="statement not covered" >    return &lt;&gt;&lt;/&gt;</span>
@@ -237,21 +228,9 @@ export const TemplateDrawer: React.FC = (): JSX.Element =&gt; {
         className={css.almostFullScreenCloseBtn}
         icon="cross"
         withoutBoxShadow
-        onClick={() =&gt; {
-          updateTemplateView({
-            isTemplateDrawerOpened: false,
-            templateDrawerData: { type: TemplateDrawerTypes.UseTemplate }
-          })
-        }}
+        onClick={closeTemplateView}
       /&gt;
-      {data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electorData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplateType &amp;&amp; (
-        &lt;TemplateSelector
-          templateType={data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electorData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplateType as TemplateType}
-          childTypes={data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electorData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>hildTypes || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
-          onCopyToPipeline={templateDrawerData.data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electorData<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>nCopyTemplate}
-          onUseTemplate={templateDrawerData.data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electorData<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>nUseTemplate}
-        /&gt;
-      )}
+      &lt;TemplateSelector /&gt;
     &lt;/Drawer&gt;
   )
 }
@@ -262,7 +241,7 @@ export const TemplateDrawer: React.FC = (): JSX.Element =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 26 2021 06:02:40 GMT+0000 (Greenwich Mean Time)
+                at Fri Nov 26 2021 08:30:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

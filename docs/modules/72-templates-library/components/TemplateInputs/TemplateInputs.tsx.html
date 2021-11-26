@@ -236,7 +236,8 @@
 <a name='L177'></a><a href='#L177'>177</a>
 <a name='L178'></a><a href='#L178'>178</a>
 <a name='L179'></a><a href='#L179'>179</a>
-<a name='L180'></a><a href='#L180'>180</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -264,16 +265,13 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -353,7 +351,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -441,19 +443,16 @@ import { useStrings } from 'framework/strings'
 import { StageForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { TemplateType } from '@templates-library/utils/templatesUtils'
 import NoResultsView from '@templates-library/pages/TemplatesPage/views/NoResultsView/NoResultsView'
+import { DefaultNewVersionLabel } from 'framework/Templates/templates'
 import css from './TemplateInputs.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 &nbsp;
 export interface TemplateInputsProps {
-  selectedTemplate: TemplateSummaryResponse
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  template: TemplateSummaryResponse
 }
 &nbsp;
 export const TemplateInputs: React.FC&lt;TemplateInputsProps&gt; = props =&gt; {
-  const { selectedTemplate, accountIdentifier, orgIdentifier, projectIdentifier } = props
-  const { identifier, versionLabel, templateEntityType } = selectedTemplate
+  const { template } = props
   const [inputSetTemplate, setInputSetTemplate] = React.useState&lt;StepElementConfig | StageElementConfig | null&gt;()
   const [count, setCount] = React.useState&lt;number&gt;(0)
   const { showError } = useToaster()
@@ -465,12 +464,12 @@ export const TemplateInputs: React.FC&lt;TemplateInputsProps&gt; = props =&gt; {
     refetch,
     loading
   } = useGetTemplateInputSetYaml({
-    templateIdentifier: identifier || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+    templateIdentifier: defaultTo(template.identifier, ''),
     queryParams: {
-      accountIdentifier,
-      orgIdentifier,
-      projectIdentifier,
-      versionLabel: versionLabel || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+      accountIdentifier: defaultTo(template.accountId, ''),
+      orgIdentifier: template.orgIdentifier,
+      projectIdentifier: template.projectIdentifier,
+      versionLabel: template.versionLabel === DefaultNewVersionLabel ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: defaultTo(template.versionLabel, '')
     }
   })
 &nbsp;
@@ -488,7 +487,7 @@ export const TemplateInputs: React.FC&lt;TemplateInputsProps&gt; = props =&gt; {
 &nbsp;
   React.useEffect(() =&gt; {
     refetch()
-  }, [identifier, versionLabel])
+  }, [template])
 &nbsp;
   return (
     &lt;Container
@@ -514,7 +513,8 @@ export const TemplateInputs: React.FC&lt;TemplateInputsProps&gt; = props =&gt; {
               &lt;Container&gt;
                 &lt;Layout.Horizontal flex={{ alignItems: 'center' }} spacing={'xxxlarge'}&gt;
                   &lt;Text font={{ size: 'normal', weight: 'bold' }} color={Color.GREY_800}&gt;
-                    {identifier}: {versionLabel}
+                    {template.identifier}:{' '}
+                    {template.versionLabel === DefaultNewVersionLabel ? <span class="branch-0 cbranch-no" title="branch not covered" >'Stable' </span>: template.versionLabel}
                   &lt;/Text&gt;
                   &lt;Text className={css.inputsCount} font={{ size: 'small' }}&gt;
                     {getString('templatesLibrary.inputsCount', { count })}
@@ -524,7 +524,7 @@ export const TemplateInputs: React.FC&lt;TemplateInputsProps&gt; = props =&gt; {
               &lt;Formik&lt;StepElementConfig | StageElementWrapperConfig&gt;
                 onSubmit={noop}
                 initialValues={
-                  templateEntityType === TemplateType.Step
+                  template.templateEntityType === TemplateType.Step
                     ? (inputSetTemplate as StepElementConfig)
                     : (<span class="branch-1 cbranch-no" title="branch not covered" >{ stage: inputSetTemplate } as StageElementWrapperConfig)</span>
                 }
@@ -534,7 +534,7 @@ export const TemplateInputs: React.FC&lt;TemplateInputsProps&gt; = props =&gt; {
                 {formikProps =&gt; {
                   return (
                     &lt;&gt;
-                      {templateEntityType === TemplateType.Stage &amp;&amp; (
+                      {template.templateEntityType === TemplateType.Stage &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >                        &lt;StageForm</span>
                           template={formikProps.values as StageElementWrapperConfig}
                           allValues={formikProps.values as StageElementWrapperConfig}
@@ -545,7 +545,7 @@ export const TemplateInputs: React.FC&lt;TemplateInputsProps&gt; = props =&gt; {
                           stageClassName={css.stageCard}
                         /&gt;
                       )}
-                      {templateEntityType === TemplateType.Step &amp;&amp; (
+                      {template.templateEntityType === TemplateType.Step &amp;&amp; (
                         &lt;Container
                           className={css.inputsCard}
                           background={Color.WHITE}
@@ -569,7 +569,10 @@ export const TemplateInputs: React.FC&lt;TemplateInputsProps&gt; = props =&gt; {
                             MultiTypeInputType.RUNTIME &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >                            &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;</span>
                               &lt;MultiTypeDelegateSelector
-                                inputProps={{ projectIdentifier, orgIdentifier }}
+                                inputProps={{
+                                  projectIdentifier: template.projectIdentifier,
+                                  orgIdentifier: template.orgIdentifier
+                                }}
                                 allowableTypes={[
                                   MultiTypeInputType.FIXED,
                                   MultiTypeInputType.EXPRESSION,
@@ -601,7 +604,7 @@ export const TemplateInputs: React.FC&lt;TemplateInputsProps&gt; = props =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 26 2021 06:02:40 GMT+0000 (Greenwich Mean Time)
+                at Fri Nov 26 2021 08:30:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

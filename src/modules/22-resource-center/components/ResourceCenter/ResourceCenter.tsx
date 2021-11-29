@@ -1,10 +1,11 @@
 import React from 'react'
 import { Button, ButtonVariation, Color, FontVariation, Icon, IconName, Layout, Text } from '@wings-software/uicore'
 
-import { useModalHook, ModalProvider, ModalErrorHandler, ModalErrorHandlerBinding } from '@wings-software/uicore'
-import { Dialog, Classes, IDialogProps } from '@blueprintjs/core'
-import cx from 'classnames'
+import { useModalHook, ModalProvider, Icon, IconName } from '@wings-software/uicore'
+import { Dialog, IDialogProps } from '@blueprintjs/core'
+
 import { upperFirst } from 'lodash-es'
+import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import resourceImage from './images/resource-center.png'
 import css from './ResourceCenter.module.scss'

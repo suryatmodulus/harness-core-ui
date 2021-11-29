@@ -426,7 +426,7 @@ export function validate(
           )
         }
       } else {
-        validationRule.validateSync(get(values, name))
+        validationRule?.validateSync(get(values, name))
       }
     } catch (error) {
       set(errors, name, error.message)

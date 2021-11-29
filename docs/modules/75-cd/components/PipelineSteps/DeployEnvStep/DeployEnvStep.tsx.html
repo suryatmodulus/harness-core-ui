@@ -807,7 +807,9 @@
 <a name='L748'></a><a href='#L748'>748</a>
 <a name='L749'></a><a href='#L749'>749</a>
 <a name='L750'></a><a href='#L750'>750</a>
-<a name='L751'></a><a href='#L751'>751</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">43x</span>
+<a name='L751'></a><a href='#L751'>751</a>
+<a name='L752'></a><a href='#L752'>752</a>
+<a name='L753'></a><a href='#L753'>753</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">43x</span>
 <span class="cline-any cline-yes">43x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1203,6 +1205,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1960,7 +1964,9 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
           ...{ environmentRef }
         }}
         validationSchema={Yup.object().shape({
-          environmentRef: Yup.string().trim().required(getString('pipelineSteps.environmentTab.environmentIsRequired'))
+          environmentRef: Yup.string()
+            .trim()
+            .required(getString('cd.pipelineSteps.environmentTab.environmentIsRequired'))
         })}
       &gt;
         {formik =&gt; {
@@ -1975,13 +1981,13 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
                 flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}
               &gt;
                 &lt;FormInput.MultiTypeInput
-                  label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
+                  label={getString('cd.pipelineSteps.environmentTab.specifyYourEnvironment')}
                   tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
                   name="environmentRef"
                   useValue
                   disabled={readonly || (type === MultiTypeInputType.FIXED &amp;&amp; loading)}
                   placeholder={
-                    loading ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('loading') </span>: getString('pipelineSteps.environmentTab.selectEnvironment')
+                    loading ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('loading') </span>: getString('cd.pipelineSteps.environmentTab.selectEnvironment')
                   }
                   multiTypeInputProps={{
                     onTypeChange: setType,
@@ -2038,7 +2044,7 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
                     text={
                       isEditEnvironment(values)
                         ? getString('editEnvironment')
-                        : getString('pipelineSteps.environmentTab.newEnvironment')
+                        : getString('cd.pipelineSteps.environmentTab.plusNewEnvironment')
                     }
                   /&gt;
                 )}
@@ -2159,10 +2165,10 @@ const DeployEnvironmentInputStep: React.FC&lt;DeployEnvironmentProps &amp; { for
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentRef) === MultiTypeInputType.RUNTIME &amp;&amp; (
         &lt;Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}&gt;
           &lt;FormInput.MultiTypeInput
-            label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
+            label={getString('cd.pipelineSteps.environmentTab.specifyYourEnvironment')}
             tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
             name={`${isEmpty(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${inputSetData?.path}.`}</span>environmentRef`}
-            placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
+            placeholder={getString('cd.pipelineSteps.environmentTab.selectEnvironment')}
             selectItems={environments}
             useValue
             multiTypeInputProps={{
@@ -2197,7 +2203,7 @@ const DeployEnvironmentInputStep: React.FC&lt;DeployEnvironmentProps &amp; { for
               text={
                 isEditEnvironment(initialValues)
                   ? getString('editEnvironment')
-                  : getString('pipelineSteps.environmentTab.newEnvironment')
+                  : getString('cd.pipelineSteps.environmentTab.plusNewEnvironment')
               }
             /&gt;
           )}
@@ -2296,7 +2302,7 @@ export class DeployEnvironmentStep extends Step&lt;DeployEnvData&gt; {
 <span class="branch-1 cbranch-no" title="branch not covered" >      isRequired </span>&amp;&amp;
 <span class="branch-2 cbranch-no" title="branch not covered" >      getMultiTypeFromValue(template?.environmentRef) === MultiTypeInputType.RUNTIME</span>
     ) {
-<span class="cstat-no" title="statement not covered" >      errors.environmentRef = getString?.('pipelineSteps.environmentTab.environmentIsRequired')</span>
+<span class="cstat-no" title="statement not covered" >      errors.environmentRef = getString?.('cd.pipelineSteps.environmentTab.environmentIsRequired')</span>
     }
     return errors
   }
@@ -2314,7 +2320,7 @@ export class DeployEnvironmentStep extends Step&lt;DeployEnvData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 29 2021 06:25:43 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 29 2021 09:04:53 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

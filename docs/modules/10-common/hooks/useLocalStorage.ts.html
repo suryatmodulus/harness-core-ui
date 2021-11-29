@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">81.25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/16</span>
+                <span class='fraction'>13/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/6</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">81.25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/16</span>
+                <span class='fraction'>13/16</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -97,42 +97,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">720x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">720x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from 'react'
 import type { Dispatch, SetStateAction } from 'react'
 &nbsp;
 // eslint-disable-next-line @typescript-eslint/ban-types
-export function <span class="fstat-no" title="function not covered" >isFunction(</span>arg: unknown): arg is Function {
-<span class="cstat-no" title="statement not covered" >  return typeof arg === 'function'</span>
+export function isFunction(arg: unknown): arg is Function {
+  return typeof arg === 'function'
 }
 &nbsp;
 export function useLocalStorage&lt;T&gt;(key: string, initalValue: T): [T, Dispatch&lt;SetStateAction&lt;T&gt;&gt;] {
@@ -140,7 +140,7 @@ export function useLocalStorage&lt;T&gt;(key: string, initalValue: T): [T, Dispa
     try {
       const item = window.localStorage.getItem(key)
 &nbsp;
-      return item &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >item !== 'undefined' </span>? <span class="branch-0 cbranch-no" title="branch not covered" >JSON.parse(item) </span>: initalValue
+      return item &amp;&amp; item !== 'undefined' ? JSON.parse(item) : initalValue
     } catch (e) {
       // eslint-disable-next-line no-console
 <span class="cstat-no" title="statement not covered" >      console.log(e)</span>
@@ -148,12 +148,12 @@ export function useLocalStorage&lt;T&gt;(key: string, initalValue: T): [T, Dispa
     }
   })
 &nbsp;
-  function <span class="fstat-no" title="function not covered" >setItem(</span>value: SetStateAction&lt;T&gt;): void {
-<span class="cstat-no" title="statement not covered" >    try {</span>
-      const valueToSet = <span class="cstat-no" title="statement not covered" >isFunction(value) ? value(state) : value</span>
+  function setItem(value: SetStateAction&lt;T&gt;): void {
+    try {
+      const valueToSet = isFunction(value) ? <span class="branch-0 cbranch-no" title="branch not covered" >value(state) </span>: value
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      setState(valueToSet)</span>
-<span class="cstat-no" title="statement not covered" >      window.localStorage.setItem(key, JSON.stringify(valueToSet))</span>
+      setState(valueToSet)
+      window.localStorage.setItem(key, JSON.stringify(valueToSet))
     } catch (e) {
       // eslint-disable-next-line no-console
 <span class="cstat-no" title="statement not covered" >      console.log(e)</span>
@@ -169,7 +169,7 @@ export function useLocalStorage&lt;T&gt;(key: string, initalValue: T): [T, Dispa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 29 2021 16:36:26 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 29 2021 18:27:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -46,7 +46,9 @@ describe('Stepk8ClusterDetails', () => {
     await act(async () => {
       fireEvent.click(getByText('continue'))
     })
-
+    await act(async () => {
+      fireEvent.click(container.querySelector('input[value="ManualConfig"]')!)
+    })
     expect(container).toMatchSnapshot()
     expect(getByText('validation.username')).toBeDefined()
 

@@ -47,7 +47,7 @@ interface K8ClusterDetailsProps {
 }
 
 interface KubeFormInterface {
-  delegateType: string
+  delegateType?: string
   authType: string
   username: TextReferenceInterface | void
   password: SecretReferenceInterface | void
@@ -68,7 +68,6 @@ interface KubeFormInterface {
 }
 
 const defaultInitialFormData: KubeFormInterface = {
-  delegateType: DelegateTypes.DELEGATE_OUT_CLUSTER,
   authType: AuthTypes.USER_PASSWORD,
   username: undefined,
   password: undefined,
@@ -247,6 +246,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
         is: delegateType => delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER,
         then: Yup.string().required(getString('validation.masterUrl'))
       }),
+    delegateType: Yup.string().required(getString('connectors.chooseMethodForK8sConnection')),
     authType: Yup.string()
       .nullable()
       .when('delegateType', {

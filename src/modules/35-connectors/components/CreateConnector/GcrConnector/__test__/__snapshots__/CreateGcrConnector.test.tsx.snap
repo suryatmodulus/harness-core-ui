@@ -611,11 +611,16 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
         style="height: inherit;"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="gcpAuthenticationDetails"
         >
-          details
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
+          >
+            details
+          </p>
+        </div>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -627,120 +632,53 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                 class="StyledProps--font StyledProps--main clusterWrapper"
               >
                 <div
-                  class="cardRow"
-                >
-                  <div
-                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
-                    data-index="0"
-                    tabindex="0"
-                  >
-                    <div
-                      class="StyledProps--font StyledProps--main card selectedCard"
-                    >
-                      <span
-                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                      >
-                        connectors.GCP.delegateOutClusterInfo
-                      </span>
-                      <span
-                        class="bp3-icon StyledProps--main StyledProps--margin-small"
-                        data-icon="deployment-success-new"
-                      >
-                        <svg
-                          height="16"
-                          viewBox="0 0 14 14"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
-                            fill="#38d168"
-                          />
-                          <path
-                            d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
-                            fill="#fff"
-                          />
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
-                    data-index="1"
-                    tabindex="0"
-                  >
-                    <div
-                      class="StyledProps--font StyledProps--main card"
-                    >
-                      <span
-                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                      >
-                        connectors.GCP.delegateInClusterInfo
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="bp3-form-group"
-                  data-id="null-0"
+                  class="bp3-form-group ThumbnailSelect--mainContainer"
+                  data-id="delegateType-0"
                 >
                   <div
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout--vertical StyledProps--main"
+                      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                     >
                       <label
-                        class="bp3-label"
+                        class="Thumbnail--squareCardContainer Thumbnail--large"
                       >
-                        <span
-                          class="Tooltip--acenter"
-                          data-tooltip-id="gcrAuthForm_password"
+                        <div
+                          class="bp3-card bp3-interactive bp3-elevation-0 Card--card Thumbnail--squareCard Card--interactive"
+                          tabindex="0"
                         >
-                          encryptedKeyLabel
-                        </span>
-                      </label>
-                      <div
-                        class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
-                      >
-                        <a
-                          class="containerLink"
-                          data-testid="password"
-                          href="/account/dummy/resources/connectors"
-                        >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="key-main"
-                            style="height: 12px;"
-                          >
-                            <svg
-                              height="24"
-                              width="24"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <g
-                                fill="none"
-                                stroke="#1C1C28"
-                                stroke-width="0.5"
-                              >
-                                <path
-                                  d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                />
-                                <path
-                                  d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                />
-                              </g>
-                            </svg>
-                          </span>
                           <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-black"
                           >
-                            <div>
-                              createOrSelectSecret
-                            </div>
+                            connectors.GCP.delegateOutClusterInfo
                           </p>
-                        </a>
-                      </div>
+                        </div>
+                        <input
+                          name="delegateType"
+                          type="checkbox"
+                          value="ManualConfig"
+                        />
+                      </label>
+                      <label
+                        class="Thumbnail--squareCardContainer Thumbnail--large"
+                      >
+                        <div
+                          class="bp3-card bp3-interactive bp3-elevation-0 Card--card Thumbnail--squareCard Card--interactive"
+                          tabindex="0"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-black"
+                          >
+                            connectors.GCP.delegateInClusterInfo
+                          </p>
+                        </div>
+                        <input
+                          name="delegateType"
+                          type="checkbox"
+                          value="InheritFromDelegate"
+                        />
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -1376,11 +1314,16 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
         style="height: inherit;"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="gcpAuthenticationDetails"
         >
-          details
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h3"
+          >
+            details
+          </p>
+        </div>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -1392,120 +1335,53 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                 class="StyledProps--font StyledProps--main clusterWrapper"
               >
                 <div
-                  class="cardRow"
-                >
-                  <div
-                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
-                    data-index="0"
-                    tabindex="0"
-                  >
-                    <div
-                      class="StyledProps--font StyledProps--main card selectedCard"
-                    >
-                      <span
-                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                      >
-                        connectors.GCP.delegateOutClusterInfo
-                      </span>
-                      <span
-                        class="bp3-icon StyledProps--main StyledProps--margin-small"
-                        data-icon="deployment-success-new"
-                      >
-                        <svg
-                          height="16"
-                          viewBox="0 0 14 14"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
-                            fill="#38d168"
-                          />
-                          <path
-                            d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
-                            fill="#fff"
-                          />
-                        </svg>
-                      </span>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
-                    data-index="1"
-                    tabindex="0"
-                  >
-                    <div
-                      class="StyledProps--font StyledProps--main card"
-                    >
-                      <span
-                        class="StyledProps--font StyledProps--main textInfo StyledProps--inline"
-                      >
-                        connectors.GCP.delegateInClusterInfo
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="bp3-form-group"
-                  data-id="null-0"
+                  class="bp3-form-group ThumbnailSelect--mainContainer"
+                  data-id="delegateType-0"
                 >
                   <div
                     class="bp3-form-content"
                   >
                     <div
-                      class="Layout--vertical StyledProps--main"
+                      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                     >
                       <label
-                        class="bp3-label"
+                        class="Thumbnail--squareCardContainer Thumbnail--large"
                       >
-                        <span
-                          class="Tooltip--acenter"
-                          data-tooltip-id="gcrAuthForm_password"
+                        <div
+                          class="bp3-card bp3-interactive bp3-elevation-0 Card--card Thumbnail--squareCard Card--interactive"
+                          tabindex="0"
                         >
-                          encryptedKeyLabel
-                        </span>
-                      </label>
-                      <div
-                        class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
-                      >
-                        <a
-                          class="containerLink"
-                          data-testid="password"
-                          href="/account/dummy/resources/connectors"
-                        >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="key-main"
-                            style="height: 12px;"
-                          >
-                            <svg
-                              height="24"
-                              width="24"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <g
-                                fill="none"
-                                stroke="#1C1C28"
-                                stroke-width="0.5"
-                              >
-                                <path
-                                  d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                />
-                                <path
-                                  d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                />
-                              </g>
-                            </svg>
-                          </span>
                           <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-black"
                           >
-                            <div>
-                              createOrSelectSecret
-                            </div>
+                            connectors.GCP.delegateOutClusterInfo
                           </p>
-                        </a>
-                      </div>
+                        </div>
+                        <input
+                          name="delegateType"
+                          type="checkbox"
+                          value="ManualConfig"
+                        />
+                      </label>
+                      <label
+                        class="Thumbnail--squareCardContainer Thumbnail--large"
+                      >
+                        <div
+                          class="bp3-card bp3-interactive bp3-elevation-0 Card--card Thumbnail--squareCard Card--interactive"
+                          tabindex="0"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-black"
+                          >
+                            connectors.GCP.delegateInClusterInfo
+                          </p>
+                        </div>
+                        <input
+                          name="delegateType"
+                          type="checkbox"
+                          value="InheritFromDelegate"
+                        />
+                      </label>
                     </div>
                   </div>
                 </div>

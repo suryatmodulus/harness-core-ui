@@ -1491,6 +1491,8 @@ export interface StringsMap {
   'connectors.ceK8.secretCreationStep.step3': string
   'connectors.ceK8.secretCreationStep.step4': string
   'connectors.ceK8.selectConnectorLabel': string
+  'connectors.chooseMethodForGCPConnection': string
+  'connectors.chooseMethodForK8sConnection': string
   'connectors.click': string
   'connectors.confirmDelete': string
   'connectors.confirmDeleteTitle': string

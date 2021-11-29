@@ -1,6 +1,11 @@
 .subHeader {
   flex: 1;
+  .dateRangePicker {
+    border: 1px solid rgba(0, 173, 228, 0.5) !important;
+    border-radius: 4px !important;
+    margin-right: var(--spacing-small) !important;
+  }
   .search {
-    margin-right: var(--spacing-medium);
+    margin-right: var(--spacing-small) !important;
   }
 }

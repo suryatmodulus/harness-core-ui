@@ -1,16 +1,16 @@
-import React from 'react'
-import { Avatar, Layout, TableV2, Text } from '@wings-software/uicore'
+import React, { useEffect, useState } from 'react'
+import { Avatar, Layout, TableV2, Text, Icon } from '@wings-software/uicore'
 import type { Column, Renderer, CellProps } from 'react-table'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { Page } from '@common/exports'
-import type { AuditEventDTO, AuditFilterProperties, PageAuditEventDTO } from 'services/audit'
+import { AuditEventDTO, PageAuditEventDTO, useGetAuditList } from 'services/audit'
 import { formatDatetoLocale } from '@common/utils/dateUtils'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import dummyResponse from '../../mocks/response.json'
 import YamlDiff from './YamlDiff/YamlDiff'
-import AuditTrailSubHeader from './AuditTrailSubHeader/AuditTrailSubHeader'
+import AuditTrailSubHeader, { TableFiltersPayload } from './AuditTrailSubHeader/AuditTrailSubHeader'
 import css from './AuditTrail.module.scss'
 
 const renderColumnTimeStamp: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
@@ -27,7 +27,7 @@ const renderColumnUser: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
 }
 
 const renderColumnAction: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-  return row.original.action
+  return row.original.action || '--'
 }
 
 const renderColumnResource: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
@@ -40,39 +40,50 @@ const renderColumnResource: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
 }
 
 const renderColumnOrganization: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-  return row.original.resourceScope.orgIdentifier
+  return row.original.resourceScope.orgIdentifier || '--'
 }
 
 const renderColumnProject: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-  return row.original?.resourceScope?.projectIdentifier
+  return row.original?.resourceScope?.projectIdentifier || '--'
 }
 
 const renderColumnModule: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-  return row.original.module
+  return row.original.module || '--'
 }
 
 const renderColumnEnvironment: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-  return row.original.environment?.identifier
+  return row.original.environment?.identifier || '--'
 }
 
 const AuditTrail: React.FC = () => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
-  const payload = { scopes: [{ accountIdentifier: 'accountID' }] } as AuditFilterProperties
+  const [showYamlDiff, setYamlDiffVisibility] = useState(false)
 
-  // const { mutate: fetchAuditList } = useGetAuditList({
-  //   queryParams: {
-  //     accountIdentifier: accountId,
-  //     pageSize: 100,
-  //     pageIndex: page
-  //   }
-  // })
+  const { mutate: fetchAuditList } = useGetAuditList({
+    queryParams: {
+      accountIdentifier: accountId,
+      pageSize: 100,
+      pageIndex: 0
+    }
+  })
+
+  useEffect(() => {
+    fetchAuditList({ scopes: [{ accountIdentifier: accountId }] })
+  }, [fetchAuditList])
 
   const data = dummyResponse.data as PageAuditEventDTO
 
   const renderYamlDiffColumn: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-    const { auditId } = row.original
-    return auditId ? <YamlDiff accountIdentifier={accountId} auditId={auditId} /> : null
+    // const { auditId } = row.original
+    return (
+      <Icon
+        name="file"
+        onClick={() => {
+          setYamlDiffVisibility(!showYamlDiff)
+        }}
+      />
+    )
   }
 
   const columns: Column<AuditEventDTO>[] = [
@@ -141,10 +152,26 @@ const AuditTrail: React.FC = () => {
     }
   ]
 
+  const handleFiltersChange = (filtersPayload: TableFiltersPayload): void => {
+    console.log('Trigger filter change', filtersPayload)
+  }
+
+  const onDownloadClick = (): void => {
+    // handle download click here
+  }
+
+  const onColumnToggle = (): void => {
+    //toggle column here
+  }
+
   return (
     <>
       <Page.Header title={getString('common.auditTrail')} breadcrumbs={<NGBreadcrumbs />} />
-      <AuditTrailSubHeader />
+      <AuditTrailSubHeader
+        onChange={handleFiltersChange}
+        handleDownloadClick={onDownloadClick}
+        toggleColumn={onColumnToggle}
+      />
       <Page.Body>
         <TableV2<AuditEventDTO>
           data={data?.content || []}
@@ -158,6 +185,15 @@ const AuditTrail: React.FC = () => {
             pageIndex: data?.pageIndex || 0
           }}
         />
+        {showYamlDiff && (
+          <YamlDiff
+            onDrawerClose={() => {
+              setYamlDiffVisibility(false)
+            }}
+            accountIdentifier={accountId}
+            auditId={'auditId'}
+          />
+        )}
       </Page.Body>
     </>
   )

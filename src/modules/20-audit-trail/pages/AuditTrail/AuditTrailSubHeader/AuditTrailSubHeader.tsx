@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Page,
   Layout,
@@ -15,17 +15,27 @@ import { useStrings } from 'framework/strings'
 import FilterDrawer from '../FilterDrawer/FilterDrawer'
 import css from './AuditTrailSubHeader.module.scss'
 
-const LoginEventsList: SelectOption[] = [
+const eventsList: SelectOption[] = [
   { label: 'Show All Events', value: 'allEvents' },
   { label: 'Exclude Login Events', value: 'excludeLogin' },
   { label: 'Only Show Login Events', value: 'onlyLogin' }
 ]
 
-const AuditTrailSubHeader: React.FC = () => {
-  const [startTime, setStartTime] = useState<Date>()
-  const [endTime, setEndTime] = useState<Date>()
-  const [eventType, setEventType] = useState<SelectOption>()
-  const [searchParam, setSearchParam] = useState<string>()
+export interface TableFiltersPayload {
+  startTime?: Date
+  endTime?: Date
+  eventType?: string
+  searchText?: string
+  filters?: any
+}
+interface AuditTrailSubHeaderProps {
+  onChange: (data: TableFiltersPayload) => void
+  handleDownloadClick?: () => void
+  toggleColumn?: () => void
+}
+
+const AuditTrailSubHeader: React.FC<AuditTrailSubHeaderProps> = ({ handleDownloadClick, toggleColumn, onChange }) => {
+  const [filtersData, setFiltersData] = useState<TableFiltersPayload>({})
   const { getString } = useStrings()
 
   const fieldToLabelMapping = new Map<string, string>()
@@ -40,16 +50,19 @@ const AuditTrailSubHeader: React.FC = () => {
     return <FilterDrawer closeDrawer={closeDrawer} />
   })
 
-  const onDownloadClick = (): void => {
-    //empty method
-  }
-
-  const onToggleColumn = (): void => {
-    //empty method
-  }
+  useEffect(() => {
+    onChange(filtersData)
+  }, [filtersData])
 
   const onFilterButtonClick = (): void => {
     openDrawer()
+  }
+
+  const onEventTypeChange = (selected: SelectOption): void => {
+    setFiltersData({
+      ...filtersData,
+      eventType: selected.value as string
+    })
   }
 
   return (
@@ -57,22 +70,37 @@ const AuditTrailSubHeader: React.FC = () => {
       <Layout.Horizontal flex className={css.subHeader}>
         <Layout.Horizontal>
           <DateRangePickerButton
-            width={232}
-            renderButtonText={() => 'Select Date'}
-            initialButtonText="Select Date"
+            className={css.dateRangePicker}
+            width={240}
+            renderButtonText={selectedDates => {
+              return `${selectedDates[0].toLocaleDateString()} - ${selectedDates[1].toLocaleDateString()}`
+            }}
+            initialButtonText="Select Dates" //What should be the placeholder here.
             onChange={([start, end]) => {
-              setStartTime(start)
-              setEndTime(end)
+              setFiltersData({
+                ...filtersData,
+                startTime: start,
+                endTime: end
+              })
             }}
           />
-          <DropDown items={LoginEventsList} width={170} value={eventType?.value?.toString()} onChange={setEventType} />
+          <DropDown
+            items={eventsList}
+            width={170}
+            value={filtersData?.eventType?.toString()}
+            onChange={onEventTypeChange}
+            placeholder="Select event type" //what should be the placeholder here?
+          />
         </Layout.Horizontal>
         <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
           <ExpandingSearchInput
             alwaysExpanded
             className={css.search}
             onChange={text => {
-              setSearchParam(text.trim())
+              setFiltersData({
+                ...filtersData,
+                searchText: text
+              })
             }}
             width={300}
           />
@@ -84,8 +112,8 @@ const AuditTrailSubHeader: React.FC = () => {
             fieldToLabelMapping={fieldToLabelMapping}
             filterWithValidFields={{}}
           />
-          <Icon onClick={onDownloadClick} padding={{ left: 'large' }} name="download" />
-          <Icon onClick={onToggleColumn} padding={{ left: 'large' }} name="remove-column" />
+          <Icon onClick={handleDownloadClick} padding={{ left: 'large' }} name="download-light" />
+          <Icon onClick={toggleColumn} padding={{ left: 'large' }} name="toggle-column" />
         </Layout.Horizontal>
       </Layout.Horizontal>
     </Page.SubHeader>

@@ -1574,7 +1574,6 @@ export interface ResponsePageAuditEventDTO {
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
-
 export interface ResponsePageFilterDTO {
   correlationId?: string
   data?: PageFilterDTO

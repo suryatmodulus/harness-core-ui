@@ -7,11 +7,10 @@ import css from './YamlDiff.module.scss'
 interface YamlDiffProps {
   auditId: string
   accountIdentifier: string
+  onDrawerClose: () => void
 }
 
 const YamlDiff: React.FC<YamlDiffProps> = props => {
-  const [drawerOpen, setDrawerOpen] = useState(false)
-
   const { data } = useGetYamlDiff({
     queryParams: {
       accountIdentifier: props.accountIdentifier,
@@ -19,13 +18,9 @@ const YamlDiff: React.FC<YamlDiffProps> = props => {
     }
   })
 
-  const onYamlDiffClick = () => {
-    setDrawerOpen(!drawerOpen)
-  }
   return (
     <>
-      <Icon name="file" onClick={onYamlDiffClick} />
-      {drawerOpen && (
+      {
         <Drawer
           autoFocus={true}
           enforceFocus={true}
@@ -33,17 +28,16 @@ const YamlDiff: React.FC<YamlDiffProps> = props => {
           usePortal={true}
           canOutsideClickClose={true}
           canEscapeKeyClose={true}
-          isOpen={drawerOpen}
-          onClose={() => setDrawerOpen(false)}
+          isOpen={true}
         >
           <Page.Header
             size="small"
             title="Event Summary"
-            content={<Icon name="cross" onClick={() => setDrawerOpen(false)} />}
+            content={<Icon name="cross" onClick={() => props.onDrawerClose()} />}
           />
           <Page.Body className={css.body}>Page body content</Page.Body>
         </Drawer>
-      )}
+      }
     </>
   )
 }

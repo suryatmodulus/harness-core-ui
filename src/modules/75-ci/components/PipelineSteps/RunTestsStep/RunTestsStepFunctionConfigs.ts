@@ -122,8 +122,7 @@ export const editViewValidateFieldsConfig = [
   {
     name: 'spec.packages',
     type: ValidationFieldTypes.Text,
-    label: 'packagesLabel',
-    isRequired: true
+    label: 'packagesLabel'
   },
   {
     name: 'spec.reportPaths',
@@ -181,8 +180,7 @@ export function getInputSetViewValidateFieldsConfig(
     {
       name: 'spec.packages',
       type: ValidationFieldTypes.Text,
-      label: 'packagesLabel',
-      isRequired
+      label: 'packagesLabel'
     },
     {
       name: 'spec.reports.spec.paths',

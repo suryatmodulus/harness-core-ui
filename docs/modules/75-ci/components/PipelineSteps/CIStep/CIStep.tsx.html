@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.74% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>36/38</span>
+                <span class='fraction'>42/42</span>
             </div>
         
             
@@ -419,7 +419,13 @@
 <a name='L360'></a><a href='#L360'>360</a>
 <a name='L361'></a><a href='#L361'>361</a>
 <a name='L362'></a><a href='#L362'>362</a>
-<a name='L363'></a><a href='#L363'>363</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">56x</span>
+<a name='L363'></a><a href='#L363'>363</a>
+<a name='L364'></a><a href='#L364'>364</a>
+<a name='L365'></a><a href='#L365'>365</a>
+<a name='L366'></a><a href='#L366'>366</a>
+<a name='L367'></a><a href='#L367'>367</a>
+<a name='L368'></a><a href='#L368'>368</a>
+<a name='L369'></a><a href='#L369'>369</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">56x</span>
 <span class="cline-any cline-yes">56x</span>
 <span class="cline-any cline-yes">56x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -447,17 +453,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">56x</span>
-<span class="cline-any cline-yes">103x</span>
-<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-yes">155x</span>
+<span class="cline-any cline-yes">155x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">103x</span>
-<span class="cline-any cline-yes">103x</span>
-<span class="cline-any cline-yes">103x</span>
-<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-yes">155x</span>
+<span class="cline-any cline-yes">155x</span>
+<span class="cline-any cline-yes">155x</span>
+<span class="cline-any cline-yes">155x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -804,13 +816,14 @@ interface CIStepProps {
   enableFields: {
     [key: string]: { [key: string]: any }
   }
-  formik: FormikProps&lt;any&gt;
+  formik?: FormikProps&lt;any&gt;
   stepViewType: StepViewType
   allowableTypes: MultiTypeInputType[]
+  isInputSetView?: boolean
 }
 &nbsp;
 export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
-  const { isNewStep, readonly, stepLabel, enableFields, stepViewType, allowableTypes } = props
+  const { isNewStep, readonly, stepLabel, enableFields, stepViewType, allowableTypes, isInputSetView } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;{
     projectIdentifier: string
     orgIdentifier: string
@@ -821,7 +834,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
   const { expressions } = useVariablesExpression()
   return (
     &lt;&gt;
-      {stepViewType !== StepViewType.Template ? (
+      {stepViewType !== StepViewType.Template &amp;&amp; Object.prototype.hasOwnProperty.call(enableFields, 'name') ? (
         &lt;Container className={cx(css.formGroup, css.lg, css.nameIdLabel)}&gt;
           &lt;FormInput.InputWithIdentifier
             inputName="name"
@@ -831,7 +844,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
             inputLabel={stepLabel ?? getString('pipelineSteps.stepNameLabel')}
           /&gt;
         &lt;/Container&gt;
-      ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
+      ) : null}
       &lt;Container className={cx(css.formGroup, css.lg)}&gt;
         {Object.prototype.hasOwnProperty.call(enableFields, 'description') ? (
           &lt;FormMultiTypeTextAreaField
@@ -851,17 +864,22 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
           &lt;FormMultiTypeConnectorField
             label={enableFields['spec.connectorRef'].label}
             type={enableFields['spec.connectorRef'].type}
-            width={385}
+            width={isInputSetView ? 265 : 385}
             name="spec.connectorRef"
             placeholder={getString('select')}
             accountIdentifier={accountId}
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
-            multiTypeProps={{ expressions, allowableTypes, disabled: readonly }}
+            multiTypeProps={{
+              expressions,
+              allowableTypes,
+              disabled: readonly,
+              ...enableFields['spec.connectorRef'].multiTypeProps
+            }}
             gitScope={gitScope}
             setRefValue
           /&gt;
-        ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
+        ) : null}
       &lt;/Container&gt;
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.image') ? (
         &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
@@ -1150,7 +1168,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 29 2021 09:04:53 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 29 2021 10:49:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

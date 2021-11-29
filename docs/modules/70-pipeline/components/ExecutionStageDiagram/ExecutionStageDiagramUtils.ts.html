@@ -616,7 +616,13 @@
 <a name='L557'></a><a href='#L557'>557</a>
 <a name='L558'></a><a href='#L558'>558</a>
 <a name='L559'></a><a href='#L559'>559</a>
-<a name='L560'></a><a href='#L560'>560</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
+<a name='L560'></a><a href='#L560'>560</a>
+<a name='L561'></a><a href='#L561'>561</a>
+<a name='L562'></a><a href='#L562'>562</a>
+<a name='L563'></a><a href='#L563'>563</a>
+<a name='L564'></a><a href='#L564'>564</a>
+<a name='L565'></a><a href='#L565'>565</a>
+<a name='L566'></a><a href='#L566'>566</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -744,12 +750,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -762,6 +772,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -1177,7 +1189,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { delay } from 'lodash-es'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
-import { Color, IconName } from '@wings-software/uicore'
+import { Color, IconName, Utils } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import type { CSSProperties } from 'react'
 import {
@@ -1291,28 +1303,32 @@ export const getNodeStyles = (
     switch (status) {
       case ExecutionStatusEnum.Success:
         style.borderColor = 'var(--execution-pipeline-color-blue)'
-        style.backgroundColor = isSelected ? <span class="branch-0 cbranch-no" title="branch not covered" >'var(--execution-pipeline-color-blue)' </span>: 'var(--white)'
+        style.backgroundColor = isSelected ? <span class="branch-0 cbranch-no" title="branch not covered" >'var(--execution-pipeline-color-blue)' </span>: Utils.getRealCSSColor(Color.WHITE)
         break
       case ExecutionStatusEnum.Running:
       case ExecutionStatusEnum.AsyncWaiting:
       case ExecutionStatusEnum.TaskWaiting:
       case ExecutionStatusEnum.TimedWaiting:
         style.borderColor = 'var(--execution-pipeline-color-blue)'
-        style.backgroundColor = isSelected ? <span class="branch-0 cbranch-no" title="branch not covered" >'var(--execution-pipeline-color-blue)' </span>: 'var(--white)'
+        style.backgroundColor = isSelected ? <span class="branch-0 cbranch-no" title="branch not covered" >'var(--execution-pipeline-color-blue)' </span>: Utils.getRealCSSColor(Color.WHITE)
         break
       case ExecutionStatusEnum.Paused:
         style.borderColor = 'var(--execution-pipeline-color-orange)'
-        style.backgroundColor = isSelected ? <span class="branch-0 cbranch-no" title="branch not covered" >'var(--execution-pipeline-color-orange)' </span>: 'var(--white)'
+        style.backgroundColor = isSelected
+          ? <span class="branch-0 cbranch-no" title="branch not covered" >'var(--execution-pipeline-color-orange)'</span>
+          : Utils.getRealCSSColor(Color.WHITE)
         break
 <span class="branch-6 cbranch-no" title="branch not covered" >      case ExecutionStatusEnum.InterventionWaiting:</span>
 <span class="branch-7 cbranch-no" title="branch not covered" >      case ExecutionStatusEnum.ApprovalWaiting:</span>
 <span class="branch-8 cbranch-no" title="branch not covered" >      case ExecutionStatusEnum.ResourceWaiting:</span>
 <span class="cstat-no" title="statement not covered" >        style.borderColor = 'var(--execution-pipeline-color-orange2)'</span>
-<span class="cstat-no" title="statement not covered" >        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-orange)' : 'var(--white)'</span>
+<span class="cstat-no" title="statement not covered" >        style.backgroundColor = isSelected</span>
+          ? 'var(--execution-pipeline-color-orange)'
+          : Utils.getRealCSSColor(Color.WHITE)
 <span class="cstat-no" title="statement not covered" >        break</span>
       case ExecutionStatusEnum.NotStarted:
         style.borderColor = 'var(--execution-pipeline-color-dark-grey)'
-        style.backgroundColor = 'var(--white)'
+        style.backgroundColor = Utils.getRealCSSColor(Color.WHITE)
         break
       case ExecutionStatusEnum.Aborted:
         <span class="missing-if-branch" title="if path not taken" >I</span>if (type === ExecutionPipelineNodeType.DIAMOND) {
@@ -1320,14 +1336,16 @@ export const getNodeStyles = (
 <span class="cstat-no" title="statement not covered" >          style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-red)' : 'var(--red-50)'</span>
         } else {
           style.borderColor = 'var(--execution-pipeline-color-dark-grey2)'
-          style.backgroundColor = isSelected ? <span class="branch-0 cbranch-no" title="branch not covered" >'var(--execution-pipeline-color-dark-grey2)' </span>: 'var(--white)'
+          style.backgroundColor = isSelected
+            ? <span class="branch-0 cbranch-no" title="branch not covered" >'var(--execution-pipeline-color-dark-grey2)'</span>
+            : Utils.getRealCSSColor(Color.WHITE)
         }
 &nbsp;
         break
 <span class="branch-11 cbranch-no" title="branch not covered" >      case ExecutionStatusEnum.ApprovalRejected:</span>
       case ExecutionStatusEnum.Failed:
         style.borderColor = 'var(--execution-pipeline-color-dark-red)'
-        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-red)' : <span class="branch-1 cbranch-no" title="branch not covered" >'var(--white)'</span>
+        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-red)' : <span class="branch-1 cbranch-no" title="branch not covered" >Utils.getRealCSSColor(Color.WHITE)</span>
         break
 <span class="branch-13 cbranch-no" title="branch not covered" >      default:</span>
 <span class="cstat-no" title="statement not covered" >        break</span>
@@ -1480,7 +1498,7 @@ export const getStatusProps = (
       case ExecutionStatusEnum.TimedWaiting:
         secondaryIcon = 'spinner'
         secondaryIconStyle.animation = `${css.rotate} 2s`
-        secondaryIconStyle.color = 'var(--white)'
+        secondaryIconStyle.color = Utils.getRealCSSColor(Color.WHITE)
         secondaryIconStyle.backgroundColor = 'var(--primary-7)'
         secondaryIconStyle.borderRadius = '50%'
         secondaryIconStyle.height = '15px'
@@ -1492,7 +1510,7 @@ export const getStatusProps = (
         secondaryIcon = 'stop'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         secondaryIconStyle.color = 'var(--grey-700)'
-        secondaryIconStyle.backgroundColor = 'var(--white)'
+        secondaryIconStyle.backgroundColor = Utils.getRealCSSColor(Color.WHITE)
         secondaryIconStyle.borderRadius = '50%'
         secondaryIconStyle.border = '1px solid var(--grey-700)'
         secondaryIconStyle.height = '16px'
@@ -1516,7 +1534,7 @@ export const getStatusProps = (
 <span class="branch-13 cbranch-no" title="branch not covered" >      case ExecutionStatusEnum.InterventionWaiting:</span>
 <span class="cstat-no" title="statement not covered" >        secondaryIcon = 'waiting'</span>
 <span class="cstat-no" title="statement not covered" >        secondaryIconStyle.animation = `${css.fadeIn} 1s`</span>
-<span class="cstat-no" title="statement not covered" >        secondaryIconStyle.color = 'var(--white)'</span>
+<span class="cstat-no" title="statement not covered" >        secondaryIconStyle.color = Utils.getRealCSSColor(Color.WHITE)</span>
 <span class="cstat-no" title="statement not covered" >        secondaryIconStyle.backgroundColor = 'var(--execution-pipeline-color-orange2)'</span>
 <span class="cstat-no" title="statement not covered" >        secondaryIconStyle.borderRadius = '50%'</span>
 <span class="cstat-no" title="statement not covered" >        secondaryIconStyle.height = '16px'</span>
@@ -1538,14 +1556,14 @@ export const getIconStyleBasedOnStatus = (
 ): React.CSSProperties =&gt; {
   let toReturn: CSSProperties = {}
   if (isSelected &amp;&amp; status !== ExecutionStatusEnum.NotStarted) {
-    toReturn = { color: 'var(--white)' }
+    toReturn = { color: Utils.getRealCSSColor(Color.WHITE) }
   }
   <span class="missing-if-branch" title="if path not taken" >I</span>if (status === ExecutionStatusEnum.Skipped || status === ExecutionStatusEnum.Expired) {
-<span class="cstat-no" title="statement not covered" >    toReturn = { color: 'var(--grey-500)' }</span>
+<span class="cstat-no" title="statement not covered" >    toReturn = { color: Utils.getRealCSSColor(Color.GREEN_500) }</span>
   }
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (data.stepType === StepType.HarnessApproval &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isSelected)</span> {
-<span class="cstat-no" title="statement not covered" >    toReturn = { color: 'var(--primary-brand)' }</span>
+<span class="cstat-no" title="statement not covered" >    toReturn = { color: Utils.getRealCSSColor(Color.PRIMARY_5) }</span>
   }
 &nbsp;
   return toReturn
@@ -1741,7 +1759,7 @@ export const getConditionalExecutionFlag = (when: NodeRunInfo): boolean =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 29 2021 09:04:53 GMT+0000 (Greenwich Mean Time)
+                at Mon Nov 29 2021 10:49:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

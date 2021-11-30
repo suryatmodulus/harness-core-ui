@@ -114,7 +114,13 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({ formikProps
   const { getString } = useStrings()
 
   const BUDGET_PERIOD = useMemo(() => {
-    return [{ label: getString('ce.perspectives.budgets.setBudgetAmount.budgetPeriods.monthly'), value: 'MONTHLY' }]
+    return [
+      { label: getString('ce.perspectives.budgets.setBudgetAmount.budgetPeriods.monthly'), value: 'MONTHLY' },
+      { label: 'Daily', value: 'DAILY' },
+      { label: 'Weekly', value: 'WEEKLY' },
+      { label: 'Quarterly', value: 'QUARTERLY' },
+      { label: 'Yearly', value: 'YEARLY' }
+    ]
   }, [])
 
   const BUDGET_TYPE = useMemo(() => {
@@ -142,7 +148,8 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({ formikProps
       <DateInput
         disabled={isEditMode}
         popoverProps={{
-          position: Position.BOTTOM
+          position: Position.BOTTOM,
+          disabled: isEditMode
         }}
         value={String(formikProps.values.startTime)}
         onChange={val => {

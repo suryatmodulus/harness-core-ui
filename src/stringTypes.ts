@@ -3300,6 +3300,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.thisMonth': string
   'ce.perspectives.budgets.title': string
   'ce.perspectives.budgets.wizardTitle': string
+  'ce.perspectives.budgets.wizardTitleEdit': string
   'ce.perspectives.createPerspective.createCustomField': string
   'ce.perspectives.createPerspective.filters.addRuleText': string
   'ce.perspectives.createPerspective.filters.operator': string

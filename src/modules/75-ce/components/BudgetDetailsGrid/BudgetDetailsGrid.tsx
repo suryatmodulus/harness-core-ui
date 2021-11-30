@@ -34,7 +34,7 @@ const BudgetDetailsGrid: (props: BudgetDetailsGridProps) => JSX.Element | null =
         font={{ variation: FontVariation.BODY }}
         color={cell.value > 0 ? Color.RED_600 : Color.GREEN_600}
       >
-        {cell.value}
+        {formatCost(cell.value)}
       </Text>
     )
   }

@@ -50,7 +50,11 @@ const useBudgetModal = ({ onSuccess }: BudgetModalProps) => {
           <StepWizard
             icon={'vertical-bar-chart-asc'}
             iconProps={{ size: 40 }}
-            title={getString('ce.perspectives.budgets.wizardTitle')}
+            title={
+              isEditMode
+                ? getString('ce.perspectives.budgets.wizardTitleEdit')
+                : getString('ce.perspectives.budgets.wizardTitle')
+            }
           >
             <SelectPerspective
               perspective={perspectiveInfo?.id}

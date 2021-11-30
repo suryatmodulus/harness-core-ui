@@ -539,6 +539,7 @@ perspectives:
     desc: Budget can help you recieve alerts when the spend exceeds or is about to exceed a specified threshold so that it can be prevented.
     createNew: + create new Budget
     wizardTitle: '{{ $.ce.common.newBudget }}'
+    wizardTitleEdit: 'Edit Budget'
     sendAlerts: Send alerts at
     actualSpend: Actual spend
     forecastedCost: Forecasted cost

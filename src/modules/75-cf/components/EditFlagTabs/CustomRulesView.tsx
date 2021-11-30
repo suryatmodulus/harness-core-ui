@@ -35,11 +35,9 @@ import {
   Serve,
   VariationMap,
   useGetAllTargets,
-  Target,
   ServingRule,
   TargetMap,
   GetAllTargetsQueryParams
-  // useGetTargetsAndSegments
 } from 'services/cf'
 import { useStrings } from 'framework/strings'
 import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
@@ -647,33 +645,30 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
       project,
       account: accountId,
       accountIdentifier: accountId,
-      org: orgIdentifier
+      org: orgIdentifier,
+      pageSize: 1000
     } as GetAllTargetsQueryParams
   })
 
-  // TODO:
-  // Mapping should have both Targets and Segments
-  // Ticket: https://harness.atlassian.net/browse/FFM-722
-  //
-  // const { data: targetsSegments, loading: loadingTargetsSegments } = useGetTargetsAndSegments({
-  //   queryParams: {
-  //     environment,
-  //     project,
-  //     account: accountId,
-  //     org: orgIdentifier
-  //   }
-  // })
+  const availableTargets = useMemo<Option<string>[]>(() => {
+    if (!data?.targets) {
+      return []
+    }
 
-  const targetIdentifiersFromForm = uniq(
-    formikProps.values.variationMap
-      .map((map: { targets: TargetMap[] }) => map.targets || [])
-      .flat()
-      .map((val: TargetMap) => val.identifier || val)
-  )
-  const availableTargets: Option<string>[] =
-    ((data?.targets || []) as Target[])
-      .filter(target => !targetIdentifiersFromForm.includes(target.identifier))
-      .map(compose(toOption, prop('identifier'))) || []
+    const targetIdentifiersFromForm = uniq(
+      formikProps.values.variationMap
+        .map((map: { targets: TargetMap[] }) => map.targets || [])
+        .flat()
+        .map((val: TargetMap) => val.identifier || val)
+    )
+
+    return (
+      data.targets
+        .filter(target => !targetIdentifiersFromForm.includes(target.identifier))
+        .map(compose(toOption, prop('identifier'))) || []
+    )
+  }, [data?.targets, formikProps?.values?.variationMap])
+
   const [tempTargets, setTempTargets] = useState(tagOpts)
 
   const [openEditModal, hideModal] = useModalHook(() => {

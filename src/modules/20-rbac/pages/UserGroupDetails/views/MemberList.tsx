@@ -10,6 +10,7 @@ import {
   Container,
   NoDataCard,
   TableV2,
+  Intent,
   useConfirmationDialog
 } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
@@ -62,6 +63,8 @@ const RenderColumnMenu: Renderer<CellProps<UserInfo>> = ({ row, column }) => {
     titleText: getString('rbac.userGroupPage.userList.deleteTitle'),
     confirmButtonText: getString('common.remove'),
     cancelButtonText: getString('cancel'),
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
     onCloseDialog: async didConfirm => {
       /* istanbul ignore else */ if (didConfirm && data) {
         try {

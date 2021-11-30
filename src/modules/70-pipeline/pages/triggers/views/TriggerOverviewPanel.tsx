@@ -28,10 +28,10 @@ const TriggerOverviewPanel: React.FC<TriggerOverviewPanelPropsInterface> = ({
         </div>
       )}
       <>
-        <Text className={css.formContentTitle} inline={true} data-tooltip-id="triggerOverview">
+        <Text className={css.formContentTitle} inline={true}>
           {getString('pipeline.triggers.triggerOverviewPanel.title')}
+          <HarnessDocTooltip tooltipId="triggerOverview" useStandAlone={true} />
         </Text>
-        <HarnessDocTooltip tooltipId="triggerOverview" useStandAlone={true} />
       </>
       <Layout.Vertical className={css.formContent}>
         <NameIdDescriptionTags

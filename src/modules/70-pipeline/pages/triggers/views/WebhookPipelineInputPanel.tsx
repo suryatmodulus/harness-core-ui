@@ -262,8 +262,8 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
             <div className={css.pipelineInputRow}>
               <Text className={css.formContentTitle} inline={true} data-tooltip-id="pipelineInputLabel">
                 {getString('pipeline.triggers.pipelineInputLabel')}
+                <HarnessDocTooltip tooltipId="pipelineInputLabel" useStandAlone={true} />
               </Text>
-              <HarnessDocTooltip tooltipId="pipelineInputLabel" useStandAlone={true} />
               <GitSyncStoreProvider>
                 <InputSetSelector
                   pipelineIdentifier={pipelineIdentifier}

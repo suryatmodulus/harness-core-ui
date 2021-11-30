@@ -26,7 +26,8 @@ const useDeleteProjectDialog = (data: Project, onSuccess: () => void): UseDelete
     titleText: getString('projectCard.confirmDeleteTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
-    intent: Intent.WARNING,
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {

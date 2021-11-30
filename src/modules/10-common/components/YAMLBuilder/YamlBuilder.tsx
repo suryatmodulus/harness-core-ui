@@ -14,7 +14,7 @@ import { debounce, isEmpty, truncate, throttle, defaultTo, attempt, every } from
 import { useToaster } from '@common/exports'
 import { useParams } from 'react-router-dom'
 import SplitPane from 'react-split-pane'
-import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
+import { Intent, Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import cx from 'classnames'
 import { scalarOptions, defaultOptions } from 'yaml'
@@ -383,6 +383,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     titleText: getString('confirm'),
     confirmButtonText: getString('enable'),
     cancelButtonText: getString('cancel'),
+    intent: Intent.WARNING,
     onCloseDialog: async didConfirm => {
       if (didConfirm) {
         onEnableEditMode?.()

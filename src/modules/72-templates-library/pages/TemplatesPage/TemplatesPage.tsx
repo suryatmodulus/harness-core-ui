@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
 import {
+  Container,
+  DropDown,
   ExpandingSearchInput,
+  ExpandingSearchInputHandle,
   GridListToggle,
   HarnessDocTooltip,
   Layout,
-  useModalHook,
-  Views,
-  Container,
-  ExpandingSearchInputHandle,
   PageError,
-  Icon,
-  Color
+  useModalHook,
+  Views
 } from '@wings-software/uicore'
-import { useParams, useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
 import { defaultTo } from 'lodash-es'
 import { TemplateSettingsModal } from '@templates-library/components/TemplateSettingsModal/TemplateSettingsModal'
@@ -35,6 +34,7 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import { getAllowedTemplateTypes, TemplateType } from '@templates-library/utils/templatesUtils'
 import css from './TemplatesPage.module.scss'
 
 export default function TemplatesPage(): React.ReactElement {
@@ -43,6 +43,7 @@ export default function TemplatesPage(): React.ReactElement {
   const [page, setPage] = useState(0)
   const [view, setView] = useState<Views>(Views.GRID)
   const [sort, setSort] = useState<string[]>([SortFields.LastUpdatedAt, Sort.DESC])
+  const [type, setType] = useState<keyof typeof TemplateType | null>(null)
   const [searchParam, setSearchParam] = useState('')
   const [templateToDelete, setTemplateToDelete] = React.useState<TemplateSummaryResponse>({})
   const [templateIdentifierToSettings, setTemplateIdentifierToSettings] = React.useState<string>()
@@ -52,9 +53,11 @@ export default function TemplatesPage(): React.ReactElement {
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
   const { isGitSyncEnabled } = useAppStore()
   const scope = getScopeFromDTO({ projectIdentifier, orgIdentifier, accountIdentifier: accountId })
+  const allowedTemplateTypes = getAllowedTemplateTypes(getString).filter(item => !item.disabled)
 
   const reset = React.useCallback((): void => {
     searchRef.current.clear()
+    setType(null)
     setGitFilter(null)
   }, [searchRef])
 
@@ -99,7 +102,8 @@ export default function TemplatesPage(): React.ReactElement {
     error
   } = useMutateAsGet(useGetTemplateList, {
     body: {
-      filterType: 'Template'
+      filterType: 'Template',
+      ...(type && { templateEntityTypes: [type] })
     },
     queryParams: {
       accountIdentifier: accountId,
@@ -121,7 +125,7 @@ export default function TemplatesPage(): React.ReactElement {
 
   React.useEffect(() => {
     reloadTemplates()
-  }, [page, accountId, projectIdentifier, orgIdentifier, module, searchParam, sort])
+  }, [page, accountId, projectIdentifier, orgIdentifier, module, searchParam, sort, type])
 
   const goToTemplateStudio = (template: TemplateSummaryResponse): void => {
     history.push(
@@ -159,8 +163,19 @@ export default function TemplatesPage(): React.ReactElement {
         {!loading && !error && (
           <Layout.Vertical height={'100%'}>
             <Page.SubHeader>
-              <Layout.Horizontal>
+              <Layout.Horizontal spacing={'medium'}>
                 <NewTemplatePopover />
+                <DropDown
+                  onChange={item => {
+                    setType(item.value as TemplateType)
+                  }}
+                  value={type}
+                  filterable={false}
+                  addClearBtn={true}
+                  items={allowedTemplateTypes}
+                  placeholder={getString('all')}
+                  popoverClassName={css.dropdownPopover}
+                />
                 {isGitSyncEnabled && (
                   <GitSyncStoreProvider>
                     <GitFilters
@@ -175,7 +190,6 @@ export default function TemplatesPage(): React.ReactElement {
                 )}
               </Layout.Horizontal>
               <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
-                <Icon name="main-share" color={Color.GREY_100} />
                 <ExpandingSearchInput
                   alwaysExpanded
                   width={200}
@@ -188,13 +202,13 @@ export default function TemplatesPage(): React.ReactElement {
                   defaultValue={searchParam}
                   className={css.expandSearch}
                 />
-                <GridListToggle initialSelectedView={Views.GRID} onViewToggle={setView} />
+                <GridListToggle initialSelectedView={view} onViewToggle={setView} />
               </Layout.Horizontal>
             </Page.SubHeader>
             <Container height={'100%'} style={{ overflow: 'auto' }}>
               {!templateData?.data?.content?.length && (
                 <NoResultsView
-                  hasSearchParam={!!searchParam}
+                  hasSearchParam={!!searchParam || !!type}
                   onReset={reset}
                   text={getString('templatesLibrary.templatesPage.noTemplates', { scope })}
                 />

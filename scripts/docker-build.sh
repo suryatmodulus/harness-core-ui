@@ -1,0 +1,1 @@
+docker build -t harness/nextgenui:$1 .

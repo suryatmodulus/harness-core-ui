@@ -4086,6 +4086,7 @@ export interface StringsMap {
   'cv.analysisScreens.totalClusters': string
   'cv.anomalous': string
   'cv.anomalousMetrics': string
+  'cv.baseUrl': string
   'cv.changeSource.HarnessCDCurrentGen.applicationId': string
   'cv.changeSource.HarnessCDCurrentGen.selectHarnessAppId': string
   'cv.changeSource.HarnessCDCurrentGen.selectHarnessEnv': string

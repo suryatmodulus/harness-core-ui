@@ -95,7 +95,6 @@ export default function useCommentModal(): {
           onResolve={modalProps?.resolve}
           onReject={modalProps?.reject}
         />
-        a
       </Dialog>
     )
   }, [modalProps])

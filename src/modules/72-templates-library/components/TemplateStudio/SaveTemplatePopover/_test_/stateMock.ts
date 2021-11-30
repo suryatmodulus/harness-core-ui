@@ -4,7 +4,7 @@ const stateMock = {
   template: {
     name: 'Test Http Template',
     identifier: 'Test_Http_Template',
-    versionLabel: 'v3',
+    versionLabel: 'v1',
     type: 'Step',
     projectIdentifier: 'Yogesh_Test',
     orgIdentifier: 'default',
@@ -19,7 +19,7 @@ const stateMock = {
   originalTemplate: {
     name: 'Test Http Template',
     identifier: 'Test_Http_Template',
-    versionLabel: 'v3',
+    versionLabel: 'v1',
     type: 'Step',
     projectIdentifier: 'Yogesh_Test',
     orgIdentifier: 'default',
@@ -31,8 +31,8 @@ const stateMock = {
       spec: { url: '<+input>', method: 'GET', headers: [], outputVariables: [], requestBody: '<+input>' }
     }
   },
-  stableVersion: false,
-  versions: ['v3', 'v1', 'v2'],
+  stableVersion: 'v2',
+  versions: ['v1', 'v2', 'v3'],
   templateIdentifier: 'Test_Http_Template',
   templateView: { isDrawerOpened: false, isYamlEditable: false, drawerData: { type: 'AddCommand' } },
   isLoading: false,
@@ -51,7 +51,7 @@ const templateContextMock: TemplateContextInterface = {
   setView: () => void 0,
   fetchTemplate: () => new Promise<void>(() => undefined),
   setYamlHandler: () => undefined,
-  updateTemplate: () => new Promise<void>(() => undefined),
+  updateTemplate: jest.fn(),
   updateTemplateView: jest.fn(),
   deleteTemplateCache: () => new Promise<void>(() => undefined),
   setLoading: () => void 0,

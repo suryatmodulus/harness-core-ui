@@ -27,9 +27,10 @@ interface ApiKeyModalData {
   apiKeyType?: TokenDTO['apiKeyType']
   parentIdentifier?: string
   onSubmit?: (data: ApiKeyDTO) => void
+  onClose?: () => void
 }
 
-const ApiKeyForm: React.FC<ApiKeyModalData> = ({ data, isEdit, onSubmit, apiKeyType, parentIdentifier }) => {
+const ApiKeyForm: React.FC<ApiKeyModalData> = ({ data, isEdit, onSubmit, apiKeyType, parentIdentifier, onClose }) => {
   const { getString } = useStrings()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const { accountId, projectIdentifier, orgIdentifier, serviceAccountIdentifier } = useParams<
@@ -100,13 +101,14 @@ const ApiKeyForm: React.FC<ApiKeyModalData> = ({ data, isEdit, onSubmit, apiKeyT
                     identifierProps={{ isIdentifierEditable: !isEdit }}
                   />
                 </Container>
-                <Layout.Horizontal>
+                <Layout.Horizontal spacing="small">
                   <Button
                     variation={ButtonVariation.PRIMARY}
                     text={getString('save')}
                     type="submit"
                     disabled={saving || updating}
                   />
+                  <Button text={getString('cancel')} onClick={onClose} variation={ButtonVariation.TERTIARY} />
                 </Layout.Horizontal>
               </Form>
             )

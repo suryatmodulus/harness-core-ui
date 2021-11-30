@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { Color, Layout, Switch, Collapse, useConfirmationDialog } from '@wings-software/uicore'
+import { Color, Layout, Switch, Collapse, useConfirmationDialog, Intent } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
 import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
@@ -51,6 +51,7 @@ const HarnessAccount: React.FC<Props> = ({
     contentText: getString('authSettings.confirmDisableUserPasswordLogin'),
     confirmButtonText: getString('confirm'),
     cancelButtonText: getString('cancel'),
+    intent: Intent.WARNING,
     onCloseDialog: isConfirmed => {
       /* istanbul ignore else */ if (isConfirmed) {
         submitUserPasswordUpdate(AuthenticationMechanisms.OAUTH, getString('authSettings.loginSettingsHaveBeenUpdated'))

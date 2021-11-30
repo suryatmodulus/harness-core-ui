@@ -12,7 +12,7 @@ import {
   TableV2
 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Classes, Position, Menu, Tag } from '@blueprintjs/core'
+import { Classes, Position, Menu, Tag, Intent } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import { Invite, useDeleteInvite, useGetPendingUsersAggregated, useUpdateInvite } from 'services/cd-ng'
@@ -99,6 +99,8 @@ const RenderColumnMenu: Renderer<CellProps<Invite>> = ({ row, column }) => {
     titleText: getString('rbac.usersPage.deleteTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
     onCloseDialog: async didConfirm => {
       if (didConfirm && data) {
         try {

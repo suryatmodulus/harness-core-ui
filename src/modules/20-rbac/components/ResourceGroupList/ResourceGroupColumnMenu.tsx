@@ -1,5 +1,5 @@
 import { Classes, Menu, Position } from '@blueprintjs/core'
-import { Button, Popover, useConfirmationDialog, useToaster } from '@wings-software/uicore'
+import { Button, Popover, useConfirmationDialog, useToaster, Intent } from '@wings-software/uicore'
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { Cell, CellValue, ColumnInstance, Renderer, Row, TableInstance } from 'react-table'
@@ -48,6 +48,8 @@ const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGro
     titleText: getString('rbac.resourceGroup.confirmDeleteTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {

@@ -15,6 +15,6 @@ interface TelemetryStub {
 
 export function useTelemetryInstance(): TelemetryStub | Telemetry {
   const { licenseInformation } = useLicenseStore()
-  const isStub = isCDCommunity(licenseInformation) || __ON_PREM__ || __DEV__
+  const isStub = isCDCommunity(licenseInformation) || window.deploymentType === 'ON_PREM' || __DEV__
   return isStub ? stubTelemetry : new Telemetry(window.segmentToken || 'exa6lo7CnJXqKnR83itMpHYLY5fiajft')
 }

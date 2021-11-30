@@ -127,11 +127,13 @@ const ProjectSelect: React.FC<ProjectSelectorProps> = ({ onSelect }) => {
               ))}
             </div>
             <Pagination
+              className={css.pagination}
               itemCount={data?.data?.totalItems || 0}
               pageSize={data?.data?.pageSize || 10}
               pageCount={data?.data?.totalPages || 0}
               pageIndex={data?.data?.pageIndex || 0}
               gotoPage={pageNumber => setPage(pageNumber)}
+              hidePageNumbers
             />
           </Layout.Vertical>
         ) : (

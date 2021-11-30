@@ -6,6 +6,7 @@ import {
   Collapse,
   Color,
   Container,
+  FontVariation,
   Intent,
   Layout,
   Popover,
@@ -38,7 +39,7 @@ const RenderColumnDetails = (data: ApiKeyDTO): React.ReactElement => {
   return (
     <Layout.Vertical spacing="xsmall">
       <Layout.Horizontal spacing="small">
-        <Text color={Color.BLACK} lineClamp={1} className={css.wordBreak}>
+        <Text font={{ variation: FontVariation.BODY2 }} color={Color.BLACK} lineClamp={1} className={css.wordBreak}>
           {data.name}
         </Text>
         {data.tags && Object.keys(data.tags).length ? <TagsPopover tags={data.tags} /> : null}
@@ -75,7 +76,8 @@ const RenderColumnMenu: React.FC<{
     titleText: getString('rbac.apiKey.confirmDeleteTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
-    intent: Intent.WARNING,
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
     onCloseDialog: async (isConfirmed: boolean) => {
       /* istanbul ignore else */ if (isConfirmed) {
         try {

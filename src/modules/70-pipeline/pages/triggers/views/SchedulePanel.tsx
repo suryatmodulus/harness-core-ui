@@ -22,10 +22,10 @@ const SchedulePanel: React.FC<SchedulePanelPropsInterface> = ({
 
   return (
     <Layout.Vertical className={cx(css.schedulePanelContainer)} spacing="large" padding="xxlarge">
-      <Text className={css.formContentTitle} inline={true} data-tooltip-id="schedulePanel">
+      <Text className={css.formContentTitle} inline={true}>
         {getString('pipeline.triggers.schedulePanel.title')}
+        <HarnessDocTooltip tooltipId="schedulePanel" useStandAlone={true} />
       </Text>
-      <HarnessDocTooltip tooltipId="schedulePanel" useStandAlone={true} />
       <Layout.Vertical className={css.formContent}>
         <Tabs
           id="Wizard"

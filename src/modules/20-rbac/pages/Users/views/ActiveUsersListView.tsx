@@ -14,7 +14,7 @@ import {
   TableV2
 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Classes, Position, Menu } from '@blueprintjs/core'
+import { Classes, Position, Menu, Intent } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { defaultTo, noop } from 'lodash-es'
 import {
@@ -182,6 +182,8 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
     titleText: getString('rbac.usersPage.deleteTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
     onCloseDialog: async didConfirm => {
       if (didConfirm && data) {
         try {
@@ -200,6 +202,7 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
     titleText: getString('rbac.usersPage.unlockTitle'),
     confirmButtonText: getString('confirm'),
     cancelButtonText: getString('cancel'),
+    intent: Intent.WARNING,
     onCloseDialog: async didConfirm => {
       if (didConfirm && data) {
         try {

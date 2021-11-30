@@ -14,7 +14,6 @@ exports[`ArtifactConditionsPanel Triggers tests Initial Render 1`] = `
         >
           <span
             class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--inline StyledProps--color StyledProps--color-grey800"
-            data-tooltip-id="artifactManifestConditions"
             style="font-size: 16px;"
           >
             conditions

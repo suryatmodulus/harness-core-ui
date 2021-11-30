@@ -21,27 +21,21 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
   const { getString } = useStrings()
   return (
     <Layout.Vertical className={cx(css.webhookConditionsContainer)} spacing="large" padding="xxlarge">
-      <Text
-        style={{ fontSize: '16px' }}
-        font={{ weight: 'bold' }}
-        inline={true}
-        color={Color.GREY_800}
-        data-tooltip-id="conditionsOptional"
-      >
+      <Text style={{ fontSize: '16px' }} font={{ weight: 'bold' }} inline={true} color={Color.GREY_800}>
         {getString('conditions')}
         <Text style={{ display: 'inline-block', fontSize: '16px' }} color={Color.GREY_500}>
           {getString('titleOptional')}
         </Text>
+        <HarnessDocTooltip tooltipId="conditionsOptional" useStandAlone={true} />
       </Text>
-      <HarnessDocTooltip tooltipId="conditionsOptional" useStandAlone={true} />
       <Text
         color={Color.BLACK}
         style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-large)' }}
         data-tooltip-id="conditionsSubtitle"
       >
         {getString('pipeline.triggers.conditionsPanel.subtitle')}
+        <HarnessDocTooltip tooltipId="conditionsSubtitle" useStandAlone={true} />
       </Text>
-      <HarnessDocTooltip tooltipId="conditionsSubtitle" useStandAlone={true} />
       {sourceRepo !== GitSourceProviders.CUSTOM.value && (
         <Layout.Vertical className={css.formContent} style={{ marginBottom: 'var(--spacing-4)!important' }}>
           <section>
@@ -104,7 +98,10 @@ const WebhookConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = (
         />
       </Layout.Vertical>
       <Layout.Vertical className={css.formContent}>
-        <Text className={css.sectionHeader}>{getString('pipeline.triggers.conditionsPanel.jexlCondition')}</Text>
+        <Text className={css.sectionHeader}>
+          {getString('pipeline.triggers.conditionsPanel.jexlCondition')}
+          <HarnessDocTooltip tooltipId="jexlCondition" useStandAlone={true} />
+        </Text>
         <FormInput.Text
           style={{ width: '100%', marginBottom: '0' }}
           name="jexlCondition"

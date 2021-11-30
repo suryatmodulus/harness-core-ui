@@ -89,7 +89,7 @@ exports[`<TemplatesPage /> tests snapshot test in grid view 1`] = `
         class="Layout--horizontal StyledProps--main PageSubHeader--container StyledProps--flex"
       >
         <div
-          class="Layout--horizontal StyledProps--main"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <span
             class="bp3-popover-wrapper main"
@@ -147,27 +147,60 @@ exports[`<TemplatesPage /> tests snapshot test in grid view 1`] = `
               </button>
             </span>
           </span>
+          <div
+            class="bp3-popover-wrapper DropDown--main"
+          >
+            <div
+              class="bp3-popover-target"
+            >
+              <div
+                class=""
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main DropDown--dropdownButton DropDown--withBorder DropDown--minWidth StyledProps--flex"
+                  data-testid="dropdown-button"
+                  style="min-width: 130px;"
+                >
+                  <div
+                    class="Layout--horizontal StyledProps--main DropDown--labelWrapper StyledProps--flex"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main DropDown--label"
+                      data-testid="dropdown-value"
+                      style="--text-line-clamp: 1;"
+                    >
+                      all
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main DropDown--btnWrapper StyledProps--flex"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      data-icon="main-chevron-down"
+                    >
+                      <svg
+                        height="8"
+                        viewBox="0 0 14 8"
+                        width="8"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
+                          fill="#4d5969"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           style="align-items: center;"
         >
-          <span
-            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey100"
-            data-icon="main-share"
-          >
-            <svg
-              height="16"
-              viewBox="0 0 14 14"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10.5 12.6H1.4V3.5h6.1l1.4-1.4H.7c-.4 0-.7.3-.7.7v10.5c0 .4.3.7.7.7h10.5c.4 0 .7-.3.7-.7V5.1l-1.4 1.4zM13.3 0H8.4c-.4 0-.7.3-.7.7s.3.7.7.7h3.2L6.5 6.5c-.1.1-.2.3-.2.5 0 .4.3.7.7.7.2 0 .4-.1.5-.2l5.1-5.1v3.2c0 .4.3.7.7.7s.7-.3.7-.7V.7c0-.4-.3-.7-.7-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
           <div
             class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
             data-name=""
@@ -800,7 +833,7 @@ exports[`<TemplatesPage /> tests snapshot test in list view after toggle 1`] = `
         class="Layout--horizontal StyledProps--main PageSubHeader--container StyledProps--flex"
       >
         <div
-          class="Layout--horizontal StyledProps--main"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <span
             class="bp3-popover-wrapper main"
@@ -858,27 +891,60 @@ exports[`<TemplatesPage /> tests snapshot test in list view after toggle 1`] = `
               </button>
             </span>
           </span>
+          <div
+            class="bp3-popover-wrapper DropDown--main"
+          >
+            <div
+              class="bp3-popover-target"
+            >
+              <div
+                class=""
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main DropDown--dropdownButton DropDown--withBorder DropDown--minWidth StyledProps--flex"
+                  data-testid="dropdown-button"
+                  style="min-width: 130px;"
+                >
+                  <div
+                    class="Layout--horizontal StyledProps--main DropDown--labelWrapper StyledProps--flex"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main DropDown--label"
+                      data-testid="dropdown-value"
+                      style="--text-line-clamp: 1;"
+                    >
+                      all
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main DropDown--btnWrapper StyledProps--flex"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      data-icon="main-chevron-down"
+                    >
+                      <svg
+                        height="8"
+                        viewBox="0 0 14 8"
+                        width="8"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
+                          fill="#4d5969"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div
           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           style="align-items: center;"
         >
-          <span
-            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey100"
-            data-icon="main-share"
-          >
-            <svg
-              height="16"
-              viewBox="0 0 14 14"
-              width="16"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10.5 12.6H1.4V3.5h6.1l1.4-1.4H.7c-.4 0-.7.3-.7.7v10.5c0 .4.3.7.7.7h10.5c.4 0 .7-.3.7-.7V5.1l-1.4 1.4zM13.3 0H8.4c-.4 0-.7.3-.7.7s.3.7.7.7h3.2L6.5 6.5c-.1.1-.2.3-.2.5 0 .4.3.7.7.7.2 0 .4-.1.5-.2l5.1-5.1v3.2c0 .4.3.7.7.7s.7-.3.7-.7V.7c0-.4-.3-.7-.7-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
           <div
             class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
             data-name=""

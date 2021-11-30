@@ -107,6 +107,7 @@ describe('ERROR', () => {
         <HarnessApprovalView step={{}} />
       </TestWrapper>
     )
+
     await waitFor(() => expect(container.querySelector('.bp3-icon-error')).toBeTruthy())
   })
 })

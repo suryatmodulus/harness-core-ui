@@ -39,9 +39,6 @@
       border-radius: var(--spacing-1);
       font-size: var(--font-size-xsmall);
       border: 1px solid var(--grey-200);
-      &.empty {
-        color: var(--grey-400);
-      }
     }
     > div:not(:last-child, :first-child) {
       margin-bottom: var(--spacing-5);

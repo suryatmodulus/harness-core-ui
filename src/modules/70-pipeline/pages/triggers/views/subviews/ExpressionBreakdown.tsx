@@ -87,8 +87,8 @@ const ExpressionBreakdown: React.FC<ExpressionBreakdownPropsInterface> = ({
     <Container data-name="expressionBreakdown" className={css.expressionBreakdown}>
       <Text className={css.title} data-tooltip-id="expressionBreakdown">
         {getString('pipeline.triggers.schedulePanel.expressionBreakdown')}
+        <HarnessDocTooltip tooltipId="expressionBreakdown" useStandAlone={true} />
       </Text>
-      <HarnessDocTooltip tooltipId="expressionBreakdown" useStandAlone={true} />
       <Layout.Horizontal>
         <Column
           width={ColumnWidth.SMALL}

@@ -12,11 +12,12 @@ import type { NGTemplateInfoConfig, TemplateSummaryResponse } from 'services/tem
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { TemplateListCardContextMenu } from '@templates-library/pages/TemplatesPage/views/TemplateListCardContextMenu/TemplateListCardContextMenu'
+import type { NGTemplateInfoConfigWithGitDetails } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
 import { TemplateColor } from './TemplateColor/TemplateColor'
 import css from './TemplateCard.module.scss'
 
 export interface TemplateCardProps {
-  template: TemplateSummaryResponse
+  template: NGTemplateInfoConfigWithGitDetails | TemplateSummaryResponse
   onSelect?: (template: NGTemplateInfoConfig | TemplateSummaryResponse) => void
   isSelected?: boolean
   onPreview?: (template: NGTemplateInfoConfig | TemplateSummaryResponse) => void
@@ -36,6 +37,12 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
     (template as TemplateSummaryResponse)?.templateEntityType || (template as NGTemplateInfoConfig)?.type
   const style = templateColorStyleMap[templateEntityType]
   const showMenu = !onPreview && !onOpenEdit && !onOpenSettings && !onDelete
+  const repoIdentifier =
+    (template as TemplateSummaryResponse)?.gitDetails?.repoIdentifier ||
+    (template as NGTemplateInfoConfigWithGitDetails)?.repo
+  const branch =
+    (template as TemplateSummaryResponse)?.gitDetails?.branch ||
+    (template as NGTemplateInfoConfigWithGitDetails)?.branch
 
   return (
     <Container className={cx(css.container, { [css.bordered]: !!onSelect }, { [css.selected]: !!isSelected })}>
@@ -71,7 +78,7 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
         </Container>
         {!!template.tags && !isEmpty(template.tags) && <TemplateTags tags={template.tags} />}
         <Container height={1} background={Color.GREY_100} />
-        {isGitSyncEnabled && !!template.gitDetails?.repoIdentifier && !!template.gitDetails.branch && (
+        {isGitSyncEnabled && !!repoIdentifier && !!branch && (
           <>
             <Container className={css.infoContainer}>
               <Layout.Horizontal flex={{ justifyContent: 'flex-start' }}>
@@ -80,16 +87,8 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
                 </Text>
                 <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
                   <Icon name="repository" size={10} color={Color.GREY_600} />
-                  <Text
-                    font={{ size: 'small' }}
-                    color={Color.BLACK}
-                    title={template?.gitDetails?.repoIdentifier}
-                    lineClamp={1}
-                    width={40}
-                  >
-                    {(!loadingRepos &&
-                      getRepoDetailsByIndentifier(template.gitDetails.repoIdentifier, gitSyncRepos)?.name) ||
-                      ''}
+                  <Text font={{ size: 'small' }} color={Color.BLACK} title={repoIdentifier} lineClamp={1} width={40}>
+                    {(!loadingRepos && getRepoDetailsByIndentifier(repoIdentifier, gitSyncRepos)?.name) || ''}
                   </Text>
                 </Layout.Horizontal>
               </Layout.Horizontal>
@@ -100,14 +99,8 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
                 </Text>
                 <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
                   <Icon name="git-new-branch" size={10} color={Color.GREY_500} />
-                  <Text
-                    font={{ size: 'small' }}
-                    color={Color.BLACK}
-                    title={template?.gitDetails?.branch}
-                    lineClamp={1}
-                    width={40}
-                  >
-                    {template.gitDetails.branch}
+                  <Text font={{ size: 'small' }} color={Color.BLACK} title={branch} lineClamp={1} width={40}>
+                    {branch}
                   </Text>
                 </Layout.Horizontal>
               </Layout.Horizontal>
@@ -116,9 +109,7 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
           </>
         )}
         <Container>
-          <Tag className={cx(css.version, { [css.empty]: !template.versionLabel })}>
-            {template.versionLabel || 'Version1'}
-          </Tag>
+          <Tag className={css.version}>{template.versionLabel}</Tag>
         </Container>
         {(template as TemplateSummaryResponse).lastUpdatedAt && (
           <Container>

@@ -13,5 +13,6 @@ declare const styles: {
   readonly popoverTarget: string
   readonly selectButton: string
   readonly selectedProject: string
+  readonly pagination: string
 }
 export default styles

@@ -9,6 +9,7 @@ import {
   Switch,
   Collapse,
   Button,
+  Intent,
   ButtonVariation,
   useConfirmationDialog
 } from '@wings-software/uicore'
@@ -59,6 +60,7 @@ const PasswordExpire: React.FC<Props> = ({ loginSettings, refetchAuthSettings, c
     contentText: getString('authSettings.confirmDisablePasswordExpiration'),
     confirmButtonText: getString('confirm'),
     cancelButtonText: getString('cancel'),
+    intent: Intent.WARNING,
     onCloseDialog: async isConfirmed => {
       /* istanbul ignore else */ if (isConfirmed) {
         try {

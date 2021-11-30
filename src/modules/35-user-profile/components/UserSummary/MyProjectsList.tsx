@@ -40,7 +40,7 @@ const MyProjectsList: React.FC = () => {
               <Card key={`${project.identifier}-${project.orgIdentifier}`} className={css.card}>
                 <Layout.Vertical flex={{ align: 'center-center' }}>
                   <Icon
-                    name="harness"
+                    name="nav-project"
                     size={32}
                     style={{ color: project.color }}
                     color={project.color}

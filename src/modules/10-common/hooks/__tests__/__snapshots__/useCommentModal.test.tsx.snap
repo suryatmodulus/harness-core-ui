@@ -87,6 +87,5 @@ exports[`useCommentModal Test should work as expected 1`] = `
       </div>
     </form>
   </div>
-  a
 </div>
 `;

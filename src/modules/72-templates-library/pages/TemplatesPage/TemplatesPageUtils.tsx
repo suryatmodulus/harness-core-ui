@@ -1,10 +1,12 @@
 import type { IconName } from '@wings-software/uicore'
 import { parse } from 'yaml'
+import { get } from 'lodash-es'
 import type { UseStringsReturn } from 'framework/strings'
 import { TemplateType } from '@templates-library/utils/templatesUtils'
 import type { TemplateSummaryResponse } from 'services/template-ng'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
+import type { NGTemplateInfoConfigWithGitDetails } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
 
 export const templateColorStyleMap: { [keyof in TemplateType]: React.CSSProperties } = {
   [TemplateType.Step]: {
@@ -118,11 +120,14 @@ export const getTypeForTemplate = (
 }
 
 export const getIconForTemplate = (
-  template: TemplateSummaryResponse,
+  template: NGTemplateInfoConfigWithGitDetails | TemplateSummaryResponse,
   getString: UseStringsReturn['getString']
 ): IconName => {
-  const entityType = template.templateEntityType as TemplateType
-  const type = parse(template.yaml || '')?.template?.spec?.type || ''
+  const entityType =
+    (template as TemplateSummaryResponse)?.templateEntityType || (template as NGTemplateInfoConfigWithGitDetails)?.type
+  const type =
+    parse((template as TemplateSummaryResponse).yaml || '')?.template?.spec?.type ||
+    get(template as NGTemplateInfoConfigWithGitDetails, 'spec.type', 'disable')
   switch (entityType) {
     case TemplateType.Step:
       return factory.getStepIcon(type)

@@ -1,5 +1,14 @@
 import React from 'react'
-import { Layout, getMultiTypeFromValue, MultiTypeInputType, Text, Icon, Color, IconName } from '@wings-software/uicore'
+import {
+  Layout,
+  getMultiTypeFromValue,
+  MultiTypeInputType,
+  Text,
+  Icon,
+  Color,
+  IconName,
+  HarnessDocTooltip
+} from '@wings-software/uicore'
 import { isEmpty, get } from 'lodash-es'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
@@ -188,6 +197,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
               <Layout.Horizontal spacing="small" padding={{ top: 'medium', left: 'large', right: 0, bottom: 0 }}>
                 <Text data-name="ci-codebase-title" color={Color.BLACK_100} font={{ weight: 'semi-bold' }}>
                   {getString('ciCodebase')}
+                  <HarnessDocTooltip tooltipId="ciCodebaseTitle" useStandAlone={true} />
                 </Text>
               </Layout.Horizontal>
               <div className={css.topAccordion}>

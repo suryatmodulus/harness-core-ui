@@ -95,8 +95,8 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
       <Text className={css.formContentTitle} inline={true} data-tooltip-id="triggerConfigurationLabel">
         {getString('pipeline.triggers.triggerConfigurationLabel')}
         {!isEdit ? `: ${getString('pipeline.triggers.onNewWebhookTitle')}` : ''}
+        <HarnessDocTooltip tooltipId="triggerConfigurationLabel" useStandAlone={true} />
       </Text>
-      <HarnessDocTooltip tooltipId="triggerConfigurationLabel" useStandAlone={true} />
 
       <div className={css.formContent}>
         <NameIdDescriptionTags
@@ -112,8 +112,8 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
       </div>
       <Text className={css.formContentTitle} inline={true} data-tooltip-id="listenOnNewWebhook">
         {getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')}
+        <HarnessDocTooltip tooltipId="listenOnNewWebhook" useStandAlone={true} />
       </Text>
-      <HarnessDocTooltip tooltipId="listenOnNewWebhook" useStandAlone={true} />
       <div className={css.formContent}>
         <section style={{ width: '650px' }}>
           <FormInput.Select

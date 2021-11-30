@@ -7,6 +7,7 @@ rules:
         - modules/20-rbac/*
         - modules/22-resource-center/*
         - modules/25-governance/*
+        - modules/27-sample-module/*
         - modules/30-auth-settings/*
         - modules/30-delegates/*
         - modules/30-secrets/*
@@ -26,6 +27,7 @@ rules:
         - '@rbac/*'
         - '@resource-center/*'
         - '@governance/*'
+        - '@sample-module/*'
         - '@auth-settings/*'
         - '@delegates/*'
         - '@secrets/*'

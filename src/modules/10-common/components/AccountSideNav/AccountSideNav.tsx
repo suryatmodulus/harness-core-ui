@@ -36,6 +36,7 @@ export default function AccountSideNav(): React.ReactElement {
         launchButtonText={getString('common.cgLaunchText')}
         redirectUrl={returnLaunchUrl(`#/account/${accountId}/dashboard`)}
       />
+      <SidebarLink label="Sample Module" to={routes.toSampleModule({ accountId })} />
     </Layout.Vertical>
   )
 }

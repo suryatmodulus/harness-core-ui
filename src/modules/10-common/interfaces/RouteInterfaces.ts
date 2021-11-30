@@ -188,3 +188,12 @@ export interface GovernancePathProps
   policySetIdentifier?: string
   evaluationId?: string
 }
+
+export interface SampleModulePathProps
+  extends RequireField<
+    Partial<Pick<ProjectPathProps, 'accountId' | 'orgIdentifier' | 'projectIdentifier'> & ModulePathParams>,
+    'accountId'
+  > {
+  testParam1?: string
+  testParam2?: string
+}

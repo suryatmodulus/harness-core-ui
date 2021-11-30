@@ -26,6 +26,8 @@ module.exports = ({ enableGitOpsUI }) => {
 
   remotes.governance = "governance@[window.getApiBaseUrl('pm/remoteEntry.js')]"
 
+  remotes.samplemodule = "samplemodule@[window.getApiBaseUrl('samplemodule/remoteEntry.js')]"
+
   return {
     name: 'nextgenui',
     remotes,

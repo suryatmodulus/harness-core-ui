@@ -5,6 +5,7 @@ rules:
         - lodash.*
         - modules/22-resource-center/*
         - modules/25-governance/*
+        - modules/27-sample-module/*
         - modules/30-auth-settings/*
         - modules/30-delegates/*
         - modules/30-secrets/*
@@ -22,6 +23,7 @@ rules:
         - modules/85-cv/*
         - '@resource-center/*'
         - '@governance/*'
+        - '@sample-module/*'
         - '@auth-settings/*'
         - '@delegates/*'
         - '@secrets/*'

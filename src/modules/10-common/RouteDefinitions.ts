@@ -34,7 +34,8 @@ import type {
   ServicePathProps,
   TemplateStudioPathProps,
   TemplateStudioQueryParams,
-  GovernancePathProps
+  GovernancePathProps,
+  SampleModulePathProps
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -73,6 +74,40 @@ const routes = {
   toAuthenticationSettings: withAccountId(() => '/settings/authentication'),
   toAccountConfiguration: withAccountId(() => '/settings/authentication/configuration'),
   toAccountActivityLog: withAccountId(() => '/settings/authentication/activity-log'),
+
+  // Sample Module
+  toSampleModule: withAccountId(({ orgIdentifier, projectIdentifier, module }: SampleModulePathProps) =>
+    getScopeBasedRoute({
+      scope: {
+        orgIdentifier,
+        projectIdentifier,
+        module
+      },
+      path: 'sample-module'
+    })
+  ),
+
+  toSampleModulePage1: withAccountId(({ orgIdentifier, projectIdentifier, module }: SampleModulePathProps) =>
+    getScopeBasedRoute({
+      scope: {
+        orgIdentifier,
+        projectIdentifier,
+        module
+      },
+      path: 'sample-module/test-page1'
+    })
+  ),
+
+  toSampleModulePage2: withAccountId(({ orgIdentifier, projectIdentifier, module }: SampleModulePathProps) =>
+    getScopeBasedRoute({
+      scope: {
+        orgIdentifier,
+        projectIdentifier,
+        module
+      },
+      path: 'sample-module/test-page2'
+    })
+  ),
 
   // Governance
   toGovernance: withAccountId(({ orgIdentifier, projectIdentifier, module }: GovernancePathProps) =>

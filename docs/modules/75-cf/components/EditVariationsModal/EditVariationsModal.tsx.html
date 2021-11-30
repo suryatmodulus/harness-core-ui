@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.08% </span>
+                <span class="strong">71.25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>59/83</span>
+                <span class='fraction'>57/80</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.12% </span>
+                <span class="strong">61.11% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>82/132</span>
+                <span class='fraction'>77/126</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.5% </span>
+                <span class="strong">72.73% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>58/80</span>
+                <span class='fraction'>56/77</span>
             </div>
         
             
@@ -433,14 +433,12 @@
 <a name='L374'></a><a href='#L374'>374</a>
 <a name='L375'></a><a href='#L375'>375</a>
 <a name='L376'></a><a href='#L376'>376</a>
-<a name='L377'></a><a href='#L377'>377</a>
-<a name='L378'></a><a href='#L378'>378</a>
-<a name='L379'></a><a href='#L379'>379</a>
-<a name='L380'></a><a href='#L380'>380</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L377'></a><a href='#L377'>377</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -463,7 +461,6 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -614,10 +611,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
@@ -807,6 +800,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -833,7 +827,8 @@ import {
   Color,
   SelectOption,
   FontVariation,
-  Heading
+  Heading,
+  Icon
 } from '@wings-software/uicore'
 import { getErrorMessage, useValidateVariationValues } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/strings'
@@ -843,7 +838,6 @@ import { Feature, GitSyncErrorResponse, PatchFeatureQueryParams, usePatchFeature
 import type { PermissionsRequest } from '@rbac/hooks/usePermission'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
-import { PageSpinner } from '@common/components'
 &nbsp;
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 &nbsp;
@@ -993,10 +987,6 @@ export const EditVariationsModal: React.FC&lt;EditVariationsModalProps&gt; = ({
           }
         }
       })
-    }
-&nbsp;
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (gitSync<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itSyncLoading || patchLoading) {
-<span class="cstat-no" title="statement not covered" >      return &lt;PageSpinner /&gt;</span>
     }
 &nbsp;
     return (
@@ -1177,6 +1167,7 @@ export const EditVariationsModal: React.FC&lt;EditVariationsModalProps&gt; = ({
                   /&gt;
                   &lt;Button text={cancelButtonTitle || getString('cancel')} minimal onClick={hideModal} /&gt;
                   &lt;FlexExpander /&gt;
+                  {patchLoading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Icon intent={Intent.PRIMARY} name="spinner" size={16} /&gt;}</span>
                 &lt;/Layout.Horizontal&gt;
               &lt;/Container&gt;
             &lt;/Form&gt;
@@ -1201,7 +1192,7 @@ export const EditVariationsModal: React.FC&lt;EditVariationsModalProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 30 2021 08:49:44 GMT+0000 (Greenwich Mean Time)
+                at Tue Nov 30 2021 10:50:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

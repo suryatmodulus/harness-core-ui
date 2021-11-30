@@ -3393,7 +3393,6 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                   >
                     <span
                       class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
-                      data-tooltip-id="triggerOverview"
                     >
                       pipeline.triggers.triggerOverviewPanel.title
                     </span>
@@ -3892,7 +3891,6 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                   >
                     <span
                       class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
-                      data-tooltip-id="schedulePanel"
                     >
                       pipeline.triggers.schedulePanel.title
                     </span>

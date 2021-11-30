@@ -4365,7 +4365,6 @@ exports[`Manifest Trigger Tests on edit -with event conditions payload 1`] = `
                   >
                     <span
                       class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--inline StyledProps--color StyledProps--color-grey800"
-                      data-tooltip-id="artifactManifestConditions"
                       style="font-size: 16px;"
                     >
                       conditions

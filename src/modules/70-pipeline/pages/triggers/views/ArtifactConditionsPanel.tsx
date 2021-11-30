@@ -19,19 +19,13 @@ const ArtifactConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = 
   return (
     <Layout.Vertical className={cx(css.webhookConditionsContainer)} spacing="large" padding="xxlarge">
       <>
-        <Text
-          style={{ fontSize: '16px' }}
-          font={{ weight: 'bold' }}
-          inline={true}
-          color={Color.GREY_800}
-          data-tooltip-id="artifactManifestConditions"
-        >
+        <Text style={{ fontSize: '16px' }} font={{ weight: 'bold' }} inline={true} color={Color.GREY_800}>
           {getString('conditions')}
           <Text style={{ display: 'inline-block' }} color={Color.GREY_500}>
             {getString('titleOptional')}
           </Text>
+          <HarnessDocTooltip tooltipId="artifactManifestConditions" useStandAlone={true} />
         </Text>
-        <HarnessDocTooltip tooltipId="artifactManifestConditions" useStandAlone={true} />
       </>
       <>
         <Text
@@ -40,8 +34,8 @@ const ArtifactConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = 
           data-tooltip-id="artifactManifestConditionSubtitle"
         >
           {getString('pipeline.triggers.conditionsPanel.subtitle')}
+          <HarnessDocTooltip tooltipId="artifactManifestConditionSubtitle" useStandAlone={true} />
         </Text>
-        <HarnessDocTooltip tooltipId="artifactManifestConditionSubtitle" useStandAlone={true} />
       </>
       <Layout.Vertical className={css.formContent}>
         {isManifest ? (

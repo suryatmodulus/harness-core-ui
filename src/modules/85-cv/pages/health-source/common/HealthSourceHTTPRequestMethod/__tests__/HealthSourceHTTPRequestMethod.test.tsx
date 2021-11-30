@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, fireEvent,  prettyDOM, render } from '@testing-library/react'
+import { act, fireEvent, prettyDOM, render } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uicore'
 import { HealthSourceHTTPRequestMethod } from '../HealthSourceHTTPRequestMethod'
 import * as Yup from 'yup'
@@ -13,14 +13,19 @@ jest.mock('framework/strings', () => ({
 }))
 
 const SampleComponent: React.FC<{
-  initialValue?: string,
+  initialValue?: string
   validationStrnig?: string
-  onSubmit: (props: any ) => void
-}> = ({initialValue, onSubmit}) => {
+  onSubmit: (props: any) => void
+}> = ({ initialValue, onSubmit }) => {
   return (
-    <Formik formName='test' initialValues={{requestMethod: initialValue}} onSubmit={onSubmit} validationSchema={Yup.object().shape({
+    <Formik
+      formName="test"
+      initialValues={{ requestMethod: initialValue }}
+      onSubmit={onSubmit}
+      validationSchema={Yup.object().shape({
         requestMethod: HTTPRequestMethodValidation('cv.componentValidations.requestMethod')
-      })}>
+      })}
+    >
       <FormikForm>
         <HealthSourceHTTPRequestMethod />
         <button type="submit" data-testid={'submitButtonJest'} />
@@ -31,7 +36,7 @@ const SampleComponent: React.FC<{
 
 describe('RuntimeInput Tests for RadioGroup', () => {
   test('should throw validation error', async () => {
-    const {  getByTestId } = render(<SampleComponent onSubmit={jest.fn()}/>)
+    const { getByTestId } = render(<SampleComponent onSubmit={jest.fn()} />)
     await act(async () => {
       fireEvent.click(getByTestId('submitButtonJest'))
     })
@@ -41,7 +46,7 @@ describe('RuntimeInput Tests for RadioGroup', () => {
     const onSubmit = (selectedProps: any) => {
       expect(selectedProps.requestMethod).toBe(HTTPRequestMethod.GET)
     }
-    const { getByTestId } = render(<SampleComponent onSubmit={onSubmit} initialValue={HTTPRequestMethod.GET}/>)
+    const { getByTestId } = render(<SampleComponent onSubmit={onSubmit} initialValue={HTTPRequestMethod.GET} />)
     await act(async () => {
       fireEvent.click(getByTestId('submitButtonJest'))
     })
@@ -50,7 +55,9 @@ describe('RuntimeInput Tests for RadioGroup', () => {
     const onSubmit = (selectedProps: any) => {
       expect(selectedProps.requestMethod).toBe(HTTPRequestMethod.POST)
     }
-    const { container, getByTestId } = render(<SampleComponent onSubmit={onSubmit} initialValue={HTTPRequestMethod.POST}/>)
+    const { container, getByTestId } = render(
+      <SampleComponent onSubmit={onSubmit} initialValue={HTTPRequestMethod.POST} />
+    )
     await act(async () => {
       fireEvent.click(getByTestId('submitButtonJest'))
     })
@@ -61,7 +68,9 @@ describe('RuntimeInput Tests for RadioGroup', () => {
     const onSubmit = (selectedProps: any) => {
       expect(selectedProps.requestMethod).toBe(HTTPRequestMethod.POST)
     }
-    const { getByTestId, getByText } = render(<SampleComponent onSubmit={onSubmit} initialValue={HTTPRequestMethod.GET}/>)
+    const { getByTestId, getByText } = render(
+      <SampleComponent onSubmit={onSubmit} initialValue={HTTPRequestMethod.GET} />
+    )
     await act(async () => {
       fireEvent.click(getByText(HTTPRequestMethod.POST))
       fireEvent.click(getByTestId('submitButtonJest'))

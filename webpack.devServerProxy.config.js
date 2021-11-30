@@ -73,6 +73,14 @@ module.exports = {
     pathRewrite: { '^/pm': '' },
     target: process.env.OPA_GOVERNANCE_UI_URL || 'http://localhost:3000'
   },
+  '/samplemodule/api': {
+    pathRewrite: { '^/samplemodule': '' },
+    target: process.env.SAMPLE_MODULE_UI_URL || 'http://localhost:3001'
+  },
+  '/samplemodule': {
+    pathRewrite: { '^/samplemodule': '' },
+    target: process.env.SAMPLE_MODULE_UI_URL || 'http://localhost:3000'
+  },
   '/gitops': {
     pathRewrite: { '^/gitops': '' },
     target: process.env.GITOPS_URL || 'https://localhost:8183'

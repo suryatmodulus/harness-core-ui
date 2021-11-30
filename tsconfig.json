@@ -29,7 +29,7 @@
       "@notifications/*": ["modules/15-notifications/*"],
       "@rbac/*": ["modules/20-rbac/*"],
       "@governance/*": ["modules/25-governance/*"],
-      "@samplemodule/*": ["modules/27-sample-module/*"],
+      "@sample-module/*": ["modules/27-sample-module/*"],
       "@auth-settings/*": ["modules/30-auth-settings/*"],
       "@secrets/*": ["modules/30-secrets/*"],
       "@connectors/*": ["modules/35-connectors/*"],

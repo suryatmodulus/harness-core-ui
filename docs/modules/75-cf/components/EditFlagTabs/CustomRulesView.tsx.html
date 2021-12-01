@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.25% </span>
+                <span class="strong">44.2% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>100/221</span>
+                <span class='fraction'>99/224</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.52% </span>
+                <span class="strong">40.57% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>94/232</span>
+                <span class='fraction'>99/244</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.74% </span>
+                <span class="strong">27.27% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>25/87</span>
+                <span class='fraction'>24/88</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.64% </span>
+                <span class="strong">46.39% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>91/191</span>
+                <span class='fraction'>90/194</span>
             </div>
         
             
@@ -1087,12 +1087,7 @@
 <a name='L1028'></a><a href='#L1028'>1028</a>
 <a name='L1029'></a><a href='#L1029'>1029</a>
 <a name='L1030'></a><a href='#L1030'>1030</a>
-<a name='L1031'></a><a href='#L1031'>1031</a>
-<a name='L1032'></a><a href='#L1032'>1032</a>
-<a name='L1033'></a><a href='#L1033'>1033</a>
-<a name='L1034'></a><a href='#L1034'>1034</a>
-<a name='L1035'></a><a href='#L1035'>1035</a>
-<a name='L1036'></a><a href='#L1036'>1036</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L1031'></a><a href='#L1031'>1031</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1123,8 +1118,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1746,27 +1739,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2164,11 +2154,9 @@ import {
   Serve,
   VariationMap,
   useGetAllTargets,
-  Target,
   ServingRule,
   TargetMap,
   GetAllTargetsQueryParams
-  // useGetTargetsAndSegments
 } from 'services/cf'
 import { useStrings } from 'framework/strings'
 import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
@@ -2776,33 +2764,30 @@ const ServingCardRow: React.FC&lt;ServingCardRowProps&gt; = ({
       project,
       account: accountId,
       accountIdentifier: accountId,
-      org: orgIdentifier
+      org: orgIdentifier,
+      pageSize: 1000
     } as GetAllTargetsQueryParams
   })
 &nbsp;
-  // TODO:
-  // Mapping should have both Targets and Segments
-  // Ticket: https://harness.atlassian.net/browse/FFM-722
-  //
-  // const { data: targetsSegments, loading: loadingTargetsSegments } = useGetTargetsAndSegments({
-  //   queryParams: {
-  //     environment,
-  //     project,
-  //     account: accountId,
-  //     org: orgIdentifier
-  //   }
-  // })
+  const availableTargets = useMemo&lt;Option&lt;string&gt;[]&gt;(() =&gt; {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!data<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>argets) {
+      return []
+    }
 &nbsp;
-  const targetIdentifiersFromForm = uniq(
-    formikProps.values.variationMap
-      .map((map: { targets: TargetMap[] }) =&gt; map.targets || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>
-      .flat()
-      .map((val: TargetMap) =&gt; val.identifier || <span class="branch-1 cbranch-no" title="branch not covered" >val)</span>
-  )
-  const availableTargets: Option&lt;string&gt;[] =
-    ((data<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>argets || []) as Target[])
-      .filter(<span class="fstat-no" title="function not covered" >target </span>=&gt; <span class="cstat-no" title="statement not covered" >!targetIdentifiersFromForm.includes(target.identifier))</span>
-      .map(compose(toOption, prop('identifier'))) || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
+    const targetIdentifiersFromForm = <span class="cstat-no" title="statement not covered" >uniq(</span>
+      formikProps.values.variationMap
+        .map(<span class="fstat-no" title="function not covered" >(m</span>ap: { targets: TargetMap[] }) =&gt; <span class="cstat-no" title="statement not covered" >map.targets || [])</span>
+        .flat()
+        .map(<span class="fstat-no" title="function not covered" >(v</span>al: TargetMap) =&gt; <span class="cstat-no" title="statement not covered" >val.identifier || val)</span>
+    )
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return (</span>
+      data.targets
+        .filter(<span class="fstat-no" title="function not covered" >target </span>=&gt; <span class="cstat-no" title="statement not covered" >!targetIdentifiersFromForm.includes(target.identifier))</span>
+        .map(compose(toOption, prop('identifier'))) || []
+    )
+  }, [data<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>argets, formikProps<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>ariationMap])
+&nbsp;
   const [tempTargets, setTempTargets] = useState(tagOpts)
 &nbsp;
   const [openEditModal, hideModal] = useModalHook(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
@@ -3169,7 +3154,7 @@ export default CustomRulesView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Nov 30 2021 16:09:43 GMT+0000 (Greenwich Mean Time)
+                at Wed Dec 01 2021 05:15:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

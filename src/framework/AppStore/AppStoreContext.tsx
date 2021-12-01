@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import { fromPairs } from 'lodash-es'
 import { PageSpinner } from '@wings-software/uicore'
+import { useQueryParams } from '@common/hooks'
 import {
   Project,
   useGetProject,
@@ -86,13 +87,18 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
   })
   const { data: userInfo, loading: userInfoLoading } = useGetCurrentUserInfo({})
 
+  const { source } = useQueryParams<{ source?: string }>()
+
   useEffect(() => {
     // don't redirect on local because it goes into infinite loop
     // because there may be no current gen to go to
     const currentAccount = userInfo?.data?.accounts?.find(account => account.uuid === accountId)
     if (!__DEV__ && currentAccount && !currentAccount.nextGenEnabled) {
       const baseUrl = window.location.pathname.replace(/\/ng\//, '/')
-      window.location.href = `${baseUrl}#/account/${accountId}/dashboard`
+      const dashboardUrl = `${baseUrl}#/account/${accountId}/dashboard`
+      const onboardingUrl = `${baseUrl}#/account/${accountId}/onboarding`
+
+      window.location.href = source === 'signup' ? onboardingUrl : dashboardUrl
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo?.data?.accounts])

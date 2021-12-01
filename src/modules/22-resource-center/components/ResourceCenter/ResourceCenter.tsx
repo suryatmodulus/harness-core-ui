@@ -1,7 +1,6 @@
 import React from 'react'
 import { Button, ButtonVariation, Color, FontVariation, Icon, IconName, Layout, Text } from '@wings-software/uicore'
 
-import { useModalHook, ModalProvider, Icon, IconName } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 
 import { upperFirst } from 'lodash-es'

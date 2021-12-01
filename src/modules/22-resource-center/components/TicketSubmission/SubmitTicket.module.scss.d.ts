@@ -7,6 +7,8 @@ declare const styles: {
   readonly bp3Radio: string
   readonly bp3ControlIndicator: string
   readonly bp3Indicator: string
+  readonly inputMargin: string
+  readonly textheight: string
   readonly radiolocation: string
   readonly radiodescription: string
   readonly low: string

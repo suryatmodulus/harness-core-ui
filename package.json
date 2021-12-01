@@ -138,6 +138,7 @@
     "restful-react": "15.6.0",
     "secure-web-storage": "^1.0.2",
     "urql": "^2.0.3",
+    "use-react-screenshot": "^1.0.2",
     "uuid": "^8.3.0",
     "vscode-languageserver-types": "3.15.1",
     "yaml": "^1.10.0",

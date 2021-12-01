@@ -1,8 +1,8 @@
 import React from 'react'
-import { act, fireEvent, prettyDOM, render } from '@testing-library/react'
+import { act, fireEvent, render } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uicore'
-import { HealthSourceHTTPRequestMethod } from '../HealthSourceHTTPRequestMethod'
 import * as Yup from 'yup'
+import { HealthSourceHTTPRequestMethod } from '../HealthSourceHTTPRequestMethod'
 import { HTTPRequestMethodValidation } from '../HealthSourceHTTPRequestMethod.constants'
 import { HTTPRequestMethod } from '../HealthSourceHTTPRequestMethod.types'
 
@@ -36,10 +36,11 @@ const SampleComponent: React.FC<{
 
 describe('RuntimeInput Tests for RadioGroup', () => {
   test('should throw validation error', async () => {
-    const { getByTestId } = render(<SampleComponent onSubmit={jest.fn()} />)
+    const { getByTestId, getByText } = render(<SampleComponent onSubmit={jest.fn()} />)
     await act(async () => {
       fireEvent.click(getByTestId('submitButtonJest'))
     })
+    expect(getByText('cv.componentValidations.requestMethod')).toBeDefined()
   })
 
   test('should select default value as GET', async () => {
@@ -55,13 +56,10 @@ describe('RuntimeInput Tests for RadioGroup', () => {
     const onSubmit = (selectedProps: any) => {
       expect(selectedProps.requestMethod).toBe(HTTPRequestMethod.POST)
     }
-    const { container, getByTestId } = render(
-      <SampleComponent onSubmit={onSubmit} initialValue={HTTPRequestMethod.POST} />
-    )
+    const { getByTestId } = render(<SampleComponent onSubmit={onSubmit} initialValue={HTTPRequestMethod.POST} />)
     await act(async () => {
       fireEvent.click(getByTestId('submitButtonJest'))
     })
-    console.log(prettyDOM(container, 200000000))
   })
 
   test('should change to post', async () => {

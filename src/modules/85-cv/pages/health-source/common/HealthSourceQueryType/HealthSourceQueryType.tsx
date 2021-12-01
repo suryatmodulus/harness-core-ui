@@ -1,12 +1,15 @@
-import { FormInput } from '@wings-software/uicore'
 import React from 'react'
+import { FormInput } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
+import type { StringsMap } from 'stringTypes'
 import { QueryType } from './HealthSourceQueryType.types'
 
 export const HealthSourceQueryType = () => {
+  const { getString } = useStrings()
   return (
     <FormInput.RadioGroup
-      label={'Query Type'}
-      name={'queryType'}
+      label={getString('cv.componentValidations.queryTypeLabel' as keyof StringsMap)}
+      name={getString('cv.componentValidations.queryTypeName' as keyof StringsMap)}
       items={[
         {
           label: QueryType.SERVICE_BASED,

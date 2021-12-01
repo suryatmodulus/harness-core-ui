@@ -1,4 +1,5 @@
 import type { IconName } from '@wings-software/uicore'
+import type Highcharts from 'highcharts'
 import type { ViewRule, ViewIdCondition } from 'services/ce'
 import {
   QlceViewTimeFilterOperator,

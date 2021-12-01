@@ -1,7 +1,7 @@
 import React from 'react'
 import { Intent, Layout, useToaster, useConfirmationDialog } from '@wings-software/uicore'
 import cx from 'classnames'
-import { cloneDeep, debounce, isEmpty, isNil } from 'lodash-es'
+import { cloneDeep, debounce, isEmpty, isNil, noop } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
@@ -605,8 +605,17 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
             stagesMap,
             renderPipelineStage
           },
-          { useArrows: true, darkMode: false, fixedPosition: false, placement: 'top' }
+          { useArrows: true, darkMode: false, fixedPosition: false, placement: 'top' },
+          noop,
+          true
         )
+      }
+    },
+    [Event.MouseLeaveNode]: (event: any) => {
+      const eventTemp = event as DefaultNodeEvent
+      eventTemp.stopPropagation()
+      if (dynamicPopoverHandler?.isHoverView?.()) {
+        dynamicPopoverHandler?.hide()
       }
     }
   }

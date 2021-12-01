@@ -1,7 +1,7 @@
 import React from 'react'
 import { StartTrialTemplate } from '@rbac/components/TrialHomePageTemplate/StartTrialTemplate'
 import { useStrings } from 'framework/strings'
-import bgImageURL from './images/homeIllustration.svg'
+import bgImageURL from './assets/CVLandingPage.svg'
 
 const CVTrialHomePage: React.FC = () => {
   const { getString } = useStrings()

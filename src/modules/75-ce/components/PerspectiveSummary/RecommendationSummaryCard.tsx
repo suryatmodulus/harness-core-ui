@@ -24,7 +24,8 @@ const RecommendationSummaryCard: () => JSX.Element = () => {
   const [{ data, fetching: recommendationFetching }] = useRecommendationsSummaryQuery({
     variables: {
       filter: {
-        perspectiveFilters: getViewFilterForId(perspectiveId)
+        perspectiveFilters: getViewFilterForId(perspectiveId),
+        minSaving: 0
       } as unknown as K8sRecommendationFilterDtoInput
     }
   })

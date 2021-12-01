@@ -6,7 +6,7 @@ import { ModuleName } from 'framework/types/ModuleName'
 import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import bgImageURL from './images/homeIllustration.svg'
+import bgImageURL from './assets/CVLandingPage.svg'
 
 const CVHomePage: React.FC = () => {
   const { getString } = useStrings()

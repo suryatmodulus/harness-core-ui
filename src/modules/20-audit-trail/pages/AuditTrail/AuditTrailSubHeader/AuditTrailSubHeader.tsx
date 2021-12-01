@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Page,
-  Layout,
-  DateRangePickerButton,
-  DropDown,
-  SelectOption,
-  ExpandingSearchInput,
-  Icon,
-  useModalHook
-} from '@wings-software/uicore'
+import { Page, Layout, DateRangePickerButton, DropDown, SelectOption, Icon, useModalHook } from '@wings-software/uicore'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import type { FilterDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
@@ -31,10 +22,9 @@ export interface TableFiltersPayload {
 interface AuditTrailSubHeaderProps {
   onChange: (data: TableFiltersPayload) => void
   handleDownloadClick?: () => void
-  toggleColumn?: () => void
 }
 
-const AuditTrailSubHeader: React.FC<AuditTrailSubHeaderProps> = ({ handleDownloadClick, toggleColumn, onChange }) => {
+const AuditTrailSubHeader: React.FC<AuditTrailSubHeaderProps> = ({ handleDownloadClick, onChange }) => {
   const [filtersData, setFiltersData] = useState<TableFiltersPayload>({})
   const { getString } = useStrings()
 
@@ -93,17 +83,6 @@ const AuditTrailSubHeader: React.FC<AuditTrailSubHeaderProps> = ({ handleDownloa
           />
         </Layout.Horizontal>
         <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-          <ExpandingSearchInput
-            alwaysExpanded
-            className={css.search}
-            onChange={text => {
-              setFiltersData({
-                ...filtersData,
-                searchText: text
-              })
-            }}
-            width={300}
-          />
           <FilterSelector<FilterDTO>
             onFilterBtnClick={onFilterButtonClick}
             onFilterSelect={() => {
@@ -113,7 +92,6 @@ const AuditTrailSubHeader: React.FC<AuditTrailSubHeaderProps> = ({ handleDownloa
             filterWithValidFields={{}}
           />
           <Icon onClick={handleDownloadClick} padding={{ left: 'large' }} name="download-light" />
-          <Icon onClick={toggleColumn} padding={{ left: 'large' }} name="toggle-column" />
         </Layout.Horizontal>
       </Layout.Horizontal>
     </Page.SubHeader>

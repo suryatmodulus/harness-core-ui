@@ -6343,6 +6343,10 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  module: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   'moduleRenderer.monitoringSources': string
   /**
    * @deprecated migrate this string to module level file
@@ -8144,6 +8148,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   timeMinutes: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  timePst: string
   /**
    * @deprecated migrate this string to module level file
    */

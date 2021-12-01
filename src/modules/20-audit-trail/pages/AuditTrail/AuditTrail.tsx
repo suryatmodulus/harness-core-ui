@@ -1,197 +1,219 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Avatar, Layout, TableV2, Text, Icon } from '@wings-software/uicore'
 import type { Column, Renderer, CellProps } from 'react-table'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { Page } from '@common/exports'
-import { AuditEventDTO, PageAuditEventDTO, useGetAuditList } from 'services/audit'
-import { formatDatetoLocale } from '@common/utils/dateUtils'
+import { AuditEventDTO, useGetAuditList } from 'services/audit'
+import { getReadableDateTime } from '@common/utils/dateUtils'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import dummyResponse from '../../mocks/response.json'
-import YamlDiff from './YamlDiff/YamlDiff'
+import type { ResponsePageAuditEventDTO } from 'services/audit'
+import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
+import EventSummary from './EventSummary/EventSummary'
 import AuditTrailSubHeader, { TableFiltersPayload } from './AuditTrailSubHeader/AuditTrailSubHeader'
 import css from './AuditTrail.module.scss'
 
 const renderColumnTimeStamp: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-  return formatDatetoLocale(row.original.timestamp)
+  const time = getReadableDateTime(row.original.timestamp, 'hh:mm a')
+  const date = getReadableDateTime(row.original.timestamp, 'MMM DD, YYYY')
+  return (
+    <>
+      <Text margin={{ bottom: 'small' }}>{time}</Text>
+      <Text>{date}</Text>
+    </>
+  )
 }
 
 const renderColumnUser: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
   return (
-    <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-      <Avatar name={row.original.resourceScope.accountIdentifier} hoverCard={false} />
-      <Text lineClamp={1}>{row.original.resourceScope.accountIdentifier}</Text>
+    <Layout.Horizontal padding={{ right: 'medium' }} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+      <Avatar name={row.original.authenticationInfo.principal.identifier} hoverCard={false} />
+      <Text lineClamp={1}>{row.original.authenticationInfo.principal.identifier}</Text>
     </Layout.Horizontal>
   )
 }
 
 const renderColumnAction: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-  return row.original.action || '--'
-}
-
-const renderColumnResource: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
+  // format action and render icon, mapping is missing.
   return (
-    <Layout.Vertical>
-      <Text>{row.original.resource.type}</Text>
-      <Text>{row.original.resource.identifier}</Text>
-    </Layout.Vertical>
+    <Layout.Horizontal padding={{ right: 'medium' }}>
+      <Text lineClamp={1}>{row.original.action}</Text>
+    </Layout.Horizontal>
   )
 }
 
+const renderColumnResource: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
+  const { resourceRenderer } = AuditTrailFactory.getModuleProperties(row.original.module) || {}
+  return resourceRenderer?.(row.original) || ''
+}
+
 const renderColumnOrganization: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-  return row.original.resourceScope.orgIdentifier || '--'
+  return (
+    <Text padding={{ right: 'medium' }} lineClamp={1}>
+      {row.original.resourceScope.orgIdentifier}
+    </Text>
+  )
 }
 
 const renderColumnProject: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-  return row.original?.resourceScope?.projectIdentifier || '--'
+  return (
+    <Text padding={{ right: 'medium' }} lineClamp={1}>
+      {row.original?.resourceScope?.projectIdentifier}
+    </Text>
+  )
 }
 
 const renderColumnModule: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-  return row.original.module || '--'
+  const { iconName } = AuditTrailFactory.getModuleProperties(row.original.module) || {}
+  return iconName ? <Icon name={iconName} /> : ''
 }
 
 const renderColumnEnvironment: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-  return row.original.environment?.identifier || '--'
+  return row.original.environment?.identifier || ''
 }
+
+const PAGE_SIZE = 10
 
 const AuditTrail: React.FC = () => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
-  const [showYamlDiff, setYamlDiffVisibility] = useState(false)
+  const [auditList, setAuditList] = useState<ResponsePageAuditEventDTO>({})
+  const [selectedAuditId, setAuditId] = useState<string>()
+  const [page, setPage] = useState(0)
 
-  const { mutate: fetchAuditList } = useGetAuditList({
+  const { mutate: fetchAuditList, loading } = useGetAuditList({
     queryParams: {
       accountIdentifier: accountId,
-      pageSize: 100,
-      pageIndex: 0
+      pageSize: PAGE_SIZE,
+      pageIndex: page
     }
   })
 
+  const getAuditList = async (): Promise<void> => {
+    const auditListResponse = await fetchAuditList({ scopes: [{ accountIdentifier: accountId }], filterType: 'Audit' })
+    setAuditList(auditListResponse)
+  }
+
   useEffect(() => {
-    fetchAuditList({ scopes: [{ accountIdentifier: accountId }] })
+    getAuditList()
   }, [fetchAuditList])
 
-  const data = dummyResponse.data as PageAuditEventDTO
-
-  const renderYamlDiffColumn: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-    // const { auditId } = row.original
+  const renderNotesColumn: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
+    const { auditId } = row.original
     return (
       <Icon
-        name="file"
+        name="notes"
+        size={20}
         onClick={() => {
-          setYamlDiffVisibility(!showYamlDiff)
+          setAuditId(auditId)
         }}
       />
     )
   }
 
-  const columns: Column<AuditEventDTO>[] = [
-    {
-      Header: 'Time (PST)',
-      id: 'timepst',
-      width: '9%',
-      accessor: row => row.timestamp,
-      Cell: renderColumnTimeStamp
-    },
-    {
-      Header: 'User',
-      id: 'user',
-      width: '13%',
-      accessor: row => row.timestamp,
-      Cell: renderColumnUser
-    },
-    {
-      Header: 'Action',
-      id: 'action',
-      width: '13%',
-      accessor: row => row.timestamp,
-      Cell: renderColumnAction
-    },
-    {
-      Header: 'Resource',
-      id: 'resource',
-      width: '15%',
-      accessor: row => row.timestamp,
-      Cell: renderColumnResource
-    },
-    {
-      Header: 'Organization',
-      id: 'organization',
-      width: '15%',
-      accessor: row => row.timestamp,
-      Cell: renderColumnOrganization
-    },
-    {
-      Header: 'Project',
-      id: 'project',
-      width: '15%',
-      accessor: row => row.timestamp,
-      Cell: renderColumnProject
-    },
-    {
-      Header: 'Module',
-      id: 'module',
-      width: '10%',
-      accessor: row => row.timestamp,
-      Cell: renderColumnModule
-    },
-    {
-      Header: 'Environment',
-      id: 'environment',
-      width: '10%',
-      accessor: row => row.timestamp,
-      Cell: renderColumnEnvironment
-    },
-    {
-      Header: '',
-      id: 'yaml',
-      width: '5%',
-      accessor: row => row.timestamp,
-      Cell: renderYamlDiffColumn
-    }
-  ]
+  const columns: Column<AuditEventDTO>[] = useMemo(
+    () => [
+      {
+        Header: getString('timePst'),
+        id: 'time',
+        width: '9%',
+        accessor: row => row.timestamp,
+        Cell: renderColumnTimeStamp
+      },
+      {
+        Header: () => <Text margin={{ left: 'small' }}>{getString('rbac.user')}</Text>,
+        id: 'user',
+        width: '15%',
+        accessor: row => row.timestamp,
+        Cell: renderColumnUser
+      },
+      {
+        Header: getString('action'),
+        id: 'action',
+        width: '11%',
+        accessor: row => row.timestamp,
+        Cell: renderColumnAction
+      },
+      {
+        Header: getString('pipeline.testsReports.resource'),
+        id: 'resource',
+        width: '15%',
+        accessor: row => row.timestamp,
+        Cell: renderColumnResource
+      },
+      {
+        Header: getString('orgLabel'),
+        id: 'organization',
+        width: '15%',
+        accessor: row => row.timestamp,
+        Cell: renderColumnOrganization
+      },
+      {
+        Header: getString('projectLabel'),
+        id: 'project',
+        width: '15%',
+        accessor: row => row.timestamp,
+        Cell: renderColumnProject
+      },
+      {
+        Header: getString('module'),
+        id: 'module',
+        width: '10%',
+        accessor: row => row.timestamp,
+        Cell: renderColumnModule
+      },
+      {
+        Header: getString('environment'),
+        id: 'environment',
+        width: '10%',
+        accessor: row => row.timestamp,
+        Cell: renderColumnEnvironment
+      },
+      {
+        Header: '',
+        id: 'yaml',
+        width: '5%',
+        accessor: row => row.timestamp,
+        Cell: renderNotesColumn
+      }
+    ],
+    []
+  )
 
-  const handleFiltersChange = (filtersPayload: TableFiltersPayload): void => {
-    console.log('Trigger filter change', filtersPayload)
+  const handleFiltersChange = (_filtersPayload: TableFiltersPayload): void => {
+    // Backend isn't ready
   }
 
   const onDownloadClick = (): void => {
-    // handle download click here
+    // Backend is not ready yet.
   }
 
-  const onColumnToggle = (): void => {
-    //toggle column here
-  }
-
+  const { data } = auditList
   return (
     <>
       <Page.Header title={getString('common.auditTrail')} breadcrumbs={<NGBreadcrumbs />} />
-      <AuditTrailSubHeader
-        onChange={handleFiltersChange}
-        handleDownloadClick={onDownloadClick}
-        toggleColumn={onColumnToggle}
-      />
-      <Page.Body>
+      <AuditTrailSubHeader onChange={handleFiltersChange} handleDownloadClick={onDownloadClick} />
+      <Page.Body loading={loading}>
         <TableV2<AuditEventDTO>
           data={data?.content || []}
           columns={columns}
-          sortable
           className={css.table}
           pagination={{
-            itemCount: data?.content?.length || 0,
+            itemCount: data?.totalItems || 0,
             pageSize: data?.pageSize || 10,
             pageCount: data?.totalPages || 0,
-            pageIndex: data?.pageIndex || 0
+            pageIndex: data?.pageIndex || 0,
+            gotoPage: setPage
           }}
         />
-        {showYamlDiff && (
-          <YamlDiff
-            onDrawerClose={() => {
-              setYamlDiffVisibility(false)
+        {selectedAuditId && (
+          <EventSummary
+            onClose={() => {
+              setAuditId(undefined)
             }}
             accountIdentifier={accountId}
-            auditId={'auditId'}
+            auditId={selectedAuditId}
           />
         )}
       </Page.Body>

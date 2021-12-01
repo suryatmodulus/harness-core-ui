@@ -1,10 +1,6 @@
 import * as Yup from 'yup'
-import { useStrings } from 'framework/strings'
-import type { StringsMap } from 'framework/strings/StringsContext'
+import type { UseStringsReturn } from 'framework/strings'
 
-export const QueryTypeValidation = (validationString: string) => {
-  const { getString } = useStrings()
-  return Yup.string()
-    .trim()
-    .required(getString(validationString as keyof StringsMap))
+export const queryTypeValidation = (getString: UseStringsReturn['getString']) => {
+  return Yup.string().trim().required(getString('cv.componentValidations.queryType'))
 }

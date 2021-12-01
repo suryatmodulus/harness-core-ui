@@ -2,35 +2,33 @@ import React from 'react'
 import { act, fireEvent, render } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import { TestWrapper } from '@common/utils/testUtils'
 import { HealthSourceQueryType } from '../HealthSourceQueryType'
-import { QueryTypeValidation } from '../HealthSourceQueryType.constants'
+import { queryTypeValidation } from '../HealthSourceQueryType.constants'
 import { QueryType } from '../HealthSourceQueryType.types'
 
-jest.mock('framework/strings', () => ({
-  useStrings: () => ({
-    getString: (key: string) => key
-  })
-}))
-
+const mockGetString = jest.fn().mockImplementation(() => 'cv.componentValidations.queryType')
 const SampleComponent: React.FC<{
   initialValue?: string
   validationStrnig?: string
   onSubmit: (props: any) => void
 }> = ({ initialValue, onSubmit }) => {
   return (
-    <Formik
-      formName="test"
-      initialValues={{ queryType: initialValue }}
-      onSubmit={onSubmit}
-      validationSchema={Yup.object().shape({
-        queryType: QueryTypeValidation('cv.componentValidations.queryType')
-      })}
-    >
-      <FormikForm>
-        <HealthSourceQueryType />
-        <button type="submit" data-testid={'submitButtonJest'} />
-      </FormikForm>
-    </Formik>
+    <TestWrapper>
+      <Formik
+        formName="test"
+        initialValues={{ queryType: initialValue }}
+        onSubmit={onSubmit}
+        validationSchema={Yup.object().shape({
+          queryType: queryTypeValidation(mockGetString)
+        })}
+      >
+        <FormikForm>
+          <HealthSourceQueryType />
+          <button type="submit" data-testid={'submitButtonJest'} />
+        </FormikForm>
+      </Formik>
+    </TestWrapper>
   )
 }
 

@@ -8,8 +8,8 @@ export const HealthSourceQueryType = () => {
   const { getString } = useStrings()
   return (
     <FormInput.RadioGroup
-      label={getString('cv.componentValidations.queryTypeLabel' as keyof StringsMap)}
-      name={getString('cv.componentValidations.queryTypeName' as keyof StringsMap)}
+      label={getString('cv.componentValidations.queryTypeLabel' as keyof StringsMap)} //name={getString('cv.componentValidations.queryTypeName' as keyof StringsMap)}
+      name="queryType"
       items={[
         {
           label: QueryType.SERVICE_BASED,

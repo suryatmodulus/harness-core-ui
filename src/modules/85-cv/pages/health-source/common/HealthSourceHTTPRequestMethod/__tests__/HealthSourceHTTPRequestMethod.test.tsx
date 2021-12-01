@@ -2,35 +2,33 @@ import React from 'react'
 import { act, fireEvent, render } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uicore'
 import * as Yup from 'yup'
+import { TestWrapper } from '@common/utils/testUtils'
 import { HealthSourceHTTPRequestMethod } from '../HealthSourceHTTPRequestMethod'
-import { HTTPRequestMethodValidation } from '../HealthSourceHTTPRequestMethod.constants'
+import { httpRequestMethodValidation } from '../HealthSourceHTTPRequestMethod.constants'
 import { HTTPRequestMethod } from '../HealthSourceHTTPRequestMethod.types'
 
-jest.mock('framework/strings', () => ({
-  useStrings: () => ({
-    getString: (key: string) => key
-  })
-}))
-
+const mockGetString = jest.fn().mockImplementation(() => 'cv.componentValidations.requestMethod')
 const SampleComponent: React.FC<{
   initialValue?: string
   validationStrnig?: string
   onSubmit: (props: any) => void
 }> = ({ initialValue, onSubmit }) => {
   return (
-    <Formik
-      formName="test"
-      initialValues={{ requestMethod: initialValue }}
-      onSubmit={onSubmit}
-      validationSchema={Yup.object().shape({
-        requestMethod: HTTPRequestMethodValidation('cv.componentValidations.requestMethod')
-      })}
-    >
-      <FormikForm>
-        <HealthSourceHTTPRequestMethod />
-        <button type="submit" data-testid={'submitButtonJest'} />
-      </FormikForm>
-    </Formik>
+    <TestWrapper>
+      <Formik
+        formName="test"
+        initialValues={{ requestMethod: initialValue }}
+        onSubmit={onSubmit}
+        validationSchema={Yup.object().shape({
+          requestMethod: httpRequestMethodValidation(mockGetString)
+        })}
+      >
+        <FormikForm>
+          <HealthSourceHTTPRequestMethod />
+          <button type="submit" data-testid={'submitButtonJest'} />
+        </FormikForm>
+      </Formik>
+    </TestWrapper>
   )
 }
 

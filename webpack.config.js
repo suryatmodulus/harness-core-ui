@@ -256,6 +256,9 @@ if (!enableGitOpsUI) {
 if (!enableGovernance) {
   // render a mock app when MF is disabled
   config.resolve.alias['governance/App'] = ChildAppError
+  config.resolve.alias['governance/EvaluationModal'] = ChildAppError
+  config.resolve.alias['governance/PipelineGovernanceView'] = ChildAppError
+  config.resolve.alias['governance/EvaluationView'] = ChildAppError
 }
 
 const devOnlyPlugins = [

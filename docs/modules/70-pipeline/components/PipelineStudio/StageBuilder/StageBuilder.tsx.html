@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.09% </span>
+                <span class="strong">25.77% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>84/322</span>
+                <span class='fraction'>84/326</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.05% </span>
+                <span class="strong">8.86% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>60/663</span>
+                <span class='fraction'>60/677</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.47% </span>
+                <span class="strong">25.71% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>9/34</span>
+                <span class='fraction'>9/35</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25.39% </span>
+                <span class="strong">25.08% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>81/319</span>
+                <span class='fraction'>81/323</span>
             </div>
         
             
@@ -910,7 +910,16 @@
 <a name='L851'></a><a href='#L851'>851</a>
 <a name='L852'></a><a href='#L852'>852</a>
 <a name='L853'></a><a href='#L853'>853</a>
-<a name='L854'></a><a href='#L854'>854</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
+<a name='L854'></a><a href='#L854'>854</a>
+<a name='L855'></a><a href='#L855'>855</a>
+<a name='L856'></a><a href='#L856'>856</a>
+<a name='L857'></a><a href='#L857'>857</a>
+<a name='L858'></a><a href='#L858'>858</a>
+<a name='L859'></a><a href='#L859'>859</a>
+<a name='L860'></a><a href='#L860'>860</a>
+<a name='L861'></a><a href='#L861'>861</a>
+<a name='L862'></a><a href='#L862'>862</a>
+<a name='L863'></a><a href='#L863'>863</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -1519,6 +1528,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1766,7 +1784,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Intent, Layout, useToaster, useConfirmationDialog } from '@wings-software/uicore'
 import cx from 'classnames'
-import { cloneDeep, debounce, isEmpty, isNil } from 'lodash-es'
+import { cloneDeep, debounce, isEmpty, isNil, noop } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
@@ -2370,8 +2388,17 @@ const StageBuilder: React.FC&lt;unknown&gt; = (): JSX.Element =&gt; {
             stagesMap,
             renderPipelineStage
           },
-          { useArrows: true, darkMode: false, fixedPosition: false, placement: 'top' }
+          { useArrows: true, darkMode: false, fixedPosition: false, placement: 'top' },
+          noop,
+          true
         )
+      }
+    },
+    [Event.MouseLeaveNode]: <span class="fstat-no" title="function not covered" >(e</span>vent: any) =&gt; {
+      const eventTemp = <span class="cstat-no" title="statement not covered" >event as DefaultNodeEvent</span>
+<span class="cstat-no" title="statement not covered" >      eventTemp.stopPropagation()</span>
+<span class="cstat-no" title="statement not covered" >      if (dynamicPopoverHandler?.isHoverView?.()) {</span>
+<span class="cstat-no" title="statement not covered" >        dynamicPopoverHandler?.hide()</span>
       }
     }
   }
@@ -2623,7 +2650,7 @@ export default StageBuilder
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 01 2021 05:15:12 GMT+0000 (Greenwich Mean Time)
+                at Wed Dec 01 2021 05:51:53 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

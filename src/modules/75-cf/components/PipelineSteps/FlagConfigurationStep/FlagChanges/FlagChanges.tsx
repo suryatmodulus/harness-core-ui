@@ -101,7 +101,7 @@ const FlagChanges: FC<FlagChangesProps> = ({
           <Text>{getString('cf.pipeline.flagConfiguration.flagChangesRuntime')}</Text>
           <ul className={css.runtimeList}>
             <li>{getString('cf.pipeline.flagConfiguration.flagChangesRuntimeSetFlagSwitch')}</li>
-            {/*<li>{getString('cf.pipeline.flagConfiguration.flagChangesRuntimeSetDefaultRules')}</li>*/}
+            <li>{getString('cf.pipeline.flagConfiguration.flagChangesRuntimeSetDefaultRules')}</li>
             <li>{getString('cf.pipeline.flagConfiguration.flagChangesRuntimeServeVariationToTargets')}</li>
             <li>{getString('cf.pipeline.flagConfiguration.flagChangesRuntimeServeVariationToTargetGroups')}</li>
             <li>{getString('cf.pipeline.flagConfiguration.flagChangesRuntimeServePercentageRollout')}</li>

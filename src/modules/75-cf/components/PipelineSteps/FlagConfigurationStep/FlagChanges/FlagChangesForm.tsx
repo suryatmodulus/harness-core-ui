@@ -26,7 +26,7 @@ import subSectionCSS from './SubSection.module.scss'
 
 export const allSubSections: SubSectionComponent[] = [
   SetFlagSwitch,
-  // DefaultRules,
+  DefaultRules,
   ServeVariationToIndividualTarget,
   ServeVariationToTargetGroup,
   ServePercentageRollout
@@ -117,9 +117,8 @@ const FlagChangesForm: FC<FlagChangesFormProps> = ({
       ...new Set(
         initialInstructions.map(instruction => {
           switch (instruction.type) {
-            // case CFPipelineInstructionType.SET_DEFAULT_ON_VARIATION:
-            // case CFPipelineInstructionType.SET_DEFAULT_OFF_VARIATION:
-            //   return DefaultRules
+            case CFPipelineInstructionType.SET_DEFAULT_ON_VARIATION:
+            case CFPipelineInstructionType.SET_DEFAULT_OFF_VARIATION:
             case CFPipelineInstructionType.SET_DEFAULT_VARIATIONS:
               return DefaultRules
             case CFPipelineInstructionType.ADD_RULE:

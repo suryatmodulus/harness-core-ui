@@ -91,6 +91,15 @@ export const mockServePercentageRolloutFieldValues = (variations: Variation[]): 
 export const mockSetFlagSwitchFieldValues = (state: 'on' | 'off' = 'on'): FlagConfigurationStepData =>
   mockFieldValues({ type: CFPipelineInstructionType.SET_FEATURE_FLAG_STATE, spec: { state } })
 
+export const mockDefaultRulesFieldValues = (on: Variation, off: Variation): FlagConfigurationStepData =>
+  mockFieldValues({
+    type: CFPipelineInstructionType.SET_DEFAULT_VARIATIONS,
+    spec: {
+      on: on.identifier,
+      off: off.identifier
+    }
+  })
+
 export const getProfileInitials = (str: string): string =>
   str
     .split(' ')

@@ -7,6 +7,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import * as ffServices from 'services/cf'
 import type { FeatureFlagConfigurationInstruction, FlagConfigurationStepFormDataValues } from '../../types'
 import {
+  mockDefaultRulesFieldValues,
   mockServePercentageRolloutFieldValues,
   mockServeVariationToIndividualTargetFieldValues,
   mockServeVariationToTargetGroupsFieldValues,
@@ -226,6 +227,7 @@ describe('FlagChangesForm', () => {
     renderComponent({
       initialInstructions: [
         mockSetFlagSwitchFieldValues().spec?.instructions?.[0],
+        mockDefaultRulesFieldValues(mockVariations[0], mockVariations[1]).spec?.instructions?.[0],
         mockServePercentageRolloutFieldValues(mockVariations).spec?.instructions?.[0],
         mockServeVariationToIndividualTargetFieldValues(mockTargets, mockVariations[0]).spec?.instructions?.[0],
         mockServeVariationToTargetGroupsFieldValues(mockTargetGroups, mockVariations[0]).spec?.instructions?.[0]
@@ -234,7 +236,7 @@ describe('FlagChangesForm', () => {
 
     await waitFor(() => {
       expect(screen.getByTestId('flagChanges-setFlagSwitch')).toBeInTheDocument()
-      // expect(screen.getByTestId('flagChanges-defaultRules')).toBeInTheDocument()
+      expect(screen.getByTestId('flagChanges-defaultRules')).toBeInTheDocument()
       expect(screen.getByTestId('flagChanges-servePercentageRollout')).toBeInTheDocument()
       expect(screen.getByTestId('flagChanges-serveVariationToIndividualTarget')).toBeInTheDocument()
       expect(screen.getByTestId('flagChanges-serveVariationToTargetGroup')).toBeInTheDocument()

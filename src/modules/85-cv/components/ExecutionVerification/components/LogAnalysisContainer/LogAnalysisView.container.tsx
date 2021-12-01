@@ -54,6 +54,9 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
   } = useGetDeploymentLogAnalysisResult({
     activityId: activityId as unknown as string,
     queryParams: logsAnalysisQueryParams,
+    queryParamStringifyOptions: {
+      arrayFormat: 'repeat'
+    },
     lazy: true
   })
 
@@ -65,6 +68,9 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
   } = useGetDeploymentLogAnalysisClusters({
     activityId: activityId as unknown as string,
     queryParams: clusterAnalysisQueryParams,
+    queryParamStringifyOptions: {
+      arrayFormat: 'repeat'
+    },
     lazy: true
   })
 

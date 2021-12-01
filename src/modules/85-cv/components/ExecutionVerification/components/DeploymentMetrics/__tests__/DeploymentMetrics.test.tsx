@@ -342,6 +342,9 @@ describe('Unit tests for Deployment metrics', () => {
         hostName: undefined,
         pageNumber: 0,
         pageSize: 10
+      },
+      queryParamStringifyOptions: {
+        arrayFormat: 'repeat'
       }
     })
 
@@ -361,6 +364,9 @@ describe('Unit tests for Deployment metrics', () => {
           hostName: undefined,
           pageNumber: 0,
           pageSize: 10
+        },
+        queryParamStringifyOptions: {
+          arrayFormat: 'repeat'
         }
       })
     )
@@ -380,6 +386,9 @@ describe('Unit tests for Deployment metrics', () => {
           hostName: undefined,
           pageNumber: 0,
           pageSize: 10
+        },
+        queryParamStringifyOptions: {
+          arrayFormat: 'repeat'
         }
       })
     )
@@ -422,6 +431,9 @@ describe('Unit tests for Deployment metrics', () => {
           hostName: undefined,
           pageNumber: 0,
           pageSize: 10
+        },
+        queryParamStringifyOptions: {
+          arrayFormat: 'repeat'
         }
       })
     )
@@ -440,6 +452,9 @@ describe('Unit tests for Deployment metrics', () => {
           pageNumber: 2,
           hostName: undefined,
           pageSize: 10
+        },
+        queryParamStringifyOptions: {
+          arrayFormat: 'repeat'
         }
       })
     )
@@ -551,6 +566,9 @@ describe('Unit tests for Deployment metrics', () => {
         hostName: undefined,
         pageNumber: 0,
         pageSize: 10
+      },
+      queryParamStringifyOptions: {
+        arrayFormat: 'repeat'
       }
     })
 
@@ -567,6 +585,9 @@ describe('Unit tests for Deployment metrics', () => {
           pageNumber: 3,
           hostName: undefined,
           pageSize: 10
+        },
+        queryParamStringifyOptions: {
+          arrayFormat: 'repeat'
         }
       })
     )
@@ -588,6 +609,9 @@ describe('Unit tests for Deployment metrics', () => {
         hostName: undefined,
         pageNumber: 0,
         pageSize: 10
+      },
+      queryParamStringifyOptions: {
+        arrayFormat: 'repeat'
       }
     })
   })

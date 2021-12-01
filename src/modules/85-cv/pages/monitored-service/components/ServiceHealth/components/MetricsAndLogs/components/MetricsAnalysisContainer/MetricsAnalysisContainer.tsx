@@ -53,6 +53,9 @@ const MetricsAnalysisContent: React.FC<MetricsAnalysisContentProps> = ({
       healthSources: healthSource ? [healthSource] : undefined,
       filter: filterString,
       anomalous: isAnomalous
+    },
+    queryParamStringifyOptions: {
+      arrayFormat: 'repeat'
     }
   })
 

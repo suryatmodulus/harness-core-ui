@@ -49,6 +49,9 @@ const ClusterChartContainer: React.FC<LogAnalysisContentProps> = ({
       endTime,
       clusterTypes: [logEvent],
       healthSources: healthSource ? [healthSource] : undefined
+    },
+    queryParamStringifyOptions: {
+      arrayFormat: 'repeat'
     }
   })
 
@@ -105,6 +108,9 @@ const LogAnalysisContent: React.FC<LogAnalysisContentProps> = ({
       endTime,
       clusterTypes: [logEvent],
       healthSources: healthSource ? [healthSource] : undefined
+    },
+    queryParamStringifyOptions: {
+      arrayFormat: 'repeat'
     }
   })
 

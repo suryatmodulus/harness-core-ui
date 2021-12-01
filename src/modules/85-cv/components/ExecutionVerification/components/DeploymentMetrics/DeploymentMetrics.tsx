@@ -69,7 +69,10 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
   )
   const { loading, error, data, refetch } = useGetDeploymentMetrics({
     queryParams,
-    activityId
+    activityId,
+    queryParamStringifyOptions: {
+      arrayFormat: 'repeat'
+    }
   })
 
   const {

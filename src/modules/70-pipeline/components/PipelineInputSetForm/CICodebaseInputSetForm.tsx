@@ -13,7 +13,8 @@ import {
 } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
-import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
+import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { ConnectorInfoDTO, PipelineInfoConfig, useGetConnector } from 'services/cd-ng'
 
@@ -55,6 +56,7 @@ const CICodebaseInputSetFormInternal = ({
   const [isInputTouched, setIsInputTouched] = useState(false)
   const [connectorType, setConnectorType] = useState<ConnectorInfoDTO['type']>()
   const [connectorId, setConnectorId] = useState<string>('')
+  const [connectorRef, setConnectorRef] = useState<string>('')
   const [codeBaseType, setCodeBaseType] = useState<CodeBaseType>()
 
   const savedValues = useRef<Record<string, string>>({
@@ -91,14 +93,15 @@ const CICodebaseInputSetFormInternal = ({
 
   useEffect(() => {
     if (connectorId) {
+      const connectorScope = getScopeFromValue(connectorRef)
       getConnectorDetails({
         pathParams: {
           identifier: connectorId
         },
         queryParams: {
           accountIdentifier: accountId,
-          orgIdentifier,
-          projectIdentifier
+          orgIdentifier: connectorScope === Scope.ORG || connectorScope === Scope.PROJECT ? orgIdentifier : undefined,
+          projectIdentifier: connectorScope === Scope.PROJECT ? projectIdentifier : undefined
         }
       })
     }
@@ -117,7 +120,9 @@ const CICodebaseInputSetFormInternal = ({
     if (typeOfConnector) {
       setConnectorType(typeOfConnector)
     } else {
-      setConnectorId(getIdentifierFromValue(get(originalPipeline, 'properties.ci.codebase.connectorRef') as string))
+      const ctrRef = get(originalPipeline, 'properties.ci.codebase.connectorRef') as string
+      setConnectorRef(ctrRef)
+      setConnectorId(getIdentifierFromValue(ctrRef))
     }
   }, [formik?.values])
 

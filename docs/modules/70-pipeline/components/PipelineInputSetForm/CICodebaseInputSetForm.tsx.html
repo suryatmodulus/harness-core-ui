@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.47% </span>
+                <span class="strong">90.32% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>51/57</span>
+                <span class='fraction'>56/62</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.97% </span>
+                <span class="strong">68.75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>40/58</span>
+                <span class='fraction'>44/64</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.47% </span>
+                <span class="strong">90.32% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>51/57</span>
+                <span class='fraction'>56/62</span>
             </div>
         
             
@@ -272,7 +272,12 @@
 <a name='L213'></a><a href='#L213'>213</a>
 <a name='L214'></a><a href='#L214'>214</a>
 <a name='L215'></a><a href='#L215'>215</a>
-<a name='L216'></a><a href='#L216'>216</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">37x</span>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">37x</span>
@@ -285,6 +290,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">37x</span>
@@ -326,6 +332,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
@@ -366,6 +373,7 @@
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -391,6 +399,8 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -502,7 +512,8 @@ import {
 } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
-import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
+import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { ConnectorInfoDTO, PipelineInfoConfig, useGetConnector } from 'services/cd-ng'
 &nbsp;
@@ -544,6 +555,7 @@ const CICodebaseInputSetFormInternal = ({
   const [isInputTouched, setIsInputTouched] = useState(false)
   const [connectorType, setConnectorType] = useState&lt;ConnectorInfoDTO['type']&gt;()
   const [connectorId, setConnectorId] = useState&lt;string&gt;('')
+  const [connectorRef, setConnectorRef] = useState&lt;string&gt;('')
   const [codeBaseType, setCodeBaseType] = useState&lt;CodeBaseType&gt;()
 &nbsp;
   const savedValues = useRef&lt;Record&lt;string, string&gt;&gt;({
@@ -580,14 +592,15 @@ const CICodebaseInputSetFormInternal = ({
 &nbsp;
   useEffect(() =&gt; {
     if (connectorId) {
+      const connectorScope = getScopeFromValue(connectorRef)
       getConnectorDetails({
         pathParams: {
           identifier: connectorId
         },
         queryParams: {
           accountIdentifier: accountId,
-          orgIdentifier,
-          projectIdentifier
+          orgIdentifier: connectorScope === Scope.ORG || connectorScope === Scope.PROJECT ? orgIdentifier : <span class="branch-1 cbranch-no" title="branch not covered" >undefined,</span>
+          projectIdentifier: connectorScope === Scope.PROJECT ? projectIdentifier : <span class="branch-1 cbranch-no" title="branch not covered" >undefined</span>
         }
       })
     }
@@ -606,7 +619,9 @@ const CICodebaseInputSetFormInternal = ({
     <span class="missing-if-branch" title="if path not taken" >I</span>if (typeOfConnector) {
 <span class="cstat-no" title="statement not covered" >      setConnectorType(typeOfConnector)</span>
     } else {
-      setConnectorId(getIdentifierFromValue(get(originalPipeline, 'properties.ci.codebase.connectorRef') as string))
+      const ctrRef = get(originalPipeline, 'properties.ci.codebase.connectorRef') as string
+      setConnectorRef(ctrRef)
+      setConnectorId(getIdentifierFromValue(ctrRef))
     }
   }, [formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues])
 &nbsp;
@@ -709,7 +724,7 @@ export const CICodebaseInputSetForm = connect(CICodebaseInputSetFormInternal)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 01 2021 08:37:22 GMT+0000 (Greenwich Mean Time)
+                at Wed Dec 01 2021 12:35:43 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

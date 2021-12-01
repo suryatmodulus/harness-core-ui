@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.93% </span>
+                <span class="strong">54.51% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>151/280</span>
+                <span class='fraction'>157/288</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.68% </span>
+                <span class="strong">45.29% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>172/385</span>
+                <span class='fraction'>178/393</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.65% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>18/37</span>
+                <span class='fraction'>19/38</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.15% </span>
+                <span class="strong">54.74% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>150/277</span>
+                <span class='fraction'>156/285</span>
             </div>
         
             
@@ -976,7 +976,22 @@
 <a name='L917'></a><a href='#L917'>917</a>
 <a name='L918'></a><a href='#L918'>918</a>
 <a name='L919'></a><a href='#L919'>919</a>
-<a name='L920'></a><a href='#L920'>920</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L920'></a><a href='#L920'>920</a>
+<a name='L921'></a><a href='#L921'>921</a>
+<a name='L922'></a><a href='#L922'>922</a>
+<a name='L923'></a><a href='#L923'>923</a>
+<a name='L924'></a><a href='#L924'>924</a>
+<a name='L925'></a><a href='#L925'>925</a>
+<a name='L926'></a><a href='#L926'>926</a>
+<a name='L927'></a><a href='#L927'>927</a>
+<a name='L928'></a><a href='#L928'>928</a>
+<a name='L929'></a><a href='#L929'>929</a>
+<a name='L930'></a><a href='#L930'>930</a>
+<a name='L931'></a><a href='#L931'>931</a>
+<a name='L932'></a><a href='#L932'>932</a>
+<a name='L933'></a><a href='#L933'>933</a>
+<a name='L934'></a><a href='#L934'>934</a>
+<a name='L935'></a><a href='#L935'>935</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -1120,6 +1135,7 @@
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1166,6 +1182,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
@@ -1442,7 +1459,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1811,6 +1840,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2050,7 +2080,8 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = ({
     originalPipeline,
     yamlHandler,
     isBEPipelineUpdated,
-    gitDetails
+    gitDetails,
+    entityValidityDetails
   } = state
 &nbsp;
   const { getString } = useStrings()
@@ -2090,6 +2121,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = ({
   const [isYamlError, setYamlError] = React.useState(false)
   const [blockNavigation, setBlockNavigation] = React.useState(false)
   const [selectedBranch, setSelectedBranch] = React.useState(branch || '')
+  const [disableVisualView, setDisableVisualView] = React.useState(entityValidityDetails.valid === false)
   const { OPA_PIPELINE_GOVERNANCE } = useFeatureFlags()
   const [governanceMetadata, setGovernanceMetadata] = useState&lt;GovernanceMetadata&gt;()
   const shouldShowGovernanceEvaluation =
@@ -2361,9 +2393,21 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = ({
     // for new pipeline always use UI as default view
     if (pipelineIdentifier === DefaultNewPipelineId) {
       setView(SelectedView.VISUAL)
+    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (entityValidityDetails.valid === false || view === SelectedView.YAML) {
+<span class="cstat-no" title="statement not covered" >      setView(SelectedView.YAML)</span>
+    } else {
+      setView(SelectedView.VISUAL)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pipelineIdentifier])
+  }, [pipelineIdentifier, entityValidityDetails.valid])
+&nbsp;
+  React.useEffect(() =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (entityValidityDetails.valid === false) {
+<span class="cstat-no" title="statement not covered" >      setDisableVisualView(true)</span>
+    } else {
+      setDisableVisualView(false)
+    }
+  }, [entityValidityDetails.valid])
 &nbsp;
   React.useEffect(() =&gt; {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (isInitialized) {
@@ -2728,7 +2772,8 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = ({
           &lt;/div&gt;
           &lt;VisualYamlToggle
             className={css.visualYamlToggle}
-            initialSelectedView={isYaml ? <span class="branch-0 cbranch-no" title="branch not covered" >SelectedView.YAML </span>: SelectedView.VISUAL}
+            initialSelectedView={isYaml || disableVisualView ? <span class="branch-0 cbranch-no" title="branch not covered" >SelectedView.YAML </span>: SelectedView.VISUAL}
+            disableYaml={disableVisualView}
             beforeOnChange={(nextMode, callback) =&gt; {
               const shoudSwitchcMode = handleViewChange(nextMode)
               shoudSwitchcMode &amp;&amp; callback(nextMode)
@@ -2821,7 +2866,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 01 2021 08:37:22 GMT+0000 (Greenwich Mean Time)
+                at Wed Dec 01 2021 12:35:43 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">85.92% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>60/70</span>
+                <span class='fraction'>61/71</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.25% </span>
+                <span class="strong">51.63% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>123/240</span>
+                <span class='fraction'>127/246</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.29% </span>
+                <span class="strong">85.51% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>58/68</span>
+                <span class='fraction'>59/69</span>
             </div>
         
             
@@ -541,7 +541,13 @@
 <a name='L482'></a><a href='#L482'>482</a>
 <a name='L483'></a><a href='#L483'>483</a>
 <a name='L484'></a><a href='#L484'>484</a>
-<a name='L485'></a><a href='#L485'>485</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L485'></a><a href='#L485'>485</a>
+<a name='L486'></a><a href='#L486'>486</a>
+<a name='L487'></a><a href='#L487'>487</a>
+<a name='L488'></a><a href='#L488'>488</a>
+<a name='L489'></a><a href='#L489'>489</a>
+<a name='L490'></a><a href='#L490'>490</a>
+<a name='L491'></a><a href='#L491'>491</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -564,6 +570,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -773,7 +780,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">160x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1059,6 +1071,7 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
 import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDialog'
+import { Badge } from '@pipeline/pages/utils/Badge/Badge'
 import { formatCount } from '@common/utils/utils'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import { getIconsForPipeline } from '../../PipelineListUtils'
@@ -1255,10 +1268,15 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
         /&gt;
         &lt;Container&gt;
           {!isEmpty(pipelineIcons) &amp;&amp; (
-            &lt;Layout.Horizontal spacing={'small'} margin={{ bottom: 'small' }}&gt;
-              {pipelineIcons.map(iconObj =&gt; (
-                &lt;Icon key={iconObj.icon} name={iconObj.icon} size={14} /&gt;
-              ))}
+            &lt;Layout.Horizontal spacing={'small'} margin={{ bottom: 'small' }} flex&gt;
+              &lt;&gt;
+                {pipelineIcons.map(iconObj =&gt; (
+                  &lt;Icon key={iconObj.icon} name={iconObj.icon} size={14} /&gt;
+                ))}
+              &lt;/&gt;
+              {pipeline.entityValidityDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.valid </span>=== false &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                &lt;Badge text={'common.invalid'} iconName="warning-sign" showTooltip={true} entityName={pipeline.name} /&gt;</span>
+              )}
             &lt;/Layout.Horizontal&gt;
           )}
           &lt;Layout.Horizontal spacing={'medium'} flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}&gt;
@@ -1516,7 +1534,7 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 01 2021 08:37:22 GMT+0000 (Greenwich Mean Time)
+                at Wed Dec 01 2021 12:35:43 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

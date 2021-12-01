@@ -13,10 +13,11 @@ const ExactSharedPackages = [
   '@blueprintjs/core',
   '@blueprintjs/select',
   '@blueprintjs/datetime',
+  'lodash-es',
   'restful-react'
 ]
 
-module.exports = ({ enableGitOpsUI }) => {
+module.exports = ({ enableGitOpsUI, enableGovernance }) => {
   const remotes = {}
 
   if (enableGitOpsUI) {
@@ -24,7 +25,9 @@ module.exports = ({ enableGitOpsUI }) => {
     remotes.gitopsui = "gitopsui@[window.getApiBaseUrl('gitops/remoteEntry.js')]"
   }
 
-  remotes.governance = "governance@[window.getApiBaseUrl('pm/remoteEntry.js')]"
+  if (enableGovernance) {
+    remotes.governance = "governance@[window.getApiBaseUrl('pm/remoteEntry.js')]"
+  }
 
   return {
     name: 'nextgenui',
@@ -33,6 +36,9 @@ module.exports = ({ enableGitOpsUI }) => {
       {},
       mapValues(pick(packageJSON.dependencies, ExactSharedPackages), version => ({
         singleton: true,
+        requiredVersion: version
+      })),
+      mapValues(omit(packageJSON.dependencies, ExactSharedPackages), version => ({
         requiredVersion: version
       }))
     )

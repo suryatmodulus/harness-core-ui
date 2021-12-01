@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.55% </span>
+                <span class="strong">79.78% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>70/88</span>
+                <span class='fraction'>71/89</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.97% </span>
+                <span class="strong">55.07% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>66/127</span>
+                <span class='fraction'>76/138</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.31% </span>
+                <span class="strong">79.55% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>69/87</span>
+                <span class='fraction'>70/88</span>
             </div>
         
             
@@ -373,7 +373,14 @@
 <a name='L314'></a><a href='#L314'>314</a>
 <a name='L315'></a><a href='#L315'>315</a>
 <a name='L316'></a><a href='#L316'>316</a>
-<a name='L317'></a><a href='#L317'>317</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a>
+<a name='L323'></a><a href='#L323'>323</a>
+<a name='L324'></a><a href='#L324'>324</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -417,13 +424,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -668,6 +679,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">69x</span>
+<span class="cline-any cline-yes">69x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -727,6 +741,8 @@ export interface GitFiltersProps {
   showRepoSelector?: boolean
   showBranchSelector?: boolean
   showBranchIcon?: boolean
+  shouldAllowBranchSync?: boolean
+  getDisabledOptionTitleText?: () =&gt; string
 }
 &nbsp;
 interface BranchSelectOption extends SelectOption {
@@ -744,7 +760,9 @@ const GitFilters: React.FC&lt;GitFiltersProps&gt; = props =&gt; {
     defaultValue = { repo: '', branch: '' },
     showRepoSelector = true,
     showBranchSelector = true,
-    showBranchIcon = true
+    showBranchIcon = true,
+    shouldAllowBranchSync = true,
+    getDisabledOptionTitleText
   } = props
   const { showSuccess } = useToaster()
   const { getString } = useStrings()
@@ -983,10 +1001,13 @@ const GitFilters: React.FC&lt;GitFiltersProps&gt; = props =&gt; {
             className={cx(props.branchSelectClassName)}
             onQueryChange={<span class="fstat-no" title="function not covered" >(q</span>uery: string) =&gt; <span class="cstat-no" title="statement not covered" >setSearchTerm(query)}</span>
             itemRenderer={(item: BranchSelectOption): React.ReactElement =&gt; {
+              const isDisabled = !shouldAllowBranchSync &amp;&amp; item.branchSyncStatus === branchSyncStatus.UNSYNCED
               return (
                 &lt;Menu.Item
                   key={item.value as string}
                   active={item.value === selectedGitBranch}
+                  disabled={isDisabled}
+                  title={isDisabled &amp;&amp; getDisabledOptionTitleText ? getDisabledOptionTitleText<span class="branch-0 cbranch-no" title="branch not covered" >?.() </span>: undefined}
                   onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >handleBranchClick(item)}</span>
                   text={
                     &lt;Layout.Horizontal flex={{ distribution: 'space-between' }}&gt;
@@ -1012,7 +1033,7 @@ export default GitFilters
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 01 2021 15:30:33 GMT+0000 (Greenwich Mean Time)
+                at Wed Dec 01 2021 17:42:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

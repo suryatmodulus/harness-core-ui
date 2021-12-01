@@ -3,6 +3,7 @@ rules:
     - error
     - patterns:
         - lodash.*
+        - modules/22-resource-center/*
         - modules/25-governance/*
         - modules/30-auth-settings/*
         - modules/30-delegates/*
@@ -19,6 +20,7 @@ rules:
         - modules/75-cf/*
         - modules/75-ci/*
         - modules/85-cv/*
+        - '@resource-center/*'
         - '@governance/*'
         - '@auth-settings/*'
         - '@delegates/*'

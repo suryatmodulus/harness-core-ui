@@ -1,0 +1,14 @@
+title: 'RESOURCE CENTER'
+ticketmenu:
+  tickets: 'My Tickets'
+  ticketsDesc: 'View and manage your tickets'
+  submit: 'Submit a ticket'
+  submitDesc: 'Get help from our expert system'
+bottomlayout:
+  desc: 'Other useful resources'
+  docs:
+    text: 'Docs'
+  community:
+    text: 'Community '
+  sitestatus:
+    text: 'Site Status'

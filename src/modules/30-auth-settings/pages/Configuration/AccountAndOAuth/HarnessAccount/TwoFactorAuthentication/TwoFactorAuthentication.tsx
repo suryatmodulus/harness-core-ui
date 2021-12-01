@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Card, Color, Text, useConfirmationDialog } from '@wings-software/uicore'
+import { Card, Color, Text, useConfirmationDialog, Intent } from '@wings-software/uicore'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -59,6 +59,7 @@ const TwoFactorAuthentication: React.FC<Props> = ({ twoFactorEnabled, onSuccess,
     contentText: getString('authSettings.yourAccountWillBeLockedOut'),
     confirmButtonText: getString('authSettings.goToSettings'),
     cancelButtonText: getString('cancel'),
+    intent: Intent.WARNING,
     onCloseDialog: isConfirmed => {
       /* istanbul ignore else */ if (isConfirmed) {
         history.push({

@@ -1,5 +1,13 @@
 import React from 'react'
-import { IconName, Formik, Layout, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import {
+  IconName,
+  Formik,
+  Layout,
+  FormInput,
+  getMultiTypeFromValue,
+  MultiTypeInputType,
+  Color
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
@@ -209,7 +217,7 @@ export class HelmRollback extends PipelineStep<StepElementConfig> {
 
   protected type = StepType.HelmRollback
   protected stepName = 'Helm Rollback'
-
+  protected stepIconColor = Color.GREY_700
   protected stepIcon: IconName = 'command-swap'
 
   validateInputSet({

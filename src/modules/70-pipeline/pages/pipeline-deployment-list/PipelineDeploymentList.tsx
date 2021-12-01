@@ -7,9 +7,10 @@ import {
   useGetFilterList,
   GetListOfExecutionsQueryParams,
   useGetPipelineList,
-  PMSPipelineSummaryResponse
+  PMSPipelineSummaryResponse,
+  PagePipelineExecutionSummary
 } from 'services/pipeline-ng'
-import { String, useStrings } from 'framework/strings'
+import { String, useStrings, UseStringsReturn } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { Page, StringUtils } from '@common/exports'
 import { useQueryParams, useMutateAsGet, useUpdateQueryParams } from '@common/hooks'
@@ -17,6 +18,8 @@ import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteIn
 import { UNSAVED_FILTER } from '@common/components/Filter/utils/FilterUtils'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { FeatureRestrictionBanners } from '@pipeline/factories/FeatureRestrictionBannersFactory/FeatureRestrictionBannersFactory'
 
 import RbacButton from '@rbac/components/Button/Button'
 import PipelineSummaryCards from '@pipeline/components/Dashboards/PipelineSummaryCards/PipelineSummaryCards'
@@ -38,6 +41,149 @@ export interface PipelineDeploymentListProps {
   showHealthAndExecution?: boolean
 }
 
+const renderSpinner = ({
+  loading,
+  pollingRequest
+}: {
+  loading?: boolean
+  pollingRequest: boolean
+}): JSX.Element | null => {
+  if (loading && !pollingRequest) {
+    return (
+      <OverlaySpinner show={true} className={css.loading}>
+        <div />
+      </OverlaySpinner>
+    )
+  }
+  return null
+}
+
+const getHasFilterIdentifier = (filterIdentifier?: string): boolean =>
+  (filterIdentifier && filterIdentifier !== StringUtils.getIdentifierFromName(UNSAVED_FILTER)) || false
+
+const getHasFilters = ({
+  queryParams,
+  filterIdentifier,
+  searchTerm,
+  myDeployments
+}: {
+  queryParams: QueryParams
+  filterIdentifier?: string
+  searchTerm?: string
+  myDeployments?: boolean
+}): boolean => {
+  return (
+    [queryParams.pipelineIdentifier, queryParams.filters, filterIdentifier, searchTerm].some(
+      filter => filter !== undefined
+    ) ||
+    myDeployments ||
+    (Array.isArray(status) && status.length > 0)
+  )
+}
+
+const getCreateRunPipeline = ({
+  pipelineExecutionSummary,
+  pipelineDataElements
+}: {
+  pipelineExecutionSummary: PagePipelineExecutionSummary | undefined
+  pipelineDataElements: number | undefined
+}): { createPipeline: boolean; runPipeline: boolean } => {
+  let createPipeline = false
+  let runPipeline = false
+  const executionPresent = !!pipelineExecutionSummary?.content?.length
+  if (!executionPresent) {
+    if (pipelineDataElements === 0) {
+      createPipeline = true
+    } else {
+      runPipeline = true
+    }
+  }
+  return { createPipeline, runPipeline }
+}
+
+const renderDeploymentListHeader = ({
+  pipelineExecutionSummary,
+  hasFilters,
+  onRunPipeline
+}: {
+  pipelineExecutionSummary: PagePipelineExecutionSummary
+  hasFilters: boolean
+  onRunPipeline: () => void
+}): JSX.Element | null => {
+  if (!!pipelineExecutionSummary?.content?.length || hasFilters) {
+    return <PipelineDeploymentListHeader onRunPipeline={onRunPipeline} />
+  }
+  return null
+}
+
+const NoDeployments = (props: {
+  hasFilters: boolean
+  isCIModule: boolean
+  getString: UseStringsReturn['getString']
+  clearFilters: () => void
+  runPipeline: boolean
+  createPipeline: boolean
+  goToPipeline: (pipeline?: PMSPipelineSummaryResponse | undefined) => void
+  pipelineIdentifier: string
+  queryParams: QueryParams
+  onRunPipeline: () => void
+}): JSX.Element => {
+  const {
+    hasFilters,
+    isCIModule,
+    getString,
+    clearFilters,
+    runPipeline,
+    createPipeline,
+    goToPipeline,
+    pipelineIdentifier,
+    queryParams,
+    onRunPipeline
+  } = props || {}
+  return (
+    <div className={css.noDeploymentSection}>
+      {hasFilters ? (
+        <Layout.Vertical spacing="small" flex>
+          <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-main'} margin={{ bottom: 'large' }} />
+          <Text
+            margin={{ top: 'large', bottom: 'small' }}
+            font={{ weight: 'bold', size: 'medium' }}
+            color={Color.GREY_800}
+          >
+            {getString('common.filters.noMatchingFilterData')}
+          </Text>
+          <String stringID="common.filters.clearFilters" className={css.clearFilterText} onClick={clearFilters} />
+        </Layout.Vertical>
+      ) : (
+        <Layout.Vertical spacing="small" flex={{ justifyContent: 'center', alignItems: 'center' }} width={720}>
+          <img src={isCIModule ? buildIllustrations : deploymentIllustrations} className={css.image} />
+
+          <Text className={css.noDeploymentText} margin={{ top: 'medium', bottom: 'small' }}>
+            {getString(isCIModule ? 'pipeline.noBuildsText' : 'pipeline.noDeploymentText')}
+          </Text>
+          <Text className={css.aboutDeployment} margin={{ top: 'xsmall', bottom: 'xlarge' }}>
+            {getString(runPipeline ? (isCIModule ? 'noBuildsText' : 'noDeploymentText') : 'pipeline.noPipelineText')}
+          </Text>
+          <RbacButton
+            intent="primary"
+            text={runPipeline ? getString('pipeline.runAPipeline') : getString('common.createPipeline')}
+            onClick={createPipeline ? () => goToPipeline() : onRunPipeline}
+            permission={{
+              permission: runPipeline ? PermissionIdentifier.EXECUTE_PIPELINE : PermissionIdentifier.EDIT_PIPELINE,
+              resource: {
+                resourceType: ResourceType.PIPELINE,
+                resourceIdentifier: pipelineIdentifier || queryParams.pipelineIdentifier
+              },
+              options: {
+                skipCondition: ({ resourceIdentifier }) => !resourceIdentifier
+              }
+            }}
+          />
+        </Layout.Vertical>
+      )}
+    </div>
+  )
+}
 export default function PipelineDeploymentList(props: PipelineDeploymentListProps): React.ReactElement {
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId, module } =
     useParams<PipelineType<PipelinePathProps>>()
@@ -72,16 +218,16 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
 
   const { page, filterIdentifier, myDeployments, status, repoIdentifier, branch, searchTerm } = queryParams
 
-  const hasFilters =
-    [queryParams.pipelineIdentifier, queryParams.filters, filterIdentifier, searchTerm].some(
-      filter => filter !== undefined
-    ) ||
-    myDeployments ||
-    (Array.isArray(status) && status.length > 0)
+  const hasFilters = getHasFilters({
+    queryParams,
+    filterIdentifier,
+    searchTerm,
+    myDeployments
+  })
 
   const isCIModule = module === 'ci'
   const { getString } = useStrings()
-  const hasFilterIdentifier = filterIdentifier && filterIdentifier !== StringUtils.getIdentifierFromName(UNSAVED_FILTER)
+  const hasFilterIdentifier = getHasFilterIdentifier(filterIdentifier)
 
   const { mutate: reloadPipelines, cancel } = useGetPipelineList({
     queryParams: {
@@ -179,16 +325,9 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   }
 
   // for handling the description when we have no pipelines or we have pipelines but no executions
-  let createPipeline = false
-  let runPipeline = false
-  const executionPresent = !!pipelineExecutionSummary?.content?.length
-  if (!executionPresent) {
-    if (pipelineDataElements === 0) {
-      createPipeline = true
-    } else {
-      runPipeline = true
-    }
-  }
+
+  const { createPipeline, runPipeline } = getCreateRunPipeline({ pipelineExecutionSummary, pipelineDataElements })
+
   const goToPipeline = useCallback(
     (pipeline?: PMSPipelineSummaryResponse) => {
       history.push(
@@ -227,65 +366,32 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
           refetchFilters={refetchFilters}
           queryParams={queryParams}
         >
-          {(!!pipelineExecutionSummary?.content?.length || hasFilters) && (
-            <PipelineDeploymentListHeader onRunPipeline={props.onRunPipeline} />
-          )}
-          {loading && !pollingRequest ? (
-            <OverlaySpinner show={true} className={css.loading}>
-              <div />
-            </OverlaySpinner>
-          ) : !pipelineExecutionSummary?.content?.length ? (
-            <div className={css.noDeploymentSection}>
-              {hasFilters ? (
-                <Layout.Vertical spacing="small" flex>
-                  <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-main'} margin={{ bottom: 'large' }} />
-                  <Text
-                    margin={{ top: 'large', bottom: 'small' }}
-                    font={{ weight: 'bold', size: 'medium' }}
-                    color={Color.GREY_800}
-                  >
-                    {getString('common.filters.noMatchingFilterData')}
-                  </Text>
-                  <String
-                    stringID="common.filters.clearFilters"
-                    className={css.clearFilterText}
-                    onClick={clearFilters}
-                  />
-                </Layout.Vertical>
-              ) : (
-                <Layout.Vertical spacing="small" flex={{ justifyContent: 'center', alignItems: 'center' }} width={720}>
-                  <img src={isCIModule ? buildIllustrations : deploymentIllustrations} className={css.image} />
-
-                  <Text className={css.noDeploymentText} margin={{ top: 'medium', bottom: 'small' }}>
-                    {getString(isCIModule ? 'pipeline.noBuildsText' : 'pipeline.noDeploymentText')}
-                  </Text>
-                  <Text className={css.aboutDeployment} margin={{ top: 'xsmall', bottom: 'xlarge' }}>
-                    {getString(
-                      runPipeline ? (isCIModule ? 'noBuildsText' : 'noDeploymentText') : 'pipeline.noPipelineText'
-                    )}
-                  </Text>
-                  <RbacButton
-                    intent="primary"
-                    text={runPipeline ? getString('pipeline.runAPipeline') : getString('common.createPipeline')}
-                    onClick={createPipeline ? () => goToPipeline() : props.onRunPipeline}
-                    permission={{
-                      permission: runPipeline
-                        ? PermissionIdentifier.EXECUTE_PIPELINE
-                        : PermissionIdentifier.EDIT_PIPELINE,
-                      resource: {
-                        resourceType: ResourceType.PIPELINE,
-                        resourceIdentifier: pipelineIdentifier || queryParams.pipelineIdentifier
-                      },
-                      options: {
-                        skipCondition: ({ resourceIdentifier }) => !resourceIdentifier
-                      }
-                    }}
-                  />
-                </Layout.Vertical>
-              )}
-            </div>
+          {renderDeploymentListHeader({ pipelineExecutionSummary, hasFilters, onRunPipeline: props.onRunPipeline })}
+          {renderSpinner({ loading, pollingRequest }) || !pipelineExecutionSummary?.content?.length ? (
+            <NoDeployments
+              onRunPipeline={props.onRunPipeline}
+              hasFilters={hasFilters}
+              isCIModule={isCIModule}
+              getString={getString}
+              clearFilters={clearFilters}
+              runPipeline={runPipeline}
+              createPipeline={createPipeline}
+              goToPipeline={goToPipeline}
+              pipelineIdentifier={pipelineIdentifier}
+              queryParams={queryParams}
+            />
           ) : (
             <React.Fragment>
+              {module === 'ci' && (
+                <FeatureRestrictionBanners
+                  featureNames={[
+                    FeatureIdentifier.ACTIVE_COMMITTERS,
+                    FeatureIdentifier.MAX_BUILDS_PER_MONTH,
+                    FeatureIdentifier.MAX_TOTAL_BUILDS
+                  ]}
+                  module={module}
+                />
+              )}
               <ExecutionsList pipelineExecutionSummary={pipelineExecutionSummary?.content} />
               <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
             </React.Fragment>

@@ -3,6 +3,8 @@
   min-height: 0;
   display: flex;
 
+  height: fit-content;
+  max-height: 100%;
   width: 431px;
   flex-direction: column;
   .headerTitle {

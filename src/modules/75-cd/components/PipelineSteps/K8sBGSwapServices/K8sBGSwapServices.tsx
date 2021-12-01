@@ -1,5 +1,13 @@
 import React from 'react'
-import { IconName, Formik, Layout, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import {
+  IconName,
+  Formik,
+  Layout,
+  FormInput,
+  getMultiTypeFromValue,
+  MultiTypeInputType,
+  Color
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
@@ -223,7 +231,7 @@ export class K8sBGSwapServices extends PipelineStep<K8sBGSwapServicesData> {
 
   protected type = StepType.K8sBGSwapServices
   protected stepName = 'K8s Blue Green Swap Services'
-
+  protected stepIconColor = Color.GREY_700
   protected stepIcon: IconName = 'command-swap'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.K8sBGSwapServices'
 

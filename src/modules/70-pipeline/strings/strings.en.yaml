@@ -445,8 +445,8 @@ triggers:
     autoAbortIssueComment: 'If a PR is updated with a new comment, Harness will automatically cancel active builds for the same PR.'
     eventPlaceholder: Select Event
   conditionsPanel:
-    subtitle: 'Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.'
-    subtitleManifest: 'Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your manifest version matches a certain value or pattern.'
+    subtitle: 'Specify the conditions for running the Pipeline. For example, when an artifact tag, label, filename, or build matches a certain value or pattern.'
+    subtitleManifest: '{{$.pipeline.triggers.conditionsPanel.subtitle}}'
     sourceBranch: Source Branch
     sourceBranchPlaceholder: Enter Source Branch
     targetBranch: Target Branch
@@ -462,7 +462,7 @@ triggers:
     jexlCondition: 'JEXL Condition'
     jexlConditionPlaceholder: Enter JEXL Condition
     matchesValuePlaceholder: Enter Matches Value
-    manifestVersion: Manifest Version
+    manifestVersion: Manifest/Package Version
     artifactBuild: Artifact Build
   pipelineInputPanel:
     noRuntimeInputs: 'No Runtime Inputs'
@@ -588,7 +588,6 @@ testsReports:
   timeSaved: Time Saved
   totalExecutedTest: Total Executed Tests
   selectionBreakdown: Test Selection Breakdown
-  selectionBreakdownInfo: Shows aggregated data on how tests were selected
   totalWithColon: 'TOTAL:'
   failedWithColon: 'FAILED:'
   successWithColon: 'SUCCESS:'
@@ -613,17 +612,20 @@ testsReports:
   result: RESULT
   testCasesExecution: Tests Execution
   testExecutions: Test Executions
-  testCasesExecutionInfo: Shows a list of executed tests and result. In case of error, hover the test to see additional information
   noFailedTestsFound: No failed tests found
   showOnlyFailedTests: Show only failed tests
   hangTight: Hang tight! Report is being generated...
-  nothing: Nothing here!
-  notfound: No tests were found to analyze.
+  noTestResults: No test results
+  testsWillAppear: Tests will appear here if they were reported or uploaded to Harness.
   willBeDisplayedIfAvailable: Test reports will be displayed here if they are configured and available.
-  learnMore: Learn how to enable Unit test reporting
   resultLabel: Test Execution Result
-  resultInfo: Heat Map showing a graphical over of the test results
   sortBy: 'Sort by:'
+  tiCallToAction:
+    header: Did you know you can save time using Test Intelligence?
+    upsellSubText: 'Optimize your tests cycle and reduce build time by using machine learning based Test Intelligence.'
+    utilizeTISubText: 'Reduce test cycle time of your Java application by using machine learning based Test Intelligence.'
+    addRunTestsStep: Add 'Run Tests step' to your Pipeline
+    requiresEnterprisePlan: Requires Enterprise Plan to access Test Intelligence
 uniqueIdentifier: Identifier must be unique
 inputSets:
   applyInputSet: Apply Input Set
@@ -842,6 +844,11 @@ recentExecutionText: Most Recent Execution
 viewLatestExecution: You are viewing an older execution of this pipeline.
 featureRestriction:
   serviceLimitExceeded: Service License usage has exceeded the Subscribed Services.
+  maxTotalBuilds90PercentLimit: You have used {{usagePercent}}% of builds included in the free plan. After 2,500 builds, the free plan will be restricted to 100 builds per month.
+  maxBuildsPerMonth100PercentLimit: You have used 100 / 100 free builds this month. Consider upgrading for unlimited builds.
+  numMonthlyBuilds: You have used {{count}} / {{limit}} free builds this month.
+  subscription90PercentLimit: You have used {{usagePercent}}% of your developer subscription limit.
+  subscriptionExceededLimit: You have exceeded your developer subscription limit.
 policyEvaluations:
   title: Policy Evaluations
   failedToSavePipeline: Pipeline can not be saved due to the policy evaluation failures.
@@ -856,3 +863,6 @@ runstageError: '{{count}} Error(s): Unable to run stages.'
 stageDependencyError: 'Stage {{stageId}} has a ‘useFromStage’ dependency on Stage {{dependentStage}}. Please select Stage {{dependentStage}} to run Stage {{stageId}}.'
 noApprovalInstanceCreated: Approval instance not created, no details to display
 approvalTypeRequired: Approval type is required
+commentModal:
+  heading: 'Save {{ name }} ({{ version }})'
+  info: 'By saving, all pipelines referencing the stable version will receive your changes.'

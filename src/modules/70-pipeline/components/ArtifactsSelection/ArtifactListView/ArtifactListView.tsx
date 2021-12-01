@@ -51,12 +51,8 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
         {!!(sideCarArtifact?.length || primaryArtifact?.type) && (
           <div className={cx(css.artifactList, css.listHeader)}>
             <span></span>
-            <Text font={{ variation: FontVariation.TABLE_HEADERS }} color={Color.GREY_600}>
-              {getString('artifactRepository')}
-            </Text>
-            <Text font={{ variation: FontVariation.TABLE_HEADERS }} color={Color.GREY_600}>
-              {getString('location')}
-            </Text>
+            <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{getString('artifactRepository')}</Text>
+            <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{getString('location')}</Text>
             <span></span>
           </div>
         )}

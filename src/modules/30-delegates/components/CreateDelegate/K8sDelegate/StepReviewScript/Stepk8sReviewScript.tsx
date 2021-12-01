@@ -23,7 +23,7 @@ const Stepk8ReviewScript: React.FC<StepProps<K8sDelegateWizardData>> = props => 
     } as GenerateKubernetesYamlQueryParams
   })
   const linkRef = React.useRef<HTMLAnchorElement>(null)
-  const [generatedYaml, setGeneratedYaml] = React.useState<Record<string, any>>()
+  const [generatedYaml, setGeneratedYaml] = React.useState<string>()
 
   const onGenYaml = async (): Promise<void> => {
     const data = props?.prevStepData?.delegateYaml || {}
@@ -54,7 +54,7 @@ const Stepk8ReviewScript: React.FC<StepProps<K8sDelegateWizardData>> = props => 
               fileName={`harness-delegate.yaml`}
               isReadOnlyMode={true}
               isEditModeSupported={false}
-              existingJSON={generatedYaml}
+              existingYaml={generatedYaml}
               showSnippetSection={false}
               width="568px"
               height="462px"

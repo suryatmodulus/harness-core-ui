@@ -9,7 +9,8 @@ import {
   Text,
   tagsType,
   VisualYamlSelectedView as SelectedView,
-  VisualYamlToggle
+  VisualYamlToggle,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import React, { ReactNode } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
@@ -476,6 +477,7 @@ export default function TriggersDetailPage(): JSX.Element {
             <Layout.Horizontal spacing="xxlarge">
               <Text font={{ size: 'medium', weight: 'bold' }} inline={true} color={Color.GREY_800}>
                 {getString('pipeline.triggers.lastActivationDetails')}
+                <HarnessDocTooltip tooltipId="lastActivationDetails" useStandAlone={true} />
               </Text>
               {triggerResponse?.data?.lastTriggerExecutionDetails?.lastExecutionSuccessful === false ? (
                 <Text

@@ -1,5 +1,6 @@
 import React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
+import { Color, Utils } from '@wings-software/uicore'
 import type { DefaultLinkFactory } from './DefaultLinkFactory'
 import type { DefaultLinkModel } from './DefaultLinkModel'
 import { Event, DiagramDrag } from '../Constants'
@@ -136,7 +137,7 @@ export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): 
             onClick={onClick}
           />
           <line
-            stroke="var(--white)"
+            stroke={Utils.getRealCSSColor(Color.WHITE)}
             x1={point.x - 5}
             y1={point.y}
             x2={point.x + 5}
@@ -145,7 +146,7 @@ export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): 
             opacity={props.selected ? 1 : 0}
           ></line>
           <line
-            stroke="var(--white)"
+            stroke={Utils.getRealCSSColor(Color.WHITE)}
             x1={point.x}
             y1={point.y - 5}
             x2={point.x}

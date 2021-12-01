@@ -65,8 +65,13 @@ module.exports = {
   '/template/api': {
     target: targetLocalHost ? 'http://localhost:15001' : baseUrl
   },
+  '/pm/api': {
+    pathRewrite: { '^/pm': '' },
+    target: process.env.OPA_GOVERNANCE_API_URL || 'http://localhost:3001'
+  },
   '/pm': {
-    target: process.env.GOVERNANCE_APP_URL || baseUrl
+    pathRewrite: { '^/pm': '' },
+    target: process.env.OPA_GOVERNANCE_UI_URL || 'http://localhost:3000'
   },
   '/gitops': {
     pathRewrite: { '^/gitops': '' },

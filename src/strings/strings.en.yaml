@@ -790,17 +790,7 @@ pipelineSteps:
   kubernetesInfraStep:
     stepName: Specify your Kubernetes Connector
     kubernetesConnector: Kubernetes Connector
-  environmentTab:
-    specifyYourEnvironment: Specify Environment
-    selectEnvironment: '- Select Environment -'
-    newEnvironment: '{{$.newEnvironment}}'
-    environmentIsRequired: Environment is required
   serviceTab:
-    specifyYourService: Specify Service
-    selectService: '- Select Service -'
-    newService: '{{$.newService}}'
-    serviceIsRequired: Service is required
-    aboutYourService: About the Service
     artifactList:
       addSidecar: + Add Sidecar
       addPrimary: + Add Primary Artifact

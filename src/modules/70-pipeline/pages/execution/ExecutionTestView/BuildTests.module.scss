@@ -101,11 +101,14 @@
         }
       }
     }
+    &.failedNumber {
+      color: var(--red-700);
+    }
   }
   &.timeSaved {
-    background-color: var(--blue-100) !important;
+    background-color: var(--green-500) !important;
     .statsNumber {
-      color: var(--purple-700);
+      color: var(--white);
     }
   }
 }
@@ -306,6 +309,48 @@
     .bp3-tab-indicator-wrapper {
       top: 7px !important;
     }
+  }
+}
+
+.tiCallToActionWrapper {
+  width: 538px;
+  margin-top: 32px;
+  flex-shrink: 0;
+
+  .widget {
+    background-color: #e8e8ff !important;
+    border: 1px solid #e1d0ff !important;
+    padding-top: var(--spacing-8) !important;
+  }
+  .subText {
+    margin: var(--spacing-3) 0 !important;
+  }
+
+  .actionsContainer {
+    display: flex;
+    align-items: center;
+
+    .upgradeRequiredWrapper {
+      p {
+        padding: var(--spacing-2) var(--spacing-3) !important;
+        font-size: 10px !important;
+        font-weight: 700 !important;
+      }
+    }
+
+    .findOutMoreBtn {
+      width: 136px;
+      --button-height: 24px !important;
+      span {
+        font-size: 13px !important;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .tiUpgradeImage {
+    margin-right: var(--spacing-7) !important;
+    display: flex;
   }
 }
 

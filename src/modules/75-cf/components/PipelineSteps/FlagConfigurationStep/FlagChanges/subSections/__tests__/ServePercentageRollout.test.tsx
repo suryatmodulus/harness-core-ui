@@ -5,6 +5,13 @@ import { Formik } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { Variation } from 'services/cf'
 import ServePercentageRollout, { ServePercentageRolloutProps } from '../ServePercentageRollout'
+import {
+  mockServePercentageRolloutFieldValues,
+  mockTargetAttributes,
+  mockTargetGroups,
+  mockVariations,
+  prefixInstructionField
+} from './utils.mocks'
 
 const ComponentWrapper: FC = ({ children }) => (
   <TestWrapper>
@@ -16,10 +23,28 @@ const ComponentWrapper: FC = ({ children }) => (
   </TestWrapper>
 )
 
+const Subject = ({
+  variations,
+  setField = jest.fn(),
+  clearField = jest.fn(),
+  ...props
+}: Required<Pick<ServePercentageRolloutProps, 'variations'>> &
+  Optional<Omit<ServePercentageRolloutProps, 'variations'>>): ReactElement => (
+  <ServePercentageRollout
+    variations={variations}
+    targetGroups={mockTargetGroups}
+    fieldValues={mockServePercentageRolloutFieldValues(variations)}
+    targetAttributes={mockTargetAttributes}
+    clearField={clearField}
+    setField={setField}
+    prefix={prefixInstructionField}
+    subSectionSelector={<span />}
+    {...props}
+  />
+)
+
 const renderComponent = (props: Partial<ServePercentageRolloutProps> = {}): RenderResult =>
-  render(<ServePercentageRollout subSectionSelector={<span />} clearField={jest.fn()} {...props} />, {
-    wrapper: ComponentWrapper
-  })
+  render(<Subject variations={mockVariations} {...props} />, { wrapper: ComponentWrapper })
 
 describe('ServePercentageRollout', () => {
   test('it should render', async () => {
@@ -29,7 +54,31 @@ describe('ServePercentageRollout', () => {
     expect(screen.getByText('cf.percentageRollout.bucketBy')).toBeInTheDocument()
   })
 
-  test('it should prune unused variation values when the variations list changes', async () => {
+  test('it should set instruction fields when it renders', async () => {
+    const setFieldMock = jest.fn()
+    renderComponent({ setField: setFieldMock })
+
+    await waitFor(() => {
+      expect(setFieldMock).toHaveBeenCalledWith('identifier', 'AddRuleIdentifier')
+      expect(setFieldMock).toHaveBeenCalledWith('type', 'AddRule')
+      expect(setFieldMock).toHaveBeenCalledWith('spec.priority', 100)
+      expect(setFieldMock).toHaveBeenCalledWith('spec.distribution.clauses[0].op', 'segmentMatch')
+      expect(setFieldMock).toHaveBeenCalledWith('spec.distribution.clauses[0].attribute', '')
+    })
+  })
+
+  test('it should set up a distribution variation for each passed variation', async () => {
+    const setFieldMock = jest.fn()
+    renderComponent({ variations: mockVariations, setField: setFieldMock })
+
+    await waitFor(() => {
+      mockVariations.forEach(({ identifier }, index) =>
+        expect(setFieldMock).toHaveBeenCalledWith(expect.stringContaining(`variations[${index}].variation`), identifier)
+      )
+    })
+  })
+
+  test('it should prune unused variation values and set new ones when the variations list changes', async () => {
     const variations1: Variation[] = [
       { name: 'Test 1', identifier: 'test1', value: 'test1' },
       { name: 'Test 2', identifier: 'test2', value: 'test2' }
@@ -41,11 +90,13 @@ describe('ServePercentageRollout', () => {
     ]
 
     const clearFieldMock = jest.fn()
+    const setFieldMock = jest.fn()
 
-    const { rerender } = render(
-      <ServePercentageRollout clearField={clearFieldMock} subSectionSelector={<span />} variations={variations1} />,
-      { wrapper: ComponentWrapper }
-    )
+    const { rerender } = renderComponent({
+      variations: variations1,
+      setField: setFieldMock,
+      clearField: clearFieldMock
+    })
 
     for (const { name, identifier } of variations1) {
       await userEvent.type(
@@ -54,13 +105,56 @@ describe('ServePercentageRollout', () => {
       )
     }
 
-    rerender(
-      <ServePercentageRollout clearField={clearFieldMock} subSectionSelector={<span />} variations={variations2} />
-    )
+    rerender(<Subject variations={variations2} setField={setFieldMock} clearField={clearFieldMock} />)
+
     await waitFor(() => {
-      variations1.forEach(({ identifier }) =>
-        expect(clearFieldMock).toHaveBeenCalledWith(expect.stringContaining(identifier))
-      )
+      expect(clearFieldMock).toHaveBeenCalledWith('spec.distribution.variations')
+
+      variations2.forEach(({ identifier }, index) => {
+        expect(setFieldMock).toHaveBeenCalledWith(expect.stringContaining(`variations[${index}].variation`), identifier)
+        expect(setFieldMock).toHaveBeenCalledWith(
+          expect.stringContaining(`variations[${index}].weight`),
+          expect.any(Number)
+        )
+      })
+    })
+  })
+
+  test('it should automatically distribute weight between new passed variations', async () => {
+    const variations1: Variation[] = [
+      { name: 'Test 1', identifier: 'test1', value: 'test1' },
+      { name: 'Test 2', identifier: 'test2', value: 'test2' }
+    ]
+
+    const variations2: Variation[] = [
+      { name: 'Test 3', identifier: 'test3', value: 'test3' },
+      { name: 'Test 4', identifier: 'test4', value: 'test4' },
+      { name: 'Test 5', identifier: 'test5', value: 'test5' }
+    ]
+
+    const variations3: Variation[] = [
+      { name: 'Test 6', identifier: 'test6', value: 'test6' },
+      { name: 'Test 7', identifier: 'test7', value: 'test7' }
+    ]
+
+    const setFieldMock = jest.fn()
+    const { rerender } = renderComponent({ variations: variations1, setField: setFieldMock })
+
+    setFieldMock.mockClear()
+    rerender(<Subject variations={variations2} setField={setFieldMock} />)
+
+    await waitFor(() => {
+      expect(setFieldMock).toHaveBeenCalledWith(expect.stringContaining(`variations[0]`), 33)
+      expect(setFieldMock).toHaveBeenCalledWith(expect.stringContaining(`variations[1]`), 33)
+      expect(setFieldMock).toHaveBeenCalledWith(expect.stringContaining(`variations[2]`), 34)
+    })
+
+    setFieldMock.mockClear()
+    rerender(<Subject variations={variations3} setField={setFieldMock} />)
+
+    await waitFor(() => {
+      expect(setFieldMock).toHaveBeenCalledWith(expect.stringContaining(`variations[0]`), 50)
+      expect(setFieldMock).toHaveBeenCalledWith(expect.stringContaining(`variations[1]`), 50)
     })
   })
 })

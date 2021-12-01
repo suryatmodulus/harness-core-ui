@@ -19,7 +19,7 @@ import { useParams } from 'react-router-dom'
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import cx from 'classnames'
-import { get } from 'lodash-es'
+import { get, isEmpty } from 'lodash-es'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useStrings } from 'framework/strings'
 import { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper, useGetGCSBucketList } from 'services/cd-ng'
@@ -27,7 +27,13 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/components'
 
-import type { CommandFlags, HelmWithGcsDataType } from '../../ManifestInterface'
+import type {
+  CommandFlags,
+  HelmWithGcsDataType,
+  HelmWithGITDataType,
+  HelmWithHTTPDataType,
+  HelmWithS3DataType
+} from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 
 import { helmVersions, ManifestDataType, ManifestIdentifierValidation } from '../../Manifesthelper'
@@ -51,6 +57,31 @@ const commandFlagOptionsV3 = [
   { label: 'Pull', value: 'Pull' },
   { label: 'Template ', value: 'Template' }
 ]
+
+export const handleCommandFlagsSubmitData = (
+  manifestObj: ManifestConfigWrapper,
+  formData: (HelmWithGcsDataType | HelmWithHTTPDataType | HelmWithS3DataType | HelmWithGITDataType) & {
+    store?: string
+    connectorRef?: string
+  }
+): void => {
+  if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
+    ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) =>
+      commandFlag.commandType && commandFlag.flag
+        ? {
+            commandType: (commandFlag.commandType as SelectOption)?.value as string,
+            flag: commandFlag.flag
+          }
+        : {}
+    )
+    const filteredCommandFlags = manifestObj?.manifest?.spec?.commandFlags.filter(
+      (currFlag: CommandFlags) => !isEmpty(currFlag)
+    )
+    if (filteredCommandFlags.length === 0) {
+      delete (manifestObj?.manifest?.spec as any).commandFlags
+    }
+  }
+}
 
 const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType> = ({
   stepName,
@@ -148,17 +179,8 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
         }
       }
     }
-    if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
-      ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) =>
-        commandFlag.commandType && commandFlag.flag
-          ? {
-              commandType: (commandFlag.commandType as SelectOption)?.value as string,
-              flag: commandFlag.flag
-            }
-          : {}
-      )
-    }
 
+    handleCommandFlagsSubmitData(manifestObj, formData)
     handleSubmit(manifestObj)
   }
   return (
@@ -182,7 +204,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
           commandFlags: Yup.array().of(
             Yup.object().shape({
               flag: Yup.string().when('commandType', {
-                is: val => val?.value !== undefined,
+                is: val => !isEmpty(val?.value),
                 then: Yup.string().required(getString('pipeline.manifestType.commandFlagRequired'))
               })
             })

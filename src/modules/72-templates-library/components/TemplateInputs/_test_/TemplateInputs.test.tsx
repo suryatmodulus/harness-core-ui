@@ -20,10 +20,7 @@ describe('<TemplateInputs /> tests', () => {
   test('snapshot test', async () => {
     const { container } = render(
       <TestWrapper>
-        <TemplateInputs
-          selectedTemplate={mockTemplates?.data?.content?.[0] || {}}
-          accountIdentifier={'kmpySmUISimoRrJL6NL73w'}
-        />
+        <TemplateInputs template={mockTemplates?.data?.content?.[0] || {}} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

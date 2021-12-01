@@ -5,7 +5,6 @@ import {
   Text,
   TextInput,
   Intent,
-  Card,
   MultiTextInput,
   Button,
   getMultiTypeFromValue,
@@ -155,7 +154,7 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
         {...multiTypeFieldSelectorProps}
         disableTypeSelection={multiTypeFieldSelectorProps.disableTypeSelection || disabled}
       >
-        <Card style={{ width: '100%' }}>
+        <>
           {value.map(({ id, key, value: valueValue }, index: number) => {
             const keyError = get(error, `[${index}].key`)
             // const valueError = get(error, `[${index}].value`)
@@ -215,9 +214,10 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
               text={getString('plusAdd')}
               data-testid={`add-${name}`}
               onClick={addValue}
+              style={{ padding: 0 }}
             />
           )}
-        </Card>
+        </>
       </MultiTypeFieldSelector>
       {enableConfigureOptions &&
         typeof value === 'string' &&

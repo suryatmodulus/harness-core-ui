@@ -34,7 +34,7 @@
 }
 
 .projectContainerWrapper {
-  height: calc(100vh - 125px);
+  height: calc(100vh - 156px);
   justify-content: space-between;
   margin: var(--spacing-xlarge) var(--spacing-none) !important;
   overflow-y: scroll;
@@ -102,4 +102,7 @@
 
 .selectedProject {
   justify-content: flex-start;
+}
+.pagination {
+  padding: var(--spacing-xlarge) var(--spacing-xlarge) var(--spacing-xsmall) 0px !important;
 }

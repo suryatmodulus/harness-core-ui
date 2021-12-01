@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { useMutateAsGet } from '@common/hooks'
+import { mockTemplates } from '@templates-library/TemplatesTestHelper'
 import { mockApiErrorResponse, mockApiFetchingResponse, mockApiSuccessResponse } from './TemplateActivityLogTestHelper'
 import { TemplateActivityLog } from '../TemplateActivityLog'
 
@@ -19,14 +20,7 @@ describe('API ERROR', () => {
     })
   })
   test('if error message is displayed', () => {
-    const { queryByText } = render(
-      <TemplateActivityLog
-        selectedTemplate={{ identifier: 'templateId' }}
-        accountIdentifier="acId"
-        projectIdentifier="pId"
-        orgIdentifier="orgId"
-      />
-    )
+    const { queryByText } = render(<TemplateActivityLog template={mockTemplates?.data?.content?.[0] || {}} />)
 
     expect(queryByText('someerror')).toBeTruthy()
   })
@@ -43,12 +37,7 @@ describe('API FETCHING', () => {
   test('if loading message is displayed', () => {
     const { queryByText } = render(
       <TestWrapper>
-        <TemplateActivityLog
-          selectedTemplate={{ identifier: 'templateId' }}
-          accountIdentifier="acId"
-          projectIdentifier="pId"
-          orgIdentifier="orgId"
-        />
+        <TemplateActivityLog template={mockTemplates?.data?.content?.[0] || {}} />
       </TestWrapper>
     )
 
@@ -67,12 +56,7 @@ describe('API SUCCESS', () => {
   test('if content is displayed', () => {
     const { container } = render(
       <TestWrapper>
-        <TemplateActivityLog
-          selectedTemplate={{ identifier: 'templateId' }}
-          accountIdentifier="acId"
-          projectIdentifier="pId"
-          orgIdentifier="orgId"
-        />
+        <TemplateActivityLog template={mockTemplates?.data?.content?.[0] || {}} />
       </TestWrapper>
     )
 

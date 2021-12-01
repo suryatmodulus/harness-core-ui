@@ -1,21 +1,33 @@
 import React from 'react'
-import { render, RenderResult, screen, waitFor } from '@testing-library/react'
+import { get } from 'lodash-es'
+import { render, RenderResult, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Formik } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
-import SetFlagSwitch from '../SetFlagSwitch'
+import SetFlagSwitch, { SetFlagSwitchProps } from '../SetFlagSwitch'
+import { prefixInstructionField } from './utils.mocks'
 
-const renderComponent = (clearField = jest.fn()): RenderResult =>
+let formValues = {}
+
+const renderComponent = (props: Partial<SetFlagSwitchProps> = {}): RenderResult =>
   render(
     <TestWrapper>
       <Formik formName="test" onSubmit={jest.fn()} initialValues={{}}>
-        <SetFlagSwitch subSectionSelector={<span />} clearField={clearField} />
+        {({ values }) => {
+          formValues = values
+
+          return (
+            <SetFlagSwitch
+              subSectionSelector={<span />}
+              setField={jest.fn()}
+              prefix={prefixInstructionField}
+              {...props}
+            />
+          )
+        }}
       </Formik>
     </TestWrapper>
   )
-
-const getInput = (): HTMLInputElement =>
-  screen.getByPlaceholderText(/cf\.pipeline\.flagConfiguration\.selectOnOrOff/) as HTMLInputElement
 
 describe('SetFlagSwitch', () => {
   test('it should display a select box with On and Off options', async () => {
@@ -23,7 +35,7 @@ describe('SetFlagSwitch', () => {
 
     expect(screen.getByText('cf.pipeline.flagConfiguration.switchTo')).toBeInTheDocument()
 
-    const input = getInput()
+    const input = document.querySelector('[name$="spec.state"]') as HTMLInputElement
     expect(input).toBeInTheDocument()
 
     expect(screen.queryByText('common.ON')).not.toBeInTheDocument()
@@ -38,27 +50,17 @@ describe('SetFlagSwitch', () => {
   test('it should properly set the value of the input on selection', async () => {
     renderComponent()
 
-    const input = getInput()
+    const input = document.querySelector('[name$="spec.state"]') as HTMLInputElement
     expect(input).not.toHaveValue()
 
     userEvent.click(input)
     userEvent.click(screen.getByText('common.ON'))
-    expect(input).toHaveValue('common.ON')
+
+    expect(get(formValues, prefixInstructionField('spec.state'))).toBe('on')
 
     userEvent.click(input)
     userEvent.click(screen.getByText('common.OFF'))
-    expect(input).toHaveValue('common.OFF')
-  })
 
-  test('it should call the clearField function with spec.state when unmounted', async () => {
-    const clearFieldMock = jest.fn()
-    const { unmount } = renderComponent(clearFieldMock)
-
-    expect(clearFieldMock).not.toHaveBeenCalled()
-
-    unmount()
-    await waitFor(() => {
-      expect(clearFieldMock).toHaveBeenCalledWith('spec.state')
-    })
+    expect(get(formValues, prefixInstructionField('spec.state'))).toBe('off')
   })
 })

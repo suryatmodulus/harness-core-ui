@@ -1,0 +1,10 @@
+.content {
+  padding: var(--spacing-large) !important;
+  .accordian {
+    [class*='details'] {
+      margin: var(--spacing-large) 0 0 var(--spacing-large) !important;
+      background-color: var(--grey-100) !important;
+      padding: var(--spacing-medium) !important;
+    }
+  }
+}

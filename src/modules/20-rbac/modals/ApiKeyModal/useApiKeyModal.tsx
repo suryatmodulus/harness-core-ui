@@ -38,6 +38,7 @@ export const useApiKeyModal = ({
           isEdit={!!ApiKeyData}
           apiKeyType={apiKeyType}
           parentIdentifier={parentIdentifier}
+          onClose={hideModal}
           onSubmit={() => {
             onSuccess()
             hideModal()

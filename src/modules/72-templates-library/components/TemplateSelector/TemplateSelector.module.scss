@@ -1,41 +1,4 @@
 .container {
-  .empty {
-    border: 1px dashed var(--grey-300);
-    border-radius: 4px;
-    .illustration {
-      width: 117px;
-    }
-    .placeholder {
-      font-size: 13px !important;
-    }
-  }
-
-  .selectorContainer {
-    padding: var(--spacing-xlarge) 0px !important;
-    background: #f3f8fb !important;
-    box-shadow: var(--elevation-3);
-    z-index: 2;
-  }
-
-  .gitFilter {
-    height: 32px;
-    padding-left: var(--spacing-xlarge) !important;
-    padding-right: var(--spacing-medium) !important;
-    width: 50% !important;
-  }
-
-  .searchBox {
-    flex-grow: 1;
-  }
-
-  .illustration {
-    width: 400px;
-  }
-
-  :global(.DropDown--dropdownButton) {
-    background-color: var(--white) !important;
-  }
-
   .detailsContainer {
     flex-grow: 1;
     overflow: hidden;
@@ -44,5 +7,10 @@
   .btnContainer {
     box-shadow: var(--elevation-4);
     border-top: 1px solid var(--grey-100);
+  }
+
+  .empty {
+    border: 1px dashed var(--grey-300);
+    border-radius: 4px;
   }
 }

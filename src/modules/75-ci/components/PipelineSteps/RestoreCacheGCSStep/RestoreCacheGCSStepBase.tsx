@@ -94,6 +94,7 @@ export const RestoreCacheGCSStepBase = (
               stepViewType={stepViewType}
               allowableTypes={allowableTypes}
               enableFields={{
+                name: {},
                 'spec.connectorRef': {
                   label: (
                     <Text

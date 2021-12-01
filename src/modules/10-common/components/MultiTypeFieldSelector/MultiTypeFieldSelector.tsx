@@ -1,24 +1,19 @@
 import React, { CSSProperties, ReactChild } from 'react'
 import {
   MultiTypeInputType,
-  Button,
-  Icon,
-  MultiTypeIcon as TypeIcon,
-  MultiTypeIconSize as TypeIconSize,
   getMultiTypeFromValue,
   RUNTIME_INPUT_VALUE,
-  MultiTypeInputMenu,
   FormError,
   FormikTooltipContext,
   DataTooltipInterface,
   HarnessDocTooltip,
   FormInput
 } from '@wings-software/uicore'
-import { Popover, IFormGroupProps, Intent, FormGroup } from '@blueprintjs/core'
-import cx from 'classnames'
+import { IFormGroupProps, Intent, FormGroup } from '@blueprintjs/core'
 import { FormikContext, connect } from 'formik'
 import { get } from 'lodash-es'
 import { errorCheck } from '@common/utils/formikHelpers'
+import MultiTypeSelectorButton from '../MultiTypeSelectorButton/MultiTypeSelectorButton'
 
 import css from './MultiTypeFieldSelctor.module.scss'
 
@@ -39,38 +34,6 @@ export interface MultiTypeFieldSelectorProps extends Omit<IFormGroupProps, 'labe
 
 export interface ConnectedMultiTypeFieldSelectorProps extends MultiTypeFieldSelectorProps {
   formik: FormikContext<any>
-}
-
-export interface TypeSelectorProps {
-  type: MultiTypeInputType
-  onChange: (type: MultiTypeInputType) => void
-  allowedTypes: MultiTypeInputType[]
-}
-
-function TypeSelector(props: TypeSelectorProps): React.ReactElement {
-  const { type, onChange, allowedTypes } = props
-
-  return (
-    <Popover
-      position="bottom-right"
-      interactionKind="click"
-      minimal
-      wrapperTagName="div"
-      targetTagName="div"
-      className={css.typeSelectorWrapper}
-      targetClassName={css.typeSelector}
-      popoverClassName={css.popover}
-    >
-      <Button minimal className={css.btn} withoutBoxShadow withoutCurrentColor>
-        <Icon
-          className={cx(css.icon, (css as any)[type.toLowerCase()])}
-          size={TypeIconSize[type]}
-          name={TypeIcon[type]}
-        />
-      </Button>
-      <MultiTypeInputMenu allowedTypes={allowedTypes} onTypeSelect={onChange} />
-    </Popover>
-  )
 }
 
 export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorProps): React.ReactElement | null {
@@ -126,7 +89,7 @@ export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorPro
         <div className={css.formLabel}>
           <HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelText} />
           {disableTypeSelection ? null : (
-            <TypeSelector allowedTypes={allowedTypes} type={type} onChange={handleChange} />
+            <MultiTypeSelectorButton allowedTypes={allowedTypes} type={type} onChange={handleChange} />
           )}
         </div>
       }

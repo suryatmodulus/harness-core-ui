@@ -160,7 +160,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
               </div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--color StyledProps--color-grey600 StyledProps--padding-small"
-                style="cursor: pointer; line-height: 1.5; overflow-wrap: break-word; height: 55px; --text-line-clamp: 2; width: 125px;"
+                style="cursor: pointer; line-height: 1.5; overflow-wrap: normal; word-break: keep-all; height: 55px; --text-line-clamp: 2; width: 125px;"
               >
                 Node 1
               </p>
@@ -381,7 +381,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
               </div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--color StyledProps--color-grey600 StyledProps--padding-small"
-                style="cursor: pointer; line-height: 1.5; overflow-wrap: break-word; height: 55px; --text-line-clamp: 2; width: 125px;"
+                style="cursor: pointer; line-height: 1.5; overflow-wrap: normal; word-break: keep-all; height: 55px; --text-line-clamp: 2; width: 125px;"
               >
                 Node 2
               </p>
@@ -510,7 +510,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
                 </div>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--margin-top-xsmall StyledProps--padding-xsmall"
-                  style="cursor: pointer; line-height: 1.6; overflow-wrap: break-word; --text-line-clamp: 2; width: 125px;"
+                  style="cursor: pointer; line-height: 1.6; overflow-wrap: normal; word-break: keep-all; --text-line-clamp: 2; width: 125px;"
                 >
                   Jira Approval
                 </p>
@@ -668,7 +668,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
               </div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--padding-xsmall"
-                style="cursor: pointer; line-height: 1.6; overflow-wrap: break-word; margin-left: 0px; margin-right: 0px; --text-line-clamp: 2;"
+                style="cursor: pointer; line-height: 1.6; overflow-wrap: normal; word-break: keep-all; margin-left: 0px; margin-right: 0px; --text-line-clamp: 2;"
               >
                 Icon 2
               </p>

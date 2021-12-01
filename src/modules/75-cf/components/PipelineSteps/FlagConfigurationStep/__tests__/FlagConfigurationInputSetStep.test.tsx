@@ -1,9 +1,11 @@
 import React from 'react'
+import { cloneDeep } from 'lodash-es'
 import { render, RenderResult, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { Formik, FormikForm, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
-import * as cfServices from 'services/cf'
 import type { Feature } from 'services/cf'
+import * as cfServices from 'services/cf'
 import FlagConfigurationInputSetStep, { FlagConfigurationInputSetStepProps } from '../FlagConfigurationInputSetStep'
 
 const mockFeatures = [
@@ -12,16 +14,32 @@ const mockFeatures = [
   { name: 'Feature 3', identifier: 'f3' }
 ] as Feature[]
 
+jest.mock('../FlagChanges/FlagChangesForm', () => ({
+  __esModule: true,
+  default: () => <span data-testid="flag-changes-form" />
+}))
+
 const renderComponent = (props: Partial<FlagConfigurationInputSetStepProps> = {}): RenderResult =>
   render(
     <TestWrapper>
-      <FlagConfigurationInputSetStep
-        environment="qa"
-        initialValues={{} as FlagConfigurationInputSetStepProps['initialValues']}
-        template={{} as FlagConfigurationInputSetStepProps['template']}
-        path="test"
-        {...props}
-      />
+      <Formik
+        formName="test"
+        onSubmit={jest.fn()}
+        initialValues={{ stages: [{ stage: { spec: { execution: { steps: [{ step: {} }] } } } }] }}
+      >
+        <FormikForm>
+          <FlagConfigurationInputSetStep
+            existingValues={{ spec: { environment: 'e1' } } as FlagConfigurationInputSetStepProps['existingValues']}
+            template={
+              {
+                spec: { feature: RUNTIME_INPUT_VALUE, instructions: RUNTIME_INPUT_VALUE }
+              } as FlagConfigurationInputSetStepProps['template']
+            }
+            pathPrefix="stages[0].stage.spec.execution.steps[0].step"
+            {...props}
+          />
+        </FormikForm>
+      </Formik>
     </TestWrapper>
   )
 
@@ -36,7 +54,7 @@ describe('FlagConfigurationInputSetStep', () => {
 
   describe('Select feature', () => {
     const template = {
-      spec: { feature: '<+input>' }
+      spec: { feature: RUNTIME_INPUT_VALUE }
     } as FlagConfigurationInputSetStepProps['template']
 
     test('it should display the features select when the template spec value is set as runtime', async () => {
@@ -90,7 +108,7 @@ describe('FlagConfigurationInputSetStep', () => {
 
       const field = screen
         .getByText('cf.pipeline.flagConfiguration.selectFlag')
-        ?.parentElement?.querySelector('input') as HTMLInputElement
+        ?.parentElement?.parentElement?.querySelector('input') as HTMLInputElement
       expect(field).toBeInTheDocument()
 
       userEvent.click(field)
@@ -109,7 +127,7 @@ describe('FlagConfigurationInputSetStep', () => {
 
       const field = screen
         .getByText('cf.pipeline.flagConfiguration.selectFlag')
-        ?.parentElement?.querySelector('input') as HTMLInputElement
+        ?.parentElement?.parentElement?.querySelector('input') as HTMLInputElement
       expect(field).toBeInTheDocument()
       expect(refetchMock).not.toHaveBeenCalled()
 
@@ -129,8 +147,52 @@ describe('FlagConfigurationInputSetStep', () => {
 
       const field = screen
         .getByText('cf.pipeline.flagConfiguration.selectFlag')
-        ?.parentElement?.querySelector('input') as HTMLInputElement
+        ?.parentElement?.parentElement?.querySelector('input') as HTMLInputElement
       expect(field).toBeDisabled()
+    })
+  })
+
+  describe('FlagChanges', () => {
+    const basicProps = {
+      template: {
+        spec: { instructions: RUNTIME_INPUT_VALUE }
+      } as FlagConfigurationInputSetStepProps['template'],
+      existingValues: {
+        spec: { feature: 'f1', environment: 'e1' }
+      } as FlagConfigurationInputSetStepProps['existingValues']
+    }
+
+    beforeEach(() => {
+      useGetAllFeaturesMock.mockReturnValue({
+        data: { features: mockFeatures },
+        loading: false,
+        error: null,
+        refetch: jest.fn()
+      })
+    })
+
+    test('it should display the flag changes section if spec.instructions is set as runtime', async () => {
+      renderComponent(basicProps)
+
+      expect(screen.getByText('cf.pipeline.flagConfiguration.flagChanges')).toBeInTheDocument()
+      expect(screen.getByTestId('flag-changes-form')).toBeInTheDocument()
+    })
+
+    test("it should display the select feature message when the feature was runtime and hasn't been selected", async () => {
+      const mockTemplate = cloneDeep(basicProps.template)
+      if (mockTemplate?.spec.feature) {
+        mockTemplate.spec.feature = RUNTIME_INPUT_VALUE
+      }
+
+      renderComponent({
+        template: mockTemplate,
+        existingValues: {
+          spec: { environment: 'e1' }
+        } as FlagConfigurationInputSetStepProps['existingValues']
+      })
+
+      expect(screen.getByText('cf.pipeline.flagConfiguration.flagChanges')).toBeInTheDocument()
+      expect(screen.getByTestId('flag-changes-no-flag-selected')).toBeInTheDocument()
     })
   })
 })

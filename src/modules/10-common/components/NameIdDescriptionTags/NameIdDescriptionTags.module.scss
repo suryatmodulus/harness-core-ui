@@ -32,6 +32,7 @@
   textarea {
     min-height: 50px;
     resize: vertical;
+    max-height: 240px;
   }
   :global {
     .TextInput--main {

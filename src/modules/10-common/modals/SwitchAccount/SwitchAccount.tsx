@@ -12,6 +12,7 @@ import {
 import type { Column, Renderer, CellProps } from 'react-table'
 import { useParams, useHistory } from 'react-router-dom'
 import { get, defaultTo } from 'lodash-es'
+import { Intent } from '@blueprintjs/core'
 import {
   useGetUser,
   useSetDefaultAccountForCurrentUser,
@@ -128,6 +129,7 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
       confirmButtonText: getString('continue'),
       titleText: getString('common.changeDefaultAccountTitle'),
       contentText: getString('common.changeDefaultAccountMessage', { name: account.accountName }),
+      intent: Intent.WARNING,
       onCloseDialog: isConfirmed => {
         if (isConfirmed) {
           handleSetDefault()

@@ -30,7 +30,7 @@ describe('Test DeployService Step', () => {
     const { container } = render(
       <DeployService type={StepType.DeployService} initialValues={{}} stepViewType={StepViewType.Edit} />
     )
-    fireEvent.click(getByText(container, 'pipelineSteps.serviceTab.newService'))
+    fireEvent.click(getByText(container, 'cd.pipelineSteps.serviceTab.plusNewService'))
     const dialog = findDialogContainer()
     expect(dialog).toMatchSnapshot()
     fillAtForm([

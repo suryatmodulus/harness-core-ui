@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from 'react'
-import { isEmpty } from 'lodash-es'
-import { Popover, Layout, TextInput, useModalHook, Text, Color, ButtonVariation } from '@wings-software/uicore'
+import { defaultTo, isEmpty, pick } from 'lodash-es'
+import {
+  Popover,
+  Layout,
+  TextInput,
+  useModalHook,
+  Text,
+  Color,
+  ButtonVariation,
+  useToaster
+} from '@wings-software/uicore'
 import { Menu, MenuItem, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import {
   InputSetSummaryResponse,
+  useDeleteInputSetForPipeline,
   useGetInputSetsListForPipeline,
   useGetPipelineSummary,
   useGetTemplateFromPipeline
@@ -30,6 +40,9 @@ const InputSetList: React.FC = (): JSX.Element => {
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<PipelinePathProps> & { accountId: string }
   >()
+  const { showSuccess, showError } = useToaster()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [inputSetToDelete, setInputSetToDelete] = useState<InputSetSummaryResponse>()
 
   const {
     data: inputSet,
@@ -79,6 +92,10 @@ const InputSetList: React.FC = (): JSX.Element => {
       repoIdentifier,
       branch
     }
+  })
+
+  const { mutate: deleteInputSet } = useDeleteInputSetForPipeline({
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier, pipelineIdentifier }
   })
 
   // These flags will be used to disable the Add Input set buttons in the page.
@@ -153,6 +170,43 @@ const InputSetList: React.FC = (): JSX.Element => {
     [selectedInputSet]
   )
 
+  const onDeleteInputSet = async (commitMsg: string): Promise<void> => {
+    try {
+      setIsLoading(true)
+      const gitParams = inputSetToDelete?.gitDetails?.objectId
+        ? {
+            ...pick(inputSetToDelete?.gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
+            commitMsg,
+            lastObjectId: inputSetToDelete?.gitDetails?.objectId
+          }
+        : {}
+
+      const deleted = await deleteInputSet(defaultTo(inputSetToDelete?.identifier, ''), {
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier,
+          pipelineIdentifier: defaultTo(inputSetToDelete?.pipelineIdentifier, ''),
+          ...gitParams
+        },
+        headers: { 'content-type': 'application/json' }
+      })
+      setIsLoading(false)
+
+      /* istanbul ignore else */
+      if (deleted?.status === 'SUCCESS') {
+        showSuccess(getString('inputSets.inputSetDeleted', { name: inputSetToDelete?.name }))
+      } else {
+        throw getString('somethingWentWrong')
+      }
+      refetch()
+    } catch (err) {
+      setIsLoading(false)
+      /* istanbul ignore next */
+      showError(err?.data?.message || err?.message, undefined, 'pipeline.delete.inputset.error')
+    }
+  }
+
   return (
     <>
       <Page.SubHeader>
@@ -215,7 +269,7 @@ const InputSetList: React.FC = (): JSX.Element => {
       </Page.SubHeader>
 
       <Page.Body
-        loading={loading}
+        loading={loading || isLoading}
         error={error?.message}
         retryOnError={/* istanbul ignore next */ () => refetch()}
         noData={{
@@ -248,6 +302,10 @@ const InputSetList: React.FC = (): JSX.Element => {
           }}
           refetchInputSet={refetch}
           canUpdate={canUpdateInputSet}
+          onDeleteInputSet={onDeleteInputSet}
+          onDelete={(inputSetSelected: InputSetSummaryResponse) => {
+            setInputSetToDelete(inputSetSelected)
+          }}
         />
       </Page.Body>
     </>

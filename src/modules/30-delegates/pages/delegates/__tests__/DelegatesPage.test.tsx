@@ -3,6 +3,7 @@ import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import DelegatesPage from '../DelegatesPage'
 import DelegateListing from '../DelegateListing'
+import ProfileMock from './ProfilesMock'
 
 const mockGetCallFunction = jest.fn()
 jest.mock('services/portal', () => ({
@@ -11,55 +12,17 @@ jest.mock('services/portal', () => ({
     return []
   })
 }))
-jest.mock('services/cd-ng', () => ({
-  useGetFilterList: jest.fn().mockImplementation(() => {
-    return {
-      loading: false,
-      data: {},
-      refetch: jest.fn()
-    }
-  }),
-  usePostFilter: jest.fn().mockImplementation(() => {
-    return {
-      mutate: jest.fn()
-    }
-  }),
-  useUpdateFilter: jest.fn().mockImplementation(() => {
-    return {
-      mutate: jest.fn()
-    }
-  }),
-  useDeleteFilter: jest.fn().mockImplementation(() => {
-    return {
-      mutate: jest.fn()
-    }
-  })
-}))
 
 jest.mock('services/cd-ng', () => ({
-  useGetFilterList: jest.fn().mockImplementation(() => {
+  useListDelegateConfigsNgV2WithFilter: jest.fn().mockImplementation(args => {
+    mockGetCallFunction(args)
     return {
-      mutate: jest.fn()
+      mutate: jest.fn().mockImplementation(() => ProfileMock),
+      refetch: jest.fn(),
+      error: null,
+      loading: false
     }
   }),
-  usePostFilter: jest.fn().mockImplementation(() => {
-    return {
-      mutate: jest.fn()
-    }
-  }),
-  useUpdateFilter: jest.fn().mockImplementation(() => {
-    return {
-      mutate: jest.fn()
-    }
-  }),
-  useDeleteFilter: jest.fn().mockImplementation(() => {
-    return {
-      mutate: jest.fn()
-    }
-  })
-}))
-
-jest.mock('services/cd-ng', () => ({
   useGetFilterList: jest.fn().mockImplementation(() => {
     return {
       mutate: jest.fn()

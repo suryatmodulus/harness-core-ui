@@ -1,20 +1,25 @@
-.noTimeRangeSelected {
+.metricsAndLogsCard {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 50%;
+  height: 850px;
+  max-height: 850px;
+  overflow-y: auto;
 }
 
-.metricsLogsContainer {
-  display: flex;
-  flex-direction: column;
-}
+.noServiceImageCard {
+  width: 100%;
 
-.analysisContainer {
-  display: flex;
-  justify-content: space-between;
-}
+  .noDataCardContainer {
+    height: 100% !important;
+  }
 
-.analysisFields {
-  width: 49%;
+  .noDataCard {
+    margin-top: var(--spacing-none) !important;
+  }
+
+  .noServiceImage {
+    width: 600px;
+    height: 290px;
+  }
 }

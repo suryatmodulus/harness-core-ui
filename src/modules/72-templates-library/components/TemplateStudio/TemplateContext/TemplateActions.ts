@@ -22,7 +22,7 @@ export interface ActionResponse {
   originalTemplate?: NGTemplateInfoConfig
   isBETemplateUpdated?: boolean
   templateView?: TemplateViewData
-  stableVersion?: boolean
+  stableVersion?: string
   versions?: string[]
   isLoading?: boolean
   gitDetails?: EntityGitDetails

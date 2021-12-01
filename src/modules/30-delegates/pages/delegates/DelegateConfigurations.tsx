@@ -576,6 +576,9 @@ export const DelegateConfigurations: React.FC<DelegatesListProps> = ({ filtersMo
   return (
     <Container background={Color.GREY_100}>
       <Layout.Horizontal className={css.header} background={Color.WHITE}>
+        <Text color={Color.ORANGE_600} font={{ size: 'normal' }} margin={{ top: 'auto', bottom: 'auto' }}>
+          {getString('delegates.delegateProfilesDepricated')}
+        </Text>
         <FlexExpander />
         <Layout.Horizontal spacing="xsmall">
           <ExpandingSearchInput

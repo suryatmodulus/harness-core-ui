@@ -13,11 +13,12 @@ import {
   Views,
   ButtonVariation,
   DropDown,
-  shouldShowError
+  shouldShowError,
+  PageSpinner
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
-import { pick } from 'lodash-es'
+import { defaultTo, pick } from 'lodash-es'
 import { Page, StringUtils, useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import {
@@ -32,6 +33,7 @@ import {
   useGetFilterList,
   useGetPipelineList,
   usePostFilter,
+  useSoftDeletePipeline,
   useUpdateFilter
 } from 'services/pipeline-ng'
 import { useGetServiceListForProject, useGetEnvironmentListForProject } from 'services/cd-ng'
@@ -113,8 +115,6 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   ]
 
   const filterRef = useRef<FilterRef<FilterDTO> | null>(null)
-
-  const [initLoading, setInitLoading] = useState(true)
   const [appliedFilter, setAppliedFilter] = useState<FilterDTO | null>()
   const [filters, setFilters] = useState<FilterDTO[]>()
   const [isRefreshingFilters, setIsRefreshingFilters] = useState<boolean>(false)
@@ -133,8 +133,10 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
 
   const { trackEvent } = useTelemetry()
   const history = useHistory()
-  const { showError } = useToaster()
+  const { showSuccess, showError } = useToaster()
   const { selectedProject, isGitSyncEnabled } = useAppStore()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [pipelineToDelete, setPipelineToDelete] = useState<PMSPipelineSummaryResponse>()
 
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<
     PipelineType<{
@@ -204,6 +206,14 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     mock: mockData
   })
 
+  const { mutate: deletePipeline } = useSoftDeletePipeline({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    }
+  })
+
   const fetchPipelines = useCallback(
     async (params?: GetPipelineListQueryParams, formData?: PipelineFilterProperties): Promise<void> => {
       try {
@@ -225,7 +235,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           setError(e)
         }
       }
-      setInitLoading(false)
+      setIsLoading(false)
     },
     [reloadPipelines, showError, cancel, appliedFilter]
   )
@@ -499,7 +509,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
 
   useEffect(() => {
     cancel()
-    setInitLoading(true)
+    setIsLoading(true)
     fetchPipelines(defaultQueryParamsForPiplines, appliedFilter?.filterProperties)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -525,6 +535,46 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
       return false
     }
     return true
+  }
+
+  const onDeletePipeline = async (commitMsg: string): Promise<void> => {
+    try {
+      setIsLoading(true)
+      const gitParams = pipelineToDelete?.gitDetails?.objectId
+        ? {
+            ...pick(pipelineToDelete?.gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
+            commitMsg,
+            lastObjectId: pipelineToDelete?.gitDetails?.objectId
+          }
+        : {}
+
+      const deleted = await deletePipeline(defaultTo(pipelineToDelete?.identifier, ''), {
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier,
+          ...gitParams
+        },
+        headers: { 'content-type': 'application/json' }
+      })
+      setIsLoading(false)
+
+      /* istanbul ignore else */
+      if (deleted?.status === 'SUCCESS') {
+        showSuccess(getString('pipeline-list.pipelineDeleted', { name: pipelineToDelete?.name }))
+      } else {
+        throw getString('somethingWentWrong')
+      }
+      fetchPipelines()
+    } catch (err) {
+      setIsLoading(false)
+      /* istanbul ignore next */
+      showError(err?.data?.message || err?.message, undefined, 'pipeline.delete.pipeline.error')
+    }
+  }
+
+  if (isLoading) {
+    return <PageSpinner />
   }
 
   return (
@@ -636,10 +686,8 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             />
           </Layout.Horizontal>
         )}
-        {initLoading ? (
-          <OverlaySpinner show={true} className={css.loading}>
-            <></>
-          </OverlaySpinner>
+        {isLoading ? (
+          <PageSpinner />
         ) : !pipelineList?.content?.length ? (
           <div className={css.noPipelineSection}>
             {appliedFilter || searchParam ? (
@@ -693,6 +741,10 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
                 goToPipelineDetail={goToPipelineDetail}
                 goToPipelineStudio={goToPipeline}
                 refetchPipeline={fetchPipelines}
+                onDeletePipeline={onDeletePipeline}
+                onDelete={(pipeline: PMSPipelineSummaryResponse) => {
+                  setPipelineToDelete(pipeline)
+                }}
               />
             ) : (
               <PipelineListView
@@ -701,6 +753,10 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
                 goToPipelineDetail={goToPipelineDetail}
                 goToPipelineStudio={goToPipeline}
                 refetchPipeline={fetchPipelines}
+                onDelete={(pipeline: PMSPipelineSummaryResponse) => {
+                  setPipelineToDelete(pipeline)
+                }}
+                onDeletePipeline={onDeletePipeline}
               />
             )}
           </GitSyncStoreProvider>

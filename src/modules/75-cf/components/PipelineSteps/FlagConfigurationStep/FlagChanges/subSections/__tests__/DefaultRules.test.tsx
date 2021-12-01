@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { Formik } from '@wings-software/uicore'
 import type { Variation } from 'services/cf'
 import { TestWrapper } from '@common/utils/testUtils'
+import { CFPipelineInstructionType } from '../../../types'
 import DefaultRules, { DefaultRulesProps } from '../DefaultRules'
 
 const mockVariations: Variation[] = [
@@ -16,7 +17,13 @@ const renderComponent = (props: Partial<DefaultRulesProps> = {}): RenderResult =
   render(
     <TestWrapper>
       <Formik formName="test" onSubmit={jest.fn()} initialValues={{}}>
-        <DefaultRules subSectionSelector={<span />} clearField={jest.fn()} variations={mockVariations} {...props} />
+        <DefaultRules
+          subSectionSelector={<span />}
+          setField={jest.fn()}
+          variations={mockVariations}
+          prefix={jest.fn((fieldName: string) => fieldName)}
+          {...props}
+        />
       </Formik>
     </TestWrapper>
   )
@@ -27,16 +34,14 @@ describe('DefaultRules', () => {
       const { container } = renderComponent()
 
       expect(screen.getByText(`cf.pipeline.flagConfiguration.whenTheFlagIs${defaultRuleType}Serve`)).toBeInTheDocument()
-
-      expect(container.querySelector(`[name="spec.defaultRules.${defaultRuleType.toLowerCase()}"]`)).toBeInTheDocument()
+      const selectors = `[name$="spec.${defaultRuleType.toLowerCase()}"]`
+      expect(container.querySelector(selectors)).toBeInTheDocument()
     })
 
     test(`it should fill the select with the available variations for the ${defaultRuleType} default variation `, async () => {
       const { container } = renderComponent()
 
-      const select = container
-        .querySelector(`[name="spec.defaultRules.${defaultRuleType.toLowerCase()}"]`)
-        ?.closest('.bp3-input')
+      const select = container.querySelector(`[name$="spec.${defaultRuleType.toLowerCase()}"]`)?.closest('.bp3-input')
       expect(select).toBeInTheDocument()
 
       mockVariations.forEach(({ name, identifier }) => {
@@ -52,16 +57,13 @@ describe('DefaultRules', () => {
     })
   })
 
-  test('it should call the clearField function with spec.defaultRules.on and spec.defaultRules.off when unmounted', async () => {
-    const clearField = jest.fn()
-    const { unmount } = renderComponent({ clearField })
+  test('it should call the setField function with identifier and type', async () => {
+    const setFieldMock = jest.fn()
+    renderComponent({ setField: setFieldMock })
 
-    expect(clearField).not.toHaveBeenCalled()
-
-    unmount()
     await waitFor(() => {
-      expect(clearField).toHaveBeenCalledWith('spec.defaultRules.on')
-      expect(clearField).toHaveBeenCalledWith('spec.defaultRules.off')
+      expect(setFieldMock).toHaveBeenCalledWith('identifier', expect.any(String))
+      expect(setFieldMock).toHaveBeenCalledWith('type', CFPipelineInstructionType.SET_DEFAULT_VARIATIONS)
     })
   })
 })

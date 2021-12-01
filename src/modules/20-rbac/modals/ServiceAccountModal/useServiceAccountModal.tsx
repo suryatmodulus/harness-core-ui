@@ -32,6 +32,7 @@ export const useServiceAccountModal = ({ onSuccess }: useServiceAccountModalProp
         <ServiceAccountForm
           data={serviceAccountData}
           isEdit={!!serviceAccountData}
+          onClose={hideModal}
           onSubmit={serviceAccount => {
             onSuccess(serviceAccount)
             hideModal()

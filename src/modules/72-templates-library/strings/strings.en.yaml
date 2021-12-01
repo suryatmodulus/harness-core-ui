@@ -12,6 +12,7 @@ referencedBy: Referenced By
 selectTemplateToPreview: Select a template to preview
 templateTitle: '{{ entity }} Template'
 stableVersion: '{{ entity }} (Stable)'
+alwaysUseStableVersion: Always use the stable version
 inputsCount: 'Total Inputs: {{count}}'
 templateUpdatedError: The Template is updated by someone else. Do you want to take the latest Template? You might lose your saved Template settings.
 openInTemplateStudio: Open in Template Studio
@@ -21,18 +22,13 @@ editModal:
   heading: 'Edit {{ entity }} Template'
 createNewModal:
   heading: 'Create New {{ entity }} Template'
-  editHeading: Edit Template
+  editHeading: 'Edit {{ entity }} Template'
   versionLabel: Version Label
   label: Label
   namePlaceholder: Template Name
   versionPlaceholder: 'Ex: Version1'
 saveAsNewLabelModal:
   heading: 'Save as new version'
-updateTemplateModal:
-  heading: 'Save {{ name }} ({{ version }})'
-  addCommentPlaceholder: Add a comment
-  commentLabel: Comment
-  info: 'By saving, all pipelines referencing the stable version will receive your changes.'
 templateSettingsModal:
   scopeLabel: Save To
   defaultVersionLabel: Stable Version
@@ -46,3 +42,4 @@ default: set default to
 sampleTemplateAuditComment: --
 setAsStableTitle: Set as Stable?
 setAsStableText: 'Are you sure you want to set {{version}} as stable version?'
+noInputsRequired: There are no templates inputs required.

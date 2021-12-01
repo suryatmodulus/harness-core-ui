@@ -16,8 +16,7 @@ import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
-import { defaultTo, isEmpty, set } from 'lodash-es'
-import produce from 'immer'
+import { defaultTo } from 'lodash-es'
 import { NameSchema } from '@common/utils/Validation'
 import { setFormikRef, StepViewType, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
@@ -71,7 +70,7 @@ export function TemplateStepWidget(
       accountIdentifier: accountId,
       projectIdentifier: scope === Scope.PROJECT ? projectIdentifier : undefined,
       orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? orgIdentifier : undefined,
-      versionLabel: initialValues.template.versionLabel
+      versionLabel: initialValues.template.versionLabel || ''
     }
   })
 
@@ -82,16 +81,6 @@ export function TemplateStepWidget(
       showError(error.message, undefined, 'template.parse.inputSet.error')
     }
   }, [templateInputYaml?.data])
-
-  React.useEffect(() => {
-    if (!isEmpty(inputSetTemplate) && isEmpty(initialValues.template?.templateInputs)) {
-      onUpdate?.(
-        produce(initialValues, draft => {
-          set(draft, 'template.templateInputs', inputSetTemplate)
-        })
-      )
-    }
-  }, [inputSetTemplate])
 
   return (
     <Formik<TemplateStepData /*TemplateStepFormData*/>

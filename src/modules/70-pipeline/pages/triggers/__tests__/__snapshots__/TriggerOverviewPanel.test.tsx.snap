@@ -14,7 +14,6 @@ exports[`TriggerOverviewPanel Triggers tests Renders/snapshots Initial Render - 
         >
           <span
             class="StyledProps--font StyledProps--main formContentTitle StyledProps--inline"
-            data-tooltip-id="triggerOverview"
           >
             pipeline.triggers.triggerOverviewPanel.title
           </span>

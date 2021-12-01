@@ -296,16 +296,14 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
   return (
     <div className={cx(css.widgetWrapper, css.rightContainer)}>
       <Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
-        <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
+        <Heading
+          data-name="test-executions"
+          level={6}
+          style={{ fontWeight: 600, marginBottom: 'var(--spacing-3)' }}
+          color={Color.GREY_600}
+        >
           {getString('pipeline.testsReports.testExecutions')}
         </Heading>
-        <Button
-          icon="question"
-          minimal
-          tooltip={getString('pipeline.testsReports.testCasesExecutionInfo')}
-          iconProps={{ size: 14 }}
-          margin={{ left: 'xsmall' }}
-        />
         {loading && <Icon name="steps-spinner" size={16} color="blue500" margin={{ left: 'xsmall' }} />}
       </Container>
       <Layout.Horizontal spacing="medium" className={css.widget} padding="xlarge">

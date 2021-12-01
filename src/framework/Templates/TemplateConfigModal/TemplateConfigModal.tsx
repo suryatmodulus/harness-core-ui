@@ -1,6 +1,6 @@
 import React, { Dispatch, useState, SetStateAction, useContext } from 'react'
 import * as Yup from 'yup'
-import { omit } from 'lodash-es'
+import { isEmpty, omit } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import {
   Formik,
@@ -215,7 +215,7 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
                         }
                       }}
                     />
-                    <Button text={getString('cancel')} variation={ButtonVariation.SECONDARY} onClick={onClose} />
+                    <Button text={getString('cancel')} variation={ButtonVariation.TERTIARY} onClick={onClose} />
                   </Layout.Horizontal>
                 </Container>
               </Layout.Vertical>
@@ -237,19 +237,17 @@ export const TemplateConfigModal = (props: ConfigModalProps): JSX.Element => {
   React.useEffect(() => {
     const newInitialValues = {
       ...initialValues,
-      ...(emptyFields.includes(Fields.Name) && { name: '' }),
-      ...(emptyFields.includes(Fields.Identifier) && { identifier: DefaultNewTemplateId }),
-      ...(emptyFields.includes(Fields.VersionLabel) && { versionLabel: DefaultNewVersionLabel }),
+      ...((emptyFields.includes(Fields.Name) || isEmpty(initialValues.name)) && { name: 'New Step Template' }),
+      ...((emptyFields.includes(Fields.Identifier) || initialValues.identifier === DefaultNewTemplateId) && {
+        identifier: 'new_step_template'
+      }),
+      ...((emptyFields.includes(Fields.VersionLabel) || initialValues.versionLabel === DefaultNewVersionLabel) && {
+        versionLabel: 'Version1'
+      }),
       ...(emptyFields.includes(Fields.Description) && { description: undefined }),
       ...(emptyFields.includes(Fields.Tags) && { tags: undefined }),
       ...(emptyFields.includes(Fields.Repo) && { repo: undefined }),
       ...(emptyFields.includes(Fields.Branch) && { branch: undefined })
-    }
-    if (newInitialValues.identifier === DefaultNewTemplateId) {
-      newInitialValues.identifier = ''
-    }
-    if (newInitialValues.versionLabel === DefaultNewVersionLabel) {
-      newInitialValues.versionLabel = ''
     }
     setFormInitialValues(newInitialValues)
   }, [initialValues, JSON.stringify(emptyFields)])

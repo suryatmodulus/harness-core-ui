@@ -1,4 +1,4 @@
-import type { IconName } from '@wings-software/uicore'
+import { Color, IconName, Utils } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import type { PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import type { UseStringsReturn } from 'framework/strings'
@@ -127,7 +127,7 @@ export class StageBuilderModel extends DiagramModel {
             conditionalExecutionEnabled: node.stage.when
               ? node.stage.when?.pipelineStatus !== 'Success' || !!node.stage.when?.condition?.trim()
               : false,
-            iconStyle: { color: isSelected ? 'var(--white)' : type.iconColor },
+            iconStyle: { color: isSelected ? Utils.getRealCSSColor(Color.WHITE) : type.iconColor },
             icon: type.icon
           })
         : new DefaultNodeModel({
@@ -145,7 +145,7 @@ export class StageBuilderModel extends DiagramModel {
               : false,
             allowAdd: allowAdd === true && !isReadonly,
             height: 40,
-            iconStyle: { color: isSelected ? 'var(--white)' : type?.iconColor },
+            iconStyle: { color: isSelected ? Utils.getRealCSSColor(Color.WHITE) : type?.iconColor },
             icon: type?.icon,
             ...(node.stage.when && {})
           })

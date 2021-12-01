@@ -1,7 +1,6 @@
 import React from 'react'
 import * as Yup from 'yup'
-import { Dialog } from '@blueprintjs/core'
-import { Button, Formik, FormikForm, FormInput, ButtonVariation } from '@wings-software/uicore'
+import { Button, Formik, FormikForm, FormInput, ButtonVariation, Dialog } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'

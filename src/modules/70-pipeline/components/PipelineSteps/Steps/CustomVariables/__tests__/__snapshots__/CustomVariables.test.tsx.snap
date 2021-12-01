@@ -214,16 +214,21 @@ exports[`Custom Variables can delete variable: After Delete 1`] = `
     <div
       class="tableRow headerRow"
     >
-      <span>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+      >
         name
-      </span>
-      <span>
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+      >
         typeLabel
-      </span>
-      <span>
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+      >
         valueLabel
-      </span>
-      <div />
+      </p>
     </div>
     <div
       class="tableRow"
@@ -667,16 +672,21 @@ exports[`Custom Variables can delete variable: Before Delete 1`] = `
     <div
       class="tableRow headerRow"
     >
-      <span>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+      >
         name
-      </span>
-      <span>
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+      >
         typeLabel
-      </span>
-      <span>
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+      >
         valueLabel
-      </span>
-      <div />
+      </p>
     </div>
     <div
       class="tableRow"
@@ -1410,16 +1420,21 @@ exports[`Custom Variables should render variables 1`] = `
     <div
       class="tableRow headerRow"
     >
-      <span>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+      >
         name
-      </span>
-      <span>
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+      >
         typeLabel
-      </span>
-      <span>
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+      >
         valueLabel
-      </span>
-      <div />
+      </p>
     </div>
     <div
       class="tableRow"

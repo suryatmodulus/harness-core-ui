@@ -2,24 +2,6 @@
   min-width: max-content !important;
 }
 
-.cardRow {
-  display: flex;
-}
-
-.card {
-  margin-right: var(--spacing-large);
-  width: 64px;
-  height: 64px;
-  .text {
-    position: relative;
-    bottom: -20px;
-  }
-}
-
-.authorizationCard {
-  width: 100%;
-}
-
 .notes {
   line-height: 19px !important ;
 }

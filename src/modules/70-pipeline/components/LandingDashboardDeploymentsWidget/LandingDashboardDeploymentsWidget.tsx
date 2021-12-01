@@ -60,6 +60,9 @@ export const getTooltip = (currPoint: TooltipFormatterContextObject): string => 
         1
       ) + '%'
   }
+  if (point?.countWithSuccessFailureDetails?.failureCount === 0) {
+    failureRate = '0'
+  }
   return `<div style="padding: 16px; color: white; width: 282px; height: 128px;">
       <div style="display: flex; justify-content: space-between; border-bottom: 0.5px solid rgba(243, 243, 250); padding-bottom: 7px; margin-bottom: 15px;">
         <div style="font-weight: normal; font-size: 12px; line-height: 18px; opacity: 0.8;">${time}</div>
@@ -459,6 +462,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
                 height: 225
               },
               tooltip: {
+                stickOnContact: true,
                 useHTML: true,
                 formatter: function () {
                   return getTooltip(this)

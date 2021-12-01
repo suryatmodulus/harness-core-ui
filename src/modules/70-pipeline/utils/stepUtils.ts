@@ -38,14 +38,26 @@ export function getAllStepPaletteModuleInfos(): StepPalleteModuleInfo[] {
 }
 
 export function getStepPaletteModuleInfosFromStage(stageType?: string): StepPalleteModuleInfo[] {
-  return stageType === StageType.BUILD
-    ? [
+  switch (stageType) {
+    case StageType.BUILD:
+      return [
         {
           module: 'ci',
           shouldShowCommonSteps: false
         }
       ]
-    : [
+
+    case StageType.FEATURE:
+      return [
+        {
+          module: 'pms',
+          category: 'FeatureFlag',
+          shouldShowCommonSteps: true
+        }
+      ]
+
+    default:
+      return [
         {
           module: 'cd',
           category: stageType === StageType.APPROVAL ? 'Approval' : undefined,
@@ -56,4 +68,5 @@ export function getStepPaletteModuleInfosFromStage(stageType?: string): StepPall
           shouldShowCommonSteps: false
         }
       ]
+  }
 }

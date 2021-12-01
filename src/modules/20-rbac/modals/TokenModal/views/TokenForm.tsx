@@ -159,7 +159,7 @@ const TokenForm: React.FC<TokenModalData> = props => {
                     )}
                   </Layout.Vertical>
                 </Container>
-                <Layout.Horizontal>
+                <Layout.Horizontal spacing="small">
                   {token ? (
                     <Button text={getString('close')} onClick={onClose} variation={ButtonVariation.TERTIARY} />
                   ) : (
@@ -170,6 +170,7 @@ const TokenForm: React.FC<TokenModalData> = props => {
                       disabled={saving || updating}
                     />
                   )}
+                  <Button text={getString('cancel')} onClick={onClose} variation={ButtonVariation.TERTIARY} />
                 </Layout.Horizontal>
               </Form>
             )

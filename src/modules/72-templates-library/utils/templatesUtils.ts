@@ -10,16 +10,15 @@ export enum TemplateType {
   Execution = 'Execution'
 }
 
+export const AllTemplatesTypes = 'All'
+
 export interface TemplateTypeOption {
   label: string
   value: string
   disabled?: boolean
 }
 
-export const getAllowedTemplateTypes = (
-  getString: UseStringsReturn['getString'],
-  disableStageTemplates: boolean
-): TemplateTypeOption[] => [
+export const getAllowedTemplateTypes = (getString: UseStringsReturn['getString']): TemplateTypeOption[] => [
   {
     label: getString('step'),
     value: TemplateType.Step
@@ -27,7 +26,7 @@ export const getAllowedTemplateTypes = (
   {
     label: getString('templatesLibrary.stageTemplate'),
     value: TemplateType.Stage,
-    disabled: disableStageTemplates
+    disabled: window.location.origin === 'https://app.harness.io'
   },
   {
     label: getString('common.pipeline'),

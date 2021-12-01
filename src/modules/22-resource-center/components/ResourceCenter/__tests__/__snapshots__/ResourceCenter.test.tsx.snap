@@ -1,0 +1,293 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResourceCenter Should render resource center properly 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main resourceCenter"
+    style="width: 440px;"
+  >
+    <div
+      class="Layout--vertical StyledProps--main StyledProps--padding-xlarge StyledProps--flex StyledProps--flex-alignItems-baseline"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-white StyledProps--padding-bottom-medium"
+      >
+        resourceCenter.title
+      </p>
+      <img
+        alt="Resource center image"
+        height="106"
+        src="test-file-stub"
+      />
+    </div>
+    <div
+      class="Layout--vertical StyledProps--main middleregion StyledProps--padding-xlarge"
+    >
+      <div
+        class="Layout--horizontal StyledProps--main myticket StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-justifyContent-space-between"
+      >
+        <div
+          class="Layout--vertical StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h4 StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-primary3"
+          >
+            resourceCenter.ticketmenu.tickets
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-body2 StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
+          >
+            resourceCenter.ticketmenu.ticketsDesc
+          </p>
+        </div>
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+            icon="chevron-right"
+          >
+            <svg
+              data-icon="chevron-right"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                chevron-right
+              </desc>
+              <path
+                d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-top-medium StyledProps--flex StyledProps--flex-justifyContent-space-between"
+      >
+        <div
+          class="Layout--vertical StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h4 StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-primary3"
+          >
+            resourceCenter.ticketmenu.submit
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-body2 StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-white"
+          >
+            resourceCenter.ticketmenu.submitDesc
+          </p>
+        </div>
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon Button--variation Button--variation-icon"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+            icon="chevron-right"
+          >
+            <svg
+              data-icon="chevron-right"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                chevron-right
+              </desc>
+              <path
+                d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div
+      class="Layout--vertical StyledProps--main StyledProps--padding-xlarge"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-body2 StyledProps--padding-bottom-medium StyledProps--color StyledProps--color-white"
+      >
+        resourceCenter.bottomlayout.desc
+      </p>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-around"
+      >
+        <a
+          href="https://search.harness.io/"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <div
+            class="Layout--vertical Layout--layout-spacing-small StyledProps--main bottombutton StyledProps--flex StyledProps--flex-align-center-center StyledProps--padding-small"
+          >
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+              data-icon="thinner-search"
+            >
+              <svg
+                fill="none"
+                height="24"
+                viewBox="0 0 16 16"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-body2 StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-primary3"
+            >
+              search
+            </p>
+          </div>
+        </a>
+        <a
+          href="https://docs.harness.io/"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <div
+            class="Layout--vertical Layout--layout-spacing-small StyledProps--main bottombutton StyledProps--flex StyledProps--flex-align-center-center StyledProps--padding-small"
+          >
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+              data-icon="resource-center-docs-icon"
+            >
+              <svg
+                fill="none"
+                height="24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5 3.588h11l3 4v14H5v-18z"
+                  stroke="#fff"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <g
+                  opacity="0.5"
+                >
+                  <mask
+                    fill="#fff"
+                    id="resource-center-docs-icon_svg__a"
+                  >
+                    <path
+                      clip-rule="evenodd"
+                      d="M9 9.588a.5.5 0 000 1h6a.5.5 0 000-1H9zm-.5 3.5a.5.5 0 01.5-.5h6a.5.5 0 110 1H9a.5.5 0 01-.5-.5zm0 3a.5.5 0 01.5-.5h6a.5.5 0 110 1H9a.5.5 0 01-.5-.5z"
+                      fill-rule="evenodd"
+                    />
+                  </mask>
+                  <path
+                    d="M9.5 10.088a.5.5 0 01-.5.5v-2a1.5 1.5 0 00-1.5 1.5h2zm-.5-.5a.5.5 0 01.5.5h-2a1.5 1.5 0 001.5 1.5v-2zm6 0H9v2h6v-2zm-.5.5a.5.5 0 01.5-.5v2a1.5 1.5 0 001.5-1.5h-2zm.5.5a.5.5 0 01-.5-.5h2a1.5 1.5 0 00-1.5-1.5v2zm-6 0h6v-2H9v2zm0 1a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2zm6 0H9v2h6v-2zm1.5 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm-1.5 1.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-6 0h6v-2H9v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5v-2a.5.5 0 01.5.5h-2zm1.5 1.5a1.5 1.5 0 00-1.5 1.5h2a.5.5 0 01-.5.5v-2zm6 0H9v2h6v-2zm1.5 1.5a1.5 1.5 0 00-1.5-1.5v2a.5.5 0 01-.5-.5h2zm-1.5 1.5a1.5 1.5 0 001.5-1.5h-2a.5.5 0 01.5-.5v2zm-6 0h6v-2H9v2zm-1.5-1.5a1.5 1.5 0 001.5 1.5v-2a.5.5 0 01.5.5h-2z"
+                    fill="#F3F3FA"
+                    mask="url(#resource-center-docs-icon_svg__a)"
+                  />
+                </g>
+              </svg>
+            </span>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-body2 StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-primary3"
+            >
+              resourceCenter.bottomlayout.docs.text
+            </p>
+          </div>
+        </a>
+        <a
+          href="https://community.harness.io/"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <div
+            class="Layout--vertical Layout--layout-spacing-small StyledProps--main bottombutton StyledProps--flex StyledProps--flex-align-center-center StyledProps--padding-small"
+          >
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+              data-icon="resource-center-community-icon"
+            >
+              <svg
+                fill="none"
+                height="24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 13.588a4 4 0 100-8 4 4 0 000 8zm-7.418 7a8.003 8.003 0 0114.837 0H4.582z"
+                  stroke="#F3F3FA"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M10.5 10.838s.606.5 1.5.5 1.5-.5 1.5-.5"
+                  opacity="0.5"
+                  stroke="#F3F3FA"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-body2 StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-primary3"
+            >
+              resourceCenter.bottomlayout.community.text
+            </p>
+          </div>
+        </a>
+        <a
+          href="https://status.harness.io/"
+          rel="noreferrer"
+          target="_blank"
+        >
+          <div
+            class="Layout--vertical Layout--layout-spacing-small StyledProps--main bottombutton StyledProps--flex StyledProps--flex-align-center-center StyledProps--padding-small"
+          >
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+              data-icon="right-bar-notification"
+            >
+              <svg
+                fill="none"
+                height="24"
+                viewBox="0 0 20 20"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.167 10.05A5.833 5.833 0 0110 4.219v0-.885.885a5.833 5.833 0 015.833 5.833V15H8.765h2.445v1.666H8.765V15H4.166v-4.95z"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M10 5.833v0A4.167 4.167 0 005.833 10v.834"
+                  opacity="0.3"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-variation-body2 StyledProps--padding-bottom-xsmall StyledProps--color StyledProps--color-primary3"
+            >
+              resourceCenter.bottomlayout.sitestatus.text
+            </p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,6 +1,6 @@
 import { delay } from 'lodash-es'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
-import { Color, IconName } from '@wings-software/uicore'
+import { Color, IconName, Utils } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import type { CSSProperties } from 'react'
 import {
@@ -114,28 +114,32 @@ export const getNodeStyles = (
     switch (status) {
       case ExecutionStatusEnum.Success:
         style.borderColor = 'var(--execution-pipeline-color-blue)'
-        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-blue)' : 'var(--white)'
+        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-blue)' : Utils.getRealCSSColor(Color.WHITE)
         break
       case ExecutionStatusEnum.Running:
       case ExecutionStatusEnum.AsyncWaiting:
       case ExecutionStatusEnum.TaskWaiting:
       case ExecutionStatusEnum.TimedWaiting:
         style.borderColor = 'var(--execution-pipeline-color-blue)'
-        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-blue)' : 'var(--white)'
+        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-blue)' : Utils.getRealCSSColor(Color.WHITE)
         break
       case ExecutionStatusEnum.Paused:
         style.borderColor = 'var(--execution-pipeline-color-orange)'
-        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-orange)' : 'var(--white)'
+        style.backgroundColor = isSelected
+          ? 'var(--execution-pipeline-color-orange)'
+          : Utils.getRealCSSColor(Color.WHITE)
         break
       case ExecutionStatusEnum.InterventionWaiting:
       case ExecutionStatusEnum.ApprovalWaiting:
       case ExecutionStatusEnum.ResourceWaiting:
         style.borderColor = 'var(--execution-pipeline-color-orange2)'
-        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-orange)' : 'var(--white)'
+        style.backgroundColor = isSelected
+          ? 'var(--execution-pipeline-color-orange)'
+          : Utils.getRealCSSColor(Color.WHITE)
         break
       case ExecutionStatusEnum.NotStarted:
         style.borderColor = 'var(--execution-pipeline-color-dark-grey)'
-        style.backgroundColor = 'var(--white)'
+        style.backgroundColor = Utils.getRealCSSColor(Color.WHITE)
         break
       case ExecutionStatusEnum.Aborted:
         if (type === ExecutionPipelineNodeType.DIAMOND) {
@@ -143,14 +147,16 @@ export const getNodeStyles = (
           style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-red)' : 'var(--red-50)'
         } else {
           style.borderColor = 'var(--execution-pipeline-color-dark-grey2)'
-          style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-dark-grey2)' : 'var(--white)'
+          style.backgroundColor = isSelected
+            ? 'var(--execution-pipeline-color-dark-grey2)'
+            : Utils.getRealCSSColor(Color.WHITE)
         }
 
         break
       case ExecutionStatusEnum.ApprovalRejected:
       case ExecutionStatusEnum.Failed:
         style.borderColor = 'var(--execution-pipeline-color-dark-red)'
-        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-red)' : 'var(--white)'
+        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-red)' : Utils.getRealCSSColor(Color.WHITE)
         break
       default:
         break
@@ -303,7 +309,7 @@ export const getStatusProps = (
       case ExecutionStatusEnum.TimedWaiting:
         secondaryIcon = 'spinner'
         secondaryIconStyle.animation = `${css.rotate} 2s`
-        secondaryIconStyle.color = 'var(--white)'
+        secondaryIconStyle.color = Utils.getRealCSSColor(Color.WHITE)
         secondaryIconStyle.backgroundColor = 'var(--primary-7)'
         secondaryIconStyle.borderRadius = '50%'
         secondaryIconStyle.height = '15px'
@@ -315,7 +321,7 @@ export const getStatusProps = (
         secondaryIcon = 'stop'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         secondaryIconStyle.color = 'var(--grey-700)'
-        secondaryIconStyle.backgroundColor = 'var(--white)'
+        secondaryIconStyle.backgroundColor = Utils.getRealCSSColor(Color.WHITE)
         secondaryIconStyle.borderRadius = '50%'
         secondaryIconStyle.border = '1px solid var(--grey-700)'
         secondaryIconStyle.height = '16px'
@@ -339,7 +345,7 @@ export const getStatusProps = (
       case ExecutionStatusEnum.InterventionWaiting:
         secondaryIcon = 'waiting'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
-        secondaryIconStyle.color = 'var(--white)'
+        secondaryIconStyle.color = Utils.getRealCSSColor(Color.WHITE)
         secondaryIconStyle.backgroundColor = 'var(--execution-pipeline-color-orange2)'
         secondaryIconStyle.borderRadius = '50%'
         secondaryIconStyle.height = '16px'
@@ -361,14 +367,14 @@ export const getIconStyleBasedOnStatus = (
 ): React.CSSProperties => {
   let toReturn: CSSProperties = {}
   if (isSelected && status !== ExecutionStatusEnum.NotStarted) {
-    toReturn = { color: 'var(--white)' }
+    toReturn = { color: Utils.getRealCSSColor(Color.WHITE) }
   }
   if (status === ExecutionStatusEnum.Skipped || status === ExecutionStatusEnum.Expired) {
-    toReturn = { color: 'var(--grey-500)' }
+    toReturn = { color: Utils.getRealCSSColor(Color.GREEN_500) }
   }
 
   if (data.stepType === StepType.HarnessApproval && !isSelected) {
-    toReturn = { color: 'var(--primary-brand)' }
+    toReturn = { color: Utils.getRealCSSColor(Color.PRIMARY_5) }
   }
 
   return toReturn

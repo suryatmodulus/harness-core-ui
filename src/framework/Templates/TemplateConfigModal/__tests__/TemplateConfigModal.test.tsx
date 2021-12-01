@@ -23,11 +23,14 @@ const getProps = (): ConfigModalProps => ({
 describe('CREATE MODE', () => {
   test('VALIDATIONS', async () => {
     const props = getProps()
-    const { getByText, queryByText } = render(
+    const { container, getByText, queryByText } = render(
       <TestWrapper>
         <TemplateConfigModal {...props} />
       </TestWrapper>
     )
+    act(() => {
+      fireEvent.change(container.querySelector('input[name="name"]')!, { target: { value: '' } })
+    })
     act(() => {
       fireEvent.click(getByText('save'))
     })

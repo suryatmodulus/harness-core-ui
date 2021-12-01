@@ -29,7 +29,7 @@ export interface TemplateReducerState {
   template: NGTemplateInfoConfig
   yamlHandler?: YamlBuilderHandlerBinding
   originalTemplate: NGTemplateInfoConfig
-  stableVersion: boolean
+  stableVersion: string
   versions: string[]
   templateView: TemplateViewData
   templateIdentifier: string
@@ -44,7 +44,7 @@ export interface TemplateReducerState {
 export const initialState: TemplateReducerState = {
   template: { ...DefaultTemplate },
   originalTemplate: { ...DefaultTemplate },
-  stableVersion: true,
+  stableVersion: DefaultNewVersionLabel,
   versions: [DefaultNewVersionLabel],
   templateIdentifier: DefaultNewTemplateId,
   templateView: {

@@ -54,7 +54,7 @@ interface TemplateWithGitContextFormProps extends NGTemplateInfoConfig {
 }
 
 interface TemplateStudioSubHeaderLeftViewProps {
-  onGitBranchChange: (selectedFilter: GitFilterScope) => void
+  onGitBranchChange?: (selectedFilter: GitFilterScope) => void
 }
 
 export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLeftViewProps) => JSX.Element = ({
@@ -213,7 +213,7 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
   React.useEffect(() => {
     const newVersionOption: SelectOption[] = versions.map(item => {
       return {
-        label: item,
+        label: item === stableVersion ? item + ' (Stable)' : item,
         value: item
       }
     })
@@ -250,7 +250,7 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
               {template?.name}
             </Text>
             {!isNil(template?.tags) && !isEmpty(template?.tags) && <TagsPopover tags={template.tags} />}
-            {isGitSyncEnabled && (
+            {isGitSyncEnabled && onGitBranchChange && (
               <StudioGitPopover
                 gitDetails={gitDetails}
                 identifier={templateIdentifier}
@@ -269,7 +269,7 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
                 withoutCurrentColor
                 onClick={() => {
                   setModalProps({
-                    title: getString('templatesLibrary.createNewModal.editHeading'),
+                    title: getString('templatesLibrary.createNewModal.editHeading', { entity: template.type }),
                     promise: onSubmit,
                     onSuccess: () => {
                       hideConfigModal()
@@ -299,7 +299,7 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
             className={css.versionDropDown}
           />
         )}
-        {!stableVersion && !isUpdated && !isReadonly && (
+        {template.versionLabel !== stableVersion && !isUpdated && !isReadonly && (
           <Button
             onClick={openConfirmationDialog}
             variation={ButtonVariation.LINK}

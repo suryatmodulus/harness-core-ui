@@ -1,56 +1,101 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
+import * as cdngServices from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { FlagConfigurationStep } from '../FlagConfigurationStep'
+import { mockSetFlagSwitchFieldValues } from '../FlagChanges/subSections/__tests__/utils.mocks'
 
 jest.mock('services/cf', () => ({
-  useGetAllFeatures: jest.fn().mockReturnValue({ data: [], loading: false }),
-  useGetTargetsAndSegmentsInfo: jest.fn().mockReturnValue({ data: [], loading: false }),
-  useGetAllSegments: jest.fn().mockReturnValue({ data: [], loading: false }),
-  useGetAllTargetAttributes: jest.fn().mockReturnValue({ data: [], loading: false }),
-  useGetAllTargets: jest.fn().mockReturnValue({ data: [], loading: false })
+  useGetAllFeatures: jest
+    .fn()
+    .mockReturnValue({ data: { features: [{ identifier: 'f1', name: 'f1' }] }, loading: false, reload: jest.fn() })
 }))
 
-jest.mock('@cf/hooks/useEnvironmentSelectV2', () => ({
-  useEnvironmentSelectV2: jest.fn().mockReturnValue({ data: [], loading: false })
+jest.mock('../FlagChanges/FlagChangesForm', () => ({
+  __esModule: true,
+  default: () => <span />
 }))
 
 describe('FlagConfigurationStep', () => {
-  beforeEach(() => factory.registerStep(new FlagConfigurationStep()))
+  beforeEach(() => {
+    jest.spyOn(cdngServices, 'useGetEnvironmentList').mockReturnValue({
+      data: { data: { content: [{ environment: { name: 'e1', identifier: 'e1' } }] } },
+      loading: false,
+      error: null,
+      refetch: jest.fn()
+    } as any)
 
-  test('it should render in edit mode', async () => {
-    const { container } = render(
-      <TestStepWidget
-        initialValues={{
-          identifier: 'test123',
-          name: 'Test 123',
-          type: 'type',
-          spec: { featureFlag: 'testFlag', environment: 'dev', state: 'on' }
-        }}
-        type={StepType.FlagConfiguration}
-        stepViewType={StepViewType.Edit}
-      />
-    )
-
-    expect(container).toMatchSnapshot()
+    factory.registerStep(new FlagConfigurationStep())
   })
 
-  test('it should render in DeploymentForm mode', async () => {
-    const { container } = render(
-      <TestStepWidget
-        initialValues={{
-          identifier: 'test123',
-          name: 'Test 123',
-          type: 'type',
-          spec: { featureFlag: 'testFlag', environment: 'dev', state: 'on' }
-        }}
-        type={StepType.FlagConfiguration}
-        stepViewType={StepViewType.DeploymentForm}
-      />
-    )
+  describe('StepViewType.Edit', () => {
+    test('it should render in edit mode', async () => {
+      const { container } = render(
+        <TestStepWidget
+          initialValues={{
+            identifier: 'test123',
+            name: 'Test 123',
+            type: StepType.FlagConfiguration,
+            spec: {}
+          }}
+          type={StepType.FlagConfiguration}
+          stepViewType={StepViewType.Edit}
+        />
+      )
 
-    expect(container).toMatchSnapshot()
+      expect(container).toMatchSnapshot()
+    })
+
+    test('it should render disabled in edit mode', async () => {
+      const { container } = render(
+        <TestStepWidget
+          initialValues={{
+            identifier: 'test123',
+            name: 'Test 123',
+            type: StepType.FlagConfiguration,
+            spec: {}
+          }}
+          readonly
+          type={StepType.FlagConfiguration}
+          stepViewType={StepViewType.Edit}
+        />
+      )
+
+      expect(container).toMatchSnapshot()
+    })
+  })
+
+  describe('StepViewType.DeploymentForm', () => {
+    test('it should render in DeploymentForm mode', async () => {
+      const { container } = render(
+        <TestStepWidget
+          initialValues={{}}
+          path="stages[0].stage.spec.execution.steps[0].step"
+          allValues={{ spec: { environment: 'e1', feature: 'f1' } }}
+          template={{ spec: { instructions: RUNTIME_INPUT_VALUE } }}
+          type={StepType.FlagConfiguration}
+          stepViewType={StepViewType.DeploymentForm}
+        />
+      )
+
+      expect(container).toMatchSnapshot()
+    })
+  })
+
+  describe('StepViewType.InputVariable', () => {
+    test('it should render in InputVariable mode', async () => {
+      const { container } = render(
+        <TestStepWidget
+          initialValues={mockSetFlagSwitchFieldValues('on')}
+          type={StepType.FlagConfiguration}
+          stepViewType={StepViewType.InputVariable}
+        />
+      )
+
+      expect(container).toMatchSnapshot()
+    })
   })
 })

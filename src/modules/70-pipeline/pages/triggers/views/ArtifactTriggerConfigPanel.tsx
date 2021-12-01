@@ -161,11 +161,11 @@ const showAddArtifactManifest = ({
           fontWeight: 'normal',
           marginBottom: 'var(--spacing-small)'
         }}
-        data-tooltip-id="artifactManifestLabel"
+        data-tooltip-id="selectArtifactManifestLabel"
       >
         {isManifest ? getString('manifestsText') : getString(artifactStr)}
       </Label>
-      <HarnessDocTooltip tooltipId="artifactManifestLabel" useStandAlone={true} />
+      <HarnessDocTooltip tooltipId="selectArtifactManifestLabel" useStandAlone={true} />
       <Text
         data-name="plusAdd"
         style={{
@@ -286,8 +286,8 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
               artifact: artifactOrManifestText
             })}`
           : ''}
+        <HarnessDocTooltip tooltipId="artifactManifestLabel" useStandAlone={true} />
       </Text>
-      <HarnessDocTooltip tooltipId="artifactManifestLabel" useStandAlone={true} />
       <div className={css.formContent}>
         <NameIdDescriptionTags
           className={css.nameIdDescriptionTags}
@@ -304,8 +304,8 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
         {getString('pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact', {
           artifact: artifactOrManifestText
         })}
+        <HarnessDocTooltip tooltipId="listenOnNewArtifactManifest" useStandAlone={true} />
       </Text>
-      <HarnessDocTooltip tooltipId="listenOnNewArtifactManifest" useStandAlone={true} />
       <div className={css.formContent}>
         {appliedTableArtifact ? (
           showAppliedTableArtifact({

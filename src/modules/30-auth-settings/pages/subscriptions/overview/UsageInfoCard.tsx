@@ -16,10 +16,17 @@ function getInfoIcon(tooltip: string): React.ReactElement {
   )
 }
 
-function getPercentageBarProps(dividend?: number, divisor?: number): any {
+interface PercentageBarReturn {
+  width: number
+  color: Color
+  percentage: number
+  overPercentage?: number
+}
+
+function getPercentageBarProps(dividend?: number, divisor?: number): PercentageBarReturn {
   let width = 0,
     color = Color.PRIMARY_6,
-    percentage = undefined,
+    percentage = 0,
     overPercentage = undefined
   if (divisor && divisor > 0 && dividend && dividend >= 0) {
     percentage = (dividend * 100) / divisor
@@ -35,7 +42,7 @@ function getPercentageBarProps(dividend?: number, divisor?: number): any {
 }
 
 const PercentageSubscribedLabel: React.FC<{
-  overPercentage: number
+  overPercentage?: number
   percentage: number
   color: string
   label: string
@@ -67,20 +74,6 @@ interface UsageInfoCardProps {
   prefix?: string
 }
 
-function getLabel(value: number | undefined): string | number | undefined {
-  if (value && value >= 1000000) {
-    let roundValue = Math.round(value / 10000)
-    roundValue = Math.trunc(roundValue) / 100
-    return `${roundValue}M`
-  }
-  if (value && value >= 1000) {
-    let roundValue = Math.round(value / 10)
-    roundValue = Math.trunc(roundValue) / 100
-    return `${roundValue}K`
-  }
-  return value
-}
-
 const UsageInfoCard: React.FC<UsageInfoCardProps> = ({
   subscribed,
   usage,
@@ -93,6 +86,25 @@ const UsageInfoCard: React.FC<UsageInfoCardProps> = ({
   prefix
 }) => {
   const { overPercentage, percentage, width, color } = getPercentageBarProps(usage, subscribed)
+
+  const { getString } = useStrings()
+
+  function getLabel(value: number | undefined): string | number | undefined {
+    if (value && value >= 1000000) {
+      let roundValue = Math.round(value / 10000)
+      roundValue = Math.trunc(roundValue) / 100
+      return `${roundValue}M`
+    }
+    if (value && value >= 1000) {
+      let roundValue = Math.round(value / 10)
+      roundValue = Math.trunc(roundValue) / 100
+      return `${roundValue}K`
+    }
+    if (value === -1) {
+      return getString('common.unlimited')
+    }
+    return value
+  }
 
   return (
     <Card className={css.innerCard}>

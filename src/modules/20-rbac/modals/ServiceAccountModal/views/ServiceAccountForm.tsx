@@ -27,10 +27,11 @@ interface ServiceAccountModalData {
   data?: ServiceAccountDTO
   isEdit?: boolean
   onSubmit?: (serviceAccount: ServiceAccountDTO) => void
+  onClose?: () => void
 }
 
 const ServiceAccountForm: React.FC<ServiceAccountModalData> = props => {
-  const { data: serviceAccountData, onSubmit, isEdit } = props
+  const { data: serviceAccountData, onSubmit, isEdit, onClose } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
@@ -111,13 +112,14 @@ const ServiceAccountForm: React.FC<ServiceAccountModalData> = props => {
               </Layout.Horizontal>
               <DescriptionTags formikProps={formikProps} />
             </Container>
-            <Layout.Horizontal>
+            <Layout.Horizontal spacing="small">
               <Button
                 variation={ButtonVariation.PRIMARY}
                 text={getString('save')}
                 type="submit"
                 disabled={saving || updating}
               />
+              <Button text={getString('cancel')} onClick={onClose} variation={ButtonVariation.TERTIARY} />
             </Layout.Horizontal>
           </Form>
         )

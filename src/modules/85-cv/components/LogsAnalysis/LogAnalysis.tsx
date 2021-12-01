@@ -1,121 +1,202 @@
-import React, { useCallback, useMemo } from 'react'
-import { Color, Container, Icon, Pagination, Select, Text, NoDataCard } from '@wings-software/uicore'
+import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
+import {
+  Color,
+  Container,
+  Icon,
+  Pagination,
+  Select,
+  Heading,
+  NoDataCard,
+  Layout,
+  PageError,
+  Card,
+  FontVariation
+} from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import { useGetAllLogsClusterData, useGetAllLogsData } from 'services/cv'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { HealthSourceDropDown } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown'
 import noDataImage from '@cv/assets/noData.svg'
 import { LogAnalysisRow } from './components/LogAnalysisRow/LogAnalysisRow'
-import { getClusterTypes } from './LogAnalysis.utils'
-import type { LogAnalysisProps } from './LogAnalysis.types'
+import { getClusterTypes, getLogAnalysisTableData } from './LogAnalysis.utils'
+import { LogAnalysisContentProps, LogAnalysisProps, LogEvents } from './LogAnalysis.types'
+import { PAGE_SIZE } from './LogAnalysis.constants'
 import ClusterChart from './components/ClusterChart/ClusterChart'
 import { VerificationType } from '../HealthSourceDropDown/HealthSourceDropDown.constants'
-import { LogEvents } from './LogAnalysis.constants'
-import styles from './LogAnalysis.module.scss'
+import css from './LogAnalysis.module.scss'
 
-export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
-  const {
-    data,
-    logAnalysisTableData,
-    clusterChartData,
-    goToPage,
-    logsLoading,
-    clusterChartLoading,
-    setSelectedClusterType,
-    serviceIdentifier,
-    environmentIdentifier,
-    onChangeHealthSource,
-    showClusterChart
-  } = props
+const ClusterChartContainer: React.FC<LogAnalysisContentProps> = ({
+  serviceIdentifier,
+  environmentIdentifier,
+  startTime,
+  endTime,
+  logEvent,
+  healthSource
+}) => {
   const { getString } = useStrings()
+  const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
 
-  const clusterOptions = useMemo(() => getClusterTypes(getString), [])
-  const defaultClusterOption = useMemo(() => {
-    return getClusterTypes(getString)?.find(type => type.value === LogEvents.UNKNOWN_EVENT) || clusterOptions[0]
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clusterOptions])
-
-  const renderLogsData = useCallback(() => {
-    if (logsLoading) {
-      return (
-        <Container>
-          <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
-        </Container>
-      )
-    } else if (!logAnalysisTableData?.length) {
-      return (
-        <NoDataCard
-          className={styles.noData}
-          containerClassName={styles.noDataContainer}
-          message={getString('cv.monitoredServices.noAvailableData')}
-          image={noDataImage}
-        />
-      )
-    } else {
-      return <LogAnalysisRow data={logAnalysisTableData} />
+  const { data, loading, error, refetch } = useGetAllLogsClusterData({
+    queryParams: {
+      accountId,
+      orgIdentifier,
+      projectIdentifier,
+      serviceIdentifier,
+      environmentIdentifier,
+      startTime,
+      endTime,
+      clusterTypes: [logEvent],
+      healthSources: healthSource ? [healthSource] : undefined
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [logsLoading, logAnalysisTableData?.length])
+  })
 
-  const renderClusterChart = useCallback(() => {
-    if (clusterChartLoading) {
-      return (
-        <Container>
-          <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
-        </Container>
-      )
-    } else if (!clusterChartData?.resource?.length) {
-      return (
-        <Container>
-          <NoDataCard
-            className={styles.noData}
-            containerClassName={styles.noDataContainer}
-            message={<Text font={{ size: 'small' }}>{getString('cv.monitoredServices.noAvailableData')}</Text>}
-            image={noDataImage}
-            imageClassName={styles.logClusterNoDataImage}
-          />
-        </Container>
-      )
-    } else {
-      return <ClusterChart data={clusterChartData?.resource || []} />
+  if (loading) {
+    return (
+      <Container flex={{ justifyContent: 'center' }} margin={{ top: 'xxxlarge' }}>
+        <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
+      </Container>
+    )
+  }
+
+  if (error) {
+    return <PageError message={getErrorMessage(error)} onClick={() => refetch()} />
+  }
+
+  if (!data?.resource?.length) {
+    return (
+      <NoDataCard
+        image={noDataImage}
+        imageClassName={css.logClusterNoDataImage}
+        className={css.noData}
+        containerClassName={css.noDataContainer}
+        message={getString('cv.monitoredServices.noAvailableData')}
+      />
+    )
+  }
+
+  return <ClusterChart data={data.resource} />
+}
+
+const LogAnalysisContent: React.FC<LogAnalysisContentProps> = ({
+  serviceIdentifier,
+  environmentIdentifier,
+  startTime,
+  endTime,
+  logEvent,
+  healthSource
+}) => {
+  const { getString } = useStrings()
+  const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
+
+  const [page, setPage] = useState(0)
+
+  const { data, refetch, loading, error } = useGetAllLogsData({
+    queryParams: {
+      page,
+      size: PAGE_SIZE,
+      accountId,
+      orgIdentifier,
+      projectIdentifier,
+      serviceIdentifier,
+      environmentIdentifier,
+      startTime,
+      endTime,
+      clusterTypes: [logEvent],
+      healthSources: healthSource ? [healthSource] : undefined
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clusterChartData?.resource?.length, clusterChartLoading])
+  })
+
+  if (loading) {
+    return (
+      <Container flex={{ justifyContent: 'center' }} className={css.loadingContainer}>
+        <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
+      </Container>
+    )
+  }
+
+  if (error) {
+    return <PageError message={getErrorMessage(error)} onClick={() => refetch()} />
+  }
+
+  if (!data?.resource?.content?.length) {
+    return (
+      <NoDataCard
+        message={getString('cv.monitoredServices.noAvailableData')}
+        image={noDataImage}
+        containerClassName={css.logsAnalysisNoData}
+      />
+    )
+  }
+
+  const { pageSize = 0, totalPages = 0, totalItems = 0, pageIndex = 0 } = data.resource
 
   return (
-    <Container className={styles.logsContainer}>
-      <Container className={styles.filters}>
-        <Select
-          items={getClusterTypes(getString)}
-          defaultSelectedItem={defaultClusterOption}
-          className={styles.logsAnalysisFilters}
-          inputProps={{ placeholder: getString('pipeline.verification.logs.filterByClusterType') }}
-          onChange={setSelectedClusterType}
-        />
-        {serviceIdentifier && environmentIdentifier ? (
-          <HealthSourceDropDown
-            onChange={onChangeHealthSource}
-            className={styles.logsAnalysisFilters}
-            serviceIdentifier={serviceIdentifier}
-            environmentIdentifier={environmentIdentifier}
-            verificationType={VerificationType.LOG}
-          />
-        ) : null}
-      </Container>
-      {showClusterChart ? (
-        <Container className={styles.clusterChartContainer}>
-          <Text font={{ weight: 'bold' }}>{getString('pipeline.verification.logs.logCluster')}</Text>
-          <Container className={styles.clusterChart}>{renderClusterChart()}</Container>
-        </Container>
-      ) : null}
-      <Container className={styles.logsData}>{renderLogsData()}</Container>
-      {!!data?.resource?.totalPages && (
-        <Pagination
-          pageSize={data.resource.pageSize as number}
-          pageCount={data.resource.totalPages}
-          itemCount={data.resource.totalItems as number}
-          pageIndex={data.resource.pageIndex}
-          gotoPage={goToPage}
-        />
-      )}
-    </Container>
+    <>
+      <LogAnalysisRow data={getLogAnalysisTableData(data.resource.content)} />
+      <Pagination
+        pageSize={pageSize}
+        pageCount={totalPages}
+        itemCount={totalItems}
+        pageIndex={pageIndex}
+        gotoPage={setPage}
+      />
+    </>
   )
 }
+
+const LogAnalysis: React.FC<LogAnalysisProps> = ({ serviceIdentifier, environmentIdentifier, startTime, endTime }) => {
+  const { getString } = useStrings()
+
+  const [logEvent, setLogEvent] = useState<LogEvents>(LogEvents.UNKNOWN)
+  const [healthSource, setHealthSource] = useState<string>()
+
+  const clusterTypes = getClusterTypes(getString)
+
+  return (
+    <div className={css.container}>
+      <Layout.Horizontal spacing="medium" margin={{ bottom: 'medium' }}>
+        <Select
+          items={clusterTypes}
+          defaultSelectedItem={clusterTypes[2]}
+          className={css.logsAnalysisFilters}
+          inputProps={{ placeholder: getString('pipeline.verification.logs.filterByClusterType') }}
+          onChange={item => setLogEvent(item.value as LogEvents)}
+        />
+        <HealthSourceDropDown
+          onChange={setHealthSource}
+          className={css.logsAnalysisFilters}
+          serviceIdentifier={serviceIdentifier}
+          environmentIdentifier={environmentIdentifier}
+          verificationType={VerificationType.LOG}
+        />
+      </Layout.Horizontal>
+
+      <Card className={css.clusterChart}>
+        <Heading level={2} font={{ variation: FontVariation.CARD_TITLE }}>
+          {getString('pipeline.verification.logs.logCluster')}
+        </Heading>
+        <ClusterChartContainer
+          serviceIdentifier={serviceIdentifier}
+          environmentIdentifier={environmentIdentifier}
+          startTime={startTime}
+          endTime={endTime}
+          logEvent={logEvent}
+          healthSource={healthSource}
+        />
+      </Card>
+
+      <LogAnalysisContent
+        serviceIdentifier={serviceIdentifier}
+        environmentIdentifier={environmentIdentifier}
+        startTime={startTime}
+        endTime={endTime}
+        logEvent={logEvent}
+        healthSource={healthSource}
+      />
+    </div>
+  )
+}
+
+export default LogAnalysis

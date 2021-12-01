@@ -9,12 +9,14 @@ import { useStrings } from 'framework/strings'
 import { returnLaunchUrl } from '@common/utils/routeUtils'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { LaunchButton } from '../LaunchButton/LaunchButton'
 
 export default function AccountSideNav(): React.ReactElement {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { currentUserInfo } = useAppStore()
+  const { licenseInformation } = useLicenseStore()
   const { NG_LICENSES_ENABLED, OPA_PIPELINE_GOVERNANCE } = useFeatureFlags()
   const { accounts } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
@@ -32,10 +34,12 @@ export default function AccountSideNav(): React.ReactElement {
         <SidebarLink exact label={getString('common.subscriptions.title')} to={routes.toSubscriptions({ accountId })} />
       )}
       <SidebarLink label={getString('orgsText')} to={routes.toOrganizations({ accountId })} />
-      <LaunchButton
-        launchButtonText={getString('common.cgLaunchText')}
-        redirectUrl={returnLaunchUrl(`#/account/${accountId}/dashboard`)}
-      />
+      {!isCDCommunity(licenseInformation) && (
+        <LaunchButton
+          launchButtonText={getString('common.cgLaunchText')}
+          redirectUrl={returnLaunchUrl(`#/account/${accountId}/dashboard`)}
+        />
+      )}
     </Layout.Vertical>
   )
 }

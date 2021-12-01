@@ -116,7 +116,7 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
         className={cx(
           cssDefault.defaultCard,
           css.iconNode,
-          // { [cssDefault.selected]: props.node.isSelected() },
+          { [cssDefault.selected]: props.node.isSelected() },
           { [cssDefault.selected]: dropable }
         )}
         draggable={options.draggable}
@@ -155,6 +155,7 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
           <Icon
             name={options.icon as IconName}
             size={options.iconSize}
+            inverse={options.defaultSelected ?? props.node.isSelected()}
             style={{ pointerEvents: 'none', ...options.iconStyle }}
           />
           <div>
@@ -173,7 +174,8 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
           style={{
             cursor: 'pointer',
             lineHeight: '1.6',
-            overflowWrap: 'break-word',
+            overflowWrap: 'normal',
+            wordBreak: 'keep-all',
             marginLeft: '0px',
             marginRight: '0px'
           }}

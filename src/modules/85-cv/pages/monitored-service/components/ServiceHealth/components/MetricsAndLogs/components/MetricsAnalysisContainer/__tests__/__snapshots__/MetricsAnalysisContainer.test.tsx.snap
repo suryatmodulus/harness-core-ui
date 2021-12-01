@@ -3,142 +3,135 @@
 exports[`Unit tests for MetricsAnalysisContainer Verify if MetricsAnalysisContainer renders 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main main container"
+    class="container"
   >
     <div
-      class="StyledProps--font StyledProps--main content"
+      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-bottom-medium"
     >
       <div
-        class="StyledProps--font StyledProps--main filters"
+        class="bp3-popover-wrapper maxDropDownWidth Select--main bp3-fill"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--font-weight-bold"
-        >
-          RBAC.PERMISSIONLABELS.VIEW
-          :
-        </p>
         <div
-          class="bp3-popover-wrapper maxDropDownWidth Select--main bp3-fill"
+          class="bp3-popover-target"
         >
           <div
-            class="bp3-popover-target"
+            class="bp3-input-group"
           >
-            <div
-              class="bp3-input-group"
+            <input
+              autocomplete="off"
+              class="bp3-input"
+              placeholder="- Select -"
+              style="padding-right: 0px;"
+              type="text"
+              value="pipeline.verification.anomalousMetrics"
+            />
+            <span
+              class="bp3-input-action"
             >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                placeholder="- Select -"
-                style="padding-right: 0px;"
-                type="text"
-                value="Anomalous Metrics"
-              />
               <span
-                class="bp3-input-action"
+                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                icon="chevron-down"
               >
-                <span
-                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                  icon="chevron-down"
+                <svg
+                  data-icon="chevron-down"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  width="14"
                 >
-                  <svg
-                    data-icon="chevron-down"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
-                  >
-                    <desc>
-                      chevron-down
-                    </desc>
-                    <path
-                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
+                  <desc>
+                    chevron-down
+                  </desc>
+                  <path
+                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
               </span>
-            </div>
+            </span>
           </div>
-        </div>
-        <div
-          class="bp3-popover-wrapper maxDropDownWidth Select--main bp3-fill"
-        >
-          <div
-            class="bp3-popover-target"
-          >
-            <div
-              class="bp3-input-group"
-            >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                placeholder="pipeline.verification.healthSourcePlaceholder"
-                style="padding-right: 0px;"
-                type="text"
-                value=""
-              />
-              <span
-                class="bp3-input-action"
-              >
-                <span
-                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                  icon="chevron-down"
-                >
-                  <svg
-                    data-icon="chevron-down"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
-                  >
-                    <desc>
-                      chevron-down
-                    </desc>
-                    <path
-                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main filterBy   ExpandingSearchInput--light"
-          data-name=""
-        >
-          <span
-            class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
-            data-icon="thinner-search"
-          >
-            <svg
-              fill="none"
-              height="14"
-              viewBox="0 0 16 16"
-              width="14"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </span>
-          <input
-            class="bp3-input  ExpandingSearchInput--filter"
-            dir="auto"
-            placeholder="pipeline.verification.metricViewPlaceholder"
-            style="padding-right: 0px;"
-            type="search"
-            value=""
-          />
         </div>
       </div>
       <div
-        class="StyledProps--font StyledProps--main content"
+        class="bp3-popover-wrapper maxDropDownWidth Select--main bp3-fill"
       >
+        <div
+          class="bp3-popover-target"
+        >
+          <div
+            class="bp3-input-group"
+          >
+            <input
+              autocomplete="off"
+              class="bp3-input"
+              placeholder="pipeline.verification.healthSourcePlaceholder"
+              style="padding-right: 0px;"
+              type="text"
+              value=""
+            />
+            <span
+              class="bp3-input-action"
+            >
+              <span
+                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                icon="chevron-down"
+              >
+                <svg
+                  data-icon="chevron-down"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  width="14"
+                >
+                  <desc>
+                    chevron-down
+                  </desc>
+                  <path
+                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main    ExpandingSearchInput--light"
+        data-name=""
+        style="max-width: 250px;"
+      >
+        <span
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
+          data-icon="thinner-search"
+        >
+          <svg
+            fill="none"
+            height="14"
+            viewBox="0 0 16 16"
+            width="14"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+        <input
+          class="bp3-input  ExpandingSearchInput--filter"
+          dir="auto"
+          placeholder="pipeline.verification.metricViewPlaceholder"
+          style="padding-right: 0px;"
+          type="search"
+          value=""
+        />
+      </div>
+    </div>
+    <div
+      class="content"
+    >
+      <div>
         <div
           class="StyledProps--font StyledProps--main main"
           data-testid="metrics-analysis-row"
@@ -219,126 +212,122 @@ exports[`Unit tests for MetricsAnalysisContainer Verify if MetricsAnalysisContai
         />
       </div>
       <div
-        class="StyledProps--font StyledProps--main"
+        class="Layout--horizontal StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
       >
-        <div
-          class="Layout--horizontal StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
+        <span
+          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-variation-small-semi"
         >
-          <span
-            class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-variation-small-semi"
+          (1 - 10) of 34
+        </span>
+        <div
+          class="Layout--horizontal StyledProps--main"
+        >
+          <button
+            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Pagination--roundedButton Pagination--buttonLeft Button--with-current-color Button--withLeftIcon Button--size Button--small"
+            disabled=""
+            tabindex="-1"
+            type="button"
           >
-            (1 - 10) of 34
-          </span>
-          <div
-            class="Layout--horizontal StyledProps--main"
+            <span
+              class="bp3-icon bp3-icon-arrow-left StyledProps--main StyledProps--padding-right-xsmall"
+              icon="arrow-left"
+            >
+              <svg
+                data-icon="arrow-left"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  arrow-left
+                </desc>
+                <path
+                  d="M13.99 6.99H4.41L7.7 3.7a1.003 1.003 0 00-1.42-1.42l-5 5a1.014 1.014 0 000 1.42l5 5a1.003 1.003 0 001.42-1.42L4.41 8.99H14c.55 0 1-.45 1-1s-.46-1-1.01-1z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              class="bp3-button-text"
+            >
+              Prev
+            </span>
+          </button>
+          <button
+            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Pagination--roundedButton Pagination--selected Button--with-current-color"
+            disabled=""
+            tabindex="-1"
+            type="button"
           >
-            <button
-              class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Pagination--roundedButton Pagination--buttonLeft Button--with-current-color Button--withLeftIcon Button--size Button--small"
-              disabled=""
-              tabindex="-1"
-              type="button"
+            <span
+              class="bp3-button-text"
             >
-              <span
-                class="bp3-icon bp3-icon-arrow-left StyledProps--main StyledProps--padding-right-xsmall"
-                icon="arrow-left"
-              >
-                <svg
-                  data-icon="arrow-left"
-                  height="12"
-                  viewBox="0 0 16 16"
-                  width="12"
-                >
-                  <desc>
-                    arrow-left
-                  </desc>
-                  <path
-                    d="M13.99 6.99H4.41L7.7 3.7a1.003 1.003 0 00-1.42-1.42l-5 5a1.014 1.014 0 000 1.42l5 5a1.003 1.003 0 001.42-1.42L4.41 8.99H14c.55 0 1-.45 1-1s-.46-1-1.01-1z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <span
-                class="bp3-button-text"
-              >
-                Prev
-              </span>
-            </button>
-            <button
-              class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Pagination--roundedButton Pagination--selected Button--with-current-color"
-              disabled=""
-              tabindex="-1"
-              type="button"
+              1
+            </span>
+          </button>
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main Pagination--roundedButton Button--with-current-color"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
             >
-              <span
-                class="bp3-button-text"
-              >
-                1
-              </span>
-            </button>
-            <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Pagination--roundedButton Button--with-current-color"
-              type="button"
+              2
+            </span>
+          </button>
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main Pagination--roundedButton Button--with-current-color"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
             >
-              <span
-                class="bp3-button-text"
-              >
-                2
-              </span>
-            </button>
-            <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Pagination--roundedButton Button--with-current-color"
-              type="button"
+              3
+            </span>
+          </button>
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main Pagination--roundedButton Button--with-current-color"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
             >
-              <span
-                class="bp3-button-text"
-              >
-                3
-              </span>
-            </button>
-            <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Pagination--roundedButton Button--with-current-color"
-              type="button"
+              4
+            </span>
+          </button>
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main Pagination--roundedButton Pagination--buttonRight Button--with-current-color Button--withRightIcon Button--size Button--small"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
             >
-              <span
-                class="bp3-button-text"
-              >
-                4
-              </span>
-            </button>
-            <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Pagination--roundedButton Pagination--buttonRight Button--with-current-color Button--withRightIcon Button--size Button--small"
-              type="button"
+              Next
+            </span>
+            <span
+              class="bp3-icon bp3-icon-arrow-right StyledProps--main"
+              icon="arrow-right"
             >
-              <span
-                class="bp3-button-text"
+              <svg
+                data-icon="arrow-right"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
               >
-                Next
-              </span>
-              <span
-                class="bp3-icon bp3-icon-arrow-right StyledProps--main"
-                icon="arrow-right"
-              >
-                <svg
-                  data-icon="arrow-right"
-                  height="12"
-                  viewBox="0 0 16 16"
-                  width="12"
-                >
-                  <desc>
-                    arrow-right
-                  </desc>
-                  <path
-                    d="M14.7 7.29l-5-5a.965.965 0 00-.71-.3 1.003 1.003 0 00-.71 1.71l3.29 3.29H1.99c-.55 0-1 .45-1 1s.45 1 1 1h9.59l-3.29 3.29a1.003 1.003 0 001.42 1.42l5-5c.18-.18.29-.43.29-.71s-.12-.52-.3-.7z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
-          <span>
-            Showing 10 per page
-          </span>
+                <desc>
+                  arrow-right
+                </desc>
+                <path
+                  d="M14.7 7.29l-5-5a.965.965 0 00-.71-.3 1.003 1.003 0 00-.71 1.71l3.29 3.29H1.99c-.55 0-1 .45-1 1s.45 1 1 1h9.59l-3.29 3.29a1.003 1.003 0 001.42 1.42l5-5c.18-.18.29-.43.29-.71s-.12-.52-.3-.7z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
         </div>
+        <span>
+          Showing 10 per page
+        </span>
       </div>
     </div>
   </div>

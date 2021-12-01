@@ -1,0 +1,20 @@
+.commentsDialog {
+  width: 570px;
+  padding-bottom: 0;
+  overflow: hidden;
+  position: relative;
+}
+.main {
+  overflow-wrap: anywhere;
+  :global(.bp3-form-group) {
+    margin-bottom: 0px;
+    textarea {
+      min-height: 110px !important;
+      max-height: 240px !important;
+      resize: vertical;
+    }
+  }
+  .infoText {
+    font-size: 13px !important;
+  }
+}

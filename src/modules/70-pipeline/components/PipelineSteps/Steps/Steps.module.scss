@@ -162,7 +162,15 @@
 }
 
 .topSpacingLarge {
-  margin-top: var(--spacing-large);
+  margin-top: var(--spacing-large) !important;
+}
+
+.topMargin4 {
+  margin-top: var(--spacing-4) !important;
+}
+
+.topMargin5 {
+  margin-top: var(--spacing-5) !important;
 }
 
 .bottomMargin1 {

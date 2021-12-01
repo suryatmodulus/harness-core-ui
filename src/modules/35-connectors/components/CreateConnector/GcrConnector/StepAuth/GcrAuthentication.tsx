@@ -7,12 +7,10 @@ import {
   FormikForm as Form,
   StepProps,
   Container,
-  CardSelect,
-  Color,
-  Icon,
-  PageSpinner
+  PageSpinner,
+  ThumbnailSelect,
+  FontVariation
 } from '@wings-software/uicore'
-import cx from 'classnames'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import {
@@ -43,7 +41,7 @@ interface StepConfigureProps {
 }
 
 interface GCPFormInterface {
-  delegateType: string
+  delegateType?: string
   password: SecretReferenceInterface | void
 }
 const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticationProps> = props => {
@@ -52,7 +50,6 @@ const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticat
   const { getString } = useStrings()
 
   const defaultInitialFormData: GCPFormInterface = {
-    delegateType: DelegateTypes.DELEGATE_OUT_CLUSTER,
     password: undefined
   }
 
@@ -93,7 +90,7 @@ const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticat
     <PageSpinner />
   ) : (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
-      <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
+      <Text font={{ variation: FontVariation.H3 }} tooltipProps={{ dataTooltipId: 'gcpAuthenticationDetails' }}>
         {getString('details')}
       </Text>
       <Formik
@@ -103,6 +100,7 @@ const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticat
         }}
         formName="gcrAuthForm"
         validationSchema={Yup.object().shape({
+          delegateType: Yup.string().required(getString('connectors.chooseMethodForGCPConnection')),
           password: Yup.object().when('delegateType', {
             is: DelegateTypes.DELEGATE_OUT_CLUSTER,
             then: Yup.object().required(getString('validation.encryptedKey'))
@@ -113,29 +111,14 @@ const GcrAuthentication: React.FC<StepProps<StepConfigureProps> & GcrAuthenticat
         {formikProps => (
           <Form>
             <Container className={css.clusterWrapper}>
-              <CardSelect
-                onChange={(item: DelegateCardInterface) => {
-                  formikProps?.setFieldValue('delegateType', item.type)
+              <ThumbnailSelect
+                items={DelegateCards.map(card => ({ label: card.info, value: card.type }))}
+                name="delegateType"
+                size="large"
+                onChange={type => {
+                  formikProps?.setFieldValue('delegateType', type)
                 }}
-                data={DelegateCards}
-                className={css.cardRow}
-                renderItem={(item: DelegateCardInterface) => {
-                  return (
-                    <Container
-                      className={cx(css.card, { [css.selectedCard]: item.type === formikProps.values.delegateType })}
-                    >
-                      <Text inline className={css.textInfo}>
-                        {item.info}
-                      </Text>
-                      {item.type === formikProps.values.delegateType ? (
-                        <Icon margin="small" name="deployment-success-new" size={16} />
-                      ) : null}
-                    </Container>
-                  )
-                }}
-                selected={DelegateCards[DelegateCards.findIndex(card => card.type === formikProps.values.delegateType)]}
               />
-
               {DelegateTypes.DELEGATE_OUT_CLUSTER === formikProps.values.delegateType ? (
                 <SecretInput name={'password'} label={getString('encryptedKeyLabel')} type={'SecretFile'} />
               ) : null}

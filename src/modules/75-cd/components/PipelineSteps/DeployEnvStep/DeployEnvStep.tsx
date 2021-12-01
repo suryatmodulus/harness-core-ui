@@ -401,7 +401,9 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           ...{ environmentRef }
         }}
         validationSchema={Yup.object().shape({
-          environmentRef: Yup.string().trim().required(getString('pipelineSteps.environmentTab.environmentIsRequired'))
+          environmentRef: Yup.string()
+            .trim()
+            .required(getString('cd.pipelineSteps.environmentTab.environmentIsRequired'))
         })}
       >
         {formik => {
@@ -416,13 +418,13 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                 flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}
               >
                 <FormInput.MultiTypeInput
-                  label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
+                  label={getString('cd.pipelineSteps.environmentTab.specifyYourEnvironment')}
                   tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
                   name="environmentRef"
                   useValue
                   disabled={readonly || (type === MultiTypeInputType.FIXED && loading)}
                   placeholder={
-                    loading ? getString('loading') : getString('pipelineSteps.environmentTab.selectEnvironment')
+                    loading ? getString('loading') : getString('cd.pipelineSteps.environmentTab.selectEnvironment')
                   }
                   multiTypeInputProps={{
                     onTypeChange: setType,
@@ -479,7 +481,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                     text={
                       isEditEnvironment(values)
                         ? getString('editEnvironment')
-                        : getString('pipelineSteps.environmentTab.newEnvironment')
+                        : getString('cd.pipelineSteps.environmentTab.plusNewEnvironment')
                     }
                   />
                 )}
@@ -600,10 +602,10 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
       {getMultiTypeFromValue(inputSetData?.template?.environmentRef) === MultiTypeInputType.RUNTIME && (
         <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
           <FormInput.MultiTypeInput
-            label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
+            label={getString('cd.pipelineSteps.environmentTab.specifyYourEnvironment')}
             tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}environmentRef`}
-            placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
+            placeholder={getString('cd.pipelineSteps.environmentTab.selectEnvironment')}
             selectItems={environments}
             useValue
             multiTypeInputProps={{
@@ -638,7 +640,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
               text={
                 isEditEnvironment(initialValues)
                   ? getString('editEnvironment')
-                  : getString('pipelineSteps.environmentTab.newEnvironment')
+                  : getString('cd.pipelineSteps.environmentTab.plusNewEnvironment')
               }
             />
           )}
@@ -737,7 +739,7 @@ export class DeployEnvironmentStep extends Step<DeployEnvData> {
       isRequired &&
       getMultiTypeFromValue(template?.environmentRef) === MultiTypeInputType.RUNTIME
     ) {
-      errors.environmentRef = getString?.('pipelineSteps.environmentTab.environmentIsRequired')
+      errors.environmentRef = getString?.('cd.pipelineSteps.environmentTab.environmentIsRequired')
     }
     return errors
   }

@@ -12,6 +12,7 @@ declare const styles: {
   readonly row: string
   readonly diff: string
   readonly diffNegative: string
+  readonly failedNumber: string
   readonly timeSaved: string
   readonly overview: string
   readonly linesWrapper: string
@@ -33,6 +34,12 @@ declare const styles: {
   readonly name: string
   readonly commitHash: string
   readonly method: string
+  readonly tiCallToActionWrapper: string
+  readonly subText: string
+  readonly actionsContainer: string
+  readonly upgradeRequiredWrapper: string
+  readonly findOutMoreBtn: string
+  readonly tiUpgradeImage: string
   readonly testCasesHeader: string
   readonly rightContainer: string
   readonly testsSelectionBreakdown: string

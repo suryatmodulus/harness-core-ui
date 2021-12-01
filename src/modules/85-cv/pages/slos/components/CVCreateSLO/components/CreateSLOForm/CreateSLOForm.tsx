@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { Container, Tab, Tabs } from '@wings-software/uicore'
+import { isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { CreateSLOEnum } from './CreateSLO.constants'
 
@@ -8,6 +9,7 @@ import SLOName from './components/SLOName/SLOName'
 import SLI from './components/SLI/SLI'
 import SLOTargetAndBudgetPolicy from './components/SLOTargetAndBudgetPolicy/SLOTargetAndBudgetPolicy'
 import type { CreateSLOFormProps } from './CreateSLO.types'
+import { validateSLOForm } from './CreateSLO.utils'
 import css from './CreateSLO.module.scss'
 
 export default function CreateSLOForm(props: CreateSLOFormProps): JSX.Element {
@@ -20,10 +22,11 @@ export default function CreateSLOForm(props: CreateSLOFormProps): JSX.Element {
       selectedTabId,
       setSelectedTabId,
       getString,
-      submitForm: formikProps.submitForm
+      formikProps
     }
     return <NavButtons {...navButtonProps} />
-  }, [formikProps.submitForm, getString, selectedTabId])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formikProps, selectedTabId])
 
   return (
     <>
@@ -31,7 +34,12 @@ export default function CreateSLOForm(props: CreateSLOFormProps): JSX.Element {
         <Tabs
           id="createSLOTabs"
           selectedTabId={selectedTabId}
-          onChange={nextTab => setSelectedTabId(nextTab as CreateSLOEnum)}
+          onChange={nextTab => {
+            const errors = validateSLOForm(formikProps, selectedTabId, getString)
+            if (isEmpty(errors)) {
+              setSelectedTabId(nextTab as CreateSLOEnum)
+            }
+          }}
         >
           <Tab
             id={CreateSLOEnum.NAME}

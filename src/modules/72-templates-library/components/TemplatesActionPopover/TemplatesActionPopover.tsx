@@ -19,7 +19,7 @@ export interface TemplatesActionPopoverProps extends PopoverProps {
   className?: string
 }
 export const TemplatesActionPopover = (props: React.PropsWithChildren<TemplatesActionPopoverProps>) => {
-  const { items, open, children, setMenuOpen, className, content, ...popoverProps } = props
+  const { items, open, children, setMenuOpen, className, content, portalClassName, ...popoverProps } = props
 
   return (
     <Popover
@@ -29,7 +29,7 @@ export const TemplatesActionPopover = (props: React.PropsWithChildren<TemplatesA
       }}
       position={Position.BOTTOM_RIGHT}
       className={cx(css.main, className)}
-      portalClassName={css.popover}
+      portalClassName={cx(css.popover, portalClassName)}
       {...popoverProps}
     >
       {children}

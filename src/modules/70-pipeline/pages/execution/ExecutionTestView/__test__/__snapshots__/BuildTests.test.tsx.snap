@@ -1212,14 +1212,15 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
   >
     <div
       class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-bottom-small StyledProps--margin-bottom-medium"
-      style="border-bottom: 1px solid #D9DAE6;"
+      style="border-bottom: 1px solid #D9DAE6; justify-content: initial;"
     >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
-        style="color: rgb(34, 34, 42);"
+      <h5
+        class="StyledProps--font StyledProps--font-h5 StyledProps--main StyledProps--color StyledProps--color-black"
+        level="5"
+        style="font-weight: 600;"
       >
         pipeline.testsReports.testExecutions
-      </p>
+      </h5>
       <div
         style="width: 375px;"
       >
@@ -1278,12 +1279,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
           class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-xsmall"
           style="height: 32px; flex-shrink: 0;"
         >
-          <h2
-            class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-right-medium"
-            level="2"
+          <h6
+            class="StyledProps--font StyledProps--font-h6 StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--margin-right-medium"
+            data-name="test-execution-overview"
+            level="6"
+            style="font-weight: 600;"
           >
             overview
-          </h2>
+          </h6>
           <span
             class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey400"
             style="display: inline-flex; align-items: center;"
@@ -6806,41 +6809,14 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
         <div
           class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-xsmall"
         >
-          <h2
-            class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
-            level="2"
+          <h6
+            class="StyledProps--font StyledProps--font-h6 StyledProps--main StyledProps--color StyledProps--color-grey600"
+            data-name="test-executions"
+            level="6"
+            style="font-weight: 600;"
           >
             pipeline.testsReports.testExecutions
-          </h2>
-          <span
-            class="bp3-popover-wrapper"
-          >
-            <span
-              class="bp3-popover-target"
-            >
-              <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--margin-left-xsmall Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="question"
-                >
-                  <svg
-                    height="14"
-                    viewBox="0 0 14 14"
-                    width="14"
-                  >
-                    <path
-                      d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                      fill="#9AA5B5"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </span>
-          </span>
+          </h6>
         </div>
         <div
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main widget StyledProps--padding-xlarge"
@@ -13951,14 +13927,15 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
   >
     <div
       class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-bottom-small StyledProps--margin-bottom-medium"
-      style="border-bottom: 1px solid #D9DAE6;"
+      style="border-bottom: 1px solid #D9DAE6; justify-content: initial;"
     >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
-        style="color: rgb(34, 34, 42);"
+      <h5
+        class="StyledProps--font StyledProps--font-h5 StyledProps--main StyledProps--color StyledProps--color-black"
+        level="5"
+        style="font-weight: 600;"
       >
         pipeline.testsReports.testExecutions
-      </p>
+      </h5>
       <div
         style="width: 375px;"
       >
@@ -14017,12 +13994,13 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
           class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-xsmall"
           style="height: 32px; flex-shrink: 0;"
         >
-          <h2
-            class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-right-medium"
-            level="2"
+          <h6
+            class="StyledProps--font StyledProps--font-h6 StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--margin-right-medium"
+            level="6"
+            style="font-weight: 600;"
           >
             pipeline.testsReports.executionOverview
-          </h2>
+          </h6>
         </div>
         <div
           class="StyledProps--font StyledProps--main"
@@ -14073,6 +14051,26 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
             </p>
             <p
               class="StyledProps--font StyledProps--main stats StyledProps--padding-medium StyledProps--color StyledProps--color-grey700"
+            >
+              <p
+                class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-large"
+              >
+                pipeline.duration
+              </p>
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey700"
+                style="font-size: 32px; font-weight: 600;"
+              >
+                 
+                1s
+              </span>
+            </p>
+          </div>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main stats StyledProps--padding-medium StyledProps--color StyledProps--color-grey700"
               style="position: relative;"
             >
               <p
@@ -14098,31 +14096,11 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
                 />
               </div>
             </p>
-          </div>
-          <div
-            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main stats StyledProps--padding-medium StyledProps--color StyledProps--color-grey700"
-            >
-              <p
-                class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-large"
-              >
-                pipeline.testsReports.testDuration
-              </p>
-              <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey700"
-                style="font-size: 32px; font-weight: 600;"
-              >
-                 
-                1s
-              </span>
-            </p>
             <p
               class="StyledProps--font StyledProps--main stats timeSaved StyledProps--padding-medium StyledProps--color StyledProps--color-white"
             >
               <p
-                class="StyledProps--font StyledProps--main statsTitle StyledProps--color StyledProps--color-purple700 StyledProps--margin-bottom-large"
+                class="StyledProps--font StyledProps--main statsTitle StyledProps--color StyledProps--color-white StyledProps--margin-bottom-large"
               >
                 pipeline.testsReports.timeSaved
               </p>
@@ -14141,41 +14119,14 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
         <div
           class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-xsmall"
         >
-          <h2
-            class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
-            level="2"
+          <h6
+            class="StyledProps--font StyledProps--font-h6 StyledProps--main StyledProps--color StyledProps--color-grey600"
+            data-name="test-execution-selection-breakdown"
+            level="6"
+            style="font-weight: 600;"
           >
             pipeline.testsReports.selectionBreakdown
-          </h2>
-          <span
-            class="bp3-popover-wrapper"
-          >
-            <span
-              class="bp3-popover-target"
-            >
-              <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--margin-left-xsmall Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="question"
-                >
-                  <svg
-                    height="14"
-                    viewBox="0 0 14 14"
-                    width="14"
-                  >
-                    <path
-                      d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                      fill="#9AA5B5"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </span>
-          </span>
+          </h6>
         </div>
         <div
           class="StyledProps--font StyledProps--main widget"
@@ -14273,14 +14224,15 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
   >
     <div
       class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--padding-bottom-small StyledProps--margin-bottom-medium"
-      style="border-bottom: 1px solid #D9DAE6;"
+      style="border-bottom: 1px solid #D9DAE6; justify-content: initial;"
     >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
-        style="color: rgb(34, 34, 42);"
+      <h5
+        class="StyledProps--font StyledProps--font-h5 StyledProps--main StyledProps--color StyledProps--color-black"
+        level="5"
+        style="font-weight: 600;"
       >
         pipeline.testsReports.testExecutions
-      </p>
+      </h5>
       <div
         style="width: 375px;"
       >
@@ -14339,12 +14291,13 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
           class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-xsmall"
           style="height: 32px; flex-shrink: 0;"
         >
-          <h2
-            class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-right-medium"
-            level="2"
+          <h6
+            class="StyledProps--font StyledProps--font-h6 StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--margin-right-medium"
+            level="6"
+            style="font-weight: 600;"
           >
             pipeline.testsReports.executionOverview
-          </h2>
+          </h6>
         </div>
         <div
           class="StyledProps--font StyledProps--main"
@@ -14395,6 +14348,26 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
             </p>
             <p
               class="StyledProps--font StyledProps--main stats StyledProps--padding-medium StyledProps--color StyledProps--color-grey700"
+            >
+              <p
+                class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-large"
+              >
+                pipeline.duration
+              </p>
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey700"
+                style="font-size: 32px; font-weight: 600;"
+              >
+                 
+                1s
+              </span>
+            </p>
+          </div>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main stats StyledProps--padding-medium StyledProps--color StyledProps--color-grey700"
               style="position: relative;"
             >
               <p
@@ -14420,31 +14393,11 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 />
               </div>
             </p>
-          </div>
-          <div
-            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main stats StyledProps--padding-medium StyledProps--color StyledProps--color-grey700"
-            >
-              <p
-                class="StyledProps--font StyledProps--main statsTitle StyledProps--margin-bottom-large"
-              >
-                pipeline.testsReports.testDuration
-              </p>
-              <span
-                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-grey700"
-                style="font-size: 32px; font-weight: 600;"
-              >
-                 
-                1s
-              </span>
-            </p>
             <p
               class="StyledProps--font StyledProps--main stats timeSaved StyledProps--padding-medium StyledProps--color StyledProps--color-white"
             >
               <p
-                class="StyledProps--font StyledProps--main statsTitle StyledProps--color StyledProps--color-purple700 StyledProps--margin-bottom-large"
+                class="StyledProps--font StyledProps--main statsTitle StyledProps--color StyledProps--color-white StyledProps--margin-bottom-large"
               >
                 pipeline.testsReports.timeSaved
               </p>
@@ -14463,41 +14416,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
         <div
           class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-xsmall"
         >
-          <h2
-            class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
-            level="2"
+          <h6
+            class="StyledProps--font StyledProps--font-h6 StyledProps--main StyledProps--color StyledProps--color-grey600"
+            data-name="test-execution-result-label"
+            level="6"
+            style="font-weight: 600;"
           >
             pipeline.testsReports.resultLabel
-          </h2>
-          <span
-            class="bp3-popover-wrapper"
-          >
-            <span
-              class="bp3-popover-target"
-            >
-              <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--margin-left-xsmall Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="question"
-                >
-                  <svg
-                    height="14"
-                    viewBox="0 0 14 14"
-                    width="14"
-                  >
-                    <path
-                      d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                      fill="#9AA5B5"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </span>
-          </span>
+          </h6>
         </div>
         <div
           class="StyledProps--font StyledProps--main widget StyledProps--padding-medium"
@@ -19970,41 +19896,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
         <div
           class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-xsmall"
         >
-          <h2
-            class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
-            level="2"
+          <h6
+            class="StyledProps--font StyledProps--font-h6 StyledProps--main StyledProps--color StyledProps--color-grey600"
+            data-name="test-execution-selection-breakdown"
+            level="6"
+            style="font-weight: 600;"
           >
             pipeline.testsReports.selectionBreakdown
-          </h2>
-          <span
-            class="bp3-popover-wrapper"
-          >
-            <span
-              class="bp3-popover-target"
-            >
-              <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--margin-left-xsmall Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="question"
-                >
-                  <svg
-                    height="14"
-                    viewBox="0 0 14 14"
-                    width="14"
-                  >
-                    <path
-                      d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                      fill="#9AA5B5"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </span>
-          </span>
+          </h6>
         </div>
         <div
           class="StyledProps--font StyledProps--main widget"
@@ -20100,41 +19999,14 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
         <div
           class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--margin-bottom-xsmall"
         >
-          <h2
-            class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
-            level="2"
+          <h6
+            class="StyledProps--font StyledProps--font-h6 StyledProps--main StyledProps--color StyledProps--color-grey600"
+            data-name="test-executions"
+            level="6"
+            style="font-weight: 600;"
           >
             pipeline.testsReports.testExecutions
-          </h2>
-          <span
-            class="bp3-popover-wrapper"
-          >
-            <span
-              class="bp3-popover-target"
-            >
-              <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--margin-left-xsmall Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="question"
-                >
-                  <svg
-                    height="14"
-                    viewBox="0 0 14 14"
-                    width="14"
-                  >
-                    <path
-                      d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                      fill="#9AA5B5"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </span>
-          </span>
+          </h6>
         </div>
         <div
           class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main widget StyledProps--padding-xlarge"
@@ -27616,71 +27488,49 @@ exports[`BuildTests snapshot test should render ZeroState UI 1`] = `
     <div
       class="Layout--vertical StyledProps--main loadingContainer"
     >
-      <span
-        class="bp3-icon StyledProps--main"
-        data-icon="report-gear-grey"
-        style="margin: 0px auto;"
-      >
-        <svg
-          fill="none"
-          height="100"
-          viewBox="0 0 86 71"
-          width="100"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M74.284 15.238H11.428a5.714 5.714 0 00-5.714 5.714v40a5.714 5.714 0 005.714 5.714h62.856a5.714 5.714 0 005.714-5.714v-40a5.714 5.714 0 00-5.714-5.714z"
-            fill="#6b6d85"
-          />
-          <path
-            d="M19.047.15h47.618a5.564 5.564 0 015.564 5.564v56.992H13.483V5.714A5.564 5.564 0 0119.047.15z"
-            fill="#f3f3fa"
-            stroke="#000"
-            stroke-width="0.3"
-          />
-          <path
-            d="M19.047 5.715h3.81v3.81h-3.81zM26.666 5.715h3.81v3.81h-3.81zM34.285 5.715h3.81v3.81h-3.81zM19.047 13.332h47.618v3.81H19.047zM19.047 20.953h11.428v3.81H19.047zM19.047 28.574h7.619v3.81h-7.62z"
-            fill="#9293ab"
-          />
-          <g
-            fill="#b0b1c4"
-          >
-            <path
-              d="M22.857 45.719h3.81v5.714h-3.81zM30.476 36.191h3.81V51.43h-3.81zM38.095 40.004h3.81v11.428h-3.81zM45.714 30.48h3.81v20.952h-3.81zM53.333 34.285h3.81v17.143h-3.81zM60.952 22.86h3.81v28.57h-3.81z"
-            />
-            <path
-              d="M19.048 49.527h47.618v3.81H19.048z"
-            />
-          </g>
-          <path
-            d="M51.427 60.952a6.503 6.503 0 01-4.598 1.904h-7.946c-1.724 0-3.379-.685-4.598-1.904s-2.874-1.905-4.599-1.905H0v5.714a5.714 5.714 0 005.714 5.714h74.284a5.714 5.714 0 005.714-5.714v-5.714H56.026a6.503 6.503 0 00-4.599 1.905z"
-            fill="#d9dae6"
-          />
-        </svg>
-      </span>
+      <img
+        alt=""
+        src="test-file-stub"
+      />
       <p
-        class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-top-medium"
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--padding-top-medium"
+        style="font-size: 20px; font-weight: 600;"
       >
-        pipeline.testsReports.nothing
+        pipeline.testsReports.noTestResults
       </p>
       <p
         class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--padding-bottom-large"
+        style="font-size: 16px;"
       >
-        pipeline.testsReports.notfound
+        pipeline.testsReports.testsWillAppear
       </p>
       <a
-        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--link"
         href="https://ngdocs.harness.io/category/zkhvfo7uc6-ci-how-tos"
-        rel="noreferrer noopener"
-        role="button"
-        tabindex="0"
+        rel="noreferrer"
         target="_blank"
       >
-        <span
-          class="bp3-button-text"
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary6 StyledProps--flex StyledProps--flex-align-center-center"
+          style="font-size: 16px; display: flex; align-items: center;"
         >
-          pipeline.testsReports.learnMore
-        </span>
+          learnMore
+          <span
+            class="bp3-icon StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-primary6"
+            data-icon="main-share"
+          >
+            <svg
+              height="16"
+              viewBox="0 0 14 14"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.5 12.6H1.4V3.5h6.1l1.4-1.4H.7c-.4 0-.7.3-.7.7v10.5c0 .4.3.7.7.7h10.5c.4 0 .7-.3.7-.7V5.1l-1.4 1.4zM13.3 0H8.4c-.4 0-.7.3-.7.7s.3.7.7.7h3.2L6.5 6.5c-.1.1-.2.3-.2.5 0 .4.3.7.7.7.2 0 .4-.1.5-.2l5.1-5.1v3.2c0 .4.3.7.7.7s.7-.3.7-.7V.7c0-.4-.3-.7-.7-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
+        </p>
       </a>
     </div>
   </div>

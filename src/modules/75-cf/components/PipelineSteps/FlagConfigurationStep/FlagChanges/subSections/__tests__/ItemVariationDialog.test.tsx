@@ -4,17 +4,12 @@ import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { Target, Variation } from 'services/cf'
 import ItemVariationDialog, { ItemVariationDialogProps } from '../ItemVariationDialog'
+import { mockVariations } from './utils.mocks'
 
 const mockItems: ItemVariationDialogProps['items'] = [
   { identifier: 'i1', name: 'Item 1' },
   { identifier: 'i2', name: 'Item 2' },
   { identifier: 'i3', name: 'Item 3' }
-]
-
-const mockVariations: Partial<Variation>[] = [
-  { identifier: 'v1', name: 'Variation 1' },
-  { identifier: 'v2' },
-  { identifier: 'v3', name: 'Variation 3' }
 ]
 
 const renderComponent = (props: Partial<ItemVariationDialogProps> = {}): RenderResult =>
@@ -28,7 +23,7 @@ const renderComponent = (props: Partial<ItemVariationDialogProps> = {}): RenderR
         closeDialog={jest.fn()}
         items={mockItems}
         selectedItems={[]}
-        variations={mockVariations as Variation[]}
+        variations={mockVariations}
         onChange={jest.fn()}
         {...props}
       />
@@ -48,7 +43,7 @@ describe('ItemVariationDialog', () => {
           closeDialog={jest.fn()}
           items={mockItems}
           selectedItems={[]}
-          variations={mockVariations as Variation[]}
+          variations={mockVariations}
           onChange={jest.fn()}
         />
       </TestWrapper>

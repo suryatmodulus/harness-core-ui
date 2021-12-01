@@ -41,12 +41,6 @@ describe('<StepCommonFieldsInputSet /> tests', () => {
   })
   test('Readonly mode works', () => {
     const { container } = render(<TestComponent template={template} readonly />)
-    expect(
-      (getByPlaceholderText(container, 'pipelineSteps.limitMemoryPlaceholder') as HTMLInputElement).disabled
-    ).toBeTruthy()
-    expect(
-      (getByPlaceholderText(container, 'pipelineSteps.limitCPUPlaceholder') as HTMLInputElement).disabled
-    ).toBeTruthy()
     expect((getByPlaceholderText(container, 'Enter w/d/h/m/s/ms') as HTMLInputElement).disabled).toBeTruthy()
     expect(container).toMatchSnapshot()
   })

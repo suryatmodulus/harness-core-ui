@@ -9,6 +9,7 @@ import {
   Container,
   PageError,
   TableV2,
+  Intent,
   useConfirmationDialog
 } from '@wings-software/uicore'
 import { Classes, Menu, Popover, Position } from '@blueprintjs/core'
@@ -49,6 +50,8 @@ const ResourceGroupColumnMenu: Renderer<CellProps<UserGroupDTO>> = ({ row, colum
     titleText: getString('rbac.userDetails.userGroup.deleteTitle'),
     confirmButtonText: getString('common.remove'),
     cancelButtonText: getString('cancel'),
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {

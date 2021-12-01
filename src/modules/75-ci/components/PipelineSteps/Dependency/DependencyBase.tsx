@@ -86,6 +86,7 @@ export const DependencyBase = (
                 allowableTypes={allowableTypes}
                 formik={formik}
                 enableFields={{
+                  name: {},
                   description: {},
                   'spec.connectorRef': {
                     label: (

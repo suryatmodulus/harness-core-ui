@@ -22,7 +22,10 @@ describe('Test NavButtons component', () => {
     selectedTabId: CreateSLOEnum['NAME'],
     setSelectedTabId: jest.fn(),
     getString: jest.fn(),
-    submitForm: jest.fn()
+    formikProps: {
+      setValues: jest.fn(),
+      values: {}
+    } as any
   }
 
   test('should render NavButtons component', async () => {

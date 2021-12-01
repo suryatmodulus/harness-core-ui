@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Text, Container, Heading, Color, Button } from '@wings-software/uicore'
+import { Text, Container, Heading, Color } from '@wings-software/uicore'
 import { ProgressBar } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import css from './BuildTests.module.scss'
@@ -23,16 +23,14 @@ export const TestsSelectionBreakdown: React.FC<TestsSelectionBreakdownProps> = (
   return (
     <div className={cx(css.widgetWrapper, css.selectionBreakdown)}>
       <Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
-        <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
+        <Heading
+          data-name="test-execution-selection-breakdown"
+          level={6}
+          style={{ fontWeight: 600, marginBottom: 'var(--spacing-3)' }}
+          color={Color.GREY_600}
+        >
           {getString('pipeline.testsReports.selectionBreakdown')}
         </Heading>
-        <Button
-          icon="question"
-          minimal
-          tooltip={getString('pipeline.testsReports.selectionBreakdownInfo')}
-          iconProps={{ size: 14 }}
-          margin={{ left: 'xsmall' }}
-        />
       </Container>
 
       <Container className={css.widget} height="100%">

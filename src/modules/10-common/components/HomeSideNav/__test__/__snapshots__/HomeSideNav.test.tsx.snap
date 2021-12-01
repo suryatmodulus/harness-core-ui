@@ -1,5 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`HomeSidenav Disable launch button for community edition 1`] = `
+<div>
+  <div
+    class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-xxxlarge"
+  >
+    <a
+      class="link"
+      href="/account/undefined/home/get-started"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        common.welcome
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/undefined/home/projects"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        projectsText
+      </p>
+    </a>
+  </div>
+</div>
+`;
+
 exports[`HomeSidenav render 1`] = `
 <div>
   <div

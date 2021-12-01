@@ -1,9 +1,10 @@
 import React from 'react'
-import { Text, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, Container, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { connect } from 'formik'
 import { useStrings } from 'framework/strings'
+import { Separator } from '@common/components'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -41,48 +42,62 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
       {/* Currently not implemented due to no support for enum value fields */}
       {/* When ready, pass enableFields when <x>StepInputSet has field as runtime input */}
       {enableFields.includes('spec.imagePullPolicy') && (
-        <MultiTypeSelectField
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.imagePullPolicy`}
-          label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.pullLabel')}</Text>}
-          multiTypeInputProps={{
-            selectItems: GetImagePullPolicyOptions(),
-            placeholder: getString('select'),
-            multiTypeInputProps: {
-              expressions,
-              selectProps: { addClearBtn: true, items: GetImagePullPolicyOptions() },
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            },
-            disabled: readonly
-          }}
-          disabled={readonly}
-          configureOptionsProps={{ variableName: 'spec.imagePullPolicy' }}
-          style={{ margin: 'var(--spacing-medium) 0' }}
-        />
+        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+          <MultiTypeSelectField
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.imagePullPolicy`}
+            label={
+              <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                {getString('pipelineSteps.pullLabel')}
+              </Text>
+            }
+            multiTypeInputProps={{
+              selectItems: GetImagePullPolicyOptions(),
+              placeholder: getString('select'),
+              multiTypeInputProps: {
+                expressions,
+                selectProps: { addClearBtn: true, items: GetImagePullPolicyOptions() },
+                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              },
+              disabled: readonly
+            }}
+            disabled={readonly}
+            configureOptionsProps={{ variableName: 'spec.imagePullPolicy' }}
+          />
+        </Container>
       )}
       {/* Currently not implemented due to no support for enum value fields */}
       {enableFields.includes('spec.shell') && (
-        <MultiTypeSelectField
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.shell`}
-          label={<Text margin={{ bottom: 'xsmall' }}>{getString('common.shell')}</Text>}
-          multiTypeInputProps={{
-            selectItems: GetImagePullPolicyOptions(),
-            placeholder: getString('select'),
-            multiTypeInputProps: {
-              expressions,
-              selectProps: { addClearBtn: true, items: GetShellOptions() },
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            },
-            disabled: readonly
-          }}
-          disabled={readonly}
-          configureOptionsProps={{ variableName: 'spec.shell' }}
-          style={{ marginBottom: 'var(--spacing-medium)' }}
-        />
+        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+          <MultiTypeSelectField
+            name={`${isEmpty(path) ? '' : `${path}.`}spec.shell`}
+            label={
+              <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                {getString('common.shell')}
+              </Text>
+            }
+            multiTypeInputProps={{
+              selectItems: GetImagePullPolicyOptions(),
+              placeholder: getString('select'),
+              multiTypeInputProps: {
+                expressions,
+                selectProps: { addClearBtn: true, items: GetShellOptions() },
+                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              },
+              disabled: readonly
+            }}
+            disabled={readonly}
+            configureOptionsProps={{ variableName: 'spec.shell' }}
+          />
+        </Container>
       )}
       {isRunAsUserRuntime && (
-        <div className={cx(css.formGroup, css.sm)}>
+        <Container className={cx(css.formGroup, css.lg, css.topSpacingLarge)}>
           <MultiTypeTextField
-            label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipeline.stepCommonFields.runAsUser')}</Text>}
+            label={
+              <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                {getString('pipeline.stepCommonFields.runAsUser')}
+              </Text>
+            }
             name={`${isEmpty(path) ? '' : `${path}.`}spec.runAsUser`}
             multiTextInputProps={{
               multiTextInputProps: {
@@ -92,66 +107,77 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
               disabled: readonly,
               placeholder: '1000'
             }}
-            style={{ marginBottom: 'var(--spacing-medium)' }}
           />
-        </div>
+        </Container>
       )}
+      <Separator />
       {(isLimitMemoryRuntime || isLimitCPURuntime) && (
         <>
-          <Text tooltipProps={{ dataTooltipId: 'setContainerResources' }}>
-            {getString('pipelineSteps.setContainerResources')}
-          </Text>
-          <div
-            className={cx(css.fieldsGroup, css.withoutSpacing, css.withoutAligning)}
-            style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
-          >
-            {isLimitMemoryRuntime && (
-              <MultiTypeTextField
-                name={`${isEmpty(path) ? '' : `${path}.`}spec.resources.limits.memory`}
-                label={
-                  <Text style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--spacing-xsmall)' }}>
-                    {getString('pipelineSteps.limitMemoryLabel')}
-                  </Text>
+          <Container className={css.bottomMargin5}>
+            <Text
+              className={css.inpLabel}
+              color={Color.GREY_600}
+              font={{ size: 'small', weight: 'semi-bold' }}
+              tooltipProps={{ dataTooltipId: 'setContainerResources' }}
+            >
+              {getString('pipelineSteps.setContainerResources')}
+            </Text>
+            <div
+              className={cx(
+                css.formGroup,
+                {
+                  [css.kvpairLg]: isLimitMemoryRuntime && isLimitCPURuntime
+                },
+                {
+                  [css.lg]: isLimitMemoryRuntime || isLimitCPURuntime
                 }
-                style={{ flexGrow: 1, flexBasis: '50%' }}
-                multiTextInputProps={{
-                  placeholder: getString('pipelineSteps.limitMemoryPlaceholder'),
-                  disabled: readonly,
-                  multiTextInputProps: {
-                    expressions,
-                    allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              )}
+              style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
+            >
+              {isLimitMemoryRuntime && (
+                <MultiTypeTextField
+                  name={`${isEmpty(path) ? '' : `${path}.`}spec.resources.limits.memory`}
+                  label={
+                    <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                      {getString('pipelineSteps.limitMemoryLabel')}
+                    </Text>
                   }
-                }}
-              />
-            )}
-            {isLimitCPURuntime && (
-              <MultiTypeTextField
-                name={`${isEmpty(path) ? '' : `${path}.`}spec.resources.limits.cpu`}
-                label={
-                  <Text style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--spacing-xsmall)' }}>
-                    {getString('pipelineSteps.limitCPULabel')}
-                  </Text>
-                }
-                style={{ flexGrow: 1, flexBasis: '50%' }}
-                multiTextInputProps={{
-                  placeholder: getString('pipelineSteps.limitCPUPlaceholder'),
-                  disabled: readonly,
-                  multiTextInputProps: {
-                    expressions,
-                    allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                  multiTextInputProps={{
+                    disabled: readonly,
+                    multiTextInputProps: {
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                    }
+                  }}
+                />
+              )}
+              {isLimitCPURuntime && (
+                <MultiTypeTextField
+                  name={`${isEmpty(path) ? '' : `${path}.`}spec.resources.limits.cpu`}
+                  label={
+                    <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                      {getString('pipelineSteps.limitCPULabel')}
+                    </Text>
                   }
-                }}
-              />
-            )}
-          </div>
+                  multiTextInputProps={{
+                    disabled: readonly,
+                    multiTextInputProps: {
+                      expressions,
+                      allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                    }
+                  }}
+                />
+              )}
+            </div>
+          </Container>
         </>
       )}
       {!withoutTimeout && isTimeoutRuntime && (
-        <div className={cx(css.formGroup, css.sm)}>
+        <Container className={cx(css.formGroup, css.sm, css.bottomMargin5, css.topMargin5)}>
           <FormMultiTypeDurationField
             className={css.removeBpLabelMargin}
             label={
-              <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'timeout' }}>
+              <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
                 {getString('pipelineSteps.timeoutLabel')}
               </Text>
             }
@@ -163,7 +189,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
             }}
             disabled={readonly}
           />
-        </div>
+        </Container>
       )}
     </>
   )

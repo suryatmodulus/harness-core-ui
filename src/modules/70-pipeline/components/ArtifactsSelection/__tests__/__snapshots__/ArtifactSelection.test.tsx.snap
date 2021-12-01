@@ -14,12 +14,12 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
       >
         <span />
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           artifactRepository
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           location
         </p>
@@ -495,12 +495,12 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
       >
         <span />
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           artifactRepository
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           location
         </p>
@@ -771,12 +771,12 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
       >
         <span />
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           artifactRepository
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           location
         </p>
@@ -1047,12 +1047,12 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
       >
         <span />
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           artifactRepository
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           location
         </p>
@@ -1231,12 +1231,12 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
       >
         <span />
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           artifactRepository
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           location
         </p>
@@ -1427,12 +1427,12 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
       >
         <span />
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           artifactRepository
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           location
         </p>

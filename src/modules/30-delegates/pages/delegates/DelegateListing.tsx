@@ -162,7 +162,7 @@ export const DelegateListing: React.FC<DelegatesListProps> = ({ filtersMockData 
         setDelegateFetchError(undefined)
         const delegateResponse = await fetchDelegates(sanitizedFilterRequest, { queryParams: params })
         const delGroups = delegateResponse?.resource?.delegateGroupDetails || []
-        if (delegateResponse.resource) {
+        if (delGroups) {
           delGroups.forEach((delegateGroup: DelegateGroupDetails) => {
             const delName = `${get(delegateGroup, 'groupName', '')} ${getString('delegate.instancesCount', {
               count: delegateGroup?.delegateInstanceDetails?.length,

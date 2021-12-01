@@ -1,4 +1,4 @@
-import { Layout, Select, Text, Container, SelectOption, PageError } from '@wings-software/uicore'
+import { Layout, Select, Color, Heading, Container, SelectOption, PageError } from '@wings-software/uicore'
 import React, { useState, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { get, uniqWith, isEqual } from 'lodash-es'
@@ -14,13 +14,13 @@ import {
 } from 'services/ti-service'
 import { PageSpinner } from '@common/components'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
-import { BuildLoadingState } from './BuildLoadingState'
 import { BuildZeroState } from './BuildZeroState'
 import { TestsExecution } from './TestsExecution'
 import { TestsOverview } from './TestsOverview'
 import { TestsExecutionResult } from './TestsExecutionResult'
 import { TestsSelectionBreakdown } from './TestsSelectionBreakdown'
 import { TestsReportOverview } from './TestsReportOverview'
+import { TICallToAction } from './TICallToAction'
 // import { TestsCoverage } from './TestsCoverage'
 import css from './BuildTests.module.scss'
 
@@ -37,9 +37,192 @@ interface BuildTestsProps {
   testOverviewMock?: SelectionOverview
 }
 
+const enableReportsWithCTA = false // ui feature flag
+
+const renderTestsOverview = ({
+  testOverviewData,
+  testsCountDiff
+}: {
+  testOverviewData?: SelectionOverview | null
+  testsCountDiff?: number
+}): JSX.Element | null => {
+  if (
+    typeof testOverviewData?.total_tests !== 'undefined' &&
+    typeof testOverviewData?.skipped_tests !== 'undefined' &&
+    typeof testOverviewData?.time_saved_ms !== 'undefined' &&
+    typeof testOverviewData?.time_taken_ms !== 'undefined'
+  ) {
+    return (
+      <TestsOverview
+        totalTests={testOverviewData.total_tests}
+        skippedTests={testOverviewData.skipped_tests}
+        timeSavedMS={testOverviewData.time_saved_ms}
+        durationMS={testOverviewData.time_taken_ms}
+        testsCountDiff={testsCountDiff}
+      />
+    )
+  }
+  return null
+}
+
+export const TIAndReports = ({
+  header,
+  testOverviewData,
+  reportSummaryData,
+  stageId,
+  stepId,
+  serviceToken,
+  testsCountDiff
+}: {
+  header: JSX.Element
+  testOverviewData?: SelectionOverview | null
+  reportSummaryData?: TestReportSummary | null
+  stageId?: string
+  stepId?: string
+  serviceToken?: string | null
+  testsCountDiff?: number
+}): JSX.Element => (
+  <>
+    {header}
+    <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
+      {renderTestsOverview({ testOverviewData, testsCountDiff })}
+      {typeof reportSummaryData?.total_tests !== 'undefined' &&
+        typeof reportSummaryData?.failed_tests !== 'undefined' &&
+        typeof reportSummaryData?.successful_tests !== 'undefined' &&
+        typeof reportSummaryData?.skipped_tests !== 'undefined' && (
+          <TestsExecutionResult
+            totalTests={reportSummaryData.total_tests}
+            failedTests={reportSummaryData.failed_tests}
+            successfulTests={reportSummaryData.successful_tests}
+            skippedTests={reportSummaryData.skipped_tests}
+          />
+        )}
+      {typeof testOverviewData?.selected_tests?.source_code_changes !== 'undefined' &&
+        typeof testOverviewData?.selected_tests?.new_tests !== 'undefined' &&
+        typeof testOverviewData?.selected_tests?.updated_tests !== 'undefined' && (
+          <TestsSelectionBreakdown
+            sourceCodeChanges={testOverviewData.selected_tests.source_code_changes}
+            newTests={testOverviewData.selected_tests.new_tests}
+            updatedTests={testOverviewData.selected_tests.updated_tests}
+          />
+        )}
+    </Layout.Horizontal>
+    <Layout.Horizontal spacing="large">
+      {/* <TestsCoverage /> */}
+      {/* TI is above Reports which is 100% width */}
+      {stageId && stepId && serviceToken && (
+        <TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} showCallGraph />
+      )}
+    </Layout.Horizontal>
+  </>
+)
+
+export const TI = ({
+  header,
+  testOverviewData,
+  testsCountDiff
+}: {
+  header: JSX.Element
+  testOverviewData?: SelectionOverview | null
+  testsCountDiff?: number
+}): JSX.Element => (
+  <>
+    {header}
+    <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
+      {renderTestsOverview({ testOverviewData, testsCountDiff })}
+      {typeof testOverviewData?.selected_tests?.source_code_changes !== 'undefined' &&
+        typeof testOverviewData?.selected_tests?.new_tests !== 'undefined' &&
+        typeof testOverviewData?.selected_tests?.updated_tests !== 'undefined' && (
+          <TestsSelectionBreakdown
+            sourceCodeChanges={testOverviewData.selected_tests.source_code_changes}
+            newTests={testOverviewData.selected_tests.new_tests}
+            updatedTests={testOverviewData.selected_tests.updated_tests}
+          />
+        )}
+    </Layout.Horizontal>
+  </>
+)
+
+export const Reports = ({
+  header,
+  reportSummaryData,
+  stageId,
+  stepId,
+  serviceToken,
+  testsCountDiff
+}: {
+  header: JSX.Element
+  reportSummaryData?: TestReportSummary | null
+  stageId?: string
+  stepId?: string
+  serviceToken?: string | null
+  testsCountDiff?: number
+}): JSX.Element =>
+  enableReportsWithCTA ? (
+    <>
+      {header}
+      <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
+        {typeof reportSummaryData?.total_tests !== 'undefined' &&
+          typeof reportSummaryData?.skipped_tests !== 'undefined' &&
+          typeof reportSummaryData?.duration_ms !== 'undefined' &&
+          typeof reportSummaryData?.failed_tests !== 'undefined' && (
+            <TestsOverview
+              totalTests={reportSummaryData.total_tests}
+              skippedTests={reportSummaryData.skipped_tests}
+              // timeSavedMS={reportSummaryData.time_saved_ms}
+              durationMS={reportSummaryData.duration_ms}
+              failedTests={reportSummaryData.failed_tests}
+              testsCountDiff={testsCountDiff}
+            />
+          )}
+        {typeof reportSummaryData?.total_tests !== 'undefined' &&
+          typeof reportSummaryData?.failed_tests !== 'undefined' &&
+          typeof reportSummaryData?.successful_tests !== 'undefined' &&
+          typeof reportSummaryData?.skipped_tests !== 'undefined' && (
+            <TestsExecutionResult
+              totalTests={reportSummaryData.total_tests}
+              failedTests={reportSummaryData.failed_tests}
+              successfulTests={reportSummaryData.successful_tests}
+              skippedTests={reportSummaryData.skipped_tests}
+            />
+          )}
+        <TICallToAction />
+      </Layout.Horizontal>
+      <Layout.Horizontal spacing="large">
+        {/* <TestsCoverage /> */}
+        {/* TI is above Reports which is 100% width */}
+        {stageId && stepId && serviceToken && (
+          <TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} />
+        )}
+      </Layout.Horizontal>
+    </>
+  ) : (
+    <>
+      {header}
+      <Layout.Horizontal spacing="large">
+        {typeof reportSummaryData?.total_tests !== 'undefined' &&
+          typeof reportSummaryData?.failed_tests !== 'undefined' &&
+          typeof reportSummaryData?.successful_tests !== 'undefined' &&
+          typeof reportSummaryData?.skipped_tests !== 'undefined' &&
+          typeof reportSummaryData?.duration_ms !== 'undefined' && (
+            <TestsReportOverview
+              totalTests={reportSummaryData.total_tests}
+              failedTests={reportSummaryData.failed_tests}
+              successfulTests={reportSummaryData.successful_tests}
+              skippedTests={reportSummaryData.skipped_tests}
+              durationMS={reportSummaryData.duration_ms}
+            />
+          )}
+        {/* Overview and Reports split the width  */}
+        {stageId && stepId && serviceToken && (
+          <TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} />
+        )}
+      </Layout.Horizontal>
+    </>
+  )
+
 const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverviewMock }) => {
   const context = useExecutionContext()
-
   const { getString } = useStrings()
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
@@ -63,7 +246,6 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
   const [stageId, stepId] = (selectValue?.value as string)?.split('/') || []
 
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
-
   const infoQueryParams = useMemo(
     () => ({
       accountId,
@@ -263,13 +445,13 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
       flex
       padding={{ bottom: 'small' }}
       margin={{ bottom: 'medium' }}
-      style={{ borderBottom: '1px solid #D9DAE6' }}
+      style={{ borderBottom: '1px solid #D9DAE6', justifyContent: 'initial' }}
     >
-      <Text font={{ size: 'medium', weight: 'semi-bold' }} style={{ color: '#22222A' }}>
+      <Heading level={5} color={Color.BLACK} style={{ fontWeight: 600 }}>
         {getString('pipeline.testsReports.testExecutions')}
-      </Text>
+      </Heading>
       {selectItems && selectValue && (
-        <div style={{ width: '375px' }}>
+        <div style={{ width: '375px', marginLeft: 'var(--spacing-5)' }}>
           <Select fill value={selectValue} items={selectItems} onChange={value => setSelectValue(value as any)} />
         </div>
       )}
@@ -279,113 +461,37 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
   let ui = null
   switch (uiType) {
     case UI.LoadingState:
-      ui = <BuildLoadingState />
+      ui = <BuildZeroState isLoading={true} />
       break
     case UI.ZeroState:
       ui = <BuildZeroState />
       break
     case UI.TIAndReports:
       ui = (
-        <>
-          {header}
-          <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
-            {typeof testOverviewData?.total_tests !== 'undefined' &&
-              typeof testOverviewData?.skipped_tests !== 'undefined' &&
-              typeof testOverviewData?.time_saved_ms !== 'undefined' &&
-              typeof testOverviewData?.time_taken_ms !== 'undefined' && (
-                <TestsOverview
-                  totalTests={testOverviewData.total_tests}
-                  skippedTests={testOverviewData.skipped_tests}
-                  timeSavedMS={testOverviewData.time_saved_ms}
-                  durationMS={testOverviewData.time_taken_ms}
-                  testsCountDiff={testsCountDiff}
-                />
-              )}
-            {typeof reportSummaryData?.total_tests !== 'undefined' &&
-              typeof reportSummaryData?.failed_tests !== 'undefined' &&
-              typeof reportSummaryData?.successful_tests !== 'undefined' &&
-              typeof reportSummaryData?.skipped_tests !== 'undefined' && (
-                <TestsExecutionResult
-                  totalTests={reportSummaryData.total_tests}
-                  failedTests={reportSummaryData.failed_tests}
-                  successfulTests={reportSummaryData.successful_tests}
-                  skippedTests={reportSummaryData.skipped_tests}
-                />
-              )}
-            {typeof testOverviewData?.selected_tests?.source_code_changes !== 'undefined' &&
-              typeof testOverviewData?.selected_tests?.new_tests !== 'undefined' &&
-              typeof testOverviewData?.selected_tests?.updated_tests !== 'undefined' && (
-                <TestsSelectionBreakdown
-                  sourceCodeChanges={testOverviewData.selected_tests.source_code_changes}
-                  newTests={testOverviewData.selected_tests.new_tests}
-                  updatedTests={testOverviewData.selected_tests.updated_tests}
-                />
-              )}
-          </Layout.Horizontal>
-          <Layout.Horizontal spacing="large">
-            {/* <TestsCoverage /> */}
-            {/* TI is above Reports which is 100% width */}
-            {stageId && stepId && serviceToken && (
-              <TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} showCallGraph />
-            )}
-          </Layout.Horizontal>
-        </>
+        <TIAndReports
+          header={header}
+          testOverviewData={testOverviewData}
+          reportSummaryData={reportSummaryData}
+          stageId={stageId}
+          stepId={stepId}
+          serviceToken={serviceToken}
+          testsCountDiff={testsCountDiff}
+        />
       )
       break
     case UI.TI:
-      ui = (
-        <>
-          {header}
-          <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
-            {typeof testOverviewData?.total_tests !== 'undefined' &&
-              typeof testOverviewData?.skipped_tests !== 'undefined' &&
-              typeof testOverviewData?.time_saved_ms !== 'undefined' &&
-              typeof testOverviewData?.time_taken_ms !== 'undefined' && (
-                <TestsOverview
-                  totalTests={testOverviewData.total_tests}
-                  skippedTests={testOverviewData.skipped_tests}
-                  timeSavedMS={testOverviewData.time_saved_ms}
-                  durationMS={testOverviewData.time_taken_ms}
-                  testsCountDiff={testsCountDiff}
-                />
-              )}
-            {typeof testOverviewData?.selected_tests?.source_code_changes !== 'undefined' &&
-              typeof testOverviewData?.selected_tests?.new_tests !== 'undefined' &&
-              typeof testOverviewData?.selected_tests?.updated_tests !== 'undefined' && (
-                <TestsSelectionBreakdown
-                  sourceCodeChanges={testOverviewData.selected_tests.source_code_changes}
-                  newTests={testOverviewData.selected_tests.new_tests}
-                  updatedTests={testOverviewData.selected_tests.updated_tests}
-                />
-              )}
-          </Layout.Horizontal>
-        </>
-      )
+      ui = <TI header={header} testOverviewData={testOverviewData} testsCountDiff={testsCountDiff} />
       break
     case UI.Reports:
       ui = (
-        <>
-          {header}
-          <Layout.Horizontal spacing="large">
-            {typeof reportSummaryData?.total_tests !== 'undefined' &&
-              typeof reportSummaryData?.failed_tests !== 'undefined' &&
-              typeof reportSummaryData?.successful_tests !== 'undefined' &&
-              typeof reportSummaryData?.skipped_tests !== 'undefined' &&
-              typeof reportSummaryData?.duration_ms !== 'undefined' && (
-                <TestsReportOverview
-                  totalTests={reportSummaryData.total_tests}
-                  failedTests={reportSummaryData.failed_tests}
-                  successfulTests={reportSummaryData.successful_tests}
-                  skippedTests={reportSummaryData.skipped_tests}
-                  durationMS={reportSummaryData.duration_ms}
-                />
-              )}
-            {/* Overview and Reports split the width  */}
-            {stageId && stepId && serviceToken && (
-              <TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} />
-            )}
-          </Layout.Horizontal>
-        </>
+        <Reports
+          header={header}
+          reportSummaryData={reportSummaryData}
+          stageId={stageId}
+          stepId={stepId}
+          serviceToken={serviceToken}
+          testsCountDiff={testsCountDiff}
+        />
       )
       break
     default:

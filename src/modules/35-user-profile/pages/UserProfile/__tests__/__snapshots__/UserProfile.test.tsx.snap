@@ -261,201 +261,159 @@ exports[`User Profile Page User Profile 1`] = `
       class="overview"
     >
       <div
-        class="StyledProps--font StyledProps--main StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+        class="StyledProps--font StyledProps--main StyledProps--padding-xlarge"
       >
         <div
-          class="bp3-tabs Tabs--main Tabs--horizontal"
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
         >
           <div
-            class="bp3-tab-list"
-            role="tablist"
+            class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--margin-bottom-medium"
           >
             <div
-              class="bp3-tab-indicator-wrapper"
-              style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
-            >
-              <div
-                class="bp3-tab-indicator"
-              />
-            </div>
-            <div
-              aria-controls="bp3-tab-panel_overview_summary"
-              aria-disabled="false"
-              aria-expanded="true"
-              aria-selected="true"
-              class="bp3-tab"
-              data-tab-id="summary"
-              id="bp3-tab-title_overview_summary"
-              role="tab"
-              tabindex="0"
+              class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-start"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey900"
               >
-                summary
+                userProfile.myProjects
               </p>
+              <span
+                class="Tag--main"
+              >
+                <span
+                  class="bp3-tag tagClassName"
+                >
+                  <span
+                    class="bp3-text-overflow-ellipsis bp3-fill"
+                  >
+                    1
+                  </span>
+                </span>
+              </span>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main cardContainer"
+            >
+              <div
+                class="bp3-card bp3-elevation-0 Card--card card"
+              >
+                <div
+                  class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--margin-top-xsmall StyledProps--margin-bottom-medium"
+                    data-icon="nav-project"
+                    style="color: rgb(0, 99, 247);"
+                  >
+                    <svg
+                      height="32"
+                      viewBox="0 0 22 22"
+                      width="32"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
+                        fill="#56778d"
+                      />
+                    </svg>
+                  </span>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--color StyledProps--color-grey800 StyledProps--font-size-small StyledProps--font-align-center StyledProps--font-weight-semi-bold"
+                    style="--text-line-clamp: 3; width: 100px;"
+                  >
+                    P3
+                  </p>
+                </div>
+              </div>
+              <div
+                class="bp3-card bp3-elevation-0 Card--card card"
+              >
+                <div
+                  class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--margin-top-xsmall StyledProps--margin-bottom-medium"
+                    data-icon="nav-project"
+                    style="color: rgb(0, 99, 247);"
+                  >
+                    <svg
+                      height="32"
+                      viewBox="0 0 22 22"
+                      width="32"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
+                        fill="#56778d"
+                      />
+                    </svg>
+                  </span>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--color StyledProps--color-grey800 StyledProps--font-size-small StyledProps--font-align-center StyledProps--font-weight-semi-bold"
+                    style="--text-line-clamp: 3; width: 100px;"
+                  >
+                    P1
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
           <div
-            aria-hidden="false"
-            aria-labelledby="bp3-tab-title_overview_summary"
-            class="bp3-tab-panel"
-            id="bp3-tab-panel_overview_summary"
-            role="tabpanel"
+            class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
           >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+            >
+              userProfile.mysourceCodeManagers
+            </p>
             <div
-              class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+              class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
+            >
+              <button
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
+                data-test="userProfileAddSCM"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  userProfile.plusSCM
+                </span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xlarge"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
+            >
+              rbac.myApiKeys
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
             >
               <div
-                class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--margin-bottom-medium"
-              >
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-start"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey900"
-                  >
-                    userProfile.myProjects
-                  </p>
-                  <span
-                    class="Tag--main"
-                  >
-                    <span
-                      class="bp3-tag tagClassName"
-                    >
-                      <span
-                        class="bp3-text-overflow-ellipsis bp3-fill"
-                      >
-                        1
-                      </span>
-                    </span>
-                  </span>
-                </div>
-                <div
-                  class="StyledProps--font StyledProps--main cardContainer"
-                >
-                  <div
-                    class="bp3-card bp3-elevation-0 Card--card card"
-                  >
-                    <div
-                      class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main StyledProps--color StyledProps--margin-top-xsmall StyledProps--margin-bottom-medium"
-                        data-icon="harness"
-                        style="color: rgb(0, 99, 247);"
-                      >
-                        <svg
-                          height="32"
-                          viewBox="0 0 25 25"
-                          width="32"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
-                            fill="#4facdf"
-                          />
-                        </svg>
-                      </span>
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--color StyledProps--color-grey800 StyledProps--font-size-small StyledProps--font-align-center StyledProps--font-weight-semi-bold"
-                        style="--text-line-clamp: 3; width: 100px;"
-                      >
-                        P3
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-card bp3-elevation-0 Card--card card"
-                  >
-                    <div
-                      class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main StyledProps--color StyledProps--margin-top-xsmall StyledProps--margin-bottom-medium"
-                        data-icon="harness"
-                        style="color: rgb(0, 99, 247);"
-                      >
-                        <svg
-                          height="32"
-                          viewBox="0 0 25 25"
-                          width="32"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
-                            fill="#4facdf"
-                          />
-                        </svg>
-                      </span>
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main name StyledProps--color StyledProps--color-grey800 StyledProps--font-size-small StyledProps--font-align-center StyledProps--font-weight-semi-bold"
-                        style="--text-line-clamp: 3; width: 100px;"
-                      >
-                        P1
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+                class="bp3-card bp3-elevation-0 Card--card fullWidth"
               >
                 <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-top-xsmall"
                 >
-                  userProfile.mysourceCodeManagers
+                  common.noAPIKeys
                 </p>
-                <div
-                  class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
-                >
-                  <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
-                    data-test="userProfileAddSCM"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-button-text"
-                    >
-                      userProfile.plusSCM
-                    </span>
-                  </button>
-                </div>
-              </div>
-              <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xlarge"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
-                >
-                  rbac.myApiKeys
-                </p>
-                <div
-                  class="StyledProps--font StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
-                >
-                  <div
-                    class="bp3-card bp3-elevation-0 Card--card fullWidth"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-top-xsmall"
-                    >
-                      common.noAPIKeys
-                    </p>
-                  </div>
-                </div>
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
-                  data-testid="createNewApiKey"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    plusNumber
-                  </span>
-                </button>
               </div>
             </div>
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
+              data-testid="createNewApiKey"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                plusNumber
+              </span>
+            </button>
           </div>
         </div>
       </div>

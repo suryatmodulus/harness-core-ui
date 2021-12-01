@@ -142,7 +142,9 @@ export function formatNodes(nodes?: Node[], data?: Edge[]) {
   return [
     ...nodes.map((node: Node) => {
       return {
-        id: node?.id,
+        id: node.id,
+        serviceRef: node.serviceRef,
+        environmentRef: node.environmentRef,
         className: `PointData ${node?.name?.replace(' ', '')} Status_${node?.status}`,
         marker: {
           symbol: `url(data:image/svg+xml;utf8,${encodeURIComponent(
@@ -187,11 +189,13 @@ export const getDependencyData = (
   if (serviceDependencyGraphData?.resource?.nodes && serviceDependencyGraphData.resource.nodes.length) {
     dependencyData = {
       nodes: serviceDependencyGraphData.resource.nodes.map(node => ({
-        id: node?.identifierRef,
-        status: node?.riskLevel,
+        id: node.identifierRef,
+        serviceRef: node.serviceRef,
+        environmentRef: node.environmentRef,
+        status: node.riskLevel,
         icon: getIconForServiceNode(node),
-        name: node?.serviceName
-      })) as Node[],
+        name: node.serviceName
+      })),
       data: (serviceDependencyGraphData?.resource?.edges as GraphData[]) || []
     }
   }

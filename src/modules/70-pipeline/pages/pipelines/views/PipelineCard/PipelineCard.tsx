@@ -46,6 +46,8 @@ export interface PipelineCardProps {
   goToPipelineDetail: (pipeline?: PMSPipelineSummaryResponse) => void
   goToPipelineStudio: (pipeline?: PMSPipelineSummaryResponse) => void
   refetchPipeline: () => void
+  onDeletePipeline: (commitMsg: string) => Promise<void>
+  onDelete: (pipeline: PMSPipelineSummaryResponse) => void
 }
 
 interface ContextMenuProps {
@@ -57,19 +59,22 @@ interface ContextMenuProps {
   orgIdentifier: string
   accountIdentifier: string
   isGitSyncEnabled: boolean
+  onDeletePipeline: (commitMsg: string) => Promise<void>
+  onDelete: (pipeline: PMSPipelineSummaryResponse) => void
 }
 
 const ContextMenu: React.FC<ContextMenuProps> = ({
   pipeline,
   goToPipelineStudio,
-  refetchPipeline,
   goToPipelineDetail,
   projectIdentifier,
   orgIdentifier,
-  accountIdentifier
+  accountIdentifier,
+  onDeletePipeline,
+  onDelete
 }): JSX.Element => {
   const { getString } = useStrings()
-  const { confirmDelete } = useDeleteConfirmationDialog(pipeline, 'pipeline', refetchPipeline)
+  const { confirmDelete } = useDeleteConfirmationDialog(pipeline, 'pipeline', onDeletePipeline)
 
   const [canDelete, canRun] = usePermission(
     {
@@ -140,6 +145,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
         disabled={!canDelete}
         onClick={(e: React.MouseEvent) => {
           e.stopPropagation()
+          onDelete(pipeline)
           confirmDelete()
         }}
       />
@@ -153,7 +159,9 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
   pipeline,
   goToPipelineDetail,
   goToPipelineStudio,
-  refetchPipeline
+  refetchPipeline,
+  onDeletePipeline,
+  onDelete
 }): JSX.Element => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<
     PipelineType<{
@@ -210,6 +218,8 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               accountIdentifier={accountId}
               orgIdentifier={orgIdentifier}
               isGitSyncEnabled
+              onDeletePipeline={onDeletePipeline}
+              onDelete={onDelete}
             />
           }
           menuPopoverProps={{

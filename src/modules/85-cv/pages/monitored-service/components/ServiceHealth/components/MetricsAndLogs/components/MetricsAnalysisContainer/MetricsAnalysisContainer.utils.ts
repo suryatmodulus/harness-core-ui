@@ -1,36 +1,7 @@
-import { get } from 'lodash-es'
-import type { MetricData, RestResponsePageTimeSeriesMetricDataDTO, TimeSeriesMetricDataDTO } from 'services/cv'
+import { cloneDeep } from 'lodash-es'
+import type { MetricData, TimeSeriesMetricDataDTO } from 'services/cv'
 
-export function generatePointsForTimeSeries(
-  data: RestResponsePageTimeSeriesMetricDataDTO,
-  startTime: number,
-  endTime: number
-): RestResponsePageTimeSeriesMetricDataDTO | undefined {
-  const content = data?.resource?.content
-
-  if (content && content.length) {
-    for (const analysis of content) {
-      if (!analysis?.metricDataList?.length) {
-        continue
-      }
-      sortAnalysisData(analysis)
-      const filledMetricData: MetricData[] = [...analysis.metricDataList]
-      const analysisStartTime = analysis?.metricDataList[0]?.timestamp
-      const analysisEndTime = analysis?.metricDataList[analysis?.metricDataList?.length - 1]?.timestamp
-
-      updateStartTime(analysisStartTime, startTime, filledMetricData)
-      updateEndTime(analysisEndTime, endTime, filledMetricData)
-
-      analysis.metricDataList = filledMetricData
-
-      return data
-    }
-  } else {
-    return data
-  }
-}
-
-function sortAnalysisData(analysis: TimeSeriesMetricDataDTO): void {
+const sortAnalysisData = (analysis: TimeSeriesMetricDataDTO): void => {
   if (analysis?.metricDataList) {
     analysis.metricDataList.sort((a: MetricData, b: MetricData) => {
       if (!a?.timestamp) {
@@ -44,22 +15,33 @@ function sortAnalysisData(analysis: TimeSeriesMetricDataDTO): void {
   }
 }
 
-function updateEndTime(analysisEndTime: number | undefined, endTime: number, filledMetricData: MetricData[]): void {
-  if (analysisEndTime && analysisEndTime < endTime) {
-    filledMetricData.push({ timestamp: endTime, value: undefined })
-  }
-}
-
-function updateStartTime(
-  analysisStartTime: number | undefined,
+export const generatePointsForTimeSeries = (
+  data: TimeSeriesMetricDataDTO[],
   startTime: number,
-  filledMetricData: MetricData[]
-): void {
-  if (analysisStartTime && analysisStartTime > startTime) {
-    filledMetricData.unshift({ timestamp: startTime, value: undefined })
-  }
-}
+  endTime: number
+): TimeSeriesMetricDataDTO[] => {
+  const _data = cloneDeep(data)
 
-export function getErrorMessage(errorObj?: any): string | undefined {
-  return get(errorObj, 'data.detailedMessage') || get(errorObj, 'data.message')
+  for (const metric of _data) {
+    if (metric.metricDataList?.length) {
+      sortAnalysisData(metric)
+
+      const metricList = metric.metricDataList
+
+      const firstMetricTimestamp = metricList[0].timestamp
+      const lastMetricTimestamp = metricList[metricList.length - 1].timestamp
+
+      if (firstMetricTimestamp && firstMetricTimestamp > startTime) {
+        metricList.push({ timestamp: startTime })
+      }
+
+      if (lastMetricTimestamp && lastMetricTimestamp < endTime) {
+        metricList.push({ timestamp: endTime })
+      }
+
+      metric.metricDataList = metricList
+    }
+  }
+
+  return _data
 }

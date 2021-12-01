@@ -6,5 +6,6 @@ declare const styles: {
   readonly expandSearch: string
   readonly loading: string
   readonly gitFilter: string
+  readonly dropdownPopover: string
 }
 export default styles

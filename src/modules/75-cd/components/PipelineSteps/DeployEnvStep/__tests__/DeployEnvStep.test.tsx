@@ -33,7 +33,7 @@ describe('Test DeployEnvironment Step', () => {
     const { container, getByLabelText } = render(
       <DeployEnvironment type={StepType.DeployEnvironment} initialValues={{}} stepViewType={StepViewType.Edit} />
     )
-    fireEvent.click(getByText(container, 'pipelineSteps.environmentTab.newEnvironment'))
+    fireEvent.click(getByText(container, 'cd.pipelineSteps.environmentTab.plusNewEnvironment'))
     const dialog = findDialogContainer()
     expect(dialog).toMatchSnapshot()
     fillAtForm([

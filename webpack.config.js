@@ -23,7 +23,6 @@ const moduleFederationConfig = require('./configs/modulefederation.config.js')
 const ExternalRemotesPlugin = require('external-remotes-plugin')
 
 const DEV = process.env.NODE_ENV === 'development'
-const ON_PREM = `${process.env.ON_PREM}` === 'true'
 // this BUGSNAG_TOKEN needs to be same which is passed in the docker file
 const BUGSNAG_TOKEN = process.env.BUGSNAG_TOKEN
 const BUGSNAG_SOURCEMAPS_UPLOAD = `${process.env.BUGSNAG_SOURCEMAPS_UPLOAD}` === 'true'
@@ -52,8 +51,7 @@ if (isCypress && isCypressCoverage) {
  */
 const ChildAppError = path.resolve(CONTEXT, './src/microfrontends/ChildAppError.tsx')
 const enableGitOpsUI = process.env.ENABLE_GITOPSUI === 'true'
-const enableGovernance = process.env.ENABLE_GOVERNANCE === 'true'
-const moduleFederationEnabled = enableGitOpsUI || enableGovernance
+const moduleFederationEnabled = true
 
 const certificateExists = fs.existsSync('./certificates/localhost.pem')
 if (DEV && !certificateExists) {
@@ -228,15 +226,13 @@ const commonPlugins = [
     filename: 'index.html',
     minify: false,
     templateParameters: {
-      __DEV__: DEV,
-      __ON_PREM__: ON_PREM
+      __DEV__: DEV
     }
   }),
   new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
   new webpack.DefinePlugin({
     'process.env': '{}', // required for @blueprintjs/core
     __DEV__: DEV,
-    __ON_PREM__: ON_PREM,
     __BUGSNAG_RELEASE_VERSION__: buildVersion
   }),
   new MonacoWebpackPlugin({
@@ -248,17 +244,12 @@ const commonPlugins = [
 
 if (moduleFederationEnabled) {
   commonPlugins.unshift(new ExternalRemotesPlugin())
-  commonPlugins.unshift(new ModuleFederationPlugin(moduleFederationConfig({ enableGitOpsUI, enableGovernance })))
+  commonPlugins.unshift(new ModuleFederationPlugin(moduleFederationConfig({ enableGitOpsUI })))
 }
 
 if (!enableGitOpsUI) {
   // render a mock app when MF is disabled
   config.resolve.alias['gitopsui/MicroFrontendApp'] = ChildAppError
-}
-
-if (!enableGovernance) {
-  // render a mock app when MF is disabled
-  config.resolve.alias['governance/App'] = ChildAppError
 }
 
 const devOnlyPlugins = [

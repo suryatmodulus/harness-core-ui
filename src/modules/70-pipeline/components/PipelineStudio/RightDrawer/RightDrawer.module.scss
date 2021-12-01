@@ -18,15 +18,19 @@ $top-offset: 110px;
 
     .apply-changes,
     .discard {
-      font-size: var(--font-size-xsmall) !important;
+      font-size: var(--font-size-small) !important;
       height: 23px !important;
       padding: 0 !important;
       min-height: 23px !important;
-      margin-left: var(--spacing-4);
+      margin-left: var(--spacing-6);
+      line-height: 20px;
+      color: var(--primary-7);
+      font-weight: 500 !important;
     }
     .apply-changes {
       border: 1px solid var(--primary-6) !important;
       padding: var(--spacing-2) var(--spacing-3) !important;
+      line-height: 24px;
     }
   }
 
@@ -58,8 +62,8 @@ $top-offset: 110px;
 
     :global(.bp3-drawer-header) {
       margin: 0 !important;
-      padding-top: var(--spacing-7) !important;
-      padding-bottom: var(--spacing-7) !important;
+      padding-top: var(--spacing-5) !important;
+      padding-bottom: var(--spacing-5) !important;
       padding-left: var(--spacing-7) !important;
     }
   }

@@ -382,7 +382,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
           ...{ serviceRef }
         }}
         validationSchema={Yup.object().shape({
-          serviceRef: Yup.string().trim().required(getString('pipelineSteps.serviceTab.serviceIsRequired'))
+          serviceRef: Yup.string().trim().required(getString('cd.pipelineSteps.serviceTab.serviceIsRequired'))
         })}
       >
         {formik => {
@@ -397,11 +397,11 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
             >
               <FormInput.MultiTypeInput
                 tooltipProps={{ dataTooltipId: 'specifyYourService' }}
-                label={getString('pipelineSteps.serviceTab.specifyYourService')}
+                label={getString('cd.pipelineSteps.serviceTab.specifyYourService')}
                 name="serviceRef"
                 useValue
                 disabled={readonly || (type === MultiTypeInputType.FIXED && loading)}
-                placeholder={loading ? getString('loading') : getString('pipelineSteps.serviceTab.selectService')}
+                placeholder={loading ? getString('loading') : getString('cd.pipelineSteps.serviceTab.selectService')}
                 multiTypeInputProps={{
                   onTypeChange: setType,
                   width: 300,
@@ -453,7 +453,9 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                     showModal()
                   }}
                   text={
-                    isEditService(values) ? getString('editService') : getString('pipelineSteps.serviceTab.newService')
+                    isEditService(values)
+                      ? getString('editService')
+                      : getString('cd.pipelineSteps.serviceTab.plusNewService')
                   }
                 />
               ) : null}
@@ -572,9 +574,9 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
         <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
           <FormInput.MultiTypeInput
             tooltipProps={{ dataTooltipId: 'specifyYourService' }}
-            label={getString('pipelineSteps.serviceTab.specifyYourService')}
+            label={getString('cd.pipelineSteps.serviceTab.specifyYourService')}
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}serviceRef`}
-            placeholder={getString('pipelineSteps.serviceTab.selectService')}
+            placeholder={getString('cd.pipelineSteps.serviceTab.selectService')}
             selectItems={services}
             useValue
             multiTypeInputProps={{
@@ -609,7 +611,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
               text={
                 isEditService(initialValues)
                   ? getString('editService')
-                  : getString('pipelineSteps.serviceTab.newService')
+                  : getString('cd.pipelineSteps.serviceTab.plusNewService')
               }
             />
           )}
@@ -709,7 +711,7 @@ export class DeployServiceStep extends Step<DeployServiceData> {
       isRequired &&
       getMultiTypeFromValue(template?.serviceRef) === MultiTypeInputType.RUNTIME
     ) {
-      errors.serviceRef = getString?.('pipelineSteps.serviceTab.serviceIsRequired')
+      errors.serviceRef = getString?.('cd.pipelineSteps.serviceTab.serviceIsRequired')
     }
     return errors
   }

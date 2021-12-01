@@ -10,12 +10,11 @@ import type { editor } from 'monaco-editor/esm/vs/editor/editor.api'
 import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.worker'
 //@ts-ignore
 import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
-import { debounce, isEmpty, truncate, throttle } from 'lodash-es'
-import type { Diagnostic } from 'vscode-languageserver-types'
+import { debounce, isEmpty, truncate, throttle, defaultTo, attempt, every } from 'lodash-es'
 import { useToaster } from '@common/exports'
 import { useParams } from 'react-router-dom'
 import SplitPane from 'react-split-pane'
-import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
+import { Intent, Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import cx from 'classnames'
 import { scalarOptions, defaultOptions } from 'yaml'
@@ -27,9 +26,9 @@ import type {
   Theme
 } from '@common/interfaces/YAMLBuilderProps'
 import SnippetSection from '@common/components/SnippetSection/SnippetSection'
-import { validateYAMLWithSchema, getSchemaWithLanguageSettings } from '@common/utils/YamlUtils'
+import { getSchemaWithLanguageSettings } from '@common/utils/YamlUtils'
 import { sanitize } from '@common/utils/JSONUtils'
-import { getYAMLFromEditor, getMetaDataForKeyboardEventProcessing, getYAMLValidationErrors } from './YAMLBuilderUtils'
+import { getYAMLFromEditor, getMetaDataForKeyboardEventProcessing, verifyYAML } from './YAMLBuilderUtils'
 
 import css from './YamlBuilder.module.scss'
 import './resizer.scss'
@@ -124,8 +123,11 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   } = props
   setUpEditor(theme)
   const params = useParams()
-  const [currentYaml, setCurrentYaml] = useState<string>(existingYaml || '')
+  const [currentYaml, setCurrentYaml] = useState<string>(defaultTo(existingYaml, ''))
   const [currentJSON, setCurrentJSON] = useState<object>()
+  const [initialSelectionRemoved, setInitialSelectionRemoved] = useState<boolean>(
+    !defaultTo(existingYaml, existingJSON)
+  )
   const [yamlValidationErrors, setYamlValidationErrors] = useState<Map<number, string> | undefined>()
   const { innerWidth } = window
   const [dynamicWidth, setDynamicWidth] = useState<number>(innerWidth - 2 * MIN_SNIPPET_SECTION_WIDTH)
@@ -141,6 +143,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
 
   const { showError } = useToaster()
   const { getString } = useStrings()
+
+  const yamlError = getString('yamlBuilder.yamlError')
 
   const handler = React.useMemo(
     () =>
@@ -168,22 +172,24 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   }
 
   const verifyIncomingJSON = (jsonObj?: Record<string, any>): void => {
-    try {
-      const sanitizedJSONObj = jsonObj ? sanitize(jsonObj, yamlSanityConfig) : null
-      if (sanitizedJSONObj && Object.keys(sanitizedJSONObj).length > 0) {
-        const yamlEqOfJSON = yamlStringify(sanitizedJSONObj)
-        const sanitizedYAML = yamlEqOfJSON.replace(': null\n', ': \n')
-        const yamlWithoutCarriageReturns = sanitizedYAML.replace(/(?:\\[rn])+/g, '\n')
-        setCurrentYaml(yamlWithoutCarriageReturns)
-        yamlRef.current = yamlWithoutCarriageReturns
-        verifyYAML(yamlWithoutCarriageReturns)
-      } else {
-        setCurrentYaml('')
-        yamlRef.current = ''
-        setYamlValidationErrors(undefined)
-      }
-    } catch (e) {
-      // Ignore error
+    const sanitizedJSONObj = jsonObj ? sanitize(jsonObj, yamlSanityConfig) : null
+    if (sanitizedJSONObj && Object.keys(sanitizedJSONObj).length > 0) {
+      const yamlEqOfJSON = yamlStringify(sanitizedJSONObj)
+      const sanitizedYAML = yamlEqOfJSON.replace(': null\n', ': \n')
+      const yamlWithoutCarriageReturns = sanitizedYAML.replace(/(?:\\[rn])+/g, '\n')
+      setCurrentYaml(yamlWithoutCarriageReturns)
+      yamlRef.current = yamlWithoutCarriageReturns
+      verifyYAML({
+        updatedYaml: yamlWithoutCarriageReturns,
+        setYamlValidationErrors,
+        showError,
+        schema,
+        errorMessage: yamlError
+      })
+    } else {
+      setCurrentYaml('')
+      yamlRef.current = ''
+      setYamlValidationErrors(undefined)
     }
   }
 
@@ -193,10 +199,10 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     //for optimization, restrict setting value to editor if previous and current json inputs are the same.
     //except when editor is reset/cleared, by setting empty json object as input
     if (
-      (existingJSON && isEmpty(existingJSON) && isEmpty(currentJSON)) ||
+      every([existingJSON, isEmpty(existingJSON), isEmpty(currentJSON)]) ||
       JSON.stringify(existingJSON) !== JSON.stringify(currentJSON)
     ) {
-      verifyIncomingJSON(existingJSON)
+      attempt(verifyIncomingJSON, existingJSON)
       setCurrentJSON(existingJSON)
     }
   }, [existingJSON])
@@ -205,7 +211,13 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     if (existingYaml) {
       setCurrentYaml(existingYaml)
       yamlRef.current = existingYaml
-      verifyYAML(existingYaml)
+      verifyYAML({
+        updatedYaml: existingYaml,
+        setYamlValidationErrors,
+        showError,
+        schema,
+        errorMessage: yamlError
+      })
     }
   }, [existingYaml, schema])
 
@@ -218,7 +230,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
 
   const setUpYAMLBuilderWithLanguageSettings = (languageSettings: string | Record<string, any>): void => {
     //@ts-ignore
-    const { yaml } = languages || {}
+    const { yaml } = defaultTo(languages, {})
     yaml?.yamlDefaults.setDiagnosticsOptions(languageSettings)
   }
 
@@ -230,7 +242,13 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     const yamlWithoutCarriageReturns = updatedYaml.replace(/(?:\\[rn])+/g, '\n')
     setCurrentYaml(yamlWithoutCarriageReturns)
     yamlRef.current = yamlWithoutCarriageReturns
-    verifyYAML(yamlWithoutCarriageReturns)
+    verifyYAML({
+      updatedYaml: yamlWithoutCarriageReturns,
+      setYamlValidationErrors,
+      showError,
+      schema,
+      errorMessage: yamlError
+    })
     onChange?.(!(yamlWithoutCarriageReturns === ''))
   }, 500)
 
@@ -240,26 +258,6 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     }, 5000),
     []
   )
-
-  const verifyYAML = (updatedYaml: string): void => {
-    if (schema) {
-      if (updatedYaml) {
-        try {
-          validateYAMLWithSchema(updatedYaml, getSchemaWithLanguageSettings(schema))
-            .then((errors: Diagnostic[]) => {
-              setYamlValidationErrors(getYAMLValidationErrors(errors))
-            })
-            .catch((error: string) => {
-              showError(error, 5000)
-            })
-        } catch (err) {
-          showError(getString('yamlBuilder.yamlError'))
-        }
-      } else {
-        setYamlValidationErrors(undefined)
-      }
-    }
-  }
 
   const editorDidMount = (editor: editor.IStandaloneCodeEditor): void => {
     // editor.addAction({
@@ -385,6 +383,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     titleText: getString('confirm'),
     confirmButtonText: getString('enable'),
     cancelButtonText: getString('cancel'),
+    intent: Intent.WARNING,
     onCloseDialog: async didConfirm => {
       if (didConfirm) {
         onEnableEditMode?.()
@@ -454,7 +453,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
         )
       }
     } catch (err) {
-      showError(getString('yamlBuilder.yamlError'))
+      showError(yamlError)
     }
   }
 
@@ -497,7 +496,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
           {fileName && entityType ? <Tag className={css.entityTag}>{entityType}</Tag> : null}
           {yamlRef.current ? (
             <Container padding={{ left: 'medium' }}>
-              <CopyToClipboard content={yamlRef.current || ''} showFeedback={true} />
+              <CopyToClipboard content={defaultTo(yamlRef.current, '')} showFeedback={true} />
             </Container>
           ) : null}
         </div>
@@ -521,18 +520,26 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     [yamlValidationErrors, fileName, entityType, theme]
   )
 
+  // used to remove initial selection that appears when yaml builder is loaded with an initial value
+  useEffect(() => {
+    if (every([!initialSelectionRemoved, editorRef.current?.editor?.getValue()])) {
+      editorRef.current?.editor?.setSelection(new monaco.Range(0, 0, 0, 0))
+      setInitialSelectionRemoved(true)
+    }
+  }, [currentYaml])
+
   const renderEditor = useCallback(
     (): JSX.Element => (
       <MonacoEditor
         width={dynamicWidth}
-        height={height ?? DEFAULT_EDITOR_HEIGHT}
+        height={defaultTo(height, DEFAULT_EDITOR_HEIGHT)}
         language="yaml"
         value={currentYaml}
         onChange={onYamlChange}
         editorDidMount={editorDidMount}
         options={
           {
-            readOnly: isReadOnlyMode || !isEditModeSupported,
+            readOnly: defaultTo(isReadOnlyMode, !isEditModeSupported),
             wordBasedSuggestions: false,
             fontFamily: "'Roboto Mono', monospace",
             fontSize: 13,
@@ -561,19 +568,19 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
           className={css.splitPanel}
           onChange={handleResize}
           maxSize={-1 * MIN_SNIPPET_SECTION_WIDTH}
-          style={{ height: height ?? DEFAULT_EDITOR_HEIGHT }}
+          style={{ height: defaultTo(height, DEFAULT_EDITOR_HEIGHT) }}
           pane1Style={{ minWidth: MIN_SNIPPET_SECTION_WIDTH, width: dynamicWidth }}
           pane2Style={{ minWidth: MIN_SNIPPET_SECTION_WIDTH }}
         >
           <div className={css.editor}>
-            {(renderCustomHeader || renderHeader)()}
+            {defaultTo(renderCustomHeader, renderHeader)()}
             {renderEditor()}
           </div>
           {showSnippetSection ? renderSnippetSection() : null}
         </SplitPane>
       ) : (
         <div className={css.editor}>
-          {(renderCustomHeader || renderHeader)()}
+          {defaultTo(renderCustomHeader, renderHeader)()}
           {renderEditor()}
         </div>
       )}

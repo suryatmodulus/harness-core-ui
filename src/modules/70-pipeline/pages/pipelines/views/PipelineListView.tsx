@@ -37,6 +37,8 @@ interface PipelineListViewProps {
   goToPipelineDetail: (pipeline?: PMSPipelineSummaryResponse) => void
   goToPipelineStudio: (pipeline?: PMSPipelineSummaryResponse) => void
   refetchPipeline: () => void
+  onDeletePipeline: (commitMsg: string) => Promise<void>
+  onDelete: (pipeline: PMSPipelineSummaryResponse) => void
 }
 
 // Todo: Remove this when BE updated
@@ -63,7 +65,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
     module: string
   }>()
 
-  const { confirmDelete } = useDeleteConfirmationDialog(data, 'pipeline', (column as any).refetchPipeline)
+  const { confirmDelete } = useDeleteConfirmationDialog(data, 'pipeline', (column as any).onDeletePipeline)
   const [canDelete, canRun] = usePermission(
     {
       resourceScope: {
@@ -158,6 +160,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
             disabled={!canDelete}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
+              ;(column as any).onDelete(data)
               confirmDelete()
               setMenuOpen(false)
             }}
@@ -311,7 +314,9 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
   goToPipelineDetail,
   gotoPage,
   refetchPipeline,
-  goToPipelineStudio
+  goToPipelineStudio,
+  onDeletePipeline,
+  onDelete
 }): JSX.Element => {
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
@@ -362,7 +367,9 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
         disableSortBy: true,
         refetchPipeline,
         goToPipelineStudio,
-        goToPipelineDetail
+        goToPipelineDetail,
+        onDeletePipeline,
+        onDelete
       }
     ],
     [refetchPipeline, goToPipelineStudio, isGitSyncEnabled]

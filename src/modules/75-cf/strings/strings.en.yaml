@@ -417,6 +417,12 @@ pipeline:
     serve: Serve
     toGroups: to Target(s)/Target Group(s)
     flagChanges: Flag Changes
+    flagChangesRuntime: 'At runtime, you may choose the following flag configuration changes:'
+    flagChangesRuntimeSetFlagSwitch: Set flag switch
+    flagChangesRuntimeSetDefaultRules: Set default rules
+    flagChangesRuntimeServeVariationToTargets: Serve variation to targets
+    flagChangesRuntimeServeVariationToTargetGroups: Serve variation to target groups
+    flagChangesRuntimeServePercentageRollout: Serve a percentage rollout
     setFlagSwitch: Set Flag Switch
     serveVariationToIndividualTarget: Serve Variation to Individual Target
     serveVariationToTargetGroup: Serve Variation to Target Group
@@ -433,6 +439,7 @@ pipeline:
     toTargets: to targets
     toTargetGroup: to target group
     toTargetGroups: to target groups
+    pleaseSelectAFeatureFlag: Please select an environment and feature flag.
 segmentDetail:
   directlyAdded: Directly Added
   autoAdded: Automatically Added Through Conditions

@@ -5,11 +5,12 @@ import DelegateConfigurations, { prepareData } from '../DelegateConfigurations'
 import ProfileMock from './ProfilesMock'
 
 const mockGetCallFunction = jest.fn()
+const getProfilesMock = jest.fn().mockImplementation(() => ProfileMock)
 jest.mock('services/cd-ng', () => ({
   useListDelegateConfigsNgV2WithFilter: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return {
-      mutate: jest.fn().mockImplementation(() => ProfileMock),
+      mutate: getProfilesMock,
       refetch: jest.fn(),
       error: null,
       loading: false
@@ -62,7 +63,7 @@ describe('Delegates Configurations Page', () => {
 
     expect(container).toMatchSnapshot()
   })
-  test('test name search configs', async () => {
+  test('test name search configs debounce', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/delegates" pathParams={{ accountId: 'dummy' }}>
         <DelegateConfigurations />
@@ -77,8 +78,18 @@ describe('Delegates Configurations Page', () => {
 
     act(() => {
       fireEvent.change(searchInput!, {
+        target: { value: 'prim' }
+      })
+    })
+
+    act(() => {
+      fireEvent.change(searchInput!, {
         target: { value: 'primary' }
       })
+    })
+
+    await waitFor(() => {
+      expect(getProfilesMock).toBeCalledTimes(2)
     })
 
     expect(container).toMatchSnapshot()

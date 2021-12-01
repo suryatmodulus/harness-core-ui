@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   Color,
-  Heading,
   Container,
   MultiTypeInputType,
   Text,
@@ -24,19 +23,17 @@ import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelec
 import { useStrings } from 'framework/strings'
 import { StageForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { TemplateType } from '@templates-library/utils/templatesUtils'
+import NoResultsView from '@templates-library/pages/TemplatesPage/views/NoResultsView/NoResultsView'
+import { DefaultNewVersionLabel } from 'framework/Templates/templates'
 import css from './TemplateInputs.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface TemplateInputsProps {
-  selectedTemplate: TemplateSummaryResponse
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  template: TemplateSummaryResponse
 }
 
 export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
-  const { selectedTemplate, accountIdentifier, orgIdentifier, projectIdentifier } = props
-  const { identifier, versionLabel, templateEntityType } = selectedTemplate
+  const { template } = props
   const [inputSetTemplate, setInputSetTemplate] = React.useState<StepElementConfig | StageElementConfig | null>()
   const [count, setCount] = React.useState<number>(0)
   const { showError } = useToaster()
@@ -48,12 +45,12 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
     refetch,
     loading
   } = useGetTemplateInputSetYaml({
-    templateIdentifier: identifier || '',
+    templateIdentifier: defaultTo(template.identifier, ''),
     queryParams: {
-      accountIdentifier,
-      orgIdentifier,
-      projectIdentifier,
-      versionLabel: versionLabel || ''
+      accountIdentifier: defaultTo(template.accountId, ''),
+      orgIdentifier: template.orgIdentifier,
+      projectIdentifier: template.projectIdentifier,
+      versionLabel: template.versionLabel === DefaultNewVersionLabel ? '' : defaultTo(template.versionLabel, '')
     }
   })
 
@@ -71,7 +68,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
 
   React.useEffect(() => {
     refetch()
-  }, [identifier, versionLabel])
+  }, [template])
 
   return (
     <Container
@@ -89,9 +86,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
           />
         )}
         {!loading && !inputSetError && !inputSetTemplate && (
-          <Heading level={2} font={{ weight: 'bold' }} color={Color.GREY_300}>
-            This template has no inputs
-          </Heading>
+          <NoResultsView minimal={true} text={getString('templatesLibrary.noInputsRequired')} />
         )}
         {!loading && !inputSetError && inputSetTemplate && (
           <Container height={'100%'} width={'100%'} className={css.inputsContainer}>
@@ -99,7 +94,8 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
               <Container>
                 <Layout.Horizontal flex={{ alignItems: 'center' }} spacing={'xxxlarge'}>
                   <Text font={{ size: 'normal', weight: 'bold' }} color={Color.GREY_800}>
-                    {identifier}: {versionLabel}
+                    {template.identifier}:{' '}
+                    {template.versionLabel === DefaultNewVersionLabel ? 'Stable' : template.versionLabel}
                   </Text>
                   <Text className={css.inputsCount} font={{ size: 'small' }}>
                     {getString('templatesLibrary.inputsCount', { count })}
@@ -109,7 +105,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
               <Formik<StepElementConfig | StageElementWrapperConfig>
                 onSubmit={noop}
                 initialValues={
-                  templateEntityType === TemplateType.Step
+                  template.templateEntityType === TemplateType.Step
                     ? (inputSetTemplate as StepElementConfig)
                     : ({ stage: inputSetTemplate } as StageElementWrapperConfig)
                 }
@@ -119,7 +115,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
                 {formikProps => {
                   return (
                     <>
-                      {templateEntityType === TemplateType.Stage && (
+                      {template.templateEntityType === TemplateType.Stage && (
                         <StageForm
                           template={formikProps.values as StageElementWrapperConfig}
                           allValues={formikProps.values as StageElementWrapperConfig}
@@ -130,7 +126,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
                           stageClassName={css.stageCard}
                         />
                       )}
-                      {templateEntityType === TemplateType.Step && (
+                      {template.templateEntityType === TemplateType.Step && (
                         <Container
                           className={css.inputsCard}
                           background={Color.WHITE}
@@ -154,7 +150,10 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
                             MultiTypeInputType.RUNTIME && (
                             <div className={cx(stepCss.formGroup, stepCss.sm)}>
                               <MultiTypeDelegateSelector
-                                inputProps={{ projectIdentifier, orgIdentifier }}
+                                inputProps={{
+                                  projectIdentifier: template.projectIdentifier,
+                                  orgIdentifier: template.orgIdentifier
+                                }}
                                 allowableTypes={[
                                   MultiTypeInputType.FIXED,
                                   MultiTypeInputType.EXPRESSION,

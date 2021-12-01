@@ -76,17 +76,6 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 describe('Feature flag enabled', () => {
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('render delegates list and check for activity column', () => {
-    const { container } = render(
-      <TestWrapper path="/account/:accountId/resources/delegates" pathParams={{ accountId: 'simpleDelegateResponse' }}>
-        <DelegatesListing />
-      </TestWrapper>
-    )
-    expect(container.innerHTML.search('ACTIVITY')).toBeGreaterThan(-1)
-    expect(container).toMatchSnapshot()
-  })
-
   test('render delegate list and test new delegate button', async () => {
     const { getAllByText } = render(
       <TestWrapper path="/account/:accountId/resources/delegates" pathParams={{ accountId: 'simpleDelegateResponse' }}>
@@ -106,8 +95,7 @@ describe('Feature flag enabled', () => {
 })
 
 describe('Delegates Listing With Groups', () => {
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('render data', () => {
+  test('render data', () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/delegates" pathParams={{ accountId: 'multipleDelegates' }}>
         <DelegatesListing />
@@ -137,8 +125,7 @@ describe('Delegates Listing With Groups', () => {
 })
 
 describe('Delegates Listing without tags', () => {
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('render data', () => {
+  test('render data', () => {
     const { container } = render(
       <TestWrapper
         path="/account/:accountId/resources/delegates"
@@ -151,9 +138,8 @@ describe('Delegates Listing without tags', () => {
   })
 })
 
-describe('Delegates Listing test actions', () => {
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('render data and click delete', () => {
+describe('Test delegate buttons', () => {
+  test('click on new delegate', async () => {
     const { container } = render(
       <TestWrapper
         path="/account/:accountId/resources/delegates"
@@ -163,33 +149,34 @@ describe('Delegates Listing test actions', () => {
       </TestWrapper>
     )
 
-    const optionBtn = container.getElementsByTagName('button')[0]
-    act(() => {
-      fireEvent.click(optionBtn!)
-    })
-
-    expect(container).toMatchSnapshot()
-  })
-})
-
-describe('Delegate Listing, open filter', () => {
-  test.only('render list and open filter', async () => {
-    const { container } = render(
-      <TestWrapper
-        path="/account/:accountId/resources/delegates"
-        pathParams={{ accountId: 'singleDelegateWithoutTags' }}
-      >
-        <DelegatesListing />
-      </TestWrapper>
-    )
-
-    let buttons: HTMLCollectionOf<HTMLButtonElement>
     await waitFor(() => {
-      buttons = container.getElementsByTagName('button')
+      expect(container.getElementsByTagName('button')[0]).toBeDefined()
     })
 
+    const newDelegateBtn: HTMLElement = container.getElementsByTagName('button')[0]
     act(() => {
-      fireEvent.click(buttons[1]!)
+      fireEvent.click(newDelegateBtn!)
+    })
+
+    expect(container).toMatchSnapshot()
+  })
+  test('click on filter', async () => {
+    const { container } = render(
+      <TestWrapper
+        path="/account/:accountId/resources/delegates"
+        pathParams={{ accountId: 'singleDelegateWithoutTags' }}
+      >
+        <DelegatesListing />
+      </TestWrapper>
+    )
+
+    await waitFor(() => {
+      expect(container.getElementsByTagName('button')[1]).toBeDefined()
+    })
+
+    const filterBtn: HTMLElement = container.getElementsByTagName('button')[1]
+    act(() => {
+      fireEvent.click(filterBtn!)
     })
 
     expect(container).toMatchSnapshot()

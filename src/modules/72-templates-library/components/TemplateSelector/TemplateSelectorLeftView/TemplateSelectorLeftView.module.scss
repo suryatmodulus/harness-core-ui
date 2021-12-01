@@ -1,0 +1,12 @@
+.container {
+  padding: var(--spacing-xlarge) 0px !important;
+  background: #f3f8fb !important;
+  box-shadow: var(--elevation-3);
+  z-index: 2;
+  .searchBox {
+    flex-grow: 1;
+  }
+  :global(.DropDown--dropdownButton) {
+    background-color: var(--white) !important;
+  }
+}

@@ -216,6 +216,7 @@ export class TerraformRollback extends PipelineStep<TFRollbackData> {
     }
   }
   protected stepIcon: IconName = 'terraform-apply-new'
+  protected stepIconColor = '#5C4EE5'
   protected stepName = 'Terraform Rollback'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.TerraformRollback'
 

@@ -267,7 +267,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                 <div
                   class="tabHeading"
                 >
-                  pipelineSteps.serviceTab.aboutYourService
+                  cd.pipelineSteps.serviceTab.aboutYourService
                 </div>
                 <div
                   class="bp3-card bp3-elevation-0 Card--card sectionCard"
@@ -290,7 +290,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                             class="Tooltip--acenter"
                             data-tooltip-id="specifyYourService"
                           >
-                            pipelineSteps.serviceTab.specifyYourService
+                            cd.pipelineSteps.serviceTab.specifyYourService
                           </span>
                            
                           <span
@@ -317,7 +317,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                                     autocomplete="off"
                                     class="bp3-input"
                                     name="serviceRef"
-                                    placeholder="pipelineSteps.serviceTab.selectService"
+                                    placeholder="cd.pipelineSteps.serviceTab.selectService"
                                     style="padding-right: 0px;"
                                     type="text"
                                     value=""
@@ -386,7 +386,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                         <span
                           class="bp3-button-text"
                         >
-                          pipelineSteps.serviceTab.newService
+                          cd.pipelineSteps.serviceTab.plusNewService
                         </span>
                       </button>
                     </div>

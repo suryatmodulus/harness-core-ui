@@ -59,6 +59,7 @@ export class TerraformApply extends PipelineStep<TFFormData> {
     }
   }
   protected stepIcon: IconName = 'terraform-apply-new'
+  protected stepIconColor = '#5C4EE5'
   protected stepName = 'Terraform Apply'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.TerraformApply'
   /* istanbul ignore next */

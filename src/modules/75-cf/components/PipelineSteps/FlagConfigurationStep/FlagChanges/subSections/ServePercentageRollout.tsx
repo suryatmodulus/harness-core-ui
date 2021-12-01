@@ -1,8 +1,10 @@
-import React, { FC, useEffect } from 'react'
+import React, { FC, useEffect, useState } from 'react'
+import { get } from 'lodash-es'
 import type { Segment, TargetAttributesResponse, Variation } from 'services/cf'
 import PercentageRollout from '@cf/components/PercentageRollout/PercentageRollout'
 import type { FlagConfigurationStepFormDataValues } from '@cf/components/PipelineSteps/FlagConfigurationStep/types'
 import SubSection, { SubSectionProps } from '../SubSection'
+import { CFPipelineInstructionType } from '../../types'
 
 export interface ServePercentageRolloutProps extends SubSectionProps {
   targetGroups?: Segment[]
@@ -10,6 +12,8 @@ export interface ServePercentageRolloutProps extends SubSectionProps {
   fieldValues?: FlagConfigurationStepFormDataValues
   targetAttributes?: TargetAttributesResponse
   clearField: (fieldName: string) => void
+  setField: (fieldName: string, value: unknown) => void
+  prefix: (fieldName: string) => string
 }
 
 const ServePercentageRollout: FC<ServePercentageRolloutProps> = ({
@@ -18,36 +22,49 @@ const ServePercentageRollout: FC<ServePercentageRolloutProps> = ({
   fieldValues,
   targetAttributes = [],
   clearField,
+  setField,
+  prefix,
   ...props
 }) => {
-  const pruneVariationFields = (): void =>
-    Object.keys(fieldValues?.spec?.percentageRollout?.variation || {}).forEach(fieldKey => {
-      if (!variations?.find(({ identifier }) => identifier === fieldKey)) {
-        clearField(`spec.percentageRollout.variation.${fieldKey}`)
+  const [initialLoad, setInitialLoad] = useState<boolean>(true)
+
+  useEffect(() => {
+    setField('identifier', 'AddRuleIdentifier')
+    setField('type', CFPipelineInstructionType.ADD_RULE)
+    setField('spec.priority', 100)
+    setField('spec.distribution.clauses[0].op', 'segmentMatch')
+    setField('spec.distribution.clauses[0].attribute', '')
+  }, [])
+
+  useEffect(() => {
+    if (!initialLoad) {
+      clearField('spec.distribution.variations')
+    }
+
+    variations.forEach(({ identifier }, index) => {
+      setField(`spec.distribution.variations[${index}].variation`, identifier)
+
+      if (!initialLoad) {
+        setField(`spec.distribution.variations[${index}].weight`, Math.floor(100 / variations?.length || 1))
       }
     })
 
-  const clearAllFields = (): void => {
-    clearField('spec.percentageRollout.targetGroup')
-    clearField('spec.percentageRollout.bucketBy')
-    pruneVariationFields()
-  }
-
-  useEffect(() => clearAllFields, [])
-
-  useEffect(() => {
-    if (variations?.length) {
-      pruneVariationFields()
+    if (!initialLoad && variations?.length % 2) {
+      setField(
+        `spec.distribution.variations[${variations?.length - 1}].weight`,
+        Math.ceil(100 / variations?.length || 1)
+      )
     }
-  }, [variations])
+    setInitialLoad(false)
+  }, [variations, setInitialLoad])
 
   return (
     <SubSection data-testid="flagChanges-servePercentageRollout" {...props}>
       <PercentageRollout
         targetGroups={targetGroups}
         variations={variations}
-        fieldValues={fieldValues?.spec?.percentageRollout}
-        namePrefix="spec.percentageRollout"
+        fieldValues={get(fieldValues, prefix('spec.distribution'))}
+        prefix={(fieldName: string) => prefix(`spec.distribution.${fieldName}`)}
         bucketByAttributes={targetAttributes}
       />
     </SubSection>

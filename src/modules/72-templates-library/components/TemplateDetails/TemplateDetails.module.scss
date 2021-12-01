@@ -45,4 +45,9 @@
       }
     }
   }
+  .dropdown {
+    :global(.bp3-menu) {
+      width: 300px !important;
+    }
+  }
 }

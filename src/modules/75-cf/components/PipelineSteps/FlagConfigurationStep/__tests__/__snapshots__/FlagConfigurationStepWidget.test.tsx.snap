@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FlagConfigurationStepWidget it should render 1`] = `
+exports[`FlagConfigurationStepWidget it should render the form 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -36,13 +36,15 @@ exports[`FlagConfigurationStepWidget it should render 1`] = `
               class="bp3-popover-target"
             >
               <div
-                class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                class="bp3-editable-text InputWithIdentifier--idValue"
                 tabindex="0"
               >
                 <span
                   class="bp3-editable-text-content"
                   style="height: 1px; line-height: 1px; min-width: 0;"
-                />
+                >
+                  step
+                </span>
               </div>
             </span>
           </span>
@@ -102,7 +104,7 @@ exports[`FlagConfigurationStepWidget it should render 1`] = `
                 class="bp3-input"
                 name="name"
                 type="text"
-                value=""
+                value="step"
               />
             </div>
           </div>
@@ -180,24 +182,13 @@ exports[`FlagConfigurationStepWidget it should render 1`] = `
       >
         <label
           class="bp3-label"
-          for="spec.featureFlag"
+          for="spec.feature"
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="FeatureFlagConfigurationForm_spec.featureFlag"
+            data-tooltip-id="FeatureFlagConfigurationForm_spec.feature"
           >
-            <div
-              class="StyledProps--font StyledProps--main StyledProps--flex"
-            >
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                cf.pipeline.flagConfiguration.selectFlag
-              </p>
-              <span
-                style="flex-grow: 1;"
-              />
-            </div>
+            cf.pipeline.flagConfiguration.selectFlag
           </span>
            
           <span
@@ -222,7 +213,7 @@ exports[`FlagConfigurationStepWidget it should render 1`] = `
                   <input
                     autocomplete="off"
                     class="bp3-input"
-                    name="spec.featureFlag"
+                    name="spec.feature"
                     placeholder="Search..."
                     style="padding-right: 0px;"
                     type="text"
@@ -288,141 +279,60 @@ exports[`FlagConfigurationStepWidget it should render 1`] = `
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
-        <h5
-          class="StyledProps--font StyledProps--font-h5 StyledProps--main StyledProps--font-variation-h5"
-          level="5"
-        >
-          cf.pipeline.flagConfiguration.flagChanges
-        </h5>
         <div
-          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main subSection StyledProps--padding-large"
-          data-testid="flagChanges-setFlagSwitch"
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
         >
+          <h5
+            class="StyledProps--font StyledProps--font-h5 StyledProps--main StyledProps--font-variation-h5"
+            level="5"
+          >
+            cf.pipeline.flagConfiguration.flagChanges
+          </h5>
           <div
-            class="Layout--horizontal StyledProps--main header"
+            class="bp3-popover-wrapper typeSelectorWrapper"
           >
             <div
-              class="Layout--horizontal StyledProps--main wrapper"
+              class="bp3-popover-target typeSelector"
             >
-              <h6
-                class="StyledProps--font StyledProps--font-h6 StyledProps--main heading StyledProps--font-variation-h6"
-                level="6"
-              >
-                cf.pipeline.flagConfiguration.setFlagSwitch
-              </h6>
-              <span
-                class="bp3-popover-wrapper"
+              <button
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
+                data-testid="runtime-fixed-selector-button"
+                type="button"
               >
                 <span
-                  class="bp3-popover-target"
+                  class="bp3-button-text"
                 >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon Button--variation Button--variation-icon Button--size Button--small"
-                    type="button"
+                  <span
+                    class="bp3-icon StyledProps--main icon fixed"
+                    data-icon="fixed-input"
                   >
-                    <span
-                      class="bp3-icon bp3-icon-chevron-down StyledProps--main"
-                      icon="chevron-down"
+                    <svg
+                      height="12"
+                      viewBox="0 0 9 9"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <svg
-                        data-icon="chevron-down"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        width="16"
-                      >
-                        <desc>
-                          chevron-down
-                        </desc>
-                        <path
-                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </button>
+                      <path
+                        d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
                 </span>
-              </span>
-            </div>
-          </div>
-          <div
-            class="bp3-form-group hideLabelText"
-          >
-            <label
-              class="bp3-label"
-              for="spec.state"
-            >
-              <span
-                class="Tooltip--acenter"
-                data-tooltip-id="FeatureFlagConfigurationForm_spec.state"
-              >
-                cf.pipeline.flagConfiguration.switchTo
-              </span>
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
-            <div
-              class="bp3-form-content"
-            >
-              <div
-                class="bp3-popover-wrapper Select--main bp3-fill"
-              >
-                <div
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="bp3-input-group"
-                  >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="spec.state"
-                      placeholder="- cf.pipeline.flagConfiguration.selectOnOrOff -"
-                      style="padding-right: 0px;"
-                      type="text"
-                      value=""
-                    />
-                    <span
-                      class="bp3-input-action"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                        icon="chevron-down"
-                      >
-                        <svg
-                          data-icon="chevron-down"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
-                        >
-                          <desc>
-                            chevron-down
-                          </desc>
-                          <path
-                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              </button>
             </div>
           </div>
         </div>
-        <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
-          style="align-self: flex-start; padding: 0px;"
-          type="button"
+        <div
+          class="StyledProps--font StyledProps--main subSection StyledProps--padding-large"
+          data-testid="flag-changes-no-flag-selected"
         >
-          <span
-            class="bp3-button-text"
+          <p
+            class="StyledProps--font StyledProps--main"
           >
-            cf.pipeline.flagConfiguration.configureMore
-          </span>
-        </button>
+            cf.pipeline.flagConfiguration.pleaseSelectAFeatureFlag
+          </p>
+        </div>
       </div>
     </div>
   </div>

@@ -88,6 +88,7 @@ export const GCRStepBase = (
               stepViewType={stepViewType}
               allowableTypes={allowableTypes}
               enableFields={{
+                name: {},
                 'spec.imageName': {},
                 'spec.connectorRef': {
                   label: (

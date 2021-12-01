@@ -273,7 +273,7 @@ describe('Wizard tests', () => {
       }
       fireEvent.click(redirectButton)
 
-      await waitFor(() => expect(document.body.querySelector('[class*="bp3-dialog"]')).not.toBeNull())
+      await waitFor(() => expect(document.body.querySelector('[class*="dialog"]')).not.toBeNull())
       expect(document.body.querySelector('[data-icon="warning-icon"]')).not.toBeNull()
     })
   })

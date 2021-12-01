@@ -7,7 +7,10 @@ import {
   Color,
   MultiTypeInputType,
   useModalHook,
-  useConfirmationDialog
+  useConfirmationDialog,
+  FontVariation,
+  ButtonVariation,
+  ButtonSize
 } from '@wings-software/uicore'
 import { cloneDeep, defaultTo, get, isEmpty, isNil, merge, omit, set } from 'lodash-es'
 import cx from 'classnames'
@@ -22,17 +25,16 @@ import { StageType } from '@pipeline/utils/stageHelpers'
 import type { BuildStageElementConfig, DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { DependencyElement } from 'services/ci'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
+import type { TemplateConfig, TemplateStepData } from '@pipeline/utils/tempates'
 import type { NGTemplateInfoConfig, TemplateSummaryResponse } from 'services/template-ng'
 import { ModalProps, TemplateConfigModal } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { PipelineGovernanceView } from '@governance/views/PipelineGovernanceView/PipelineGovernanceView'
+import { PipelineGovernanceView } from '@governance/PipelineGovernanceView'
 import { DefaultTemplate } from 'framework/Templates/templates'
 import { useSaveTemplate } from '@pipeline/utils/useSaveTemplate'
 import { useQueryParams } from '@common/hooks'
 import { getStepPaletteModuleInfosFromStage } from '@pipeline/utils/stepUtils'
-import { getIdentifierFromValue, getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
-import { Scope } from '@common/interfaces/SecretsInterface'
+import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes, TemplateDrawerTypes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -135,7 +137,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     updateStage,
     updatePipelineView,
     updateTemplateView,
-    setTemplateTypes,
     getStageFromPipeline,
     stepsFactory,
     setSelectedStepId
@@ -208,17 +209,30 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     title = (
       <div className={css.stepConfig}>
         <div className={css.title}>
-          <Icon name={stepsFactory.getStepIcon(stepType || '')} />
+          <Icon
+            name={stepsFactory.getStepIcon(stepType || '')}
+            {...(stepsFactory.getStepIconColor(stepType || '')
+              ? { color: stepsFactory.getStepIconColor(stepType || '') }
+              : {})}
+            style={{ color: stepsFactory.getStepIconColor(stepType || '') }}
+          />
           <Text
             lineClamp={1}
             color={Color.BLACK}
             tooltipProps={{ dataTooltipId: `${stepType}_stepName${toolTipType}` }}
+            font={{ variation: FontVariation.H4 }}
           >
             {stepData ? stepData?.name : stepsFactory.getStepName(stepType || '')}
           </Text>
         </div>
         <div>
-          <Button minimal className={css.applyChanges} text={getString('applyChanges')} onClick={applyChanges} />
+          <Button
+            variation={ButtonVariation.SECONDARY}
+            size={ButtonSize.SMALL}
+            className={css.applyChanges}
+            text={getString('applyChanges')}
+            onClick={applyChanges}
+          />
           <Button minimal className={css.discard} text={getString('pipeline.discard')} onClick={discardChanges} />
         </div>
       </div>
@@ -578,6 +592,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     const stepType =
       (data?.stepConfig?.node as StepElementConfig)?.type ||
       get(templateTypes, getIdentifierFromValue((data?.stepConfig?.node as TemplateStepData).template.templateRef))
+    const selectedTemplateRef = (data?.stepConfig?.node as TemplateStepData)?.template?.templateRef || ''
     updateTemplateView({
       isTemplateDrawerOpened: true,
       templateDrawerData: {
@@ -586,6 +601,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           selectorData: {
             templateType: 'Step',
             childTypes: [stepType],
+            selectedTemplateRef: selectedTemplateRef,
             onCopyTemplate: async (copiedTemplate: TemplateSummaryResponse) => {
               closeTemplatesView()
               const node = drawerData.data?.stepConfig?.node as StepOrStepGroupOrTemplateStepData
@@ -599,21 +615,13 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               await updateNode(processNode)
               formikRef.current?.resetForm()
             },
-            onUseTemplate: async (copiedTemplate: TemplateSummaryResponse) => {
+            onUseTemplate: async (templateConfig: TemplateConfig) => {
               closeTemplatesView()
-              set(templateTypes, copiedTemplate.identifier || '', parse(copiedTemplate.yaml || '').template.spec.type)
-              setTemplateTypes(templateTypes)
               const node = drawerData.data?.stepConfig?.node as StepOrStepGroupOrTemplateStepData
               const processNode = produce({} as TemplateStepData, draft => {
                 draft.name = node?.name || ''
                 draft.identifier = node?.identifier || ''
-                const scope = getScopeFromDTO(copiedTemplate)
-                set(
-                  draft,
-                  'template.templateRef',
-                  scope === Scope.PROJECT ? copiedTemplate.identifier : `${scope}.${copiedTemplate.identifier}`
-                )
-                set(draft, 'template.versionLabel', copiedTemplate.versionLabel)
+                draft.template = templateConfig
               })
               await updateNode(processNode)
             }

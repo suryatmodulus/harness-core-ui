@@ -138,8 +138,7 @@
 }
 
 .delegateListHeader {
-  padding: var(--spacing-large) !important;
-  padding-top: 0;
+  padding: var(--spacing-large) 0 !important;
   font-weight: 700;
   font-size: var(--font-size-small);
   color: var(--grey-800) !important;
@@ -148,13 +147,13 @@
 
 .delegateItemContainer {
   width: 100%;
-  box-shadow: 0 1px 5px -4px var(--black);
   border-radius: 4px;
   margin-bottom: var(--spacing-small);
-  padding: var(--spacing-large);
+  padding: var(--spacing-large) 0 !important;
 }
 
 .delegateItemSubcontainer {
+  width: 100% !important;
   align-items: center;
 }
 
@@ -186,4 +185,33 @@
 
 .itemActionContainer {
   justify-content: flex-end;
+}
+
+.expandIcon {
+  margin-right: var(--spacing-small) !important;
+}
+
+.instancesContainer {
+  margin: var(--spacing-small) 0 !important;
+  padding-top: var(--spacing-medium) !important;
+}
+
+.podDetailsSeparator {
+  margin: var(--spacing-medium) 80px 0 !important;
+  border-top: solid 1px var(--grey-200);
+}
+.podDetailsContainer {
+  padding-top: var(--spacing-small);
+}
+
+.delegateItemIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.instancesColumn {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 50px !important;
 }

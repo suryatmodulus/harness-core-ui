@@ -3,24 +3,16 @@ import { ExpandingSearchInput, Text, Icon, Layout, Color, Container, Heading } f
 import { cloneDeep, uniqBy, isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import {
-  ResponseStepCategory,
-  StepCategory,
-  StepData,
-  StepPalleteModuleInfo,
-  useGetStepsV2
-} from 'services/pipeline-ng'
+import { StepCategory, StepData, StepPalleteModuleInfo, useGetStepsV2 } from 'services/pipeline-ng'
 import { useMutateAsGet } from '@common/hooks'
 import { useStrings } from 'framework/strings'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { StepActions } from '@common/constants/TrackingConstants'
-import { StageType } from '@pipeline/utils/stageHelpers'
+import type { StageType } from '@pipeline/utils/stageHelpers'
 import { StepPopover } from '@pipeline/components/PipelineStudio/StepPalette/StepPopover/StepPopover'
 import type { AbstractStepFactory, StepData as FactoryStepData } from '../../AbstractSteps/AbstractStepFactory'
 
 import { iconMapByName } from './iconMap'
-// TODO: Mock API
-import featureStageSteps from './mock/featureStageSteps.json'
 import css from './StepPalette.module.scss'
 
 export const getAllStepsCountForPalette = (originalData: StepCategory[]): number => {
@@ -44,17 +36,6 @@ export const getAllStepsCountForPalette = (originalData: StepCategory[]): number
   return count
 }
 
-// TODO: remove once CI and CF onboard to the step palette v2 API
-const getMockedSteps = (stageType: StageType) => {
-  if (stageType === StageType.FEATURE) {
-    return {
-      loading: false,
-      data: featureStageSteps as unknown as ResponseStepCategory
-    }
-  }
-  return undefined
-}
-
 const primaryTypes = {
   SHOW_ALL: 'show_all',
   RECENTLY_USED: 'recently_used'
@@ -75,8 +56,7 @@ export interface StepPaletteProps {
 export const StepPalette: React.FC<StepPaletteProps> = ({
   onSelect,
   stepsFactory,
-  stepPaletteModuleInfos,
-  stageType
+  stepPaletteModuleInfos
 }): JSX.Element => {
   const [stepCategories, setStepsCategories] = useState<StepCategory[]>([])
   const [originalData, setOriginalCategories] = useState<StepCategory[]>([])
@@ -102,33 +82,21 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
     queryParams: {
       accountId
     },
-    body: { stepPalleteModuleInfos: stepPaletteModuleInfos },
-    mock: getMockedSteps(stageType)
+    body: { stepPalleteModuleInfos: stepPaletteModuleInfos }
   })
 
   const { getString } = useStrings()
   useEffect(() => {
-    if (stageType === StageType.FEATURE) {
-      // todo - remove once CF is onboarded to the v2 step palette API
-      const stepsCategories = stepsData?.data?.stepCategories
-      /* istanbul ignore else */ if (stepsCategories) {
-        setStepsCategories(stepsCategories)
-        setOriginalCategories(stepsCategories)
+    const fromApi = stepsData?.data?.stepCategories
+    const toShow: StepCategory[] = []
+    fromApi?.forEach(stepCat => {
+      if (stepCat?.stepCategories?.length) {
+        toShow.push(...stepCat?.stepCategories)
       }
-    } else {
-      // For CI & CD stages, as per the v2 API
-      // Api response should expose stage type in the response for better filtering logic, instead of based on stage name
-      const fromApi = stepsData?.data?.stepCategories
-      const toShow: StepCategory[] = []
-      fromApi?.forEach(stepCat => {
-        if (stepCat?.stepCategories?.length) {
-          toShow.push(...stepCat?.stepCategories)
-        }
-      })
-      if (toShow) {
-        setStepsCategories(toShow)
-        setOriginalCategories(toShow)
-      }
+    })
+    if (toShow) {
+      setStepsCategories(toShow)
+      setOriginalCategories(toShow)
     }
   }, [stepsData?.data?.stepCategories])
 
@@ -223,7 +191,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                       className={css.step}
                       key={`${stepData.name}-${i}`}
                       onClick={() => {
-                        if (stepData.type !== 'Placeholder') {
+                        if (stepData.type !== 'Placeholder' && !stepData.disabled) {
                           onSelect({
                             name: stepData.name || '',
                             type: stepData.type || '',

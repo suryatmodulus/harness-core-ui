@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Heading, Text, Container, Color, Button } from '@wings-software/uicore'
+import { Heading, Text, Container, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import css from './BuildTests.module.scss'
 
@@ -26,16 +26,14 @@ export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({
   return (
     <div className={cx(css.widgetWrapper, css.executionResult)}>
       <Container flex={{ justifyContent: 'flex-start' }} margin={{ bottom: 'xsmall' }}>
-        <Heading level={2} font={{ weight: 'semi-bold' }} color={Color.GREY_600}>
+        <Heading
+          data-name="test-execution-result-label"
+          level={6}
+          style={{ fontWeight: 600, marginBottom: 'var(--spacing-3)' }}
+          color={Color.GREY_600}
+        >
           {getString('pipeline.testsReports.resultLabel')}
         </Heading>
-        <Button
-          icon="question"
-          minimal
-          tooltip={getString('pipeline.testsReports.resultInfo')}
-          iconProps={{ size: 14 }}
-          margin={{ left: 'xsmall' }}
-        />
       </Container>
 
       <Container className={css.widget} height="100%" padding="medium">

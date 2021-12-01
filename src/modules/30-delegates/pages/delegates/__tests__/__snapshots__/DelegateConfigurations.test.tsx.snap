@@ -8,6 +8,11 @@ exports[`Delegates Configurations Page check filter panel 1`] = `
     <div
       class="Layout--horizontal StyledProps--main header StyledProps--background-white"
     >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-orange600 StyledProps--font-size-normal"
+      >
+        delegates.delegateProfilesDepricated
+      </p>
       <span
         style="flex-grow: 1;"
       />
@@ -383,6 +388,11 @@ exports[`Delegates Configurations Page render data 1`] = `
     <div
       class="Layout--horizontal StyledProps--main header StyledProps--background-white"
     >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-orange600 StyledProps--font-size-normal"
+      >
+        delegates.delegateProfilesDepricated
+      </p>
       <span
         style="flex-grow: 1;"
       />
@@ -529,6 +539,11 @@ exports[`Delegates Configurations Page render data and add new 1`] = `
     <div
       class="Layout--horizontal StyledProps--main header StyledProps--background-white"
     >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-orange600 StyledProps--font-size-normal"
+      >
+        delegates.delegateProfilesDepricated
+      </p>
       <span
         style="flex-grow: 1;"
       />
@@ -695,7 +710,7 @@ exports[`Delegates Configurations Page render data and add new 1`] = `
 </div>
 `;
 
-exports[`Delegates Configurations Page test name search configs 1`] = `
+exports[`Delegates Configurations Page test name search configs debounce 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main StyledProps--background-grey100"
@@ -703,6 +718,11 @@ exports[`Delegates Configurations Page test name search configs 1`] = `
     <div
       class="Layout--horizontal StyledProps--main header StyledProps--background-white"
     >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-orange600 StyledProps--font-size-normal"
+      >
+        delegates.delegateProfilesDepricated
+      </p>
       <span
         style="flex-grow: 1;"
       />

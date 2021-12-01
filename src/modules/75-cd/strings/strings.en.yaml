@@ -53,6 +53,12 @@ configurationFile: 'Configuration File Repository'
 terraformVarFiles: 'Terraform Var Files'
 secretManagerRequired: 'Secret Manager is required.'
 pipelineSteps:
+  environmentTab:
+    specifyYourEnvironment: Specify Environment
+    selectEnvironment: '- Select Environment -'
+    plusNewEnvironment: '+ {{$.newEnvironment}}'
+    newEnvironment: '{{$.newEnvironment}}'
+    environmentIsRequired: Environment is required
   serviceTab:
     stageOverrides: Stage Overrides
     propagateStage: Stage is required
@@ -60,6 +66,12 @@ pipelineSteps:
     deploymentTypeRequired: Deployment type selection is required
     propagateFrom: Propagate from
     differentService: Deploy different Service
+    specifyYourService: Specify Service
+    selectService: '- Select Service -'
+    newService: '{{$.newService}}'
+    plusNewService: '+ {{$.newService}}'
+    serviceIsRequired: Service is required
+    aboutYourService: About the Service
   infraTab:
     deploymentType: Infrastructure type selection is required
     clusterError: No cluster found with given Connector

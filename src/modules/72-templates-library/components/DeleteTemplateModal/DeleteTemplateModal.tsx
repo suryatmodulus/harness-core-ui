@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {
   Container,
   Layout,
@@ -11,7 +11,7 @@ import {
   FormError,
   FormikForm
 } from '@wings-software/uicore'
-import { defaultTo, get, isEmpty } from 'lodash-es'
+import { defaultTo, get, isEmpty, pick } from 'lodash-es'
 import { Formik } from 'formik'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -27,13 +27,13 @@ import {
 import { TemplatePreview } from '@templates-library/components/TemplatePreview/TemplatePreview'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDialog'
-import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
 import css from './DeleteTemplateModal.module.scss'
 
 export interface DeleteTemplateProps {
   template: TemplateSummaryResponse
   onClose: () => void
   onSuccess: () => void
+  // onDeleteTemplateGitSync: (commitMsg: string, versions?: string[]) => Promise<void>
 }
 export interface CheckboxOptions {
   label: string
@@ -51,7 +51,6 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
   const { showSuccess, showError } = useToaster()
   const { isGitSyncEnabled } = useAppStore()
   const { mutate: deleteTemplates, loading: deleteLoading } = useDeleteTemplateVersionsOfIdentifier({})
-  const { setLoading } = useContext(TemplateContext)
 
   const {
     data: templateData,
@@ -71,14 +70,6 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
     queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
 
-  const { confirmDelete } = useDeleteConfirmationDialog(
-    template,
-    'template',
-    onSuccess,
-    template.identifier,
-    setLoading
-  )
-
   React.useEffect(() => {
     if (templatesError) {
       onClose()
@@ -86,31 +77,36 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
     }
   }, [templatesError])
 
-  const performDelete = async (versions: string[]) => {
-    if (isGitSyncEnabled) {
-      confirmDelete({ versions })
-    } else {
-      try {
-        await deleteTemplates(defaultTo(template.identifier, ''), {
-          queryParams: {
-            accountIdentifier: accountId,
-            orgIdentifier,
-            projectIdentifier
-          },
-          body: JSON.stringify({ templateVersionLabels: versions }),
-          headers: { 'content-type': 'application/json' }
-        })
+  const performDelete = async (commitMsg: string, versions?: string[]): Promise<void> => {
+    try {
+      const resp = await deleteTemplates(defaultTo(template.identifier, ''), {
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier,
+          projectIdentifier,
+          comments: commitMsg,
+          ...(isGitSyncEnabled &&
+            template.gitDetails?.objectId && {
+              ...pick(template.gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
+              commitMsg,
+              lastObjectId: template.gitDetails?.objectId
+            })
+        },
+        body: JSON.stringify({ templateVersionLabels: versions }),
+        headers: { 'content-type': 'application/json' }
+      })
+      if (resp?.status === 'SUCCESS') {
         showSuccess(getString('common.template.deleteTemplate.templatesDeleted', { name: template.name }))
         onSuccess?.()
-      } catch (error) {
-        showError(
-          error?.data?.message || error?.message || getString('common.template.deleteTemplate.errorWhileDeleting'),
-          undefined,
-          'template.delete.template.error'
-        )
+      } else {
+        throw getString('somethingWentWrong')
       }
+    } catch (err) {
+      showError(err?.data?.message || err?.message, undefined, 'common.template.deleteTemplate.errorWhileDeleting')
     }
   }
+
+  const { confirmDelete } = useDeleteConfirmationDialog(template, 'template', performDelete, true)
 
   React.useEffect(() => {
     if (templateData?.data?.content) {
@@ -151,7 +147,7 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
         <Formik<{ checkboxOptions: CheckboxOptions[] }>
           onSubmit={values => {
             const selectedVersions = values.checkboxOptions.filter(item => item.checked).map(item => item.value)
-            performDelete(selectedVersions)
+            confirmDelete({ versions: selectedVersions })
           }}
           enableReinitialize={true}
           initialValues={{ checkboxOptions: checkboxOptions }}
@@ -238,7 +234,7 @@ export const DeleteTemplateModal = (props: DeleteTemplateProps) => {
                           variation={ButtonVariation.PRIMARY}
                           disabled={!options.some(item => item.checked)}
                         />
-                        <Button text={getString('cancel')} variation={ButtonVariation.SECONDARY} onClick={onClose} />
+                        <Button text={getString('cancel')} variation={ButtonVariation.TERTIARY} onClick={onClose} />
                       </Layout.Horizontal>
                     </Container>
                     <Container>

@@ -322,7 +322,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           )}
           {setupModeType === setupMode.DIFFERENT ? (
             <>
-              <div className={stageCss.tabHeading}>{getString('pipelineSteps.serviceTab.aboutYourService')}</div>
+              <div className={stageCss.tabHeading}>{getString('cd.pipelineSteps.serviceTab.aboutYourService')}</div>
               <Card className={stageCss.sectionCard} id="aboutService">
                 <StepWidget
                   type={StepType.DeployService}

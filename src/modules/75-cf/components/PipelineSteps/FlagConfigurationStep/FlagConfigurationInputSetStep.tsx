@@ -1,82 +1,104 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import {
-  Container,
-  FormInput,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  PageError,
-  SelectOption
-} from '@wings-software/uicore'
+import { connect } from 'formik'
+import { Container, FormInput, PageError, RUNTIME_INPUT_VALUE, SelectOption } from '@wings-software/uicore'
+import { get } from 'lodash-es'
 import { useStrings } from 'framework/strings'
-import { useGetAllFeatures } from 'services/cf'
+import { Feature, useGetAllFeatures } from 'services/cf'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { CF_DEFAULT_PAGE_SIZE, getErrorMessage } from '@cf/utils/CFUtils'
-import type { FlagConfigurationStepData, FlagConfigurationStepFormData } from './types'
+import { getErrorMessage } from '@cf/utils/CFUtils'
+import type { FlagConfigurationStepData } from './types'
+import FlagChanges from './FlagChanges/FlagChanges'
 
 export interface FlagConfigurationInputSetStepProps {
-  environment: FlagConfigurationStepFormData['spec']['environment']
-  initialValues: FlagConfigurationStepFormData
-  onUpdate?: (data: FlagConfigurationStepFormData) => void
+  existingValues?: FlagConfigurationStepData
   stepViewType?: StepViewType
   readonly?: boolean
   template?: FlagConfigurationStepData
-  path: string
+  pathPrefix: string
 }
 
-function FlagConfigurationInputSetStep({
-  environment,
-  template,
-  path,
-  readonly
-}: FlagConfigurationInputSetStepProps): React.ReactElement {
-  const { getString } = useStrings()
+const FlagConfigurationInputSetStep = connect<FlagConfigurationInputSetStepProps, FlagConfigurationStepData>(
+  ({ existingValues, template, pathPrefix, readonly, formik }) => {
+    const prefix = useCallback<(fieldName: string) => string>(
+      fieldName => (pathPrefix ? `${pathPrefix}.${fieldName}` : fieldName),
+      [pathPrefix]
+    )
 
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
-  const queryParams = useMemo(
-    () => ({
+    const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+    const { getString } = useStrings()
+
+    const queryParams = {
       account: accountId,
       accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
-      environment,
-      pageSize: CF_DEFAULT_PAGE_SIZE
-    }),
-    [accountId, orgIdentifier, projectIdentifier, environment]
-  )
+      environment: existingValues?.spec.environment || '',
+      pageSize: 1000
+    }
 
-  const {
-    data: featuresData,
-    error: errorFeatures,
-    refetch: refetchFeatures
-  } = useGetAllFeatures({ queryParams, debounce: 200 })
+    const {
+      data: featuresData,
+      error: errorFeatures,
+      refetch: refetchFeatures
+    } = useGetAllFeatures({ queryParams: { ...queryParams, sortByField: 'name' }, debounce: 250 })
 
-  const flagItems = useMemo<SelectOption[]>(
-    () => featuresData?.features?.map(({ identifier: value, name: label }) => ({ value, label })) || [],
-    [featuresData?.features]
-  )
+    const featureItems = useMemo<SelectOption[]>(
+      () => featuresData?.features?.map(({ identifier: value, name: label }) => ({ value, label })) || [],
+      [featuresData?.features]
+    )
 
-  if (errorFeatures) {
+    let selectedFeatureId = get(formik.values, prefix('spec.feature'))
+
+    if (existingValues?.spec?.feature && existingValues.spec.feature !== RUNTIME_INPUT_VALUE) {
+      selectedFeatureId = existingValues.spec.feature
+    }
+
+    const selectedFeature = useMemo<Feature | undefined>(
+      () => featuresData?.features?.find(({ identifier }) => identifier === selectedFeatureId),
+      [featuresData?.features, selectedFeatureId]
+    )
+
+    if (errorFeatures) {
+      return (
+        <Container padding={{ top: 'huge' }}>
+          <PageError
+            message={getErrorMessage(errorFeatures)}
+            width={450}
+            onClick={() => {
+              refetchFeatures()
+            }}
+          />
+        </Container>
+      )
+    }
+
     return (
-      <Container padding={{ top: 'huge' }}>
-        <PageError message={getErrorMessage(errorFeatures)} width={450} onClick={() => refetchFeatures()} />
-      </Container>
+      <>
+        {template?.spec?.feature === RUNTIME_INPUT_VALUE && (
+          <FormInput.Select
+            label={getString('cf.pipeline.flagConfiguration.selectFlag')}
+            name={prefix('spec.feature')}
+            items={featureItems}
+            disabled={readonly}
+            onQueryChange={name => refetchFeatures({ queryParams: { ...queryParams, name } })}
+          />
+        )}
+
+        {template?.spec?.instructions === RUNTIME_INPUT_VALUE && (
+          <FlagChanges
+            selectedFeature={selectedFeature}
+            selectedEnvironmentId={existingValues?.spec.environment}
+            initialInstructions={existingValues?.spec?.instructions}
+            clearField={fieldName => formik?.setFieldValue(prefix(fieldName), undefined)}
+            setField={(fieldName, value) => formik?.setFieldValue(prefix(fieldName), value)}
+            fieldValues={formik.values}
+            pathPrefix={pathPrefix}
+          />
+        )}
+      </>
     )
   }
-
-  return (
-    <>
-      {getMultiTypeFromValue(template?.spec?.feature) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Select
-          label={getString('cf.pipeline.flagConfiguration.selectFlag')}
-          name={`${path}.spec.feature`}
-          items={flagItems}
-          disabled={readonly}
-          onQueryChange={name => refetchFeatures({ queryParams: { ...queryParams, name } })}
-        />
-      )}
-    </>
-  )
-}
+)
 
 export default FlagConfigurationInputSetStep

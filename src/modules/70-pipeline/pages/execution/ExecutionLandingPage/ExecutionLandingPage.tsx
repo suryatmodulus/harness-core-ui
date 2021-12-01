@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { useParams, useLocation } from 'react-router-dom'
 import { get, isEmpty, pickBy } from 'lodash-es'
 import { PageError, PageSpinner } from '@wings-software/uicore'
-import { GovernanceMetadata, useGetExecutionDetail } from 'services/pipeline-ng'
+import { GovernanceMetadata, useGetExecutionDetail, ResponsePipelineExecutionDetail } from 'services/pipeline-ng'
 import type { ExecutionNode } from 'services/pipeline-ng'
 import { ExecutionStatus, isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import {
@@ -17,7 +17,8 @@ import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteI
 
 import { logsCache } from '@pipeline/components/LogsContent/LogsState/utils'
 import { PipelineFeatureLimitBreachedBanner } from '@pipeline/factories/PipelineFeatureRestrictionFactory/PipelineFeatureRestrictionFactory'
-import { EvaluationModal } from '@governance/modal/EvaluationModal/EvaluationModal'
+import { EvaluationModal } from '@governance/EvaluationModal'
+import { FeatureRestrictionBanners } from '@pipeline/factories/FeatureRestrictionBannersFactory/FeatureRestrictionBannersFactory'
 import ExecutionContext, { GraphCanvasState } from '@pipeline/context/ExecutionContext'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import useTabVisible from '@common/hooks/useTabVisible'
@@ -29,6 +30,58 @@ import css from './ExecutionLandingPage.module.scss'
 
 export const POLL_INTERVAL = 2 /* sec */ * 1000 /* ms */
 const PageTabs = { PIPELINE: 'pipeline' }
+
+const setStageIds = ({
+  queryParams,
+  setAutoSelectedStageId,
+  setAutoSelectedStepId,
+  setSelectedStepId,
+  setSelectedStageId,
+  data
+}: {
+  queryParams: ExecutionPageQueryParams
+  setAutoSelectedStageId: Dispatch<SetStateAction<string>>
+  setAutoSelectedStepId: Dispatch<SetStateAction<string>>
+  setSelectedStepId: Dispatch<SetStateAction<string>>
+  setSelectedStageId: Dispatch<SetStateAction<string>>
+  data?: ResponsePipelineExecutionDetail | null
+}): void => {
+  // if user has selected a stage/step do not auto-update
+  if (queryParams.stage || queryParams.step) {
+    setAutoSelectedStageId('')
+    setAutoSelectedStepId('')
+    return
+  }
+
+  // if no data is found, reset the stage and step
+  if (!data || !data?.data) {
+    setAutoSelectedStageId('')
+    setAutoSelectedStepId('')
+    return
+  }
+
+  const runningStage = getActiveStageForPipeline(
+    data.data.pipelineExecutionSummary,
+    data.data?.pipelineExecutionSummary?.status as ExecutionStatus
+  )
+
+  const runningStep = getActiveStep(
+    data.data.executionGraph || {},
+    undefined,
+    data.data.pipelineExecutionSummary?.layoutNodeMap
+  )
+
+  if (runningStage) {
+    setAutoSelectedStageId(runningStage)
+    setSelectedStageId(runningStage)
+  }
+
+  if (runningStep) {
+    setAutoSelectedStepId(runningStep)
+    setSelectedStepId(runningStep)
+  }
+}
+
 export default function ExecutionLandingPage(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, module } =
     useParams<PipelineType<ExecutionPathProps>>()
@@ -38,12 +91,12 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
   const [logsToken, setLogsToken] = React.useState('')
 
   /* These are used when auto updating selected stage/step when a pipeline is running */
-  const [autoSelectedStageId, setAutoSelectedStageId] = React.useState('')
-  const [autoSelectedStepId, setAutoSelectedStepId] = React.useState('')
+  const [autoSelectedStageId, setAutoSelectedStageId] = React.useState<string>('')
+  const [autoSelectedStepId, setAutoSelectedStepId] = React.useState<string>('')
 
   /* These are updated only when new data is fetched successfully */
-  const [selectedStageId, setSelectedStageId] = React.useState('')
-  const [selectedStepId, setSelectedStepId] = React.useState('')
+  const [selectedStageId, setSelectedStageId] = React.useState<string>('')
+  const [selectedStepId, setSelectedStepId] = React.useState<string>('')
   const queryParams = useQueryParams<ExecutionPageQueryParams>()
   const location = useLocation<{ shouldShowGovernanceEvaluations: boolean; governanceMetadata: GovernanceMetadata }>()
   const locationPathNameArr = location?.pathname?.split('/') || []
@@ -109,40 +162,14 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
 
   // show the current running stage and steps automatically
   React.useEffect(() => {
-    // if user has selected a stage/step do not auto-update
-    if (queryParams.stage || queryParams.step) {
-      setAutoSelectedStageId('')
-      setAutoSelectedStepId('')
-      return
-    }
-
-    // if no data is found, reset the stage and step
-    if (!data || !data.data) {
-      setAutoSelectedStageId('')
-      setAutoSelectedStepId('')
-      return
-    }
-
-    const runningStage = getActiveStageForPipeline(
-      data.data.pipelineExecutionSummary,
-      data.data?.pipelineExecutionSummary?.status as ExecutionStatus
-    )
-
-    const runningStep = getActiveStep(
-      data.data.executionGraph || {},
-      undefined,
-      data.data.pipelineExecutionSummary?.layoutNodeMap
-    )
-
-    if (runningStage) {
-      setAutoSelectedStageId(runningStage)
-      setSelectedStageId(runningStage)
-    }
-
-    if (runningStep) {
-      setAutoSelectedStepId(runningStep)
-      setSelectedStepId(runningStep)
-    }
+    setStageIds({
+      queryParams,
+      setAutoSelectedStageId,
+      setAutoSelectedStepId,
+      setSelectedStepId,
+      setSelectedStageId,
+      data
+    })
   }, [queryParams, data])
 
   React.useEffect(() => {
@@ -192,8 +219,20 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
               <ExecutionHeader />
               <ExecutionMetadata />
             </header>
-            <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
+            {module === 'cd' && (
+              <PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} />
+            )}
             <ExecutionTabs />
+            {module === 'ci' && (
+              <FeatureRestrictionBanners
+                featureNames={[
+                  FeatureIdentifier.ACTIVE_COMMITTERS,
+                  FeatureIdentifier.MAX_BUILDS_PER_MONTH,
+                  FeatureIdentifier.MAX_TOTAL_BUILDS
+                ]}
+                module={module}
+              />
+            )}
             <div
               className={css.childContainer}
               data-view={(selectedPageTab === PageTabs.PIPELINE && queryParams.view) || 'graph'}

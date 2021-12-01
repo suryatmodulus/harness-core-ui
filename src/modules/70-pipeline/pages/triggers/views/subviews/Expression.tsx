@@ -21,8 +21,8 @@ export default function Expression(props: ExpressionInterface): JSX.Element {
     <Container data-name="expression" className={css.expression}>
       <Text className={css.label} data-tooltip-id="cronExpression">
         {getString('pipeline.triggers.schedulePanel.cronExpression')}
+        <HarnessDocTooltip tooltipId="cronExpression" useStandAlone={true} />
       </Text>
-      <HarnessDocTooltip tooltipId="cronExpression" useStandAlone={true} />
       <Container className={cx(css.field, (showError && css.errorField) || '')}>
         <Text>{expression}</Text>
       </Container>

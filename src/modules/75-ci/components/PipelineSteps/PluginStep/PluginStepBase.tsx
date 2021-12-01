@@ -82,6 +82,7 @@ export const PluginStepBase = (
               stepViewType={stepViewType}
               allowableTypes={allowableTypes}
               enableFields={{
+                name: {},
                 description: {},
                 'spec.connectorRef': {
                   label: (

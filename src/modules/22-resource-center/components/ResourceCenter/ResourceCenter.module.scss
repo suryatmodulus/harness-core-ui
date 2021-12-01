@@ -1,0 +1,29 @@
+.resourceCenter {
+  background: var(--primary-9-dark) !important;
+  border-radius: var(--spacing-3);
+}
+
+.middleregion {
+  border-top: var(--grey-600) thin solid;
+  border-bottom: var(--grey-600) thin solid;
+
+  .myticket {
+    border-bottom: var(--grey-600) thin solid;
+  }
+
+  svg {
+    color: var(--primary-3) !important;
+  }
+}
+
+.bottombutton {
+  background: rgba(255, 255, 255, 0.05) !important;
+  min-width: 88px;
+  min-height: 88px;
+  border-radius: var(--spacing-2);
+
+  &:hover {
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0) !important;
+  }
+}

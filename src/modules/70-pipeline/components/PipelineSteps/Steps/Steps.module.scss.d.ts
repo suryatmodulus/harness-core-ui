@@ -26,6 +26,8 @@ declare const styles: {
   readonly removeBpPopoverWrapperTopMargin: string
   readonly bottomSpacing: string
   readonly topSpacingLarge: string
+  readonly topMargin4: string
+  readonly topMargin5: string
   readonly bottomMargin1: string
   readonly bottomMargin2: string
   readonly bottomMargin3: string

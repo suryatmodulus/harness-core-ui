@@ -1,0 +1,59 @@
+import React from 'react'
+import { Container, Icon, Color, PageError, NoDataCard, FlexExpander } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
+import noDataImage from '@cv/assets/noData.svg'
+import { DependencyGraph } from '@cv/components/DependencyGraph/DependencyGraph'
+import ServiceDependenciesLegend from '@cv/components/ServiceDependenciesLegend/ServiceDependenciesLegend'
+import SummaryCard from './SummaryCard'
+import { getDependencyGraphOptions } from '../MonitoredServiceGraphView.utils'
+import type { CardViewProps } from '../ServiceDependencyGraph.types'
+import css from '../ServiceDependencyGraph.module.scss'
+
+const CardContent: React.FC<CardViewProps> = ({
+  setPoint,
+  loading,
+  errorMessage,
+  retryOnError,
+  monitoredServiceDependencyData,
+  ...rest
+}) => {
+  const { getString } = useStrings()
+
+  if (errorMessage) {
+    return <PageError message={errorMessage} onClick={retryOnError} />
+  }
+
+  if (loading && !monitoredServiceDependencyData?.nodes?.length) {
+    return (
+      <Container flex={{ justifyContent: 'center' }} height="100%">
+        <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
+      </Container>
+    )
+  }
+
+  if (!monitoredServiceDependencyData?.nodes?.length) {
+    return (
+      <NoDataCard
+        message={getString('cv.monitoredServices.noAvailableData')}
+        image={noDataImage}
+        containerClassName={css.noDataContainer}
+      />
+    )
+  }
+
+  return (
+    <div className={css.dependencyGraphContainer}>
+      {loading && <Icon name="steps-spinner" color={Color.GREY_400} size={30} className={css.loader} />}
+      <DependencyGraph
+        dependencyData={monitoredServiceDependencyData}
+        options={getDependencyGraphOptions(setPoint, 380)}
+        containerClassName={css.dependencyGraph}
+      />
+      <SummaryCard {...rest} />
+      <FlexExpander />
+      <ServiceDependenciesLegend margin={{ top: 'medium' }} />
+    </div>
+  )
+}
+
+export default CardContent

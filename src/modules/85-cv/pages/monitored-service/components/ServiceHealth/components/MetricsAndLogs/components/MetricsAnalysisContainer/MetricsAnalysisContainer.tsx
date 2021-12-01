@@ -1,56 +1,48 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react'
+import React, { useState } from 'react'
 import {
-  Color,
   Container,
   ExpandingSearchInput,
   Select,
-  Text,
-  Icon,
   Pagination,
   PageError,
-  NoDataCard
+  NoDataCard,
+  Layout,
+  Icon,
+  Color
 } from '@wings-software/uicore'
-import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import {
-  RestResponsePageTimeSeriesMetricDataDTO,
-  TimeSeriesMetricDataDTO,
-  useGetTimeSeriesMetricData
-} from 'services/cv'
+import { useGetTimeSeriesMetricData } from 'services/cv'
 import { HealthSourceDropDown } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown'
 import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
-import Card from '@cv/components/Card/Card'
 import { VerificationType } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown.constants'
 import noDataImage from '@cv/assets/noData.svg'
-import {
-  MetricTypeOptions,
-  PAGE_SIZE,
-  DEFAULT_PAGINATION_VALUE,
-  MetricType
-} from './MetricsAnalysisContainer.constants'
-import { generatePointsForTimeSeries, getErrorMessage } from './MetricsAnalysisContainer.utils'
-import type { MetricsAndLogsProps } from '../../MetricsAndLogs.types'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
+import { metricTypeOptions, PAGE_SIZE } from './MetricsAnalysisContainer.constants'
+import { generatePointsForTimeSeries } from './MetricsAnalysisContainer.utils'
+import { MetricsAnalysisContentProps, MetricsAnalysisProps, MetricTypes } from './MetricsAnalysisContainer.types'
 import MetricAnalysisRow from './components/MetricsAnalysisRow/MetricAnalysisRow'
-
 import css from './MetricsAnalysisContainer.module.scss'
 
-export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JSX.Element {
-  const { serviceIdentifier, environmentIdentifier, startTime, endTime } = props
+const MetricsAnalysisContent: React.FC<MetricsAnalysisContentProps> = ({
+  startTime,
+  endTime,
+  serviceIdentifier,
+  environmentIdentifier,
+  isAnomalous,
+  healthSource,
+  filterString
+}) => {
   const { getString } = useStrings()
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
-  const [timeSeriesData, setTimeseriesData] = useState<TimeSeriesMetricDataDTO[]>([])
-  const [selectedHealthSource, setSelectedHealthSource] = useState<string>()
-  const [filterString, setFilterString] = useState<string>()
-  const [isAnamolousMetricType, setIsAnamolousMetricType] = useState<boolean>(true)
 
-  const defaultMetricType = useMemo(() => {
-    return MetricTypeOptions?.find(type => type.value === MetricType.ANOMALOUS) || MetricTypeOptions[0]
-  }, [])
+  const [page, setPage] = useState(0)
 
-  const queryParams = useMemo(() => {
-    return {
+  const { data, refetch, loading, error } = useGetTimeSeriesMetricData({
+    queryParams: {
+      page,
+      size: PAGE_SIZE,
       accountId,
       orgIdentifier,
       projectIdentifier,
@@ -58,183 +50,111 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
       environmentIdentifier,
       startTime,
       endTime,
-      ...(selectedHealthSource && { healthSources: selectedHealthSource as any }),
-      ...(filterString && { filter: filterString }),
-      ...(isAnamolousMetricType && { anomalous: isAnamolousMetricType })
+      healthSources: healthSource ? [healthSource] : undefined,
+      filter: filterString,
+      anomalous: isAnomalous
     }
-  }, [
-    accountId,
-    endTime,
-    environmentIdentifier,
-    filterString,
-    isAnamolousMetricType,
-    orgIdentifier,
-    projectIdentifier,
-    selectedHealthSource,
-    serviceIdentifier,
-    startTime
-  ])
+  })
 
-  // api for fetching metrics data
-  const {
-    data: metricsData,
-    refetch: fetchMetricsData,
-    loading: metricsLoading,
-    error: metricsError
-  } = useGetTimeSeriesMetricData({ queryParams, lazy: true })
-
-  // Fetching metrics data whenever start or endtime changes
-  useEffect(() => {
-    fetchMetricsData({ queryParams })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [startTime, endTime])
-
-  useEffect(() => {
-    if (metricsData && !metricsLoading && !metricsError) {
-      const timeSeriesInfo = generatePointsForTimeSeries(
-        metricsData as RestResponsePageTimeSeriesMetricDataDTO,
-        startTime,
-        endTime
-      )
-      setTimeseriesData(timeSeriesInfo?.resource?.content as TimeSeriesMetricDataDTO[])
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [metricsData])
-
-  // Fetching metrics data for selected health source
-  useEffect(() => {
-    fetchMetricsDataForHealthSource(selectedHealthSource)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedHealthSource])
-
-  // Fetching metrics data for searched string
-  useEffect(() => {
-    fetchMetricsDataForString(filterString)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filterString])
-
-  // Fetching metrics data for selected metric type
-  useEffect(() => {
-    fetchMetricsDataForMetricType(isAnamolousMetricType)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAnamolousMetricType])
-
-  const paginationInfo = useMemo(
-    () => (metricsData?.resource ? omit(metricsData.resource, ['content', 'empty']) : DEFAULT_PAGINATION_VALUE),
-    [metricsData?.resource]
-  )
-
-  const goToMetricsPage = useCallback(
-    page => {
-      fetchMetricsData({ queryParams: { ...queryParams, page, size: PAGE_SIZE } })
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [queryParams]
-  )
-
-  const fetchMetricsDataForMetricType = useCallback(
-    isAnamolous => {
-      fetchMetricsData({ queryParams: { ...queryParams, anomalous: isAnamolous } })
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [queryParams]
-  )
-
-  const fetchMetricsDataForString = useCallback(
-    currentFilterString => {
-      fetchMetricsData({ queryParams: { ...queryParams, ...(filterString && { filter: currentFilterString }) } })
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [queryParams]
-  )
-
-  const fetchMetricsDataForHealthSource = useCallback(
-    currentHealthSource => {
-      fetchMetricsData({
-        queryParams: { ...queryParams, ...(currentHealthSource && { healthSources: currentHealthSource }) }
-      })
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [queryParams]
-  )
-
-  const renderContent = (): JSX.Element => {
-    if (metricsLoading) return <Icon name="steps-spinner" className={css.loading} color={Color.GREY_400} size={30} />
-
-    if (metricsError) {
-      return (
-        <PageError message={getErrorMessage(metricsError)} onClick={() => fetchMetricsData()} className={css.error} />
-      )
-    }
-
-    if (!timeSeriesData?.length) {
-      return (
-        <Container className={css.noData}>
-          <NoDataCard message={getString('cv.monitoredServices.noAvailableData')} image={noDataImage} />
-        </Container>
-      )
-    }
-
+  if (loading) {
     return (
-      <>
-        {timeSeriesData?.map((d: TimeSeriesMetricDataDTO) => {
-          const { groupName, metricDataList, metricName, dataSourceType } = d
-          return metricName && groupName && metricDataList?.length ? (
-            <MetricAnalysisRow
-              key={`$${groupName}-${metricName}`}
-              metricName={metricName}
-              dataSourceType={dataSourceType}
-              startTime={startTime as number}
-              endTime={endTime as number}
-              transactionName={groupName}
-              analysisData={metricDataList}
-            />
-          ) : null
-        })}
-        <TimelineBar startDate={startTime} className={css.timeline} endDate={endTime} columnWidth={70} />
-      </>
+      <Container flex={{ align: 'center-center' }} className={css.loadingContainer}>
+        <Icon name="steps-spinner" color={Color.GREY_400} size={30} />
+      </Container>
     )
   }
 
+  if (error) {
+    return <PageError message={getErrorMessage(error)} onClick={() => refetch()} />
+  }
+
+  if (!data?.resource?.content?.length) {
+    return <NoDataCard message={getString('cv.monitoredServices.noAvailableData')} image={noDataImage} />
+  }
+
+  const { pageSize = 0, totalPages = 0, totalItems = 0, pageIndex = 0 } = data.resource
+
+  const timeSeriesInfo = generatePointsForTimeSeries(data.resource.content, startTime, endTime)
+
   return (
-    <Card className={css.main}>
-      <>
-        <Container className={css.filters}>
-          <Text color={Color.BLACK} font={{ size: 'small', weight: 'bold' }}>
-            {getString('rbac.permissionLabels.view').toLocaleUpperCase()}:
-          </Text>
-          <Select
-            items={MetricTypeOptions}
-            className={css.maxDropDownWidth}
-            defaultSelectedItem={defaultMetricType}
-            onChange={item => setIsAnamolousMetricType(item.value === MetricType.ANOMALOUS)}
-          />
-          {serviceIdentifier && environmentIdentifier ? (
-            <HealthSourceDropDown
-              verificationType={VerificationType.TIME_SERIES}
-              onChange={setSelectedHealthSource}
-              serviceIdentifier={serviceIdentifier as string}
-              environmentIdentifier={environmentIdentifier as string}
-            />
-          ) : null}
-          <ExpandingSearchInput
-            throttle={500}
-            className={css.filterBy}
-            placeholder={getString('pipeline.verification.metricViewPlaceholder')}
-            onChange={setFilterString}
-          />
-        </Container>
-        <Container className={css.content}>{renderContent()}</Container>
-        <Container>
-          <Pagination
-            pageSize={paginationInfo.pageSize as number}
-            pageCount={paginationInfo.totalPages as number}
-            itemCount={paginationInfo.totalItems as number}
-            pageIndex={paginationInfo.pageIndex}
-            gotoPage={goToMetricsPage}
-          />
-        </Container>
-      </>
-    </Card>
+    <div className={css.content}>
+      <div>
+        {timeSeriesInfo.map(({ groupName, metricName, metricDataList, dataSourceType }) => {
+          return (
+            metricName &&
+            groupName &&
+            metricDataList && (
+              <MetricAnalysisRow
+                key={`$${groupName}-${metricName}`}
+                metricName={metricName}
+                dataSourceType={dataSourceType}
+                startTime={startTime}
+                endTime={endTime}
+                transactionName={groupName}
+                analysisData={metricDataList}
+              />
+            )
+          )
+        })}
+        <TimelineBar startDate={startTime} className={css.timeline} endDate={endTime} columnWidth={70} />
+      </div>
+      <Pagination
+        pageSize={pageSize}
+        pageCount={totalPages}
+        itemCount={totalItems}
+        pageIndex={pageIndex}
+        gotoPage={setPage}
+      />
+    </div>
   )
 }
+
+const MetricsAnalysisContainer: React.FC<MetricsAnalysisProps> = ({
+  serviceIdentifier,
+  environmentIdentifier,
+  startTime,
+  endTime
+}) => {
+  const { getString } = useStrings()
+
+  const [isAnomalous, setIsAnomalous] = useState<boolean>(true)
+  const [healthSource, setHealthSource] = useState<string>()
+  const [filterString, setFilterString] = useState<string>()
+
+  return (
+    <div className={css.container}>
+      <Layout.Horizontal spacing="medium" margin={{ bottom: 'medium' }}>
+        <Select
+          items={metricTypeOptions(getString)}
+          className={css.maxDropDownWidth}
+          defaultSelectedItem={metricTypeOptions(getString)[1]}
+          onChange={item => setIsAnomalous(item.value === MetricTypes.ANOMALOUS)}
+        />
+        <HealthSourceDropDown
+          verificationType={VerificationType.TIME_SERIES}
+          onChange={setHealthSource}
+          serviceIdentifier={serviceIdentifier}
+          environmentIdentifier={environmentIdentifier}
+        />
+        <ExpandingSearchInput
+          width={250}
+          throttle={500}
+          onChange={setFilterString}
+          placeholder={getString('pipeline.verification.metricViewPlaceholder')}
+        />
+      </Layout.Horizontal>
+
+      <MetricsAnalysisContent
+        serviceIdentifier={serviceIdentifier}
+        environmentIdentifier={environmentIdentifier}
+        startTime={startTime}
+        endTime={endTime}
+        isAnomalous={isAnomalous}
+        healthSource={healthSource}
+        filterString={filterString}
+      />
+    </div>
+  )
+}
+
+export default MetricsAnalysisContainer

@@ -11,7 +11,8 @@ import {
   Color,
   Card,
   useToaster,
-  useConfirmationDialog
+  useConfirmationDialog,
+  Icon
 } from '@wings-software/uicore'
 import { Menu, MenuItem, Classes, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -32,11 +33,12 @@ type delTroubleshoterProps = {
 }
 
 const columnWidths = {
-  icon: '38px',
+  icon: '80px',
   name: '30%',
   tags: '25%',
-  heartbeat: 'calc(20% - 18px)',
-  status: 'calc(20% - 20px)',
+  instances: '10%',
+  heartbeat: 'calc(15% - 40px)',
+  status: 'calc(15% - 40px)',
   actions: '5%'
 }
 
@@ -50,6 +52,9 @@ export const DelegateListingHeader = () => {
       </div>
       <div key="tags" style={{ width: columnWidths.tags }}>
         {getString('tagsLabel')}
+      </div>
+      <div key="instances" style={{ width: columnWidths.instances }}>
+        {getString('instanceFieldOptions.instances')}
       </div>
       <div key="heartbeat" style={{ width: columnWidths.heartbeat }}>
         {getString('delegate.LastHeartBeat')}
@@ -171,6 +176,7 @@ const RenderColumnMenu = ({ delegate, setOpenTroubleshoter }: delTroubleshoterPr
 
 export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroubleshoterProps) => {
   const { getString } = useStrings()
+  const [isExtended, setIsExtended] = useState(false)
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<Record<string, string>>()
   const history = useHistory()
 
@@ -216,13 +222,21 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
   return (
     <Card elevation={2} interactive={true} onClick={onDelegateClick} className={css.delegateItemContainer}>
       <Layout.Horizontal className={css.delegateItemSubcontainer}>
-        <Text
-          width={columnWidths.icon}
-          icon={delegateTypeToIcon(delegate.delegateType as string)}
-          iconProps={{ size: 24 }}
-        />
+        <div style={{ width: columnWidths.icon }} className={css.delegateItemIcon}>
+          <Icon
+            name={isExtended ? 'chevron-down' : 'chevron-right'}
+            className={css.expandIcon}
+            size={20}
+            onClick={e => {
+              e.preventDefault()
+              e.stopPropagation()
+              setIsExtended(!isExtended)
+            }}
+          />
+          <Text icon={delegateTypeToIcon(delegate.delegateType as string)} iconProps={{ size: 24 }} />
+        </div>
         <Layout.Horizontal width={columnWidths.name} data-testid={delegate.groupHostName}>
-          <Layout.Vertical padding={{ left: 'small' }}>
+          <Layout.Vertical>
             <Layout.Horizontal spacing="small" data-testid={delegate.groupName}>
               <Text color={Color.BLACK}>{delegate.groupName}</Text>
             </Layout.Horizontal>
@@ -238,6 +252,10 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
             </>
           )}
         </Container>
+
+        <Layout.Horizontal width={columnWidths.instances} className={css.instancesColumn}>
+          {delegate.delegateInstanceDetails?.length || 0}
+        </Layout.Horizontal>
 
         <Layout.Horizontal width={columnWidths.heartbeat}>
           {delegate.lastHeartBeat ? <ReactTimeago date={delegate.lastHeartBeat} live /> : getString('na')}
@@ -265,6 +283,56 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
           {RenderColumnMenu({ delegate, setOpenTroubleshoter })}
         </Layout.Vertical>
       </Layout.Horizontal>
+
+      {isExtended && <Layout.Horizontal className={css.podDetailsSeparator}></Layout.Horizontal>}
+
+      {isExtended && (
+        <Layout.Vertical className={`${css.instancesContainer} ${css.podDetailsContainer}`}>
+          {!delegate.delegateInstanceDetails?.length && (
+            <Layout.Horizontal className={css.delegateItemSubcontainer}>
+              <Layout.Horizontal style={{ width: columnWidths.icon }} />
+              <Layout.Horizontal width={columnWidths.name}>
+                <Text color={Color.BLACK}>{getString('delegates.noInstances')}</Text>
+              </Layout.Horizontal>
+              <Container width={columnWidths.tags} />
+              <Container width={columnWidths.instances} />
+              <Layout.Horizontal width={columnWidths.heartbeat} />
+              <Layout.Vertical width={columnWidths.status} />
+              <Layout.Vertical width={columnWidths.actions} />
+            </Layout.Horizontal>
+          )}
+          {delegate.delegateInstanceDetails?.map((instanceDetails, index) => {
+            const podStatusColor = instanceDetails.activelyConnected ? Color.GREEN_600 : Color.GREY_400
+            const statusText = instanceDetails.activelyConnected
+              ? getString('connected')
+              : getString('delegate.notConnected')
+            return (
+              <Layout.Horizontal key={instanceDetails.hostName} width="100%" spacing={'small'}>
+                <Layout.Horizontal style={{ width: columnWidths.icon }} />
+                <Layout.Horizontal width={columnWidths.name}>
+                  {index === 0 && <Text color={Color.BLACK}>{getString('instanceFieldOptions.instances')}</Text>}
+                </Layout.Horizontal>
+                <Container className={css.connectivity} width={columnWidths.tags} />
+                <Container width={columnWidths.instances} className={css.instancesColumn}>
+                  {instanceDetails.hostName}
+                </Container>
+                <Layout.Horizontal width={columnWidths.heartbeat} />
+                <Layout.Vertical width={columnWidths.status}>
+                  <Text
+                    icon="full-circle"
+                    iconProps={{ size: 6, color: podStatusColor, padding: 'small' }}
+                    color={podStatusColor}
+                  >
+                    {statusText}
+                  </Text>
+                </Layout.Vertical>
+
+                <Layout.Vertical width={columnWidths.actions} />
+              </Layout.Horizontal>
+            )
+          })}
+        </Layout.Vertical>
+      )}
     </Card>
   )
 }

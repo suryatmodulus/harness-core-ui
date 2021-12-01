@@ -98,6 +98,7 @@ export const RunStepBase = (
               stepViewType={stepViewType}
               allowableTypes={allowableTypes}
               enableFields={{
+                name: {},
                 description: {},
                 'spec.connectorRef': {
                   label: (

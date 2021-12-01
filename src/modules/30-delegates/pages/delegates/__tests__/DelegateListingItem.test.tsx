@@ -1,7 +1,7 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, act } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import DelegatesListingItem from '../DelegateListingItem'
+import DelegatesListingItem, { DelegateListingHeader } from '../DelegateListingItem'
 import { delegateGroupsMock } from './DelegateGroupsMock'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
@@ -14,6 +14,17 @@ jest.mock('services/portal', () => ({
   })
 }))
 
+describe('DelegateListingHeader test', () => {
+  test('render DelegateListingHeader', () => {
+    const { container } = render(
+      <TestWrapper>
+        <DelegateListingHeader />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+})
+
 describe('Delegates Listing With Groups', () => {
   test('render data', () => {
     const { container } = render(
@@ -21,6 +32,17 @@ describe('Delegates Listing With Groups', () => {
         <DelegatesListingItem delegate={delegateGroupsMock[0]} setOpenTroubleshoter={setOpenTroubleshoterFn} />
       </TestWrapper>
     )
+    expect(container).toMatchSnapshot()
+  })
+  test('Click on item', async () => {
+    const { container } = render(
+      <TestWrapper>
+        <DelegatesListingItem delegate={delegateGroupsMock[0]} setOpenTroubleshoter={setOpenTroubleshoterFn} />
+      </TestWrapper>
+    )
+    act(() => {
+      fireEvent.click(container.firstChild!)
+    })
     expect(container).toMatchSnapshot()
   })
   test('click on delegate item action', async () => {

@@ -8,6 +8,7 @@ import {
   Collapse,
   Color,
   Button,
+  Intent,
   ButtonVariation,
   useConfirmationDialog
 } from '@wings-software/uicore'
@@ -55,6 +56,7 @@ const PasswordStrength: React.FC<Props> = ({ loginSettings, refetchAuthSettings,
     contentText: getString('authSettings.confirmDisablePasswordStrength'),
     confirmButtonText: getString('confirm'),
     cancelButtonText: getString('cancel'),
+    intent: Intent.WARNING,
     onCloseDialog: async isConfirmed => {
       /* istanbul ignore else */ if (isConfirmed) {
         try {

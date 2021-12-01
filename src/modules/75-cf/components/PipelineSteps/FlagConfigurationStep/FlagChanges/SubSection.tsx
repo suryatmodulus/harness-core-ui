@@ -1,7 +1,8 @@
 import React, { FC, ReactElement } from 'react'
+import { omit } from 'lodash-es'
 import { Layout } from '@wings-software/uicore'
 import type { LayoutProps } from '@wings-software/uicore/dist/layouts/Layout'
-import type { SubSectionComponentProps } from './FlagChanges'
+import type { SubSectionComponentProps } from './FlagChangesForm'
 import css from './SubSection.module.scss'
 
 export interface SubSectionProps {
@@ -15,16 +16,12 @@ export const disallowedProps: Array<string | keyof SubSectionComponentProps> = [
   'removeSubSectionButton',
   'clearField',
   'setField',
+  'prefix',
   'targetAttributes',
   'targetGroups',
   'variations',
   'targets'
 ]
-
-const filterSubSectionProps = (props: Record<string, unknown>): Record<string, unknown> =>
-  Object.entries(props)
-    .filter(([propName]) => !disallowedProps.includes(propName))
-    .reduce<Record<string, unknown>>((entries, [key, value]) => ({ ...entries, [key]: value }), {})
 
 const SubSection: FC<SubSectionProps & LayoutProps> = ({
   removeSubSectionButton,
@@ -33,12 +30,7 @@ const SubSection: FC<SubSectionProps & LayoutProps> = ({
   ...props
 }) => {
   return (
-    <Layout.Vertical
-      spacing="medium"
-      padding="large"
-      className={css.subSection}
-      {...filterSubSectionProps(props as Record<string, unknown>)}
-    >
+    <Layout.Vertical spacing="medium" padding="large" className={css.subSection} {...omit(props, ...disallowedProps)}>
       <Layout.Horizontal className={css.header}>
         {subSectionSelector}
         {removeSubSectionButton}

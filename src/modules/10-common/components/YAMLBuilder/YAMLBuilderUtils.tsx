@@ -3,8 +3,9 @@ import type { DetailedReactHTMLElement } from 'react'
 import type { Diagnostic } from 'vscode-languageserver-types'
 import { parse } from 'yaml'
 
-import { findLeafToParentPath } from '../../utils/YamlUtils'
+import { findLeafToParentPath, getSchemaWithLanguageSettings, validateYAMLWithSchema } from '../../utils/YamlUtils'
 import type { YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
+import type { ToasterProps } from '@wings-software/uicore/dist/hooks/useToaster/useToaster'
 
 /**
  * Get YAML from editor with placeholder added at current position in editor
@@ -100,9 +101,38 @@ const getValidationErrorMessagesForToaster = (
   return React.createElement('ul', { id: 'ul-errors' }, errorRenderItemList)
 }
 
+const verifyYAML = (args: {
+  updatedYaml: string
+  setYamlValidationErrors: (yamlValidationErrors: Map<number, string> | undefined) => void
+  showError: ToasterProps['showError']
+  errorMessage: string
+  schema?: Record<string, any>
+}): void => {
+  const { updatedYaml, setYamlValidationErrors, showError, schema, errorMessage } = args
+  if (!schema) {
+    return
+  }
+  if (updatedYaml) {
+    try {
+      validateYAMLWithSchema(updatedYaml, getSchemaWithLanguageSettings(schema))
+        .then((errors: Diagnostic[]) => {
+          setYamlValidationErrors(getYAMLValidationErrors(errors))
+        })
+        .catch((error: string) => {
+          showError(error, 5000)
+        })
+    } catch (err) {
+      showError(errorMessage)
+    }
+    return
+  }
+  setYamlValidationErrors(undefined)
+}
+
 export {
   getYAMLFromEditor,
   getMetaDataForKeyboardEventProcessing,
   getYAMLValidationErrors,
-  getValidationErrorMessagesForToaster
+  getValidationErrorMessagesForToaster,
+  verifyYAML
 }

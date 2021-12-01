@@ -79,8 +79,8 @@ export const TopLevelNodes: NodeType[] = [
   NodeType.NG_EXECUTION
 ]
 export const StepTypeIconsMap: { [key in NodeType]: IconName } = {
-  SERVICE: 'main-services',
-  SERVICE_CONFIG: 'main-services',
+  SERVICE: 'services',
+  SERVICE_CONFIG: 'services',
   GENERIC_SECTION: 'step-group',
   NG_SECTION_WITH_ROLLBACK_INFO: 'step-group',
   NG_SECTION: 'step-group',
@@ -88,7 +88,7 @@ export const StepTypeIconsMap: { [key in NodeType]: IconName } = {
   ROLLBACK_OPTIONAL_CHILD_CHAIN: 'step-group',
   INFRASTRUCTURE_SECTION: 'step-group',
   STEP_GROUP: 'step-group',
-  INFRASTRUCTURE: 'search-infra-prov',
+  INFRASTRUCTURE: 'infrastructure',
   NG_FORK: 'fork',
   DEPLOYMENT_STAGE_STEP: 'circle',
   APPROVAL_STAGE: 'approval-stage-icon'

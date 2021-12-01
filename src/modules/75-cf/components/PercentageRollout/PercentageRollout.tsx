@@ -9,17 +9,17 @@ import DistributionBar, { DistributionSegment } from './DistributionBar'
 import css from './PercentageRollout.module.scss'
 
 export interface PercentageRolloutProps {
-  namePrefix?: string
+  prefix: (fieldName: string) => string
   targetGroups: Segment[]
   variations: Variation[]
   fieldValues?: {
-    variation: Record<string, number | string>
+    variations: { variation: string; weight: string | number }[]
   }
   bucketByAttributes: string[]
 }
 
 const PercentageRollout: FC<PercentageRolloutProps> = ({
-  namePrefix = 'percentageRollout',
+  prefix,
   targetGroups,
   variations,
   fieldValues,
@@ -52,15 +52,15 @@ const PercentageRollout: FC<PercentageRolloutProps> = ({
 
   const distributionSegments = useMemo<DistributionSegment[]>(
     () =>
-      variations.map(variation => {
-        const weight = fieldValues?.variation?.[variation.identifier] || 0
+      variations.map((variation, index) => {
+        const weight = fieldValues?.variations?.[index]?.weight || 0
 
         return {
           variation,
           weight: typeof weight === 'number' ? weight : parseInt(weight)
         }
       }),
-    [variations, fieldValues?.variation]
+    [variations, fieldValues?.variations]
   )
 
   const total = useMemo<number>(
@@ -72,7 +72,7 @@ const PercentageRollout: FC<PercentageRolloutProps> = ({
     <Layout.Vertical spacing="large">
       <FormInput.Select
         className={css.targetGroup}
-        name={`${namePrefix}.targetGroup`}
+        name={prefix('clauses[0].values[0]')}
         items={targetGroupItems}
         label={getString('cf.percentageRollout.toTargetGroup')}
       />
@@ -81,7 +81,7 @@ const PercentageRollout: FC<PercentageRolloutProps> = ({
         <FormInput.Select
           className={css.bucketBy}
           inline
-          name={`${namePrefix}.bucketBy`}
+          name={prefix('bucketBy')}
           items={bucketByItems}
           label={getString('cf.percentageRollout.bucketBy')}
         />
@@ -97,7 +97,7 @@ const PercentageRollout: FC<PercentageRolloutProps> = ({
             <div className={css.variationRow} style={iconColor} key={variation.identifier}>
               <FormInput.Text
                 inline
-                name={`${namePrefix}.variation.${variation.identifier}`}
+                name={prefix(`variations[${index}].weight`)}
                 label={variation.name || variation.identifier}
                 inputGroup={{ type: 'number', max: 100, min: 0 }}
               />

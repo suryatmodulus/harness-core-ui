@@ -1,46 +1,22 @@
 import React from 'react'
-import { Layout } from '@wings-software/uicore'
+import { Layout, PageError } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import { useGetUsageAndLimit } from '@auth-settings/hooks/useGetUsageAndLimit'
+import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
+import { ModuleName } from 'framework/types/ModuleName'
 import UsageInfoCard from './UsageInfoCard'
 
-export interface CIUsageInfoProps {
-  subscribedInst: number
-  activeInst: number
+interface ActiveUsersProps {
   subscribedUsers: number
   activeUsers: number
+  rightHeader: string
 }
 
-const ActiveInstanceCard: React.FC<{ subscribedInst: number; activeInst: number }> = ({
-  subscribedInst,
-  activeInst
-}) => {
-  const { getString } = useStrings()
-  const leftHeader = getString('common.subscriptions.usage.developers')
-  //TO-DO: replace with tooltip
-  const tooltip = 'Active Instance tooltip placeholder'
-  const rightHeader = getString('common.subscriptions.usage.last60days')
-  const hasBar = true
-  const leftFooter = getString('common.subscribed')
-  const rightFooter = getString('common.subscribed')
-  const props = {
-    subscribed: subscribedInst,
-    usage: activeInst,
-    leftHeader,
-    tooltip,
-    rightHeader,
-    hasBar,
-    leftFooter,
-    rightFooter
-  }
-  return <UsageInfoCard {...props} />
-}
-
-const ActiveUsers: React.FC<{ subscribedUsers: number; activeUsers: number }> = ({ subscribedUsers, activeUsers }) => {
+const ActiveUsers: React.FC<ActiveUsersProps> = ({ subscribedUsers, activeUsers, rightHeader }) => {
   const { getString } = useStrings()
   const leftHeader = getString('common.subscriptions.usage.ciUsers')
   //TO-DO: replace with tooltip
   const tooltip = 'Users tooltip placeholder'
-  const rightHeader = getString('common.subscriptions.usage.last60days')
   const hasBar = true
   const leftFooter = getString('common.totalHarnessUser')
   const props = {
@@ -55,11 +31,33 @@ const ActiveUsers: React.FC<{ subscribedUsers: number; activeUsers: number }> = 
   return <UsageInfoCard {...props} />
 }
 
-const CIUsageInfo: React.FC<CIUsageInfoProps> = ({ subscribedInst, activeInst, subscribedUsers, activeUsers }) => {
+const CIUsageInfo: React.FC = () => {
+  const { limitData, usageData } = useGetUsageAndLimit(ModuleName.CI)
+
+  const isLoading = limitData.loadingLimit || usageData.loadingUsage
+
+  if (isLoading) {
+    return <ContainerSpinner />
+  }
+
+  const { usageErrorMsg, refetchUsage, usage } = usageData
+  const { limitErrorMsg, refetchLimit, limit } = limitData
+
+  if (usageErrorMsg) {
+    return <PageError message={usageErrorMsg} onClick={() => refetchUsage?.()} />
+  }
+
+  if (limitErrorMsg) {
+    return <PageError message={limitErrorMsg} onClick={() => refetchLimit?.()} />
+  }
+
   return (
     <Layout.Horizontal spacing="large">
-      <ActiveInstanceCard subscribedInst={subscribedInst} activeInst={activeInst} />
-      <ActiveUsers subscribedUsers={subscribedUsers} activeUsers={activeUsers} />
+      <ActiveUsers
+        rightHeader={usage?.ci?.activeCommitters?.displayName || ''}
+        subscribedUsers={limit?.ci?.totalDevelopers || 0}
+        activeUsers={usage?.ci?.activeCommitters?.count || 0}
+      />
     </Layout.Horizontal>
   )
 }

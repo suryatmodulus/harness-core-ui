@@ -1,5 +1,6 @@
 import { get, isEmpty } from 'lodash-es'
 
+import { Color, Utils } from '@wings-software/uicore'
 import { ExecutionPipelineNodeType } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { UseStringsReturn } from 'framework/strings'
@@ -296,6 +297,10 @@ export class ExecutionStepModel extends DiagramModel {
         ? PARALLEL_LINES_WIDTH
         : SPACE_BETWEEN_ELEMENTS
 
+      let stepIconColor = factory.getStepIconColor(stepType)
+      if (stepIconColor && Object.values(Color).includes(stepIconColor)) {
+        stepIconColor = Utils.getRealCSSColor(stepIconColor)
+      }
       const nodeRender =
         nodeType === ExecutionPipelineNodeType.DIAMOND
           ? new DiamondNodeModel({
@@ -312,7 +317,12 @@ export class ExecutionStepModel extends DiagramModel {
                 ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
                 : false,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
-              iconStyle: { color: 'var(--primary-brand)' },
+              iconStyle: {
+                color:
+                  this.selectedNodeId === node.step.identifier
+                    ? Utils.getRealCSSColor(Color.WHITE)
+                    : stepIconColor ?? Utils.getRealCSSColor(Color.PRIMARY_5)
+              },
               selected: this.selectedNodeId === node.step.identifier
             })
           : nodeType === ExecutionPipelineNodeType.ICON
@@ -338,6 +348,9 @@ export class ExecutionStepModel extends DiagramModel {
               identifier: node.step.identifier,
               name: node.step.name,
               icon: factory.getStepIcon(stepType),
+              iconStyle: {
+                color: this.selectedNodeId === node.step.identifier ? Utils.getRealCSSColor(Color.WHITE) : stepIconColor
+              },
               allowAdd: allowAdd === true && !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,
               conditionalExecutionEnabled: node.step.when

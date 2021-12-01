@@ -119,7 +119,7 @@ const BasicTemplateDetails = (props: BasicDetailsInterface) => {
                     }
                   }}
                 />
-                <Button text={getString('cancel')} variation={ButtonVariation.SECONDARY} onClick={onClose} />
+                <Button text={getString('cancel')} variation={ButtonVariation.TERTIARY} onClick={onClose} />
               </Layout.Horizontal>
             </Container>
           </Layout.Vertical>

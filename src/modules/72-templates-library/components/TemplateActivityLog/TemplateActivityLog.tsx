@@ -12,10 +12,7 @@ import type { TemplateSummaryResponse } from 'services/template-ng'
 import css from './TemplateActivityLog.module.scss'
 
 export interface TemplateActivityLogProps {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  selectedTemplate: TemplateSummaryResponse
+  template: TemplateSummaryResponse
 }
 
 interface TemplateActivityProps {
@@ -28,15 +25,15 @@ const getRequestBody = (props: TemplateActivityLogProps) => ({
   filterType: 'Audit',
   scopes: [
     {
-      accountIdentifier: props.accountIdentifier,
-      orgIdentifier: props.orgIdentifier,
-      projectIdentifier: props.projectIdentifier
+      accountIdentifier: props.template.accountId,
+      orgIdentifier: props.template.orgIdentifier,
+      projectIdentifier: props.template.projectIdentifier
     }
   ],
   resources: [
     {
       type: 'TEMPLATE',
-      identifier: props.selectedTemplate.identifier
+      identifier: props.template.identifier
     }
   ],
   modules: ['TEMPLATESERVICE']
@@ -111,7 +108,7 @@ const TemplateActivity = ({ auditEvent, last }: TemplateActivityProps) => {
 
 export const TemplateActivityLog = (props: TemplateActivityLogProps) => {
   const {
-    selectedTemplate: { identifier }
+    template: { identifier, accountId }
   } = props
   const {
     data: templateActivityLogs,
@@ -120,7 +117,7 @@ export const TemplateActivityLog = (props: TemplateActivityLogProps) => {
     refetch: fetchTemplateActivityLogs
   } = useMutateAsGet(useGetAuditList, {
     queryParams: {
-      accountIdentifier: props.accountIdentifier
+      accountIdentifier: accountId
     },
     body: getRequestBody(props),
     lazy: true

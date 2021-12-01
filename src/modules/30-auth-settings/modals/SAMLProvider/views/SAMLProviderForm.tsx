@@ -18,10 +18,12 @@ import {
   ButtonVariation,
   ThumbnailSelect,
   Label,
-  getErrorInfoFromErrorObject
+  getErrorInfoFromErrorObject,
+  FontVariation
 } from '@wings-software/uicore'
 import copy from 'copy-to-clipboard'
 import { defaultTo } from 'lodash-es'
+import type { ToasterProps } from '@wings-software/uicore/dist/hooks/useToaster/useToaster'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
 import { useUploadSamlMetaData, useUpdateSamlMetaData, SamlSettings } from 'services/cd-ng'
@@ -40,6 +42,15 @@ interface Props {
   onSubmit?: () => void
   onCancel: () => void
   samlProvider?: SamlSettings
+}
+
+const handleSuccess = (
+  successCallback: ToasterProps['showSuccess'],
+  isCreate: boolean,
+  createText: string,
+  updateText: string
+): void => {
+  successCallback(isCreate ? createText : updateText, 5000)
 }
 
 const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider }) => {
@@ -95,12 +106,12 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
         response = await uploadSamlSettings(createFormData(values) as any)
       }
 
-      /* istanbul ignore else */ if (response) {
-        showSuccess(
-          getString(
-            samlProvider ? 'authSettings.samlProviderUpdatedSuccessfully' : 'authSettings.samlProviderAddedSuccessfully'
-          ),
-          5000
+      if (response) {
+        handleSuccess(
+          showSuccess,
+          !samlProvider,
+          getString('authSettings.samlProviderAddedSuccessfully'),
+          getString('authSettings.samlProviderUpdatedSuccessfully')
         )
         onSubmit?.()
       }
@@ -121,7 +132,9 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
           initialValues={{
             displayName: defaultTo(samlProvider?.displayName, ''),
             authorizationEnabled: samlProvider ? !!samlProvider?.authorizationEnabled : true,
-            groupMembershipAttr: defaultTo(samlProvider?.groupMembershipAttr, '')
+            groupMembershipAttr: defaultTo(samlProvider?.groupMembershipAttr, ''),
+            entityIdEnabled: samlProvider ? !!samlProvider?.entityIdentifier : false,
+            entityIdentifier: defaultTo(samlProvider?.entityIdentifier, '')
           }}
           validationSchema={yup.object().shape({
             displayName: yup.string().trim().required(getString('common.validation.nameIsRequired')),
@@ -129,6 +142,10 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
             groupMembershipAttr: yup.string().when('authorizationEnabled', {
               is: val => val,
               then: yup.string().trim().required(getString('common.validation.groupAttributeIsRequired'))
+            }),
+            entityIdentifier: yup.string().when('entityIdEnabled', {
+              is: val => val,
+              then: yup.string().trim().required(getString('common.validation.entityIdIsRequired'))
             })
           })}
           onSubmit={values => {
@@ -202,11 +219,26 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                       onChange={e => setFieldValue('authorizationEnabled', e.currentTarget.checked)}
                     />
                     {values.authorizationEnabled && (
-                      <Container width={300} margin={{ top: 'large' }}>
+                      <Container width={300} margin={{ top: 'medium' }}>
                         <FormInput.Text
                           name="groupMembershipAttr"
                           label={getString('authSettings.groupAttributeName')}
                         />
+                      </Container>
+                    )}
+                  </Container>
+                  <Container margin={{ top: 'large' }}>
+                    <Checkbox
+                      name="enableEntityId"
+                      label={getString('authSettings.enableEntityIdLabel')}
+                      font={{ variation: FontVariation.FORM_LABEL }}
+                      color={Color.GREY_600}
+                      checked={values.entityIdEnabled}
+                      onChange={e => setFieldValue('entityIdEnabled', e.currentTarget.checked)}
+                    />
+                    {values.entityIdEnabled && (
+                      <Container width={300} margin={{ top: 'medium' }}>
+                        <FormInput.Text name="entityIdentifier" label={getString('authSettings.entityIdLabel')} />
                       </Container>
                     )}
                   </Container>

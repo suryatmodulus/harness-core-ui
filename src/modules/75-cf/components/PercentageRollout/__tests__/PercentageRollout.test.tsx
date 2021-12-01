@@ -20,25 +20,18 @@ const mockVariations: Variation[] = [
 
 const mockAttributes: TargetAttributesResponse = ['attribute1', 'attribute2', 'attribute3']
 
-const mockInitialValues: PercentageRolloutProps['fieldValues'] = {
-  variation: {}
-}
-
-const renderComponent = (
-  props: Partial<PercentageRolloutProps> = {},
-  initialValues: PercentageRolloutProps['fieldValues'] = mockInitialValues
-): RenderResult => {
-  const prefix = props.namePrefix || 'test'
+const renderComponent = (props: Partial<PercentageRolloutProps> = {}): RenderResult => {
+  const prefix = props.prefix || (fieldName => fieldName)
 
   return render(
     <TestWrapper>
-      <Formik formName="test" onSubmit={jest.fn()} initialValues={{ [prefix]: initialValues }}>
+      <Formik<Record<string, any>> formName="test" onSubmit={jest.fn()} initialValues={{}}>
         {({ values }) => (
           <PercentageRollout
-            namePrefix={prefix}
+            prefix={prefix}
+            fieldValues={{ variations: values.variations }}
             targetGroups={mockTargetGroups}
             variations={mockVariations}
-            fieldValues={values[prefix]}
             bucketByAttributes={mockAttributes}
             {...props}
           />
@@ -49,17 +42,8 @@ const renderComponent = (
 }
 
 describe('PercentageRollout', () => {
-  test('it should prefix input names with the namePrefix', async () => {
-    const namePrefix = 'TEST-PREFIX'
-    const { container } = renderComponent({ namePrefix })
-
-    container.querySelectorAll('input').forEach(input => {
-      expect(input).toHaveAttribute('name', expect.stringMatching(new RegExp(`^${namePrefix}`)))
-    })
-  })
-
   test('it should display a drop down with all target groups', async () => {
-    const { container } = renderComponent()
+    renderComponent()
 
     expect(screen.getByText('cf.percentageRollout.toTargetGroup')).toBeInTheDocument()
 
@@ -67,7 +51,9 @@ describe('PercentageRollout', () => {
       expect(screen.queryByText(name)).not.toBeInTheDocument()
     })
 
-    await userEvent.click(container.querySelector('[name$="targetGroup"]')?.closest('.bp3-input') as HTMLElement)
+    await userEvent.click(
+      document.querySelector('[name$="clauses[0].values[0]"]')?.closest('.bp3-input') as HTMLElement
+    )
 
     await waitFor(() => {
       mockTargetGroups.forEach(({ name }) => {

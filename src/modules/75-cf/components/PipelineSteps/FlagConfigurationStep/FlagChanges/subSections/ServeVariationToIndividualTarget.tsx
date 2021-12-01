@@ -1,13 +1,15 @@
 import React, { FC, useMemo } from 'react'
+import { get } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import type { Target, Variation } from 'services/cf'
 import type { FlagConfigurationStepFormDataValues } from '@cf/components/PipelineSteps/FlagConfigurationStep/types'
 import SubSection, { SubSectionProps } from '../SubSection'
 import ServeVariationToItem from './ServeVariationToItem'
+import { CFPipelineInstructionType } from '../../types'
 
 export interface ServeVariationToIndividualTargetProps extends SubSectionProps {
-  clearField: (fieldName: string) => void
   setField: (fieldName: string, value: unknown) => void
+  prefix: (fieldName: string) => string
   variations?: Variation[]
   targets?: Target[]
   fieldValues?: FlagConfigurationStepFormDataValues
@@ -18,26 +20,20 @@ const ServeVariationToIndividualTarget: FC<ServeVariationToIndividualTargetProps
   variations = [],
   targets = [],
   setField,
-  clearField,
+  prefix,
   ...props
 }) => {
   const { getString } = useStrings()
 
-  const [selectedVariation, selectedVariationIndex] = useMemo<[Variation | undefined, number]>(() => {
-    const position = variations?.findIndex(
-      ({ identifier }) => identifier === fieldValues?.spec?.serveVariationToIndividualTarget?.include?.variation
-    )
+  const selectedTargets = useMemo<Target[]>(() => {
+    const selectedTargetIds = get(fieldValues, prefix('spec.targets'))
 
-    return [position >= 0 ? variations[position] : undefined, position]
-  }, [fieldValues?.spec?.serveVariationToIndividualTarget?.include?.variation, variations])
+    if (!Array.isArray(targets) || !Array.isArray(selectedTargetIds) || selectedTargetIds.length === 0) {
+      return []
+    }
 
-  const selectedTargets = useMemo<Target[]>(
-    () =>
-      targets?.filter(({ identifier }) =>
-        (fieldValues?.spec?.serveVariationToIndividualTarget?.include?.targets || []).includes(identifier)
-      ),
-    [targets, fieldValues?.spec?.serveVariationToIndividualTarget?.include?.targets]
-  )
+    return targets.filter(({ identifier }) => selectedTargetIds.includes(identifier))
+  }, [targets, fieldValues])
 
   return (
     <SubSection data-testid="flagChanges-serveVariationToIndividualTarget" {...props}>
@@ -46,16 +42,14 @@ const ServeVariationToIndividualTarget: FC<ServeVariationToIndividualTargetProps
         itemLabel={getString('cf.shared.targets')}
         itemPlaceholder={getString('cf.pipeline.flagConfiguration.enterTarget')}
         itemFieldName="targets"
-        specPrefix="spec.serveVariationToIndividualTarget.include"
         serveItemString={getString('cf.featureFlags.toTarget')}
         serveItemsString={getString('cf.pipeline.flagConfiguration.toTargets')}
-        clearField={clearField}
         setField={setField}
         items={targets}
         selectedItems={selectedTargets}
         variations={variations}
-        selectedVariation={selectedVariation}
-        selectedVariationIndex={selectedVariationIndex}
+        selectedVariationId={get(fieldValues, prefix('spec.variation'))}
+        instructionType={CFPipelineInstructionType.ADD_TARGETS_TO_VARIATION_TARGET_MAP}
       />
     </SubSection>
   )

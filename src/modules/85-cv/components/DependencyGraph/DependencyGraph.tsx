@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import cx from 'classnames'
 import Highcharts from 'highcharts'
 import Networkgraph from 'highcharts/modules/networkgraph'
 import HighchartsReact from 'highcharts-react-official'
@@ -79,13 +80,13 @@ export function DependencyGraph(props: DependencyGraphProps): JSX.Element {
   })(Highcharts)
 
   const chartComponent = React.useRef<any>(null)
-  const { dependencyData, options = {}, highchartsCallback } = props
+  const { dependencyData, options = {}, highchartsCallback, containerClassName } = props
 
   const defaultOptions = useMemo(() => dependencyGraphOptions(dependencyData), [dependencyData])
   const parsedOptions = useMemo(() => getParsedOptions(defaultOptions, options), [defaultOptions, options])
 
   return (
-    <div className="DependencyGraph">
+    <div className={cx('DependencyGraph', containerClassName)}>
       <HighchartsReact
         highcharts={Highcharts}
         options={parsedOptions}

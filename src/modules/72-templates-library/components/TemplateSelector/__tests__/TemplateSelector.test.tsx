@@ -1,7 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { TemplateType } from '@templates-library/utils/templatesUtils'
 import { useMutateAsGet } from '@common/hooks'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
@@ -38,7 +37,7 @@ describe('<TemplateSelector /> tests', () => {
   test('snapshot test', async () => {
     const { container } = render(
       <TestWrapper path={TEST_PATH} pathParams={pathParams} defaultAppStoreValues={{ isGitSyncEnabled: false }}>
-        <TemplateSelector templateType={TemplateType.Step} childTypes={['Http']} />
+        <TemplateSelector />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash-es'
 import { ButtonSize, Color, FontVariation, Layout, Text, Popover } from '@wings-software/uicore'
 import { PopoverInteractionKind } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import { FeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
+import { FeatureDescriptor, CustomFeatureDescriptor } from 'framework/featureStore/FeatureDescriptor'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useFeatureRequiredPlans } from '@common/hooks/useFeatures'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
@@ -49,6 +49,7 @@ export const WarningText = ({ tooltip }: WarningTextProps): ReactElement => {
 export const FeatureWarningTooltip = ({ featureName }: FeatureWarningTooltipProps): ReactElement => {
   const { getString } = useStrings()
   const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
+  const customFeatureDescription = CustomFeatureDescriptor[featureName]
   const requiredPlans = useFeatureRequiredPlans(featureName)
   const requiredPlansStr = requiredPlans.join(' or ')
   return (
@@ -58,10 +59,10 @@ export const FeatureWarningTooltip = ({ featureName }: FeatureWarningTooltipProp
       </Text>
       <Layout.Vertical spacing="small">
         <Text font={{ size: 'small' }} color={Color.GREY_700}>
-          {getString('common.feature.upgradeRequired.description')}
-          {featureDescription}
+          {!customFeatureDescription && getString('common.feature.upgradeRequired.description')}
+          {customFeatureDescription || featureDescription}
         </Text>
-        {!isEmpty(requiredPlans) && (
+        {!customFeatureDescription && !isEmpty(requiredPlans) && (
           <Text font={{ size: 'small' }} color={Color.GREY_700}>
             {getString('common.feature.upgradeRequired.requiredPlans', { requiredPlans: requiredPlansStr })}
           </Text>

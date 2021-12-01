@@ -4,6 +4,7 @@ import {
   Color,
   Container,
   DropDown,
+  Icon,
   Layout,
   PageError,
   SelectOption,
@@ -11,21 +12,26 @@ import {
   Tabs,
   Text
 } from '@wings-software/uicore'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { defaultTo, isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { TemplateTags } from '@templates-library/components/TemplateTags/TemplateTags'
 import { PageSpinner } from '@common/components'
-import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
+import {
+  getIconForTemplate,
+  getTypeForTemplate,
+  TemplateListType
+} from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { useMutateAsGet } from '@common/hooks'
-import { useGetTemplateList, TemplateSummaryResponse, EntityGitDetails } from 'services/template-ng'
+import { useGetTemplateList, TemplateSummaryResponse } from 'services/template-ng'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
+import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { DefaultNewVersionLabel } from 'framework/Templates/templates'
 import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
 import { TemplateInputs } from '../TemplateInputs/TemplateInputs'
 import { TemplateYaml } from '../TemplateYaml/TemplateYaml'
@@ -33,14 +39,9 @@ import { TemplateActivityLog } from '../TemplateActivityLog/TemplateActivityLog'
 import css from './TemplateDetails.module.scss'
 
 export interface TemplateDetailsProps {
-  templateIdentifier: string
-  versionLabel?: string
+  template: TemplateSummaryResponse
+  allowStableSelection?: boolean
   setTemplate?: (template: TemplateSummaryResponse) => void
-  accountId: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  module?: Module
-  gitDetails?: EntityGitDetails
 }
 
 export enum TemplateTabs {
@@ -55,24 +56,17 @@ export enum ParentTemplateTabs {
 }
 
 export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
-  const {
-    templateIdentifier,
-    versionLabel = false,
-    setTemplate,
-    accountId,
-    orgIdentifier,
-    projectIdentifier,
-    module,
-    gitDetails
-  } = props
+  const { template, allowStableSelection = false, setTemplate } = props
   const { getString } = useStrings()
   const history = useHistory()
   const [versionOptions, setVersionOptions] = React.useState<SelectOption[]>([])
   const { isReadonly } = useContext(TemplateContext)
   const { isGitSyncEnabled } = useAppStore()
+  const [templates, setTemplates] = React.useState<TemplateSummaryResponse[]>([])
   const [selectedTemplate, setSelectedTemplate] = React.useState<TemplateSummaryResponse>()
   const [selectedParentTab, setSelectedParentTab] = React.useState<ParentTemplateTabs>(ParentTemplateTabs.BASIC)
   const [selectedTab, setSelectedTab] = React.useState<TemplateTabs>(TemplateTabs.YAML)
+  const { module } = useParams<ProjectPathProps & ModulePathParams>()
 
   const {
     data: templateData,
@@ -82,25 +76,24 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
   } = useMutateAsGet(useGetTemplateList, {
     body: {
       filterType: 'Template',
-      templateIdentifiers: [templateIdentifier]
+      templateIdentifiers: [template.identifier]
     },
     queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier,
+      accountIdentifier: template.accountId,
+      orgIdentifier: template.orgIdentifier,
+      projectIdentifier: template.projectIdentifier,
       templateListType: TemplateListType.All,
       module,
-      repoIdentifier: gitDetails?.repoIdentifier,
-      branch: gitDetails?.branch
+      repoIdentifier: template.gitDetails?.repoIdentifier,
+      branch: template.gitDetails?.branch
     },
     queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
 
   const onChange = React.useCallback(
     (option: SelectOption): void => {
-      const version = option.value?.toString() || ''
-      const newSelectedVersion = templateData?.data?.content?.find(item => item.versionLabel === version)
-      setSelectedTemplate(newSelectedVersion)
+      const version = defaultTo(option.value?.toString(), '')
+      setSelectedTemplate(templates.find(item => item.versionLabel === version) || {})
     },
     [templateData?.data?.content]
   )
@@ -112,35 +105,44 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
   }, [selectedTemplate])
 
   React.useEffect(() => {
-    if (!isEmpty(templateData?.data?.content)) {
-      setSelectedTemplate(
-        templateData?.data?.content?.find(item => item.versionLabel === versionLabel) ||
-          templateData?.data?.content?.[0]
-      )
-      const newVersionOptions = templateData?.data?.content?.map(item => {
-        return {
-          label: item.stableTemplate
+    const newVersionOptions: SelectOption[] = templates.map(item => {
+      return {
+        label:
+          item.versionLabel === DefaultNewVersionLabel
+            ? getString('templatesLibrary.alwaysUseStableVersion')
+            : item.stableTemplate
             ? getString('templatesLibrary.stableVersion', { entity: item.versionLabel })
             : item.versionLabel,
-          value: item.versionLabel
-        } as SelectOption
-      }) || [{ label: '', value: '' } as SelectOption]
-      newVersionOptions.sort((a, b) => a.label.localeCompare(b.label))
-      setVersionOptions(newVersionOptions)
+        value: item.versionLabel
+      } as SelectOption
+    })
+    setVersionOptions(newVersionOptions)
+  }, [templates])
+
+  React.useEffect(() => {
+    const allVersions = [...(templateData?.data?.content || [])]
+    if (allowStableSelection) {
+      const stableVersion = { ...allVersions.find(item => item.stableTemplate) }
+      if (stableVersion) {
+        stableVersion.versionLabel = DefaultNewVersionLabel
+        allVersions.unshift(stableVersion)
+      }
     }
+    setTemplates(allVersions)
+    setSelectedTemplate(allVersions.find(item => item.versionLabel === template.versionLabel))
   }, [templateData?.data?.content])
 
   React.useEffect(() => {
     reloadTemplates()
-  }, [templateIdentifier])
+  }, [template.identifier])
 
   const goToTemplateStudio = () => {
     if (selectedTemplate) {
       history.push(
         routes.toTemplateStudio({
-          projectIdentifier,
-          orgIdentifier,
-          accountId,
+          projectIdentifier: selectedTemplate.projectIdentifier,
+          orgIdentifier: selectedTemplate.orgIdentifier,
+          accountId: defaultTo(selectedTemplate.accountId, ''),
           module,
           templateType: selectedTemplate.templateEntityType,
           templateIdentifier: selectedTemplate.identifier,
@@ -164,7 +166,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
   )
 
   return (
-    <Container height={'100%'} className={css.container}>
+    <Container height={'100%'} className={css.container} data-template-id={template.identifier}>
       <Layout.Vertical flex={{ align: 'center-center' }} height={'100%'}>
         {loading && <PageSpinner />}
         {!loading && templatesError && (
@@ -217,8 +219,26 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
                           <Layout.Vertical
                             className={css.topContainer}
                             spacing={'large'}
-                            padding={{ top: 'large', right: 'xxlarge', bottom: 'large', left: 'xxlarge' }}
+                            padding={{ top: 'xlarge', right: 'xxlarge', bottom: 'xlarge', left: 'xxlarge' }}
                           >
+                            <Container>
+                              <Layout.Vertical spacing={'small'}>
+                                <Text font={{ weight: 'semi-bold' }} color={Color.BLACK}>
+                                  {getString('typeLabel')}
+                                </Text>
+                                <Container>
+                                  <Layout.Horizontal
+                                    spacing={'small'}
+                                    flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+                                  >
+                                    <Icon name={getIconForTemplate(selectedTemplate, getString)} size={20} />
+                                    <Text color={Color.GREY_900}>
+                                      {getTypeForTemplate(selectedTemplate, getString)}
+                                    </Text>
+                                  </Layout.Horizontal>
+                                </Container>
+                              </Layout.Vertical>
+                            </Container>
                             <Container>
                               <Layout.Vertical spacing={'small'}>
                                 <Text font={{ weight: 'semi-bold' }} color={Color.BLACK}>
@@ -246,16 +266,15 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
                                 <Text font={{ weight: 'semi-bold' }} color={Color.BLACK}>
                                   {getString('templatesLibrary.createNewModal.versionLabel')}
                                 </Text>
-                                {selectedTemplate.versionLabel && (
-                                  <DropDown
-                                    filterable={false}
-                                    items={versionOptions}
-                                    value={selectedTemplate.versionLabel}
-                                    onChange={onChange}
-                                    disabled={isReadonly}
-                                    width={300}
-                                  />
-                                )}
+                                <DropDown
+                                  filterable={false}
+                                  items={versionOptions}
+                                  value={selectedTemplate.versionLabel}
+                                  onChange={onChange}
+                                  disabled={isReadonly}
+                                  width={300}
+                                  popoverClassName={css.dropdown}
+                                />
                               </Layout.Vertical>
                             </Container>
                           </Layout.Vertical>
@@ -265,14 +284,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
                             <Tab
                               id={TemplateTabs.INPUTS}
                               title={getString('templatesLibrary.templateInputs')}
-                              panel={
-                                <TemplateInputs
-                                  selectedTemplate={selectedTemplate}
-                                  accountIdentifier={accountId}
-                                  orgIdentifier={orgIdentifier}
-                                  projectIdentifier={projectIdentifier}
-                                />
-                              }
+                              panel={<TemplateInputs template={selectedTemplate} />}
                             />
                             <Tab
                               id={TemplateTabs.YAML}
@@ -292,14 +304,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
                   <Tab
                     id={ParentTemplateTabs.ACTVITYLOG}
                     title={getString('activityLog')}
-                    panel={
-                      <TemplateActivityLog
-                        selectedTemplate={selectedTemplate}
-                        accountIdentifier={accountId}
-                        orgIdentifier={orgIdentifier}
-                        projectIdentifier={projectIdentifier}
-                      />
-                    }
+                    panel={<TemplateActivityLog template={selectedTemplate} />}
                   />
                 </Tabs>
               </Container>

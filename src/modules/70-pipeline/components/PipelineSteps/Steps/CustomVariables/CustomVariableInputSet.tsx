@@ -1,10 +1,17 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Text, FormInput, MultiTypeInputType, getMultiTypeFromValue, SelectOption } from '@wings-software/uicore'
+import {
+  Text,
+  FormInput,
+  MultiTypeInputType,
+  getMultiTypeFromValue,
+  SelectOption,
+  FontVariation
+} from '@wings-software/uicore'
 import cx from 'classnames'
 import { get, isUndefined } from 'lodash-es'
 import { connect } from 'formik'
-import { String } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
@@ -47,7 +54,7 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
   } = props
   const basePath = path?.length ? `${path}.` : ''
   const { expressions } = useVariablesExpression()
-
+  const { getString } = useStrings()
   const { executionId } = useQueryParams<Record<string, string>>()
   const { executionIdentifier, triggerIdentifier } = useParams<Record<string, string>>()
 
@@ -77,9 +84,9 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
     <div className={cx(css.customVariablesInputSets, 'customVariables')} id={domId}>
       {stepViewType === StepViewType.StageVariable && initialValues.variables.length > 0 && (
         <section className={css.subHeader}>
-          <String stringID="name" />
-          <String stringID="typeLabel" />
-          <String stringID="valueLabel" />
+          <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{getString('name')}</Text>
+          <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{getString('typeLabel')}</Text>
+          <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{getString('valueLabel')}</Text>
         </section>
       )}
       {template?.variables?.map?.((variable, index) => {

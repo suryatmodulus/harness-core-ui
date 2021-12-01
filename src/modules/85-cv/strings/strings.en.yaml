@@ -56,6 +56,7 @@ addNew: + Add New
 turnService: Turn service
 showYAMLChange: Show YAML Change
 seeYAML: See full event YAML
+baseUrl: Base URL
 serviceDashboardPage:
   fiveMinutes: 5 Minutes
   fifteenMinutes: 15 Minutes
@@ -542,8 +543,8 @@ monitoredServices:
   filterlabel: 'Environment:'
   youHaveNoMonitoredServices: You have no monitored services
   nameValidation: Monitored Service Name is required
-  environmentValidation: '{{$.pipelineSteps.environmentTab.environmentIsRequired}}'
-  serviceValidation: '{{$.pipelineSteps.serviceTab.serviceIsRequired}}'
+  environmentValidation: '{{$.cd.pipelineSteps.environmentTab.environmentIsRequired}}'
+  serviceValidation: '{{$.cd.pipelineSteps.serviceTab.serviceIsRequired}}'
   serviceAndEnvironment: Service And Environment
   monitoredServiceDetails: Monitored Service Details
   monitoredServiceName: Monitored service name
@@ -602,6 +603,7 @@ monitoredServices:
     noData: No data available for service dependencies
   assignLabel: Select the services you want to apply the metric
   continuousVerification: Continuous Verification
+dependenciesHealthWithCount: Dependencies Health ({{ count }})
 changeSource:
   alertText: Alert
   incident: Incident
@@ -695,7 +697,6 @@ slos:
   sloCreated: SLO created successfully
   sloUpdated: SLO updated successfully
   noData: No SLOs Present.
-  nameValidation: SLO name is a required field
   confirmDeleteSLO: 'Are you sure you want to delete SLO: {{ name }}'
   sloDeleted: '{{ name }} successfully deleted'
   sli: SLI
@@ -711,6 +712,10 @@ slos:
   sliType: SLI Type
   latencySLI: Latency SLI measures the proportion of requests that were faster than some threshold.
   pickMetricsSLI: Pick metrics powering the SLI
+  validations:
+    nameValidation: SLO name is required
+    userJourneyRequired: User journey is required
+    healthSourceRequired: Health Source is required
   sloTargetAndBudget:
     periodType: Period Type
     periodTypeOptions:

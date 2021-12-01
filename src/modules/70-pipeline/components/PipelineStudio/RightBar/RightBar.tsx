@@ -645,7 +645,7 @@ export const RightBar = (): JSX.Element => {
                             <MultiTypeSelectField
                               name="prCloneStrategy"
                               label={
-                                <Text margin={{ bottom: 'xsmall' }}>
+                                <Text margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'prCloneStrategy' }}>
                                   {getString('pipeline.ciCodebase.prCloneStrategy')}
                                 </Text>
                               }

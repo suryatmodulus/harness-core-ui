@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { IconName, getMultiTypeFromValue, MultiTypeInputType, Color } from '@wings-software/uicore'
 import { isEmpty, set, get } from 'lodash-es'
 import * as Yup from 'yup'
 import { FormikErrors, yupToFormErrors } from 'formik'
@@ -179,6 +179,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
   protected type = StepType.SHELLSCRIPT
   protected stepName = 'Shell Script'
   protected stepIcon: IconName = 'command-shell-script'
+  protected stepIconColor = Color.GREY_700
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.SHELLSCRIPT'
   protected isHarnessSpecific = true
   protected invocationMap: Map<

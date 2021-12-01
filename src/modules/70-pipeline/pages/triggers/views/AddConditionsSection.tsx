@@ -64,8 +64,8 @@ export const ConditionRow = ({
     <div className={cx(css.conditionsRow, css.predefinedRows)}>
       <Text color={Color.GREY_800} data-tooltip-id={name}>
         {label}
+        <HarnessDocTooltip tooltipId={name} useStandAlone={true} />
       </Text>
-      <HarnessDocTooltip tooltipId={name} useStandAlone={true} />
       <FormInput.Select
         style={{ alignSelf: valueError ? 'baseline' : 'center' }}
         className={css.operatorContainer}
@@ -139,8 +139,8 @@ export const AddConditionsSection: React.FC<AddConditionsSectionPropsInterface> 
     <section data-name={fieldId}>
       <Text className={css.sectionHeader} data-tooltip-id={fieldId}>
         {title}
+        <HarnessDocTooltip tooltipId={fieldId} useStandAlone={true} />
       </Text>
-      <HarnessDocTooltip tooltipId={fieldId} useStandAlone={true} />
       <FieldArray
         name={fieldId}
         render={() => (

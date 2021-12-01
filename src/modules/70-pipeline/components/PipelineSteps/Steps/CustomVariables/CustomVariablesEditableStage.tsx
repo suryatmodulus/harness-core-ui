@@ -8,7 +8,9 @@ import {
   MultiTypeInputType,
   getMultiTypeFromValue,
   ButtonSize,
-  ButtonVariation
+  ButtonVariation,
+  FontVariation,
+  Text
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -22,6 +24,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import type { NGVariable } from 'services/cd-ng'
 
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
+import type { AllNGVariables } from '@pipeline/utils/types'
 import type { CustomVariableEditableProps, CustomVariablesData } from './CustomVariableEditable'
 import { VariableType, labelStringMap } from './CustomVariableUtils'
 import AddEditCustomVariable, { VariableState } from './AddEditCustomVariable'
@@ -105,7 +108,8 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                 push(variable)
               }
 
-              function handleUpdate(index: number, variable: NGVariable): void {
+              function handleUpdate(index: number, variable: AllNGVariables): void {
+                variable.value = ''
                 replace(index, variable)
               }
 
@@ -125,10 +129,9 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                   />
                   {values.variables?.length > 0 ? (
                     <div className={cx(css.tableRow, css.headerRow)}>
-                      <String stringID="name" />
-                      <String stringID="typeLabel" />
-                      <String stringID="valueLabel" />
-                      <div />
+                      <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{getString('name')}</Text>
+                      <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{getString('typeLabel')}</Text>
+                      <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{getString('valueLabel')}</Text>
                     </div>
                   ) : null}
                   {values.variables.map?.((variable, index) => {

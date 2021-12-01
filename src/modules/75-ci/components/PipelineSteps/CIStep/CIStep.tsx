@@ -21,13 +21,14 @@ interface CIStepProps {
   enableFields: {
     [key: string]: { [key: string]: any }
   }
-  formik: FormikProps<any>
+  formik?: FormikProps<any>
   stepViewType: StepViewType
   allowableTypes: MultiTypeInputType[]
+  isInputSetView?: boolean
 }
 
 export const CIStep: React.FC<CIStepProps> = props => {
-  const { isNewStep, readonly, stepLabel, enableFields, stepViewType, allowableTypes } = props
+  const { isNewStep, readonly, stepLabel, enableFields, stepViewType, allowableTypes, isInputSetView } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -38,7 +39,7 @@ export const CIStep: React.FC<CIStepProps> = props => {
   const { expressions } = useVariablesExpression()
   return (
     <>
-      {stepViewType !== StepViewType.Template ? (
+      {stepViewType !== StepViewType.Template && Object.prototype.hasOwnProperty.call(enableFields, 'name') ? (
         <Container className={cx(css.formGroup, css.lg, css.nameIdLabel)}>
           <FormInput.InputWithIdentifier
             inputName="name"
@@ -68,13 +69,18 @@ export const CIStep: React.FC<CIStepProps> = props => {
           <FormMultiTypeConnectorField
             label={enableFields['spec.connectorRef'].label}
             type={enableFields['spec.connectorRef'].type}
-            width={385}
+            width={isInputSetView ? 265 : 385}
             name="spec.connectorRef"
             placeholder={getString('select')}
             accountIdentifier={accountId}
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
-            multiTypeProps={{ expressions, allowableTypes, disabled: readonly }}
+            multiTypeProps={{
+              expressions,
+              allowableTypes,
+              disabled: readonly,
+              ...enableFields['spec.connectorRef'].multiTypeProps
+            }}
             gitScope={gitScope}
             setRefValue
           />

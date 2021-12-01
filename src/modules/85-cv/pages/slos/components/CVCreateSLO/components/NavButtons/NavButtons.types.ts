@@ -7,5 +7,5 @@ export interface NavButtonsProps {
   selectedTabId: CreateSLOEnum
   setSelectedTabId: (tabId: CreateSLOEnum) => void
   getString: UseStringsReturn['getString']
-  submitForm: FormikProps<SLOForm>['submitForm']
+  formikProps: FormikProps<SLOForm>
 }

@@ -1,284 +1,210 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { forwardRef, useMemo, useRef, useState } from 'react'
 import {
   Container,
-  FlexExpander,
   Formik,
   FormInput,
   Layout,
   MultiTypeInputType,
   SelectOption,
-  Text,
-  PageError
+  PageError,
+  RUNTIME_INPUT_VALUE
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import type { FormikProps } from 'formik'
-import { Link, useParams } from 'react-router-dom'
-import { get } from 'lodash-es'
-import type { StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
-import { CF_DEFAULT_PAGE_SIZE, getErrorMessage } from '@cf/utils/CFUtils'
-import { useGetAllFeatures, useGetAllSegments, useGetAllTargetAttributes, useGetAllTargets } from 'services/cf'
+import { useParams } from 'react-router-dom'
+import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import { getErrorMessage } from '@cf/utils/CFUtils'
+import { GetEnvironmentListQueryParams, useGetEnvironmentList } from 'services/cd-ng'
+import { GetAllFeaturesQueryParams, useGetAllFeatures } from 'services/cf'
 import { useStrings } from 'framework/strings'
-import { useEnvironmentSelectV2 } from '@cf/hooks/useEnvironmentSelectV2'
-import routes from '@common/RouteDefinitions'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
-import type { StringsMap } from 'stringTypes'
-import type { FlagConfigurationStepData, FlagConfigurationStepFormData } from './types'
+import type { FlagConfigurationStepData } from './types'
 import FlagChanges from './FlagChanges/FlagChanges'
 
-/**
- * Spec: https://harness.atlassian.net/wiki/spaces/FFM/pages/1446084831/APIs+for+creating+and+executing+Pipelines
- */
-
 export interface FlagConfigurationStepWidgetProps {
-  initialValues: FlagConfigurationStepFormData
+  initialValues: FlagConfigurationStepData
   isNewStep?: boolean
-  isDisabled?: boolean
-  onUpdate?: (data: FlagConfigurationStepFormData) => void
+  readonly?: boolean
+  onUpdate: (data: FlagConfigurationStepData) => void
   stepViewType?: StepViewType
-  readonly: boolean
 }
 
-export function FlagConfigurationStepWidget(
-  props: FlagConfigurationStepWidgetProps,
-  formikRef: StepFormikFowardRef<FlagConfigurationStepData>
-): React.ReactElement {
-  const { getString } = useStrings()
-  const { initialValues, onUpdate, isNewStep, isDisabled } = props
-  const stepString = (key: string): string => getString(`cf.pipeline.flagConfiguration.${key}` as keyof StringsMap)
-  const [environmentIdentifier, setEnvironmentIdentifier] = useState(initialValues.spec.environment)
-  const {
-    environments,
-    loading: loadingEnvironments,
-    error: errorEnvironments,
-    refetch: refetchEnvironments
-  } = useEnvironmentSelectV2({
-    selectedEnvironmentIdentifier: initialValues.spec.environment,
-    onChange: opt => {
-      setEnvironmentIdentifier(opt.value as string)
+const FlagConfigurationStepWidget = forwardRef(
+  (
+    { initialValues, onUpdate, isNewStep, readonly }: FlagConfigurationStepWidgetProps,
+    formikRef: StepFormikFowardRef<FlagConfigurationStepData>
+  ) => {
+    const [isInitialRender, setIsInitialRender] = useState<boolean>(true)
+    const formValuesRef = useRef<FlagConfigurationStepData>({} as FlagConfigurationStepData)
+    const { getString } = useStrings()
+
+    const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+
+    const envQueryParams: GetEnvironmentListQueryParams = {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
     }
-  })
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
-  const queryParams = useMemo(
-    () => ({
-      account: accountId,
+
+    const {
+      data: environmentsData,
+      loading: loadingEnvironments,
+      error: errorEnvironments,
+      refetch: refetchEnvironments
+    } = useGetEnvironmentList({
+      queryParams: envQueryParams,
+      debounce: 250
+    })
+
+    const featureQueryParams: GetAllFeaturesQueryParams = {
       accountIdentifier: accountId,
       org: orgIdentifier,
       project: projectIdentifier,
-      environment: environmentIdentifier,
-      pageSize: CF_DEFAULT_PAGE_SIZE,
-      identifier: initialValues.spec.featureFlag
-    }),
-    [accountId, orgIdentifier, projectIdentifier, environmentIdentifier, initialValues.spec.featureFlag]
-  )
-  const {
-    data: featuresData,
-    loading: loadingFeatures,
-    error: errorFeatures,
-    refetch: refetchFeatures
-  } = useGetAllFeatures({
-    queryParams
-  })
-  const {
-    data: targetGroupsData,
-    loading: loadingTargetGroups,
-    error: errorTargetGroups,
-    refetch: refetchTargetGroups
-  } = useGetAllSegments({ queryParams: { ...queryParams, identifier: undefined } })
-
-  const {
-    data: targetsData,
-    loading: loadingTargets,
-    error: errorTargets,
-    refetch: refetchTargets
-  } = useGetAllTargets({ queryParams: { ...queryParams } })
-
-  const {
-    data: targetAttributesData,
-    loading: loadingTargetAttributes,
-    error: errorTargetAttributes,
-    refetch: refetchTargetAttributes
-  } = useGetAllTargetAttributes({ queryParams: { ...queryParams } })
-
-  const formik = useRef<FormikProps<FlagConfigurationStepFormData> | null>(null)
-  const [loadingFromFocus, setLoadingFromFocus] = useState(false)
-
-  useEffect(() => {
-    if (initialValues?.spec?.environment && environments?.length) {
-      const selectedEnvironment = environments.find(env => env.identifier === initialValues.spec.environment)
-
-      if (selectedEnvironment) {
-        formik.current?.setFieldValue('spec.environment', {
-          label: selectedEnvironment.name,
-          value: selectedEnvironment.identifier
-        })
-      }
+      environment: formValuesRef.current?.spec?.environment || '',
+      pageSize: 15,
+      pageNumber: 0
     }
 
-    if (initialValues?.spec?.featureFlag && featuresData?.features?.length) {
-      const selectedFeature = featuresData.features.find(
-        feature => feature.identifier === initialValues.spec.featureFlag
+    const {
+      data: featuresData,
+      loading: loadingFeatures,
+      error: errorFeatures,
+      refetch: refetchFeatures
+    } = useGetAllFeatures({ queryParams: featureQueryParams, debounce: 250 })
+
+    const loading = loadingEnvironments || loadingFeatures
+    const error = errorEnvironments || errorFeatures
+
+    const showLoading = useMemo<boolean>(() => {
+      if (isInitialRender) {
+        if (!error) {
+          setIsInitialRender(loading)
+        }
+        return loading
+      }
+
+      return false
+    }, [isInitialRender, error, loading])
+
+    const environmentItems = useMemo<SelectOption[]>(() => {
+      if (!environmentsData?.data?.content?.length) {
+        return []
+      }
+
+      return environmentsData.data.content.map(({ environment }) => ({
+        label: environment?.name,
+        value: environment?.identifier
+      })) as SelectOption[]
+    }, [environmentsData?.data?.content])
+
+    const featureItems = useMemo<SelectOption[]>(() => {
+      if (!featuresData?.features?.length) {
+        return []
+      }
+
+      return featuresData.features.map(({ name, identifier }) => ({ label: name, value: identifier }))
+    }, [featuresData?.features])
+
+    if (showLoading) {
+      return (
+        <Container
+          height="100%"
+          width="100%"
+          padding={{ top: 'huge' }}
+          data-testid="flag-configuration-step-widget-loading"
+        >
+          <ContainerSpinner />
+        </Container>
       )
-
-      if (selectedFeature) {
-        formik.current?.setFieldValue('spec.featureFlag', {
-          label: selectedFeature.name,
-          value: selectedFeature.identifier
-        })
-      }
     }
-  }, [environments, featuresData, initialValues, formik])
 
-  const scheduleSearchByFlagNameTimeoutRef = useRef(0)
-  const scheduleSearchByFlagName = useCallback(
-    name => {
-      clearTimeout(scheduleSearchByFlagNameTimeoutRef.current)
-      scheduleSearchByFlagNameTimeoutRef.current = window.setTimeout(() => {
-        setLoadingFromFocus(true)
-        refetchFeatures({ queryParams: { ...queryParams, name, identifier: undefined } }).finally(() => {
-          setLoadingFromFocus(false)
-        })
-      }, 250)
-    },
-    [queryParams, refetchFeatures]
-  )
+    if (error) {
+      return (
+        <Container padding={{ top: 'huge' }} data-testid="flag-configuration-step-widget-error">
+          <PageError
+            message={getErrorMessage(error)}
+            width={450}
+            onClick={() => {
+              refetchFeatures()
+              refetchEnvironments()
+            }}
+          />
+        </Container>
+      )
+    }
 
-  const loading =
-    !loadingFromFocus &&
-    (loadingEnvironments || loadingFeatures || loadingTargetGroups || loadingTargetAttributes || loadingTargets)
-  const error = errorEnvironments || errorFeatures || errorTargetGroups || errorTargetAttributes || errorTargets
-
-  if (loading) {
     return (
-      <Container height="100%" width="100%" padding={{ top: 'huge' }}>
-        <ContainerSpinner />
-      </Container>
-    )
-  }
+      <Formik<FlagConfigurationStepData>
+        formName="FeatureFlagConfigurationForm"
+        onSubmit={onUpdate}
+        initialValues={initialValues}
+        validationSchema={Yup.object().shape({
+          name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
+          spec: Yup.object().shape({
+            environment: Yup.string().required(getString('cf.pipeline.flagConfiguration.environmentRequired')),
+            feature: Yup.mixed().required(getString('cf.pipeline.flagConfiguration.flagRequired'))
+          })
+        })}
+      >
+        {formik => {
+          setFormikRef(formikRef, formik)
+          const { values: formValues, setFieldValue } = formik
+          formValuesRef.current = formValues
 
-  if (error) {
-    return (
-      <Container padding={{ top: 'huge' }}>
-        <PageError
-          message={getErrorMessage(error)}
-          width={450}
-          onClick={() => {
-            refetchFeatures()
-            refetchEnvironments()
-            refetchTargetGroups()
-            refetchTargetAttributes()
-            refetchTargets()
-          }}
-        />
-      </Container>
-    )
-  }
+          const currentFeature = featuresData?.features?.find(
+            ({ identifier }) => identifier === formValues?.spec.feature
+          )
 
-  return (
-    <Formik<FlagConfigurationStepFormData>
-      formName="FeatureFlagConfigurationForm"
-      onSubmit={values => {
-        onUpdate?.(values)
-      }}
-      initialValues={initialValues}
-      validationSchema={Yup.object().shape({
-        name: Yup.string().required(getString('pipelineSteps.stepNameRequired')),
-        spec: Yup.object().shape({
-          environment: Yup.string().required(stepString('environmentRequired')),
-          featureFlag: Yup.mixed().required(stepString('flagRequired'))
-        })
-      })}
-    >
-      {(_formik: FormikProps<FlagConfigurationStepFormData>) => {
-        setFormikRef(formikRef, _formik) // this is required
-        formik.current = _formik
+          const currentEnvironment = environmentsData?.data?.content?.find(
+            ({ environment }) => environment?.identifier === formValues?.spec.environment
+          )?.environment
 
-        const formEnvironmentIdentifier = get(_formik.values, 'spec.environment.value')
-        const formFeatureFlagIdentifier = get(_formik.values, 'spec.featureFlag.value')
+          return (
+            <Layout.Vertical padding={{ right: 'xlarge' }}>
+              <FormInput.InputWithIdentifier
+                isIdentifierEditable={isNewStep && !readonly}
+                inputLabel={getString('cf.pipeline.flagConfiguration.stepName')}
+                inputGroupProps={{ disabled: readonly }}
+              />
+              <FormInput.Select
+                name="spec.environment"
+                items={environmentItems}
+                label={getString('cf.pipeline.flagConfiguration.selectEnvironment')}
+                disabled={readonly}
+                onQueryChange={searchTerm => refetchEnvironments({ queryParams: { ...envQueryParams, searchTerm } })}
+              />
+              <FormInput.MultiTypeInput
+                name="spec.feature"
+                useValue={true}
+                selectItems={featureItems}
+                label={getString('cf.pipeline.flagConfiguration.selectFlag')}
+                disabled={readonly}
+                multiTypeInputProps={{
+                  disabled: readonly,
+                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME],
+                  onInput: event =>
+                    refetchFeatures({
+                      queryParams: { ...featureQueryParams, name: (event.target as HTMLInputElement).value }
+                    })
+                }}
+              />
 
-        const currentFeature = featuresData?.features?.find(
-          ({ identifier }) => identifier === formFeatureFlagIdentifier
-        )
-
-        return (
-          <Layout.Vertical padding={{ right: 'xlarge' }}>
-            <FormInput.InputWithIdentifier
-              isIdentifierEditable={isNewStep && !isDisabled}
-              inputLabel={stepString('stepName')}
-              inputGroupProps={{ disabled: isDisabled }}
-            />
-            <FormInput.Select
-              name="spec.environment"
-              items={
-                environments?.map<SelectOption>(env => ({
-                  label: env.name as string,
-                  value: env.identifier as string
-                })) || []
-              }
-              label={stepString('selectEnvironment')}
-              disabled={isDisabled}
-            />
-            <FormInput.MultiTypeInput
-              name="spec.featureFlag"
-              selectItems={
-                featuresData?.features?.map(({ identifier: value, name: label }) => ({ value, label })) || []
-              }
-              label={
-                (
-                  <Container flex>
-                    <Text>{stepString('selectFlag')}</Text>
-                    <FlexExpander />
-                    {!!formFeatureFlagIdentifier && (
-                      <Link
-                        to={
-                          routes.toCFFeatureFlagsDetail({
-                            accountId,
-                            orgIdentifier: orgIdentifier as string,
-                            projectIdentifier: projectIdentifier as string,
-                            featureFlagIdentifier: formFeatureFlagIdentifier
-                          }) + `${formEnvironmentIdentifier ? `?activeEnvironment=${formEnvironmentIdentifier}` : ''}`
-                        }
-                        target="_blank"
-                        style={{ fontSize: 'var(--font-size-small)' }}
-                      >
-                        {stepString('viewDetail')}
-                      </Link>
-                    )}
-                  </Container>
-                ) as unknown as string
-              }
-              disabled={isDisabled}
-              multiTypeInputProps={{
-                disabled: isDisabled,
-                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME],
-                onInput: event => {
-                  scheduleSearchByFlagName(get(event, 'target.value'))
-                },
-                onFocus: async () => {
-                  if (formFeatureFlagIdentifier) {
-                    setLoadingFromFocus(true)
-                    await refetchFeatures({ queryParams: { ...queryParams, identifier: undefined } })
-                    setLoadingFromFocus(false)
-                  }
+              <FlagChanges
+                selectedFeature={
+                  formValues.spec.feature === RUNTIME_INPUT_VALUE ? formValues.spec.feature : currentFeature
                 }
-              }}
-            />
+                selectedEnvironmentId={currentEnvironment?.identifier}
+                initialInstructions={initialValues.spec.instructions}
+                clearField={(fieldName: string) => setFieldValue(fieldName, undefined)}
+                setField={(fieldName: string, value: unknown) => setFieldValue(fieldName, value)}
+                fieldValues={formValues}
+                showRuntimeFixedSelector
+              />
+            </Layout.Vertical>
+          )
+        }}
+      </Formik>
+    )
+  }
+)
 
-            <FlagChanges
-              targetGroups={targetGroupsData?.segments || []}
-              targets={targetsData?.targets || []}
-              variations={currentFeature?.variations || []}
-              spec={initialValues.spec}
-              clearField={(fieldName: string) => _formik.setFieldValue(fieldName, undefined)}
-              setField={(fieldName: string, value: unknown) => _formik.setFieldValue(fieldName, value)}
-              fieldValues={_formik.values}
-              targetAttributes={targetAttributesData || []}
-            />
-          </Layout.Vertical>
-        )
-      }}
-    </Formik>
-  )
-}
-
-export const FlagConfigurationStepWidgetWithRef = React.forwardRef(FlagConfigurationStepWidget)
+export default FlagConfigurationStepWidget

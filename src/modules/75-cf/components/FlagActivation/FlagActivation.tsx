@@ -254,6 +254,12 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
             if (current?.serve?.variation && !isEqual(initial?.serve?.variation, current?.serve?.variation)) {
               patch.feature.addInstruction(patch.creators.updateRuleVariation(current?.ruleId, current.serve.variation))
             }
+
+            if (current?.serve?.distribution && !isEqual(initial?.serve?.distribution, current.serve.distribution)) {
+              patch.feature.addInstruction(
+                patch.creators.updateRuleVariation(current?.ruleId, current.serve.distribution)
+              )
+            }
           })
       }
 

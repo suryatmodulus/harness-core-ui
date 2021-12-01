@@ -66,6 +66,9 @@ logs:
   noLogsText: 'No logs found'
   delegateSelectionLogs: Delegate selection logs
 execute: Execute
+commentModal:
+  addCommentPlaceholder: Add a comment
+  commentLabel: Comment
 configureOptions:
   configureOptions: 'configure options'
   defaultValue: 'Default value'
@@ -109,10 +112,11 @@ validation:
   yamlFilePath: 'File path can only contain valid file/folder name (should contain alphanumerics, _ and -) sepaerated by / and should end with .yaml.'
   variableAlreadyExists: Variable with same name already exists
   fieldIsRequired: '{{ name }} is required'
-  fieldMustStartWithAlphanumericAndCanNotHaveSpace: '{{ name }} must start with alphanumerics and should not contain whitespace'
+  fieldMustStartWithAlphanumericAndCanNotHaveSpace: '{{ name }} must start with alphanumerics and should not contain whitespaces'
   fieldCannotbeLongerThanN: '{{ name }} cannot be longer than {{ n }} characters'
   fieldMustBeAlphanumeric: '{{ name }} can only contain alphanumerics, _ and $'
   groupAttributeIsRequired: Group Attribute is required
+  entityIdIsRequired: Entity ID is required
   valueMustBeGreaterThanOrEqualToN: Value must be greater than or equal to {{ n }}
   valueMustBeLessThanOrEqualToN: Value must be less than or equal to {{ n }}
   valueMustBeANumber: Value must be number
@@ -502,6 +506,7 @@ extendTrial:
   doItLater: I’ll do it later
 cgLaunchText: Launch First Generation
 reportName: Report Name
+findOutMore: Find out more
 frequency: 'Frequency'
 last7days: Last 7 days
 instanceLabel: '{{$.instanceFieldOptions.instances}}'
@@ -615,7 +620,8 @@ suggestionsLabel: 'Suggestions:'
 refreshPage: refresh your page.
 files: Files
 template:
-  saveAsNewTemplateHeading: Save as new Template
+  label: 'Template'
+  saveAsNewTemplateHeading: Save as New Template
   saveTemplate:
     publishTemplate: Template published successfully
     errorWhileSaving: Error occurred saving Template

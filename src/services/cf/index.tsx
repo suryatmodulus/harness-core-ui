@@ -42,6 +42,14 @@ export type AuditTrails = Pagination & {
   auditTrails?: AuditTrail[]
 }
 
+export interface CFLicenseUsageDTO {
+  accountIdnetifier?: string
+  activeClientMAUs?: UsageDataDTO
+  activeFeatureFlagUsers?: UsageDataDTO
+  module?: string
+  timestamp?: number
+}
+
 export interface Clause {
   attribute: string
   id: string
@@ -243,6 +251,14 @@ export interface Projects {
   projects?: Project[]
 }
 
+export interface ReferenceDTO {
+  accountIdentifier?: string
+  identifier?: string
+  name?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
 export interface Results {
   count: number
   variationIdentifier: string
@@ -353,6 +369,12 @@ export type TargetsAndSegments = Pagination & {
 
 export type TargetsAndSegmentsInfo = {
   entities?: TargetAndSegment[]
+}
+
+export interface UsageDataDTO {
+  count?: number
+  displayName?: string
+  references?: ReferenceDTO[]
 }
 
 export interface Variation {
@@ -4915,3 +4937,38 @@ export const useGetTargetSegments = ({ identifier, ...props }: UseGetTargetSegme
     pathParams: { identifier },
     ...props
   })
+
+export interface GetLicenseUsageQueryParams {
+  /**
+   * Account
+   */
+  accountIdentifier: string
+  /**
+   * The timestamp of the result.
+   */
+  timestamp?: number
+}
+
+export type GetLicenseUsageProps = Omit<GetProps<CFLicenseUsageDTO, void, GetLicenseUsageQueryParams, void>, 'path'>
+
+/**
+ * Find current license usage data by accountIdentifier
+ *
+ * Query current CF licnese usage data for an account.
+ */
+export const GetLicenseUsage = (props: GetLicenseUsageProps) => (
+  <Get<CFLicenseUsageDTO, void, GetLicenseUsageQueryParams, void> path={`/usage`} base={getConfig('cf')} {...props} />
+)
+
+export type UseGetLicenseUsageProps = Omit<
+  UseGetProps<CFLicenseUsageDTO, void, GetLicenseUsageQueryParams, void>,
+  'path'
+>
+
+/**
+ * Find current license usage data by accountIdentifier
+ *
+ * Query current CF licnese usage data for an account.
+ */
+export const useGetLicenseUsage = (props: UseGetLicenseUsageProps) =>
+  useGet<CFLicenseUsageDTO, void, GetLicenseUsageQueryParams, void>(`/usage`, { base: getConfig('cf'), ...props })

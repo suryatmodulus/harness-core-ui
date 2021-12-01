@@ -1,167 +1,129 @@
-import React, { FC, useState, MouseEvent, useMemo } from 'react'
-import { Layout, Button, Heading, FontVariation, ButtonVariation } from '@wings-software/uicore'
-import { StringKeys, useStrings } from 'framework/strings'
-import type { Segment, Target, TargetAttributesResponse, Variation } from 'services/cf'
-import type {
-  FlagConfigurationStepFormData,
-  FlagConfigurationStepFormDataValues
-} from '@cf/components/PipelineSteps/FlagConfigurationStep/types'
-import type { SubSectionProps } from './SubSection'
-import RemoveSubSectionButton from './RemoveSubSectionButton'
-import SubSectionSelector from './SubSectionSelector'
+import React, { FC, useCallback, useEffect, useMemo } from 'react'
+import { get } from 'lodash-es'
+import {
+  Container,
+  FontVariation,
+  getMultiTypeFromValue,
+  Heading,
+  Layout,
+  MultiTypeInputType,
+  RUNTIME_INPUT_VALUE,
+  Text
+} from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
+import type { Feature } from 'services/cf'
+import MultiTypeSelectorButton from '@common/components/MultiTypeSelectorButton/MultiTypeSelectorButton'
+import type { FeatureFlagConfigurationInstruction, FlagConfigurationStepFormDataValues } from '../types'
+import FlagChangesForm, { FlagChangesFormProps } from './FlagChangesForm'
 
-// sub sections
-import SetFlagSwitch, { SetFlagSwitchProps } from './subSections/SetFlagSwitch'
-import DefaultRules, { DefaultRulesProps } from './subSections/DefaultRules'
-import ServeVariationToIndividualTarget, {
-  ServeVariationToIndividualTargetProps
-} from './subSections/ServeVariationToIndividualTarget'
-import ServeVariationToTargetGroup, {
-  ServeVariationToTargetGroupProps
-} from './subSections/ServeVariationToTargetGroup'
-import ServePercentageRollout, { ServePercentageRolloutProps } from './subSections/ServePercentageRollout'
+import subSectionCSS from './SubSection.module.scss'
+import css from './FlagChanges.module.scss'
 
-export type SubSectionComponentProps = SubSectionProps &
-  DefaultRulesProps &
-  SetFlagSwitchProps &
-  ServePercentageRolloutProps &
-  ServeVariationToIndividualTargetProps &
-  ServeVariationToTargetGroupProps
-export type SubSectionComponent = FC<SubSectionComponentProps>
-
-export const allSubSections: SubSectionComponent[] = [
-  SetFlagSwitch,
-  DefaultRules,
-  ServeVariationToIndividualTarget,
-  ServeVariationToTargetGroup,
-  ServePercentageRollout
-]
+const allowedTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
 
 export interface FlagChangesProps {
-  targetGroups?: Segment[]
-  variations?: Variation[]
-  targets?: Target[]
-  spec: FlagConfigurationStepFormData['spec']
+  selectedFeature?: Feature | typeof RUNTIME_INPUT_VALUE
+  selectedEnvironmentId?: string
+  initialInstructions?: FeatureFlagConfigurationInstruction[] | typeof RUNTIME_INPUT_VALUE
   clearField: (fieldName: string) => void
   setField: (fieldName: string, value: unknown) => void
   fieldValues: FlagConfigurationStepFormDataValues
-  targetAttributes?: TargetAttributesResponse
+  showRuntimeFixedSelector?: boolean
+  pathPrefix?: string
 }
 
 const FlagChanges: FC<FlagChangesProps> = ({
-  targetGroups = [],
-  variations = [],
-  targets = [],
+  selectedFeature,
+  selectedEnvironmentId,
   fieldValues,
-  spec,
-  targetAttributes = [],
+  initialInstructions,
   clearField,
-  setField
+  setField,
+  showRuntimeFixedSelector = false,
+  pathPrefix = ''
 }) => {
-  const [subSections, setSubSections] = useState<SubSectionComponent[]>(() => {
-    const initialSubSections: SubSectionComponent[] = []
-
-    Object.entries(spec)
-      .filter(([, val]) => val !== undefined)
-      .forEach(([key]) => {
-        switch (key) {
-          case 'state':
-            initialSubSections.push(SetFlagSwitch)
-            break
-          case 'defaultRules':
-            initialSubSections.push(DefaultRules)
-            break
-          case 'percentageRollout':
-            initialSubSections.push(ServePercentageRollout)
-            break
-          case 'serveVariationToIndividualTarget':
-            initialSubSections.push(ServeVariationToIndividualTarget)
-            break
-          case 'serveVariationToTargetGroup':
-            initialSubSections.push(ServeVariationToTargetGroup)
-            break
-        }
-      })
-
-    return initialSubSections.length ? initialSubSections : [SetFlagSwitch]
-  })
-  const availableSubSections = useMemo<SubSectionComponent[]>(
-    () => allSubSections.filter(section => !subSections.includes(section)),
-    [subSections]
-  )
   const { getString } = useStrings()
 
-  const subSectionNameMap = useMemo<Map<SubSectionComponent, StringKeys>>(() => {
-    const nameMap = new Map<SubSectionComponent, StringKeys>()
-    nameMap.set(SetFlagSwitch, 'cf.pipeline.flagConfiguration.setFlagSwitch')
-    nameMap.set(DefaultRules, 'cf.featureFlags.rules.defaultRules')
-    nameMap.set(ServeVariationToIndividualTarget, 'cf.pipeline.flagConfiguration.serveVariationToIndividualTarget')
-    nameMap.set(ServeVariationToTargetGroup, 'cf.pipeline.flagConfiguration.serveVariationToTargetGroup')
-    nameMap.set(ServePercentageRollout, 'cf.pipeline.flagConfiguration.servePercentageRollout')
+  const prefix = useCallback<(path: string) => string>(
+    path => (pathPrefix ? `${pathPrefix}.${path}` : path),
+    [pathPrefix]
+  )
 
-    return nameMap
-  }, [])
+  const instructionsPath = useMemo<string>(() => prefix('spec.instructions'), [prefix])
 
-  const handleConfigureMore = (e: MouseEvent): void => {
-    e.preventDefault()
-    const [newSubsection] = availableSubSections
-    setSubSections([...subSections, newSubsection])
+  useEffect(() => {
+    if (selectedFeature === RUNTIME_INPUT_VALUE) {
+      setField(instructionsPath, RUNTIME_INPUT_VALUE)
+    }
+  }, [selectedFeature, instructionsPath])
+
+  const subsectionsDisabled = showRuntimeFixedSelector && get(fieldValues, instructionsPath) === RUNTIME_INPUT_VALUE
+
+  enum UI_STATE {
+    RUNTIME,
+    FLAG_OR_ENV_NOT_SELECTED,
+    DISPLAY_FORM
   }
 
-  const removeSubSection = (subSection: SubSectionComponent): void => {
-    const newSubSections = [...subSections]
-    newSubSections.splice(newSubSections.indexOf(subSection), 1)
+  const status = useMemo<UI_STATE>(() => {
+    if (subsectionsDisabled) {
+      return UI_STATE.RUNTIME
+    }
 
-    setSubSections(newSubSections)
-  }
+    if (!selectedFeature || !selectedEnvironmentId) {
+      return UI_STATE.FLAG_OR_ENV_NOT_SELECTED
+    }
 
-  const swapSubSection = (currentSubSection: SubSectionComponent, newSubSection: SubSectionComponent): void => {
-    const newSubSections = [...subSections]
-    newSubSections.splice(newSubSections.indexOf(currentSubSection), 1, newSubSection)
-
-    setSubSections(newSubSections)
-  }
+    return UI_STATE.DISPLAY_FORM
+  }, [subsectionsDisabled, selectedFeature, selectedEnvironmentId])
 
   return (
     <Layout.Vertical spacing="medium">
-      <Heading level={5} font={{ variation: FontVariation.H5 }}>
-        {getString('cf.pipeline.flagConfiguration.flagChanges')}
-      </Heading>
+      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center' }}>
+        <Heading level={5} font={{ variation: FontVariation.H5 }}>
+          {getString('cf.pipeline.flagConfiguration.flagChanges')}
+        </Heading>
+        {showRuntimeFixedSelector && (
+          <MultiTypeSelectorButton
+            type={getMultiTypeFromValue(get(fieldValues, instructionsPath), allowedTypes)}
+            allowedTypes={allowedTypes}
+            onChange={type =>
+              setField(instructionsPath, type === MultiTypeInputType.RUNTIME ? RUNTIME_INPUT_VALUE : undefined)
+            }
+            data-testid="runtime-fixed-selector-button"
+            disabled={selectedFeature === RUNTIME_INPUT_VALUE}
+          />
+        )}
+      </Layout.Horizontal>
 
-      {subSections.map(SubSection => {
-        const subSectionProps: SubSectionComponentProps = {
-          subSectionSelector: (
-            <SubSectionSelector
-              subSectionNameMap={subSectionNameMap}
-              availableSubSections={availableSubSections}
-              currentSubSection={SubSection}
-              onSubSectionChange={newSubSection => swapSubSection(SubSection, newSubSection)}
-            />
-          ),
-          clearField,
-          setField,
-          variations: variations ?? [],
-          targetGroups: targetGroups ?? [],
-          targets: targets ?? [],
-          fieldValues: fieldValues ?? {},
-          targetAttributes: targetAttributes ?? []
-        }
+      {status === UI_STATE.RUNTIME && (
+        <Container className={subSectionCSS.subSection} padding="large" data-testid="flag-changes-runtime">
+          <Text>{getString('cf.pipeline.flagConfiguration.flagChangesRuntime')}</Text>
+          <ul className={css.runtimeList}>
+            <li>{getString('cf.pipeline.flagConfiguration.flagChangesRuntimeSetFlagSwitch')}</li>
+            {/*<li>{getString('cf.pipeline.flagConfiguration.flagChangesRuntimeSetDefaultRules')}</li>*/}
+            <li>{getString('cf.pipeline.flagConfiguration.flagChangesRuntimeServeVariationToTargets')}</li>
+            <li>{getString('cf.pipeline.flagConfiguration.flagChangesRuntimeServeVariationToTargetGroups')}</li>
+            <li>{getString('cf.pipeline.flagConfiguration.flagChangesRuntimeServePercentageRollout')}</li>
+          </ul>
+        </Container>
+      )}
 
-        if (subSections.length > 1) {
-          subSectionProps.removeSubSectionButton = (
-            <RemoveSubSectionButton onClick={() => removeSubSection(SubSection)} />
-          )
-        }
+      {status === UI_STATE.FLAG_OR_ENV_NOT_SELECTED && (
+        <Container className={subSectionCSS.subSection} padding="large" data-testid="flag-changes-no-flag-selected">
+          <Text>{getString('cf.pipeline.flagConfiguration.pleaseSelectAFeatureFlag')}</Text>
+        </Container>
+      )}
 
-        return <SubSection key={SubSection.name} {...subSectionProps} />
-      })}
-
-      {!!availableSubSections.length && (
-        <Button
-          variation={ButtonVariation.LINK}
-          text={getString('cf.pipeline.flagConfiguration.configureMore')}
-          onClick={handleConfigureMore}
-          style={{ alignSelf: 'flex-start', padding: 0 }}
+      {status === UI_STATE.DISPLAY_FORM && (
+        <FlagChangesForm
+          prefix={prefix}
+          initialInstructions={initialInstructions as FlagChangesFormProps['initialInstructions']}
+          clearField={clearField}
+          setField={setField}
+          fieldValues={fieldValues}
+          selectedFeature={selectedFeature as FlagChangesFormProps['selectedFeature']}
+          environment={selectedEnvironmentId as string}
         />
       )}
     </Layout.Vertical>

@@ -1,27 +1,16 @@
 import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { UseStringsReturn } from 'framework/strings'
+import { MetricTypes } from './MetricsAnalysisContainer.types'
 
-export const MetricType = {
-  ANOMALOUS: 'Anomalous',
-  NON_ANOMALOUS: 'Non-Anomalous'
-}
-
-export const MetricTypeOptions: SelectOption[] = [
+export const metricTypeOptions = (getString: UseStringsReturn['getString']): SelectOption[] => [
   {
-    label: `All Metrics`,
-    value: MetricType.NON_ANOMALOUS
+    label: getString('cv.allMetrics'),
+    value: ''
   },
   {
-    label: `${MetricType.ANOMALOUS} Metrics`,
-    value: MetricType.ANOMALOUS
+    label: getString('pipeline.verification.anomalousMetrics'),
+    value: MetricTypes.ANOMALOUS
   }
 ]
 
-export const POLLING_INTERVAL = 15000
 export const PAGE_SIZE = 10
-export const DEFAULT_PAGINATION_VALUE = {
-  pageIndex: -1,
-  pageItemCount: 0,
-  pageSize: 5,
-  totalPages: 0,
-  totalItems: 0
-}

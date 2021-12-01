@@ -16,7 +16,8 @@ import {
   Color,
   SelectOption,
   FontVariation,
-  Heading
+  Heading,
+  Icon
 } from '@wings-software/uicore'
 import { getErrorMessage, useValidateVariationValues } from '@cf/utils/CFUtils'
 import { useStrings } from 'framework/strings'
@@ -26,7 +27,6 @@ import { Feature, GitSyncErrorResponse, PatchFeatureQueryParams, usePatchFeature
 import type { PermissionsRequest } from '@rbac/hooks/usePermission'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
-import { PageSpinner } from '@common/components'
 
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 
@@ -176,10 +176,6 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
           }
         }
       })
-    }
-
-    if (gitSync?.gitSyncLoading || patchLoading) {
-      return <PageSpinner />
     }
 
     return (
@@ -360,6 +356,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
                   />
                   <Button text={cancelButtonTitle || getString('cancel')} minimal onClick={hideModal} />
                   <FlexExpander />
+                  {patchLoading && <Icon intent={Intent.PRIMARY} name="spinner" size={16} />}
                 </Layout.Horizontal>
               </Container>
             </Form>

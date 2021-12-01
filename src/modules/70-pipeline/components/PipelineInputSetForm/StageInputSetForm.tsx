@@ -105,7 +105,12 @@ function StepForm({
   return (
     <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
       <Label>
-        <Icon padding={{ right: 'small' }} name={factory.getStepIcon(type || /* istanbul ignore next */ '')} />
+        <Icon
+          padding={{ right: 'small' }}
+          {...(factory.getStepIconColor(type || '') ? { color: factory.getStepIconColor(type || '') } : {})}
+          style={{ color: factory.getStepIconColor(type || '') }}
+          name={factory.getStepIcon(type || /* istanbul ignore next */ '')}
+        />
         {getString('pipeline.execution.stepTitlePrefix')}
         {getString('pipeline.stepLabel', allValues?.step)}
       </Label>

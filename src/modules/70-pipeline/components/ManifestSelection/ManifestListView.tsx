@@ -602,18 +602,14 @@ const ManifestListView = ({
       <Layout.Vertical spacing="small" style={{ flexShrink: 'initial' }}>
         {!!listOfManifests?.length && (
           <div className={cx(css.manifestList, css.listHeader)}>
-            <Text font={{ variation: FontVariation.TABLE_HEADERS }} color={Color.GREY_600}>
-              {getString('common.ID')}
-            </Text>
-            <Text font={{ variation: FontVariation.TABLE_HEADERS }} color={Color.GREY_600}>
+            <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{getString('common.ID')}</Text>
+            <Text font={{ variation: FontVariation.TABLE_HEADERS }}>
               {getString('pipelineSteps.serviceTab.manifestList.manifestType')}
             </Text>
-            <Text font={{ variation: FontVariation.TABLE_HEADERS }} color={Color.GREY_600}>
+            <Text font={{ variation: FontVariation.TABLE_HEADERS }}>
               {getString('pipelineSteps.serviceTab.manifestList.manifestStore')}
             </Text>
-            <Text font={{ variation: FontVariation.TABLE_HEADERS }} color={Color.GREY_600}>
-              {getString('location')}
-            </Text>
+            <Text font={{ variation: FontVariation.TABLE_HEADERS }}>{getString('location')}</Text>
             <span></span>
           </div>
         )}

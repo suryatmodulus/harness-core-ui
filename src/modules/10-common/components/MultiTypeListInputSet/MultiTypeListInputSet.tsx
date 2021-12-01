@@ -3,7 +3,6 @@ import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import cx from 'classnames'
 import {
   MultiTextInput,
-  Card,
   Intent,
   Button,
   getMultiTypeFromValue,
@@ -153,7 +152,7 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
         {...multiTypeFieldSelectorProps}
         disableTypeSelection={multiTypeFieldSelectorProps.disableTypeSelection || disabled}
       >
-        <Card style={{ width: '100%' }}>
+        <>
           {value.map(({ id, value: valueValue }, index: number) => {
             // const valueError = get(error, `[${index}].value`)
 
@@ -180,6 +179,7 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
                     minimal
                     onClick={removeValue(id)}
                     data-testid={`remove-${name}-[${index}]`}
+                    style={{ padding: 0 }}
                   />
                 )}
               </div>
@@ -195,7 +195,7 @@ export const MultiTypeListInputSet = (props: MultiTypeListProps): React.ReactEle
               onClick={addValue}
             />
           )}
-        </Card>
+        </>
       </MultiTypeFieldSelector>
       {enableConfigureOptions &&
         typeof value === 'string' &&

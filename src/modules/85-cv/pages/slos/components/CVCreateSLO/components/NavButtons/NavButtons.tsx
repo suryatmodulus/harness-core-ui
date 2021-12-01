@@ -1,14 +1,16 @@
 import { Button, ButtonVariation, Layout } from '@wings-software/uicore'
 import React from 'react'
+import { isEmpty } from 'lodash-es'
 import { CreateSLOEnum, TabsOrder } from '../CreateSLOForm/CreateSLO.constants'
 import type { NavButtonsProps } from './NavButtons.types'
+import { validateSLOForm } from '../CreateSLOForm/CreateSLO.utils'
 import css from '../CreateSLOForm/CreateSLO.module.scss'
 
 export const NavButtons = ({
   selectedTabId,
   setSelectedTabId,
   getString,
-  submitForm
+  formikProps
 }: NavButtonsProps): JSX.Element => {
   return (
     <Layout.Horizontal className={css.navigationBtns}>
@@ -23,9 +25,14 @@ export const NavButtons = ({
         variation={ButtonVariation.PRIMARY}
         rightIcon="chevron-right"
         onClick={() => {
-          selectedTabId === CreateSLOEnum.SLO_TARGET_BUDGET_POLICY
-            ? submitForm()
-            : setSelectedTabId(TabsOrder[Math.min(TabsOrder.length, TabsOrder.indexOf(selectedTabId) + 1)])
+          const errors = validateSLOForm(formikProps, selectedTabId, getString)
+          if (isEmpty(errors)) {
+            if (selectedTabId === CreateSLOEnum.SLO_TARGET_BUDGET_POLICY) {
+              formikProps.submitForm()
+            } else {
+              setSelectedTabId(TabsOrder[Math.min(TabsOrder.length, TabsOrder.indexOf(selectedTabId) + 1)])
+            }
+          }
         }}
       />
     </Layout.Horizontal>

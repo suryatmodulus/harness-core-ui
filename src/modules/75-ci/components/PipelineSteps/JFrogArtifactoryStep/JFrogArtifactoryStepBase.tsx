@@ -89,6 +89,7 @@ export const JFrogArtifactoryStepBase = (
               isNewStep={isNewStep}
               readonly={readonly}
               enableFields={{
+                name: {},
                 description: {},
                 'spec.connectorRef': {
                   label: (

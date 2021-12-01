@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { pick } from 'lodash-es'
 import { Button as CoreButton, ButtonProps as CoreButtonProps } from '@wings-software/uicore'
-import { PopoverInteractionKind } from '@blueprintjs/core'
+import { PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
 import { useFeature } from '@common/hooks/useFeatures'
@@ -17,6 +17,7 @@ export interface ButtonProps extends CoreButtonProps {
 export interface BtnProps {
   disabled: boolean
   tooltip?: ReactElement
+  darkTheme?: boolean
 }
 
 const RbacButton: React.FC<ButtonProps> = ({
@@ -55,6 +56,7 @@ const RbacButton: React.FC<ButtonProps> = ({
     if (featureProps?.featureRequest && !featureEnabled) {
       return {
         disabled: true,
+        darkTheme: false,
         tooltip: <FeatureWarningTooltip featureName={featureProps?.featureRequest.featureName} />
       }
     }
@@ -83,7 +85,7 @@ const RbacButton: React.FC<ButtonProps> = ({
   }
 
   const btnProps = getBtnProps()
-  const { disabled, tooltip } = btnProps
+  const { disabled, tooltip, darkTheme } = btnProps
 
   return (
     <CoreButton
@@ -94,6 +96,7 @@ const RbacButton: React.FC<ButtonProps> = ({
         disabled
           ? {
               hoverCloseDelay: 50,
+              className: darkTheme ? Classes.DARK : undefined,
               interactionKind: featureEnabled ? PopoverInteractionKind.HOVER_TARGET_ONLY : PopoverInteractionKind.HOVER
             }
           : tooltipProps

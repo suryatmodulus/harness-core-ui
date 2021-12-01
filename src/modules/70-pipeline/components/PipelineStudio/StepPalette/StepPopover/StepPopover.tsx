@@ -30,8 +30,9 @@ const TooltipContent = ({ description, stepsFactory, stepData }: StepTooltipCont
   // Component renders the tooltip over steps in the palette.
   // If the step is disabled, show the enforcement tooltip
   const { getString } = useStrings()
-  if (stepData?.disabled && stepData?.featureRestrictionName) {
-    return <FeatureWarningTooltip featureName={stepData.featureRestrictionName as FeatureIdentifier} />
+  const { disabled, featureRestrictionName = '' } = stepData || {}
+  if (disabled && featureRestrictionName) {
+    return <FeatureWarningTooltip featureName={featureRestrictionName as FeatureIdentifier} />
   }
   if (description) {
     return (
@@ -77,11 +78,10 @@ export const StepPopover: React.FC<StepPopoverProps> = props => {
           )}
 
           <Icon
-            name={!isNil(step) ? stepsFactory.getStepIcon(stepData.type || '') : iconMap[stepData.name || '']}
+            name={!isNil(step) ? step.getIconName?.() : iconMap[stepData.name || '']}
             size={25}
-            {...(stepsFactory.getStepIconColor(stepData.type || '') !== undefined
-              ? { color: stepsFactory.getStepIconColor(stepData.type || '') }
-              : {})}
+            {...(!isNil(step) && !isNil(step?.getIconColor?.()) ? { color: step.getIconColor() } : {})}
+            style={{ color: step?.getIconColor?.() }}
           />
         </Card>
         <TooltipContent description={description} stepData={stepData} stepsFactory={stepsFactory} />

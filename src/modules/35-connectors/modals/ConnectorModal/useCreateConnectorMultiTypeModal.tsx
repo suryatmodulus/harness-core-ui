@@ -73,7 +73,7 @@ const useCreateConnectorMultiTypeModal = (
               <Text
                 color="white"
                 margin={{ top: 'small' }}
-                style={{ textAlign: 'center', width: 90, overflowWrap: 'break-word' }}
+                style={{ textAlign: 'center', width: 90, overflowWrap: 'normal', wordBreak: 'keep-all' }}
               >
                 {getString(getConnectorTitleIdByType(type))}
               </Text>

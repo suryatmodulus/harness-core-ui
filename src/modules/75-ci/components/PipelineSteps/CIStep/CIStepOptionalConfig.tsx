@@ -18,12 +18,28 @@ interface CIStepOptionalConfigProps {
     [key: string]: { [key: string]: any }
   }
   allowableTypes: MultiTypeInputType[]
+  isInputSetView?: boolean
 }
 
 export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props => {
-  const { readonly, enableFields, allowableTypes } = props
+  const { readonly, enableFields, allowableTypes, isInputSetView } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
+
+  const getOptionalSubLabel = React.useCallback((tooltip: string) => {
+    return (
+      <Text
+        tooltipProps={{ dataTooltipId: tooltip }}
+        className={css.inpLabel}
+        color={Color.GREY_400}
+        font={{ size: 'small', weight: 'semi-bold' }}
+        style={{ textTransform: 'capitalize' }}
+      >
+        {getString('common.optionalLabel')}
+      </Text>
+    )
+  }, [])
+
   return (
     <>
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.privileged') ? (
@@ -52,15 +68,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                     {getString('settingsLabel')}
                   </Text>
                   &nbsp;
-                  <Text
-                    tooltipProps={{ dataTooltipId: 'pluginSettings' }}
-                    className={css.inpLabel}
-                    color={Color.GREY_400}
-                    font={{ size: 'small', weight: 'semi-bold' }}
-                    style={{ textTransform: 'capitalize' }}
-                  >
-                    {getString('common.optionalLabel')}
-                  </Text>
+                  {getOptionalSubLabel('pluginSettings')}
                 </Layout.Horizontal>
               )
             }}
@@ -86,15 +94,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                     {getString('pipelineSteps.reportPathsLabel')}
                   </Text>
                   &nbsp;
-                  <Text
-                    tooltipProps={{ dataTooltipId: 'reportPaths' }}
-                    className={css.inpLabel}
-                    color={Color.GREY_400}
-                    font={{ size: 'small', weight: 'semi-bold' }}
-                    style={{ textTransform: 'capitalize' }}
-                  >
-                    {getString('common.optionalLabel')}
-                  </Text>
+                  {getOptionalSubLabel('reportPaths')}
                 </Layout.Horizontal>
               )
             }}
@@ -104,7 +104,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.reportPaths') ? <Separator topSeparation={16} /> : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.envVariables') ? (
-        <Container className={css.formGroup}>
+        <Container className={cx(css.formGroup, css.lg)}>
           <MultiTypeMap
             name="spec.envVariables"
             valueMultiTextInputProps={{ expressions, allowableTypes }}
@@ -120,15 +120,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                     {getString('environmentVariables')}
                   </Text>
                   &nbsp;
-                  <Text
-                    tooltipProps={{ dataTooltipId: enableFields['spec.envVariables'].tooltipId }}
-                    className={css.inpLabel}
-                    color={Color.GREY_400}
-                    font={{ size: 'small', weight: 'semi-bold' }}
-                    style={{ textTransform: 'capitalize' }}
-                  >
-                    {getString('common.optionalLabel')}
-                  </Text>
+                  {getOptionalSubLabel(enableFields['spec.envVariables'].tooltipId)}
                 </Layout.Horizontal>
               )
             }}
@@ -156,15 +148,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                     {getString('pipelineSteps.outputVariablesLabel')}
                   </Text>
                   &nbsp;
-                  <Text
-                    tooltipProps={{ dataTooltipId: 'outputVariables' }}
-                    className={css.inpLabel}
-                    color={Color.GREY_400}
-                    font={{ size: 'small', weight: 'semi-bold' }}
-                    style={{ textTransform: 'capitalize' }}
-                  >
-                    {getString('common.optionalLabel')}
-                  </Text>
+                  {getOptionalSubLabel('outputVariables')}
                 </Layout.Horizontal>
               )
             }}
@@ -192,15 +176,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                     {getString('entryPointLabel')}
                   </Text>
                   &nbsp;
-                  <Text
-                    tooltipProps={{ dataTooltipId: 'dependencyEntryPoint' }}
-                    className={css.inpLabel}
-                    color={Color.GREY_400}
-                    font={{ size: 'small', weight: 'semi-bold' }}
-                    style={{ textTransform: 'capitalize' }}
-                  >
-                    {getString('common.optionalLabel')}
-                  </Text>
+                  {getOptionalSubLabel('dependencyEntryPoint')}
                 </Layout.Horizontal>
               )
             }}
@@ -225,15 +201,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                     {getString('argsLabel')}
                   </Text>
                   &nbsp;
-                  <Text
-                    tooltipProps={{ dataTooltipId: 'dependencyArgs' }}
-                    className={css.inpLabel}
-                    color={Color.GREY_400}
-                    font={{ size: 'small', weight: 'semi-bold' }}
-                    style={{ textTransform: 'capitalize' }}
-                  >
-                    {getString('common.optionalLabel')}
-                  </Text>
+                  {getOptionalSubLabel('dependencyArgs')}
                 </Layout.Horizontal>
               )
             }}
@@ -270,15 +238,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   {getString('pipelineSteps.dockerfileLabel')}
                 </Text>
                 &nbsp;
-                <Text
-                  tooltipProps={{ dataTooltipId: 'dockerfile' }}
-                  className={css.inpLabel}
-                  color={Color.GREY_400}
-                  font={{ size: 'small', weight: 'semi-bold' }}
-                  style={{ textTransform: 'capitalize' }}
-                >
-                  {getString('common.optionalLabel')}
-                </Text>
+                {getOptionalSubLabel('dockerfile')}
               </Layout.Horizontal>
             }
             multiTextInputProps={{
@@ -303,15 +263,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   {getString('pipelineSteps.contextLabel')}
                 </Text>
                 &nbsp;
-                <Text
-                  tooltipProps={{ dataTooltipId: 'context' }}
-                  className={css.inpLabel}
-                  color={Color.GREY_400}
-                  font={{ size: 'small', weight: 'semi-bold' }}
-                  style={{ textTransform: 'capitalize' }}
-                >
-                  {getString('common.optionalLabel')}
-                </Text>
+                {getOptionalSubLabel('context')}
               </Layout.Horizontal>
             }
             multiTextInputProps={{
@@ -338,15 +290,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                     {getString('pipelineSteps.labelsLabel')}
                   </Text>
                   &nbsp;
-                  <Text
-                    tooltipProps={{ dataTooltipId: 'labels' }}
-                    className={css.inpLabel}
-                    color={Color.GREY_400}
-                    font={{ size: 'small', weight: 'semi-bold' }}
-                    style={{ textTransform: 'capitalize' }}
-                  >
-                    {getString('common.optionalLabel')}
-                  </Text>
+                  {getOptionalSubLabel('labels')}
                 </Layout.Horizontal>
               )
             }}
@@ -371,15 +315,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                     {getString('pipelineSteps.buildArgsLabel')}
                   </Text>
                   &nbsp;
-                  <Text
-                    tooltipProps={{ dataTooltipId: 'buildArgs' }}
-                    className={css.inpLabel}
-                    color={Color.GREY_400}
-                    font={{ size: 'small', weight: 'semi-bold' }}
-                    style={{ textTransform: 'capitalize' }}
-                  >
-                    {getString('common.optionalLabel')}
-                  </Text>
+                  {getOptionalSubLabel('buildArgs')}
                 </Layout.Horizontal>
               )
             }}
@@ -424,15 +360,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   {getString('pipelineSteps.targetLabel')}
                 </Text>
                 &nbsp;
-                <Text
-                  tooltipProps={{ dataTooltipId: enableFields['spec.target'].tooltipId }}
-                  className={css.inpLabel}
-                  color={Color.GREY_400}
-                  font={{ size: 'small', weight: 'semi-bold' }}
-                  style={{ textTransform: 'capitalize' }}
-                >
-                  {getString('common.optionalLabel')}
-                </Text>
+                {getOptionalSubLabel(enableFields['spec.target'].tooltipId)}
               </Layout.Horizontal>
             }
             multiTextInputProps={{
@@ -458,15 +386,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   {getString('ci.remoteCacheImage.label')}
                 </Text>
                 &nbsp;
-                <Text
-                  tooltipProps={{ dataTooltipId: 'gcrRemoteCache' }}
-                  className={css.inpLabel}
-                  color={Color.GREY_400}
-                  font={{ size: 'small', weight: 'semi-bold' }}
-                  style={{ textTransform: 'capitalize' }}
-                >
-                  {getString('common.optionalLabel')}
-                </Text>
+                {getOptionalSubLabel('gcrRemoteCache')}
               </Layout.Horizontal>
             }
             multiTextInputProps={{
@@ -492,15 +412,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   {getString('archiveFormat')}
                 </Text>
                 &nbsp;
-                <Text
-                  tooltipProps={{ dataTooltipId: 'archiveFormat' }}
-                  className={css.inpLabel}
-                  color={Color.GREY_400}
-                  font={{ size: 'small', weight: 'semi-bold' }}
-                  style={{ textTransform: 'capitalize' }}
-                >
-                  {getString('common.optionalLabel')}
-                </Text>
+                {getOptionalSubLabel('archiveFormat')}
               </Layout.Horizontal>
             }
             multiTypeInputProps={{
@@ -543,7 +455,9 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         </div>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.failIfKeyNotFound') ? (
-        <div className={cx(css.formGroup, css.sm, css.bottomMargin1)}>
+        <div
+          className={cx(css.formGroup, { [css.lg]: isInputSetView }, { [css.sm]: !isInputSetView }, css.bottomMargin1)}
+        >
           <FormMultiTypeCheckboxField
             name="spec.failIfKeyNotFound"
             label={getString('failIfKeyNotFound')}
@@ -572,15 +486,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   {getString('ci.remoteCacheRepository.label')}
                 </Text>
                 &nbsp;
-                <Text
-                  tooltipProps={{ dataTooltipId: 'dockerHubRemoteCache' }}
-                  className={css.inpLabel}
-                  color={Color.GREY_400}
-                  font={{ size: 'small', weight: 'semi-bold' }}
-                  style={{ textTransform: 'capitalize' }}
-                >
-                  {getString('common.optionalLabel')}
-                </Text>
+                {getOptionalSubLabel('dockerHubRemoteCache')}
               </Layout.Horizontal>
             }
             multiTextInputProps={{

@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
-import { Menu, Position, Classes } from '@blueprintjs/core'
+import { Menu, Position, Classes, Intent } from '@blueprintjs/core'
 import type { Column, Renderer, CellProps } from 'react-table'
 import {
   Text,
@@ -138,6 +138,8 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
     titleText: <String stringID="secrets.confirmDeleteTitle" />,
     confirmButtonText: <String stringID="delete" />,
     cancelButtonText: <String stringID="cancel" />,
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
     onCloseDialog: async didConfirm => {
       if (didConfirm && data.identifier) {
         try {

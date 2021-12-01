@@ -8,10 +8,11 @@ import { ProvisionerTypes } from '../Common/ProvisionerConstants'
 
 import css from './InfraProvisioning.module.scss'
 
-const provisionerTypes: { name: string; icon: IconName; enabled: boolean }[] = [
+const provisionerTypes: { name: string; icon: IconName; iconColor?: string; enabled: boolean }[] = [
   {
     name: ProvisionerTypes.Terraform,
     icon: 'terraform-apply-new',
+    iconColor: '#5C4EE5',
     enabled: true
   },
   {
@@ -54,7 +55,7 @@ const useChooseProvisioner = (props: ChooseProvisionerProps) => {
       <Layout.Vertical spacing="large">
         <div className={css.provisionerText}>{getString('cd.chooseProvisionerText')}</div>
         <Layout.Horizontal height={120}>
-          {provisionerTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
+          {provisionerTypes.map((type: { name: string; icon: IconName; enabled: boolean; iconColor?: string }) => (
             <div key={type.name} className={css.squareCardContainer}>
               <Card
                 disabled={!type.enabled}
@@ -63,7 +64,7 @@ const useChooseProvisioner = (props: ChooseProvisionerProps) => {
                 cornerSelected={type.name === ProvisionerTypes.Terraform ? true : false}
                 className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
               >
-                <Icon name={type.icon as IconName} size={26} height={26} />
+                <Icon name={type.icon as IconName} color={type.iconColor} size={26} height={26} />
               </Card>
               <Text
                 style={{

@@ -2,6 +2,7 @@ import React from 'react'
 import { Button, IconName } from '@wings-software/uicore'
 import type { PopoverProps } from '@wings-software/uicore/dist/components/Popover/Popover'
 import { useParams } from 'react-router-dom'
+import { Classes } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { TemplatesActionPopover } from '@templates-library/components/TemplatesActionPopover/TemplatesActionPopover'
 import type { TemplateSummaryResponse } from 'services/template-ng'
@@ -88,6 +89,7 @@ export const TemplateListCardContextMenu: React.FC<ContextMenuProps> = (props): 
       items={getItems()}
       setMenuOpen={setMenuOpen}
       className={className}
+      portalClassName={Classes.DARK}
       {...popoverProps}
     >
       <Button

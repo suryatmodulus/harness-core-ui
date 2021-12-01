@@ -88,6 +88,7 @@ export const DockerHubStepBase = (
               stepViewType={stepViewType}
               allowableTypes={allowableTypes}
               enableFields={{
+                name: {},
                 'spec.connectorRef': {
                   label: (
                     <Text

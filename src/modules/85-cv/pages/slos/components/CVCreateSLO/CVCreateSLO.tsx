@@ -107,8 +107,12 @@ export default function CVCreateSLO(): JSX.Element {
             handleSLOSubmit(values)
           }}
           validationSchema={Yup.object().shape({
-            name: Yup.string().required(getString('cv.slos.nameValidation'))
-            // to be extended for other fields
+            name: Yup.string().required(getString('cv.slos.validations.nameValidation')),
+            userJourneyRef: Yup.string().required(getString('cv.slos.validations.userJourneyRequired')),
+            monitoredServiceRef: Yup.string()
+              .nullable()
+              .required(getString('connectors.cdng.validations.monitoringServiceRequired')),
+            healthSourceRef: Yup.string().nullable().required(getString('cv.slos.validations.healthSourceRequired'))
           })}
           enableReinitialize
         >

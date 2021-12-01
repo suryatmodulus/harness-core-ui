@@ -17,6 +17,7 @@ type CustomColumn<T extends Record<string, any>> = Column<T> & {
   onOpenEdit?: (template: TemplateSummaryResponse) => void
   onOpenSettings?: (templateIdentifier: string) => void
   onDelete?: (template: TemplateSummaryResponse) => void
+  onDeleteTemplate?: (commitMsg: string, versions?: string[]) => Promise<void>
 }
 
 const RenderColumnMenu: Renderer<CellProps<TemplateSummaryResponse>> = ({ row, column }) => {

@@ -89,6 +89,7 @@ export const S3StepBase = (
               stepViewType={stepViewType}
               allowableTypes={allowableTypes}
               enableFields={{
+                name: {},
                 'spec.connectorRef': {
                   label: (
                     <Text

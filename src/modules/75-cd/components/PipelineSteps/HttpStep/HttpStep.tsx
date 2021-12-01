@@ -1,5 +1,5 @@
 import React from 'react'
-import { getMultiTypeFromValue, IconName, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
+import { Color, getMultiTypeFromValue, IconName, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { FormikErrors, yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
@@ -75,6 +75,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
   protected type = StepType.HTTP
   protected stepName = 'Http Step'
   protected stepIcon: IconName = 'http-step'
+  protected stepIconColor = Color.GREY_700
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.HTTP'
 
   validateInputSet({

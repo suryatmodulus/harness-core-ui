@@ -11,16 +11,14 @@ export interface ServeVariationToItemProps {
   itemLabel: ItemVariationDialogProps['itemLabel']
   itemPlaceholder: ItemVariationDialogProps['itemPlaceholder']
   itemFieldName: string
-  specPrefix: string
   serveItemString: string
   serveItemsString: string
-  clearField: (fieldName: string) => void
   setField: (fieldName: string, value: unknown) => void
   items: ItemVariationDialogProps['items']
   selectedItems: ItemVariationDialogProps['selectedItems']
   variations: Variation[]
-  selectedVariation?: Variation
-  selectedVariationIndex?: number
+  selectedVariationId?: string
+  instructionType: string
 }
 
 const ServeVariationToItem: FC<ServeVariationToItemProps> = ({
@@ -28,18 +26,32 @@ const ServeVariationToItem: FC<ServeVariationToItemProps> = ({
   itemLabel,
   itemPlaceholder,
   itemFieldName,
-  specPrefix,
   serveItemString,
   serveItemsString,
   variations,
-  selectedVariation,
-  selectedVariationIndex,
+  selectedVariationId,
   items,
   selectedItems,
   setField,
-  clearField
+  instructionType
 }) => {
   const { getString } = useStrings()
+
+  useEffect(() => {
+    setField('identifier', 'SetVariationForTarget')
+    setField('type', instructionType)
+  }, [])
+
+  const [selectedVariation, selectedVariationIndex] = useMemo<[Variation | undefined, number]>(() => {
+    if (!selectedVariationId || !Array.isArray(variations)) {
+      return [undefined, -1]
+    }
+
+    const position = variations.findIndex(({ identifier }) => identifier === selectedVariationId)
+
+    return [position >= 0 ? variations[position] : undefined, position]
+  }, [selectedVariationId, variations])
+
   const [itemVariationDialogOpen, setItemVariationDialogOpen] = useState<boolean>(false)
 
   const avatars = useMemo<AvatarGroupProps['avatars']>(
@@ -48,9 +60,9 @@ const ServeVariationToItem: FC<ServeVariationToItemProps> = ({
   )
 
   const handleIncludeChange: ItemVariationDialogProps['onChange'] = (newItems, newVariation) => {
-    setField(`${specPrefix}.variation`, newVariation.identifier)
+    setField(`spec.variation`, newVariation.identifier)
     setField(
-      `${specPrefix}.${itemFieldName}`,
+      `spec.${itemFieldName}`,
       newItems.map(({ identifier }) => identifier)
     )
   }
@@ -59,17 +71,9 @@ const ServeVariationToItem: FC<ServeVariationToItemProps> = ({
     setItemVariationDialogOpen(false)
   }
 
-  useEffect(
-    () => () => {
-      clearField(`${specPrefix}.variation`)
-      clearField(`${specPrefix}.${itemFieldName}`)
-    },
-    []
-  )
-
   return (
     <>
-      {selectedVariation && typeof selectedVariationIndex === 'number' && selectedItems.length && (
+      {selectedVariation && selectedItems.length && (
         <Layout.Vertical spacing="medium" border={{ bottom: true }} padding={{ bottom: 'medium' }}>
           <p className={css.variationParagraph}>
             {getString('cf.pipeline.flagConfiguration.serve')}

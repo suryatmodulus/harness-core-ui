@@ -30,5 +30,11 @@ declare const styles: {
   readonly groupHostName: string
   readonly troubleshootLink: string
   readonly itemActionContainer: string
+  readonly expandIcon: string
+  readonly instancesContainer: string
+  readonly podDetailsSeparator: string
+  readonly podDetailsContainer: string
+  readonly delegateItemIcon: string
+  readonly instancesColumn: string
 }
 export default styles

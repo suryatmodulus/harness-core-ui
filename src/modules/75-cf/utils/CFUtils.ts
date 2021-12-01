@@ -342,6 +342,10 @@ export function getContrast(hexcolor: string): string {
 }
 
 export const rewriteCurrentLocationWithActiveEnvironment = (activeEnvironment: EnvironmentResponseDTO): void => {
+  if (!activeEnvironment) {
+    return
+  }
+
   const hrefParts = location.href.split('?')
   const activeQueryParams: Record<string, string> = (hrefParts[1] || '')
     .split('&')

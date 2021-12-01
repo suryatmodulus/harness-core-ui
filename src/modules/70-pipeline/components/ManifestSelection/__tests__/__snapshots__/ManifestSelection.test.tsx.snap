@@ -13,22 +13,22 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
         class="manifestList listHeader"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           common.ID
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           pipelineSteps.serviceTab.manifestList.manifestType
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           pipelineSteps.serviceTab.manifestList.manifestStore
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           location
         </p>
@@ -272,22 +272,22 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
         class="manifestList listHeader"
       >
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           common.ID
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           pipelineSteps.serviceTab.manifestList.manifestType
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           pipelineSteps.serviceTab.manifestList.manifestStore
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
         >
           location
         </p>
@@ -656,22 +656,22 @@ exports[`ManifestSelection tests renders add Manifest option without crashing 1`
           class="manifestList listHeader"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
           >
             common.ID
           </p>
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
           >
             pipelineSteps.serviceTab.manifestList.manifestType
           </p>
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
           >
             pipelineSteps.serviceTab.manifestList.manifestStore
           </p>
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers StyledProps--color StyledProps--color-grey600"
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
           >
             location
           </p>

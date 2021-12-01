@@ -141,11 +141,11 @@ describe.skip('Stage Builder Test', () => {
     const setupStage = getByTextBody(document.body, 'pipelineSteps.build.create.setupStage')
     // Click Setup
     fireEvent.click(setupStage)
-    await waitFor(() => getByTextBody(document.body, 'pipelineSteps.serviceTab.specifyYourService'))
+    await waitFor(() => getByTextBody(document.body, 'cd.pipelineSteps.serviceTab.specifyYourService'))
     let next = getByTextContainer('next')
     // Click Next to go to Infra
     fireEvent.click(next)
-    await waitFor(() => getByTextBody(document.body, 'pipelineSteps.environmentTab.specifyYourEnvironment'))
+    await waitFor(() => getByTextBody(document.body, 'cd.pipelineSteps.environmentTab.specifyYourEnvironment'))
     // Click Next to go to Execution Tab
     next = getByTextContainer('next')
     fireEvent.click(next)
@@ -162,7 +162,7 @@ describe.skip('Stage Builder Test', () => {
     let next = getByTextContainer('next')
     // Click Next to go to Infra
     fireEvent.click(next)
-    await waitFor(() => getByTextContainer('pipelineSteps.environmentTab.specifyYourEnvironment'))
+    await waitFor(() => getByTextContainer('cd.pipelineSteps.environmentTab.specifyYourEnvironment'))
     // Click Next to go to Execution Tab
     next = getByTextContainer('next')
     fireEvent.click(next)
@@ -233,7 +233,7 @@ describe.skip('Stage Builder Test', () => {
     const setupStage = getByTextBody(document.body, 'pipelineSteps.build.create.setupStage')
     // Click Setup
     fireEvent.click(setupStage)
-    await waitFor(() => getByTextBody(document.body, 'pipelineSteps.serviceTab.specifyYourService'))
+    await waitFor(() => getByTextBody(document.body, 'cd.pipelineSteps.serviceTab.specifyYourService'))
     // Click Next to go to Execution Tab
     const executionTab = getByTextContainer('executionText')
     fireEvent.click(executionTab)

@@ -1,19 +1,11 @@
 import React from 'react'
-import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
-import { isEmpty } from 'lodash-es'
-import cx from 'classnames'
-import { useParams } from 'react-router-dom'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
-import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
-import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { Connectors } from '@connectors/constants'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
-import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { RestoreCacheS3StepProps } from './RestoreCacheS3Step'
-import { ArchiveFormatOptions } from '../../../constants/Constants'
+import { CIStep } from '../CIStep/CIStep'
+import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({
@@ -24,174 +16,62 @@ export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({
 }) => {
   const { getString } = useStrings()
 
-  const { expressions } = useVariablesExpression()
-
-  const {
-    accountId,
-    projectIdentifier,
-    orgIdentifier,
-    repoIdentifier: repo = '',
-    branch
-  } = useParams<
-    {
-      projectIdentifier: string
-      orgIdentifier: string
-      accountId: string
-    } & GitQueryParams
-  >()
-
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
-      {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
-        <FormMultiTypeConnectorField
-          label={
-            <Text
-              style={{ display: 'flex', alignItems: 'center' }}
-              tooltipProps={{ dataTooltipId: 'restoreCacheAwsConnector' }}
-            >
-              {getString('pipelineSteps.awsConnectorLabel')}
-            </Text>
-          }
-          type={'Aws'}
-          setRefValue
-          accountIdentifier={accountId}
-          projectIdentifier={projectIdentifier}
-          orgIdentifier={orgIdentifier}
-          width={stepViewType === StepViewType.DeploymentForm ? 391 : 455}
-          gitScope={{ branch, repo, getDefaultFromOtherRepo: true }}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.connectorRef`}
-          placeholder={getString('select')}
-          multiTypeProps={{
-            expressions,
-            disabled: readonly,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-        />
-      )}
-      {getMultiTypeFromValue(template?.spec?.region) === MultiTypeInputType.RUNTIME && (
-        <MultiTypeTextField
-          className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.region`}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'region' }}>
-              {getString('regionLabel')}
-            </Text>
-          }
-          multiTextInputProps={{
-            placeholder: getString('pipelineSteps.regionPlaceholder'),
-            disabled: readonly,
-            multiTextInputProps: {
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+      <CIStep
+        readonly={readonly}
+        stepViewType={stepViewType}
+        allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+        enableFields={{
+          ...(getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && {
+            'spec.connectorRef': {
+              label: (
+                <Text
+                  className={css.inpLabel}
+                  color={Color.GREY_600}
+                  font={{ size: 'small', weight: 'semi-bold' }}
+                  style={{ display: 'flex', alignItems: 'center' }}
+                  tooltipProps={{ dataTooltipId: 'restoreCacheAwsConnector' }}
+                >
+                  {getString('pipelineSteps.awsConnectorLabel')}
+                </Text>
+              ),
+              type: Connectors.AWS,
+              multiTypeProps: {
+                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              }
             }
-          }}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-        />
-      )}
-      {getMultiTypeFromValue(template?.spec?.bucket) === MultiTypeInputType.RUNTIME && (
-        <MultiTypeTextField
-          className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.bucket`}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 's3Bucket' }}>
-              {getString('pipelineSteps.bucketLabel')}
-            </Text>
-          }
-          multiTextInputProps={{
-            disabled: readonly,
-            multiTextInputProps: {
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            }
-          }}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-        />
-      )}
-      {getMultiTypeFromValue(template?.spec?.key) === MultiTypeInputType.RUNTIME && (
-        <MultiTypeTextField
-          className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.key`}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'restoreCacheKey' }}>
-              {getString('keyLabel')}
-            </Text>
-          }
-          multiTextInputProps={{
-            disabled: readonly,
-            multiTextInputProps: {
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            }
-          }}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-        />
-      )}
-      {getMultiTypeFromValue(template?.spec?.endpoint) === MultiTypeInputType.RUNTIME && (
-        <MultiTypeTextField
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.endpoint`}
-          label={<Text tooltipProps={{ dataTooltipId: 'endpoint' }}>{getString('pipelineSteps.endpointLabel')}</Text>}
-          multiTextInputProps={{
-            placeholder: getString('pipelineSteps.endpointPlaceholder'),
-            multiTextInputProps: {
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            },
-            disabled: readonly
-          }}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-        />
-      )}
-      {getMultiTypeFromValue(template?.spec?.archiveFormat) === MultiTypeInputType.RUNTIME && (
-        <MultiTypeSelectField
-          className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.archiveFormat`}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'archiveFormat' }}>
-              {getString('archiveFormat')}
-            </Text>
-          }
-          multiTypeInputProps={{
-            selectItems: ArchiveFormatOptions,
-            multiTypeInputProps: {
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            },
-            disabled: readonly
-          }}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-        />
-      )}
-      {getMultiTypeFromValue(template?.spec?.pathStyle) === MultiTypeInputType.RUNTIME && (
-        <div className={cx(css.formGroup, css.sm)}>
-          <FormMultiTypeCheckboxField
-            name={`${isEmpty(path) ? '' : `${path}.`}spec.pathStyle`}
-            label={getString('pathStyle')}
-            disabled={readonly}
-            multiTypeTextbox={{
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            }}
-            style={{ marginBottom: 'var(--spacing-small)' }}
-            setToFalseWhenEmpty={true}
-            tooltipProps={{ dataTooltipId: 'pathStyle' }}
-          />
-        </div>
-      )}
-      {getMultiTypeFromValue(template?.spec?.failIfKeyNotFound) === MultiTypeInputType.RUNTIME && (
-        <div className={cx(css.formGroup, css.sm)}>
-          <FormMultiTypeCheckboxField
-            name={`${isEmpty(path) ? '' : `${path}.`}spec.failIfKeyNotFound`}
-            label={getString('failIfKeyNotFound')}
-            disabled={readonly}
-            multiTypeTextbox={{
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            }}
-            style={{ marginBottom: 'var(--spacing-small)' }}
-            setToFalseWhenEmpty={true}
-          />
-        </div>
-      )}
+          }),
+          ...(getMultiTypeFromValue(template?.spec?.region) === MultiTypeInputType.RUNTIME && {
+            'spec.region': {}
+          }),
+          ...(getMultiTypeFromValue(template?.spec?.bucket) === MultiTypeInputType.RUNTIME && {
+            'spec.bucket': { tooltipId: 's3Bucket' }
+          }),
+          ...(getMultiTypeFromValue(template?.spec?.key) === MultiTypeInputType.RUNTIME && {
+            'spec.key': { tooltipId: 'restoreCacheKey' }
+          })
+        }}
+        isInputSetView={true}
+      />
+      <CIStepOptionalConfig
+        readonly={readonly}
+        enableFields={{
+          ...(getMultiTypeFromValue(template?.spec?.archiveFormat) === MultiTypeInputType.RUNTIME && {
+            'spec.archiveFormat': {}
+          }),
+          ...(getMultiTypeFromValue(template?.spec?.pathStyle) === MultiTypeInputType.RUNTIME && {
+            'spec.pathStyle': {}
+          }),
+          ...(getMultiTypeFromValue(template?.spec?.failIfKeyNotFound) === MultiTypeInputType.RUNTIME && {
+            'spec.failIfKeyNotFound': {}
+          }),
+          ...(getMultiTypeFromValue(template?.spec?.endpoint) === MultiTypeInputType.RUNTIME && {
+            'spec.endpoint': {}
+          })
+        }}
+        allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+      />
       <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />
     </FormikForm>
   )

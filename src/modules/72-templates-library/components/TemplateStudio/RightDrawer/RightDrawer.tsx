@@ -48,6 +48,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       setStepPaletteModuleInfos(getStepPaletteModuleInfosFromStage(StageType.DEPLOY))
     } else if (module === 'ci') {
       setStepPaletteModuleInfos(getStepPaletteModuleInfosFromStage(StageType.BUILD))
+    } else if (module === 'cf') {
+      setStepPaletteModuleInfos(getStepPaletteModuleInfosFromStage(StageType.FEATURE))
     } else {
       if (CDNG_ENABLED && CING_ENABLED) {
         setStepPaletteModuleInfos(getAllStepPaletteModuleInfos())

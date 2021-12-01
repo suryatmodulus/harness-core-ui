@@ -1,5 +1,5 @@
 import { flatMap, findIndex, cloneDeep, set } from 'lodash-es'
-import { Color } from '@wings-software/uicore'
+import { Color, Utils } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import type { NodeModelListener, LinkModelListener, DiagramEngine } from '@projectstorm/react-diagrams-core'
 import produce from 'immer'
@@ -109,7 +109,7 @@ export interface Listeners {
 export const EmptyNodeSeparator = '$node$'
 
 export const getCommonStyles = (isSelected: boolean): React.CSSProperties => ({
-  background: isSelected ? 'var(--pipeline-selected-node)' : 'var(--white)',
+  background: isSelected ? 'var(--pipeline-selected-node)' : Utils.getRealCSSColor(Color.WHITE),
   borderColor: isSelected ? 'var(--diagram-selected)' : 'var(--pipeline-grey-border)',
   borderWidth: isSelected ? '2px' : '1px'
 })

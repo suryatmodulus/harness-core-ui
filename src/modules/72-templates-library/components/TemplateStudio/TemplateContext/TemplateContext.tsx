@@ -42,7 +42,7 @@ interface TemplatePayload {
   originalTemplate?: NGTemplateInfoConfig
   isUpdated: boolean
   versions?: string[]
-  stableVersion?: boolean
+  stableVersion?: string
   gitDetails?: EntityGitDetails
 }
 
@@ -130,7 +130,7 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
       const versions: string[] = templatesList.map(item => item.versionLabel || '')
       const defaultVersion = templatesList.find(item => item.stableTemplate)?.versionLabel || ''
       const selectedVersion = versions.includes(versionLabel) ? versionLabel : defaultVersion
-      const stableVersion = !!templatesList.find(item => item.versionLabel === selectedVersion)?.stableTemplate
+      const stableVersion = templatesList.find(item => item.stableTemplate)?.versionLabel
       const templateWithGitDetails = templatesList.find(item => item.versionLabel === selectedVersion)
       const template: NGTemplateInfoConfig = defaultTo(parse(defaultTo(templateWithGitDetails?.yaml, ''))?.template, {})
 
@@ -143,7 +143,7 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
             isBETemplateUpdated: !isEqual(template, data.originalTemplate),
             isUpdated: !isEqual(template, data.template),
             versions: versions,
-            stableVersion: stableVersion,
+            stableVersion: data.stableVersion,
             gitDetails: templateWithGitDetails?.gitDetails?.objectId
               ? templateWithGitDetails.gitDetails
               : defaultTo(data?.gitDetails, {})
@@ -212,7 +212,7 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
           isUpdated: true,
           isBETemplateUpdated: false,
           versions: [DefaultNewVersionLabel],
-          stableVersion: true,
+          stableVersion: DefaultNewVersionLabel,
           gitDetails: defaultTo(data?.gitDetails, {})
         })
       )
@@ -230,7 +230,7 @@ interface UpdateTemplateArgs {
   versionLabel?: string
   originalTemplate: NGTemplateInfoConfig
   versions: string[]
-  stableVersion: boolean
+  stableVersion: string
   gitDetails?: EntityGitDetails
 }
 
@@ -399,7 +399,7 @@ interface UpdateGitDetailsArgs {
   originalTemplate: NGTemplateInfoConfig
   template: NGTemplateInfoConfig
   versions: string[]
-  stableVersion: boolean
+  stableVersion: string
 }
 
 const _updateGitDetails = async (args: UpdateGitDetailsArgs, gitDetails: EntityGitDetails): Promise<void> => {

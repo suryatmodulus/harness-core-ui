@@ -113,7 +113,8 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
               push(variable)
             }
 
-            function handleUpdate(index: number, variable: NGVariable): void {
+            function handleUpdate(index: number, variable: AllNGVariables): void {
+              variable.value = ''
               replace(index, variable)
             }
 

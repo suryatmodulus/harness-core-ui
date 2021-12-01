@@ -228,7 +228,7 @@ export class K8sCanaryDeleteStep extends PipelineStep<K8sCanaryDeleteStepData> {
   protected type = StepType.K8sCanaryDelete
   protected stepName = 'K8s Canary Delete'
 
-  protected stepIcon: IconName = 'delete'
+  protected stepIcon: IconName = 'canary-delete'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.K8sCanaryDelete'
 
   validateInputSet({

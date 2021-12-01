@@ -283,7 +283,25 @@ exports[`stageinputset tests viewType DeploymentForm initial render 1`] = `
             class="FormikForm--main removeBpPopoverWrapperTopMargin"
             style="width: 50%;"
           >
-            <div />
+            <div>
+              <div
+                class="StyledProps--font StyledProps--main formGroup lg"
+              />
+              <div>
+                <div
+                  style="min-height: 8px;"
+                />
+                <div
+                  class="separator"
+                />
+                <div
+                  style="min-height: 24px;"
+                />
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main bottomMargin3"
+              />
+            </div>
           </form>
         </div>
       </div>
@@ -619,7 +637,25 @@ exports[`stageinputset tests viewType DeploymentForm initial render2 1`] = `
             class="FormikForm--main removeBpPopoverWrapperTopMargin"
             style="width: 50%;"
           >
-            <div />
+            <div>
+              <div
+                class="StyledProps--font StyledProps--main formGroup lg"
+              />
+              <div>
+                <div
+                  style="min-height: 8px;"
+                />
+                <div
+                  class="separator"
+                />
+                <div
+                  style="min-height: 24px;"
+                />
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main bottomMargin3"
+              />
+            </div>
           </form>
         </div>
       </div>
@@ -955,7 +991,25 @@ exports[`stageinputset tests viewType InputSet initial render 1`] = `
             class="FormikForm--main removeBpPopoverWrapperTopMargin"
             style="width: 50%;"
           >
-            <div />
+            <div>
+              <div
+                class="StyledProps--font StyledProps--main formGroup lg"
+              />
+              <div>
+                <div
+                  style="min-height: 8px;"
+                />
+                <div
+                  class="separator"
+                />
+                <div
+                  style="min-height: 24px;"
+                />
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main bottomMargin3"
+              />
+            </div>
           </form>
         </div>
       </div>
@@ -1291,7 +1345,25 @@ exports[`stageinputset tests viewType InputSet initial render2 1`] = `
             class="FormikForm--main removeBpPopoverWrapperTopMargin"
             style="width: 50%;"
           >
-            <div />
+            <div>
+              <div
+                class="StyledProps--font StyledProps--main formGroup lg"
+              />
+              <div>
+                <div
+                  style="min-height: 8px;"
+                />
+                <div
+                  class="separator"
+                />
+                <div
+                  style="min-height: 24px;"
+                />
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main bottomMargin3"
+              />
+            </div>
           </form>
         </div>
       </div>

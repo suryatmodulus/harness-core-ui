@@ -747,6 +747,5 @@ componentValidations:
   requestMethod: Request Method is required
   queryType: Query Type is required  
   queryTypeLabel: Query Type
-  queryTypeName: queryType
   httpRequestMethodLabel: Request Method
-  httpRequestMethodName: requestMethod
+  

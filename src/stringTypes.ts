@@ -4128,10 +4128,8 @@ export interface StringsMap {
   'cv.changesPage.viewKubernetesEvents': string
   'cv.clusterType': string
   'cv.componentValidations.httpRequestMethodLabel': string
-  'cv.componentValidations.httpRequestMethodName': string
   'cv.componentValidations.queryType': string
   'cv.componentValidations.queryTypeLabel': string
-  'cv.componentValidations.queryTypeName': string
   'cv.componentValidations.requestMethod': string
   'cv.continuous': string
   'cv.copyURL': string

@@ -553,12 +553,12 @@ perspectives:
       title: Set Budget Amount
       specifiedAmount: Specified amount
       lastMonthSpend: Last month’s spend
-      lastMonthCost: Total cost last month
-      projectedCost: Projected cost end of this month
+      lastMonthCost: Total cost last period
+      projectedCost: Projected cost end of this period
       budgetType: Budget Type
       specifyAmount: Specify amount ($)
       budgetPeriod: Budget Period
-      monthStartsFrom: Month starts from
+      monthStartsFrom: Period starts from
       growthRateCheck: Add growth rate to budget amount
       growthRateLabel: Specify Growth rate
       chartTitle: 'Budget with {{ rate }}% growth rate'

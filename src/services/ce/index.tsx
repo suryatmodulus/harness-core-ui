@@ -1320,12 +1320,12 @@ export interface Execute1QueryParams {
 }
 
 export type Execute1Props = Omit<
-  MutateProps<Execute1Response, unknown, Execute1QueryParams, GraphQLQuery, void>,
+  MutateProps<Execute1Response, unknown, Execute1QueryParams, void, void>,
   'path' | 'verb'
 >
 
 export const Execute1 = (props: Execute1Props) => (
-  <Mutate<Execute1Response, unknown, Execute1QueryParams, GraphQLQuery, void>
+  <Mutate<Execute1Response, unknown, Execute1QueryParams, void, void>
     verb="POST"
     path={`/graphql`}
     base={getConfig('ccm/api')}
@@ -1334,12 +1334,12 @@ export const Execute1 = (props: Execute1Props) => (
 )
 
 export type UseExecute1Props = Omit<
-  UseMutateProps<Execute1Response, unknown, Execute1QueryParams, GraphQLQuery, void>,
+  UseMutateProps<Execute1Response, unknown, Execute1QueryParams, void, void>,
   'path' | 'verb'
 >
 
 export const useExecute1 = (props: UseExecute1Props) =>
-  useMutate<Execute1Response, unknown, Execute1QueryParams, GraphQLQuery, void>('POST', `/graphql`, {
+  useMutate<Execute1Response, unknown, Execute1QueryParams, void, void>('POST', `/graphql`, {
     base: getConfig('ccm/api'),
     ...props
   })
@@ -1754,6 +1754,43 @@ export const useGetForecastCostV2 = (props: UseGetForecastCostV2Props) =>
     ...props
   })
 
+export interface GetForecastCostForPeriodQueryParams {
+  accountIdentifier: string
+  perspectiveId: string
+  startTime: number
+  period: 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'QUARTERLY' | 'YEARLY'
+}
+
+export type GetForecastCostForPeriodProps = Omit<
+  GetProps<ResponseDouble, unknown, GetForecastCostForPeriodQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get forecast cost for perspective for given period
+ */
+export const GetForecastCostForPeriod = (props: GetForecastCostForPeriodProps) => (
+  <Get<ResponseDouble, unknown, GetForecastCostForPeriodQueryParams, void>
+    path={`/perspective/forecastCostForPeriod`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseGetForecastCostForPeriodProps = Omit<
+  UseGetProps<ResponseDouble, unknown, GetForecastCostForPeriodQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get forecast cost for perspective for given period
+ */
+export const useGetForecastCostForPeriod = (props: UseGetForecastCostForPeriodProps) =>
+  useGet<ResponseDouble, unknown, GetForecastCostForPeriodQueryParams, void>(`/perspective/forecastCostForPeriod`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
+
 export interface GetLastMonthCostV2QueryParams {
   accountIdentifier: string
   perspectiveId: string
@@ -1785,6 +1822,40 @@ export type UseGetLastMonthCostV2Props = Omit<
  */
 export const useGetLastMonthCostV2 = (props: UseGetLastMonthCostV2Props) =>
   useGet<ResponseDouble, unknown, GetLastMonthCostV2QueryParams, void>(`/perspective/lastMonthCost`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
+
+export interface GetLastPeriodCostQueryParams {
+  accountIdentifier: string
+  perspectiveId: string
+  startTime: number
+  period: 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'QUARTERLY' | 'YEARLY'
+}
+
+export type GetLastPeriodCostProps = Omit<GetProps<ResponseDouble, unknown, GetLastPeriodCostQueryParams, void>, 'path'>
+
+/**
+ * Get last period cost for perspective
+ */
+export const GetLastPeriodCost = (props: GetLastPeriodCostProps) => (
+  <Get<ResponseDouble, unknown, GetLastPeriodCostQueryParams, void>
+    path={`/perspective/lastPeriodCost`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseGetLastPeriodCostProps = Omit<
+  UseGetProps<ResponseDouble, unknown, GetLastPeriodCostQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get last period cost for perspective
+ */
+export const useGetLastPeriodCost = (props: UseGetLastPeriodCostProps) =>
+  useGet<ResponseDouble, unknown, GetLastPeriodCostQueryParams, void>(`/perspective/lastPeriodCost`, {
     base: getConfig('ccm/api'),
     ...props
   })

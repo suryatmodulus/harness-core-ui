@@ -55,12 +55,16 @@ const ConfigureAlerts: React.FC<StepProps<BudgetStepData> & Props> = props => {
     perspective,
     growthRate,
     period,
+    budgetName,
     perspectiveName,
     startTime,
     budgetAmount = 0
   } = (prevStepData || {}) as BudgetStepData
 
-  const { mutate: updateBudget } = useUpdateBudget({ id: budget?.uuid || '' })
+  const { mutate: updateBudget } = useUpdateBudget({
+    id: budget?.uuid || '',
+    queryParams: { accountIdentifier: accountId }
+  })
   const { mutate: createBudget } = useCreateBudget({
     queryParams: { accountIdentifier: accountId }
   })
@@ -75,7 +79,7 @@ const ConfigureAlerts: React.FC<StepProps<BudgetStepData> & Props> = props => {
 
     const emptyThresholds = (t: AlertThreshold) => (t.emailAddresses?.length || 0) > 0 && t.percentage
     const payload = {
-      name: perspectiveName,
+      name: budgetName,
       alertThresholds: alertThresholds.filter(emptyThresholds),
       type,
       period,
@@ -279,7 +283,7 @@ const Threshold = (props: ThresholdProps): JSX.Element => {
         name={`alertThresholds.${idx}.basedOn`}
       />
       <Text className={css.pushdown7}>exceeds</Text>
-      <FormInput.Text name={`alertThresholds.${idx}.percentage`} />
+      <FormInput.Text name={`alertThresholds.${idx}.percentage`} inputGroup={{ type: 'number' }} />
       <TagInput
         addOnBlur
         className={css.tagInput}

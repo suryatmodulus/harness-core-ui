@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
-import { Container, useModalHook, Button, StepWizard } from '@wings-software/uicore'
+import { Container, useModalHook, Button, StepWizard, Color } from '@wings-software/uicore'
 import type { Budget } from 'services/ce'
 import { useStrings } from 'framework/strings'
 
@@ -49,7 +49,7 @@ const useBudgetModal = ({ onSuccess }: BudgetModalProps) => {
         <Container>
           <StepWizard
             icon={'vertical-bar-chart-asc'}
-            iconProps={{ size: 40 }}
+            iconProps={{ size: 40, color: Color.WHITE }}
             title={
               isEditMode
                 ? getString('ce.perspectives.budgets.wizardTitleEdit')
@@ -60,6 +60,7 @@ const useBudgetModal = ({ onSuccess }: BudgetModalProps) => {
               perspective={perspectiveInfo?.id}
               name={getString('ce.perspectives.budgets.defineTarget.title')}
               isEditMode={isEditMode}
+              budget={budget}
             />
             <SetBudgetAmount
               name={getString('ce.perspectives.budgets.setBudgetAmount.title')}

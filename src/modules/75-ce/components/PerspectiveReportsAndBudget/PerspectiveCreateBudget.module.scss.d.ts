@@ -20,5 +20,6 @@ declare const styles: {
   readonly pushdown7: string
   readonly costs: string
   readonly separator: string
+  readonly loadingContainer: string
 }
 export default styles

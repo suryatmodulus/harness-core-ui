@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { get } from 'lodash-es'
 import {
   Text,
@@ -12,13 +12,14 @@ import {
   FontVariation,
   FlexExpander,
   DateInput,
-  Color
+  Color,
+  Icon
 } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import Highcharts from 'highcharts/highcharts'
 import { useParams } from 'react-router-dom'
 import { Position } from '@blueprintjs/core'
-import { Budget, useGetLastMonthCost, useGetForecastCost } from 'services/ce'
+import { Budget, useGetLastPeriodCost, useGetForecastCostForPeriod } from 'services/ce'
 import formatCost from '@ce/utils/formatCost'
 import CEChart from '@ce/components/CEChart/CEChart'
 import { todayInUTC } from '@ce/utils/momentUtils'
@@ -108,10 +109,27 @@ interface SetBudgetFormProps {
   formikProps: FormikProps<Form>
   isEditMode: boolean
   lastMonthCost: number | undefined
+  setLastCostPeriodCostVar: React.Dispatch<
+    React.SetStateAction<{
+      startTime: number
+      period: 'MONTHLY' | 'DAILY' | 'WEEKLY' | 'QUARTERLY' | 'YEARLY'
+    }>
+  >
 }
 
-const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({ formikProps, isEditMode, lastMonthCost }) => {
+const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({
+  formikProps,
+  isEditMode,
+  lastMonthCost,
+  setLastCostPeriodCostVar
+}) => {
   const { getString } = useStrings()
+
+  useEffect(() => {
+    if (formikProps.values.type === 'PREVIOUS_MONTH_SPEND') {
+      formikProps.setFieldValue('budgetAmount', lastMonthCost || 0)
+    }
+  }, [lastMonthCost])
 
   const BUDGET_PERIOD = useMemo(() => {
     return [
@@ -141,6 +159,9 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({ formikProps
         items={BUDGET_PERIOD}
         name={'period'}
         label={getString('ce.perspectives.budgets.setBudgetAmount.budgetPeriod')}
+        onChange={val => {
+          setLastCostPeriodCostVar(x => ({ ...x, period: val.value as any }))
+        }}
       />
       <Text font={{ variation: FontVariation.BODY2 }} color={Color.GREY_600}>
         {getString('ce.perspectives.budgets.setBudgetAmount.monthStartsFrom')}
@@ -153,6 +174,8 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({ formikProps
         }}
         value={String(formikProps.values.startTime)}
         onChange={val => {
+          setLastCostPeriodCostVar(x => ({ ...x, startTime: val as any }))
+
           formikProps.setValues({
             ...formikProps.values,
             startTime: Number(val)
@@ -173,6 +196,7 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({ formikProps
       <FormInput.Text
         disabled={formikProps.values.type === 'PREVIOUS_MONTH_SPEND'}
         name={'budgetAmount'}
+        inputGroup={{ type: 'number' }}
         label={
           formikProps.values.type === 'PREVIOUS_MONTH_SPEND'
             ? getString('ce.perspectives.budgets.setBudgetAmount.lastMonthSpend')
@@ -239,22 +263,37 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
     isEditMode
   } = props
 
-  const { perspective } = prevStepData || {}
-
-  const { data: lmc } = useGetLastMonthCost({
-    queryParams: { accountIdentifier: accountId, perspectiveId: perspective }
+  const [lastPeriodCostVar, setLastCostPeriodCostVar] = useState({
+    startTime: startTime || get(prevStepData, 'startTime') || Number(todayInUTC().startOf('month').format('x')),
+    period: period || get(prevStepData, 'period') || 'MONTHLY'
   })
 
-  const { data: fc } = useGetForecastCost({
-    queryParams: { accountIdentifier: accountId, perspectiveId: perspective }
+  const { perspective } = prevStepData || {}
+
+  const { data: lpc, loading: lpcLoading } = useGetLastPeriodCost({
+    queryParams: {
+      accountIdentifier: accountId,
+      perspectiveId: perspective as string,
+      period: lastPeriodCostVar.period,
+      startTime: lastPeriodCostVar.startTime
+    }
+  })
+
+  const { data: fcp, loading: fcpLoading } = useGetForecastCostForPeriod({
+    queryParams: {
+      accountIdentifier: accountId,
+      perspectiveId: perspective as string,
+      period: lastPeriodCostVar.period,
+      startTime: lastPeriodCostVar.startTime
+    }
   })
 
   const COSTS = useMemo(
     () => [
-      [getString('ce.perspectives.budgets.setBudgetAmount.lastMonthCost'), lmc?.data],
-      [getString('ce.perspectives.budgets.setBudgetAmount.projectedCost'), fc?.data]
+      [getString('ce.perspectives.budgets.setBudgetAmount.lastMonthCost'), lpc?.data],
+      [getString('ce.perspectives.budgets.setBudgetAmount.projectedCost'), fcp?.data]
     ],
-    [lmc?.data, fc?.data]
+    [lpc?.data, fcp?.data]
   )
 
   const handleSubmit = (data: Form) => {
@@ -262,8 +301,8 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
       ...((prevStepData || {}) as Budget & { perspective: string }),
       type: data.type,
       budgetAmount: data.budgetAmount,
-      lastMonthCost: lmc?.data,
-      forecastCost: fc?.data,
+      lastMonthCost: lpc?.data,
+      forecastCost: fcp?.data,
       period: data.period,
       startTime: data.startTime,
       growthRate: data.growthRate
@@ -294,6 +333,8 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
     )
   }
 
+  const formLoading = lpcLoading || fcpLoading ? true : undefined
+
   return (
     <Container>
       <Formik<Form>
@@ -314,6 +355,11 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
         {formikProps => {
           return (
             <FormikForm className={css.selectPerspectiveContainer}>
+              {formLoading ? (
+                <Container className={css.loadingContainer}>
+                  <Icon name="spinner" size={26} color={Color.BLUE_500} />
+                </Container>
+              ) : null}
               <Container className={css.selectPerspectiveContainer}>
                 <Text font={{ variation: FontVariation.H4 }}>
                   {getString('ce.perspectives.budgets.setBudgetAmount.title')}
@@ -325,7 +371,12 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
                   }}
                   className={css.setBudgetContainer}
                 >
-                  <SetBudgetForm formikProps={formikProps} isEditMode={isEditMode} lastMonthCost={lmc?.data} />
+                  <SetBudgetForm
+                    formikProps={formikProps}
+                    isEditMode={isEditMode}
+                    lastMonthCost={lpc?.data}
+                    setLastCostPeriodCostVar={setLastCostPeriodCostVar}
+                  />
                   <Container
                     padding={{
                       left: 'medium'

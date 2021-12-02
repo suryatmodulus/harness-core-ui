@@ -17,7 +17,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { get } from 'lodash-es'
 import { useToaster } from '@common/components'
 import routes from '@common/RouteDefinitions'
-import { useCreatePerspective, CEView } from 'services/ce'
+import { useCreatePerspective, CEView, Budget } from 'services/ce'
 import { useStrings } from 'framework/strings'
 import { QlceView, useFetchPerspectiveListQuery } from 'services/ce/services'
 import { generateId, CREATE_CALL_OBJECT } from '@ce/utils/perspectiveUtils'
@@ -26,16 +26,18 @@ import css from '../PerspectiveCreateBudget.module.scss'
 
 interface PerspectiveForm {
   perspective: string
+  budgetName: string
 }
 interface SelectPerspectiveProps {
   name: string
   perspective?: string
   isEditMode?: boolean
+  budget?: Budget
 }
 
 const SelectPerspective: (props: StepProps<BudgetStepData> & SelectPerspectiveProps) => JSX.Element = props => {
   const { getString } = useStrings()
-  const { nextStep, prevStepData, perspective, isEditMode } = props
+  const { nextStep, prevStepData, perspective, isEditMode, budget: { name } = {} } = props
 
   const { showError } = useToaster()
   const history = useHistory()
@@ -53,9 +55,9 @@ const SelectPerspective: (props: StepProps<BudgetStepData> & SelectPerspectivePr
 
   const perspectiveList = (perspectiveData?.perspectives?.customerViews || []) as QlceView[]
 
-  const items = perspectiveList.map(name => ({
-    label: name.name as string,
-    value: name.id as string
+  const items = perspectiveList.map(pName => ({
+    label: pName.name as string,
+    value: pName.id as string
   }))
 
   const handleSubmit = (data: PerspectiveForm) => {
@@ -63,7 +65,8 @@ const SelectPerspective: (props: StepProps<BudgetStepData> & SelectPerspectivePr
 
     const nextStepData = {
       perspective: data.perspective,
-      perspectiveName: perspectiveName
+      perspectiveName: perspectiveName,
+      budgetName: data.budgetName
     }
     nextStep?.(nextStepData)
   }
@@ -101,7 +104,8 @@ const SelectPerspective: (props: StepProps<BudgetStepData> & SelectPerspectivePr
         formName="selectPerspective"
         enableReinitialize={true}
         initialValues={{
-          perspective: perspective || get(prevStepData, 'perspective') || ''
+          perspective: perspective || get(prevStepData, 'perspective') || '',
+          budgetName: name || ''
         }}
       >
         {formikProps => {
@@ -134,6 +138,9 @@ const SelectPerspective: (props: StepProps<BudgetStepData> & SelectPerspectivePr
                         disabled={isEditMode || !!perspective}
                         label={getString('ce.perspectives.budgets.defineTarget.selectPerspective')}
                       />
+                      <Container margin={{ top: 'xlarge' }}>
+                        <FormInput.Text name="budgetName" placeholder={'Budget Name'} label={'Budget Name'} />
+                      </Container>
                     </Container>
                     {!isEditMode && !perspective ? (
                       <Button

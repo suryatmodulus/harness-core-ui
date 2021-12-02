@@ -45,6 +45,7 @@ const CostBars: (props: CostBarsProps) => JSX.Element | null = ({
             padding={{
               left: 'xsmall'
             }}
+            lineClamp={1}
           >
             {formatCost(cost)}
           </Text>

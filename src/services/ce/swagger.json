@@ -39,107 +39,13 @@
   ],
   "schemes": ["https", "http"],
   "paths": {
-    "/budgets/lastMonthCost": {
-      "get": {
-        "tags": ["budgets"],
-        "summary": "Deprecated use /perspective/lastMonthCost instead, Get last month cost for perspective.",
-        "description": "",
-        "operationId": "getLastMonthCost",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "perspectiveId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseDouble"
-            }
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/budgets/forecastCost": {
-      "get": {
-        "tags": ["budgets"],
-        "summary": "Deprecated use /perspective/forecastCost instead, Get forecast cost for perspective.",
-        "description": "",
-        "operationId": "getForecastCost",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "perspectiveId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseDouble"
-            }
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/budgets/{id}/costDetails": {
-      "get": {
-        "tags": ["budgets"],
-        "summary": "Get cost details for budget",
-        "description": "",
-        "operationId": "getCostDetails",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseBudgetData"
-            }
-          }
-        }
-      }
-    },
     "/budgets/{id}": {
       "get": {
         "tags": ["budgets"],
         "summary": "Get budget",
         "description": "",
         "operationId": "getBudget",
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
@@ -169,6 +75,7 @@
         "summary": "Clone budget",
         "description": "",
         "operationId": "cloneBudget",
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
@@ -204,6 +111,7 @@
         "summary": "Update budget",
         "description": "",
         "operationId": "updateBudget",
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
@@ -241,6 +149,7 @@
         "summary": "Delete budget",
         "description": "",
         "operationId": "deleteBudget",
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
@@ -272,6 +181,7 @@
         "summary": "List budgets for perspective",
         "description": "",
         "operationId": "listBudgetsForPerspective",
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
@@ -303,6 +213,7 @@
         "summary": "List budgets for account",
         "description": "",
         "operationId": "listBudgetsForAccount",
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
@@ -349,6 +260,104 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/ResponseString"
+            }
+          }
+        }
+      }
+    },
+    "/budgets/forecastCost": {
+      "get": {
+        "tags": ["budgets"],
+        "summary": "Deprecated use /perspective/forecastCost instead, Get forecast cost for perspective.",
+        "description": "",
+        "operationId": "getForecastCost",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseDouble"
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/budgets/lastMonthCost": {
+      "get": {
+        "tags": ["budgets"],
+        "summary": "Deprecated use /perspective/lastMonthCost instead, Get last month cost for perspective.",
+        "description": "",
+        "operationId": "getLastMonthCost",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseDouble"
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/budgets/{id}/costDetails": {
+      "get": {
+        "tags": ["budgets"],
+        "summary": "Get cost details for budget",
+        "description": "",
+        "operationId": "getCostDetails",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseBudgetData"
             }
           }
         }
@@ -501,6 +510,36 @@
         }
       }
     },
+    "/yaml/cloudCostK8sClusterSetup": {
+      "post": {
+        "tags": ["yaml"],
+        "summary": "get k8s cluster setup yaml based on features enabled",
+        "description": "",
+        "operationId": "cloudCostK8sClusterSetup",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/K8sClusterSetupRequest"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
     "/yaml/generate-cost-optimisation-yaml": {
       "post": {
         "tags": ["yaml"],
@@ -530,52 +569,14 @@
         "deprecated": true
       }
     },
-    "/yaml/cloudCostK8sClusterSetup": {
-      "post": {
-        "tags": ["yaml"],
-        "summary": "get k8s cluster setup yaml based on features enabled",
-        "description": "",
-        "operationId": "cloudCostK8sClusterSetup",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/K8sClusterSetupRequest"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/connector/gcpserviceaccount": {
+    "/connector/azureappclientid": {
       "get": {
         "tags": ["connector"],
-        "summary": "Provision and Get GCP Service Account",
+        "summary": "Get Azure application client Id",
         "description": "",
-        "operationId": "gcpserviceaccount",
+        "operationId": "azureappclientid",
         "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "successful operation",
@@ -611,27 +612,21 @@
         }
       }
     },
-    "/graphql/schema": {
-      "get": {
-        "tags": ["graphql"],
-        "operationId": "getSchema",
-        "produces": ["application/json", "text/plain"],
-        "parameters": [],
-        "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/connector/azureappclientid": {
+    "/connector/gcpserviceaccount": {
       "get": {
         "tags": ["connector"],
-        "summary": "Get Azure application client Id",
+        "summary": "Provision and Get GCP Service Account",
         "description": "",
-        "operationId": "azureappclientid",
+        "operationId": "gcpserviceaccount",
         "produces": ["application/json"],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "successful operation",
@@ -646,7 +641,7 @@
       "post": {
         "tags": ["graphql"],
         "operationId": "execute_1",
-        "consumes": ["application/json"],
+        "consumes": ["text/plain"],
         "produces": ["application/json", "text/plain"],
         "parameters": [
           {
@@ -672,7 +667,7 @@
             "name": "body",
             "required": false,
             "schema": {
-              "$ref": "#/definitions/GraphQLQuery"
+              "type": "string"
             }
           }
         ],
@@ -686,6 +681,19 @@
                 "type": "object"
               }
             }
+          }
+        }
+      }
+    },
+    "/graphql/schema": {
+      "get": {
+        "tags": ["graphql"],
+        "operationId": "getSchema",
+        "produces": ["application/json", "text/plain"],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
           }
         }
       }
@@ -904,6 +912,7 @@
         "summary": "Get perspective reports",
         "description": "",
         "operationId": "getReportSetting",
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
@@ -971,6 +980,7 @@
         "summary": "Update perspective reports",
         "description": "",
         "operationId": "updateReportSetting",
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
@@ -1002,6 +1012,7 @@
         "summary": "Delete perspective reports",
         "description": "",
         "operationId": "deleteReportSetting",
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
@@ -1033,74 +1044,13 @@
         }
       }
     },
-    "/perspective/lastMonthCost": {
-      "get": {
-        "tags": ["perspective"],
-        "summary": "Get last month cost for perspective",
-        "description": "",
-        "operationId": "getLastMonthCostV2",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "perspectiveId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseDouble"
-            }
-          }
-        }
-      }
-    },
-    "/perspective/forecastCost": {
-      "get": {
-        "tags": ["perspective"],
-        "summary": "Get forecast cost for perspective",
-        "description": "",
-        "operationId": "getForecastCostV2",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "perspectiveId",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseDouble"
-            }
-          }
-        }
-      }
-    },
     "/perspective": {
       "get": {
         "tags": ["perspective"],
         "summary": "Get perspective",
         "description": "",
         "operationId": "getPerspective",
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
@@ -1200,6 +1150,7 @@
         "summary": "Delete perspective",
         "description": "",
         "operationId": "deletePerspective",
+        "consumes": ["application/json"],
         "produces": ["application/json"],
         "parameters": [
           {
@@ -1224,86 +1175,165 @@
           }
         }
       }
+    },
+    "/perspective/forecastCost": {
+      "get": {
+        "tags": ["perspective"],
+        "summary": "Get forecast cost for perspective",
+        "description": "",
+        "operationId": "getForecastCostV2",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseDouble"
+            }
+          }
+        }
+      }
+    },
+    "/perspective/lastPeriodCost": {
+      "get": {
+        "tags": ["perspective"],
+        "summary": "Get last period cost for perspective",
+        "description": "",
+        "operationId": "getLastPeriodCost",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": ["DAILY", "WEEKLY", "MONTHLY", "QUARTERLY", "YEARLY"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseDouble"
+            }
+          }
+        }
+      }
+    },
+    "/perspective/lastMonthCost": {
+      "get": {
+        "tags": ["perspective"],
+        "summary": "Get last month cost for perspective",
+        "description": "",
+        "operationId": "getLastMonthCostV2",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseDouble"
+            }
+          }
+        }
+      }
+    },
+    "/perspective/forecastCostForPeriod": {
+      "get": {
+        "tags": ["perspective"],
+        "summary": "Get forecast cost for perspective for given period",
+        "description": "",
+        "operationId": "getForecastCostForPeriod",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "period",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": ["DAILY", "WEEKLY", "MONTHLY", "QUARTERLY", "YEARLY"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponseDouble"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
-    "ResponseDouble": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "type": "number",
-          "format": "double"
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
-        }
-      }
-    },
-    "BudgetCostData": {
-      "type": "object",
-      "properties": {
-        "time": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "actualCost": {
-          "type": "number",
-          "format": "double"
-        },
-        "budgeted": {
-          "type": "number",
-          "format": "double"
-        },
-        "budgetVariance": {
-          "type": "number",
-          "format": "double"
-        },
-        "budgetVariancePercentage": {
-          "type": "number",
-          "format": "double"
-        }
-      }
-    },
-    "BudgetData": {
-      "type": "object",
-      "properties": {
-        "costData": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BudgetCostData"
-          }
-        },
-        "forecastCost": {
-          "type": "number",
-          "format": "double"
-        }
-      }
-    },
-    "ResponseBudgetData": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "$ref": "#/definitions/BudgetData"
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
-        }
-      }
-    },
     "AlertThreshold": {
       "type": "object",
       "properties": {
@@ -1504,6 +1534,24 @@
         }
       ]
     },
+    "Response": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "type": "object"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
     "ResponseBudget": {
       "type": "object",
       "properties": {
@@ -1552,6 +1600,83 @@
           "items": {
             "$ref": "#/definitions/Budget"
           }
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "ResponseDouble": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "type": "number",
+          "format": "double"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
+    "BudgetCostData": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "actualCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "budgeted": {
+          "type": "number",
+          "format": "double"
+        },
+        "budgetVariance": {
+          "type": "number",
+          "format": "double"
+        },
+        "budgetVariancePercentage": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "BudgetData": {
+      "type": "object",
+      "properties": {
+        "costData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BudgetCostData"
+          }
+        },
+        "forecastCost": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "ResponseBudgetData": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "$ref": "#/definitions/BudgetData"
         },
         "metaData": {
           "type": "object"
@@ -2246,24 +2371,6 @@
           "type": "string"
         },
         "stackLaunchTemplateLink": {
-          "type": "string"
-        }
-      }
-    },
-    "Response": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "type": "object"
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
           "type": "string"
         }
       }

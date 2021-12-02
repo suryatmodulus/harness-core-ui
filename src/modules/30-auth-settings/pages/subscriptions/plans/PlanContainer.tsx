@@ -20,6 +20,7 @@ import { useContactSalesMktoModal } from '@common/modals/ContactSales/useContact
 import routes from '@common/RouteDefinitions'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import { ModuleName } from 'framework/types/ModuleName'
+import { usePlanModal } from '@auth-settings/modals/PlanModal/usePlanModal'
 import { ModuleLicenseType, Editions } from '@common/constants/SubscriptionTypes'
 import type { FetchPlansQuery } from 'services/common/services'
 import { getBtnProps } from './planUtils'
@@ -173,6 +174,14 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, moduleName }) => 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [licenseData])
 
+  const { openPlanModal } = usePlanModal({
+    module,
+    icon: 'ci-main',
+    unitPrice: 50,
+    contactSalesThreshold: 100,
+    priceId: 'price_1J06w4K1vsc7tc8ybyMPCr0f'
+  })
+
   function getPlanCalculatedProps(plan: PlanProp): PlanCalculatedProps {
     let isCurrentPlan, isTrial, isPaid
     const planEdition = plan?.title && (plan?.title?.toUpperCase() as Editions)
@@ -209,6 +218,9 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, moduleName }) => 
       handleContactSales: openMarketoContactSales,
       handleExtendTrial,
       handleManageSubscription,
+      handleUpgrade: () => {
+        openPlanModal()
+      },
       btnLoading,
       actions: actions?.data
     })

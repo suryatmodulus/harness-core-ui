@@ -656,3 +656,21 @@ exploreSaaSPlans: Explore SaaS plans
 onPremSaaSPlansMsg: Did you know, Harness also offers a range of exciting SaaS plans?
 manageSubscription: Manage subscription
 invalid: INVALID
+license:
+  planForm:
+    subtitle: Select the licenses required before continuing to payment
+    title: '{{ module }} Enterprise Plan'
+    draggable:
+      title: Select the number of workloads required
+      required: Workloads is required
+    premium:
+      checkbox: Get Premium Support
+      description: Up to five hours per month with a technical consultant for help with all of your technical needs.
+    payment:
+      contactSales: Our Sales team can quickly help you in providing a custom plan to meet your requirements for the above volume of workloads
+      description: Your payment due is calculated below for the annual plan at ${{ unitPrice }} per workload / month
+      price: ${{ price }} USD / month
+    continue: Continue to payment
+    contactSales: '{{$.common.banners.trial.contactSales}}'
+subscribe:
+  success: Congrats, your subscription is successful!

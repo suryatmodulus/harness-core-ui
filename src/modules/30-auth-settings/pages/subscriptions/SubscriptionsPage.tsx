@@ -88,7 +88,7 @@ const SubscriptionsPage: React.FC = () => {
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
   const { accountId } = useParams<AccountPathProps>()
-  const { moduleCard } = useQueryParams<{ moduleCard?: ModuleName }>()
+  const { moduleCard, succeed } = useQueryParams<{ moduleCard?: ModuleName; session_id: string; succeed: boolean }>()
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
   const history = useHistory()
@@ -170,6 +170,16 @@ const SubscriptionsPage: React.FC = () => {
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [contactSales]
+  )
+
+  useEffect(
+    () => {
+      if (succeed) {
+        showSuccess(getString('common.subscribe.success' as keyof StringsMap))
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [succeed]
   )
 
   if (accountError || licenseError) {

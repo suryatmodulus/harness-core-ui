@@ -33,6 +33,7 @@ interface GetBtnPropsProps {
   handleContactSales: () => void
   handleExtendTrial: (edition: Editions) => Promise<void>
   handleManageSubscription: () => void
+  handleUpgrade: () => void
   btnLoading: boolean
   actions?: {
     [key: string]: EditionActionDTO[]
@@ -46,6 +47,7 @@ export function getBtnProps({
   handleContactSales,
   handleExtendTrial,
   handleManageSubscription,
+  handleUpgrade,
   btnLoading,
   actions
 }: GetBtnPropsProps): PlanCalculatedProps['btnProps'] {
@@ -77,7 +79,7 @@ export function getBtnProps({
       case 'SUBSCRIBE':
       case 'UPGRADE':
         order = 1
-        onClick = undefined
+        onClick = handleUpgrade
         break
       case 'CONTACT_SALES':
         order = 2

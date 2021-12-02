@@ -53,6 +53,7 @@ declare interface Window {
   MktoForms2: any
   TOUR_GUIDE_USER_ID: string
   deploymentType: 'SAAS' | 'ON_PREM' | 'COMMUNITY'
+  Stripe: Stripe
 }
 
 declare interface Document {

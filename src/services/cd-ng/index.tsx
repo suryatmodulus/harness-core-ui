@@ -27838,3 +27838,132 @@ export const schemafilePromise = (
   signal?: RequestInit['signal']
 ) =>
   getUsingFetch<void, void, SchemafileQueryParams, void>(getConfig('ng/api'), `/yamlschema/schemafile`, props, signal)
+
+export interface CreateCheckoutSessionRequest {
+  accountId?: string
+  email?: string
+  priceId?: string
+  quantity?: string
+}
+
+export type WebhookCatcherBodyRequestBody = string
+
+export type CreateCheckoutSessionProps = Omit<
+  MutateProps<string, unknown, void, CreateCheckoutSessionRequest, void>,
+  'path' | 'verb'
+>
+
+export const CreateCheckoutSession = (props: CreateCheckoutSessionProps) => (
+  <Mutate<string, unknown, void, CreateCheckoutSessionRequest, void>
+    verb="POST"
+    path={`/payment/create-checkout-session`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCreateCheckoutSessionProps = Omit<
+  UseMutateProps<string, unknown, void, CreateCheckoutSessionRequest, void>,
+  'path' | 'verb'
+>
+
+export const useCreateCheckoutSession = (props: UseCreateCheckoutSessionProps) =>
+  useMutate<string, unknown, void, CreateCheckoutSessionRequest, void>('POST', `/payment/create-checkout-session`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+export const createCheckoutSessionPromise = (
+  props: MutateUsingFetchProps<string, unknown, void, CreateCheckoutSessionRequest, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<string, unknown, void, CreateCheckoutSessionRequest, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/payment/create-checkout-session`,
+    props,
+    signal
+  )
+
+export interface GetSesssionQueryParams {
+  sessionId?: string
+}
+
+export type GetSesssionProps = Omit<GetProps<string, unknown, GetSesssionQueryParams, void>, 'path'>
+
+export const GetSesssion = (props: GetSesssionProps) => (
+  <Get<string, unknown, GetSesssionQueryParams, void> path={`/payment/session`} base={getConfig('ng/api')} {...props} />
+)
+
+export type UseGetSesssionProps = Omit<UseGetProps<string, unknown, GetSesssionQueryParams, void>, 'path'>
+
+export const useGetSesssion = (props: UseGetSesssionProps) =>
+  useGet<string, unknown, GetSesssionQueryParams, void>(`/payment/session`, { base: getConfig('ng/api'), ...props })
+
+export type GetSecretProps = Omit<GetProps<string, unknown, void, void>, 'path'>
+
+export const GetSecret = (props: GetSecretProps) => (
+  <Get<string, unknown, void, void> path={`/payment/secret`} base={getConfig('ng/api')} {...props} />
+)
+
+export type UseGetSecretProps = Omit<UseGetProps<string, unknown, void, void>, 'path'>
+
+export const useGetSecret = (props: UseGetSecretProps) =>
+  useGet<string, unknown, void, void>(`/payment/secret`, { base: getConfig('ng/api'), ...props })
+
+export const getSesssionPromise = (
+  props: GetUsingFetchProps<string, unknown, GetSesssionQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<string, unknown, GetSesssionQueryParams, void>(getConfig('ng/api'), `/payment/session`, props, signal)
+
+export type SetupProps = Omit<GetProps<string, unknown, void, void>, 'path'>
+
+export const Setup = (props: SetupProps) => (
+  <Get<string, unknown, void, void> path={`/payment/setup`} base={getConfig('ng/api')} {...props} />
+)
+
+export type UseSetupProps = Omit<UseGetProps<string, unknown, void, void>, 'path'>
+
+export const useSetup = (props: UseSetupProps) =>
+  useGet<string, unknown, void, void>(`/payment/setup`, { base: getConfig('ng/api'), ...props })
+
+export const setupPromise = (props: GetUsingFetchProps<string, unknown, void, void>, signal?: RequestInit['signal']) =>
+  getUsingFetch<string, unknown, void, void>(getConfig('ng/api'), `/payment/setup`, props, signal)
+
+export type WebHookProps = Omit<
+  MutateProps<string, unknown, void, WebhookCatcherBodyRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const WebHook = (props: WebHookProps) => (
+  <Mutate<string, unknown, void, WebhookCatcherBodyRequestBody, void>
+    verb="POST"
+    path={`/payment/webhook`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseWebHookProps = Omit<
+  UseMutateProps<string, unknown, void, WebhookCatcherBodyRequestBody, void>,
+  'path' | 'verb'
+>
+
+export const useWebHook = (props: UseWebHookProps) =>
+  useMutate<string, unknown, void, WebhookCatcherBodyRequestBody, void>('POST', `/payment/webhook`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+export const webHookPromise = (
+  props: MutateUsingFetchProps<string, unknown, void, WebhookCatcherBodyRequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<string, unknown, void, WebhookCatcherBodyRequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/payment/webhook`,
+    props,
+    signal
+  )

@@ -293,6 +293,17 @@ export interface StringsMap {
   'common.latest': string
   'common.launchFirstGen': string
   'common.letsGetYouStarted': string
+  'common.license.planForm.contactSales': string
+  'common.license.planForm.continue': string
+  'common.license.planForm.draggable.required': string
+  'common.license.planForm.draggable.title': string
+  'common.license.planForm.payment.contactSales': string
+  'common.license.planForm.payment.description': string
+  'common.license.planForm.payment.price': string
+  'common.license.planForm.premium.checkbox': string
+  'common.license.planForm.premium.description': string
+  'common.license.planForm.subtitle': string
+  'common.license.planForm.title': string
   'common.link': string
   'common.loading': string
   'common.local': string
@@ -488,6 +499,7 @@ export interface StringsMap {
   'common.startTrial': string
   'common.submittingRequest': string
   'common.submittingRequestToGitViaDelegate': string
+  'common.subscribe.success': string
   'common.subscribed': string
   'common.subscriptions.banner.trial': string
   'common.subscriptions.ccm.cloudSpend': string

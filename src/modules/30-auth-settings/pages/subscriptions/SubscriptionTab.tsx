@@ -116,11 +116,6 @@ const SubscriptionTab = ({
       )
     })
 
-    // show Plans tab only when feature flag is on
-    if (!PLANS_ENABLED) {
-      tabs.splice(1, 1)
-    }
-
     return tabs
   }
 

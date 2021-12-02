@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">90.32% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/30</span>
+                <span class='fraction'>28/31</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.1% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>27/29</span>
+                <span class='fraction'>28/30</span>
             </div>
         
             
@@ -135,7 +135,14 @@
 <a name='L76'></a><a href='#L76'>76</a>
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -161,7 +168,16 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -211,9 +227,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useContext } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Position } from '@blueprintjs/core'
 import { ButtonVariation } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
@@ -230,7 +244,7 @@ import { DefaultNewTemplateId } from 'framework/Templates/templates'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
+import { usePermission } from '@rbac/hooks/usePermission'
 &nbsp;
 export function NewTemplatePopover(): React.ReactElement {
   const handleAddTemplate = <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >undefined</span>
@@ -239,7 +253,16 @@ export function NewTemplatePopover(): React.ReactElement {
   const allowedTemplateTypes = getAllowedTemplateTypes(getString)
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams&lt;ProjectPathProps &amp; ModulePathParams&gt;()
   const [menuOpen, setMenuOpen] = React.useState(false)
-  const { isReadonly } = useContext(TemplateContext)
+&nbsp;
+  const rbacResourcePermission = {
+    resource: {
+      resourceType: ResourceType.TEMPLATE
+    }
+  }
+  const [canEdit] = usePermission({
+    ...rbacResourcePermission,
+    permissions: [PermissionIdentifier.EDIT_TEMPLATE]
+  })
 &nbsp;
   const goToTemplateStudio = React.useCallback(
 <span class="fstat-no" title="function not covered" >    (t</span>emplateType: TemplateType) =&gt; {
@@ -271,7 +294,7 @@ export function NewTemplatePopover(): React.ReactElement {
       minimal={true}
       items={getMenu()}
       position={Position.BOTTOM}
-      disabled={isReadonly}
+      disabled={!canEdit}
       setMenuOpen={setMenuOpen}
       usePortal={false}
     &gt;
@@ -282,10 +305,8 @@ export function NewTemplatePopover(): React.ReactElement {
         text={getString('templatesLibrary.addNewTemplate')}
         onClick={handleAddTemplate}
         permission={{
-          permission: PermissionIdentifier.EDIT_TEMPLATE,
-          resource: {
-            resourceType: ResourceType.TEMPLATE
-          }
+          ...rbacResourcePermission,
+          permission: PermissionIdentifier.EDIT_TEMPLATE
         }}
       /&gt;
     &lt;/TemplatesActionPopover&gt;
@@ -298,7 +319,7 @@ export function NewTemplatePopover(): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 02 2021 08:11:54 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 02 2021 08:56:52 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

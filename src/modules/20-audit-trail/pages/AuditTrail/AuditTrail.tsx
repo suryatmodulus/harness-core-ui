@@ -9,9 +9,9 @@ import { AuditEventDTO, useGetAuditList } from 'services/audit'
 import { getReadableDateTime } from '@common/utils/dateUtils'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ResponsePageAuditEventDTO } from 'services/audit'
-import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
 import EventSummary from './EventSummary/EventSummary'
-import AuditTrailSubHeader, { TableFiltersPayload } from './AuditTrailSubHeader/AuditTrailSubHeader'
+import AuditTrailSubHeader, { AuditFiltersPayload } from './AuditTrailSubHeader/AuditTrailSubHeader'
+import AuditTrailFactory from '../../factories/AuditTrailFactory'
 import css from './AuditTrail.module.scss'
 
 const renderColumnTimeStamp: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
@@ -78,7 +78,7 @@ const PAGE_SIZE = 10
 const AuditTrail: React.FC = () => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
-  const [auditList, setAuditList] = useState<ResponsePageAuditEventDTO>({})
+  const [auditData, setAuditList] = useState<ResponsePageAuditEventDTO>({})
   const [selectedAuditId, setAuditId] = useState<string>()
   const [page, setPage] = useState(0)
 
@@ -181,19 +181,19 @@ const AuditTrail: React.FC = () => {
     []
   )
 
-  const handleFiltersChange = (_filtersPayload: TableFiltersPayload): void => {
-    // Backend isn't ready
+  const handleFiltersChange = (filtersPayload: AuditFiltersPayload): void => {
+    console.log('filtersPayload - ', filtersPayload)
   }
 
   const onDownloadClick = (): void => {
     // Backend is not ready yet.
   }
 
-  const { data } = auditList
+  const { data } = auditData
   return (
     <>
       <Page.Header title={getString('common.auditTrail')} breadcrumbs={<NGBreadcrumbs />} />
-      <AuditTrailSubHeader onChange={handleFiltersChange} handleDownloadClick={onDownloadClick} />
+      <AuditTrailSubHeader onApplyFilters={handleFiltersChange} handleDownloadClick={onDownloadClick} />
       <Page.Body loading={loading}>
         <TableV2<AuditEventDTO>
           data={data?.content || []}

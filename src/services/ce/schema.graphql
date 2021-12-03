@@ -16,6 +16,16 @@ directive @specifiedBy("The URL that specifies the behaviour of this scalar." ur
 "This union of all types of recommendations"
 union recommendationDetails = NodeRecommendationDTO | WorkloadRecommendationDTO
 
+type AlertThreshold {
+  alertsSent: Int!
+  basedOn: AlertThresholdBase
+  crossedAt: Long!
+  emailAddresses: [String]
+  percentage: Float!
+  slackWebhooks: [String]
+  userGroupIds: [String]
+}
+
 type AnomalyData {
   actualAmount: Float
   anomalyScore: Float
@@ -111,6 +121,7 @@ type BudgetCostData {
   budgetVariance: Float!
   budgetVariancePercentage: Float!
   budgeted: Float!
+  endTime: Long!
   time: Long!
 }
 
@@ -122,15 +133,20 @@ type BudgetData {
 type BudgetSummary {
   actualCost: Float!
   actualCostAlerts: [Float]!
+  alertThresholds: [AlertThreshold]
   budgetAmount: Float!
   forecastCost: Float!
   forecastCostAlerts: [Float]!
+  growthRate: Float
   id: String!
   name: String!
+  period: BudgetPeriod!
   perspectiveId: String!
+  startTime: Long!
   timeLeft: Int!
   timeScope: String!
   timeUnit: String!
+  type: BudgetType!
 }
 
 type CCMMetaData {
@@ -436,6 +452,7 @@ type Query {
   "Get Anomalies for perspective"
   anomaliesForPerspective(filters: [QLCEViewFilterWrapperInput], groupBy: [QLCEViewGroupByInput]): AnomalyDataList
   billingData(request: GridRequestInput): [BillingData]
+  billingJobLastProcessedTime: Long
   billingdata(clusterid: String, endTime: OffsetTime, startTime: OffsetTime): [BillingDataDemo]
   "Budget cost data"
   budgetCostData(budgetId: String = ""): BudgetData
@@ -673,10 +690,29 @@ enum AggregationOperation {
   SUM
 }
 
+enum AlertThresholdBase {
+  ACTUAL_COST
+  FORECASTED_COST
+}
+
 enum AnomalyFeedback {
   FALSE_ANOMALY
   NOT_RESPONDED
   TRUE_ANOMALY
+}
+
+enum BudgetPeriod {
+  DAILY
+  MONTHLY
+  QUARTERLY
+  WEEKLY
+  YEARLY
+}
+
+enum BudgetType {
+  PREVIOUS_MONTH_SPEND
+  PREVIOUS_PERIOD_SPEND
+  SPECIFIED_AMOUNT
 }
 
 enum FilterOperator {
@@ -734,7 +770,9 @@ enum QLCEViewTimeGroupType {
   DAY
   HOUR
   MONTH
+  QUARTER
   WEEK
+  YEAR
 }
 
 enum ResourceType {

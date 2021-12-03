@@ -91,7 +91,7 @@ const BudgetsList: (props: BudgetsListProps) => JSX.Element | null = ({
   }
 
   const CostCell: Renderer<CellProps<BudgetSummary>> = cell => {
-    return cell.value ? (
+    return cell.value || cell.value === 0 ? (
       <Text font={{ variation: FontVariation.H5 }} color={Color.GREY_800}>
         {formatCost(cell.value)}
       </Text>
@@ -223,7 +223,7 @@ const Budgets: () => JSX.Element = () => {
     openModal({
       isEdit: true,
       perspective: budget.perspectiveId,
-      selectedBudget: budget
+      selectedBudget: budget as any
     })
   }
 

@@ -552,7 +552,7 @@ perspectives:
     setBudgetAmount:
       title: Set Budget Amount
       specifiedAmount: Specified amount
-      lastMonthSpend: Last month’s spend
+      lastMonthSpend: Last period's spend
       lastMonthCost: Total cost last period
       projectedCost: Projected cost end of this period
       budgetType: Budget Type

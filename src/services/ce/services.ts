@@ -117,6 +117,15 @@ export const FetchBudgetSummaryDocument = gql`
       forecastCostAlerts
       forecastCost
       perspectiveId
+      growthRate
+      startTime
+      type
+      alertThresholds {
+        basedOn
+        percentage
+        emailAddresses
+        userGroupIds
+      }
     }
   }
 `
@@ -141,6 +150,15 @@ export const FetchBudgetDocument = gql`
       forecastCostAlerts
       forecastCost
       perspectiveId
+      growthRate
+      startTime
+      type
+      alertThresholds {
+        basedOn
+        percentage
+        emailAddresses
+        userGroupIds
+      }
     }
   }
 `
@@ -1087,7 +1105,21 @@ export type FetchBudgetSummaryQuery = {
     forecastCostAlerts: Array<Maybe<number>>
     forecastCost: number
     perspectiveId: string
+    growthRate: Maybe<number>
+    startTime: any
+    type: BudgetType
     uuid: string
+    alertThresholds: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'AlertThreshold'
+          basedOn: Maybe<AlertThresholdBase>
+          percentage: number
+          emailAddresses: Maybe<Array<Maybe<string>>>
+          userGroupIds: Maybe<Array<Maybe<string>>>
+        }>
+      >
+    >
   }>
 }
 
@@ -1110,7 +1142,21 @@ export type FetchBudgetQuery = {
         forecastCostAlerts: Array<Maybe<number>>
         forecastCost: number
         perspectiveId: string
+        growthRate: Maybe<number>
+        startTime: any
+        type: BudgetType
         uuid: string
+        alertThresholds: Maybe<
+          Array<
+            Maybe<{
+              __typename?: 'AlertThreshold'
+              basedOn: Maybe<AlertThresholdBase>
+              percentage: number
+              emailAddresses: Maybe<Array<Maybe<string>>>
+              userGroupIds: Maybe<Array<Maybe<string>>>
+            }>
+          >
+        >
       }>
     >
   >
@@ -1896,6 +1942,17 @@ export type Scalars = {
 /** This union of all types of recommendations */
 export type RecommendationDetails = NodeRecommendationDto | WorkloadRecommendationDto
 
+export type AlertThreshold = {
+  __typename?: 'AlertThreshold'
+  alertsSent: Scalars['Int']
+  basedOn: Maybe<AlertThresholdBase>
+  crossedAt: Scalars['Long']
+  emailAddresses: Maybe<Array<Maybe<Scalars['String']>>>
+  percentage: Scalars['Float']
+  slackWebhooks: Maybe<Array<Maybe<Scalars['String']>>>
+  userGroupIds: Maybe<Array<Maybe<Scalars['String']>>>
+}
+
 export type AnomalyData = {
   __typename?: 'AnomalyData'
   actualAmount: Maybe<Scalars['Float']>
@@ -1996,6 +2053,7 @@ export type BudgetCostData = {
   budgetVariance: Scalars['Float']
   budgetVariancePercentage: Scalars['Float']
   budgeted: Scalars['Float']
+  endTime: Scalars['Long']
   time: Scalars['Long']
 }
 
@@ -2009,15 +2067,20 @@ export type BudgetSummary = {
   __typename?: 'BudgetSummary'
   actualCost: Scalars['Float']
   actualCostAlerts: Array<Maybe<Scalars['Float']>>
+  alertThresholds: Maybe<Array<Maybe<AlertThreshold>>>
   budgetAmount: Scalars['Float']
   forecastCost: Scalars['Float']
   forecastCostAlerts: Array<Maybe<Scalars['Float']>>
+  growthRate: Maybe<Scalars['Float']>
   id: Scalars['String']
   name: Scalars['String']
+  period: BudgetPeriod
   perspectiveId: Scalars['String']
+  startTime: Scalars['Long']
   timeLeft: Scalars['Int']
   timeScope: Scalars['String']
   timeUnit: Scalars['String']
+  type: BudgetType
 }
 
 export type CcmMetaData = {
@@ -2351,6 +2414,7 @@ export type Query = {
   /** Get Anomalies for perspective */
   anomaliesForPerspective: Maybe<AnomalyDataList>
   billingData: Maybe<Array<Maybe<BillingData>>>
+  billingJobLastProcessedTime: Maybe<Scalars['Long']>
   billingdata: Maybe<Array<Maybe<BillingDataDemo>>>
   /** Budget cost data */
   budgetCostData: Maybe<BudgetData>
@@ -2688,10 +2752,29 @@ export enum AggregationOperation {
   Sum = 'SUM'
 }
 
+export enum AlertThresholdBase {
+  ActualCost = 'ACTUAL_COST',
+  ForecastedCost = 'FORECASTED_COST'
+}
+
 export enum AnomalyFeedback {
   FalseAnomaly = 'FALSE_ANOMALY',
   NotResponded = 'NOT_RESPONDED',
   TrueAnomaly = 'TRUE_ANOMALY'
+}
+
+export enum BudgetPeriod {
+  Daily = 'DAILY',
+  Monthly = 'MONTHLY',
+  Quarterly = 'QUARTERLY',
+  Weekly = 'WEEKLY',
+  Yearly = 'YEARLY'
+}
+
+export enum BudgetType {
+  PreviousMonthSpend = 'PREVIOUS_MONTH_SPEND',
+  PreviousPeriodSpend = 'PREVIOUS_PERIOD_SPEND',
+  SpecifiedAmount = 'SPECIFIED_AMOUNT'
 }
 
 export enum FilterOperator {
@@ -2749,7 +2832,9 @@ export enum QlceViewTimeGroupType {
   Day = 'DAY',
   Hour = 'HOUR',
   Month = 'MONTH',
-  Week = 'WEEK'
+  Quarter = 'QUARTER',
+  Week = 'WEEK',
+  Year = 'YEAR'
 }
 
 export enum ResourceType {

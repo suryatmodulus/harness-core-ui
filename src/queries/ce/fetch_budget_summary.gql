@@ -12,5 +12,14 @@ query FetchBudgetSummary($id: String!) {
     forecastCostAlerts
     forecastCost
     perspectiveId
+    growthRate
+    startTime
+    type
+    alertThresholds {
+      basedOn
+      percentage
+      emailAddresses
+      userGroupIds
+    }
   }
 }

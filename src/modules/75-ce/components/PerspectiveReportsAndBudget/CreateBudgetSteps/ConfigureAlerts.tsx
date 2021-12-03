@@ -81,7 +81,7 @@ const ConfigureAlerts: React.FC<StepProps<BudgetStepData> & Props> = props => {
     const payload = {
       name: budgetName,
       alertThresholds: alertThresholds.filter(emptyThresholds),
-      type,
+      type: type === 'PREVIOUS_MONTH_SPEND' ? 'PREVIOUS_PERIOD_SPEND' : type,
       period,
       startTime,
       growthRate: growthRate,
@@ -99,7 +99,7 @@ const ConfigureAlerts: React.FC<StepProps<BudgetStepData> & Props> = props => {
     } catch (e) {
       setError(true)
       setLoading(false)
-      modalErrorHandler?.showDanger(e.message)
+      modalErrorHandler?.showDanger(e.data.message)
     }
   }
 

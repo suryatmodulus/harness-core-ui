@@ -18,7 +18,7 @@ exports[`test cases for Perspective Create Budgets should be able to open create
           class="StepWizard--header"
         >
           <span
-            class="bp3-icon bp3-icon-vertical-bar-chart-asc StyledProps--main"
+            class="bp3-icon bp3-icon-vertical-bar-chart-asc StyledProps--main StyledProps--color StyledProps--color-white"
             icon="vertical-bar-chart-asc"
           >
             <svg
@@ -279,7 +279,7 @@ exports[`test cases for Perspective Create Budgets should be able to open create
                                   autocomplete="off"
                                   class="bp3-input"
                                   name="alertThresholds.0.percentage"
-                                  type="text"
+                                  type="number"
                                   value=""
                                 />
                               </div>

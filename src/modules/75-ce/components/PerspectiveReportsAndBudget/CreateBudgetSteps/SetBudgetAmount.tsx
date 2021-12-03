@@ -53,9 +53,15 @@ const GrowthRateChart: (props: GrowthRateChartProps) => JSX.Element = ({ growthR
             {
               color: 'var(--primary-8)',
               data: [
-                ['Blah', +amount],
-                ['Blah', +amount * (1 + growthRateVal / 100)],
-                ['Blah', +amount * (1 + growthRateVal / 100) * (1 + growthRateVal / 100)]
+                [Number(todayInUTC().startOf('month').format('x')), +amount],
+                [
+                  Number(todayInUTC().startOf('month').add(1, 'month').format('x')),
+                  +amount * (1 + growthRateVal / 100)
+                ],
+                [
+                  Number(todayInUTC().startOf('month').add(2, 'months').format('x')),
+                  +amount * (1 + growthRateVal / 100) * (1 + growthRateVal / 100)
+                ]
               ],
               name: '',
               type: 'line',

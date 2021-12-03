@@ -15,6 +15,7 @@ query FetchBudgetSummary($id: String!) {
     growthRate
     startTime
     type
+    period
     alertThresholds {
       basedOn
       percentage

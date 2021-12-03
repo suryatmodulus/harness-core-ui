@@ -11,7 +11,8 @@ import {
   PageHeader,
   Button,
   Layout,
-  ButtonVariation
+  ButtonVariation,
+  Container
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
@@ -22,6 +23,7 @@ import BudgetDetailsSummary from '@ce/components/BudgetDetailsSummary/BudgetDeta
 import { useFetchBudgetsGridDataQuery, useFetchBudgetSummaryQuery } from 'services/ce/services'
 import BudgetDetailsGrid from '@ce/components/BudgetDetailsGrid/BudgetDetailsGrid'
 import BudgetDetailsChart from '@ce/components/BudgetDetailsChart/BudgetDetailsChart'
+import EmptyView from '@ce/images/empty-state.svg'
 import useBudgetModal from '@ce/components/PerspectiveReportsAndBudget/PerspectiveCreateBudget'
 import css from './BudgetDetails.module.scss'
 
@@ -71,6 +73,60 @@ const BudgetDetails: () => JSX.Element | null = () => {
       perspective: summaryData?.perspectiveId,
       selectedBudget: summaryData as any
     })
+  }
+
+  const renderBudgetsGridChart = () => {
+    if (gridFetching) {
+      return <Icon name="spinner" size={26} color={Color.BLUE_500} />
+    }
+
+    if (!gridData?.budgetCostData?.costData?.length) {
+      return (
+        <>
+          <Text
+            margin={{
+              bottom: 'medium'
+            }}
+            color={Color.GREY_500}
+            font={{ variation: FontVariation.H6 }}
+          >
+            {getString('ce.budgets.detailsPage.budgetHistoryTxt')}
+          </Text>
+          <Container className={css.empty}>
+            <img src={EmptyView} />
+            <Text
+              margin={{
+                top: 'large',
+                bottom: 'xsmall'
+              }}
+              font="small"
+              style={{
+                fontWeight: 600
+              }}
+              color={Color.GREY_500}
+            >
+              {getString('ce.pageErrorMsg.noDataMsg')}
+            </Text>
+          </Container>
+        </>
+      )
+    }
+
+    return (
+      <>
+        <Text
+          margin={{
+            bottom: 'medium'
+          }}
+          color={Color.GREY_500}
+          font={{ variation: FontVariation.H6 }}
+        >
+          {getString('ce.budgets.detailsPage.budgetHistoryTxt')}
+        </Text>
+        <BudgetDetailsChart chartData={gridData?.budgetCostData as any} />
+        <BudgetDetailsGrid gridData={gridData?.budgetCostData as any} />
+      </>
+    )
   }
 
   return (
@@ -124,23 +180,7 @@ const BudgetDetails: () => JSX.Element | null = () => {
       <PageBody loading={fetching}>
         <BudgetDetailsSummary summaryData={summaryData as any} />
         <Card className={cx(css.chartGridContainer, { [css.loadingContainer]: gridFetching })} elevation={1}>
-          {gridFetching ? (
-            <Icon name="spinner" size={26} color={Color.BLUE_500} />
-          ) : (
-            <>
-              <Text
-                margin={{
-                  bottom: 'medium'
-                }}
-                color={Color.GREY_500}
-                font={{ variation: FontVariation.H6 }}
-              >
-                Budget History
-              </Text>
-              <BudgetDetailsChart chartData={gridData?.budgetCostData as any} />
-              <BudgetDetailsGrid gridData={gridData?.budgetCostData as any} />
-            </>
-          )}
+          {renderBudgetsGridChart()}
         </Card>
       </PageBody>
     </>

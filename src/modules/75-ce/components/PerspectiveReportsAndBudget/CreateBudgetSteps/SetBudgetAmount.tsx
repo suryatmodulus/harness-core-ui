@@ -122,7 +122,7 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({
   const { getString } = useStrings()
 
   useEffect(() => {
-    if (formikProps.values.type === 'PREVIOUS_MONTH_SPEND') {
+    if (formikProps.values.type === 'PREVIOUS_PERIOD_SPEND') {
       formikProps.setFieldValue('budgetAmount', lastMonthCost || 0)
     }
   }, [lastMonthCost])
@@ -140,7 +140,7 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({
   const BUDGET_TYPE = useMemo(() => {
     return [
       { label: getString('ce.perspectives.budgets.setBudgetAmount.specifiedAmount'), value: 'SPECIFIED_AMOUNT' },
-      { label: getString('ce.perspectives.budgets.setBudgetAmount.lastMonthSpend'), value: 'PREVIOUS_MONTH_SPEND' }
+      { label: getString('ce.perspectives.budgets.setBudgetAmount.lastMonthSpend'), value: 'PREVIOUS_PERIOD_SPEND' }
     ]
   }, [])
 
@@ -184,23 +184,24 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({
         name={'type'}
         label={getString('ce.perspectives.budgets.setBudgetAmount.budgetType')}
         onChange={option => {
-          if (option.value === 'PREVIOUS_MONTH_SPEND') {
+          if (option.value === 'PREVIOUS_PERIOD_SPEND') {
             formikProps.setFieldValue('budgetAmount', lastMonthCost || 0)
           }
         }}
       />
       <FormInput.Text
-        disabled={formikProps.values.type === 'PREVIOUS_MONTH_SPEND'}
+        disabled={formikProps.values.type === 'PREVIOUS_PERIOD_SPEND'}
         name={'budgetAmount'}
         inputGroup={{ type: 'number' }}
         label={
-          formikProps.values.type === 'PREVIOUS_MONTH_SPEND'
+          formikProps.values.type === 'PREVIOUS_PERIOD_SPEND'
             ? getString('ce.perspectives.budgets.setBudgetAmount.lastMonthSpend')
             : getString('ce.perspectives.budgets.setBudgetAmount.specifyAmount')
         }
       />
       <FormInput.CheckBox
         name="growthRateCheck"
+        disabled={formikProps.values.type === 'PREVIOUS_PERIOD_SPEND' ? true : false}
         label={getString('ce.perspectives.budgets.setBudgetAmount.growthRateCheck')}
         tooltipProps={{
           dataTooltipId: 'growthRateCheckbox'
@@ -255,9 +256,15 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
     nextStep,
     prevStepData,
     previousStep,
-    budget: { budgetAmount = 0, type, period, startTime, growthRate } = {},
+    budget: { budgetAmount = 0, period, startTime, growthRate } = {},
     isEditMode
   } = props
+
+  let type = props.budget?.type
+
+  if (type === 'PREVIOUS_MONTH_SPEND') {
+    type = 'PREVIOUS_PERIOD_SPEND'
+  }
 
   const [lastPeriodCostVar, setLastCostPeriodCostVar] = useState({
     startTime: startTime || get(prevStepData, 'startTime') || Number(todayInUTC().startOf('month').format('x')),

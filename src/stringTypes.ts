@@ -2914,6 +2914,7 @@ export interface StringsMap {
   'ce.allRegions': string
   'ce.budgets.detailsPage.alertsAt': string
   'ce.budgets.detailsPage.budgetAmount': string
+  'ce.budgets.detailsPage.budgetHistoryTxt': string
   'ce.budgets.detailsPage.budgetStatus': string
   'ce.budgets.detailsPage.chartNames.actualCost': string
   'ce.budgets.detailsPage.chartNames.budgetedCost': string

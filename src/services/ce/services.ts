@@ -120,6 +120,7 @@ export const FetchBudgetSummaryDocument = gql`
       growthRate
       startTime
       type
+      period
       alertThresholds {
         basedOn
         percentage
@@ -153,6 +154,7 @@ export const FetchBudgetDocument = gql`
       growthRate
       startTime
       type
+      period
       alertThresholds {
         basedOn
         percentage
@@ -1109,6 +1111,7 @@ export type FetchBudgetSummaryQuery = {
     growthRate: Maybe<number>
     startTime: any
     type: BudgetType
+    period: BudgetPeriod
     uuid: string
     alertThresholds: Maybe<
       Array<
@@ -1146,6 +1149,7 @@ export type FetchBudgetQuery = {
         growthRate: Maybe<number>
         startTime: any
         type: BudgetType
+        period: BudgetPeriod
         uuid: string
         alertThresholds: Maybe<
           Array<

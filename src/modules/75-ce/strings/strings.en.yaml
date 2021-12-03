@@ -653,6 +653,7 @@ budgets:
       monthToDate: MONTH TO DATE & FORECASTED COST V/S BUDGET
       alerts: ALERTS
   detailsPage:
+    budgetHistoryTxt: Budget History
     chartNames:
       actualCost: Actual cost
       budgetedCost: '{{ $.ce.common.budget}}'

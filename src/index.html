@@ -15,11 +15,28 @@
     </script>
     <!-- segmentToken -->
     <!-- bugsnagToken -->
-    <!-- bug snag script being loaded conditionally -->
-    <% if (!__DEV__ && !__ON_PREM__) { %>
-    <script src="//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js"></script>
-    <% } %>
+    <!-- deploymentType -->
 
+    <% if (__DEV__) { %>
+    <script>
+      window.deploymentType = 'SAAS'
+    </script>
+    <% } %>
+    <!-- adding bugsnag for SAAS build -->
+    <% if (!__DEV__) { %>
+    <script>
+      if (window.deploymentType === 'SAAS') {
+        var e = document.createElement('script')
+        e.setAttribute('type', 'text/javascript')
+        e.setAttribute('src', '//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js')
+        document.getElementsByTagName('head')[0].appendChild(e)
+      }
+
+      if (!window.deploymentType) {
+        window.deploymentType = 'COMMUNITY'
+      }
+    </script>
+    <% } %>
     <script>
       window.HARNESS_ENABLE_NG_AUTH_UI = 'HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER' === 'true'
     </script>

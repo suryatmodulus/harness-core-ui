@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 declare const __DEV__: boolean
 declare const Bugsnag: any
-declare const __ON_PREM__: booelan
 declare const __BUGSNAG_RELEASE_VERSION__: string
 declare module '*.png' {
   const value: string
@@ -53,6 +52,7 @@ declare interface Window {
   getApiBaseUrl: (str: string) => string
   MktoForms2: any
   TOUR_GUIDE_USER_ID: string
+  deploymentType: 'SAAS' | 'ON_PREM' | 'COMMUNITY'
 }
 
 declare interface Document {

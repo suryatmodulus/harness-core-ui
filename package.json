@@ -1,7 +1,7 @@
 {
   "name": "nextgenui",
   "description": "Harness Inc",
-  "version": "0.278.8",
+  "version": "0.278.9",
   "author": "Harness Inc",
   "license": "Harness Inc",
   "homepage": "http://app.harness.io/",
@@ -76,7 +76,8 @@
     "generate-merged-coverage": "node mergedCoverage.js",
     "generate-microfrontend-types": "rm -rf src/microfrontends/dist && webpack --config src/microfrontends/webpack.config.js",
     "publish-types": "yarn generate-microfrontend-types; yarn publish src/microfrontends;",
-    "generate-certificate": "sh scripts/generate-certificate.sh"
+    "generate-certificate": "sh scripts/generate-certificate.sh",
+    "build-docker": "sh scripts/docker-build.sh"
   },
   "dependencies": {
     "@blueprintjs/core": "3.26.1",

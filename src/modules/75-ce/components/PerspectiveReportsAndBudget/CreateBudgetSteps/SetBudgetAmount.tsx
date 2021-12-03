@@ -20,6 +20,7 @@ import Highcharts from 'highcharts/highcharts'
 import { useParams } from 'react-router-dom'
 import { Position } from '@blueprintjs/core'
 import { Budget, useGetLastPeriodCost, useGetForecastCostForPeriod } from 'services/ce'
+// import { BudgetPeriod } from 'services/ce/services'
 import formatCost from '@ce/utils/formatCost'
 import CEChart from '@ce/components/CEChart/CEChart'
 import { todayInUTC } from '@ce/utils/momentUtils'
@@ -30,7 +31,16 @@ import css from '../PerspectiveCreateBudget.module.scss'
 interface GrowthRateChartProps {
   growthRateVal: number
   amount: number
+  period: string
 }
+
+// const HighchartsDateFormat: Record<string, string> = {
+//   [BudgetPeriod.Daily]: '%e. %b',
+//   [BudgetPeriod.Weekly]: '%e. %b',
+//   [BudgetPeriod.Monthly]: "%b '%y",
+//   [BudgetPeriod.Quarterly]: "%b '%y",
+//   [BudgetPeriod.Yearly]: '%Y'
+// }
 
 const GrowthRateChart: (props: GrowthRateChartProps) => JSX.Element = ({ growthRateVal, amount }) => {
   const { getString } = useStrings()
@@ -52,15 +62,9 @@ const GrowthRateChart: (props: GrowthRateChartProps) => JSX.Element = ({ growthR
             {
               color: 'var(--primary-8)',
               data: [
-                [Number(todayInUTC().startOf('month').format('x')), +amount],
-                [
-                  Number(todayInUTC().startOf('month').add(1, 'month').format('x')),
-                  +amount * (1 + growthRateVal / 100)
-                ],
-                [
-                  Number(todayInUTC().startOf('month').add(2, 'months').format('x')),
-                  +amount * (1 + growthRateVal / 100) * (1 + growthRateVal / 100)
-                ]
+                ['Blah', +amount],
+                ['Blah', +amount * (1 + growthRateVal / 100)],
+                ['Blah', +amount * (1 + growthRateVal / 100) * (1 + growthRateVal / 100)]
               ],
               name: '',
               type: 'line',
@@ -92,6 +96,7 @@ const GrowthRateChart: (props: GrowthRateChartProps) => JSX.Element = ({ growthR
             ordinal: true,
             labels: {
               formatter: function () {
+                return `${this.value}`
                 return Highcharts.dateFormat('%b %Y', Number(this.value))
               }
             }
@@ -385,6 +390,7 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
                     {renderCosts()}
                     {formikProps.values.growthRateCheck ? (
                       <GrowthRateChart
+                        period={formikProps.values.period}
                         growthRateVal={formikProps.values.growthRate}
                         amount={formikProps.values.budgetAmount}
                       />

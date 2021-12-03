@@ -175,6 +175,7 @@ export const FetchBudgetsGridDataDocument = gql`
         budgeted
         budgetVariance
         budgetVariancePercentage
+        endTime
       }
       forecastCost
     }
@@ -1180,6 +1181,7 @@ export type FetchBudgetsGridDataQuery = {
           budgeted: number
           budgetVariance: number
           budgetVariancePercentage: number
+          endTime: any
         }>
       >
     >

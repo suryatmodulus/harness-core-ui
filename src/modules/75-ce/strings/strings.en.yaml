@@ -10,6 +10,8 @@ pageErrorMsg:
   recommendationNoData: 'There are no recommendations yet. Recommendations typically take 24 hours to show up. Please check back later.'
   perspectiveNoData: 'There is not data available for the filters applied.'
   noDataMsg: No data found
+  noBudgetMsg: No Budgets created yet
+  noBudgetInfo: You budget amounts, thresholds and alerts on perspectives.
   noRecommendations: 'Currently there are no recommendations for your clusters.'
   recommendationDesc: 'Recommendations are shown only for cluster data (workloads and nodes). Add now to get started.'
 homepage:

@@ -3256,6 +3256,8 @@ export interface StringsMap {
   'ce.overview.title': string
   'ce.overview.totalCost': string
   'ce.overview.workload': string
+  'ce.pageErrorMsg.noBudgetInfo': string
+  'ce.pageErrorMsg.noBudgetMsg': string
   'ce.pageErrorMsg.noDataMsg': string
   'ce.pageErrorMsg.noRecommendations': string
   'ce.pageErrorMsg.perspectiveNoData': string

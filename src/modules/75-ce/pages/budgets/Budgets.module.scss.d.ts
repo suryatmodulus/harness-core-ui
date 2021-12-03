@@ -9,5 +9,6 @@ declare const styles: {
   readonly actualCostMarker: string
   readonly actualCost: string
   readonly left: string
+  readonly empty: string
 }
 export default styles

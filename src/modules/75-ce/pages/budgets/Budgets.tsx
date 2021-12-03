@@ -23,6 +23,7 @@ import routes from '@common/RouteDefinitions'
 import formatCost from '@ce/utils/formatCost'
 import BudgetStatusBar from '@ce/components/BudgetStatusBar/BudgetStatusBar'
 import useBudgetModal from '@ce/components/PerspectiveReportsAndBudget/PerspectiveCreateBudget'
+import EmptyView from '@ce/images/empty-state.svg'
 import css from './Budgets.module.scss'
 
 interface BudgetMenuProps {
@@ -246,46 +247,101 @@ const Budgets: () => JSX.Element = () => {
     return budget.name?.toLocaleLowerCase().indexOf(searchParam.toLowerCase()) < 0 ? false : true
   })
 
+  const HeaderComponent = <Page.Header title={getString('ce.budgets.listPage.title')} />
+
+  const ToolBarComponent = (
+    <Layout.Horizontal
+      padding={{
+        left: 'large',
+        right: 'large',
+        top: 'medium',
+        bottom: 'medium'
+      }}
+      background="white"
+    >
+      <Button
+        intent="primary"
+        text={getString('ce.budgets.listPage.newBudget')}
+        iconProps={{
+          size: 10
+        }}
+        onClick={() =>
+          openModal({
+            isEdit: false,
+            selectedBudget: {
+              lastMonthCost: 0,
+              forecastCost: 0
+            }
+          })
+        }
+        icon="plus"
+      />
+      <FlexExpander />
+      <ExpandingSearchInput
+        className={css.search}
+        onChange={text => {
+          setSearchParam(text.trim())
+        }}
+        placeholder={getString('ce.budgets.listPage.searchText')}
+      />
+    </Layout.Horizontal>
+  )
+
+  if (!fetching && !filteredBudgetData.length) {
+    return (
+      <>
+        {HeaderComponent}
+        <Page.Body>
+          {ToolBarComponent}
+
+          <Container className={css.empty}>
+            <img src={EmptyView} />
+            <Text
+              margin={{
+                top: 'large',
+                bottom: 'xsmall'
+              }}
+              font="small"
+              style={{
+                fontWeight: 600
+              }}
+              color={Color.GREY_500}
+            >
+              {getString('ce.pageErrorMsg.noBudgetMsg')}
+            </Text>
+            <Text font="small">{getString('ce.pageErrorMsg.noBudgetInfo')}</Text>
+            <Button
+              margin={{
+                top: 'large'
+              }}
+              intent="primary"
+              text={getString('ce.budgets.listPage.newBudget')}
+              iconProps={{
+                size: 10
+              }}
+              onClick={() =>
+                openModal({
+                  isEdit: false,
+                  selectedBudget: {
+                    lastMonthCost: 0,
+                    forecastCost: 0
+                  }
+                })
+              }
+              icon="plus"
+            />
+          </Container>
+        </Page.Body>
+      </>
+    )
+  }
+
   return (
     <>
-      <Page.Header title={getString('ce.budgets.listPage.title')} />
+      {HeaderComponent}
       <Page.Body>
         {loading || fetching ? <PageSpinner /> : null}
-        <Layout.Horizontal
-          padding={{
-            left: 'large',
-            right: 'large',
-            top: 'medium',
-            bottom: 'medium'
-          }}
-          background="white"
-        >
-          <Button
-            intent="primary"
-            text={getString('ce.budgets.listPage.newBudget')}
-            iconProps={{
-              size: 10
-            }}
-            onClick={() =>
-              openModal({
-                isEdit: false,
-                selectedBudget: {
-                  lastMonthCost: 0,
-                  forecastCost: 0
-                }
-              })
-            }
-            icon="plus"
-          />
-          <FlexExpander />
-          <ExpandingSearchInput
-            className={css.search}
-            onChange={text => {
-              setSearchParam(text.trim())
-            }}
-            placeholder={getString('ce.budgets.listPage.searchText')}
-          />
-        </Layout.Horizontal>
+        {ToolBarComponent}
 
         <Layout.Horizontal padding="large">
           <Text font={{ variation: FontVariation.H5 }}>

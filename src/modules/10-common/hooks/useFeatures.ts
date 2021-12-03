@@ -14,7 +14,7 @@ import type {
   RestrictionMetadataMap
 } from 'framework/featureStore/featureStoreUtil'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
-import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { useLicenseStore, isCDCommunity } from 'framework/LicenseStore/LicenseStoreContext'
 import { useFeatureFlag } from './useFeatureFlag'
 
 interface FeatureProps {
@@ -27,13 +27,19 @@ interface FeaturesProps {
   options?: FeatureRequestOptions
 }
 
+function useGetFeatureEnforced(): boolean {
+  const featureEnforced = useFeatureFlag(FeatureFlag.FEATURE_ENFORCEMENT_ENABLED)
+  const { licenseInformation } = useLicenseStore()
+  return featureEnforced || isCDCommunity(licenseInformation)
+}
+
 export function useFeature(props: FeatureProps): CheckFeatureReturn {
   const { requestFeatures, checkFeature, requestLimitFeature, checkLimitFeature, getRestrictionType } =
     useFeaturesContext()
   const { licenseInformation, CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE } =
     useLicenseStore()
 
-  const featureEnforced = useFeatureFlag(FeatureFlag.FEATURE_ENFORCEMENT_ENABLED)
+  const featureEnforced = useGetFeatureEnforced()
 
   const { featureRequest, options } = props
   const restrictionType = getRestrictionType({
@@ -71,7 +77,7 @@ export function useFeatures(props: FeaturesProps): CheckFeaturesReturn {
   const { licenseInformation, CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE } =
     useLicenseStore()
 
-  const featureEnforced = useFeatureFlag(FeatureFlag.FEATURE_ENFORCEMENT_ENABLED)
+  const featureEnforced = useGetFeatureEnforced()
 
   const features = new Map<FeatureIdentifier, CheckFeatureReturn>()
   const { featuresRequest, options } = props

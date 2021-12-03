@@ -20,7 +20,6 @@ import Highcharts from 'highcharts/highcharts'
 import { useParams } from 'react-router-dom'
 import { Position } from '@blueprintjs/core'
 import { Budget, useGetLastPeriodCost, useGetForecastCostForPeriod } from 'services/ce'
-// import { BudgetPeriod } from 'services/ce/services'
 import formatCost from '@ce/utils/formatCost'
 import CEChart from '@ce/components/CEChart/CEChart'
 import { todayInUTC } from '@ce/utils/momentUtils'
@@ -33,14 +32,6 @@ interface GrowthRateChartProps {
   amount: number
   period: string
 }
-
-// const HighchartsDateFormat: Record<string, string> = {
-//   [BudgetPeriod.Daily]: '%e. %b',
-//   [BudgetPeriod.Weekly]: '%e. %b',
-//   [BudgetPeriod.Monthly]: "%b '%y",
-//   [BudgetPeriod.Quarterly]: "%b '%y",
-//   [BudgetPeriod.Yearly]: '%Y'
-// }
 
 const GrowthRateChart: (props: GrowthRateChartProps) => JSX.Element = ({ growthRateVal, amount }) => {
   const { getString } = useStrings()

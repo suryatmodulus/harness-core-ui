@@ -195,7 +195,7 @@ const BudgetsList: (props: BudgetsListProps) => JSX.Element | null = ({
 const Budgets: () => JSX.Element = () => {
   const history = useHistory()
   const { getString } = useStrings()
-  const [{ data, fetching }, refetchBudget] = useFetchBudgetQuery()
+  const [{ data, fetching, error }, refetchBudget] = useFetchBudgetQuery()
   const [searchParam, setSearchParam] = useState<string>('')
   const { accountId } = useParams<{ accountId: string }>()
   const { openModal, hideModal } = useBudgetModal({
@@ -249,6 +249,16 @@ const Budgets: () => JSX.Element = () => {
 
   const HeaderComponent = <Page.Header title={getString('ce.budgets.listPage.title')} />
 
+  const openNewBudgetModal = () => {
+    openModal({
+      isEdit: false,
+      selectedBudget: {
+        lastMonthCost: 0,
+        forecastCost: 0
+      }
+    })
+  }
+
   const ToolBarComponent = (
     <Layout.Horizontal
       padding={{
@@ -265,15 +275,7 @@ const Budgets: () => JSX.Element = () => {
         iconProps={{
           size: 10
         }}
-        onClick={() =>
-          openModal({
-            isEdit: false,
-            selectedBudget: {
-              lastMonthCost: 0,
-              forecastCost: 0
-            }
-          })
-        }
+        onClick={openNewBudgetModal}
         icon="plus"
       />
       <FlexExpander />
@@ -287,7 +289,7 @@ const Budgets: () => JSX.Element = () => {
     </Layout.Horizontal>
   )
 
-  if (!fetching && !filteredBudgetData.length) {
+  if (!fetching && !filteredBudgetData.length && !error) {
     return (
       <>
         {HeaderComponent}
@@ -319,15 +321,7 @@ const Budgets: () => JSX.Element = () => {
               iconProps={{
                 size: 10
               }}
-              onClick={() =>
-                openModal({
-                  isEdit: false,
-                  selectedBudget: {
-                    lastMonthCost: 0,
-                    forecastCost: 0
-                  }
-                })
-              }
+              onClick={openNewBudgetModal}
               icon="plus"
             />
           </Container>

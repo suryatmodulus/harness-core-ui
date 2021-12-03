@@ -109,6 +109,9 @@ const PerspectiveListPage: React.FC = () => {
         queryParams: {
           perspectiveId: perspectiveId,
           accountIdentifier: accountId
+        },
+        headers: {
+          'content-type': 'application/json'
         }
       })
       executeQuery({

@@ -15,6 +15,7 @@ import {
   Color,
   Icon
 } from '@wings-software/uicore'
+import moment from 'moment'
 import type { FormikProps } from 'formik'
 import Highcharts from 'highcharts/highcharts'
 import { useParams } from 'react-router-dom'
@@ -24,6 +25,7 @@ import formatCost from '@ce/utils/formatCost'
 import CEChart from '@ce/components/CEChart/CEChart'
 import { todayInUTC } from '@ce/utils/momentUtils'
 import { useStrings } from 'framework/strings'
+import { BudgetPeriod } from 'services/ce/services'
 import type { BudgetStepData } from '../types'
 import css from '../PerspectiveCreateBudget.module.scss'
 
@@ -31,10 +33,26 @@ interface GrowthRateChartProps {
   growthRateVal: number
   amount: number
   period: string
+  startTime: number
 }
 
-const GrowthRateChart: (props: GrowthRateChartProps) => JSX.Element = ({ growthRateVal, amount }) => {
+const IncrementStep: Record<string, any> = {
+  [BudgetPeriod.Daily]: 'd',
+  [BudgetPeriod.Weekly]: 'w',
+  [BudgetPeriod.Monthly]: 'M',
+  [BudgetPeriod.Quarterly]: 'Q',
+  [BudgetPeriod.Yearly]: 'y'
+}
+
+const GrowthRateChart: (props: GrowthRateChartProps) => JSX.Element = ({
+  growthRateVal,
+  amount,
+  period,
+  startTime
+}) => {
   const { getString } = useStrings()
+
+  const incrementFactor = IncrementStep[period]
 
   return (
     <Container
@@ -53,13 +71,13 @@ const GrowthRateChart: (props: GrowthRateChartProps) => JSX.Element = ({ growthR
             {
               color: 'var(--primary-8)',
               data: [
-                [Number(todayInUTC().startOf('month').format('x')), +amount],
+                [Number(moment.utc(startTime).startOf('d').format('x')), +amount],
                 [
-                  Number(todayInUTC().startOf('month').add(1, 'month').format('x')),
+                  Number(moment.utc(startTime).startOf('d').add(1, incrementFactor).format('x')),
                   +amount * (1 + growthRateVal / 100)
                 ],
                 [
-                  Number(todayInUTC().startOf('month').add(2, 'months').format('x')),
+                  Number(moment.utc(startTime).startOf('d').add(2, incrementFactor).format('x')),
                   +amount * (1 + growthRateVal / 100) * (1 + growthRateVal / 100)
                 ]
               ],
@@ -93,8 +111,7 @@ const GrowthRateChart: (props: GrowthRateChartProps) => JSX.Element = ({ growthR
             ordinal: true,
             labels: {
               formatter: function () {
-                return `${this.value}`
-                return Highcharts.dateFormat('%b %Y', Number(this.value))
+                return Highcharts.dateFormat('%e %b %Y', Number(this.value))
               }
             }
           },
@@ -397,6 +414,7 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
                         period={formikProps.values.period}
                         growthRateVal={formikProps.values.growthRate}
                         amount={formikProps.values.budgetAmount}
+                        startTime={formikProps.values.startTime}
                       />
                     ) : null}
                   </Container>

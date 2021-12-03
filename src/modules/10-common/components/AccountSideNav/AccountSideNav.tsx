@@ -33,8 +33,8 @@ export default function AccountSideNav(): React.ReactElement {
       {(createdFromNG || NG_LICENSES_ENABLED) && (
         <SidebarLink exact label={getString('common.subscriptions.title')} to={routes.toSubscriptions({ accountId })} />
       )}
-      <SidebarLink label={getString('orgsText')} to={routes.toOrganizations({ accountId })} />
       <SidebarLink label={getString('common.auditTrail')} to={routes.toAccountAuditTrail({ accountId })} />
+      <SidebarLink label={getString('orgsText')} to={routes.toOrganizations({ accountId })} />
       {!isCDCommunity(licenseInformation) && (
         <LaunchButton
           launchButtonText={getString('common.cgLaunchText')}

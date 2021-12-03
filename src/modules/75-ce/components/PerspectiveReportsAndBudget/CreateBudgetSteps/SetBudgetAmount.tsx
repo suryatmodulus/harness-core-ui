@@ -128,7 +128,7 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({
   const { getString } = useStrings()
 
   useEffect(() => {
-    if (formikProps.values.type === 'PREVIOUS_PERIOD_SPEND') {
+    if (formikProps.values.type === 'PREVIOUS_PERIOD_SPEND' && !isEditMode) {
       formikProps.setFieldValue('budgetAmount', lastMonthCost || 0)
     }
   }, [lastMonthCost])

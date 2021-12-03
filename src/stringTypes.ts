@@ -3278,6 +3278,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.configureAlerts.subTitle': string
   'ce.perspectives.budgets.configureAlerts.title': string
   'ce.perspectives.budgets.createNew': string
+  'ce.perspectives.budgets.defineTarget.budgetName': string
   'ce.perspectives.budgets.defineTarget.createNewPerspective': string
   'ce.perspectives.budgets.defineTarget.selectPerspective': string
   'ce.perspectives.budgets.defineTarget.text': string

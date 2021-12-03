@@ -550,6 +550,7 @@ perspectives:
       text: Budgets are created on Perspectives. If you do not have a Perpective of the resources you would
         like to budget, please create a new Perspective and then proceed to setting a budget.
       selectPerspective: Select perspective
+      budgetName: Budget Name
       createNewPerspective: Create a new Perspective
     setBudgetAmount:
       title: Set Budget Amount

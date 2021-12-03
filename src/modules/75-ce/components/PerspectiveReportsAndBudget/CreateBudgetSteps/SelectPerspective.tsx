@@ -139,7 +139,11 @@ const SelectPerspective: (props: StepProps<BudgetStepData> & SelectPerspectivePr
                         label={getString('ce.perspectives.budgets.defineTarget.selectPerspective')}
                       />
                       <Container margin={{ top: 'xlarge' }}>
-                        <FormInput.Text name="budgetName" placeholder={'Budget Name'} label={'Budget Name'} />
+                        <FormInput.Text
+                          name="budgetName"
+                          placeholder={getString('ce.perspectives.budgets.defineTarget.budgetName')}
+                          label={getString('ce.perspectives.budgets.defineTarget.budgetName')}
+                        />
                       </Container>
                     </Container>
                     {!isEditMode && !perspective ? (

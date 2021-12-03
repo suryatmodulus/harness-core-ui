@@ -17,7 +17,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { useFetchBudgetQuery, BudgetSummary } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
-import { useDeleteBudget } from 'services/ce'
+import { useDeleteBudget, Budget } from 'services/ce'
 import { PageSpinner } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import formatCost from '@ce/utils/formatCost'
@@ -224,7 +224,7 @@ const Budgets: () => JSX.Element = () => {
     openModal({
       isEdit: true,
       perspective: budget.perspectiveId,
-      selectedBudget: budget as any
+      selectedBudget: budget as unknown as Budget
     })
   }
 

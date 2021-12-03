@@ -16,7 +16,7 @@ import {
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
-import { useDeleteBudget } from 'services/ce'
+import { Budget, useDeleteBudget } from 'services/ce'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
 import BudgetDetailsSummary from '@ce/components/BudgetDetailsSummary/BudgetDetailsSummary'
@@ -71,7 +71,7 @@ const BudgetDetails: () => JSX.Element | null = () => {
     openModal({
       isEdit: true,
       perspective: summaryData?.perspectiveId,
-      selectedBudget: summaryData as any
+      selectedBudget: summaryData as unknown as Budget
     })
   }
 

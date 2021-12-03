@@ -77,10 +77,19 @@ const ConfigureAlerts: React.FC<StepProps<BudgetStepData> & Props> = props => {
     setError(false)
     setLoading(true)
 
+    const altThresholds = alertThresholds.map(alt => {
+      return {
+        basedOn: alt.basedOn,
+        emailAddresses: alt.emailAddresses,
+        percentage: alt.percentage,
+        userGroupIds: alt.userGroupIds
+      }
+    })
+
     const emptyThresholds = (t: AlertThreshold) => (t.emailAddresses?.length || 0) > 0 && t.percentage
     const payload = {
       name: budgetName,
-      alertThresholds: alertThresholds.filter(emptyThresholds),
+      alertThresholds: altThresholds.filter(emptyThresholds),
       type: type === 'PREVIOUS_MONTH_SPEND' ? 'PREVIOUS_PERIOD_SPEND' : type,
       period,
       startTime,

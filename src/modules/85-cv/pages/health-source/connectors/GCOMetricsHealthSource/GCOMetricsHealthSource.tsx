@@ -45,6 +45,7 @@ import type { GCOMetricInfo, GCOMetricsHealthSourceProps, ValidationChartProps }
 import { OVERALL, FieldNames, DrawerOptions } from './GCOMetricsHealthSource.constants'
 import SelectHealthSourceServices from '../../common/SelectHealthSourceServices/SelectHealthSourceServices'
 import css from './GCOMetricsHealthSource.module.scss'
+import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 
 const GroupByClause = 'groupByFields'
 
@@ -132,6 +133,7 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
   const [updatedData, setUpdatedData] = useState(
     initializeSelectedMetrics(data.selectedDashboards || [], transformedData.metricDefinition)
   )
+
   const [shouldShowChart, setShouldShowChart] = useState<boolean>(false)
   const [selectedMetric, setSelectedMetric] = useState<string>()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
@@ -253,13 +255,17 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                     }}
                   />
                   <FormError errorMessage={formikProps.errors['metricTags']} />
-                  <FormInput.Text
-                    label={getString('cv.monitoringSources.metricNameLabel')}
-                    name={FieldNames.METRIC_NAME}
-                    onChange={(newMetricName: FormEvent<HTMLInputElement>) => {
-                      onChangeMetric(newMetricName)
-                      formikProps.setFieldValue(FieldNames.METRIC_NAME, newMetricName.currentTarget?.value || '')
+                  <NameId
+                    nameLabel={getString('cv.monitoringSources.metricNameLabel')}
+                    identifierProps={{
+                      inputName: FieldNames.METRIC_NAME,
+                      idName: FieldNames.IDENTIFIER
                     }}
+
+                    // onChange={(newMetricName: FormEvent<HTMLInputElement>) => {
+                    //   onChangeMetric(newMetricName)
+                    //   formikProps.setFieldValue(FieldNames.METRIC_NAME, newMetricName.currentTarget?.value || '')
+                    // }}
                   />
                 </Container>
 
@@ -378,10 +384,11 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                 manuallyInputQueries={getManuallyCreatedQueries(updatedData)}
                 gcoDashboards={data.selectedDashboards}
                 showSpinnerOnLoad={!selectedMetric}
-                onSelectMetric={(metricName, query, widget, dashboardName, dashboardPath) => {
+                onSelectMetric={(metricName, query, widget, dashboardName, dashboardPath, identifier) => {
                   let metricInfo: GCOMetricInfo | undefined = updatedData.get(metricName)
                   if (!metricInfo) {
                     metricInfo = {
+                      identifier,
                       metricName,
                       query,
                       metricTags: { [widget]: '' },

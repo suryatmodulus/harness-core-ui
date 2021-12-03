@@ -42,7 +42,12 @@ export function updateSelectedMetricsMap({
 
   // if newly created metric create form object
   if (!updatedMap.has(updatedMetric)) {
-    updatedMap.set(updatedMetric, { metricName: updatedMetric, query: '', isManualQuery: false })
+    updatedMap.set(updatedMetric, {
+      identifier: formikProps.values?.identifier,
+      metricName: updatedMetric,
+      query: '',
+      isManualQuery: false
+    })
   }
 
   // update map with current form data
@@ -251,6 +256,7 @@ export function transformPrometheusHealthSourceToSetupSource(sourceData: any): P
   for (const metricDefinition of (healthSource?.spec as PrometheusHealthSourceSpec)?.metricDefinitions || []) {
     if (metricDefinition?.metricName) {
       setupSource.mappedServicesAndEnvs.set(metricDefinition.metricName, {
+        identifier: metricDefinition.identifier,
         metricName: metricDefinition.metricName,
         prometheusMetric: metricDefinition.prometheusMetric,
         query: metricDefinition.query || '',
@@ -294,6 +300,7 @@ export function transformPrometheusSetupSourceToHealthSource(setupSource: Promet
   for (const entry of setupSource.mappedServicesAndEnvs.entries()) {
     const {
       envFilter,
+      identifier,
       metricName,
       groupName,
       prometheusMetric,
@@ -330,6 +337,7 @@ export function transformPrometheusSetupSourceToHealthSource(setupSource: Promet
 
     ;(dsConfig.spec as any).metricDefinitions.push({
       prometheusMetric,
+      identifier,
       metricName,
       serviceFilter: transformLabelToPrometheusFilter(serviceFilter),
       isManualQuery,

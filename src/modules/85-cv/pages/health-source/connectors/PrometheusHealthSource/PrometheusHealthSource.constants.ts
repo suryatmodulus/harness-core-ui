@@ -1,6 +1,7 @@
 import type { SelectOption, MultiSelectOption } from '@wings-software/uicore'
 
 export const PrometheusMonitoringSourceFieldNames = {
+  METRIC_IDENTIFIER: 'identifier',
   METRIC_NAME: 'metricName',
   PROMETHEUS_METRIC: 'prometheusMetric',
   SERVICE_FILTER: 'serviceFilter',
@@ -30,6 +31,7 @@ export interface PrometheusSetupSource {
 }
 
 export type MapPrometheusQueryToService = {
+  identifier: string
   metricName: string
   prometheusMetric?: string
   query: string

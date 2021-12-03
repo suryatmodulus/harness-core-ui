@@ -5,6 +5,7 @@ import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceD
 export interface GCOMetricInfo {
   dashboardName?: string
   dashboardPath?: string
+  identifier: string
   metricName?: string
   query?: string
   environment?: SelectOption

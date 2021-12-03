@@ -22,7 +22,8 @@ export interface GCODashboardWidgetMetricNavProps {
     query: string,
     widgetName: string,
     dashboard: string,
-    dashboardPath: string
+    dashboardPath: string,
+    identifier: string
   ) => void
   showSpinnerOnLoad?: boolean
 }
@@ -437,7 +438,7 @@ export function GCODashboardWidgetMetricNav(props: GCODashboardWidgetMetricNavPr
             }
             setNavContent([...navContent])
             setSelectedMetricPath([0, 0])
-            onSelectMetric(values.metricName, MANUAL_INPUT_QUERY, '', '', '')
+            onSelectMetric(values.metricName, MANUAL_INPUT_QUERY, '', '', '', values.identifier)
           }}
           closeModal={() => setIsModalOpen(false)}
         />

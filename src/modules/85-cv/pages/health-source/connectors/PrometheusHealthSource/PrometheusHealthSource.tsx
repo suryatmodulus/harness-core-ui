@@ -43,6 +43,7 @@ import { updateMultiSelectOption } from './components/PrometheusQueryBuilder/com
 import { PrometheusQueryViewer } from './components/PrometheusQueryViewer/PrometheusQueryViewer'
 import SelectHealthSourceServices from '../../common/SelectHealthSourceServices/SelectHealthSourceServices'
 import css from './PrometheusHealthSource.module.scss'
+import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 
 export interface PrometheusHealthSourceProps {
   data: any
@@ -185,9 +186,12 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
                       summary={getString('cv.monitoringSources.mapMetricsToServices')}
                       details={
                         <>
-                          <FormInput.Text
-                            label={getString('cv.monitoringSources.metricNameLabel')}
-                            name={PrometheusMonitoringSourceFieldNames.METRIC_NAME}
+                          <NameId
+                            nameLabel={getString('cv.monitoringSources.metricNameLabel')}
+                            identifierProps={{
+                              inputName: PrometheusMonitoringSourceFieldNames.METRIC_NAME,
+                              idName: PrometheusMonitoringSourceFieldNames.METRIC_IDENTIFIER
+                            }}
                           />
                           <PrometheusGroupName
                             groupNames={prometheusGroupNames}

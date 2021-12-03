@@ -5,9 +5,10 @@ import { Button, Container, Formik, FormikForm, FormInput } from '@wings-softwar
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 import css from './ManualInputQueryModal.module.scss'
+import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 
 interface UseManualInputQueryModalProps {
-  onSubmit: (values: { metricName: string }) => void
+  onSubmit: (values: { metricName: string; identifier: string }) => void
   manuallyInputQueries?: string[]
   closeModal: () => void
 }
@@ -15,7 +16,8 @@ interface UseManualInputQueryModalProps {
 export const MANUAL_INPUT_QUERY = 'ManualInputQuery'
 
 export const FieldNames = {
-  METRIC_NAME: 'metricName'
+  METRIC_NAME: 'metricName',
+  IDENTIFIER: 'identifier'
 }
 
 const DialogOptions: IDialogProps = {
@@ -44,7 +46,8 @@ function getValidatitionSchema(getString: UseStringsReturn['getString'], manuall
               })
             : true
         }
-      })
+      }),
+    [FieldNames.IDENTIFIER]: yupString().trim().required(getString('validation.identifierRequired'))
   })
 }
 
@@ -68,7 +71,13 @@ export function ManualInputQueryModal(props: UseManualInputQueryModalProps): JSX
           validationSchema={getValidatitionSchema(getString, manuallyInputQueries)}
         >
           <FormikForm className={css.form}>
-            <FormInput.Text name={FieldNames.METRIC_NAME} label={getString('cv.monitoringSources.metricNameLabel')} />
+            <NameId
+              nameLabel={getString('cv.monitoringSources.metricNameLabel')}
+              identifierProps={{
+                inputName: FieldNames.METRIC_NAME,
+                idName: FieldNames.IDENTIFIER
+              }}
+            />
             <Container className={css.buttonContainer}>
               <Button onClick={() => closeModal()}>{getString('cancel')}</Button>
               <Button type="submit" intent="primary">

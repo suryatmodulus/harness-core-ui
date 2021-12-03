@@ -84,6 +84,7 @@ export function transformGCOMetricHealthSourceToGCOMetricSetupSource(sourceData:
       })
     }
     setupSource.metricDefinition.set(metricDefinition.metricName, {
+      identifier: metricDefinition.identifier,
       metricName: metricDefinition.metricName,
       metricTags,
       dashboardName: metricDefinition.dashboardName,
@@ -130,6 +131,7 @@ export function transformGCOMetricSetupSourceToGCOHealthSource(setupSource: GCOM
     spec.metricDefinitions?.push({
       dashboardName: metricInfo.dashboardName as string,
       dashboardPath: metricInfo.dashboardPath as string,
+      identifier: metricInfo.identifier,
       metricName: metricInfo.metricName as string,
       metricTags: Object.keys(metricInfo.metricTags || {}),
       isManualQuery: metricInfo.isManualQuery,
@@ -179,6 +181,10 @@ export function ensureFieldsAreFilled(
     if (!(values.higherBaselineDeviation || values.lowerBaselineDeviation)) {
       ret.higherBaselineDeviation = getString('cv.monitoringSources.gco.mapMetricsToServicesPage.validation.baseline')
     }
+  }
+
+  if (!values.identifier) {
+    ret.identifier = getString('validation.identifierRequired')
   }
 
   if (!values.metricName?.length) {

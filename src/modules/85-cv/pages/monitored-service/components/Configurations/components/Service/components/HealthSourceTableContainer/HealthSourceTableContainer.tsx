@@ -34,6 +34,7 @@ export default function HealthSourceTableContainer({
         ...formik.values?.sources,
         healthSources: data
       })
+      console.log(data)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [serviceFormFormik]

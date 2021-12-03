@@ -10,3 +10,5 @@ exports[`Launch Button test Launch button render  1`] = `
   </button>
 </div>
 `;
+
+exports[`Launch Button test Launch button render for community  1`] = `<div />`;

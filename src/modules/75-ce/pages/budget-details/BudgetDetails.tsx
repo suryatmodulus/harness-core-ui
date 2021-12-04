@@ -59,20 +59,14 @@ const BudgetDetails: () => JSX.Element | null = () => {
     }
   })
 
-  const getConfirmationDialogContent = (): JSX.Element => {
-    return (
-      <div>
-        <Text>
-          {getString('ce.budgets.confirmDeleteBudgetMsg', {
-            name: budgetName
-          })}
-        </Text>
-      </div>
-    )
-  }
-
   const { openDialog } = useConfirmationDialog({
-    contentText: getConfirmationDialogContent(),
+    contentText: (
+      <Text>
+        {getString('ce.budgets.confirmDeleteBudgetMsg', {
+          name: budgetName
+        })}
+      </Text>
+    ),
     titleText: getString('ce.budgets.confirmDeleteBudgetTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
@@ -81,19 +75,19 @@ const BudgetDetails: () => JSX.Element | null = () => {
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {
-          const deleted = await deleteBudget(budgetId, {
+          const deletedBudget = await deleteBudget(budgetId, {
             headers: {
               'content-type': 'application/json'
             }
           })
-          if (deleted) {
+          if (deletedBudget) {
             showSuccess(
               getString('ce.budgets.budgetDeletedTxt', {
                 name: budgetName
               })
             )
+            history.replace(routes.toCEBudgets({ accountId: accountId }))
           }
-          history.replace(routes.toCEBudgets({ accountId: accountId }))
         } catch (e) {
           const errMessage = e.data.message
           showError(errMessage)

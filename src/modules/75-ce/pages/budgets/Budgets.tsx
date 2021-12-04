@@ -250,15 +250,17 @@ const Budgets: () => JSX.Element = () => {
         }
       })
 
-      if (deleted)
+      if (deleted) {
         showSuccess(
           getString('ce.budgets.budgetDeletedTxt', {
             name: budgetName
           })
         )
-      refetchBudget({
-        requestPolicy: 'network-only'
-      })
+
+        refetchBudget({
+          requestPolicy: 'network-only'
+        })
+      }
     } catch (err) {
       showError(err?.data?.message || err?.message)
     }

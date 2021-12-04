@@ -639,6 +639,9 @@ nodeRecommendation:
     qa: well suited for non-prod/QA
 budgets:
   sideNavText: Budgets
+  confirmDeleteBudgetTitle: Delete Budget
+  confirmDeleteBudgetMsg: 'Are you sure you want to delete the Budget {{ name }}?'
+  budgetDeletedTxt: 'Budget {{ name }} deleted'
   listPage:
     title: All Budgets
     newBudget: '{{ $.ce.common.newBudget }}'

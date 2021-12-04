@@ -2912,6 +2912,9 @@ export interface StringsMap {
   'cd.workloadRequired': string
   'ce.allClusters': string
   'ce.allRegions': string
+  'ce.budgets.budgetDeletedTxt': string
+  'ce.budgets.confirmDeleteBudgetMsg': string
+  'ce.budgets.confirmDeleteBudgetTitle': string
   'ce.budgets.detailsPage.alertsAt': string
   'ce.budgets.detailsPage.budgetAmount': string
   'ce.budgets.detailsPage.budgetHistoryTxt': string

@@ -39,6 +39,21 @@ const BudgetDetailsGrid: (props: BudgetDetailsGridProps) => JSX.Element | null =
     )
   }
 
+  const BudgetVariancePercentageCell: Renderer<CellProps<BudgetCostData>> = ({ cell }) => {
+    return (
+      <Text
+        rightIcon={cell.value > 0 ? 'caret-up' : 'caret-down'}
+        rightIconProps={{
+          color: cell.value > 0 ? Color.RED_600 : Color.GREEN_600
+        }}
+        font={{ variation: FontVariation.BODY }}
+        color={cell.value > 0 ? Color.RED_600 : Color.GREEN_600}
+      >
+        {`${cell.value}%`}
+      </Text>
+    )
+  }
+
   const TimeCell: Renderer<CellProps<BudgetCostData>> = ({ cell }) => {
     return <Text font={{ variation: FontVariation.BODY }}>{moment.utc(cell.value).format('MMM YYYY')}</Text>
   }
@@ -72,7 +87,7 @@ const BudgetDetailsGrid: (props: BudgetDetailsGridProps) => JSX.Element | null =
           {
             Header: getString('ce.budgets.detailsPage.tableHeaders.budgetVariancePercentage'),
             accessor: 'budgetVariancePercentage',
-            Cell: BudgetVarianceCell
+            Cell: BudgetVariancePercentageCell
           }
         ]}
         data={formattedData}

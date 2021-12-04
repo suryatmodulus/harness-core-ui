@@ -9,9 +9,11 @@ import {
   Container,
   Color,
   Popover,
-  TableV2
+  TableV2,
+  useConfirmationDialog,
+  useToaster
 } from '@wings-software/uicore'
-import { Classes, Menu, MenuItem, Position } from '@blueprintjs/core'
+import { Classes, Menu, MenuItem, Position, Intent } from '@blueprintjs/core'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams, useHistory } from 'react-router-dom'
 import { Page } from '@common/exports'
@@ -28,11 +30,41 @@ import css from './Budgets.module.scss'
 
 interface BudgetMenuProps {
   onEdit: () => void
-  onDelete: () => void
+  budgetId: string
+  handleDeleteBudget: (id: string, name: string) => void
+  budgetName: string
 }
 
-const BudgetMenu: (props: BudgetMenuProps) => JSX.Element = ({ onEdit, onDelete }) => {
+const BudgetMenu: (props: BudgetMenuProps) => JSX.Element = ({ onEdit, handleDeleteBudget, budgetId, budgetName }) => {
   const [isOpen, setIsOpen] = useState(false)
+  const { getString } = useStrings()
+
+  const getConfirmationDialogContent = (): JSX.Element => {
+    return (
+      <div>
+        <Text>
+          {getString('ce.budgets.confirmDeleteBudgetMsg', {
+            name: budgetName
+          })}
+        </Text>
+      </div>
+    )
+  }
+
+  const { openDialog } = useConfirmationDialog({
+    contentText: getConfirmationDialogContent(),
+    titleText: getString('ce.budgets.confirmDeleteBudgetTitle'),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
+    onCloseDialog: async (isConfirmed: boolean) => {
+      if (isConfirmed) {
+        budgetId && handleDeleteBudget(budgetId, budgetName)
+      }
+    }
+  })
+
   return (
     <Popover
       isOpen={isOpen}
@@ -64,7 +96,8 @@ const BudgetMenu: (props: BudgetMenuProps) => JSX.Element = ({ onEdit, onDelete 
           onClick={(e: any) => {
             e.stopPropagation()
             setIsOpen(false)
-            onDelete()
+            openDialog()
+            // onDelete()
           }}
         />
       </Menu>
@@ -74,7 +107,7 @@ const BudgetMenu: (props: BudgetMenuProps) => JSX.Element = ({ onEdit, onDelete 
 
 interface BudgetsListProps {
   budgetData: BudgetSummary[]
-  handleDeleteBudget: (id: string) => void
+  handleDeleteBudget: (id: string, budgetName: string) => void
   handleEditBudget: (budget: BudgetSummary) => void
   navigateToBudgetDetailsPage: (id: string, name: string) => void
 }
@@ -137,16 +170,15 @@ const BudgetsList: (props: BudgetsListProps) => JSX.Element | null = ({
   const MenuCell: Renderer<CellProps<BudgetSummary>> = ({ row }) => {
     const budgetId = row.original.id
     const budget = row.original
-
-    const onDelete: () => void = () => {
-      budgetId && handleDeleteBudget(budgetId)
-    }
+    const budgetName = row.original.name
 
     const onEdit: () => void = () => {
       budgetId && handleEditBudget(budget)
     }
 
-    return <BudgetMenu onDelete={onDelete} onEdit={onEdit} />
+    return (
+      <BudgetMenu handleDeleteBudget={handleDeleteBudget} onEdit={onEdit} budgetId={budgetId} budgetName={budgetName} />
+    )
   }
 
   if (!budgetData.length) {
@@ -206,17 +238,29 @@ const Budgets: () => JSX.Element = () => {
       })
     }
   })
+  const { showSuccess, showError } = useToaster()
 
   const { mutate: deleteBudget, loading } = useDeleteBudget({ queryParams: { accountIdentifier: accountId } })
 
-  const handleDeleteBudget: (id: string) => void = async id => {
+  const handleDeleteBudget: (id: string, budgetName: string) => void = async (id, budgetName) => {
     try {
-      await deleteBudget(id)
+      const deleted = await deleteBudget(id, {
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+
+      if (deleted)
+        showSuccess(
+          getString('ce.budgets.budgetDeletedTxt', {
+            name: budgetName
+          })
+        )
       refetchBudget({
         requestPolicy: 'network-only'
       })
-    } catch (e) {
-      // Catch errors here
+    } catch (err) {
+      showError(err?.data?.message || err?.message)
     }
   }
 

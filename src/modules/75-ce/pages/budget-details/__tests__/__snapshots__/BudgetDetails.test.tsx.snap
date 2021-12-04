@@ -289,7 +289,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-green600"
                       style="display: flex; align-items: center;"
                     >
-                      -$48.31
+                      -48.31%
                       <span
                         class="bp3-icon bp3-icon-caret-down StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-green600"
                         icon="caret-down"
@@ -410,7 +410,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-green600"
                       style="display: flex; align-items: center;"
                     >
-                      -$53.06
+                      -53.06%
                       <span
                         class="bp3-icon bp3-icon-caret-down StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-green600"
                         icon="caret-down"
@@ -531,7 +531,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
                       style="display: flex; align-items: center;"
                     >
-                      $54.91
+                      54.91%
                       <span
                         class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
                         icon="caret-up"
@@ -652,7 +652,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
                       style="display: flex; align-items: center;"
                     >
-                      $15.00
+                      15%
                       <span
                         class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
                         icon="caret-up"
@@ -773,7 +773,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-green600"
                       style="display: flex; align-items: center;"
                     >
-                      $0.00
+                      0%
                       <span
                         class="bp3-icon bp3-icon-caret-down StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-green600"
                         icon="caret-down"
@@ -894,7 +894,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
                       style="display: flex; align-items: center;"
                     >
-                      $87.79
+                      87.79%
                       <span
                         class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
                         icon="caret-up"
@@ -1015,7 +1015,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
                       style="display: flex; align-items: center;"
                     >
-                      $244.09
+                      244.09%
                       <span
                         class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
                         icon="caret-up"
@@ -1136,7 +1136,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
                       style="display: flex; align-items: center;"
                     >
-                      $690.37
+                      690.37%
                       <span
                         class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
                         icon="caret-up"
@@ -1257,7 +1257,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
                       style="display: flex; align-items: center;"
                     >
-                      $339.74
+                      339.74%
                       <span
                         class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
                         icon="caret-up"
@@ -1378,7 +1378,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
                       style="display: flex; align-items: center;"
                     >
-                      $1,256.44
+                      1256.44%
                       <span
                         class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
                         icon="caret-up"
@@ -1499,7 +1499,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
                       style="display: flex; align-items: center;"
                     >
-                      $657.73
+                      657.73%
                       <span
                         class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
                         icon="caret-up"
@@ -1620,7 +1620,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-body StyledProps--color StyledProps--color-red600"
                       style="display: flex; align-items: center;"
                     >
-                      $251.23
+                      251.23%
                       <span
                         class="bp3-icon bp3-icon-caret-up StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-red600"
                         icon="caret-up"

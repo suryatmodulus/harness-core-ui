@@ -12,8 +12,10 @@ import {
   Button,
   Layout,
   ButtonVariation,
-  Container
+  Container,
+  useConfirmationDialog
 } from '@wings-software/uicore'
+import { Intent } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
 import { Budget, useDeleteBudget } from 'services/ce'
@@ -30,7 +32,7 @@ import css from './BudgetDetails.module.scss'
 const BudgetDetails: () => JSX.Element | null = () => {
   const { accountId, budgetName, budgetId } = useParams<{ accountId: string; budgetName: string; budgetId: string }>()
   const { getString } = useStrings()
-  const { showError } = useToaster()
+  const { showError, showSuccess } = useToaster()
   const history = useHistory()
 
   const { mutate: deleteBudget, loading } = useDeleteBudget({ queryParams: { accountIdentifier: accountId } })
@@ -57,15 +59,48 @@ const BudgetDetails: () => JSX.Element | null = () => {
     }
   })
 
-  const handleDeleteBudget = async () => {
-    try {
-      await deleteBudget(budgetId)
-      history.replace(routes.toCEBudgets({ accountId: accountId }))
-    } catch (e) {
-      const errMessage = e.data.message
-      showError(errMessage)
-    }
+  const getConfirmationDialogContent = (): JSX.Element => {
+    return (
+      <div>
+        <Text>
+          {getString('ce.budgets.confirmDeleteBudgetMsg', {
+            name: budgetName
+          })}
+        </Text>
+      </div>
+    )
   }
+
+  const { openDialog } = useConfirmationDialog({
+    contentText: getConfirmationDialogContent(),
+    titleText: getString('ce.budgets.confirmDeleteBudgetTitle'),
+    confirmButtonText: getString('delete'),
+    cancelButtonText: getString('cancel'),
+    intent: Intent.DANGER,
+    buttonIntent: Intent.DANGER,
+    onCloseDialog: async (isConfirmed: boolean) => {
+      if (isConfirmed) {
+        try {
+          const deleted = await deleteBudget(budgetId, {
+            headers: {
+              'content-type': 'application/json'
+            }
+          })
+          if (deleted) {
+            showSuccess(
+              getString('ce.budgets.budgetDeletedTxt', {
+                name: budgetName
+              })
+            )
+          }
+          history.replace(routes.toCEBudgets({ accountId: accountId }))
+        } catch (e) {
+          const errMessage = e.data.message
+          showError(errMessage)
+        }
+      }
+    }
+  })
 
   const handleEditBudget = () => {
     openModal({
@@ -156,7 +191,7 @@ const BudgetDetails: () => JSX.Element | null = () => {
               loading={loading}
               variation={ButtonVariation.TERTIARY}
               icon="trash"
-              onClick={handleDeleteBudget}
+              onClick={openDialog}
             >
               {getString('delete')}
             </Button>

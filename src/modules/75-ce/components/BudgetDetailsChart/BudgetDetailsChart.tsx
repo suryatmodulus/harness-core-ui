@@ -1,10 +1,65 @@
 import React from 'react'
-import Highcharts, { SeriesColumnOptions, SeriesLineOptions } from 'highcharts/highcharts'
+import type { SeriesColumnOptions, SeriesLineOptions } from 'highcharts/highcharts'
 import { Container } from '@wings-software/uicore'
+import moment from 'moment'
 import { useStrings } from 'framework/strings'
 import { CCM_CHART_TYPES } from '@ce/constants'
-import type { BudgetData, BudgetCostData } from 'services/ce/services'
+import { BudgetData, BudgetCostData, BudgetPeriod } from 'services/ce/services'
 import CEChart from '../CEChart/CEChart'
+
+const computeCategories: (chartData: BudgetCostData[], budgetPeriod: BudgetPeriod) => string[] = (
+  chartData,
+  budgetPeriod
+) => {
+  if (budgetPeriod === BudgetPeriod.Monthly) {
+    const cat = chartData.map(item => {
+      const startTime = moment.utc(item.time)
+      const endTime = moment.utc(item.endTime)
+      let rangeTxt = ''
+
+      if (startTime.get('month') === startTime.get('month')) {
+        rangeTxt = startTime.format('MMM YYYY')
+      } else {
+        rangeTxt = `${startTime.format('D MMM YYYY')} - ${endTime.format('D MMM YYYY')}`
+      }
+
+      return rangeTxt
+    })
+    return cat
+  }
+
+  if (budgetPeriod === BudgetPeriod.Quarterly || budgetPeriod === BudgetPeriod.Yearly) {
+    const cat = chartData.map(item => {
+      const startTime = moment.utc(item.time)
+      const endTime = moment.utc(item.endTime)
+      const rangeTxt = `${startTime.format('MMM YYYY')} - ${endTime.format('MMM YYYY')}`
+      return rangeTxt
+    })
+    return cat
+  }
+
+  if (budgetPeriod === BudgetPeriod.Weekly) {
+    const cat = chartData.map(item => {
+      const startTime = moment.utc(item.time)
+      const endTime = moment.utc(item.endTime)
+      const rangeTxt = `${startTime.format('D MMM')} - ${endTime.format('D MMM')}`
+      return rangeTxt
+    })
+    return cat
+  }
+
+  if (budgetPeriod === BudgetPeriod.Daily) {
+    const cat = chartData.map(item => {
+      const startTime = moment.utc(item.time)
+      const rangeTxt = `${startTime.format('D MMM')}`
+      return rangeTxt
+    })
+    return cat
+  }
+
+  const categories = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  return categories
+}
 
 const getChartSeriesData: (
   chartData: BudgetCostData[],
@@ -15,24 +70,41 @@ const getChartSeriesData: (
   forecastedCost: number,
   chartLabels
 ) => {
-  const columnChartData = chartData.map(item => [item.time, item.actualCost])
-  const lineChartData = chartData.map(item => [item.time, item.budgeted])
+  // This is a temporary hack, remove before merge
+  chartData = chartData.slice(-10)
 
-  const lastChartEntry = chartData.find(el => el.time === columnChartData[columnChartData.length - 1][0]) as any
+  const columnChartData = chartData.map(item => [item.actualCost])
+  const lineChartData = chartData.map(item => [item.budgeted])
 
-  const lastMonthBudget = [lastChartEntry.time, forecastedCost]
-  const lastMonthActual = [lastChartEntry.time, lastChartEntry.actualCost]
+  const lastChartEntry = chartData[chartData.length - 1] as any
+
+  // const lastMonthBudget = [forecastedCost]
+  // const lastMonthActual = [lastChartEntry.actualCost]
+
+  const lastMonthBudget = chartData.map((_, idx) => {
+    if (idx === chartData.length - 1) {
+      return [forecastedCost]
+    }
+    return 0
+  })
+
+  const lastMonthActual = chartData.map((_, idx) => {
+    if (idx === chartData.length - 1) {
+      return [lastChartEntry.actualCost]
+    }
+    return 0
+  })
 
   const lastMonthBudgetChartSeries: SeriesColumnOptions = {
     name: chartLabels.FORECAST_COST,
     type: CCM_CHART_TYPES.COLUMN,
-    data: [lastMonthBudget],
+    data: lastMonthBudget,
     color: 'var(--teal-50)'
   }
   const lastMonthActualChartSeries: SeriesColumnOptions = {
     name: chartLabels.CURRENT_MONTH_COST,
     type: CCM_CHART_TYPES.COLUMN,
-    data: [lastMonthActual],
+    data: lastMonthActual,
     color: 'var(--teal-400)'
   }
 
@@ -57,9 +129,10 @@ const getChartSeriesData: (
 
 interface BudgetDetailsChartProps {
   chartData: BudgetData
+  budgetPeriod: BudgetPeriod
 }
 
-const BudgetDetailsChart: (props: BudgetDetailsChartProps) => JSX.Element | null = ({ chartData }) => {
+const BudgetDetailsChart: (props: BudgetDetailsChartProps) => JSX.Element | null = ({ chartData, budgetPeriod }) => {
   const { getString } = useStrings()
 
   if (!chartData?.costData?.length) {
@@ -102,11 +175,11 @@ const BudgetDetailsChart: (props: BudgetDetailsChartProps) => JSX.Element | null
             }
           },
           xAxis: {
-            type: 'datetime',
+            categories: computeCategories(filteredData, budgetPeriod),
             ordinal: true,
             labels: {
               formatter: function () {
-                return Highcharts.dateFormat('%b %Y', Number(this.value))
+                return `${this.value}`
               }
             }
           },

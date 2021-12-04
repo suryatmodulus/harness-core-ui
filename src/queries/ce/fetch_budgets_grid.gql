@@ -10,4 +10,7 @@ query FetchBudgetsGridData($id: String!) {
     }
     forecastCost
   }
+  budgetSummary(budgetId: $id) {
+    period
+  }
 }

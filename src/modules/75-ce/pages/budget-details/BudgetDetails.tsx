@@ -152,7 +152,10 @@ const BudgetDetails: () => JSX.Element | null = () => {
         >
           {getString('ce.budgets.detailsPage.budgetHistoryTxt')}
         </Text>
-        <BudgetDetailsChart chartData={gridData?.budgetCostData as any} />
+        <BudgetDetailsChart
+          chartData={gridData?.budgetCostData as any}
+          budgetPeriod={gridData.budgetSummary?.period as any}
+        />
         <BudgetDetailsGrid gridData={gridData?.budgetCostData as any} />
       </>
     )

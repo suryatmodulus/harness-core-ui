@@ -181,6 +181,9 @@ export const FetchBudgetsGridDataDocument = gql`
       }
       forecastCost
     }
+    budgetSummary(budgetId: $id) {
+      period
+    }
   }
 `
 
@@ -1190,6 +1193,7 @@ export type FetchBudgetsGridDataQuery = {
       >
     >
   }>
+  budgetSummary: Maybe<{ __typename?: 'BudgetSummary'; period: BudgetPeriod }>
 }
 
 export type FetchCcmMetaDataQueryVariables = Exact<{ [key: string]: never }>

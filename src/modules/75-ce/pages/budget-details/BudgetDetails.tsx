@@ -156,7 +156,10 @@ const BudgetDetails: () => JSX.Element | null = () => {
           chartData={gridData?.budgetCostData as any}
           budgetPeriod={gridData.budgetSummary?.period as any}
         />
-        <BudgetDetailsGrid gridData={gridData?.budgetCostData as any} />
+        <BudgetDetailsGrid
+          budgetPeriod={gridData.budgetSummary?.period as any}
+          gridData={gridData?.budgetCostData as any}
+        />
       </>
     )
   }

@@ -11,54 +11,41 @@ const computeCategories: (chartData: BudgetCostData[], budgetPeriod: BudgetPerio
   chartData,
   budgetPeriod
 ) => {
-  if (budgetPeriod === BudgetPeriod.Monthly) {
-    const cat = chartData.map(item => {
-      const startTime = moment.utc(item.time)
-      const endTime = moment.utc(item.endTime)
-      let rangeTxt = ''
+  const cat = chartData.map(item => {
+    const startTime = moment.utc(item.time)
+    const endTime = moment.utc(item.endTime)
+    let rangeTxt = ''
 
-      if (startTime.get('month') === startTime.get('month')) {
+    switch (budgetPeriod) {
+      case BudgetPeriod.Monthly:
+        if (startTime.get('month') === endTime.get('month')) {
+          rangeTxt = startTime.format('MMM YYYY')
+        } else {
+          rangeTxt = `${startTime.format('D MMM YY')} -  ${endTime.format('D MMM YY')}`
+        }
+        break
+
+      case BudgetPeriod.Quarterly:
+      case BudgetPeriod.Yearly:
+        rangeTxt = `${startTime.format('MMM YYYY')} - ${endTime.format('MMM YYYY')}`
+        break
+
+      case BudgetPeriod.Weekly:
+        rangeTxt = `${startTime.format('D MMM')} - ${endTime.format('D MMM')}`
+        break
+
+      case BudgetPeriod.Daily:
+        rangeTxt = `${startTime.format('D MMM')}`
+        break
+
+      default:
         rangeTxt = startTime.format('MMM YYYY')
-      } else {
-        rangeTxt = `${startTime.format('D MMM YYYY')} - ${endTime.format('D MMM YYYY')}`
-      }
+    }
 
-      return rangeTxt
-    })
-    return cat
-  }
+    return rangeTxt
+  })
 
-  if (budgetPeriod === BudgetPeriod.Quarterly || budgetPeriod === BudgetPeriod.Yearly) {
-    const cat = chartData.map(item => {
-      const startTime = moment.utc(item.time)
-      const endTime = moment.utc(item.endTime)
-      const rangeTxt = `${startTime.format('MMM YYYY')} - ${endTime.format('MMM YYYY')}`
-      return rangeTxt
-    })
-    return cat
-  }
-
-  if (budgetPeriod === BudgetPeriod.Weekly) {
-    const cat = chartData.map(item => {
-      const startTime = moment.utc(item.time)
-      const endTime = moment.utc(item.endTime)
-      const rangeTxt = `${startTime.format('D MMM')} - ${endTime.format('D MMM')}`
-      return rangeTxt
-    })
-    return cat
-  }
-
-  if (budgetPeriod === BudgetPeriod.Daily) {
-    const cat = chartData.map(item => {
-      const startTime = moment.utc(item.time)
-      const rangeTxt = `${startTime.format('D MMM')}`
-      return rangeTxt
-    })
-    return cat
-  }
-
-  const categories = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-  return categories
+  return cat
 }
 
 const getChartSeriesData: (
@@ -70,16 +57,10 @@ const getChartSeriesData: (
   forecastedCost: number,
   chartLabels
 ) => {
-  // This is a temporary hack, remove before merge
-  chartData = chartData.slice(-10)
-
   const columnChartData = chartData.map(item => [item.actualCost])
   const lineChartData = chartData.map(item => [item.budgeted])
 
   const lastChartEntry = chartData[chartData.length - 1] as any
-
-  // const lastMonthBudget = [forecastedCost]
-  // const lastMonthActual = [lastChartEntry.actualCost]
 
   const lastMonthBudget = chartData.map((_, idx) => {
     if (idx === chartData.length - 1) {

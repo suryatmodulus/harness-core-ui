@@ -1,52 +1,11 @@
 import React from 'react'
 import type { SeriesColumnOptions, SeriesLineOptions } from 'highcharts/highcharts'
 import { Container } from '@wings-software/uicore'
-import moment from 'moment'
 import { useStrings } from 'framework/strings'
 import { CCM_CHART_TYPES } from '@ce/constants'
-import { BudgetData, BudgetCostData, BudgetPeriod } from 'services/ce/services'
+import type { BudgetData, BudgetCostData, BudgetPeriod } from 'services/ce/services'
 import CEChart from '../CEChart/CEChart'
-
-const computeCategories: (chartData: BudgetCostData[], budgetPeriod: BudgetPeriod) => string[] = (
-  chartData,
-  budgetPeriod
-) => {
-  const cat = chartData.map(item => {
-    const startTime = moment.utc(item.time)
-    const endTime = moment.utc(item.endTime)
-    let rangeTxt = ''
-
-    switch (budgetPeriod) {
-      case BudgetPeriod.Monthly:
-        if (startTime.get('month') === endTime.get('month')) {
-          rangeTxt = startTime.format('MMM YYYY')
-        } else {
-          rangeTxt = `${startTime.format('D MMM YY')} -  ${endTime.format('D MMM YY')}`
-        }
-        break
-
-      case BudgetPeriod.Quarterly:
-      case BudgetPeriod.Yearly:
-        rangeTxt = `${startTime.format('MMM YYYY')} - ${endTime.format('MMM YYYY')}`
-        break
-
-      case BudgetPeriod.Weekly:
-        rangeTxt = `${startTime.format('D MMM')} - ${endTime.format('D MMM')}`
-        break
-
-      case BudgetPeriod.Daily:
-        rangeTxt = `${startTime.format('D MMM')}`
-        break
-
-      default:
-        rangeTxt = startTime.format('MMM YYYY')
-    }
-
-    return rangeTxt
-  })
-
-  return cat
-}
+import { computeCategories } from './budgetCategoryUtil'
 
 const getChartSeriesData: (
   chartData: BudgetCostData[],

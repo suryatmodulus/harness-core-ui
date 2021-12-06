@@ -128,7 +128,7 @@ const RenderColumnEvents: Renderer<CellProps<NotificationRulesItem>> = ({ row })
 }
 
 const RenderColumnMethod: Renderer<CellProps<NotificationRulesItem>> = ({ row }) => {
-  const data = row.original.notificationRules.notificationMethod?.value?.type
+  const data = row.original.notificationRules.notificationMethod?.type
   return (
     <Layout.Horizontal spacing="small">
       <Icon name={getIconByNotificationMethod(data as NotificationType)} />
@@ -245,7 +245,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
         Header: getString('notifications.notificationMethod').toUpperCase(),
         id: 'methods',
         className: css.notificationTableHeader,
-        accessor: row => row.notificationRules.notificationMethod?.value?.type,
+        accessor: row => row.notificationRules.notificationMethod?.type,
         width: '28%',
         Cell: RenderColumnMethod,
         disableSortBy: true
@@ -253,7 +253,7 @@ const NotificationTable: React.FC<NotificationTableProps> = props => {
       {
         Header: '',
         id: 'menu',
-        accessor: row => row.notificationRules.notificationMethod?.value?.spec,
+        accessor: row => row.notificationRules.notificationMethod?.spec,
         className: css.notificationTableHeader,
         width: '2%',
         Cell: RenderColumnMenu,

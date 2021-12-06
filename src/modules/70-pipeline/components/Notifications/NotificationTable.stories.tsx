@@ -19,7 +19,8 @@ const notificationRulesItems: NotificationRulesItem[] = [
       enabled: true,
       pipelineEvents: [{ type: 'AllEvents' }],
       notificationMethod: {
-        value: { type: 'Email', spec: { userGroups: ['pl-cd-ng'], recipients: ['abc@harness.io'] } }
+        type: 'Email',
+        spec: { userGroups: ['pl-cd-ng'], recipients: ['abc@harness.io'] }
       }
     }
   },
@@ -30,10 +31,8 @@ const notificationRulesItems: NotificationRulesItem[] = [
       enabled: true,
       pipelineEvents: [{ type: 'AllEvents' }, { type: 'PipelineFailed' }],
       notificationMethod: {
-        value: {
-          type: 'Slack',
-          spec: { userGroups: ['pl-cd-ng'], webhookUrls: 'webhookURL' }
-        }
+        type: 'Slack',
+        spec: { userGroups: ['pl-cd-ng'], webhookUrls: 'webhookURL' }
       }
     }
   },
@@ -43,7 +42,7 @@ const notificationRulesItems: NotificationRulesItem[] = [
       name: 'name',
       enabled: true,
       pipelineEvents: [{ type: 'AllEvents' }],
-      notificationMethod: { value: { type: 'PagerDuty', spec: { userGroups: ['pl-cd-ng'], integrationKeys: '12345' } } }
+      notificationMethod: { type: 'PagerDuty', spec: { userGroups: ['pl-cd-ng'], integrationKeys: '12345' } }
     }
   }
 ]

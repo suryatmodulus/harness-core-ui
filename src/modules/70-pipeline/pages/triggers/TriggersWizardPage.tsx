@@ -347,6 +347,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       entityType: 'Triggers',
       projectIdentifier,
       orgIdentifier,
+      accountIdentifier: accountId,
       scope: getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier })
     }
   })

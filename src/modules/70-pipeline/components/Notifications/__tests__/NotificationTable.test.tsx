@@ -21,10 +21,8 @@ const args: NotificationTableProps = {
         enabled: true,
         pipelineEvents: [{ type: 'AllEvents' }, { type: 'PipelineFailed' }],
         notificationMethod: {
-          value: {
-            type: 'Slack',
-            spec: { userGroups: ['pl-cd-ng'], webhookUrls: 'webhookURL' }
-          }
+          type: 'Slack',
+          spec: { userGroups: ['pl-cd-ng'], webhookUrls: 'webhookURL' }
         }
       }
     },
@@ -35,7 +33,8 @@ const args: NotificationTableProps = {
         enabled: true,
         pipelineEvents: [{ type: 'AllEvents' }],
         notificationMethod: {
-          value: { type: 'Email', spec: { userGroups: ['pl-cd-ng'], recipients: ['abc@harness.io'] } }
+          type: 'Email',
+          spec: { userGroups: ['pl-cd-ng'], recipients: ['abc@harness.io'] }
         }
       }
     },
@@ -46,7 +45,8 @@ const args: NotificationTableProps = {
         enabled: true,
         pipelineEvents: [{ type: 'AllEvents' }],
         notificationMethod: {
-          value: { type: 'PagerDuty', spec: { userGroups: ['pl-cd-ng'], integrationKeys: '12345' } }
+          type: 'PagerDuty',
+          spec: { userGroups: ['pl-cd-ng'], integrationKeys: '12345' }
         }
       }
     }

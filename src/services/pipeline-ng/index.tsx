@@ -5,6 +5,10 @@ import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, Use
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
 export const SPEC_VERSION = '1.0'
+export type AbortFailureActionConfig = FailureStrategyActionConfig & {
+  type: 'Abort'
+}
+
 export interface AdviserIssuer {
   adviserType?:
     | 'UNKNOWN'
@@ -1524,6 +1528,14 @@ export interface FailureInfoDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface FailureStrategyActionConfig {
+  type: 'Ignore' | 'Retry' | 'MarkAsSuccess' | 'Abort' | 'StageRollback' | 'StepGroupRollback' | 'ManualIntervention'
+}
+
+export interface FailureStrategyConfig {
+  onFailure: OnFailureConfig
+}
+
 export interface FieldDescriptor {
   containingOneof?: OneofDescriptor
   containingType?: Descriptor
@@ -1904,6 +1916,37 @@ export type HttpBuildStoreTypeSpec = BuildStoreTypeSpec & {
   connectorRef?: string
 }
 
+export interface HttpHeaderConfig {
+  key?: string
+  value?: string
+}
+
+export interface HttpStepInfo {
+  assertion?: string
+  delegateSelectors?: string[]
+  headers?: HttpHeaderConfig[]
+  method: string
+  outputVariables?: NGVariable[]
+  requestBody?: string
+  url: string
+}
+
+export interface HttpStepNode {
+  description?: string
+  failureStrategies?: FailureStrategyConfig[]
+  identifier: string
+  name: string
+  spec?: HttpStepInfo
+  template?: TemplateLinkConfig
+  timeout?: string
+  type: 'Http'
+  when?: StepWhenCondition
+}
+
+export type IgnoreFailureActionConfig = FailureStrategyActionConfig & {
+  type: 'Ignore'
+}
+
 export interface InputSetError {
   fieldName?: string
   identifierOfErrorSource?: string
@@ -1924,6 +1967,7 @@ export interface InputSetErrorWrapper {
 export interface InputSetResponse {
   accountId?: string
   description?: string
+  entityValidityDetails?: EntityValidityDetails
   errorResponse?: boolean
   gitDetails?: EntityGitDetails
   identifier?: string
@@ -1943,6 +1987,7 @@ export interface InputSetResponse {
 export interface InputSetSummaryResponse {
   createdAt?: number
   description?: string
+  entityValidityDetails?: EntityValidityDetails
   gitDetails?: EntityGitDetails
   identifier?: string
   inputSetErrorDetails?: InputSetErrorWrapper
@@ -1976,11 +2021,6 @@ export interface InputSetTemplateResponse {
 export interface InputSetTemplateWithReplacedExpressionsResponse {
   inputSetTemplateYaml?: string
   replacedExpressions?: string[]
-}
-
-export interface InputSetValidator {
-  parameters?: string
-  validatorType?: 'ALLOWED_VALUES' | 'REGEX'
 }
 
 export interface InterruptConfig {
@@ -2135,6 +2175,16 @@ export interface ManifestTypeSpec {
   [key: string]: any
 }
 
+export interface ManualFailureSpecConfig {
+  onTimeout: OnTimeoutConfig
+  timeout: string
+}
+
+export type ManualInterventionFailureActionConfig = FailureStrategyActionConfig & {
+  spec: ManualFailureSpecConfig
+  type: 'ManualIntervention'
+}
+
 export interface ManualIssuer {
   allFields?: {
     [key: string]: { [key: string]: any }
@@ -2173,6 +2223,10 @@ export interface ManualIssuerOrBuilder {
   unknownFields?: UnknownFieldSet
   userId?: string
   userIdBytes?: ByteString
+}
+
+export type MarkAsSuccessFailureActionConfig = FailureStrategyActionConfig & {
+  type: 'MarkAsSuccess'
 }
 
 export interface MeanMedianInfo {
@@ -2336,6 +2390,14 @@ export interface NGTriggerSpecV2 {
   [key: string]: any
 }
 
+export interface NGVariable {
+  description?: string
+  metadata?: string
+  name?: string
+  required?: boolean
+  type?: 'String' | 'Number' | 'Secret'
+}
+
 export interface NamePart {
   allFields?: {
     [key: string]: { [key: string]: any }
@@ -2393,8 +2455,37 @@ export interface NotificationChannelWrapper {
 export interface NotificationRules {
   enabled?: boolean
   name?: string
-  notificationMethod?: ParameterFieldNotificationChannelWrapper
+  notificationMethod?: NotificationChannelWrapper
   pipelineEvents?: PipelineEvent[]
+}
+
+export type NumberNGVariable = NGVariable & {
+  default?: number
+  name?: string
+  type?: 'Number'
+  value: number
+}
+
+export interface OnFailureConfig {
+  action: FailureStrategyActionConfig
+  errors: (
+    | 'Unknown'
+    | 'AllErrors'
+    | 'Authentication'
+    | 'Connectivity'
+    | 'Timeout'
+    | 'Authorization'
+    | 'Verification'
+    | 'DelegateProvisioning'
+  )[]
+}
+
+export interface OnRetryFailureConfig {
+  action?: FailureStrategyActionConfig
+}
+
+export interface OnTimeoutConfig {
+  action?: FailureStrategyActionConfig
 }
 
 export interface OneofDescriptor {
@@ -2435,6 +2526,7 @@ export interface OrgProjectIdentifier {
 export interface OverlayInputSetResponse {
   accountId?: string
   description?: string
+  entityValidityDetails?: EntityValidityDetails
   errorResponse?: boolean
   gitDetails?: EntityGitDetails
   identifier?: string
@@ -2563,26 +2655,6 @@ export interface Pageable {
   paged?: boolean
   sort?: Sort
   unpaged?: boolean
-}
-
-export interface ParameterField {
-  expression?: boolean
-  expressionValue?: string
-  inputSetValidator?: InputSetValidator
-  jsonResponseField?: boolean
-  responseField?: string
-  typeString?: boolean
-  value?: { [key: string]: any }
-}
-
-export interface ParameterFieldNotificationChannelWrapper {
-  expression?: boolean
-  expressionValue?: string
-  inputSetValidator?: InputSetValidator
-  jsonResponseField?: boolean
-  responseField?: string
-  typeString?: boolean
-  value?: NotificationChannelWrapper
 }
 
 export interface Parser {
@@ -3320,6 +3392,13 @@ export interface ResponseHarnessApprovalInstanceAuthorization {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseHttpStepNode {
+  correlationId?: string
+  data?: HttpStepNode
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseInputSetResponse {
   correlationId?: string
   data?: InputSetResponse
@@ -4033,6 +4112,17 @@ export interface RetryExecutionInfoOrBuilder {
   unknownFields?: UnknownFieldSet
 }
 
+export type RetryFailureActionConfig = FailureStrategyActionConfig & {
+  spec: RetryFailureSpecConfig
+  type: 'Retry'
+}
+
+export interface RetryFailureSpecConfig {
+  onRetryFailure: OnRetryFailureConfig
+  retryCount: number
+  retryIntervals: string[]
+}
+
 export interface RetryGroup {
   info?: RetryStageInfo[]
 }
@@ -4147,6 +4237,13 @@ export interface ScheduledTriggerSpec {
   [key: string]: any
 }
 
+export type SecretNGVariable = NGVariable & {
+  default?: string
+  name?: string
+  type?: 'Secret'
+  value: string
+}
+
 export interface ServiceDescriptor {
   file?: FileDescriptor
   fullName?: string
@@ -4251,6 +4348,10 @@ export interface StageExecutionResponse {
   toBeBlocked?: boolean
 }
 
+export type StageRollbackFailureActionConfig = FailureStrategyActionConfig & {
+  type: 'StageRollback'
+}
+
 export interface StepCategory {
   name?: string
   stepCategories?: StepCategory[]
@@ -4265,6 +4366,8 @@ export interface StepData {
     | 'TEST3'
     | 'TEST4'
     | 'TEST5'
+    | 'TEST6'
+    | 'TEST7'
     | 'PERSPECTIVES'
     | 'CCM_K8S_CLUSTERS'
     | 'CCM_AUTOSTOPPING_RULES'
@@ -4305,6 +4408,10 @@ export interface StepData {
   type?: string
 }
 
+export type StepGroupFailureActionConfig = FailureStrategyActionConfig & {
+  type: 'StepGroupRollback'
+}
+
 export interface StepPalleteFilterWrapper {
   stepPalleteModuleInfos?: StepPalleteModuleInfo[]
 }
@@ -4314,6 +4421,18 @@ export interface StepPalleteModuleInfo {
   commonStepCategory?: string
   module?: string
   shouldShowCommonSteps?: boolean
+}
+
+export interface StepWhenCondition {
+  condition?: string
+  stageStatus: 'Success' | 'Failure' | 'All'
+}
+
+export type StringNGVariable = NGVariable & {
+  default?: string
+  name?: string
+  type?: 'String'
+  value: string
 }
 
 export interface SuccessHealthInfo {
@@ -4464,6 +4583,12 @@ export type TemplateInputsErrorMetadataDTO = ErrorMetadataDTO & {
     [key: string]: TemplateInputsErrorDTO
   }
   errorYaml?: string
+}
+
+export interface TemplateLinkConfig {
+  templateInputs?: JsonNode
+  templateRef: string
+  versionLabel?: string
 }
 
 export interface Throwable {
@@ -8484,6 +8609,35 @@ export const createPipelinePromise = (
     void
   >('POST', getConfig('pipeline/api'), `/pipelines`, props, signal)
 
+export type GetStepNodeProps = Omit<GetProps<ResponseHttpStepNode, Failure | Error, void, void>, 'path'>
+
+export const GetStepNode = (props: GetStepNodeProps) => (
+  <Get<ResponseHttpStepNode, Failure | Error, void, void>
+    path={`/pipelines/dummy-api`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetStepNodeProps = Omit<UseGetProps<ResponseHttpStepNode, Failure | Error, void, void>, 'path'>
+
+export const useGetStepNode = (props: UseGetStepNodeProps) =>
+  useGet<ResponseHttpStepNode, Failure | Error, void, void>(`/pipelines/dummy-api`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+export const getStepNodePromise = (
+  props: GetUsingFetchProps<ResponseHttpStepNode, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseHttpStepNode, Failure | Error, void, void>(
+    getConfig('pipeline/api'),
+    `/pipelines/dummy-api`,
+    props,
+    signal
+  )
+
 export interface GetListOfExecutionsQueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -9104,6 +9258,54 @@ export const getPipelinedHealthPromise = (
   getUsingFetch<ResponseDashboardPipelineHealthInfo, Failure | Error, GetPipelinedHealthQueryParams, void>(
     getConfig('pipeline/api'),
     `/pipelines/pipelineHealth`,
+    props,
+    signal
+  )
+
+export interface RefreshFFCacheQueryParams {
+  accountIdentifier: string
+}
+
+export type RefreshFFCacheProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>,
+  'path'
+>
+
+/**
+ * Refresh the feature flag cache
+ */
+export const RefreshFFCache = (props: RefreshFFCacheProps) => (
+  <Get<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>
+    path={`/pipelines/refreshFFCache`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseRefreshFFCacheProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>,
+  'path'
+>
+
+/**
+ * Refresh the feature flag cache
+ */
+export const useRefreshFFCache = (props: UseRefreshFFCacheProps) =>
+  useGet<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>(`/pipelines/refreshFFCache`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Refresh the feature flag cache
+ */
+export const refreshFFCachePromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, RefreshFFCacheQueryParams, void>(
+    getConfig('pipeline/api'),
+    `/pipelines/refreshFFCache`,
     props,
     signal
   )
@@ -11041,7 +11243,7 @@ export interface GetSchemaYamlQueryParams {
   orgIdentifier?: string
   scope?: 'account' | 'org' | 'project' | 'unknown'
   identifier?: string
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type GetSchemaYamlProps = Omit<

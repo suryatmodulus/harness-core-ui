@@ -32,7 +32,7 @@ export const PipelineNotifications: React.FC = (): JSX.Element => {
   let data = allRowsData
   if (selectedNotificationTypeFilter) {
     data = allRowsData.filter(
-      item => item.notificationRules.notificationMethod?.value?.type === selectedNotificationTypeFilter
+      item => item.notificationRules.notificationMethod?.type === selectedNotificationTypeFilter
     )
   }
 

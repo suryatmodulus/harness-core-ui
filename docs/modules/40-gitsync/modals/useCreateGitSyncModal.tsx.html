@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/33</span>
+                <span class='fraction'>30/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">35.71% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/12</span>
+                <span class='fraction'>5/14</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>27/33</span>
+                <span class='fraction'>30/36</span>
             </div>
         
             
@@ -178,13 +178,23 @@
 <a name='L119'></a><a href='#L119'>119</a>
 <a name='L120'></a><a href='#L120'>120</a>
 <a name='L121'></a><a href='#L121'>121</a>
-<a name='L122'></a><a href='#L122'>122</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -221,6 +231,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -256,6 +268,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -306,8 +322,10 @@ import { useParams } from 'react-router-dom'
 import type { GitSyncConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import GitSyncRepoFormStep from '@gitsync/pages/steps/GitSyncRepoFormStep'
 import GitConnection from '@gitsync/components/GitConnection/GitConnection'
+import { GitFullSyncStep } from '@gitsync/pages/steps/GitFullSyncStep/GitFullSyncStep'
 import GitSyncRepoForm from '../components/gitSyncRepoForm/GitSyncRepoForm'
 import css from './useCreateGitSyncModal.module.scss'
 &nbsp;
@@ -345,6 +363,8 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
   })
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;ProjectPathProps&gt;()
 &nbsp;
+  const { NG_GIT_FULL_SYNC } = useFeatureFlags()
+&nbsp;
   const handleSuccess = <span class="fstat-no" title="function not covered" >(d</span>ata?: GitSyncConfig): void =&gt; {
 <span class="cstat-no" title="statement not covered" >    props.onSuccess?.(data)</span>
   }
@@ -378,7 +398,11 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
             onSuccess={<span class="fstat-no" title="function not covered" >(d</span>ata?: GitSyncConfig) =&gt; {
 <span class="cstat-no" title="statement not covered" >              handleSuccess(data)</span>
             }}
+            isLastStep={!NG_GIT_FULL_SYNC}
           /&gt;
+          {NG_GIT_FULL_SYNC ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >            &lt;GitFullSyncStep name={getString('gitsync.branchToSync')} onClose={closeHandler} /&gt;</span>
+          ) : null}
         &lt;/StepWizard&gt;
         &lt;Button minimal icon="cross" iconProps={{ size: 18 }} className={css.crossIcon} onClick={closeHandler} /&gt;
       &lt;/Dialog&gt;
@@ -427,7 +451,7 @@ export default useCreateGitSyncModal
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 06 2021 07:39:58 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 06 2021 09:48:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -992,7 +992,17 @@
 <a name='L933'></a><a href='#L933'>933</a>
 <a name='L934'></a><a href='#L934'>934</a>
 <a name='L935'></a><a href='#L935'>935</a>
-<a name='L936'></a><a href='#L936'>936</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L936'></a><a href='#L936'>936</a>
+<a name='L937'></a><a href='#L937'>937</a>
+<a name='L938'></a><a href='#L938'>938</a>
+<a name='L939'></a><a href='#L939'>939</a>
+<a name='L940'></a><a href='#L940'>940</a>
+<a name='L941'></a><a href='#L941'>941</a>
+<a name='L942'></a><a href='#L942'>942</a>
+<a name='L943'></a><a href='#L943'>943</a>
+<a name='L944'></a><a href='#L944'>944</a>
+<a name='L945'></a><a href='#L945'>945</a>
+<a name='L946'></a><a href='#L946'>946</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -1843,6 +1853,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1890,6 +1901,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2735,120 +2755,130 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = ({
 <span class="cstat-no" title="statement not covered" >            history.push(newPath)</span>
           }}
         /&gt;
-        &lt;div className={css.titleBar}&gt;
-          &lt;div className={css.breadcrumbsMenu}&gt;
-            &lt;div className={css.pipelineMetadataContainer}&gt;
-              &lt;Layout.Horizontal className={css.pipelineNameContainer}&gt;
-                &lt;Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} /&gt;
-                &lt;Text
-                  className={css.pipelineName}
-                  style={{
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    maxWidth: getPipelineNameTextContainerWidth()
-                  }}
-                  tooltip={pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame}
-                &gt;
-                  {pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame}
-                &lt;/Text&gt;
-                {!isEmpty(pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ags) &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >pipeline.tags </span>&amp;&amp; (
-<span class="branch-2 cbranch-no" title="branch not covered" >                  &lt;Container className={css.tagsContainer}&gt;</span>
-                    &lt;TagsPopover tags={pipeline.tags} /&gt;
-                  &lt;/Container&gt;
-                )}
-                {isGitSyncEnabled &amp;&amp; (
-                  &lt;StudioGitPopover
-                    gitDetails={gitDetails}
-                    identifier={pipelineIdentifier}
-                    isReadonly={isReadonly}
-                    entityData={{ ...pipeline, versionLabel: '', type: 'Step' }} // Just to avoid type issues
-                    onGitBranchChange={onGitBranchChange}
-                    entityType={'Pipeline'}
-                  /&gt;
-                )}
-                {isYaml || isReadonly ? null : (
-                  &lt;Button variation={ButtonVariation.ICON} icon="Edit" onClick={showModal} /&gt;
-                )}
-              &lt;/Layout.Horizontal&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-          &lt;VisualYamlToggle
-            className={css.visualYamlToggle}
-            initialSelectedView={isYaml || disableVisualView ? <span class="branch-0 cbranch-no" title="branch not covered" >SelectedView.YAML </span>: SelectedView.VISUAL}
-            disableYaml={disableVisualView}
-            beforeOnChange={(nextMode, callback) =&gt; {
-              const shoudSwitchcMode = handleViewChange(nextMode)
-              shoudSwitchcMode &amp;&amp; callback(nextMode)
-            }}
-          /&gt;
-          &lt;div&gt;
-            &lt;div className={css.savePublishContainer}&gt;
-              {isReadonly &amp;&amp; (
-                &lt;div className={css.readonlyAccessTag}&gt;
-                  &lt;Icon name="eye-open" size={16} /&gt;
-                  &lt;div className={css.readonlyAccessText}&gt;{getString('common.readonlyPermissions')}&lt;/div&gt;
-                &lt;/div&gt;
-              )}
-              {isUpdated &amp;&amp; !isReadonly &amp;&amp; &lt;div className={css.tagRender}&gt;{getString('unsavedChanges')}&lt;/div&gt;}
-              &lt;div&gt;
-                {!isReadonly &amp;&amp; (
-                  &lt;Button
-                    variation={ButtonVariation.PRIMARY}
-                    text={getString('save')}
-                    onClick={saveAndPublish}
-                    icon="send-data"
-                    className={css.saveButton}
-                  /&gt;
-                )}
-                {pipelineIdentifier !== DefaultNewPipelineId &amp;&amp; !isReadonly &amp;&amp; (
-                  &lt;Button
-                    disabled={!isUpdated}
-                    onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                      updatePipelineView({ ...pipelineView, isYamlEditable: false })</span>
-<span class="cstat-no" title="statement not covered" >                      fetchPipeline({ forceFetch: true, forceUpdate: true })</span>
+        &lt;div&gt;
+          &lt;div className={css.titleBar}&gt;
+            &lt;div className={css.breadcrumbsMenu}&gt;
+              &lt;div className={css.pipelineMetadataContainer}&gt;
+                &lt;Layout.Horizontal className={css.pipelineNameContainer}&gt;
+                  &lt;Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} /&gt;
+                  &lt;Text
+                    className={css.pipelineName}
+                    style={{
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      maxWidth: getPipelineNameTextContainerWidth()
                     }}
-                    className={css.discardBtn}
-                    variation={ButtonVariation.SECONDARY}
-                    text={getString('pipeline.discard')}
-                  /&gt;
+                    tooltip={pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame}
+                  &gt;
+                    {pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame}
+                  &lt;/Text&gt;
+                  {!isEmpty(pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ags) &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >pipeline.tags </span>&amp;&amp; (
+<span class="branch-2 cbranch-no" title="branch not covered" >                    &lt;Container className={css.tagsContainer}&gt;</span>
+                      &lt;TagsPopover tags={pipeline.tags} /&gt;
+                    &lt;/Container&gt;
+                  )}
+                  {isGitSyncEnabled &amp;&amp; (
+                    &lt;StudioGitPopover
+                      gitDetails={gitDetails}
+                      identifier={pipelineIdentifier}
+                      isReadonly={isReadonly}
+                      entityData={{ ...pipeline, versionLabel: '', type: 'Step' }} // Just to avoid type issues
+                      onGitBranchChange={onGitBranchChange}
+                      entityType={'Pipeline'}
+                    /&gt;
+                  )}
+                  {isYaml || isReadonly ? null : (
+                    &lt;Button variation={ButtonVariation.ICON} icon="Edit" onClick={showModal} /&gt;
+                  )}
+                &lt;/Layout.Horizontal&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;VisualYamlToggle
+              className={css.visualYamlToggle}
+              initialSelectedView={isYaml || disableVisualView ? <span class="branch-0 cbranch-no" title="branch not covered" >SelectedView.YAML </span>: SelectedView.VISUAL}
+              disableYaml={disableVisualView}
+              beforeOnChange={(nextMode, callback) =&gt; {
+                const shoudSwitchcMode = handleViewChange(nextMode)
+                shoudSwitchcMode &amp;&amp; callback(nextMode)
+              }}
+            /&gt;
+            &lt;div&gt;
+              &lt;div className={css.savePublishContainer}&gt;
+                {isReadonly &amp;&amp; (
+                  &lt;div className={css.readonlyAccessTag}&gt;
+                    &lt;Icon name="eye-open" size={16} /&gt;
+                    &lt;div className={css.readonlyAccessText}&gt;{getString('common.readonlyPermissions')}&lt;/div&gt;
+                  &lt;/div&gt;
                 )}
-                &lt;RbacButton
-                  data-testid="card-run-pipeline"
-                  variation={ButtonVariation.PRIMARY}
-                  icon="run-pipeline"
-                  intent="success"
-                  disabled={isUpdated}
-                  className={css.runPipelineBtn}
-                  text={getString('runPipelineText')}
-                  tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
-                  onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                    e.stopPropagation()</span>
-<span class="cstat-no" title="statement not covered" >                    openRunPipelineModal()</span>
-                  }}
-                  featureProps={{
-                    featureRequest: {
-                      featureName: isCIModule ? <span class="branch-0 cbranch-no" title="branch not covered" >FeatureIdentifier.BUILDS </span>: FeatureIdentifier.DEPLOYMENTS
-                    }
-                  }}
-                  permission={{
-                    resourceScope: {
-                      accountIdentifier: accountId,
-                      orgIdentifier,
-                      projectIdentifier
-                    },
-                    resource: {
-                      resourceType: ResourceType.PIPELINE,
-                      resourceIdentifier: pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier as string
-                    },
-                    permission: PermissionIdentifier.EXECUTE_PIPELINE
-                  }}
-                /&gt;
+                {isUpdated &amp;&amp; !isReadonly &amp;&amp; &lt;div className={css.tagRender}&gt;{getString('unsavedChanges')}&lt;/div&gt;}
+                &lt;div&gt;
+                  {!isReadonly &amp;&amp; (
+                    &lt;Button
+                      variation={ButtonVariation.PRIMARY}
+                      text={getString('save')}
+                      onClick={saveAndPublish}
+                      icon="send-data"
+                      className={css.saveButton}
+                    /&gt;
+                  )}
+                  {pipelineIdentifier !== DefaultNewPipelineId &amp;&amp; !isReadonly &amp;&amp; (
+                    &lt;Button
+                      disabled={!isUpdated}
+                      onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                        updatePipelineView({ ...pipelineView, isYamlEditable: false })</span>
+<span class="cstat-no" title="statement not covered" >                        fetchPipeline({ forceFetch: true, forceUpdate: true })</span>
+                      }}
+                      className={css.discardBtn}
+                      variation={ButtonVariation.SECONDARY}
+                      text={getString('pipeline.discard')}
+                    /&gt;
+                  )}
+                  &lt;RbacButton
+                    data-testid="card-run-pipeline"
+                    variation={ButtonVariation.PRIMARY}
+                    icon="run-pipeline"
+                    intent="success"
+                    disabled={isUpdated}
+                    className={css.runPipelineBtn}
+                    text={getString('runPipelineText')}
+                    tooltip={isUpdated ? 'Please click Save and then run the pipeline.' : ''}
+                    onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                      e.stopPropagation()</span>
+<span class="cstat-no" title="statement not covered" >                      openRunPipelineModal()</span>
+                    }}
+                    featureProps={{
+                      featureRequest: {
+                        featureName: isCIModule ? <span class="branch-0 cbranch-no" title="branch not covered" >FeatureIdentifier.BUILDS </span>: FeatureIdentifier.DEPLOYMENTS_PER_MONTH
+                      }
+                    }}
+                    permission={{
+                      resourceScope: {
+                        accountIdentifier: accountId,
+                        orgIdentifier,
+                        projectIdentifier
+                      },
+                      resource: {
+                        resourceType: ResourceType.PIPELINE,
+                        resourceIdentifier: pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier as string
+                      },
+                      permission: PermissionIdentifier.EXECUTE_PIPELINE
+                    }}
+                  /&gt;
+                &lt;/div&gt;
               &lt;/div&gt;
             &lt;/div&gt;
           &lt;/div&gt;
+          &lt;PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} /&gt;
+          &lt;PipelineFeatureLimitBreachedBanner
+            featureIdentifier={FeatureIdentifier.DEPLOYMENTS_PER_MONTH}
+            module={module}
+          /&gt;
+          &lt;PipelineFeatureLimitBreachedBanner
+            featureIdentifier={FeatureIdentifier.INITIAL_DEPLOYMENTS}
+            module={module}
+          /&gt;
         &lt;/div&gt;
-        &lt;PipelineFeatureLimitBreachedBanner featureIdentifier={FeatureIdentifier.SERVICES} module={module} /&gt;
         {isYaml ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;PipelineYamlView /&gt; </span>: &lt;StageBuilder /&gt;}
         {shouldShowGovernanceEvaluation &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >          &lt;EvaluationModal</span>
@@ -2869,7 +2899,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 06 2021 06:02:51 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 06 2021 07:02:01 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

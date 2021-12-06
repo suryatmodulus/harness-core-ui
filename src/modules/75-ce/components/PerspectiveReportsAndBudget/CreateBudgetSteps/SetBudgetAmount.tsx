@@ -13,7 +13,8 @@ import {
   FlexExpander,
   DateInput,
   Color,
-  Icon
+  Icon,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import moment from 'moment'
 import type { FormikProps } from 'formik'
@@ -178,6 +179,9 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({
         items={BUDGET_PERIOD}
         name={'period'}
         label={getString('ce.perspectives.budgets.setBudgetAmount.budgetPeriod')}
+        tooltipProps={{
+          dataTooltipId: 'budgetPeriod'
+        }}
         onChange={val => {
           setLastCostPeriodCostVar(x => ({ ...x, period: val.value as any }))
         }}
@@ -201,6 +205,7 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({
           })
         }}
       />
+      <HarnessDocTooltip tooltipId="budgetStartTime" useStandAlone={true} />
       <FormInput.Select
         value={BUDGET_TYPE.find(op => op.value === formikProps.values.type)}
         items={BUDGET_TYPE}
@@ -239,6 +244,7 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({
         >
           <FormInput.Text
             name={'growthRate'}
+            inputGroup={{ type: 'number' }}
             label={getString('ce.perspectives.budgets.setBudgetAmount.growthRateLabel')}
           />
           <Text

@@ -535,7 +535,7 @@ perspectives:
     title: '{{ $.ce.common.budget}}'
     thisMonth: this month
     spendExceededBy: Spend exceeded budget by
-    monthToDateSpend: Month to date spend is
+    monthToDateSpend: Spend Till Date spend is
     budgetSmallTxt: budget
     budgetMonthlyTxt: Budget - Monthly
     desc: Budget can help you recieve alerts when the spend exceeds or is about to exceed a specified threshold so that it can be prevented.
@@ -546,10 +546,9 @@ perspectives:
     actualSpend: Actual spend
     forecastedCost: Forecasted cost
     defineTarget:
-      title: Define target
-      text: Budgets are created on Perspectives. If you do not have a Perpective of the resources you would
-        like to budget, please create a new Perspective and then proceed to setting a budget.
-      selectPerspective: Select perspective
+      title: Define Target
+      text: Budgets are created on Perspectives. If you do not have a Perspective of the resources you would like to budget, create a new Perspective and then proceed to set a budget.
+      selectPerspective: Select Perspective
       budgetName: Budget Name
       createNewPerspective: Create a new Perspective
     setBudgetAmount:
@@ -647,22 +646,22 @@ budgets:
     newBudget: '{{ $.ce.common.newBudget }}'
     searchText: '{{ $.search }}'
     budgetCount: 'Total: {{ count }}'
-    mtdAlert: 'MTD at {{ alert }}'
+    mtdAlert: 'Spend Till Date at {{ alert }}'
     forecastAlert: 'Forecast at {{ alert }}'
     timePeriodRemaining: '{{ scope }} - {{ remaining }} {{ unit }} left'
     overBudgetText: '{{ cost }} over budget'
     tableHeaders:
       name: NAME
       budgetAmount: BUDGET AMOUNT
-      monthToDate: MONTH TO DATE & FORECASTED COST V/S BUDGET
+      monthToDate: SPEND TILL DATE & FORECASTED COST V/S BUDGET
       alerts: ALERTS
   detailsPage:
     budgetHistoryTxt: Budget History
     chartNames:
       actualCost: Actual cost
       budgetedCost: '{{ $.ce.common.budget}}'
-      forecastCost: Forecased monthly cost
-      currentMonthCost: Month to Date cost
+      forecastCost: Forecased cost
+      currentMonthCost: Spend Till Date cost
     tableHeaders:
       month: MONTH
       actualCost: ACTUAL COST
@@ -671,6 +670,6 @@ budgets:
       budgetVariancePercentage: BUDGET VARIANCE (%)
     budgetStatus: 'Budget Status - {{ timeScope }}'
     timeLeft: '{{ timeLeft }} {{ timeUnit }} left'
-    monthToDateCost: Month to Date Cost
+    monthToDateCost: Spend Till Date Cost
     budgetAmount: Budget amount
     alertsAt: Alerts at

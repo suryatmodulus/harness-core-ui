@@ -103,9 +103,10 @@ const CostCard: (val: CostCardProps) => JSX.Element = ({
 }
 
 const BudgetCard: () => JSX.Element | null = () => {
-  const { perspectiveId, accountId } = useParams<{
+  const { perspectiveId, accountId, perspectiveName } = useParams<{
     perspectiveId: string
     accountId: string
+    perspectiveName: string
   }>()
 
   const { getString } = useStrings()
@@ -145,9 +146,7 @@ const BudgetCard: () => JSX.Element | null = () => {
     )
   }
 
-  const { actualCost, budgetAmount } = budgetData || {}
-
-  if (!budgetData || !actualCost || !budgetAmount) {
+  if (!budgetData) {
     return (
       <Card elevation={1} interactive={false}>
         <Container className={cx(css.mainCard, css.budgetCard)}>
@@ -171,6 +170,8 @@ const BudgetCard: () => JSX.Element | null = () => {
             onClick={() => {
               openModal({
                 isEdit: false,
+                perspectiveName: perspectiveName,
+                perspective: perspectiveId,
                 selectedBudget: {
                   lastMonthCost: lmc?.data,
                   forecastCost: fc?.data
@@ -184,6 +185,8 @@ const BudgetCard: () => JSX.Element | null = () => {
       </Card>
     )
   }
+
+  const { actualCost, budgetAmount } = budgetData
 
   const percentage = Math.round((actualCost * 100) / (budgetAmount || 1))
 

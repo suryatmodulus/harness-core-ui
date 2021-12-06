@@ -105,7 +105,7 @@ const SelectPerspective: (props: StepProps<BudgetStepData> & SelectPerspectivePr
         enableReinitialize={true}
         initialValues={{
           perspective: perspective || get(prevStepData, 'perspective') || '',
-          budgetName: name || ''
+          budgetName: name || get(prevStepData, 'budgetName') || ''
         }}
       >
         {formikProps => {

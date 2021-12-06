@@ -179,13 +179,10 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
                   <Layout.Vertical>
                     <NameIdDescriptionTags
                       tooltipProps={{ dataTooltipId: formName }}
-                      inputGroupProps={{
-                        disabled: !!disabledFields?.includes(Fields.Name)
-                      }}
                       formikProps={formik}
                       identifierProps={{
-                        isIdentifierEditable: !disabledFields?.includes(Fields.Identifier),
-                        inputGroupProps: { disabled: isReadonly }
+                        isIdentifierEditable: !disabledFields.includes(Fields.Identifier) && !isReadonly,
+                        inputGroupProps: { disabled: disabledFields.includes(Fields.Name) || isReadonly }
                       }}
                       className={css.nameIdDescriptionTags}
                     />
@@ -193,7 +190,7 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
                       name="versionLabel"
                       placeholder={getString('templatesLibrary.createNewModal.versionPlaceholder')}
                       label={versionLabelText}
-                      disabled={!!disabledFields?.includes(Fields.VersionLabel) || isReadonly}
+                      disabled={disabledFields.includes(Fields.VersionLabel) || isReadonly}
                     />
                     {isGitSyncEnabled && showGitFields && (
                       <GitSyncStoreProvider>

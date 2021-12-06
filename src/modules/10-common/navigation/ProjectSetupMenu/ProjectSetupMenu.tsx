@@ -33,7 +33,9 @@ const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
             to={routes.toGitSyncAdmin({ accountId, orgIdentifier, projectIdentifier, module })}
           />
         ) : null}
-        {NG_TEMPLATES ? <SidebarLink label={getString('common.templates')} to={routes.toTemplates(params)} /> : null}
+        {NG_TEMPLATES && isCIorCD && (
+          <SidebarLink label={getString('common.templates')} to={routes.toTemplates(params)} />
+        )}
         {OPA_PIPELINE_GOVERNANCE && isCIorCD && (
           <SidebarLink label={getString('common.governance')} to={routes.toGovernance(params as GovernancePathProps)} />
         )}

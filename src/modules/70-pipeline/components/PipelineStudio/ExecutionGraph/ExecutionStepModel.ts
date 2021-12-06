@@ -431,7 +431,8 @@ export class ExecutionStepModel extends DiagramModel {
             isParallelNode: true,
             isStepGroupNode,
             parentPath: `${parentPath}.parallel.${index}`,
-            errorMap
+            errorMap,
+            templateTypes
           })
           if (resp.startX > startX) {
             startX = resp.startX

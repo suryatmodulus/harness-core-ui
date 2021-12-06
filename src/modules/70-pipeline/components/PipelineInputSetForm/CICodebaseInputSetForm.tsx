@@ -69,6 +69,7 @@ const CICodebaseInputSetFormInternal = ({
   const { expressions } = useVariablesExpression()
   const formattedPath = isEmpty(path) ? '' : `${path}.`
   const codeBaseTypePath = `${formattedPath}properties.ci.codebase.build.type`
+  const buildSpecPath = `${formattedPath}properties.ci.codebase.build.spec`
 
   const radioLabels = {
     branch: getString('gitBranch'),
@@ -133,6 +134,7 @@ const CICodebaseInputSetFormInternal = ({
   }, [formik?.values])
 
   useEffect(() => {
+    // OnEdit Case, persists saved ciCodebase build spec
     if (codeBaseType) {
       savedValues.current = Object.assign(savedValues.current, {
         [codeBaseType]: get(
@@ -141,17 +143,17 @@ const CICodebaseInputSetFormInternal = ({
           ''
         )
       })
-      handleTypeChange(codeBaseType)
+      formik?.setFieldValue(buildSpecPath, { [inputNames[codeBaseType]]: savedValues.current[codeBaseType] })
     }
   }, [codeBaseType])
 
   const handleTypeChange = (newType: CodeBaseType): void => {
-    const buildSpecPath = `${formattedPath}properties.ci.codebase.build.spec.${inputNames[newType]}`
     formik?.setFieldValue(codeBaseTypePath, newType)
+
     if (!isInputTouched && triggerIdentifier) {
-      formik?.setFieldValue(buildSpecPath, defaultValues[newType])
+      formik?.setFieldValue(buildSpecPath, { [inputNames[newType]]: defaultValues[newType] })
     } else {
-      formik?.setFieldValue(buildSpecPath, savedValues.current[newType])
+      formik?.setFieldValue(buildSpecPath, { [inputNames[newType]]: savedValues.current[newType] })
     }
   }
 

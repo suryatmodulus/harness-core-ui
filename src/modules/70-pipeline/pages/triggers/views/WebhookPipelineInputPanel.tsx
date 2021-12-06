@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Layout, Text, NestedAccordionProvider, HarnessDocTooltip, PageSpinner } from '@wings-software/uicore'
 import { parse } from 'yaml'
-import { pick, merge, cloneDeep } from 'lodash-es'
+import { pick, merge, cloneDeep, isEmpty } from 'lodash-es'
 import { InputSetSelector, InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import {
@@ -29,8 +29,6 @@ import css from './WebhookPipelineInputPanel.module.scss'
 interface WebhookPipelineInputPanelPropsInterface {
   formikProps?: any
 }
-
-let hasEverRendered = false
 
 const applyArtifactToPipeline = (newPipelineObject: any, formikProps: any) => {
   const artifactIndex = filterArtifactIndex({
@@ -141,6 +139,8 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
   })
   const [selectedInputSets, setSelectedInputSets] = useState<InputSetSelectorProps['value']>(inputSetSelected)
   const { getString } = useStrings()
+  const ciCodebaseBuildValue = formikProps.values?.pipeline?.properties?.ci?.codebase?.build
+  let hasEverRendered = typeof ciCodebaseBuildValue === 'object' && !isEmpty(ciCodebaseBuildValue)
 
   useEffect(() => {
     if (!hasEverRendered) {

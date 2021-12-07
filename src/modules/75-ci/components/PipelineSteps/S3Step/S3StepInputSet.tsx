@@ -8,15 +8,15 @@ import { CIStep } from '../CIStep/CIStep'
 import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly, stepViewType }) => {
+export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly, stepViewType, allowableTypes }) => {
   const { getString } = useStrings()
 
   return (
-    <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
+    <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
       <CIStep
         readonly={readonly}
         stepViewType={stepViewType}
-        allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+        allowableTypes={allowableTypes}
         enableFields={{
           ...(getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && {
             'spec.connectorRef': {
@@ -31,10 +31,7 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly
                   {getString('pipelineSteps.awsConnectorLabel')}
                 </Text>
               ),
-              type: Connectors.AWS,
-              multiTypeProps: {
-                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-              }
+              type: Connectors.AWS
             }
           }),
           ...(getMultiTypeFromValue(template?.spec?.region) === MultiTypeInputType.RUNTIME && { 'spec.region': {} }),
@@ -45,9 +42,10 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly
             'spec.sourcePath': {}
           })
         }}
-        isInputSetView={true}
+        path={path || ''}
       />
       <CIStepOptionalConfig
+        stepViewType={stepViewType}
         readonly={readonly}
         enableFields={{
           ...(getMultiTypeFromValue(template?.spec?.endpoint) === MultiTypeInputType.RUNTIME && {
@@ -57,9 +55,16 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly
             'spec.target': { tooltipId: 'gcsS3Target' }
           })
         }}
-        allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+        allowableTypes={allowableTypes}
+        path={path || ''}
       />
-      <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />
+      <StepCommonFieldsInputSet
+        path={path}
+        readonly={readonly}
+        template={template}
+        allowableTypes={allowableTypes}
+        stepViewType={stepViewType}
+      />
     </FormikForm>
   )
 }

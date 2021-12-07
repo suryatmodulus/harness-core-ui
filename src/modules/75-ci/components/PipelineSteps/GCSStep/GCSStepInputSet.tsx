@@ -8,15 +8,15 @@ import { CIStep } from '../CIStep/CIStep'
 import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readonly, stepViewType }) => {
+export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readonly, stepViewType, allowableTypes }) => {
   const { getString } = useStrings()
 
   return (
-    <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
+    <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
       <CIStep
         readonly={readonly}
         stepViewType={stepViewType}
-        allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+        allowableTypes={allowableTypes}
         enableFields={{
           ...(getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && {
             'spec.connectorRef': {
@@ -31,10 +31,7 @@ export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readon
                   {getString('pipelineSteps.gcpConnectorLabel')}
                 </Text>
               ),
-              type: [Connectors.GCP],
-              multiTypeProps: {
-                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-              }
+              type: Connectors.GCP
             }
           }),
           ...(getMultiTypeFromValue(template?.spec?.bucket) === MultiTypeInputType.RUNTIME && {
@@ -44,18 +41,26 @@ export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readon
             'spec.sourcePath': {}
           })
         }}
-        isInputSetView={true}
+        path={path || ''}
       />
       <CIStepOptionalConfig
+        stepViewType={stepViewType}
         readonly={readonly}
         enableFields={{
           ...(getMultiTypeFromValue(template?.spec?.target) === MultiTypeInputType.RUNTIME && {
             'spec.target': { tooltipId: 'gcsS3Target' }
           })
         }}
-        allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+        allowableTypes={allowableTypes}
+        path={path || ''}
       />
-      <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />
+      <StepCommonFieldsInputSet
+        path={path}
+        readonly={readonly}
+        template={template}
+        allowableTypes={allowableTypes}
+        stepViewType={stepViewType}
+      />
     </FormikForm>
   )
 }

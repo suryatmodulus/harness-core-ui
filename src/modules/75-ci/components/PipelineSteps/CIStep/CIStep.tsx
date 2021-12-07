@@ -1,4 +1,5 @@
 import React from 'react'
+import isEmpty from 'lodash/isEmpty'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
@@ -24,11 +25,11 @@ interface CIStepProps {
   formik?: FormikProps<any>
   stepViewType: StepViewType
   allowableTypes: MultiTypeInputType[]
-  isInputSetView?: boolean
+  path?: string
 }
 
 export const CIStep: React.FC<CIStepProps> = props => {
-  const { isNewStep, readonly, stepLabel, enableFields, stepViewType, allowableTypes, isInputSetView } = props
+  const { isNewStep, readonly, stepLabel, enableFields, stepViewType, allowableTypes, path } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -37,10 +38,14 @@ export const CIStep: React.FC<CIStepProps> = props => {
   const { getString } = useStrings()
   const gitScope = useGitScope()
   const { expressions } = useVariablesExpression()
+  const prefix = isEmpty(path) ? '' : `${path}.`
+
+  const stepCss = stepViewType === StepViewType.DeploymentForm ? css.sm : css.lg
+
   return (
     <>
       {stepViewType !== StepViewType.Template && Object.prototype.hasOwnProperty.call(enableFields, 'name') ? (
-        <Container className={cx(css.formGroup, css.lg, css.nameIdLabel)}>
+        <Container className={cx(css.formGroup, stepCss, css.nameIdLabel)}>
           <FormInput.InputWithIdentifier
             inputName="name"
             idName="identifier"
@@ -50,10 +55,10 @@ export const CIStep: React.FC<CIStepProps> = props => {
           />
         </Container>
       ) : null}
-      <Container className={cx(css.formGroup, css.lg)}>
+      <Container className={cx(css.formGroup, stepCss)}>
         {Object.prototype.hasOwnProperty.call(enableFields, 'description') ? (
           <FormMultiTypeTextAreaField
-            name="description"
+            name={`${prefix}description`}
             label={
               <Text color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
                 {getString('description')}
@@ -69,8 +74,10 @@ export const CIStep: React.FC<CIStepProps> = props => {
           <FormMultiTypeConnectorField
             label={enableFields['spec.connectorRef'].label}
             type={enableFields['spec.connectorRef'].type}
-            width={isInputSetView ? 265 : 385}
-            name="spec.connectorRef"
+            width={
+              stepViewType === StepViewType.DeploymentForm ? 320 : stepViewType === StepViewType.InputSet ? 310 : 385
+            }
+            name={`${prefix}spec.connectorRef`}
             placeholder={getString('select')}
             accountIdentifier={accountId}
             projectIdentifier={projectIdentifier}
@@ -87,9 +94,9 @@ export const CIStep: React.FC<CIStepProps> = props => {
         ) : null}
       </Container>
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.image') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.image"
+            name={`${prefix}spec.image`}
             label={
               <Text
                 className={css.inpLabel}
@@ -108,9 +115,9 @@ export const CIStep: React.FC<CIStepProps> = props => {
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.target') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.target"
+            name={`${prefix}spec.target`}
             label={
               <Text
                 className={css.inpLabel}
@@ -129,9 +136,9 @@ export const CIStep: React.FC<CIStepProps> = props => {
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.repo') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.repo"
+            name={`${prefix}spec.repo`}
             label={
               <Text
                 className={css.inpLabel}
@@ -150,9 +157,9 @@ export const CIStep: React.FC<CIStepProps> = props => {
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.host') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.host"
+            name={`${prefix}spec.host`}
             label={
               <Text
                 className={css.inpLabel}
@@ -172,9 +179,9 @@ export const CIStep: React.FC<CIStepProps> = props => {
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.projectID') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.projectID"
+            name={`${prefix}spec.projectID`}
             label={
               <Text
                 className={css.inpLabel}
@@ -193,9 +200,9 @@ export const CIStep: React.FC<CIStepProps> = props => {
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.region') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.region"
+            name={`${prefix}spec.region`}
             label={
               <Text
                 className={css.inpLabel}
@@ -215,9 +222,9 @@ export const CIStep: React.FC<CIStepProps> = props => {
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.bucket') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.bucket"
+            name={`${prefix}spec.bucket`}
             label={
               <Text
                 className={css.inpLabel}
@@ -236,9 +243,9 @@ export const CIStep: React.FC<CIStepProps> = props => {
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.key') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.key"
+            name={`${prefix}spec.key`}
             label={
               <Text
                 className={css.inpLabel}
@@ -257,9 +264,9 @@ export const CIStep: React.FC<CIStepProps> = props => {
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.sourcePaths') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeList
-            name="spec.sourcePaths"
+            name={`${prefix}spec.sourcePaths`}
             multiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
@@ -279,9 +286,9 @@ export const CIStep: React.FC<CIStepProps> = props => {
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.sourcePath') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.sourcePath"
+            name={`${prefix}spec.sourcePath`}
             label={
               <Text
                 className={css.inpLabel}
@@ -300,9 +307,9 @@ export const CIStep: React.FC<CIStepProps> = props => {
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.account') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.account"
+            name={`${prefix}spec.account`}
             label={
               <Text
                 className={css.inpLabel}
@@ -321,9 +328,9 @@ export const CIStep: React.FC<CIStepProps> = props => {
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.imageName') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.imageName"
+            name={`${prefix}spec.imageName`}
             label={
               <Text
                 className={css.inpLabel}
@@ -342,9 +349,9 @@ export const CIStep: React.FC<CIStepProps> = props => {
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.tags') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeList
-            name="spec.tags"
+            name={`${prefix}spec.tags`}
             multiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (

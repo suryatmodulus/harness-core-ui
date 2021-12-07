@@ -116,6 +116,7 @@ export const PluginStepBase = (
                 details={
                   <>
                     <CIStepOptionalConfig
+                      stepViewType={stepViewType}
                       readonly={readonly}
                       enableFields={{ 'spec.privileged': {}, 'spec.settings': {}, 'spec.reportPaths': {} }}
                       allowableTypes={allowableTypes}

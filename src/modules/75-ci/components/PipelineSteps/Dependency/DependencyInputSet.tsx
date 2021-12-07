@@ -9,18 +9,24 @@ import { CIStep } from '../CIStep/CIStep'
 import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, readonly, stepViewType }) => {
+export const DependencyInputSet: React.FC<DependencyProps> = ({
+  template,
+  path,
+  readonly,
+  stepViewType,
+  allowableTypes
+}) => {
   const { getString } = useStrings()
 
   const { expressions } = useVariablesExpression()
 
   return (
-    <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
+    <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
       <CIStep
         stepLabel={getString('dependencyNameLabel')}
         readonly={readonly}
         stepViewType={stepViewType}
-        allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+        allowableTypes={allowableTypes}
         enableFields={{
           ...(getMultiTypeFromValue(template?.description as string) === MultiTypeInputType.RUNTIME && {
             'spec.description': {}
@@ -38,10 +44,7 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, 
                   {getString('pipelineSteps.connectorLabel')}
                 </Text>
               ),
-              type: [Connectors.GCP, Connectors.AWS, Connectors.DOCKER],
-              multiTypeProps: {
-                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-              }
+              type: [Connectors.GCP, Connectors.AWS, Connectors.DOCKER]
             }
           }),
           ...(getMultiTypeFromValue(template?.spec?.image) === MultiTypeInputType.RUNTIME && {
@@ -52,7 +55,7 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, 
                 disabled: readonly,
                 multiTextInputProps: {
                   expressions,
-                  allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME],
+                  allowableTypes,
                   textProps: {
                     autoComplete: 'off'
                   }
@@ -61,9 +64,10 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, 
             }
           })
         }}
-        isInputSetView={true}
+        path={path || ''}
       />
       <CIStepOptionalConfig
+        stepViewType={stepViewType}
         readonly={readonly}
         enableFields={{
           ...(getMultiTypeFromValue(template?.spec?.privileged) === MultiTypeInputType.RUNTIME && {
@@ -79,9 +83,17 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, 
             'spec.args': {}
           })
         }}
-        allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+        allowableTypes={allowableTypes}
+        path={path || ''}
       />
-      <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} withoutTimeout />
+      <StepCommonFieldsInputSet
+        path={path}
+        readonly={readonly}
+        template={template}
+        withoutTimeout
+        allowableTypes={allowableTypes}
+        stepViewType={stepViewType}
+      />
     </FormikForm>
   )
 }

@@ -121,6 +121,7 @@ export const RestoreCacheGCSStepBase = (
                 details={
                   <>
                     <CIStepOptionalConfig
+                      stepViewType={stepViewType}
                       enableFields={{ 'spec.archiveFormat': {}, 'spec.failIfKeyNotFound': {} }}
                       readonly={readonly}
                       allowableTypes={allowableTypes}

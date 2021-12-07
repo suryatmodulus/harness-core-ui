@@ -115,6 +115,7 @@ export const GCSStepBase = (
                 details={
                   <>
                     <CIStepOptionalConfig
+                      stepViewType={stepViewType}
                       readonly={readonly}
                       enableFields={{ 'spec.target': { tooltipId: 'gcsS3Target' } }}
                       allowableTypes={allowableTypes}

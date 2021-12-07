@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelector/MultiTypeDelegateSelector'
@@ -27,7 +27,7 @@ export interface TemplateInputSetStepProps {
 }
 
 export default function TemplateInputSetStep(props: TemplateInputSetStepProps): React.ReactElement {
-  const { template, path, readonly, initialValues, allowableTypes } = props
+  const { template, path, readonly, initialValues, allowableTypes, stepViewType } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const { orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
@@ -42,7 +42,7 @@ export default function TemplateInputSetStep(props: TemplateInputSetStepProps): 
         readonly={readonly}
         type={initialValues.template?.templateInputs?.type as StepType}
         path={`${prefix}template.templateInputs`}
-        stepViewType={StepViewType.InputSet}
+        stepViewType={stepViewType}
         allowableTypes={allowableTypes}
       />
       {getMultiTypeFromValue(template?.template.templateInputs?.spec?.delegateSelectors) ===

@@ -186,6 +186,7 @@ export const RunStepBase = (
                 details={
                   <>
                     <CIStepOptionalConfig
+                      stepViewType={stepViewType}
                       readonly={readonly}
                       enableFields={{
                         'spec.privileged': {},

@@ -1,9 +1,9 @@
 import React from 'react'
 import { getByPlaceholderText, render } from '@testing-library/react'
-import { Formik, FormikForm, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { Formik, FormikForm, MultiTypeInputType, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 
 import { TestWrapper } from '@common/utils/testUtils'
-
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import StepCommonFieldsInputSet from '../StepCommonFieldsInputSet'
 
 interface TestProps {
@@ -16,7 +16,12 @@ const TestComponent = ({ template, readonly }: TestProps): React.ReactElement =>
     {/* eslint-disable-next-line @typescript-eslint/no-empty-function */}
     <Formik initialValues={{}} onSubmit={() => {}} formName="stepCommonFiledsInputSetTestForm">
       <FormikForm>
-        <StepCommonFieldsInputSet template={template} readonly={!!readonly} />
+        <StepCommonFieldsInputSet
+          template={template}
+          readonly={!!readonly}
+          allowableTypes={[MultiTypeInputType.FIXED]}
+          stepViewType={StepViewType.Template}
+        />
       </FormikForm>
     </Formik>
   </TestWrapper>

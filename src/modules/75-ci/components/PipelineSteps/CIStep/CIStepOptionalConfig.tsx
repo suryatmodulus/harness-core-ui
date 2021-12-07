@@ -1,4 +1,5 @@
 import React from 'react'
+import isEmpty from 'lodash/isEmpty'
 import cx from 'classnames'
 import { Color, Container, Layout, MultiTypeInputType, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -7,6 +8,7 @@ import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeTe
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import { Separator } from '@common/components/Separator/Separator'
 import { ArchiveFormatOptions } from '../../../constants/Constants'
@@ -18,13 +20,17 @@ interface CIStepOptionalConfigProps {
     [key: string]: { [key: string]: any }
   }
   allowableTypes: MultiTypeInputType[]
-  isInputSetView?: boolean
+  stepViewType: StepViewType
+  path?: string
 }
 
 export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props => {
-  const { readonly, enableFields, allowableTypes, isInputSetView } = props
+  const { readonly, enableFields, allowableTypes, stepViewType, path } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
+  const prefix = isEmpty(path) ? '' : `${path}.`
+
+  const stepCss = stepViewType === StepViewType.DeploymentForm ? css.sm : css.lg
 
   const getOptionalSubLabel = React.useCallback((tooltip: string) => {
     return (
@@ -45,7 +51,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.privileged') ? (
         <div className={cx(css.formGroup, css.sm)}>
           <FormMultiTypeCheckboxField
-            name="spec.privileged"
+            name={`${prefix}spec.privileged`}
             label={getString('ci.privileged')}
             multiTypeTextbox={{
               expressions,
@@ -59,7 +65,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.settings') ? (
         <Container className={cx(css.formGroup, css.bottomMargin5)}>
           <MultiTypeMap
-            name="spec.settings"
+            name={`${prefix}spec.settings`}
             valueMultiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
@@ -77,11 +83,13 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.reportPaths') ? (
-        <Container className={cx(css.formGroup, css.lg)}>
+        <Container className={cx(css.formGroup, stepCss)}>
           <MultiTypeList
-            name="spec.reportPaths"
+            name={`${prefix}spec.reportPaths`}
             placeholder={getString('pipelineSteps.reportPathsPlaceholder')}
-            multiTextInputProps={{ expressions, allowableTypes }}
+            multiTextInputProps={{
+              expressions
+            }}
             multiTypeFieldSelectorProps={{
               label: (
                 <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
@@ -96,7 +104,8 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   &nbsp;
                   {getOptionalSubLabel('reportPaths')}
                 </Layout.Horizontal>
-              )
+              ),
+              allowedTypes: allowableTypes.filter(type => type !== MultiTypeInputType.RUNTIME)
             }}
             disabled={readonly}
           />
@@ -104,9 +113,9 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.reportPaths') ? <Separator topSeparation={16} /> : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.envVariables') ? (
-        <Container className={cx(css.formGroup, css.lg)}>
+        <Container className={cx(css.formGroup, stepCss)}>
           <MultiTypeMap
-            name="spec.envVariables"
+            name={`${prefix}spec.envVariables`}
             valueMultiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
@@ -132,10 +141,12 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         <Separator topSeparation={24} />
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.outputVariables') ? (
-        <Container className={cx(css.formGroup, css.lg)}>
+        <Container className={cx(css.formGroup, stepCss)}>
           <MultiTypeList
-            name="spec.outputVariables"
-            multiTextInputProps={{ expressions, allowableTypes }}
+            name={`${prefix}spec.outputVariables`}
+            multiTextInputProps={{
+              expressions
+            }}
             multiTypeFieldSelectorProps={{
               label: (
                 <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
@@ -150,7 +161,8 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   &nbsp;
                   {getOptionalSubLabel('outputVariables')}
                 </Layout.Horizontal>
-              )
+              ),
+              allowedTypes: allowableTypes.filter(type => type !== MultiTypeInputType.RUNTIME)
             }}
             disabled={readonly}
           />
@@ -160,9 +172,9 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         <Separator topSeparation={16} />
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.entrypoint') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeList
-            name="spec.entrypoint"
+            name={`${prefix}spec.entrypoint`}
             multiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
@@ -185,9 +197,9 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.args') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeList
-            name="spec.args"
+            name={`${prefix}spec.args`}
             multiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
@@ -212,7 +224,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.optimize') ? (
         <div className={cx(css.formGroup, css.sm)}>
           <FormMultiTypeCheckboxField
-            name="spec.optimize"
+            name={`${prefix}spec.optimize`}
             label={getString('ci.optimize')}
             multiTypeTextbox={{
               expressions,
@@ -224,9 +236,9 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         </div>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.dockerfile') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.dockerfile"
+            name={`${prefix}spec.dockerfile`}
             label={
               <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
                 <Text
@@ -249,9 +261,9 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.context') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.context"
+            name={`${prefix}spec.context`}
             label={
               <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
                 <Text
@@ -276,7 +288,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.labels') ? (
         <Container className={cx(css.formGroup, css.bottomMargin5)}>
           <MultiTypeMap
-            name="spec.labels"
+            name={`${prefix}spec.labels`}
             valueMultiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
@@ -301,7 +313,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.buildArgs') ? (
         <Container className={cx(css.formGroup, css.bottomMargin5)}>
           <MultiTypeMap
-            name="spec.buildArgs"
+            name={`${prefix}spec.buildArgs`}
             valueMultiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
@@ -324,9 +336,9 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.endpoint') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.endpoint"
+            name={`${prefix}spec.endpoint`}
             label={
               <Text
                 tooltipProps={{ dataTooltipId: 'endpoint' }}
@@ -346,9 +358,9 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.target') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.target"
+            name={`${prefix}spec.target`}
             label={
               <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
                 <Text
@@ -372,9 +384,9 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.remoteCacheImage') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.remoteCacheImage"
+            name={`${prefix}spec.remoteCacheImage`}
             label={
               <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
                 <Text
@@ -398,9 +410,9 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.archiveFormat') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeSelectField
-            name="spec.archiveFormat"
+            name={`${prefix}spec.archiveFormat`}
             label={
               <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
                 <Text
@@ -427,7 +439,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.override') ? (
         <div className={cx(css.formGroup, css.sm, css.bottomMargin5)}>
           <FormMultiTypeCheckboxField
-            name="spec.override"
+            name={`${prefix}spec.override`}
             label={getString('override')}
             multiTypeTextbox={{
               expressions,
@@ -442,7 +454,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.pathStyle') ? (
         <div className={cx(css.formGroup, css.sm)}>
           <FormMultiTypeCheckboxField
-            name="spec.pathStyle"
+            name={`${prefix}spec.pathStyle`}
             label={getString('pathStyle')}
             multiTypeTextbox={{
               expressions,
@@ -455,11 +467,9 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         </div>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.failIfKeyNotFound') ? (
-        <div
-          className={cx(css.formGroup, { [css.lg]: isInputSetView }, { [css.sm]: !isInputSetView }, css.bottomMargin1)}
-        >
+        <div className={cx(css.formGroup, css.sm, css.bottomMargin1)}>
           <FormMultiTypeCheckboxField
-            name="spec.failIfKeyNotFound"
+            name={`${prefix}spec.failIfKeyNotFound`}
             label={getString('failIfKeyNotFound')}
             multiTypeTextbox={{
               expressions,
@@ -472,9 +482,9 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
         </div>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.remoteCacheRepo') ? (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
-            name="spec.remoteCacheRepo"
+            name={`${prefix}spec.remoteCacheRepo`}
             label={
               <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
                 <Text

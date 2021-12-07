@@ -12,16 +12,17 @@ export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = (
   template,
   path,
   readonly,
-  stepViewType
+  stepViewType,
+  allowableTypes
 }) => {
   const { getString } = useStrings()
 
   return (
-    <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
+    <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
       <CIStep
         readonly={readonly}
         stepViewType={stepViewType}
-        allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+        allowableTypes={allowableTypes}
         enableFields={{
           ...(getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && {
             'spec.connectorRef': {
@@ -36,10 +37,7 @@ export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = (
                   {getString('pipelineSteps.gcpConnectorLabel')}
                 </Text>
               ),
-              type: Connectors.GCP,
-              multiTypeProps: {
-                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-              }
+              type: Connectors.GCP
             }
           }),
           ...(getMultiTypeFromValue(template?.spec?.bucket) === MultiTypeInputType.RUNTIME && {
@@ -49,7 +47,7 @@ export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = (
             'spec.key': { tooltipId: 'restoreCacheKey' }
           })
         }}
-        isInputSetView={true}
+        path={path || ''}
       />
       <CIStepOptionalConfig
         readonly={readonly}
@@ -61,10 +59,17 @@ export const RestoreCacheGCSStepInputSet: React.FC<RestoreCacheGCSStepProps> = (
             'spec.failIfKeyNotFound': {}
           })
         }}
-        allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
-        isInputSetView={true}
+        allowableTypes={allowableTypes}
+        stepViewType={stepViewType}
+        path={path || ''}
       />
-      <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />
+      <StepCommonFieldsInputSet
+        path={path}
+        readonly={readonly}
+        template={template}
+        allowableTypes={allowableTypes}
+        stepViewType={stepViewType}
+      />
     </FormikForm>
   )
 }

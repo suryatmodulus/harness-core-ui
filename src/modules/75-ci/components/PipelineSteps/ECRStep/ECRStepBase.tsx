@@ -117,6 +117,7 @@ export const ECRStepBase = (
                 details={
                   <>
                     <CIStepOptionalConfig
+                      stepViewType={stepViewType}
                       readonly={readonly}
                       enableFields={{
                         'spec.optimize': {},

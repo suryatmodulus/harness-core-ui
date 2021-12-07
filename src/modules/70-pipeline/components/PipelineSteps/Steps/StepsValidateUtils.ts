@@ -369,17 +369,12 @@ export function generateSchemaFields(
       validationRule = yup.string()
     }
 
-    if (
-      stepViewType !== StepViewType.Template &&
-      (type === Types.Identifier || type === Types.Name || type === Types.Text) &&
-      isRequired &&
-      label
-    ) {
+    if ((type === Types.Identifier || type === Types.Name || type === Types.Text) && isRequired && label) {
       if (validationRule) {
         validationRule = (validationRule as any).required(
           getString('fieldRequired', { field: getString(label as StringKeys) })
         )
-      } else {
+      } else if (stepViewType !== StepViewType.Template && type !== Types.Identifier && type !== Types.Name) {
         validationRule = yup.string().required(getString('fieldRequired', { field: getString(label as StringKeys) }))
       }
     }

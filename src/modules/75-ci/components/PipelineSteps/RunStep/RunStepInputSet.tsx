@@ -11,22 +11,26 @@ import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/Mult
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { Connectors } from '@connectors/constants'
 import type { RunStepProps } from './RunStep'
 import { CIStep } from '../CIStep/CIStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readonly, stepViewType }) => {
+export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readonly, stepViewType, allowableTypes }) => {
   const { getString } = useStrings()
+  const prefix = isEmpty(path) ? '' : `${path}.`
 
   const { expressions } = useVariablesExpression()
 
+  const stepCss = stepViewType === StepViewType.DeploymentForm ? css.sm : css.lg
+
   return (
-    <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
+    <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
       <CIStep
         readonly={readonly}
         stepViewType={stepViewType}
-        allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+        allowableTypes={allowableTypes}
         enableFields={{
           ...(getMultiTypeFromValue(template?.description) === MultiTypeInputType.RUNTIME && { description: {} }),
           ...(getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && {
@@ -42,10 +46,7 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
                   {getString('pipelineSteps.connectorLabel')}
                 </Text>
               ),
-              type: [Connectors.GCP, Connectors.AWS, Connectors.DOCKER],
-              multiTypeProps: {
-                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-              }
+              type: [Connectors.GCP, Connectors.AWS, Connectors.DOCKER]
             }
           }),
           ...(getMultiTypeFromValue(template?.spec?.image) === MultiTypeInputType.RUNTIME && {
@@ -56,18 +57,18 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
                 disabled: readonly,
                 multiTextInputProps: {
                   expressions,
-                  allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                  allowableTypes
                 }
               }
             }
           })
         }}
-        isInputSetView={true}
+        path={path || ''}
       />
       {getMultiTypeFromValue(template?.spec?.command) === MultiTypeInputType.RUNTIME && (
-        <div className={cx(css.fieldsGroup, css.withoutSpacing, css.topPadding3, css.bottomPadding3)}>
+        <div className={cx(css.fieldsGroup, css.withoutSpacing, css.topPadding3, css.bottomPadding3, stepCss)}>
           <MultiTypeFieldSelector
-            name={`${isEmpty(path) ? '' : `${path}.`}spec.command`}
+            name={`${prefix}spec.command`}
             label={
               <Text
                 color={Color.GREY_800}
@@ -81,12 +82,12 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
             }
             defaultValueToReset=""
             skipRenderValueInExpressionLabel
-            allowedTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+            allowedTypes={allowableTypes}
             expressionRender={() => {
               return (
                 <ShellScriptMonacoField
                   title={getString('commandLabel')}
-                  name={`${isEmpty(path) ? '' : `${path}.`}spec.command`}
+                  name={`${prefix}spec.command`}
                   scriptType="Bash"
                   expressions={expressions}
                   disabled={readonly}
@@ -98,7 +99,7 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
           >
             <ShellScriptMonacoField
               title={getString('commandLabel')}
-              name={`${isEmpty(path) ? '' : `${path}.`}spec.command`}
+              name={`${prefix}spec.command`}
               scriptType="Bash"
               disabled={readonly}
               expressions={expressions}
@@ -109,12 +110,12 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
       {getMultiTypeFromValue(template?.spec?.privileged) === MultiTypeInputType.RUNTIME && (
         <div className={cx(css.formGroup, css.sm, css.topMargin4)}>
           <FormMultiTypeCheckboxField
-            name={`${isEmpty(path) ? '' : `${path}.`}spec.privileged`}
+            name={`${prefix}spec.privileged`}
             label={getString('ci.privileged')}
             disabled={readonly}
             multiTypeTextbox={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
             tooltipProps={{ dataTooltipId: 'privileged' }}
             setToFalseWhenEmpty={true}
@@ -122,11 +123,11 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
         </div>
       )}
       {getMultiTypeFromValue(template?.spec?.reports?.spec?.paths as string) === MultiTypeInputType.RUNTIME && (
-        <Container className={cx(css.formGroup, css.lg)}>
+        <Container className={cx(css.formGroup, stepCss)}>
           <MultiTypeListInputSet
-            name={`${isEmpty(path) ? '' : `${path}.`}spec.reports.spec.paths`}
+            name={`${prefix}spec.reports.spec.paths`}
             multiTextInputProps={{
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+              allowableTypes,
               expressions
             }}
             multiTypeFieldSelectorProps={{
@@ -141,7 +142,9 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
                   {getString('pipelineSteps.reportPathsLabel')}
                 </Text>
               ),
-              allowedTypes: [MultiTypeInputType.FIXED]
+              allowedTypes: allowableTypes.filter(
+                type => type !== MultiTypeInputType.EXPRESSION && type !== MultiTypeInputType.RUNTIME
+              )
             }}
             placeholder={getString('pipelineSteps.reportPathsPlaceholder')}
             disabled={readonly}
@@ -150,11 +153,11 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
       )}
       <Separator topSeparation={24} />
       {getMultiTypeFromValue(template?.spec?.envVariables as string) === MultiTypeInputType.RUNTIME && (
-        <Container className={cx(css.formGroup, css.lg)}>
+        <Container className={cx(css.formGroup, stepCss)}>
           <MultiTypeMapInputSet
-            name={`${isEmpty(path) ? '' : `${path}.`}spec.envVariables`}
+            name={`${prefix}spec.envVariables`}
             valueMultiTextInputProps={{
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+              allowableTypes,
               expressions
             }}
             multiTypeFieldSelectorProps={{
@@ -168,20 +171,20 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
                   {getString('environmentVariables')}
                 </Text>
               ),
-              allowedTypes: [MultiTypeInputType.FIXED]
+              allowedTypes: allowableTypes.filter(type => type !== MultiTypeInputType.EXPRESSION)
             }}
             disabled={readonly}
           />
         </Container>
       )}
       {getMultiTypeFromValue(template?.spec?.outputVariables as string) === MultiTypeInputType.RUNTIME && (
-        <Container className={cx(css.formGroup, css.lg)}>
+        <Container className={cx(css.formGroup, stepCss)}>
           <MultiTypeListInputSet
-            name={`${isEmpty(path) ? '' : `${path}.`}spec.outputVariables`}
+            name={`${prefix}spec.outputVariables`}
             withObjectStructure
             keyName="name"
             multiTextInputProps={{
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+              allowableTypes,
               expressions
             }}
             multiTypeFieldSelectorProps={{
@@ -195,13 +198,21 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
                   {getString('pipelineSteps.outputVariablesLabel')}
                 </Text>
               ),
-              allowedTypes: [MultiTypeInputType.FIXED]
+              allowedTypes: allowableTypes.filter(
+                type => type !== MultiTypeInputType.EXPRESSION && type !== MultiTypeInputType.RUNTIME
+              )
             }}
             disabled={readonly}
           />
         </Container>
       )}
-      <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />
+      <StepCommonFieldsInputSet
+        path={path}
+        readonly={readonly}
+        template={template}
+        allowableTypes={allowableTypes}
+        stepViewType={stepViewType}
+      />
     </FormikForm>
   )
 }

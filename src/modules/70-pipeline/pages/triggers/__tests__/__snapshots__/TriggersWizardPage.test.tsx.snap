@@ -862,7 +862,6 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
                                       <div>
                                         <form
                                           class="FormikForm--main removeBpPopoverWrapperTopMargin"
-                                          style="width: 50%;"
                                         >
                                           <div>
                                             <div
@@ -870,15 +869,15 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
                                             >
                                               <div
                                                 class="bp3-form-group"
-                                                data-id="description-0"
+                                                data-id="pipeline.stages[0].stage.spec.execution.steps[0].step.description-0"
                                               >
                                                 <label
                                                   class="bp3-label"
-                                                  for="description"
+                                                  for="pipeline.stages[0].stage.spec.execution.steps[0].step.description"
                                                 >
                                                   <span
                                                     class="Tooltip--acenter"
-                                                    data-tooltip-id="wizardForm_webhook_description"
+                                                    data-tooltip-id="wizardForm_webhook_pipeline.stages[0].stage.spec.execution.steps[0].step.description"
                                                   >
                                                     <p
                                                       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
@@ -903,7 +902,7 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
                                                     >
                                                       <textarea
                                                         class="bp3-input input"
-                                                        name="description"
+                                                        name="pipeline.stages[0].stage.spec.execution.steps[0].step.description"
                                                       />
                                                       <span
                                                         class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -953,7 +952,7 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
                                               class="StyledProps--font StyledProps--main bottomMargin3"
                                             />
                                             <div
-                                              class="fieldsGroup withoutSpacing topPadding3 bottomPadding3"
+                                              class="fieldsGroup withoutSpacing topPadding3 bottomPadding3 lg"
                                             >
                                               <div
                                                 class="bp3-form-group"

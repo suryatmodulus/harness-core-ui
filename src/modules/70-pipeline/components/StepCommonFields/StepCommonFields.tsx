@@ -155,7 +155,7 @@ const StepCommonFields = ({
         />
       </Container>
       <Separator />
-      <Container className={css.bottomMargin5}>
+      <Layout.Vertical className={css.bottomMargin5} spacing="medium">
         <Text
           className={css.inpLabel}
           color={Color.GREY_600}
@@ -164,10 +164,7 @@ const StepCommonFields = ({
         >
           {getString('pipelineSteps.setContainerResources')}
         </Text>
-        <div
-          className={cx(css.fieldsGroup, css.withoutSpacing, css.withoutAligning, css.formGroup, css.kvpairLg)}
-          style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
-        >
+        <Layout.Horizontal spacing="small">
           <MultiTypeTextField
             name="spec.limitMemory"
             label={
@@ -188,7 +185,10 @@ const StepCommonFields = ({
               </Layout.Horizontal>
             }
             multiTextInputProps={{
-              multiTextInputProps: { expressions },
+              multiTextInputProps: {
+                expressions,
+                allowableTypes: allowableTypes.filter(type => type !== MultiTypeInputType.RUNTIME)
+              },
               disabled
             }}
             configureOptionsProps={{ variableName: 'spec.limit.memory' }}
@@ -220,8 +220,8 @@ const StepCommonFields = ({
             configureOptionsProps={{ variableName: 'spec.limit.cpu' }}
             style={{ flexGrow: 1, flexBasis: '50%' }}
           />
-        </div>
-      </Container>
+        </Layout.Horizontal>
+      </Layout.Vertical>
       {!withoutTimeout && (
         <Container className={cx(css.formGroup, css.sm, css.bottomMargin5)}>
           <FormMultiTypeDurationField

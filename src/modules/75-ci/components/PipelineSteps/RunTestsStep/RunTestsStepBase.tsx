@@ -469,9 +469,12 @@ gradle.projectsEvaluated {
                             >
                               {getString('pipelineSteps.reportPathsLabel')}
                             </Text>
-                          )
+                          ),
+                          allowedTypes: allowableTypes.filter(type => type !== MultiTypeInputType.RUNTIME)
                         }}
-                        multiTextInputProps={{ expressions }}
+                        multiTextInputProps={{
+                          expressions
+                        }}
                         style={{ marginBottom: 'var(--spacing-small)' }}
                         disabled={readonly}
                       />
@@ -511,7 +514,8 @@ gradle.projectsEvaluated {
                             >
                               {getString('pipelineSteps.outputVariablesLabel')}
                             </Text>
-                          )
+                          ),
+                          allowedTypes: allowableTypes.filter(type => type !== MultiTypeInputType.RUNTIME)
                         }}
                         multiTextInputProps={{ expressions }}
                         disabled={readonly}

@@ -281,11 +281,10 @@ exports[`stageinputset tests viewType DeploymentForm initial render 1`] = `
         <div>
           <form
             class="FormikForm--main removeBpPopoverWrapperTopMargin"
-            style="width: 50%;"
           >
             <div>
               <div
-                class="StyledProps--font StyledProps--main formGroup lg"
+                class="StyledProps--font StyledProps--main formGroup sm"
               />
               <div>
                 <div
@@ -635,11 +634,10 @@ exports[`stageinputset tests viewType DeploymentForm initial render2 1`] = `
         <div>
           <form
             class="FormikForm--main removeBpPopoverWrapperTopMargin"
-            style="width: 50%;"
           >
             <div>
               <div
-                class="StyledProps--font StyledProps--main formGroup lg"
+                class="StyledProps--font StyledProps--main formGroup sm"
               />
               <div>
                 <div
@@ -989,7 +987,6 @@ exports[`stageinputset tests viewType InputSet initial render 1`] = `
         <div>
           <form
             class="FormikForm--main removeBpPopoverWrapperTopMargin"
-            style="width: 50%;"
           >
             <div>
               <div
@@ -1343,7 +1340,6 @@ exports[`stageinputset tests viewType InputSet initial render2 1`] = `
         <div>
           <form
             class="FormikForm--main removeBpPopoverWrapperTopMargin"
-            style="width: 50%;"
           >
             <div>
               <div

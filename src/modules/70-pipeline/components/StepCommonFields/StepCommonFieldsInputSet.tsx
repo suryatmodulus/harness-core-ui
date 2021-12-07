@@ -10,6 +10,7 @@ import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeTe
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { GetShellOptions, GetImagePullPolicyOptions } from '@pipeline/components/StepCommonFields/StepCommonFields'
 import type { InputSetData } from '@pipeline/components/AbstractSteps/Step'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import css from '../PipelineSteps/Steps/Steps.module.scss'
 
@@ -20,20 +21,22 @@ interface StepCommonFieldsInputSetProps<T> extends Omit<InputSetData<T>, 'path' 
   template: any
   withoutTimeout?: boolean
   enableFields?: string[]
+  allowableTypes: MultiTypeInputType[]
+  stepViewType: StepViewType
 }
 
 function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): JSX.Element | null {
-  const { path, template, readonly, withoutTimeout, enableFields = [] } = props
+  const { path, template, readonly, withoutTimeout, enableFields = [], allowableTypes, stepViewType } = props
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const isRunAsUserRuntime = getMultiTypeFromValue(template?.spec?.runAsUser) === MultiTypeInputType.RUNTIME
-  const isLimitMemoryRuntime =
-    getMultiTypeFromValue(template?.spec?.resources?.limits?.memory) === MultiTypeInputType.RUNTIME
   const isLimitCPURuntime = getMultiTypeFromValue(template?.spec?.resources?.limits?.cpu) === MultiTypeInputType.RUNTIME
   const isTimeoutRuntime = getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME
 
+  const stepCss = stepViewType === StepViewType.DeploymentForm ? css.sm : css.lg
+
   // If neither value is runtime then return null
-  if (!isLimitMemoryRuntime && !isLimitCPURuntime && !isTimeoutRuntime && !isRunAsUserRuntime) {
+  if (!isLimitCPURuntime && !isTimeoutRuntime && !isRunAsUserRuntime) {
     return null
   }
 
@@ -42,7 +45,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
       {/* Currently not implemented due to no support for enum value fields */}
       {/* When ready, pass enableFields when <x>StepInputSet has field as runtime input */}
       {enableFields.includes('spec.imagePullPolicy') && (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeSelectField
             name={`${isEmpty(path) ? '' : `${path}.`}spec.imagePullPolicy`}
             label={
@@ -56,7 +59,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
               multiTypeInputProps: {
                 expressions,
                 selectProps: { addClearBtn: true, items: GetImagePullPolicyOptions() },
-                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                allowableTypes
               },
               disabled: readonly
             }}
@@ -67,7 +70,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
       )}
       {/* Currently not implemented due to no support for enum value fields */}
       {enableFields.includes('spec.shell') && (
-        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+        <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeSelectField
             name={`${isEmpty(path) ? '' : `${path}.`}spec.shell`}
             label={
@@ -81,7 +84,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
               multiTypeInputProps: {
                 expressions,
                 selectProps: { addClearBtn: true, items: GetShellOptions() },
-                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                allowableTypes
               },
               disabled: readonly
             }}
@@ -91,7 +94,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
         </Container>
       )}
       {isRunAsUserRuntime && (
-        <Container className={cx(css.formGroup, css.lg, css.topSpacingLarge)}>
+        <Container className={cx(css.formGroup, stepCss, css.topSpacingLarge)}>
           <MultiTypeTextField
             label={
               <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
@@ -102,7 +105,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
             multiTextInputProps={{
               multiTextInputProps: {
                 expressions,
-                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                allowableTypes
               },
               disabled: readonly,
               placeholder: '1000'
@@ -111,7 +114,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
         </Container>
       )}
       <Separator />
-      {(isLimitMemoryRuntime || isLimitCPURuntime) && (
+      {isLimitCPURuntime && (
         <>
           <Container className={css.bottomMargin5}>
             <Text
@@ -123,34 +126,9 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
               {getString('pipelineSteps.setContainerResources')}
             </Text>
             <div
-              className={cx(
-                css.formGroup,
-                {
-                  [css.kvpairLg]: isLimitMemoryRuntime && isLimitCPURuntime
-                },
-                {
-                  [css.lg]: isLimitMemoryRuntime || isLimitCPURuntime
-                }
-              )}
+              className={cx(css.formGroup, stepCss)}
               style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
             >
-              {isLimitMemoryRuntime && (
-                <MultiTypeTextField
-                  name={`${isEmpty(path) ? '' : `${path}.`}spec.resources.limits.memory`}
-                  label={
-                    <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
-                      {getString('pipelineSteps.limitMemoryLabel')}
-                    </Text>
-                  }
-                  multiTextInputProps={{
-                    disabled: readonly,
-                    multiTextInputProps: {
-                      expressions,
-                      allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-                    }
-                  }}
-                />
-              )}
               {isLimitCPURuntime && (
                 <MultiTypeTextField
                   name={`${isEmpty(path) ? '' : `${path}.`}spec.resources.limits.cpu`}
@@ -163,7 +141,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
                     disabled: readonly,
                     multiTextInputProps: {
                       expressions,
-                      allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                      allowableTypes
                     }
                   }}
                 />
@@ -185,7 +163,7 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
             placeholder={getString('pipelineSteps.timeoutPlaceholder')}
             multiTypeDurationProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
             disabled={readonly}
           />

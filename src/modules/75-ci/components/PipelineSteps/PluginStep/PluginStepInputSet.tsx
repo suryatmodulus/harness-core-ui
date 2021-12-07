@@ -9,17 +9,23 @@ import { CIStep } from '../CIStep/CIStep'
 import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, readonly, stepViewType }) => {
+export const PluginStepInputSet: React.FC<PluginStepProps> = ({
+  template,
+  path,
+  readonly,
+  stepViewType,
+  allowableTypes
+}) => {
   const { getString } = useStrings()
 
   const { expressions } = useVariablesExpression()
 
   return (
-    <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
+    <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
       <CIStep
         readonly={readonly}
         stepViewType={stepViewType}
-        allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+        allowableTypes={allowableTypes}
         enableFields={{
           ...(getMultiTypeFromValue(template?.description) === MultiTypeInputType.RUNTIME && {
             description: {}
@@ -37,10 +43,7 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
                   {getString('pipelineSteps.connectorLabel')}
                 </Text>
               ),
-              type: [Connectors.GCP, Connectors.AWS, Connectors.DOCKER],
-              multiTypeProps: {
-                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-              }
+              type: [Connectors.GCP, Connectors.AWS, Connectors.DOCKER]
             }
           }),
           ...(getMultiTypeFromValue(template?.spec?.image) === MultiTypeInputType.RUNTIME && {
@@ -57,7 +60,7 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
             }
           })
         }}
-        isInputSetView={true}
+        path={path || ''}
       />
       <CIStepOptionalConfig
         readonly={readonly}
@@ -69,10 +72,17 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
             'spec.settings': {}
           })
         }}
-        allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
-        isInputSetView={true}
+        allowableTypes={allowableTypes}
+        stepViewType={stepViewType}
+        path={path || ''}
       />
-      <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />
+      <StepCommonFieldsInputSet
+        path={path}
+        readonly={readonly}
+        template={template}
+        allowableTypes={allowableTypes}
+        stepViewType={stepViewType}
+      />
     </FormikForm>
   )
 }

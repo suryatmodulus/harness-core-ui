@@ -118,6 +118,7 @@ export const SaveCacheGCSStepBase = (
                 details={
                   <>
                     <CIStepOptionalConfig
+                      stepViewType={stepViewType}
                       enableFields={{ 'spec.archiveFormat': {}, 'spec.override': {} }}
                       readonly={readonly}
                       allowableTypes={allowableTypes}

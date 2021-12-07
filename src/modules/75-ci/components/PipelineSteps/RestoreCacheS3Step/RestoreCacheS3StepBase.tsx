@@ -118,6 +118,7 @@ export const RestoreCacheS3StepBase = (
                 details={
                   <>
                     <CIStepOptionalConfig
+                      stepViewType={stepViewType}
                       enableFields={{
                         'spec.endpoint': {},
                         'spec.archiveFormat': {},

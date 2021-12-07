@@ -8,15 +8,21 @@ import { CIStep } from '../CIStep/CIStep'
 import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, path, readonly, stepViewType }) => {
+export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({
+  template,
+  path,
+  readonly,
+  stepViewType,
+  allowableTypes
+}) => {
   const { getString } = useStrings()
 
   return (
-    <FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}>
+    <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
       <CIStep
         readonly={readonly}
         stepViewType={stepViewType}
-        allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+        allowableTypes={allowableTypes}
         enableFields={{
           ...(getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && {
             'spec.connectorRef': {
@@ -31,10 +37,7 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
                   {getString('pipelineSteps.dockerHubConnectorLabel')}
                 </Text>
               ),
-              type: Connectors.DOCKER,
-              multiTypeProps: {
-                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-              }
+              type: Connectors.DOCKER
             }
           }),
           ...(getMultiTypeFromValue(template?.spec?.repo as string) === MultiTypeInputType.RUNTIME && {
@@ -44,9 +47,10 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
             'spec.tags': {}
           })
         }}
-        isInputSetView={true}
+        path={path || ''}
       />
       <CIStepOptionalConfig
+        stepViewType={stepViewType}
         readonly={readonly}
         enableFields={{
           ...(getMultiTypeFromValue(template?.spec?.dockerfile) === MultiTypeInputType.RUNTIME && {
@@ -69,9 +73,16 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
             'spec.remoteCacheRepo': {}
           })
         }}
-        allowableTypes={[MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]}
+        allowableTypes={allowableTypes}
+        path={path || ''}
       />
-      <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />
+      <StepCommonFieldsInputSet
+        path={path}
+        readonly={readonly}
+        template={template}
+        allowableTypes={allowableTypes}
+        stepViewType={stepViewType}
+      />
     </FormikForm>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Formik, FormikForm, Accordion, MultiTypeInputType, Color } from '@wings-software/uicore'
+import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
 import { Connectors } from '@connectors/constants'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -111,11 +111,7 @@ export const DependencyBase = (
                       disabled: readonly,
                       multiTextInputProps: {
                         expressions,
-                        allowableTypes: [
-                          MultiTypeInputType.EXPRESSION,
-                          MultiTypeInputType.FIXED,
-                          MultiTypeInputType.RUNTIME
-                        ],
+                        allowableTypes,
                         textProps: {
                           autoComplete: 'off'
                         }
@@ -131,6 +127,7 @@ export const DependencyBase = (
                   details={
                     <>
                       <CIStepOptionalConfig
+                        stepViewType={stepViewType}
                         readonly={readonly}
                         enableFields={{
                           'spec.privileged': {},

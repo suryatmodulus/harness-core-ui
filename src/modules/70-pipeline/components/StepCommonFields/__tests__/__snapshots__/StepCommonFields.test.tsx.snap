@@ -108,7 +108,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
           />
         </div>
         <div
-          class="StyledProps--font StyledProps--main bottomMargin5"
+          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main bottomMargin5"
         >
           <div
             class="Text--withDocsTooltip"
@@ -121,7 +121,7 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
             </p>
           </div>
           <div
-            class="fieldsGroup withoutSpacing withoutAligning formGroup kvpairLg"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
             <div
               style="flex-grow: 1; flex-basis: 50%;"
@@ -504,7 +504,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
           />
         </div>
         <div
-          class="StyledProps--font StyledProps--main bottomMargin5"
+          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main bottomMargin5"
         >
           <div
             class="Text--withDocsTooltip"
@@ -517,7 +517,7 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
             </p>
           </div>
           <div
-            class="fieldsGroup withoutSpacing withoutAligning formGroup kvpairLg"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
           >
             <div
               style="flex-grow: 1; flex-basis: 50%;"

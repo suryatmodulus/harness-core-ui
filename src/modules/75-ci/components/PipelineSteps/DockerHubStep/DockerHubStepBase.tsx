@@ -115,6 +115,7 @@ export const DockerHubStepBase = (
                 details={
                   <>
                     <CIStepOptionalConfig
+                      stepViewType={stepViewType}
                       readonly={readonly}
                       enableFields={{
                         'spec.optimize': {},

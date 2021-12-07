@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.65% </span>
+                <span class="strong">82.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/31</span>
+                <span class='fraction'>29/35</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.46% </span>
+                <span class="strong">52.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/26</span>
+                <span class='fraction'>21/40</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.65% </span>
+                <span class="strong">82.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/31</span>
+                <span class='fraction'>29/35</span>
             </div>
         
             
@@ -166,7 +166,17 @@
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
 <a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">138x</span>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-yes">138x</span>
@@ -175,6 +185,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">138x</span>
+<span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,6 +214,9 @@
 <span class="cline-any cline-yes">1449x</span>
 <span class="cline-any cline-yes">1449x</span>
 <span class="cline-any cline-yes">1449x</span>
+<span class="cline-any cline-yes">1449x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1449x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -234,6 +249,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -267,6 +284,9 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -284,6 +304,8 @@ import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
+import { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
+import { getConnectivityMode } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import css from '../../components/CreateConnectorWizard/CreateConnectorWizard.module.scss'
 &nbsp;
 export interface UseCreateConnectorModalProps {
@@ -311,6 +333,9 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
   const [type, setType] = useState(Connectors.KUBERNETES_CLUSTER)
   const [connectorInfo, setConnectorInfo] = useState&lt;ConnectorInfoDTO | undefined&gt;()
   const [gitDetails, setGitDetails] = useState&lt;IGitContextFormProps | undefined&gt;()
+  const [connectivityMode, setConnectivityMode] = useState&lt;ConnectivityModeType | undefined&gt;(
+    ConnectivityModeType.Manager
+  )
   const [modalProps, setModalProps] = useState&lt;IDialogProps&gt;({
     isOpen: true,
     enforceFocus: false,
@@ -340,6 +365,8 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           type={type}
           isEditMode={isEditMode}
           setIsEditMode={setIsEditMode}
+          connectivityMode={connectivityMode}
+          setConnectivityMode={setConnectivityMode}
           connectorInfo={connectorInfo}
           gitDetails={gitDetails}
           onSuccess={<span class="fstat-no" title="function not covered" >data </span>=&gt; {
@@ -362,7 +389,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
         /&gt;
       &lt;/Dialog&gt;
     ),
-    [type, isEditMode, connectorInfo, gitDetails]
+    [type, isEditMode, connectorInfo, gitDetails, connectivityMode]
   )
 &nbsp;
   return {
@@ -376,6 +403,9 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
       setGitDetails(connector<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails)
       setIsEditMode(isEditing)
       setType(connectorType)
+      setConnectivityMode(
+        isEditing ? getConnectivityMode(connector<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec?.executeOnDelegate) : <span class="branch-1 cbranch-no" title="branch not covered" >undefined</span>
+      )
       setModalProps(_modalProps || modalProps)
       showModal()
     },
@@ -391,7 +421,7 @@ export default useCreateConnectorModal
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 06 2021 23:20:22 GMT+0000 (Greenwich Mean Time)
+                at Tue Dec 07 2021 04:56:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -897,6 +897,25 @@ export interface StringsMap {
   'resourceCenter.bottomlayout.desc': string
   'resourceCenter.bottomlayout.docs.text': string
   'resourceCenter.bottomlayout.sitestatus.text': string
+  'resourceCenter.submitEmail': string
+  'resourceCenter.submitEmailPlaceholder': string
+  'resourceCenter.submitFeedbackText': string
+  'resourceCenter.submitMessage': string
+  'resourceCenter.submitOptional': string
+  'resourceCenter.submitPriority.high': string
+  'resourceCenter.submitPriority.highDesc': string
+  'resourceCenter.submitPriority.low': string
+  'resourceCenter.submitPriority.lowDesc': string
+  'resourceCenter.submitPriority.normal': string
+  'resourceCenter.submitPriority.normalDesc': string
+  'resourceCenter.submitPriority.title': string
+  'resourceCenter.submitPriority.urgent': string
+  'resourceCenter.submitPriority.urgentDesc': string
+  'resourceCenter.submitScreenshot': string
+  'resourceCenter.submitSeeScreenshot': string
+  'resourceCenter.submitSubject': string
+  'resourceCenter.submitTicket': string
+  'resourceCenter.submitTitle': string
   'resourceCenter.ticketmenu.submit': string
   'resourceCenter.ticketmenu.submitDesc': string
   'resourceCenter.ticketmenu.tickets': string

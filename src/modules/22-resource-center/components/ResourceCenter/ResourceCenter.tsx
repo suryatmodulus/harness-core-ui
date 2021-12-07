@@ -27,7 +27,11 @@ const getButton = (buttonText: string, buttonIcon: string, link: string): JSX.El
   )
 }
 
-const menuItems = (title: string, description: string): JSX.Element => {
+const menuItems = (
+  title: string,
+  description: string,
+  buttonClickOp: ((event: React.MouseEvent<Element, MouseEvent>) => void | Promise<void>) | undefined
+): JSX.Element => {
   return (
     <>
       <Layout.Vertical>
@@ -38,7 +42,7 @@ const menuItems = (title: string, description: string): JSX.Element => {
           {description}
         </Text>
       </Layout.Vertical>
-      <Button icon="chevron-right" variation={ButtonVariation.ICON} />
+      <Button icon="chevron-right" variation={ButtonVariation.ICON} onClick={buttonClickOp} />
     </>
   )
 }
@@ -49,9 +53,11 @@ const ResourceCenterHome = () => {
   return (
     <Layout.Vertical width={440} className={css.resourceCenter}>
       <Layout.Vertical padding={'xlarge'} flex={{ alignItems: 'baseline' }}>
-        <Text color={Color.WHITE} padding={{ bottom: 'medium' }}>
-          {getString('resourceCenter.title')}
-        </Text>
+        <Layout.Horizontal padding={{ bottom: 'medium' }} flex={{ alignItems: 'center' }}>
+          <Text color={Color.WHITE}>{getString('resourceCenter.title')}</Text>
+          <Button icon={'cross'} variation={ButtonVariation.ICON} onClick={onClose} />
+        </Layout.Horizontal>
+
         <img src={resourceImage} height={106} alt={'Resource center image'} />
       </Layout.Vertical>
       <Layout.Vertical padding={'xlarge'} className={css.middleregion}>
@@ -62,11 +68,16 @@ const ResourceCenterHome = () => {
         >
           {menuItems(
             getString('resourceCenter.ticketmenu.tickets'),
-            getString('resourceCenter.ticketmenu.ticketsDesc')
+            getString('resourceCenter.ticketmenu.ticketsDesc'),
+            () => {}
           )}
         </Layout.Horizontal>
         <Layout.Horizontal padding={{ top: 'medium' }} flex={{ justifyContent: 'space-between' }}>
-          {menuItems(getString('resourceCenter.ticketmenu.submit'), getString('resourceCenter.ticketmenu.submitDesc'))}
+          {menuItems(
+            getString('resourceCenter.ticketmenu.submit'),
+            getString('resourceCenter.ticketmenu.submitDesc'),
+            submitTicket
+          )}
         </Layout.Horizontal>
       </Layout.Vertical>
       <Layout.Vertical padding={'xlarge'}>

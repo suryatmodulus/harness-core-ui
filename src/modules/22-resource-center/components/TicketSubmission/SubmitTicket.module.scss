@@ -4,25 +4,13 @@
 }
 
 .radiobuttongrid {
-  padding-left: var(--spacing-medium);
+  //padding-left: var(--spacing-medium);
   display: grid;
-  grid-template-columns: 1fr 296px;
+  grid-template-columns: auto 296px;
   grid-template-rows: repeat(4, auto);
 
   input[type='radio']:after {
     background-color: var(--primary-3);
-    color: var(--primary-3);
-  }
-
-  input[type='radio']:before {
-    background-color: var(--primary-3);
-    color: var(--primary-3);
-  }
-
-  .bp3-control.bp3-radio .bp3-control-indicator {
-    border-color: var(--primary-3);
-  }
-  .bp3-indicator :checked {
     color: var(--primary-3);
   }
 
@@ -37,16 +25,28 @@
 
 .textheight {
   min-height: 85px;
+  border-radius: 4px;
+  margin-bottom: var(--spacing-4);
+}
+
+.buttonfix {
+  :global(.bp3-button-text) {
+    white-space: nowrap;
+  }
 }
 
 .radiolocation {
   grid-column: 1;
+  display: flex;
+  align-items: center;
+  .bp3-indicator :before {
+    color: var(--primary-3);
+  }
 }
 
 .radiodescription {
   grid-column: 2;
 }
-
 .low {
   grid-row: 1;
 }

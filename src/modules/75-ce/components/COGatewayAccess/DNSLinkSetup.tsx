@@ -103,7 +103,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     queryParams: {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
       region: 'us-east-1',
-      domain: props.gatewayDetails.customDomains?.length ? props.gatewayDetails.customDomains[0] : '',
+      domain: _defaultTo(props.gatewayDetails.customDomains?.[0], ''),
       accountIdentifier: accountId
     },
     lazy: !isEditFlow
@@ -162,7 +162,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const [apCoreResponseList, setApCoreResponseList] = useState<AccessPointCore[]>([])
   const [hostedZonesList, setHostedZonesList] = useState<SelectOption[]>([])
   const [dnsProvider, setDNSProvider] = useState<string>(
-    customDomainProviderDetails?.route53?.hosted_zone_id ? 'route53' : 'others'
+    Utils.getConditionalResult(!_isEmpty(customDomainProviderDetails?.route53?.hosted_zone_id), 'route53', 'others')
   )
   const [selectedLoadBalancer, setSelectedLoadBalancer] = useState<AccessPointCore>()
   const [isCreateMode, setIsCreateMode] = useState<boolean>(false)
@@ -204,7 +204,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     } else {
       params.region = props.gatewayDetails.selectedInstances?.length
         ? props.gatewayDetails.selectedInstances[0].region
-        : props.gatewayDetails.routing.instance.scale_group?.region || ''
+        : _defaultTo(props.gatewayDetails.routing.instance.scale_group?.region, '')
       params.resource_group_name = props.gatewayDetails.selectedInstances[0]?.metadata?.resourceGroup
     }
     return params
@@ -369,14 +369,22 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     const emptyRecords: PortConfig[] = []
     const hasInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
     try {
-      let text = `id = ['${hasInstances ? props.gatewayDetails.selectedInstances[0].id : ''}']\nregions = ['${
-        hasInstances ? props.gatewayDetails.selectedInstances[0].region : ''
-      }']`
+      let text = `id = ['${Utils.getConditionalResult(
+        hasInstances,
+        props.gatewayDetails.selectedInstances?.[0]?.id,
+        ''
+      )}']\nregions = ['${Utils.getConditionalResult(
+        hasInstances,
+        props.gatewayDetails.selectedInstances?.[0]?.region,
+        ''
+      )}']`
 
       if (isAzureProvider) {
-        text += `\nresource_groups=['${
-          hasInstances ? props.gatewayDetails.selectedInstances[0].metadata?.resourceGroup : ''
-        }']`
+        text += `\nresource_groups=['${Utils.getConditionalResult(
+          hasInstances,
+          props.gatewayDetails.selectedInstances?.[0]?.metadata?.resourceGroup,
+          ''
+        )}']`
       }
 
       const result = await getSecurityGroups({
@@ -444,7 +452,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
               if (isCreateMode) setIsCreateMode(false)
               hideLoadBalancerModal()
             }}
-            mode={isCreateMode ? 'create' : 'import'}
+            mode={Utils.getConditionalResult(isCreateMode, 'create', 'import')}
             onSave={savedLb => {
               setAccessPoint(savedLb)
               if (isCreateMode) {
@@ -465,7 +473,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                 // apCoresRefetch()
               }
             }}
-            mode={isCreateMode ? 'create' : 'import'}
+            mode={Utils.getConditionalResult(isCreateMode, 'create', 'import')}
             onClose={_clearStatus => {
               if (_clearStatus && !isCreateMode) {
                 clearAPData()
@@ -521,7 +529,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   }
 
   const createAzureAppGatewayFromLoadBalancer = (): AccessPoint => {
-    const details = isCreateMode ? {} : (selectedLoadBalancer?.details as AzureAccessPointCore)
+    const details = Utils.getConditionalResult(isCreateMode, {}, selectedLoadBalancer?.details as AzureAccessPointCore)
     return {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
       account_id: accountId, // eslint-disable-line
@@ -544,7 +552,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const updateLoadBalancerDetails = (_accessPointDetails?: AccessPoint) => {
     const updatedGatewayDetails = {
       ...props.gatewayDetails,
-      accessPointID: _accessPointDetails?.id || '',
+      accessPointID: _defaultTo(_accessPointDetails?.id, ''),
       accessPointData: _accessPointDetails
       // hostName: generateHostName(_accessPointDetails?.host_name || '')
     }
@@ -570,7 +578,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       isValid = Boolean(
         lb &&
           accessPoints?.response
-            ?.map(_ap => (_ap.status === 'submitted' ? _ap.id : _ap.metadata?.app_gateway_id))
+            ?.map(_ap => Utils.getConditionalResult(_ap.status === 'submitted', _ap.id, _ap.metadata?.app_gateway_id))
             .filter(_i => _i)
             .includes((lb.details as AzureAccessPointCore).id)
       )
@@ -646,18 +654,19 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
 
       <Formik
         initialValues={{
-          usingCustomDomain: props.gatewayDetails.customDomains?.length ? 'yes' : 'no',
+          usingCustomDomain: Utils.getConditionalResult(!_isEmpty(props.gatewayDetails.customDomains), 'yes', 'no'),
           customURL: props.gatewayDetails.customDomains?.join(','),
-          publicallyAccessible: (accessDetails.dnsLink.public as string) || 'yes',
+          publicallyAccessible: _defaultTo(accessDetails.dnsLink.public as string, 'yes'),
           dnsProvider: customDomainProviderDetails
             ? customDomainProviderDetails.route53
               ? 'route53'
               : 'others'
             : 'route53',
-          route53Account:
-            customDomainProviderDetails && customDomainProviderDetails.route53
-              ? customDomainProviderDetails.route53.hosted_zone_id
-              : ''
+          route53Account: Utils.getConditionalResult(
+            !_isEmpty(customDomainProviderDetails?.route53),
+            customDomainProviderDetails?.route53?.hosted_zone_id,
+            ''
+          )
           // accessPoint: props.gatewayDetails.accessPointID
         }}
         formName="dnsLinkSetup"
@@ -678,9 +687,11 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
               <Container className={css.dnsLinkContainer}>
                 <Heading level={3} font={{ weight: 'bold' }} className={css.header}>
                   {getString(
-                    isAwsProvider
-                      ? 'ce.co.autoStoppingRule.setupAccess.selectLb'
-                      : 'ce.co.autoStoppingRule.setupAccess.selectAppGateway'
+                    Utils.getConditionalResult(
+                      isAwsProvider,
+                      'ce.co.autoStoppingRule.setupAccess.selectLb',
+                      'ce.co.autoStoppingRule.setupAccess.selectAppGateway'
+                    )
                   )}
                 </Heading>
                 <Layout.Horizontal className={css.selectLoadBalancerContainer}>
@@ -705,10 +716,11 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                       />
                       {!isEditFlow && (
                         <Text color={Color.PRIMARY_6} onClick={handleCreateNewLb} style={{ cursor: 'pointer' }}>
-                          {'+' +
-                            (isAwsProvider
-                              ? getString('ce.co.accessPoint.new')
-                              : getString('ce.co.accessPoint.newAppGateway'))}
+                          {`+ ${Utils.getConditionalResult(
+                            isAwsProvider,
+                            getString('ce.co.accessPoint.new'),
+                            getString('ce.co.accessPoint.newAppGateway')
+                          )}`}
                         </Text>
                       )}
                     </Layout.Horizontal>

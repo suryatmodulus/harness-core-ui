@@ -121,18 +121,15 @@
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -141,7 +138,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -164,7 +168,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,15 +202,17 @@ export interface BadgeProps {
   iconName: IconName
   showTooltip?: boolean
   entityName?: string
+  entityType: string
 }
 &nbsp;
 interface BadgeTooltipContentInterface {
   iconName: IconName
-  entityName?: string
+  entityName: string
+  entityType: string
 }
 &nbsp;
 const TooltipContent: React.FC&lt;BadgeTooltipContentInterface&gt; = <span class="fstat-no" title="function not covered" >(p</span>rops: BadgeTooltipContentInterface): JSX.Element =&gt; {
-  const { iconName, entityName = <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>} = <span class="cstat-no" title="statement not covered" >props</span>
+  const { iconName, entityName = <span class="branch-0 cbranch-no" title="branch not covered" >'',</span> entityType } = <span class="cstat-no" title="statement not covered" >props</span>
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
@@ -217,7 +223,7 @@ const TooltipContent: React.FC&lt;BadgeTooltipContentInterface&gt; = <span class
         &lt;/div&gt;
         &lt;Layout.Vertical padding={{ left: 'small' }}&gt;
           &lt;Text width={244} color={Color.GREY_0} margin={{ bottom: 'small' }} className={css.tooltipContentText}&gt;
-            {getString('common.gitSync.outOfSync', { entityType: 'Pipeline', name: entityName })}
+            {getString('common.gitSync.outOfSync', { entityType, name: entityName })}
           &lt;/Text&gt;
           &lt;Text width={244} color={Color.GREY_0} className={css.tooltipContentText}&gt;
             {getString('common.gitSync.fixAllErrors')}
@@ -229,7 +235,7 @@ const TooltipContent: React.FC&lt;BadgeTooltipContentInterface&gt; = <span class
 }
 &nbsp;
 export const Badge: React.FC&lt;BadgeProps&gt; = <span class="fstat-no" title="function not covered" >(p</span>rops: BadgeProps): JSX.Element =&gt; {
-  const { text, iconName, showTooltip, entityName = <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>} = <span class="cstat-no" title="statement not covered" >props</span>
+  const { text, iconName, showTooltip, entityName = <span class="branch-0 cbranch-no" title="branch not covered" >'',</span> entityType } = <span class="cstat-no" title="statement not covered" >props</span>
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
 &nbsp;
   const badgeUI = (
@@ -243,7 +249,7 @@ export const Badge: React.FC&lt;BadgeProps&gt; = <span class="fstat-no" title="f
 <span class="cstat-no" title="statement not covered" >  return showTooltip ? (</span>
     &lt;Popover interactionKind={PopoverInteractionKind.HOVER} position={Position.BOTTOM} className={Classes.DARK}&gt;
       {badgeUI}
-      &lt;TooltipContent iconName={iconName} entityName={entityName} /&gt;
+      &lt;TooltipContent iconName={iconName} entityName={entityName} entityType={entityType} /&gt;
     &lt;/Popover&gt;
   ) : (
     badgeUI
@@ -256,7 +262,7 @@ export const Badge: React.FC&lt;BadgeProps&gt; = <span class="fstat-no" title="f
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 07 2021 10:56:36 GMT+0000 (Greenwich Mean Time)
+                at Tue Dec 07 2021 11:50:30 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

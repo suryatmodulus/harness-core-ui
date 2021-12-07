@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.67% </span>
+                <span class="strong">91.84% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/48</span>
+                <span class='fraction'>45/49</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.74% </span>
+                <span class="strong">67.65% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>42/62</span>
+                <span class='fraction'>46/68</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.49% </span>
+                <span class="strong">91.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>43/47</span>
+                <span class='fraction'>44/48</span>
             </div>
         
             
@@ -255,7 +255,15 @@
 <a name='L196'></a><a href='#L196'>196</a>
 <a name='L197'></a><a href='#L197'>197</a>
 <a name='L198'></a><a href='#L198'>198</a>
-<a name='L199'></a><a href='#L199'>199</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -265,6 +273,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -324,6 +333,13 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -455,7 +471,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { Color, Layout, TableV2, Text } from '@wings-software/uicore'
+import { Color, Container, Layout, TableV2, Text } from '@wings-software/uicore'
 import { Position } from '@blueprintjs/core'
 import { TemplateListCardContextMenu } from '@templates-library/pages/TemplatesPage/views/TemplateListCardContextMenu/TemplateListCardContextMenu'
 import { useStrings } from 'framework/strings'
@@ -464,6 +480,7 @@ import type { TemplateSummaryResponse } from 'services/template-ng'
 import { templateColorStyleMap } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import type { TemplatesViewProps } from '@templates-library/pages/TemplatesPage/views/TemplatesView'
 import { TagsPopover } from '@common/components'
+import { Badge } from '@pipeline/pages/utils/Badge/Badge'
 import GitDetailsColumn from '@common/components/Table/GitDetailsColumn/GitDetailsColumn'
 import css from './TemplatesListView.module.scss'
 &nbsp;
@@ -522,33 +539,40 @@ const RenderColumnTemplate: Renderer&lt;CellProps&lt;TemplateSummaryResponse&gt;
   const data = row.original
   const { getString } = useStrings()
   return (
-    &lt;Layout.Vertical spacing="xsmall" data-testid={data.identifier} padding={{ right: 'medium' }}&gt;
-      &lt;Layout.Horizontal spacing="medium"&gt;
-        &lt;Text
-          color={Color.GREY_800}
-          tooltipProps={{ position: Position.BOTTOM }}
-          lineClamp={1}
-          tooltip={
-            &lt;Layout.Vertical
-              color={Color.GREY_800}
-              spacing="small"
-              padding="medium"
-              style={{ maxWidth: 400, overflowWrap: 'anywhere' }}
-            &gt;
-              &lt;Text color={Color.GREY_800}&gt;{getString('nameLabel', { name: data.name })}&lt;/Text&gt;
-              &lt;br /&gt;
-              &lt;Text&gt;{getString('descriptionLabel', { description: data.description || <span class="branch-1 cbranch-no" title="branch not covered" >'-' </span>})}&lt;/Text&gt;
-            &lt;/Layout.Vertical&gt;
-          }
-        &gt;
-          {data.name}
+    &lt;Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'start' }}&gt;
+      &lt;Layout.Vertical spacing="xsmall" data-testid={data.identifier} padding={{ right: 'medium' }}&gt;
+        &lt;Layout.Horizontal spacing="medium"&gt;
+          &lt;Text
+            color={Color.GREY_800}
+            tooltipProps={{ position: Position.BOTTOM }}
+            lineClamp={1}
+            tooltip={
+              &lt;Layout.Vertical
+                color={Color.GREY_800}
+                spacing="small"
+                padding="medium"
+                style={{ maxWidth: 400, overflowWrap: 'anywhere' }}
+              &gt;
+                &lt;Text color={Color.GREY_800}&gt;{getString('nameLabel', { name: data.name })}&lt;/Text&gt;
+                &lt;br /&gt;
+                &lt;Text&gt;{getString('descriptionLabel', { description: data.description || <span class="branch-1 cbranch-no" title="branch not covered" >'-' </span>})}&lt;/Text&gt;
+              &lt;/Layout.Vertical&gt;
+            }
+          &gt;
+            {data.name}
+          &lt;/Text&gt;
+          {data.tags &amp;&amp; Object.keys(data.tags || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>.length ? &lt;TagsPopover tags={data.tags} /&gt; : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
+        &lt;/Layout.Horizontal&gt;
+        &lt;Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400} font={{ size: 'small' }}&gt;
+          {getString('idLabel', { id: data.identifier })}
         &lt;/Text&gt;
-        {data.tags &amp;&amp; Object.keys(data.tags || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>.length ? &lt;TagsPopover tags={data.tags} /&gt; : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
-      &lt;/Layout.Horizontal&gt;
-      &lt;Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400} font={{ size: 'small' }}&gt;
-        {getString('idLabel', { id: data.identifier })}
-      &lt;/Text&gt;
-    &lt;/Layout.Vertical&gt;
+      &lt;/Layout.Vertical&gt;
+      {data.entityValidityDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.valid </span>=== false &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;Container&gt;</span>
+          &lt;Badge text={'common.invalid'} iconName="warning-sign" showTooltip={true} entityName={data.name} /&gt;
+        &lt;/Container&gt;
+      )}
+    &lt;/Layout.Horizontal&gt;
   )
 }
 &nbsp;
@@ -658,7 +682,7 @@ export const TemplatesListView: React.FC&lt;TemplatesViewProps&gt; = (props): JS
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 07 2021 07:34:52 GMT+0000 (Greenwich Mean Time)
+                at Tue Dec 07 2021 10:56:36 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

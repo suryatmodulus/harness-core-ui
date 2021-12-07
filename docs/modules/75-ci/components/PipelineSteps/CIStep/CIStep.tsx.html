@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>25/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">97.92% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>42/42</span>
+                <span class='fraction'>47/48</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/21</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
@@ -425,7 +425,15 @@
 <a name='L366'></a><a href='#L366'>366</a>
 <a name='L367'></a><a href='#L367'>367</a>
 <a name='L368'></a><a href='#L368'>368</a>
-<a name='L369'></a><a href='#L369'>369</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">57x</span>
+<a name='L369'></a><a href='#L369'>369</a>
+<a name='L370'></a><a href='#L370'>370</a>
+<a name='L371'></a><a href='#L371'>371</a>
+<a name='L372'></a><a href='#L372'>372</a>
+<a name='L373'></a><a href='#L373'>373</a>
+<a name='L374'></a><a href='#L374'>374</a>
+<a name='L375'></a><a href='#L375'>375</a>
+<a name='L376'></a><a href='#L376'>376</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">57x</span>
+<span class="cline-any cline-yes">57x</span>
 <span class="cline-any cline-yes">57x</span>
 <span class="cline-any cline-yes">57x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -465,6 +473,12 @@
 <span class="cline-any cline-yes">155x</span>
 <span class="cline-any cline-yes">155x</span>
 <span class="cline-any cline-yes">155x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">155x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">155x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -794,6 +808,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import isEmpty from 'lodash/isEmpty'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
@@ -819,11 +834,11 @@ interface CIStepProps {
   formik?: FormikProps&lt;any&gt;
   stepViewType: StepViewType
   allowableTypes: MultiTypeInputType[]
-  isInputSetView?: boolean
+  path?: string
 }
 &nbsp;
 export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
-  const { isNewStep, readonly, stepLabel, enableFields, stepViewType, allowableTypes, isInputSetView } = props
+  const { isNewStep, readonly, stepLabel, enableFields, stepViewType, allowableTypes, path } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;{
     projectIdentifier: string
     orgIdentifier: string
@@ -832,10 +847,14 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
   const { getString } = useStrings()
   const gitScope = useGitScope()
   const { expressions } = useVariablesExpression()
+  const prefix = isEmpty(path) ? '' : `${path}.`
+&nbsp;
+  const stepCss = stepViewType === StepViewType.DeploymentForm ? css.sm : css.lg
+&nbsp;
   return (
     &lt;&gt;
       {stepViewType !== StepViewType.Template &amp;&amp; Object.prototype.hasOwnProperty.call(enableFields, 'name') ? (
-        &lt;Container className={cx(css.formGroup, css.lg, css.nameIdLabel)}&gt;
+        &lt;Container className={cx(css.formGroup, stepCss, css.nameIdLabel)}&gt;
           &lt;FormInput.InputWithIdentifier
             inputName="name"
             idName="identifier"
@@ -845,10 +864,10 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
           /&gt;
         &lt;/Container&gt;
       ) : null}
-      &lt;Container className={cx(css.formGroup, css.lg)}&gt;
+      &lt;Container className={cx(css.formGroup, stepCss)}&gt;
         {Object.prototype.hasOwnProperty.call(enableFields, 'description') ? (
           &lt;FormMultiTypeTextAreaField
-            name="description"
+            name={`${prefix}description`}
             label={
               &lt;Text color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}&gt;
                 {getString('description')}
@@ -864,8 +883,10 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
           &lt;FormMultiTypeConnectorField
             label={enableFields['spec.connectorRef'].label}
             type={enableFields['spec.connectorRef'].type}
-            width={isInputSetView ? 265 : 385}
-            name="spec.connectorRef"
+            width={
+              stepViewType === StepViewType.DeploymentForm ? <span class="branch-0 cbranch-no" title="branch not covered" >320 </span>: stepViewType === StepViewType.InputSet ? 310 : 385
+            }
+            name={`${prefix}spec.connectorRef`}
             placeholder={getString('select')}
             accountIdentifier={accountId}
             projectIdentifier={projectIdentifier}
@@ -882,9 +903,9 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         ) : null}
       &lt;/Container&gt;
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.image') ? (
-        &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
+        &lt;Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}&gt;
           &lt;MultiTypeTextField
-            name="spec.image"
+            name={`${prefix}spec.image`}
             label={
               &lt;Text
                 className={css.inpLabel}
@@ -903,9 +924,9 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         &lt;/Container&gt;
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.target') ? (
-        &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
+        &lt;Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}&gt;
           &lt;MultiTypeTextField
-            name="spec.target"
+            name={`${prefix}spec.target`}
             label={
               &lt;Text
                 className={css.inpLabel}
@@ -924,9 +945,9 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         &lt;/Container&gt;
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.repo') ? (
-        &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
+        &lt;Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}&gt;
           &lt;MultiTypeTextField
-            name="spec.repo"
+            name={`${prefix}spec.repo`}
             label={
               &lt;Text
                 className={css.inpLabel}
@@ -945,9 +966,9 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         &lt;/Container&gt;
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.host') ? (
-        &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
+        &lt;Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}&gt;
           &lt;MultiTypeTextField
-            name="spec.host"
+            name={`${prefix}spec.host`}
             label={
               &lt;Text
                 className={css.inpLabel}
@@ -967,9 +988,9 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         &lt;/Container&gt;
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.projectID') ? (
-        &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
+        &lt;Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}&gt;
           &lt;MultiTypeTextField
-            name="spec.projectID"
+            name={`${prefix}spec.projectID`}
             label={
               &lt;Text
                 className={css.inpLabel}
@@ -988,9 +1009,9 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         &lt;/Container&gt;
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.region') ? (
-        &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
+        &lt;Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}&gt;
           &lt;MultiTypeTextField
-            name="spec.region"
+            name={`${prefix}spec.region`}
             label={
               &lt;Text
                 className={css.inpLabel}
@@ -1010,9 +1031,9 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         &lt;/Container&gt;
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.bucket') ? (
-        &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
+        &lt;Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}&gt;
           &lt;MultiTypeTextField
-            name="spec.bucket"
+            name={`${prefix}spec.bucket`}
             label={
               &lt;Text
                 className={css.inpLabel}
@@ -1031,9 +1052,9 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         &lt;/Container&gt;
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.key') ? (
-        &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
+        &lt;Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}&gt;
           &lt;MultiTypeTextField
-            name="spec.key"
+            name={`${prefix}spec.key`}
             label={
               &lt;Text
                 className={css.inpLabel}
@@ -1052,9 +1073,9 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         &lt;/Container&gt;
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.sourcePaths') ? (
-        &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
+        &lt;Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}&gt;
           &lt;MultiTypeList
-            name="spec.sourcePaths"
+            name={`${prefix}spec.sourcePaths`}
             multiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
@@ -1074,9 +1095,9 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         &lt;/Container&gt;
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.sourcePath') ? (
-        &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
+        &lt;Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}&gt;
           &lt;MultiTypeTextField
-            name="spec.sourcePath"
+            name={`${prefix}spec.sourcePath`}
             label={
               &lt;Text
                 className={css.inpLabel}
@@ -1095,9 +1116,9 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         &lt;/Container&gt;
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.account') ? (
-        &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
+        &lt;Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}&gt;
           &lt;MultiTypeTextField
-            name="spec.account"
+            name={`${prefix}spec.account`}
             label={
               &lt;Text
                 className={css.inpLabel}
@@ -1116,9 +1137,9 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         &lt;/Container&gt;
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.imageName') ? (
-        &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
+        &lt;Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}&gt;
           &lt;MultiTypeTextField
-            name="spec.imageName"
+            name={`${prefix}spec.imageName`}
             label={
               &lt;Text
                 className={css.inpLabel}
@@ -1137,9 +1158,9 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         &lt;/Container&gt;
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.tags') ? (
-        &lt;Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}&gt;
+        &lt;Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}&gt;
           &lt;MultiTypeList
-            name="spec.tags"
+            name={`${prefix}spec.tags`}
             multiTextInputProps={{ expressions, allowableTypes }}
             multiTypeFieldSelectorProps={{
               label: (
@@ -1168,7 +1189,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 07 2021 07:34:52 GMT+0000 (Greenwich Mean Time)
+                at Tue Dec 07 2021 10:56:36 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

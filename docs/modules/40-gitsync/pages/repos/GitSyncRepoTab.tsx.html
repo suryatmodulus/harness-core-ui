@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.93% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>94/112</span>
+                <span class='fraction'>95/114</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.45% </span>
+                <span class="strong">50.71% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>71/138</span>
+                <span class='fraction'>71/140</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.93% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>94/112</span>
+                <span class='fraction'>95/114</span>
             </div>
         
             
@@ -613,7 +613,11 @@
 <a name='L554'></a><a href='#L554'>554</a>
 <a name='L555'></a><a href='#L555'>555</a>
 <a name='L556'></a><a href='#L556'>556</a>
-<a name='L557'></a><a href='#L557'>557</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L557'></a><a href='#L557'>557</a>
+<a name='L558'></a><a href='#L558'>558</a>
+<a name='L559'></a><a href='#L559'>559</a>
+<a name='L560'></a><a href='#L560'>560</a>
+<a name='L561'></a><a href='#L561'>561</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -656,6 +660,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -710,7 +715,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -836,9 +840,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -951,6 +958,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1192,7 +1200,7 @@ import cx from 'classnames'
 import type { CellProps, Renderer, Column } from 'react-table'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { pick, capitalize } from 'lodash-es'
+import { pick, capitalize, defaultTo } from 'lodash-es'
 import { Menu, Classes, Position, Dialog } from '@blueprintjs/core'
 import {
   GitSyncConfig,
@@ -1214,7 +1222,8 @@ import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { HARNESS_FOLDER_NAME_PLACEHOLDER, HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
-import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
+import { getIdentifierFromValue, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import { StringUtils } from '@common/exports'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -1269,7 +1278,6 @@ const RightMenu: React.FC&lt;RightMenuProps&gt; = props =&gt; {
           }}
         /&gt;
         &lt;Menu style={{ minWidth: 'unset' }}&gt;
-          &lt;Menu.Item data-test="moveFolderBtn" text={getString('gitsync.moveFolder')} disabled={true} /&gt;
           &lt;Menu.Item
             data-test="markDefaultBtn"
             text={getString('gitsync.markAsDefault')}
@@ -1390,16 +1398,19 @@ const GitSyncRepoTab: React.FC = () =&gt; {
       }
     })
 &nbsp;
-    const testConnection = <span class="fstat-no" title="function not covered" >async </span>(identifier: string, repoURL: string): Promise&lt;void&gt; =&gt; {
+    const testConnection = <span class="fstat-no" title="function not covered" >async </span>(identifier: string, scope: Scope, repoURL: string): Promise&lt;void&gt; =&gt; {
+      const scopeQueryParams = <span class="cstat-no" title="statement not covered" >{</span>
+        accountIdentifier: accountId,
+        ...(scope !== Scope.ACCOUNT ? { orgIdentifier } : {}),
+        ...(scope === Scope.PROJECT ? { projectIdentifier } : {})
+      }
 <span class="cstat-no" title="statement not covered" >      setTestStatus(TestStatus.IN_PROGRESS)</span>
 <span class="cstat-no" title="statement not covered" >      testRepo(undefined, {</span>
         pathParams: {
           identifier
         },
         queryParams: {
-          accountIdentifier: accountId,
-          projectIdentifier,
-          orgIdentifier,
+          ...scopeQueryParams,
           repoURL
         }
       })
@@ -1507,7 +1518,8 @@ const GitSyncRepoTab: React.FC = () =&gt; {
                             testStatus={testStatus}
                             onTest={<span class="fstat-no" title="function not covered" >() =</span>&gt;
 <span class="cstat-no" title="statement not covered" >                              testConnection(</span>
-                                getIdentifierFromValue(repoData?.gitConnectorRef || ''),
+                                getIdentifierFromValue(defaultTo(repoData?.gitConnectorRef, '')),
+                                getScopeFromValue(defaultTo(repoData.gitConnectorRef, '')),
                                 repoData?.repo || ''
                               )
                             }
@@ -1732,7 +1744,7 @@ export default GitSyncRepoTab
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 07 2021 07:34:52 GMT+0000 (Greenwich Mean Time)
+                at Tue Dec 07 2021 10:56:36 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

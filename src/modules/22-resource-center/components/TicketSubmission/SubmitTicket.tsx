@@ -39,10 +39,7 @@ export const SubmitTicket = (props: SubmitTicketProps): JSX.Element => {
     URGENT
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [url, setUrl] = useState('')
+  const [, setUrl] = useState('')
   const [category, setCategory] = useState(categoryTypes[0].value)
   const [email, setEmail] = useState('')
   const [subject, setSubject] = useState('')

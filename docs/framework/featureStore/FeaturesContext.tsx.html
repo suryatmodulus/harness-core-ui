@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.31% </span>
+                <span class="strong">84.83% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>122/143</span>
+                <span class='fraction'>123/145</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70% </span>
+                <span class="strong">69.83% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>161/230</span>
+                <span class='fraction'>162/232</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">85.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>120/140</span>
+                <span class='fraction'>121/142</span>
             </div>
         
             
@@ -467,7 +467,19 @@
 <a name='L408'></a><a href='#L408'>408</a>
 <a name='L409'></a><a href='#L409'>409</a>
 <a name='L410'></a><a href='#L410'>410</a>
-<a name='L411'></a><a href='#L411'>411</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">733x</span>
+<a name='L411'></a><a href='#L411'>411</a>
+<a name='L412'></a><a href='#L412'>412</a>
+<a name='L413'></a><a href='#L413'>413</a>
+<a name='L414'></a><a href='#L414'>414</a>
+<a name='L415'></a><a href='#L415'>415</a>
+<a name='L416'></a><a href='#L416'>416</a>
+<a name='L417'></a><a href='#L417'>417</a>
+<a name='L418'></a><a href='#L418'>418</a>
+<a name='L419'></a><a href='#L419'>419</a>
+<a name='L420'></a><a href='#L420'>420</a>
+<a name='L421'></a><a href='#L421'>421</a>
+<a name='L422'></a><a href='#L422'>422</a>
+<a name='L423'></a><a href='#L423'>423</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">733x</span>
 <span class="cline-any cline-yes">733x</span>
 <span class="cline-any cline-yes">733x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -485,6 +497,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">733x</span>
 <span class="cline-any cline-yes">733x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -552,7 +566,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">733x</span>
-<span class="cline-any cline-yes">2978x</span>
+<span class="cline-any cline-yes">2981x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">733x</span>
@@ -794,6 +808,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -831,6 +854,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -918,10 +942,12 @@ interface GetHighestEditionProps {
 }
 interface GetEditionProps extends GetHighestEditionProps {
   moduleType: ModuleType
+  isCommunity: boolean
 }
 &nbsp;
 interface GetRestrictionTypeProps extends GetHighestEditionProps {
   featureRequest?: FeatureRequest
+  isCommunity: boolean
 }
 &nbsp;
 export interface FeaturesContextProps {
@@ -1202,10 +1228,19 @@ export function FeaturesProvider(props: React.PropsWithChildren&lt;unknown&gt;):
     return edition
   }
 &nbsp;
-  function getEdition({ moduleType, licenseInformation, licenseState }: GetEditionProps): Editions | undefined {
+  function getEdition({
+    moduleType,
+    licenseInformation,
+    licenseState,
+    isCommunity
+  }: GetEditionProps): Editions | undefined {
     // if no license available, reture undefined for default
     <span class="missing-if-branch" title="if path not taken" >I</span>if (licenseInformation === undefined || isEmpty(licenseInformation)) {
 <span class="cstat-no" title="statement not covered" >      return undefined</span>
+    }
+&nbsp;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (isCommunity) {
+<span class="cstat-no" title="statement not covered" >      return Editions.COMMUNITY</span>
     }
 &nbsp;
     const { CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE } = licenseState
@@ -1247,12 +1282,13 @@ export function FeaturesProvider(props: React.PropsWithChildren&lt;unknown&gt;):
   function getRestrictionType({
     featureRequest,
     licenseInformation,
-    licenseState
+    licenseState,
+    isCommunity
   }: GetRestrictionTypeProps): RestrictionType | undefined {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (featureRequest) {
       const featureMetadata = featureMap.get(featureRequest.featureName)
       const { moduleType, restrictionMetadataMap } = featureMetadata || {}
-      const edition = getEdition({ moduleType, licenseInformation, licenseState })
+      const edition = getEdition({ moduleType, licenseInformation, licenseState, isCommunity })
       if (edition) {
         return restrictionMetadataMap<span class="branch-0 cbranch-no" title="branch not covered" >?.[e</span>dition]<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>estrictionType as RestrictionType
       }
@@ -1294,7 +1330,7 @@ export function FeaturesProvider(props: React.PropsWithChildren&lt;unknown&gt;):
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 08 2021 14:16:16 GMT+0000 (Greenwich Mean Time)
+                at Wed Dec 08 2021 15:29:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

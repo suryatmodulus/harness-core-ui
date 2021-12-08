@@ -197,11 +197,12 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({
         }}
         value={String(formikProps.values.startTime)}
         onChange={val => {
-          setLastCostPeriodCostVar(x => ({ ...x, startTime: val as any }))
+          const startTime = moment(Number(val)).startOf('day').format('x')
+          setLastCostPeriodCostVar(x => ({ ...x, startTime: startTime as any }))
 
           formikProps.setValues({
             ...formikProps.values,
-            startTime: Number(val)
+            startTime: Number(startTime)
           })
         }}
       />

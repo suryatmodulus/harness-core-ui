@@ -136,6 +136,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const { showSuccess, showError } = useToaster()
   const { selectedProject, isGitSyncEnabled } = useAppStore()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isDeleting, setIsDeleting] = useState<boolean>(false)
   const [pipelineToDelete, setPipelineToDelete] = useState<PMSPipelineSummaryResponse>()
 
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<
@@ -539,7 +540,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
 
   const onDeletePipeline = async (commitMsg: string): Promise<void> => {
     try {
-      setIsLoading(true)
+      setIsDeleting(true)
       const gitParams = pipelineToDelete?.gitDetails?.objectId
         ? {
             ...pick(pipelineToDelete?.gitDetails, ['branch', 'repoIdentifier', 'filePath', 'rootFolder']),
@@ -557,7 +558,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
         },
         headers: { 'content-type': 'application/json' }
       })
-      setIsLoading(false)
+      setIsDeleting(false)
 
       /* istanbul ignore else */
       if (deleted?.status === 'SUCCESS') {
@@ -567,13 +568,13 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
       }
       fetchPipelines()
     } catch (err) {
-      setIsLoading(false)
+      setIsDeleting(false)
       /* istanbul ignore next */
       showError(err?.data?.message || err?.message, undefined, 'pipeline.delete.pipeline.error')
     }
   }
 
-  if (isLoading) {
+  if (isDeleting) {
     return <PageSpinner />
   }
 

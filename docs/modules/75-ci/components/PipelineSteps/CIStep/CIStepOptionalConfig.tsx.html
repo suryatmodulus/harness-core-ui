@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.59% </span>
+                <span class="strong">93.1% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/27</span>
+                <span class='fraction'>27/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92% </span>
+                <span class="strong">90.38% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>46/50</span>
+                <span class='fraction'>47/52</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.31% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/26</span>
+                <span class='fraction'>26/28</span>
             </div>
         
             
@@ -569,7 +569,15 @@
 <a name='L510'></a><a href='#L510'>510</a>
 <a name='L511'></a><a href='#L511'>511</a>
 <a name='L512'></a><a href='#L512'>512</a>
-<a name='L513'></a><a href='#L513'>513</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">55x</span>
+<a name='L513'></a><a href='#L513'>513</a>
+<a name='L514'></a><a href='#L514'>514</a>
+<a name='L515'></a><a href='#L515'>515</a>
+<a name='L516'></a><a href='#L516'>516</a>
+<a name='L517'></a><a href='#L517'>517</a>
+<a name='L518'></a><a href='#L518'>518</a>
+<a name='L519'></a><a href='#L519'>519</a>
+<a name='L520'></a><a href='#L520'>520</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
 <span class="cline-any cline-yes">55x</span>
 <span class="cline-any cline-yes">55x</span>
 <span class="cline-any cline-yes">55x</span>
@@ -604,7 +612,29 @@
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">36x</span>
-<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -734,22 +764,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1089,6 +1103,7 @@ import { useStrings } from 'framework/strings'
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
+import { MultiTypeMapInputSet } from '@common/components/MultiTypeMapInputSet/MultiTypeMapInputSet'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -1128,6 +1143,28 @@ export const CIStepOptionalConfig: React.FC&lt;CIStepOptionalConfigProps&gt; = p
       &lt;/Text&gt;
     )
   }, [])
+&nbsp;
+  const buildArgsRenderCommonProps = {
+    name: `${prefix}spec.buildArgs`,
+    valueMultiTextInputProps: { expressions, allowableTypes },
+    multiTypeFieldSelectorProps: {
+      label: (
+        &lt;Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}&gt;
+          &lt;Text
+            style={{ display: 'flex', alignItems: 'center' }}
+            className={css.inpLabel}
+            color={Color.GREY_800}
+            font={{ size: 'small', weight: 'semi-bold' }}
+          &gt;
+            {getString('pipelineSteps.buildArgsLabel')}
+          &lt;/Text&gt;
+          &amp;nbsp;
+          {getOptionalSubLabel('buildArgs')}
+        &lt;/Layout.Horizontal&gt;
+      )
+    },
+    disabled: readonly
+  }
 &nbsp;
   return (
     &lt;&gt;
@@ -1395,27 +1432,11 @@ export const CIStepOptionalConfig: React.FC&lt;CIStepOptionalConfigProps&gt; = p
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.buildArgs') ? (
         &lt;Container className={cx(css.formGroup, css.bottomMargin5)}&gt;
-          &lt;MultiTypeMap
-            name={`${prefix}spec.buildArgs`}
-            valueMultiTextInputProps={{ expressions, allowableTypes }}
-            multiTypeFieldSelectorProps={{
-              label: (
-                &lt;Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}&gt;
-                  &lt;Text
-                    style={{ display: 'flex', alignItems: 'center' }}
-                    className={css.inpLabel}
-                    color={Color.GREY_800}
-                    font={{ size: 'small', weight: 'semi-bold' }}
-                  &gt;
-                    {getString('pipelineSteps.buildArgsLabel')}
-                  &lt;/Text&gt;
-                  &amp;nbsp;
-                  {getOptionalSubLabel('buildArgs')}
-                &lt;/Layout.Horizontal&gt;
-              )
-            }}
-            disabled={readonly}
-          /&gt;
+          {stepViewType === StepViewType.Edit ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >            &lt;MultiTypeMap {...buildArgsRenderCommonProps} /&gt;</span>
+          ) : (
+            &lt;MultiTypeMapInputSet {...buildArgsRenderCommonProps} /&gt;
+          )}
         &lt;/Container&gt;
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.endpoint') ? (
@@ -1600,7 +1621,7 @@ export const CIStepOptionalConfig: React.FC&lt;CIStepOptionalConfigProps&gt; = p
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 08 2021 09:23:41 GMT+0000 (Greenwich Mean Time)
+                at Wed Dec 08 2021 10:01:19 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

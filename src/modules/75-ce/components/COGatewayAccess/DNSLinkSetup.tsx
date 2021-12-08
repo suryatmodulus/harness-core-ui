@@ -19,14 +19,11 @@ import {
   Container,
   Select,
   Checkbox,
-  Button,
-  Tabs,
-  Icon,
-  Switch
+  Button
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { debounce as _debounce, isEmpty as _isEmpty, values as _values, defaultTo as _defaultTo } from 'lodash-es'
-import { Dialog, IDialogProps, Radio, Tab } from '@blueprintjs/core'
+import { Dialog, IDialogProps, Radio } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import {
   AccessPoint,
@@ -38,24 +35,19 @@ import {
   useListAccessPoints,
   AzureAccessPointCore,
   ListAccessPointsQueryParams,
-  PortConfig,
-  useSecurityGroupsOfInstances,
-  HealthCheck,
   AccessPointResourcesQueryParams
 } from 'services/lw'
 import { useStrings } from 'framework/strings'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useGatewayContext } from '@ce/context/GatewayContext'
 import { useToaster } from '@common/exports'
-import { portProtocolMap } from '@ce/constants'
 import CreateAccessPointWizard from './CreateAccessPointWizard'
 import type { ConnectionMetadata, CustomDomainDetails, GatewayDetails } from '../COCreateGateway/models'
 import { Utils } from '../../common/Utils'
 import LoadBalancerDnsConfig from './LoadBalancerDnsConfig'
 import AzureAPConfig from '../COAccessPointList/AzureAPConfig'
-import CORoutingTable from '../COGatewayConfig/CORoutingTable'
-import COHealthCheckTable from '../COGatewayConfig/COHealthCheckTable'
 import { getDummySupportedResourceFromAG, getDummySupportedResourceFromALB } from './helper'
+import LBAdvancedConfiguration from './LBAdvancedConfiguration'
 import css from './COGatewayAccess.module.scss'
 
 const modalPropsLight: IDialogProps = {
@@ -89,8 +81,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     orgIdentifier: string
     projectIdentifier: string
   }>()
-
-  const [activeConfigTabId, setActiveConfigTabId] = useState<string | undefined>(props.activeStepDetails?.tabId)
 
   const accessDetails = props.gatewayDetails.opts.access_details as ConnectionMetadata // eslint-disable-line
   const customDomainProviderDetails = props.gatewayDetails.routing.custom_domain_providers as CustomDomainDetails // eslint-disable-line
@@ -169,11 +159,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
 
   const [accessPoint, setAccessPoint] = useState<AccessPoint>()
   const [selectedApCore, setSelectedApCore] = useState<SelectOption>()
-  const [routingRecords, setRoutingRecords] = useState<PortConfig[]>(props.gatewayDetails.routing.ports)
-  const [healthCheckPattern, setHealthCheckPattern] = useState<HealthCheck | null>(props.gatewayDetails.healthCheck)
-  const [shouldShowRoutingTable, setShouldShowRoutingTable] = useState<boolean>(
-    !_isEmpty(props.gatewayDetails.routing.ports)
-  )
 
   const getAccessPointFetchQueryParams = (): ListAccessPointsQueryParams => {
     const params: ListAccessPointsQueryParams = {
@@ -227,18 +212,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     account_id: accountId, // eslint-disable-line
     queryParams: getSupportedResourcesQueryParams()
   })
-
-  const { mutate: getSecurityGroups, loading: loadingSecurityGroups } = useSecurityGroupsOfInstances({
-    account_id: accountId, // eslint-disable-line
-    queryParams: {
-      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-      accountIdentifier: accountId
-    }
-  })
-
-  const getServerNames = () => {
-    return routingRecords.map(record => record.server_name).filter(v => !_isEmpty(v))
-  }
 
   useEffect(() => {
     if (accessPoints?.response?.length == 0) {
@@ -313,28 +286,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     if (dnsProvider == 'route53') loadHostedZones()
   }, [dnsProvider])
 
-  useEffect(() => {
-    if (routingRecords.length) {
-      return
-    }
-    !_isEmpty(props.gatewayDetails.selectedInstances) && fetchInstanceSecurityGroups()
-  }, [])
-
-  useEffect(() => {
-    const serverNames = getServerNames()
-    const hasServerNames = !_isEmpty(serverNames)
-    const updatedGatewayDetails = {
-      ...props.gatewayDetails,
-      routing: { ...props.gatewayDetails.routing, ports: routingRecords },
-      ...(hasServerNames && { customDomains: serverNames as string[] })
-    }
-    if (hasServerNames) {
-      updateCustomDomains(serverNames.join(','), true, updatedGatewayDetails)
-    } else {
-      props.setGatewayDetails(updatedGatewayDetails)
-    }
-  }, [routingRecords])
-
   const [, hideModal] = useModalHook(() => (
     <Dialog onClose={hideModal} {...modalPropsLight}>
       <CreateAccessPointWizard
@@ -346,83 +297,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       />
     </Dialog>
   ))
-
-  const addAllPorts = () => {
-    const emptyRecords: PortConfig[] = []
-    Object.keys(portProtocolMap).forEach(item => {
-      emptyRecords.push({
-        protocol: portProtocolMap[+item],
-        port: +item,
-        action: 'forward',
-        target_protocol: portProtocolMap[+item], // eslint-disable-line
-        target_port: +item, // eslint-disable-line
-        server_name: '', // eslint-disable-line
-        redirect_url: '', // eslint-disable-line
-        routing_rules: [] // eslint-disable-line
-      })
-    })
-    const routes = [...emptyRecords]
-    if (routes.length) setRoutingRecords(routes)
-  }
-
-  const fetchInstanceSecurityGroups = async (): Promise<void> => {
-    const emptyRecords: PortConfig[] = []
-    const hasInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
-    try {
-      let text = `id = ['${Utils.getConditionalResult(
-        hasInstances,
-        props.gatewayDetails.selectedInstances?.[0]?.id,
-        ''
-      )}']\nregions = ['${Utils.getConditionalResult(
-        hasInstances,
-        props.gatewayDetails.selectedInstances?.[0]?.region,
-        ''
-      )}']`
-
-      if (isAzureProvider) {
-        text += `\nresource_groups=['${Utils.getConditionalResult(
-          hasInstances,
-          props.gatewayDetails.selectedInstances?.[0]?.metadata?.resourceGroup,
-          ''
-        )}']`
-      }
-
-      const result = await getSecurityGroups({
-        text
-      })
-      if (result && result.response) {
-        Object.keys(result.response).forEach(instance => {
-          result.response?.[instance].forEach(sg => {
-            sg?.inbound_rules?.forEach(rule => {
-              if (rule.protocol == '-1' || rule.from === '*') {
-                addAllPorts()
-                return
-              } else if (rule && rule.from && [80, 443].includes(+rule.from)) {
-                const fromRule = +rule.from
-                const toRule = +(rule.to ? rule.to : 0)
-                emptyRecords.push({
-                  protocol: portProtocolMap[fromRule],
-                  port: fromRule,
-                  action: 'forward',
-                  target_protocol: portProtocolMap[fromRule], // eslint-disable-line
-                  target_port: toRule, // eslint-disable-line
-                  server_name: '', // eslint-disable-line
-                  redirect_url: '', // eslint-disable-line
-                  routing_rules: [] // eslint-disable-line
-                })
-                const routes = [...emptyRecords]
-                if (routes.length) setRoutingRecords(routes)
-              }
-            })
-          })
-        })
-        setShouldShowRoutingTable(true)
-      }
-    } catch (e) {
-      setShouldShowRoutingTable(true)
-      showError(e.data?.message || e.message, undefined, 'ce.creaetap.result.error')
-    }
-  }
 
   const clearAPData = () => {
     setSelectedApCore({ label: '', value: '' })
@@ -626,27 +500,11 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     openLoadBalancerModal()
   }
 
-  const updateGatewayHealthCheck = (_healthCheckDetails: HealthCheck | null) => {
-    const updatedGatewayDetails = { ...props.gatewayDetails, healthCheck: _healthCheckDetails }
-    props.setGatewayDetails(updatedGatewayDetails)
-  }
-
-  const handleHealthCheckToggle = (toggleStatus: boolean) => {
-    const hcData = toggleStatus ? Utils.getDefaultRuleHealthCheck() : null
-    setHealthCheckPattern(hcData)
-    updateGatewayHealthCheck(hcData)
-  }
-
-  const handleUpdatePattern = (_data: HealthCheck) => {
-    setHealthCheckPattern(_data)
-    updateGatewayHealthCheck(_data)
-  }
-
   const shouldDisplayPublicAccessCheck = () => {
     return _isEmpty(props.gatewayDetails.routing.container_svc)
   }
 
-  const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
+  // const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
 
   return (
     <Layout.Vertical spacing="medium" padding="medium">
@@ -716,7 +574,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                       />
                       {!isEditFlow && (
                         <Text color={Color.PRIMARY_6} onClick={handleCreateNewLb} style={{ cursor: 'pointer' }}>
-                          {`+ ${Utils.getConditionalResult(
+                          {`+${Utils.getConditionalResult(
                             isAwsProvider,
                             getString('ce.co.accessPoint.new'),
                             getString('ce.co.accessPoint.newAppGateway')
@@ -728,69 +586,11 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                 </Layout.Horizontal>
               </Container>
               {_isEmpty(props.gatewayDetails.routing.container_svc) && (
-                <Container className={css.dnsLinkContainer}>
-                  <Tabs
-                    id="tabsId1"
-                    selectedTabId={activeConfigTabId}
-                    onChange={tabId => tabId !== activeConfigTabId && setActiveConfigTabId(tabId as string)}
-                  >
-                    <Tab
-                      id="routing"
-                      title="Routing"
-                      panel={
-                        <Container style={{ backgroundColor: '#FBFBFB' }}>
-                          {!isK8sRule && (
-                            <>
-                              <Text className={css.titleHelpTextDescription}>
-                                {getString('ce.co.gatewayConfig.routingDescription')}
-                              </Text>
-                              <Layout.Vertical spacing="large">
-                                {loadingSecurityGroups && !shouldShowRoutingTable && (
-                                  <Icon
-                                    name="spinner"
-                                    size={24}
-                                    color="blue500"
-                                    style={{ alignSelf: 'center', marginTop: '10px' }}
-                                  />
-                                )}
-                                {shouldShowRoutingTable && (
-                                  <CORoutingTable
-                                    routingRecords={routingRecords}
-                                    setRoutingRecords={setRoutingRecords}
-                                  />
-                                )}
-                              </Layout.Vertical>
-                            </>
-                          )}
-                        </Container>
-                      }
-                    />
-                    <Tab
-                      id="healthcheck"
-                      title="Health check"
-                      panel={
-                        <Container style={{ backgroundColor: '#FBFBFB' }}>
-                          <Text className={css.titleHelpTextDescription}>
-                            {getString('ce.co.gatewayConfig.healthCheckDescription')}
-                          </Text>
-                          <Layout.Vertical spacing="large" padding="large">
-                            <Switch
-                              label={getString('ce.co.gatewayConfig.healthCheck')}
-                              className={css.switchFont}
-                              onChange={e => {
-                                handleHealthCheckToggle(e.currentTarget.checked)
-                              }}
-                              checked={!_isEmpty(healthCheckPattern)}
-                            />
-                            {healthCheckPattern && (
-                              <COHealthCheckTable pattern={healthCheckPattern} updatePattern={handleUpdatePattern} />
-                            )}
-                          </Layout.Vertical>
-                        </Container>
-                      }
-                    />
-                  </Tabs>
-                </Container>
+                <LBAdvancedConfiguration
+                  gatewayDetails={props.gatewayDetails}
+                  setGatewayDetails={props.setGatewayDetails}
+                  activeStepDetails={props.activeStepDetails}
+                />
               )}
               <Container className={css.dnsLinkContainer}>
                 <Layout.Horizontal spacing="small" style={{ marginBottom: 'var(--spacing-xlarge)' }}>

@@ -142,3 +142,8 @@ export interface CustomDomainDetails {
     hosted_zone_id: string
   }
 }
+
+export interface ASRuleCreationActiveStep {
+  count?: number
+  tabId?: string
+}

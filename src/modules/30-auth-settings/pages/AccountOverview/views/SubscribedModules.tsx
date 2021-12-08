@@ -56,12 +56,12 @@ const ModuleCard: React.FC<ModuleCardProps> = ({ module }) => {
   const { accountId } = useParams<AccountPathProps>()
   const getPlanDescription = (): string => {
     const days = Math.round(moment(module.expiryTime).diff(moment(module.createdAt), 'days', true)).toString()
-
-    if (module.edition === Editions.FREE) {
-      return capitalize(module.edition)
+    const edition = module.edition || ''
+    if (edition === Editions.FREE || edition === Editions.COMMUNITY) {
+      return capitalize(edition)
     }
 
-    return capitalize(module.edition)
+    return capitalize(edition)
       .concat('(')
       .concat(days)
       .concat(' day ')

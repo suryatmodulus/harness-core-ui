@@ -118,7 +118,7 @@ const SubscriptionDetailsCard: React.FC<SubscriptionDetailsCardProps> = props =>
         <SubscriptionDetailsCardBody
           licenseData={licenseData}
           edition={edition}
-          isFree={isFreeOrCommunity}
+          isFreeOrCommunity={isFreeOrCommunity}
           isExpired={isExpired}
           days={days}
           expiryDate={expiryDate}

@@ -14,7 +14,8 @@ import type {
   RestrictionMetadataMap
 } from 'framework/featureStore/featureStoreUtil'
 import type { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
-import { useLicenseStore, isCDCommunity } from 'framework/LicenseStore/LicenseStoreContext'
+import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { useCommunity } from 'framework/LicenseStore/useCommunity'
 import { useFeatureFlag } from './useFeatureFlag'
 
 interface FeatureProps {
@@ -29,8 +30,8 @@ interface FeaturesProps {
 
 function useGetFeatureEnforced(): boolean {
   const featureEnforced = useFeatureFlag(FeatureFlag.FEATURE_ENFORCEMENT_ENABLED)
-  const { licenseInformation } = useLicenseStore()
-  return featureEnforced || isCDCommunity(licenseInformation)
+  const isCommunity = useCommunity()
+  return featureEnforced || isCommunity
 }
 
 export function useFeature(props: FeatureProps): CheckFeatureReturn {
@@ -40,12 +41,14 @@ export function useFeature(props: FeatureProps): CheckFeatureReturn {
     useLicenseStore()
 
   const featureEnforced = useGetFeatureEnforced()
+  const isCommunity = useCommunity()
 
   const { featureRequest, options } = props
   const restrictionType = getRestrictionType({
     featureRequest,
     licenseInformation,
-    licenseState: { CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE }
+    licenseState: { CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE },
+    isCommunity
   })
   const isLimit = restrictionType && restrictionType !== RestrictionType.AVAILABILITY
 
@@ -78,6 +81,7 @@ export function useFeatures(props: FeaturesProps): CheckFeaturesReturn {
     useLicenseStore()
 
   const featureEnforced = useGetFeatureEnforced()
+  const isCommunity = useCommunity()
 
   const features = new Map<FeatureIdentifier, CheckFeatureReturn>()
   const { featuresRequest, options } = props
@@ -89,7 +93,8 @@ export function useFeatures(props: FeaturesProps): CheckFeaturesReturn {
       const restrictionType = getRestrictionType({
         featureRequest: { featureName },
         licenseInformation,
-        licenseState: { CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE }
+        licenseState: { CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE },
+        isCommunity
       })
       const isLimit = restrictionType && restrictionType !== RestrictionType.AVAILABILITY
       if (isLimit) {
@@ -150,11 +155,19 @@ export function useFeatureRequiredPlans(featureName: FeatureIdentifier): string[
   const { featureMap, getEdition } = useFeaturesContext()
   const { licenseInformation, CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE } =
     useLicenseStore()
+
+  // for community, do not return plans
+  const isCommunity = useCommunity()
+  if (isCommunity) {
+    return []
+  }
+
   const moduleType = featureMap.get(featureName)?.moduleType
   const currentEdition = getEdition({
     moduleType,
     licenseInformation,
-    licenseState: { CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE }
+    licenseState: { CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE },
+    isCommunity
   })
   return getRequiredPlans(currentEdition, featureMap.get(featureName)?.restrictionMetadataMap)
 }

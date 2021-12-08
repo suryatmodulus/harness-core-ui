@@ -17,7 +17,7 @@ import css from './SubscriptionDetailsCard.module.scss'
 interface SubscriptionDetailsCardBodyProps {
   licenseData?: ModuleLicenseDTO
   edition: Editions
-  isFree: boolean
+  isFreeOrCommunity: boolean
   isExpired: boolean
   days: number
   expiryDate: string
@@ -27,7 +27,7 @@ interface SubscriptionDetailsCardBodyProps {
 const SubscriptionDetailsCardBody = ({
   licenseData,
   edition,
-  isFree,
+  isFreeOrCommunity,
   isExpired,
   days,
   expiryDate,
@@ -40,7 +40,7 @@ const SubscriptionDetailsCardBody = ({
     const expiryMessage = getExpiryMsg()
     const editionStr = capitalize(edition)
     const planMessage =
-      licenseData?.licenseType === ModuleLicenseType.PAID || isFree
+      licenseData?.licenseType === ModuleLicenseType.PAID || isFreeOrCommunity
         ? getString('common.subscriptions.paid', { edition: editionStr })
         : getString('common.subscriptions.trial', { edition: editionStr })
 
@@ -78,7 +78,7 @@ const SubscriptionDetailsCardBody = ({
   }
 
   function getExpiryMsg(): React.ReactElement | undefined {
-    if (isFree) {
+    if (isFreeOrCommunity) {
       return undefined
     }
 
@@ -86,7 +86,7 @@ const SubscriptionDetailsCardBody = ({
   }
 
   function insertExpiryDate(expiryFields: React.ReactElement[]): void {
-    if (!isFree) {
+    if (!isFreeOrCommunity) {
       const expiryElement = (
         <React.Fragment key="expiry">
           <Text color={Color.GREY_600}>{getString('common.subscriptions.overview.expiry')}</Text>

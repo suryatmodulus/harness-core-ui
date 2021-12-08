@@ -39,10 +39,12 @@ interface GetHighestEditionProps {
 }
 interface GetEditionProps extends GetHighestEditionProps {
   moduleType: ModuleType
+  isCommunity: boolean
 }
 
 interface GetRestrictionTypeProps extends GetHighestEditionProps {
   featureRequest?: FeatureRequest
+  isCommunity: boolean
 }
 
 export interface FeaturesContextProps {
@@ -323,10 +325,19 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
     return edition
   }
 
-  function getEdition({ moduleType, licenseInformation, licenseState }: GetEditionProps): Editions | undefined {
+  function getEdition({
+    moduleType,
+    licenseInformation,
+    licenseState,
+    isCommunity
+  }: GetEditionProps): Editions | undefined {
     // if no license available, reture undefined for default
     if (licenseInformation === undefined || isEmpty(licenseInformation)) {
       return undefined
+    }
+
+    if (isCommunity) {
+      return Editions.COMMUNITY
     }
 
     const { CI_LICENSE_STATE, CD_LICENSE_STATE, FF_LICENSE_STATE, CCM_LICENSE_STATE } = licenseState
@@ -368,12 +379,13 @@ export function FeaturesProvider(props: React.PropsWithChildren<unknown>): React
   function getRestrictionType({
     featureRequest,
     licenseInformation,
-    licenseState
+    licenseState,
+    isCommunity
   }: GetRestrictionTypeProps): RestrictionType | undefined {
     if (featureRequest) {
       const featureMetadata = featureMap.get(featureRequest.featureName)
       const { moduleType, restrictionMetadataMap } = featureMetadata || {}
-      const edition = getEdition({ moduleType, licenseInformation, licenseState })
+      const edition = getEdition({ moduleType, licenseInformation, licenseState, isCommunity })
       if (edition) {
         return restrictionMetadataMap?.[edition]?.restrictionType as RestrictionType
       }

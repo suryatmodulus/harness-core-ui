@@ -21,6 +21,7 @@ exports[`FeatureWarning FeatureWarningTooltip 1`] = `
           projectsOrgs.multipleProjects
         </span>
       </p>
+      common.feature.upgradeRequired.pleaseUpgrade
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--variation Button--variation-secondary Button--size Button--small"
         type="button"

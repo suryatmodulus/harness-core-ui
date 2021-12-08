@@ -52,6 +52,13 @@ export const FeatureWarningTooltip = ({ featureName }: FeatureWarningTooltipProp
   const customFeatureDescription = CustomFeatureDescriptor[featureName]
   const requiredPlans = useFeatureRequiredPlans(featureName)
   const requiredPlansStr = requiredPlans.join(' or ')
+
+  function getDescription(): string {
+    return isEmpty(requiredPlans)
+      ? getString('common.feature.upgradeRequired.pleaseUpgrade')
+      : getString('common.feature.upgradeRequired.requiredPlans', { requiredPlans: requiredPlansStr })
+  }
+
   return (
     <Layout.Vertical padding="medium" className={css.tooltip}>
       <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800} padding={{ bottom: 'small' }}>
@@ -62,11 +69,7 @@ export const FeatureWarningTooltip = ({ featureName }: FeatureWarningTooltipProp
           {!customFeatureDescription && getString('common.feature.upgradeRequired.description')}
           {customFeatureDescription || featureDescription}
         </Text>
-        {!customFeatureDescription && !isEmpty(requiredPlans) && (
-          <Text font={{ size: 'small' }} color={Color.GREY_700}>
-            {getString('common.feature.upgradeRequired.requiredPlans', { requiredPlans: requiredPlansStr })}
-          </Text>
-        )}
+        {!customFeatureDescription && getDescription()}
         <ExplorePlansBtn featureName={featureName} />
       </Layout.Vertical>
     </Layout.Vertical>

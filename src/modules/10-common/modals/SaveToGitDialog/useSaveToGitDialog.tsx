@@ -246,6 +246,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
         }
       })
       .catch(e => {
+        console.log(e)
         setError(e)
         setCreateUpdateStatus('ERROR')
         if (data?.createPr) {
@@ -258,6 +259,8 @@ export function useSaveToGitDialog<T = Record<string, string>>(
             []
           )?.findIndex((mssg: ResponseMessage) => mssg.code === 'SCM_CONFLICT_ERROR') !== -1
         ) {
+          console.log('DiffpayloadData', payloadData)
+          console.log('Diffdata', data)
           openGitDiffDialog(payloadData, data)
         }
       })
@@ -278,6 +281,8 @@ export function useSaveToGitDialog<T = Record<string, string>>(
             isEditing={isEditMode}
             resource={resource}
             onSuccess={data => {
+              console.log('datafromForm', data)
+              console.log('payloadDatafromForm', payloadData)
               handleSuccess(data, payloadData, resource.gitDetails?.objectId)
               hideModal()
             }}

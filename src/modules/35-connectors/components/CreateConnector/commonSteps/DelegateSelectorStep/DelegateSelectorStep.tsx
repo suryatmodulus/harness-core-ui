@@ -106,6 +106,7 @@ const NoMatchingDelegateWarning: React.FC<{ delegatesFound: DelegatesFoundState;
   }
 
 const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSelectorProps> = props => {
+  console.log(props)
   const { showSuccess, showError } = useToaster()
   const { prevStepData, nextStep, buildPayload, customHandleCreate, customHandleUpdate, connectorInfo } = props
   const {
@@ -185,6 +186,8 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
     connectorData: ConnectorCreateEditProps,
     objectId?: EntityGitDetails['objectId']
   ): Promise<UseSaveSuccessResponse> => {
+    console.log('connectorData', connectorData)
+    console.log('objectId', objectId)
     const { gitData } = connectorData
     const payload = connectorData.payload || (connectorPayloadRef as Connector)
     modalErrorHandler?.hide()
@@ -282,6 +285,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
               if (!props.isEditMode) {
                 gitDetails = { branch: prevStepData?.branch, repoIdentifier: prevStepData?.repo }
               }
+              console.log('GitDetails: ' + gitDetails)
               openSaveToGitDialog({
                 isEditing: props.isEditMode,
                 resource: {

@@ -1,3 +1,4 @@
+import { defaultTo as _defaultTo } from 'lodash-es'
 import { Intent } from '@blueprintjs/core'
 import { useConfirmationDialog } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -36,7 +37,7 @@ const useDeleteServiceHook = (props: UseDeleteServiceHookProps): UseDeleteServic
           props.onFailure?.(deletionResponse.errors?.join('\n'))
         }
       } catch (e) {
-        props.onFailure?.(e)
+        props.onFailure?.(_defaultTo(e?.data?.message, e?.message))
       }
     }
   }

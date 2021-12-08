@@ -1,4 +1,4 @@
-import { isEmpty as _isEmpty } from 'lodash-es'
+import { isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
 import { Intent } from '@blueprintjs/core'
 import { useConfirmationDialog } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -37,7 +37,7 @@ const useToggleRuleState = (props: UseToggleAutostoppingRuleProps): UseToggleAut
           props.onSuccess?.((updatedData as any).response)
         }
       } catch (e) {
-        props.onFailure?.(e)
+        props.onFailure?.(_defaultTo(e?.data?.message, e?.message))
       }
     }
   }

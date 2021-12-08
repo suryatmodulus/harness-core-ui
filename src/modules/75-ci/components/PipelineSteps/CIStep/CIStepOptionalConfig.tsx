@@ -6,6 +6,7 @@ import { useStrings } from 'framework/strings'
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
+import { MultiTypeMapInputSet } from '@common/components/MultiTypeMapInputSet/MultiTypeMapInputSet'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -45,6 +46,28 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       </Text>
     )
   }, [])
+
+  const buildArgsRenderCommonProps = {
+    name: `${prefix}spec.buildArgs`,
+    valueMultiTextInputProps: { expressions, allowableTypes },
+    multiTypeFieldSelectorProps: {
+      label: (
+        <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
+          <Text
+            style={{ display: 'flex', alignItems: 'center' }}
+            className={css.inpLabel}
+            color={Color.GREY_800}
+            font={{ size: 'small', weight: 'semi-bold' }}
+          >
+            {getString('pipelineSteps.buildArgsLabel')}
+          </Text>
+          &nbsp;
+          {getOptionalSubLabel('buildArgs')}
+        </Layout.Horizontal>
+      )
+    },
+    disabled: readonly
+  }
 
   return (
     <>
@@ -312,27 +335,11 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.buildArgs') ? (
         <Container className={cx(css.formGroup, css.bottomMargin5)}>
-          <MultiTypeMap
-            name={`${prefix}spec.buildArgs`}
-            valueMultiTextInputProps={{ expressions, allowableTypes }}
-            multiTypeFieldSelectorProps={{
-              label: (
-                <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
-                  <Text
-                    style={{ display: 'flex', alignItems: 'center' }}
-                    className={css.inpLabel}
-                    color={Color.GREY_800}
-                    font={{ size: 'small', weight: 'semi-bold' }}
-                  >
-                    {getString('pipelineSteps.buildArgsLabel')}
-                  </Text>
-                  &nbsp;
-                  {getOptionalSubLabel('buildArgs')}
-                </Layout.Horizontal>
-              )
-            }}
-            disabled={readonly}
-          />
+          {stepViewType === StepViewType.Edit ? (
+            <MultiTypeMap {...buildArgsRenderCommonProps} />
+          ) : (
+            <MultiTypeMapInputSet {...buildArgsRenderCommonProps} />
+          )}
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.endpoint') ? (

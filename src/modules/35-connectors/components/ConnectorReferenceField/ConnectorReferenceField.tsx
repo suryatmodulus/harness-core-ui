@@ -593,6 +593,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
   const dataTooltipId =
     props.tooltipProps?.dataTooltipId || (tooltipContext?.formName ? `${tooltipContext?.formName}_${name}` : '')
 
+  console.log('test')
   return (
     <FormGroup
       {...rest}

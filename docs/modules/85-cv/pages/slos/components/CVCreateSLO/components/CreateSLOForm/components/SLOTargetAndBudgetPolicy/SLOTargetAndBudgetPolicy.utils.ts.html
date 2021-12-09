@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.48% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/21</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.13% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/32</span>
+                <span class='fraction'>0/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.24% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/17</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -92,69 +92,69 @@
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">60x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { SelectOption } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
-import moment from 'moment'
+<span class="cstat-no" title="statement not covered" >import moment from 'moment'</span>
 import type { UseStringsReturn } from 'framework/strings'
 import type { SLOForm } from '../../CreateSLO.types'
-import { dateFormatSLOTarget, PeriodTypeEnum } from './SLOTargetAndBudgetPolicy.constants'
+<span class="cstat-no" title="statement not covered" >import { dateFormatSLOTarget, PeriodTypeEnum } from './SLOTargetAndBudgetPolicy.constants'</span>
 &nbsp;
-export const getPeriodTypeOptions = (getString: UseStringsReturn['getString']): SelectOption[] =&gt; {
-  return [
+export const <span class="cstat-no" title="statement not covered" >getPeriodTypeOptions = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>g</span>etString: UseStringsReturn['getString']): SelectOption[] =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  return [</span>
     { label: getString('cv.slos.sloTargetAndBudget.periodTypeOptions.rolling'), value: PeriodTypeEnum.ROLLING },
     { label: getString('cv.slos.sloTargetAndBudget.periodTypeOptions.calendar'), value: PeriodTypeEnum.CALENDAR }
   ]
 }
 &nbsp;
-export const getPeriodLengthOptions = (): SelectOption[] =&gt; {
-  const periodLengthOptions = []
-  for (let i = 1; i &lt;= 30; i++) {
-    periodLengthOptions.push({ label: `${i}`, value: `${i}d` })
+export const <span class="cstat-no" title="statement not covered" >getPeriodLengthOptions = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>): SelectOption[] =</span>&gt; {</span>
+  const periodLengthOptions = <span class="cstat-no" title="statement not covered" >[]</span>
+<span class="cstat-no" title="statement not covered" >  for (let i = <span class="cstat-no" title="statement not covered" >1;</span> i &lt;= 30; i++) {</span>
+<span class="cstat-no" title="statement not covered" >    periodLengthOptions.push({ label: `${i}`, value: `${i}d` })</span>
   }
-  return periodLengthOptions
+<span class="cstat-no" title="statement not covered" >  return periodLengthOptions</span>
 }
 &nbsp;
-export const getDefaultDateRange = <span class="fstat-no" title="function not covered" >(f</span>ormikProps: FormikProps&lt;SLOForm&gt;): [Date | undefined, Date | undefined] =&gt; {
+export const <span class="cstat-no" title="statement not covered" >getDefaultDateRange = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span>f</span>ormikProps: FormikProps&lt;SLOForm&gt;): [Date | undefined, Date | undefined] =&gt; {</span>
   const { startDate, endDate } = <span class="cstat-no" title="statement not covered" >formikProps?.values?.target?.spec ?? {}</span>
 <span class="cstat-no" title="statement not covered" >  return [startDate ? moment(startDate).toDate() : undefined, endDate ? moment(endDate).toDate() : undefined]</span>
 }
 &nbsp;
-export function getUpdatedTarget(range: [Date | undefined, Date | undefined], values: SLOForm): SLOForm['target'] {
-  const startDate = moment(range[0]).format(dateFormatSLOTarget)
-  const endDate = moment(range[1]).format(dateFormatSLOTarget)
-  const updatedTarget = { ...values<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>arget, spec: { ...values<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>arget<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec, startDate, endDate } }
-  return updatedTarget
+<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >g</span>etUpdatedTarget(</span>range: [Date | undefined, Date | undefined], values: SLOForm): SLOForm['target'] {
+  const startDate = <span class="cstat-no" title="statement not covered" >moment(range[0]).format(dateFormatSLOTarget)</span>
+  const endDate = <span class="cstat-no" title="statement not covered" >moment(range[1]).format(dateFormatSLOTarget)</span>
+  const updatedTarget = <span class="cstat-no" title="statement not covered" >{ ...values?.target, spec: { ...values?.target?.spec, startDate, endDate } }</span>
+<span class="cstat-no" title="statement not covered" >  return updatedTarget</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -163,7 +163,7 @@ export function getUpdatedTarget(range: [Date | undefined, Date | undefined], va
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 09 2021 09:44:50 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 09 2021 10:43:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../../../prettify.js"></script>

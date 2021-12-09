@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.23% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>41/47</span>
+                <span class='fraction'>42/48</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.23% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>41/47</span>
+                <span class='fraction'>42/48</span>
             </div>
         
             
@@ -262,22 +262,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">171x</span>
-<span class="cline-any cline-yes">195x</span>
-<span class="cline-any cline-yes">195x</span>
+<span class="cline-any cline-yes">223x</span>
+<span class="cline-any cline-yes">223x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">195x</span>
-<span class="cline-any cline-yes">195x</span>
-<span class="cline-any cline-yes">195x</span>
+<span class="cline-any cline-yes">223x</span>
+<span class="cline-any cline-yes">223x</span>
+<span class="cline-any cline-yes">223x</span>
+<span class="cline-any cline-yes">223x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">195x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">195x</span>
+<span class="cline-any cline-yes">223x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">223x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">195x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">223x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -298,7 +298,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">195x</span>
+<span class="cline-any cline-yes">223x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -332,7 +332,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">195x</span>
+<span class="cline-any cline-yes">223x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -342,7 +342,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">195x</span>
+<span class="cline-any cline-yes">223x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -430,8 +430,8 @@ export default function useCreateEditConnector&lt;T&gt;(props: UseCreateEditConn
 &nbsp;
   const [connectorPayload, setConnectorPayload] = useState&lt;Connector&gt;({})
   const [connectorResponse, setConnectorResponse] = useState&lt;UseSaveSuccessResponse&gt;()
+  const [connectorData, setConnectorData] = useState&lt;T &amp; BuildPayloadProps&gt;({} as T &amp; BuildPayloadProps)
   let gitDetails = props.gitDetails
-  let connectorData: T &amp; BuildPayloadProps
 &nbsp;
   const { mutate: createConnector, loading: creating } = useCreateConnector({
     queryParams: { accountIdentifier: props.accountId }
@@ -516,7 +516,7 @@ export default function useCreateEditConnector&lt;T&gt;(props: UseCreateEditConn
       customHandleCreate,
       customHandleUpdate
     }: OnInitiateConnectorCreateEditProps&lt;T &amp; BuildPayloadProps&gt;) =&gt; {
-      connectorData = connectorFormData
+      setConnectorData(connectorFormData)
       const payload = buildPayload(connectorFormData)
       setConnectorPayload(payload)
       if (props.isGitSyncEnabled) {
@@ -553,7 +553,7 @@ export default function useCreateEditConnector&lt;T&gt;(props: UseCreateEditConn
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 09 2021 14:52:03 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 09 2021 16:43:36 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

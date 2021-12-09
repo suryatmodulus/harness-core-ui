@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.92% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>61/71</span>
+                <span class='fraction'>60/70</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.63% </span>
+                <span class="strong">51.64% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>127/246</span>
+                <span class='fraction'>126/244</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.51% </span>
+                <span class="strong">85.29% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>59/69</span>
+                <span class='fraction'>58/68</span>
             </div>
         
             
@@ -543,12 +543,7 @@
 <a name='L484'></a><a href='#L484'>484</a>
 <a name='L485'></a><a href='#L485'>485</a>
 <a name='L486'></a><a href='#L486'>486</a>
-<a name='L487'></a><a href='#L487'>487</a>
-<a name='L488'></a><a href='#L488'>488</a>
-<a name='L489'></a><a href='#L489'>489</a>
-<a name='L490'></a><a href='#L490'>490</a>
-<a name='L491'></a><a href='#L491'>491</a>
-<a name='L492'></a><a href='#L492'>492</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L487'></a><a href='#L487'>487</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -721,7 +716,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">120x</span>
 <span class="cline-any cline-yes">120x</span>
 <span class="cline-any cline-yes">120x</span>
 <span class="cline-any cline-yes">120x</span>
@@ -1013,10 +1007,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1063,7 +1053,6 @@ import { TimeAgoPopover } from '@common/exports'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { PMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
-import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { TagsPopover } from '@common/components'
 import routes from '@common/RouteDefinitions'
@@ -1076,6 +1065,7 @@ import useDeleteConfirmationDialog from '@pipeline/pages/utils/DeleteConfirmDial
 import { Badge } from '@pipeline/pages/utils/Badge/Badge'
 import { formatCount } from '@common/utils/utils'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
+import { getFeaturePropsForRunPipelineButton } from '@pipeline/utils/runPipelineUtils'
 import { getIconsForPipeline } from '../../PipelineListUtils'
 &nbsp;
 import css from './PipelineCard.module.scss'
@@ -1212,7 +1202,6 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
       accountId: string
     }&gt;
   &gt;()
-  const isCIModule = module === 'ci'
   const { isGitSyncEnabled } = { isGitSyncEnabled: true }
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const history = useHistory()
@@ -1502,11 +1491,7 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
                 },
                 permission: PermissionIdentifier.EXECUTE_PIPELINE
               }}
-              featuresProps={{
-                featuresRequest: {
-                  featureNames: [isCIModule ? <span class="branch-0 cbranch-no" title="branch not covered" >FeatureIdentifier.BUILDS </span>: FeatureIdentifier.DEPLOYMENTS_PER_MONTH]
-                }
-              }}
+              featuresProps={getFeaturePropsForRunPipelineButton(pipeline.modules)}
               onClick={e =&gt; {
                 e.stopPropagation()
                 runPipeline()
@@ -1537,7 +1522,7 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 09 2021 14:52:03 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 09 2021 16:43:36 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

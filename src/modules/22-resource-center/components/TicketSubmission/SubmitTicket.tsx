@@ -65,7 +65,6 @@ export const SubmitTicket = (props: SubmitTicketProps): JSX.Element => {
   useEffect(() => {
     setImageTaken(false)
   }, [image])
-  // secureStorage
 
   const commonPadding = { left: 'xlarge', right: 'xlarge', bottom: 'xsmall' } as PaddingProps
   const fontProps = {
@@ -184,7 +183,7 @@ export const SubmitTicket = (props: SubmitTicketProps): JSX.Element => {
             border={{ color: Color.PRIMARY_3 }}
             className={newcss.buttonfix}
             onClick={() => {
-              if (image == null) {
+              if (image === null) {
                 setImageTaken(true)
               }
             }}

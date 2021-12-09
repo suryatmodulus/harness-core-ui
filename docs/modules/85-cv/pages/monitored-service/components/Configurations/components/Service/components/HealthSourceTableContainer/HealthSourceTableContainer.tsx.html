@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.31% </span>
+                <span class="strong">81.82% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/29</span>
+                <span class='fraction'>27/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.56% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>51/79</span>
+                <span class='fraction'>58/87</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.64% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/11</span>
+                <span class='fraction'>8/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">81.25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/28</span>
+                <span class='fraction'>26/32</span>
             </div>
         
             
@@ -165,7 +165,16 @@
 <a name='L106'></a><a href='#L106'>106</a>
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
@@ -182,6 +191,8 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,10 +247,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -290,9 +308,11 @@ import type { MonitoredServiceForm } from '../../Service.types'
 import { createOpenHealthSourceTableProps } from './HealthSourceTableContainer.utils'
 &nbsp;
 export default function HealthSourceTableContainer({
-  serviceFormFormik
+  serviceFormFormik,
+  healthSourceListFromAPI
 }: {
   serviceFormFormik: FormikContext&lt;MonitoredServiceForm&gt;
+  healthSourceListFromAPI: HealthSource[] | undefined
 }): JSX.Element {
   const {
     showDrawer: showHealthSourceDrawer,
@@ -342,12 +362,19 @@ export default function HealthSourceTableContainer({
           isEdit: isEditMode,
           rowData
         })
+        let metricDetails: HealthSource | null = null
+        if (isEditMode &amp;&amp; healthSourceListFromAPI) {
+          metricDetails = healthSourceListFromAPI.find(
+            healthSource =&gt; healthSource.identifier === rowData<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
+          ) as HealthSource
+        }
         setDrawerHeaderProps<span class="branch-0 cbranch-no" title="branch not covered" >?.({</span> isEdit: isEditMode, onClick: () =&gt; hideHealthSourceDrawer() })
         showHealthSourceDrawer({
           hideDrawer: hideHealthSourceDrawer,
           ...showHealthSourceDrawerProps,
           onSuccess: <span class="fstat-no" title="function not covered" >(u</span>pdatedHealthSource: UpdatedHealthSource) =&gt;
-<span class="cstat-no" title="statement not covered" >            onSuccessHealthSourceTableWrapper(updatedHealthSource, formik)</span>
+<span class="cstat-no" title="statement not covered" >            onSuccessHealthSourceTableWrapper(updatedHealthSource, formik),</span>
+          metricDetails
         })
       } else {
         formik.submitForm()
@@ -359,7 +386,7 @@ export default function HealthSourceTableContainer({
 &nbsp;
   return (
     &lt;HealthSourceTable
-      onEdit={values =&gt;
+      onEdit={values =&gt; {
         openHealthSourceDrawer({
           formik: serviceFormFormik,
           isEditMode: true,
@@ -367,7 +394,7 @@ export default function HealthSourceTableContainer({
           tableData:
             createHealthsourceList(serviceFormFormik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ources<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>ealthSources as RowData[], values) || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
         })
-      }
+      }}
       onAddNewHealthSource={() =&gt;
         openHealthSourceDrawer({
           formik: serviceFormFormik,
@@ -388,7 +415,7 @@ export default function HealthSourceTableContainer({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 09 2021 13:28:02 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 09 2021 14:52:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../../../prettify.js"></script>

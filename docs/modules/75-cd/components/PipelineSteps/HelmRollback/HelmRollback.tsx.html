@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.19% </span>
+                <span class="strong">77.59% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/57</span>
+                <span class='fraction'>45/58</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.19% </span>
+                <span class="strong">77.59% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/57</span>
+                <span class='fraction'>45/58</span>
             </div>
         
             
@@ -312,7 +312,16 @@
 <a name='L253'></a><a href='#L253'>253</a>
 <a name='L254'></a><a href='#L254'>254</a>
 <a name='L255'></a><a href='#L255'>255</a>
-<a name='L256'></a><a href='#L256'>256</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">55x</span>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a>
+<a name='L259'></a><a href='#L259'>259</a>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">55x</span>
 <span class="cline-any cline-yes">55x</span>
 <span class="cline-any cline-yes">55x</span>
 <span class="cline-any cline-yes">55x</span>
@@ -340,6 +349,8 @@
 <span class="cline-any cline-yes">55x</span>
 <span class="cline-any cline-yes">55x</span>
 <span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-yes">55x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">55x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -466,6 +477,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">55x</span>
@@ -595,6 +613,8 @@ import {
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
+import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
+&nbsp;
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 &nbsp;
 interface HelmRollbackProps {
@@ -699,7 +719,7 @@ const HelmRollbackInputStep: React.FC&lt;HelmRollbackProps&gt; = ({ inputSetData
       {getMultiTypeFromValue(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>imeout) === MultiTypeInputType.RUNTIME &amp;&amp; (
         &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
           &lt;FormMultiTypeDurationField
-            name={`${isEmpty(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${inputSetData?.path}.`}</span>.timeout`}
+            name={`${isEmpty(inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${inputSetData?.path}.`}</span>timeout`}
             label={getString('pipelineSteps.timeoutLabel')}
             disabled={inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eadonly}
             multiTypeDurationProps={{
@@ -720,7 +740,14 @@ const HelmRollbackVariablesStep: React.FC&lt;HelmRollbackVariableStepProps&gt; =
   metadataMap,
   initialValues
 }) =&gt; {
-  return &lt;VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} /&gt;
+  return (
+    &lt;VariablesListTable
+      className={pipelineVariableCss.variablePaddingL3}
+      data={variablesData.spec}
+      originalData={initialValues.spec}
+      metadataMap={metadataMap}
+    /&gt;
+  )
 }
 &nbsp;
 const HelmRollbackWithRef = React.forwardRef(HelmRollbackWidget)
@@ -829,7 +856,7 @@ export class HelmRollback extends PipelineStep&lt;StepElementConfig&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 09 2021 12:26:58 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 09 2021 13:28:02 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

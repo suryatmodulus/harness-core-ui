@@ -46,7 +46,7 @@ export interface SourceDataInterface {
   healthSourceIdentifier?: string
   healthSourceList?: Array<RowData>
   changeSources?: ChangeSourceDTO[]
-  existingMetricDetails?: HealthSource | null
+  existingHealthSource?: HealthSource | null
 }
 
 export interface HealthSourceDrawerInterface {

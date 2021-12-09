@@ -25,7 +25,7 @@ export const createHealthSourceDrawerFormData = ({
   tableData,
   rowData,
   changeSources,
-  existingMetricDetails
+  existingHealthSource
 }: {
   isEdit: boolean
   monitoredServiceRef: MonitoredServiceRef
@@ -34,7 +34,7 @@ export const createHealthSourceDrawerFormData = ({
   tableData: Array<RowData>
   rowData?: RowData | null
   changeSources: ChangeSourceDTO[]
-  existingMetricDetails: HealthSource | null
+  existingHealthSource: HealthSource | null
 }): SourceDataInterface => {
   let sourceData: SourceDataInterface = {
     isEdit,
@@ -43,7 +43,7 @@ export const createHealthSourceDrawerFormData = ({
     environmentRef,
     monitoredServiceRef,
     changeSources,
-    existingMetricDetails
+    existingHealthSource
   }
 
   // when user is adding healthsource in create mode
@@ -58,7 +58,7 @@ export const createHealthSourceDrawerFormData = ({
       healthSourceIdentifier: rowData?.identifier,
       sourceType: rowData?.type,
       connectorRef: rowData?.spec?.connectorRef,
-      existingMetricDetails
+      existingHealthSource
     }
   }
 

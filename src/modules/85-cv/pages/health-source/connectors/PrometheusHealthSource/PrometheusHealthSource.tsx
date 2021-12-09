@@ -47,10 +47,10 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
 
   const {
     onPrevious,
-    sourceData: { existingMetricDetails }
+    sourceData: { existingHealthSource }
   } = useContext(SetupSourceTabsContext)
 
-  const metricDefinitions = existingMetricDetails?.spec?.metricDefinitions
+  const metricDefinitions = existingHealthSource?.spec?.metricDefinitions
   const { getString } = useStrings()
   const connectorIdentifier = sourceData?.connectorRef || ''
   const [labelNameTracingId, metricNameTracingId] = useMemo(() => [Utils.randomId(), Utils.randomId()], [])

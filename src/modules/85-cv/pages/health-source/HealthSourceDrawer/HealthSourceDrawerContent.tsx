@@ -35,7 +35,7 @@ function HealthSourceDrawerContent({
         tableData,
         rowData,
         changeSources,
-        existingMetricDetails: metricDetails
+        existingHealthSource: metricDetails
       }),
     [rowData, tableData, monitoredServiceRef, serviceRef, environmentRef, isEdit, changeSources]
   )

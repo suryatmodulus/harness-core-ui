@@ -131,10 +131,10 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
 
   const {
     onPrevious,
-    sourceData: { existingMetricDetails }
+    sourceData: { existingHealthSource }
   } = useContext(SetupSourceTabsContext)
 
-  const metricDefinitions = existingMetricDetails?.spec?.metricDefinitions
+  const metricDefinitions = existingHealthSource?.spec?.metricDefinitions
 
   const { getString } = useStrings()
   const transformedData = useMemo(() => transformGCOMetricHealthSourceToGCOMetricSetupSource(data), [data])
@@ -218,7 +218,10 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
     }
   })
 
-  const formInitialValues: GCOMetricInfo = updatedData.get(selectedMetric || '') || {}
+  const formInitialValues: GCOMetricInfo = useMemo(
+    () => updatedData.get(selectedMetric || '') || {},
+    [selectedMetric, updatedData]
+  )
 
   return (
     <Formik<GCOMetricInfo>

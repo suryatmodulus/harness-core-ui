@@ -322,5 +322,5 @@ export function getPlaceholderForIdentifier(
   }
 
   // Default maxInput for InputWithIdentifier is 63
-  return metricName.substr(-63).replace(/[^a-zA-Z_ ]/g, '')
+  return metricName.substr(-63).replace(/[^a-zA-Z_0-9 ]/g, '')
 }

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">65.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>46/69</span>
+                <span class='fraction'>48/73</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.27% </span>
+                <span class="strong">27.91% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/41</span>
+                <span class='fraction'>12/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.17% </span>
+                <span class="strong">52% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>13/24</span>
+                <span class='fraction'>13/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.65% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>46/68</span>
+                <span class='fraction'>48/72</span>
             </div>
         
             
@@ -361,7 +361,21 @@
 <a name='L302'></a><a href='#L302'>302</a>
 <a name='L303'></a><a href='#L303'>303</a>
 <a name='L304'></a><a href='#L304'>304</a>
-<a name='L305'></a><a href='#L305'>305</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -382,9 +396,10 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -421,9 +436,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -435,6 +454,15 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -683,12 +711,13 @@ import {
   FlexExpander
 } from '@wings-software/uicore'
 import { TagInput } from '@blueprintjs/core'
+import moment from 'moment'
 import { useStrings } from 'framework/strings'
 import formatCost from '@ce/utils/formatCost'
+import { getGMTStartDateTime, CE_DATE_FORMAT_INTERNAL } from '@ce/utils/momentUtils'
 import { useCreateBudget, Budget, AlertThreshold, useUpdateBudget } from 'services/ce'
 import type { BudgetStepData } from '../types'
 import css from '../PerspectiveCreateBudget.module.scss'
-&nbsp;
 interface Props {
   name: string
   viewId: string
@@ -722,12 +751,16 @@ const ConfigureAlerts: React.FC&lt;StepProps&lt;BudgetStepData&gt; &amp; Props&g
     perspective,
     growthRate,
     period,
+    budgetName,
     perspectiveName,
     startTime,
     budgetAmount = <span class="branch-0 cbranch-no" title="branch not covered" >0</span>
   } = (prevStepData || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span> as BudgetStepData
 &nbsp;
-  const { mutate: updateBudget } = useUpdateBudget({ id: <span class="branch-1 cbranch-no" title="branch not covered" >budget?.uuid </span>|| '' })
+  const { mutate: updateBudget } = useUpdateBudget({
+    id: <span class="branch-1 cbranch-no" title="branch not covered" >budget?.uuid </span>|| '',
+    queryParams: { accountIdentifier: accountId }
+  })
   const { mutate: createBudget } = useCreateBudget({
     queryParams: { accountIdentifier: accountId }
   })
@@ -740,13 +773,22 @@ const ConfigureAlerts: React.FC&lt;StepProps&lt;BudgetStepData&gt; &amp; Props&g
 <span class="cstat-no" title="statement not covered" >    setError(false)</span>
 <span class="cstat-no" title="statement not covered" >    setLoading(true)</span>
 &nbsp;
+    const altThresholds = <span class="cstat-no" title="statement not covered" >alertThresholds.map(<span class="fstat-no" title="function not covered" >alt </span>=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      return {</span>
+        basedOn: alt.basedOn,
+        emailAddresses: alt.emailAddresses,
+        percentage: alt.percentage,
+        userGroupIds: alt.userGroupIds
+      }
+    })
+&nbsp;
     const emptyThresholds = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(t</span>: AlertThreshold) =&gt; <span class="cstat-no" title="statement not covered" >(t.emailAddresses?.length || 0) &gt; 0 &amp;&amp; t.percentage</span></span>
     const payload = <span class="cstat-no" title="statement not covered" >{</span>
-      name: perspectiveName,
-      alertThresholds: alertThresholds.filter(emptyThresholds),
-      type,
+      name: budgetName,
+      alertThresholds: altThresholds.filter(emptyThresholds),
+      type: type === 'PREVIOUS_MONTH_SPEND' ? 'PREVIOUS_PERIOD_SPEND' : type,
       period,
-      startTime,
+      startTime: getGMTStartDateTime(moment(startTime).format(CE_DATE_FORMAT_INTERNAL)),
       growthRate: growthRate,
       budgetAmount: +budgetAmount,
       scope: {
@@ -762,7 +804,7 @@ const ConfigureAlerts: React.FC&lt;StepProps&lt;BudgetStepData&gt; &amp; Props&g
     } catch (e) {
 <span class="cstat-no" title="statement not covered" >      setError(true)</span>
 <span class="cstat-no" title="statement not covered" >      setLoading(false)</span>
-<span class="cstat-no" title="statement not covered" >      modalErrorHandler?.showDanger(e.message)</span>
+<span class="cstat-no" title="statement not covered" >      modalErrorHandler?.showDanger(e.data.message)</span>
     }
   }
 &nbsp;
@@ -946,7 +988,7 @@ const Threshold = (props: ThresholdProps): JSX.Element =&gt; {
         name={`alertThresholds.${idx}.basedOn`}
       /&gt;
       &lt;Text className={css.pushdown7}&gt;exceeds&lt;/Text&gt;
-      &lt;FormInput.Text name={`alertThresholds.${idx}.percentage`} /&gt;
+      &lt;FormInput.Text name={`alertThresholds.${idx}.percentage`} inputGroup={{ type: 'number' }} /&gt;
       &lt;TagInput
         addOnBlur
         className={css.tagInput}
@@ -976,7 +1018,7 @@ export default ConfigureAlerts
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 08 2021 20:22:13 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 09 2021 06:15:51 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

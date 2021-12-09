@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.45% </span>
+                <span class="strong">96.55% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/22</span>
+                <span class='fraction'>28/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.27% </span>
+                <span class="strong">82.14% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>17/22</span>
+                <span class='fraction'>23/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95% </span>
+                <span class="strong">96.3% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/20</span>
+                <span class='fraction'>26/27</span>
             </div>
         
             
@@ -141,7 +141,28 @@
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
 <a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,6 +170,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -168,7 +191,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -183,6 +206,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -229,16 +271,18 @@
 import React from 'react'
 import moment from 'moment'
 import type { CellProps, Renderer } from 'react-table'
-import type { BudgetData, BudgetCostData } from 'services/ce/services'
+import type { BudgetData, BudgetCostData, BudgetPeriod } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
 import Grid from '@ce/components/PerspectiveGrid/Grid'
 import formatCost from '@ce/utils/formatCost'
+import { getTimeRangeExpression } from '../BudgetDetailsChart/budgetCategoryUtil'
 &nbsp;
 interface BudgetDetailsGridProps {
   gridData: BudgetData
+  budgetPeriod: BudgetPeriod
 }
 &nbsp;
-const BudgetDetailsGrid: (props: BudgetDetailsGridProps) =&gt; JSX.Element | null = ({ gridData }) =&gt; {
+const BudgetDetailsGrid: (props: BudgetDetailsGridProps) =&gt; JSX.Element | null = ({ gridData, budgetPeriod }) =&gt; {
   const { getString } = useStrings()
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!gridData) {
@@ -261,13 +305,32 @@ const BudgetDetailsGrid: (props: BudgetDetailsGridProps) =&gt; JSX.Element | nul
         font={{ variation: FontVariation.BODY }}
         color={cell.value &gt; 0 ? Color.RED_600 : Color.GREEN_600}
       &gt;
-        {cell.value}
+        {formatCost(cell.value)}
+      &lt;/Text&gt;
+    )
+  }
+&nbsp;
+  const BudgetVariancePercentageCell: Renderer&lt;CellProps&lt;BudgetCostData&gt;&gt; = ({ cell }) =&gt; {
+    return (
+      &lt;Text
+        rightIcon={cell.value &gt; 0 ? 'caret-up' : 'caret-down'}
+        rightIconProps={{
+          color: cell.value &gt; 0 ? Color.RED_600 : Color.GREEN_600
+        }}
+        font={{ variation: FontVariation.BODY }}
+        color={cell.value &gt; 0 ? Color.RED_600 : Color.GREEN_600}
+      &gt;
+        {`${cell.value}%`}
       &lt;/Text&gt;
     )
   }
 &nbsp;
   const TimeCell: Renderer&lt;CellProps&lt;BudgetCostData&gt;&gt; = ({ cell }) =&gt; {
-    return &lt;Text font={{ variation: FontVariation.BODY }}&gt;{moment.utc(cell.value).format('MMM YYYY')}&lt;/Text&gt;
+    const rowData = cell.row.original
+    const startTime = moment.utc(rowData.time)
+    const endTime = moment.utc(rowData.endTime)
+    const rangeText = getTimeRangeExpression(budgetPeriod, startTime, endTime)
+    return &lt;Text font={{ variation: FontVariation.BODY }}&gt;{rangeText}&lt;/Text&gt;
   }
 &nbsp;
   const formattedData = costData.filter(e =&gt; e<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ime).sort((a, b) =&gt; b<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ime - a<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ime) as BudgetCostData[]
@@ -299,7 +362,7 @@ const BudgetDetailsGrid: (props: BudgetDetailsGridProps) =&gt; JSX.Element | nul
           {
             Header: getString('ce.budgets.detailsPage.tableHeaders.budgetVariancePercentage'),
             accessor: 'budgetVariancePercentage',
-            Cell: BudgetVarianceCell
+            Cell: BudgetVariancePercentageCell
           }
         ]}
         data={formattedData}
@@ -316,7 +379,7 @@ export default BudgetDetailsGrid
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 08 2021 20:22:13 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 09 2021 06:15:51 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

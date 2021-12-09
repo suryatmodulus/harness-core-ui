@@ -12,10 +12,12 @@ import type { AccountPathProps, Module } from '@common/interfaces/RouteInterface
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
-import { useQueryParams } from '@common/hooks'
-import { useGetLicensesAndSummary } from 'services/cd-ng'
+import { useQueryParams, useGetPipelines } from '@common/hooks'
+import { useGetLicensesAndSummary, useGetProjectList } from 'services/cd-ng'
+import { useCITrialModal } from '@ci/modals/CITrial/useCITrialModal'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
+import { getTrialModalProps, openModal } from '@templates-library/components/TrialModalTemplate/trialModalUtils'
 import bgImageURL from './images/ci.svg'
 
 const CIHomePage: React.FC = () => {
@@ -24,51 +26,98 @@ const CIHomePage: React.FC = () => {
 
   const { accountId } = useParams<AccountPathProps>()
 
-  const { currentUserInfo } = useAppStore()
+  const { currentUserInfo, selectedProject } = useAppStore()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
   const moduleType = ModuleName.CI
   const module = moduleType.toLowerCase() as Module
 
   const { accounts } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
-  const { data, error, refetch, loading } = useGetLicensesAndSummary({
+  const {
+    data: licenseData,
+    error: licenseErr,
+    refetch: refetchLicense,
+    loading: gettingLicense
+  } = useGetLicensesAndSummary({
     queryParams: { moduleType },
     accountIdentifier: accountId
   })
-  const { experience } = useQueryParams<{ experience?: ModuleLicenseType }>()
+  const { experience, modal } = useQueryParams<{ experience?: ModuleLicenseType; modal?: ModuleLicenseType }>()
 
-  const expiryTime = data?.data?.maxExpiryTime
-  const updatedLicenseInfo = data?.data && {
+  const expiryTime = licenseData?.data?.maxExpiryTime
+  const updatedLicenseInfo = licenseData?.data && {
     ...licenseInformation?.[moduleType],
-    ...pick(data?.data, ['licenseType', 'edition']),
+    ...pick(licenseData?.data, ['licenseType', 'edition']),
     expiryTime
   }
+
+  const {
+    data: pipelineData,
+    loading: gettingPipelines,
+    refetch: refetchPipeline,
+    error: pipelineError
+  } = useGetPipelines({
+    accountIdentifier: accountId,
+    projectIdentifier: selectedProject?.identifier || '',
+    orgIdentifier: selectedProject?.orgIdentifier || '',
+    module,
+    lazy: true
+  })
+
+  useEffect(() => {
+    if (selectedProject) {
+      refetchPipeline()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedProject])
+
+  // get project lists via accountId
+  const {
+    data: projectListData,
+    loading: gettingProjects,
+    error: projectsErr,
+    refetch: refetchProject
+  } = useGetProjectList({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+  const projectsExist = !!projectListData?.data?.content?.length
+  const pipelinesExist = !!pipelineData?.data?.content?.length
 
   useEffect(() => {
     handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, updatedLicenseInfo)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data])
+  }, [licenseData])
 
   useEffect(() => {
-    refetch()
+    refetchLicense()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [experience])
+
+  const pushToPipelineStudio = (pipelinId: string, projectData?: Project, search?: string): void => {
+    const pathname = routes.toPipelineStudio({
+      orgIdentifier: projectData?.orgIdentifier || '',
+      projectIdentifier: projectData?.identifier || '',
+      pipelineIdentifier: pipelinId,
+      accountId,
+      module
+    })
+    history.push({
+      pathname,
+      search
+    })
+  }
 
   const { openProjectModal, closeProjectModal } = useProjectModal({
     onWizardComplete: (projectData?: Project) => {
       closeProjectModal()
-      history.push({
-        pathname: routes.toPipelineStudio({
-          orgIdentifier: projectData?.orgIdentifier || '',
-          projectIdentifier: projectData?.identifier || '',
-          pipelineIdentifier: '-1',
-          accountId,
-          module
-        }),
-        search: `?modal=${experience}`
-      })
+      pushToPipelineStudio('-1', projectData, `?modal=${experience}`)
     }
   })
+
+  const modalProps = getTrialModalProps({ selectedProject, openProjectModal, pushToPipelineStudio })
+  const { openCITrialModal } = useCITrialModal({ ...modalProps })
 
   const trialInProgressProps = {
     description: getString('common.trialInProgressDescription'),
@@ -81,24 +130,50 @@ const CIHomePage: React.FC = () => {
   const history = useHistory()
 
   const trialBannerProps = {
-    expiryTime: data?.data?.maxExpiryTime,
-    licenseType: data?.data?.licenseType,
+    expiryTime: licenseData?.data?.maxExpiryTime,
+    licenseType: licenseData?.data?.licenseType,
     module: moduleType,
-    edition: data?.data?.edition as Editions,
-    refetch
+    edition: licenseData?.data?.edition as Editions,
+    refetch: refetchLicense
   }
 
-  if (loading) {
+  useEffect(
+    () => {
+      openModal({
+        modal,
+        gettingProjects,
+        gettingPipelines,
+        selectedProject,
+        pipelinesExist,
+        projectsExist,
+        openProjectModal,
+        openTrialModal: openCITrialModal,
+        pushToPipelineStudio
+      })
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [modal, selectedProject, gettingProjects, gettingPipelines, pipelinesExist, projectsExist]
+  )
+
+  if (gettingLicense || gettingProjects || gettingPipelines) {
     return <PageSpinner />
   }
 
-  if (error) {
-    return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
+  if (licenseErr) {
+    return <PageError message={licenseErr.message} onClick={() => refetchLicense()} />
+  }
+
+  if (projectsErr) {
+    return <PageError message={projectsErr.message} onClick={() => refetchProject()} />
+  }
+
+  if (pipelineError) {
+    return <PageError message={pipelineError.message} onClick={() => refetchPipeline()} />
   }
 
   const showTrialPages = createdFromNG || NG_LICENSES_ENABLED
 
-  if (showTrialPages && data?.status === 'SUCCESS' && !data.data) {
+  if (showTrialPages && licenseData?.status === 'SUCCESS' && !licenseData.data) {
     history.push(
       routes.toModuleTrialHome({
         accountId,
@@ -120,16 +195,7 @@ const CIHomePage: React.FC = () => {
 
   const projectCreateSuccessHandler = (project?: Project): void => {
     if (experience) {
-      history.push({
-        pathname: routes.toPipelineStudio({
-          orgIdentifier: project?.orgIdentifier || '',
-          projectIdentifier: project?.identifier || '',
-          pipelineIdentifier: '-1',
-          accountId,
-          module
-        }),
-        search: `?modal=${experience}`
-      })
+      pushToPipelineStudio('-1', project, `?modal=${experience}`)
       return
     }
     if (project) {

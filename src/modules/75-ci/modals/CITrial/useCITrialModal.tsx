@@ -1,69 +1,30 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
-import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, TrialActions, PageNames } from '@common/constants/TrackingConstants'
 
-import { SelectOrCreatePipelineForm } from '@pipeline/components/SelectOrCreatePipelineForm/SelectOrCreatePipelineForm'
-import { CreatePipelineForm } from '@pipeline/components/CreatePipelineForm/CreatePipelineForm'
-import { TrialModalTemplate } from '@common/components/TrialModalTemplate/TrialModalTemplate'
+import { TrialModalTemplate } from '@templates-library/components/TrialModalTemplate/TrialModalTemplate'
+import type {
+  UseTrialModalProps,
+  PipelineProps
+} from '@templates-library/components/TrialModalTemplate/trialModalUtils'
+import { useGetFormPropsByTrialType } from '@templates-library/components/TrialModalTemplate/trialModalUtils'
 import ciImage from '../images/illustration.png'
 
 import css from './useCITrialModal.module.scss'
-
-type onCreateSuccess = (data: PipelineInfoConfig) => void
-type onSelectSuccess = () => void
-
-interface DialogProps {
-  onClose: () => void
-  onSubmit: (values: PipelineInfoConfig) => void
-  isSelect: boolean
-}
-export interface UseCITrialModalProps {
-  onSubmit: onCreateSuccess | onSelectSuccess
-  onCloseModal?: () => void
-  isSelect?: boolean
-}
 
 export interface UseCITrialModalReturn {
   openCITrialModal: () => void
   closeCITrialModal: () => void
 }
 
-type handleSelectSubmit = (value: string) => void
-type handleCreateSubmit = (value: PipelineInfoConfig) => void
-interface CITrialModalData {
-  onSubmit: handleSelectSubmit | handleCreateSubmit
-  closeModal?: () => void
-  isSelect: boolean
-}
-
-const CITrial: React.FC<CITrialModalData> = ({ isSelect, onSubmit, closeModal }) => {
+const CITrial: React.FC<UseTrialModalProps> = ({ trialType, actionProps }) => {
   const { getString } = useStrings()
 
-  const [select, setSelect] = useState(isSelect)
-
-  const description = select
-    ? getString('pipeline.selectOrCreateForm.description')
-    : getString('ci.ciTrialHomePage.startTrial.description')
-  const children = select ? (
-    <SelectOrCreatePipelineForm
-      handleSubmit={onSubmit as handleSelectSubmit}
-      openCreatPipeLineModal={() => {
-        setSelect(false)
-      }}
-      closeModal={closeModal}
-    />
-  ) : (
-    <CreatePipelineForm
-      handleSubmit={onSubmit as handleCreateSubmit}
-      closeModal={closeModal}
-      learnMoreUrl="https://ngdocs.harness.io/category/zgffarnh1m-ci-category"
-    />
-  )
+  const { child, description, rightWidth } = useGetFormPropsByTrialType({ trialType, actionProps, module: 'ci' })
 
   return (
     <TrialModalTemplate
@@ -71,22 +32,21 @@ const CITrial: React.FC<CITrialModalData> = ({ isSelect, onSubmit, closeModal })
       title={getString('ci.continuous')}
       description={description}
       imgSrc={ciImage}
+      rightWidth={rightWidth}
     >
-      {children}
+      {child}
     </TrialModalTemplate>
   )
 }
 
-const CITrialDialog = ({ onClose, onSubmit, isSelect }: DialogProps): React.ReactElement => {
+const CITrialDialog = ({ actionProps, trialType }: UseTrialModalProps): React.ReactElement => {
   const { trackEvent } = useTelemetry()
   const handleClose = (): void => {
+    const pipelineProps = actionProps as PipelineProps
+    pipelineProps.onCloseModal?.()
     trackEvent(TrialActions.TrialModalPipelineSetupCancel, { category: Category.SIGNUP, module: 'ci' })
-    onClose()
   }
-  const handleSubmit = (values: PipelineInfoConfig): void => {
-    trackEvent(TrialActions.TrialModalPipelineSetupSubmit, { category: Category.SIGNUP, module: 'ci' })
-    onSubmit(values)
-  }
+
   useTelemetry({
     pageName: PageNames.TrialSetupPipelineModal,
     category: Category.SIGNUP,
@@ -100,7 +60,7 @@ const CITrialDialog = ({ onClose, onSubmit, isSelect }: DialogProps): React.Reac
       onClose={handleClose}
       className={cx(css.dialog, Classes.DIALOG, css.ciTrial)}
     >
-      <CITrial isSelect={isSelect} onSubmit={handleSubmit} closeModal={handleClose} />
+      <CITrial trialType={trialType} actionProps={actionProps} />
       <Button
         aria-label="close modal"
         minimal
@@ -113,24 +73,20 @@ const CITrialDialog = ({ onClose, onSubmit, isSelect }: DialogProps): React.Reac
   )
 }
 
-export const getCITrialDialog = ({ onClose, onSubmit, isSelect }: DialogProps): React.ReactElement => (
-  <CITrialDialog onSubmit={onSubmit} onClose={onClose} isSelect={isSelect} />
+export const getCITrialDialog = ({ actionProps, trialType }: UseTrialModalProps): React.ReactElement => (
+  <CITrialDialog actionProps={actionProps} trialType={trialType} />
 )
 
-export const useCITrialModal = ({
-  onSubmit,
-  onCloseModal,
-  isSelect = false
-}: UseCITrialModalProps): UseCITrialModalReturn => {
-  const [showModal, hideModal] = useModalHook(() => (
-    <CITrialDialog
-      onClose={() => {
-        hideModal(), onCloseModal?.()
-      }}
-      onSubmit={onSubmit}
-      isSelect={isSelect}
-    />
-  ))
+export const useCITrialModal = ({ actionProps, trialType }: UseTrialModalProps): UseCITrialModalReturn => {
+  const [showModal, hideModal] = useModalHook(() => {
+    const onCloseModal = (): void => {
+      const pipelineProps = actionProps as PipelineProps
+      hideModal()
+      pipelineProps.onCloseModal?.()
+    }
+    const newActionProps = { ...actionProps, onCloseModal }
+    return <CITrialDialog actionProps={newActionProps} trialType={trialType} />
+  })
 
   return {
     openCITrialModal: showModal,

@@ -5,7 +5,7 @@ import cx from 'classnames'
 import moment from 'moment'
 import { useStrings } from 'framework/strings'
 
-import { TrialModalTemplate } from '@common/components/TrialModalTemplate/TrialModalTemplate'
+import { TrialModalTemplate } from '@templates-library/components/TrialModalTemplate/TrialModalTemplate'
 import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import ceImage from './images/Illustration.svg'

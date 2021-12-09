@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
+import { TrialType } from '@templates-library/components/TrialModalTemplate/trialModalUtils'
 import { useCITrialModal } from '../CITrial/useCITrialModal'
 
 jest.mock('services/pipeline-ng', () => ({
@@ -18,11 +19,14 @@ jest.mock('services/pipeline-ng', () => ({
 }))
 
 const onCloseModal = jest.fn()
-const TestComponent = ({ isSelect }: { isSelect: boolean }): React.ReactElement => {
+const TestComponent = ({ trialType = TrialType.SET_UP_PIPELINE }: { trialType?: TrialType }): React.ReactElement => {
   const { openCITrialModal, closeCITrialModal } = useCITrialModal({
-    onSubmit: jest.fn(),
-    onCloseModal,
-    isSelect
+    actionProps: {
+      onSuccess: jest.fn(),
+      onCloseModal,
+      onCreateProject: jest.fn()
+    },
+    trialType
   })
   return (
     <>
@@ -37,7 +41,7 @@ describe('open and close CITrial Modal', () => {
     test('should open and close CITrial and default as Create Pipeline Form', async () => {
       const { container, getByText, getByRole } = render(
         <TestWrapper>
-          <TestComponent isSelect={false} />
+          <TestComponent />
         </TestWrapper>
       )
       fireEvent.click(container.querySelector('.open')!)
@@ -50,7 +54,7 @@ describe('open and close CITrial Modal', () => {
     test('should close modal by closeCITrialModal', async () => {
       const { container, getByText } = render(
         <TestWrapper>
-          <TestComponent isSelect={false} />
+          <TestComponent />
         </TestWrapper>
       )
       fireEvent.click(container.querySelector('.open')!)
@@ -60,15 +64,25 @@ describe('open and close CITrial Modal', () => {
     })
   })
 
-  test('should render Select Pipeline Form when isSelect is true', async () => {
+  test('should render Select Pipeline Form when TrialType is CREATE_OR_SELECT_PIPELINE', async () => {
     const { container, getByText } = render(
       <TestWrapper>
-        <TestComponent isSelect={true} />
+        <TestComponent trialType={TrialType.CREATE_OR_SELECT_PIPELINE} />
       </TestWrapper>
     )
     fireEvent.click(container.querySelector('.open')!)
     await waitFor(() => expect(() => getByText('pipeline.selectOrCreatePipeline.selectAPipeline')).toBeDefined())
     fireEvent.click(getByText('pipeline.createANewPipeline')!)
     await waitFor(() => expect(() => getByText('pipeline.createPipeline.setupHeader')).toBeDefined())
+  })
+
+  test('create or select project modal', async () => {
+    const { container, getByText } = render(
+      <TestWrapper>
+        <TestComponent trialType={TrialType.CREATE_OR_SELECT_PROJECT} />
+      </TestWrapper>
+    )
+    fireEvent.click(container.querySelector('.open')!)
+    await waitFor(() => expect(() => getByText('ci.continuous')).toBeDefined())
   })
 })

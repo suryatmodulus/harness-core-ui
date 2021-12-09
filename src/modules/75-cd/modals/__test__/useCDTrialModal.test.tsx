@@ -1,7 +1,8 @@
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { TrialType, useCDTrialModal } from '../CDTrial/useCDTrialModal'
+import { TrialType } from '@templates-library/components/TrialModalTemplate/trialModalUtils'
+import { useCDTrialModal } from '../CDTrial/useCDTrialModal'
 
 jest.mock('services/pipeline-ng', () => ({
   useGetPipelineList: jest.fn().mockImplementation(() => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { pick } from 'lodash-es'
 import { PageError, PageSpinner } from '@wings-software/uicore'
@@ -9,17 +9,16 @@ import { useStrings } from 'framework/strings'
 import { useGetLicensesAndSummary, useGetProjectList } from 'services/cd-ng'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
-import { useQueryParams } from '@common/hooks'
+import { useQueryParams, useGetPipelines } from '@common/hooks'
 import type { Project } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import { useGetPipelineList, PagePMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { useCDTrialModal } from '@cd/modals/CDTrial/useCDTrialModal'
 import routes from '@common/RouteDefinitions'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
-import { useToaster } from '@common/components'
 import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
-import { getCDTrialModalProps, openModal, handleProjectCreateSuccess } from './cdHomeUtils'
+import { getTrialModalProps, openModal } from '@templates-library/components/TrialModalTemplate/trialModalUtils'
+import { handleProjectCreateSuccess } from './cdHomeUtils'
 import CDTrialHomePage from './CDTrialHomePage'
 import bgImageURL from './images/cd.svg'
 
@@ -27,7 +26,6 @@ export const CDHomePage: React.FC = () => {
   const { getString } = useStrings()
   const { NG_LICENSES_ENABLED } = useFeatureFlags()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
-  const { showError } = useToaster()
 
   const { accountId } = useParams<AccountPathProps>()
   const moduleType = ModuleName.CD
@@ -90,38 +88,22 @@ export const CDHomePage: React.FC = () => {
   const createdFromNG = accounts?.find(account => account.uuid === defaultAccountId)?.createdFromNG
   const history = useHistory()
 
-  const [pipelineData, setData] = React.useState<PagePMSPipelineSummaryResponse | undefined>(undefined)
-
   const {
-    mutate: reloadPipelines,
-    cancel,
-    loading: gettingPipelines
-  } = useGetPipelineList({
-    queryParams: {
-      accountIdentifier: accountId,
-      projectIdentifier: selectedProject?.identifier || '',
-      orgIdentifier: selectedProject?.orgIdentifier || '',
-      module,
-      size: 1
-    }
+    data: pipelineData,
+    loading: gettingPipelines,
+    refetch: refetchPipeline,
+    error: pipelineError
+  } = useGetPipelines({
+    accountIdentifier: accountId,
+    projectIdentifier: selectedProject?.identifier || '',
+    orgIdentifier: selectedProject?.orgIdentifier || '',
+    module,
+    lazy: true
   })
-
-  const fetchPipelines = useCallback(
-    async () => {
-      try {
-        cancel()
-        setData(await (await reloadPipelines({ filterType: 'PipelineSetup' })).data)
-      } catch (err) {
-        showError(err.data?.message || getString('somethingWentWrong'))
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [cancel]
-  )
 
   useEffect(() => {
     if (selectedProject) {
-      fetchPipelines()
+      refetchPipeline()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedProject])
@@ -138,10 +120,10 @@ export const CDHomePage: React.FC = () => {
     }
   })
   const projectsExist = !!projectListData?.data?.content?.length
-  const pipelinesExist = !!pipelineData?.content?.length
+  const pipelinesExist = !!pipelineData?.data?.content?.length
 
   const { openCDTrialModal } = useCDTrialModal({
-    ...getCDTrialModalProps({ selectedProject, openProjectModal, pushToPipelineStudio })
+    ...getTrialModalProps({ selectedProject, openProjectModal, pushToPipelineStudio })
   })
 
   const trialBannerProps = {
@@ -170,7 +152,7 @@ export const CDHomePage: React.FC = () => {
         pipelinesExist,
         projectsExist,
         openProjectModal,
-        openCDTrialModal,
+        openTrialModal: openCDTrialModal,
         pushToPipelineStudio
       })
     },
@@ -190,6 +172,11 @@ export const CDHomePage: React.FC = () => {
   if (projectsErr) {
     const message = (projectsErr.data as Error)?.message || projectsErr.message
     return <PageError message={message} onClick={() => refetchProject()} />
+  }
+
+  if (pipelineError) {
+    const message = (pipelineError.data as Error)?.message || pipelineError.message
+    return <PageError message={message} onClick={() => refetchPipeline()} />
   }
 
   const showTrialPages = createdFromNG || NG_LICENSES_ENABLED

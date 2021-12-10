@@ -2485,6 +2485,28 @@ export interface StringsMap {
   'pipeline.selectStagePlaceholder': string
   'pipeline.serviceDependenciesText': string
   'pipeline.serviceDependencyText': string
+  'pipeline.serviceNowApprovalStep.connectToServiceNow': string
+  'pipeline.serviceNowApprovalStep.connectorRef': string
+  'pipeline.serviceNowApprovalStep.execution.conditions.equals': string
+  'pipeline.serviceNowApprovalStep.execution.conditions.in': string
+  'pipeline.serviceNowApprovalStep.execution.conditions.not_equals': string
+  'pipeline.serviceNowApprovalStep.execution.conditions.not_in': string
+  'pipeline.serviceNowApprovalStep.execution.serviceNowTicket': string
+  'pipeline.serviceNowApprovalStep.execution.wasApproved': string
+  'pipeline.serviceNowApprovalStep.execution.wasRejected': string
+  'pipeline.serviceNowApprovalStep.fetchTicketTypesError': string
+  'pipeline.serviceNowApprovalStep.fetchingTicketTypesPlaceholder': string
+  'pipeline.serviceNowApprovalStep.issueNumber': string
+  'pipeline.serviceNowApprovalStep.issueNumberPlaceholder': string
+  'pipeline.serviceNowApprovalStep.issueTypePlaceholder': string
+  'pipeline.serviceNowApprovalStep.jexlExpressionPlaceholder': string
+  'pipeline.serviceNowApprovalStep.project': string
+  'pipeline.serviceNowApprovalStep.serviceNowConnectorPlaceholder': string
+  'pipeline.serviceNowApprovalStep.serviceNowField': string
+  'pipeline.serviceNowApprovalStep.ticketType': string
+  'pipeline.serviceNowApprovalStep.validations.connectorRef': string
+  'pipeline.serviceNowApprovalStep.validations.issueNumber': string
+  'pipeline.serviceNowApprovalStep.validations.ticketType': string
   'pipeline.singleStageExecution': string
   'pipeline.sslVerify': string
   'pipeline.stageDependencyError': string
@@ -2529,6 +2551,7 @@ export interface StringsMap {
   'pipeline.stepDescription.SHELLSCRIPT': string
   'pipeline.stepDescription.SaveCacheGCS': string
   'pipeline.stepDescription.SaveCacheS3': string
+  'pipeline.stepDescription.ServiceNowApproval': string
   'pipeline.stepDescription.TerraformApply': string
   'pipeline.stepDescription.TerraformDestroy': string
   'pipeline.stepDescription.TerraformPlan': string

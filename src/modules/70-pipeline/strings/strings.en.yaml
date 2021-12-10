@@ -151,6 +151,33 @@ approvalCriteria:
   validations:
     approvalCriteriaCondition: At least one condition is required
     expression: Expression value is required
+serviceNowApprovalStep:
+  connectToServiceNow: Connect to ServiceNow
+  connectorRef: ServiceNow Connector
+  serviceNowConnectorPlaceholder: Select ServiceNow Connector
+  project: ServcieNow Project
+  ticketType: Ticket Type
+  issueTypePlaceholder: Select Ticket Type
+  issueNumber: Issue Number
+  issueNumberPlaceholder: Enter Issue Number
+  fetchingTicketTypesPlaceholder: Fetching Ticket Types...
+  fetchTicketTypesError: Failed to fetch ticket types
+  jexlExpressionPlaceholder: |
+    Example: <+ticket.Status> == "Done"
+  serviceNowField: Service Now Field
+  execution:
+    wasApproved: 'Approval Criteria was met for ServiceNow Ticket:'
+    wasRejected: 'Rejection Criteria was met for ServiceNow Ticket:'
+    serviceNowTicket: 'ServiceNow Ticket Pending Approval:'
+    conditions:
+      equals: '{{ key }} equals'
+      not_equals: '{{ key }} does not equals'
+      in: '{{ key }} is in'
+      not_in: '{{ key }} is not in'
+  validations:
+    connectorRef: ServiceNow Connector is required
+    ticketType: Ticket Type is required
+    issueNumber: Issue Number is required
 manifestType:
   manifestTyperequired: Manifest Type is required
   gitConnectorLabel: 'Git'
@@ -783,6 +810,7 @@ stepDescription:
   FlagConfiguration: Create a Boolean or Multivariate Feature Flag.
   HelmDeploy: Performs native Helm deployments. Requires Helm and Tiller and supports basic deployments. Helm charts are also supported in Harness Kubernetes deployments without requiring Helm or Tiller and using all deployment strategies.
   HelmRollback: Rolls back all the deployed objects to the previous version.
+  ServiceNowApproval: Use ServiceNow issues to approve steps and stages.
 executionStrategy:
   executionStrategies: Execution Strategies
   useStrategy: Use Strategy

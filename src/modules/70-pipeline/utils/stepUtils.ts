@@ -17,7 +17,11 @@ export function isJiraApproval(stepType?: string): boolean {
 }
 
 export function isApprovalStep(stepType?: string): boolean {
-  return isHarnessApproval(stepType) || isJiraApproval(stepType)
+  return isHarnessApproval(stepType) || isJiraApproval(stepType) || isServiceNowApproval(stepType)
+}
+
+export function isServiceNowApproval(stepType?: string): boolean {
+  return stepType === StepType.ServiceNowApproval
 }
 
 export function getAllStepPaletteModuleInfos(): StepPalleteModuleInfo[] {

@@ -1,6 +1,6 @@
 import type { MultiSelectOption, SelectOption } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
-import type { JiraFieldNG, JiraStatusNG } from 'services/cd-ng'
+import type { JiraFieldNG, JiraStatusNG, ServiceNowFieldNG, ServiceNowStatusNG } from 'services/cd-ng'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 
 export enum ApprovalRejectionCriteriaType {
@@ -30,8 +30,8 @@ export interface ApprovalRejectionCriteriaProps {
   mode: string
   values: ApprovalRejectionCriteria
   onChange: (values: ApprovalRejectionCriteria) => void
-  statusList: JiraStatusNG[]
-  fieldList: JiraFieldNG[]
+  statusList: JiraStatusNG[] | ServiceNowStatusNG[]
+  fieldList: JiraFieldNG[] | ServiceNowFieldNG[]
   isFetchingFields?: boolean
   formikErrors?: FormikErrors<{
     expression?: string | undefined

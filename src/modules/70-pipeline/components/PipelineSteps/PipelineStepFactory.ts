@@ -5,6 +5,7 @@ import { CustomVariables } from './Steps/CustomVariables/CustomVariables'
 import { BarrierStep } from './Steps/Barrier/Barrier'
 import { HarnessApproval } from './Steps/Approval/HarnessApproval'
 import { JiraApproval } from './Steps/JiraApproval/JiraApproval'
+import { ServiceNowApproval } from './Steps/ServiceNowApproval/ServiceNowApproval'
 import { JiraCreate } from './Steps/JiraCreate/JiraCreate'
 import { JiraUpdate } from './Steps/JiraUpdate/JiraUpdate'
 
@@ -22,6 +23,7 @@ factory.registerStep(new HarnessApproval())
 factory.registerStep(new JiraApproval())
 factory.registerStep(new JiraCreate())
 factory.registerStep(new JiraUpdate())
+factory.registerStep(new ServiceNowApproval())
 
 // build steps
 export default factory

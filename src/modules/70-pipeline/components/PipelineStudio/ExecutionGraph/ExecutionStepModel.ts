@@ -91,7 +91,7 @@ export function getExecutionPipelineNodeType(stepType?: string): ExecutionPipeli
   if (stepType === StepType.Barrier) {
     return ExecutionPipelineNodeType.ICON
   }
-  if (stepType === StepType.HarnessApproval || stepType === StepType.JiraApproval) {
+  if (stepType === StepType.HarnessApproval || stepType === StepType.JiraApproval || stepType === StepType.ServiceNowApproval) {
     return ExecutionPipelineNodeType.DIAMOND
   }
 

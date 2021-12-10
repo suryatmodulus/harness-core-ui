@@ -43,7 +43,7 @@ import { useParams } from 'react-router-dom'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { ApprovalRejectionCriteriaType } from '@pipeline/components/PipelineSteps/Steps/Common/types'
 import {
-  Failure, ResponseListServiceNowFieldNG,
+  Failure, ResponseListServiceNowFieldNG, useGetServiceNowIssueCreateMetadata,
   UseGetServiceNowIssueCreateMetadataProps,
   useGetServiceNowTicketTypes
 } from '../../../../../../services/cd-ng'
@@ -354,6 +354,19 @@ function ServiceNowApprovalStepMode(
       connectorRef: ''
     }
   })
+
+  const {
+    refetch: refetchServiceNowMetadata,
+    data: serviceNowMetadataResponse,
+    error: serviceNowMetadataFetchError,
+    loading: fetchingServiceNowMetadata
+  } = useGetServiceNowIssueCreateMetadata({
+    lazy: true,
+    queryParams: {
+      ...commonParams,
+      connectorRef: ''
+    }
+  })
   return (
     <Formik<ServiceNowApprovalData>
       onSubmit={values => onUpdate?.(values)}
@@ -399,6 +412,10 @@ function ServiceNowApprovalStepMode(
               fetchingServiceNowTicketTypes={fetchingServiceNowTicketTypes}
               serviceNowTicketTypesResponse={serviceNowTicketTypesResponse}
               serviceNowTicketTypesFetchError={serviceNowTicketTypesFetchError}
+              refetchServiceNowMetadata={refetchServiceNowMetadata}
+              fetchingServiceNowMetadata={fetchingServiceNowMetadata}
+              serviceNowMetadataResponse={serviceNowMetadataResponse}
+              serviceNowMetadataFetchError={serviceNowMetadataFetchError}
             />
           </FormikForm>
         )

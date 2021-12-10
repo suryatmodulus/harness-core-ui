@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.19% </span>
+                <span class="strong">71.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/31</span>
+                <span class='fraction'>23/32</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.46% </span>
+                <span class="strong">35.71% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/13</span>
+                <span class='fraction'>5/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.23% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/26</span>
+                <span class='fraction'>18/27</span>
             </div>
         
             
@@ -211,7 +211,10 @@
 <a name='L152'></a><a href='#L152'>152</a>
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -306,6 +309,8 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -314,16 +319,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -337,6 +332,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -458,14 +464,16 @@ export const getSLOFormValidationSchema = (getString: UseStringsReturn['getStrin
   const METRIC_IS_REQUIRED = getString('cv.metricIsRequired')
 &nbsp;
   return Yup.object().shape({
-    [SLOFormFields.NAME]: Yup.string().required(getString('cv.slos.validations.nameValidation')),
+    [SLOFormFields.NAME]: Yup.string().trim().required(getString('cv.slos.validations.nameValidation')),
+    [SLOFormFields.IDENTIFIER]: Yup.string().when([SLOFormFields.NAME], {
+      is: <span class="fstat-no" title="function not covered" >name </span>=&gt; <span class="cstat-no" title="statement not covered" >name,</span>
+      then: Yup.string().trim().required(getString('validation.identifierRequired'))
+    }),
     [SLOFormFields.USER_JOURNEY_REF]: Yup.string().required(getString('cv.slos.validations.userJourneyRequired')),
-    [SLOFormFields.MONITORED_SERVICE_REF]: Yup.string()
-      .nullable()
-      .required(getString('connectors.cdng.validations.monitoringServiceRequired')),
-    [SLOFormFields.HEALTH_SOURCE_REF]: Yup.string()
-      .nullable()
-      .required(getString('cv.slos.validations.healthSourceRequired')),
+    [SLOFormFields.MONITORED_SERVICE_REF]: Yup.string().required(
+      getString('connectors.cdng.validations.monitoringServiceRequired')
+    ),
+    [SLOFormFields.HEALTH_SOURCE_REF]: Yup.string().required(getString('cv.slos.validations.healthSourceRequired')),
     [SLOFormFields.EVENT_TYPE]: Yup.string().when(SLOFormFields.SLI_METRIC_TYPE, {
       is: <span class="fstat-no" title="function not covered" >SLIMetricType </span>=&gt; <span class="cstat-no" title="statement not covered" >SLIMetricType === SLIMetricTypes.RATIO,</span>
       then: Yup.string().nullable().required(REQUIRED)
@@ -475,7 +483,6 @@ export const getSLOFormValidationSchema = (getString: UseStringsReturn['getStrin
       then: Yup.string().nullable().required(METRIC_IS_REQUIRED)
     }),
     [SLOFormFields.VALID_REQUEST_METRIC]: Yup.string()
-      .nullable()
       .required(METRIC_IS_REQUIRED)
       .test(
         'bothMetricsShouldBeDifferent',
@@ -487,15 +494,17 @@ export const getSLOFormValidationSchema = (getString: UseStringsReturn['getStrin
         }
       ),
     [SLOFormFields.OBJECTIVE_VALUE]: Yup.number()
-      .typeError(getString('common.validation.valueMustBeANumber'))
-      .min(0, getString('common.validation.valueMustBeGreaterThanOrEqualToN', { n: 0 }))
+      .typeError(REQUIRED)
+      .min(0, getString('cv.minValueN', { n: 0 }))
       .when([SLOFormFields.SLI_METRIC_TYPE], {
         is: <span class="fstat-no" title="function not covered" >SLIMetricType </span>=&gt; <span class="cstat-no" title="statement not covered" >SLIMetricType === SLIMetricTypes.RATIO,</span>
-        then: Yup.number().max(100, getString('common.validation.valueMustBeLessThanOrEqualToN', { n: 100 }))
+        then: Yup.number()
+          .typeError(REQUIRED)
+          .max(100, getString('cv.maxValue', { n: 100 }))
       })
       .required(REQUIRED),
     [SLOFormFields.OBJECTIVE_COMPARATOR]: Yup.string().required(REQUIRED),
-    [SLOFormFields.SLI_MISSING_DATA_TYPE]: Yup.string().required('SLI Missing data type is required'),
+    [SLOFormFields.SLI_MISSING_DATA_TYPE]: Yup.string().required(getString('cv.sliMissingDataTypeIsRequired')),
     [SLOFormFields.PERIOD_LENGTH]: Yup.string().when([SLOFormFields.PERIOD_TYPE], {
       is: <span class="fstat-no" title="function not covered" >periodType </span>=&gt; <span class="cstat-no" title="statement not covered" >periodType === PeriodTypes.ROLLING,</span>
       then: Yup.string().nullable().required(getString('cv.periodLengthIsRequired'))
@@ -513,9 +522,9 @@ export const getSLOFormValidationSchema = (getString: UseStringsReturn['getStrin
       then: Yup.string().nullable().required(getString('cv.windowsEndIsRequired'))
     }),
     [SLOFormFields.SLO_TARGET_PERCENTAGE]: Yup.number()
-      .typeError(getString('common.validation.valueMustBeANumber'))
-      .min(0, getString('common.validation.valueMustBeGreaterThanOrEqualToN', { n: 0 }))
-      .max(100, getString('common.validation.valueMustBeLessThanOrEqualToN', { n: 100 }))
+      .typeError(REQUIRED)
+      .min(0, getString('cv.minValueN', { n: 0 }))
+      .max(100, getString('cv.maxValue', { n: 100 }))
       .required(REQUIRED)
   })
 }
@@ -526,7 +535,7 @@ export const getSLOFormValidationSchema = (getString: UseStringsReturn['getStrin
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 10 2021 11:51:11 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 10 2021 16:01:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

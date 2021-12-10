@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.26% </span>
+                <span class="strong">62.71% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/53</span>
+                <span class='fraction'>37/59</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.52% </span>
+                <span class="strong">62.86% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>20/31</span>
+                <span class='fraction'>22/35</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">38.46% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/12</span>
+                <span class='fraction'>5/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.26% </span>
+                <span class="strong">62.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/53</span>
+                <span class='fraction'>37/59</span>
             </div>
         
             
@@ -248,7 +248,18 @@
 <a name='L189'></a><a href='#L189'>189</a>
 <a name='L190'></a><a href='#L190'>190</a>
 <a name='L191'></a><a href='#L191'>191</a>
-<a name='L192'></a><a href='#L192'>192</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a>
+<a name='L201'></a><a href='#L201'>201</a>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -274,6 +285,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -439,7 +461,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect, useRef } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Formik, Page, useToaster, Tabs, Container, Layout, Button, ButtonVariation } from '@wings-software/uicore'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
@@ -465,6 +487,17 @@ const CVCreateSLO: React.FC = () =&gt; {
   &gt;()
 &nbsp;
   const [selectedTabId, setSelectedTabId] = useState&lt;CreateSLOTabs&gt;(CreateSLOTabs.NAME)
+&nbsp;
+  const projectIdentifierRef = useRef&lt;string&gt;()
+&nbsp;
+  useEffect(() =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (projectIdentifierRef.current &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >projectIdentifierRef.current !== projectIdentifier)</span> {
+<span class="cstat-no" title="statement not covered" >      history.push(routes.toCVSLOs({ accountId, orgIdentifier, projectIdentifier, module: 'cv' }))</span>
+<span class="cstat-no" title="statement not covered" >      return</span>
+    }
+&nbsp;
+    projectIdentifierRef.current = projectIdentifier
+  }, [projectIdentifier, accountId, orgIdentifier, history])
 &nbsp;
   const { mutate: createSLO, loading: createSLOLoading } = useSaveSLOData({
     queryParams: { accountId }
@@ -637,7 +670,7 @@ export default CVCreateSLO
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 10 2021 11:51:11 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 10 2021 16:01:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,23 +23,23 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.67% </span>
+                <span class="strong">86.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/36</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">82.35% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>28/34</span>
+                <span class='fraction'>31/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">80% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>24/30</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">60% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/10</span>
+                <span class='fraction'>6/10</span>
             </div>
         
             
@@ -253,9 +253,7 @@
 <a name='L194'></a><a href='#L194'>194</a>
 <a name='L195'></a><a href='#L195'>195</a>
 <a name='L196'></a><a href='#L196'>196</a>
-<a name='L197'></a><a href='#L197'>197</a>
-<a name='L198'></a><a href='#L198'>198</a>
-<a name='L199'></a><a href='#L199'>199</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L197'></a><a href='#L197'>197</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -276,6 +274,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -334,12 +333,12 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -411,9 +410,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -475,7 +471,8 @@ import { getErrorMessage } from '@cv/utils/CommonUtils'
 import SLOTargetChart from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
 import {
   getSLOMetricOptions,
-  getComparatorSuffixLabelId
+  getComparatorSuffixLabelId,
+  convertSLOFormDataToServiceLevelIndicatorDTO
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
 import {
   comparatorOptions,
@@ -532,12 +529,12 @@ const PickMetric: React.FC&lt;Omit&lt;SLOPanelProps, 'children'&gt;&gt; = ({ for
   const SLOMetricOptions = getSLOMetricOptions(<span class="branch-1 cbranch-no" title="branch not covered" >SLOMetricsData?.resource)</span>
 &nbsp;
   const activeGoodMetric: SelectOption = useMemo(
-    () =&gt; SLOMetricOptions.find(metric =&gt; metric.value === goodRequestMetric)<span class="branch-0 cbranch-no" title="branch not covered" > ?? d</span>efaultOption,
+    () =&gt; SLOMetricOptions.find(<span class="fstat-no" title="function not covered" >metric </span>=&gt; <span class="cstat-no" title="statement not covered" >metric.value === goodRequestMetric)<span class="branch-0 cbranch-no" title="branch not covered" ></span> ?? d</span>efaultOption,
     [SLOMetricOptions, goodRequestMetric]
   )
 &nbsp;
   const activeValidMetric: SelectOption = useMemo(
-    () =&gt; SLOMetricOptions.find(metric =&gt; metric.value === validRequestMetric)<span class="branch-0 cbranch-no" title="branch not covered" > ?? d</span>efaultOption,
+    () =&gt; SLOMetricOptions.find(<span class="fstat-no" title="function not covered" >metric </span>=&gt; <span class="cstat-no" title="statement not covered" >metric.value === validRequestMetric)<span class="branch-0 cbranch-no" title="branch not covered" ></span> ?? d</span>efaultOption,
     [SLOMetricOptions, validRequestMetric]
   )
 &nbsp;
@@ -624,24 +621,21 @@ const PickMetric: React.FC&lt;Omit&lt;SLOPanelProps, 'children'&gt;&gt; = ({ for
             /&gt;
           &lt;/Container&gt;
 &nbsp;
-          &lt;Container
-            height="inherit"
-            width={isRatioBasedMetric ? 360 : 310}
-            flex={{ justifyContent: 'center', alignItems: 'center' }}
-            margin={{ left: 'xxlarge' }}
-          &gt;
+          &lt;Container height="inherit" width="100%" margin={{ left: 'xxlarge' }}&gt;
             &lt;SLOTargetChart
+              monitoredServiceIdentifier={monitoredServiceRef}
+              serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}
               topLabel={
-                &lt;Text font={{ variation: FontVariation.TINY_SEMI }} color={Color.GREY_500}&gt;
+                &lt;Text
+                  font={{ variation: FontVariation.TINY_SEMI }}
+                  color={Color.GREY_500}
+                  padding={{ bottom: 'medium' }}
+                &gt;
                   {getString('cv.SLIRequestRatio')}
                 &lt;/Text&gt;
               }
-              customChartOptions={{
-                chart: {
-                  width: isRatioBasedMetric ? 350 : 300,
-                  height: isRatioBasedMetric ? 200 : 150
-                }
-              }}
+              customChartOptions={{ chart: { height: isRatioBasedMetric ? 280 : 220 } }}
+              debounceWait={5000}
             /&gt;
           &lt;/Container&gt;
         &lt;/Layout.Horizontal&gt;
@@ -658,7 +652,7 @@ export default PickMetric
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 10 2021 11:51:11 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 10 2021 16:01:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../../../../prettify.js"></script>

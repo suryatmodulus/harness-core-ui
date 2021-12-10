@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.77% </span>
+                <span class="strong">80.65% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/26</span>
+                <span class='fraction'>25/31</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.67% </span>
+                <span class="strong">59.26% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>44/75</span>
+                <span class='fraction'>48/81</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.55% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/11</span>
+                <span class='fraction'>6/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.77% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/26</span>
+                <span class='fraction'>25/30</span>
             </div>
         
             
@@ -467,7 +467,23 @@
 <a name='L408'></a><a href='#L408'>408</a>
 <a name='L409'></a><a href='#L409'>409</a>
 <a name='L410'></a><a href='#L410'>410</a>
-<a name='L411'></a><a href='#L411'>411</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L411'></a><a href='#L411'>411</a>
+<a name='L412'></a><a href='#L412'>412</a>
+<a name='L413'></a><a href='#L413'>413</a>
+<a name='L414'></a><a href='#L414'>414</a>
+<a name='L415'></a><a href='#L415'>415</a>
+<a name='L416'></a><a href='#L416'>416</a>
+<a name='L417'></a><a href='#L417'>417</a>
+<a name='L418'></a><a href='#L418'>418</a>
+<a name='L419'></a><a href='#L419'>419</a>
+<a name='L420'></a><a href='#L420'>420</a>
+<a name='L421'></a><a href='#L421'>421</a>
+<a name='L422'></a><a href='#L422'>422</a>
+<a name='L423'></a><a href='#L423'>423</a>
+<a name='L424'></a><a href='#L424'>424</a>
+<a name='L425'></a><a href='#L425'>425</a>
+<a name='L426'></a><a href='#L426'>426</a>
+<a name='L427'></a><a href='#L427'>427</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -475,6 +491,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -530,6 +548,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -658,6 +678,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -880,11 +912,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import type { CellProps } from 'react-table'
 import cx from 'classnames'
-import { isEmpty as _isEmpty } from 'lodash-es'
+import { isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
 import { Heading, Container, Layout, Text, Table, Color, Icon, IconName } from '@wings-software/uicore'
 import type { ConnectionMetadata, GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import { Utils } from '@ce/common/Utils'
 import type { ContainerSvc, HealthCheck, PortConfig, RDSDatabase, ServiceDep } from 'services/lw'
+import FixedSchedeulesList from '@ce/common/FixedSchedulesList/FixedSchedulesList'
+import { useStrings } from 'framework/strings'
 import { getFulfilmentIcon } from '../COGatewayList/Utils'
 import KubernetesRuleYamlEditor from '../COGatewayConfig/KubernetesRuleYamlEditor'
 import { DisplaySelectedEcsService } from '../COGatewayConfig/steps/ManageResources/DisplaySelectedEcsService'
@@ -937,8 +971,10 @@ const ReviewDetailsSection: React.FC&lt;ReviewDetailsSectionProps&gt; = props =&
 }
 &nbsp;
 const COGatewayReview: React.FC&lt;COGatewayReviewProps&gt; = props =&gt; {
+  const { getString } = useStrings()
   const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
   const hasSelectedInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
+  const filteredSchedules = props.gatewayDetails.schedules<span class="branch-1 cbranch-no" title="branch not covered" >?.filter(<span class="fstat-no" title="function not covered" >s </span>=&gt; <span class="cstat-no" title="statement not covered" >!s.isDeleted)</span></span>
   return (
     &lt;Layout.Vertical padding="large" className={css.page}&gt;
       &lt;Text className={css.reviewHeading}&gt;Cloud account details&lt;/Text&gt;
@@ -1080,10 +1116,22 @@ const COGatewayReview: React.FC&lt;COGatewayReviewProps&gt; = props =&gt; {
               &lt;Text&gt;Allow traffic from all subdomains&lt;/Text&gt;
               &lt;Text&gt;{Utils.booleanToString(props.gatewayDetails.matchAllSubdomains as boolean)}&lt;/Text&gt;
             &lt;/Layout.Horizontal&gt;
-            &lt;Layout.Horizontal spacing={'large'} className={css.equalSpacing}&gt;
+            &lt;Layout.Horizontal
+              spacing={'large'}
+              padding={{ bottom: 'medium' }}
+              className={cx(css.equalSpacing, css.borderSpacing)}
+            &gt;
               &lt;Text&gt;Use private IP&lt;/Text&gt;
               &lt;Text&gt;{Utils.booleanToString(props.gatewayDetails.opts.alwaysUsePrivateIP as boolean)}&lt;/Text&gt;
             &lt;/Layout.Horizontal&gt;
+            {!_isEmpty(filteredSchedules) &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >              &lt;Container padding={{ top: 'medium' }}&gt;</span>
+                &lt;Heading level={3}&gt;
+                  {getString('ce.co.autoStoppingRule.configuration.step4.tabs.schedules.title')}
+                &lt;/Heading&gt;
+                &lt;FixedSchedeulesList data={_defaultTo(filteredSchedules, [])} isEditable={false} /&gt;
+              &lt;/Container&gt;
+            )}
           &lt;/Layout.Vertical&gt;
           {!_isEmpty(props.gatewayDetails.deps) &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >            &lt;Table&lt;ServiceDep&gt;</span>
@@ -1294,7 +1342,7 @@ export default COGatewayReview
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 10 2021 11:51:11 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 10 2021 16:01:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

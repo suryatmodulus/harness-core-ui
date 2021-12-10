@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.47% </span>
+                <span class="strong">66.25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>56/83</span>
+                <span class='fraction'>53/80</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.44% </span>
+                <span class="strong">42.31% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>12/27</span>
+                <span class='fraction'>11/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.47% </span>
+                <span class="strong">66.25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>56/83</span>
+                <span class='fraction'>53/80</span>
             </div>
         
             
@@ -479,9 +479,7 @@
 <a name='L420'></a><a href='#L420'>420</a>
 <a name='L421'></a><a href='#L421'>421</a>
 <a name='L422'></a><a href='#L422'>422</a>
-<a name='L423'></a><a href='#L423'>423</a>
-<a name='L424'></a><a href='#L424'>424</a>
-<a name='L425'></a><a href='#L425'>425</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">59x</span>
+<a name='L423'></a><a href='#L423'>423</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">59x</span>
 <span class="cline-any cline-yes">59x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -561,21 +559,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">59x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">59x</span>
@@ -901,6 +884,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -985,21 +981,6 @@ const submitKustomizePatchData = (
     }
   }
   return manifestObj
-}
-&nbsp;
-const Footer = (previousStep: any, prevStepData: any): React.ReactElement =&gt; {
-  const { getString } = useStrings()
-  return (
-    &lt;Layout.Horizontal spacing="medium" margin={{ top: 'huge' }}&gt;
-      &lt;Button
-        variation={ButtonVariation.SECONDARY}
-        text={getString('back')}
-        icon="chevron-left"
-        onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >previousStep?.(prevStepData)}</span>
-      /&gt;
-      &lt;Button variation={ButtonVariation.PRIMARY} type="submit" text={getString('submit')} rightIcon="chevron-right" /&gt;
-    &lt;/Layout.Horizontal&gt;
-  )
 }
 &nbsp;
 const renderBranch = (formik: any, isReadonly: boolean, label: string, placeholder: string, expressions?: any) =&gt; {
@@ -1320,7 +1301,20 @@ const KustomizePatchDetails: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &am
                 &lt;/MultiTypeFieldSelector&gt;
               &lt;/div&gt;
             &lt;/div&gt;
-            &lt;Footer previousStep={previousStep} prevStepData={prevStepData} /&gt;
+            &lt;Layout.Horizontal spacing="medium" margin={{ top: 'huge' }}&gt;
+              &lt;Button
+                variation={ButtonVariation.SECONDARY}
+                text={getString('back')}
+                icon="chevron-left"
+                onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >previousStep?.(prevStepData)}</span>
+              /&gt;
+              &lt;Button
+                variation={ButtonVariation.PRIMARY}
+                type="submit"
+                text={getString('submit')}
+                rightIcon="chevron-right"
+              /&gt;
+            &lt;/Layout.Horizontal&gt;
           &lt;/Form&gt;
         )}
       &lt;/Formik&gt;
@@ -1336,7 +1330,7 @@ export default KustomizePatchDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 10 2021 10:50:57 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 10 2021 11:51:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

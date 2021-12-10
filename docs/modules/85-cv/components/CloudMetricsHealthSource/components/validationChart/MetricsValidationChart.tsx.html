@@ -156,7 +156,14 @@
 <a name='L97'></a><a href='#L97'>97</a>
 <a name='L98'></a><a href='#L98'>98</a>
 <a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
@@ -176,19 +183,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,9 +196,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -260,7 +274,7 @@ import { Color, Container, Icon, NoDataCard, PageError, Text } from '@wings-soft
 import cx from 'classnames'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
-import { useStrings } from 'framework/strings'
+import { StringKeys, useStrings } from 'framework/strings'
 import css from './MetricsValidationChart.module.scss'
 &nbsp;
 const GroupByClause = 'groupByFields'
@@ -273,10 +287,20 @@ export interface MetricsValidationChartProps {
   sampleData?: Highcharts.Options
   setAsTooManyMetrics?: (_: boolean) =&gt; void
   isQueryExecuted?: boolean
+  submitQueryText: StringKeys
 }
 &nbsp;
 export default function <span class="fstat-no" title="function not covered" >MetricsValidationChart(</span>props: MetricsValidationChartProps): JSX.Element {
-  const { loading, error, queryValue, onRetry, sampleData, setAsTooManyMetrics, isQueryExecuted = <span class="branch-0 cbranch-no" title="branch not covered" >false </span>} = <span class="cstat-no" title="statement not covered" >props</span>
+  const {
+    loading,
+    error,
+    queryValue,
+    onRetry,
+    sampleData,
+    setAsTooManyMetrics,
+    isQueryExecuted = <span class="branch-0 cbranch-no" title="branch not covered" >false,</span>
+    submitQueryText
+  } = <span class="cstat-no" title="statement not covered" >props</span>
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
   const isTooManyMetrics = <span class="cstat-no" title="statement not covered" >Boolean(</span>
     sampleData?.series?.length &amp;&amp; sampleData.series.length &gt; 1 &amp;&amp; queryValue?.includes(GroupByClause)
@@ -300,10 +324,7 @@ export default function <span class="fstat-no" title="function not covered" >Met
 <span class="cstat-no" title="statement not covered" >  if (!isQueryExecuted) {</span>
 <span class="cstat-no" title="statement not covered" >    return (</span>
       &lt;Container className={cx(css.chartContainer, css.noDataContainer)}&gt;
-        &lt;NoDataCard
-          icon="timeline-line-chart"
-          message={getString('cv.monitoringSources.gcoLogs.submitQueryToSeeRecords')}
-        /&gt;
+        &lt;NoDataCard icon="timeline-line-chart" message={getString(submitQueryText)} /&gt;
       &lt;/Container&gt;
     )
   }
@@ -361,7 +382,7 @@ export default function <span class="fstat-no" title="function not covered" >Met
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 10 2021 17:43:10 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 10 2021 18:39:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

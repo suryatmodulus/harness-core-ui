@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/70-pipeline/components/PipelineSteps/Steps/JiraApproval/ApprovalRejectionCriteria.tsx</title>
+    <title>Code coverage report for modules/70-pipeline/components/PipelineSteps/Steps/Common/ApprovalRejectionCriteria.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">modules/70-pipeline/components/PipelineSteps/Steps/JiraApproval</a> ApprovalRejectionCriteria.tsx</h1>
+        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">modules/70-pipeline/components/PipelineSteps/Steps/Common</a> ApprovalRejectionCriteria.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.77% </span>
+                <span class="strong">71.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>46/65</span>
+                <span class='fraction'>47/66</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.59% </span>
+                <span class="strong">44.19% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>17/39</span>
+                <span class='fraction'>19/43</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.49% </span>
+                <span class="strong">70.97% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>43/61</span>
+                <span class='fraction'>44/62</span>
             </div>
         
             
@@ -369,7 +369,13 @@
 <a name='L310'></a><a href='#L310'>310</a>
 <a name='L311'></a><a href='#L311'>311</a>
 <a name='L312'></a><a href='#L312'>312</a>
-<a name='L313'></a><a href='#L313'>313</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">62x</span>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
@@ -387,12 +393,13 @@
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">62x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -451,6 +458,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -491,6 +499,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -698,20 +710,21 @@ import { useStrings } from 'framework/strings'
 import type { JiraFieldNG } from 'services/cd-ng'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import {
   ApprovalRejectionCriteriaCondition,
   ApprovalRejectionCriteriaProps,
-  ApprovalRejectionCriteriaType,
-  ConditionsInterface
-} from './types'
+  ConditionsInterface,
+  ApprovalRejectionCriteriaType
+} from '@pipeline/components/PipelineSteps/Steps/Common/types'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { isApprovalStepFieldDisabled } from './ApprovalCommons'
 import {
   filterOutMultiOperators,
   handleOperatorChange,
   operatorValues,
   removeDuplicateFieldKeys,
   setAllowedValuesOptions
-} from './helper'
+} from '../JiraApproval/helper'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './ApprovalRejectionCriteria.module.scss'
 &nbsp;
@@ -771,30 +784,31 @@ export const Conditions = ({
   allowedFieldKeys,
   formikErrors,
   fieldList,
-  readonly
+  readonly,
+  stepType
 }: ConditionsInterface) =&gt; {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   <span class="missing-if-branch" title="if path not taken" >I</span>if (isFetchingFields) {
-<span class="cstat-no" title="statement not covered" >    return &lt;div className={css.fetching}&gt;{getString('pipeline.jiraApprovalStep.fetchingFields')}&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >    return &lt;div className={css.fetching}&gt;{getString('pipeline.approvalCriteria.fetchingFields')}&lt;/div&gt;</span>
   }
   return (
     &lt;div className={css.conditionalContent}&gt;
       &lt;Layout.Horizontal className={css.alignConditions} spacing="xxxlarge"&gt;
-        &lt;span&gt;{getString('pipeline.jiraApprovalStep.match')}&lt;/span&gt;
+        &lt;span&gt;{getString('pipeline.approvalCriteria.match')}&lt;/span&gt;
         &lt;Radio
           onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >onChange({ ...values, spec: { ...values.spec, matchAnyCondition: false } })}</span>
           disabled={isApprovalStepFieldDisabled(readonly)}
           checked={!values.spec.matchAnyCondition}
         &gt;
-          {getString('pipeline.jiraApprovalStep.allConditions')}
+          {getString('pipeline.approvalCriteria.allConditions')}
         &lt;/Radio&gt;
         &lt;Radio
           onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >onChange({ ...values, spec: { ...values.spec, matchAnyCondition: true } })}</span>
           disabled={isApprovalStepFieldDisabled(readonly)}
           checked={values.spec.matchAnyCondition}
         &gt;
-          {getString('pipeline.jiraApprovalStep.anyCondition')}
+          {getString('pipeline.approvalCriteria.anyCondition')}
         &lt;/Radio&gt;
       &lt;/Layout.Horizontal&gt;
 &nbsp;
@@ -805,7 +819,11 @@ export const Conditions = ({
             return (
               &lt;div className={css.criteriaRow}&gt;
                 &lt;div className={css.headers}&gt;
-                  &lt;span&gt;{getString('pipeline.jiraApprovalStep.jiraField')}&lt;/span&gt;
+                  &lt;span&gt;
+                    {stepType === StepType.JiraApproval
+                      ? getString('pipeline.jiraApprovalStep.jiraField')
+                      : <span class="branch-1 cbranch-no" title="branch not covered" >getString('pipeline.approvalCriteria.field')}</span>
+                  &lt;/span&gt;
                   &lt;span&gt;{getString('pipeline.triggers.conditionsPanel.operator')}&lt;/span&gt;
                   &lt;span&gt;{getString('valueLabel')}&lt;/span&gt;
                 &lt;/div&gt;
@@ -900,8 +918,8 @@ export const Jexl = (props: ApprovalRejectionCriteriaProps) =&gt; {
         disabled={isApprovalStepFieldDisabled(props.readonly)}
         label={
           props.mode === 'approvelCriteria'
-            ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('pipeline.jiraApprovalStep.jexlExpressionLabelApproval')</span>
-            : getString('pipeline.jiraApprovalStep.jexlExpressionLabelRejection')
+            ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('pipeline.approvalCriteria.jexlExpressionLabelApproval')</span>
+            : getString('pipeline.approvalCriteria.jexlExpressionLabelRejection')
         }
         className={css.jexlExpression}
         placeholder={getString('pipeline.jiraApprovalStep.jexlExpressionPlaceholder')}
@@ -914,7 +932,7 @@ export const Jexl = (props: ApprovalRejectionCriteriaProps) =&gt; {
 }
 &nbsp;
 export const ApprovalRejectionCriteria: React.FC&lt;ApprovalRejectionCriteriaProps&gt; = props =&gt; {
-  const { values, onChange, title, readonly } = props
+  const { values, onChange, title, readonly, stepType } = props
   const [type, setType] = useState&lt;ApprovalRejectionCriteriaType&gt;(values.type)
   const [allowedFieldKeys, setAllowedFieldKeys] = useState&lt;SelectOption[]&gt;([])
   const [allowedValuesForFields, setAllowedValuesForFields] = useState&lt;Record&lt;string, SelectOption[]&gt;&gt;({})
@@ -955,7 +973,7 @@ export const ApprovalRejectionCriteria: React.FC&lt;ApprovalRejectionCriteriaPro
     })
   }, [type])
 &nbsp;
-  const tooltipId = `jiraApproval${props.mode}`
+  const tooltipId = stepType === StepType.JiraApproval ? `jiraApproval${props.mode}` : <span class="branch-1 cbranch-no" title="branch not covered" >`approval${props.mode}`</span>
 &nbsp;
   return (
     &lt;div className={css.box}&gt;
@@ -1000,7 +1018,7 @@ export const ApprovalRejectionCriteria: React.FC&lt;ApprovalRejectionCriteriaPro
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 09 2021 21:30:19 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 10 2021 08:33:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">83.51% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>80/96</span>
+                <span class='fraction'>81/97</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">83.51% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>80/96</span>
+                <span class='fraction'>81/97</span>
             </div>
         
             
@@ -559,7 +559,10 @@
 <a name='L500'></a><a href='#L500'>500</a>
 <a name='L501'></a><a href='#L501'>501</a>
 <a name='L502'></a><a href='#L502'>502</a>
-<a name='L503'></a><a href='#L503'>503</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">62x</span>
+<a name='L503'></a><a href='#L503'>503</a>
+<a name='L504'></a><a href='#L504'>504</a>
+<a name='L505'></a><a href='#L505'>505</a>
+<a name='L506'></a><a href='#L506'>506</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
@@ -599,13 +602,14 @@
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">62x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
@@ -946,7 +950,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1067,12 +1073,12 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import {
-  Formik,
   Accordion,
+  Formik,
+  FormikForm,
   FormInput,
-  MultiTypeInputType,
   getMultiTypeFromValue,
-  FormikForm
+  MultiTypeInputType
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
@@ -1082,12 +1088,12 @@ import {
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
+  JiraFieldNG,
   JiraProjectBasicNG,
   JiraProjectNG,
   JiraStatusNG,
-  JiraFieldNG,
-  useGetJiraProjects,
-  useGetJiraIssueCreateMetadata
+  useGetJiraIssueCreateMetadata,
+  useGetJiraProjects
 } from 'services/cd-ng'
 import type {
   AccountPathProps,
@@ -1099,16 +1105,17 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useQueryParams } from '@common/hooks'
 import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
-import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
-import { ApprovalRejectionCriteria } from './ApprovalRejectionCriteria'
-import {
-  JiraApprovalStepModeProps,
+import { ApprovalRejectionCriteriaType } from '@pipeline/components/PipelineSteps/Steps/Common/types'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type {
   JiraApprovalData,
-  JiraProjectSelectOption,
+  JiraApprovalStepModeProps,
   JiraFormContentInterface,
-  ApprovalRejectionCriteriaType
+  JiraProjectSelectOption
 } from './types'
-import { getGenuineValue, resetForm, setIssueTypeOptions, getApprovalRejectionCriteriaForInitialValues } from './helper'
+import { getApprovalRejectionCriteriaForInitialValues, getGenuineValue, resetForm, setIssueTypeOptions } from './helper'
+import { isApprovalStepFieldDisabled } from '../Common/ApprovalCommons'
+import { ApprovalRejectionCriteria } from '../Common/ApprovalRejectionCriteria'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './JiraApproval.module.scss'
 &nbsp;
@@ -1425,13 +1432,14 @@ const FormContent = ({
       &lt;ApprovalRejectionCriteria
         statusList={statusList}
         fieldList={fieldList}
-        title={getString('pipeline.jiraApprovalStep.approvalCriteria')}
+        title={getString('pipeline.approvalCriteria.approvalCriteria')}
         isFetchingFields={fetchingProjectMetadata}
         mode="approvalCriteria"
         values={formik.values.spec.approvalCriteria}
         onChange={values =&gt; formik.setFieldValue('spec.approvalCriteria', values)}
         formikErrors={formik.errors.spec?.approvalCriteria?.spec}
         readonly={readonly}
+        stepType={StepType.JiraApproval}
       /&gt;
 &nbsp;
       &lt;div className={stepCss.noLookDivider} /&gt;
@@ -1444,12 +1452,13 @@ const FormContent = ({
             &lt;ApprovalRejectionCriteria
               statusList={statusList}
               fieldList={fieldList}
-              title={getString('pipeline.jiraApprovalStep.rejectionCriteria')}
+              title={getString('pipeline.approvalCriteria.rejectionCriteria')}
               isFetchingFields={fetchingProjectMetadata}
               mode="rejectionCriteria"
               values={formik.values.spec.rejectionCriteria}
               onChange={values =&gt; formik.setFieldValue('spec.rejectionCriteria', values)}
               readonly={readonly}
+              stepType={StepType.JiraApproval}
             /&gt;
           }
         /&gt;
@@ -1524,11 +1533,11 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
               is: ApprovalRejectionCriteriaType.KeyValues,
               then: Yup.object().shape({
                 conditions: Yup.array().required(
-                  getString('pipeline.jiraApprovalStep.validations.approvalCriteriaCondition')
+                  getString('pipeline.approvalCriteria.validations.approvalCriteriaCondition')
                 )
               }),
               otherwise: Yup.object().shape({
-                expression: Yup.string().trim().required(getString('pipeline.jiraApprovalStep.validations.expression'))
+                expression: Yup.string().trim().required(getString('pipeline.approvalCriteria.validations.expression'))
               })
             })
           })
@@ -1570,7 +1579,7 @@ export default JiraApprovalStepModeWithRef
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 09 2021 21:30:19 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 10 2021 08:33:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.3% </span>
+                <span class="strong">88.89% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>21/23</span>
+                <span class='fraction'>24/27</span>
             </div>
         
             
@@ -194,18 +194,26 @@
 <a name='L135'></a><a href='#L135'>135</a>
 <a name='L136'></a><a href='#L136'>136</a>
 <a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,9 +228,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">128x</span>
 <span class="cline-any cline-yes">127x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">127x</span>
 <span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">127x</span>
@@ -260,7 +271,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -296,6 +310,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -357,11 +373,14 @@ export function QueryContent(props: QueryContentProps): JSX.Element {
     staleRecordsWarning
   } = props
   const { getString } = useStrings()
+&nbsp;
   useEffect(() =&gt; {
     if (!isEmpty(query) &amp;&amp; mandatoryFields.every(v =&gt; v) &amp;&amp; isAutoFetch) {
       handleFetchRecords()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query, isAutoFetch])
+&nbsp;
   return (
     &lt;Container className={css.queryContainer}&gt;
       &lt;Layout.Horizontal className={css.queryIcons} spacing="small"&gt;
@@ -411,7 +430,10 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
     queryTextAreaProps,
     staleRecordsWarning,
     isAutoFetch,
-    queryContentMandatoryProps
+    queryContentMandatoryProps,
+    queryLabel,
+    recordsClassName,
+    fetchEntityName
   } = props
   const { getString } = useStrings()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -434,7 +456,7 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
 &nbsp;
   return (
     &lt;Container className={cx(css.main, className)}&gt;
-      &lt;Text className={css.labelText}&gt;{getString('cv.query')}&lt;/Text&gt;
+      &lt;Text className={css.labelText}&gt;{<span class="branch-0 cbranch-no" title="branch not covered" >queryLabel </span>?? getString('cv.query')}&lt;/Text&gt;
       &lt;QueryContent
         onClickExpand={setIsDialogOpen}
         query={query}
@@ -448,12 +470,14 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
       /&gt;
       &lt;Records
         fetchRecords={handleFetchRecords}
+        recordsClassName={recordsClassName}
         loading={loading}
         data={records}
         error={error}
         query={query}
         isQueryExecuted={isQueryExecuted}
         queryNotExecutedMessage={queryNotExecutedMessage}
+        fetchEntityName={fetchEntityName}
       /&gt;
       &lt;QueryViewDialog
         isOpen={isDialogOpen}
@@ -475,7 +499,7 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 10 2021 16:01:21 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 10 2021 17:43:10 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

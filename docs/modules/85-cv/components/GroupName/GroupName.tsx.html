@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.82% </span>
+                <span class="strong">65.52% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/17</span>
+                <span class='fraction'>19/29</span>
             </div>
         
             
@@ -163,8 +163,10 @@
 <a name='L104'></a><a href='#L104'>104</a>
 <a name='L105'></a><a href='#L105'>105</a>
 <a name='L106'></a><a href='#L106'>106</a>
-<a name='L107'></a><a href='#L107'>107</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,20 +177,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,7 +192,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -216,7 +220,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -286,11 +290,13 @@ import { StringKeys, useStrings, UseStringsReturn } from 'framework/strings'
 &nbsp;
 export interface GroupNameProps {
   fieldName: string
-  newGroupDialogTitle: StringKeys
+  newGroupDialogTitle?: StringKeys
   groupNames?: SelectOption[]
   onChange: (name: string, value: SelectOption) =&gt; void
   item?: SelectOption
   setGroupNames: Dispatch&lt;SetStateAction&lt;SelectOption[]&gt;&gt;
+  label?: string
+  title?: string
   disabled?: boolean
 }
 &nbsp;
@@ -323,7 +329,7 @@ export function validate(
 }
 &nbsp;
 export default function GroupName(props: GroupNameProps): JSX.Element {
-  const { fieldName, newGroupDialogTitle, groupNames = <span class="branch-0 cbranch-no" title="branch not covered" >[],</span> onChange, item, setGroupNames, disabled } = props
+  const { fieldName, disabled, groupNames = <span class="branch-0 cbranch-no" title="branch not covered" >[],</span> onChange, item, setGroupNames, label, title } = props
   const { getString } = useStrings()
   const addNewOption = { label: getString('cv.addNew'), value: '' }
 &nbsp;
@@ -344,9 +350,9 @@ export default function GroupName(props: GroupNameProps): JSX.Element {
           &lt;FormikForm&gt;
             &lt;Container margin="medium"&gt;
               &lt;Text font={{ size: 'medium', weight: 'bold' }} margin={{ bottom: 'large' }}&gt;
-                {getString(newGroupDialogTitle)}
+                {<span class="branch-0 cbranch-no" title="branch not covered" >title </span>?? getString('cv.monitoringSources.prometheus.newPrometheusGroupName')}
               &lt;/Text&gt;
-              &lt;FormInput.Text name="name" label={getString('cv.monitoringSources.prometheus.groupName')} /&gt;
+              &lt;FormInput.Text name="name" label={<span class="branch-0 cbranch-no" title="branch not covered" >label </span>?? getString('cv.monitoringSources.prometheus.groupName')} /&gt;
               &lt;Layout.Horizontal spacing="medium" margin={{ top: 'large', bottom: 'large' }}&gt;
                 &lt;Button text={getString('submit')} type="submit" intent="primary" /&gt;
                 &lt;Button text={getString('cancel')} onClick={hideModal} /&gt;
@@ -361,10 +367,10 @@ export default function GroupName(props: GroupNameProps): JSX.Element {
 &nbsp;
   return (
     &lt;FormInput.Select
+      label={<span class="branch-0 cbranch-no" title="branch not covered" >label </span>?? getString('cv.monitoringSources.prometheus.groupName')}
       disabled={disabled}
       value={item}
       name={fieldName}
-      label={getString('cv.monitoringSources.prometheus.groupName')}
       items={groupNames || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
       onChange={selectedItem =&gt; {
         <span class="missing-if-branch" title="else path not taken" >E</span>if (selectedItem<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>abel === addNewOption.label) {
@@ -382,7 +388,7 @@ export default function GroupName(props: GroupNameProps): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 10 2021 16:01:21 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 10 2021 17:43:10 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

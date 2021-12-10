@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.12% </span>
+                <span class="strong">74.19% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>68/93</span>
+                <span class='fraction'>69/93</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.72% </span>
+                <span class="strong">43.86% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>43/114</span>
+                <span class='fraction'>50/114</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.51% </span>
+                <span class="strong">70.73% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>57/82</span>
+                <span class='fraction'>58/82</span>
             </div>
         
             
@@ -679,7 +679,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1036x</span>
+<span class="cline-any cline-yes">1037x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -692,26 +692,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1036x</span>
+<span class="cline-any cline-yes">1037x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1035x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1036x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1036x</span>
+<span class="cline-any cline-yes">1035x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">260x</span>
@@ -1009,7 +1009,7 @@ export function getTooltip({
   featureEnabled
 }: TooltipProps): TooltipReturn {
   // if permission check override the priorirty
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (<span class="branch-1 cbranch-no" title="branch not covered" >featureProps?.isPermissionPrioritized </span>&amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >permissionRequest </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >!canDoAction)</span> {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (featureProps?.isPermissionPrioritized &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >permissionRequest </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >!canDoAction)</span> {
 <span class="cstat-no" title="statement not covered" >    return {</span>
       tooltip: (
         &lt;RBACTooltip
@@ -1022,9 +1022,9 @@ export function getTooltip({
   }
 &nbsp;
   // feature check by default take priority
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (<span class="branch-1 cbranch-no" title="branch not covered" >featureProps?.featureRequest </span>&amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!featureEnabled)</span> {
-<span class="cstat-no" title="statement not covered" >    return {</span>
-      tooltip: &lt;FeatureWarningTooltip featureName={featureProps?.featureRequest.featureName} /&gt;
+  if (featureProps?.featureRequest &amp;&amp; !featureEnabled) {
+    return {
+      tooltip: &lt;FeatureWarningTooltip featureName={featureProps<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>eatureRequest.featureName} /&gt;
     }
   }
 &nbsp;
@@ -1054,7 +1054,7 @@ export const getUserName = (user: UserMetadataDTO): string =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 10 2021 08:33:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 10 2021 09:49:42 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

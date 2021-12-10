@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.36% </span>
+                <span class="strong">95.45% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/22</span>
+                <span class='fraction'>21/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.33% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>22/30</span>
+                <span class='fraction'>28/30</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.36% </span>
+                <span class="strong">95.45% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/22</span>
+                <span class='fraction'>21/22</span>
             </div>
         
             
@@ -149,7 +149,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">80x</span>
-<span class="cline-any cline-yes">427x</span>
+<span class="cline-any cline-yes">428x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -157,34 +157,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">427x</span>
+<span class="cline-any cline-yes">428x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">427x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">427x</span>
+<span class="cline-any cline-yes">428x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">427x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">427x</span>
-<span class="cline-any cline-yes">427x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">427x</span>
-<span class="cline-any cline-yes">427x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">428x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">428x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">428x</span>
+<span class="cline-any cline-yes">428x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">428x</span>
+<span class="cline-any cline-yes">426x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -235,9 +235,9 @@ const RbacMenuItem: React.FC&lt;RbacMenuItemProps&gt; = ({ permission: permissio
   const { featureEnabled, disabledFeatureName } = useGetFirstDisabledFeature(featuresProps?.featuresRequest)
 &nbsp;
   let disabledFeatureProps
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (disabledFeatureName) {
-<span class="cstat-no" title="statement not covered" >    disabledFeatureProps = {</span>
-      isPermissionPrioritized: featuresProps?.isPermissionPrioritized,
+  if (disabledFeatureName) {
+    disabledFeatureProps = {
+      isPermissionPrioritized: featuresProps<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>sPermissionPrioritized,
       featureRequest: {
         featureName: disabledFeatureName
       }
@@ -255,17 +255,17 @@ const RbacMenuItem: React.FC&lt;RbacMenuItemProps&gt; = ({ permission: permissio
   const noRequest = !featuresProps?.featuresRequest &amp;&amp; !permissionRequest
   const enabled = canDoAction &amp;&amp; featureEnabled
 &nbsp;
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (noRequest || enabled) {
+  if (noRequest || enabled) {
     return &lt;Menu.Item {...restProps} /&gt;
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;Popover
       openOnTargetFocus={false}
       fill
       usePortal
       hoverCloseDelay={50}
-      interactionKind={featureEnabled ? PopoverInteractionKind.HOVER_TARGET_ONLY : PopoverInteractionKind.HOVER}
+      interactionKind={featureEnabled ? <span class="branch-0 cbranch-no" title="branch not covered" >PopoverInteractionKind.HOVER_TARGET_ONLY </span>: PopoverInteractionKind.HOVER}
       content={tooltip}
       className={css.popover}
       inheritDarkTheme={false}
@@ -289,7 +289,7 @@ export default RbacMenuItem
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 10 2021 08:33:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 10 2021 09:49:42 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -1478,6 +1478,19 @@ export interface StackTraceElement {
   nativeMethod?: boolean
 }
 
+export interface TemplateInputsErrorDTO {
+  fieldName?: string
+  identifierOfErrorSource?: string
+  message?: string
+}
+
+export type TemplateInputsErrorMetadataDTO = ErrorMetadataDTO & {
+  errorMap?: {
+    [key: string]: TemplateInputsErrorDTO
+  }
+  errorYaml?: string
+}
+
 export interface Throwable {
   cause?: Throwable
   localizedMessage?: string

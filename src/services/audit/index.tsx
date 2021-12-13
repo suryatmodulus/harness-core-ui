@@ -11,6 +11,8 @@ export interface AccessControlCheckError {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -329,6 +331,7 @@ export interface AuditEventDTO {
     | 'REVOKE_INVITE'
     | 'ADD_COLLABORATOR'
     | 'REMOVE_COLLABORATOR'
+    | 'REVOKE_TOKEN'
     | 'ADD_MEMBERSHIP'
     | 'REMOVE_MEMBERSHIP'
   auditEventData?: AuditEventData
@@ -364,6 +367,7 @@ export interface AuditFilterProperties {
     | 'REVOKE_INVITE'
     | 'ADD_COLLABORATOR'
     | 'REMOVE_COLLABORATOR'
+    | 'REVOKE_TOKEN'
     | 'ADD_MEMBERSHIP'
     | 'REMOVE_MEMBERSHIP'
   )[]
@@ -419,6 +423,8 @@ export interface Error {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -724,6 +730,8 @@ export interface Failure {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -1143,6 +1151,7 @@ export interface ResourceDTO {
 
 export interface ResourceGroupDTO {
   accountIdentifier: string
+  allowedScopeLevels?: string[]
   color?: string
   description?: string
   fullScopeSelected?: boolean
@@ -1252,6 +1261,8 @@ export interface ResponseMessage {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -1677,6 +1688,24 @@ export interface TemplateDTO {
   identifier?: string
   lastModifiedAt?: number
   team?: 'OTHER' | 'CD' | 'CV' | 'CI' | 'FFM' | 'PIPELINE' | 'PL' | 'GTM' | 'UNRECOGNIZED'
+}
+
+export type TemplateEventData = AuditEventData & {
+  comments?: string
+  templateUpdateEventType?: string
+}
+
+export interface TemplateInputsErrorDTO {
+  fieldName?: string
+  identifierOfErrorSource?: string
+  message?: string
+}
+
+export type TemplateInputsErrorMetadataDTO = ErrorMetadataDTO & {
+  errorMap?: {
+    [key: string]: TemplateInputsErrorDTO
+  }
+  errorYaml?: string
 }
 
 export interface Throwable {

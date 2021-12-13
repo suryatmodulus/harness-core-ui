@@ -252,7 +252,6 @@ export interface ClauseYamlSpec {
 export type CleanupStepInfo = StepSpecType & {
   infrastructure: Infrastructure
   podName: string
-  runAsUser?: ParameterFieldInteger
 }
 
 export interface CodeBase {
@@ -1131,7 +1130,6 @@ export type InitializeStepInfo = StepSpecType & {
   executionElementConfig: ExecutionElementConfig
   infrastructure: Infrastructure
   skipGitClone: boolean
-  timeout?: number
 }
 
 export interface InputSetValidator {
@@ -1184,27 +1182,7 @@ export type JiraUpdateStepInfo = StepSpecType & {
 }
 
 export interface JsonNode {
-  array?: boolean
-  bigDecimal?: boolean
-  bigInteger?: boolean
-  binary?: boolean
-  boolean?: boolean
-  containerNode?: boolean
-  double?: boolean
-  float?: boolean
-  floatingPointNumber?: boolean
-  int?: boolean
-  integralNumber?: boolean
-  long?: boolean
-  missingNode?: boolean
-  nodeType?: 'ARRAY' | 'BINARY' | 'BOOLEAN' | 'MISSING' | 'NULL' | 'NUMBER' | 'OBJECT' | 'POJO' | 'STRING'
-  null?: boolean
-  number?: boolean
-  object?: boolean
-  pojo?: boolean
-  short?: boolean
-  textual?: boolean
-  valueNode?: boolean
+  [key: string]: any
 }
 
 export type K8BuildJobEnvInfo = BuildJobEnvInfo & {
@@ -1332,16 +1310,6 @@ export interface ParameterField {
   value?: { [key: string]: any }
 }
 
-export interface ParameterFieldInteger {
-  expression?: boolean
-  expressionValue?: string
-  inputSetValidator?: InputSetValidator
-  jsonResponseField?: boolean
-  responseField?: string
-  typeString?: boolean
-  value?: number
-}
-
 export interface ParameterFieldMapStringJsonNode {
   expression?: boolean
   expressionValue?: string
@@ -1367,6 +1335,7 @@ export interface PatchInstruction {
     | 'SetFeatureFlagState'
     | 'SetOnVariation'
     | 'SetOffVariation'
+    | 'SetDefaultVariations'
     | 'AddRule'
     | 'UpdateRule'
     | 'AddTargetsToVariationTargetMap'
@@ -1917,7 +1886,7 @@ export type RunTestsStepInfo = StepSpecType & {
   imagePullPolicy?: 'Always' | 'Never' | 'IfNotPresent'
   language: 'Java'
   outputVariables?: OutputNGVariable[]
-  packages: string
+  packages?: string
   postCommand?: string
   preCommand?: string
   privileged?: boolean
@@ -1974,6 +1943,17 @@ export interface Serve {
 export interface ServiceDeploymentInfo {
   serviceName?: string
   serviceTag?: string
+}
+
+export type SetDefaultVariationsYaml = PatchInstruction & {
+  identifier: string
+  spec: SetDefaultVariationsYamlSpec
+  type: 'SetDefaultVariations'
+}
+
+export interface SetDefaultVariationsYamlSpec {
+  off: string
+  on: string
 }
 
 export type SetFeatureFlagStateYaml = PatchInstruction & {
@@ -2047,7 +2027,8 @@ export interface StageElementConfig {
   tags?: {
     [key: string]: string
   }
-  type: string
+  template?: TemplateLinkConfig
+  type?: string
   variables?: NGVariable[]
   when?: StageWhenCondition
 }
@@ -2073,7 +2054,7 @@ export interface StepElementConfig {
   spec?: StepSpecType
   template?: TemplateLinkConfig
   timeout?: string
-  type: string
+  type?: string
   when?: StepWhenCondition
 }
 
@@ -2107,6 +2088,19 @@ export type StringNGVariable = NGVariable & {
 
 export type TagBuildSpec = BuildSpec & {
   tag: string
+}
+
+export interface TemplateInputsErrorDTO {
+  fieldName?: string
+  identifierOfErrorSource?: string
+  message?: string
+}
+
+export type TemplateInputsErrorMetadataDTO = ErrorMetadataDTO & {
+  errorMap?: {
+    [key: string]: TemplateInputsErrorDTO
+  }
+  errorYaml?: string
 }
 
 export interface TemplateLinkConfig {
@@ -2482,6 +2476,7 @@ export const getCIHealthStatusPromise = (
 ) => getUsingFetch<RestResponseString, unknown, void, void>(getConfig('ci'), `/health`, props, signal)
 
 export interface GetPartialYamlSchemaQueryParams {
+  accountIdentifier: string
   projectIdentifier?: string
   orgIdentifier?: string
   scope?: 'account' | 'org' | 'project' | 'unknown'

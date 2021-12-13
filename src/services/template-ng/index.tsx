@@ -17,6 +17,7 @@ export type AuditFilterProperties = FilterProperties & {
     | 'REVOKE_INVITE'
     | 'ADD_COLLABORATOR'
     | 'REMOVE_COLLABORATOR'
+    | 'REVOKE_TOKEN'
     | 'ADD_MEMBERSHIP'
     | 'REMOVE_MEMBERSHIP'
   )[]
@@ -82,11 +83,11 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
-    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
     | 'PagerDuty'
+    | 'CustomHealth'
   )[]
 }
 
@@ -96,6 +97,11 @@ export interface EntityGitDetails {
   objectId?: string
   repoIdentifier?: string
   rootFolder?: string
+}
+
+export interface EntityValidityDetails {
+  invalidYaml?: string
+  valid?: boolean
 }
 
 export interface Environment {
@@ -109,6 +115,8 @@ export interface Error {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -283,6 +291,8 @@ export interface Error {
     | 'USAGE_RESTRICTION_ERROR'
     | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
     | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_API_TASK_EXCEPTION'
+    | 'KUBERNETES_TASK_EXCEPTION'
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
@@ -397,8 +407,13 @@ export interface Error {
   correlationId?: string
   detailedMessage?: string
   message?: string
+  metadata?: ErrorMetadataDTO
   responseMessages?: ResponseMessage[]
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ErrorMetadataDTO {
+  type?: string
 }
 
 export interface Failure {
@@ -407,6 +422,8 @@ export interface Failure {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -581,6 +598,8 @@ export interface Failure {
     | 'USAGE_RESTRICTION_ERROR'
     | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
     | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_API_TASK_EXCEPTION'
+    | 'KUBERNETES_TASK_EXCEPTION'
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
@@ -723,27 +742,7 @@ export interface FilterProperties {
 }
 
 export interface JsonNode {
-  array?: boolean
-  bigDecimal?: boolean
-  bigInteger?: boolean
-  binary?: boolean
-  boolean?: boolean
-  containerNode?: boolean
-  double?: boolean
-  float?: boolean
-  floatingPointNumber?: boolean
-  int?: boolean
-  integralNumber?: boolean
-  long?: boolean
-  missingNode?: boolean
-  nodeType?: 'ARRAY' | 'BINARY' | 'BOOLEAN' | 'MISSING' | 'NULL' | 'NUMBER' | 'OBJECT' | 'POJO' | 'STRING'
-  null?: boolean
-  number?: boolean
-  object?: boolean
-  pojo?: boolean
-  short?: boolean
-  textual?: boolean
-  valueNode?: boolean
+  [key: string]: any
 }
 
 export interface NGTag {
@@ -875,6 +874,8 @@ export interface ResponseMessage {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -1049,6 +1050,8 @@ export interface ResponseMessage {
     | 'USAGE_RESTRICTION_ERROR'
     | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
     | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_API_TASK_EXCEPTION'
+    | 'KUBERNETES_TASK_EXCEPTION'
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
@@ -1224,6 +1227,12 @@ export interface ResponseTemplateWrapperResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export type SampleErrorMetadataDTO = ErrorMetadataDTO & {
+  sampleMap?: {
+    [key: string]: string
+  }
+}
+
 export interface Sort {
   empty?: boolean
   sorted?: boolean
@@ -1239,7 +1248,6 @@ export interface StackTraceElement {
 }
 
 export interface TemplateApplyRequest {
-  inputSetYamlList?: string[]
   originalEntityYaml: string
 }
 
@@ -1273,7 +1281,7 @@ export interface TemplateInputsErrorDTO {
   message?: string
 }
 
-export interface TemplateInputsErrorResponseDTO {
+export type TemplateInputsErrorMetadataDTO = ErrorMetadataDTO & {
   errorMap?: {
     [key: string]: TemplateInputsErrorDTO
   }
@@ -1281,26 +1289,26 @@ export interface TemplateInputsErrorResponseDTO {
 }
 
 export interface TemplateMergeResponse {
-  errorResponse?: TemplateInputsErrorResponseDTO
   mergedPipelineYaml?: string
   templateReferenceSummaries?: TemplateReferenceSummary[]
-  valid?: boolean
 }
 
 export interface TemplateReferenceSummary {
   fqn?: string
-  identifier?: string
+  scope?: 'account' | 'org' | 'project' | 'unknown'
+  templateIdentifier?: string
   versionLabel?: string
 }
 
 export interface TemplateResponse {
-  accountId?: string
+  accountId: string
   childType?: string
   description?: string
+  entityValidityDetails?: EntityValidityDetails
   gitDetails?: EntityGitDetails
-  identifier?: string
+  identifier: string
   lastUpdatedAt?: number
-  name?: string
+  name: string
   orgIdentifier?: string
   projectIdentifier?: string
   stableTemplate?: boolean
@@ -1318,6 +1326,7 @@ export interface TemplateSummaryResponse {
   accountId?: string
   childType?: string
   description?: string
+  entityValidityDetails?: EntityValidityDetails
   gitDetails?: EntityGitDetails
   identifier?: string
   lastUpdatedAt?: number
@@ -1336,7 +1345,6 @@ export interface TemplateSummaryResponse {
 }
 
 export interface TemplateWrapperResponse {
-  templateInputsErrorResponseDTO?: TemplateInputsErrorResponseDTO
   templateResponseDTO?: TemplateResponse
   valid?: boolean
 }
@@ -1356,7 +1364,7 @@ export interface ValidationError {
 
 export type FilterDTORequestBody = FilterDTO
 
-export type CreateTemplateBodyRequestBody = string
+export type UpdateExistingTemplateLabelBodyRequestBody = string
 
 export interface GetFilterListQueryParams {
   pageIndex?: number
@@ -1685,6 +1693,7 @@ export interface CreateTemplateQueryParams {
   rootFolder?: string
   filePath?: string
   commitMsg?: string
+  isNewBranch?: boolean
   baseBranch?: string
   setDefaultTemplate?: boolean
   comments?: string
@@ -1695,7 +1704,7 @@ export type CreateTemplateProps = Omit<
     ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -1709,7 +1718,7 @@ export const CreateTemplate = (props: CreateTemplateProps) => (
     ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     void
   >
     verb="POST"
@@ -1724,7 +1733,7 @@ export type UseCreateTemplateProps = Omit<
     ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -1738,7 +1747,7 @@ export const useCreateTemplate = (props: UseCreateTemplateProps) =>
     ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     void
   >('POST', `/templates`, { base: getConfig('template/api'), ...props })
 
@@ -1750,7 +1759,7 @@ export const createTemplatePromise = (
     ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -1759,7 +1768,7 @@ export const createTemplatePromise = (
     ResponseTemplateWrapperResponse,
     Failure | Error,
     CreateTemplateQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     void
   >('POST', getConfig('template/api'), `/templates`, props, signal)
 
@@ -2066,7 +2075,7 @@ export type UpdateExistingTemplateLabelProps = Omit<
     ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >,
   'path' | 'verb'
@@ -2085,7 +2094,7 @@ export const UpdateExistingTemplateLabel = ({
     ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >
     verb="PUT"
@@ -2100,7 +2109,7 @@ export type UseUpdateExistingTemplateLabelProps = Omit<
     ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >,
   'path' | 'verb'
@@ -2119,7 +2128,7 @@ export const useUpdateExistingTemplateLabel = ({
     ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >(
     'PUT',
@@ -2140,7 +2149,7 @@ export const updateExistingTemplateLabelPromise = (
     ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   > & { templateIdentifier: string; versionLabel: string },
   signal?: RequestInit['signal']
@@ -2149,7 +2158,7 @@ export const updateExistingTemplateLabelPromise = (
     ResponseTemplateWrapperResponse,
     Failure | Error,
     UpdateExistingTemplateLabelQueryParams,
-    CreateTemplateBodyRequestBody,
+    UpdateExistingTemplateLabelBodyRequestBody,
     UpdateExistingTemplateLabelPathParams
   >('PUT', getConfig('template/api'), `/templates/update/${templateIdentifier}/${versionLabel}`, props, signal)
 

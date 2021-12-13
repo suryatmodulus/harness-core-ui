@@ -505,7 +505,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
                     accountIdentifier: accountId,
                     projectIdentifier,
                     orgIdentifier,
-                    connectorRef: connectorRefValue
+                    connectorRef: connectorRefValue || ''
                   }
                 })
               } else {

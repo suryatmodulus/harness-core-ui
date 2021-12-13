@@ -368,6 +368,10 @@ export type BitbucketUsernameTokenApiAccess = BitbucketApiAccessSpecDTO & {
   usernameRef?: string
 }
 
+export interface BurnRate {
+  currentRatePercentage?: number
+}
+
 export type CEAwsConnector = ConnectorConfigDTO & {
   awsAccountId?: string
   crossAccountAccess: CrossAccountAccess
@@ -497,7 +501,6 @@ export interface ClusteredLog {
   log?: string
   timestamp?: number
   uuid?: string
-  validUntil?: string
   verificationTaskId?: string
 }
 
@@ -840,7 +843,6 @@ export interface EnvironmentResponseDTO {
     [key: string]: string
   }
   type?: 'PreProduction' | 'Production'
-  version?: number
 }
 
 export interface Error {
@@ -1817,27 +1819,7 @@ export type JiraConnector = ConnectorConfigDTO & {
 }
 
 export interface JsonNode {
-  array?: boolean
-  bigDecimal?: boolean
-  bigInteger?: boolean
-  binary?: boolean
-  boolean?: boolean
-  containerNode?: boolean
-  double?: boolean
-  float?: boolean
-  floatingPointNumber?: boolean
-  int?: boolean
-  integralNumber?: boolean
-  long?: boolean
-  missingNode?: boolean
-  nodeType?: 'ARRAY' | 'BINARY' | 'BOOLEAN' | 'MISSING' | 'NULL' | 'NUMBER' | 'OBJECT' | 'POJO' | 'STRING'
-  null?: boolean
-  number?: boolean
-  object?: boolean
-  pojo?: boolean
-  short?: boolean
-  textual?: boolean
-  valueNode?: boolean
+  [key: string]: any
 }
 
 export interface KubernetesAuthCredentialDTO {
@@ -1945,7 +1927,6 @@ export interface LearningEngineTask {
     | 'SERVICE_GUARD_FEEDBACK_ANALYSIS'
     | 'TIME_SERIES_LOAD_TEST'
   uuid?: string
-  validUntil?: string
   verificationTaskId?: string
 }
 
@@ -1978,7 +1959,6 @@ export interface LogAnalysisCluster {
   lastUpdatedAt?: number
   text?: string
   uuid?: string
-  validUntil?: string
   verificationTaskId?: string
   x?: number
   y?: number
@@ -2033,7 +2013,6 @@ export interface LogAnalysisRecord {
   unknownClusters?: LogAnalysisCluster[]
   unknownEvents?: LogAnalysisCluster[][]
   uuid?: string
-  validUntil?: string
   verificationTaskId?: string
 }
 
@@ -2240,6 +2219,11 @@ export interface MonitoredServiceWithHealthSources {
   name?: string
 }
 
+export interface NGTag {
+  key: string
+  value: string
+}
+
 export interface NewRelicApplication {
   applicationId?: number
   applicationName?: string
@@ -2417,6 +2401,16 @@ export interface PageMonitoredServiceResponse {
   totalPages?: number
 }
 
+export interface PageSLODashboardWidget {
+  content?: SLODashboardWidget[]
+  empty?: boolean
+  pageIndex?: number
+  pageItemCount?: number
+  pageSize?: number
+  totalItems?: number
+  totalPages?: number
+}
+
 export interface PageServiceLevelObjectiveResponse {
   content?: ServiceLevelObjectiveResponse[]
   empty?: boolean
@@ -2541,6 +2535,11 @@ export interface PartialSchemaDTO {
   nodeName?: string
   nodeType?: string
   schema?: JsonNode
+}
+
+export interface Point {
+  timestamp?: number
+  value?: number
 }
 
 export type PrometheusConnectorDTO = ConnectorConfigDTO & {
@@ -3070,6 +3069,13 @@ export interface ResponsePageMonitoredServiceListItemDTO {
 export interface ResponsePageMonitoredServiceResponse {
   correlationId?: string
   data?: PageMonitoredServiceResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponsePageSLODashboardWidget {
+  correlationId?: string
+  data?: PageSLODashboardWidget
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3693,6 +3699,21 @@ export interface SLIMetricSpec {
   metricName?: string
 }
 
+export interface SLODashboardWidget {
+  burnRate?: BurnRate
+  errorBudgetBurndown?: Point[]
+  errorBudgetRemainingPercentage?: number
+  healthSourceIdentifier?: string
+  healthSourceName?: string
+  monitoredServiceIdentifier?: string
+  monitoredServiceName?: string
+  sloPerformanceTrend?: Point[]
+  tags?: NGTag[]
+  timeRemainingDays?: number
+  title?: string
+  type?: 'Availability' | 'Latency'
+}
+
 export interface SLOTarget {
   sloTargetPercentage: number
   spec: SLOTargetSpec
@@ -3907,6 +3928,8 @@ export interface TestVerificationBaselineExecutionDTO {
 
 export type ThresholdSLIMetricSpec = SLIMetricSpec & {
   metric1: string
+  thresholdType?: 'ACT_WHEN_LOWER' | 'ACT_WHEN_HIGHER'
+  thresholdValue?: number
 }
 
 export interface Throwable {

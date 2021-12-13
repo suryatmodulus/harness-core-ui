@@ -313,6 +313,63 @@
         }
       }
     },
+    "/partial-yaml-schema": {
+      "get": {
+        "tags": ["partial-yaml-schema"],
+        "summary": "Get Partial Yaml Schema",
+        "description": "",
+        "operationId": "getPartialYamlSchema",
+        "consumes": ["application/json", "text/yaml", "text/html", "text/plain"],
+        "produces": ["application/json", "text/yaml", "text/html", "text/plain"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "scope",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": ["account", "org", "project", "unknown"]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ResponsePartialSchemaDTO"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Failure"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/partial-yaml-schema/dummyApiForSwaggerStageSchemaCheck": {
       "get": {
         "tags": ["partial-yaml-schema"],
@@ -389,57 +446,6 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/ResponseCIPipelineModuleInfo"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Failure"
-            }
-          },
-          "500": {
-            "description": "Internal server error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/partial-yaml-schema": {
-      "get": {
-        "tags": ["partial-yaml-schema"],
-        "summary": "Get Partial Yaml Schema",
-        "description": "",
-        "operationId": "getPartialYamlSchema",
-        "consumes": ["application/json", "text/yaml", "text/html", "text/plain"],
-        "produces": ["application/json", "text/yaml", "text/html", "text/plain"],
-        "parameters": [
-          {
-            "name": "projectIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "orgIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "scope",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "enum": ["account", "org", "project", "unknown"]
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponsePartialSchemaDTO"
             }
           },
           "400": {
@@ -1581,6 +1587,41 @@
         }
       }
     },
+    "TemplateInputsErrorDTO": {
+      "type": "object",
+      "properties": {
+        "fieldName": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "identifierOfErrorSource": {
+          "type": "string"
+        }
+      }
+    },
+    "TemplateInputsErrorMetadataDTO": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ErrorMetadataDTO"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "errorYaml": {
+              "type": "string"
+            },
+            "errorMap": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/TemplateInputsErrorDTO"
+              }
+            }
+          }
+        }
+      ]
+    },
     "Throwable": {
       "type": "object",
       "properties": {
@@ -2026,6 +2067,48 @@
         }
       }
     },
+    "JsonNode": {
+      "type": "object"
+    },
+    "PartialSchemaDTO": {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "$ref": "#/definitions/JsonNode"
+        },
+        "nodeType": {
+          "type": "string"
+        },
+        "nodeName": {
+          "type": "string"
+        },
+        "namespace": {
+          "type": "string"
+        },
+        "moduleType": {
+          "type": "string",
+          "enum": ["CD", "CI", "CV", "CF", "CE", "CORE", "PMS", "TEMPLATESERVICE"]
+        }
+      }
+    },
+    "ResponsePartialSchemaDTO": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["SUCCESS", "FAILURE", "ERROR"]
+        },
+        "data": {
+          "$ref": "#/definitions/PartialSchemaDTO"
+        },
+        "metaData": {
+          "type": "object"
+        },
+        "correlationId": {
+          "type": "string"
+        }
+      }
+    },
     "AbortFailureActionConfig": {
       "allOf": [
         {
@@ -2418,9 +2501,6 @@
             },
             "podName": {
               "type": "string"
-            },
-            "runAsUser": {
-              "$ref": "#/definitions/ParameterFieldInteger"
             }
           }
         }
@@ -2554,10 +2634,10 @@
         "imagePullPolicy": {
           "type": "string"
         },
-        "harnessManagedImage": {
+        "mainLiteEngine": {
           "type": "boolean"
         },
-        "mainLiteEngine": {
+        "harnessManagedImage": {
           "type": "boolean"
         }
       }
@@ -3145,10 +3225,6 @@
             "accountId": {
               "type": "string"
             },
-            "timeout": {
-              "type": "integer",
-              "format": "int32"
-            },
             "buildJobEnvInfo": {
               "$ref": "#/definitions/BuildJobEnvInfo"
             },
@@ -3355,75 +3431,6 @@
           }
         }
       ]
-    },
-    "JsonNode": {
-      "type": "object",
-      "properties": {
-        "float": {
-          "type": "boolean"
-        },
-        "nodeType": {
-          "type": "string",
-          "enum": ["ARRAY", "BINARY", "BOOLEAN", "MISSING", "NULL", "NUMBER", "OBJECT", "POJO", "STRING"]
-        },
-        "number": {
-          "type": "boolean"
-        },
-        "binary": {
-          "type": "boolean"
-        },
-        "object": {
-          "type": "boolean"
-        },
-        "valueNode": {
-          "type": "boolean"
-        },
-        "containerNode": {
-          "type": "boolean"
-        },
-        "missingNode": {
-          "type": "boolean"
-        },
-        "pojo": {
-          "type": "boolean"
-        },
-        "integralNumber": {
-          "type": "boolean"
-        },
-        "floatingPointNumber": {
-          "type": "boolean"
-        },
-        "short": {
-          "type": "boolean"
-        },
-        "int": {
-          "type": "boolean"
-        },
-        "long": {
-          "type": "boolean"
-        },
-        "double": {
-          "type": "boolean"
-        },
-        "bigDecimal": {
-          "type": "boolean"
-        },
-        "bigInteger": {
-          "type": "boolean"
-        },
-        "textual": {
-          "type": "boolean"
-        },
-        "boolean": {
-          "type": "boolean"
-        },
-        "array": {
-          "type": "boolean"
-        },
-        "null": {
-          "type": "boolean"
-        }
-      }
     },
     "K8BuildJobEnvInfo": {
       "allOf": [
@@ -3766,33 +3773,6 @@
         }
       }
     },
-    "ParameterFieldInteger": {
-      "type": "object",
-      "properties": {
-        "expressionValue": {
-          "type": "string"
-        },
-        "expression": {
-          "type": "boolean"
-        },
-        "value": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "typeString": {
-          "type": "boolean"
-        },
-        "inputSetValidator": {
-          "$ref": "#/definitions/InputSetValidator"
-        },
-        "jsonResponseField": {
-          "type": "boolean"
-        },
-        "responseField": {
-          "type": "string"
-        }
-      }
-    },
     "ParameterFieldMapStringJsonNode": {
       "type": "object",
       "properties": {
@@ -3832,6 +3812,7 @@
             "SetFeatureFlagState",
             "SetOnVariation",
             "SetOffVariation",
+            "SetDefaultVariations",
             "AddRule",
             "UpdateRule",
             "AddTargetsToVariationTargetMap",
@@ -4260,7 +4241,7 @@
         },
         {
           "type": "object",
-          "required": ["args", "buildTool", "connectorRef", "image", "language", "packages"],
+          "required": ["args", "buildTool", "connectorRef", "image", "language"],
           "properties": {
             "args": {
               "type": "string"
@@ -4458,6 +4439,41 @@
         }
       }
     },
+    "SetDefaultVariationsYaml": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/PatchInstruction"
+        },
+        {
+          "type": "object",
+          "required": ["identifier", "spec", "type"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["SetDefaultVariations"]
+            },
+            "identifier": {
+              "type": "string"
+            },
+            "spec": {
+              "$ref": "#/definitions/SetDefaultVariationsYamlSpec"
+            }
+          }
+        }
+      ]
+    },
+    "SetDefaultVariationsYamlSpec": {
+      "type": "object",
+      "required": ["off", "on"],
+      "properties": {
+        "on": {
+          "type": "string"
+        },
+        "off": {
+          "type": "string"
+        }
+      }
+    },
     "SetFeatureFlagStateYaml": {
       "allOf": [
         {
@@ -4639,7 +4655,7 @@
     },
     "StageElementConfig": {
       "type": "object",
-      "required": ["identifier", "name", "type"],
+      "required": ["identifier", "name"],
       "properties": {
         "identifier": {
           "type": "string",
@@ -4675,6 +4691,9 @@
         },
         "type": {
           "type": "string"
+        },
+        "template": {
+          "$ref": "#/definitions/TemplateLinkConfig"
         },
         "spec": {
           "$ref": "#/definitions/StageInfoConfig"
@@ -4722,7 +4741,7 @@
     },
     "StepElementConfig": {
       "type": "object",
-      "required": ["identifier", "name", "type"],
+      "required": ["identifier", "name"],
       "properties": {
         "identifier": {
           "type": "string",
@@ -4877,7 +4896,7 @@
         },
         "versionLabel": {
           "type": "string",
-          "pattern": "^[a-zA-Z_][0-9a-zA-Z_$]{0,63}$"
+          "pattern": "^[0-9a-zA-Z][^\\s]{0,63}$"
         },
         "templateInputs": {
           "$ref": "#/definitions/JsonNode"
@@ -5281,45 +5300,6 @@
         },
         "data": {
           "$ref": "#/definitions/CIPipelineModuleInfo"
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
-        }
-      }
-    },
-    "PartialSchemaDTO": {
-      "type": "object",
-      "properties": {
-        "schema": {
-          "$ref": "#/definitions/JsonNode"
-        },
-        "nodeType": {
-          "type": "string"
-        },
-        "nodeName": {
-          "type": "string"
-        },
-        "namespace": {
-          "type": "string"
-        },
-        "moduleType": {
-          "type": "string",
-          "enum": ["CD", "CI", "CV", "CF", "CE", "CORE", "PMS", "TEMPLATESERVICE"]
-        }
-      }
-    },
-    "ResponsePartialSchemaDTO": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "$ref": "#/definitions/PartialSchemaDTO"
         },
         "metaData": {
           "type": "object"

@@ -285,7 +285,7 @@ export class ExecutionStepModel extends DiagramModel {
       const isTemplateStep = !!(node.step as TemplateStepData)?.template
       const stepType = isTemplateStep
         ? get(templateTypes, getIdentifierFromValue((node?.step as TemplateStepData)?.template.templateRef)) || ''
-        : node?.step?.type
+        : node?.step?.type || ''
       const nodeType = getExecutionPipelineNodeType(node?.step?.type) || ExecutionPipelineNodeType.NORMAL
       const hasErrors = errorMap && [...errorMap.keys()].some(key => parentPath && key.startsWith(parentPath))
 

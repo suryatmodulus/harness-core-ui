@@ -99,7 +99,7 @@ export class StageBuilderModel extends DiagramModel {
     } = this.diagConfig
     let { startX, prevNodes } = props
     if (node && node.stage) {
-      const type = stagesMap[node.stage.type]
+      const type = stagesMap[node.stage.type || '']
       const hasErrors = errorMap && [...errorMap.keys()].some(key => parentPath && key.startsWith(parentPath))
 
       startX += isFirstNode

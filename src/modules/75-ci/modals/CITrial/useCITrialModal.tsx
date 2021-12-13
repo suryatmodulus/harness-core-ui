@@ -9,17 +9,13 @@ import { Category, TrialActions, PageNames } from '@common/constants/TrackingCon
 import { TrialModalTemplate } from '@templates-library/components/TrialModalTemplate/TrialModalTemplate'
 import type {
   UseTrialModalProps,
-  PipelineProps
+  PipelineProps,
+  UseTrialModalReturns
 } from '@templates-library/components/TrialModalTemplate/trialModalUtils'
 import { useGetFormPropsByTrialType } from '@templates-library/components/TrialModalTemplate/trialModalUtils'
 import ciImage from '../images/illustration.png'
 
 import css from './useCITrialModal.module.scss'
-
-export interface UseCITrialModalReturn {
-  openCITrialModal: () => void
-  closeCITrialModal: () => void
-}
 
 const CITrial: React.FC<UseTrialModalProps> = ({ trialType, actionProps }) => {
   const { getString } = useStrings()
@@ -77,7 +73,7 @@ export const getCITrialDialog = ({ actionProps, trialType }: UseTrialModalProps)
   <CITrialDialog actionProps={actionProps} trialType={trialType} />
 )
 
-export const useCITrialModal = ({ actionProps, trialType }: UseTrialModalProps): UseCITrialModalReturn => {
+export const useCITrialModal = ({ actionProps, trialType }: UseTrialModalProps): UseTrialModalReturns => {
   const [showModal, hideModal] = useModalHook(() => {
     const onCloseModal = (): void => {
       const pipelineProps = actionProps as PipelineProps
@@ -89,7 +85,7 @@ export const useCITrialModal = ({ actionProps, trialType }: UseTrialModalProps):
   })
 
   return {
-    openCITrialModal: showModal,
-    closeCITrialModal: hideModal
+    openTrialModal: showModal,
+    closeTrialModal: hideModal
   }
 }

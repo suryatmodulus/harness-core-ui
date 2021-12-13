@@ -29,7 +29,7 @@ jest.mock('services/pipeline-ng', () => ({
 
 const onCloseModal = jest.fn()
 const TestComponent = ({ trialType = TrialType.SET_UP_PIPELINE }: { trialType?: TrialType }): React.ReactElement => {
-  const { openCDTrialModal, closeCDTrialModal } = useCDTrialModal({
+  const { openTrialModal, closeTrialModal } = useCDTrialModal({
     actionProps: {
       onSuccess: jest.fn(),
       onCloseModal,
@@ -39,8 +39,8 @@ const TestComponent = ({ trialType = TrialType.SET_UP_PIPELINE }: { trialType?: 
   })
   return (
     <>
-      <button className="open" onClick={openCDTrialModal} />
-      <button className="close" onClick={closeCDTrialModal} />
+      <button className="open" onClick={openTrialModal} />
+      <button className="close" onClick={closeTrialModal} />
     </>
   )
 }

@@ -8,16 +8,12 @@ import { TrialModalTemplate } from '@templates-library/components/TrialModalTemp
 import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import type {
   UseTrialModalProps,
-  PipelineProps
+  PipelineProps,
+  UseTrialModalReturns
 } from '@templates-library/components/TrialModalTemplate/trialModalUtils'
 import { useGetFormPropsByTrialType } from '@templates-library/components/TrialModalTemplate/trialModalUtils'
 import cdImage from '../images/illustration.png'
 import css from './useCDTrialModal.module.scss'
-
-export interface UseCDTrialModalReturn {
-  openCDTrialModal: () => void
-  closeCDTrialModal: () => void
-}
 
 interface CDTrialTemplateData {
   description: string
@@ -78,7 +74,7 @@ export const getCDTrialDialog = ({ actionProps, trialType }: UseTrialModalProps)
   <CDTrialDialog actionProps={actionProps} trialType={trialType} />
 )
 
-export const useCDTrialModal = ({ actionProps, trialType }: UseTrialModalProps): UseCDTrialModalReturn => {
+export const useCDTrialModal = ({ actionProps, trialType }: UseTrialModalProps): UseTrialModalReturns => {
   const pipelineProps = actionProps as PipelineProps
   const [showModal, hideModal] = useModalHook(() => {
     const onCloseModal = (): void => {
@@ -90,7 +86,7 @@ export const useCDTrialModal = ({ actionProps, trialType }: UseTrialModalProps):
   }, [])
 
   return {
-    openCDTrialModal: showModal,
-    closeCDTrialModal: hideModal
+    openTrialModal: showModal,
+    closeTrialModal: hideModal
   }
 }

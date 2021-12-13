@@ -33,11 +33,6 @@ const projects = [
   }
 ]
 
-jest.mock('@common/hooks/useMutateAsGet', () => ({
-  useMutateAsGet: jest.fn().mockImplementation(() => {
-    return { data: {}, refetch: jest.fn(), error: null }
-  })
-}))
 jest.mock('services/cd-ng')
 const useGetModuleLicenseInfoMock = useGetLicensesAndSummary as jest.MockedFunction<any>
 const useExtendTrialLicenseMock = useExtendTrialLicense as jest.MockedFunction<any>
@@ -58,6 +53,7 @@ useGetProjectListMock.mockImplementation(() => {
 })
 
 const currentUser = {
+  defaultAccountId: '123',
   accounts: [
     {
       uuid: '123',

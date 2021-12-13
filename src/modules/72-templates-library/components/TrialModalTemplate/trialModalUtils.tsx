@@ -38,6 +38,11 @@ export interface UseTrialModalProps {
   trialType: TrialType
 }
 
+export interface UseTrialModalReturns {
+  openTrialModal: () => void
+  closeTrialModal: () => void
+}
+
 export interface FormPropsReturn {
   child: React.ReactElement
   description: string

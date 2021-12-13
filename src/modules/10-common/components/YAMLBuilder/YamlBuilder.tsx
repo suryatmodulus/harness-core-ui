@@ -51,6 +51,7 @@ import {
 } from './YAMLBuilderConstants'
 import CopyToClipboard from '../CopyToClipBoard/CopyToClipBoard'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import schema from './__mocks__/schema.json'
 
 // Please do not remove this, read this https://eemeli.org/yaml/#scalar-options
 scalarOptions.str.fold.lineWidth = 100000
@@ -99,7 +100,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     snippets,
     onSnippetCopy,
     snippetFetchResponse,
-    schema,
+    // schema,
     onEnableEditMode,
     theme = 'LIGHT',
     yamlSanityConfig,

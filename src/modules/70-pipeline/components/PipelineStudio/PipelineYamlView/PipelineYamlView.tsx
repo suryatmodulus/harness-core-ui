@@ -124,7 +124,9 @@ const PipelineYamlView: React.FC = () => {
             showSnippetSection={false}
             onExpressionTrigger={() => {
               return Promise.resolve(
-                expressionRef.current.map(item => ({ label: item, insertText: `${item}>`, kind: 1 }))
+                expressionRef.current
+                  .filter(t => t.startsWith('pipeline.variables.'))
+                  .map(item => ({ label: item.replace('pipeline.variables.', ''), insertText: `${item}>`, kind: 1 }))
               )
             }}
             yamlSanityConfig={{ removeEmptyString: false, removeEmptyObject: false, removeEmptyArray: false }}

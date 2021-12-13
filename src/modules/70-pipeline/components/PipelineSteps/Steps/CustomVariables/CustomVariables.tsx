@@ -6,7 +6,7 @@ import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { FormikErrors } from 'formik'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
-import { listSecretsV2Promise, SecretResponseWrapper } from 'services/cd-ng'
+import { getConnectorListV2Promise, listSecretsV2Promise, SecretResponseWrapper } from 'services/cd-ng'
 import { StepViewType, ValidateInputSetProps, Step } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
@@ -39,6 +39,7 @@ const getConnectorName = (connector?: SecretResponseWrapper): string =>
   }` || ''
 
 const SecretRefRegex = /^.+variables\.\d+\.value$/
+const ConnectorRefRegex = /connectorRef$/
 export class CustomVariables extends Step<CustomVariablesData> {
   renderStep(
     props: StepProps<CustomVariablesData, CustomVariableEditableExtraProps | CustomVariableInputSetExtraProps>
@@ -153,9 +154,43 @@ export class CustomVariables extends Step<CustomVariablesData> {
     })
   }
 
+  async getConnectorListForYaml(
+    _path: string,
+    _yaml: string,
+    params: Record<string, unknown>
+  ): Promise<CompletionItemInterface[]> {
+    const { accountId, orgIdentifier, projectIdentifier } = params as {
+      accountId: string
+      orgIdentifier: string
+      projectIdentifier: string
+    }
+    const listOfCtrs = getConnectorListV2Promise({
+      queryParams: {
+        accountIdentifier: accountId,
+        orgIdentifier,
+        projectIdentifier,
+        includeAllConnectorsAvailableAtScope: true
+      },
+      body: { filterType: 'Connector', categories: ['CODE_REPO'] }
+    }).then(
+      response =>
+        response?.data?.content?.map(connector => {
+          return {
+            label: connector.connector?.name || '',
+            insertText: connector.connector?.identifier || '',
+            kind: CompletionItemKind.Field
+          }
+        }) || []
+    )
+    return new Promise(resolve => {
+      resolve(listOfCtrs)
+    })
+  }
+
   constructor() {
     super()
     this.invocationMap.set(SecretRefRegex, this.getSecretsListForYaml.bind(this))
+    this.invocationMap.set(ConnectorRefRegex, this.getConnectorListForYaml.bind(this))
   }
 
   protected type = StepType.CustomVariable

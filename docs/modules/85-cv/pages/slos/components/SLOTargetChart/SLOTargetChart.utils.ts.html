@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88% </span>
+                <span class="strong">96% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/25</span>
+                <span class='fraction'>24/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.25% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>13/16</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/7</span>
+                <span class='fraction'>6/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.47% </span>
+                <span class="strong">94.74% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/19</span>
+                <span class='fraction'>18/19</span>
             </div>
         
             
@@ -128,15 +128,15 @@
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,7 +151,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -171,29 +171,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -205,9 +205,9 @@ import type Highcharts from 'highcharts'
 import { Color, Utils } from '@wings-software/uicore'
 import type { Point } from 'services/cv'
 &nbsp;
-const MILLISECONDS_PER_HOUR = 1000 * 60 * 60
+const MILLISECONDS_PER_HOUR = 1000 * 60 * 60 * 4
 &nbsp;
-export const getDefaultChartOptions = <span class="fstat-no" title="function not covered" >(): Highcharts.Options =</span>&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+export const getDefaultChartOptions = (): Highcharts.Options =&gt; ({
   chart: { spacing: [20, 0, 20, 0] },
   xAxis: {
     tickInterval: MILLISECONDS_PER_HOUR,
@@ -221,8 +221,8 @@ export const getDefaultChartOptions = <span class="fstat-no" title="function not
   },
   yAxis: {
     labels: {
-      formatter: <span class="fstat-no" title="function not covered" >function () {</span>
-<span class="cstat-no" title="statement not covered" >        return `${this.value}%`</span>
+      formatter: function () {
+        return `${this.value}%`
       }
     }
   },
@@ -252,8 +252,8 @@ export const getDataPointsWithMinMaxXLimit = (
   const divider = 10
   const dataPoints = data.map(point =&gt; [Number(point.timestamp) || 0, Number(point.value) || 0])
 &nbsp;
-  const minPoint = minBy(dataPoints, point =&gt; point[1]) ?? <span class="branch-1 cbranch-no" title="branch not covered" >[0, 0]</span>
-  const maxPoint = maxBy(dataPoints, point =&gt; point[1]) ?? <span class="branch-1 cbranch-no" title="branch not covered" >[0, 0]</span>
+  const minPoint = minBy(dataPoints, point =&gt; point[1]) ?? [0, 0]
+  const maxPoint = maxBy(dataPoints, point =&gt; point[1]) ?? [0, 0]
 &nbsp;
   const minValue = Math.floor(minPoint[1])
   const maxValue = Math.ceil(maxPoint[1])
@@ -266,7 +266,7 @@ export const getDataPointsWithMinMaxXLimit = (
 &nbsp;
   return {
     dataPoints,
-    minXLimit: minXLimit === maxXLimit ? <span class="branch-0 cbranch-no" title="branch not covered" >minXLimit - divider </span>: minXLimit,
+    minXLimit: minXLimit === maxXLimit ? minXLimit - divider : minXLimit,
     maxXLimit
   }
 }
@@ -277,7 +277,7 @@ export const getDataPointsWithMinMaxXLimit = (
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 13 2021 17:51:38 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 13 2021 22:15:18 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

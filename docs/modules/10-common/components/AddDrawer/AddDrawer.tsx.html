@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.38% </span>
+                <span class="strong">58.89% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>101/173</span>
+                <span class='fraction'>106/180</span>
             </div>
         
             
@@ -440,7 +440,25 @@
 <a name='L381'></a><a href='#L381'>381</a>
 <a name='L382'></a><a href='#L382'>382</a>
 <a name='L383'></a><a href='#L383'>383</a>
-<a name='L384'></a><a href='#L384'>384</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">376x</span>
+<a name='L384'></a><a href='#L384'>384</a>
+<a name='L385'></a><a href='#L385'>385</a>
+<a name='L386'></a><a href='#L386'>386</a>
+<a name='L387'></a><a href='#L387'>387</a>
+<a name='L388'></a><a href='#L388'>388</a>
+<a name='L389'></a><a href='#L389'>389</a>
+<a name='L390'></a><a href='#L390'>390</a>
+<a name='L391'></a><a href='#L391'>391</a>
+<a name='L392'></a><a href='#L392'>392</a>
+<a name='L393'></a><a href='#L393'>393</a>
+<a name='L394'></a><a href='#L394'>394</a>
+<a name='L395'></a><a href='#L395'>395</a>
+<a name='L396'></a><a href='#L396'>396</a>
+<a name='L397'></a><a href='#L397'>397</a>
+<a name='L398'></a><a href='#L398'>398</a>
+<a name='L399'></a><a href='#L399'>399</a>
+<a name='L400'></a><a href='#L400'>400</a>
+<a name='L401'></a><a href='#L401'>401</a>
+<a name='L402'></a><a href='#L402'>402</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">376x</span>
 <span class="cline-any cline-yes">376x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -551,12 +569,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">376x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -669,6 +690,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -837,7 +873,7 @@ import {
   Card
 } from '@wings-software/uicore'
 import { cloneDeep, noop, uniqBy } from 'lodash-es'
-import { Drawer, IDrawerProps, Position } from '@blueprintjs/core'
+import { Drawer, IDrawerProps, Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import cx from 'classnames'
 import { FeatureWarningWithTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 import { useStrings } from 'framework/strings'
@@ -917,6 +953,8 @@ export interface CategoryInterface {
   items?: ItemInterface[]
   categories?: CategoryInterface[]
   iconName?: IconName
+  // enforcement framework: show restriction limit warning.
+  warningTooltipRenderer?: (item: ItemInterface) =&gt; React.ReactNode
 }
 &nbsp;
 export interface AddDrawerMapInterface {
@@ -940,6 +978,7 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
   const [originalData, setOriginalCategories] = useState&lt;CategoryInterface[]&gt;([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
   const { getString } = useStrings()
+&nbsp;
   useEffect(() =&gt; {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (addDrawerMap.categories) {
       const stepsCategories = addDrawerMap.categories
@@ -1050,17 +1089,32 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
                         className={css.step}
                         key={item.itemLabel}
                         onClick={
-                          featureEnabledTemp
+                          !item.disabled &amp;&amp; featureEnabledTemp
                             ? () =&gt; onSelect({ ...Object.assign(item, { categoryValue: category.categoryValue }) })
                             : <span class="branch-1 cbranch-no" title="branch not covered" >noop</span>
                         }
                       &gt;
-                        &lt;Card interactive={false} elevation={0} selected={false} disabled={!featureEnabledTemp}&gt;
+                        &lt;Card
+                          interactive={false}
+                          elevation={0}
+                          selected={false}
+                          disabled={item.disabled || !featureEnabledTemp}
+                        &gt;
                           &lt;Icon size={defaultDrawerValues[drawerContext]<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>conSize} name={item.iconName} /&gt;
                         &lt;/Card&gt;
                         &lt;section className={cx(css.stepName, !featureEnabledTemp ? <span class="branch-0 cbranch-no" title="branch not covered" >css.disabledHover </span>: undefined)}&gt;
                           {item.itemLabel}
                         &lt;/section&gt;
+                        {item.disabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >typeof category.warningTooltipRenderer === 'function' </span>&amp;&amp; (
+<span class="branch-2 cbranch-no" title="branch not covered" >                          &lt;Popover</span>
+                            className={css.limitWarning}
+                            position={Position.BOTTOM}
+                            interactionKind={PopoverInteractionKind.HOVER}
+                            content={&lt;div&gt;{category.warningTooltipRenderer(item)}&lt;/div&gt;}
+                          &gt;
+                            &lt;Icon size={20} color={Color.ORANGE_700} name={'execution-warning'} /&gt;
+                          &lt;/Popover&gt;
+                        )}
                       &lt;/section&gt;
                     )
                   })
@@ -1213,7 +1267,7 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 13 2021 07:08:03 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 13 2021 09:13:15 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

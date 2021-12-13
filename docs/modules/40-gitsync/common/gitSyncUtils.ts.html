@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.56% </span>
+                <span class="strong">82.35% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>71/86</span>
+                <span class='fraction'>70/85</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.77% </span>
+                <span class="strong">80.52% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>63/78</span>
+                <span class='fraction'>62/77</span>
             </div>
         
             
@@ -269,9 +269,7 @@
 <a name='L210'></a><a href='#L210'>210</a>
 <a name='L211'></a><a href='#L211'>211</a>
 <a name='L212'></a><a href='#L212'>212</a>
-<a name='L213'></a><a href='#L213'>213</a>
-<a name='L214'></a><a href='#L214'>214</a>
-<a name='L215'></a><a href='#L215'>215</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L213'></a><a href='#L213'>213</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -434,15 +432,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -469,6 +458,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -493,7 +489,7 @@ import type { GitSyncConfig, ConnectorInfoDTO, GitSyncEntityDTO } from 'services
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getPipelineListPromise } from 'services/pipeline-ng'
 import { GitSuffixRegex, HarnessFolderNameSanityRegex } from '@common/utils/StringUtils'
-import { useGetAllFeatures } from 'services/cf'
+import { getAllFeaturesPromise } from 'services/cf'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 &nbsp;
@@ -646,15 +642,6 @@ export const getEntityUrl = (entity: GitSyncEntityDTO): string =&gt; {
 export const useCanEnableGitExperience = (queryParam: ProjectPathProps &amp; ModulePathParams): boolean =&gt; {
   const FF_GITSYNC = useFeatureFlag(FeatureFlag.FF_GITSYNC)
 &nbsp;
-  const { refetch: refetchGetFeatureFlags, data: featureFlagsResponse } = useGetAllFeatures({
-    queryParams: {
-      accountIdentifier: queryParam.accountId,
-      org: queryParam.orgIdentifier,
-      project: queryParam.projectIdentifier
-    },
-    lazy: true
-  })
-&nbsp;
   const [canEnableGit, setCanEnableGit] = useState&lt;boolean&gt;(false)
 &nbsp;
   useEffect(() =&gt; {
@@ -668,21 +655,28 @@ export const useCanEnableGitExperience = (queryParam: ProjectPathProps &amp; Mod
 &nbsp;
     const checkEnableGitConditions = async (): Promise&lt;void&gt; =&gt; {
       try {
-        const response = await getPipelineListPromise({
+        const pipelinesResponse = await getPipelineListPromise({
           queryParams: defaultQueryParamsForPipelines,
           body: { filterType: 'PipelineSetup' }
         })
 &nbsp;
         const hasPipelines = !!(
-          response<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus === 'SUCCESS' &amp;&amp;
-          response<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalElements &amp;&amp;
-          response<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalElements &gt; 0
+          pipelinesResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus === 'SUCCESS' &amp;&amp;
+          pipelinesResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalElements &amp;&amp;
+          pipelinesResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalElements &gt; 0
         )
 &nbsp;
         let hasFeatureFlags = false
 &nbsp;
         <span class="missing-if-branch" title="if path not taken" >I</span>if (FF_GITSYNC) {
-<span class="cstat-no" title="statement not covered" >          refetchGetFeatureFlags()</span>
+          const featureFlagsResponse = <span class="cstat-no" title="statement not covered" >await getAllFeaturesPromise({</span>
+            queryParams: {
+              accountIdentifier: queryParam.accountId,
+              org: queryParam.orgIdentifier,
+              project: queryParam.projectIdentifier
+            }
+          })
+&nbsp;
 <span class="cstat-no" title="statement not covered" >          hasFeatureFlags = !!(featureFlagsResponse &amp;&amp; featureFlagsResponse.itemCount &gt; 0)</span>
         }
 &nbsp;
@@ -695,7 +689,7 @@ export const useCanEnableGitExperience = (queryParam: ProjectPathProps &amp; Mod
     }
 &nbsp;
     checkEnableGitConditions()
-  }, [featureFlagsResponse])
+  }, [])
 &nbsp;
   return canEnableGit
 }
@@ -706,7 +700,7 @@ export const useCanEnableGitExperience = (queryParam: ProjectPathProps &amp; Mod
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 13 2021 14:47:58 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 13 2021 15:38:52 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

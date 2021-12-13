@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.86% </span>
+                <span class="strong">53.57% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>22/35</span>
+                <span class='fraction'>15/28</span>
             </div>
         
             
@@ -259,7 +259,9 @@
 <a name='L200'></a><a href='#L200'>200</a>
 <a name='L201'></a><a href='#L201'>201</a>
 <a name='L202'></a><a href='#L202'>202</a>
-<a name='L203'></a><a href='#L203'>203</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -351,7 +353,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -547,18 +551,20 @@ const CVCreateSLO: React.FC = () =&gt; {
     }
   }
 &nbsp;
-  const NavButtons: React.FC&lt;NavButtonsProps&gt; = ({ formikProps }) =&gt; (
+  const NavButtons: React.FC&lt;NavButtonsProps&gt; = ({ formikProps, loading }) =&gt; (
     &lt;Layout.Horizontal spacing="small" padding={{ top: 'xxlarge' }}&gt;
       &lt;Button
         icon="chevron-left"
         text={getString('back')}
         variation={ButtonVariation.SECONDARY}
+        disabled={loading}
         onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setSelectedTabId(TabsOrder[Math.max(0, TabsOrder.indexOf(selectedTabId) - 1)])}</span>
       /&gt;
       &lt;Button
         rightIcon="chevron-right"
         text={selectedTabId === CreateSLOTabs.SLO_TARGET_BUDGET_POLICY ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('save') </span>: getString('continue')}
         variation={ButtonVariation.PRIMARY}
+        loading={loading}
         onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >          if (selectedTabId === CreateSLOTabs.SLO_TARGET_BUDGET_POLICY) {</span>
 <span class="cstat-no" title="statement not covered" >            formikProps.submitForm()</span>
@@ -610,7 +616,7 @@ const CVCreateSLO: React.FC = () =&gt; {
                   title: getString('name'),
                   panel: (
                     &lt;Page.Body
-                      loading={SLODataLoading || createSLOLoading || updateSLOLoading}
+                      loading={SLODataLoading}
                       error={getErrorMessage(SLODataError)}
                       retryOnError={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetchSLOData()}</span>
                       className={css.pageBody}
@@ -626,7 +632,7 @@ const CVCreateSLO: React.FC = () =&gt; {
                   title: getString('cv.slos.sli'),
                   panel: (
                     &lt;Page.Body
-                      loading={SLODataLoading || createSLOLoading || updateSLOLoading}
+                      loading={SLODataLoading}
                       error={getErrorMessage(SLODataError)}
                       retryOnError={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetchSLOData()}</span>
                       className={css.pageBody}
@@ -642,13 +648,13 @@ const CVCreateSLO: React.FC = () =&gt; {
                   title: getString('cv.slos.sloTargetAndBudgetPolicy'),
                   panel: (
                     &lt;Page.Body
-                      loading={SLODataLoading || createSLOLoading || updateSLOLoading}
+                      loading={SLODataLoading}
                       error={getErrorMessage(SLODataError)}
                       retryOnError={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetchSLOData()}</span>
                       className={css.pageBody}
                     &gt;
                       &lt;SLOTargetAndBudgetPolicy formikProps={formik}&gt;
-                        &lt;NavButtons formikProps={formik} /&gt;
+                        &lt;NavButtons formikProps={formik} loading={createSLOLoading || updateSLOLoading} /&gt;
                       &lt;/SLOTargetAndBudgetPolicy&gt;
                     &lt;/Page.Body&gt;
                   )
@@ -670,7 +676,7 @@ export default CVCreateSLO
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 13 2021 09:13:15 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 13 2021 13:27:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

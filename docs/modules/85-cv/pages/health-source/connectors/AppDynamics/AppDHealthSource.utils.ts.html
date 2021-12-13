@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.6% </span>
+                <span class="strong">96.58% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>142/147</span>
+                <span class='fraction'>141/146</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.24% </span>
+                <span class="strong">96.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>128/133</span>
+                <span class='fraction'>127/132</span>
             </div>
         
             
@@ -504,8 +504,8 @@
 <a name='L445'></a><a href='#L445'>445</a>
 <a name='L446'></a><a href='#L446'>446</a>
 <a name='L447'></a><a href='#L447'>447</a>
-<a name='L448'></a><a href='#L448'>448</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
+<a name='L448'></a><a href='#L448'>448</a>
+<a name='L449'></a><a href='#L449'>449</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -590,6 +590,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -802,6 +803,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
@@ -952,7 +954,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { cloneDeep, isEmpty } from 'lodash-es'
-import { v4 as uuid } from 'uuid'
 import type { FormikProps } from 'formik'
 import type { StringKeys } from 'framework/strings'
 import type { AppDMetricDefinitions, AppDynamicsHealthSourceSpec, MetricPackDTO, RiskProfile } from 'services/cv'
@@ -1040,6 +1041,7 @@ export const createAppDynamicsData = (sourceData: any): AppDynamicsData =&gt; {
         metricPath: metricPathObj,
         basePath: basePathObj,
         metricName: metricDefinition.metricName,
+        metricIdentifier: metricDefinition.identifier,
         riskCategory:
           metricDefinition<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>nalysis<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>iskProfile<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ategory &amp;&amp; metricDefinition<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>nalysis<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>iskProfile<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etricType
             ? `${metricDefinition<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>nalysis<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>iskProfile<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ategory}/${metricDefinition<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>nalysis<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>iskProfile<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etricType}`
@@ -1248,6 +1250,7 @@ export const createAppDynamicsPayload = (formData: any): UpdatedHealthSource | n
         healthScore,
         basePath,
         metricPath,
+        metricIdentifier,
         serviceInstanceMetricPath
       } = entry[1]
 &nbsp;
@@ -1264,7 +1267,7 @@ export const createAppDynamicsPayload = (formData: any): UpdatedHealthSource | n
       const ifOnlySliIsSelected = Boolean(sli) &amp;&amp; !(Boolean(healthScore) || Boolean(continuousVerification))
 &nbsp;
       specPayload<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etricDefinitions<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ush({
-        identifier: uuid(),
+        identifier: metricIdentifier,
         metricName,
         baseFolder: basePath[Object.keys(basePath)[Object.keys(basePath).length - 1]]<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath,
         metricPath: metricPath[Object.keys(metricPath)[Object.keys(metricPath).length - 1]]<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath,
@@ -1405,7 +1408,7 @@ export const setAppDynamicsTier = (tierLoading: boolean, appDTier: string, tierO
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 13 2021 09:13:15 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 13 2021 13:27:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

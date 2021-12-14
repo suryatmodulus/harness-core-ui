@@ -419,7 +419,6 @@ recommendation:
       minCost: Monthly cost greater than
       clusterName: Cluster Name
       name: '{{ $.name }}'
-      resourceType: Resource Type
       namespace: '{{ $.common.namespace }}'
       enterCost: Enter Cost
     listTableHeaders:

@@ -1,0 +1,8 @@
+.body {
+  background-color: var(--grey-100) !important;
+  padding: var(--spacing-xlarge) var(--spacing-huge) var(--spacing-xlarge) var(--spacing-xlarge) !important;
+  .card {
+    display: flex;
+    margin-bottom: var(--spacing-medium);
+  }
+}

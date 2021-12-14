@@ -11,11 +11,7 @@ AuditTrailFactory.registerHandler('CORE', { icon: { iconName: 'settings', size: 
 
 export default (
   <>
-    <RouteWithLayout
-      sidebarProps={AccountSideNavProps}
-      path={routes.toAccountAuditTrail({ ...accountPathProps })}
-      exact
-    >
+    <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toAuditTrail({ ...accountPathProps })} exact>
       <AuditTrailsPage />
     </RouteWithLayout>
   </>

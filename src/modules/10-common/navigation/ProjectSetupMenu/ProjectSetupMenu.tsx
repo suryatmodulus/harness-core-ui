@@ -27,6 +27,7 @@ const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
         <SidebarLink label={getString('common.secrets')} to={routes.toSecrets(params)} />
         <SidebarLink to={routes.toAccessControl(params)} label={getString('accessControl')} />
         <SidebarLink label={getString('delegate.delegates')} to={routes.toDelegates(params)} />
+        <SidebarLink label={getString('common.auditTrail')} to={routes.toAuditTrail(params)} />
         {getGitSyncEnabled ? (
           <SidebarLink
             label={getString('gitManagement')}

@@ -1,6 +1,5 @@
 import React from 'react'
 import { useParams, Redirect } from 'react-router-dom'
-
 import AuditTrailsPage from '@audit-trail/pages/AuditTrails/AuditTrailsPage'
 import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
 import { RouteWithLayout } from '@common/router'
@@ -477,6 +476,13 @@ export default (
       exact
     >
       <OrganizationDetailsPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={[routes.toAuditTrail({ ...projectPathProps })]}
+      exact
+    >
+      <AuditTrailsPage />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}

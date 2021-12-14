@@ -15,7 +15,7 @@ interface AuditTrailModuleHandlerProps {
 }
 
 class AuditTrailFactory {
-  private map: Map<Module, AuditTrailModuleHandlerProps>
+  private readonly map: Map<Module, AuditTrailModuleHandlerProps>
 
   constructor() {
     this.map = new Map()

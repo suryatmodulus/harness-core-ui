@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">86.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/15</span>
+                <span class='fraction'>13/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30% </span>
+                <span class="strong">70% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/10</span>
+                <span class='fraction'>7/10</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/14</span>
+                <span class='fraction'>12/14</span>
             </div>
         
             
@@ -161,10 +161,10 @@
 <a name='L102'></a><a href='#L102'>102</a>
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L105'></a><a href='#L105'>105</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -182,15 +182,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,8 +202,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -230,7 +230,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -306,8 +306,8 @@ export const GitSyncErrorMessageItem: React.FC&lt;GitSyncErrorMessageProps['item
         &lt;/Text&gt;
       )
     }
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (fixCommit) {
-<span class="cstat-no" title="statement not covered" >      return (</span>
+    if (fixCommit) {
+      return (
         &lt;Layout.Horizontal
           className={styles.errorItemErrorFixed}
           background={Color.GREY_100}
@@ -326,7 +326,7 @@ export const GitSyncErrorMessageItem: React.FC&lt;GitSyncErrorMessageProps['item
               color={Color.PRIMARY_7}
               data-testid="gitSyncErrorMessageItemFixCommit"
             &gt;
-              {fixCommit?.slice(0, 7)}
+              {fixCommit<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>lice(0, 7)}
             &lt;/Text&gt;
           &lt;/Layout.Horizontal&gt;
         &lt;/Layout.Horizontal&gt;
@@ -340,7 +340,7 @@ export const GitSyncErrorMessageItem: React.FC&lt;GitSyncErrorMessageProps['item
       flex={{ justifyContent: 'space-between' }}
       data-testid="gitSyncErrorMessageItem"
     &gt;
-      &lt;Layout.Vertical width="100%"&gt;
+      &lt;Layout.Vertical&gt;
         {title ? (
           &lt;Text
             font={{ size: 'small', weight: 'semi-bold' }}
@@ -376,7 +376,7 @@ export const GitSyncErrorMessageItem: React.FC&lt;GitSyncErrorMessageProps['item
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 14 2021 07:33:13 GMT+0000 (Greenwich Mean Time)
+                at Tue Dec 14 2021 08:22:52 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

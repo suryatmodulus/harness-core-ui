@@ -15,7 +15,7 @@ interface ProjectSetupMenuProps {
 const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<PipelineType<ProjectPathProps>>()
-  const { NG_TEMPLATES, OPA_PIPELINE_GOVERNANCE } = useFeatureFlags()
+  const { NG_TEMPLATES, OPA_PIPELINE_GOVERNANCE, AUDIT_TRAIL_WEB_INTERFACE } = useFeatureFlags()
   const params = { accountId, orgIdentifier, projectIdentifier, module }
   const isCIorCD = module === 'ci' || module === 'cd'
   const getGitSyncEnabled = isCIorCD || !module
@@ -27,7 +27,9 @@ const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
         <SidebarLink label={getString('common.secrets')} to={routes.toSecrets(params)} />
         <SidebarLink to={routes.toAccessControl(params)} label={getString('accessControl')} />
         <SidebarLink label={getString('delegate.delegates')} to={routes.toDelegates(params)} />
-        <SidebarLink label={getString('common.auditTrail')} to={routes.toAuditTrail(params)} />
+        {AUDIT_TRAIL_WEB_INTERFACE && (
+          <SidebarLink label={getString('common.auditTrail')} to={routes.toAuditTrail(params)} />
+        )}
         {getGitSyncEnabled ? (
           <SidebarLink
             label={getString('gitManagement')}

@@ -29412,10 +29412,11 @@ export type UseGetServiceNowIssueCreateMetadataProps = Omit<
  * Get ServiceNow issue create metadata
  */
 export const useGetServiceNowIssueCreateMetadata = (props: UseGetServiceNowIssueCreateMetadataProps) =>
-  useGet<ResponseListServiceNowFieldNG,ResponseListServiceN Failure | Error, GetServiceNowIssueCreateMetadataQueryParams, void>(
+  useGet<ResponseListServiceNowFieldNG,Failure | Error, GetServiceNowIssueCreateMetadataQueryParams, void>(
     `/servicenow/createMetadata`,
     { base: getConfig('ng/api'), ...props }
   )
+
 
 /**
  * Get ServiceNow issue create metadata

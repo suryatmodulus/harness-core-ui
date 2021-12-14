@@ -1,6 +1,7 @@
 import type {
   ResponseListServiceNowTicketTypeDTO,
-  StepElementConfig, UseGetServiceNowIssueCreateMetadataProps,
+  StepElementConfig,
+  UseGetServiceNowIssueCreateMetadataProps,
   UseGetServiceNowTicketTypesProps
 } from '../../../../../../services/cd-ng'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -11,22 +12,22 @@ import { getDefaultCriterias } from '@pipeline/components/PipelineSteps/Steps/Ji
 import type { ApprovalRejectionCriteria } from '@pipeline/components/PipelineSteps/Steps/Common/types'
 import type { Failure } from '../../../../../../services/cd-ng'
 import type { GetDataError } from 'restful-react'
-import {
-  ResponseJiraIssueCreateMetadataNG,
-  ResponseListServiceNowFieldNG,
-  UseGetJiraIssueCreateMetadataProps
-} from '../../../../../../services/cd-ng'
+import type { ResponseListServiceNowFieldNG } from '../../../../../../services/cd-ng'
 
 export interface ServiceNowApprovalData extends StepElementConfig {
   spec: {
     connectorRef: string | SelectOption
     ticketType: string | ServiceNowTicketTypeSelectOption
     issueNumber: string
+    ticketField: string | ServiceNowTicketFieldSelectOption
     approvalCriteria: ApprovalRejectionCriteria
     rejectionCriteria: ApprovalRejectionCriteria
   }
 }
 export interface ServiceNowTicketTypeSelectOption extends SelectOption {
+  key: string
+}
+export interface ServiceNowTicketFieldSelectOption extends SelectOption {
   key: string
 }
 
@@ -58,11 +59,13 @@ export const resetForm = (formik: FormikProps<ServiceNowApprovalData>, parent: s
   if (parent === 'connectorRef') {
     formik.setFieldValue('spec.ticketType', '')
     formik.setFieldValue('spec.issueNumber', '')
+    formik.setFieldValue('spec.ticketField', '')
     formik.setFieldValue('spec.approvalCriteria', getDefaultCriterias())
     formik.setFieldValue('spec.rejectionCriteria', getDefaultCriterias())
   }
   if (parent === 'ticketType') {
     formik.setFieldValue('spec.issueNumber', '')
+    formik.setFieldValue('spec.ticketField', '')
     formik.setFieldValue('spec.approvalCriteria', getDefaultCriterias())
     formik.setFieldValue('spec.rejectionCriteria', getDefaultCriterias())
   }

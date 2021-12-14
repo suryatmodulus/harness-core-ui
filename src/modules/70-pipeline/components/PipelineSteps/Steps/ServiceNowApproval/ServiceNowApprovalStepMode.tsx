@@ -3,7 +3,9 @@ import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/compo
 import type {
   ServiceNowApprovalData,
   ServiceNowApprovalStepModeProps,
-  ServiceNowFormContentInterface, ServiceNowTicketTypeSelectOption
+  ServiceNowFormContentInterface,
+  ServiceNowTicketFieldSelectOption,
+  ServiceNowTicketTypeSelectOption
 } from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/types'
 import { resetForm } from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/types'
 import { useStrings } from '../../../../../../framework/strings'
@@ -15,7 +17,7 @@ import type {
   PipelinePathProps,
   PipelineType
 } from '@common/interfaces/RouteInterfaces'
-import type { ServiceNowFieldNG, ServiceNowStatusNG, ServiceNowTicketTypeNG } from '../../../../../../services/cd-ng'
+import type { ServiceNowFieldNG, ServiceNowStatusNG, ServiceNowTicketTypeDTO } from '../../../../../../services/cd-ng'
 import {
   Accordion,
   Formik,
@@ -43,7 +45,9 @@ import { useParams } from 'react-router-dom'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { ApprovalRejectionCriteriaType } from '@pipeline/components/PipelineSteps/Steps/Common/types'
 import {
-  Failure, ResponseListServiceNowFieldNG, useGetServiceNowIssueCreateMetadata,
+  Failure,
+  ResponseListServiceNowFieldNG,
+  useGetServiceNowIssueCreateMetadata,
   UseGetServiceNowIssueCreateMetadataProps,
   useGetServiceNowTicketTypes
 } from '../../../../../../services/cd-ng'
@@ -52,6 +56,7 @@ import {
   getGenuineValue
 } from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/helper'
 import { GetDataError } from 'restful-react'
+import { JiraProjectSelectOption } from '@pipeline/components/PipelineSteps/Steps/JiraApproval/types'
 
 const FormContent = ({
   formik,
@@ -76,10 +81,9 @@ const FormContent = ({
 
   const [statusList, setStatusList] = useState<ServiceNowStatusNG[]>([])
 
-  const [fieldList, setFieldList] = useState<ServiceNowFieldNG[]>([])
-  // @ts-ignore
-  const [serviceNowTicketTypes, setServiceNowTicketTypes] = useState<ServiceNowTicketTypeNG>()
-  const [serviceNowMetadata, setServiceNowMetadata] = useState<ServiceNowFieldNG>()
+  const [ticketFieldList, setTicketFieldList] = useState<ServiceNowFieldNG[]>([])
+
+  const [serviceNowTicketTypesOptions, setServiceNowTicketTypesOptions] = useState<ServiceNowTicketTypeSelectOption[]>()
 
   const [connectorValueType, setConnectorValueType] = useState<MultiTypeInputType>(MultiTypeInputType.FIXED)
 
@@ -92,11 +96,14 @@ const FormContent = ({
   }
 
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
-  const ticketTypeFixedValue =
+  const ticketTypeKeyFixedValue =
     typeof formik.values.spec.ticketType === 'object'
       ? (formik.values.spec.ticketType as ServiceNowTicketTypeSelectOption).key
       : undefined
-
+  const ticketFieldKeyFixedValue =
+    typeof formik.values.spec.ticketField === 'object'
+      ? (formik.values.spec.ticketField as ServiceNowTicketFieldSelectOption).key
+      : undefined
 
   useEffect(() => {
     // If connector value changes in form, fetch TicketTypes
@@ -111,21 +118,21 @@ const FormContent = ({
   }, [connectorRefFixedValue])
 
   useEffect(() => {
-    // If ticket type type changes in form, set status and field list
-    if (ticketTypeFixedValue && connectorRefFixedValue) {
-      const ticketTypeData = serviceNowTicketTypes?.fields[ticketTypeFixedValue]
-      const statusListFromType = ticketTypeData?. || []
-      setStatusList(statusListFromType)
-      const fieldListToSet: ServiceNowFieldNG[] = []
-      const fieldKeys = Object.keys(ticketTypeData?. || {})
-      fieldKeys.forEach(key => {
-        if (ticketTypeData?.fields[key]) {
-          fieldListToSet.push(ticketTypeData?.fields[key])
-        }
-      })
-      setFieldList(fieldListToSet)
+    // If ticket type  changes in form, fetch  field list
+    if (ticketTypeKeyFixedValue && connectorRefFixedValue) {
+      refetchServiceNowMetadata(
+        {
+          queryParams: {
+            ...commonParams,
+            connectorRef: connectorRefFixedValue.toString(),
+            ticketType: ticketTypeKeyFixedValue.toString()
+          }
+        },
+        [ticketFieldKeyFixedValue, ??]
+      )
       const approvalCriteria = getApprovalRejectionCriteriaForInitialValues(
         formik.values.spec.approvalCriteria,
+        //@TODO status list yet to be provided
         statusListFromType,
         fieldListToSet
       )
@@ -137,7 +144,26 @@ const FormContent = ({
       )
       formik.setFieldValue('spec.rejectionCriteria', rejectionCriteria)
     }
-  }, [ticketTypeFixedValue, serviceNowTicketTypes])
+  }, [ticketTypeFixedValue, serviceNowTicketTypesOptions])
+
+  useEffect(() => {
+    // Set ticket types and statuses
+    let options: ServiceNowTicketTypeSelectOption[] = []
+    let statusOptions: ServiceNowStatusNG[] = []
+    const ticketTypesResponseList: ServiceNowTicketTypeDTO[] = serviceNowTicketTypesResponse?.data || []
+    options =
+      ticketTypesResponseList.map((ticketType: ServiceNowTicketTypeDTO) => ({
+        label: ticketType.name || '',
+        value: ticketType.key || '',
+        key: ticketType.key || ''
+      })) || []
+    statusOptions =
+      ticketTypesResponseList.map((ticketType: ServiceNowTicketTypeDTO) => ({
+        statusOptions = ticketType. //@TODO map statuses
+
+      })) || []
+    setServiceNowTicketTypesOptions(options)
+  }, [serviceNowTicketTypesResponse?.data])
 
   return (
     <React.Fragment>
@@ -228,9 +254,9 @@ const FormContent = ({
             dataTooltipId: 'serviceNowApprovalTicketType'
           }}
           selectItems={
-            // fetchingServiceNowTicketTypes
-            //   ? [{ label: getString('pipeline.serviceNowApprovalStep.fetchingTicketTypesPlaceholder'), value: '' }]
-            //   : setServiceNowTicketTypes(serviceNowTicketTypes?.fields)
+            fetchingServiceNowTicketTypes
+              ? [{ label: getString('pipeline.serviceNowApprovalStep.fetchingTicketTypesPlaceholder'), value: '' }]
+              : serviceNowTicketTypesOptions
           }
           label={getString('pipeline.serviceNowApprovalStep.ticketType')}
           name="spec.ticketType"
@@ -243,21 +269,23 @@ const FormContent = ({
               : getString('select')
           }
           disabled={isApprovalStepFieldDisabled(readonly, fetchingServiceNowTicketTypes)}
-          multiTypeInputProps={{
-            // selectProps: {
-            //   addClearBtn: true,
-            //   items: fetchingServiceNowTicketTypes
-            //     ? [{ label: getString('pipeline.serviceNowApprovalStep.fetchingTicketTypesPlaceholder'), value: '' }]
-            //     : setServiceNowTicketTypes(serviceNowTicketTypes?.fields)
-            // },
-            // allowableTypes: [MultiTypeInputType.FIXED],
-            // onChange: (value: unknown) => {
-            //   // Clear dependent fields
-            //   if ((value as ServiceNowTicketTypeSelectOption)?.key !== ticketTypeFixedValue) {
-            //     resetForm(formik, 'issueType')
-            //   }
-            // }
-          }}
+          multiTypeInputProps={
+            {
+              // selectProps: {
+              //   addClearBtn: true,
+              //   items: fetchingServiceNowTicketTypes
+              //     ? [{ label: getString('pipeline.serviceNowApprovalStep.fetchingTicketTypesPlaceholder'), value: '' }]
+              //     : setServiceNowTicketTypes(serviceNowTicketTypes?.fields)
+              // },
+              // allowableTypes: [MultiTypeInputType.FIXED],
+              // onChange: (value: unknown) => {
+              //   // Clear dependent fields
+              //   if ((value as ServiceNowTicketTypeSelectOption)?.key !== ticketTypeFixedValue) {
+              //     resetForm(formik, 'issueType')
+              //   }
+              // }
+            }
+          }
         />
       </div>
 
@@ -291,7 +319,7 @@ const FormContent = ({
 
       <ApprovalRejectionCriteria
         statusList={statusList}
-        fieldList={fieldList}
+        fieldList={ticketFieldList}
         title={getString('pipeline.approvalCriteria.approvalCriteria')}
         isFetchingFields={false}
         mode="approvalCriteria"
@@ -311,7 +339,7 @@ const FormContent = ({
           details={
             <ApprovalRejectionCriteria
               statusList={statusList}
-              fieldList={fieldList}
+              fieldList={ticketFieldList}
               title={getString('pipeline.approvalCriteria.rejectionCriteria')}
               isFetchingFields={false}
               mode="rejectionCriteria"

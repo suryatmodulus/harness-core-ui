@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.41% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>87/133</span>
+                <span class='fraction'>94/141</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.09% </span>
+                <span class="strong">42.99% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>83/202</span>
+                <span class='fraction'>92/214</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.67% </span>
+                <span class="strong">43.24% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>15/36</span>
+                <span class='fraction'>16/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.38% </span>
+                <span class="strong">66.91% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>85/130</span>
+                <span class='fraction'>93/139</span>
             </div>
         
             
@@ -712,7 +712,20 @@
 <a name='L653'></a><a href='#L653'>653</a>
 <a name='L654'></a><a href='#L654'>654</a>
 <a name='L655'></a><a href='#L655'>655</a>
-<a name='L656'></a><a href='#L656'>656</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L656'></a><a href='#L656'>656</a>
+<a name='L657'></a><a href='#L657'>657</a>
+<a name='L658'></a><a href='#L658'>658</a>
+<a name='L659'></a><a href='#L659'>659</a>
+<a name='L660'></a><a href='#L660'>660</a>
+<a name='L661'></a><a href='#L661'>661</a>
+<a name='L662'></a><a href='#L662'>662</a>
+<a name='L663'></a><a href='#L663'>663</a>
+<a name='L664'></a><a href='#L664'>664</a>
+<a name='L665'></a><a href='#L665'>665</a>
+<a name='L666'></a><a href='#L666'>666</a>
+<a name='L667'></a><a href='#L667'>667</a>
+<a name='L668'></a><a href='#L668'>668</a>
+<a name='L669'></a><a href='#L669'>669</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -749,6 +762,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -846,6 +860,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1408,6 +1434,7 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { String, useStrings } from 'framework/strings'
 import useDeleteServiceHook from '@ce/common/useDeleteService'
 import { useTelemetry } from '@common/hooks/useTelemetry'
+import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import COGatewayAnalytics from './COGatewayAnalytics'
 import COGatewayCumulativeAnalytics from './COGatewayCumulativeAnalytics'
 import odIcon from './images/ondemandIcon.svg'
@@ -1500,8 +1527,20 @@ const COGatewayList: React.FC = () =&gt; {
     debounce: 300
   })
 &nbsp;
+  const trackLandingPage = () =&gt; {
+    const hasData = !_isEmpty(servicesData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse)
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!loading &amp;&amp; !hasData) {
+<span class="cstat-no" title="statement not covered" >      trackEvent(USER_JOURNEY_EVENTS.LOAD_AS_LANDING_PAGE, {})</span>
+    } else <span class="missing-if-branch" title="else path not taken" >E</span>if (!loading &amp;&amp; hasData) {
+      trackEvent(USER_JOURNEY_EVENTS.LOAD_AS_SUMMARY_PAGE, {})
+    }
+  }
+&nbsp;
   useEffect(() =&gt; {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (servicesData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse) setTableData(servicesData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (servicesData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse) {
+      setTableData(servicesData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>
+    }
+    trackLandingPage()
   }, [servicesData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse])
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (error) {
@@ -1848,7 +1887,7 @@ const COGatewayList: React.FC = () =&gt; {
                     accountId
                   })
                 )
-<span class="cstat-no" title="statement not covered" >                trackEvent('StartedMakingAutoStoppingRule', {})</span>
+<span class="cstat-no" title="statement not covered" >                trackEvent(USER_JOURNEY_EVENTS.CREATE_NEW_AS_CLICK, {})</span>
               }}
             /&gt;
           &lt;/Layout.Vertical&gt;
@@ -2029,7 +2068,7 @@ export default COGatewayList
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 14 2021 08:22:52 GMT+0000 (Greenwich Mean Time)
+                at Tue Dec 14 2021 10:07:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

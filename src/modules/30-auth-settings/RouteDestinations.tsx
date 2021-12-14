@@ -2,7 +2,6 @@ import React from 'react'
 import { Route, useParams, Redirect, Switch } from 'react-router-dom'
 import { createClient, Provider, dedupExchange, cacheExchange, fetchExchange } from 'urql'
 import { requestPolicyExchange } from '@urql/exchange-request-policy'
-
 import Configuration from '@auth-settings/pages/Configuration/Configuration'
 import AccountOverview from '@auth-settings/pages/AccountOverview/AccountOverview'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
@@ -17,7 +16,6 @@ import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import { AccountSideNavProps } from '@common/RouteDestinations'
-import AuditTrail from 'modules/20-audit-trail/pages/AuditTrail/AuditTrail'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.ACCOUNT, {
   icon: 'nav-settings',
@@ -93,13 +91,6 @@ const AuthSettingsRoutes: React.FC = () => {
           exact
         >
           <SubscriptionsPage />
-        </RouteWithLayout>
-        <RouteWithLayout
-          sidebarProps={AccountSideNavProps}
-          path={routes.toAccountAuditTrail({ ...accountPathProps })}
-          exact
-        >
-          <AuditTrail />
         </RouteWithLayout>
         <Route path="*">
           <NotFoundPage />

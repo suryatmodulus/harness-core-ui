@@ -1,0 +1,11 @@
+.subHeaderContainer {
+  position: sticky;
+  z-index: 3;
+  top: 0;
+  .subHeader {
+    flex: 1;
+  }
+}
+.emptyStateImage {
+  width: 278px;
+}

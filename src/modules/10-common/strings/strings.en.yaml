@@ -11,7 +11,6 @@ noDelegateForTask: 'No delegate found for {{taskName}}'
 pipeline: Pipeline
 duplicateId: 'Duplicate Identifier'
 createPipeline: Create a Pipeline
-production: Production
 addVariable: Add Variable
 advanced: '{{ $.advancedTitle }}'
 editVariable: Edit variable
@@ -483,6 +482,7 @@ account:
     description: to add and manage your subscriptions
 valuePlaceholder: Enter Value(s)
 namePlaceholder: Enter Name
+nameEmailPlaceholder: Enter name or email
 descriptionPlaceholder: Enter Description
 seconds: Seconds
 move: Move
@@ -594,6 +594,9 @@ module:
   cf: FF
   ce: CCM
   cv: CV
+  core: CORE
+  pms: PMS
+  templateService: TEMPLATESERVICE
 customPricing: for Custom Pricing
 specified: Specified
 file: File
@@ -656,3 +659,9 @@ onPremSaaSPlansMsg: Did you know, Harness also offers a range of exciting SaaS p
 manageSubscription: Manage subscription
 invalid: INVALID
 auditTrail: Audit Trail
+user: User
+resource: Resource
+resourceType: Resource Type
+envType:
+  production: Production
+  nonProduction: Non Production

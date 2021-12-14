@@ -563,7 +563,6 @@ testsReports:
   directCall: Direct call
   indirectCall: Indirect call
   sourceMethod: Source Class
-  resource: Resource
   callgraphField:
     package: Package
     class: Class

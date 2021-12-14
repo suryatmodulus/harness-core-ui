@@ -47,6 +47,7 @@ import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
 import { GitSyncErrorsWithRedirect } from '@gitsync/pages/errors/GitSyncErrors'
+import AuditTrailFactory from '@audit-trails/factories/AuditTrailFactory'
 import { TargetsPage } from './pages/target-management/targets/TargetsPage'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
 import { SegmentsPage } from './pages/target-management/segments/SegmentsPage'
@@ -90,6 +91,8 @@ const RedirectToGitSyncHome = (): React.ReactElement => {
 const cfModuleParams: ModulePathParams = {
   module: ':module(cf)'
 }
+
+AuditTrailFactory.registerHandler('CF', { iconName: 'cf-main' })
 
 RbacFactory.registerResourceCategory(ResourceCategory.FEATUREFLAG_FUNCTIONS, {
   icon: 'nav-cf',

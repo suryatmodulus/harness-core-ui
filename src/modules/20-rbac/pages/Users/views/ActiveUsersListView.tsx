@@ -320,7 +320,7 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({
       orgIdentifier,
       projectIdentifier,
       pageIndex: page,
-      pageSize: 10,
+      pageSize: 12,
       searchTerm: searchTerm
     },
     debounce: 300

@@ -3,9 +3,15 @@ import type { AuditEventDTO } from 'services/audit'
 
 export type Module = AuditEventDTO['module']
 
-interface AuditTrailModuleHandlerProps {
+interface Icon {
   iconName: IconName
+  size?: number
+}
+
+interface AuditTrailModuleHandlerProps {
+  icon: Icon
   resourceRenderer?: (data: AuditEventDTO) => React.ReactElement
+  eventSummaryRenderer?: () => React.ReactElement
 }
 
 class AuditTrailFactory {
@@ -15,7 +21,7 @@ class AuditTrailFactory {
     this.map = new Map()
   }
 
-  registerModuleHandler(module: Module, props: AuditTrailModuleHandlerProps): void {
+  registerHandler(module: Module, props: AuditTrailModuleHandlerProps): void {
     this.map.set(module, props)
   }
 

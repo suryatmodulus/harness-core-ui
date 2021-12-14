@@ -1,8 +1,7 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly subHeader: string
-  readonly dateRangePicker: string
-  readonly search: string
+  readonly body: string
+  readonly card: string
 }
 export default styles

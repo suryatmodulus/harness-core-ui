@@ -1,0 +1,9 @@
+.table {
+  padding: var(--spacing-xlarge);
+  .pagination {
+    justify-content: space-between !important;
+  }
+  .notesIcon {
+    cursor: pointer;
+  }
+}

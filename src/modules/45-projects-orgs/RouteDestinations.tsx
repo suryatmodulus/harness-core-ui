@@ -62,6 +62,7 @@ import { GitSyncErrorsWithRedirect } from '@gitsync/pages/errors/GitSyncErrors'
 import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
 import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
 import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
+import AuditTrailsPage from '@audit-trails/pages/AuditTrails/AuditTrailsPage'
 import LandingDashboardPage from './pages/LandingDashboardPage/LandingDashboardPage'
 
 const ProjectDetailsSideNavProps: SidebarContext = {
@@ -161,6 +162,13 @@ export default (
       <DelegateDetails />
     </RouteWithLayout>
 
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toAuditTrail({ ...projectPathProps })}
+      exact
+    >
+      <AuditTrailsPage />
+    </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
       path={routes.toDelegates({ ...accountPathProps, ...projectPathProps })}
@@ -287,6 +295,9 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toOrganizations({ ...accountPathProps })} exact>
       <OrganizationsPage />
+    </RouteWithLayout>
+    <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toAuditTrail({ ...orgPathProps })} exact>
+      <AuditTrailsPage />
     </RouteWithLayout>
     <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toConnectors({ ...orgPathProps })} exact>
       <ConnectorsPage />

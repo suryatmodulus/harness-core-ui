@@ -64,6 +64,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
   const [search, setSearch] = useState<string>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const initialValues: CollaboratorsData = { collaborators: [] }
+
   const { data: userData } = useMutateAsGet(useGetUsers, {
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     body: {

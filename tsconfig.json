@@ -27,7 +27,7 @@
     "paths": {
       "@common/*": ["modules/10-common/*"],
       "@notifications/*": ["modules/15-notifications/*"],
-      "@audit-trail/*": ["modules/20-audit-trail/*"],
+      "@audit-trails/*": ["modules/20-audit-trails/*"],
       "@rbac/*": ["modules/20-rbac/*"],
       "@governance/*": ["modules/25-governance/*"],
       "@auth-settings/*": ["modules/30-auth-settings/*"],

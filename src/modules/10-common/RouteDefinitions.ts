@@ -199,6 +199,26 @@ const routes = {
   ),
   toAccountResources: withAccountId(() => 'settings/resources'),
   toAccountAuditTrail: withAccountId(() => 'settings/audit-trail'),
+  toAuditTrail: withAccountId(({ orgIdentifier, projectIdentifier }: Partial<ProjectPathProps>) => {
+    const path = `resources/audit-trail`
+    console.log(
+      'scope based route - audit trail',
+      getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier
+        },
+        path
+      })
+    )
+    return getScopeBasedRoute({
+      scope: {
+        orgIdentifier,
+        projectIdentifier
+      },
+      path
+    })
+  }),
   toConnectors: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       const path = `resources/connectors`

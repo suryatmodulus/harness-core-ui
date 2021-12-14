@@ -154,6 +154,8 @@ export interface StringsMap {
   'common.enableGitSyncPipeline': string
   'common.entityReferenceSubTitle': string
   'common.entityReferenceTitle': string
+  'common.envType.nonProduction': string
+  'common.envType.production': string
   'common.environmentCreated': string
   'common.environmentUpdated': string
   'common.errorCount': string
@@ -307,7 +309,10 @@ export interface StringsMap {
   'common.module.ce': string
   'common.module.cf': string
   'common.module.ci': string
+  'common.module.core': string
   'common.module.cv': string
+  'common.module.pms': string
+  'common.module.templateService': string
   'common.monthly': string
   'common.moreInfo': string
   'common.moreOptions': string
@@ -315,6 +320,7 @@ export interface StringsMap {
   'common.mostActiveServices': string
   'common.move': string
   'common.myProfile': string
+  'common.nameEmailPlaceholder': string
   'common.namePlaceholder': string
   'common.namespace': string
   'common.new': string
@@ -381,7 +387,6 @@ export interface StringsMap {
   'common.policy.table.createdAt': string
   'common.policy.table.lastModified': string
   'common.policy.table.name': string
-  'common.production': string
   'common.projectSetup': string
   'common.projectViewer': string
   'common.provisioner': string
@@ -451,6 +456,8 @@ export interface StringsMap {
   'common.reportNameRequired': string
   'common.repositoryName': string
   'common.resolveConflict': string
+  'common.resource': string
+  'common.resourceType': string
   'common.role': string
   'common.saveAndClose': string
   'common.savedSuccessfully': string
@@ -550,6 +557,7 @@ export interface StringsMap {
   'common.updating': string
   'common.upgrade': string
   'common.useTemplate': string
+  'common.user': string
   'common.userGroup': string
   'common.userGroups': string
   'common.validation.email.format': string
@@ -638,6 +646,20 @@ export interface StringsMap {
   'notifications.validationSubject': string
   'notifications.validationTo': string
   'notifications.validationWebhook': string
+  'auditTrails.actions.added_collaborator': string
+  'auditTrails.actions.added_membership': string
+  'auditTrails.actions.invite_resent': string
+  'auditTrails.actions.invite_revoked': string
+  'auditTrails.actions.invited': string
+  'auditTrails.actions.removed_collaborator': string
+  'auditTrails.actions.removed_membership': string
+  'auditTrails.actions.restored': string
+  'auditTrails.actions.updated': string
+  'auditTrails.emptyStateMessage': string
+  'auditTrails.emptyStateMessageTitle': string
+  'auditTrails.eventSource': string
+  'auditTrails.http': string
+  'auditTrails.supplementaryDetails': string
   'rbac.accessControlTitle.resourceGroups': string
   'rbac.accessControlTitle.roles': string
   'rbac.accessControlTitle.serviceAccounts': string
@@ -742,7 +764,6 @@ export interface StringsMap {
   'rbac.token.scheduledToExpire': string
   'rbac.token.successMessage': string
   'rbac.updateNotificationSuccess': string
-  'rbac.user': string
   'rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText': string
   'rbac.userDetails.linkToSSOProviderModal.delinkLabel': string
   'rbac.userDetails.linkToSSOProviderModal.delinkText': string
@@ -2511,7 +2532,6 @@ export interface StringsMap {
   'pipeline.testsReports.noTestResults': string
   'pipeline.testsReports.numberOfSelectedTests': string
   'pipeline.testsReports.onlyUncoveredFiles': string
-  'pipeline.testsReports.resource': string
   'pipeline.testsReports.result': string
   'pipeline.testsReports.resultLabel': string
   'pipeline.testsReports.selectedTestMethods': string
@@ -3399,7 +3419,6 @@ export interface StringsMap {
   'ce.recommendation.listPage.filters.minSaving': string
   'ce.recommendation.listPage.filters.name': string
   'ce.recommendation.listPage.filters.namespace': string
-  'ce.recommendation.listPage.filters.resourceType': string
   'ce.recommendation.listPage.forecatedCostSubText': string
   'ce.recommendation.listPage.listTableHeaders.details': string
   'ce.recommendation.listPage.listTableHeaders.monthlyCost': string

@@ -198,7 +198,7 @@ const OrganizationDetailsPage: React.FC = () => {
                 {
                   label: <String stringID="common.auditTrail" />,
                   icon: 'access-control',
-                  route: routes.toAccountAuditTrail({ accountId }),
+                  route: routes.toAuditTrail({ accountId, orgIdentifier }),
                   colorClass: css.auditTrail
                 }
               ]}

@@ -104,6 +104,7 @@ import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStor
 import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
 import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
 import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
+import AuditTrailFactory from '@audit-trails/factories/AuditTrailFactory'
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
@@ -130,6 +131,8 @@ executionFactory.registerSummary(StageType.DEPLOY, {
 executionFactory.registerStageDetails(StageType.DEPLOY, {
   component: CDStageDetails
 })
+
+AuditTrailFactory.registerHandler('CD', { iconName: 'cd-main' })
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()

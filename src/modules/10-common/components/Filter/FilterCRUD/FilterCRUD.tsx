@@ -189,6 +189,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
   }
 
   useEffect(() => {
+    console.log('filterCRUD')
     if (!filterCRUDRef) return
 
     if (typeof filterCRUDRef === 'function') {

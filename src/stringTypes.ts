@@ -670,20 +670,6 @@ export interface StringsMap {
   'notifications.userGroupsPlaceholder': string
   'notifications.validationPDKey': string
   'notifications.validationWebhook': string
-  'auditTrails.actions.added_collaborator': string
-  'auditTrails.actions.added_membership': string
-  'auditTrails.actions.invite_resent': string
-  'auditTrails.actions.invite_revoked': string
-  'auditTrails.actions.invited': string
-  'auditTrails.actions.removed_collaborator': string
-  'auditTrails.actions.removed_membership': string
-  'auditTrails.actions.restored': string
-  'auditTrails.actions.updated': string
-  'auditTrails.emptyStateMessage': string
-  'auditTrails.emptyStateMessageTitle': string
-  'auditTrails.eventSource': string
-  'auditTrails.http': string
-  'auditTrails.supplementaryDetails': string
   'rbac.accessControlTitle.resourceGroups': string
   'rbac.accessControlTitle.roles': string
   'rbac.accessControlTitle.serviceAccounts': string

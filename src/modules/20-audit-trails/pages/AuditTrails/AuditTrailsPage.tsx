@@ -1,14 +1,99 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { DateRangePickerButton, Layout } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
-import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import { useGetAuditList } from 'services/audit'
 import { useStrings } from 'framework/strings'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import AuditTrailsFilters from '@audit-trails/components/AuditTrailsFilters'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AuditFilterProperties } from 'services/audit'
+import { useMutateAsGet } from '@common/hooks'
+import AuditTrailsListView from './views/AuditTrailsListView'
+import AuditTrailsEmptyState from './audit_trails_empty_state.png'
+import css from './AuditTrailsPage.module.scss'
 
 const AuditTrailsPage: React.FC = () => {
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const [page, setPage] = useState(0)
+  const [selectedFilterProperties, setSelectedFilterProperties] = useState<AuditFilterProperties>()
   const { getString } = useStrings()
+  const [startDate, setStartDate] = useState<Date>(() => {
+    const start = new Date()
+    start.setDate(start.getDate() - 7)
+    start.setHours(0, 0, 0, 0)
+    return start
+  })
+
+  const [endDate, setEndDate] = useState<Date>(() => {
+    const end = new Date()
+    end.setHours(23, 59, 59, 999)
+    return end
+  })
+
+  const onDateChange = (selectedDates: [Date, Date]): void => {
+    setStartDate(selectedDates[0])
+    setEndDate(selectedDates[1])
+  }
+
+  const {
+    data: auditData,
+    loading,
+    error,
+    refetch
+  } = useMutateAsGet(useGetAuditList, {
+    queryParams: {
+      accountIdentifier: accountId,
+      pageSize: 10,
+      pageIndex: page
+    },
+    body: {
+      ...selectedFilterProperties,
+      filterType: 'Audit',
+      scopes: [{ accountIdentifier: accountId, orgIdentifier, projectIdentifier }],
+      startTime: startDate.getTime(),
+      endTime: endDate.getTime()
+    }
+  })
 
   return (
     <>
       <Page.Header title={getString('common.auditTrail')} breadcrumbs={<NGBreadcrumbs />} />
+      <Page.Body
+        noData={{
+          when: () => !auditData?.data?.content?.length,
+          image: AuditTrailsEmptyState,
+          imageClassName: css.emptyStateImage,
+          messageTitle: getString('auditTrails.emptyStateMessageTitle'),
+          message: getString('auditTrails.emptyStateMessage')
+        }}
+        error={(error as any)?.data?.message || error?.message}
+        retryOnError={() => refetch()}
+        loading={loading}
+      >
+        {/* Subheader inside body - review this */}
+        <Page.SubHeader className={css.subHeaderContainer}>
+          <Layout.Horizontal flex className={css.subHeader}>
+            <DateRangePickerButton
+              width={240}
+              initialButtonText={getString('common.last7days')}
+              dateRangePickerProps={{ defaultValue: [startDate, endDate] }}
+              onChange={onDateChange}
+              renderButtonText={selectedDates =>
+                `${selectedDates[0].toLocaleDateString()} - ${selectedDates[1].toLocaleDateString()}`
+              }
+            />
+            <Layout.Horizontal flex>
+              <AuditTrailsFilters
+                applyFilters={(properties: AuditFilterProperties) => {
+                  setSelectedFilterProperties(properties)
+                }}
+              />
+            </Layout.Horizontal>
+          </Layout.Horizontal>
+        </Page.SubHeader>
+        <AuditTrailsListView setPage={setPage} data={auditData?.data || {}} />
+      </Page.Body>
     </>
   )
 }

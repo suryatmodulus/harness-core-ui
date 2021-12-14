@@ -2123,8 +2123,19 @@ export type JiraApprovalInstanceDetails = ApprovalInstanceDetailsDTO & {
   issue: JiraIssueKeyNG
   rejectionCriteria: CriteriaSpecWrapperDTO
 }
+export type ServiceNowApprovalInstanceDetails = ApprovalInstanceDetailsDTO & {
+  approvalCriteria: CriteriaSpecWrapperDTO
+  connectorRef?: string
+  issue: ServiceNowIssueKeyNG
+  rejectionCriteria: CriteriaSpecWrapperDTO
+}
+
 
 export interface JiraIssueKeyNG {
+  key: string
+  url: string
+}
+export interface ServiceNowIssueKeyNG {
   key: string
   url: string
 }

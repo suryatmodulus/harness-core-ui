@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { isEmpty as _isEmpty } from 'lodash-es'
-import { Container, Heading, Layout, Text } from '@wings-software/uicore'
+import React from 'react'
+import { Container, FormInput, Heading, Layout, SelectOption, Text } from '@wings-software/uicore'
 import { Radio } from '@blueprintjs/core'
 import type { FormikProps } from 'formik'
-// import { useStrings } from 'framework/strings'
-import { Utils } from '@ce/common/Utils'
+import { useStrings } from 'framework/strings'
 import type { GatewayDetails } from '../COCreateGateway/models'
 import css from './COGatewayAccess.module.scss'
 
@@ -12,25 +10,20 @@ interface CustomDomainMappingProps {
   formikProps: FormikProps<any>
   gatewayDetails: GatewayDetails
   setGatewayDetails: (details: GatewayDetails) => void
+  hostedZonesList: SelectOption[]
+  setDNSProvider: (val: string) => void
+  setHelpTextSections: (s: string[]) => void
 }
 
 const CustomDomainMapping: React.FC<CustomDomainMappingProps> = ({
   formikProps,
   gatewayDetails,
-  setGatewayDetails
+  setGatewayDetails,
+  hostedZonesList = [],
+  setDNSProvider,
+  setHelpTextSections
 }) => {
-  // const {getString} = useStrings()
-  const [dnsProvider, setDNSProvider] = useState<string>(
-    Utils.getConditionalResult(
-      !_isEmpty(gatewayDetails.routing.custom_domain_providers?.route53?.hosted_zone_id),
-      'route53',
-      'others'
-    )
-  )
-
-  useEffect(() => {
-    // if (dnsProvider == 'route53') loadHostedZones()
-  }, [dnsProvider])
+  const { getString } = useStrings()
 
   return (
     <Container className={css.dnsLinkContainer}>
@@ -56,27 +49,27 @@ const CustomDomainMapping: React.FC<CustomDomainMappingProps> = ({
                   custom_domain_providers: { route53: {} } // eslint-disable-line
                 }
                 setGatewayDetails(updatedGatewayDetails)
-                // props.setHelpTextSections(['usingCustomDomain'])
+                setHelpTextSections(['usingCustomDomain'])
               }}
               name={'route53RadioBtn'}
             />
-            {/* <FormInput.Select
-                          name="route53Account"
-                          placeholder={getString('ce.co.accessPoint.select.route53')}
-                          // items={hostedZonesList}
-                          onChange={e => {
-                            formikProps.setFieldValue('route53Account', e.value)
-                            const updatedGatewayDetails = { ...gatewayDetails }
-                            updatedGatewayDetails.routing = {
-                              ...gatewayDetails.routing,
-                              //eslint-disable-next-line
-                              custom_domain_providers: {
-                                route53: { hosted_zone_id: e.value as string } // eslint-disable-line
-                              }
-                            }
-                            setGatewayDetails(updatedGatewayDetails)
-                          }}
-                        /> */}
+            <FormInput.Select
+              name="route53Account"
+              placeholder={getString('ce.co.accessPoint.select.route53')}
+              items={hostedZonesList}
+              onChange={e => {
+                formikProps.setFieldValue('route53Account', e.value)
+                const updatedGatewayDetails = { ...gatewayDetails }
+                updatedGatewayDetails.routing = {
+                  ...gatewayDetails.routing,
+                  //eslint-disable-next-line
+                  custom_domain_providers: {
+                    route53: { hosted_zone_id: e.value as string } // eslint-disable-line
+                  }
+                }
+                setGatewayDetails(updatedGatewayDetails)
+              }}
+            />
           </Layout.Horizontal>
           <Radio
             value="others"
@@ -91,7 +84,7 @@ const CustomDomainMapping: React.FC<CustomDomainMappingProps> = ({
                 custom_domain_providers: { others: {} } // eslint-disable-line
               }
               setGatewayDetails(updatedGatewayDetails)
-              // props.setHelpTextSections(['usingCustomDomain', 'dns-others'])
+              setHelpTextSections(['usingCustomDomain', 'dns-others'])
             }}
           />
         </Layout.Vertical>

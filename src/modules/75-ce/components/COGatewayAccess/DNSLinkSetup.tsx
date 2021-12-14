@@ -11,43 +11,46 @@ import {
   Layout,
   Formik,
   FormikForm,
-  FormInput,
   Color,
   Text,
   useModalHook,
   SelectOption,
   Container,
   Select,
-  Checkbox,
   Button
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { debounce as _debounce, isEmpty as _isEmpty, values as _values, defaultTo as _defaultTo } from 'lodash-es'
-import { Dialog, IDialogProps, Radio } from '@blueprintjs/core'
+import { isEmpty as _isEmpty, values as _values, defaultTo as _defaultTo } from 'lodash-es'
+import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import {
   AccessPoint,
   AccessPointCore,
   ALBAccessPointCore,
-  TargetGroupMinimal,
   useAccessPointResources,
-  useAllHostedZones,
   useListAccessPoints,
-  AzureAccessPointCore,
-  ListAccessPointsQueryParams,
-  AccessPointResourcesQueryParams
+  AzureAccessPointCore
 } from 'services/lw'
 import { useStrings } from 'framework/strings'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useGatewayContext } from '@ce/context/GatewayContext'
 import { useToaster } from '@common/exports'
-import CreateAccessPointWizard from './CreateAccessPointWizard'
+import type { AccessPointScreenMode } from '@ce/types'
 import type { ConnectionMetadata, CustomDomainDetails, GatewayDetails } from '../COCreateGateway/models'
 import { Utils } from '../../common/Utils'
 import LoadBalancerDnsConfig from './LoadBalancerDnsConfig'
 import AzureAPConfig from '../COAccessPointList/AzureAPConfig'
-import { getDummySupportedResourceFromAG, getDummySupportedResourceFromALB } from './helper'
+import {
+  createApDetailsFromLoadBalancer,
+  createAzureAppGatewayFromLoadBalancer,
+  getAccessPointFetchQueryParams,
+  getDummySupportedResourceFromAG,
+  getDummySupportedResourceFromALB,
+  getInitialAccessPointDetails,
+  getSupportedResourcesQueryParams
+} from './helper'
 import LBAdvancedConfiguration from './LBAdvancedConfiguration'
+import ResourceAccessUrlSelector from './ResourceAccessUrlSelector'
 import css from './COGatewayAccess.module.scss'
 
 const modalPropsLight: IDialogProps = {
@@ -69,6 +72,64 @@ interface DNSLinkSetupProps {
   activeStepDetails?: { count?: number; tabId?: string } | null
 }
 
+interface UseLoadBalancerProps {
+  gatewayDetails: GatewayDetails
+  loadBalancer: AccessPoint
+  handleClose: (clearStatus?: boolean) => void
+  mode: AccessPointScreenMode
+  handleSave: (lb: AccessPoint) => void
+}
+
+const useLoadBalancerModal = (
+  { gatewayDetails, loadBalancer, handleClose, mode, handleSave }: UseLoadBalancerProps,
+  deps: any[] = []
+) => {
+  const isAwsProvider = Utils.isProviderAws(gatewayDetails.provider)
+  const isAzureProvider = Utils.isProviderAzure(gatewayDetails.provider)
+
+  const [openLoadBalancerModal, hideLoadBalancerModal] = useModalHook(() => {
+    const onClose = (clearStatus?: boolean) => {
+      handleClose(clearStatus)
+      hideLoadBalancerModal()
+    }
+    return (
+      <Dialog onClose={hideLoadBalancerModal} {...modalPropsLight}>
+        {isAwsProvider && (
+          <LoadBalancerDnsConfig
+            loadBalancer={loadBalancer}
+            cloudAccountId={gatewayDetails.cloudAccount.id}
+            onClose={onClose}
+            mode={mode}
+            onSave={handleSave}
+          />
+        )}
+        {isAzureProvider && (
+          <AzureAPConfig
+            cloudAccountId={gatewayDetails.cloudAccount.id}
+            onSave={handleSave}
+            mode={mode}
+            onClose={onClose}
+            loadBalancer={loadBalancer}
+          />
+        )}
+        <Button
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={() => {
+            onClose(true)
+          }}
+          style={{ position: 'absolute', right: 'var(--spacing-large)', top: 'var(--spacing-large)' }}
+          data-testid={'close-instance-modal'}
+        />
+      </Dialog>
+    )
+  }, deps)
+  return {
+    openLoadBalancerModal
+  }
+}
+
 const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
@@ -84,116 +145,14 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
 
   const accessDetails = props.gatewayDetails.opts.access_details as ConnectionMetadata // eslint-disable-line
   const customDomainProviderDetails = props.gatewayDetails.routing.custom_domain_providers as CustomDomainDetails // eslint-disable-line
-  const {
-    data: hostedZones,
-    loading: hostedZonesLoading,
-    refetch: loadHostedZones
-  } = useAllHostedZones({
-    account_id: accountId, // eslint-disable-line
-    queryParams: {
-      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-      region: 'us-east-1',
-      domain: _defaultTo(props.gatewayDetails.customDomains?.[0], ''),
-      accountIdentifier: accountId
-    },
-    lazy: !isEditFlow
-  })
 
-  const updateCustomDomains = (value: string, shouldLoadHostedZones: boolean, details?: GatewayDetails) => {
-    const updatedGatewayDetails = _defaultTo(details, { ...props.gatewayDetails })
-    if (!updatedGatewayDetails.routing.custom_domain_providers) {
-      updatedGatewayDetails.routing = {
-        ...props.gatewayDetails.routing,
-        custom_domain_providers: { others: {} } // eslint-disable-line
-      }
-    }
-    updatedGatewayDetails.customDomains = value.split(',')
-    props.setGatewayDetails(updatedGatewayDetails)
-    props.setHelpTextSections(['usingCustomDomain'])
-    shouldLoadHostedZones &&
-      loadHostedZones({
-        queryParams: {
-          cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-          region: 'us-east-1',
-          domain: updatedGatewayDetails.customDomains[0],
-          accountIdentifier: accountId
-        }
-      })
-  }
-
-  const debouncedCustomDomainTextChange = React.useCallback(_debounce(updateCustomDomains, 800), [props.gatewayDetails])
-
-  const initialAccessPointDetails: AccessPoint = {
-    cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-    account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
-    org_id: orgIdentifier, // eslint-disable-line
-    metadata: {
-      security_groups: [], // eslint-disable-line
-      dns: {}
-    },
-    type: props.gatewayDetails.provider.value,
-    region: props.gatewayDetails.selectedInstances?.length
-      ? props.gatewayDetails.selectedInstances[0].region
-      : !_isEmpty(props.gatewayDetails.routing?.instance?.scale_group?.region)
-      ? props.gatewayDetails.routing?.instance?.scale_group?.region
-      : !_isEmpty(props.gatewayDetails.routing.container_svc)
-      ? props.gatewayDetails.routing.container_svc?.region
-      : '',
-    vpc: props.gatewayDetails.selectedInstances?.length
-      ? props.gatewayDetails.selectedInstances[0].vpc
-      : !_isEmpty(props.gatewayDetails.routing?.instance?.scale_group?.target_groups)
-      ? (props.gatewayDetails.routing?.instance?.scale_group?.target_groups as TargetGroupMinimal[])[0].vpc
-      : ''
-  }
-
-  // const [accessPointsList, setAccessPointsList] = useState<SelectOption[]>([])
   const [apCoreList, setApCoreList] = useState<SelectOption[]>([])
   const [apCoreResponseList, setApCoreResponseList] = useState<AccessPointCore[]>([])
-  const [hostedZonesList, setHostedZonesList] = useState<SelectOption[]>([])
-  const [dnsProvider, setDNSProvider] = useState<string>(
-    Utils.getConditionalResult(!_isEmpty(customDomainProviderDetails?.route53?.hosted_zone_id), 'route53', 'others')
-  )
   const [selectedLoadBalancer, setSelectedLoadBalancer] = useState<AccessPointCore>()
   const [isCreateMode, setIsCreateMode] = useState<boolean>(false)
 
   const [accessPoint, setAccessPoint] = useState<AccessPoint>()
   const [selectedApCore, setSelectedApCore] = useState<SelectOption>()
-
-  const getAccessPointFetchQueryParams = (): ListAccessPointsQueryParams => {
-    const params: ListAccessPointsQueryParams = {
-      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-      accountIdentifier: accountId
-    }
-    if (isAwsProvider) {
-      params.region = props.gatewayDetails.selectedInstances?.length
-        ? props.gatewayDetails.selectedInstances[0].region
-        : props.gatewayDetails.routing.instance.scale_group?.region || ''
-      params.vpc = props.gatewayDetails.selectedInstances?.length
-        ? props.gatewayDetails.selectedInstances[0].vpc
-        : props.gatewayDetails.routing.instance.scale_group?.target_groups?.[0]?.vpc || ''
-    }
-    return params
-  }
-
-  const getSupportedResourcesQueryParams = (): AccessPointResourcesQueryParams => {
-    const params: AccessPointResourcesQueryParams = {
-      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-      accountIdentifier: accountId,
-      region: ''
-    }
-    if (!_isEmpty(props.gatewayDetails.routing.container_svc)) {
-      params.region = _defaultTo(props.gatewayDetails.routing.container_svc?.region, '')
-      params.cluster = _defaultTo(props.gatewayDetails.routing.container_svc?.cluster, '')
-      params.service = _defaultTo(props.gatewayDetails.routing.container_svc?.service, '')
-    } else {
-      params.region = props.gatewayDetails.selectedInstances?.length
-        ? props.gatewayDetails.selectedInstances[0].region
-        : _defaultTo(props.gatewayDetails.routing.instance.scale_group?.region, '')
-      params.resource_group_name = props.gatewayDetails.selectedInstances[0]?.metadata?.resourceGroup
-    }
-    return params
-  }
 
   const {
     data: accessPoints,
@@ -201,7 +160,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     refetch: refetchAccessPoints
   } = useListAccessPoints({
     account_id: accountId, // eslint-disable-line
-    queryParams: getAccessPointFetchQueryParams()
+    queryParams: getAccessPointFetchQueryParams({ gatewayDetails: props.gatewayDetails, accountId }, isAwsProvider)
   })
 
   const {
@@ -210,13 +169,10 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     refetch: apCoresRefetch
   } = useAccessPointResources({
     account_id: accountId, // eslint-disable-line
-    queryParams: getSupportedResourcesQueryParams()
+    queryParams: getSupportedResourcesQueryParams({ gatewayDetails: props.gatewayDetails, accountId })
   })
 
   useEffect(() => {
-    if (accessPoints?.response?.length == 0) {
-      return
-    }
     if (props.gatewayDetails.accessPointID) {
       const targetAp = accessPoints?.response?.find(_ap => _ap.id === props.gatewayDetails.accessPointID)
       if (targetAp) {
@@ -243,60 +199,26 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   }, [apCoresResponse?.response, accessPoints?.response])
 
   useEffect(() => {
-    const loaded: SelectOption[] =
-      apCoreResponseList?.map(_ap => {
-        return {
-          label: _ap.details?.name as string,
-          value: isAwsProvider
-            ? ((_ap.details as ALBAccessPointCore)?.albARN as string)
-            : isAzureProvider
-            ? ((_ap.details as AzureAccessPointCore).id as string)
-            : ''
-        }
-      }) || []
-    setApCoreList(loaded)
+    const loaded: SelectOption[] = apCoreResponseList?.map(_ap => ({
+      label: _ap.details?.name as string,
+      value: isAwsProvider
+        ? ((_ap.details as ALBAccessPointCore)?.albARN as string)
+        : isAzureProvider
+        ? ((_ap.details as AzureAccessPointCore).id as string)
+        : ''
+    }))
+    setApCoreList(_defaultTo(loaded, []))
   }, [apCoreResponseList])
 
   useEffect(() => {
     const resourceId = isAwsProvider
       ? accessPoint?.metadata?.albArn
-      : accessPoint?.metadata?.app_gateway_id || accessPoint?.id // handled case for "submitted" state access points
+      : _defaultTo(accessPoint?.metadata?.app_gateway_id, accessPoint?.id) // handled case for "submitted" state access points
     const selectedResource = resourceId && apCoreList.find(_item => _item.value === resourceId)
     if (selectedResource) {
       setSelectedApCore(selectedResource)
     }
   }, [accessPoint, apCoreList])
-
-  useEffect(() => {
-    if (hostedZonesLoading) return
-    if (hostedZones?.response?.length == 0) {
-      return
-    }
-    const loadedhostedZones: SelectOption[] =
-      hostedZones?.response?.map(r => {
-        return {
-          label: r.name as string,
-          value: r.id as string
-        }
-      }) || []
-    setHostedZonesList(loadedhostedZones)
-  }, [hostedZones, hostedZonesLoading])
-
-  useEffect(() => {
-    if (dnsProvider == 'route53') loadHostedZones()
-  }, [dnsProvider])
-
-  const [, hideModal] = useModalHook(() => (
-    <Dialog onClose={hideModal} {...modalPropsLight}>
-      <CreateAccessPointWizard
-        accessPoint={initialAccessPointDetails}
-        closeModal={hideModal}
-        setAccessPoint={setAccessPoint}
-        refreshAccessPoints={refetchAccessPoints}
-        isRuleCreationMode={true}
-      />
-    </Dialog>
-  ))
 
   const clearAPData = () => {
     setSelectedApCore({ label: '', value: '' })
@@ -308,69 +230,62 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     return isAwsProvider ? getDummySupportedResourceFromALB(data) : getDummySupportedResourceFromAG(data)
   }
 
-  const [openLoadBalancerModal, hideLoadBalancerModal] = useModalHook(() => {
-    return (
-      <Dialog onClose={hideLoadBalancerModal} {...modalPropsLight}>
-        {isAwsProvider && (
-          <LoadBalancerDnsConfig
-            loadBalancer={
-              isCreateMode
-                ? initialAccessPointDetails
-                : createApDetailsFromLoadBalancer(selectedLoadBalancer as AccessPointCore)
-            }
-            cloudAccountId={props.gatewayDetails.cloudAccount.id}
-            onClose={_clearStatus => {
-              if (_clearStatus && !isCreateMode) {
-                clearAPData()
-              }
-              if (isCreateMode) setIsCreateMode(false)
-              hideLoadBalancerModal()
-            }}
-            mode={Utils.getConditionalResult(isCreateMode, 'create', 'import')}
-            onSave={savedLb => {
-              setAccessPoint(savedLb)
-              if (isCreateMode) {
-                setIsCreateMode(false)
-                apCoresRefetch()
-              }
-            }}
-          />
-        )}
-        {isAzureProvider && (
-          <AzureAPConfig
-            cloudAccountId={props.gatewayDetails.cloudAccount.id}
-            onSave={savedLb => {
-              setAccessPoint(savedLb)
-              if (isCreateMode) {
-                refetchAccessPoints()
-                setIsCreateMode(false)
-                // apCoresRefetch()
-              }
-            }}
-            mode={Utils.getConditionalResult(isCreateMode, 'create', 'import')}
-            onClose={_clearStatus => {
-              if (_clearStatus && !isCreateMode) {
-                clearAPData()
-              }
-              if (isCreateMode) setIsCreateMode(false)
-              hideLoadBalancerModal()
-            }}
-            loadBalancer={createAzureAppGatewayFromLoadBalancer()}
-          />
-        )}
-        <Button
-          minimal
-          icon="cross"
-          iconProps={{ size: 18 }}
-          onClick={() => {
-            hideLoadBalancerModal()
-          }}
-          style={{ position: 'absolute', right: 'var(--spacing-large)', top: 'var(--spacing-large)' }}
-          data-testid={'close-instance-modal'}
-        />
-      </Dialog>
-    )
-  }, [selectedLoadBalancer, isCreateMode])
+  const getLoadBalancerToEdit = () => {
+    let lb: AccessPoint = {}
+    if (isAwsProvider) {
+      lb = isCreateMode
+        ? getInitialAccessPointDetails({
+            gatewayDetails: props.gatewayDetails,
+            accountId,
+            projectId: projectIdentifier,
+            orgId: orgIdentifier
+          })
+        : createApDetailsFromLoadBalancer({
+            lbDetails: selectedLoadBalancer,
+            gatewayDetails: props.gatewayDetails,
+            accountId,
+            projectId: projectIdentifier,
+            orgId: orgIdentifier
+          })
+    } else if (isAzureProvider) {
+      lb = createAzureAppGatewayFromLoadBalancer(
+        {
+          gatewayDetails: props.gatewayDetails,
+          accountId,
+          lbDetails: selectedLoadBalancer?.details as AzureAccessPointCore
+        },
+        isCreateMode
+      )
+    }
+    return lb
+  }
+
+  const { openLoadBalancerModal } = useLoadBalancerModal(
+    {
+      gatewayDetails: props.gatewayDetails,
+      mode: Utils.getConditionalResult(isCreateMode, 'create', 'import'),
+      loadBalancer: getLoadBalancerToEdit(),
+      handleClose: clearStatus => {
+        if (clearStatus && !isCreateMode) {
+          clearAPData()
+        }
+        if (isCreateMode) setIsCreateMode(false)
+      },
+      handleSave: savedLb => {
+        setAccessPoint(savedLb)
+        if (isCreateMode) {
+          setIsCreateMode(false)
+        }
+        if (isAwsProvider) {
+          apCoresRefetch()
+        }
+        if (isAzureProvider) {
+          refetchAccessPoints()
+        }
+      }
+    },
+    [selectedLoadBalancer, isCreateMode]
+  )
 
   useEffect(() => {
     if (!accessPoint || !accessPoint.id) return
@@ -382,46 +297,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     props.setGatewayDetails(updatedGatewayDetails)
     // setGeneratedHostName(generateHostName(accessPoint.host_name as string))
   }, [accessPoint])
-
-  const createApDetailsFromLoadBalancer = (currLoadBalancer: AccessPointCore): AccessPoint => {
-    return {
-      ...initialAccessPointDetails,
-      name: currLoadBalancer.details?.name,
-      ...((currLoadBalancer.details as ALBAccessPointCore)?.vpc && {
-        vpc: (currLoadBalancer.details as ALBAccessPointCore).vpc
-      }),
-      metadata: {
-        ...initialAccessPointDetails.metadata,
-        ...((currLoadBalancer.details as ALBAccessPointCore)?.security_groups && {
-          security_groups: (currLoadBalancer.details as ALBAccessPointCore).security_groups
-        }),
-        ...((currLoadBalancer.details as ALBAccessPointCore)?.albARN && {
-          albArn: (currLoadBalancer.details as ALBAccessPointCore).albARN
-        })
-      }
-    }
-  }
-
-  const createAzureAppGatewayFromLoadBalancer = (): AccessPoint => {
-    const details = Utils.getConditionalResult(isCreateMode, {}, selectedLoadBalancer?.details as AzureAccessPointCore)
-    return {
-      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-      account_id: accountId, // eslint-disable-line
-      project_id: projectIdentifier, // eslint-disable-line
-      org_id: orgIdentifier, // eslint-disable-line
-      region: details?.region,
-      vpc: details?.vpc,
-      name: details?.name,
-      type: props.gatewayDetails.provider.value,
-      metadata: {
-        app_gateway_id: details?.id, // eslint-disable-line
-        fe_ip_id: details?.fe_ip_id, // eslint-disable-line
-        resource_group: details?.resource_group, // eslint-disable-line
-        size: details?.size,
-        subnet_id: details?.subnet_id // eslint-disable-line
-      }
-    }
-  }
 
   const updateLoadBalancerDetails = (_accessPointDetails?: AccessPoint) => {
     const updatedGatewayDetails = {
@@ -498,10 +373,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     setIsCreateMode(true)
     trackEvent('MadeNewAccessPoint', {})
     openLoadBalancerModal()
-  }
-
-  const shouldDisplayPublicAccessCheck = () => {
-    return _isEmpty(props.gatewayDetails.routing.container_svc)
   }
 
   // const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
@@ -592,157 +463,12 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                   activeStepDetails={props.activeStepDetails}
                 />
               )}
-              <Container className={css.dnsLinkContainer}>
-                <Layout.Horizontal spacing="small" style={{ marginBottom: 'var(--spacing-xlarge)' }}>
-                  <Heading level={3} font={{ weight: 'light' }}>
-                    {getString('ce.co.autoStoppingRule.setupAccess.customDomain.helpText')}
-                  </Heading>
-                </Layout.Horizontal>
-                <Layout.Horizontal>
-                  <Radio
-                    value="no"
-                    disabled={!_isEmpty(getServerNames())}
-                    onChange={e => {
-                      formik.setFieldValue('usingCustomDomain', e.currentTarget.value)
-                      if (e.currentTarget.value == 'no') props.setHelpTextSections([])
-                      formik.setFieldValue('customURL', '')
-                      props.gatewayDetails.customDomains = []
-                      props.setGatewayDetails(props.gatewayDetails)
-                    }}
-                    checked={formik.values.usingCustomDomain == 'no'}
-                  />
-                  <Layout.Vertical spacing="xsmall">
-                    {/* <Text
-                      style={{
-                        fontSize: 'var(--font-size-normal)',
-                        fontWeight: 500,
-                        lineHeight: '20px',
-                        color: 'var(--grey-800)'
-                      }}
-                    >
-                      {generatedHostName}
-                    </Text> */}
-                    <Text
-                      color={Color.GREY_500}
-                      style={{
-                        fontSize: '12px',
-                        fontWeight: 400,
-                        lineHeight: '18px',
-                        color: 'var(--grey-800)',
-                        paddingBottom: 'var(--spacing-small)'
-                      }}
-                    >
-                      {getString('ce.co.autoStoppingRule.setupAccess.autogeneratedHelpText')}
-                    </Text>
-                  </Layout.Vertical>
-                </Layout.Horizontal>
-                <Layout.Horizontal style={{ width: '100%' }}>
-                  <Radio
-                    value="yes"
-                    onChange={e => {
-                      formik.setFieldValue('usingCustomDomain', e.currentTarget.value)
-                      debouncedCustomDomainTextChange('', false)
-                    }}
-                    checked={formik.values.usingCustomDomain == 'yes'}
-                    className={css.centerAlignedRadio}
-                    name={'usingCustomDomain'}
-                  />
-                  <FormInput.Text
-                    name="customURL"
-                    placeholder={getString('ce.co.dnsSetup.customURL')}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      formik.setFieldValue('customURL', e.target.value)
-                      debouncedCustomDomainTextChange(e.target.value, true)
-                      // debouncedFetchHostedZones()
-                    }}
-                    style={{ width: '100%' }}
-                    disabled={formik.values.usingCustomDomain != 'yes'}
-                  />
-                </Layout.Horizontal>
-                {shouldDisplayPublicAccessCheck() && (
-                  <Checkbox
-                    name="publicallyAccessible"
-                    label={'This url is publicly accessible'}
-                    onChange={() => {
-                      const cbVal = Utils.booleanToString(formik.values.publicallyAccessible !== 'yes')
-                      formik.setFieldValue('publicallyAccessible', cbVal)
-                      accessDetails.dnsLink.public = cbVal
-                      const updatedGatewayDetails = { ...props.gatewayDetails }
-                      updatedGatewayDetails.opts.access_details = accessDetails // eslint-disable-line
-                      props.setGatewayDetails(updatedGatewayDetails)
-                    }}
-                    checked={formik.values.publicallyAccessible === 'yes'}
-                    className={css.publicAccessibleCheckboxContainer}
-                  />
-                )}
-              </Container>
-
-              {formik.values.customURL && isAwsProvider && (
-                <Container className={css.dnsLinkContainer}>
-                  <Layout.Vertical spacing="medium">
-                    <Heading level={3} font={{ weight: 'bold' }}>
-                      Map your Custom domain to the hostname
-                    </Heading>
-                    <Text font={{ weight: 'light' }} color="Color.GREY_500" className={css.mapDomainHelperText}>
-                      Since you have opted to access instances using a Custom domain, you need to map it to the
-                      hostname. Select your preferred DNS provider
-                    </Text>
-                    <Layout.Vertical>
-                      <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-                        <Radio
-                          value="route53"
-                          checked={formik.values.dnsProvider === 'route53'}
-                          onChange={e => {
-                            formik.setFieldValue('dnsProvider', e.currentTarget.value)
-                            setDNSProvider(e.currentTarget.value)
-                            const updatedGatewayDetails = { ...props.gatewayDetails }
-                            updatedGatewayDetails.routing = {
-                              ...props.gatewayDetails.routing,
-                              custom_domain_providers: { route53: {} } // eslint-disable-line
-                            }
-                            props.setGatewayDetails(updatedGatewayDetails)
-                            props.setHelpTextSections(['usingCustomDomain'])
-                          }}
-                          name={'route53RadioBtn'}
-                        />
-                        <FormInput.Select
-                          name="route53Account"
-                          placeholder={getString('ce.co.accessPoint.select.route53')}
-                          items={hostedZonesList}
-                          onChange={e => {
-                            formik.setFieldValue('route53Account', e.value)
-                            const updatedGatewayDetails = { ...props.gatewayDetails }
-                            updatedGatewayDetails.routing = {
-                              ...props.gatewayDetails.routing,
-                              //eslint-disable-next-line
-                              custom_domain_providers: {
-                                route53: { hosted_zone_id: e.value as string } // eslint-disable-line
-                              }
-                            }
-                            props.setGatewayDetails(updatedGatewayDetails)
-                          }}
-                        />
-                      </Layout.Horizontal>
-                      <Radio
-                        value="others"
-                        checked={formik.values.dnsProvider === 'others'}
-                        label="Others"
-                        onChange={e => {
-                          formik.setFieldValue('dnsProvider', e.currentTarget.value)
-                          setDNSProvider(e.currentTarget.value)
-                          const updatedGatewayDetails = { ...props.gatewayDetails }
-                          updatedGatewayDetails.routing = {
-                            ...props.gatewayDetails.routing,
-                            custom_domain_providers: { others: {} } // eslint-disable-line
-                          }
-                          props.setGatewayDetails(updatedGatewayDetails)
-                          props.setHelpTextSections(['usingCustomDomain', 'dns-others'])
-                        }}
-                      />
-                    </Layout.Vertical>
-                  </Layout.Vertical>
-                </Container>
-              )}
+              <ResourceAccessUrlSelector
+                formikProps={formik}
+                gatewayDetails={props.gatewayDetails}
+                setGatewayDetails={props.setGatewayDetails}
+                setHelpTextSections={props.setHelpTextSections}
+              />
             </Layout.Vertical>
           </FormikForm>
         )}

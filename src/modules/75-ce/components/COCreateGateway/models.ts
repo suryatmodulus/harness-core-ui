@@ -7,7 +7,9 @@
 
 import type {
   AccessPoint,
+  AccessPointCore,
   ASGMinimal,
+  AzureAccessPointCore,
   ContainerSvc,
   HealthCheck,
   PortConfig,
@@ -146,4 +148,19 @@ export interface CustomDomainDetails {
 export interface ASRuleCreationActiveStep {
   count?: number
   tabId?: string
+}
+
+export interface BaseFetchDetails {
+  gatewayDetails: GatewayDetails
+  accountId: string
+}
+
+export interface GetInitialAccessPointDetails extends BaseFetchDetails {
+  lbDetails?: AccessPointCore
+  projectId?: string
+  orgId?: string
+}
+
+export interface GetInitialAzureAccessPoint extends Omit<GetInitialAccessPointDetails, 'lbDetails'> {
+  lbDetails?: AzureAccessPointCore
 }

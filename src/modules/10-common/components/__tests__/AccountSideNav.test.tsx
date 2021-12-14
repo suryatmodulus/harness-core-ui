@@ -1,78 +1,44 @@
 import React from 'react'
-import { render } from '@testing-library/react'
-import { TestWrapper } from '@common/utils/testUtils'
-import * as LicenseStoreContext from 'framework/LicenseStore/LicenseStoreContext'
-import { LICENSE_STATE_VALUES } from 'framework/LicenseStore/licenseStoreUtil'
-import * as FeatureFlag from '@common/hooks/useFeatureFlag'
-import AccountSideNav from '../AccountSideNav/AccountSideNav'
+import { useParams } from 'react-router-dom'
+import { Layout } from '@wings-software/uicore'
 
-describe('AccountSideNav', () => {
-  test('AccountSideNav simple snapshot test', () => {
-    const { container } = render(
-      <TestWrapper>
-        <AccountSideNav />
-      </TestWrapper>
-    )
-    expect(container).toMatchSnapshot()
-  })
+import routes from '@common/RouteDefinitions'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { SidebarLink } from '@common/navigation/SideNav/SideNav'
+import { useStrings } from 'framework/strings'
+import { returnLaunchUrl } from '@common/utils/routeUtils'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { LaunchButton } from '../LaunchButton/LaunchButton'
 
-  test('Disable launch button for community edition', () => {
-    jest.spyOn(LicenseStoreContext, 'useLicenseStore').mockReturnValue({
-      licenseInformation: {
-        CD: {
-          edition: 'COMMUNITY'
-        }
-      },
-      CD_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
-      CI_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
-      FF_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
-      CCM_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
-      updateLicenseStore: () => {
-        //empty method
-      },
-      versionMap: {}
-    })
-    const { container } = render(
-      <TestWrapper>
-        <AccountSideNav />
-      </TestWrapper>
-    )
-    expect(container).toMatchSnapshot()
-  })
+export default function AccountSideNav(): React.ReactElement {
+  const { getString } = useStrings()
+  const { accountId } = useParams<AccountPathProps>()
+  const { currentUserInfo } = useAppStore()
+  const { NG_LICENSES_ENABLED, OPA_PIPELINE_GOVERNANCE, AUDIT_TRAIL_WEB_INTERFACE } = useFeatureFlags()
+  const { accounts } = currentUserInfo
+  const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
 
-  test('AccountSideNav test governance', () => {
-    jest.spyOn(FeatureFlag, 'useFeatureFlags').mockReturnValue({
-      OPA_PIPELINE_GOVERNANCE: true
-    })
-    const renderObj = render(
-      <TestWrapper>
-        <AccountSideNav />
-      </TestWrapper>
-    )
-    expect(renderObj.getByText('common.governance')).toBeTruthy()
-  })
-
-  test('AccountSideNav test no licenses enabled', () => {
-    jest.spyOn(FeatureFlag, 'useFeatureFlags').mockReturnValue({
-      NG_LICENSES_ENABLED: true
-    })
-    const renderObj = render(
-      <TestWrapper>
-        <AccountSideNav />
-      </TestWrapper>
-    )
-    expect(renderObj.getByText('common.subscriptions.title')).toBeTruthy()
-  })
-
-  test('AccountSideNav test audit trail', () => {
-    jest.spyOn(FeatureFlag, 'useFeatureFlags').mockReturnValue({
-      AUDIT_TRAIL_WEB_INTERFACE: true
-    })
-    const renderObj = render(
-      <TestWrapper>
-        <AccountSideNav />
-      </TestWrapper>
-    )
-    expect(renderObj.getByText('common.auditTrail')).toBeTruthy()
-  })
-})
+  return (
+    <Layout.Vertical spacing="small" margin={{ top: 'xxxlarge' }}>
+      <SidebarLink exact label={getString('overview')} to={routes.toAccountSettingsOverview({ accountId })} />
+      <SidebarLink label={getString('authentication')} to={routes.toAuthenticationSettings({ accountId })} />
+      <SidebarLink label={getString('common.accountResources')} to={routes.toAccountResources({ accountId })} />
+      {OPA_PIPELINE_GOVERNANCE && (
+        <SidebarLink label={getString('common.governance')} to={routes.toGovernance({ accountId })} />
+      )}
+      <SidebarLink to={routes.toAccessControl({ accountId })} label={getString('accessControl')} />
+      {(createdFromNG || NG_LICENSES_ENABLED) && (
+        <SidebarLink exact label={getString('common.subscriptions.title')} to={routes.toSubscriptions({ accountId })} />
+      )}
+      {AUDIT_TRAIL_WEB_INTERFACE && (
+        <SidebarLink label={getString('common.auditTrail')} to={routes.toAuditTrail({ accountId })} />
+      )}
+      <SidebarLink label={getString('orgsText')} to={routes.toOrganizations({ accountId })} />
+      <LaunchButton
+        launchButtonText={getString('common.cgLaunchText')}
+        redirectUrl={returnLaunchUrl(`#/account/${accountId}/dashboard`)}
+      />
+    </Layout.Vertical>
+  )
+}

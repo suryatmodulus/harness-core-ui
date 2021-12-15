@@ -13,6 +13,7 @@ import css from './FeatureWarning.module.scss'
 interface FeatureWarningTooltipProps {
   featureName: FeatureIdentifier
   warningMessage?: string
+  isDarkMode?: boolean
 }
 
 export interface FeatureWarningProps {
@@ -33,7 +34,7 @@ interface WarningTextProps {
 export const WarningText = ({ tooltip }: WarningTextProps): ReactElement => {
   const { getString } = useStrings()
   return (
-    <Popover interactionKind={PopoverInteractionKind.HOVER} content={tooltip} isDark position={'bottom'}>
+    <Popover interactionKind={PopoverInteractionKind.HOVER} content={tooltip} position={'bottom'}>
       <Text
         className={css.warning}
         icon="flash"
@@ -47,7 +48,11 @@ export const WarningText = ({ tooltip }: WarningTextProps): ReactElement => {
   )
 }
 
-export const FeatureWarningTooltip = ({ featureName, warningMessage }: FeatureWarningTooltipProps): ReactElement => {
+export const FeatureWarningTooltip = ({
+  featureName,
+  warningMessage,
+  isDarkMode = false
+}: FeatureWarningTooltipProps): ReactElement => {
   const { getString } = useStrings()
   const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
   const customFeatureDescription = CustomFeatureDescriptor[featureName]
@@ -62,15 +67,21 @@ export const FeatureWarningTooltip = ({ featureName, warningMessage }: FeatureWa
 
   return (
     <Layout.Vertical padding="medium" className={css.tooltip}>
-      <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800} padding={{ bottom: 'small' }}>
+      <Text
+        font={{ size: 'medium', weight: 'semi-bold' }}
+        color={isDarkMode ? Color.GREY_100 : Color.GREY_800}
+        padding={{ bottom: 'small' }}
+      >
         {getString('common.feature.upgradeRequired.title')}
       </Text>
       <Layout.Vertical spacing="small">
-        <Text font={{ size: 'small' }} color={Color.GREY_700}>
+        <Text font={{ size: 'small' }} color={isDarkMode ? Color.GREY_200 : Color.GREY_800}>
           {!warningMessage && !customFeatureDescription && getString('common.feature.upgradeRequired.description')}
           {warningMessage || customFeatureDescription || featureDescription}
         </Text>
-        {!warningMessage && !customFeatureDescription && getDescription()}
+        <Text font={{ size: 'small' }} color={isDarkMode ? Color.GREY_200 : Color.GREY_800}>
+          {!warningMessage && !customFeatureDescription && getDescription()}
+        </Text>
         <ExplorePlansBtn featureName={featureName} />
       </Layout.Vertical>
     </Layout.Vertical>

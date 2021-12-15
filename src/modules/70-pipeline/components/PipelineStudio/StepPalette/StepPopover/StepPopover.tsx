@@ -32,7 +32,7 @@ const TooltipContent = ({ description, stepsFactory, stepData }: StepTooltipCont
   const { getString } = useStrings()
   const { disabled, featureRestrictionName = '' } = stepData || {}
   if (disabled && featureRestrictionName) {
-    return <FeatureWarningTooltip featureName={featureRestrictionName as FeatureIdentifier} />
+    return <FeatureWarningTooltip featureName={featureRestrictionName as FeatureIdentifier} isDarkMode />
   }
   if (description) {
     return (

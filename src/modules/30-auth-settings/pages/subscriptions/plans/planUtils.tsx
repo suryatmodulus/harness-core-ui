@@ -3,16 +3,12 @@ import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { Layout, Text, Button, ButtonVariation, Color } from '@wings-software/uicore'
 import type { Editions } from '@common/constants/SubscriptionTypes'
+import { PLAN_UNIT } from '@common/constants/SubscriptionTypes'
 import type { EditionActionDTO } from 'services/cd-ng'
 import type { StringsMap } from 'stringTypes'
 import type { PlansFragment, Maybe } from 'services/common/services'
 import type { PlanCalculatedProps, BtnProps } from './PlanContainer'
 import css from './Plan.module.scss'
-
-export enum TIME_TYPE {
-  YEARLY = 'yearly',
-  MONTHLY = 'monthly'
-}
 
 export type PlanProp = Maybe<{ __typename?: 'ComponentPricingPagePlansZone' } & PlansFragment>
 
@@ -166,16 +162,16 @@ export function getBtns({ isPlanDisabled, btnProps, getString }: GetBtnsProps): 
 }
 
 interface GetPriceTipsProps {
-  timeType: TIME_TYPE
+  timeType: PLAN_UNIT
   plan: PlanData
   textColorClassName: string
 }
 
 export function getPriceTips({ timeType, plan, textColorClassName }: GetPriceTipsProps): React.ReactElement {
-  const priceTips = timeType === TIME_TYPE.MONTHLY ? plan.planProps?.priceTips : plan.planProps?.yearlyPriceTips
-  const priceTerm = timeType === TIME_TYPE.MONTHLY ? plan.planProps?.priceTerm : plan.planProps?.yearlyPriceTerm
+  const priceTips = timeType === PLAN_UNIT.MONTHLY ? plan.planProps?.priceTips : plan.planProps?.yearlyPriceTips
+  const priceTerm = timeType === PLAN_UNIT.MONTHLY ? plan.planProps?.priceTerm : plan.planProps?.yearlyPriceTerm
   const priceTermTips =
-    timeType === TIME_TYPE.MONTHLY ? plan.planProps?.priceTermTips : plan.planProps?.yearlyPriceTermTips
+    timeType === PLAN_UNIT.MONTHLY ? plan.planProps?.priceTermTips : plan.planProps?.yearlyPriceTermTips
 
   if (!isEmpty(priceTerm) && !isEmpty(priceTermTips)) {
     const tips = priceTips?.split(priceTerm || '')
@@ -222,14 +218,14 @@ export function getPriceTips({ timeType, plan, textColorClassName }: GetPriceTip
 
 interface GetPriceProps {
   plan: PlanData
-  timeType: TIME_TYPE
+  timeType: PLAN_UNIT
   openMarketoContactSales: () => void
   getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string
 }
 
 export function getPrice({ timeType, plan, openMarketoContactSales, getString }: GetPriceProps): React.ReactElement {
   const CUSTOM_PRICING = 'custom pricing'
-  const price = timeType === TIME_TYPE.MONTHLY ? plan.planProps?.price : plan?.planProps?.yearlyPrice
+  const price = timeType === PLAN_UNIT.MONTHLY ? plan.planProps?.price : plan?.planProps?.yearlyPrice
   if (price?.toLowerCase() === CUSTOM_PRICING) {
     return (
       <Layout.Horizontal spacing="xsmall" flex={{ alignItems: 'baseline' }}>

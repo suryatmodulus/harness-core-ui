@@ -7,13 +7,14 @@ import { useContactSalesMktoModal } from '@common/modals/ContactSales/useContact
 import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
 import SvgInline from '@common/components/SvgInline/SvgInline'
-import { getBtns, getPriceTips, getPrice, TIME_TYPE } from './planUtils'
+import type { PLAN_UNIT } from '@common/constants/SubscriptionTypes'
+import { getBtns, getPriceTips, getPrice } from './planUtils'
 import type { PlanData } from './planUtils'
 import CurrentPlanHeader from './CurrentPlanHeader'
 import css from './Plan.module.scss'
 interface PlanProps {
   plan: PlanData
-  timeType: TIME_TYPE
+  timeType: PLAN_UNIT
   module: ModuleName
 }
 

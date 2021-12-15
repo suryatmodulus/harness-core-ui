@@ -139,3 +139,11 @@ cdCommunityPlan:
     item1: 'No limit on services'
     item2: 'Advanced Security'
     item3: 'Organize by multiple orgs'
+changingTo: Changing to
+unitPrice: Unit price
+premiumSupport: Premium support
+newTotal: 'New {{unit}} total'
+payingToday: Paying today
+proratedForNextDays: Prorated for next 16 days
+subscribeAndPay: Subscribe and pay
+terms: 'By confirming your subscription, you allow Harness to charge your card for this payment and future payments in accordance with <a target="_blank" href="">the terms.</a>'

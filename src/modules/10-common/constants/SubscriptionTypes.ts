@@ -24,3 +24,8 @@ export enum SUBSCRIPTION_TAB_NAMES {
   PLANS = 'PLANS',
   BILLING = 'BILLING'
 }
+
+export enum PLAN_UNIT {
+  YEARLY = 'yearly',
+  MONTHLY = 'monthly'
+}

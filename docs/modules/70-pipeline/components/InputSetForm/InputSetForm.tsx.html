@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.45% </span>
+                <span class="strong">85.03% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>141/165</span>
+                <span class='fraction'>142/167</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.8% </span>
+                <span class="strong">59.56% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>244/408</span>
+                <span class='fraction'>246/413</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.19% </span>
+                <span class="strong">84.76% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>138/162</span>
+                <span class='fraction'>139/164</span>
             </div>
         
             
@@ -785,7 +785,20 @@
 <a name='L726'></a><a href='#L726'>726</a>
 <a name='L727'></a><a href='#L727'>727</a>
 <a name='L728'></a><a href='#L728'>728</a>
-<a name='L729'></a><a href='#L729'>729</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L729'></a><a href='#L729'>729</a>
+<a name='L730'></a><a href='#L730'>730</a>
+<a name='L731'></a><a href='#L731'>731</a>
+<a name='L732'></a><a href='#L732'>732</a>
+<a name='L733'></a><a href='#L733'>733</a>
+<a name='L734'></a><a href='#L734'>734</a>
+<a name='L735'></a><a href='#L735'>735</a>
+<a name='L736'></a><a href='#L736'>736</a>
+<a name='L737'></a><a href='#L737'>737</a>
+<a name='L738'></a><a href='#L738'>738</a>
+<a name='L739'></a><a href='#L739'>739</a>
+<a name='L740'></a><a href='#L740'>740</a>
+<a name='L741'></a><a href='#L741'>741</a>
+<a name='L742'></a><a href='#L742'>742</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -1037,6 +1050,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1515,7 +1541,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import * as Yup from 'yup'
-import { cloneDeep, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
+import { cloneDeep, defaultTo, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import {
   Button,
   Container,
@@ -1768,6 +1794,19 @@ export const InputSetForm: React.FC&lt;InputSetFormProps&gt; = (props): JSX.Elem
         ? parse(mergeTemplate || /* istanbul ignore next */ '')<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipeline || /* istanbul ignore next */ {}
         : parsedInputSetObj<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nputSet<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipeline
 &nbsp;
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (isGitSyncEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >parsedInputSetObj </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >parsedInputSetObj.inputSet)</span> {
+<span class="cstat-no" title="statement not covered" >        return {</span>
+          name: parsedInputSetObj.inputSet.name,
+          tags: parsedInputSetObj.inputSet.tags,
+          identifier: parsedInputSetObj.inputSet.identifier,
+          description: parsedInputSetObj.inputSet.description,
+          orgIdentifier: parsedInputSetObj.inputSet.orgIdentifier,
+          projectIdentifier: parsedInputSetObj.inputSet.projectIdentifier,
+          pipeline: clearRuntimeInput(parsedInputSetObj.inputSet.pipeline),
+          gitDetails: defaultTo(inputSetObj.gitDetails, {}),
+          entityValidityDetails: defaultTo(inputSetObj.entityValidityDetails, {})
+        }
+      }
       return {
         name: inputSetObj.name,
         tags: inputSetObj.tags,
@@ -1785,7 +1824,7 @@ export const InputSetForm: React.FC&lt;InputSetFormProps&gt; = (props): JSX.Elem
       orgIdentifier,
       projectIdentifier
     )
-  }, [mergeTemplate, inputSetResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata, template<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nputSetTemplateYaml])
+  }, [mergeTemplate, inputSetResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata, template<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nputSetTemplateYaml, isGitSyncEnabled])
 &nbsp;
   const [disableVisualView, setDisableVisualView] = React.useState(inputSet.entityValidityDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alid === false)
 &nbsp;
@@ -2248,7 +2287,7 @@ export const EnhancedInputSetForm: React.FC&lt;InputSetFormProps&gt; = props =&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 15 2021 04:52:37 GMT+0000 (Greenwich Mean Time)
+                at Wed Dec 15 2021 06:12:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

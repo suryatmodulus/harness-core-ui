@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.53% </span>
+                <span class="strong">83.24% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>142/170</span>
+                <span class='fraction'>144/173</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.11% </span>
+                <span class="strong">46.36% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>166/360</span>
+                <span class='fraction'>172/371</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.43% </span>
+                <span class="strong">83.14% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>141/169</span>
+                <span class='fraction'>143/172</span>
             </div>
         
             
@@ -813,7 +813,27 @@
 <a name='L754'></a><a href='#L754'>754</a>
 <a name='L755'></a><a href='#L755'>755</a>
 <a name='L756'></a><a href='#L756'>756</a>
-<a name='L757'></a><a href='#L757'>757</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L757'></a><a href='#L757'>757</a>
+<a name='L758'></a><a href='#L758'>758</a>
+<a name='L759'></a><a href='#L759'>759</a>
+<a name='L760'></a><a href='#L760'>760</a>
+<a name='L761'></a><a href='#L761'>761</a>
+<a name='L762'></a><a href='#L762'>762</a>
+<a name='L763'></a><a href='#L763'>763</a>
+<a name='L764'></a><a href='#L764'>764</a>
+<a name='L765'></a><a href='#L765'>765</a>
+<a name='L766'></a><a href='#L766'>766</a>
+<a name='L767'></a><a href='#L767'>767</a>
+<a name='L768'></a><a href='#L768'>768</a>
+<a name='L769'></a><a href='#L769'>769</a>
+<a name='L770'></a><a href='#L770'>770</a>
+<a name='L771'></a><a href='#L771'>771</a>
+<a name='L772'></a><a href='#L772'>772</a>
+<a name='L773'></a><a href='#L773'>773</a>
+<a name='L774'></a><a href='#L774'>774</a>
+<a name='L775'></a><a href='#L775'>775</a>
+<a name='L776'></a><a href='#L776'>776</a>
+<a name='L777'></a><a href='#L777'>777</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -1056,6 +1076,26 @@
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1570,7 +1610,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
+import { defaultTo, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import {
@@ -1812,6 +1852,26 @@ export const OverlayInputSetForm: React.FC&lt;OverlayInputSetFormProps&gt; = ({
   const inputSet = React.useMemo(() =&gt; {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (overlayInputSetResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata) {
       const inputSetObj = overlayInputSetResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata
+      const parsedInputSetObj = parse(inputSetObj<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>verlayInputSetYaml || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (isGitSyncEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >parsedInputSetObj </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >parsedInputSetObj.overlayInputSet)</span> {
+<span class="cstat-no" title="statement not covered" >        return {</span>
+          name: parsedInputSetObj.overlayInputSet.name as string,
+          tags: parsedInputSetObj.overlayInputSet.tags as {
+            [key: string]: string
+          },
+          identifier: parsedInputSetObj.overlayInputSet.identifier as string,
+          description: parsedInputSetObj.overlayInputSet.description as string,
+          orgIdentifier: parsedInputSetObj.overlayInputSet.orgIdentifier as string,
+          projectIdentifier: parsedInputSetObj.overlayInputSet.projectIdentifier as string,
+          pipelineIdentifier: parsedInputSetObj.overlayInputSet.pipelineIdentifier as string,
+          inputSetReferences: defaultTo(
+            parsedInputSetObj.overlayInputSet.inputSetReferences,
+            /* istanbul ignore next */ []
+          ) as string[],
+          gitDetails: defaultTo(inputSetObj.gitDetails, {}),
+          entityValidityDetails: defaultTo(inputSetObj.entityValidityDetails, {})
+        }
+      }
       return {
         name: inputSetObj.name,
         tags: inputSetObj.tags,
@@ -1826,7 +1886,7 @@ export const OverlayInputSetForm: React.FC&lt;OverlayInputSetFormProps&gt; = ({
       }
     }
 <span class="cstat-no" title="statement not covered" >    return getDefaultInputSet(orgIdentifier, projectIdentifier, pipelineIdentifier)</span>
-  }, [overlayInputSetResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata])
+  }, [overlayInputSetResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata, isGitSyncEnabled])
 &nbsp;
   const [disableVisualView, setDisableVisualView] = React.useState(inputSet.entityValidityDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alid === false)
 &nbsp;
@@ -2332,7 +2392,7 @@ export const OverlayInputSetForm: React.FC&lt;OverlayInputSetFormProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 15 2021 04:52:37 GMT+0000 (Greenwich Mean Time)
+                at Wed Dec 15 2021 06:12:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

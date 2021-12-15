@@ -6,12 +6,18 @@ import { Tab } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { Utils } from '@ce/common/Utils'
 import { useToaster } from '@common/exports'
-import { HealthCheck, PortConfig, useSecurityGroupsOfInstances } from 'services/lw'
+import {
+  HealthCheck,
+  PortConfig,
+  useSecurityGroupsOfInstances,
+  NetworkSecurityGroupForInstanceArray
+} from 'services/lw'
 import { portProtocolMap } from '@ce/constants'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ASRuleCreationActiveStep, GatewayDetails } from '../COCreateGateway/models'
 import CORoutingTable from '../COGatewayConfig/CORoutingTable'
 import COHealthCheckTable from '../COGatewayConfig/COHealthCheckTable'
+import { getSecurityGroupsBodyText } from './helper'
 import css from './COGatewayAccess.module.scss'
 
 interface LBAdvancedConfigurationProps {
@@ -24,7 +30,6 @@ const LBAdvancedConfiguration: React.FC<LBAdvancedConfigurationProps> = props =>
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { showError } = useToaster()
-  const isAzureProvider = Utils.isProviderAzure(props.gatewayDetails.provider)
   const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
 
   const [activeConfigTabId, setActiveConfigTabId] = useState<string | undefined>(props.activeStepDetails?.tabId)
@@ -69,60 +74,49 @@ const LBAdvancedConfiguration: React.FC<LBAdvancedConfigurationProps> = props =>
       })
     })
     const routes = [...emptyRecords]
-    if (routes.length) setRoutingRecords(routes)
+    if (routes.length) {
+      setRoutingRecords(routes)
+    }
+  }
+
+  const handleSaveRoutingRecords = (data: NetworkSecurityGroupForInstanceArray) => {
+    const emptyRecords: PortConfig[] = []
+    Object.entries(data).forEach(([_instance, groups]) => {
+      groups?.forEach(sg => {
+        sg?.inbound_rules?.forEach(rule => {
+          if (rule.protocol === '-1' || rule.from === '*') {
+            addAllPorts()
+            return
+          } else if (rule && rule.from && [80, 443].includes(+rule.from)) {
+            const fromRule = +rule.from
+            const toRule = +(rule.to ? rule.to : 0)
+            emptyRecords.push({
+              protocol: portProtocolMap[fromRule],
+              port: fromRule,
+              action: 'forward',
+              target_protocol: portProtocolMap[fromRule], // eslint-disable-line
+              target_port: toRule, // eslint-disable-line
+              server_name: '', // eslint-disable-line
+              redirect_url: '', // eslint-disable-line
+              routing_rules: [] // eslint-disable-line
+            })
+            const routes = [...emptyRecords]
+            if (routes.length) {
+              setRoutingRecords(routes)
+            }
+          }
+        })
+      })
+    })
   }
 
   const fetchInstanceSecurityGroups = async (): Promise<void> => {
-    const emptyRecords: PortConfig[] = []
-    const hasInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
     try {
-      let text = `id = ['${Utils.getConditionalResult(
-        hasInstances,
-        props.gatewayDetails.selectedInstances?.[0]?.id,
-        ''
-      )}']\nregions = ['${Utils.getConditionalResult(
-        hasInstances,
-        props.gatewayDetails.selectedInstances?.[0]?.region,
-        ''
-      )}']`
-
-      if (isAzureProvider) {
-        text += `\nresource_groups=['${Utils.getConditionalResult(
-          hasInstances,
-          props.gatewayDetails.selectedInstances?.[0]?.metadata?.resourceGroup,
-          ''
-        )}']`
-      }
-
       const result = await getSecurityGroups({
-        text
+        text: getSecurityGroupsBodyText(props.gatewayDetails)
       })
       if (result && result.response) {
-        Object.keys(result.response).forEach(instance => {
-          result.response?.[instance].forEach(sg => {
-            sg?.inbound_rules?.forEach(rule => {
-              if (rule.protocol == '-1' || rule.from === '*') {
-                addAllPorts()
-                return
-              } else if (rule && rule.from && [80, 443].includes(+rule.from)) {
-                const fromRule = +rule.from
-                const toRule = +(rule.to ? rule.to : 0)
-                emptyRecords.push({
-                  protocol: portProtocolMap[fromRule],
-                  port: fromRule,
-                  action: 'forward',
-                  target_protocol: portProtocolMap[fromRule], // eslint-disable-line
-                  target_port: toRule, // eslint-disable-line
-                  server_name: '', // eslint-disable-line
-                  redirect_url: '', // eslint-disable-line
-                  routing_rules: [] // eslint-disable-line
-                })
-                const routes = [...emptyRecords]
-                if (routes.length) setRoutingRecords(routes)
-              }
-            })
-          })
-        })
+        handleSaveRoutingRecords(result.response)
       }
     } catch (e) {
       showError(e.data?.message || e.message, undefined, 'ce.creaetap.result.error')

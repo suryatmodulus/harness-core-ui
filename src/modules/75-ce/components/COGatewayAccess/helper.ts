@@ -219,3 +219,21 @@ export const getSupportedResourcesQueryParams = ({
   }
   return params
 }
+
+export const getSecurityGroupsBodyText = (gatewayDetails: GatewayDetails): string => {
+  const hasInstances = !_isEmpty(gatewayDetails.selectedInstances)
+  let text = `id = ['${Utils.getConditionalResult(
+    hasInstances,
+    gatewayDetails.selectedInstances?.[0]?.id,
+    ''
+  )}']\nregions = ['${Utils.getConditionalResult(hasInstances, gatewayDetails.selectedInstances?.[0]?.region, '')}']`
+
+  if (Utils.isProviderAzure(gatewayDetails.provider)) {
+    text += `\nresource_groups=['${Utils.getConditionalResult(
+      hasInstances,
+      gatewayDetails.selectedInstances?.[0]?.metadata?.resourceGroup,
+      ''
+    )}']`
+  }
+  return text
+}

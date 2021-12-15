@@ -88,7 +88,7 @@ const useLoadBalancerModal = (
   const isAzureProvider = Utils.isProviderAzure(gatewayDetails.provider)
 
   const [openLoadBalancerModal, hideLoadBalancerModal] = useModalHook(() => {
-    const onClose = (clearStatus?: boolean) => {
+    const onClose = (clearStatus: boolean = false) => {
       handleClose(clearStatus)
       hideLoadBalancerModal()
     }
@@ -374,8 +374,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     trackEvent('MadeNewAccessPoint', {})
     openLoadBalancerModal()
   }
-
-  // const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
 
   return (
     <Layout.Vertical spacing="medium" padding="medium">

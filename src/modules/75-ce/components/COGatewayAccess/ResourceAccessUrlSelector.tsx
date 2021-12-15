@@ -56,8 +56,10 @@ const ResourceAccessUrlSelector: React.FC<ResourceAccessUrlSelectorProps> = ({
   })
 
   useEffect(() => {
-    if (hostedZonesLoading) return
-    if (hostedZones?.response?.length == 0) {
+    if (hostedZonesLoading) {
+      return
+    }
+    if (hostedZones?.response?.length === 0) {
       return
     }
     const loadedhostedZones: SelectOption[] =
@@ -71,7 +73,9 @@ const ResourceAccessUrlSelector: React.FC<ResourceAccessUrlSelectorProps> = ({
   }, [hostedZones, hostedZonesLoading])
 
   useEffect(() => {
-    if (dnsProvider == 'route53') loadHostedZones()
+    if (dnsProvider === 'route53') {
+      loadHostedZones()
+    }
   }, [dnsProvider])
 
   const shouldDisplayPublicAccessCheck = () => {
@@ -108,13 +112,13 @@ const ResourceAccessUrlSelector: React.FC<ResourceAccessUrlSelectorProps> = ({
             value="no"
             onChange={e => {
               formikProps.setFieldValue('usingCustomDomain', e.currentTarget.value)
-              if (e.currentTarget.value == 'no') {
+              if (e.currentTarget.value === 'no') {
                 setHelpTextSections([])
               }
               formikProps.setFieldValue('customURL', '')
               setGatewayDetails({ ...gatewayDetails, customDomains: [] })
             }}
-            checked={formikProps.values.usingCustomDomain == 'no'}
+            checked={formikProps.values.usingCustomDomain === 'no'}
           />
           <Layout.Vertical spacing="xsmall">
             <Text
@@ -138,7 +142,7 @@ const ResourceAccessUrlSelector: React.FC<ResourceAccessUrlSelectorProps> = ({
               formikProps.setFieldValue('usingCustomDomain', e.currentTarget.value)
               debouncedCustomDomainTextChange('', false)
             }}
-            checked={formikProps.values.usingCustomDomain == 'yes'}
+            checked={formikProps.values.usingCustomDomain === 'yes'}
             className={css.centerAlignedRadio}
             name={'usingCustomDomain'}
           />
@@ -150,7 +154,7 @@ const ResourceAccessUrlSelector: React.FC<ResourceAccessUrlSelectorProps> = ({
               debouncedCustomDomainTextChange(e.target.value, true)
             }}
             style={{ width: '100%' }}
-            disabled={formikProps.values.usingCustomDomain != 'yes'}
+            disabled={formikProps.values.usingCustomDomain !== 'yes'}
           />
         </Layout.Horizontal>
         {shouldDisplayPublicAccessCheck() && (

@@ -543,6 +543,7 @@ export interface StringsMap {
   'common.submittingRequest': string
   'common.submittingRequestToGitViaDelegate': string
   'common.subscribed': string
+  'common.subscription': string
   'common.subscriptions.banner.trial': string
   'common.subscriptions.ccm.cloudSpend': string
   'common.subscriptions.cd.services': string
@@ -932,6 +933,7 @@ export interface StringsMap {
   'authSettings.cdCommunityPlan.saasTitle2': string
   'authSettings.changeLoginToHarnessAccountOrOauth': string
   'authSettings.changeLoginToHarnessAccountOrOauthDescription': string
+  'authSettings.changingTo': string
   'authSettings.chooseFile': string
   'authSettings.confirmDisableLockoutPolicy': string
   'authSettings.confirmDisableOAuthLogin': string
@@ -990,6 +992,7 @@ export interface StringsMap {
   'authSettings.multipleOrganizations': string
   'authSettings.multipleProjects': string
   'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
+  'authSettings.newTotal': string
   'authSettings.notifyUsersWhenTheyLocked': string
   'authSettings.notifyUsersWhenUserLocked': string
   'authSettings.oauthSettingsHaveBeenUpdated': string
@@ -1006,10 +1009,13 @@ export interface StringsMap {
   'authSettings.passwordStrengthDisabled': string
   'authSettings.passwordStrengthEnabled': string
   'authSettings.passwordStrengthUpdated': string
+  'authSettings.payingToday': string
   'authSettings.periodicallyExpirePassword': string
   'authSettings.periodicallyExpirePasswordNote': string
   'authSettings.pleaseRemoveSAMLOrLDAPToEnableOauth': string
   'authSettings.plusSAMLProvider': string
+  'authSettings.premiumSupport': string
+  'authSettings.proratedForNextDays': string
   'authSettings.publicOAuthLoginDisabled': string
   'authSettings.publicOAuthLoginEnabled': string
   'authSettings.restrictUsersToEmailDomains': string
@@ -1022,13 +1028,16 @@ export interface StringsMap {
   'authSettings.samlTestFailed': string
   'authSettings.samlTestSuccessful': string
   'authSettings.selectSAMLProvider': string
+  'authSettings.subscribeAndPay': string
   'authSettings.sureToDisableTwoFAEnforcement': string
+  'authSettings.terms': string
   'authSettings.testingSSO': string
   'authSettings.testingSSODescription': string
   'authSettings.twoFAEnforcementDisabled': string
   'authSettings.twoFAEnforcementEnabled': string
   'authSettings.twoFactorAuthSupport': string
   'authSettings.typeAndPressEnterToAddADomain': string
+  'authSettings.unitPrice': string
   'authSettings.updating': string
   'authSettings.uploadIdentityProvider': string
   'authSettings.useHarnessUsernameAndPassword': string

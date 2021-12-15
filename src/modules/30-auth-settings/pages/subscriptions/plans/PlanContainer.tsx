@@ -22,15 +22,16 @@ import type { Module } from '@common/interfaces/RouteInterfaces'
 import { ModuleName } from 'framework/types/ModuleName'
 import { ModuleLicenseType, Editions } from '@common/constants/SubscriptionTypes'
 import type { FetchPlansQuery } from 'services/common/services'
+import type { PLAN_UNIT } from '@common/constants/SubscriptionTypes'
 import { getBtnProps } from './planUtils'
-import type { TIME_TYPE, PlanData, PlanProp } from './planUtils'
+import type { PlanData, PlanProp } from './planUtils'
 import Plan from './Plan'
 
 type plansType = 'ciSaasPlans' | 'ffPlans' | 'cdPlans' | 'ccPlans'
 interface PlanProps {
   plans: NonNullable<FetchPlansQuery['pricing']>[plansType]
   moduleName: ModuleName
-  timeType: TIME_TYPE
+  timeType: PLAN_UNIT
 }
 
 export interface BtnProps {

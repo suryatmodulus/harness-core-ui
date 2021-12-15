@@ -717,3 +717,4 @@ resourceGroupLabel: Resource Group
 roleAssignmentLabel: Role Assignment
 triggerLabel: Trigger
 delegateTokenLabel: Delegate Token
+subscription: Subscription

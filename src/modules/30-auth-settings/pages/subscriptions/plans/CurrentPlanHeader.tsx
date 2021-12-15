@@ -4,13 +4,13 @@ import { Text, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
-import type { TIME_TYPE } from './planUtils'
+import type { PLAN_UNIT } from '@common/constants/SubscriptionTypes'
 import css from './Plan.module.scss'
 
 interface CurrentPlanHeaderProps {
   isTrial?: boolean
   isPaid?: boolean
-  timeType: TIME_TYPE
+  timeType: PLAN_UNIT
   module: ModuleName
   isCurrentPlan?: boolean
 }

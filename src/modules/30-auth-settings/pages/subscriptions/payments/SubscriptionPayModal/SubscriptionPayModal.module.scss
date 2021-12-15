@@ -1,0 +1,27 @@
+.dialog {
+  border-radius: 11px;
+  position: relative;
+  padding: unset !important;
+  &.subscribePayDialog {
+    width: 900px;
+  }
+}
+
+.subscribeInfo {
+  border-radius: 11px;
+  width: 500px;
+  background-color: var(--primary-bg) !important;
+}
+
+.paymentInfo {
+  border-radius: 11px;
+  width: 400px !important;
+}
+
+.footer {
+  padding: var(--spacing-medium) !important;
+}
+
+.terms {
+  text-align: center;
+}

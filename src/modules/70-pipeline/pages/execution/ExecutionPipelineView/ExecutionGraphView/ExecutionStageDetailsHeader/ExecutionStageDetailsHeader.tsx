@@ -14,7 +14,7 @@ import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/Exec
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 import { usePermission } from '@rbac/hooks/usePermission'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacButton from '@rbac/components/Button/Button'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'

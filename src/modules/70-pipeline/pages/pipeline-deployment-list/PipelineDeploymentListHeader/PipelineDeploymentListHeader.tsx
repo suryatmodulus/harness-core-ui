@@ -14,7 +14,7 @@ import { Page } from '@common/exports'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import type { GetListOfExecutionsQueryParams } from 'services/pipeline-ng'
 import RbacButton from '@rbac/components/Button/Button'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
 import { useFiltersContext } from '../FiltersContext/FiltersContext'

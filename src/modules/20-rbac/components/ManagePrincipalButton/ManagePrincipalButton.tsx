@@ -4,7 +4,7 @@ import type { ButtonProps } from '@wings-software/uicore'
 import RbacButton from '@rbac/components/Button/Button'
 import type { PermissionRequest } from '@rbac/hooks/usePermission'
 import type { FeaturesProps } from 'framework/featureStore/featureStoreUtil'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 
 interface ManagePrincipalButtonProps extends ButtonProps {

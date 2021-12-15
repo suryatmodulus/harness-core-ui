@@ -13,7 +13,7 @@ import { accountPathProps } from '@common/utils/routeUtils'
 
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
+import { ResourceType, ResourceCategory } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import { AccountSideNavProps } from '@common/RouteDestinations'

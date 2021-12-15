@@ -5,7 +5,7 @@ import { DISABLE_AVATAR_PROPS } from '@cf/utils/CFUtils'
 import { ItemContainer, ItemContainerProps } from '@cf/components/ItemContainer/ItemContainer'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import css from './ItemBriefInfo.module.scss'
 

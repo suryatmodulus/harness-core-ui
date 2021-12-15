@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Layout, Text, Color, Checkbox } from '@wings-software/uicore'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
+import type { ResourceType, ResourceCategory } from '@common/interfaces/ResourceInterface'
 import { useStrings } from 'framework/strings'
 import css from './ResourceTypeList.module.scss'
 

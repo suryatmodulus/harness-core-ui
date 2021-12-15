@@ -17,7 +17,7 @@ import { useQueryParams, useMutateAsGet, useUpdateQueryParams } from '@common/ho
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { UNSAVED_FILTER } from '@common/components/Filter/utils/FilterUtils'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { FeatureRestrictionBanners } from '@pipeline/factories/FeatureRestrictionBannersFactory/FeatureRestrictionBannersFactory'
 

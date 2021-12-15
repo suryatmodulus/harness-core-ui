@@ -33,7 +33,7 @@ import type { CellProps, Renderer, Column } from 'react-table'
 import { Page } from '@common/exports'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 
 import routes from '@common/RouteDefinitions'

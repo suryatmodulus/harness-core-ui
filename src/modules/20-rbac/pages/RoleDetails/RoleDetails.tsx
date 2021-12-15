@@ -17,7 +17,7 @@ import {
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import PermissionCard from '@rbac/components/PermissionCard/PermissionCard'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
+import { ResourceType, ResourceCategory } from '@common/interfaces/ResourceInterface'
 import { getPermissionMap, onPermissionChange } from '@rbac/pages/RoleDetails/utils'
 import routes from '@common/RouteDefinitions'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'

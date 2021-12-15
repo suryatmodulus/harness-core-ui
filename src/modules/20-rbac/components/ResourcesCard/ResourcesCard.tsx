@@ -3,7 +3,7 @@ import { Layout, Text, Card, Color, Button, Radio, Container, ButtonVariation } 
 import { useParams } from 'react-router-dom'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
-import type { ResourceType } from '@rbac/interfaces/ResourceType'
+import type { ResourceType } from '@common/interfaces/ResourceInterface'
 import useAddResourceModal from '@rbac/modals/AddResourceModal/useAddResourceModal'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { isDynamicResourceSelector } from '@rbac/utils/utils'

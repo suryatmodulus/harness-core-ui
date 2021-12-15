@@ -21,7 +21,7 @@ import { useEnvStrings } from '@cf/hooks/environment'
 import { getErrorMessage } from '@cf/utils/CFUtils'
 import { EnvironmentType } from '@common/constants/EnvironmentType'
 import RbacButton from '@rbac/components/Button/Button'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './EnvironmentDialog.module.scss'
 

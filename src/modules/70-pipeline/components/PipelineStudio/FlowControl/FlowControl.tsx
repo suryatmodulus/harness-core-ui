@@ -16,7 +16,7 @@ import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescripti
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import css from './FlowControl.module.scss'
 

@@ -1,6 +1,6 @@
 import produce from 'immer'
 import { RbacResourceGroupTypes } from '@rbac/constants/utils'
-import type { ResourceType } from '@rbac/interfaces/ResourceType'
+import type { ResourceType } from '@common/interfaces/ResourceInterface'
 import { isDynamicResourceSelector } from '@rbac/utils/utils'
 import type { ResourceSelector } from 'services/resourcegroups'
 

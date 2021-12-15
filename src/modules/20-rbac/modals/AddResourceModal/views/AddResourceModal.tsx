@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, ButtonVariation, Color, Container, ExpandingSearchInput, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'

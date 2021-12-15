@@ -23,7 +23,7 @@ import { useToaster } from '@common/exports'
 import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { usePermission } from '@rbac/hooks/usePermission'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 

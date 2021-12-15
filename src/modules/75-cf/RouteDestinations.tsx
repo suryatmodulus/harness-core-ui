@@ -40,7 +40,7 @@ import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYa
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceCategory, ResourceType } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'

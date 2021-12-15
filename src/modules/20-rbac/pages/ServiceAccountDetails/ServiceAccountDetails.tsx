@@ -16,7 +16,7 @@ import { useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRole
 import ApiKeyList from '@rbac/components/ApiKeyList/ApiKeyList'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { PrincipalType } from '@rbac/utils/utils'
 import { useLicenseStore, isCDCommunity } from 'framework/LicenseStore/LicenseStoreContext'
 import css from './ServiceAccountDetails.module.scss'

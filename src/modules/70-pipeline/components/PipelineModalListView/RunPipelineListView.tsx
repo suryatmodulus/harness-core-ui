@@ -11,7 +11,7 @@ import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import GitDetailsColumn from '@common/components/Table/GitDetailsColumn/GitDetailsColumn'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import css from './PipelineModalListView.module.scss'
 

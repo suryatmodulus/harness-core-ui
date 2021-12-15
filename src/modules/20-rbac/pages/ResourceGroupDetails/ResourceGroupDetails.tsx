@@ -13,7 +13,7 @@ import {
   ResourceGroupDTO,
   useGetResourceTypes
 } from 'services/resourcegroups'
-import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
+import { ResourceType, ResourceCategory } from '@common/interfaces/ResourceInterface'
 import ResourcesCard from '@rbac/components/ResourcesCard/ResourcesCard'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import routes from '@common/RouteDefinitions'

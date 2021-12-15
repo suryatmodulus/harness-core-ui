@@ -59,7 +59,7 @@ import {
 /* RBAC */
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { usePermission } from '@rbac/hooks/usePermission'
 
 import css from './DelegatesPage.module.scss'

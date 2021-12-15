@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { Button, Table } from '@wings-software/uicore'
 import type { CellProps, Column } from 'react-table'
-import type { ResourceType } from '@rbac/interfaces/ResourceType'
+import type { ResourceType } from '@common/interfaces/ResourceInterface'
 
 export interface ResourceHandlerTableData {
   identifier: string

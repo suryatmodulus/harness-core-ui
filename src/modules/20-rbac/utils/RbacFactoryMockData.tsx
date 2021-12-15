@@ -1,6 +1,6 @@
 import React from 'react'
 import type { ResourceHandler, ResourceCategoryHandler } from '@rbac/factories/RbacFactory'
-import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
+import { ResourceType, ResourceCategory } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 

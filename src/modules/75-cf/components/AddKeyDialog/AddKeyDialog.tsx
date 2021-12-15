@@ -19,7 +19,7 @@ import { useToaster } from '@common/exports'
 import { EnvironmentSDKKeyType, getErrorMessage } from '@cf/utils/CFUtils'
 import type { EnvironmentResponseDTO } from 'services/cd-ng'
 import RbacButton from '@rbac/components/Button/Button'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './AddKeyDialog.module.scss'
 

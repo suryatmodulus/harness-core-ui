@@ -14,7 +14,7 @@ import {
 import { DefaultNewTemplateId } from 'framework/Templates/templates'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { usePermission } from '@rbac/hooks/usePermission'
 
 export function NewTemplatePopover(): React.ReactElement {

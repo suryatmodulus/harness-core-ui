@@ -1,6 +1,6 @@
 import type React from 'react'
 import type { IconName } from '@wings-software/uicore'
-import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
+import type { ResourceType, ResourceCategory } from '@common/interfaces/ResourceInterface'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ResourceScope } from '@rbac/interfaces/ResourceScope'
 import type { StringsMap } from 'framework/strings/StringsContext'

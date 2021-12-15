@@ -4,7 +4,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { getResourceTypeHandlerMock } from '@rbac/utils/RbacFactoryMockData'
 

@@ -11,7 +11,7 @@ import { useListAggregatedServiceAccounts } from 'services/cd-ng'
 import ServiceAccountsListView from '@rbac/pages/ServiceAccounts/views/ServiceAccountsListView'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import ServiceAccountsEmptyState from './service-accounts-empty-state.png'
 import css from './ServiceAccounts.module.scss'
 

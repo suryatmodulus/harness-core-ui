@@ -10,7 +10,7 @@ import { useTokenModal } from '@rbac/modals/TokenModal/useTokenModal'
 import { PageSpinner } from '@common/components'
 import ApiKeyCard from '@rbac/components/ApiKeyList/views/ApiKeyCard'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import RbacButton from '@rbac/components/Button/Button'
 
 import css from './ApiKeyList.module.scss'

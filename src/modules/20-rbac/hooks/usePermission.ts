@@ -5,7 +5,7 @@ import { useDeepCompareEffect } from '@common/hooks'
 import { usePermissionsContext, PermissionRequestOptions } from 'framework/rbac/PermissionsContext'
 import type { PermissionCheck, ResourceScope } from 'services/rbac'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import type { ResourceType } from '@rbac/interfaces/ResourceType'
+import type { ResourceType } from '@common/interfaces/ResourceInterface'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 

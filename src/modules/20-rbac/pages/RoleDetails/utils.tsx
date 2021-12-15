@@ -1,6 +1,6 @@
 import produce from 'immer'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import type { ResourceType } from '@rbac/interfaces/ResourceType'
+import type { ResourceType } from '@common/interfaces/ResourceInterface'
 import type { Permission, PermissionResponse } from 'services/rbac'
 
 export const getPermissionMap = (permissionList?: PermissionResponse[]): Map<ResourceType, Permission[]> => {

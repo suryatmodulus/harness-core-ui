@@ -8,7 +8,7 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { MinimalLayout } from '@common/layouts'
 
 import RbacFactory from '@rbac/factories/RbacFactory'
-import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
+import { ResourceType, ResourceCategory } from '@common/interfaces/ResourceInterface'
 import DashboardResourceModalBody from '@dashboards/components/DashboardResourceModalBody/DashbaordResourceModalBody'
 import DashboardResourceRenderer from '@dashboards/components/DashboardResourceRenderer/DashboardResourceRenderer'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'

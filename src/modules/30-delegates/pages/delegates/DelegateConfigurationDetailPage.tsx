@@ -22,7 +22,7 @@ import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerS
 import { useToaster } from '@common/exports'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { DetailPageTemplate } from '../../components/DetailPageTemplate/DetailPageTemplate'
 import css from './DelegateConfigurationDetailPage.module.scss'
 

@@ -24,7 +24,7 @@ import {
   useDeleteGitOpsProvider
 } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { useStrings } from 'framework/strings'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'

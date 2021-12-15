@@ -19,7 +19,7 @@ import { TokenAggregateDTO, TokenDTO, useDeleteToken, useListAggregatedTokens } 
 import type { ProjectPathProps, ServiceAccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner, TagsPopover, useToaster } from '@common/components'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import css from './TokenList.module.scss'
 

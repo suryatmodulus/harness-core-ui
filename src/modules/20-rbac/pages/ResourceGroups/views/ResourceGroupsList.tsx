@@ -9,7 +9,7 @@ import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInt
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import routes from '@common/RouteDefinitions'
 import { setPageNumber } from '@common/utils/utils'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'

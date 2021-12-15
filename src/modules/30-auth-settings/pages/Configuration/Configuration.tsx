@@ -10,7 +10,7 @@ import AccountAndOAuth from '@auth-settings/pages/Configuration/AccountAndOAuth/
 import SAMLProvider from '@auth-settings/pages/Configuration/SAMLProvider/SAMLProvider'
 import RestrictEmailDomains from '@auth-settings/pages/Configuration/RestrictEmailDomains/RestrictEmailDomains'
 import { usePermission } from '@rbac/hooks/usePermission'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import css from './Configuration.module.scss'

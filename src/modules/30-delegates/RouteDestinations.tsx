@@ -8,7 +8,7 @@ import { AccountSideNavProps } from '@common/RouteDestinations'
 
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
+import { ResourceType, ResourceCategory } from '@common/interfaces/ResourceInterface'
 import { String } from 'framework/strings'
 
 import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'

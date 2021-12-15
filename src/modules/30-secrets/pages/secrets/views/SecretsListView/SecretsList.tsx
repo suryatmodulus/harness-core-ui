@@ -25,7 +25,7 @@ import { useVerifyModal } from '@secrets/modals/CreateSSHCredModal/useVerifyModa
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { SecretIdentifiers } from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import css from './SecretsList.module.scss'
 

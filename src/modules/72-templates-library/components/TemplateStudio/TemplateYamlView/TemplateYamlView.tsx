@@ -8,7 +8,7 @@ import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderPr
 import { useStrings } from 'framework/strings'
 import RbacButton from '@rbac/components/Button/Button'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { TemplateContext } from '@templates-library/components/TemplateStudio/TemplateContext/TemplateContext'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'

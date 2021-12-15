@@ -20,7 +20,7 @@ import {
   NGTemplateInfoConfig,
   TemplateSummaryResponse
 } from 'services/template-ng'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { usePermission } from '@rbac/hooks/usePermission'
 import type { PermissionCheck } from 'services/rbac'

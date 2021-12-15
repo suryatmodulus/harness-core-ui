@@ -20,7 +20,7 @@ import { useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { useMutateAsGet } from '@common/hooks'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from '../UserGroupDetails.module.scss'
 

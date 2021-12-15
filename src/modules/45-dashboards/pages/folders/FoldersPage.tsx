@@ -32,7 +32,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { Page } from '@common/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import routes from '@common/RouteDefinitions'
 
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'

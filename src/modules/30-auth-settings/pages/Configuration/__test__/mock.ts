@@ -1,6 +1,6 @@
 import type { RestResponseBoolean, LoginSettings } from 'services/cd-ng'
 import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 
 export const mockResponse: RestResponseBoolean = {
   metaData: {},

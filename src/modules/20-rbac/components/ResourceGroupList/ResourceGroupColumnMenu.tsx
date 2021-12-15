@@ -6,7 +6,7 @@ import type { Cell, CellValue, ColumnInstance, Renderer, Row, TableInstance } fr
 import { useStrings } from 'framework/strings'
 import { ResourceGroupDTO, ResourceGroupResponse, useDeleteResourceGroup } from 'services/resourcegroups'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import css from './ResourceGroupList.module.scss'

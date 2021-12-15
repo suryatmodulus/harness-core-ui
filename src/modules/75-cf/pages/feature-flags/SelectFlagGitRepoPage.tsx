@@ -4,7 +4,7 @@ import { Text, Container, Icon, Color, FontVariation } from '@wings-software/uic
 import type { ProjectPathProps, ModulePathParams } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import SaveFlagRepoDialog from '@cf/components/SaveFlagRepoDialog/SaveFlagRepoDialog'

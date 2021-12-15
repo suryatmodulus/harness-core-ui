@@ -32,7 +32,7 @@ import {
   ReferenceSelectProps
 } from '@common/components/ReferenceSelect/ReferenceSelect'
 import { usePermission } from '@rbac/hooks/usePermission'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import {
   ConnectorReferenceFieldProps,

@@ -31,7 +31,7 @@ import {
   useGetAllFeatures
 } from 'services/cf'
 import { useStrings } from 'framework/strings'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import { usePermission } from '@rbac/hooks/usePermission'

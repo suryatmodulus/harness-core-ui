@@ -22,7 +22,7 @@ import TokenList from '@rbac/components/TokenList/TokenList'
 import { useApiKeyModal } from '@rbac/modals/ApiKeyModal/useApiKeyModal'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import css from '../ApiKeyList.module.scss'
 

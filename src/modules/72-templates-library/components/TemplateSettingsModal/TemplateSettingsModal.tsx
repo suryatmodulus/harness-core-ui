@@ -22,7 +22,7 @@ import { TemplateListType } from '@templates-library/pages/TemplatesPage/Templat
 import { useGetTemplateList, TemplateSummaryResponse, useUpdateStableTemplate } from 'services/template-ng'
 import { useMutateAsGet } from '@common/hooks'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import RbacButton from '@rbac/components/Button/Button'
 import css from './TemplateSettingsModal.module.scss'
 

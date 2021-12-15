@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import cx from 'classnames'
 import { useModalHook, Button } from '@wings-software/uicore'
 import { Classes, Dialog } from '@blueprintjs/core'
-import type { ResourceType } from '@rbac/interfaces/ResourceType'
+import type { ResourceType } from '@common/interfaces/ResourceInterface'
 import AddResourceModal from './views/AddResourceModal'
 import css from './useAddResourceModal.module.scss'
 

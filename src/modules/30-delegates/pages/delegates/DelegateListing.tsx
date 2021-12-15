@@ -44,7 +44,7 @@ import { useToaster, StringUtils } from '@common/exports'
 import DelegatesEmptyState from '@delegates/images/DelegatesEmptyState.svg'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@common/interfaces/ResourceInterface'
 import DelegateListingItem, { DelegateListingHeader } from './DelegateListingItem'
 
 import css from './DelegatesPage.module.scss'

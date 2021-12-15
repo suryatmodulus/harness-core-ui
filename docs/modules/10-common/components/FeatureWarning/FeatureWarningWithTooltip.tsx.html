@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.31% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/13</span>
+                <span class='fraction'>16/20</span>
             </div>
         
             
@@ -140,7 +140,18 @@
 <a name='L81'></a><a href='#L81'>81</a>
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">409x</span>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">409x</span>
 <span class="cline-any cline-yes">409x</span>
 <span class="cline-any cline-yes">409x</span>
 <span class="cline-any cline-yes">409x</span>
@@ -151,6 +162,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">409x</span>
 <span class="cline-any cline-yes">409x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,6 +202,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">409x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -203,6 +219,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -238,6 +260,7 @@ import css from './FeatureWarning.module.scss'
 interface FeatureWarningTooltipProps {
   featureName: FeatureIdentifier
   warningMessage?: string
+  isDarkMode?: boolean
 }
 &nbsp;
 export interface FeatureWarningProps {
@@ -258,7 +281,7 @@ interface WarningTextProps {
 export const WarningText = ({ tooltip }: WarningTextProps): ReactElement =&gt; {
   const { getString } = useStrings()
   return (
-    &lt;Popover interactionKind={PopoverInteractionKind.HOVER} content={tooltip} isDark position={'bottom'}&gt;
+    &lt;Popover interactionKind={PopoverInteractionKind.HOVER} content={tooltip} position={'bottom'}&gt;
       &lt;Text
         className={css.warning}
         icon="flash"
@@ -272,7 +295,11 @@ export const WarningText = ({ tooltip }: WarningTextProps): ReactElement =&gt; {
   )
 }
 &nbsp;
-export const FeatureWarningTooltip = ({ featureName, warningMessage }: FeatureWarningTooltipProps): ReactElement =&gt; {
+export const FeatureWarningTooltip = ({
+  featureName,
+  warningMessage,
+  isDarkMode = false
+}: FeatureWarningTooltipProps): ReactElement =&gt; {
   const { getString } = useStrings()
   const featureDescription = FeatureDescriptor[featureName] ? FeatureDescriptor[featureName] : featureName
   const customFeatureDescription = CustomFeatureDescriptor[featureName]
@@ -287,15 +314,21 @@ export const FeatureWarningTooltip = ({ featureName, warningMessage }: FeatureWa
 &nbsp;
   return (
     &lt;Layout.Vertical padding="medium" className={css.tooltip}&gt;
-      &lt;Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.GREY_800} padding={{ bottom: 'small' }}&gt;
+      &lt;Text
+        font={{ size: 'medium', weight: 'semi-bold' }}
+        color={isDarkMode ? <span class="branch-0 cbranch-no" title="branch not covered" >Color.GREY_100 </span>: Color.GREY_800}
+        padding={{ bottom: 'small' }}
+      &gt;
         {getString('common.feature.upgradeRequired.title')}
       &lt;/Text&gt;
       &lt;Layout.Vertical spacing="small"&gt;
-        &lt;Text font={{ size: 'small' }} color={Color.GREY_700}&gt;
+        &lt;Text font={{ size: 'small' }} color={isDarkMode ? <span class="branch-0 cbranch-no" title="branch not covered" >Color.GREY_200 </span>: Color.GREY_800}&gt;
           {!warningMessage &amp;&amp; !customFeatureDescription &amp;&amp; getString('common.feature.upgradeRequired.description')}
           {warningMessage || customFeatureDescription || featureDescription}
         &lt;/Text&gt;
-        {!warningMessage &amp;&amp; !customFeatureDescription &amp;&amp; getDescription()}
+        &lt;Text font={{ size: 'small' }} color={isDarkMode ? <span class="branch-0 cbranch-no" title="branch not covered" >Color.GREY_200 </span>: Color.GREY_800}&gt;
+          {!warningMessage &amp;&amp; !customFeatureDescription &amp;&amp; getDescription()}
+        &lt;/Text&gt;
         &lt;ExplorePlansBtn featureName={featureName} /&gt;
       &lt;/Layout.Vertical&gt;
     &lt;/Layout.Vertical&gt;
@@ -313,7 +346,7 @@ export const FeatureWarningWithTooltip = ({ featureName, warningMessage }: Featu
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 15 2021 12:28:54 GMT+0000 (Greenwich Mean Time)
+                at Wed Dec 15 2021 16:05:58 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -135,7 +135,7 @@ export function getInitialValuesInCorrectFormat<T, U>(
     if (type === Types.BuildTool) {
       const buildTool =
         getMultiTypeFromValue(value) === MultiTypeInputType.FIXED
-          ? buildToolOptions?.find((option: SelectOption) => option.value === value) || buildToolOptions[0]
+          ? buildToolOptions?.find((option: SelectOption) => option.value === value)
           : value
 
       set(values, name, buildTool)
@@ -162,7 +162,7 @@ export function getInitialValuesInCorrectFormat<T, U>(
     if (type === Types.Language) {
       const language =
         getMultiTypeFromValue(value) === MultiTypeInputType.FIXED
-          ? languageOptions?.find((option: SelectOption) => option.value === value) || languageOptions[0]
+          ? languageOptions?.find((option: SelectOption) => option.value === value)
           : value
 
       set(values, name, language)

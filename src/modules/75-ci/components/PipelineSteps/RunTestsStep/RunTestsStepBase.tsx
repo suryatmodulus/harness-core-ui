@@ -10,7 +10,8 @@ import {
   CodeBlock,
   Container,
   Color,
-  Layout
+  Layout,
+  SelectOption
 } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import cx from 'classnames'
@@ -49,7 +50,30 @@ interface FieldRenderProps {
   fieldLabelKey: keyof StringsMap
   tooltipId: string
   renderOptionalSublabel?: boolean
-  selectFieldOptions?: { label: string; value: string }[]
+  selectFieldOptions?: SelectOption[]
+  onSelectChange?: (SelectOption: any) => void
+}
+
+const javaBuildToolOptions = [
+  { label: 'Bazel', value: 'Bazel' },
+  { label: 'Maven', value: 'Maven' },
+  { label: 'Gradle', value: 'Gradle' }
+]
+
+const cSharpBuildToolOptions = [{ label: 'Dotnet', value: 'Dotnet' }]
+
+const languageOptions = [
+  { label: 'Java', value: 'Java' },
+  { label: 'Csharp', value: 'Csharp' }
+]
+
+const getBuildToolOptions = (language?: string): SelectOption[] | undefined => {
+  if (language === languageOptions[0].value) {
+    return javaBuildToolOptions
+  } else if (language === languageOptions[1].value) {
+    return cSharpBuildToolOptions
+  }
+  return undefined
 }
 
 export const RunTestsStepBase = (
@@ -64,19 +88,15 @@ export const RunTestsStepBase = (
   } = usePipelineContext()
 
   const [mavenSetupQuestionAnswer, setMavenSetupQuestionAnswer] = React.useState('yes')
+  const [buildToolOptions, setBuildToolOptions] = React.useState<SelectOption[]>(
+    getBuildToolOptions(initialValues?.spec?.language) || []
+  )
 
   const { getString } = useStrings()
 
   const { expressions } = useVariablesExpression()
 
   const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
-
-  const buildToolOptions = [
-    { label: 'Bazel', value: 'Bazel' },
-    { label: 'Maven', value: 'Maven' },
-    { label: 'Gradle', value: 'Gradle' }
-  ]
-  const languageOptions = [{ label: 'Java', value: 'Java' }]
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // const pullOptions = usePullOptions()
@@ -162,7 +182,7 @@ export const RunTestsStepBase = (
   }, [])
 
   const renderMultiTypeSelectField = React.useCallback(
-    ({ name, fieldLabelKey, tooltipId, selectFieldOptions = [] }: FieldRenderProps) => {
+    ({ name, fieldLabelKey, tooltipId, selectFieldOptions = [], onSelectChange }: FieldRenderProps) => {
       return (
         <MultiTypeSelectField
           name={name}
@@ -179,6 +199,7 @@ export const RunTestsStepBase = (
           multiTypeInputProps={{
             selectItems: selectFieldOptions,
             multiTypeInputProps: {
+              onChange: option => onSelectChange?.(option),
               allowableTypes: [MultiTypeInputType.FIXED],
               expressions
             },
@@ -302,7 +323,14 @@ export const RunTestsStepBase = (
                 name: 'spec.language',
                 fieldLabelKey: 'languageLabel',
                 tooltipId: 'runTestsLanguage',
-                selectFieldOptions: languageOptions
+                selectFieldOptions: languageOptions,
+                onSelectChange: (option?: SelectOption) => {
+                  const newBuildToolOptions = getBuildToolOptions(option?.value as string)
+                  if (newBuildToolOptions) {
+                    setBuildToolOptions(newBuildToolOptions)
+                    formik.setFieldValue('spec.buildTool', '')
+                  }
+                }
               })}
             </Container>
             <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>

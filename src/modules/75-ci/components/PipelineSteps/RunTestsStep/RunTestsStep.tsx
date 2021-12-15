@@ -111,8 +111,8 @@ export class RunTestsStep extends PipelineStep<RunTestsStepData> {
       connectorRef: '',
       image: '',
       args: '',
-      buildTool: 'maven',
-      language: 'java',
+      buildTool: '',
+      language: '',
       packages: '',
       runOnlySelectedTests: true
     }

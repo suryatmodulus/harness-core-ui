@@ -114,6 +114,18 @@ export const editViewValidateFieldsConfig = [
     isRequired: true
   },
   {
+    name: 'spec.language',
+    type: ValidationFieldTypes.Text,
+    label: 'languageLabel',
+    isRequired: true
+  },
+  {
+    name: 'spec.buildTool',
+    type: ValidationFieldTypes.Text,
+    label: 'buildToolLabel',
+    isRequired: true
+  },
+  {
     name: 'spec.args',
     type: ValidationFieldTypes.Text,
     label: 'argsLabel',

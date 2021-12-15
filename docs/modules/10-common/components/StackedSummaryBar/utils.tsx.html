@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>11/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/10</span>
+                <span class='fraction'>15/16</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -87,25 +87,31 @@
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
-<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -119,13 +125,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Color, Container, Icon, Text } from '@wings-software/uicore'
+import { String } from 'framework/strings'
 &nbsp;
 export const handleZeroOrInfinityTrend = (trend: string | undefined, intentColor: Color): JSX.Element =&gt; {
-  const trendChange = trend ? parseInt(trend) : <span class="branch-1 cbranch-no" title="branch not covered" >0</span>
+  const trendChange = trend ? parseInt(trend) : 0
   return isNaN(trendChange) ? ( // handling Infinity and other unexpected trends
-<span class="branch-0 cbranch-no" title="branch not covered" >    &lt;Container flex={{ alignItems: 'center' }}&gt;</span>
+    &lt;Container flex={{ alignItems: 'center' }}&gt;
       &lt;Icon name={'caret-up'} color={intentColor}&gt;&lt;/Icon&gt;
-      &lt;Icon name={'infinityTrend'} size={20} color={intentColor}&gt;&lt;/Icon&gt;
+      &lt;Text font="xsmall" color={intentColor}&gt;
+        &lt;String stringID="na" /&gt;
+      &lt;/Text&gt;
     &lt;/Container&gt;
   ) : (
     // handing 0 trend change
@@ -134,15 +143,15 @@ export const handleZeroOrInfinityTrend = (trend: string | undefined, intentColor
 }
 &nbsp;
 export const renderTrend = (trend: string | undefined, intentColor: Color): JSX.Element =&gt; {
-  const trendChange = trend ? parseInt(trend) : <span class="branch-1 cbranch-no" title="branch not covered" >0</span>
+  const trendChange = trend ? parseInt(trend) : 0
   return (
     &lt;&gt;
       &lt;Icon
-        name={trendChange === 0 ? 'caret-right' : <span class="branch-1 cbranch-no" title="branch not covered" >trendChange &lt; 0 ? 'caret-down' : 'caret-up'}</span>
+        name={trendChange === 0 ? 'caret-right' : trendChange &lt; 0 ? 'caret-down' : 'caret-up'}
         color={intentColor}
       &gt;&lt;/Icon&gt;
       &lt;Text font="xsmall" color={intentColor}&gt;
-        {trend}
+        {Math.sign(trendChange) === -1 ? trend<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ubstring(1) : trend}
       &lt;/Text&gt;
     &lt;/&gt;
   )
@@ -154,7 +163,7 @@ export const renderTrend = (trend: string | undefined, intentColor: Color): JSX.
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 15 2021 06:12:00 GMT+0000 (Greenwich Mean Time)
+                at Wed Dec 15 2021 09:41:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

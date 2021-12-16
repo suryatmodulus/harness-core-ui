@@ -12,6 +12,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import useSwitchAccountModal from '@common/modals/SwitchAccount/useSwitchAccountModal'
+import { useCommunity } from 'framework/LicenseStore/useCommunity'
 import AccountNameForm from './AccountNameForm'
 import css from '../AccountOverview.module.scss'
 
@@ -28,6 +29,7 @@ const AccountDetails: React.FC = () => {
 
   const { openDefaultExperienceModal } = useDefaultExperienceModal({ refetchAcct })
   const { openSwitchAccountModal } = useSwitchAccountModal({})
+  const isCommunity = useCommunity()
 
   const accountData = data?.data
 
@@ -105,18 +107,20 @@ const AccountDetails: React.FC = () => {
       <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
         <Text className={css.minWidth}>{getString('common.defaultExperience')}</Text>
         <Text color={Color.GREY_800}>{defaultExperienceStr}</Text>
-        <RbacButton
-          variation={ButtonVariation.LINK}
-          padding="none"
-          text={getString('change')}
-          onClick={() => openDefaultExperienceModal(accountData?.defaultExperience as Experiences)}
-          permission={{
-            permission: PermissionIdentifier.EDIT_ACCOUNT,
-            resource: {
-              resourceType: ResourceType.ACCOUNT
-            }
-          }}
-        />
+        {!isCommunity && (
+          <RbacButton
+            variation={ButtonVariation.LINK}
+            padding="none"
+            text={getString('change')}
+            onClick={() => openDefaultExperienceModal(accountData?.defaultExperience as Experiences)}
+            permission={{
+              permission: PermissionIdentifier.EDIT_ACCOUNT,
+              resource: {
+                resourceType: ResourceType.ACCOUNT
+              }
+            }}
+          />
+        )}
       </Layout.Horizontal>
     </Container>
   )

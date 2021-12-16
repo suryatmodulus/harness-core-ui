@@ -72,6 +72,13 @@ export const getFeatureOption = (type: string, getString: UseStringsReturn['getS
           value: getString('connectors.prometheusLabel')
         }
       ]
+    /*case Connectors.CUSTOM:
+      return [
+        {
+          label: CustomHealthSource.APM,
+          value: getString('connectors.custom')
+        }
+      ]*/
     case Connectors.NEW_RELIC:
       return [
         {

@@ -81,6 +81,7 @@ function AppDynamicsConfigStep(props: ConnectionConfigProps): JSX.Element {
   const { nextStep, prevStepData, connectorInfo, accountId, projectIdentifier, orgIdentifier } = props
   const initialValues = initializeAppDConnector({ prevStepData, projectIdentifier, accountId, orgIdentifier })
   const handleSubmit = (formData: ConnectorConfigDTO) => {
+    console.log('dddddddd', formData)
     nextStep?.({ ...connectorInfo, ...prevStepData, ...formData })
   }
 

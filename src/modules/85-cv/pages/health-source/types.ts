@@ -8,5 +8,6 @@ export enum HealthSourceTypes {
   Splunk = 'Splunk',
   DatadogMetrics = 'DatadogMetrics',
   DatadogLog = 'DatadogLog',
-  Datadog = 'Datadog'
+  Datadog = 'Datadog',
+  CustomHealth = 'CustomHealth'
 }

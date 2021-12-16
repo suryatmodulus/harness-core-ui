@@ -52,6 +52,7 @@ export interface CreateConnectorModalProps {
 
 export const Connectors: ConnectorType = {
   KUBERNETES_CLUSTER: 'K8sCluster',
+  CUSTOM: 'CustomHealth',
   GIT: 'Git',
   GITHUB: 'Github',
   GITLAB: 'Gitlab',

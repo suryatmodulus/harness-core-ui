@@ -78,6 +78,7 @@ const defaultInitialFormData: GitlabFormInterface = {
 
 const RenderGitlabAuthForm: React.FC<FormikProps<GitlabFormInterface>> = props => {
   const { getString } = useStrings()
+  console.log('fffff', props.values)
   switch (props.values.authType) {
     case GitAuthTypes.USER_PASSWORD:
       return (

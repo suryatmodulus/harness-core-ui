@@ -1546,6 +1546,9 @@ export interface StringsMap {
   'connectors.createNewConnector': string
   'connectors.createdSuccessfully': string
   'connectors.creating': string
+  'connectors.custom': string
+  'connectors.customConnectorDetails': string
+  'connectors.customLabel': string
   'connectors.datadog.encryptedAPPKeyLabel': string
   'connectors.datadog.encryptedAPPKeyValidation': string
   'connectors.datadog.urlValidation': string
@@ -4185,6 +4188,7 @@ export interface StringsMap {
   'cv.day': string
   'cv.days': string
   'cv.dependenciesHealthWithCount': string
+  'cv.emptySpaces': string
   'cv.errorBudget': string
   'cv.errorBudgetBurnDown': string
   'cv.errorBudgetRemaining': string

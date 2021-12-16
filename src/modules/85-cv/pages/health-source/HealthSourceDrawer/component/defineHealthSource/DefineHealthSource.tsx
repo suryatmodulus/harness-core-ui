@@ -87,6 +87,7 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                           margin={{ left: 'xxxlarge', right: 'xxxlarge' }}
                         >
                           {HEALTHSOURCE_LIST.map(({ name, icon }) => {
+                            console.log('nnnnnnn', name)
                             const connectorTypeName =
                               name === HealthSourceTypes.GoogleCloudOperations ? Connectors.GCP : name
                             return (

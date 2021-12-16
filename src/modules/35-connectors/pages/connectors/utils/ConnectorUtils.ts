@@ -1226,6 +1226,23 @@ export const buildPrometheusPayload = (formData: FormData) => {
   }
 }
 
+export const buildCustomPayload = (formData: FormData) => {
+  return {
+    connector: {
+      name: formData.name,
+      identifier: formData.identifier,
+      type: Connectors.CUSTOM,
+      projectIdentifier: formData.projectIdentifier,
+      orgIdentifier: formData.orgIdentifier,
+      spec: {
+        delegateSelectors: formData.delegateSelectors || {},
+        url: formData.url,
+        accountId: formData.accountId
+      }
+    }
+  }
+}
+
 export interface DatadogInitialValue {
   apiKeyRef?: SecretReferenceInterface | void
   applicationKeyRef?: SecretReferenceInterface | void

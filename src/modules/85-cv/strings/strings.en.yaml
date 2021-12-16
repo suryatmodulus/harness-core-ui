@@ -1,5 +1,6 @@
 continuous: '{{$.common.changeIntelligence}}'
 methodLabel: Method Label
+emptySpaces: '        '
 request: Request
 response: Response
 responseBody: Response Body

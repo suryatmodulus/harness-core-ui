@@ -32,7 +32,9 @@ interface TextReferenceProps {
   type?: string
   allowSelection?: boolean
   privateSecret?: boolean
-  stringId: keyof StringsMap
+  stringId?: keyof StringsMap
+  textWidth?: string
+  placeHolder?: string
 }
 
 interface FormikTextReference extends TextReferenceProps {
@@ -55,11 +57,12 @@ const TextReference: React.FC<FormikTextReference> = props => {
 
   useEffect(() => {
     if (props.type) {
+      console.log('ddddefault dasadas', `${name}fieldType`, props.type)
       formik.setFieldValue(`${name}fieldType`, props.type)
     } else {
       formik.setFieldValue(`${name}fieldType`, ValueType.TEXT)
     }
-  }, [])
+  }, [props.type])
 
   useEffect(() => {
     if (formik.values[`${name}secretField`]) {
@@ -114,11 +117,13 @@ const TextReference: React.FC<FormikTextReference> = props => {
     <FormGroup helperText={hasError ? get(formik?.errors, name) : null} intent={hasError ? Intent.DANGER : Intent.NONE}>
       <Layout.Vertical className={props.className}>
         <div className={css.label}>
-          <StringWithTooltip
-            tooltipId={dataTooltipId}
-            stringId={props.stringId}
-            className={cx(Classes.LABEL, css.stringWithTooltipLabel)}
-          />
+          {props.stringId && (
+            <StringWithTooltip
+              tooltipId={dataTooltipId}
+              stringId={props.stringId}
+              className={cx(Classes.LABEL, css.stringWithTooltipLabel)}
+            />
+          )}
           <FormInput.DropDown
             name={`${name}fieldType`}
             items={[
@@ -140,6 +145,8 @@ const TextReference: React.FC<FormikTextReference> = props => {
         {formik.values[`${name}fieldType`] === ValueType.TEXT ? (
           <FormInput.Text
             name={`${name}textField`}
+            placeholder={props.placeHolder || ''}
+            style={{ width: props.textWidth }}
             onChange={e => {
               if ((e.target as any).value === '') {
                 formik.setFieldValue(props.name, undefined)
@@ -153,7 +160,7 @@ const TextReference: React.FC<FormikTextReference> = props => {
             className={css.textCss}
           />
         ) : (
-          <Container className={css.secretField}>
+          <Container className={css.secretField} width={props.textWidth}>
             <SecretInput name={`${name}secretField`} allowSelection={allowSelection} privateSecret={privateSecret} />
           </Container>
         )}

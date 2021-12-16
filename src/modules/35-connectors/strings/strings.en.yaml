@@ -31,7 +31,10 @@ pagerDutyConnectorDetails: 'PagerDuty Connector Details'
 sumoLogicConnectorDetails: 'SumoLogic Connector Details'
 newRelicConnectorDetails: New Relic Connector Details
 prometheusConnectorDetails: Prometheus Connector Details
+customConnectorDetails: Overview
 prometheusLabel: Prometheus
+custom: CustomHealth
+customLabel: customHealth
 dynatraceLabel: Dynatrace
 appdLabel: AppDynamics
 newRelicLabel: New Relic

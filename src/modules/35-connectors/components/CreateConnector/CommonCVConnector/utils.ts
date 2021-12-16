@@ -22,6 +22,8 @@ export function dsconfigTypetoResourcesConnectorDetailsTitle(
       return getString('connectors.splunkConnectorDetails')
     case 'PagerDuty':
       return getString('connectors.pagerDutyConnectorDetails')
+    case 'CustomHealth':
+      return getString('connectors.customConnectorDetails')
     default:
       return ''
   }

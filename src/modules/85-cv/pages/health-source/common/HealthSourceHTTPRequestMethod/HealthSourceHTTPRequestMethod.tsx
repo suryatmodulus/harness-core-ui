@@ -8,6 +8,7 @@ export const HealthSourceHTTPRequestMethod = () => {
   const { getString } = useStrings()
   return (
     <FormInput.RadioGroup
+      radioGroup={{ inline: true }}
       label={getString('cv.componentValidations.httpRequestMethodLabel' as keyof StringsMap)}
       name="requestMethod"
       items={[

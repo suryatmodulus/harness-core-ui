@@ -1,0 +1,185 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubscriptionCalculator SubscriptionCalculator 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main calculator StyledProps--padding-huge"
+  >
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-bottom-huge"
+      >
+        <div
+          class="PillToggle--optionBtns monthlyYearly"
+        >
+          <div
+            class="PillToggle--item PillToggle--selected"
+            data-name="toggle-option-one"
+            role="button"
+            tabindex="0"
+          >
+            Monthly
+          </div>
+          <div
+            class="PillToggle--item"
+            data-name="toggle-option-two"
+            role="button"
+            tabindex="0"
+          >
+            Yearly
+          </div>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main"
+        >
+          authSettings.savePaying
+        </p>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-huge"
+      >
+        <div
+          class="Layout--vertical StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--padding-bottom-medium"
+          >
+            services
+          </p>
+          <div
+            class="TextInput--main"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                class="bp3-input"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--flex StyledProps--flex-align-center-center"
+        >
+          x
+        </p>
+        <div
+          class="Layout--vertical StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--padding-bottom-medium"
+          >
+            authSettings.unitPrice
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall"
+          >
+            $100.00
+          </p>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--flex StyledProps--flex-align-center-center"
+        >
+          +
+        </p>
+        <div
+          class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-alignItems-start"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--padding-bottom-medium"
+            style="display: flex; align-items: center;"
+          >
+            common.support
+            <span
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-primary6"
+              data-icon="info"
+            >
+              <svg
+                height="12"
+                viewBox="0 0 12 12"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall"
+          >
+            $200.00
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-xsmall"
+          >
+            common.premiumSupport
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main changeBtn StyledProps--font-xsmall StyledProps--color StyledProps--color-primary6"
+          >
+            Common.purpose.change
+          </p>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--padding-left-large StyledProps--padding-right-large StyledProps--padding-top-medium StyledProps--padding-bottom-small StyledProps--flex StyledProps--flex-align-center-center"
+        >
+          =
+        </p>
+        <div
+          class="Layout--vertical StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--padding-bottom-medium"
+          >
+            authSettings.nextPayment
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall"
+          />
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal StyledProps--main"
+      >
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            authSettings.reviewChanges
+          </span>
+        </button>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--padding-left-large StyledProps--flex StyledProps--flex-alignItems-baseline"
+        >
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            common.or
+          </p>
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main contactSalesBtn Button--with-current-color Button--variation Button--variation-link"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              common.banners.trial.contactSales
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaymentInfo PaymentInfo 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main paymentInfo StyledProps--padding-bottom-huge StyledProps--padding-top-huge StyledProps--padding-left-huge"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      style="height: 80%;"
+    />
+    <div
+      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          authSettings.subscribeAndPay
+        </span>
+      </button>
+      <span
+        class="terms"
+      >
+        authSettings.terms
+      </span>
+    </div>
+  </div>
+</div>
+`;

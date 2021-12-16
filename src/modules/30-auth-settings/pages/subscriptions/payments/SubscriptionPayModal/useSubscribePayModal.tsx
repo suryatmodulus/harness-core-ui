@@ -55,7 +55,7 @@ export const useSubscribePayModal = (): UseSubscribePayModalReturns => {
     }
 
     return <SubscribePayDialog onClose={onCloseModal} />
-  })
+  }, [])
 
   return {
     openSubscribePayModal: showModal,

@@ -1,0 +1,81 @@
+.dialog {
+  border-radius: 11px;
+  position: relative;
+  padding: unset !important;
+  &.subscribeCalculatorDialog {
+    height: 750px;
+    width: 1000px;
+  }
+}
+
+.calculator {
+  border-radius: 11px;
+  height: 350px;
+}
+
+.toggler {
+  border-radius: 11px;
+  background-color: var(--primary-bg) !important;
+  height: 400px;
+}
+
+.togglerHeader {
+  padding-left: unset !important;
+  align-items: baseline;
+  border-bottom: unset !important;
+}
+
+.togglerBody {
+  height: 200px;
+}
+
+.changeBtn {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.contactSalesBtn {
+  padding-left: var(--spacing-xsmall) !important;
+}
+
+.monthlyYearly {
+  :global(.PillToggle--selected) {
+    background-color: var(--primary-6) !important;
+  }
+}
+
+.currentPlanTag {
+  background: var(--black) !important;
+}
+
+.orange200 {
+  background: var(--orange-200) !important;
+}
+
+.primary2 {
+  background: var(--primary-2) !important;
+}
+
+.black {
+  background-color: var(--black) !important;
+}
+
+.green600 {
+  background-color: var(--green-600) !important;
+}
+
+.grey300 {
+  border: 2px solid !important;
+  border-color: var(--grey-300) !important;
+}
+
+.yellow900 {
+  border: 2px solid !important;
+  border-color: var(--orange-900) !important;
+}
+
+.primary6 {
+  border: 2px solid !important;
+  border-color: var(--primary-6) !important;
+}

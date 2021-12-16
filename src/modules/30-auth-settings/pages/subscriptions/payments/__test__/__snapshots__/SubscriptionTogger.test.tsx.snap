@@ -1,0 +1,464 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubscriptionToggler SubscriptionToggler 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main toggler StyledProps--padding-huge"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard togglerHeader StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
+      >
+        <div
+          class="Layout--vertical StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-h4"
+            style="display: flex; align-items: center;"
+          >
+            <span
+              class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
+              data-icon="cd-main"
+            >
+              <svg
+                height="25"
+                viewBox="0 0 32 32"
+                width="25"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M26.427 7.06A5.073 5.073 0 0129 11.52l-.077 8.934a5.073 5.073 0 01-2.537 4.35l-8.002 4.618a5.073 5.073 0 01-5.035.021l-7.776-4.402A5.073 5.073 0 013 20.583l.077-8.935a5.073 5.073 0 012.537-4.35l8.002-4.619a5.073 5.073 0 015.035-.02l7.776 4.402zm-2.83 6.938c-.42 1.586-2.029 2.538-3.601 2.141l-7.489-2.026a4.696 4.696 0 00-3.62.48 4.773 4.773 0 00-2.222 2.925 4.835 4.835 0 00.479 3.664 4.757 4.757 0 002.905 2.251 4.696 4.696 0 003.62-.48 4.773 4.773 0 002.222-2.924l.26-1.047a.25.25 0 00-.177-.302l-1.258-.34a.25.25 0 00-.307.18l-.256 1.025c-.426 1.602-2.064 2.556-3.651 2.127-1.582-.428-2.523-2.073-2.1-3.67.421-1.586 2.03-2.538 3.602-2.142l7.489 2.027a4.696 4.696 0 003.62-.48 4.773 4.773 0 002.222-2.925 4.835 4.835 0 00-.479-3.664 4.757 4.757 0 00-2.905-2.251 4.696 4.696 0 00-3.62.48 4.773 4.773 0 00-2.222 2.924l-.247.828a.25.25 0 00.174.312l1.259.34a.25.25 0 00.304-.169l.248-.827c.426-1.602 2.064-2.557 3.651-2.127 1.582.428 2.523 2.073 2.1 3.67z"
+                  fill="url(#cd-main_svg__a)"
+                  fill-rule="evenodd"
+                />
+                <defs>
+                  <lineargradient
+                    gradientUnits="userSpaceOnUse"
+                    id="cd-main_svg__a"
+                    x1="6.774"
+                    x2="21.5"
+                    y1="2"
+                    y2="30"
+                  >
+                    <stop
+                      stop-color="#62F91F"
+                    />
+                    <stop
+                      offset="1"
+                      stop-color="#45BD35"
+                    />
+                  </lineargradient>
+                </defs>
+              </svg>
+            </span>
+            CD Enterprise common.subscription
+          </p>
+        </div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+        >
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-link"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              authSettings.compareFeatures
+            </span>
+          </button>
+          <div
+            class="PillToggle--optionBtns"
+          >
+            <div
+              class="PillToggle--item PillToggle--selected"
+              data-name="toggle-option-one"
+              role="button"
+              tabindex="0"
+            >
+              Team
+            </div>
+            <div
+              class="PillToggle--item"
+              data-name="toggle-option-two"
+              role="button"
+              tabindex="0"
+            >
+              Enterprise
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main togglerBody"
+      >
+        <div
+          class="Layout--vertical StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--padding-bottom-large StyledProps--font-weight-semi-bold"
+          >
+            authSettings.currentServiceUsage
+          </p>
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <div
+              class="Layout--vertical StyledProps--main"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-bottom-large"
+              >
+                <div
+                  class="bp3-card bp3-elevation-0 Card--card grey300"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main StyledProps--padding-right-huge"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--padding-bottom-medium StyledProps--font-variation-small"
+                    >
+                      common.plans.currentPlan: (Free)
+                    </p>
+                    <div
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+                    >
+                      <span
+                        class="black"
+                        style="border-radius: 100px; min-height: 15px; min-width: 15px;"
+                      />
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--padding-left-small"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-h2"
+                        >
+                          20
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-small"
+                        >
+                          services
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-card bp3-elevation-0 Card--card"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main StyledProps--padding-right-huge"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--padding-bottom-medium StyledProps--font-variation-small"
+                    >
+                      common.actualUsage
+                    </p>
+                    <div
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+                    >
+                      <span
+                        class="green600"
+                        style="border-radius: 100px; min-height: 15px; min-width: 15px;"
+                      />
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--padding-left-small"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-h2"
+                        >
+                          23
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-small"
+                        >
+                          services
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-card bp3-elevation-0 Card--card orange200"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main StyledProps--padding-right-huge"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--padding-bottom-medium StyledProps--font-variation-small"
+                      style="display: flex; align-items: center;"
+                    >
+                      common.overUse
+                      <span
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-primary6"
+                        data-icon="info"
+                      >
+                        <svg
+                          height="10"
+                          viewBox="0 0 12 12"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                    <div
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color StyledProps--color-orange500"
+                        icon="warning-sign"
+                      >
+                        <svg
+                          data-icon="warning-sign"
+                          height="28"
+                          viewBox="0 0 20 20"
+                          width="28"
+                        >
+                          <desc>
+                            warning-sign
+                          </desc>
+                          <path
+                            d="M19.86 17.52l.01-.01-9-16-.01.01C10.69 1.21 10.37 1 10 1s-.69.21-.86.52l-.01-.01-9 16 .01.01c-.08.14-.14.3-.14.48 0 .55.45 1 1 1h18c.55 0 1-.45 1-1 0-.18-.06-.34-.14-.48zM11 17H9v-2h2v2zm0-3H9V6h2v8z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--padding-left-small"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-h2"
+                        >
+                          3
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-small"
+                          style="max-width: 100px;"
+                        >
+                          authSettings.additionalCharge
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-card bp3-elevation-0 Card--card primary2"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main StyledProps--padding-right-huge"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--padding-bottom-medium StyledProps--font-variation-small"
+                      style="display: flex; align-items: center;"
+                    >
+                      common.reccomendation
+                      <span
+                        class="bp3-icon StyledProps--main Text--icon StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-primary6"
+                        data-icon="info"
+                      >
+                        <svg
+                          height="10"
+                          viewBox="0 0 12 12"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                    <div
+                      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary6"
+                        data-icon="flash"
+                      >
+                        <svg
+                          height="28"
+                          viewBox="0 0 33 28"
+                          width="28"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            clip-rule="evenodd"
+                            d="M3.773 17.341L20.885 1.75l-2.297 8.909h8.184L9.66 26.25l2.297-8.909z"
+                            fill="#ff5310"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--padding-left-small"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-h2"
+                        >
+                          29
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-variation-small"
+                          style="max-width: 100px;"
+                        >
+                          authSettings.recommendationDesc
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout--vertical StyledProps--main"
+                style="width: 900px;"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main legends StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-start"
+                >
+                  <div
+                    style="padding-left: 24.299999999999997px;"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-symbol-triangle-up StyledProps--main legendIcon StyledProps--color StyledProps--color-orange500"
+                      icon="symbol-triangle-up"
+                    >
+                      <svg
+                        data-icon="symbol-triangle-up"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          symbol-triangle-up
+                        </desc>
+                        <path
+                          d="M15.89 14.56l-4.99-10h-.01c-.17-.33-.5-.56-.89-.56s-.72.23-.89.56H9.1l-5 10h.01c-.06.13-.11.28-.11.44 0 .55.45 1 1 1h10c.55 0 1-.45 1-1 0-.16-.05-.31-.11-.44z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    style="padding-left: 137.7px;"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-symbol-circle StyledProps--main legendIcon StyledProps--color StyledProps--color-black"
+                      icon="symbol-circle"
+                    >
+                      <svg
+                        data-icon="symbol-circle"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          symbol-circle
+                        </desc>
+                        <path
+                          d="M10 4.01a6 6 0 100 12 6 6 0 100-12z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    style="padding-left: 24.299999999999983px;"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-symbol-circle StyledProps--main legendIcon StyledProps--color StyledProps--color-green600"
+                      icon="symbol-circle"
+                    >
+                      <svg
+                        data-icon="symbol-circle"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          symbol-circle
+                        </desc>
+                        <path
+                          d="M10 4.01a6 6 0 100 12 6 6 0 100-12z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    style="padding-left: 48.599999999999994px;"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main legendIcon StyledProps--color StyledProps--color-primary6"
+                      data-icon="flash"
+                    >
+                      <svg
+                        height="20"
+                        viewBox="0 0 33 28"
+                        width="20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M3.773 17.341L20.885 1.75l-2.297 8.909h8.184L9.66 26.25l2.297-8.909z"
+                          fill="#ff5310"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main handleWrapper react-draggable"
+                  style="transform: translate(162px,7px);"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main score StyledProps--font-size-small"
+                    style="width: 30px;"
+                  >
+                    20
+                  </p>
+                  <div
+                    class="StyledProps--font StyledProps--main handle StyledProps--flex StyledProps--flex-align-center-center"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main innerCircle"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="Layout--horizontal StyledProps--main"
+                >
+                  <div
+                    class="bar bar1"
+                    style="width: 162px;"
+                  />
+                  <div
+                    class="bar"
+                    style="width: 648px;"
+                  />
+                  <div
+                    class="bar bar3"
+                    style="width: 90px;"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

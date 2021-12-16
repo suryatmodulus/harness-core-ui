@@ -24,6 +24,7 @@ export interface StringsMap {
   'common.accountResourcesPage.line2': string
   'common.accountSettings': string
   'common.accountSetup': string
+  'common.actualUsage': string
   'common.addAccountName': string
   'common.addVariable': string
   'common.advanced': string
@@ -356,6 +357,7 @@ export interface StringsMap {
   'common.orgViewer': string
   'common.other': string
   'common.overSubscribed': string
+  'common.overUse': string
   'common.pagerDuty': string
   'common.paste': string
   'common.path': string
@@ -398,6 +400,7 @@ export interface StringsMap {
   'common.policy.table.lastModified': string
   'common.policy.table.name': string
   'common.powershell': string
+  'common.premiumSupport': string
   'common.production': string
   'common.projectSetup': string
   'common.projectViewer': string
@@ -452,6 +455,7 @@ export interface StringsMap {
   'common.purpose.welcome': string
   'common.readOnly': string
   'common.readonlyPermissions': string
+  'common.reccomendation': string
   'common.recommended': string
   'common.references': string
   'common.refresh': string
@@ -570,6 +574,7 @@ export interface StringsMap {
   'common.successfullCreate': string
   'common.successfullUpdate': string
   'common.suggestionsLabel': string
+  'common.support': string
   'common.supportedModals': string
   'common.switchAccount': string
   'common.switchAccountError': string
@@ -894,6 +899,7 @@ export interface StringsMap {
   'authSettings.accountOrOAuthLogin': string
   'authSettings.accountOrOAuthLoginEnabledSuccessfully': string
   'authSettings.addSAMLProvider': string
+  'authSettings.additionalCharge': string
   'authSettings.allowLoginFromTheseDomains': string
   'authSettings.allowUsersWithEmails': string
   'authSettings.atLeastNChars': string
@@ -926,12 +932,14 @@ export interface StringsMap {
   'authSettings.changeLoginToHarnessAccountOrOauthDescription': string
   'authSettings.changingTo': string
   'authSettings.chooseFile': string
+  'authSettings.compareFeatures': string
   'authSettings.confirmDisableLockoutPolicy': string
   'authSettings.confirmDisableOAuthLogin': string
   'authSettings.confirmDisablePasswordExpiration': string
   'authSettings.confirmDisablePasswordStrength': string
   'authSettings.confirmDisableUserPasswordLogin': string
   'authSettings.confirmDisableWhitelistedDomains': string
+  'authSettings.currentServiceUsage': string
   'authSettings.daysBeforePasswordExpires': string
   'authSettings.daysBeforeUserNotified': string
   'authSettings.deleteSamlProvider': string
@@ -984,6 +992,7 @@ export interface StringsMap {
   'authSettings.multipleProjects': string
   'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
   'authSettings.newTotal': string
+  'authSettings.nextPayment': string
   'authSettings.notifyUsersWhenTheyLocked': string
   'authSettings.notifyUsersWhenUserLocked': string
   'authSettings.oauthSettingsHaveBeenUpdated': string
@@ -1009,7 +1018,9 @@ export interface StringsMap {
   'authSettings.proratedForNextDays': string
   'authSettings.publicOAuthLoginDisabled': string
   'authSettings.publicOAuthLoginEnabled': string
+  'authSettings.recommendationDesc': string
   'authSettings.restrictUsersToEmailDomains': string
+  'authSettings.reviewChanges': string
   'authSettings.saas': string
   'authSettings.samlLoginEnabled': string
   'authSettings.samlProviderAddedSuccessfully': string
@@ -1018,6 +1029,7 @@ export interface StringsMap {
   'authSettings.samlSupport': string
   'authSettings.samlTestFailed': string
   'authSettings.samlTestSuccessful': string
+  'authSettings.savePaying': string
   'authSettings.selectSAMLProvider': string
   'authSettings.subscribeAndPay': string
   'authSettings.sureToDisableTwoFAEnforcement': string

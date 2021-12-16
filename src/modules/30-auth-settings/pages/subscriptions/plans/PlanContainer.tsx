@@ -23,6 +23,8 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { ModuleLicenseType, Editions } from '@common/constants/SubscriptionTypes'
 import type { FetchPlansQuery } from 'services/common/services'
 import type { PLAN_UNIT } from '@common/constants/SubscriptionTypes'
+import { useSubscribeCalculatorModal } from '../payments/SubscriptionCalculatorModal/useSubscribeCalculatorModal'
+import { useSubscribePayModal } from '../payments/SubscriptionPayModal/useSubscribePayModal'
 import { getBtnProps } from './planUtils'
 import type { PlanData, PlanProp } from './planUtils'
 import Plan from './Plan'
@@ -174,6 +176,14 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, moduleName }) => 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [licenseData])
 
+  const { openSubscribePayModal } = useSubscribePayModal()
+  const { openSubscribeCalculatorModal, closeSubscribeCalculatorModal } = useSubscribeCalculatorModal({
+    onReviewChange: () => {
+      closeSubscribeCalculatorModal()
+      openSubscribePayModal()
+    }
+  })
+
   function getPlanCalculatedProps(plan: PlanProp): PlanCalculatedProps {
     let isCurrentPlan, isTrial, isPaid
     const planEdition = plan?.title && (plan?.title?.toUpperCase() as Editions)
@@ -210,6 +220,7 @@ const PlanContainer: React.FC<PlanProps> = ({ plans, timeType, moduleName }) => 
       handleContactSales: openMarketoContactSales,
       handleExtendTrial,
       handleManageSubscription,
+      handleUpgrade: openSubscribeCalculatorModal,
       btnLoading,
       actions: actions?.data
     })

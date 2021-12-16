@@ -709,3 +709,9 @@ resourceTypeLabel: Resource Type
 moduleLabel: 'Module'
 timePstLabel: Time (PST)
 subscription: Subscription
+subscription: Subscription
+support: Support
+premiumSupport: Premium 24x7
+actualUsage: Actual usage
+overUse: Overuse
+reccomendation: Reccomendation

@@ -91,7 +91,11 @@ export function getExecutionPipelineNodeType(stepType?: string): ExecutionPipeli
   if (stepType === StepType.Barrier) {
     return ExecutionPipelineNodeType.ICON
   }
-  if (stepType === StepType.HarnessApproval || stepType === StepType.JiraApproval || stepType === StepType.ServiceNowApproval) {
+  if (
+    stepType === StepType.HarnessApproval ||
+    stepType === StepType.JiraApproval ||
+    stepType === StepType.ServiceNowApproval
+  ) {
     return ExecutionPipelineNodeType.DIAMOND
   }
 
@@ -304,7 +308,7 @@ export class ExecutionStepModel extends DiagramModel {
         ? PARALLEL_LINES_WIDTH
         : SPACE_BETWEEN_ELEMENTS
 
-      let stepIconColor = factory.getStepIconColor(stepType)
+      let stepIconColor = factory.getStepIconColor(stepType || '')
       if (stepIconColor && Object.values(Color).includes(stepIconColor)) {
         stepIconColor = Utils.getRealCSSColor(stepIconColor)
       }
@@ -314,7 +318,7 @@ export class ExecutionStepModel extends DiagramModel {
               identifier: node.step.identifier,
               id: node.step.identifier,
               name: node.step.name,
-              icon: factory.getStepIcon(stepType),
+              icon: factory.getStepIcon(stepType || ''),
               allowAdd: !isReadonly,
               canDelete: !isReadonly,
               draggable: !isReadonly,
@@ -338,7 +342,7 @@ export class ExecutionStepModel extends DiagramModel {
               identifier: node.step.identifier,
               id: node.step.identifier,
               name: node.step.name,
-              icon: factory.getStepIcon(stepType),
+              icon: factory.getStepIcon(stepType || ''),
               allowAdd: allowAdd === true && !isReadonly,
               canDelete: !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,
@@ -357,7 +361,7 @@ export class ExecutionStepModel extends DiagramModel {
               identifier: node.step.identifier,
               id: node.step.identifier,
               name: node.step.name,
-              icon: factory.getStepIcon(stepType),
+              icon: factory.getStepIcon(stepType || ''),
               iconStyle: {
                 color: this.selectedNodeId === node.step.identifier ? Utils.getRealCSSColor(Color.WHITE) : stepIconColor
               },

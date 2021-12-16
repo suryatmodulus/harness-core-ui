@@ -1,4 +1,5 @@
 import { getMultiTypeFromValue, MultiSelectOption, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
+import { isEmpty } from 'lodash-es'
 import type {
   ServiceNowApprovalData,
   ServiceNowTicketTypeSelectOption
@@ -8,8 +9,7 @@ import {
   ApprovalRejectionCriteriaCondition,
   ApprovalRejectionCriteriaType
 } from '@pipeline/components/PipelineSteps/Steps/Common/types'
-import type { ServiceNowFieldNG, ServiceNowStatusNG } from '../../../../../../services/cd-ng'
-import { isEmpty } from 'lodash-es'
+import type { ServiceNowFieldNG } from 'services/cd-ng'
 
 export const processInitialValues = (values: ServiceNowApprovalData): ServiceNowApprovalData => {
   // Convert string values in approval/rejection criteria condition to SelectOption, so that it's populated in edit
@@ -30,9 +30,77 @@ export const processInitialValues = (values: ServiceNowApprovalData): ServiceNow
     }
   }
 }
+const getApprovalRejectionConditionValuesForSubmit = (values: string | SelectOption | MultiSelectOption[]): string => {
+  // The selected values can be string, selectoption or multiselect options
+  if (typeof values === 'string') {
+    // Simple text input
+    return values
+  }
+  if (Array.isArray(values)) {
+    // Multi select
+    return values.map(v => v.value?.toString()).join(',')
+  }
+  // Single select
+  return values.value.toString()
+}
+
+export const filterNonEmptyConditions = (condition: ApprovalRejectionCriteriaCondition) =>
+  condition.key && condition.value
+
+export const getApprovalRejectionCriteriaForSubmit = (
+  criteria: ApprovalRejectionCriteria
+): ApprovalRejectionCriteria => {
+  // Convert the approval/rejection criteria 'value' field to string/string[], from selectoption
+  const criteriaToReturn: ApprovalRejectionCriteria = {
+    type: criteria.type,
+    spec: {
+      matchAnyCondition: criteria.spec.matchAnyCondition,
+      expression: criteria.spec.expression,
+      conditions: criteria.spec.conditions
+        ?.filter(filterNonEmptyConditions)
+        .map((condition: ApprovalRejectionCriteriaCondition) => {
+          return {
+            key: condition.key,
+            operator: condition.operator,
+            value:
+              getMultiTypeFromValue(condition.value) !== MultiTypeInputType.EXPRESSION
+                ? getApprovalRejectionConditionValuesForSubmit(condition.value)
+                : condition.value
+          }
+        })
+    }
+  }
+  if (criteriaToReturn.type === ApprovalRejectionCriteriaType.Jexl) {
+    delete criteriaToReturn.spec.conditions
+    delete criteriaToReturn.spec.matchAnyCondition
+  } else if (criteriaToReturn.type === ApprovalRejectionCriteriaType.KeyValues) {
+    delete criteriaToReturn.spec.expression
+  }
+  return criteriaToReturn
+}
+
+export const processFormData = (values: ServiceNowApprovalData): ServiceNowApprovalData => {
+  return {
+    ...values,
+    spec: {
+      ...values.spec,
+      connectorRef:
+        getMultiTypeFromValue(values.spec.connectorRef as SelectOption) === MultiTypeInputType.FIXED
+          ? (values.spec.connectorRef as SelectOption)?.value?.toString()
+          : values.spec.connectorRef,
+      ticketType:
+        getMultiTypeFromValue(values.spec.ticketType as ServiceNowTicketTypeSelectOption) === MultiTypeInputType.FIXED
+          ? (values.spec.ticketType as ServiceNowTicketTypeSelectOption)?.key?.toString()
+          : values.spec.ticketType,
+      issueNumber: values.spec.issueNumber,
+      approvalCriteria: getApprovalRejectionCriteriaForSubmit(values.spec.approvalCriteria),
+      rejectionCriteria: getApprovalRejectionCriteriaForSubmit(values.spec.rejectionCriteria)
+    }
+  }
+}
+
 export const getApprovalRejectionCriteriaForInitialValues = (
   criteria: ApprovalRejectionCriteria,
-  statusList: ServiceNowStatusNG[] = [],
   fieldList: ServiceNowFieldNG[] = []
 ): ApprovalRejectionCriteria => {
   // Convert the approval/rejection criteria 'value' field to selectoption, from string/string[]
@@ -49,7 +117,7 @@ export const getApprovalRejectionCriteriaForInitialValues = (
             operator: condition.operator,
             value:
               getMultiTypeFromValue(condition.value) === MultiTypeInputType.FIXED
-                ? getInitialApprovalRejectionConditionValues(condition, statusList, fieldList)
+                ? getInitialApprovalRejectionConditionValues(condition, fieldList)
                 : condition.value
           }))
         : []
@@ -58,13 +126,12 @@ export const getApprovalRejectionCriteriaForInitialValues = (
 }
 const getInitialApprovalRejectionConditionValues = (
   condition: ApprovalRejectionCriteriaCondition,
-  statusList: ServiceNowStatusNG[] = [],
   fieldList: ServiceNowFieldNG[] = []
 ): string | SelectOption | MultiSelectOption[] => {
   // The value in YAML is always a string.
   // We'll figure out the component from operator and key
   const { operator, value, key } = condition
-  const list = key === 'Status' ? statusList : fieldList.find(field => field.name === key)?.allowedValues
+  const list = fieldList.find(field => field.name === key)?.allowedValues
 
   if (isEmpty(list)) {
     // Simple text input
@@ -92,7 +159,9 @@ export const getDefaultCriterias = (): ApprovalRejectionCriteria => ({
   }
 })
 
-export const getGenuineValue = (value: SelectOption | ServiceNowTicketTypeSelectOption | string): string | undefined => {
+export const getGenuineValue = (
+  value: SelectOption | ServiceNowTicketTypeSelectOption | string
+): string | undefined => {
   // This function returns true if the value is fixed
   // i.e. selected from dropdown
   // We'll use this value to make API calls for depedent fields

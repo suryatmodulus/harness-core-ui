@@ -1,23 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type {
-  ServiceNowApprovalData,
-  ServiceNowApprovalStepModeProps,
-  ServiceNowFormContentInterface,
-  ServiceNowTicketFieldSelectOption,
-  ServiceNowTicketTypeSelectOption
-} from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/types'
-import { resetForm } from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/types'
-import { useStrings } from '../../../../../../framework/strings'
-import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import { useQueryParams } from '@common/hooks'
-import type {
-  AccountPathProps,
-  GitQueryParams,
-  PipelinePathProps,
-  PipelineType
-} from '@common/interfaces/RouteInterfaces'
-import type { ServiceNowFieldNG, ServiceNowStatusNG, ServiceNowTicketTypeDTO } from '../../../../../../services/cd-ng'
 import {
   Accordion,
   Formik,
@@ -26,37 +7,46 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType
 } from '@wings-software/uicore'
-
 import * as Yup from 'yup'
+import type { FormikProps } from 'formik'
+import cx from 'classnames'
+import { useParams } from 'react-router-dom'
+import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
+import type {
+  ServiceNowApprovalData,
+  ServiceNowApprovalStepModeProps,
+  ServiceNowFormContentInterface,
+  ServiceNowTicketTypeSelectOption
+} from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/types'
+import { resetForm } from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/types'
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { useDeepCompareEffect, useQueryParams } from '@common/hooks'
+import type {
+  AccountPathProps,
+  GitQueryParams,
+  PipelinePathProps,
+  PipelineType
+} from '@common/interfaces/RouteInterfaces'
+import type { ServiceNowFieldNG, ServiceNowTicketTypeDTO } from 'services/cd-ng'
+
 import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import type { FormikProps } from 'formik'
-import cx from 'classnames'
-import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import { isApprovalStepFieldDisabled } from '@pipeline/components/PipelineSteps/Steps/Common/ApprovalCommons'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import css from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/ServiceNowApproval.module.scss'
-import { ApprovalRejectionCriteria } from '@pipeline/components/PipelineSteps/Steps/Common/ApprovalRejectionCriteria'
-import { useParams } from 'react-router-dom'
-import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { ApprovalRejectionCriteriaType } from '@pipeline/components/PipelineSteps/Steps/Common/types'
-import {
-  Failure,
-  ResponseListServiceNowFieldNG,
-  useGetServiceNowIssueCreateMetadata,
-  UseGetServiceNowIssueCreateMetadataProps,
-  useGetServiceNowTicketTypes
-} from '../../../../../../services/cd-ng'
+import { useGetServiceNowIssueCreateMetadata, useGetServiceNowTicketTypes } from 'services/cd-ng'
 import {
   getApprovalRejectionCriteriaForInitialValues,
   getGenuineValue
 } from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/helper'
-import { GetDataError } from 'restful-react'
-import { JiraProjectSelectOption } from '@pipeline/components/PipelineSteps/Steps/JiraApproval/types'
+import { useStrings } from 'framework/strings'
+import { ServiceNowApprovalRejectionCriteria } from './ServiceNowApprovalRejectionCriteria'
+import css from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/ServiceNowApproval.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 const FormContent = ({
   formik,
@@ -66,24 +56,24 @@ const FormContent = ({
   stepViewType,
   refetchServiceNowTicketTypes,
   fetchingServiceNowTicketTypes,
-  serviceNowTicketTypesFetchError,
   serviceNowTicketTypesResponse,
-  refetchServiceNowMetadata,
-  serviceNowMetadataFetchError,
-  fetchingServiceNowMetadata,
-  serviceNowMetadataResponse
-}: ServiceNowFormContentInterface) => {
+  serviceNowMetadataResponse,
+  serviceNowTicketTypesFetchError,
+  refetchServiceNowMetadata
+}: ServiceNowFormContentInterface): JSX.Element => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const { accountId, projectIdentifier, orgIdentifier } =
     useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
-  const [statusList, setStatusList] = useState<ServiceNowStatusNG[]>([])
+  // const [statusList, setStatusList] = useState<ServiceNowStatusNG[]>([])
 
   const [ticketFieldList, setTicketFieldList] = useState<ServiceNowFieldNG[]>([])
 
-  const [serviceNowTicketTypesOptions, setServiceNowTicketTypesOptions] = useState<ServiceNowTicketTypeSelectOption[]>()
+  const [serviceNowTicketTypesOptions, setServiceNowTicketTypesOptions] = useState<ServiceNowTicketTypeSelectOption[]>(
+    []
+  )
 
   const [connectorValueType, setConnectorValueType] = useState<MultiTypeInputType>(MultiTypeInputType.FIXED)
 
@@ -94,16 +84,22 @@ const FormContent = ({
     repoIdentifier,
     branch
   }
+  const ticketTypeFixedValue =
+    typeof formik.values.spec.ticketType === 'object'
+      ? (formik.values.spec.ticketType as ServiceNowTicketTypeSelectOption).key
+      : undefined
 
   const connectorRefFixedValue = getGenuineValue(formik.values.spec.connectorRef)
   const ticketTypeKeyFixedValue =
     typeof formik.values.spec.ticketType === 'object'
       ? (formik.values.spec.ticketType as ServiceNowTicketTypeSelectOption).key
       : undefined
-  const ticketFieldKeyFixedValue =
-    typeof formik.values.spec.ticketField === 'object'
-      ? (formik.values.spec.ticketField as ServiceNowTicketFieldSelectOption).key
-      : undefined
+
+  useEffect(() => {
+    if (ticketTypeKeyFixedValue && serviceNowMetadataResponse?.data) {
+      setTicketFieldList(serviceNowMetadataResponse?.data)
+    }
+  }, [serviceNowMetadataResponse?.data, ticketTypeKeyFixedValue])
 
   useEffect(() => {
     // If connector value changes in form, fetch TicketTypes
@@ -117,50 +113,42 @@ const FormContent = ({
     }
   }, [connectorRefFixedValue])
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     // If ticket type  changes in form, fetch  field list
     if (ticketTypeKeyFixedValue && connectorRefFixedValue) {
-      refetchServiceNowMetadata(
-        {
-          queryParams: {
-            ...commonParams,
-            connectorRef: connectorRefFixedValue.toString(),
-            ticketType: ticketTypeKeyFixedValue.toString()
-          }
-        },
-        [ticketFieldKeyFixedValue, ??]
-      )
+      refetchServiceNowMetadata({
+        queryParams: {
+          ...commonParams,
+          connectorRef: connectorRefFixedValue.toString(),
+          //@TODO Remove lower case
+          ticketType: ticketTypeKeyFixedValue.toString().toLocaleLowerCase()
+        }
+      })
       const approvalCriteria = getApprovalRejectionCriteriaForInitialValues(
-        formik.values.spec.approvalCriteria,
+        formik.values.spec.approvalCriteria
         //@TODO status list yet to be provided
-        statusListFromType,
-        fieldListToSet
+        // statusListFromType,
+        // fieldListToSet
       )
       formik.setFieldValue('spec.approvalCriteria', approvalCriteria)
       const rejectionCriteria = getApprovalRejectionCriteriaForInitialValues(
-        formik.values.spec.rejectionCriteria,
-        statusListFromType,
-        fieldListToSet
+        formik.values.spec.rejectionCriteria
+        // statusListFromType,
+        // fieldListToSet
       )
       formik.setFieldValue('spec.rejectionCriteria', rejectionCriteria)
     }
-  }, [ticketTypeFixedValue, serviceNowTicketTypesOptions])
+  }, [serviceNowTicketTypesOptions, ticketTypeKeyFixedValue])
 
   useEffect(() => {
-    // Set ticket types and statuses
+    // Set ticket types
     let options: ServiceNowTicketTypeSelectOption[] = []
-    let statusOptions: ServiceNowStatusNG[] = []
     const ticketTypesResponseList: ServiceNowTicketTypeDTO[] = serviceNowTicketTypesResponse?.data || []
     options =
       ticketTypesResponseList.map((ticketType: ServiceNowTicketTypeDTO) => ({
         label: ticketType.name || '',
         value: ticketType.key || '',
         key: ticketType.key || ''
-      })) || []
-    statusOptions =
-      ticketTypesResponseList.map((ticketType: ServiceNowTicketTypeDTO) => ({
-        statusOptions = ticketType. //@TODO map statuses
-
       })) || []
     setServiceNowTicketTypesOptions(options)
   }, [serviceNowTicketTypesResponse?.data])
@@ -219,15 +207,16 @@ const FormContent = ({
           type="ServiceNow"
           enableConfigureOptions={false}
           selected={formik?.values?.spec.connectorRef as string}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onChange={(value: any, _unused, multiType) => {
             // Clear dependent fields
             setConnectorValueType(multiType)
             if (value?.record?.identifier !== connectorRefFixedValue) {
               resetForm(formik, 'connectorRef')
-              // if (multiType !== MultiTypeInputType.FIXED) {
-              //   setProjectOptions([])
-              //   setProjectMetadata(undefined)
-              // }
+              if (multiType !== MultiTypeInputType.FIXED) {
+                setServiceNowTicketTypesOptions([])
+                setTicketFieldList([])
+              }
             }
           }}
           disabled={isApprovalStepFieldDisabled(readonly)}
@@ -260,7 +249,6 @@ const FormContent = ({
           }
           label={getString('pipeline.serviceNowApprovalStep.ticketType')}
           name="spec.ticketType"
-          isOptional={true}
           placeholder={
             fetchingServiceNowTicketTypes
               ? getString('pipeline.serviceNowApprovalStep.fetchingTicketTypesPlaceholder')
@@ -269,23 +257,21 @@ const FormContent = ({
               : getString('select')
           }
           disabled={isApprovalStepFieldDisabled(readonly, fetchingServiceNowTicketTypes)}
-          multiTypeInputProps={
-            {
-              // selectProps: {
-              //   addClearBtn: true,
-              //   items: fetchingServiceNowTicketTypes
-              //     ? [{ label: getString('pipeline.serviceNowApprovalStep.fetchingTicketTypesPlaceholder'), value: '' }]
-              //     : setServiceNowTicketTypes(serviceNowTicketTypes?.fields)
-              // },
-              // allowableTypes: [MultiTypeInputType.FIXED],
-              // onChange: (value: unknown) => {
-              //   // Clear dependent fields
-              //   if ((value as ServiceNowTicketTypeSelectOption)?.key !== ticketTypeFixedValue) {
-              //     resetForm(formik, 'issueType')
-              //   }
-              // }
+          multiTypeInputProps={{
+            selectProps: {
+              addClearBtn: true,
+              items: fetchingServiceNowTicketTypes
+                ? [{ label: getString('pipeline.serviceNowApprovalStep.fetchingTicketTypesPlaceholder'), value: '' }]
+                : serviceNowTicketTypesOptions
+            },
+            allowableTypes: [MultiTypeInputType.FIXED],
+            onChange: (value: unknown) => {
+              // Clear dependent fields
+              if ((value as ServiceNowTicketTypeSelectOption)?.key !== ticketTypeFixedValue) {
+                resetForm(formik, 'ticketType')
+              }
             }
-          }
+          }}
         />
       </div>
 
@@ -295,7 +281,7 @@ const FormContent = ({
             dataTooltipId: 'serviceNowApprovalIssueNumber'
           }}
           label={getString('pipeline.serviceNowApprovalStep.issueNumber')}
-          name="spec.issueKey"
+          name="spec.issueNumber"
           placeholder={getString('pipeline.serviceNowApprovalStep.issueNumberPlaceholder')}
           disabled={isApprovalStepFieldDisabled(readonly)}
           multiTextInputProps={{
@@ -317,8 +303,7 @@ const FormContent = ({
         )}
       </div>
 
-      <ApprovalRejectionCriteria
-        statusList={statusList}
+      <ServiceNowApprovalRejectionCriteria
         fieldList={ticketFieldList}
         title={getString('pipeline.approvalCriteria.approvalCriteria')}
         isFetchingFields={false}
@@ -327,7 +312,6 @@ const FormContent = ({
         onChange={values => formik.setFieldValue('spec.approvalCriteria', values)}
         formikErrors={formik.errors.spec?.approvalCriteria?.spec}
         readonly={readonly}
-        stepType={StepType.ServiceNowApproval}
       />
 
       <div className={stepCss.noLookDivider} />
@@ -337,8 +321,7 @@ const FormContent = ({
           id="optional-config"
           summary={getString('common.optionalConfig')}
           details={
-            <ApprovalRejectionCriteria
-              statusList={statusList}
+            <ServiceNowApprovalRejectionCriteria
               fieldList={ticketFieldList}
               title={getString('pipeline.approvalCriteria.rejectionCriteria')}
               isFetchingFields={false}
@@ -346,7 +329,6 @@ const FormContent = ({
               values={formik.values.spec.rejectionCriteria}
               onChange={values => formik.setFieldValue('spec.rejectionCriteria', values)}
               readonly={readonly}
-              stepType={StepType.ServiceNowApproval}
             />
           }
         />
@@ -357,7 +339,7 @@ const FormContent = ({
 function ServiceNowApprovalStepMode(
   props: ServiceNowApprovalStepModeProps,
   formikRef: StepFormikFowardRef<ServiceNowApprovalData>
-) {
+): JSX.Element {
   const { onUpdate, readonly, isNewStep, allowableTypes, stepViewType, onChange } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } =

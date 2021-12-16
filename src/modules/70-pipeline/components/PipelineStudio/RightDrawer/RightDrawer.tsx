@@ -150,7 +150,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   const stageType = selectedStage?.stage?.type
 
   let stepData = (data?.stepConfig?.node as StepElementConfig)?.type
-    ? stepsFactory.getStepData((data?.stepConfig?.node as StepElementConfig)?.type)
+    ? stepsFactory.getStepData((data?.stepConfig?.node as StepElementConfig)?.type || '')
     : null
   const templateStepTemplate = (data?.stepConfig?.node as TemplateStepData)?.template
   const formikRef = React.useRef<StepFormikRef | null>(null)

@@ -105,7 +105,7 @@ export class JiraApproval extends PipelineStep<JiraApprovalData> {
     return errors
   }
 
-  processFormData(values: JiraApprovalData) {
+  processFormData(values: JiraApprovalData): JiraApprovalData {
     return processFormData(values)
   }
 

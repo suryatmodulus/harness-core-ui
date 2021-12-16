@@ -64,7 +64,7 @@ const FormContent = ({
   readonly,
   allowableTypes,
   stepViewType
-}: JiraFormContentInterface) => {
+}: JiraFormContentInterface): JSX.Element => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
   const { accountId, projectIdentifier, orgIdentifier } =

@@ -147,3 +147,10 @@ payingToday: Paying today
 proratedForNextDays: Prorated for next 16 days
 subscribeAndPay: Subscribe and pay
 terms: 'By confirming your subscription, you allow Harness to charge your card for this payment and future payments in accordance with <a target="_blank" href="">the terms.</a>'
+compareFeatures: Compare features
+savePaying: 'Save {{savedMoney}} paying annually'
+reviewChanges: Review changes
+nextPayment: Next payment
+additionalCharge: Charged at 20% additional
+recommendationDesc: Capacity based on usage trends
+currentServiceUsage: Current {{module}} service usage

@@ -1,11 +1,12 @@
 import React from 'react'
 import moment from 'moment'
 import { capitalize } from 'lodash-es'
-import { FontVariation, IconName, Layout, Text, Card, Container } from '@wings-software/uicore'
-import { ModuleName } from 'framework/types/ModuleName'
+import { FontVariation, Layout, Text, Card, Container } from '@wings-software/uicore'
+import type { ModuleName } from 'framework/types/ModuleName'
 import { useStrings } from 'framework/strings'
 import type { Editions } from '@common/constants/SubscriptionTypes'
 import { PLAN_UNIT } from '@common/constants/SubscriptionTypes'
+import { Header } from '../paymentUtils'
 import css from './SubscriptionPayModal.module.scss'
 
 interface SubscribeInfoProps {
@@ -29,11 +30,6 @@ interface SubscribePlanInfo {
   premiumSupport: number
 }
 
-interface HeaderProps {
-  moduleName: ModuleName
-  subscribePlan: Editions
-}
-
 interface LineProps {
   label: string | number
   value: string | number
@@ -50,40 +46,6 @@ const Line = ({ label, value, style }: LineProps): React.ReactElement => {
         {value}
       </Text>
     </Layout.Horizontal>
-  )
-}
-
-function getIcon(moduleName: ModuleName): string | undefined {
-  switch (moduleName) {
-    case ModuleName.CD:
-      return 'cd-main'
-    case ModuleName.CE:
-      return 'ce-main'
-    case ModuleName.CF:
-      return 'cf-main'
-    case ModuleName.CI:
-      return 'ci-main'
-  }
-  return undefined
-}
-
-const Header = ({ moduleName, subscribePlan }: HeaderProps): JSX.Element => {
-  const icon = getIcon(moduleName)
-  const { getString } = useStrings()
-  const subscriptionStr = getString('common.subscription')
-  const header = `${moduleName} ${capitalize(subscribePlan)} ${subscriptionStr}`
-
-  return icon ? (
-    <Text
-      icon={icon as IconName}
-      iconProps={{ size: 28 }}
-      font={{ variation: FontVariation.H3 }}
-      padding={{ bottom: 'huge' }}
-    >
-      {header}
-    </Text>
-  ) : (
-    <></>
   )
 }
 

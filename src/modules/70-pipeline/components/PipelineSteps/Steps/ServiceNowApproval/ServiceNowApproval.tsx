@@ -42,7 +42,7 @@ export class ServiceNowApproval extends PipelineStep<ServiceNowApprovalData> {
     type: StepType.ServiceNowApproval,
     spec: {
       connectorRef: '',
-      issueNumber: '',
+      ticketNumber: '',
       ticketType: '',
       approvalCriteria: getDefaultCriterias(),
       rejectionCriteria: getDefaultCriterias()
@@ -71,13 +71,13 @@ export class ServiceNowApproval extends PipelineStep<ServiceNowApprovalData> {
     }
 
     if (
-      typeof template?.spec?.issueNumber === 'string' &&
-      getMultiTypeFromValue(template?.spec?.issueNumber) === MultiTypeInputType.RUNTIME &&
-      isEmpty(data?.spec?.issueNumber?.trim())
+      typeof template?.spec?.ticketNumber === 'string' &&
+      getMultiTypeFromValue(template?.spec?.ticketNumber) === MultiTypeInputType.RUNTIME &&
+      isEmpty(data?.spec?.ticketNumber?.trim())
     ) {
       errors.spec = {
         ...errors.spec,
-        issueNumber: getString?.('pipeline.serviceNowApprovalStep.validations.issueNumber')
+        ticketNumber: getString?.('pipeline.serviceNowApprovalStep.validations.issueNumber')
       }
     }
 

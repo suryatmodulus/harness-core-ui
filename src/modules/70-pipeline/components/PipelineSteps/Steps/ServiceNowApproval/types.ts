@@ -19,7 +19,7 @@ export interface ServiceNowApprovalData extends StepElementConfig {
   spec: {
     connectorRef: string | SelectOption
     ticketType: string | ServiceNowTicketTypeSelectOption
-    issueNumber: string
+    ticketNumber: string
     approvalCriteria: ApprovalRejectionCriteria
     rejectionCriteria: ApprovalRejectionCriteria
   }
@@ -72,12 +72,12 @@ export interface ServiceNowFormContentInterface {
 export const resetForm = (formik: FormikProps<ServiceNowApprovalData>, parent: string) => {
   if (parent === 'connectorRef') {
     formik.setFieldValue('spec.ticketType', '')
-    formik.setFieldValue('spec.issueNumber', '')
+    formik.setFieldValue('spec.ticketNumber', '')
     formik.setFieldValue('spec.approvalCriteria', getDefaultCriterias())
     formik.setFieldValue('spec.rejectionCriteria', getDefaultCriterias())
   }
   if (parent === 'ticketType') {
-    formik.setFieldValue('spec.issueNumber', '')
+    formik.setFieldValue('spec.ticketNumber', '')
     formik.setFieldValue('spec.approvalCriteria', getDefaultCriterias())
     formik.setFieldValue('spec.rejectionCriteria', getDefaultCriterias())
   }

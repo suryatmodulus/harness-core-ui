@@ -119,7 +119,7 @@ const FormContent = ({
         queryParams: {
           ...commonParams,
           connectorRef: connectorRefFixedValue.toString(),
-          ticketType: ticketTypeKeyFixedValue.toString().toLocaleLowerCase()
+          ticketType: ticketTypeKeyFixedValue.toString()
         }
       })
       const approvalCriteria = getApprovalRejectionCriteriaForInitialValues(formik.values.spec.approvalCriteria)
@@ -264,10 +264,10 @@ const FormContent = ({
       <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.MultiTextInput
           tooltipProps={{
-            dataTooltipId: 'serviceNowApprovalIssueNumber'
+            dataTooltipId: 'serviceNowApprovalTicketNumber'
           }}
           label={getString('pipeline.serviceNowApprovalStep.issueNumber')}
-          name="spec.issueNumber"
+          name="spec.ticketNumber"
           placeholder={getString('pipeline.serviceNowApprovalStep.issueNumberPlaceholder')}
           disabled={isApprovalStepFieldDisabled(readonly)}
           multiTextInputProps={{
@@ -275,15 +275,15 @@ const FormContent = ({
             allowableTypes
           }}
         />
-        {getMultiTypeFromValue(formik.values.spec.issueNumber) === MultiTypeInputType.RUNTIME && (
+        {getMultiTypeFromValue(formik.values.spec.ticketNumber) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
-            value={formik.values.spec.issueNumber}
+            value={formik.values.spec.ticketNumber}
             type="String"
-            variableName="spec.issueNumber"
+            variableName="spec.ticketNumber"
             showRequiredField={false}
             showDefaultField={false}
             showAdvanced={true}
-            onChange={value => formik.setFieldValue('spec.issueNumber', value)}
+            onChange={value => formik.setFieldValue('spec.ticketNumber', value)}
             isReadonly={readonly}
           />
         )}

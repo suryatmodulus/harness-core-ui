@@ -68,10 +68,10 @@ const FormContent = (formContentProps: SnowApprovalDeploymentModeProps): JSX.Ele
         />
       ) : null}
 
-      {getMultiTypeFromValue(template?.spec?.issueNumber) === MultiTypeInputType.RUNTIME ? (
+      {getMultiTypeFromValue(template?.spec?.ticketNumber) === MultiTypeInputType.RUNTIME ? (
         <FormInput.MultiTextInput
           label={getString('pipeline.serviceNowApprovalStep.issueNumber')}
-          name={`${prefix}spec.issueNumber`}
+          name={`${prefix}spec.ticketNumber`}
           multiTextInputProps={{
             disabled: isApprovalStepFieldDisabled(readonly),
             expressions,

@@ -92,7 +92,7 @@ export const processFormData = (values: ServiceNowApprovalData): ServiceNowAppro
         getMultiTypeFromValue(values.spec.ticketType as ServiceNowTicketTypeSelectOption) === MultiTypeInputType.FIXED
           ? (values.spec.ticketType as ServiceNowTicketTypeSelectOption)?.key?.toString()
           : values.spec.ticketType,
-      issueNumber: values.spec.issueNumber,
+      ticketNumber: values.spec.ticketNumber,
       approvalCriteria: getApprovalRejectionCriteriaForSubmit(values.spec.approvalCriteria),
       rejectionCriteria: getApprovalRejectionCriteriaForSubmit(values.spec.rejectionCriteria)
     }

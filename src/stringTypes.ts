@@ -1002,9 +1002,13 @@ export interface StringsMap {
   'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
   'authSettings.newTotal': string
 <<<<<<< HEAD
+<<<<<<< HEAD
   'authSettings.nextPayment': string
 =======
 >>>>>>> feat: [GTM-611]: add subscription payment modal
+=======
+  'authSettings.nextPayment': string
+>>>>>>> feat: [GTM-611]: add subscribe calculator modal
   'authSettings.notifyUsersWhenTheyLocked': string
   'authSettings.notifyUsersWhenUserLocked': string
   'authSettings.oauthSettingsHaveBeenUpdated': string

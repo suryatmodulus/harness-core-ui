@@ -11,7 +11,7 @@ import {
   SelectOption,
   Text
 } from '@wings-software/uicore'
-import { useStrings } from 'framework/strings'
+import { StringKeys, useStrings } from 'framework/strings'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import {
@@ -26,6 +26,7 @@ import { isApprovalStepFieldDisabled } from '../Common/ApprovalCommons'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from '../Common/ApprovalRejectionCriteria.module.scss'
 
+const valuePlaceholder: StringKeys = 'common.valuePlaceholder'
 interface SnowApprovalRejectionCriteriaProps
   extends Omit<ApprovalRejectionCriteriaProps, 'statusList' | 'fieldList' | 'stepType'> {
   fieldList: ServiceNowFieldNG[]
@@ -59,7 +60,7 @@ const RenderValueSelects = ({
         className={css.multiSelect}
         name={`spec.${mode}.spec.conditions[${index}].value`}
         selectItems={allowedValuesForFields[condition.key]}
-        placeholder={getString('common.valuePlaceholder')}
+        placeholder={getString(valuePlaceholder)}
         multiSelectTypeInputProps={{
           allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
           expressions
@@ -73,7 +74,7 @@ const RenderValueSelects = ({
       label=""
       name={`spec.${mode}.spec.conditions[${index}].value`}
       selectItems={allowedValuesForFields[condition.key]}
-      placeholder={getString('common.valuePlaceholder')}
+      placeholder={getString(valuePlaceholder)}
       multiTypeInputProps={{
         allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
         expressions
@@ -168,7 +169,7 @@ export const Conditions = ({
                       <FormInput.MultiTextInput
                         label=""
                         name={`spec.${mode}.spec.conditions[${i}].value`}
-                        placeholder={getString('common.valuePlaceholder')}
+                        placeholder={getString(valuePlaceholder)}
                         disabled={isApprovalStepFieldDisabled(readonly)}
                         multiTextInputProps={{
                           expressions,

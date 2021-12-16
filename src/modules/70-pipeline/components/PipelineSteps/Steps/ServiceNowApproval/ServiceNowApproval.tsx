@@ -4,9 +4,8 @@ import { connect, FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import * as Yup from 'yup'
-import type { StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
+import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import type { StringsMap } from 'stringTypes'
-import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import ServiceNowApprovalStepModeWithRef from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/ServiceNowApprovalStepMode'
 import {
   getDefaultCriterias,

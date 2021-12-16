@@ -43,10 +43,12 @@ import {
   getApprovalRejectionCriteriaForInitialValues,
   getGenuineValue
 } from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/helper'
-import { useStrings } from 'framework/strings'
+import { StringKeys, useStrings } from 'framework/strings'
 import { ServiceNowApprovalRejectionCriteria } from './ServiceNowApprovalRejectionCriteria'
 import css from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/ServiceNowApproval.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+
+const fetchingTicketTypesPlaceholder: StringKeys = 'pipeline.serviceNowApprovalStep.fetchingTicketTypesPlaceholder'
 
 const FormContent = ({
   formik,
@@ -66,17 +68,11 @@ const FormContent = ({
   const { accountId, projectIdentifier, orgIdentifier } =
     useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-
-  // const [statusList, setStatusList] = useState<ServiceNowStatusNG[]>([])
-
   const [ticketFieldList, setTicketFieldList] = useState<ServiceNowFieldNG[]>([])
-
   const [serviceNowTicketTypesOptions, setServiceNowTicketTypesOptions] = useState<ServiceNowTicketTypeSelectOption[]>(
     []
   )
-
   const [connectorValueType, setConnectorValueType] = useState<MultiTypeInputType>(MultiTypeInputType.FIXED)
-
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
@@ -127,15 +123,9 @@ const FormContent = ({
       const approvalCriteria = getApprovalRejectionCriteriaForInitialValues(
         formik.values.spec.approvalCriteria
         //@TODO status list yet to be provided
-        // statusListFromType,
-        // fieldListToSet
       )
       formik.setFieldValue('spec.approvalCriteria', approvalCriteria)
-      const rejectionCriteria = getApprovalRejectionCriteriaForInitialValues(
-        formik.values.spec.rejectionCriteria
-        // statusListFromType,
-        // fieldListToSet
-      )
+      const rejectionCriteria = getApprovalRejectionCriteriaForInitialValues(formik.values.spec.rejectionCriteria)
       formik.setFieldValue('spec.rejectionCriteria', rejectionCriteria)
     }
   }, [serviceNowTicketTypesOptions, ticketTypeKeyFixedValue])
@@ -236,7 +226,6 @@ const FormContent = ({
           />
         )}
       </div>
-
       <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.MultiTypeInput
           tooltipProps={{
@@ -244,14 +233,14 @@ const FormContent = ({
           }}
           selectItems={
             fetchingServiceNowTicketTypes
-              ? [{ label: getString('pipeline.serviceNowApprovalStep.fetchingTicketTypesPlaceholder'), value: '' }]
+              ? [{ label: getString(fetchingTicketTypesPlaceholder), value: '' }]
               : serviceNowTicketTypesOptions
           }
           label={getString('pipeline.serviceNowApprovalStep.ticketType')}
           name="spec.ticketType"
           placeholder={
             fetchingServiceNowTicketTypes
-              ? getString('pipeline.serviceNowApprovalStep.fetchingTicketTypesPlaceholder')
+              ? getString(fetchingTicketTypesPlaceholder)
               : serviceNowTicketTypesFetchError?.message
               ? serviceNowTicketTypesFetchError?.message
               : getString('select')
@@ -261,7 +250,7 @@ const FormContent = ({
             selectProps: {
               addClearBtn: true,
               items: fetchingServiceNowTicketTypes
-                ? [{ label: getString('pipeline.serviceNowApprovalStep.fetchingTicketTypesPlaceholder'), value: '' }]
+                ? [{ label: getString(fetchingTicketTypesPlaceholder), value: '' }]
                 : serviceNowTicketTypesOptions
             },
             allowableTypes: [MultiTypeInputType.FIXED],
@@ -274,7 +263,6 @@ const FormContent = ({
           }}
         />
       </div>
-
       <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.MultiTextInput
           tooltipProps={{
@@ -302,7 +290,6 @@ const FormContent = ({
           />
         )}
       </div>
-
       <ServiceNowApprovalRejectionCriteria
         fieldList={ticketFieldList}
         title={getString('pipeline.approvalCriteria.approvalCriteria')}
@@ -313,9 +300,7 @@ const FormContent = ({
         formikErrors={formik.errors.spec?.approvalCriteria?.spec}
         readonly={readonly}
       />
-
       <div className={stepCss.noLookDivider} />
-
       <Accordion className={stepCss.accordion}>
         <Accordion.Panel
           id="optional-config"

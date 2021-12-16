@@ -3367,6 +3367,7 @@ export interface StringsMap {
   'ce.pageErrorMsg.perspectiveNoData': string
   'ce.pageErrorMsg.recommendationDesc': string
   'ce.pageErrorMsg.recommendationNoData': string
+  'ce.perspectives.allPerspectiveTxt': string
   'ce.perspectives.budgets.actualSpend': string
   'ce.perspectives.budgets.addBudget': string
   'ce.perspectives.budgets.budgetMonthlyTxt': string
@@ -3408,6 +3409,8 @@ export interface StringsMap {
   'ce.perspectives.budgets.title': string
   'ce.perspectives.budgets.wizardTitle': string
   'ce.perspectives.budgets.wizardTitleEdit': string
+  'ce.perspectives.confirmDeletePerspectiveMsg': string
+  'ce.perspectives.confirmDeletePerspectiveTitle': string
   'ce.perspectives.createPerspective.createCustomField': string
   'ce.perspectives.createPerspective.filters.addRuleText': string
   'ce.perspectives.createPerspective.filters.operator': string
@@ -3438,6 +3441,11 @@ export interface StringsMap {
   'ce.perspectives.nodeDetails.aggregation.average': string
   'ce.perspectives.nodeDetails.aggregation.maximum': string
   'ce.perspectives.nodeDetails.nodeDetailsText': string
+  'ce.perspectives.perspectiveCount': string
+  'ce.perspectives.perspectiveDeletedTxt': string
+  'ce.perspectives.perspectiveReportsMoreTxt': string
+  'ce.perspectives.perspectiveReportsTxt': string
+  'ce.perspectives.recentPerspectiveTxt': string
   'ce.perspectives.recommendations.perMonth': string
   'ce.perspectives.recommendations.recommendationCountTxt': string
   'ce.perspectives.recommendations.viewText': string
@@ -3449,6 +3457,7 @@ export interface StringsMap {
   'ce.perspectives.reports.msg': string
   'ce.perspectives.reports.recipientLabel': string
   'ce.perspectives.reports.recipients': string
+  'ce.perspectives.reports.reportDeletedTxt': string
   'ce.perspectives.reports.reportName': string
   'ce.perspectives.reports.searchTimezonePlaceholder': string
   'ce.perspectives.reports.title': string

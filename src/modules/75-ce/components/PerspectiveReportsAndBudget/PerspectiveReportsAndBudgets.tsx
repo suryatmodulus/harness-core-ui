@@ -3,7 +3,7 @@ import cronstrue from 'cronstrue'
 import { isEmpty } from 'lodash-es'
 import { useHistory, useParams } from 'react-router-dom'
 import type { Column, CellProps, Renderer } from 'react-table'
-import { Button, Container, Text, Layout, Icon, FlexExpander } from '@wings-software/uicore'
+import { Button, Container, Text, Layout, Icon, FlexExpander, useToaster } from '@wings-software/uicore'
 import { Popover, Position, Classes, PopoverInteractionKind } from '@blueprintjs/core'
 import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
 import routes from '@common/RouteDefinitions'
@@ -136,13 +136,26 @@ const ScheduledReports: React.FC = () => {
       refetch()
     }
   })
+  const { showSuccess, showError } = useToaster()
 
   const handleDelete = async (report: CEReportSchedule) => {
     try {
-      const deleted = await deleteReport(accountId, { queryParams: { reportId: report?.uuid } })
-      if (deleted) refetch()
-    } catch (e) {
-      // TODO: Error handling
+      const deleted = await deleteReport(accountId, {
+        queryParams: { reportId: report?.uuid },
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+      if (deleted) {
+        showSuccess(
+          getString('ce.perspectives.reports.reportDeletedTxt', {
+            name: report.name
+          })
+        )
+        refetch()
+      }
+    } catch (err) {
+      showError(err?.data?.message || err?.message)
     }
   }
 
@@ -212,6 +225,7 @@ const Budgets = ({ perspectiveName }: { perspectiveName: string }): JSX.Element 
       refetch()
     }
   })
+  const { showSuccess, showError } = useToaster()
 
   const budget = budgets[0] || {}
   const { budgetAmount, alertThresholds = [] } = budget
@@ -243,10 +257,22 @@ const Budgets = ({ perspectiveName }: { perspectiveName: string }): JSX.Element 
 
   const handleDeleteBudget = async () => {
     try {
-      const deleted = await (budget?.uuid && deleteBudget(budget.uuid))
-      if (deleted) refetch()
-    } catch (e) {
-      // TODO: Error handling
+      const deleted = await (budget?.uuid &&
+        deleteBudget(budget.uuid, {
+          headers: {
+            'content-type': 'application/json'
+          }
+        }))
+      if (deleted) {
+        showSuccess(
+          getString('ce.budgets.budgetDeletedTxt', {
+            name: budget.name
+          })
+        )
+        refetch()
+      }
+    } catch (err) {
+      showError(err?.data?.message || err?.message)
     }
   }
 

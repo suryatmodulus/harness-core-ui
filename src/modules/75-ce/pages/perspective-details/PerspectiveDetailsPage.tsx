@@ -1,10 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
+import cronstrue from 'cronstrue'
 import cx from 'classnames'
-import { Button, Heading, Layout, Container, Text, Color, PageHeader, PageBody } from '@wings-software/uicore'
+import {
+  Button,
+  Heading,
+  Layout,
+  Container,
+  Text,
+  Color,
+  PageHeader,
+  PageBody,
+  Icon,
+  FontVariation
+} from '@wings-software/uicore'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
-import { useGetPerspective } from 'services/ce/'
+import { useGetPerspective, useGetReportSetting } from 'services/ce/'
 import {
   useFetchPerspectiveTimeSeriesQuery,
   QlceViewTimeGroupType,
@@ -64,6 +76,13 @@ const PerspectiveHeader: React.FC<{ title: string; viewType: string }> = ({ titl
   const { getString } = useStrings()
   const isDefaultPerspective = viewType === ViewType.Default
 
+  const { data, loading } = useGetReportSetting({
+    accountIdentifier: accountId,
+    queryParams: { perspectiveId }
+  })
+
+  const reports = data?.data || []
+
   const goToEditPerspective: () => void = () => {
     history.push(
       routes.toCECreatePerspective({
@@ -99,9 +118,48 @@ const PerspectiveHeader: React.FC<{ title: string; viewType: string }> = ({ titl
             }
           ]}
         />
-        <Heading color="grey800" level={2} style={{ flexGrow: 1 }}>
-          {title}
-        </Heading>
+        <Layout.Horizontal spacing="small">
+          <Heading color="grey800" level={2}>
+            {title}
+          </Heading>
+          <Container
+            padding={{
+              top: 'xsmall'
+            }}
+          >
+            {loading ? <Icon name="spinner" color={Color.BLUE_500} /> : null}
+
+            {reports.length ? (
+              <Container flex>
+                <Icon name="notification" size={14} color={Color.PRIMARY_7} />
+                <Text
+                  margin={{
+                    left: 'xsmall'
+                  }}
+                  color={Color.GREY_500}
+                  font={{ variation: FontVariation.SMALL }}
+                >
+                  {getString('ce.perspectives.perspectiveReportsTxt', {
+                    reportInfo: cronstrue.toString(reports[0].userCron || '')
+                  })}
+                </Text>
+                {reports.length > 1 ? (
+                  <Text
+                    margin={{
+                      left: 'xsmall'
+                    }}
+                    color={Color.GREY_500}
+                    font={{ variation: FontVariation.SMALL }}
+                  >
+                    {getString('ce.perspectives.perspectiveReportsMoreTxt', {
+                      count: reports.length - 1
+                    })}
+                  </Text>
+                ) : null}
+              </Container>
+            ) : null}
+          </Container>
+        </Layout.Horizontal>
       </Container>
 
       <Button
@@ -341,16 +399,20 @@ const PerspectiveDetailsPage: React.FC = () => {
           isDefaultPerspective={!!(perspectiveData?.viewType === ViewType.Default)}
           hasClusterAsSource={hasClusterAsSource}
         />
-        <Container margin="xlarge" background="white" className={css.chartGridContainer}>
-          {!isChartGridEmpty && (
-            <Container padding="small">
-              <PerspectiveExplorerGroupBy
-                chartType={chartType}
-                setChartType={setChartType}
-                groupBy={groupBy}
-                setGroupBy={setGroupBy}
-                timeFilter={getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to))}
-              />
+        <Container
+          margin="xlarge"
+          background="white"
+          className={cx(css.chartGridContainer, { [css.emptyContainer]: isChartGridEmpty })}
+        >
+          <Container padding="small">
+            <PerspectiveExplorerGroupBy
+              chartType={chartType}
+              setChartType={setChartType}
+              groupBy={groupBy}
+              setGroupBy={setGroupBy}
+              timeFilter={getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to))}
+            />
+            {!isChartGridEmpty && (
               <CloudCostInsightChart
                 showLegends={true}
                 ref={chartRef as any}
@@ -362,41 +424,11 @@ const PerspectiveDetailsPage: React.FC = () => {
                 aggregation={aggregation}
                 xAxisPointCount={chartData?.perspectiveTimeSeriesStats?.stats?.length || DAYS_FOR_TICK_INTERVAL + 1}
               />
-            </Container>
-          )}
-          {!isChartGridEmpty && (
-            <PerspectiveGrid
-              goToWorkloadDetails={goToWorkloadDetails}
-              goToNodeDetails={goToNodeDetails}
-              isClusterOnly={isClusterOnly}
-              gridData={gridData?.perspectiveGrid?.data as any}
-              gridFetching={gridFetching}
-              columnSequence={columnSequence}
-              highlightNode={
-                /* istanbul ignore next */
-                id => {
-                  highlightNode(chartRef, id)
-                }
-              }
-              resetNodeState={
-                /* istanbul ignore next */
-                () => {
-                  resetNodeState(chartRef)
-                }
-              }
-              setColumnSequence={colSeq => setColumnSequence(colSeq)}
-              groupBy={groupBy}
-              totalItemCount={perspectiveTotalCount || 0}
-              gridPageIndex={gridPageIndex}
-              pageSize={PAGE_SIZE}
-              fetchData={(pageIndex, pageSize) => {
-                setPageIndex(pageIndex)
-                setGridPageOffset(pageIndex * pageSize)
-              }}
-            />
-          )}
+            )}
+          </Container>
+
           {isChartGridEmpty && (
-            <Container className={cx(css.chartGridContainer, css.empty)}>
+            <Container className={css.emptyIllustrationContainer}>
               <img src={EmptyView} />
               <Text
                 margin={{
@@ -414,6 +446,36 @@ const PerspectiveDetailsPage: React.FC = () => {
               <Text font="small">{getString('ce.pageErrorMsg.perspectiveNoData')}</Text>
             </Container>
           )}
+
+          <PerspectiveGrid
+            goToWorkloadDetails={goToWorkloadDetails}
+            goToNodeDetails={goToNodeDetails}
+            isClusterOnly={isClusterOnly}
+            gridData={gridData?.perspectiveGrid?.data as any}
+            gridFetching={gridFetching}
+            columnSequence={columnSequence}
+            highlightNode={
+              /* istanbul ignore next */
+              id => {
+                highlightNode(chartRef, id)
+              }
+            }
+            resetNodeState={
+              /* istanbul ignore next */
+              () => {
+                resetNodeState(chartRef)
+              }
+            }
+            setColumnSequence={colSeq => setColumnSequence(colSeq)}
+            groupBy={groupBy}
+            totalItemCount={perspectiveTotalCount || 0}
+            gridPageIndex={gridPageIndex}
+            pageSize={PAGE_SIZE}
+            fetchData={(pageIndex, pageSize) => {
+              setPageIndex(pageIndex)
+              setGridPageOffset(pageIndex * pageSize)
+            }}
+          />
         </Container>
       </PageBody>
     </>

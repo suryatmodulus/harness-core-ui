@@ -13,3 +13,29 @@
 .limitWarningTooltipCtn {
   max-width: 250px;
 }
+
+.quickFilter {
+  display: flex;
+  height: 32px;
+  background: var(--grey-100) !important;
+  border-radius: 16px;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--primary-2) !important;
+  }
+
+  &.selected {
+    background: var(--primary-7) !important;
+  }
+
+  &.disabledMode {
+    pointer-events: none;
+  }
+
+  .count {
+    border-radius: 10px;
+    cursor: pointer;
+  }
+}

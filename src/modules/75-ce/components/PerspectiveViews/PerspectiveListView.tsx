@@ -2,8 +2,18 @@ import React, { useMemo, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import moment from 'moment'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Icon, Text, Layout, Button, Popover, Container, IconName, TableV2 } from '@wings-software/uicore'
-import { Menu, Position } from '@blueprintjs/core'
+import {
+  Icon,
+  Text,
+  Layout,
+  Button,
+  Popover,
+  Container,
+  IconName,
+  TableV2,
+  useConfirmationDialog
+} from '@wings-software/uicore'
+import { Classes, Menu, Position, Intent } from '@blueprintjs/core'
 import routes from '@common/RouteDefinitions'
 import { QlceView, ViewTimeRangeType, ViewState, ViewType } from 'services/ce/services'
 import { SOURCE_ICON_MAPPING } from '@ce/utils/perspectiveUtils'
@@ -14,7 +24,7 @@ import css from './PerspectiveListView.module.scss'
 interface PerspectiveListViewProps {
   pespectiveData: QlceView[]
   navigateToPerspectiveDetailsPage: (perspectiveId: string, viewState: ViewState, name: string) => void
-  deletePerpsective: (perspectiveId: string) => void
+  deletePerpsective: (perspectiveId: string, perspectiveName: string) => void
   clonePerspective: (values: QlceView | Record<string, string>, isClone: boolean) => void
 }
 
@@ -102,38 +112,64 @@ const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
   const RenderColumnMenu: Renderer<CellProps<QlceView>> = ({ row }) => {
     const [menuOpen, setMenuOpen] = useState(false)
 
+    const { openDialog } = useConfirmationDialog({
+      contentText: (
+        <div>
+          <Text>
+            {getString('ce.perspectives.confirmDeletePerspectiveMsg', {
+              name: row.original.name
+            })}
+          </Text>
+        </div>
+      ),
+      titleText: getString('ce.perspectives.confirmDeletePerspectiveTitle'),
+      confirmButtonText: getString('delete'),
+      cancelButtonText: getString('cancel'),
+      intent: Intent.DANGER,
+      buttonIntent: Intent.DANGER,
+      onCloseDialog: async (isConfirmed: boolean) => {
+        if (isConfirmed) {
+          row.original.id && deletePerpsective(row.original.id, row.original.name || '')
+        }
+      }
+    })
+
     const viewType = row?.original?.viewType
     const disableActions = viewType === ViewType.Default ? true : false
 
-    const editClick: () => void = () => {
+    const editClick: (e: any) => void = e => {
+      e.stopPropagation()
+      setMenuOpen(false)
       row.original.id && onEditClick(row.original.id)
     }
 
-    const onDeleteClick: () => void = () => {
-      row.original.id && deletePerpsective(row.original.id)
+    const onDeleteClick: (e: any) => void = e => {
+      e.stopPropagation()
+      setMenuOpen(false)
+      openDialog()
     }
 
-    const onCloneClick: () => void = () => {
+    const onCloneClick: (e: any) => void = e => {
+      e.stopPropagation()
+      setMenuOpen(false)
       clonePerspective(row.original, true)
     }
 
     return (
-      <Layout.Horizontal
-        onClick={e => {
-          e.stopPropagation()
-        }}
-      >
+      <Layout.Horizontal>
         <Popover
           isOpen={menuOpen}
           onInteraction={nextOpenState => {
             setMenuOpen(nextOpenState)
           }}
           position={Position.BOTTOM_RIGHT}
+          className={Classes.DARK}
         >
           <Button
             minimal
             icon="Options"
-            onClick={() => {
+            onClick={e => {
+              e.stopPropagation()
               setMenuOpen(true)
             }}
           />

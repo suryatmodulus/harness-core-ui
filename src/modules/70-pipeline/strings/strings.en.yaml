@@ -886,3 +886,16 @@ commentModal:
 replacedExpressions: Replaced Expressions
 expressionRequired: Expression value is required.
 nativeHelm: Native Helm
+dashboardDeploymentsWidget:
+  pendingManualIntervention:
+    singular: Pending Manual Intervention
+    plural: Pending Manual Interventions
+  pendingApproval:
+    singular: Pending Approval
+    plural: Pending Approvals
+  failed24Hrs:
+    singular: Pipeline failed in past 24 hours
+    plural: Pipelines failed in past 24 hours
+  runningPipeline:
+    singular: Currently running pipeline
+    plural: Currently running pipelines

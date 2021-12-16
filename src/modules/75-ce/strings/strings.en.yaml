@@ -469,7 +469,15 @@ uploadCertiHeader: Upload a new certificate for the Application Load Balancer
 perspectives:
   newPerspective: New Perspective
   newPerspectiveLimitWarning: You have used {{count}} free perspectives incuded in your current plan. Consider upgrading for unlimited perspectives.
+  allPerspectiveTxt: 'All ({{ count }})'
+  recentPerspectiveTxt: 'Recent ({{ count }})'
   sideNavText: 'Perspectives'
+  perspectiveCount: 'Total: {{ count }}'
+  confirmDeletePerspectiveTitle: Delete Perspective
+  confirmDeletePerspectiveMsg: 'Are you sure you want to delete the Perspective {{ name }}?'
+  perspectiveDeletedTxt: 'Perspective {{ name }} deleted'
+  perspectiveReportsTxt: 'Reports {{ reportInfo }}'
+  perspectiveReportsMoreTxt: ' +{{ count }} more'
   workloadDetails:
     aggregation:
       text: 'Aggregation:'
@@ -570,6 +578,7 @@ perspectives:
     emailPlaceholder: Enter emails separated by comma
     recipientLabel: Send report to
     searchTimezonePlaceholder: Search Timezone
+    reportDeletedTxt: 'Report {{ name }} deleted'
   recommendations:
     viewText: '{{ $.common.viewText }}'
     recommendationCountTxt: '{{ count }} recommendations saving upto'

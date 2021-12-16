@@ -1,92 +1,34 @@
-import React, { useState } from 'react'
-import { useModalHook, Button } from '@wings-software/uicore'
-import { Dialog, Classes } from '@blueprintjs/core'
+import React from 'react'
+import { useModalHook, Dialog } from '@wings-software/uicore'
 import cx from 'classnames'
-import { useStrings } from 'framework/strings'
-import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, TrialActions, PageNames } from '@common/constants/TrackingConstants'
 
-import { SelectOrCreatePipelineForm } from '@pipeline/components/SelectOrCreatePipelineForm/SelectOrCreatePipelineForm'
-import { CreatePipelineForm } from '@pipeline/components/CreatePipelineForm/CreatePipelineForm'
-import { TrialModalTemplate } from '@common/components/TrialModalTemplate/TrialModalTemplate'
-import ciImage from '../images/illustration.png'
+import { TrialModalTemplate } from '@pipeline/components/TrialModalTemplate/TrialModalTemplate'
+import type { UseTrialModalProps, UseTrialModalReturns } from '@pipeline/components/TrialModalTemplate/trialModalUtils'
+import { useGetFormPropsByTrialType } from '@pipeline/components/TrialModalTemplate/trialModalUtils'
+import ciImage from '../images/ci.png'
 
 import css from './useCITrialModal.module.scss'
 
-type onCreateSuccess = (data: PipelineInfoConfig) => void
-type onSelectSuccess = () => void
+const CITrial: React.FC<UseTrialModalProps> = ({ trialType, actionProps, onCloseModal }) => {
+  const { child } = useGetFormPropsByTrialType({
+    trialType,
+    actionProps,
+    module: 'ci',
+    onCloseModal
+  })
 
-interface DialogProps {
-  onClose: () => void
-  onSubmit: (values: PipelineInfoConfig) => void
-  isSelect: boolean
-}
-export interface UseCITrialModalProps {
-  onSubmit: onCreateSuccess | onSelectSuccess
-  onCloseModal?: () => void
-  isSelect?: boolean
+  return <TrialModalTemplate imgSrc={ciImage}>{child}</TrialModalTemplate>
 }
 
-export interface UseCITrialModalReturn {
-  openCITrialModal: () => void
-  closeCITrialModal: () => void
-}
-
-type handleSelectSubmit = (value: string) => void
-type handleCreateSubmit = (value: PipelineInfoConfig) => void
-interface CITrialModalData {
-  onSubmit: handleSelectSubmit | handleCreateSubmit
-  closeModal?: () => void
-  isSelect: boolean
-}
-
-const CITrial: React.FC<CITrialModalData> = ({ isSelect, onSubmit, closeModal }) => {
-  const { getString } = useStrings()
-
-  const [select, setSelect] = useState(isSelect)
-
-  const description = select
-    ? getString('pipeline.selectOrCreateForm.description')
-    : getString('ci.ciTrialHomePage.startTrial.description')
-  const children = select ? (
-    <SelectOrCreatePipelineForm
-      handleSubmit={onSubmit as handleSelectSubmit}
-      openCreatPipeLineModal={() => {
-        setSelect(false)
-      }}
-      closeModal={closeModal}
-    />
-  ) : (
-    <CreatePipelineForm
-      handleSubmit={onSubmit as handleCreateSubmit}
-      closeModal={closeModal}
-      learnMoreUrl="https://ngdocs.harness.io/category/zgffarnh1m-ci-category"
-    />
-  )
-
-  return (
-    <TrialModalTemplate
-      iconName="ci-main"
-      title={getString('ci.continuous')}
-      description={description}
-      imgSrc={ciImage}
-    >
-      {children}
-    </TrialModalTemplate>
-  )
-}
-
-const CITrialDialog = ({ onClose, onSubmit, isSelect }: DialogProps): React.ReactElement => {
+const CITrialDialog = ({ actionProps, trialType, onCloseModal }: UseTrialModalProps): React.ReactElement => {
   const { trackEvent } = useTelemetry()
   const handleClose = (): void => {
+    onCloseModal?.()
     trackEvent(TrialActions.TrialModalPipelineSetupCancel, { category: Category.SIGNUP, module: 'ci' })
-    onClose()
   }
-  const handleSubmit = (values: PipelineInfoConfig): void => {
-    trackEvent(TrialActions.TrialModalPipelineSetupSubmit, { category: Category.SIGNUP, module: 'ci' })
-    onSubmit(values)
-  }
+
   useTelemetry({
     pageName: PageNames.TrialSetupPipelineModal,
     category: Category.SIGNUP,
@@ -94,46 +36,27 @@ const CITrialDialog = ({ onClose, onSubmit, isSelect }: DialogProps): React.Reac
   })
 
   return (
-    <Dialog
-      isOpen={true}
-      enforceFocus={false}
-      onClose={handleClose}
-      className={cx(css.dialog, Classes.DIALOG, css.ciTrial)}
-    >
-      <CITrial isSelect={isSelect} onSubmit={handleSubmit} closeModal={handleClose} />
-      <Button
-        aria-label="close modal"
-        minimal
-        icon="cross"
-        iconProps={{ size: 18 }}
-        onClick={handleClose}
-        className={css.crossIcon}
-      />
+    <Dialog isOpen={true} enforceFocus={false} onClose={handleClose} className={cx(css.dialog, css.ciTrial)}>
+      <CITrial trialType={trialType} actionProps={actionProps} onCloseModal={handleClose} />
     </Dialog>
   )
 }
 
-export const getCITrialDialog = ({ onClose, onSubmit, isSelect }: DialogProps): React.ReactElement => (
-  <CITrialDialog onSubmit={onSubmit} onClose={onClose} isSelect={isSelect} />
+export const getCITrialDialog = ({ actionProps, trialType, onCloseModal }: UseTrialModalProps): React.ReactElement => (
+  <CITrialDialog actionProps={actionProps} trialType={trialType} onCloseModal={onCloseModal} />
 )
 
-export const useCITrialModal = ({
-  onSubmit,
-  onCloseModal,
-  isSelect = false
-}: UseCITrialModalProps): UseCITrialModalReturn => {
-  const [showModal, hideModal] = useModalHook(() => (
-    <CITrialDialog
-      onClose={() => {
-        hideModal(), onCloseModal?.()
-      }}
-      onSubmit={onSubmit}
-      isSelect={isSelect}
-    />
-  ))
+export const useCITrialModal = ({ actionProps, trialType, onCloseModal }: UseTrialModalProps): UseTrialModalReturns => {
+  const [showModal, hideModal] = useModalHook(() => {
+    const onClose = (): void => {
+      onCloseModal?.()
+      hideModal()
+    }
+    return <CITrialDialog actionProps={actionProps} trialType={trialType} onCloseModal={onClose} />
+  })
 
   return {
-    openCITrialModal: showModal,
-    closeCITrialModal: hideModal
+    openTrialModal: showModal,
+    closeTrialModal: hideModal
   }
 }

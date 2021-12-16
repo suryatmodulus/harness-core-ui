@@ -1,20 +1,23 @@
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import type { ApproverInputsSubmitCallInterface, HarnessApprovalData } from './types'
 
-export const processFormData = (data: HarnessApprovalData): HarnessApprovalData => {
-  const toReturn: HarnessApprovalData = {
-    ...data,
-    spec: {
-      ...data.spec,
-      approvers: {
-        ...data.spec.approvers,
-        minimumCount:
-          getMultiTypeFromValue(data.spec.approvers.minimumCount as string) === MultiTypeInputType.RUNTIME
-            ? data.spec.approvers.minimumCount
-            : Number(data.spec.approvers.minimumCount)
-      }
+const getInitialValueForMinCount = (valueFromData: string | number): string | number => {
+  if (getMultiTypeFromValue(valueFromData) === MultiTypeInputType.FIXED) {
+    // type is FIXED
+    if (valueFromData) {
+      // type is FIXED and value exists i.e. user has typed some numbers, convert them to number and return
+      return Number(valueFromData)
     }
+    // If the type is FIXED but the value doesn't exist i.e. opening the form for the first time
+    // return the default value of 1
+    return 1
   }
+  // if the type is not FIXED i.e. runtime or expression, return the string as it is
+  return valueFromData
+}
+
+export const processFormData = (data: HarnessApprovalData): HarnessApprovalData => {
+  const toReturn: HarnessApprovalData = { ...data }
   if (data.spec.approverInputs) {
     if (getMultiTypeFromValue(data.spec.approverInputs as string) === MultiTypeInputType.RUNTIME) {
       toReturn.spec.approverInputs = data.spec.approverInputs
@@ -41,12 +44,7 @@ export const processForInitialValues = (data: HarnessApprovalData): HarnessAppro
       ...data.spec,
       approvers: {
         ...data.spec?.approvers,
-        minimumCount:
-          getMultiTypeFromValue(data.spec?.approvers?.minimumCount as string) === MultiTypeInputType.RUNTIME
-            ? data.spec?.approvers?.minimumCount
-            : data.spec?.approvers?.minimumCount
-            ? Number(data.spec?.approvers?.minimumCount)
-            : 1
+        minimumCount: getInitialValueForMinCount(data.spec?.approvers?.minimumCount)
       }
     }
   }

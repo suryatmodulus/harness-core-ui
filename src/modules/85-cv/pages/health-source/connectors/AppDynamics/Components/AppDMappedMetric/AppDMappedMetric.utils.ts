@@ -23,7 +23,8 @@ export function updateSelectedMetricsMap({ updatedMetric, oldMetric, mappedMetri
         continuousVerification: false,
         serviceInstanceMetricPath: '',
         basePath: BasePathInitValue,
-        metricPath: MetricPathInitValue
+        metricPath: MetricPathInitValue,
+        metricIdentifier: updatedMetric.split(' ').join('_')
       }
     })
   }

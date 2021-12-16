@@ -31,21 +31,23 @@ const TextWithToolTip: React.FC<TextWithToolTipProps> = props => {
         color: props.indicatorColor ? props.indicatorColor : isSuccess ? Color.GREEN_500 : Color.RED_500
       }}
       tooltip={
-        <Layout.Vertical font={{ size: 'small' }} spacing="small" padding="small">
-          <Text font={{ size: 'normal' }} color={Color.WHITE}>
-            {'ERROR' + (props.messageText ? `: ${props.messageText}` : '')}
-          </Text>
-          <Text
-            color={Color.BLUE_400}
-            onClick={e => {
-              e.stopPropagation()
-              openErrorModal(props.errors || [])
-            }}
-            className={css.viewDetails}
-          >
-            {getString('connectors.testConnectionStep.errorDetails')}
-          </Text>
-        </Layout.Vertical>
+        !isSuccess ? (
+          <Layout.Vertical font={{ size: 'small' }} spacing="small" padding="small">
+            <Text font={{ size: 'normal' }} color={Color.WHITE}>
+              {'ERROR' + (props.messageText ? `: ${props.messageText}` : '')}
+            </Text>
+            <Text
+              color={Color.BLUE_400}
+              onClick={e => {
+                e.stopPropagation()
+                openErrorModal(props.errors || [])
+              }}
+              className={css.viewDetails}
+            >
+              {getString('connectors.testConnectionStep.errorDetails')}
+            </Text>
+          </Layout.Vertical>
+        ) : undefined
       }
       tooltipProps={{ isDark: true, position: 'bottom' }}
     >

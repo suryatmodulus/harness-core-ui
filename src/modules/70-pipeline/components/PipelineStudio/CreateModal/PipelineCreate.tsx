@@ -74,6 +74,7 @@ export default function CreatePipelines({
             identifierProps={{
               isIdentifierEditable: pipelineIdentifier === DefaultNewPipelineId
             }}
+            tooltipProps={{ dataTooltipId: 'pipelineCreate' }}
           />
           {isGitSyncEnabled && (
             <GitSyncStoreProvider>

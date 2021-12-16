@@ -579,6 +579,42 @@ export interface CrossAccountAccess {
   externalId?: string
 }
 
+export interface CustomHealthCVConfig {
+  accountId: string
+  category: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
+  connectorIdentifier: string
+  createNextTaskIteration?: number
+  createdAt?: number
+  demo?: boolean
+  eligibleForDemo?: boolean
+  enabled?: boolean
+  envIdentifier: string
+  firstTimeDataCollectionStartTime?: number
+  firstTimeDataCollectionTimeRange?: TimeRange
+  groupName?: string
+  identifier: string
+  lastUpdatedAt?: number
+  metricDefinitions?: MetricDefinition[]
+  monitoringSourceName: string
+  orgIdentifier: string
+  productName?: string
+  projectIdentifier: string
+  serviceIdentifier: string
+  type?:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
+    | 'DATADOG_METRICS'
+    | 'DATADOG_LOG'
+    | 'CUSTOM_HEALTH'
+  uuid?: string
+  verificationType: 'TIME_SERIES' | 'LOG'
+}
+
 export type CustomHealthConnectorDTO = ConnectorConfigDTO & {
   baseURL: string
   delegateSelectors?: string[]
@@ -596,6 +632,23 @@ export interface CustomHealthKeyAndValue {
   valueEncrypted?: boolean
 }
 
+export interface CustomHealthMetricDefinition {
+  analysis?: AnalysisDTO
+  groupName?: string
+  identifier: string
+  method?: 'GET' | 'POST'
+  metricName: string
+  metricValueFieldPathString?: string
+  queryType?: 'SERVICE_BASED' | 'HOST_BASED'
+  requestBody?: string
+  riskProfile?: RiskProfile
+  serviceInstance?: string
+  sli?: Slidto
+  timestampFieldPathString?: string
+  timestampFormat?: string
+  urlPath?: string
+}
+
 export interface CustomHealthSampleDataRequest {
   body?: string
   method: 'GET' | 'POST'
@@ -603,6 +656,13 @@ export interface CustomHealthSampleDataRequest {
     [key: string]: string
   }
   urlPath: string
+}
+
+export type CustomHealthSourceSpec = HealthSourceSpec & {
+  cvconfigs?: {
+    [key: string]: CustomHealthCVConfig
+  }
+  metricDefinitions?: CustomHealthMetricDefinition[]
 }
 
 export interface DataCollectionInfo {
@@ -2145,12 +2205,19 @@ export interface MetricData {
 }
 
 export interface MetricDefinition {
-  included?: boolean
-  name?: string
-  responseJsonPath?: string
-  thresholds?: TimeSeriesThreshold[]
-  type: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
-  validationResponseJsonPath?: string
+  analysis?: AnalysisDTO
+  identifier: string
+  method?: 'GET' | 'POST'
+  metricName: string
+  metricValueFieldPathString?: string
+  queryType?: 'SERVICE_BASED' | 'HOST_BASED'
+  requestBody?: string
+  riskProfile?: RiskProfile
+  serviceInstance?: string
+  sli?: Slidto
+  timestampFieldPathString?: string
+  timestampFormat?: string
+  urlPath?: string
 }
 
 export interface MetricDefinitionDTO {
@@ -2162,6 +2229,14 @@ export interface MetricDefinitionDTO {
   type?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
   validationPath?: string
   validationResponseJsonPath?: string
+}
+
+export interface MetricGraph {
+  dataPoints?: DataPoints[]
+  endTime?: number
+  metricIdentifier?: string
+  metricName?: string
+  startTime?: number
 }
 
 export interface MetricHistory {
@@ -3660,6 +3735,14 @@ export interface RestResponseRiskSummaryPopoverDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseSLIOnboardingGraphs {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SLIOnboardingGraphs
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseServiceDependencyGraphDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3807,6 +3890,13 @@ export interface SLIMetricSpec {
   [key: string]: any
 }
 
+export interface SLIOnboardingGraphs {
+  metricGraphs?: {
+    [key: string]: MetricGraph
+  }
+  sliGraph?: TimeGraphResponse
+}
+
 export interface SLODashboardWidget {
   burnRate: BurnRate
   currentPeriodEndTime: number
@@ -3820,6 +3910,7 @@ export interface SLODashboardWidget {
   healthSourceName: string
   monitoredServiceIdentifier: string
   monitoredServiceName: string
+  recalculatingSLI?: boolean
   sloIdentifier: string
   sloPerformanceTrend: Point[]
   sloTargetPercentage: number
@@ -4413,6 +4504,8 @@ export type MetricPackDTOArrayRequestBody = MetricPackDTO[]
 export type MonitoredServiceDTORequestBody = MonitoredServiceDTO
 
 export type ServiceGuardTimeSeriesAnalysisDTORequestBody = ServiceGuardTimeSeriesAnalysisDTO
+
+export type ServiceLevelIndicatorDTORequestBody = ServiceLevelIndicatorDTO
 
 export type ServiceLevelObjectiveDTORequestBody = ServiceLevelObjectiveDTO
 
@@ -9024,7 +9117,7 @@ export type GetSliGraphProps = Omit<
     RestResponseTimeGraphResponse,
     unknown,
     GetSliGraphQueryParams,
-    ServiceLevelIndicatorDTO,
+    ServiceLevelIndicatorDTORequestBody,
     GetSliGraphPathParams
   >,
   'path' | 'verb'
@@ -9039,7 +9132,7 @@ export const GetSliGraph = ({ monitoredServiceIdentifier, ...props }: GetSliGrap
     RestResponseTimeGraphResponse,
     unknown,
     GetSliGraphQueryParams,
-    ServiceLevelIndicatorDTO,
+    ServiceLevelIndicatorDTORequestBody,
     GetSliGraphPathParams
   >
     verb="POST"
@@ -9054,7 +9147,7 @@ export type UseGetSliGraphProps = Omit<
     RestResponseTimeGraphResponse,
     unknown,
     GetSliGraphQueryParams,
-    ServiceLevelIndicatorDTO,
+    ServiceLevelIndicatorDTORequestBody,
     GetSliGraphPathParams
   >,
   'path' | 'verb'
@@ -9069,7 +9162,7 @@ export const useGetSliGraph = ({ monitoredServiceIdentifier, ...props }: UseGetS
     RestResponseTimeGraphResponse,
     unknown,
     GetSliGraphQueryParams,
-    ServiceLevelIndicatorDTO,
+    ServiceLevelIndicatorDTORequestBody,
     GetSliGraphPathParams
   >(
     'POST',
@@ -9089,7 +9182,7 @@ export const getSliGraphPromise = (
     RestResponseTimeGraphResponse,
     unknown,
     GetSliGraphQueryParams,
-    ServiceLevelIndicatorDTO,
+    ServiceLevelIndicatorDTORequestBody,
     GetSliGraphPathParams
   > & { monitoredServiceIdentifier: string },
   signal?: RequestInit['signal']
@@ -9098,7 +9191,7 @@ export const getSliGraphPromise = (
     RestResponseTimeGraphResponse,
     unknown,
     GetSliGraphQueryParams,
-    ServiceLevelIndicatorDTO,
+    ServiceLevelIndicatorDTORequestBody,
     GetSliGraphPathParams
   >('POST', getConfig('cv/api'), `/monitored-service/${monitoredServiceIdentifier}/sli/onboarding-graph`, props, signal)
 

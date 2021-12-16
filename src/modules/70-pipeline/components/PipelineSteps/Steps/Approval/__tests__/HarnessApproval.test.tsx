@@ -9,7 +9,8 @@ import {
   getHarnessApprovalInputVariableModeProps,
   mockUserGroupsResponse,
   getHarnessApprovalEditModeProps,
-  getHarnessApprovalEditModePropsWithValues
+  getHarnessApprovalEditModePropsWithValues,
+  getHarnessApprovalEditModePropsAsExpressions
 } from './HarnessApprovalTestHelper'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
@@ -148,6 +149,40 @@ describe('Harness Approval tests', () => {
     )
 
     expect(container).toMatchSnapshot('edit stage readonly')
+  })
+
+  test('Edit stage - submit field values as expressions', async () => {
+    const ref = React.createRef<StepFormikRef<unknown>>()
+    const props = getHarnessApprovalEditModePropsAsExpressions()
+    const { container } = render(
+      <TestStepWidget
+        initialValues={props.initialValues}
+        type={StepType.HarnessApproval}
+        stepViewType={StepViewType.Edit}
+        ref={ref}
+        onUpdate={props.onUpdate}
+      />
+    )
+
+    expect(container).toMatchSnapshot('edit stage readonly with expressions')
+
+    await act(() => ref.current?.submitForm())
+    expect(props.onUpdate).toBeCalledWith({
+      identifier: 'hhaass',
+      timeout: '10s',
+      type: 'HarnessApproval',
+      spec: {
+        approvalMessage: '<+somemessage>',
+        includePipelineExecutionHistory: '',
+        approverInputs: '',
+        approvers: {
+          userGroups: '<+abc>',
+          minimumCount: '<+minCount>',
+          disallowPipelineExecutor: ''
+        }
+      },
+      name: 'harness approval step'
+    })
   })
 
   test('On submit call', async () => {

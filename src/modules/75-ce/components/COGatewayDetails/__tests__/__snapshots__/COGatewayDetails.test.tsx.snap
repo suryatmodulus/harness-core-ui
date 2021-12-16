@@ -494,36 +494,7 @@ exports[`Test GatewayDetails renders review screen 1`] = `
               </h2>
               <div
                 class="Layout--vertical StyledProps--main"
-              >
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-large StyledProps--main equalSpacing borderSpacing StyledProps--padding-bottom-medium"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    Allow traffic from all subdomains
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    no
-                  </p>
-                </div>
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-large StyledProps--main equalSpacing borderSpacing StyledProps--padding-bottom-medium"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    Use private IP
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    no
-                  </p>
-                </div>
-              </div>
+              />
             </div>
             <p
               class="StyledProps--font StyledProps--main reviewHeading"

@@ -2102,6 +2102,14 @@ export interface StringsMap {
   'pipeline.createPipeline.setupHeader': string
   'pipeline.createPipeline.setupLater': string
   'pipeline.createPipeline.setupSubtitle': string
+  'pipeline.dashboardDeploymentsWidget.failed24Hrs.plural': string
+  'pipeline.dashboardDeploymentsWidget.failed24Hrs.singular': string
+  'pipeline.dashboardDeploymentsWidget.pendingApproval.plural': string
+  'pipeline.dashboardDeploymentsWidget.pendingApproval.singular': string
+  'pipeline.dashboardDeploymentsWidget.pendingManualIntervention.plural': string
+  'pipeline.dashboardDeploymentsWidget.pendingManualIntervention.singular': string
+  'pipeline.dashboardDeploymentsWidget.runningPipeline.plural': string
+  'pipeline.dashboardDeploymentsWidget.runningPipeline.singular': string
   'pipeline.dashboards.activeBuilds': string
   'pipeline.dashboards.activeDeployments': string
   'pipeline.dashboards.buildExecutions': string
@@ -3347,6 +3355,7 @@ export interface StringsMap {
   'ce.pageErrorMsg.perspectiveNoData': string
   'ce.pageErrorMsg.recommendationDesc': string
   'ce.pageErrorMsg.recommendationNoData': string
+  'ce.perspectives.allPerspectiveTxt': string
   'ce.perspectives.budgets.actualSpend': string
   'ce.perspectives.budgets.addBudget': string
   'ce.perspectives.budgets.budgetMonthlyTxt': string
@@ -3388,6 +3397,8 @@ export interface StringsMap {
   'ce.perspectives.budgets.title': string
   'ce.perspectives.budgets.wizardTitle': string
   'ce.perspectives.budgets.wizardTitleEdit': string
+  'ce.perspectives.confirmDeletePerspectiveMsg': string
+  'ce.perspectives.confirmDeletePerspectiveTitle': string
   'ce.perspectives.createPerspective.createCustomField': string
   'ce.perspectives.createPerspective.filters.addRuleText': string
   'ce.perspectives.createPerspective.filters.operator': string
@@ -3418,6 +3429,11 @@ export interface StringsMap {
   'ce.perspectives.nodeDetails.aggregation.average': string
   'ce.perspectives.nodeDetails.aggregation.maximum': string
   'ce.perspectives.nodeDetails.nodeDetailsText': string
+  'ce.perspectives.perspectiveCount': string
+  'ce.perspectives.perspectiveDeletedTxt': string
+  'ce.perspectives.perspectiveReportsMoreTxt': string
+  'ce.perspectives.perspectiveReportsTxt': string
+  'ce.perspectives.recentPerspectiveTxt': string
   'ce.perspectives.recommendations.perMonth': string
   'ce.perspectives.recommendations.recommendationCountTxt': string
   'ce.perspectives.recommendations.viewText': string
@@ -3429,6 +3445,7 @@ export interface StringsMap {
   'ce.perspectives.reports.msg': string
   'ce.perspectives.reports.recipientLabel': string
   'ce.perspectives.reports.recipients': string
+  'ce.perspectives.reports.reportDeletedTxt': string
   'ce.perspectives.reports.reportName': string
   'ce.perspectives.reports.searchTimezonePlaceholder': string
   'ce.perspectives.reports.title': string
@@ -3892,6 +3909,10 @@ export interface StringsMap {
   'cf.pipeline.flagConfiguration.whenTheFlagIsOnServe': string
   'cf.pipeline.listing': string
   'cf.pipeline.rollloutStrategy.title': string
+  'cf.planEnforcement.freePlan.approachingLimit': string
+  'cf.planEnforcement.freePlan.upgradeRequired': string
+  'cf.planEnforcement.teamEnterprisePlan.approachingLimit': string
+  'cf.planEnforcement.teamEnterprisePlan.upgradeRequired': string
   'cf.rbac.category': string
   'cf.rbac.featureflag.delete': string
   'cf.rbac.featureflag.edit': string
@@ -4642,6 +4663,7 @@ export interface StringsMap {
   'cv.showMore': string
   'cv.showYAMLChange': string
   'cv.sliMissingDataTypeIsRequired': string
+  'cv.sloRecalculationInProgress': string
   'cv.slos.confirmDeleteSLO': string
   'cv.slos.createSLO': string
   'cv.slos.deleteSLO': string
@@ -5536,10 +5558,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.numberOfDelegates': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.pendingApproval': string
   /**
    * @deprecated migrate this string to module level file
    */

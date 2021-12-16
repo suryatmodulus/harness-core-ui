@@ -2283,7 +2283,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                             placeholder="Search..."
                             style="padding-right: 0px;"
                             type="text"
-                            value="Java"
+                            value=""
                           />
                           <span
                             class="bp3-input-action"
@@ -2390,7 +2390,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                             placeholder="Search..."
                             style="padding-right: 0px;"
                             type="text"
-                            value="Bazel"
+                            value=""
                           />
                           <span
                             class="bp3-input-action"

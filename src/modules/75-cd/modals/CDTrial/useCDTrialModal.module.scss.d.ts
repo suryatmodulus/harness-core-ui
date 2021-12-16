@@ -3,6 +3,5 @@
 declare const styles: {
   readonly dialog: string
   readonly cdTrial: string
-  readonly crossIcon: string
 }
 export default styles

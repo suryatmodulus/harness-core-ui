@@ -511,38 +511,29 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
                 style="width: 10%;"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="StyledProps--font StyledProps--main StyledProps--inline"
+                  style="display: inline-flex; align-items: center;"
                 >
                   <span
-                    class="bp3-popover-target Text--targetClass"
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                    icon="full-circle"
                   >
-                    <span
-                      class="StyledProps--font StyledProps--main StyledProps--inline"
-                      style="display: inline-flex; align-items: center;"
-                      tabindex="0"
+                    <svg
+                      data-icon="full-circle"
+                      height="6"
+                      viewBox="0 0 16 16"
+                      width="6"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
-                        icon="full-circle"
-                      >
-                        <svg
-                          data-icon="full-circle"
-                          height="6"
-                          viewBox="0 0 16 16"
-                          width="6"
-                        >
-                          <desc>
-                            full-circle
-                          </desc>
-                          <path
-                            d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      created
-                    </span>
+                      <desc>
+                        full-circle
+                      </desc>
+                      <path
+                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
                   </span>
+                  created
                 </span>
               </div>
               <div
@@ -1200,38 +1191,29 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
                 style="width: 10%;"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="StyledProps--font StyledProps--main StyledProps--inline"
+                  style="display: inline-flex; align-items: center;"
                 >
                   <span
-                    class="bp3-popover-target Text--targetClass"
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                    icon="full-circle"
                   >
-                    <span
-                      class="StyledProps--font StyledProps--main StyledProps--inline"
-                      style="display: inline-flex; align-items: center;"
-                      tabindex="0"
+                    <svg
+                      data-icon="full-circle"
+                      height="6"
+                      viewBox="0 0 16 16"
+                      width="6"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
-                        icon="full-circle"
-                      >
-                        <svg
-                          data-icon="full-circle"
-                          height="6"
-                          viewBox="0 0 16 16"
-                          width="6"
-                        >
-                          <desc>
-                            full-circle
-                          </desc>
-                          <path
-                            d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      created
-                    </span>
+                      <desc>
+                        full-circle
+                      </desc>
+                      <path
+                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
                   </span>
+                  created
                 </span>
               </div>
               <div
@@ -1889,38 +1871,29 @@ exports[`Test COGatewayList renders without crashing 1`] = `
                 style="width: 10%;"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="StyledProps--font StyledProps--main StyledProps--inline"
+                  style="display: inline-flex; align-items: center;"
                 >
                   <span
-                    class="bp3-popover-target Text--targetClass"
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                    icon="full-circle"
                   >
-                    <span
-                      class="StyledProps--font StyledProps--main StyledProps--inline"
-                      style="display: inline-flex; align-items: center;"
-                      tabindex="0"
+                    <svg
+                      data-icon="full-circle"
+                      height="6"
+                      viewBox="0 0 16 16"
+                      width="6"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
-                        icon="full-circle"
-                      >
-                        <svg
-                          data-icon="full-circle"
-                          height="6"
-                          viewBox="0 0 16 16"
-                          width="6"
-                        >
-                          <desc>
-                            full-circle
-                          </desc>
-                          <path
-                            d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      created
-                    </span>
+                      <desc>
+                        full-circle
+                      </desc>
+                      <path
+                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
                   </span>
+                  created
                 </span>
               </div>
               <div

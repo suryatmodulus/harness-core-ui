@@ -20,6 +20,7 @@ import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
 import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { LICENSE_STATE_VALUES } from 'framework/LicenseStore/licenseStoreUtil'
+import { TrialType } from '@pipeline/components/TrialModalTemplate/trialModalUtils'
 import { FeatureFlag } from '@common/featureFlags'
 import type { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import { TemplateDrawer } from '@templates-library/components/TemplateDrawer/TemplateDrawer'
@@ -34,7 +35,12 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
   const getTrialPipelineCreateForm = (
     onSubmit: (values: PipelineInfoConfig) => void,
     onClose: () => void
-  ): React.ReactElement => getCITrialDialog({ onSubmit, onClose, isSelect: false })
+  ): React.ReactElement =>
+    getCITrialDialog({
+      actionProps: { onSuccess: onSubmit },
+      trialType: TrialType.SET_UP_PIPELINE,
+      onCloseModal: onClose
+    })
 
   const { modal, branch, repoIdentifier } = useQueryParams<{ modal?: ModuleLicenseType } & GitQueryParams>()
 

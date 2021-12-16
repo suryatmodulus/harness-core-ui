@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Rendering should render 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-large"
+  >
+    <div
+      class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
+    >
+      <div
+        class="StyledProps--font StyledProps--main left"
+        style="background: transparent url() no-repeat; width: 50%;"
+      />
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--padding-left-xxxlarge"
+        style="width: 50%; height: 500px;"
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import type { CellProps } from 'react-table'
 import cx from 'classnames'
 import { isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
 import { Heading, Container, Layout, Text, Table, Color, Icon, IconName } from '@wings-software/uicore'
 import type { ConnectionMetadata, GatewayDetails, InstanceDetails } from '@ce/components/COCreateGateway/models'
 import { Utils } from '@ce/common/Utils'
-import type { ContainerSvc, HealthCheck, PortConfig, RDSDatabase, ServiceDep } from 'services/lw'
+import type { ContainerSvc, HealthCheck, PortConfig, RDSDatabase, Service } from 'services/lw'
 import FixedSchedeulesList from '@ce/common/FixedSchedulesList/FixedSchedulesList'
 import { useStrings } from 'framework/strings'
 import { useTelemetry } from '@common/hooks/useTelemetry'
@@ -19,6 +19,12 @@ import css from './COGatewayReview.module.scss'
 interface COGatewayReviewProps {
   gatewayDetails: GatewayDetails
   onEdit: (tabDetails: { id: string; metaData?: { activeStepCount?: number; activeStepTabId?: string } }) => void
+  allServices: Service[]
+}
+
+interface DependencyView {
+  name: string
+  delay: number
 }
 
 function TableCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
@@ -67,10 +73,25 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
   const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
   const filteredSchedules = props.gatewayDetails.schedules?.filter(s => !s.isDeleted)
   const hasSelectedInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
+  const serviceIdToNameMap = useMemo(() => {
+    const map: Record<number, string> = {}
+    props.allServices?.forEach(s => {
+      map[s.id as number] = s.name
+    })
+    return map
+  }, [props.allServices])
 
   useEffect(() => {
     trackEvent(USER_JOURNEY_EVENTS.RULE_CREATION_STEP_3, {})
   }, [])
+
+  const getViewDependencies = (): DependencyView[] => {
+    const list = props.gatewayDetails.deps.map(d => ({
+      name: _defaultTo(serviceIdToNameMap[d.dep_id], d.dep_id),
+      delay: d.delay_secs
+    }))
+    return _defaultTo(list, [])
+  }
 
   return (
     <Layout.Vertical padding="large" className={css.page}>
@@ -205,22 +226,16 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
         >
           <Heading level={2}>Advanced configuration</Heading>
           <Layout.Vertical style={{ marginTop: 'var(--spacing-large)' }}>
-            <Layout.Horizontal
-              spacing={'large'}
-              padding={{ bottom: 'medium' }}
-              className={cx(css.equalSpacing, css.borderSpacing)}
-            >
-              <Text>Allow traffic from all subdomains</Text>
-              <Text>{Utils.booleanToString(props.gatewayDetails.matchAllSubdomains as boolean)}</Text>
-            </Layout.Horizontal>
-            <Layout.Horizontal
-              spacing={'large'}
-              padding={{ bottom: 'medium' }}
-              className={cx(css.equalSpacing, css.borderSpacing)}
-            >
-              <Text>Use private IP</Text>
-              <Text>{Utils.booleanToString(props.gatewayDetails.opts.alwaysUsePrivateIP as boolean)}</Text>
-            </Layout.Horizontal>
+            {isK8sRule && (
+              <Layout.Horizontal
+                spacing={'large'}
+                padding={{ bottom: 'medium' }}
+                className={cx(css.equalSpacing, css.borderSpacing)}
+              >
+                <Text>Hide progress page</Text>
+                <Text>{Utils.booleanToString(props.gatewayDetails.opts.hide_progress_page)}</Text>
+              </Layout.Horizontal>
+            )}
             {!_isEmpty(filteredSchedules) && (
               <Container padding={{ top: 'medium' }}>
                 <Heading level={3}>
@@ -231,13 +246,13 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
             )}
           </Layout.Vertical>
           {!_isEmpty(props.gatewayDetails.deps) && (
-            <Table<ServiceDep>
-              data={props.gatewayDetails.deps}
+            <Table<DependencyView>
+              data={getViewDependencies()}
               className={css.instanceTable}
               bpTableProps={{}}
               columns={[
-                { accessor: 'dep_id', Header: 'RULE', Cell: TableCell },
-                { accessor: 'delay_secs', Header: 'DELAY(SECS)', Cell: TableCell }
+                { accessor: 'name', Header: 'RULE', Cell: TableCell },
+                { accessor: 'delay', Header: 'DELAY(SECS)', Cell: TableCell }
               ]}
             />
           )}

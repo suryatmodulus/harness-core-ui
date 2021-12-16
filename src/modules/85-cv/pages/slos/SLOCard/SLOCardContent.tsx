@@ -62,7 +62,14 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
       <Container>
         {toggle === SLOCardToggleViews.SLO && (
           <>
-            <Heading font={{ variation: FontVariation.FORM_HELP }}>{getString('cv.SLOPerformanceTrend')}</Heading>
+            <Container flex>
+              <Heading font={{ variation: FontVariation.FORM_HELP }}>{getString('cv.SLOPerformanceTrend')}</Heading>
+              {serviceLevelObjective.recalculatingSLI && (
+                <Text font={{ variation: FontVariation.SMALL }} color={Color.RED_500}>
+                  {getString('cv.sloRecalculationInProgress')}
+                </Text>
+              )}
+            </Container>
             <Layout.Horizontal spacing="medium">
               <Layout.Vertical spacing="medium" margin={{ top: 'large' }}>
                 <Container width={120} background={Color.GREY_100} padding="small" className={css.sloGlanceCard}>

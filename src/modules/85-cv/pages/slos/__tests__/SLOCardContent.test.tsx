@@ -23,6 +23,7 @@ describe('SLOCardContent', () => {
     expect(screen.getAllByText('cv.SLO')[0]).toHaveClass('PillToggle--selected')
     expect(screen.getByText('cv.errorBudget')).not.toHaveClass('PillToggle--selected')
     expect(screen.getByText('cv.SLOPerformanceTrend')).toBeInTheDocument()
+    expect(screen.queryByText('cv.sloRecalculationInProgress')).not.toBeInTheDocument()
 
     userEvent.click(screen.getByText('cv.errorBudget'))
 
@@ -35,5 +36,15 @@ describe('SLOCardContent', () => {
     userEvent.click(screen.getByText('cv.SLO'))
 
     expect(screen.getAllByText('cv.SLO')[0]).toHaveClass('PillToggle--selected')
+  })
+
+  test('it should show the SLI recalculation in progress warning', () => {
+    render(
+      <TestWrapper {...testWrapperProps}>
+        <SLOCardContent serviceLevelObjective={{ ...dashboardWidgetsContent, recalculatingSLI: true }} />
+      </TestWrapper>
+    )
+
+    expect(screen.getByText('cv.sloRecalculationInProgress')).toBeInTheDocument()
   })
 })

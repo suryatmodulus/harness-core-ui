@@ -4,7 +4,6 @@ import type {
   RiskProfile,
   MetricPackDTO,
   TimeSeriesSampleDTO,
-  MetricDefinition,
   StackdriverMetricHealthSourceSpec,
   StackdriverDefinition
 } from 'services/cv'
@@ -146,7 +145,7 @@ export function transformGCOMetricSetupSourceToGCOHealthSource(setupSource: GCOM
       analysis: {
         riskProfile: {
           category: category as RiskProfile['category'],
-          metricType: metricType as MetricDefinition['type'],
+          metricType: metricType,
           thresholdTypes
         },
         liveMonitoring: { enabled: metricInfo?.healthScore || false },

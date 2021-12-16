@@ -65,6 +65,7 @@ const MonitoredService: React.FC = () => {
 
   const onFilter = (type: FilterTypes): void => {
     if (type !== selectedFilter) {
+      setPage(0)
       setSelectedFilter(type)
       refetchServiceCountData()
     }

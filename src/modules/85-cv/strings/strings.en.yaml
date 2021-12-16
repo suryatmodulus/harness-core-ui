@@ -664,6 +664,7 @@ slos:
       selectMetric2: Select metric 2
 SLO: SLO
 SLOPerformanceTrend: SLO Performance Trend
+sloRecalculationInProgress: SLO recalculation in progress
 errorBudgetRemaining: Error Budget Remaining (mins)
 errorBudgetBurnDown: Error Budget Burndown
 SLITriggered: SLI Triggered

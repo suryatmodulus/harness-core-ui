@@ -31,7 +31,7 @@ export interface MonitoredServiceListProps {
   serviceCountData: CountServiceDTO | null
   serviceCountLoading?: boolean
   serviceCountErrorMessage?: string
-  refetchServiceCountData: () => void
+  refetchServiceCountData: () => Promise<void>
 }
 
 export interface MonitoredServiceListViewProps {
@@ -42,6 +42,7 @@ export interface MonitoredServiceListViewProps {
   onToggleService: (identifier: string, checked: boolean) => Promise<void>
   onDeleteService: (identifier: string) => Promise<void>
   serviceCountData: CountServiceDTO | null
+  refetchServiceCountData: () => Promise<void>
   healthMonitoringFlagLoading?: boolean
   monitoredServiceListData?: PageMonitoredServiceListItemDTO
 }

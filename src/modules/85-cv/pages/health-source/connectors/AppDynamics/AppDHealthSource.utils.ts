@@ -256,7 +256,8 @@ export function initializeSelectedMetricsMap(
             metricPath: {},
             appdApplication: '',
             appDTier: '',
-            metricData: {}
+            metricData: {},
+            metricIdentifier: defaultSelectedMetricName.split(' ').join('_')
           }
         ]
       ])
@@ -410,6 +411,8 @@ export const createAppDFormData = (
   },
   showCustomMetric: boolean
 ): AppDynamicsFomikFormInterface => {
+  const mappedMetricsData = mappedMetrics.get(selectedMetric)
+  const metricIdentifier = mappedMetricsData?.metricIdentifier || selectedMetric.split(' ').join('_')
   return {
     name: appDynamicsData.name,
     identifier: appDynamicsData.identifier,
@@ -421,7 +424,8 @@ export const createAppDFormData = (
     ...nonCustomFeilds,
     ...(mappedMetrics.get(selectedMetric) as MapAppDynamicsMetric),
     metricName: selectedMetric,
-    showCustomMetric
+    showCustomMetric,
+    metricIdentifier
   }
 }
 

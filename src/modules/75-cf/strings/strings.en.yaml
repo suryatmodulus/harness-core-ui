@@ -467,6 +467,13 @@ gitSync:
   tryAgain: Try Again
   goToGit: Go to Git to fix issue
   invalidYaml: 'We are unable to render your {{ flagsYamlFilename }} file because it is invalid. Fix the following issues on Git and try again.'
+planEnforcement:
+  freePlan:
+    approachingLimit: 'You have used {{ clientMauUsagePercentage }}% of Monthly Active Users (MAU) included in the free plan. After {{ clientMauPlanLimitFormatted }} MAUs, flag management will be restricted.'
+    upgradeRequired: 'You have used {{ clientMauPlanLimitFormatted }} / {{ clientMauPlanLimitFormatted }}  free Monthly Active Users (MAU) this month. Consider upgrading to manage more MAUs.'
+  teamEnterprisePlan:
+    approachingLimit: 'You have used {{ clientMauUsagePercentage }}% of your Monthly Active Users (MAU) subscription limit.'
+    upgradeRequired: 'You have exceeded your Monthly Active Users (MAU) subscription limit.'
 onboarding:
   listeningToEvent: We’re listening for your flag event...
   simpliestFlag: Our Simplest Flag

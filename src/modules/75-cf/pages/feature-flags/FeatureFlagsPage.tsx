@@ -63,6 +63,8 @@ import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitM
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import GitSyncActions from '@cf/components/GitSyncActions/GitSyncActions'
 import { GitDetails, GitSyncFormValues, GIT_SYNC_ERROR_CODE, useGitSync, UseGitSync } from '@cf/hooks/useGitSync'
+import UsageLimitBanner from '@cf/components/UsageLimitBanner/UsageLimitBanner'
+import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
 import imageURL from './Feature_Flags_LP.svg'
 import { FeatureFlagStatus, FlagStatus } from './FlagStatus'
 import { FlagResult } from './FlagResult'
@@ -536,6 +538,8 @@ const FeatureFlagsPage: React.FC = () => {
 
   const gitSync = useGitSync()
 
+  const { isPlanEnforcementEnabled } = usePlanEnforcement()
+
   const error = flagsError || envsError || deleteFlag.error || toggleFeatureFlag.error
 
   const columns: Column<Feature>[] = useMemo(
@@ -673,8 +677,10 @@ const FeatureFlagsPage: React.FC = () => {
       }
       content={
         <>
+          {isPlanEnforcementEnabled && <UsageLimitBanner />}
+
           {hasFeatureFlags && (
-            <Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}>
+            <Container padding={{ top: 'medium', right: 'xlarge', left: 'xlarge' }}>
               <Container className={css.list}>
                 <TableV2<Feature>
                   columns={columns}

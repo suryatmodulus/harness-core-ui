@@ -47,11 +47,11 @@ export const dashboardWidgetsContent: SLODashboardWidget = {
 
 export const dashboardWidgetsResponse: ResponsePageSLODashboardWidget = {
   data: {
-    totalItems: 12,
-    totalPages: 2,
+    totalItems: 1,
+    totalPages: 1,
     pageIndex: 0,
-    pageItemCount: 10,
-    pageSize: 10,
+    pageItemCount: 1,
+    pageSize: 4,
     content: [dashboardWidgetsContent]
   }
 }
@@ -59,18 +59,8 @@ export const dashboardWidgetsResponse: ResponsePageSLODashboardWidget = {
 export const userJourneyResponse: ResponsePageUserJourneyResponse = {
   data: {
     content: [
-      {
-        userJourney: {
-          name: 'First Journey',
-          identifier: 'First_Journey'
-        }
-      },
-      {
-        userJourney: {
-          name: 'Second Journey',
-          identifier: 'Second_Journey'
-        }
-      }
+      { userJourney: { name: 'First Journey', identifier: 'First_Journey' } },
+      { userJourney: { name: 'Second Journey', identifier: 'Second_Journey' } }
     ]
   }
 }

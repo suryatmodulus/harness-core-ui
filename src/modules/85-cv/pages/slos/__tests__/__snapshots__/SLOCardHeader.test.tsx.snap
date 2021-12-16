@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test cases for SLOCardHeader component Render sample card 1`] = `
+exports[`SLOCardHeader Render sample card 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--margin-bottom-medium"

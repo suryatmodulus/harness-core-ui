@@ -11,14 +11,15 @@ import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
+import { defaultTo } from 'lodash-es'
 import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type {
+import {
   ServiceNowApprovalData,
   ServiceNowApprovalStepModeProps,
   ServiceNowFormContentInterface,
-  ServiceNowTicketTypeSelectOption
+  ServiceNowTicketTypeSelectOption,
+  resetForm
 } from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/types'
-import { resetForm } from '@pipeline/components/PipelineSteps/Steps/ServiceNowApproval/types'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { useDeepCompareEffect, useQueryParams } from '@common/hooks'
 import type {
@@ -27,7 +28,6 @@ import type {
   PipelinePathProps,
   PipelineType
 } from '@common/interfaces/RouteInterfaces'
-import type { ServiceNowFieldNG, ServiceNowTicketTypeDTO } from 'services/cd-ng'
 
 import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import {
@@ -38,7 +38,12 @@ import { isApprovalStepFieldDisabled } from '@pipeline/components/PipelineSteps/
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { ApprovalRejectionCriteriaType } from '@pipeline/components/PipelineSteps/Steps/Common/types'
-import { useGetServiceNowIssueCreateMetadata, useGetServiceNowTicketTypes } from 'services/cd-ng'
+import {
+  useGetServiceNowIssueCreateMetadata,
+  useGetServiceNowTicketTypes,
+  ServiceNowFieldNG,
+  ServiceNowTicketTypeDTO
+} from 'services/cd-ng'
 import {
   getApprovalRejectionCriteriaForInitialValues,
   getGenuineValue
@@ -98,7 +103,6 @@ const FormContent = ({
   }, [serviceNowMetadataResponse?.data, ticketTypeKeyFixedValue])
 
   useEffect(() => {
-    // If connector value changes in form, fetch TicketTypes
     if (connectorRefFixedValue && connectorValueType === MultiTypeInputType.FIXED) {
       refetchServiceNowTicketTypes({
         queryParams: {
@@ -110,20 +114,15 @@ const FormContent = ({
   }, [connectorRefFixedValue])
 
   useDeepCompareEffect(() => {
-    // If ticket type  changes in form, fetch  field list
     if (ticketTypeKeyFixedValue && connectorRefFixedValue) {
       refetchServiceNowMetadata({
         queryParams: {
           ...commonParams,
           connectorRef: connectorRefFixedValue.toString(),
-          //@TODO Remove lower case
           ticketType: ticketTypeKeyFixedValue.toString().toLocaleLowerCase()
         }
       })
-      const approvalCriteria = getApprovalRejectionCriteriaForInitialValues(
-        formik.values.spec.approvalCriteria
-        //@TODO status list yet to be provided
-      )
+      const approvalCriteria = getApprovalRejectionCriteriaForInitialValues(formik.values.spec.approvalCriteria)
       formik.setFieldValue('spec.approvalCriteria', approvalCriteria)
       const rejectionCriteria = getApprovalRejectionCriteriaForInitialValues(formik.values.spec.rejectionCriteria)
       formik.setFieldValue('spec.rejectionCriteria', rejectionCriteria)
@@ -134,12 +133,11 @@ const FormContent = ({
     // Set ticket types
     let options: ServiceNowTicketTypeSelectOption[] = []
     const ticketTypesResponseList: ServiceNowTicketTypeDTO[] = serviceNowTicketTypesResponse?.data || []
-    options =
-      ticketTypesResponseList.map((ticketType: ServiceNowTicketTypeDTO) => ({
-        label: ticketType.name || '',
-        value: ticketType.key || '',
-        key: ticketType.key || ''
-      })) || []
+    options = ticketTypesResponseList.map((ticketType: ServiceNowTicketTypeDTO) => ({
+      label: defaultTo(ticketType.name, ''),
+      value: defaultTo(ticketType.key, ''),
+      key: defaultTo(ticketType.key, '')
+    }))
     setServiceNowTicketTypesOptions(options)
   }, [serviceNowTicketTypesResponse?.data])
 
@@ -168,7 +166,7 @@ const FormContent = ({
         />
         {getMultiTypeFromValue(formik.values.timeout) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
-            value={formik.values.timeout || ''}
+            value={defaultTo(formik.values.timeout, '')}
             type="String"
             variableName="timeout"
             showRequiredField={false}
@@ -210,7 +208,7 @@ const FormContent = ({
             }
           }}
           disabled={isApprovalStepFieldDisabled(readonly)}
-          gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
+          gitScope={{ repo: defaultTo(repoIdentifier, ''), branch, getDefaultFromOtherRepo: true }}
         />
         {getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions

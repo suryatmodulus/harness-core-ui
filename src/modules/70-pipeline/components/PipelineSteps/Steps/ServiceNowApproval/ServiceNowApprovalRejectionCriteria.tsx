@@ -249,7 +249,7 @@ export const ServiceNowApprovalRejectionCriteria: React.FC<SnowApprovalRejection
       // If the status list is non empty, initialise it so that status is by default a dropdown
       allowedFieldKeysToSet = props.fieldList.map(field => {
         set(allowedValuesForFieldsToSet, field.key, field.allowedValues)
-        return { label: field.key, value: field.name }
+        return { label: field.name, value: field.key }
       })
     }
     setAllowedFieldKeys(allowedFieldKeysToSet)

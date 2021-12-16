@@ -1,0 +1,19 @@
+.dialog {
+  padding: unset !important;
+  border-radius: var(--spacing-xsmall);
+  position: relative;
+}
+
+.left {
+  background-size: contain !important;
+  &:after {
+    border-right: 1px solid var(--grey-100);
+    content: '';
+    display: flex;
+    height: 80%;
+  }
+}
+
+.tag {
+  margin-left: 40px !important;
+}

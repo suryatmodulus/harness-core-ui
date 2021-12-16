@@ -3,14 +3,9 @@
   position: relative;
   padding-bottom: 0;
   &.ceTrial {
-    width: 1210px;
+    width: 1000px;
     border-left: none !important;
   }
-}
-.crossIcon {
-  position: absolute;
-  right: var(--spacing-large);
-  top: var(--spacing-large);
 }
 
 .titleText {

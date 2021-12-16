@@ -69,8 +69,8 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
       closeProjectModal()
       if (data) {
         updateAppStore({ selectedProject: data })
+        projectCreateSuccessHandler(data)
       }
-      projectCreateSuccessHandler(data)
     }
   })
 

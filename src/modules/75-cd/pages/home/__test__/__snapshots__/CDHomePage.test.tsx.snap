@@ -88,7 +88,7 @@ exports[`CDHomePage snapshot test should pop up select project CD Trial modal if
         </p>
         <a
           class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--color StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--link"
-          href="https://ngdocs.harness.io/"
+          href="https://ngdocs.harness.io/article/knunou9j30-kubernetes-cd-quickstart"
           rel="noreferrer noopener"
           role="button"
           tabindex="0"
@@ -153,7 +153,7 @@ exports[`CDHomePage snapshot test should render HomePageTemplate when return suc
         </p>
         <a
           class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--color StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--link"
-          href="https://ngdocs.harness.io/"
+          href="https://ngdocs.harness.io/article/knunou9j30-kubernetes-cd-quickstart"
           rel="noreferrer noopener"
           role="button"
           tabindex="0"
@@ -195,47 +195,14 @@ exports[`CDHomePage snapshot test should render HomePageTemplate when return suc
 
 exports[`CDHomePage snapshot test should render Trial Home page when return success with NO data 1`] = `
 <div>
-  <div
-    class="StyledProps--font StyledProps--main body"
-    style="background: transparent url(test-file-stub) no-repeat;"
-  >
+  <div>
+    <h1>
+      Not Found
+    </h1>
     <div
-      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      data-testid="location"
     >
-      <h1
-        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
-      >
-        cd.continuous
-      </h1>
-      <div
-        class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-      >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
-          style="width: 500px;"
-        >
-          cd.cdTrialHomePage.startTrial.description
-        </p>
-        <a
-          class="learnMore"
-          href="https://ngdocs.harness.io/category/c9j6jejsws-cd-quickstarts"
-          rel="noreferrer"
-          target="_blank"
-        >
-          cd.learnMore
-        </a>
-        <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-          style="width: 300px; height: 45px;"
-          type="button"
-        >
-          <span
-            class="bp3-button-text"
-          >
-            getStarted
-          </span>
-        </button>
-      </div>
+      /account/123/cd/home/trial
     </div>
   </div>
 </div>

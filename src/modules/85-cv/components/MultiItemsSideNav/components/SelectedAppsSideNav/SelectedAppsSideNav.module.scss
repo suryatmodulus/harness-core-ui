@@ -8,6 +8,18 @@
     color: var(--black) !important;
   }
 
+  .collapsePanel {
+    button {
+      display: none !important;
+    }
+  }
+
+  .collapseHeading {
+    padding-left: var(--spacing-medium) !important;
+    // border-left: 3px solid var(--primary-6);
+    text-transform: capitalize;
+  }
+
   .seletedAppContainer {
     cursor: pointer;
     padding: var(--spacing-small) 0 !important;

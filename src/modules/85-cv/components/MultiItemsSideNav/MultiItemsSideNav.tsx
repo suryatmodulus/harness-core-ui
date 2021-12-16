@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Button, Container, Utils } from '@wings-software/uicore'
 import { PopoverInteractionKind } from '@blueprintjs/core'
+import type { GroupedCreatedMetrics } from '@cv/pages/health-source/connectors/AppDynamics/Components/AppDMappedMetric/AppDMappedMetric.types'
 import { SelectedAppsSideNav } from './components/SelectedAppsSideNav/SelectedAppsSideNav'
 import css from './MultiItemsSideNav.module.scss'
 
@@ -19,6 +20,7 @@ export interface MultiItemsSideNavProps {
   defaultMetricName: string
   tooptipMessage: string
   addFieldLabel: string
+  groupedCreatedMetrics?: GroupedCreatedMetrics
 }
 
 export function MultiItemsSideNav(props: MultiItemsSideNavProps): JSX.Element {
@@ -31,7 +33,8 @@ export function MultiItemsSideNav(props: MultiItemsSideNavProps): JSX.Element {
     defaultSelectedMetric,
     defaultMetricName,
     tooptipMessage,
-    addFieldLabel
+    addFieldLabel,
+    groupedCreatedMetrics
   } = props
   const [filter, setFilter] = useState<string | undefined>()
   const [createdMetrics, setCreatedMetrics] = useState<string[]>(
@@ -98,6 +101,7 @@ export function MultiItemsSideNav(props: MultiItemsSideNavProps): JSX.Element {
         }}
         selectedItem={selectedMetric}
         selectedApps={metricsToRender}
+        groupedSelectedApps={groupedCreatedMetrics}
         onRemoveItem={
           createdMetrics.length > 1
             ? (removedItem, index) => {

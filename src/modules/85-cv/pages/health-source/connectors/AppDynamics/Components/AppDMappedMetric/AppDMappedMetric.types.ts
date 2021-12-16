@@ -1,3 +1,4 @@
+import type { SelectOption } from '@wings-software/uicore'
 import type {
   CreatedMetricsWithSelectedIndex,
   MapAppDynamicsMetric,
@@ -14,4 +15,13 @@ export interface AppDMappedMetricInterface {
   createdMetrics: string[]
   isValidInput: boolean
   setCreatedMetrics: React.Dispatch<React.SetStateAction<CreatedMetricsWithSelectedIndex>>
+}
+
+export interface GroupedMetric {
+  groupName: SelectOption | undefined
+  metricName: string | undefined
+}
+
+export interface GroupedCreatedMetrics {
+  [Key: string]: GroupedMetric[]
 }

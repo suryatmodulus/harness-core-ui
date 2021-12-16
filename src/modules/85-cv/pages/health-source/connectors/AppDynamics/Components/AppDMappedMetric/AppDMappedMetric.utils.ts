@@ -1,10 +1,12 @@
-import { omit } from 'lodash-es'
+import { groupBy, omit } from 'lodash-es'
 import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import type { UseStringsReturn } from 'framework/strings'
 import type { BasePathData } from '../BasePath/BasePath.types'
 import type { MetricPathData } from '../MetricPath/MetricPath.types'
 import { BasePathInitValue } from '../BasePath/BasePath.constants'
 import { MetricPathInitValue } from '../MetricPath/MetricPath.constants'
+import type { MapAppDynamicsMetric } from '../../AppDHealthSource.types'
+import type { GroupedMetric, GroupedCreatedMetrics } from './AppDMappedMetric.types'
 
 export function updateSelectedMetricsMap({ updatedMetric, oldMetric, mappedMetrics, formikValues }: any): any {
   const updatedMap = new Map(mappedMetrics)
@@ -58,4 +60,23 @@ export const getBasePathValue = (basePath: BasePathData): string => {
 
 export const getMetricPathValue = (basePath: MetricPathData): string => {
   return basePath ? Object.values(basePath)[Object.values(basePath).length - 1]?.path : ''
+}
+
+export const getGroupAndMetric = (
+  mappedMetrics: Map<string, MapAppDynamicsMetric>,
+  formikValues?: MapAppDynamicsMetric
+): GroupedMetric[] => {
+  return Array.from(mappedMetrics?.values()).map(item => {
+    return {
+      groupName: item.groupName || formikValues?.groupName,
+      metricName: item.metricName || formikValues?.metricName
+    }
+  })
+}
+
+export const initGroupedCreatedMetrics = (mappedMetrics: Map<string, MapAppDynamicsMetric>): GroupedCreatedMetrics => {
+  const groupedValue = groupBy(getGroupAndMetric(mappedMetrics), function (item) {
+    return item?.groupName?.label
+  })
+  return groupedValue
 }

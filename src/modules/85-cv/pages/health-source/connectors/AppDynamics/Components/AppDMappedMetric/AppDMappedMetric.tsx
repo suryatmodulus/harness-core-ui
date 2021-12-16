@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect, useContext } from 'react'
+import { groupBy } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Container, Accordion, SelectOption, Utils } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -20,12 +21,14 @@ import {
   updateSelectedMetricsMap,
   getBasePathValue,
   getMetricPathValue,
-  initializeGroupNames
+  initializeGroupNames,
+  initGroupedCreatedMetrics,
+  getGroupAndMetric
 } from './AppDMappedMetric.utils'
 import BasePath from '../BasePath/BasePath'
 import MetricChart from '../MetricChart/MetricChart'
 import MetricPath from '../MetricPath/MetricPath'
-import type { AppDMappedMetricInterface } from './AppDMappedMetric.types'
+import type { AppDMappedMetricInterface, GroupedCreatedMetrics } from './AppDMappedMetric.types'
 import { BasePathInitValue } from '../BasePath/BasePath.constants'
 import { AppDynamicsMonitoringSourceFieldNames } from '../../AppDHealthSource.constants'
 import css from '../../AppDHealthSource.module.scss'
@@ -46,7 +49,7 @@ export default function AppDMappedMetric({
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
 
   const metricPackResponse = useGetMetricPacks({
-    queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'PROMETHEUS' }
+    queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'APP_DYNAMICS' }
   })
   const labelNamesResponse = useGetLabelNames({
     queryParams: { projectIdentifier, orgIdentifier, accountId, connectorIdentifier, tracingId: labelNameTracingId }
@@ -96,6 +99,27 @@ export default function AppDMappedMetric({
       metricDefinition.metricName === mappedMetrics.get(selectedMetric || '')?.metricName
   )
 
+  const [groupedCreatedMetrics, setGroupedCreatedMetrics] = useState<GroupedCreatedMetrics>(
+    initGroupedCreatedMetrics(mappedMetrics)
+  )
+
+  useEffect(() => {
+    const isMappedMetricEmpty = !Array.from(mappedMetrics?.values()).length
+    const defaultMetric = new Map()
+    defaultMetric.set('', formikValues)
+    const filteredList = getGroupAndMetric(isMappedMetricEmpty ? defaultMetric : mappedMetrics, formikValues)
+    const updatedFilteredList = filteredList.map(item => {
+      if (item.metricName === selectedMetric) {
+        item.groupName = formikValues.groupName
+      }
+      return item
+    })
+    const updatedGroupedCreatedMetrics = groupBy(updatedFilteredList, function (item) {
+      return item?.groupName?.label
+    })
+    setGroupedCreatedMetrics(updatedGroupedCreatedMetrics)
+  }, [formikValues.groupName])
+
   return (
     <SetupSourceLayout
       leftPanelContent={
@@ -107,6 +131,7 @@ export default function AppDMappedMetric({
           defaultSelectedMetric={selectedMetric}
           renamedMetric={formikValues?.metricName}
           isValidInput={isValidInput}
+          groupedCreatedMetrics={groupedCreatedMetrics}
           onRemoveMetric={(removedMetric, updatedMetric, updatedList, smIndex) => {
             setMappedMetrics(oldState => {
               const { selectedMetric: oldMetric, mappedMetrics: oldMappedMetric } = oldState

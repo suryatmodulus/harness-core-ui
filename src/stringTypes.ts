@@ -2099,6 +2099,14 @@ export interface StringsMap {
   'pipeline.createPipeline.setupHeader': string
   'pipeline.createPipeline.setupLater': string
   'pipeline.createPipeline.setupSubtitle': string
+  'pipeline.dashboardDeploymentsWidget.failed24Hrs.plural': string
+  'pipeline.dashboardDeploymentsWidget.failed24Hrs.singular': string
+  'pipeline.dashboardDeploymentsWidget.pendingApproval.plural': string
+  'pipeline.dashboardDeploymentsWidget.pendingApproval.singular': string
+  'pipeline.dashboardDeploymentsWidget.pendingManualIntervention.plural': string
+  'pipeline.dashboardDeploymentsWidget.pendingManualIntervention.singular': string
+  'pipeline.dashboardDeploymentsWidget.runningPipeline.plural': string
+  'pipeline.dashboardDeploymentsWidget.runningPipeline.singular': string
   'pipeline.dashboards.activeBuilds': string
   'pipeline.dashboards.activeDeployments': string
   'pipeline.dashboards.buildExecutions': string
@@ -5569,10 +5577,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.numberOfDelegates': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.pendingApproval': string
   /**
    * @deprecated migrate this string to module level file
    */

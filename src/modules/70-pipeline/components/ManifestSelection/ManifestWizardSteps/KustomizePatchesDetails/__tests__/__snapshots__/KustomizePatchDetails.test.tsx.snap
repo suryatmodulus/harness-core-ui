@@ -6,7 +6,7 @@ exports[`Kustomizepatch Details tests initial rendering 1`] = `
     class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main manifestStore StyledProps--padding-small"
   >
     <p
-      class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey800"
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
     >
       Manifest details
     </p>
@@ -382,7 +382,7 @@ exports[`Kustomizepatch Details tests initial rendering 1`] = `
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
@@ -455,7 +455,7 @@ exports[`Kustomizepatch Details tests renders form in edit mode 1`] = `
     class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main manifestStore StyledProps--padding-small"
   >
     <p
-      class="StyledProps--font StyledProps--main StyledProps--font-large StyledProps--color StyledProps--color-grey800"
+      class="StyledProps--font StyledProps--main StyledProps--font-variation-h3 StyledProps--margin-bottom-medium"
     >
       Manifest details
     </p>
@@ -741,7 +741,7 @@ exports[`Kustomizepatch Details tests renders form in edit mode 1`] = `
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-huge"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"

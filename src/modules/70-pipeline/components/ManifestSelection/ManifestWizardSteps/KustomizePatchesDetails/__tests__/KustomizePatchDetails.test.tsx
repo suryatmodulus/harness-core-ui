@@ -59,6 +59,8 @@ describe('Kustomizepatch Details tests', () => {
       fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier' } })
       fireEvent.change(queryByNameAttribute('gitFetchType')!, { target: { value: 'Branch' } })
       fireEvent.change(queryByNameAttribute('branch')!, { target: { value: 'testBranch' } })
+      fireEvent.change(queryByNameAttribute('paths[0].path')!, { target: { value: 'test-path' } })
+      fireEvent.change(queryByNameAttribute('repoName')!, { target: { value: 'repo-name' } })
     })
     fireEvent.click(container.querySelector('button[type="submit"]')!)
     await waitFor(() => {
@@ -72,7 +74,8 @@ describe('Kustomizepatch Details tests', () => {
                 branch: 'testBranch',
                 connectorRef: undefined,
                 gitFetchType: 'Branch',
-                paths: ['']
+                paths: ['test-path'],
+                repoName: 'repo-name'
               },
               type: 'Git'
             }

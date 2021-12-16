@@ -7,14 +7,14 @@ import {
   StepProps,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Color,
   Formik,
   ButtonVariation,
-  Icon
+  Icon,
+  FontVariation
 } from '@wings-software/uicore'
-
+import * as Yup from 'yup'
 import { Form, FieldArray, FieldArrayRenderProps } from 'formik'
-import { get, set } from 'lodash-es'
+import { get, isEmpty, set } from 'lodash-es'
 
 import cx from 'classnames'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
@@ -26,7 +26,16 @@ import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/Mu
 
 import type { KustomizePatchDataType, ManifestTypes } from '../../ManifestInterface'
 
-import { gitFetchTypeList, GitFetchTypes, GitRepoName, ManifestDataType, ManifestStoreMap } from '../../Manifesthelper'
+import {
+  gitFetchTypeList,
+  GitFetchTypes,
+  GitRepoName,
+  ManifestDataType,
+  ManifestIdentifierValidation,
+  ManifestStoreMap
+} from '../../Manifesthelper'
+import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
+import { getRepositoryName } from '../ManifestUtils'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
@@ -40,31 +49,6 @@ interface KustomizePathPropTypes {
   manifestIdsList: Array<string>
   selectedManifest: ManifestTypes | null
   isReadonly?: boolean
-}
-
-const getInitValues = (initialValues: any) => {
-  const specValues = get(initialValues, 'spec.store.spec', null)
-
-  if (specValues) {
-    return {
-      ...specValues,
-      identifier: initialValues.identifier,
-      paths:
-        typeof specValues.paths === 'string'
-          ? specValues.paths
-          : specValues.paths.map((path: string) => ({
-              id: uuid('', nameSpace()),
-              path: path
-            }))
-    }
-  }
-  return {
-    identifier: '',
-    branch: undefined,
-    commitId: undefined,
-    gitFetchType: 'Branch',
-    paths: [{ path: '', id: uuid('', nameSpace()) }]
-  }
 }
 
 const submitKustomizePatchData = (
@@ -101,21 +85,6 @@ const submitKustomizePatchData = (
     }
   }
   return manifestObj
-}
-
-const Footer = (previousStep: any, prevStepData: any): React.ReactElement => {
-  const { getString } = useStrings()
-  return (
-    <Layout.Horizontal spacing="medium" margin={{ top: 'huge' }}>
-      <Button
-        variation={ButtonVariation.SECONDARY}
-        text={getString('back')}
-        icon="chevron-left"
-        onClick={() => previousStep?.(prevStepData)}
-      />
-      <Button variation={ButtonVariation.PRIMARY} type="submit" text={getString('submit')} rightIcon="chevron-right" />
-    </Layout.Horizontal>
-  )
 }
 
 const renderBranch = (formik: any, isReadonly: boolean, label: string, placeholder: string, expressions?: any) => {
@@ -217,7 +186,8 @@ const KustomizePatchDetails: React.FC<StepProps<ConnectorConfigDTO> & KustomizeP
   prevStepData,
   previousStep,
   isReadonly = false,
-  handleSubmit
+  handleSubmit,
+  manifestIdsList
 }) => {
   const { getString } = useStrings()
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
@@ -266,24 +236,88 @@ const KustomizePatchDetails: React.FC<StepProps<ConnectorConfigDTO> & KustomizeP
     []
   )
 
+  const accountUrl =
+    connectionType === GitRepoName.Account
+      ? prevStepData?.connectorRef
+        ? prevStepData?.connectorRef?.connector?.spec?.url
+        : prevStepData?.url
+      : null
+
   const submitFormData = (formData: KustomizePatchDataType & { store?: string; connectorRef?: string }): void => {
     const manifestObj = submitKustomizePatchData(formData, connectionType)
     handleSubmit(manifestObj)
   }
 
   const getInitialValues = React.useCallback((): KustomizePatchDataType => {
-    return getInitValues(initialValues)
+    const specValues = get(initialValues, 'spec.store.spec', null)
+
+    if (specValues) {
+      return {
+        ...specValues,
+        identifier: initialValues.identifier,
+        repoName: getRepositoryName(prevStepData, initialValues),
+        paths:
+          typeof specValues.paths === 'string'
+            ? specValues.paths
+            : specValues.paths.map((path: string) => ({
+                id: uuid('', nameSpace()),
+                path: path
+              }))
+      }
+    }
+    return {
+      identifier: '',
+      branch: undefined,
+      commitId: undefined,
+      repoName: getRepositoryName(prevStepData, initialValues),
+      gitFetchType: 'Branch',
+      paths: [{ path: '', id: uuid('', nameSpace()) }]
+    }
   }, [])
   const defaultValueToReset = [{ path: '', uuid: uuid('', nameSpace()) }]
 
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
-      <Text font="large" color={Color.GREY_800}>
+      <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
         {stepName}
       </Text>
       <Formik
         initialValues={getInitialValues()}
         formName="kustomizePath"
+        validationSchema={Yup.object().shape({
+          ...ManifestIdentifierValidation(
+            manifestIdsList,
+            initialValues?.identifier,
+            getString('pipeline.uniqueIdentifier')
+          ),
+          branch: Yup.string().when('gitFetchType', {
+            is: 'Branch',
+            then: Yup.string().trim().required(getString('validation.branchName'))
+          }),
+          commitId: Yup.string().when('gitFetchType', {
+            is: 'Commit',
+            then: Yup.string().trim().required(getString('validation.commitId'))
+          }),
+          paths: Yup.lazy((value): Yup.Schema<unknown> => {
+            if (getMultiTypeFromValue(value as any) === MultiTypeInputType.FIXED) {
+              return Yup.array().of(
+                Yup.object().shape({
+                  path: Yup.string().min(1).required(getString('pipeline.manifestType.pathRequired'))
+                })
+              )
+            }
+            return Yup.string().required(getString('pipeline.manifestType.pathRequired'))
+          }),
+          repoName: Yup.string().test('repoName', getString('common.validation.repositoryName'), value => {
+            if (
+              connectionType === GitRepoName.Repo ||
+              getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED
+            ) {
+              return true
+            }
+            return !isEmpty(value) && value?.length > 0
+          })
+        })}
         onSubmit={formData => {
           submitFormData({
             ...prevStepData,
@@ -310,6 +344,15 @@ const KustomizePatchDetails: React.FC<StepProps<ConnectorConfigDTO> & KustomizeP
                   />
                 </div>
               </Layout.Horizontal>
+              {!!(connectionType === GitRepoName.Account && accountUrl) && (
+                <GitRepositoryName
+                  accountUrl={accountUrl}
+                  expressions={expressions}
+                  fieldValue={formik.values?.repoName}
+                  changeFieldValue={(value: string) => formik.setFieldValue('repoName', value)}
+                  isReadonly={isReadonly}
+                />
+              )}
               <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
                 <div className={helmcss.halfWidth}>
                   <FormInput.Select
@@ -397,7 +440,20 @@ const KustomizePatchDetails: React.FC<StepProps<ConnectorConfigDTO> & KustomizeP
                 </MultiTypeFieldSelector>
               </div>
             </div>
-            <Footer previousStep={previousStep} prevStepData={prevStepData} />
+            <Layout.Horizontal spacing="medium">
+              <Button
+                variation={ButtonVariation.SECONDARY}
+                text={getString('back')}
+                icon="chevron-left"
+                onClick={() => previousStep?.(prevStepData)}
+              />
+              <Button
+                variation={ButtonVariation.PRIMARY}
+                type="submit"
+                text={getString('submit')}
+                rightIcon="chevron-right"
+              />
+            </Layout.Horizontal>
           </Form>
         )}
       </Formik>

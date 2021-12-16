@@ -292,7 +292,7 @@ export interface AccessControlCheckError {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
   correlationId?: string
   detailedMessage?: string
@@ -694,7 +694,7 @@ export interface Error {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
   correlationId?: string
   detailedMessage?: string
@@ -990,7 +990,7 @@ export interface Failure {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
   correlationId?: string
   errors?: ValidationError[]
@@ -1506,7 +1506,7 @@ export interface ResponseMessage {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
   exception?: Throwable
   failureTypes?: (

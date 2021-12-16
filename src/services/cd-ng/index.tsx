@@ -305,7 +305,7 @@ export interface AccessControlCheckError {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
@@ -1454,7 +1454,7 @@ export type CountInstanceSelection = InstanceSelectionBase & {
 }
 
 export interface CreateInvite {
-  inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE'
+  inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE' | 'SCIM_INITIATED_INVITE'
   roleBindings: RoleBinding[]
   userGroups?: string[]
   users: string[]
@@ -1893,6 +1893,9 @@ export interface EntityDetail {
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -1914,6 +1917,7 @@ export interface EntityDetail {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
 }
 
 export interface EntityGitDetails {
@@ -2318,7 +2322,7 @@ export interface Error {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
@@ -2675,7 +2679,7 @@ export interface Failure {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
@@ -2727,6 +2731,7 @@ export interface FeatureRestrictionDetailListRequestDTO {
     | 'MAX_BUILDS_PER_MONTH'
     | 'ACTIVE_COMMITTERS'
     | 'TEST_INTELLIGENCE'
+    | 'TEMPLATE_SERVICE'
     | 'K8S_BG_SWAP_SERVICES'
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_APPLY'
@@ -2776,6 +2781,7 @@ export interface FeatureRestrictionDetailRequestDTO {
     | 'MAX_BUILDS_PER_MONTH'
     | 'ACTIVE_COMMITTERS'
     | 'TEST_INTELLIGENCE'
+    | 'TEMPLATE_SERVICE'
     | 'K8S_BG_SWAP_SERVICES'
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_APPLY'
@@ -2827,6 +2833,7 @@ export interface FeatureRestrictionDetailsDTO {
     | 'MAX_BUILDS_PER_MONTH'
     | 'ACTIVE_COMMITTERS'
     | 'TEST_INTELLIGENCE'
+    | 'TEMPLATE_SERVICE'
     | 'K8S_BG_SWAP_SERVICES'
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_APPLY'
@@ -2886,6 +2893,7 @@ export interface FeatureRestrictionMetadataDTO {
     | 'MAX_BUILDS_PER_MONTH'
     | 'ACTIVE_COMMITTERS'
     | 'TEST_INTELLIGENCE'
+    | 'TEMPLATE_SERVICE'
     | 'K8S_BG_SWAP_SERVICES'
     | 'K8S_BLUE_GREEN_DEPLOY'
     | 'K8S_APPLY'
@@ -3088,6 +3096,9 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3109,6 +3120,7 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   )[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   searchTerm?: string
@@ -3120,6 +3132,9 @@ export interface GitEntityFilterProperties {
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3141,6 +3156,7 @@ export interface GitEntityFilterProperties {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   )[]
   gitSyncConfigIdentifiers?: string[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
@@ -3179,6 +3195,9 @@ export interface GitFullSyncEntityInfoDTO {
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3200,6 +3219,7 @@ export interface GitFullSyncEntityInfoDTO {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   errorMessages?: string[]
   filePath?: string
   name?: string
@@ -3302,6 +3322,9 @@ export interface GitSyncEntityDTO {
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3323,6 +3346,7 @@ export interface GitSyncEntityDTO {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   folderPath?: string
   gitConnectorId?: string
   repoProviderType?: 'github' | 'gitlab' | 'bitbucket' | 'unknown'
@@ -3336,6 +3360,9 @@ export interface GitSyncEntityListDTO {
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3357,6 +3384,7 @@ export interface GitSyncEntityListDTO {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   gitSyncEntities?: GitSyncEntityDTO[]
 }
 
@@ -3387,6 +3415,9 @@ export interface GitSyncErrorDTO {
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -3408,10 +3439,12 @@ export interface GitSyncErrorDTO {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   errorType?: 'GIT_TO_HARNESS' | 'CONNECTIVITY_ISSUE' | 'FULL_SYNC'
   failureReason?: string
   repoId?: string
   repoUrl?: string
+  scopes?: Scope[]
   status?: 'ACTIVE' | 'DISCARDED' | 'EXPIRED' | 'RESOLVED' | 'OVERRIDDEN'
 }
 
@@ -3420,8 +3453,6 @@ export interface GitSyncErrorDetailsDTO {
 }
 
 export interface GitSyncFolderConfigDTO {
-  enabled?: boolean
-  identifier?: string
   isDefault?: boolean
   rootFolder?: string
 }
@@ -3637,7 +3668,18 @@ export type HelmDeployStepInfo = StepSpecType & {
 }
 
 export interface HelmManifestCommandFlag {
-  commandType: 'Fetch' | 'Version' | 'Template' | 'Pull'
+  commandType:
+    | 'Fetch'
+    | 'Version'
+    | 'Template'
+    | 'Pull'
+    | 'Install'
+    | 'Upgrade'
+    | 'Rollback'
+    | 'History'
+    | 'Delete'
+    | 'Uninstall'
+    | 'List'
   flag?: string
 }
 
@@ -3852,7 +3894,7 @@ export interface Invite {
   approved?: boolean
   email: string
   id: string
-  inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE'
+  inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE' | 'SCIM_INITIATED_INVITE'
   name: string
   orgIdentifier?: string
   projectIdentifier?: string
@@ -4252,6 +4294,12 @@ export type LicenseStaticLimitRestrictionMetadataDTO = RestrictionMetadataDTO & 
   limit?: number
 }
 
+export interface LicenseUsageDTO {
+  accountIdentifier?: string
+  module?: string
+  timestamp?: number
+}
+
 export interface LicensesWithSummaryDTO {
   edition?: 'COMMUNITY' | 'FREE' | 'TEAM' | 'ENTERPRISE'
   licenseType?: 'TRIAL' | 'PAID'
@@ -4332,6 +4380,12 @@ export type ManualInterventionFailureActionConfig = FailureStrategyActionConfig 
 
 export type MarkAsSuccessFailureActionConfig = FailureStrategyActionConfig & {
   type: 'MarkAsSuccess'
+}
+
+export interface Member {
+  display?: string
+  ref?: string
+  value?: string
 }
 
 export type MicrosoftTeamsConfig = NotificationSettingConfig & {
@@ -4488,9 +4542,10 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export type OAuthSettings = NGAuthSettings & {
+export interface OAuthSettings {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
+  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -5511,6 +5566,13 @@ export interface ResponseFeatureRestrictionDetailsDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseFeatureRestrictionMetadataDTO {
+  correlationId?: string
+  data?: FeatureRestrictionMetadataDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseFieldValues {
   correlationId?: string
   data?: FieldValues
@@ -5640,6 +5702,13 @@ export interface ResponseJiraIssueUpdateMetadataNG {
 export interface ResponseJsonNode {
   correlationId?: string
   data?: JsonNode
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseLicenseUsageDTO {
+  correlationId?: string
+  data?: LicenseUsageDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -6175,7 +6244,7 @@ export interface ResponseMessage {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
@@ -6607,6 +6676,25 @@ export interface ResponseServicesDashboardInfo {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseSetHelmCommandFlagType {
+  correlationId?: string
+  data?: (
+    | 'Fetch'
+    | 'Version'
+    | 'Template'
+    | 'Pull'
+    | 'Install'
+    | 'Upgrade'
+    | 'Rollback'
+    | 'History'
+    | 'Delete'
+    | 'Uninstall'
+    | 'List'
+  )[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseSourceCodeManagerDTO {
   correlationId?: string
   data?: SourceCodeManagerDTO
@@ -7018,6 +7106,15 @@ export type SampleErrorMetadataDTO = ErrorMetadataDTO & {
   }
 }
 
+export interface ScimGroup {
+  displayName?: string
+  externalId?: string
+  id?: string
+  members?: Member[]
+  meta?: JsonNode
+  schemas?: string[]
+}
+
 export interface ScimUser {
   active?: boolean
   displayName?: string
@@ -7302,6 +7399,7 @@ export interface ServiceDeploymentListInfo {
 
 export interface ServiceDetailsDTO {
   deploymentTypeList?: string[]
+  description?: string
   failureRate?: number
   failureRateChangeRate?: number
   frequency?: number
@@ -7312,6 +7410,9 @@ export interface ServiceDetailsDTO {
   serviceName?: string
   successRate?: number
   successRateChangeRate?: number
+  tags?: {
+    [key: string]: string
+  }
   totalDeploymentChangeRate?: number
   totalDeployments?: number
 }
@@ -7342,6 +7443,7 @@ export type ServiceNowApprovalStepInfo = StepSpecType & {
   delegateSelectors?: string[]
   rejectionCriteria?: CriteriaSpecWrapper
   ticketNumber: string
+  ticketType?: string
 }
 
 export type ServiceNowConnector = ConnectorConfigDTO & {
@@ -7704,9 +7806,8 @@ export interface StepElementConfig {
   identifier: string
   name: string
   spec?: StepSpecType
-  template?: TemplateLinkConfig
   timeout?: string
-  type?: string
+  type: string
   when?: StepWhenCondition
 }
 
@@ -8088,6 +8189,7 @@ export interface UserGroup {
   createdAt?: number
   deleted?: boolean
   description: string
+  externallyManaged?: boolean
   harnessManaged?: boolean
   id?: string
   identifier?: string
@@ -8148,9 +8250,11 @@ export interface UserInfo {
   admin?: boolean
   billingFrequency?: string
   defaultAccountId?: string
+  disabled?: boolean
   edition?: string
   email?: string
   emailVerified?: boolean
+  externallyManaged?: boolean
   intent?: string
   locked?: boolean
   name?: string
@@ -8175,7 +8279,9 @@ export interface UserLockoutPolicy {
 }
 
 export interface UserMetadataDTO {
+  disabled?: boolean
   email: string
+  externallyManaged?: boolean
   locked?: boolean
   name?: string
   uuid: string
@@ -8356,9 +8462,13 @@ export type NgSmtpDTORequestBody = NgSmtpDTO
 
 export type OrganizationRequestRequestBody = OrganizationRequest
 
+export type PatchRequestRequestBody = PatchRequest
+
 export type ProjectRequestRequestBody = ProjectRequest
 
 export type RoleAssignmentFilterRequestBody = RoleAssignmentFilter
+
+export type ScimGroupRequestBody = ScimGroup
 
 export type ScimUserRequestBody = ScimUser
 
@@ -8613,6 +8723,9 @@ export interface ListActivitiesQueryParams {
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -8634,11 +8747,15 @@ export interface ListActivitiesQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -8660,6 +8777,7 @@ export interface ListActivitiesQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
 }
 
 export type ListActivitiesProps = Omit<GetProps<ResponsePageActivity, unknown, ListActivitiesQueryParams, void>, 'path'>
@@ -8769,6 +8887,9 @@ export interface GetActivitiesSummaryQueryParams {
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -8790,11 +8911,15 @@ export interface GetActivitiesSummaryQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -8816,6 +8941,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
 }
 
 export type GetActivitiesSummaryProps = Omit<
@@ -9477,7 +9603,7 @@ export type CreateApiKeyProps = Omit<
 >
 
 /**
- * Create api key
+ * Create API key
  */
 export const CreateApiKey = (props: CreateApiKeyProps) => (
   <Mutate<ResponseApiKeyDTO, Failure | Error, void, ApiKeyDTORequestBody, void>
@@ -9494,7 +9620,7 @@ export type UseCreateApiKeyProps = Omit<
 >
 
 /**
- * Create api key
+ * Create API key
  */
 export const useCreateApiKey = (props: UseCreateApiKeyProps) =>
   useMutate<ResponseApiKeyDTO, Failure | Error, void, ApiKeyDTORequestBody, void>('POST', `/apikey`, {
@@ -9503,7 +9629,7 @@ export const useCreateApiKey = (props: UseCreateApiKeyProps) =>
   })
 
 /**
- * Create api key
+ * Create API key
  */
 export const createApiKeyPromise = (
   props: MutateUsingFetchProps<ResponseApiKeyDTO, Failure | Error, void, ApiKeyDTORequestBody, void>,
@@ -9593,7 +9719,7 @@ export type GetAggregatedApiKeyProps = Omit<
   GetAggregatedApiKeyPathParams
 
 /**
- * Get api key
+ * Get API key
  */
 export const GetAggregatedApiKey = ({ identifier, ...props }: GetAggregatedApiKeyProps) => (
   <Get<ResponseApiKeyAggregateDTO, Failure | Error, GetAggregatedApiKeyQueryParams, GetAggregatedApiKeyPathParams>
@@ -9615,7 +9741,7 @@ export type UseGetAggregatedApiKeyProps = Omit<
   GetAggregatedApiKeyPathParams
 
 /**
- * Get api key
+ * Get API key
  */
 export const useGetAggregatedApiKey = ({ identifier, ...props }: UseGetAggregatedApiKeyProps) =>
   useGet<ResponseApiKeyAggregateDTO, Failure | Error, GetAggregatedApiKeyQueryParams, GetAggregatedApiKeyPathParams>(
@@ -9624,7 +9750,7 @@ export const useGetAggregatedApiKey = ({ identifier, ...props }: UseGetAggregate
   )
 
 /**
- * Get api key
+ * Get API key
  */
 export const getAggregatedApiKeyPromise = (
   {
@@ -9659,7 +9785,7 @@ export type DeleteApiKeyProps = Omit<
 >
 
 /**
- * Delete api key
+ * Delete API key
  */
 export const DeleteApiKey = (props: DeleteApiKeyProps) => (
   <Mutate<ResponseBoolean, Failure | Error, DeleteApiKeyQueryParams, string, void>
@@ -9676,7 +9802,7 @@ export type UseDeleteApiKeyProps = Omit<
 >
 
 /**
- * Delete api key
+ * Delete API key
  */
 export const useDeleteApiKey = (props: UseDeleteApiKeyProps) =>
   useMutate<ResponseBoolean, Failure | Error, DeleteApiKeyQueryParams, string, void>('DELETE', `/apikey`, {
@@ -9685,7 +9811,7 @@ export const useDeleteApiKey = (props: UseDeleteApiKeyProps) =>
   })
 
 /**
- * Delete api key
+ * Delete API key
  */
 export const deleteApiKeyPromise = (
   props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteApiKeyQueryParams, string, void>,
@@ -9710,7 +9836,7 @@ export type UpdateApiKeyProps = Omit<
   UpdateApiKeyPathParams
 
 /**
- * Update api key
+ * Update API key
  */
 export const UpdateApiKey = ({ identifier, ...props }: UpdateApiKeyProps) => (
   <Mutate<ResponseApiKeyDTO, Failure | Error, void, ApiKeyDTORequestBody, UpdateApiKeyPathParams>
@@ -9728,7 +9854,7 @@ export type UseUpdateApiKeyProps = Omit<
   UpdateApiKeyPathParams
 
 /**
- * Update api key
+ * Update API key
  */
 export const useUpdateApiKey = ({ identifier, ...props }: UseUpdateApiKeyProps) =>
   useMutate<ResponseApiKeyDTO, Failure | Error, void, ApiKeyDTORequestBody, UpdateApiKeyPathParams>(
@@ -9738,7 +9864,7 @@ export const useUpdateApiKey = ({ identifier, ...props }: UseUpdateApiKeyProps) 
   )
 
 /**
- * Update api key
+ * Update API key
  */
 export const updateApiKeyPromise = (
   {
@@ -11047,7 +11173,7 @@ export const validateArtifactImageForGcrPromise = (
   )
 
 export interface GetAuthenticationSettingsQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type GetAuthenticationSettingsProps = Omit<
@@ -11100,7 +11226,7 @@ export const getAuthenticationSettingsPromise = (
   )
 
 export interface DeleteSamlMetaDataQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type DeleteSamlMetaDataProps = Omit<
@@ -11151,7 +11277,7 @@ export const deleteSamlMetaDataPromise = (
   )
 
 export interface GetPasswordStrengthSettingsQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type GetPasswordStrengthSettingsProps = Omit<
@@ -11278,7 +11404,7 @@ export const putLoginSettingsPromise = (
   >('PUT', getConfig('ng/api'), `/authentication-settings/login-settings/${loginSettingsId}`, props, signal)
 
 export interface RemoveOauthMechanismQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type RemoveOauthMechanismProps = Omit<
@@ -11329,7 +11455,7 @@ export const removeOauthMechanismPromise = (
   )
 
 export interface UpdateOauthProvidersQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type UpdateOauthProvidersProps = Omit<
@@ -11380,7 +11506,7 @@ export const updateOauthProvidersPromise = (
   )
 
 export interface GetSamlLoginTestQueryParams {
-  accountId?: string
+  accountId: string
 }
 
 export type GetSamlLoginTestProps = Omit<
@@ -11428,7 +11554,7 @@ export const getSamlLoginTestPromise = (
   )
 
 export interface UploadSamlMetaDataQueryParams {
-  accountId?: string
+  accountId: string
 }
 
 export type UploadSamlMetaDataProps = Omit<
@@ -11485,7 +11611,7 @@ export const uploadSamlMetaDataPromise = (
   )
 
 export interface UpdateSamlMetaDataQueryParams {
-  accountId?: string
+  accountId: string
 }
 
 export type UpdateSamlMetaDataProps = Omit<
@@ -11542,7 +11668,7 @@ export const updateSamlMetaDataPromise = (
   )
 
 export interface SetTwoFactorAuthAtAccountLevelQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type SetTwoFactorAuthAtAccountLevelProps = Omit<
@@ -11613,7 +11739,7 @@ export const setTwoFactorAuthAtAccountLevelPromise = (
   >('PUT', getConfig('ng/api'), `/authentication-settings/two-factor-admin-override-settings`, props, signal)
 
 export interface UpdateAuthMechanismQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   authenticationMechanism?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
@@ -11665,7 +11791,7 @@ export const updateAuthMechanismPromise = (
   )
 
 export interface UpdateWhitelistedDomainsQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type UpdateWhitelistedDomainsProps = Omit<
@@ -12797,7 +12923,7 @@ export const validateTheIdentifierIsUniquePromise = (
   )
 
 export interface DeleteConnectorQueryParams {
-  accountIdentifier: string
+  accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
   branch?: string
@@ -14546,7 +14672,7 @@ export type GetEnabledFeatureRestrictionDetailByAccountIdProps = Omit<
 >
 
 /**
- * Fetch List of Enabled Feature Restriction Detail for The Account
+ * Fetch the List of enabled Feature Restriction Detail for this Account
  */
 export const GetEnabledFeatureRestrictionDetailByAccountId = (
   props: GetEnabledFeatureRestrictionDetailByAccountIdProps
@@ -14574,7 +14700,7 @@ export type UseGetEnabledFeatureRestrictionDetailByAccountIdProps = Omit<
 >
 
 /**
- * Fetch List of Enabled Feature Restriction Detail for The Account
+ * Fetch the List of enabled Feature Restriction Detail for this Account
  */
 export const useGetEnabledFeatureRestrictionDetailByAccountId = (
   props: UseGetEnabledFeatureRestrictionDetailByAccountIdProps
@@ -14587,7 +14713,7 @@ export const useGetEnabledFeatureRestrictionDetailByAccountId = (
   >(`/enforcement/enabled`, { base: getConfig('ng/api'), ...props })
 
 /**
- * Fetch List of Enabled Feature Restriction Detail for The Account
+ * Fetch the List of enabled Feature Restriction Detail for this Account
  */
 export const getEnabledFeatureRestrictionDetailByAccountIdPromise = (
   props: GetUsingFetchProps<
@@ -14649,6 +14775,187 @@ export const getAllFeatureRestrictionMetadataPromise = (
     signal
   )
 
+export interface FetchFeatureRestrictionMetadataQueryParams {
+  accountIdentifier: string
+}
+
+export interface FetchFeatureRestrictionMetadataPathParams {
+  featureRestrictionName:
+    | 'TEST1'
+    | 'TEST2'
+    | 'TEST3'
+    | 'TEST4'
+    | 'TEST5'
+    | 'TEST6'
+    | 'TEST7'
+    | 'PERSPECTIVES'
+    | 'CCM_K8S_CLUSTERS'
+    | 'CCM_AUTOSTOPPING_RULES'
+    | 'MULTIPLE_ORGANIZATIONS'
+    | 'MULTIPLE_PROJECTS'
+    | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
+    | 'INTEGRATED_APPROVALS_WITH_JIRA'
+    | 'SECRET_MANAGERS'
+    | 'DEPLOYMENTS'
+    | 'INITIAL_DEPLOYMENTS'
+    | 'DEPLOYMENTS_PER_MONTH'
+    | 'SERVICES'
+    | 'BUILDS'
+    | 'SAML_SUPPORT'
+    | 'OAUTH_SUPPORT'
+    | 'LDAP_SUPPORT'
+    | 'TWO_FACTOR_AUTH_SUPPORT'
+    | 'CUSTOM_ROLES'
+    | 'CUSTOM_RESOURCE_GROUPS'
+    | 'MAX_TOTAL_BUILDS'
+    | 'MAX_BUILDS_PER_MONTH'
+    | 'ACTIVE_COMMITTERS'
+    | 'TEST_INTELLIGENCE'
+    | 'TEMPLATE_SERVICE'
+    | 'K8S_BG_SWAP_SERVICES'
+    | 'K8S_BLUE_GREEN_DEPLOY'
+    | 'K8S_APPLY'
+    | 'K8S_DELETE'
+    | 'K8S_CANARY_DELETE'
+    | 'K8S_ROLLING_DEPLOY'
+    | 'K8S_CANARY_DEPLOY'
+    | 'K8S_SCALE'
+    | 'K8S_ROLLING_ROLLBACK'
+    | 'TERRAFORM_APPLY'
+    | 'TERRAFORM_PLAN'
+    | 'TERRAFORM_DESTROY'
+    | 'TERRAFORM_ROLLBACK'
+    | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
+}
+
+export type FetchFeatureRestrictionMetadataProps = Omit<
+  GetProps<
+    ResponseFeatureRestrictionMetadataDTO,
+    Failure | Error,
+    FetchFeatureRestrictionMetadataQueryParams,
+    FetchFeatureRestrictionMetadataPathParams
+  >,
+  'path'
+> &
+  FetchFeatureRestrictionMetadataPathParams
+
+/**
+ * Fetch Feature Restriction Metadata
+ */
+export const FetchFeatureRestrictionMetadata = ({
+  featureRestrictionName,
+  ...props
+}: FetchFeatureRestrictionMetadataProps) => (
+  <Get<
+    ResponseFeatureRestrictionMetadataDTO,
+    Failure | Error,
+    FetchFeatureRestrictionMetadataQueryParams,
+    FetchFeatureRestrictionMetadataPathParams
+  >
+    path={`/enforcement/${featureRestrictionName}/metadata`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseFetchFeatureRestrictionMetadataProps = Omit<
+  UseGetProps<
+    ResponseFeatureRestrictionMetadataDTO,
+    Failure | Error,
+    FetchFeatureRestrictionMetadataQueryParams,
+    FetchFeatureRestrictionMetadataPathParams
+  >,
+  'path'
+> &
+  FetchFeatureRestrictionMetadataPathParams
+
+/**
+ * Fetch Feature Restriction Metadata
+ */
+export const useFetchFeatureRestrictionMetadata = ({
+  featureRestrictionName,
+  ...props
+}: UseFetchFeatureRestrictionMetadataProps) =>
+  useGet<
+    ResponseFeatureRestrictionMetadataDTO,
+    Failure | Error,
+    FetchFeatureRestrictionMetadataQueryParams,
+    FetchFeatureRestrictionMetadataPathParams
+  >(
+    (paramsInPath: FetchFeatureRestrictionMetadataPathParams) =>
+      `/enforcement/${paramsInPath.featureRestrictionName}/metadata`,
+    { base: getConfig('ng/api'), pathParams: { featureRestrictionName }, ...props }
+  )
+
+/**
+ * Fetch Feature Restriction Metadata
+ */
+export const fetchFeatureRestrictionMetadataPromise = (
+  {
+    featureRestrictionName,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseFeatureRestrictionMetadataDTO,
+    Failure | Error,
+    FetchFeatureRestrictionMetadataQueryParams,
+    FetchFeatureRestrictionMetadataPathParams
+  > & {
+    featureRestrictionName:
+      | 'TEST1'
+      | 'TEST2'
+      | 'TEST3'
+      | 'TEST4'
+      | 'TEST5'
+      | 'TEST6'
+      | 'TEST7'
+      | 'PERSPECTIVES'
+      | 'CCM_K8S_CLUSTERS'
+      | 'CCM_AUTOSTOPPING_RULES'
+      | 'MULTIPLE_ORGANIZATIONS'
+      | 'MULTIPLE_PROJECTS'
+      | 'INTEGRATED_APPROVALS_WITH_HARNESS_UI'
+      | 'INTEGRATED_APPROVALS_WITH_JIRA'
+      | 'SECRET_MANAGERS'
+      | 'DEPLOYMENTS'
+      | 'INITIAL_DEPLOYMENTS'
+      | 'DEPLOYMENTS_PER_MONTH'
+      | 'SERVICES'
+      | 'BUILDS'
+      | 'SAML_SUPPORT'
+      | 'OAUTH_SUPPORT'
+      | 'LDAP_SUPPORT'
+      | 'TWO_FACTOR_AUTH_SUPPORT'
+      | 'CUSTOM_ROLES'
+      | 'CUSTOM_RESOURCE_GROUPS'
+      | 'MAX_TOTAL_BUILDS'
+      | 'MAX_BUILDS_PER_MONTH'
+      | 'ACTIVE_COMMITTERS'
+      | 'TEST_INTELLIGENCE'
+      | 'TEMPLATE_SERVICE'
+      | 'K8S_BG_SWAP_SERVICES'
+      | 'K8S_BLUE_GREEN_DEPLOY'
+      | 'K8S_APPLY'
+      | 'K8S_DELETE'
+      | 'K8S_CANARY_DELETE'
+      | 'K8S_ROLLING_DEPLOY'
+      | 'K8S_CANARY_DEPLOY'
+      | 'K8S_SCALE'
+      | 'K8S_ROLLING_ROLLBACK'
+      | 'TERRAFORM_APPLY'
+      | 'TERRAFORM_PLAN'
+      | 'TERRAFORM_DESTROY'
+      | 'TERRAFORM_ROLLBACK'
+      | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseFeatureRestrictionMetadataDTO,
+    Failure | Error,
+    FetchFeatureRestrictionMetadataQueryParams,
+    FetchFeatureRestrictionMetadataPathParams
+  >(getConfig('ng/api'), `/enforcement/${featureRestrictionName}/metadata`, props, signal)
+
 export interface ListReferredByEntitiesQueryParams {
   pageIndex?: number
   pageSize?: number
@@ -14661,6 +14968,9 @@ export interface ListReferredByEntitiesQueryParams {
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -14682,6 +14992,7 @@ export interface ListReferredByEntitiesQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   searchTerm?: string
   branch?: string
   repoIdentifier?: string
@@ -15938,7 +16249,7 @@ export const postFilterPromise = (
   )
 
 export interface UpdateFilterQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type UpdateFilterProps = Omit<
@@ -15989,7 +16300,7 @@ export const updateFilterPromise = (
   )
 
 export interface DeleteFilterQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
   type:
@@ -16050,7 +16361,7 @@ export const deleteFilterPromise = (
   )
 
 export interface GetFilterQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
   type:
@@ -16452,6 +16763,9 @@ export interface ListFullSyncFilesQueryParams {
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -16473,6 +16787,7 @@ export interface ListFullSyncFilesQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   syncStatus?: 'QUEUED' | 'PUSHED' | 'FAILED'
 }
 
@@ -16529,6 +16844,9 @@ export interface CountFullSyncFilesWithFilterQueryParams {
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -16550,6 +16868,7 @@ export interface CountFullSyncFilesWithFilterQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   syncStatus?: 'QUEUED' | 'PUSHED' | 'FAILED'
 }
 
@@ -16801,7 +17120,7 @@ export type GetListOfBranchesWithStatusProps = Omit<
 >
 
 /**
- * Gets list of branches with their status by Git Sync Config Identifier
+ * Gets list of branches with their status by Git Sync Config Id
  */
 export const GetListOfBranchesWithStatus = (props: GetListOfBranchesWithStatusProps) => (
   <Get<ResponseGitBranchListDTO, Failure | Error, GetListOfBranchesWithStatusQueryParams, void>
@@ -16817,7 +17136,7 @@ export type UseGetListOfBranchesWithStatusProps = Omit<
 >
 
 /**
- * Gets list of branches with their status by Git Sync Config Identifier
+ * Gets list of branches with their status by Git Sync Config Id
  */
 export const useGetListOfBranchesWithStatus = (props: UseGetListOfBranchesWithStatusProps) =>
   useGet<ResponseGitBranchListDTO, Failure | Error, GetListOfBranchesWithStatusQueryParams, void>(
@@ -16826,7 +17145,7 @@ export const useGetListOfBranchesWithStatus = (props: UseGetListOfBranchesWithSt
   )
 
 /**
- * Gets list of branches with their status by Git Sync Config Identifier
+ * Gets list of branches with their status by Git Sync Config Id
  */
 export const getListOfBranchesWithStatusPromise = (
   props: GetUsingFetchProps<ResponseGitBranchListDTO, Failure | Error, GetListOfBranchesWithStatusQueryParams, void>,
@@ -17093,6 +17412,9 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -17114,6 +17436,7 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
 }
 
 export type ListGitSyncEntitiesByTypeProps = Omit<
@@ -17187,6 +17510,9 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'Pipelines'
       | 'PipelineSteps'
       | 'Http'
+      | 'JiraCreate'
+      | 'ShellScript'
+      | 'K8sCanaryDeploy'
       | 'Connectors'
       | 'Secrets'
       | 'Service'
@@ -17208,6 +17534,7 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'MonitoredService'
       | 'GitRepositories'
       | 'FeatureFlags'
+      | 'ServiceNowApproval'
   },
   signal?: RequestInit['signal']
 ) =>
@@ -20261,7 +20588,7 @@ export type PutOrganizationProps = Omit<
   PutOrganizationPathParams
 
 /**
- * Update an Organization by identifier
+ * Update an Organization by ID
  */
 export const PutOrganization = ({ identifier, ...props }: PutOrganizationProps) => (
   <Mutate<
@@ -20291,7 +20618,7 @@ export type UsePutOrganizationProps = Omit<
   PutOrganizationPathParams
 
 /**
- * Update an Organization by identifier
+ * Update an Organization by ID
  */
 export const usePutOrganization = ({ identifier, ...props }: UsePutOrganizationProps) =>
   useMutate<
@@ -20307,7 +20634,7 @@ export const usePutOrganization = ({ identifier, ...props }: UsePutOrganizationP
   })
 
 /**
- * Update an Organization by identifier
+ * Update an Organization by ID
  */
 export const putOrganizationPromise = (
   {
@@ -20994,7 +21321,7 @@ export type GetProjectProps = Omit<
   GetProjectPathParams
 
 /**
- * Gets a Project by identifier
+ * Gets a Project by ID
  */
 export const GetProject = ({ identifier, ...props }: GetProjectProps) => (
   <Get<ResponseProjectResponse, Failure | Error, GetProjectQueryParams, GetProjectPathParams>
@@ -21011,7 +21338,7 @@ export type UseGetProjectProps = Omit<
   GetProjectPathParams
 
 /**
- * Gets a Project by identifier
+ * Gets a Project by ID
  */
 export const useGetProject = ({ identifier, ...props }: UseGetProjectProps) =>
   useGet<ResponseProjectResponse, Failure | Error, GetProjectQueryParams, GetProjectPathParams>(
@@ -21020,7 +21347,7 @@ export const useGetProject = ({ identifier, ...props }: UseGetProjectProps) =>
   )
 
 /**
- * Gets a Project by identifier
+ * Gets a Project by ID
  */
 export const getProjectPromise = (
   {
@@ -21060,7 +21387,7 @@ export type PutProjectProps = Omit<
   PutProjectPathParams
 
 /**
- * Update a Project by identifier
+ * Update a Project by ID
  */
 export const PutProject = ({ identifier, ...props }: PutProjectProps) => (
   <Mutate<
@@ -21090,7 +21417,7 @@ export type UsePutProjectProps = Omit<
   PutProjectPathParams
 
 /**
- * Update a Project by identifier
+ * Update a Project by ID
  */
 export const usePutProject = ({ identifier, ...props }: UsePutProjectProps) =>
   useMutate<
@@ -21106,7 +21433,7 @@ export const usePutProject = ({ identifier, ...props }: UsePutProjectProps) =>
   })
 
 /**
- * Update a Project by identifier
+ * Update a Project by ID
  */
 export const putProjectPromise = (
   {
@@ -21435,6 +21762,358 @@ export const createRoleAssignmentsPromise = (
     void
   >('POST', getConfig('ng/api'), `/roleassignments/multi/internal`, props, signal)
 
+export interface SearchScimGroupQueryParams {
+  filter?: string
+  count?: number
+  startIndex?: number
+}
+
+export interface SearchScimGroupPathParams {
+  accountIdentifier: string
+}
+
+export type SearchScimGroupProps = Omit<
+  GetProps<void, void, SearchScimGroupQueryParams, SearchScimGroupPathParams>,
+  'path'
+> &
+  SearchScimGroupPathParams
+
+/**
+ * Search groups by their name. Supports pagination. If nothing is passed in filter, all results will be returned.
+ */
+export const SearchScimGroup = ({ accountIdentifier, ...props }: SearchScimGroupProps) => (
+  <Get<void, void, SearchScimGroupQueryParams, SearchScimGroupPathParams>
+    path={`/scim/account/${accountIdentifier}/Groups`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseSearchScimGroupProps = Omit<
+  UseGetProps<void, void, SearchScimGroupQueryParams, SearchScimGroupPathParams>,
+  'path'
+> &
+  SearchScimGroupPathParams
+
+/**
+ * Search groups by their name. Supports pagination. If nothing is passed in filter, all results will be returned.
+ */
+export const useSearchScimGroup = ({ accountIdentifier, ...props }: UseSearchScimGroupProps) =>
+  useGet<void, void, SearchScimGroupQueryParams, SearchScimGroupPathParams>(
+    (paramsInPath: SearchScimGroupPathParams) => `/scim/account/${paramsInPath.accountIdentifier}/Groups`,
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
+  )
+
+/**
+ * Search groups by their name. Supports pagination. If nothing is passed in filter, all results will be returned.
+ */
+export const searchScimGroupPromise = (
+  {
+    accountIdentifier,
+    ...props
+  }: GetUsingFetchProps<void, void, SearchScimGroupQueryParams, SearchScimGroupPathParams> & {
+    accountIdentifier: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<void, void, SearchScimGroupQueryParams, SearchScimGroupPathParams>(
+    getConfig('ng/api'),
+    `/scim/account/${accountIdentifier}/Groups`,
+    props,
+    signal
+  )
+
+export interface CreateScimGroupPathParams {
+  accountIdentifier: string
+}
+
+export type CreateScimGroupProps = Omit<
+  MutateProps<void, void, void, ScimGroupRequestBody, CreateScimGroupPathParams>,
+  'path' | 'verb'
+> &
+  CreateScimGroupPathParams
+
+/**
+ * Create a new group and return uuid in response
+ */
+export const CreateScimGroup = ({ accountIdentifier, ...props }: CreateScimGroupProps) => (
+  <Mutate<void, void, void, ScimGroupRequestBody, CreateScimGroupPathParams>
+    verb="POST"
+    path={`/scim/account/${accountIdentifier}/Groups`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCreateScimGroupProps = Omit<
+  UseMutateProps<void, void, void, ScimGroupRequestBody, CreateScimGroupPathParams>,
+  'path' | 'verb'
+> &
+  CreateScimGroupPathParams
+
+/**
+ * Create a new group and return uuid in response
+ */
+export const useCreateScimGroup = ({ accountIdentifier, ...props }: UseCreateScimGroupProps) =>
+  useMutate<void, void, void, ScimGroupRequestBody, CreateScimGroupPathParams>(
+    'POST',
+    (paramsInPath: CreateScimGroupPathParams) => `/scim/account/${paramsInPath.accountIdentifier}/Groups`,
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
+  )
+
+/**
+ * Create a new group and return uuid in response
+ */
+export const createScimGroupPromise = (
+  {
+    accountIdentifier,
+    ...props
+  }: MutateUsingFetchProps<void, void, void, ScimGroupRequestBody, CreateScimGroupPathParams> & {
+    accountIdentifier: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<void, void, void, ScimGroupRequestBody, CreateScimGroupPathParams>(
+    'POST',
+    getConfig('ng/api'),
+    `/scim/account/${accountIdentifier}/Groups`,
+    props,
+    signal
+  )
+
+export interface DeleteScimGroupPathParams {
+  accountIdentifier: string
+}
+
+export type DeleteScimGroupProps = Omit<
+  MutateProps<void, void, void, string, DeleteScimGroupPathParams>,
+  'path' | 'verb'
+> &
+  DeleteScimGroupPathParams
+
+/**
+ * Delete an existing user by uuid
+ */
+export const DeleteScimGroup = ({ accountIdentifier, ...props }: DeleteScimGroupProps) => (
+  <Mutate<void, void, void, string, DeleteScimGroupPathParams>
+    verb="DELETE"
+    path={`/scim/account/${accountIdentifier}/Groups`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteScimGroupProps = Omit<
+  UseMutateProps<void, void, void, string, DeleteScimGroupPathParams>,
+  'path' | 'verb'
+> &
+  DeleteScimGroupPathParams
+
+/**
+ * Delete an existing user by uuid
+ */
+export const useDeleteScimGroup = ({ accountIdentifier, ...props }: UseDeleteScimGroupProps) =>
+  useMutate<void, void, void, string, DeleteScimGroupPathParams>(
+    'DELETE',
+    (paramsInPath: DeleteScimGroupPathParams) => `/scim/account/${paramsInPath.accountIdentifier}/Groups`,
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
+  )
+
+/**
+ * Delete an existing user by uuid
+ */
+export const deleteScimGroupPromise = (
+  {
+    accountIdentifier,
+    ...props
+  }: MutateUsingFetchProps<void, void, void, string, DeleteScimGroupPathParams> & { accountIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<void, void, void, string, DeleteScimGroupPathParams>(
+    'DELETE',
+    getConfig('ng/api'),
+    `/scim/account/${accountIdentifier}/Groups`,
+    props,
+    signal
+  )
+
+export interface GetScimGroupPathParams {
+  accountIdentifier: string
+  groupIdentifier: string
+}
+
+export type GetScimGroupProps = Omit<GetProps<void, void, void, GetScimGroupPathParams>, 'path'> &
+  GetScimGroupPathParams
+
+/**
+ * Fetch an existing user by uuid
+ */
+export const GetScimGroup = ({ accountIdentifier, groupIdentifier, ...props }: GetScimGroupProps) => (
+  <Get<void, void, void, GetScimGroupPathParams>
+    path={`/scim/account/${accountIdentifier}/Groups/${groupIdentifier}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetScimGroupProps = Omit<UseGetProps<void, void, void, GetScimGroupPathParams>, 'path'> &
+  GetScimGroupPathParams
+
+/**
+ * Fetch an existing user by uuid
+ */
+export const useGetScimGroup = ({ accountIdentifier, groupIdentifier, ...props }: UseGetScimGroupProps) =>
+  useGet<void, void, void, GetScimGroupPathParams>(
+    (paramsInPath: GetScimGroupPathParams) =>
+      `/scim/account/${paramsInPath.accountIdentifier}/Groups/${paramsInPath.groupIdentifier}`,
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier, groupIdentifier }, ...props }
+  )
+
+/**
+ * Fetch an existing user by uuid
+ */
+export const getScimGroupPromise = (
+  {
+    accountIdentifier,
+    groupIdentifier,
+    ...props
+  }: GetUsingFetchProps<void, void, void, GetScimGroupPathParams> & {
+    accountIdentifier: string
+    groupIdentifier: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<void, void, void, GetScimGroupPathParams>(
+    getConfig('ng/api'),
+    `/scim/account/${accountIdentifier}/Groups/${groupIdentifier}`,
+    props,
+    signal
+  )
+
+export interface PatchScimGroupPathParams {
+  accountIdentifier: string
+  groupIdentifier: string
+}
+
+export type PatchScimGroupProps = Omit<
+  MutateProps<void, void, void, PatchRequestRequestBody, PatchScimGroupPathParams>,
+  'path' | 'verb'
+> &
+  PatchScimGroupPathParams
+
+/**
+ * Update some fields of a groups by uuid. Can update members/name
+ */
+export const PatchScimGroup = ({ accountIdentifier, groupIdentifier, ...props }: PatchScimGroupProps) => (
+  <Mutate<void, void, void, PatchRequestRequestBody, PatchScimGroupPathParams>
+    verb="PATCH"
+    path={`/scim/account/${accountIdentifier}/Groups/${groupIdentifier}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePatchScimGroupProps = Omit<
+  UseMutateProps<void, void, void, PatchRequestRequestBody, PatchScimGroupPathParams>,
+  'path' | 'verb'
+> &
+  PatchScimGroupPathParams
+
+/**
+ * Update some fields of a groups by uuid. Can update members/name
+ */
+export const usePatchScimGroup = ({ accountIdentifier, groupIdentifier, ...props }: UsePatchScimGroupProps) =>
+  useMutate<void, void, void, PatchRequestRequestBody, PatchScimGroupPathParams>(
+    'PATCH',
+    (paramsInPath: PatchScimGroupPathParams) =>
+      `/scim/account/${paramsInPath.accountIdentifier}/Groups/${paramsInPath.groupIdentifier}`,
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier, groupIdentifier }, ...props }
+  )
+
+/**
+ * Update some fields of a groups by uuid. Can update members/name
+ */
+export const patchScimGroupPromise = (
+  {
+    accountIdentifier,
+    groupIdentifier,
+    ...props
+  }: MutateUsingFetchProps<void, void, void, PatchRequestRequestBody, PatchScimGroupPathParams> & {
+    accountIdentifier: string
+    groupIdentifier: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<void, void, void, PatchRequestRequestBody, PatchScimGroupPathParams>(
+    'PATCH',
+    getConfig('ng/api'),
+    `/scim/account/${accountIdentifier}/Groups/${groupIdentifier}`,
+    props,
+    signal
+  )
+
+export interface UpdateScimGroupPathParams {
+  accountIdentifier: string
+  groupIdentifier: string
+}
+
+export type UpdateScimGroupProps = Omit<
+  MutateProps<void, void, void, ScimGroupRequestBody, UpdateScimGroupPathParams>,
+  'path' | 'verb'
+> &
+  UpdateScimGroupPathParams
+
+/**
+ * Update a group
+ */
+export const UpdateScimGroup = ({ accountIdentifier, groupIdentifier, ...props }: UpdateScimGroupProps) => (
+  <Mutate<void, void, void, ScimGroupRequestBody, UpdateScimGroupPathParams>
+    verb="PUT"
+    path={`/scim/account/${accountIdentifier}/Groups/${groupIdentifier}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateScimGroupProps = Omit<
+  UseMutateProps<void, void, void, ScimGroupRequestBody, UpdateScimGroupPathParams>,
+  'path' | 'verb'
+> &
+  UpdateScimGroupPathParams
+
+/**
+ * Update a group
+ */
+export const useUpdateScimGroup = ({ accountIdentifier, groupIdentifier, ...props }: UseUpdateScimGroupProps) =>
+  useMutate<void, void, void, ScimGroupRequestBody, UpdateScimGroupPathParams>(
+    'PUT',
+    (paramsInPath: UpdateScimGroupPathParams) =>
+      `/scim/account/${paramsInPath.accountIdentifier}/Groups/${paramsInPath.groupIdentifier}`,
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier, groupIdentifier }, ...props }
+  )
+
+/**
+ * Update a group
+ */
+export const updateScimGroupPromise = (
+  {
+    accountIdentifier,
+    groupIdentifier,
+    ...props
+  }: MutateUsingFetchProps<void, void, void, ScimGroupRequestBody, UpdateScimGroupPathParams> & {
+    accountIdentifier: string
+    groupIdentifier: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<void, void, void, ScimGroupRequestBody, UpdateScimGroupPathParams>(
+    'PUT',
+    getConfig('ng/api'),
+    `/scim/account/${accountIdentifier}/Groups/${groupIdentifier}`,
+    props,
+    signal
+  )
+
 export interface SearchScimUserQueryParams {
   filter?: string
   count?: number
@@ -21668,7 +22347,7 @@ export interface PatchScimUserPathParams {
 }
 
 export type PatchScimUserProps = Omit<
-  MutateProps<void, void, void, PatchRequest, PatchScimUserPathParams>,
+  MutateProps<void, void, void, PatchRequestRequestBody, PatchScimUserPathParams>,
   'path' | 'verb'
 > &
   PatchScimUserPathParams
@@ -21677,7 +22356,7 @@ export type PatchScimUserProps = Omit<
  * Update some fields of a user by uuid
  */
 export const PatchScimUser = ({ accountIdentifier, userIdentifier, ...props }: PatchScimUserProps) => (
-  <Mutate<void, void, void, PatchRequest, PatchScimUserPathParams>
+  <Mutate<void, void, void, PatchRequestRequestBody, PatchScimUserPathParams>
     verb="PATCH"
     path={`/scim/account/${accountIdentifier}/Users/${userIdentifier}`}
     base={getConfig('ng/api')}
@@ -21686,7 +22365,7 @@ export const PatchScimUser = ({ accountIdentifier, userIdentifier, ...props }: P
 )
 
 export type UsePatchScimUserProps = Omit<
-  UseMutateProps<void, void, void, PatchRequest, PatchScimUserPathParams>,
+  UseMutateProps<void, void, void, PatchRequestRequestBody, PatchScimUserPathParams>,
   'path' | 'verb'
 > &
   PatchScimUserPathParams
@@ -21695,7 +22374,7 @@ export type UsePatchScimUserProps = Omit<
  * Update some fields of a user by uuid
  */
 export const usePatchScimUser = ({ accountIdentifier, userIdentifier, ...props }: UsePatchScimUserProps) =>
-  useMutate<void, void, void, PatchRequest, PatchScimUserPathParams>(
+  useMutate<void, void, void, PatchRequestRequestBody, PatchScimUserPathParams>(
     'PATCH',
     (paramsInPath: PatchScimUserPathParams) =>
       `/scim/account/${paramsInPath.accountIdentifier}/Users/${paramsInPath.userIdentifier}`,
@@ -21710,13 +22389,13 @@ export const patchScimUserPromise = (
     accountIdentifier,
     userIdentifier,
     ...props
-  }: MutateUsingFetchProps<void, void, void, PatchRequest, PatchScimUserPathParams> & {
+  }: MutateUsingFetchProps<void, void, void, PatchRequestRequestBody, PatchScimUserPathParams> & {
     accountIdentifier: string
     userIdentifier: string
   },
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<void, void, void, PatchRequest, PatchScimUserPathParams>(
+  mutateUsingFetch<void, void, void, PatchRequestRequestBody, PatchScimUserPathParams>(
     'PATCH',
     getConfig('ng/api'),
     `/scim/account/${accountIdentifier}/Users/${userIdentifier}`,
@@ -21952,7 +22631,7 @@ export type GetListOfBranchesByGitConfigProps = Omit<
 >
 
 /**
- * Gets list of branches by Git Config Identifier
+ * Retrieves a list of Git Branches corresponding to a Git Sync Config Id
  */
 export const GetListOfBranchesByGitConfig = (props: GetListOfBranchesByGitConfigProps) => (
   <Get<ResponseListString, Failure | Error, GetListOfBranchesByGitConfigQueryParams, void>
@@ -21968,7 +22647,7 @@ export type UseGetListOfBranchesByGitConfigProps = Omit<
 >
 
 /**
- * Gets list of branches by Git Config Identifier
+ * Retrieves a list of Git Branches corresponding to a Git Sync Config Id
  */
 export const useGetListOfBranchesByGitConfig = (props: UseGetListOfBranchesByGitConfigProps) =>
   useGet<ResponseListString, Failure | Error, GetListOfBranchesByGitConfigQueryParams, void>(
@@ -21977,7 +22656,7 @@ export const useGetListOfBranchesByGitConfig = (props: UseGetListOfBranchesByGit
   )
 
 /**
- * Gets list of branches by Git Config Identifier
+ * Retrieves a list of Git Branches corresponding to a Git Sync Config Id
  */
 export const getListOfBranchesByGitConfigPromise = (
   props: GetUsingFetchProps<ResponseListString, Failure | Error, GetListOfBranchesByGitConfigQueryParams, void>,
@@ -22929,6 +23608,55 @@ export const createServicesPromise = (
     ServiceRequestDTOArrayRequestBody,
     void
   >('POST', getConfig('ng/api'), `/services/batch`, props, signal)
+
+export interface HelmCmdFlagsQueryParams {
+  serviceSpecType: string
+  version: 'V2' | 'V3'
+}
+
+export type HelmCmdFlagsProps = Omit<
+  GetProps<ResponseSetHelmCommandFlagType, Failure | Error, HelmCmdFlagsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Command flags based on Deployment Type
+ */
+export const HelmCmdFlags = (props: HelmCmdFlagsProps) => (
+  <Get<ResponseSetHelmCommandFlagType, Failure | Error, HelmCmdFlagsQueryParams, void>
+    path={`/services/helmCmdFlags`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseHelmCmdFlagsProps = Omit<
+  UseGetProps<ResponseSetHelmCommandFlagType, Failure | Error, HelmCmdFlagsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Command flags based on Deployment Type
+ */
+export const useHelmCmdFlags = (props: UseHelmCmdFlagsProps) =>
+  useGet<ResponseSetHelmCommandFlagType, Failure | Error, HelmCmdFlagsQueryParams, void>(`/services/helmCmdFlags`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get Command flags based on Deployment Type
+ */
+export const helmCmdFlagsPromise = (
+  props: GetUsingFetchProps<ResponseSetHelmCommandFlagType, Failure | Error, HelmCmdFlagsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseSetHelmCommandFlagType, Failure | Error, HelmCmdFlagsQueryParams, void>(
+    getConfig('ng/api'),
+    `/services/helmCmdFlags`,
+    props,
+    signal
+  )
 
 export interface UpsertServiceQueryParams {
   accountId?: string
@@ -24727,6 +25455,70 @@ export const updateTokenPromise = (
     'PUT',
     getConfig('ng/api'),
     `/token/${identifier}`,
+    props,
+    signal
+  )
+
+export interface GetLicenseUsageQueryParams {
+  accountIdentifier?: string
+  timestamp?: number
+  CDLicenseType?: string
+}
+
+export interface GetLicenseUsagePathParams {
+  module: string
+}
+
+export type GetLicenseUsageProps = Omit<
+  GetProps<ResponseLicenseUsageDTO, Failure | Error, GetLicenseUsageQueryParams, GetLicenseUsagePathParams>,
+  'path'
+> &
+  GetLicenseUsagePathParams
+
+/**
+ * Gets License Usage By Module and Timestamp
+ */
+export const GetLicenseUsage = ({ module, ...props }: GetLicenseUsageProps) => (
+  <Get<ResponseLicenseUsageDTO, Failure | Error, GetLicenseUsageQueryParams, GetLicenseUsagePathParams>
+    path={`/usage/${module}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetLicenseUsageProps = Omit<
+  UseGetProps<ResponseLicenseUsageDTO, Failure | Error, GetLicenseUsageQueryParams, GetLicenseUsagePathParams>,
+  'path'
+> &
+  GetLicenseUsagePathParams
+
+/**
+ * Gets License Usage By Module and Timestamp
+ */
+export const useGetLicenseUsage = ({ module, ...props }: UseGetLicenseUsageProps) =>
+  useGet<ResponseLicenseUsageDTO, Failure | Error, GetLicenseUsageQueryParams, GetLicenseUsagePathParams>(
+    (paramsInPath: GetLicenseUsagePathParams) => `/usage/${paramsInPath.module}`,
+    { base: getConfig('ng/api'), pathParams: { module }, ...props }
+  )
+
+/**
+ * Gets License Usage By Module and Timestamp
+ */
+export const getLicenseUsagePromise = (
+  {
+    module,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseLicenseUsageDTO,
+    Failure | Error,
+    GetLicenseUsageQueryParams,
+    GetLicenseUsagePathParams
+  > & { module: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseLicenseUsageDTO, Failure | Error, GetLicenseUsageQueryParams, GetLicenseUsagePathParams>(
+    getConfig('ng/api'),
+    `/usage/${module}`,
     props,
     signal
   )
@@ -28360,6 +29152,9 @@ export interface GetYamlSchemaQueryParams {
     | 'Pipelines'
     | 'PipelineSteps'
     | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
     | 'Connectors'
     | 'Secrets'
     | 'Service'
@@ -28381,6 +29176,7 @@ export interface GetYamlSchemaQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   subtype?:
     | 'K8sCluster'
     | 'Git'

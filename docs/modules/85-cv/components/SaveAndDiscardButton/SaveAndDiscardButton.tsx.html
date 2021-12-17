@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/10-common/components/SaveAndDiscardButton/SaveAndDiscardButton.tsx</title>
+    <title>Code coverage report for modules/85-cv/components/SaveAndDiscardButton/SaveAndDiscardButton.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">modules/10-common/components/SaveAndDiscardButton</a> SaveAndDiscardButton.tsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">modules/85-cv/components/SaveAndDiscardButton</a> SaveAndDiscardButton.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -98,13 +98,23 @@
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -112,6 +122,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -119,6 +130,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -143,6 +155,9 @@
 import { Button } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
+import RbacButton from '@rbac/components/Button/Button'
+import type { PermissionsRequest } from '@rbac/hooks/usePermission'
+import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import css from './SaveAndDiscardButton.module.scss'
 &nbsp;
 interface SaveAndDiscardButtonInterface {
@@ -150,25 +165,28 @@ interface SaveAndDiscardButtonInterface {
   onSave: (data: any) =&gt; void | Promise&lt;void&gt;
   onDiscard: () =&gt; void
   className?: string
+  RbacPermission?: Omit&lt;PermissionsRequest, 'permissions'&gt; &amp; { permission: PermissionIdentifier }
 }
 &nbsp;
 export default function SaveAndDiscardButton({
   isUpdated,
   onSave,
   onDiscard,
-  className
+  className,
+  RbacPermission
 }: SaveAndDiscardButtonInterface): JSX.Element {
   const { getString } = useStrings()
   return (
     &lt;&gt;
       &lt;div className={cx(css.saveHeader, className)}&gt;
         {isUpdated &amp;&amp; &lt;div className={css.tagRender}&gt;{getString('unsavedChanges')}&lt;/div&gt;}
-        &lt;Button
+        &lt;RbacButton
           intent="primary"
           text={getString('save')}
           onClick={onSave}
           icon="send-data"
           className={css.saveButton}
+          permission={RbacPermission}
         /&gt;
         &lt;Button
           disabled={!isUpdated}
@@ -187,7 +205,7 @@ export default function SaveAndDiscardButton({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 17 2021 12:21:23 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 17 2021 21:53:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

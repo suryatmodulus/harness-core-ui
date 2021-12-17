@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.71% </span>
+                <span class="strong">63.93% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>37/59</span>
+                <span class='fraction'>39/61</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.71% </span>
+                <span class="strong">63.93% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>37/59</span>
+                <span class='fraction'>39/61</span>
             </div>
         
             
@@ -261,12 +261,23 @@
 <a name='L202'></a><a href='#L202'>202</a>
 <a name='L203'></a><a href='#L203'>203</a>
 <a name='L204'></a><a href='#L204'>204</a>
-<a name='L205'></a><a href='#L205'>205</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -372,6 +383,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -468,11 +486,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect, useRef } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Formik, Page, useToaster, Tabs, Container, Layout, Button, ButtonVariation } from '@wings-software/uicore'
+import { PermissionIdentifier, ResourceType } from 'microfrontends'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { useGetServiceLevelObjective, useSaveSLOData, useUpdateSLOData } from 'services/cv'
+import RbacButton from '@rbac/components/Button/Button'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import SLOName from './components/CreateSLOForm/components/SLOName/SLOName'
 import SLI from './components/CreateSLOForm/components/SLI/SLI'
@@ -560,7 +580,7 @@ const CVCreateSLO: React.FC = () =&gt; {
         disabled={loading}
         onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setSelectedTabId(TabsOrder[Math.max(0, TabsOrder.indexOf(selectedTabId) - 1)])}</span>
       /&gt;
-      &lt;Button
+      &lt;RbacButton
         rightIcon="chevron-right"
         text={selectedTabId === CreateSLOTabs.SLO_TARGET_BUDGET_POLICY ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('save') </span>: getString('continue')}
         variation={ButtonVariation.PRIMARY}
@@ -570,6 +590,13 @@ const CVCreateSLO: React.FC = () =&gt; {
 <span class="cstat-no" title="statement not covered" >            formikProps.submitForm()</span>
           } else <span class="cstat-no" title="statement not covered" >if (isFormDataValid(formikProps, selectedTabId)) {</span>
 <span class="cstat-no" title="statement not covered" >            setSelectedTabId(TabsOrder[Math.min(TabsOrder.length, TabsOrder.indexOf(selectedTabId) + 1)])</span>
+          }
+        }}
+        permission={{
+          permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
+          resource: {
+            resourceType: ResourceType.MONITOREDSERVICE,
+            resourceIdentifier: projectIdentifier
           }
         }}
       /&gt;
@@ -676,7 +703,7 @@ export default CVCreateSLO
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 17 2021 12:21:23 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 17 2021 21:53:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

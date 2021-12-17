@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
@@ -110,12 +110,33 @@
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">27x</span>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -132,9 +153,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
-<span class="cline-any cline-yes">264x</span>
-<span class="cline-any cline-yes">259x</span>
-<span class="cline-any cline-yes">259x</span>
+<span class="cline-any cline-yes">258x</span>
+<span class="cline-any cline-yes">253x</span>
+<span class="cline-any cline-yes">253x</span>
+<span class="cline-any cline-yes">253x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -142,7 +164,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -165,7 +199,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import cx from 'classnames'
+import { useParams } from 'react-router-dom'
 import { Button, Container } from '@wings-software/uicore'
+import { PermissionIdentifier, ResourceType } from 'microfrontends'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import RbacButton from '@rbac/components/Button/Button'
 import { useStrings } from 'framework/strings'
 import css from './SetupSourceLayout.module.scss'
 &nbsp;
@@ -187,6 +225,7 @@ export interface SetupSourceLayoutProps {
 export function FooterCTA(props: FooterCTAProps): JSX.Element {
   const { onNext, onPrevious, isSubmit, className } = props
   const { getString } = useStrings()
+  const { projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
   return (
     &lt;Container className={cx(css.footerCta, className)}&gt;
       {onPrevious &amp;&amp; (
@@ -195,9 +234,21 @@ export function FooterCTA(props: FooterCTAProps): JSX.Element {
         &lt;/Button&gt;
       )}
       {onNext &amp;&amp; (
-        &lt;Button icon="chevron-right" className={css.nextButton} intent="primary" onClick={() =&gt; onNext()}&gt;
+        &lt;RbacButton
+          icon="chevron-right"
+          className={css.nextButton}
+          intent="primary"
+          permission={{
+            permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
+            resource: {
+              resourceType: ResourceType.MONITOREDSERVICE,
+              resourceIdentifier: projectIdentifier
+            }
+          }}
+          onClick={() =&gt; onNext()}
+        &gt;
           {isSubmit ? getString('submit') : getString('next')}
-        &lt;/Button&gt;
+        &lt;/RbacButton&gt;
       )}
     &lt;/Container&gt;
   )
@@ -223,7 +274,7 @@ export function SetupSourceLayout(props: SetupSourceLayoutProps): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 17 2021 12:21:23 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 17 2021 21:53:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

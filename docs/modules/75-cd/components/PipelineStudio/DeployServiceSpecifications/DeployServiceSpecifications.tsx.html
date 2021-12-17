@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.63% </span>
+                <span class="strong">69.85% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>94/135</span>
+                <span class='fraction'>95/136</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.26% </span>
+                <span class="strong">59.9% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>240/405</span>
+                <span class='fraction'>248/414</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.15% </span>
+                <span class="strong">70.37% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>94/134</span>
+                <span class='fraction'>95/135</span>
             </div>
         
             
@@ -442,7 +442,9 @@
 <a name='L383'></a><a href='#L383'>383</a>
 <a name='L384'></a><a href='#L384'>384</a>
 <a name='L385'></a><a href='#L385'>385</a>
-<a name='L386'></a><a href='#L386'>386</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L386'></a><a href='#L386'>386</a>
+<a name='L387'></a><a href='#L387'>387</a>
+<a name='L388'></a><a href='#L388'>388</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -482,6 +484,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -529,7 +532,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -633,8 +637,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -650,7 +654,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
@@ -868,6 +872,7 @@ import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/
 import SelectDeploymentType from '@cd/components/PipelineStudio/DeployServiceSpecifications/SelectDeploymentType'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { useDeepCompareEffect } from '@common/hooks'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 &nbsp;
 export default function DeployServiceSpecifications(props: React.PropsWithChildren&lt;unknown&gt;): JSX.Element {
@@ -910,9 +915,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   const { errorMap } = useValidationErrors()
 &nbsp;
   useEffect(() =&gt; {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (
+    if (
       !stage?.stage?.spec?.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?.serviceDefinition </span>&amp;&amp;
-      !stage?.stage?.spec?.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?.useFromStage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.stage</span>
+      !stage?.stage?.spec?.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?.useFromStage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.stage </span>&amp;&amp;
+      stage?.stage?.type === StageType.DEPLOY
     ) {
       setDefaultServiceSchema()
     }
@@ -1019,7 +1025,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 &nbsp;
   const setDefaultServiceSchema = (): Promise&lt;void&gt; =&gt; {
     const stageData = produce(stage, draft =&gt; {
-      if (draft) {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (draft) {
         set(draft, 'stage.spec', {
           ...stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec,
           serviceConfig: {
@@ -1035,7 +1041,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       }
     })
 &nbsp;
-    return debounceUpdateStage(stageData?.stage)
+    return debounceUpdateStage(stageData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage)
   }
 &nbsp;
   const setStageOverrideSchema = <span class="fstat-no" title="function not covered" >(): Promise&lt;void&gt; =</span>&gt; {
@@ -1219,7 +1225,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 17 2021 07:14:05 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 17 2021 09:24:41 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

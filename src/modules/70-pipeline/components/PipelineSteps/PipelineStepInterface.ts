@@ -47,5 +47,6 @@ export enum StepType {
   KubernetesGcp = 'KubernetesGcp',
   ResourceConstraint = 'ResourceConstraint',
   FlagConfiguration = 'FlagConfiguration',
-  Template = 'Template'
+  Template = 'Template',
+  ZeroNorth = 'ZeroNorth'
 }

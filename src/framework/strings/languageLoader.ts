@@ -24,6 +24,7 @@ import ce from '@ce/strings/strings.en.yaml'
 import cf from '@cf/strings/strings.en.yaml'
 import ci from '@ci/strings/strings.en.yaml'
 import cv from '@cv/strings/strings.en.yaml'
+import sto from '@sto/strings/strings.en.yaml'
 
 export default function languageLoader() {
   return {
@@ -47,6 +48,7 @@ export default function languageLoader() {
     ce,
     cf,
     ci,
-    cv
+    cv,
+    sto
   }
 }

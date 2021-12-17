@@ -4850,6 +4850,7 @@ export interface StringsMap {
   'cv.verificationErrored': string
   'cv.verificationStatus': string
   'cv.verifications': string
+  'sto.stepDescription.ZeroNorth': string
   'cv.wednesday': string
   'cv.widowEnds': string
   'cv.windowEndsDay': string

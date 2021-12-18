@@ -153,14 +153,20 @@ export interface ASRuleCreationActiveStep {
 export interface BaseFetchDetails {
   gatewayDetails: GatewayDetails
   accountId: string
-}
-
-export interface GetInitialAccessPointDetails extends BaseFetchDetails {
-  lbDetails?: AccessPointCore
   projectId?: string
   orgId?: string
 }
 
-export interface GetInitialAzureAccessPoint extends Omit<GetInitialAccessPointDetails, 'lbDetails'> {
+export interface GetInitialAccessPointDetails extends BaseFetchDetails {
+  lbDetails?: AccessPointCore
+}
+
+export interface GetInitialAzureAccessPoint extends BaseFetchDetails {
   lbDetails?: AzureAccessPointCore
+}
+
+export interface RuleCreationParams {
+  isAwsProvider?: boolean
+  isAzureProvider?: boolean
+  isCreateMode?: boolean
 }

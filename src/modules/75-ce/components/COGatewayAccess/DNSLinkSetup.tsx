@@ -41,13 +41,13 @@ import { Utils } from '../../common/Utils'
 import LoadBalancerDnsConfig from './LoadBalancerDnsConfig'
 import AzureAPConfig from '../COAccessPointList/AzureAPConfig'
 import {
-  createApDetailsFromLoadBalancer,
-  createAzureAppGatewayFromLoadBalancer,
   getAccessPointFetchQueryParams,
-  getDummySupportedResourceFromAG,
-  getDummySupportedResourceFromALB,
-  getInitialAccessPointDetails,
-  getSupportedResourcesQueryParams
+  getApSelectionList,
+  getDummyResource,
+  getSupportedResourcesQueryParams,
+  getLoadBalancerToEdit,
+  getMatchingLoadBalancer,
+  getLinkedAccessPoint
 } from './helper'
 import LBAdvancedConfiguration from './LBAdvancedConfiguration'
 import ResourceAccessUrlSelector from './ResourceAccessUrlSelector'
@@ -193,21 +193,14 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     })
 
     submittedAccessPoints?.forEach(_item => {
-      apCoresResponseMap[_item.name as string] = getDummyResource(_item)
+      apCoresResponseMap[_item.name as string] = getDummyResource(_item, isAwsProvider)
     })
     setApCoreResponseList(_values(apCoresResponseMap))
   }, [apCoresResponse?.response, accessPoints?.response])
 
   useEffect(() => {
-    const loaded: SelectOption[] = apCoreResponseList?.map(_ap => ({
-      label: _ap.details?.name as string,
-      value: isAwsProvider
-        ? ((_ap.details as ALBAccessPointCore)?.albARN as string)
-        : isAzureProvider
-        ? ((_ap.details as AzureAccessPointCore).id as string)
-        : ''
-    }))
-    setApCoreList(_defaultTo(loaded, []))
+    const loaded = getApSelectionList(apCoreResponseList, { isAwsProvider, isAzureProvider })
+    setApCoreList(loaded)
   }, [apCoreResponseList])
 
   useEffect(() => {
@@ -226,45 +219,20 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     setSelectedLoadBalancer(undefined)
   }
 
-  const getDummyResource = (data: AccessPoint) => {
-    return isAwsProvider ? getDummySupportedResourceFromALB(data) : getDummySupportedResourceFromAG(data)
-  }
-
-  const getLoadBalancerToEdit = () => {
-    let lb: AccessPoint = {}
-    if (isAwsProvider) {
-      lb = isCreateMode
-        ? getInitialAccessPointDetails({
-            gatewayDetails: props.gatewayDetails,
-            accountId,
-            projectId: projectIdentifier,
-            orgId: orgIdentifier
-          })
-        : createApDetailsFromLoadBalancer({
-            lbDetails: selectedLoadBalancer,
-            gatewayDetails: props.gatewayDetails,
-            accountId,
-            projectId: projectIdentifier,
-            orgId: orgIdentifier
-          })
-    } else if (isAzureProvider) {
-      lb = createAzureAppGatewayFromLoadBalancer(
-        {
-          gatewayDetails: props.gatewayDetails,
-          accountId,
-          lbDetails: selectedLoadBalancer?.details as AzureAccessPointCore
-        },
-        isCreateMode
-      )
-    }
-    return lb
-  }
-
   const { openLoadBalancerModal } = useLoadBalancerModal(
     {
       gatewayDetails: props.gatewayDetails,
       mode: Utils.getConditionalResult(isCreateMode, 'create', 'import'),
-      loadBalancer: getLoadBalancerToEdit(),
+      loadBalancer: getLoadBalancerToEdit(
+        {
+          lbDetails: selectedLoadBalancer,
+          gatewayDetails: props.gatewayDetails,
+          accountId,
+          projectId: projectIdentifier,
+          orgId: orgIdentifier
+        },
+        { isAwsProvider, isAzureProvider, isCreateMode }
+      ),
       handleClose: clearStatus => {
         if (clearStatus && !isCreateMode) {
           clearAPData()
@@ -338,31 +306,27 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     return isValid
   }
 
+  const handleLoadBalancerUpdation = (lb: AccessPointCore) => {
+    let linkedAccessPoint = getLinkedAccessPoint(_defaultTo(accessPoints?.response, []), isAwsProvider, lb)
+    if (!linkedAccessPoint) {
+      linkedAccessPoint = accessPoint
+    }
+
+    // Use only those Access Points which are not in errored state.
+    if (linkedAccessPoint?.status === 'errored') {
+      showError(getString('ce.co.autoStoppingRule.setupAccess.erroredAccessPointSelectionText'))
+      clearAPData()
+    } else {
+      updateLoadBalancerDetails(linkedAccessPoint)
+    }
+  }
+
   const handleLoadBalancerSelection = (item: SelectOption) => {
     setSelectedApCore(item)
-    const matchedLb = apCoreResponseList?.find(_lb =>
-      isAwsProvider
-        ? item.value === (_lb.details as ALBAccessPointCore)?.albARN
-        : item.value === (_lb.details as AzureAccessPointCore)?.id
-    )
+    const matchedLb = getMatchingLoadBalancer(item, apCoreResponseList, { isAwsProvider })
     setSelectedLoadBalancer(matchedLb)
     if (isValidLoadBalancer(matchedLb as AccessPointCore)) {
-      let linkedAccessPoint = accessPoints?.response?.find(_ap =>
-        isAwsProvider
-          ? _ap.metadata?.albArn === (matchedLb?.details as ALBAccessPointCore)?.albARN
-          : (_ap.metadata?.app_gateway_id || _ap.id) === (matchedLb?.details as AzureAccessPointCore)?.id
-      )
-      if (!linkedAccessPoint) {
-        linkedAccessPoint = accessPoint
-      }
-
-      // Use only those Access Points which are not in errored state.
-      if (linkedAccessPoint?.status === 'errored') {
-        showError(getString('ce.co.autoStoppingRule.setupAccess.erroredAccessPointSelectionText'))
-        clearAPData()
-      } else {
-        updateLoadBalancerDetails(linkedAccessPoint)
-      }
+      handleLoadBalancerUpdation(matchedLb as AccessPointCore)
     } else {
       isCreateMode && setIsCreateMode(false)
       openLoadBalancerModal()

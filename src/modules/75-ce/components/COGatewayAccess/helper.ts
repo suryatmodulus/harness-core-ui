@@ -6,6 +6,7 @@
  */
 
 import { isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
+import type { SelectOption } from '@wings-software/uicore'
 import { Utils } from '@ce/common/Utils'
 import type {
   AccessPoint,
@@ -25,7 +26,8 @@ import type {
   ConnectionMetadata,
   GatewayDetails,
   GetInitialAccessPointDetails,
-  GetInitialAzureAccessPoint
+  GetInitialAzureAccessPoint,
+  RuleCreationParams
 } from '../COCreateGateway/models'
 
 export const getSelectedTabId = (accessDetails: ConnectionMetadata): string => {
@@ -102,6 +104,10 @@ export const getDummySupportedResourceFromALB = (alb: AccessPoint): AccessPointC
       vpc: alb.vpc
     }
   }
+}
+
+export const getDummyResource = (data: AccessPoint, isAwsProvider: boolean) => {
+  return isAwsProvider ? getDummySupportedResourceFromALB(data) : getDummySupportedResourceFromAG(data)
 }
 
 export const getInitialAccessPointDetails = ({
@@ -181,6 +187,39 @@ export const createAzureAppGatewayFromLoadBalancer = (
       subnet_id: details?.subnet_id // eslint-disable-line
     }
   }
+}
+
+export const getLoadBalancerToEdit = (
+  { gatewayDetails, accountId, projectId, orgId, lbDetails }: GetInitialAccessPointDetails,
+  { isAwsProvider, isAzureProvider, isCreateMode }: RuleCreationParams
+) => {
+  let lb: AccessPoint = {}
+  if (isAwsProvider) {
+    lb = isCreateMode
+      ? getInitialAccessPointDetails({
+          gatewayDetails: gatewayDetails,
+          accountId,
+          projectId,
+          orgId
+        })
+      : createApDetailsFromLoadBalancer({
+          lbDetails,
+          gatewayDetails: gatewayDetails,
+          accountId,
+          projectId,
+          orgId
+        })
+  } else if (isAzureProvider) {
+    lb = createAzureAppGatewayFromLoadBalancer(
+      {
+        gatewayDetails: gatewayDetails,
+        accountId,
+        lbDetails: lbDetails?.details as AzureAccessPointCore
+      },
+      _defaultTo(isCreateMode, false)
+    )
+  }
+  return lb
 }
 
 export const getAccessPointFetchQueryParams = (
@@ -276,5 +315,43 @@ export const getPortConfig = (
 export const getDefaultPortConfigs = (): PortConfig[] => {
   return Object.entries(portProtocolMap).map(([port, protocol]) =>
     getPortConfig({ from: Number(port), to: Number(port), protocol })
+  )
+}
+
+export const getApSelectionList = (
+  apCoreResponseList: AccessPointCore[] = [],
+  { isAwsProvider, isAzureProvider }: RuleCreationParams
+): SelectOption[] => {
+  return apCoreResponseList.map(_ap => ({
+    label: _ap.details?.name as string,
+    value: isAwsProvider
+      ? ((_ap.details as ALBAccessPointCore)?.albARN as string)
+      : isAzureProvider
+      ? ((_ap.details as AzureAccessPointCore).id as string)
+      : ''
+  }))
+}
+
+export const getMatchingLoadBalancer = (
+  selectedItem: SelectOption,
+  apCoreResponseList: AccessPointCore[],
+  { isAwsProvider }: RuleCreationParams
+): AccessPointCore | undefined => {
+  return apCoreResponseList?.find(_lb =>
+    isAwsProvider
+      ? selectedItem.value === (_lb.details as ALBAccessPointCore)?.albARN
+      : selectedItem.value === (_lb.details as AzureAccessPointCore)?.id
+  )
+}
+
+export const getLinkedAccessPoint = (
+  accessPoints: AccessPoint[],
+  isAwsProvider: boolean,
+  matchedLb?: AccessPointCore
+): AccessPoint | undefined => {
+  return accessPoints?.find(_ap =>
+    isAwsProvider
+      ? _ap.metadata?.albArn === (matchedLb?.details as ALBAccessPointCore)?.albARN
+      : (_ap.metadata?.app_gateway_id || _ap.id) === (matchedLb?.details as AzureAccessPointCore)?.id
   )
 }

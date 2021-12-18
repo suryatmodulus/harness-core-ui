@@ -133,9 +133,12 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
   const { originalPipeline, template, path = '', readonly, viewType, maybeContainerClass = '' } = props
   const { getString } = useStrings()
 
-  const isCloneCodebaseEnabledAtLeastAtOneStage = originalPipeline?.stages?.some(stage =>
-    get(stage, 'stage.spec.cloneCodebase')
+  const isCloneCodebaseEnabledAtLeastAtOneStage = originalPipeline?.stages?.some(
+    stage =>
+      get(stage, 'stage.spec.cloneCodebase') ||
+      stage.parallel?.some(parallelStage => get(parallelStage, 'stage.spec.cloneCodebase'))
   )
+
   const { expressions } = useVariablesExpression()
 
   const isInputStageDisabled = (stageId: string): boolean => {

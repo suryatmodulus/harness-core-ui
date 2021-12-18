@@ -88,7 +88,7 @@ const useLoadBalancerModal = (
   const isAzureProvider = Utils.isProviderAzure(gatewayDetails.provider)
 
   const [openLoadBalancerModal, hideLoadBalancerModal] = useModalHook(() => {
-    const onClose = (clearStatus: boolean = false) => {
+    const onClose = (clearStatus = false) => {
       handleClose(clearStatus)
       hideLoadBalancerModal()
     }

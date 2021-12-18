@@ -13,9 +13,13 @@ import type {
   AccessPointResourcesQueryParams,
   ALBAccessPointCore,
   AzureAccessPointCore,
+  FirewallRule,
   ListAccessPointsQueryParams,
-  TargetGroupMinimal
+  NetworkSecurityGroup,
+  TargetGroupMinimal,
+  PortConfig
 } from 'services/lw'
+import { portProtocolMap } from '@ce/constants'
 import type {
   BaseFetchDetails,
   ConnectionMetadata,
@@ -236,4 +240,41 @@ export const getSecurityGroupsBodyText = (gatewayDetails: GatewayDetails): strin
     )}']`
   }
   return text
+}
+
+export const getAllInboundRules = (groups: Array<NetworkSecurityGroup[]>) => {
+  const rules: FirewallRule[] = []
+  groups.forEach(g => {
+    g.forEach(s => {
+      s.inbound_rules?.forEach(r => {
+        rules.push(r)
+      })
+    })
+  })
+  return rules
+}
+
+export const getDefinedInboundRules = (rules: FirewallRule[]) => {
+  return rules.filter(r => !(r.protocol === '-1' || r.from === '*'))
+}
+
+export const getPortConfig = (
+  { from, to, protocol }: { from: number; to: number; protocol: string } = { from: 80, to: 80, protocol: 'http' }
+): PortConfig => {
+  return {
+    protocol: protocol,
+    port: from,
+    action: 'forward',
+    target_protocol: protocol, // eslint-disable-line
+    target_port: to, // eslint-disable-line
+    server_name: '', // eslint-disable-line
+    redirect_url: '', // eslint-disable-line
+    routing_rules: [] // eslint-disable-line
+  }
+}
+
+export const getDefaultPortConfigs = (): PortConfig[] => {
+  return Object.entries(portProtocolMap).map(([port, protocol]) =>
+    getPortConfig({ from: Number(port), to: Number(port), protocol })
+  )
 }

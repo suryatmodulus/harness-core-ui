@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { isEmpty as _isEmpty } from 'lodash-es'
+import { isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
 import { Container, Icon, Layout, Switch, Tabs, Text } from '@wings-software/uicore'
 import { Tab } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -17,7 +17,13 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import type { ASRuleCreationActiveStep, GatewayDetails } from '../COCreateGateway/models'
 import CORoutingTable from '../COGatewayConfig/CORoutingTable'
 import COHealthCheckTable from '../COGatewayConfig/COHealthCheckTable'
-import { getSecurityGroupsBodyText } from './helper'
+import {
+  getAllInboundRules,
+  getDefinedInboundRules,
+  getPortConfig,
+  getSecurityGroupsBodyText,
+  getDefaultPortConfigs
+} from './helper'
 import css from './COGatewayAccess.module.scss'
 
 interface LBAdvancedConfigurationProps {
@@ -45,10 +51,9 @@ const LBAdvancedConfiguration: React.FC<LBAdvancedConfigurationProps> = props =>
   })
 
   useEffect(() => {
-    if (routingRecords.length) {
-      return
+    if (_isEmpty(routingRecords) && !_isEmpty(props.gatewayDetails.selectedInstances)) {
+      fetchInstanceSecurityGroups()
     }
-    !_isEmpty(props.gatewayDetails.selectedInstances) && fetchInstanceSecurityGroups()
   }, [])
 
   useEffect(() => {
@@ -59,55 +64,25 @@ const LBAdvancedConfiguration: React.FC<LBAdvancedConfigurationProps> = props =>
     props.setGatewayDetails(updatedGatewayDetails)
   }, [routingRecords])
 
-  const addAllPorts = () => {
-    const emptyRecords: PortConfig[] = []
-    Object.keys(portProtocolMap).forEach(item => {
-      emptyRecords.push({
-        protocol: portProtocolMap[+item],
-        port: +item,
-        action: 'forward',
-        target_protocol: portProtocolMap[+item], // eslint-disable-line
-        target_port: +item, // eslint-disable-line
-        server_name: '', // eslint-disable-line
-        redirect_url: '', // eslint-disable-line
-        routing_rules: [] // eslint-disable-line
-      })
-    })
-    const routes = [...emptyRecords]
-    if (routes.length) {
-      setRoutingRecords(routes)
-    }
-  }
-
   const handleSaveRoutingRecords = (data: NetworkSecurityGroupForInstanceArray) => {
-    const emptyRecords: PortConfig[] = []
-    Object.entries(data).forEach(([_instance, groups]) => {
-      groups?.forEach(sg => {
-        sg?.inbound_rules?.forEach(rule => {
-          if (rule.protocol === '-1' || rule.from === '*') {
-            addAllPorts()
-            return
-          } else if (rule && rule.from && [80, 443].includes(+rule.from)) {
-            const fromRule = +rule.from
-            const toRule = +(rule.to ? rule.to : 0)
-            emptyRecords.push({
-              protocol: portProtocolMap[fromRule],
-              port: fromRule,
-              action: 'forward',
-              target_protocol: portProtocolMap[fromRule], // eslint-disable-line
-              target_port: toRule, // eslint-disable-line
-              server_name: '', // eslint-disable-line
-              redirect_url: '', // eslint-disable-line
-              routing_rules: [] // eslint-disable-line
-            })
-            const routes = [...emptyRecords]
-            if (routes.length) {
-              setRoutingRecords(routes)
-            }
-          }
-        })
-      })
-    })
+    const securityGroups = Object.entries(data).map(([, groups]) => groups)
+    const inboundRules = getAllInboundRules(securityGroups)
+    const definedRules = getDefinedInboundRules(inboundRules)
+    let newRecords = []
+    if (!_isEmpty(definedRules)) {
+      newRecords = definedRules
+        .filter(rule => Object.keys(portProtocolMap).includes(rule.from as string))
+        .map(rule =>
+          getPortConfig({
+            from: Number(rule.from),
+            to: _defaultTo(Number(rule.to), 0),
+            protocol: portProtocolMap[Number(rule.from)]
+          })
+        )
+    } else {
+      newRecords = getDefaultPortConfigs()
+    }
+    setRoutingRecords(newRecords)
   }
 
   const fetchInstanceSecurityGroups = async (): Promise<void> => {
@@ -124,18 +99,7 @@ const LBAdvancedConfiguration: React.FC<LBAdvancedConfigurationProps> = props =>
   }
 
   const addPort = () => {
-    routingRecords.push({
-      protocol: 'http',
-      port: 80,
-      action: 'forward',
-      target_protocol: 'http', // eslint-disable-line
-      target_port: 80, // eslint-disable-line
-      redirect_url: '', // eslint-disable-line
-      server_name: '', // eslint-disable-line
-      routing_rules: [] // eslint-disable-line
-    })
-    const routes = [...routingRecords]
-    setRoutingRecords(routes)
+    setRoutingRecords(records => [...records, getPortConfig()])
   }
 
   const updateGatewayHealthCheck = (_healthCheckDetails: HealthCheck | null) => {

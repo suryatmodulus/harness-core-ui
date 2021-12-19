@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.43% </span>
+                <span class="strong">34.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/23</span>
+                <span class='fraction'>9/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/34</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">27.27% </span>
+                <span class="strong">32% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/22</span>
+                <span class='fraction'>8/25</span>
             </div>
         
             
@@ -154,13 +154,16 @@
 <a name='L95'></a><a href='#L95'>95</a>
 <a name='L96'></a><a href='#L96'>96</a>
 <a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,6 +181,7 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -195,8 +199,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -257,6 +259,8 @@ import { Menu, Position } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { TemplateStepData } from '@pipeline/utils/tempates'
 import type { StepOrStepGroupOrTemplateStepData } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import { getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
+import { useStrings } from 'framework/strings'
 import css from './TemplateBar.module.scss'
 &nbsp;
 export interface TemplateBarProps {
@@ -275,17 +279,18 @@ interface TemplateMenuItem {
 export const TemplateBar: React.FC&lt;TemplateBarProps&gt; = <span class="fstat-no" title="function not covered" >(p</span>rops): JSX.Element =&gt; {
   const { step, onChangeTemplate, onRemoveTemplate } = <span class="cstat-no" title="statement not covered" >props</span>
   const [menuOpen, setMenuOpen] = <span class="cstat-no" title="statement not covered" >React.useState(false)</span>
+  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
 &nbsp;
   const getItems = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(): TemplateMenuItem[] =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    return [</span>
       {
         icon: 'command-switch',
-        label: 'Change Template',
+        label: getString('pipeline.changeTemplateLabel'),
         onClick: <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >onChangeTemplate?.(step)</span>
       },
       {
         icon: 'main-trash',
-        label: 'Remove Template',
+        label: getString('pipeline.removeTemplateLabel'),
         onClick: <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >onRemoveTemplate?.()</span>
       }
     ]
@@ -301,9 +306,7 @@ export const TemplateBar: React.FC&lt;TemplateBarProps&gt; = <span class="fstat-
       &lt;Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}&gt;
         &lt;Icon size={11} color={Color.WHITE} name={'template-library'} /&gt;
         &lt;Text style={{ flexGrow: 1 }} font={{ size: 'small' }} color={Color.WHITE}&gt;
-          {`Using Template: ${(step as TemplateStepData)?.template?.templateRef} (${
-            (step as TemplateStepData)?.template?.versionLabel || 'Stable'
-          })`}
+          {`Using Template: ${getTemplateNameWithLabel((step as TemplateStepData)?.template)}`}
         &lt;/Text&gt;
         &lt;Popover
           isOpen={menuOpen}
@@ -355,7 +358,7 @@ export const TemplateBar: React.FC&lt;TemplateBarProps&gt; = <span class="fstat-
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 18 2021 11:05:54 GMT+0000 (Greenwich Mean Time)
+                at Sun Dec 19 2021 13:28:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

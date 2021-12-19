@@ -218,9 +218,11 @@
 <a name='L159'></a><a href='#L159'>159</a>
 <a name='L160'></a><a href='#L160'>160</a>
 <a name='L161'></a><a href='#L161'>161</a>
-<a name='L162'></a><a href='#L162'>162</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-yes">66x</span>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">69x</span>
+<span class="cline-any cline-yes">69x</span>
+<span class="cline-any cline-yes">69x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -228,24 +230,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">69x</span>
+<span class="cline-any cline-yes">69x</span>
+<span class="cline-any cline-yes">69x</span>
+<span class="cline-any cline-yes">69x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">69x</span>
+<span class="cline-any cline-yes">69x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">69x</span>
+<span class="cline-any cline-yes">69x</span>
+<span class="cline-any cline-yes">69x</span>
+<span class="cline-any cline-yes">69x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">69x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -377,8 +381,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-yes">69x</span>
+<span class="cline-any cline-yes">69x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { useParams } from 'react-router-dom'
 import {
@@ -420,6 +424,7 @@ export interface CustomVariableInputSetProps extends CustomVariableInputSetExtra
   stepViewType?: StepViewType
   inputSetData?: InputSetData&lt;CustomVariablesData&gt;
   formik?: any
+  allowableTypes: MultiTypeInputType[]
 }
 function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.ReactElement {
   const {
@@ -431,7 +436,8 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
     domId,
     inputSetData,
     formik,
-    allValues
+    allValues,
+    allowableTypes
   } = props
   const basePath = path<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength ? `${path}.` : ''
   const { expressions } = useVariablesExpression()
@@ -495,7 +501,7 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
               {variable.type === VariableType.Secret ? (
 <span class="branch-0 cbranch-no" title="branch not covered" >                &lt;MultiTypeSecretInput</span>
                   expressions={expressions}
-                  allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+                  allowableTypes={allowableTypes}
                   name={`${basePath}variables[${index}].value`}
                   disabled={inputSetData?.readonly}
                   label=""
@@ -510,7 +516,7 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
                       useValue
                       selectItems={items}
                       multiTypeInputProps={{
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                        allowableTypes,
                         expressions,
                         selectProps: { disabled: inputSetData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eadonly, items: items }
                       }}
@@ -522,7 +528,7 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
                       name={`${basePath}variables[${index}].value`}
                       multiTextInputProps={{
                         textProps: { type: variable.type === 'Number' ? <span class="branch-0 cbranch-no" title="branch not covered" >'number' </span>: 'text' },
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                        allowableTypes,
                         expressions
                       }}
                       label=""
@@ -547,7 +553,7 @@ export { CustomVariableInputSet }
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 18 2021 11:05:54 GMT+0000 (Greenwich Mean Time)
+                at Sun Dec 19 2021 13:28:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

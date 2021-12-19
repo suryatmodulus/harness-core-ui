@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85% </span>
+                <span class="strong">77.53% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>51/60</span>
+                <span class='fraction'>69/89</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -143,7 +143,24 @@
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -163,16 +180,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -247,63 +281,80 @@ export interface JiraApprovalTabProps {
   isWaiting: boolean
 }
 &nbsp;
+import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import { JiraCriteria } from './JiraCriteria/JiraCriteria'
+import headerCss from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/ExecutionStageDetailsHeader/ExecutionStageDetailsHeader.module.scss'
 import css from './JiraApprovalTab.module.scss'
 &nbsp;
 export function JiraApprovalTab(props: JiraApprovalTabProps): React.ReactElement {
   const { approvalData, isWaiting } = props
   const wasApproved = !isWaiting &amp;&amp; approvalData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus === ApprovalStatus.APPROVED
-  const wasRejected = !isWaiting &amp;&amp; approvalData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus === ApprovalStatus.REJECTED
-&nbsp;
+  const wasRejected =
+    !isWaiting &amp;&amp; (approvalData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus === ApprovalStatus.REJECTED || approvalData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus === ApprovalStatus.EXPIRED)
+  const wasFailed = !isWaiting &amp;&amp; approvalData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus === ApprovalStatus.FAILED
   const jiraKey = approvalData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>etails.issue.key
   const jiraUrl = approvalData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>etails.issue.url
 &nbsp;
   return (
     &lt;React.Fragment&gt;
-      &lt;div className={css.info} data-type="jira"&gt;
-        {isWaiting ? (
-          &lt;&gt;
-            &lt;div className={css.timer}&gt;
-              &lt;Duration
-                className={css.duration}
-                durationText=""
-                icon="hourglass"
-                startTime={approvalData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>eadline}
-                iconProps={{ size: 8 }}
-              /&gt;
-              &lt;String stringID="pipeline.timeRemainingSuffix" /&gt;
-            &lt;/div&gt;
-            {jiraKey &amp;&amp; jiraUrl ? (
-              &lt;div className={css.jiraTicket}&gt;
-                &lt;String stringID="pipeline.jiraApprovalStep.execution.jiraTicket" /&gt;
-&nbsp;
-                &lt;a href={jiraUrl} target="_blank" rel="noopener noreferrer"&gt;
-                  {jiraKey}
-                &lt;/a&gt;
+      {wasFailed ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;div className={headerCss.errorMsgWrapper}&gt;</span>
+          &lt;ExecutionStatusLabel status={'Failed'} /&gt;
+          &lt;div className={headerCss.errorMsg}&gt;
+            &lt;String className={headerCss.errorTitle} stringID="errorSummaryText" tagName="div" /&gt;
+            &lt;p&gt;{approvalData?.errorMessage}&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      ) : (
+        &lt;div className={css.info} data-type="jira"&gt;
+          {isWaiting ? (
+            &lt;&gt;
+              &lt;div className={css.timer}&gt;
+                &lt;Duration
+                  className={css.duration}
+                  durationText=""
+                  icon="hourglass"
+                  startTime={approvalData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>eadline}
+                  iconProps={{ size: 8 }}
+                /&gt;
+                &lt;String stringID="pipeline.timeRemainingSuffix" /&gt;
               &lt;/div&gt;
-            ) : null}
-          &lt;/&gt;
-        ) : null}
-        {wasApproved &amp;&amp; jiraUrl &amp;&amp; jiraKey ? (
-          &lt;div className={css.jiraTicket}&gt;
-            &lt;String stringID="pipeline.jiraApprovalStep.execution.wasApproved" /&gt;
+              {jiraKey &amp;&amp; jiraUrl ? (
+                &lt;div className={css.jiraTicket}&gt;
+                  &lt;String stringID="pipeline.jiraApprovalStep.execution.jiraTicket" /&gt;
 &nbsp;
-            &lt;a href={jiraUrl} target="_blank" rel="noopener noreferrer"&gt;
-              {jiraKey}
-            &lt;/a&gt;
-          &lt;/div&gt;
-        ) : null}
+                  &lt;a href={jiraUrl} target="_blank" rel="noopener noreferrer"&gt;
+                    {jiraKey}
+                  &lt;/a&gt;
+                &lt;/div&gt;
+              ) : null}
+            &lt;/&gt;
+          ) : null}
+          {wasApproved &amp;&amp; jiraUrl &amp;&amp; jiraKey ? (
+            &lt;div className={css.jiraTicket}&gt;
+              &lt;String stringID="pipeline.jiraApprovalStep.execution.wasApproved" /&gt;
 &nbsp;
-        {wasRejected &amp;&amp; jiraUrl &amp;&amp; jiraKey ? (
-          &lt;div className={css.jiraTicket}&gt;
-            &lt;String stringID="pipeline.jiraApprovalStep.execution.wasRejected" /&gt;
+              &lt;a href={jiraUrl} target="_blank" rel="noopener noreferrer"&gt;
+                {jiraKey}
+              &lt;/a&gt;
+            &lt;/div&gt;
+          ) : null}
 &nbsp;
-            &lt;a href={jiraUrl} target="_blank" rel="noopener noreferrer"&gt;
-              {jiraKey}
-            &lt;/a&gt;
-          &lt;/div&gt;
-        ) : null}
-      &lt;/div&gt;
+          {wasRejected &amp;&amp; jiraUrl &amp;&amp; jiraKey ? (
+            &lt;div className={css.jiraTicket}&gt;
+              {approvalData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus === ApprovalStatus.REJECTED ? (
+                &lt;String stringID="pipeline.jiraApprovalStep.execution.wasRejected" /&gt;
+              ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
+              {approvalData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus === ApprovalStatus.EXPIRED ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >                &lt;String stringID="pipeline.jiraApprovalStep.execution.wasExpired" /&gt;</span>
+              ) : null}
+              &lt;a href={jiraUrl} target="_blank" rel="noopener noreferrer"&gt;
+                {jiraKey}
+              &lt;/a&gt;
+            &lt;/div&gt;
+          ) : null}
+        &lt;/div&gt;
+      )}
       &lt;div className={css.jiraApproval}&gt;
         {approvalData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>etails<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovalCriteria ? (
           &lt;JiraCriteria type="approval" criteria={approvalData.details.approvalCriteria} /&gt;
@@ -322,7 +373,7 @@ export function JiraApprovalTab(props: JiraApprovalTabProps): React.ReactElement
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 18 2021 11:05:54 GMT+0000 (Greenwich Mean Time)
+                at Sun Dec 19 2021 13:28:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">49.02% </span>
+                <span class="strong">48.34% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>75/153</span>
+                <span class='fraction'>73/151</span>
             </div>
         
             
@@ -355,19 +355,8 @@
 <a name='L296'></a><a href='#L296'>296</a>
 <a name='L297'></a><a href='#L297'>297</a>
 <a name='L298'></a><a href='#L298'>298</a>
-<a name='L299'></a><a href='#L299'>299</a>
-<a name='L300'></a><a href='#L300'>300</a>
-<a name='L301'></a><a href='#L301'>301</a>
-<a name='L302'></a><a href='#L302'>302</a>
-<a name='L303'></a><a href='#L303'>303</a>
-<a name='L304'></a><a href='#L304'>304</a>
-<a name='L305'></a><a href='#L305'>305</a>
-<a name='L306'></a><a href='#L306'>306</a>
-<a name='L307'></a><a href='#L307'>307</a>
-<a name='L308'></a><a href='#L308'>308</a>
-<a name='L309'></a><a href='#L309'>309</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L299'></a><a href='#L299'>299</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -386,7 +375,6 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -409,6 +397,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -561,18 +550,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -685,8 +665,7 @@ import {
   HarnessDocTooltip,
   ThumbnailSelect,
   Color,
-  ButtonVariation,
-  MultiTypeInputType
+  ButtonVariation
 } from '@wings-software/uicore'
 import type { Item } from '@wings-software/uicore/dist/components/ThumbnailSelect/ThumbnailSelect'
 import cx from 'classnames'
@@ -695,7 +674,6 @@ import produce from 'immer'
 import { omit, set } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import { useStrings } from 'framework/strings'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type {
   CustomVariablesData,
@@ -717,6 +695,7 @@ import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpec
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import type { StringNGVariable } from 'services/cd-ng'
+import { getNameAndIdentifierSchema } from '@pipeline/utils/tempates'
 import css from './EditStageView.module.scss'
 import stageCss from '../../DeployStageSetupShell/DeployStage.module.scss'
 &nbsp;
@@ -768,7 +747,7 @@ export const EditStageView: React.FC&lt;EditStageViewProps&gt; = ({
       disabled: true
     }
   ]
-  const { stepsFactory, getStageFromPipeline, contextType } = usePipelineContext()
+  const { stepsFactory, getStageFromPipeline, contextType, allowableTypes } = usePipelineContext()
   const { variablesPipeline, metadataMap } = usePipelineVariables()
   const scrollRef = React.useRef&lt;HTMLDivElement | null&gt;(null)
   const allNGVariables = (<span class="branch-1 cbranch-no" title="branch not covered" >data?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.variables </span>|| []) as AllNGVariables[]
@@ -866,12 +845,7 @@ export const EditStageView: React.FC&lt;EditStageViewProps&gt; = ({
               }
 <span class="cstat-no" title="statement not covered" >              return errors</span>
             }}
-            validationSchema={Yup.object().shape({
-              ...(contextType === PipelineContextType.Pipeline &amp;&amp; {
-                name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
-                identifier: IdentifierSchema()
-              })
-            })}
+            validationSchema={Yup.object().shape(getNameAndIdentifierSchema(getString, contextType))}
           &gt;
             {formikProps =&gt; {
               window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.OVERVIEW }))
@@ -949,11 +923,7 @@ export const EditStageView: React.FC&lt;EditStageViewProps&gt; = ({
                       readonly={isReadonly}
                       type={StepType.CustomVariable}
                       stepViewType={StepViewType.StageVariable}
-                      allowableTypes={[
-                        MultiTypeInputType.FIXED,
-                        MultiTypeInputType.RUNTIME,
-                        MultiTypeInputType.EXPRESSION
-                      ]}
+                      allowableTypes={allowableTypes}
                       onUpdate={<span class="fstat-no" title="function not covered" >({</span> variables }: CustomVariablesData) =&gt; {
 <span class="cstat-no" title="statement not covered" >                        onChange?.({ ...(data?.stage as DeploymentStageElementConfig), variables })</span>
                       }}
@@ -988,7 +958,7 @@ export const EditStageView: React.FC&lt;EditStageViewProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 18 2021 11:05:54 GMT+0000 (Greenwich Mean Time)
+                at Sun Dec 19 2021 13:28:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

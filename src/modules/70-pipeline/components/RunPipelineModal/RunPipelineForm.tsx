@@ -299,7 +299,7 @@ function RunPipelineFormBasic({
       branch
     },
     identifier: pipelineIdentifier,
-    originalExecutionId: pipelineExecutionId || '',
+    originalExecutionId: defaultTo(pipelineExecutionId, ''),
     requestOptions: {
       headers: {
         'content-type': 'application/yaml'
@@ -316,7 +316,7 @@ function RunPipelineFormBasic({
       branch
     },
     identifier: pipelineIdentifier,
-    originalExecutionId: pipelineExecutionId || ''
+    originalExecutionId: defaultTo(pipelineExecutionId, '')
   })
 
   const {
@@ -341,8 +341,7 @@ function RunPipelineFormBasic({
   })
 
   const executionStageList = useMemo((): SelectOption[] => {
-    let executionStages: SelectOption[] = []
-    executionStages =
+    const executionStages: SelectOption[] =
       stageExecutionData?.data?.map((execStage: StageExecutionResponse) => {
         return {
           label: defaultTo(execStage?.stageName, ''),
@@ -382,11 +381,11 @@ function RunPipelineFormBasic({
   const inputSets = inputSetResponse?.data?.content
 
   const yamlTemplate = React.useMemo(() => {
-    return parse(template?.data?.inputSetTemplateYaml || '')?.pipeline
+    return parse(defaultTo(template?.data?.inputSetTemplateYaml, ''))?.pipeline
   }, [template?.data?.inputSetTemplateYaml])
 
   React.useEffect(() => {
-    const parsedPipelineYaml = parse(template?.data?.inputSetTemplateYaml || '') || {}
+    const parsedPipelineYaml = parse(defaultTo(template?.data?.inputSetTemplateYaml, '')) || {}
     const toBeUpdated = merge(parsedPipelineYaml, currentPipeline || {}) as {
       pipeline: PipelineInfoConfig
     }
@@ -424,7 +423,7 @@ function RunPipelineFormBasic({
               setCurrentPipeline(toBeUpdated)
             }
           } catch (e) {
-            showError(e?.data?.message || e?.message, undefined, 'pipeline.feth.inputSetTemplateYaml.error')
+            showError(defaultTo(e?.data?.message, e?.message), undefined, 'pipeline.feth.inputSetTemplateYaml.error')
           }
         }
         fetchData()
@@ -487,7 +486,7 @@ function RunPipelineFormBasic({
       }
     })
 
-  const pipeline: PipelineInfoConfig | undefined = parse(pipelineResponse?.data?.yamlPipeline || '')?.pipeline
+  const pipeline: PipelineInfoConfig | undefined = parse(defaultTo(pipelineResponse?.data?.yamlPipeline, ''))?.pipeline
 
   const valuesPipelineRef = useRef<PipelineInfoConfig>()
 
@@ -581,7 +580,7 @@ function RunPipelineFormBasic({
                 orgIdentifier,
                 pipelineIdentifier,
                 projectIdentifier,
-                executionIdentifier: data?.planExecution?.uuid || '',
+                executionIdentifier: defaultTo(data?.planExecution?.uuid, ''),
                 accountId,
                 module
               }),
@@ -595,7 +594,7 @@ function RunPipelineFormBasic({
           }
         }
       } catch (error) {
-        showWarning(error?.data?.message || getString('runPipelineForm.runPipelineFailed'))
+        showWarning(defaultTo(error?.data?.message, getString('runPipelineForm.runPipelineFailed')))
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -631,7 +630,7 @@ function RunPipelineFormBasic({
   const handleModeSwitch = useCallback(
     (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
-        const presentPipeline = parse(yamlHandler?.getLatestYaml() || '') as { pipeline: PipelineInfoConfig }
+        const presentPipeline = parse(defaultTo(yamlHandler?.getLatestYaml(), '')) as { pipeline: PipelineInfoConfig }
         setCurrentPipeline(presentPipeline)
       }
       setSelectedView(view)
@@ -669,7 +668,7 @@ function RunPipelineFormBasic({
     try {
       if (yamlHandler) {
         const Interval = window.setInterval(() => {
-          const parsedYaml = parse(yamlHandler.getLatestYaml() || '')
+          const parsedYaml = parse(defaultTo(yamlHandler.getLatestYaml(), ''))
           if (!isEqual(lastYaml, parsedYaml)) {
             setCurrentPipeline(parsedYaml as { pipeline: PipelineInfoConfig })
             setLastYaml(parsedYaml)

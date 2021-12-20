@@ -1,7 +1,7 @@
 import React from 'react'
 import produce from 'immer'
 import { defaultTo, isEmpty, lowerCase, set } from 'lodash-es'
-import { Text, Color, NestedAccordionPanel, FontVariation } from '@wings-software/uicore'
+import { Text, Color, NestedAccordionPanel, FontVariation, MultiTypeInputType } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { DeploymentStageConfig, StageElementConfig } from 'services/cd-ng'
 import type {
@@ -30,10 +30,11 @@ export interface StageCardProps {
   metadataMap: PipelineVariablesData['metadataMap']
   readonly?: boolean
   path?: string
+  allowableTypes: MultiTypeInputType[]
 }
 
 export default function StageCard(props: StageCardProps): React.ReactElement {
-  const { stage, originalStage, metadataMap, readonly, path } = props
+  const { stage, originalStage, metadataMap, readonly, path, allowableTypes } = props
   const { updateStage, stepsFactory } = usePipelineContext()
   const { getString } = useStrings()
   const stageSpec = stage.spec as DeploymentStageConfig
@@ -100,7 +101,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                       variables: defaultTo(originalStage.variables, []) as AllNGVariables[],
                       canAddVariable: true
                     }}
-                    allowableTypes={[]}
+                    allowableTypes={allowableTypes}
                     readonly={readonly}
                     type={StepType.CustomVariable}
                     stepViewType={StepViewType.InputVariable}
@@ -134,6 +135,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                       readonly={readonly}
                       stageIdentifier={originalStage.identifier}
                       path={`${path}.${originalStage.identifier}`}
+                      allowableTypes={allowableTypes}
                       onUpdateServiceConfig={serviceSpec => {
                         updateStage(
                           produce(originalStage, draft => {
@@ -158,6 +160,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                       metadataMap={metadataMap}
                       stageIdentifier={originalStage.identifier}
                       readonly={readonly}
+                      allowableTypes={allowableTypes}
                       path={`${path}.${originalStage.identifier}.Infrastructure`}
                       onUpdateInfrastructure={infrastructure => {
                         updateStage(
@@ -183,6 +186,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                       originalExecution={originalSpec.execution}
                       metadataMap={metadataMap}
                       stageIdentifier={originalStage.identifier}
+                      allowableTypes={allowableTypes}
                       readonly={readonly}
                       path={`${path}.${originalStage.identifier}.Execution`}
                       onUpdateExecution={execution => {

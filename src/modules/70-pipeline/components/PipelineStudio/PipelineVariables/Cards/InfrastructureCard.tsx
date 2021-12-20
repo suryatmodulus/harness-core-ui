@@ -25,6 +25,7 @@ export interface InfrastructureCardProps {
   onUpdateInfrastructureProvisioner(data: ExecutionElementConfig): void
   path?: string
   readonly?: boolean
+  allowableTypes: MultiTypeInputType[]
 }
 
 export function InfrastructureCard(props: InfrastructureCardProps): React.ReactElement {
@@ -36,7 +37,8 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
     stageIdentifier,
     metadataMap,
     readonly,
-    path
+    path,
+    allowableTypes
   } = props
   const { stepsFactory } = usePipelineContext()
   const { getString } = useStrings()
@@ -63,7 +65,7 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
         initialValues={originalInfrastructure.infrastructureDefinition?.spec || {}}
         type={originalInfrastructure.infrastructureDefinition?.type as StepType}
         stepViewType={StepViewType.InputVariable}
-        allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
+        allowableTypes={allowableTypes}
         onUpdate={onUpdateInfrastructure}
         readonly={readonly}
         customStepProps={{
@@ -82,6 +84,7 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
           metadataMap={metadataMap}
           stageIdentifier={stageIdentifier}
           readonly={readonly}
+          allowableTypes={allowableTypes}
           onUpdateExecution={onUpdateInfrastructureProvisioner}
           path={`${props.path}.Provisioner`}
         />

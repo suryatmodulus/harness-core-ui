@@ -183,7 +183,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
             <FormMultiTypeDurationField
               multiTypeDurationProps={{
                 enableConfigureOptions: false,
-                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                allowableTypes,
                 expressions,
                 disabled: readonly
               }}
@@ -203,7 +203,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
                 variables: (originalPipeline.variables || []) as AllNGVariables[],
                 canAddVariable: true
               }}
-              allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+              allowableTypes={allowableTypes}
               readonly={readonly}
               type={StepType.CustomVariable}
               stepViewType={viewType}

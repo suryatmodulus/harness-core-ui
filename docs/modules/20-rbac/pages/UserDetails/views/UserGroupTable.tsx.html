@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.65% </span>
+                <span class="strong">93.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/46</span>
+                <span class='fraction'>44/47</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.17% </span>
+                <span class="strong">30% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>14/48</span>
+                <span class='fraction'>15/50</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.91% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/11</span>
+                <span class='fraction'>10/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.65% </span>
+                <span class="strong">93.62% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/46</span>
+                <span class='fraction'>44/47</span>
             </div>
         
             
@@ -226,10 +226,36 @@
 <a name='L167'></a><a href='#L167'>167</a>
 <a name='L168'></a><a href='#L168'>168</a>
 <a name='L169'></a><a href='#L169'>169</a>
-<a name='L170'></a><a href='#L170'>170</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -322,6 +348,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -407,9 +457,10 @@ import {
   PageError,
   TableV2,
   Intent,
-  useConfirmationDialog
+  useConfirmationDialog,
+  FontVariation
 } from '@wings-software/uicore'
-import { Classes, Menu, Popover, Position } from '@blueprintjs/core'
+import { Classes, Menu, Popover, Position, PopoverInteractionKind } from '@blueprintjs/core'
 import { useToaster } from '@common/components'
 import { useMutateAsGet } from '@common/hooks'
 import type { PipelineType, ProjectPathProps, UserPathProps } from '@common/interfaces/RouteInterfaces'
@@ -494,7 +545,31 @@ const ResourceGroupColumnMenu: Renderer&lt;CellProps&lt;UserGroupDTO&gt;&gt; = (
         }}
       /&gt;
       &lt;Menu&gt;
-        &lt;Menu.Item icon="trash" text={getString('common.remove')} onClick={handleDelete} /&gt;
+        {data.externallyManaged ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;Popover</span>
+            position={Position.TOP}
+            fill
+            usePortal
+            inheritDarkTheme={false}
+            interactionKind={PopoverInteractionKind.HOVER}
+            hoverCloseDelay={50}
+            content={
+              &lt;div className={css.popover}&gt;
+                &lt;Text font={{ variation: FontVariation.SMALL }}&gt;{getString('rbac.unableToEditSCIMMembership')}&lt;/Text&gt;
+              &lt;/div&gt;
+            }
+          &gt;
+            &lt;div
+              onClick={<span class="fstat-no" title="function not covered" >(e</span>vent: React.MouseEvent&lt;HTMLElement, MouseEvent&gt;) =&gt; {
+<span class="cstat-no" title="statement not covered" >                event.stopPropagation()</span>
+              }}
+            &gt;
+              &lt;Menu.Item icon="trash" text={getString('common.remove')} onClick={handleDelete} disabled /&gt;
+            &lt;/div&gt;
+          &lt;/Popover&gt;
+        ) : (
+          &lt;Menu.Item icon="trash" text={getString('common.remove')} onClick={handleDelete} /&gt;
+        )}
       &lt;/Menu&gt;
     &lt;/Popover&gt;
   )
@@ -571,7 +646,7 @@ export default UserGroupTable
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 20 2021 06:23:31 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 20 2021 08:31:51 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

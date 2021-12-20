@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.12% </span>
+                <span class="strong">66.2% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>49/73</span>
+                <span class='fraction'>47/71</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.93% </span>
+                <span class="strong">38.2% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>137/371</span>
+                <span class='fraction'>144/377</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.61% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>48/71</span>
+                <span class='fraction'>46/69</span>
             </div>
         
             
@@ -574,14 +574,7 @@
 <a name='L515'></a><a href='#L515'>515</a>
 <a name='L516'></a><a href='#L516'>516</a>
 <a name='L517'></a><a href='#L517'>517</a>
-<a name='L518'></a><a href='#L518'>518</a>
-<a name='L519'></a><a href='#L519'>519</a>
-<a name='L520'></a><a href='#L520'>520</a>
-<a name='L521'></a><a href='#L521'>521</a>
-<a name='L522'></a><a href='#L522'>522</a>
-<a name='L523'></a><a href='#L523'>523</a>
-<a name='L524'></a><a href='#L524'>524</a>
-<a name='L525'></a><a href='#L525'>525</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">62x</span>
+<a name='L518'></a><a href='#L518'>518</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">62x</span>
@@ -626,16 +619,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">62x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1148,16 +1134,8 @@ interface HelmWithHttpPropType {
   handleSubmit: (data: ManifestConfigWrapper) =&gt; void
   manifestIdsList: Array&lt;string&gt;
   isReadonly?: boolean
+  deploymentType?: string
 }
-&nbsp;
-const commandFlagOptionsV2 = [
-  { label: 'Fetch', value: 'Fetch' },
-  { label: 'Template ', value: 'Template' }
-]
-const commandFlagOptionsV3 = [
-  { label: 'Pull', value: 'Pull' },
-  { label: 'Template ', value: 'Template' }
-]
 &nbsp;
 const HelmWithS3: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWithHttpPropType&gt; = ({
   stepName,
@@ -1167,7 +1145,8 @@ const HelmWithS3: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWith
   handleSubmit,
   previousStep,
   manifestIdsList,
-  isReadonly = false
+  isReadonly = false,
+  deploymentType
 }) =&gt; {
   const { getString } = useStrings()
   const [regions, setRegions] = useState&lt;SelectOption[]&gt;([])
@@ -1215,11 +1194,11 @@ const HelmWithS3: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWith
   })
 &nbsp;
   const getSelectItems = React.useCallback(() =&gt; {
-    return Object.keys(<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >bucketData?.d</span>ata </span>|| []).map(<span class="fstat-no" title="function not covered" >bucket </span>=&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+    return Object.keys(bucketData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || []).map(<span class="fstat-no" title="function not covered" >bucket </span>=&gt; (<span class="cstat-no" title="statement not covered" >{</span>
       value: bucket,
       label: bucket
     }))
-  }, [<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >bucketData?.d</span>ata]</span>)
+  }, [bucketData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata])
 &nbsp;
   const buckets = loading ? <span class="branch-0 cbranch-no" title="branch not covered" >[{ label: 'Loading Buckets...', value: 'Loading Buckets...' }] </span>: getSelectItems()
   const itemRenderer = memoize(<span class="fstat-no" title="function not covered" >(i</span>tem: { label: string }, { handleClick }) =&gt; (
@@ -1598,9 +1577,9 @@ const HelmWithS3: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWith
                     &lt;HelmAdvancedStepSection
                       formik={formik}
                       expressions={expressions}
-                      commandFlagOptions={
-                        formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>elmVersion === 'V2' ? commandFlagOptionsV2 : <span class="branch-1 cbranch-no" title="branch not covered" >commandFlagOptionsV3</span>
-                      }
+                      helmVersion={formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>elmVersion}
+                      deploymentType={deploymentType as string}
+                      helmStore={<span class="branch-1 cbranch-no" title="branch not covered" >prevStepData?.store<span class="branch-0 cbranch-no" title="branch not covered" > </span>?? '</span>'}
                     /&gt;
                   }
                 /&gt;
@@ -1636,7 +1615,7 @@ export default HelmWithS3
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 20 2021 16:26:04 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 20 2021 17:10:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.94% </span>
+                <span class="strong">77.61% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>53/68</span>
+                <span class='fraction'>52/67</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.01% </span>
+                <span class="strong">53.1% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>220/423</span>
+                <span class='fraction'>231/435</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.94% </span>
+                <span class="strong">77.61% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>53/68</span>
+                <span class='fraction'>52/67</span>
             </div>
         
             
@@ -448,7 +448,9 @@
 <a name='L389'></a><a href='#L389'>389</a>
 <a name='L390'></a><a href='#L390'>390</a>
 <a name='L391'></a><a href='#L391'>391</a>
-<a name='L392'></a><a href='#L392'>392</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">63x</span>
+<a name='L392'></a><a href='#L392'>392</a>
+<a name='L393'></a><a href='#L393'>393</a>
+<a name='L394'></a><a href='#L394'>394</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">63x</span>
 <span class="cline-any cline-yes">63x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -489,17 +491,18 @@
 <span class="cline-any cline-yes">63x</span>
 <span class="cline-any cline-yes">63x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">63x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">63x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -552,7 +555,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -822,6 +824,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -880,7 +884,6 @@ import { handleCommandFlagsSubmitData } from '../HelmWithGcs/HelmWithGcs'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from './HelmWithGIT.module.scss'
 &nbsp;
-const commandFlagOptions = [{ label: 'Template ', value: 'Template' }]
 interface HelmWithGITPropType {
   stepName: string
   expressions: string[]
@@ -888,6 +891,7 @@ interface HelmWithGITPropType {
   handleSubmit: (data: ManifestConfigWrapper) =&gt; void
   manifestIdsList: Array&lt;string&gt;
   isReadonly?: boolean
+  deploymentType?: string
 }
 &nbsp;
 const HelmWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWithGITPropType&gt; = ({
@@ -898,7 +902,8 @@ const HelmWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWit
   prevStepData,
   previousStep,
   manifestIdsList,
-  isReadonly = false
+  isReadonly = false,
+  deploymentType
 }) =&gt; {
   const { getString } = useStrings()
 &nbsp;
@@ -944,7 +949,6 @@ const HelmWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWit
     }
     return repoName
   }
-&nbsp;
   const getInitialValues = React.useCallback((): HelmWithGITDataType =&gt; {
     const specValues = get(initialValues, 'spec.store.spec', null)
 &nbsp;
@@ -1200,8 +1204,10 @@ const HelmWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWit
                     &lt;HelmAdvancedStepSection
                       expressions={expressions}
                       formik={formik}
-                      commandFlagOptions={commandFlagOptions}
                       isReadonly={isReadonly}
+                      helmVersion={formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>elmVersion}
+                      deploymentType={deploymentType as string}
+                      helmStore={prevStepData?.store ?? ''}
                     /&gt;
                   }
                 /&gt;
@@ -1237,7 +1243,7 @@ export default HelmWithGIT
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 20 2021 16:26:04 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 20 2021 17:10:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

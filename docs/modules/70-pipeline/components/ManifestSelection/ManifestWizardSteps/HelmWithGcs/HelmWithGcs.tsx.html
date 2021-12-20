@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.69% </span>
+                <span class="strong">79.03% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>51/64</span>
+                <span class='fraction'>49/62</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.11% </span>
+                <span class="strong">56.62% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>179/319</span>
+                <span class='fraction'>184/325</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.65% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>50/62</span>
+                <span class='fraction'>48/60</span>
             </div>
         
             
@@ -499,15 +499,7 @@
 <a name='L440'></a><a href='#L440'>440</a>
 <a name='L441'></a><a href='#L441'>441</a>
 <a name='L442'></a><a href='#L442'>442</a>
-<a name='L443'></a><a href='#L443'>443</a>
-<a name='L444'></a><a href='#L444'>444</a>
-<a name='L445'></a><a href='#L445'>445</a>
-<a name='L446'></a><a href='#L446'>446</a>
-<a name='L447'></a><a href='#L447'>447</a>
-<a name='L448'></a><a href='#L448'>448</a>
-<a name='L449'></a><a href='#L449'>449</a>
-<a name='L450'></a><a href='#L450'>450</a>
-<a name='L451'></a><a href='#L451'>451</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">66x</span>
+<a name='L443'></a><a href='#L443'>443</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">66x</span>
 <span class="cline-any cline-yes">66x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -554,15 +546,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">66x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -593,6 +576,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">66x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1006,17 +990,8 @@ interface HelmWithGcsPropType {
   handleSubmit: (data: ManifestConfigWrapper) =&gt; void
   manifestIdsList: Array&lt;string&gt;
   isReadonly?: boolean
+  deploymentType?: string
 }
-&nbsp;
-const commandFlagOptionsV2 = [
-  { label: 'Fetch', value: 'Fetch' },
-  { label: 'Template ', value: 'Template' }
-]
-const commandFlagOptionsV3 = [
-  { label: 'Pull', value: 'Pull' },
-  { label: 'Template ', value: 'Template' }
-]
-&nbsp;
 export const handleCommandFlagsSubmitData = (
   manifestObj: ManifestConfigWrapper,
   formData: (HelmWithGcsDataType | HelmWithHTTPDataType | HelmWithS3DataType | HelmWithGITDataType) &amp; {
@@ -1050,7 +1025,8 @@ const HelmWithGcs: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWit
   handleSubmit,
   previousStep,
   manifestIdsList,
-  isReadonly = false
+  isReadonly = false,
+  deploymentType
 }) =&gt; {
   const { getString } = useStrings()
   const { showError } = useToaster()
@@ -1375,10 +1351,10 @@ const HelmWithGcs: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWit
                     &lt;HelmAdvancedStepSection
                       formik={formik}
                       expressions={expressions}
-                      commandFlagOptions={
-                        formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>elmVersion === 'V2' ? commandFlagOptionsV2 : <span class="branch-1 cbranch-no" title="branch not covered" >commandFlagOptionsV3</span>
-                      }
+                      helmVersion={formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>elmVersion}
                       isReadonly={isReadonly}
+                      deploymentType={deploymentType as string}
+                      helmStore={<span class="branch-1 cbranch-no" title="branch not covered" >prevStepData?.store<span class="branch-0 cbranch-no" title="branch not covered" > </span>?? '</span>'}
                     /&gt;
                   }
                 /&gt;
@@ -1414,7 +1390,7 @@ export default HelmWithGcs
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 20 2021 16:26:04 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 20 2021 17:10:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

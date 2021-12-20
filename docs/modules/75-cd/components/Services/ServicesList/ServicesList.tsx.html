@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">85.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>84/98</span>
+                <span class='fraction'>83/97</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63% </span>
+                <span class="strong">51.39% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>63/100</span>
+                <span class='fraction'>37/72</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.42% </span>
+                <span class="strong">85.26% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>82/96</span>
+                <span class='fraction'>81/95</span>
             </div>
         
             
@@ -507,7 +507,14 @@
 <a name='L448'></a><a href='#L448'>448</a>
 <a name='L449'></a><a href='#L449'>449</a>
 <a name='L450'></a><a href='#L450'>450</a>
-<a name='L451'></a><a href='#L451'>451</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L451'></a><a href='#L451'>451</a>
+<a name='L452'></a><a href='#L452'>452</a>
+<a name='L453'></a><a href='#L453'>453</a>
+<a name='L454'></a><a href='#L454'>454</a>
+<a name='L455'></a><a href='#L455'>455</a>
+<a name='L456'></a><a href='#L456'>456</a>
+<a name='L457'></a><a href='#L457'>457</a>
+<a name='L458'></a><a href='#L458'>458</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -536,6 +543,9 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -603,6 +613,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -812,17 +826,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -844,6 +847,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -962,9 +976,9 @@ import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 import ReactTimeago from 'react-timeago'
-import { Button, Color, Dialog, Layout, Popover, Text, useModalHook } from '@wings-software/uicore'
+import { Button, Color, Dialog, Layout, Popover, TagsPopover, Text, useModalHook } from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
-import { pick } from 'lodash-es'
+import { defaultTo, pick } from 'lodash-es'
 import routes from '@common/RouteDefinitions'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { DashboardList } from '@cd/components/DashboardList/DashboardList'
@@ -977,10 +991,10 @@ import { PieChart, PieChartProps } from '@cd/components/PieChart/PieChart'
 import { getFixed, INVALID_CHANGE_RATE, numberFormatter } from '@cd/components/Services/common'
 import type { ServiceDetailsDTO } from 'services/cd-ng'
 import { DeploymentTypeIcons } from '@cd/components/DeploymentTypeIcons/DeploymentTypeIcons'
-import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { NewEditServiceModal } from '@cd/components/PipelineSteps/DeployServiceStep/DeployServiceStep'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import css from '@cd/components/Services/ServicesList/ServiceList.module.scss'
 &nbsp;
 export enum DeploymentStatus {
@@ -991,6 +1005,9 @@ export enum DeploymentStatus {
 export interface ServiceListItem {
   name: string
   identifier: string
+  tags?: {
+    [key: string]: string
+  }
   deploymentTypeList: string[]
   serviceInstances: {
     count: number
@@ -1017,46 +1034,50 @@ export interface ServicesListProps {
 &nbsp;
 const transformServiceDetailsData = (data: ServiceDetailsDTO[]): ServiceListItem[] =&gt; {
   return data.map(item =&gt; ({
-    name: item.serviceName || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
-    identifier: item.serviceIdentifier || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
-    description: item.description || '',
-    tags: item.tags || {},
-    deploymentTypeList: item.deploymentTypeList || [],
+    name: defaultTo(item.serviceName, ''),
+    identifier: defaultTo(item.serviceIdentifier, ''),
+    description: defaultTo(item.description, ''),
+    tags: defaultTo(item.tags, {}),
+    deploymentTypeList: defaultTo(item.deploymentTypeList, []),
     serviceInstances: {
-      count: item.instanceCountDetails<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.t</span>otalInstances </span>|| 0,
-      prodCount: item.instanceCountDetails<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.p</span>rodInstances </span>|| 0,
-      nonProdCount: item.instanceCountDetails<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.n</span>onProdInstances </span>|| 0
+      count: defaultTo(item.instanceCountDetails<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.t</span>otalInstances,</span> 0),
+      prodCount: defaultTo(item.instanceCountDetails<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.p</span>rodInstances,</span> 0),
+      nonProdCount: defaultTo(item.instanceCountDetails<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.n</span>onProdInstances,</span> 0)
     },
     deployments: {
       value: numberFormatter(item.totalDeployments),
-      change: item.totalDeploymentChangeRate || 0
+      change: defaultTo(item.totalDeploymentChangeRate, 0)
     },
     failureRate: {
       value: numberFormatter(item.failureRate),
-      change: item.failureRateChangeRate || 0
+      change: defaultTo(item.failureRateChangeRate, 0)
     },
     frequency: {
       value: numberFormatter(item.frequency),
-      change: item.frequencyChangeRate || 0
+      change: defaultTo(item.frequencyChangeRate, 0)
     },
     lastDeployment: {
-      name: item.lastPipelineExecuted<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.n</span>ame </span>|| '',
-      id: item.lastPipelineExecuted<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.p</span>ipelineExecutionId </span>|| '',
-      timestamp: item.lastPipelineExecuted<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.l</span>astExecutedAt </span>|| 0,
-      status: item.lastPipelineExecuted<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.s</span>tatus </span>|| ''
+      name: defaultTo(item.lastPipelineExecuted<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.n</span>ame,</span> ''),
+      id: defaultTo(item.lastPipelineExecuted<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.p</span>ipelineExecutionId,</span> ''),
+      timestamp: defaultTo(item.lastPipelineExecuted<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.l</span>astExecutedAt,</span> 0),
+      status: defaultTo(item.lastPipelineExecuted<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.s</span>tatus,</span> '')
     }
   }))
 }
 &nbsp;
 const RenderServiceName: Renderer&lt;CellProps&lt;ServiceListItem&gt;&gt; = ({ row }) =&gt; {
-  const { name, identifier } = row.original
+  const { name, identifier, tags } = row.original
   const { getString } = useStrings()
   const idLabel = getString('idLabel', { id: identifier })
   return (
     &lt;Layout.Vertical&gt;
-      &lt;Text font={{ weight: 'semi-bold' }} color={Color.GREY_700} margin={{ bottom: 'xsmall' }} lineClamp={1}&gt;
-        {name}
-      &lt;/Text&gt;
+      &lt;Layout.Horizontal spacing="small"&gt;
+        &lt;Text font={{ weight: 'semi-bold' }} color={Color.GREY_700} margin={{ bottom: 'xsmall' }} lineClamp={1}&gt;
+          {name}
+        &lt;/Text&gt;
+        {tags &amp;&amp; Object.keys(tags).length ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;TagsPopover tags={tags} /&gt; </span>: null}
+      &lt;/Layout.Horizontal&gt;
+&nbsp;
       &lt;Text font={{ size: 'small' }} color={Color.GREY_500} lineClamp={1}&gt;
         {idLabel}
       &lt;/Text&gt;
@@ -1261,17 +1282,6 @@ const RenderColumnMenu: Renderer&lt;CellProps&lt;any&gt;&gt; = ({ row, column })
     [data, orgIdentifier, projectIdentifier]
   )
 &nbsp;
-  const [canUpdate] = usePermission(
-    {
-      resource: {
-        resourceType: ResourceType.SERVICE,
-        resourceIdentifier: data.identifier || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
-      },
-      permissions: [PermissionIdentifier.EDIT_SERVICE]
-    },
-    []
-  )
-&nbsp;
   const handleEdit = <span class="fstat-no" title="function not covered" >(e</span>: React.MouseEvent&lt;HTMLElement, MouseEvent&gt;): void =&gt; {
 <span class="cstat-no" title="statement not covered" >    e.stopPropagation()</span>
 <span class="cstat-no" title="statement not covered" >    setMenuOpen(false)</span>
@@ -1297,7 +1307,18 @@ const RenderColumnMenu: Renderer&lt;CellProps&lt;any&gt;&gt; = ({ row, column })
           }}
         /&gt;
         &lt;Menu style={{ minWidth: 'unset' }}&gt;
-          &lt;Menu.Item icon="edit" text="Edit" onClick={handleEdit} disabled={!canUpdate} /&gt;
+          &lt;RbacMenuItem
+            icon="edit"
+            text={getString('edit')}
+            onClick={handleEdit}
+            permission={{
+              resource: {
+                resourceType: ResourceType.SERVICE,
+                resourceIdentifier: defaultTo(data.identifier, '')
+              },
+              permission: PermissionIdentifier.EDIT_SERVICE
+            }}
+          /&gt;
         &lt;/Menu&gt;
       &lt;/Popover&gt;
     &lt;/Layout.Horizontal&gt;
@@ -1414,7 +1435,7 @@ export const ServicesList: React.FC&lt;ServicesListProps&gt; = props =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 20 2021 08:31:51 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 20 2021 09:36:10 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

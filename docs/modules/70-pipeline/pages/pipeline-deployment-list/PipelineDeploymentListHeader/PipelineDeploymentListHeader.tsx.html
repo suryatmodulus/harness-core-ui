@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.21% </span>
+                <span class="strong">83.78% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/38</span>
+                <span class='fraction'>31/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/16</span>
+                <span class='fraction'>10/14</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.21% </span>
+                <span class="strong">83.78% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/38</span>
+                <span class='fraction'>31/37</span>
             </div>
         
             
@@ -182,20 +182,15 @@
 <a name='L123'></a><a href='#L123'>123</a>
 <a name='L124'></a><a href='#L124'>124</a>
 <a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a>
-<a name='L127'></a><a href='#L127'>127</a>
-<a name='L128'></a><a href='#L128'>128</a>
-<a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L126'></a><a href='#L126'>126</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -225,7 +220,6 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-yes">37x</span>
-<span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -289,10 +283,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -323,11 +313,11 @@ import { ButtonVariation, Checkbox, Color, ExpandingSearchInput } from '@wings-s
 &nbsp;
 import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
-import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import type { PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 &nbsp;
 import StatusSelect from '@pipeline/components/StatusSelect/StatusSelect'
 import NewPipelineSelect from '@pipeline/components/NewPipelineSelect/NewPipelineSelect'
+import { getFeaturePropsForRunPipelineButton } from '@pipeline/utils/runPipelineUtils'
 import { useUpdateQueryParams } from '@common/hooks'
 import { Page } from '@common/exports'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
@@ -357,7 +347,6 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
   const { queryParams } = useFiltersContext()
   const { updateQueryParams } = useUpdateQueryParams&lt;Partial&lt;GetListOfExecutionsQueryParams&gt;&gt;()
   const { getString } = useStrings()
-  const isCIModule = module === 'ci'
   function <span class="fstat-no" title="function not covered" >handleQueryChange(</span>query: string): void {
 <span class="cstat-no" title="statement not covered" >    if (query) {</span>
 <span class="cstat-no" title="statement not covered" >      updateQueryParams({ searchTerm: query })</span>
@@ -410,11 +399,7 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
               skipCondition: <span class="fstat-no" title="function not covered" >({</span> resourceIdentifier }) =&gt; <span class="cstat-no" title="statement not covered" >!resourceIdentifier</span>
             }
           }}
-          featuresProps={{
-            featuresRequest: {
-              featureNames: [isCIModule ? FeatureIdentifier.BUILDS : FeatureIdentifier.DEPLOYMENTS_PER_MONTH]
-            }
-          }}
+          featuresProps={getFeaturePropsForRunPipelineButton(['cd', 'ci'])}
         &gt;
           &lt;String stringID="runPipelineText" /&gt;
         &lt;/RbacButton&gt;
@@ -454,7 +439,7 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 20 2021 08:31:51 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 20 2021 09:36:10 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

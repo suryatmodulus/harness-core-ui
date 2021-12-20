@@ -31,8 +31,8 @@ export default function SelectDeploymentType(props: SelectServiceDeploymentTypeP
     {
       label: getString('pipeline.nativeHelm'),
       icon: 'service-helm',
-      value: 'NativeHelm',
-      disabled: !localStorage.getItem('nativeHelm')
+      value: 'NativeHelm'
+      // disabled: !localStorage.getItem('nativeHelm')
     },
     {
       label: getString('serviceDeploymentTypes.amazonEcs'),

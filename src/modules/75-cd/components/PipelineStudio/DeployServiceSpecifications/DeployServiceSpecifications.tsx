@@ -64,7 +64,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   )
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const getDeploymentType = (): string => {
-    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type')
   }
 
   const [setupModeType, setSetupMode] = useState('')
@@ -198,7 +198,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           serviceConfig: {
             serviceRef: '',
             serviceDefinition: {
-              type: 'Kubernetes',
               spec: {
                 variables: []
               }

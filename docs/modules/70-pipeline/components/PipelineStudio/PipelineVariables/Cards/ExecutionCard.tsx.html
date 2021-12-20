@@ -243,7 +243,19 @@
 <a name='L184'></a><a href='#L184'>184</a>
 <a name='L185'></a><a href='#L185'>185</a>
 <a name='L186'></a><a href='#L186'>186</a>
-<a name='L187'></a><a href='#L187'>187</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
@@ -289,7 +301,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
@@ -367,6 +389,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -380,6 +403,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -432,7 +456,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import produce from 'immer'
 import { set } from 'lodash-es'
-import { Color, FontVariation, NestedAccordionPanel, Text } from '@wings-software/uicore'
+import { Color, FontVariation, MultiTypeInputType, NestedAccordionPanel, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { ExecutionElementConfig, ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
 &nbsp;
@@ -473,10 +497,20 @@ export interface ExecutionCardProps {
   onUpdateExecution(data: ExecutionElementConfig): void
   readonly?: boolean
   path?: string
+  allowableTypes: MultiTypeInputType[]
 }
 &nbsp;
 export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
-  const { execution, originalExecution, metadataMap, stageIdentifier, onUpdateExecution, readonly, path } = props
+  const {
+    execution,
+    originalExecution,
+    metadataMap,
+    stageIdentifier,
+    onUpdateExecution,
+    readonly,
+    path,
+    allowableTypes
+  } = props
 &nbsp;
   const allSteps = React.useMemo(() =&gt; {
     function addToCards({
@@ -552,6 +586,7 @@ export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
               stageIdentifier={stageIdentifier}
               stepPath={pathStep}
               readonly={readonly}
+              allowableTypes={allowableTypes}
               onUpdateStep={<span class="fstat-no" title="function not covered" >(d</span>ata: StepElementConfig, stepPath: string) =&gt; {
 <span class="cstat-no" title="statement not covered" >                onUpdateExecution(</span>
                   produce(originalExecution, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
@@ -571,6 +606,7 @@ export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
               steps={row.steps}
               stepGroupIdentifier={row.identifier}
               stepGroupName={row.name}
+              allowableTypes={allowableTypes}
               stepGroupOriginalName={row.originalName}
               metadataMap={metadataMap}
               readonly={readonly}
@@ -622,7 +658,7 @@ export function ExecutionCardPanel(props: ExecutionCardProps): React.ReactElemen
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 20 2021 11:27:56 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 20 2021 12:25:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

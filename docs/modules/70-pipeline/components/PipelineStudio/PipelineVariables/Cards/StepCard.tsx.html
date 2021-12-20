@@ -199,7 +199,20 @@
 <a name='L140'></a><a href='#L140'>140</a>
 <a name='L141'></a><a href='#L141'>141</a>
 <a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -223,7 +236,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -289,7 +304,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -303,6 +328,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -342,7 +368,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Color, FontVariation, NestedAccordionPanel, Text } from '@wings-software/uicore'
+import { Color, FontVariation, MultiTypeInputType, NestedAccordionPanel, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { StepElementConfig } from 'services/cd-ng'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
@@ -363,10 +389,12 @@ export interface StepCardProps {
   stepPath: string
   readonly?: boolean
   path?: string
+  allowableTypes: MultiTypeInputType[]
 }
 &nbsp;
 export function StepCard(props: StepCardProps): React.ReactElement {
-  const { step, originalStep, metadataMap, stageIdentifier, onUpdateStep, stepPath, readonly, path } = props
+  const { step, originalStep, metadataMap, stageIdentifier, onUpdateStep, stepPath, readonly, path, allowableTypes } =
+    props
   const { stepsFactory } = usePipelineContext()
 &nbsp;
   return (
@@ -380,7 +408,7 @@ export function StepCard(props: StepCardProps): React.ReactElement {
       &lt;StepWidget&lt;StepElementConfig&gt;
         factory={stepsFactory}
         initialValues={originalStep}
-        allowableTypes={[]}
+        allowableTypes={allowableTypes}
         type={originalStep.type as StepType}
         stepViewType={StepViewType.InputVariable}
         onUpdate={<span class="fstat-no" title="function not covered" >(d</span>ata: StepElementConfig) =&gt; <span class="cstat-no" title="statement not covered" >onUpdateStep(data, stepPath)}</span>
@@ -429,10 +457,20 @@ export interface StepGroupCardProps {
   stepGroupOriginalName: string
   readonly?: boolean
   path?: string
+  allowableTypes: MultiTypeInputType[]
 }
 &nbsp;
 export function StepGroupCard(props: StepGroupCardProps): React.ReactElement {
-  const { steps, metadataMap, onUpdateStep, stageIdentifier, stepGroupName, stepGroupOriginalName, readonly } = props
+  const {
+    steps,
+    metadataMap,
+    onUpdateStep,
+    stageIdentifier,
+    stepGroupName,
+    stepGroupOriginalName,
+    readonly,
+    allowableTypes
+  } = props
 &nbsp;
   return (
     &lt;React.Fragment&gt;
@@ -452,6 +490,7 @@ export function StepGroupCard(props: StepGroupCardProps): React.ReactElement {
             metadataMap={metadataMap}
             stepPath={path}
             readonly={readonly}
+            allowableTypes={allowableTypes}
             stageIdentifier={stageIdentifier}
             onUpdateStep={onUpdateStep}
           /&gt;
@@ -490,7 +529,7 @@ export function StepGroupCardPanel(props: StepGroupCardProps): React.ReactElemen
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 20 2021 11:27:56 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 20 2021 12:25:46 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/26</span>
+                <span class='fraction'>20/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.75% </span>
+                <span class="strong">61.11% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/16</span>
+                <span class='fraction'>11/18</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/26</span>
+                <span class='fraction'>20/28</span>
             </div>
         
             
@@ -159,9 +159,11 @@
 <a name='L100'></a><a href='#L100'>100</a>
 <a name='L101'></a><a href='#L101'>101</a>
 <a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -170,11 +172,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -232,6 +231,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -239,6 +243,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -263,24 +271,19 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Container, Layout, Text } from '@wings-software/uicore'
+import { Color, Container, Layout, Text, FontVariation } from '@wings-software/uicore'
 import { K8sRecommendationFilterDtoInput, RecommendationItemDto, useRecommendationsQuery } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import formatCost from '@ce/utils/formatCost'
 import EmptyView from '@ce/images/empty-state.svg'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { Loader } from './OverviewPageLayout'
 import css from './OverviewPage.module.scss'
 &nbsp;
-type Params = {
-  accountId: string
-  projectIdentifier: string
-  orgIdentifier: string
-}
-&nbsp;
 const OverviewTopRecommendations = () =&gt; {
   const { getString } = useStrings()
-  const pathParams = useParams&lt;Params&gt;()
+  const pathParams = useParams&lt;AccountPathProps&gt;()
   const [result] = useRecommendationsQuery({
     requestPolicy: 'network-only',
     variables: {
@@ -333,6 +336,11 @@ interface RecommendationProps {
 &nbsp;
 const Recommendation = <span class="fstat-no" title="function not covered" >(p</span>rops: RecommendationProps) =&gt; {
   const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+  const { accountId } = <span class="cstat-no" title="statement not covered" >useParams&lt;AccountPathProps&gt;()</span>
+  const {
+    data: { id, resourceName }
+  } = <span class="cstat-no" title="statement not covered" >props</span>
+&nbsp;
   const map: Record&lt;string, string&gt; = <span class="cstat-no" title="statement not covered" >useMemo(</span>
 <span class="fstat-no" title="function not covered" >    () =</span>&gt; (<span class="cstat-no" title="statement not covered" >{</span>
       WORKLOAD: getString('ce.overview.workload')
@@ -341,24 +349,28 @@ const Recommendation = <span class="fstat-no" title="function not covered" >(p</
   )
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;div className={css.recommendation}&gt;
-      &lt;Layout.Vertical spacing="xsmall"&gt;
-        &lt;Container&gt;
-          &lt;Text inline className={css.resourceType}&gt;
-            {map[props.data.resourceType]}
+    &lt;Link
+      to={routes.toCERecommendationDetails({ accountId, recommendation: id, recommendationName: resourceName || id })}
+    &gt;
+      &lt;div className={css.recommendation}&gt;
+        &lt;Layout.Vertical spacing="xsmall"&gt;
+          &lt;Container&gt;
+            &lt;Text inline className={css.resourceType}&gt;
+              {map[props.data.resourceType]}
+            &lt;/Text&gt;
+          &lt;/Container&gt;
+          &lt;Text color={Color.GREY_800} lineClamp={1}&gt;
+            {props.data.resourceName}
           &lt;/Text&gt;
-        &lt;/Container&gt;
-        &lt;Text font="normal" color="grey800" lineClamp={1}&gt;
-          {props.data.resourceName}
-        &lt;/Text&gt;
-      &lt;/Layout.Vertical&gt;
-      &lt;Layout.Vertical spacing="xsmall" style={{ alignItems: 'flex-end' }}&gt;
-        &lt;Text color="green700"&gt;{formatCost(props.data.monthlySaving as number)}&lt;/Text&gt;
-        &lt;Text font="small" color="grey400"&gt;
-          {getString('ce.overview.savings')}
-        &lt;/Text&gt;
-      &lt;/Layout.Vertical&gt;
-    &lt;/div&gt;
+        &lt;/Layout.Vertical&gt;
+        &lt;Layout.Vertical spacing="xsmall" style={{ alignItems: 'flex-end' }}&gt;
+          &lt;Text color={Color.GREEN_700}&gt;{formatCost(props.data.monthlySaving as number)}&lt;/Text&gt;
+          &lt;Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}&gt;
+            {getString('ce.overview.savings')}
+          &lt;/Text&gt;
+        &lt;/Layout.Vertical&gt;
+      &lt;/div&gt;
+    &lt;/Link&gt;
   )
 }
 &nbsp;
@@ -370,7 +382,7 @@ export default OverviewTopRecommendations
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 20 2021 09:36:10 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 20 2021 11:27:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

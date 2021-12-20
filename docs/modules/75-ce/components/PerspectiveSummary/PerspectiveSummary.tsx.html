@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74% </span>
+                <span class="strong">75.47% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>37/50</span>
+                <span class='fraction'>40/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.55% </span>
+                <span class="strong">43.55% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>71/110</span>
+                <span class='fraction'>54/124</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74% </span>
+                <span class="strong">75.47% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>37/50</span>
+                <span class='fraction'>40/53</span>
             </div>
         
             
@@ -356,7 +356,14 @@
 <a name='L297'></a><a href='#L297'>297</a>
 <a name='L298'></a><a href='#L298'>298</a>
 <a name='L299'></a><a href='#L299'>299</a>
-<a name='L300'></a><a href='#L300'>300</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -416,7 +423,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -426,7 +433,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -631,6 +638,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -929,6 +943,11 @@ const PerspectiveSummary: React.FC&lt;PerspectiveSummaryProps&gt; = ({
   isDefaultPerspective,
   hasClusterAsSource
 }) =&gt; {
+  let showForecastedCostCard = true
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (!fetching &amp;&amp; !<span class="branch-1 cbranch-no" title="branch not covered" >forecastedCostData?.cost<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.statsValue)</span> {
+    showForecastedCostCard = false
+  }
+&nbsp;
   return (
     &lt;Layout.Horizontal margin="xlarge" spacing="large"&gt;
       &lt;CostCard
@@ -940,14 +959,16 @@ const PerspectiveSummary: React.FC&lt;PerspectiveSummaryProps&gt; = ({
         isEmpty={!<span class="branch-1 cbranch-no" title="branch not covered" >data?.cost}</span>
       /&gt;
       {!isDefaultPerspective &amp;&amp; &lt;BudgetCard /&gt;}
-      &lt;CostCard
-        fetching={fetching}
-        statsLabel={<span class="branch-1 cbranch-no" title="branch not covered" >forecastedCostData?.cost<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.statsLabel}</span>
-        statsDescription={<span class="branch-1 cbranch-no" title="branch not covered" >forecastedCostData?.cost<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.statsDescription}</span>
-        statsTrend={<span class="branch-1 cbranch-no" title="branch not covered" >forecastedCostData?.cost<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.statsTrend}</span>
-        statsValue={<span class="branch-1 cbranch-no" title="branch not covered" >forecastedCostData?.cost<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.statsValue}</span>
-        isEmpty={!<span class="branch-1 cbranch-no" title="branch not covered" >forecastedCostData?.cost}</span>
-      /&gt;
+      {showForecastedCostCard &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;CostCard</span>
+          fetching={fetching}
+          statsLabel={forecastedCostData?.cost?.statsLabel}
+          statsDescription={forecastedCostData?.cost?.statsDescription}
+          statsTrend={forecastedCostData?.cost?.statsTrend}
+          statsValue={forecastedCostData?.cost?.statsValue}
+          isEmpty={!forecastedCostData?.cost}
+        /&gt;
+      )}
       {hasClusterAsSource &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;RecommendationSummaryCard /&gt;}</span>
     &lt;/Layout.Horizontal&gt;
   )
@@ -961,7 +982,7 @@ export default PerspectiveSummary
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 20 2021 09:36:10 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 20 2021 11:27:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

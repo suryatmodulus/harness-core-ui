@@ -227,7 +227,7 @@ const validateStage = ({
         viewType
       })
       if (!isEmpty(errorsResponse)) {
-        set(errors, 'spec.serviceConfig.serviceRef', errorsResponse)
+        set(errors, 'spec.serviceConfig', errorsResponse)
       }
     }
 
@@ -240,7 +240,7 @@ const validateStage = ({
         viewType
       })
       if (!isEmpty(errorsResponse)) {
-        set(errors, 'spec.infrastructure.environmentRef', errorsResponse)
+        set(errors, 'spec.infrastructure', errorsResponse)
       }
     }
     if (

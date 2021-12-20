@@ -43,6 +43,7 @@ describe('RUN PIPELINE MODAL', () => {
     cy.findByTestId('card-run-pipeline').click()
     cy.contains('span', 'Run Pipeline').click()
 
+    cy.contains('span', 'Service is required').should('be.visible').should('have.class', 'FormError--error')
     cy.contains('span', 'ConnectorRef is a required field')
       .should('be.visible')
       .should('have.class', 'FormError--error')

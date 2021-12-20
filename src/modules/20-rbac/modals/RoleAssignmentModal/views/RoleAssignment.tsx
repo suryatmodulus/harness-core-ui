@@ -17,7 +17,7 @@ import { usePostRoleAssignments, RoleAssignment as RBACRoleAssignment } from 'se
 import { useStrings } from 'framework/strings'
 import type { RoleAssignmentMetadataDTO, ServiceAccountDTO, UserGroupDTO } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { getAssignments, getRBACErrorMessage, PrincipalType } from '@rbac/utils/utils'
+import { getAssignments, getRBACErrorMessage, isNewRoleAssignment, PrincipalType } from '@rbac/utils/utils'
 import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import RoleAssignmentForm from './RoleAssignmentForm'
 import type { Assignment } from './UserRoleAssigment'
@@ -57,13 +57,15 @@ const RoleAssignment: React.FC<RoleAssignmentData> = ({
   })
 
   const handleRoleAssignment = async (values: RoleAssignmentValues): Promise<void> => {
-    const dataToSubmit: RBACRoleAssignment[] = values.assignments.map(value => {
-      return {
-        resourceGroupIdentifier: value.resourceGroup.value.toString(),
-        roleIdentifier: value.role.value.toString(),
-        principal: { identifier: principalInfo.identifier, type }
-      }
-    })
+    const dataToSubmit: RBACRoleAssignment[] = values.assignments
+      .filter(value => isNewRoleAssignment(value))
+      .map(value => {
+        return {
+          resourceGroupIdentifier: value.resourceGroup.value.toString(),
+          roleIdentifier: value.role.value.toString(),
+          principal: { identifier: principalInfo.identifier, type }
+        }
+      })
 
     try {
       await createRoleAssignment({ roleAssignments: dataToSubmit })

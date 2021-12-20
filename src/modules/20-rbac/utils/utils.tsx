@@ -267,6 +267,10 @@ export const getAssignments = (roleBindings: RoleAssignmentMetadataDTO[]): Assig
   )
 }
 
+export const isNewRoleAssignment = (assignment: Assignment): boolean => {
+  return !(assignment.role.assignmentIdentifier || assignment.resourceGroup.assignmentIdentifier)
+}
+
 interface FeatureProps {
   featureRequest: FeatureRequest
   isPermissionPrioritized?: boolean

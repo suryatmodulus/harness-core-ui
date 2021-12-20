@@ -24,7 +24,8 @@ import {
   handleInvitationResponse,
   getScopeBasedDefaultAssignment,
   UserTagRenderer,
-  InvitationStatus
+  InvitationStatus,
+  isNewRoleAssignment
 } from '@rbac/utils/utils'
 import { getIdentifierFromValue, getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { useMutateAsGet } from '@common/hooks/useMutateAsGet'
@@ -142,13 +143,15 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
   )
 
   const handleRoleAssignment = async (values: UserRoleAssignmentValues): Promise<void> => {
-    const dataToSubmit: RBACRoleAssignment[] = values.assignments.map(value => {
-      return {
-        resourceGroupIdentifier: value.resourceGroup.value.toString(),
-        roleIdentifier: value.role.value.toString(),
-        principal: { identifier: defaultTo(user?.uuid, values.users?.[0].value.toString()), type: 'USER' }
-      }
-    })
+    const dataToSubmit: RBACRoleAssignment[] = values.assignments
+      .filter(value => isNewRoleAssignment(value))
+      .map(value => {
+        return {
+          resourceGroupIdentifier: value.resourceGroup.value.toString(),
+          roleIdentifier: value.role.value.toString(),
+          principal: { identifier: defaultTo(user?.uuid, values.users?.[0].value.toString()), type: 'USER' }
+        }
+      })
 
     try {
       await createRoleAssignment({ roleAssignments: dataToSubmit })

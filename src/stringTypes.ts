@@ -692,7 +692,9 @@ export interface StringsMap {
   'rbac.customRoles': string
   'rbac.forUser': string
   'rbac.generateToken': string
+  'rbac.group': string
   'rbac.in': string
+  'rbac.manageSCIMText': string
   'rbac.myApiKeys': string
   'rbac.noRoleBinding': string
   'rbac.org': string
@@ -769,6 +771,7 @@ export interface StringsMap {
   'rbac.token.rotateLabel': string
   'rbac.token.scheduledToExpire': string
   'rbac.token.successMessage': string
+  'rbac.unableToEditSCIMMembership': string
   'rbac.updateNotificationSuccess': string
   'rbac.user': string
   'rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText': string

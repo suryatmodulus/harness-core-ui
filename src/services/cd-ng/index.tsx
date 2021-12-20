@@ -4,7 +4,7 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
-export const SPEC_VERSION = '1.0'
+export const SPEC_VERSION = '2.0'
 export interface ACLAggregateFilter {
   resourceGroupIdentifiers?: string[]
   roleIdentifiers?: string[]
@@ -348,6 +348,7 @@ export interface Account {
   nextGenEnabled?: boolean
   oauthEnabled?: boolean
   povAccount?: boolean
+  ringName?: string
   serviceAccountConfig?: ServiceAccountConfig
   serviceGuardLimit?: number
   subdomainUrl?: string
@@ -7109,6 +7110,7 @@ export type SampleErrorMetadataDTO = ErrorMetadataDTO & {
 export interface ScimGroup {
   displayName?: string
   externalId?: string
+  harnessScopes?: string
   id?: string
   members?: Member[]
   meta?: JsonNode
@@ -7443,7 +7445,7 @@ export type ServiceNowApprovalStepInfo = StepSpecType & {
   delegateSelectors?: string[]
   rejectionCriteria?: CriteriaSpecWrapper
   ticketNumber: string
-  ticketType?: string
+  ticketType: string
 }
 
 export type ServiceNowConnector = ConnectorConfigDTO & {
@@ -8219,6 +8221,7 @@ export interface UserGroupAggregateDTO {
 export interface UserGroupDTO {
   accountIdentifier?: string
   description?: string
+  externallyManaged?: boolean
   identifier: string
   linkedSsoDisplayName?: string
   linkedSsoId?: string
@@ -25835,6 +25838,64 @@ export const getBatchUserGroupListPromise = (
     'POST',
     getConfig('ng/api'),
     `/user-groups/batch`,
+    props,
+    signal
+  )
+
+export interface CopyUserGroupQueryParams {
+  accountIdentifier?: string
+  groupIdentifier?: string
+}
+
+export type CopyUserGroupProps = Omit<
+  MutateProps<ResponseBoolean, Failure | AccessControlCheckError | Error, CopyUserGroupQueryParams, Scope[], void>,
+  'path' | 'verb'
+>
+
+/**
+ * Copy a User Group to several scopes
+ */
+export const CopyUserGroup = (props: CopyUserGroupProps) => (
+  <Mutate<ResponseBoolean, Failure | AccessControlCheckError | Error, CopyUserGroupQueryParams, Scope[], void>
+    verb="PUT"
+    path={`/user-groups/copy`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCopyUserGroupProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | AccessControlCheckError | Error, CopyUserGroupQueryParams, Scope[], void>,
+  'path' | 'verb'
+>
+
+/**
+ * Copy a User Group to several scopes
+ */
+export const useCopyUserGroup = (props: UseCopyUserGroupProps) =>
+  useMutate<ResponseBoolean, Failure | AccessControlCheckError | Error, CopyUserGroupQueryParams, Scope[], void>(
+    'PUT',
+    `/user-groups/copy`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Copy a User Group to several scopes
+ */
+export const copyUserGroupPromise = (
+  props: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | AccessControlCheckError | Error,
+    CopyUserGroupQueryParams,
+    Scope[],
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | AccessControlCheckError | Error, CopyUserGroupQueryParams, Scope[], void>(
+    'PUT',
+    getConfig('ng/api'),
+    `/user-groups/copy`,
     props,
     signal
   )

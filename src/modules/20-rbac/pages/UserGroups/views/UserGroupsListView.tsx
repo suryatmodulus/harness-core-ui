@@ -13,7 +13,7 @@ import {
   useToaster
 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Classes, Position, Menu, Intent, PopoverInteractionKind } from '@blueprintjs/core'
+import { Classes, Position, Menu, Intent, PopoverInteractionKind, IconName, MenuItem } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import {
@@ -234,6 +234,40 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
     ;(column as any).openUserGroupModal(data)
   }
 
+  const renderMenuItem = (
+    icon: IconName,
+    text: string,
+    clickHandler: (e: React.MouseEvent<HTMLElement, MouseEvent>) => void,
+    tooltipText: string
+  ): React.ReactElement => {
+    if (data.externallyManaged) {
+      return (
+        <Popover
+          position={Position.TOP}
+          fill
+          usePortal
+          inheritDarkTheme={false}
+          interactionKind={PopoverInteractionKind.HOVER}
+          hoverCloseDelay={50}
+          content={
+            <div className={css.popover}>
+              <Text font={{ variation: FontVariation.SMALL }}>{tooltipText}</Text>
+            </div>
+          }
+        >
+          <div
+            onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+              event.stopPropagation()
+            }}
+          >
+            <MenuItem icon={icon} text={text} onClick={clickHandler} disabled />
+          </div>
+        </Popover>
+      )
+    }
+    return <RbacMenuItem icon={icon} text={text} onClick={clickHandler} permission={permissionRequest} />
+  }
+
   return (
     <Layout.Horizontal flex={{ justifyContent: 'flex-end' }}>
       <Popover
@@ -254,8 +288,24 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
           }}
         />
         <Menu>
-          <RbacMenuItem icon="edit" text={getString('edit')} onClick={handleEdit} permission={permissionRequest} />
-          <RbacMenuItem icon="trash" text={getString('delete')} onClick={handleDelete} permission={permissionRequest} />
+          {renderMenuItem(
+            'edit',
+            getString('edit'),
+            handleEdit,
+            getString('rbac.manageSCIMText', {
+              action: getString('edit').toLowerCase(),
+              target: getString('rbac.group').toLowerCase()
+            })
+          )}
+          {renderMenuItem(
+            'trash',
+            getString('delete'),
+            handleDelete,
+            getString('rbac.manageSCIMText', {
+              action: getString('delete').toLowerCase(),
+              target: getString('rbac.group').toLowerCase()
+            })
+          )}
         </Menu>
       </Popover>
     </Layout.Horizontal>

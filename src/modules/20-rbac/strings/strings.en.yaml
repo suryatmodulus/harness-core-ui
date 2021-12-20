@@ -203,3 +203,6 @@ customResourceGroups: new Resource Groups
 communityErrorMessages:
   role: Requires upgrade to set up Roles
   resourceGroup: Requires upgrade to set up Resource Groups
+group: Group
+manageSCIMText: 'Unable to {{action}} this {{target}} because it is managed using SCIM by your identity provider.'
+unableToEditSCIMMembership: Unable to edit membership to this group because it is managed using SCIM by your identity provider.

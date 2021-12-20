@@ -6,5 +6,6 @@ declare const styles: {
   readonly card: string
   readonly name: string
   readonly lockIcon: string
+  readonly popover: string
 }
 export default styles

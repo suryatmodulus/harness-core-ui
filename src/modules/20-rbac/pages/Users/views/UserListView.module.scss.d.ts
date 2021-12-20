@@ -6,5 +6,6 @@ declare const styles: {
   readonly roleButton: string
   readonly overflow: string
   readonly lockIcon: string
+  readonly popover: string
 }
 export default styles

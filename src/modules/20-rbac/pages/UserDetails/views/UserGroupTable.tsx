@@ -10,9 +10,10 @@ import {
   PageError,
   TableV2,
   Intent,
-  useConfirmationDialog
+  useConfirmationDialog,
+  FontVariation
 } from '@wings-software/uicore'
-import { Classes, Menu, Popover, Position } from '@blueprintjs/core'
+import { Classes, Menu, Popover, Position, PopoverInteractionKind } from '@blueprintjs/core'
 import { useToaster } from '@common/components'
 import { useMutateAsGet } from '@common/hooks'
 import type { PipelineType, ProjectPathProps, UserPathProps } from '@common/interfaces/RouteInterfaces'
@@ -97,7 +98,31 @@ const ResourceGroupColumnMenu: Renderer<CellProps<UserGroupDTO>> = ({ row, colum
         }}
       />
       <Menu>
-        <Menu.Item icon="trash" text={getString('common.remove')} onClick={handleDelete} />
+        {data.externallyManaged ? (
+          <Popover
+            position={Position.TOP}
+            fill
+            usePortal
+            inheritDarkTheme={false}
+            interactionKind={PopoverInteractionKind.HOVER}
+            hoverCloseDelay={50}
+            content={
+              <div className={css.popover}>
+                <Text font={{ variation: FontVariation.SMALL }}>{getString('rbac.unableToEditSCIMMembership')}</Text>
+              </div>
+            }
+          >
+            <div
+              onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+                event.stopPropagation()
+              }}
+            >
+              <Menu.Item icon="trash" text={getString('common.remove')} onClick={handleDelete} disabled />
+            </div>
+          </Popover>
+        ) : (
+          <Menu.Item icon="trash" text={getString('common.remove')} onClick={handleDelete} />
+        )}
       </Menu>
     </Popover>
   )

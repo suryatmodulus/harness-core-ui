@@ -38,7 +38,6 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
   const { queryParams } = useFiltersContext()
   const { updateQueryParams } = useUpdateQueryParams<Partial<GetListOfExecutionsQueryParams>>()
   const { getString } = useStrings()
-  const isCIModule = module === 'ci'
   function handleQueryChange(query: string): void {
     if (query) {
       updateQueryParams({ searchTerm: query })

@@ -11,9 +11,8 @@ Registration of **resources** requires the following details -
 =======
 Registration of **resource** requires the following details -
    
-   **Icon** - Module icon to which the resource belongs.
-   
-   **resourceUrl** - Resource redirection url (For eg. Connector details page in case of connector)
+   * **Icon** - Module icon to which the resource belongs.
+   * **resourceUrl** - Resource redirection url (For eg. Connector details page in case of connector)
    
    
 >>>>>>> 8e94da0cd483 (Update AuditTrails.md)

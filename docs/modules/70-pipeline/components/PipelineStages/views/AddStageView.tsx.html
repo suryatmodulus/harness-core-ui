@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.39% </span>
+                <span class="strong">70.59% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>34/49</span>
+                <span class='fraction'>36/51</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.39% </span>
+                <span class="strong">70.59% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>34/49</span>
+                <span class='fraction'>36/51</span>
             </div>
         
             
@@ -208,21 +208,8 @@
 <a name='L149'></a><a href='#L149'>149</a>
 <a name='L150'></a><a href='#L150'>150</a>
 <a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a>
-<a name='L153'></a><a href='#L153'>153</a>
-<a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L152'></a><a href='#L152'>152</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -234,6 +221,8 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -308,6 +297,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -366,17 +360,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import {
-  ButtonSize,
-  Button,
-  ButtonVariation,
-  Card,
-  Icon,
-  IconName,
-  Layout,
-  Heading,
-  Color
-} from '@wings-software/uicore'
+import { ButtonSize, ButtonVariation, Card, Icon, IconName, Layout, Heading, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import produce from 'immer'
 import { defaultTo, set } from 'lodash-es'
@@ -394,6 +378,8 @@ import { isStageTemplateEnabled } from '@pipeline/utils/templateUtils'
 import { FeatureFlag } from '@common/featureFlags'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { generateRandomString } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
+import RbacButton from '@rbac/components/Button/Button'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import type { PipelineStageProps } from '../PipelineStage'
 import EmptyStageView from './EmptyStageView'
 import StageHoverView from './StageHoverView'
@@ -469,11 +455,16 @@ export function AddStageView&lt;T&gt;({
             {getString('pipeline.addStage.title')}
           &lt;/Heading&gt;
           {contextType === PipelineContextType.Pipeline &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isTemplatesEnabled </span>&amp;&amp; (
-<span class="branch-2 cbranch-no" title="branch not covered" >            &lt;Button</span>
+<span class="branch-2 cbranch-no" title="branch not covered" >            &lt;RbacButton</span>
               text={getString('common.useTemplate')}
               variation={ButtonVariation.LINK}
               size={ButtonSize.SMALL}
               onClick={onOpenTemplateSelector}
+              featuresProps={{
+                featuresRequest: {
+                  featureNames: [FeatureIdentifier.TEMPLATE_SERVICE]
+                }
+              }}
             /&gt;
           )}
         &lt;/Layout.Horizontal&gt;
@@ -526,7 +517,7 @@ export function AddStageView&lt;T&gt;({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 21 2021 14:28:15 GMT+0000 (Greenwich Mean Time)
+                at Tue Dec 21 2021 19:12:37 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

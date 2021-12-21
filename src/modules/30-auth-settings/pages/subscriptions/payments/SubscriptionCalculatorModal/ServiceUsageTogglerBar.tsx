@@ -12,7 +12,7 @@ import css from './SubscriptionCalculatorModal.module.scss'
 
 interface ServiceCardsProps {
   currentPlanData: {
-    currentPlan: Editions
+    currentPlan?: Editions
     services: number
   }
   actualUsageData: {
@@ -30,7 +30,7 @@ interface ServiceCardsProps {
 }
 
 interface CurrentPlanProps {
-  currentPlan: Editions
+  currentPlan?: Editions
   services: number
   isSelected: boolean
   onClick: (card: SERVICES_CARDS) => void
@@ -192,7 +192,7 @@ const WarningCard = ({
 const CurrentPlanCard = ({ currentPlan, services, isSelected, onClick }: CurrentPlanProps): React.ReactElement => {
   const { getString } = useStrings()
   const title = getString('common.plans.currentPlan').concat(': (').concat(capitalize(currentPlan)).concat(')')
-  const unitDesc = getString('services')
+  const unitDesc = getString('common.developers')
 
   return (
     <ServiceCard
@@ -212,7 +212,7 @@ const CurrentPlanCard = ({ currentPlan, services, isSelected, onClick }: Current
 const ActualUsageCard = ({ usage, isSelected, onClick }: ActualUsageCardProps): React.ReactElement => {
   const { getString } = useStrings()
   const title = getString('common.actualUsage')
-  const unitDesc = getString('services')
+  const unitDesc = getString('common.developers')
 
   return (
     <ServiceCard
@@ -231,7 +231,7 @@ const ActualUsageCard = ({ usage, isSelected, onClick }: ActualUsageCardProps): 
 
 const OverUsageCard = ({ overUsage, isSelected, onClick }: OverUsageCardProps): React.ReactElement => {
   const { getString } = useStrings()
-  const title = getString('common.overUse')
+  const title = getString('common.feature.overuse.title')
   const unitDesc = getString('authSettings.additionalCharge')
 
   return (
@@ -343,7 +343,7 @@ const ServiceTogglerBar = ({
 }: ServiceTogglerBarProps): React.ReactElement => {
   return (
     <TogglerBar
-      scale={100}
+      scale={350}
       width={900}
       onSelected={val => setToggleValue(val)}
       selectedValue={toggleValue}
@@ -354,26 +354,37 @@ const ServiceTogglerBar = ({
   )
 }
 
-// mock data until api is ready
-const _currentPlanData = {
-  currentPlan: Editions.FREE,
-  services: 20
-}
-const _actualUsageData = {
-  actualUsage: 23
+export interface CurrentPlanDataProps {
+  currentPlan?: Editions
+  services: number
 }
 
-const _overUsageData = {
-  overUsage: 3
-}
-const _recommendationData = {
-  recommend: 29
+export interface ServiceUsageTogglerBarProps {
+  moduleName: ModuleName
+  currentPlanData: CurrentPlanDataProps
+  setServicesCount: (value: number) => void
 }
 
-const ServiceUsageTogglerBar = ({ moduleName }: { moduleName: ModuleName }): React.ReactElement => {
+const ServiceUsageTogglerBar = ({
+  moduleName,
+  currentPlanData,
+  setServicesCount
+}: ServiceUsageTogglerBarProps): React.ReactElement => {
   const { getString } = useStrings()
-  const [toggleValue, setToggleValue] = useState<number>(_currentPlanData.services)
+  const [toggleValue, setToggleValue] = useState<number>(currentPlanData.services)
   const [selectedCard, setSelectedCard] = useState<SERVICES_CARDS>(SERVICES_CARDS.CURRENT_USAGE_CARD)
+
+  // mock data until api is ready
+  const _actualUsageData = {
+    actualUsage: currentPlanData.services + 3
+  }
+
+  const _overUsageData = {
+    overUsage: 3
+  }
+  const _recommendationData = {
+    recommend: Math.floor(currentPlanData.services * 1.5)
+  }
   return (
     <Container className={css.togglerBody}>
       <Layout.Vertical>
@@ -383,7 +394,7 @@ const ServiceUsageTogglerBar = ({ moduleName }: { moduleName: ModuleName }): Rea
         <Container>
           <Layout.Vertical>
             <ServiceCards
-              currentPlanData={_currentPlanData}
+              currentPlanData={currentPlanData}
               actualUsageData={_actualUsageData}
               overUsageData={_overUsageData}
               recommendationData={_recommendationData}
@@ -393,9 +404,11 @@ const ServiceUsageTogglerBar = ({ moduleName }: { moduleName: ModuleName }): Rea
             />
             <ServiceTogglerBar
               toggleValue={toggleValue}
-              setToggleValue={setToggleValue}
+              setToggleValue={(value: number) => {
+                setToggleValue(value), setServicesCount(value)
+              }}
               usages={{
-                currentUsage: _currentPlanData.services,
+                currentUsage: currentPlanData.services,
                 actualUsage: _actualUsageData.actualUsage,
                 overUsage: _overUsageData.overUsage,
                 recommendUsage: _recommendationData.recommend

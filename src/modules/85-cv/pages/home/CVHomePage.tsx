@@ -37,6 +37,7 @@ const CVHomePage: React.FC = () => {
       subTitle={getString('cv.dashboard.subHeading')}
       documentText={getString('cv.learnMore')}
       trialBannerProps={trialBannerProps}
+      module="cv"
     />
   )
 }

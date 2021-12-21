@@ -11,10 +11,12 @@ import {
   Text
 } from '@wings-software/uicore'
 import cx from 'classnames'
+import { useHistory, useParams, NavLink } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import type { ModuleName } from 'framework/types/ModuleName'
 import { useQueryParams } from '@common/hooks'
 import { useToaster } from '@common/exports'
+import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { TrialLicenseBanner } from '@common/components/Banners/TrialLicenseBanner'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import type { Project } from 'services/cd-ng'
@@ -25,6 +27,7 @@ import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { ResourceCenter } from '@resource-center/components/ResourceCenter/ResourceCenter'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
+import routes from '@common/RouteDefinitions'
 import css from './HomePageTemplate.module.scss'
 
 export interface TrialBannerProps {
@@ -50,6 +53,7 @@ interface HomePageTemplate {
   trialBannerProps: TrialBannerProps
   ctaProps?: CTAProps
   disableAdditionalCta?: boolean
+  module: Module
 }
 
 export const HomePageTemplate: React.FC<HomePageTemplate> = ({
@@ -59,7 +63,8 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
   documentText,
   documentURL = 'https://ngdocs.harness.io/',
   projectCreateSuccessHandler,
-  trialBannerProps
+  trialBannerProps,
+  module
 }) => {
   const { updateAppStore } = useAppStore()
 
@@ -80,6 +85,8 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
   const { showSuccess } = useToaster()
   const { contactSales } = useQueryParams<{ contactSales?: string }>()
   const rcEnabled = useFeatureFlag(FeatureFlag.RESOURCE_CENTER_ENABLED)
+  const { accountId } = useParams<AccountPathProps>()
+  const history = useHistory()
   useEffect(
     () => {
       if (contactSales === 'success') {
@@ -129,6 +136,9 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
               </Text>
               <FlexExpander />
             </Layout.Horizontal>
+            <NavLink to={routes.toSubscriptions({ accountId, moduleCard: module, tab: 'PLANS' })}>
+              {getString('common.explorePlans')}
+            </NavLink>
           </Layout.Vertical>
         </Container>
       </Page.Body>

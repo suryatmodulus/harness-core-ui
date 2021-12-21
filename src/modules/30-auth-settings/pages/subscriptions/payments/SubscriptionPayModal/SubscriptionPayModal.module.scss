@@ -2,14 +2,18 @@
   border-radius: 11px;
   position: relative;
   padding: unset !important;
-  &.subscribePayDialog {
-    width: 900px;
+  &.confirmed {
+    width: 1100px;
+  }
+  &.unconfirmed {
+    width: 700px;
+    background-color: var(--primary-bg) !important;
   }
 }
 
 .subscribeInfo {
   border-radius: 11px;
-  width: 500px;
+  width: 700px;
   background-color: var(--primary-bg) !important;
 }
 

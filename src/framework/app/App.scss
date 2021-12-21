@@ -26,4 +26,8 @@ body {
   min-height: 100vh;
 }
 
+iframe {
+  display: none;
+}
+
 @import '@common/styles/index.scss';

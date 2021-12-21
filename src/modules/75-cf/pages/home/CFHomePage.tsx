@@ -179,6 +179,7 @@ const CFHomePage: React.FC = () => {
       documentText={getString('cf.homepage.learnMore')}
       documentURL="https://ngdocs.harness.io/article/0a2u2ppp8s-getting-started-with-continuous-features"
       trialBannerProps={trialBannerProps}
+      module="cf"
     />
   )
 }

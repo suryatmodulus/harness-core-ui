@@ -150,7 +150,7 @@ const SubscriptionsPage: React.FC = () => {
 
   const latestModuleLicense = hasLicense ? licenseData?.data?.[licenseData.data.length - 1] : undefined
 
-  const { contactSales } = useQueryParams<{ contactSales?: string }>()
+  const { contactSales, succeed } = useQueryParams<{ contactSales?: string; succeed?: boolean }>()
 
   useEffect(() => {
     handleUpdateLicenseStore(
@@ -170,6 +170,16 @@ const SubscriptionsPage: React.FC = () => {
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [contactSales]
+  )
+
+  useEffect(
+    () => {
+      if (succeed) {
+        showSuccess(getString('authSettings.subscribe.success' as keyof StringsMap))
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [succeed]
   )
 
   if (accountError || licenseError) {

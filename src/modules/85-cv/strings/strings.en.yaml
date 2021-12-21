@@ -639,7 +639,7 @@ slos:
   pickMetricsSLI: Pick metrics powering the SLI
   configureSLIQueries: Configure SLI queries
   sloDefinition: Define SLO identifcation
-  reviewChanges: Review changes
+  reviewChanges: '{{$.common.reviewChanges}}'
   sloEditWarningMessage: It may take a few minutes to recalculate the error budget. Are you sure you want to proceed?
   validations:
     nameValidation: SLO name is required

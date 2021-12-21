@@ -4,18 +4,34 @@ import cx from 'classnames'
 import { Layout, Text, Button, ButtonVariation, Color } from '@wings-software/uicore'
 import type { Editions } from '@common/constants/SubscriptionTypes'
 import { PLAN_UNIT } from '@common/constants/SubscriptionTypes'
-import type { EditionActionDTO } from 'services/cd-ng'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import type { EditionActionDTO, SubscriptionDetailDTO, CustomerDetailDTO } from 'services/cd-ng'
+import type { ModuleName } from 'framework/types/ModuleName'
 import type { StringsMap } from 'stringTypes'
 import type { PlansFragment, Maybe } from 'services/common/services'
-import type { PlanCalculatedProps, BtnProps } from './PlanContainer'
+import { useSubscribeCalculatorModal } from '../payments/SubscriptionCalculatorModal/useSubscribeCalculatorModal'
+import { useSubscribePayModal } from '../payments/SubscriptionPayModal/useSubscribePayModal'
 import css from './Plan.module.scss'
 
 export type PlanProp = Maybe<{ __typename?: 'ComponentPricingPagePlansZone' } & PlansFragment>
 
 export interface PlanData {
   planProps: PlanProp
-  btnProps?: BtnProps[]
-  currentPlanProps?: {
+}
+
+export interface BtnProps {
+  buttonText?: string
+  btnLoading: boolean
+  onClick?: () => void
+  order: number
+  isContactSales?: boolean
+  isContactSupport?: boolean
+  planDisabledStr?: string
+}
+
+export interface PlanCalculatedProps {
+  btnProps: BtnProps[]
+  currentPlanProps: {
     isCurrentPlan?: boolean
     isTrial?: boolean
     isPaid?: boolean
@@ -28,8 +44,7 @@ interface GetBtnPropsProps {
   handleStartPlan: (planEdition: Editions) => Promise<void>
   handleContactSales: () => void
   handleExtendTrial: (edition: Editions) => Promise<void>
-  handleManageSubscription: () => void
-  handleUpgrade: () => void
+  handleUpgrade?: (customerId: string) => void
   btnLoading: boolean
   actions?: {
     [key: string]: EditionActionDTO[]
@@ -42,7 +57,6 @@ export function getBtnProps({
   handleStartPlan,
   handleContactSales,
   handleExtendTrial,
-  handleManageSubscription,
   handleUpgrade,
   btnLoading,
   actions
@@ -70,7 +84,7 @@ export function getBtnProps({
         break
       case 'MANAGE':
         order = 0
-        onClick = handleManageSubscription
+        onClick = handleUpgrade
         break
       case 'SUBSCRIBE':
       case 'UPGRADE':
@@ -165,15 +179,14 @@ export function getBtns({ isPlanDisabled, btnProps, getString }: GetBtnsProps): 
 
 interface GetPriceTipsProps {
   timeType: PLAN_UNIT
-  plan: PlanData
+  plan: PlanProp
   textColorClassName: string
 }
 
 export function getPriceTips({ timeType, plan, textColorClassName }: GetPriceTipsProps): React.ReactElement {
-  const priceTips = timeType === PLAN_UNIT.MONTHLY ? plan.planProps?.priceTips : plan.planProps?.yearlyPriceTips
-  const priceTerm = timeType === PLAN_UNIT.MONTHLY ? plan.planProps?.priceTerm : plan.planProps?.yearlyPriceTerm
-  const priceTermTips =
-    timeType === PLAN_UNIT.MONTHLY ? plan.planProps?.priceTermTips : plan.planProps?.yearlyPriceTermTips
+  const priceTips = timeType === PLAN_UNIT.MONTHLY ? plan?.priceTips : plan?.yearlyPriceTips
+  const priceTerm = timeType === PLAN_UNIT.MONTHLY ? plan?.priceTerm : plan?.yearlyPriceTerm
+  const priceTermTips = timeType === PLAN_UNIT.MONTHLY ? plan?.priceTermTips : plan?.yearlyPriceTermTips
 
   if (!isEmpty(priceTerm) && !isEmpty(priceTermTips)) {
     const tips = priceTips?.split(priceTerm || '')
@@ -219,7 +232,7 @@ export function getPriceTips({ timeType, plan, textColorClassName }: GetPriceTip
 }
 
 interface GetPriceProps {
-  plan: PlanData
+  plan: PlanProp
   timeType: PLAN_UNIT
   openMarketoContactSales: () => void
   getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string
@@ -227,7 +240,7 @@ interface GetPriceProps {
 
 export function getPrice({ timeType, plan, openMarketoContactSales, getString }: GetPriceProps): React.ReactElement {
   const CUSTOM_PRICING = 'custom pricing'
-  const price = timeType === PLAN_UNIT.MONTHLY ? plan.planProps?.price : plan?.planProps?.yearlyPrice
+  const price = timeType === PLAN_UNIT.MONTHLY ? plan?.price : plan?.yearlyPrice
   if (price?.toLowerCase() === CUSTOM_PRICING) {
     return (
       <Layout.Horizontal spacing="xsmall" flex={{ alignItems: 'baseline' }}>
@@ -249,4 +262,48 @@ export function getPrice({ timeType, plan, openMarketoContactSales, getString }:
       {price}
     </Text>
   )
+}
+
+interface UseGetUpgradeModalProps {
+  subscribePlan?: Editions
+  moduleName: ModuleName
+  subscriptions?: SubscriptionDetailDTO[]
+  customers?: CustomerDetailDTO[]
+  customerId: string
+}
+
+interface UseGetUpgradeModalReturn {
+  openUpgradeModal: (customerId: string) => void
+}
+export function useGetUpgradeModal({
+  subscribePlan,
+  moduleName,
+  subscriptions,
+  customers,
+  customerId
+}: UseGetUpgradeModalProps): UseGetUpgradeModalReturn {
+  const { openSubscribePayModal } = useSubscribePayModal(customers)
+  const { openSubscribeCalculatorModal, closeSubscribeCalculatorModal } = useSubscribeCalculatorModal({
+    onReviewChange: props => {
+      closeSubscribeCalculatorModal()
+      openSubscribePayModal(props)
+    },
+    subscribeProps: {
+      moduleName,
+      subscribePlan,
+      subscription: subscriptions?.[0]
+    }
+  })
+
+  const openUpgradeModal = (): void => openSubscribeCalculatorModal(customerId)
+
+  return {
+    openUpgradeModal: openUpgradeModal as UseGetUpgradeModalReturn['openUpgradeModal']
+  }
+}
+
+export function useGetCustomer(customers?: CustomerDetailDTO[]): string | undefined {
+  const { currentUserInfo } = useAppStore()
+  const customer = customers?.find(customerDetail => customerDetail.billingEmail === currentUserInfo.email)
+  return customer?.customerId
 }

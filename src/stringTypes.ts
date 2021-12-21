@@ -150,6 +150,7 @@ export interface StringsMap {
   'common.deleteServiceFailure': string
   'common.deleteServiceMessage': string
   'common.descriptionPlaceholder': string
+  'common.developers': string
   'common.disable': string
   'common.discard': string
   'common.duplicateId': string
@@ -362,7 +363,6 @@ export interface StringsMap {
   'common.orgViewer': string
   'common.other': string
   'common.overSubscribed': string
-  'common.overUse': string
   'common.pagerDuty': string
   'common.paste': string
   'common.path': string
@@ -483,6 +483,7 @@ export interface StringsMap {
   'common.resourceGroupLabel': string
   'common.resourceLabel': string
   'common.resourceTypeLabel': string
+  'common.reviewChanges': string
   'common.role': string
   'common.roleAssignmentLabel': string
   'common.saveAndClose': string
@@ -907,6 +908,7 @@ export interface StringsMap {
   'authSettings.WhitelistedDomainsUpdated': string
   'authSettings.accountOrOAuthLogin': string
   'authSettings.accountOrOAuthLoginEnabledSuccessfully': string
+  'authSettings.addNewPayment': string
   'authSettings.addSAMLProvider': string
   'authSettings.additionalCharge': string
   'authSettings.allowLoginFromTheseDomains': string
@@ -948,6 +950,7 @@ export interface StringsMap {
   'authSettings.confirmDisablePasswordStrength': string
   'authSettings.confirmDisableUserPasswordLogin': string
   'authSettings.confirmDisableWhitelistedDomains': string
+  'authSettings.confirmSubscription': string
   'authSettings.currentServiceUsage': string
   'authSettings.daysBeforePasswordExpires': string
   'authSettings.daysBeforeUserNotified': string
@@ -1001,14 +1004,6 @@ export interface StringsMap {
   'authSettings.multipleProjects': string
   'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
   'authSettings.newTotal': string
-<<<<<<< HEAD
-<<<<<<< HEAD
-  'authSettings.nextPayment': string
-=======
->>>>>>> feat: [GTM-611]: add subscription payment modal
-=======
-  'authSettings.nextPayment': string
->>>>>>> feat: [GTM-611]: add subscribe calculator modal
   'authSettings.notifyUsersWhenTheyLocked': string
   'authSettings.notifyUsersWhenUserLocked': string
   'authSettings.oauthSettingsHaveBeenUpdated': string
@@ -1026,6 +1021,7 @@ export interface StringsMap {
   'authSettings.passwordStrengthEnabled': string
   'authSettings.passwordStrengthUpdated': string
   'authSettings.payingToday': string
+  'authSettings.paymentDetails': string
   'authSettings.periodicallyExpirePassword': string
   'authSettings.periodicallyExpirePasswordNote': string
   'authSettings.pleaseRemoveSAMLOrLDAPToEnableOauth': string
@@ -1035,8 +1031,8 @@ export interface StringsMap {
   'authSettings.publicOAuthLoginDisabled': string
   'authSettings.publicOAuthLoginEnabled': string
   'authSettings.recommendationDesc': string
+  'authSettings.recurringPayment': string
   'authSettings.restrictUsersToEmailDomains': string
-  'authSettings.reviewChanges': string
   'authSettings.saas': string
   'authSettings.samlLoginEnabled': string
   'authSettings.samlProviderAddedSuccessfully': string
@@ -1046,10 +1042,11 @@ export interface StringsMap {
   'authSettings.samlTestFailed': string
   'authSettings.samlTestSuccessful': string
   'authSettings.savePaying': string
+  'authSettings.selectPayment': string
   'authSettings.selectSAMLProvider': string
+  'authSettings.subscribe.success': string
   'authSettings.subscribeAndPay': string
   'authSettings.sureToDisableTwoFAEnforcement': string
-  'authSettings.terms': string
   'authSettings.testingSSO': string
   'authSettings.testingSSODescription': string
   'authSettings.twoFAEnforcementDisabled': string

@@ -2,7 +2,8 @@
 // this is an auto-generated file
 declare const styles: {
   readonly dialog: string
-  readonly subscribePayDialog: string
+  readonly confirmed: string
+  readonly unconfirmed: string
   readonly subscribeInfo: string
   readonly paymentInfo: string
   readonly footer: string

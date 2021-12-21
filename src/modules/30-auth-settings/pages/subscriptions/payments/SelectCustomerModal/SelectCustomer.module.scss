@@ -1,0 +1,13 @@
+.dialog {
+  border-radius: 11px;
+  position: relative;
+  padding: unset !important;
+  &.selectCustomer {
+    height: 300px;
+    width: 500px;
+  }
+}
+
+.form {
+  margin: var(--spacing-huge) !important;
+}

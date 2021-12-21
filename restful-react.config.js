@@ -19,6 +19,7 @@ module.exports = {
   },
   'cd-ng': {
     output: 'src/services/cd-ng/index.tsx',
+    file: 'src/services/cd-ng/swagger.json',
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
     customProps: {

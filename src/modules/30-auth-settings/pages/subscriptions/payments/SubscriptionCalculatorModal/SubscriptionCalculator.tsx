@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { capitalize, parseInt } from 'lodash-es'
 import { Layout, Container, PillToggle, Text, Button, ButtonVariation, TextInput, Color } from '@wings-software/uicore'
 import { PLAN_UNIT } from '@common/constants/SubscriptionTypes'
@@ -7,13 +7,16 @@ import { useStrings } from 'framework/strings'
 import css from './SubscriptionCalculatorModal.module.scss'
 
 interface SubscriptionCalculatorProps {
-  unitPrice: number
-  supportPrice: number
   onReviewChange: () => void
+  services?: number
+  unit: PLAN_UNIT
+  unitPrices: { count: number; price: number }[]
+  supportPrice?: number
+  setUnit: (unit: PLAN_UNIT) => void
+  setServicesCount: (count: number) => void
 }
 
-const Header = (): React.ReactElement => {
-  const [unit, setUnit] = useState<PLAN_UNIT>(PLAN_UNIT.MONTHLY)
+const Header = ({ unit, setUnit }: { unit: PLAN_UNIT; setUnit: (value: PLAN_UNIT) => void }): React.ReactElement => {
   const { getString } = useStrings()
   return (
     <Layout.Horizontal padding={{ bottom: 'huge' }} spacing="small">
@@ -43,7 +46,7 @@ const ServicesInput = ({
   services,
   onChange
 }: {
-  services: number | undefined
+  services?: number
   onChange: (event: React.FormEvent<HTMLInputElement>) => void
 }): React.ReactElement => {
   const { getString } = useStrings()
@@ -51,26 +54,31 @@ const ServicesInput = ({
   return (
     <Layout.Vertical>
       <Text font={{ weight: 'semi-bold' }} padding={{ bottom: 'medium' }}>
-        {getString('services')}
+        {getString('common.developers')}
       </Text>
       <TextInput value={servicesStr} onChange={onChange} />
     </Layout.Vertical>
   )
 }
 
-const UnitPrice = ({ unitPrice }: { unitPrice: number }): React.ReactElement => {
+const UnitPrice = ({ unitPrices }: { unitPrices: { count: number; price: number }[] }): React.ReactElement => {
   const { getString } = useStrings()
   return (
     <Layout.Vertical>
       <Text font={{ weight: 'semi-bold' }} padding={{ bottom: 'medium' }}>
         {getString('authSettings.unitPrice')}
       </Text>
-      <Text padding={{ top: 'xsmall' }}>
-        {unitPrice.toLocaleString('en-US', {
+      {unitPrices.map(tierPrice => {
+        const priceStr = `${tierPrice.count} * ${tierPrice.price.toLocaleString('en-US', {
           style: 'currency',
           currency: 'USD'
-        })}
-      </Text>
+        })}`
+        return (
+          <Text key={tierPrice.price} padding={{ top: 'xsmall' }}>
+            {priceStr}
+          </Text>
+        )
+      })}
     </Layout.Vertical>
   )
 }
@@ -101,7 +109,13 @@ const Support = ({ supportPrice }: { supportPrice: number }): React.ReactElement
   )
 }
 
-const NextPayment = ({ nextPayment }: { nextPayment: number | undefined }): React.ReactElement => {
+const NextPayment = ({
+  nextPayment,
+  unit
+}: {
+  nextPayment: number | undefined
+  unit: PLAN_UNIT
+}): React.ReactElement => {
   const { getString } = useStrings()
   const currencyNextPayment = nextPayment
     ? nextPayment
@@ -109,12 +123,13 @@ const NextPayment = ({ nextPayment }: { nextPayment: number | undefined }): Reac
           style: 'currency',
           currency: 'USD'
         })
-        .concat('/m')
+        .concat('/')
+        .concat(unit.toLowerCase())
     : nextPayment
   return (
     <Layout.Vertical>
       <Text font={{ weight: 'semi-bold' }} padding={{ bottom: 'medium' }}>
-        {getString('authSettings.nextPayment')}
+        {getString('authSettings.recurringPayment')}
       </Text>
       <Text padding={{ top: 'xsmall' }}>{currencyNextPayment}</Text>
     </Layout.Vertical>
@@ -133,10 +148,27 @@ const SignText = ({ text }: { text: string }): React.ReactElement => {
   )
 }
 
-const Body = ({ unitPrice, supportPrice }: { unitPrice: number; supportPrice: number }): React.ReactElement => {
-  const [services, setServices] = useState<number | undefined>()
-
-  const nextPayment = services ? services * unitPrice + supportPrice : undefined
+const Body = ({
+  unitPrices,
+  supportPrice,
+  services,
+  setServicesCount,
+  unit
+}: {
+  unitPrices: { count: number; price: number }[]
+  supportPrice?: number
+  services?: number
+  setServicesCount: (value: number) => void
+  unit: PLAN_UNIT
+}): React.ReactElement => {
+  const productTotal = unitPrices.reduce((total, tierPrice) => {
+    total = total + tierPrice.count * tierPrice.price
+    return total
+  }, 0)
+  let nextPayment = productTotal
+  if (supportPrice) {
+    nextPayment = nextPayment + supportPrice
+  }
 
   return (
     <Layout.Horizontal padding={{ bottom: 'huge' }}>
@@ -144,24 +176,39 @@ const Body = ({ unitPrice, supportPrice }: { unitPrice: number; supportPrice: nu
         services={services}
         onChange={event => {
           const value = event.currentTarget.value
-          setServices(parseInt(value))
+          setServicesCount(parseInt(value))
         }}
       />
       <SignText text={'x'} />
-      <UnitPrice unitPrice={unitPrice} />
-      <SignText text={'+'} />
-      <Support supportPrice={supportPrice} />
+      <UnitPrice unitPrices={unitPrices} />
+      {supportPrice && (
+        <>
+          <SignText text={'+'} />
+          <Support supportPrice={supportPrice} />
+        </>
+      )}
       <SignText text={'='} />
-      <NextPayment nextPayment={nextPayment} />
+      <NextPayment nextPayment={nextPayment} unit={unit} />
     </Layout.Horizontal>
   )
 }
 
-const Footer = ({ onReviewChange }: { onReviewChange: () => void }): React.ReactElement => {
+const Footer = ({
+  onReviewChange,
+  disableReviewChange
+}: {
+  onReviewChange: () => void
+  disableReviewChange: boolean
+}): React.ReactElement => {
   const { getString } = useStrings()
   return (
     <Layout.Horizontal>
-      <Button text={getString('authSettings.reviewChanges')} intent="primary" onClick={onReviewChange} />
+      <Button
+        text={getString('common.reviewChanges')}
+        intent="primary"
+        onClick={onReviewChange}
+        disabled={disableReviewChange}
+      />
       <Layout.Horizontal padding={{ left: 'large' }} flex={{ alignItems: 'baseline' }}>
         <Text>{getString('common.or')}</Text>
         <Button
@@ -175,16 +222,26 @@ const Footer = ({ onReviewChange }: { onReviewChange: () => void }): React.React
 }
 
 const SubscriptionCalculator = ({
-  unitPrice,
+  onReviewChange,
+  services,
+  unitPrices,
   supportPrice,
-  onReviewChange
+  unit,
+  setUnit,
+  setServicesCount
 }: SubscriptionCalculatorProps): React.ReactElement => {
   return (
     <Container padding={'huge'} className={css.calculator}>
       <Layout.Vertical>
-        <Header />
-        <Body unitPrice={unitPrice} supportPrice={supportPrice} />
-        <Footer onReviewChange={onReviewChange} />
+        <Header unit={unit} setUnit={setUnit} />
+        <Body
+          services={services}
+          setServicesCount={setServicesCount}
+          unitPrices={unitPrices}
+          supportPrice={supportPrice}
+          unit={unit}
+        />
+        <Footer onReviewChange={onReviewChange} disableReviewChange={services === undefined} />
       </Layout.Vertical>
     </Container>
   )

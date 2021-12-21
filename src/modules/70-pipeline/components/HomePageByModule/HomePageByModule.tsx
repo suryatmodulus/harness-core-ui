@@ -272,6 +272,7 @@ const HomePageByModule: React.FC<HomePageModuleProps> = ({ moduleName, bgImageUR
       documentText={getString(documentText as keyof StringsMap)}
       documentURL={documentURL}
       trialBannerProps={trialBannerProps}
+      module={module}
     />
   )
 }

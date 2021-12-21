@@ -4,7 +4,7 @@
   padding: unset !important;
   &.subscribeCalculatorDialog {
     height: 750px;
-    width: 1000px;
+    width: 1050px;
   }
 }
 
@@ -20,6 +20,7 @@
 }
 
 .togglerHeader {
+  background-color: var(--primary-bg) !important;
   padding-left: unset !important;
   align-items: baseline;
   border-bottom: unset !important;

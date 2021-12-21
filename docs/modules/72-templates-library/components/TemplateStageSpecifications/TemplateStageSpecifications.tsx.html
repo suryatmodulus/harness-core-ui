@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/117</span>
+                <span class='fraction'>0/125</span>
             </div>
         
             
@@ -368,6 +368,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -399,11 +404,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -557,46 +557,46 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStage
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Container className={css.serviceOverrides}&gt;
       &lt;ErrorsStripBinded /&gt;
-      &lt;Container className={css.contentSection}&gt;
-        &lt;StageTemplateBar /&gt;
-        &lt;Formik
-          initialValues={{
-            name: defaultTo(stage?.stage?.name, ''),
-            identifier: defaultTo(stage?.stage?.identifier, ''),
-            template: defaultTo(stage?.stage?.template, {
-              templateRef: '',
-              versionLabel: ''
-            })
-          }}
-          formName="templateStageOverview"
-          onSubmit={noop}
-          validate={validateForm}
-          validationSchema={Yup.object().shape({
-            name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
-            identifier: IdentifierSchema()
-          })}
-        &gt;
-          {<span class="fstat-no" title="function not covered" >(f</span>ormik: FormikProps&lt;StageElementConfig&gt;) =&gt; {
-<span class="cstat-no" title="statement not covered" >            window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: TemplateTabs.OVERVIEW }))</span>
-<span class="cstat-no" title="statement not covered" >            formikRef.current = formik</span>
-<span class="cstat-no" title="statement not covered" >            return (</span>
-              &lt;FormikForm&gt;
-                &lt;Card className={css.sectionCard}&gt;
-                  &lt;NameId
-                    identifierProps={{
-                      inputLabel: getString('stageNameLabel'),
-                      isIdentifierEditable: false,
-                      inputGroupProps: { disabled: isReadonly }
-                    }}
-                    inputGroupProps={{ placeholder: getString('common.namePlaceholder') }}
-                  /&gt;
-                &lt;/Card&gt;
-                &lt;Container className={css.inputsContainer}&gt;
-                  {loading &amp;&amp; &lt;PageSpinner /&gt;}
-                  {!loading &amp;&amp; inputSetError &amp;&amp; (
-                    &lt;PageError className={css.error} message={inputSetError.message} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetch()}</span> /&gt;
-                  )}
-                  {!loading &amp;&amp; !inputSetError &amp;&amp; inputSetTemplate &amp;&amp; formik.values.template?.templateInputs &amp;&amp; (
+      {loading &amp;&amp; &lt;PageSpinner /&gt;}
+      {!loading &amp;&amp; inputSetError &amp;&amp; (
+        &lt;PageError className={css.error} message={inputSetError.message} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetch()}</span> /&gt;
+      )}
+      {!loading &amp;&amp; !inputSetError &amp;&amp; inputSetTemplate &amp;&amp; stage?.stage?.template &amp;&amp; (
+        &lt;Container className={css.contentSection}&gt;
+          &lt;StageTemplateBar /&gt;
+          &lt;Formik&lt;StageElementConfig&gt;
+            initialValues={{
+              name: defaultTo(stage?.stage?.name, ''),
+              identifier: defaultTo(stage?.stage?.identifier, ''),
+              template: defaultTo(stage?.stage?.template, {
+                templateRef: '',
+                versionLabel: ''
+              })
+            }}
+            formName="templateStageOverview"
+            onSubmit={noop}
+            validate={validateForm}
+            validationSchema={Yup.object().shape({
+              name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
+              identifier: IdentifierSchema()
+            })}
+          &gt;
+            {<span class="fstat-no" title="function not covered" >(f</span>ormik: FormikProps&lt;StageElementConfig&gt;) =&gt; {
+<span class="cstat-no" title="statement not covered" >              window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: TemplateTabs.OVERVIEW }))</span>
+<span class="cstat-no" title="statement not covered" >              formikRef.current = formik</span>
+<span class="cstat-no" title="statement not covered" >              return (</span>
+                &lt;FormikForm&gt;
+                  &lt;Card className={css.sectionCard}&gt;
+                    &lt;NameId
+                      identifierProps={{
+                        inputLabel: getString('stageNameLabel'),
+                        isIdentifierEditable: false,
+                        inputGroupProps: { disabled: isReadonly }
+                      }}
+                      inputGroupProps={{ placeholder: getString('common.namePlaceholder') }}
+                    /&gt;
+                  &lt;/Card&gt;
+                  &lt;Container className={css.inputsContainer}&gt;
                     &lt;Layout.Vertical
                       margin={{ top: 'medium' }}
                       padding={{ top: 'large', bottom: 'large' }}
@@ -607,7 +607,7 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStage
                       &lt;/Heading&gt;
                       &lt;StageForm
                         template={{ stage: inputSetTemplate }}
-                        allValues={{ stage: formik.values.template.templateInputs as StageElementConfig }}
+                        allValues={{ stage: formik.values.template?.templateInputs as StageElementConfig }}
                         path={'template.templateInputs'}
                         readonly={isReadonly}
                         viewType={StepViewType.InputSet}
@@ -620,13 +620,13 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStage
                         ]}
                       /&gt;
                     &lt;/Layout.Vertical&gt;
-                  )}
-                &lt;/Container&gt;
-              &lt;/FormikForm&gt;
-            )
-          }}
-        &lt;/Formik&gt;
-      &lt;/Container&gt;
+                  &lt;/Container&gt;
+                &lt;/FormikForm&gt;
+              )
+            }}
+          &lt;/Formik&gt;
+        &lt;/Container&gt;
+      )}
     &lt;/Container&gt;
   )
 }
@@ -637,7 +637,7 @@ export const <span class="cstat-no" title="statement not covered" >TemplateStage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 21 2021 13:23:37 GMT+0000 (Greenwich Mean Time)
+                at Tue Dec 21 2021 14:28:15 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

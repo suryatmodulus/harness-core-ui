@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>55/55</span>
+                <span class='fraction'>57/57</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.29% </span>
+                <span class="strong">79.2% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>111/140</span>
+                <span class='fraction'>99/125</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>55/55</span>
+                <span class='fraction'>56/56</span>
             </div>
         
             
@@ -289,9 +289,7 @@
 <a name='L230'></a><a href='#L230'>230</a>
 <a name='L231'></a><a href='#L231'>231</a>
 <a name='L232'></a><a href='#L232'>232</a>
-<a name='L233'></a><a href='#L233'>233</a>
-<a name='L234'></a><a href='#L234'>234</a>
-<a name='L235'></a><a href='#L235'>235</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L233'></a><a href='#L233'>233</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -316,9 +314,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">79x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -360,6 +355,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-yes">79x</span>
 <span class="cline-any cline-yes">79x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">79x</span>
@@ -530,7 +526,7 @@ import { Icon, Text, IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 import { get, mapKeys, omit, defaultTo } from 'lodash-es'
 &nbsp;
-import type { ExecutionNode } from 'services/pipeline-ng'
+import type { ExecutionNode, InterruptEffect } from 'services/pipeline-ng'
 import { String, useStrings } from 'framework/strings'
 import type {
   ExecutionPipelineItem,
@@ -548,11 +544,8 @@ import {
 &nbsp;
 import css from './StepsTree.module.scss'
 &nbsp;
-function hasInterruptHistories(step: ExecutionPipelineNode&lt;ExecutionNode&gt;): boolean {
-  return (
-    Array.isArray(step<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>tem<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nterruptHistories) &amp;&amp;
-    (step<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>tem<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nterruptHistories.length || /* istanbul ignore next */ 0) &gt; 0
-  )
+function getRetryInterrupts(step: ExecutionPipelineNode&lt;ExecutionNode&gt;): InterruptEffect[] {
+  return defaultTo(step<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>tem<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nterruptHistories, []).filter(row =&gt; row.interruptType === 'RETRY')
 }
 &nbsp;
 const IconMap: Record&lt;string, IconName&gt; = {
@@ -595,8 +588,9 @@ export function StepsTree(props: StepsTreeProps): React.ReactElement {
       {nodes.map((step, i) =&gt; {
         if (step.item) {
           const statusLower = step.item.status.toLowerCase()
+          const retryInterrupts = getRetryInterrupts(step)
 &nbsp;
-          if (hasInterruptHistories(step)) {
+          if (retryInterrupts.length &gt; 0) {
             const retryNodes: Array&lt;ExecutionPipelineNode&lt;ExecutionNode&gt;&gt; = defaultTo(
               step.item.data<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nterruptHistories,
               []
@@ -766,7 +760,7 @@ export function StepsTree(props: StepsTreeProps): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 21 2021 13:23:37 GMT+0000 (Greenwich Mean Time)
+                at Tue Dec 21 2021 14:28:15 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

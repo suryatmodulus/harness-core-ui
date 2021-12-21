@@ -684,10 +684,13 @@ export interface StringsMap {
   'auditTrails.actions.removed_collaborator': string
   'auditTrails.actions.removed_membership': string
   'auditTrails.actions.restored': string
+  'auditTrails.actions.revoke_token': string
   'auditTrails.actions.updated': string
+  'auditTrails.auditLogAPI': string
   'auditTrails.emptyStateMessage': string
   'auditTrails.emptyStateMessageTitle': string
   'auditTrails.eventSource': string
+  'auditTrails.externalDataText': string
   'auditTrails.http': string
   'auditTrails.supplementaryDetails': string
   'rbac.accessControlTitle.resourceGroups': string

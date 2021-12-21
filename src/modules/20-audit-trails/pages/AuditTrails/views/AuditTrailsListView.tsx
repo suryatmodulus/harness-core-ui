@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { TableV2, Text, Layout, Avatar, Icon, Container, Color } from '@wings-software/uicore'
 import type { Column, Renderer, CellProps } from 'react-table'
+import { Link } from 'react-router-dom'
 import type { AuditEventDTO, PageAuditEventDTO } from 'services/audit'
 import { useStrings } from 'framework/strings'
 import { getReadableDateTime } from '@common/utils/dateUtils'
@@ -9,6 +10,7 @@ import EventSummary from '@audit-trails/components/EventSummary/EventSummary'
 import { actionToLabelMap } from '@audit-trails/utils/RequestUtil'
 import css from './AuditTrailsListView.module.scss'
 
+const DEFAULT_CELL_PLACEHOLDER = '--'
 interface AuditTrailsListViewProps {
   data: PageAuditEventDTO
   setPage: (page: number) => void
@@ -35,15 +37,10 @@ const renderColumnUser: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
   )
 }
 
-const renderColumnResource: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-  const { resourceRenderer } = AuditTrailFactory.getModuleProperties(row.original.module) || {}
-  return resourceRenderer?.(row.original) || ''
-}
-
 const renderColumnOrganization: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
   return (
     <Text padding={{ right: 'medium' }} lineClamp={1}>
-      {row.original.resourceScope.orgIdentifier}
+      {row.original.resourceScope.orgIdentifier || DEFAULT_CELL_PLACEHOLDER}
     </Text>
   )
 }
@@ -51,16 +48,22 @@ const renderColumnOrganization: Renderer<CellProps<AuditEventDTO>> = ({ row }) =
 const renderColumnProject: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
   return (
     <Text padding={{ right: 'medium' }} lineClamp={1}>
-      {row.original?.resourceScope?.projectIdentifier}
+      {row.original?.resourceScope?.projectIdentifier || DEFAULT_CELL_PLACEHOLDER}
     </Text>
   )
 }
 
 const renderColumnModule: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-  const { icon } = AuditTrailFactory.getModuleProperties(row.original.module) || {}
-  return icon?.iconName ? (
+  const { moduleIcon } = AuditTrailFactory.getResourceHandler(row.original.resource.type) || {}
+  // Changing the color
+  const navSettingsIcon = moduleIcon?.name === 'nav-settings'
+  return moduleIcon?.name ? (
     <Container flex={{ justifyContent: 'center' }}>
-      <Icon name={icon.iconName} size={icon.size} />
+      <Icon
+        className={navSettingsIcon ? css.navSettingIcon : undefined}
+        name={moduleIcon.name}
+        size={moduleIcon.size}
+      />
     </Container>
   ) : (
     ''
@@ -71,27 +74,32 @@ const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage
   const { getString } = useStrings()
   const [selectedAuditRow, setSelectedAuditRow] = useState<AuditEventDTO | undefined>(undefined)
 
+  const renderColumnResource: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
+    const url = AuditTrailFactory.getResourceHandler(row.original.resource.type)?.resourceUrl(
+      row.original.resource,
+      row.original.resourceScope
+    )
+    return (
+      <Layout.Vertical padding={{ right: 'medium' }}>
+        {url ? (
+          <Link className={css.resourceLink} to={url}>
+            <Text lineClamp={1}>{row.original.resource.identifier}</Text>
+          </Link>
+        ) : (
+          <Text lineClamp={1}>{row.original.resource.identifier}</Text>
+        )}
+        <Text padding={{ top: 'xsmall' }} lineClamp={1}>{`${getString('typeLabel')}: ${
+          row.original.resource.type
+        }`}</Text>
+      </Layout.Vertical>
+    )
+  }
+
   const renderColumnAction: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-    // format action and render icon, mapping is missing.
     return (
       <Layout.Horizontal padding={{ right: 'medium' }}>
         <Text lineClamp={1}>{getString(actionToLabelMap[row.original.action])}</Text>
       </Layout.Horizontal>
-    )
-  }
-
-  const renderNotesColumn: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-    return (
-      <Container flex={{ justifyContent: 'center' }}>
-        <Icon
-          name="main-notes"
-          className={css.notesIcon}
-          size={20}
-          onClick={() => {
-            setSelectedAuditRow(row.original)
-          }}
-        />
-      </Container>
     )
   }
 
@@ -120,14 +128,14 @@ const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage
     {
       Header: getString('common.resource'),
       id: 'resource',
-      width: '15%',
+      width: '18%',
       accessor: row => row.timestamp,
       Cell: renderColumnResource
     },
     {
       Header: getString('orgLabel'),
       id: 'organization',
-      width: '13%',
+      width: '15%',
       accessor: row => row.timestamp,
       Cell: renderColumnOrganization
     },
@@ -148,13 +156,6 @@ const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage
       width: '12%',
       accessor: row => row.timestamp,
       Cell: renderColumnModule
-    },
-    {
-      Header: '',
-      id: 'yaml',
-      width: '5%',
-      accessor: row => row.timestamp,
-      Cell: renderNotesColumn
     }
   ]
   return (

@@ -1,32 +1,27 @@
-import type { IconName } from '@wings-software/uicore'
-import type { AuditEventDTO } from 'services/audit'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
+import type { ResourceDTO, ResourceScopeDTO } from 'services/audit'
 
-export type Module = AuditEventDTO['module']
+export type ResourceType = ResourceDTO['type']
 
-interface Icon {
-  iconName: IconName
-  size?: number
-}
-
-interface AuditTrailModuleHandlerProps {
-  icon: Icon
-  resourceRenderer?: (data: AuditEventDTO) => React.ReactElement
+interface ResourceHandler {
+  moduleIcon: IconProps
+  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => string | null
   eventSummaryRenderer?: () => React.ReactElement
 }
 
 class AuditTrailFactory {
-  private map: Map<Module, AuditTrailModuleHandlerProps>
+  private map: Map<ResourceType, ResourceHandler>
 
   constructor() {
     this.map = new Map()
   }
 
-  registerHandler(module: Module, props: AuditTrailModuleHandlerProps): void {
-    this.map.set(module, props)
+  registerResourceHandler(resourceType: ResourceType, handler: ResourceHandler): void {
+    this.map.set(resourceType, handler)
   }
 
-  getModuleProperties(module: Module): AuditTrailModuleHandlerProps | undefined {
-    return this.map.get(module)
+  getResourceHandler(resourceType: ResourceType): ResourceHandler | undefined {
+    return this.map.get(resourceType)
   }
 }
 

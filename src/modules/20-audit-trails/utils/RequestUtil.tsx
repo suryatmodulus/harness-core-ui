@@ -1,6 +1,6 @@
 import type { MultiSelectOption } from '@wings-software/uicore'
 import type { AuditTrailFormType } from '@audit-trails/components/FilterDrawer/FilterDrawer'
-import type { AuditEventDTO, AuditFilterProperties } from 'services/audit'
+import type { AuditEventDTO, AuditFilterProperties, ResourceDTO } from 'services/audit'
 import type { StringKeys } from 'framework/strings'
 
 export const actionToLabelMap: Record<AuditEventDTO['action'], StringKeys> = {
@@ -15,7 +15,8 @@ export const actionToLabelMap: Record<AuditEventDTO['action'], StringKeys> = {
   ADD_COLLABORATOR: 'auditTrails.actions.added_collaborator',
   REMOVE_COLLABORATOR: 'auditTrails.actions.removed_collaborator',
   ADD_MEMBERSHIP: 'auditTrails.actions.added_membership',
-  REMOVE_MEMBERSHIP: 'auditTrails.actions.removed_membership'
+  REMOVE_MEMBERSHIP: 'auditTrails.actions.removed_membership',
+  REVOKE_TOKEN: 'auditTrails.actions.revoke_token'
 }
 
 export const moduleToLabelMap: Record<AuditEventDTO['module'], StringKeys> = {
@@ -29,9 +30,28 @@ export const moduleToLabelMap: Record<AuditEventDTO['module'], StringKeys> = {
   TEMPLATESERVICE: 'common.module.templateService'
 }
 
-const resourceTypeToLabelMapping: Record<string, string> = {
-  ResourceTypeOne: 'ResourceTypeOne',
-  ResourceTypeTwo: 'ResourceTypeTwo'
+const resourceTypeToLabelMapping: Record<ResourceDTO['type'], string> = {
+  ORGANIZATION: 'ORGANIZATION',
+  PROJECT: 'PROJECT',
+  USER_GROUP: 'USER_GROUP',
+  SECRET: 'SECRET',
+  RESOURCE_GROUP: 'RESOURCE_GROUP',
+  USER: 'USER',
+  ROLE: 'ROLE',
+  ROLE_ASSIGNMENT: 'ROLE_ASSIGNMENT',
+  PIPELINE: 'PIPELINE',
+  TRIGGER: 'TRIGGER',
+  TEMPLATE: 'TEMPLATE',
+  INPUT_SET: 'INPUT_SET',
+  DELEGATE_CONFIGURATION: 'DELEGATE_CONFIGURATION',
+  SERVICE: 'SERVICE',
+  ENVIRONMENT: 'ENVIRONMENT',
+  DELEGATE: 'DELEGATE',
+  SERVICE_ACCOUNT: 'SERVICE_ACCOUNT',
+  CONNECTOR: 'CONNECTOR',
+  API_KEY: 'API_KEY',
+  TOKEN: 'TOKEN',
+  DELEGATE_TOKEN: 'DELEGATE_TOKEN'
 }
 
 export const getResourceTypeForMultiselect = (): MultiSelectOption[] => {
@@ -41,21 +61,44 @@ export const getResourceTypeForMultiselect = (): MultiSelectOption[] => {
   }))
 }
 
+const getScopes = (formData: AuditTrailFormType, accountId: string): Pick<AuditFilterProperties, 'scopes'> => {
+  const { organizations, projects } = formData
+
+  if (organizations && organizations?.length <= 0) {
+    return {}
+  }
+
+  if (projects && projects?.length > 0) {
+    return {
+      scopes: projects.map(project => ({
+        projectIdentifier: project.value as string,
+        accountIdentifier: accountId
+      }))
+    }
+  }
+
+  return {
+    scopes: formData?.organizations?.map(org => ({
+      orgIdentifier: org.value as string,
+      accountIdentifier: accountId
+    }))
+  }
+}
+
 // create different multiselect types
 export const getFilterPropertiesFromForm = (formData: AuditTrailFormType, accountId: string): AuditFilterProperties => {
   return {
     filterType: 'Audit',
     actions: formData?.actions?.map(action => action.value) as AuditFilterProperties['actions'],
     modules: formData?.modules?.map((module: MultiSelectOption) => module.value) as AuditFilterProperties['modules'],
-    scopes:
-      formData?.organizations?.map(org => ({
-        orgIdentifier: org.value as string,
-        accountIdentifier: accountId
-      })) || [],
+    ...getScopes(formData, accountId),
     principals: formData?.users?.map(user => ({
       type: 'USER',
       identifier: user.value
-    })) as AuditFilterProperties['principals']
+    })) as AuditFilterProperties['principals'],
+    resources: formData?.resourceType?.map(resourceType => ({
+      type: resourceType.value
+    })) as AuditFilterProperties['resources']
   }
 }
 
@@ -74,6 +117,10 @@ export const getFormValuesFromFilterProperties = (
       filterProperties?.scopes?.map(scope => ({
         label: scope.orgIdentifier || '',
         value: scope.orgIdentifier || ''
-      })) || []
+      })) || [],
+    resourceType: filterProperties?.resources?.map(resource => ({
+      label: resourceTypeToLabelMapping[resource.type],
+      value: resource.type
+    }))
   }
 }

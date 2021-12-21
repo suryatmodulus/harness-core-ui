@@ -1,11 +1,15 @@
 .subHeaderContainer {
-  position: sticky;
-  z-index: 3;
-  top: 0;
+  height: 73px !important;
   .subHeader {
     flex: 1;
+    .dateRange {
+      border: 1px solid var(--primary-5) !important;
+    }
   }
 }
 .emptyStateImage {
   width: 278px;
+}
+.pageBody {
+  --page-header-height: 146px;
 }

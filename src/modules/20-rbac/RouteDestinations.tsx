@@ -33,6 +33,8 @@ import ResourceGroupsResourceModalBody from '@rbac/components/ResourceGroupsRend
 import ResourceGroupsResourceRenderer from '@rbac/components/ResourceGroupsRenderer/ResourceGroupsResourceRenderer'
 import UserGroupsResourceModalBody from '@rbac/components/UserGroupsRenderer/UserGroupsResourceModalBody'
 import UserGroupssResourceRenderer from '@rbac/components/UserGroupsRenderer/UserGroupsResourceRenderer'
+import AuditTrailFactory from '@audit-trails/factories/AuditTrailFactory'
+import type { ResourceDTO, ResourceScopeDTO } from 'services/audit'
 
 RbacFactory.registerResourceCategory(ResourceCategory.SHARED_RESOURCES, {
   icon: 'support-tour',
@@ -115,6 +117,106 @@ RbacFactory.registerResourceTypeHandler(ResourceType.SERVICEACCOUNT, {
     [PermissionIdentifier.EDIT_SERVICEACCOUNT]: <String stringID="rbac.permissionLabels.createEdit" />,
     [PermissionIdentifier.DELETE_SERVICEACCOUNT]: <String stringID="rbac.permissionLabels.delete" />,
     [PermissionIdentifier.MANAGE_SERVICEACCOUNT]: <String stringID="rbac.permissionLabels.manage" />
+  }
+})
+
+AuditTrailFactory.registerResourceHandler('USER_GROUP', {
+  moduleIcon: {
+    name: 'nav-settings',
+    size: 30
+  },
+  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
+    const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
+    if (accountIdentifier) {
+      return routes.toUserGroupDetails({
+        orgIdentifier,
+        accountId: accountIdentifier,
+        projectIdentifier,
+        userGroupIdentifier: resource.identifier
+      })
+    }
+
+    return null
+  }
+})
+
+AuditTrailFactory.registerResourceHandler('USER', {
+  moduleIcon: {
+    name: 'nav-settings',
+    size: 30
+  },
+  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
+    const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
+    if (accountIdentifier) {
+      return routes.toUserDetails({
+        orgIdentifier,
+        accountId: accountIdentifier,
+        projectIdentifier,
+        userIdentifier: resource.identifier
+      })
+    }
+
+    return null
+  }
+})
+
+AuditTrailFactory.registerResourceHandler('ROLE', {
+  moduleIcon: {
+    name: 'nav-settings',
+    size: 30
+  },
+  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
+    const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
+    if (accountIdentifier) {
+      return routes.toRoleDetails({
+        orgIdentifier,
+        accountId: accountIdentifier,
+        projectIdentifier,
+        roleIdentifier: resource.identifier
+      })
+    }
+
+    return null
+  }
+})
+
+AuditTrailFactory.registerResourceHandler('SERVICE_ACCOUNT', {
+  moduleIcon: {
+    name: 'nav-settings',
+    size: 30
+  },
+  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
+    const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
+    if (accountIdentifier) {
+      return routes.toServiceAccountDetails({
+        orgIdentifier,
+        accountId: accountIdentifier,
+        projectIdentifier,
+        serviceAccountIdentifier: resource.identifier
+      })
+    }
+
+    return null
+  }
+})
+
+AuditTrailFactory.registerResourceHandler('RESOURCE_GROUP', {
+  moduleIcon: {
+    name: 'nav-settings',
+    size: 30
+  },
+  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
+    const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
+    if (accountIdentifier) {
+      return routes.toResourceGroupDetails({
+        orgIdentifier,
+        accountId: accountIdentifier,
+        projectIdentifier,
+        resourceGroupIdentifier: resource.identifier
+      })
+    }
+
+    return null
   }
 })
 

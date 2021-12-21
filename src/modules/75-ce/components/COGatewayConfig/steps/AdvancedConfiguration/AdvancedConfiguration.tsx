@@ -6,6 +6,8 @@ import { useStrings } from 'framework/strings'
 import { Utils } from '@ce/common/Utils'
 import type { FixedScheduleClient, GatewayDetails } from '@ce/components/COCreateGateway/models'
 import type { Service } from 'services/lw'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import COGatewayConfigStep from '../../COGatewayConfigStep'
 import RuleDependency from './RuleDependency'
 import FixedSchedules from './FixedSchedules'
@@ -25,7 +27,7 @@ enum AdvancedConfigTabs {
 
 const AdvancedConfiguration: React.FC<AdvancedConfigurationProps> = props => {
   const { getString } = useStrings()
-
+  const enabled = useFeatureFlag(FeatureFlag.CCM_ENABLE_STATIC_SCHEDULES)
   const [selectedTab, setSelectedTab] = useState<AdvancedConfigTabs>(AdvancedConfigTabs.deps)
 
   const isK8sSelected = props.selectedResource === RESOURCES.KUBERNETES
@@ -76,16 +78,18 @@ const AdvancedConfiguration: React.FC<AdvancedConfigurationProps> = props => {
               />
             }
           />
-          <Tab
-            id={AdvancedConfigTabs.schedules}
-            title={getString('ce.co.autoStoppingRule.configuration.step4.tabs.schedules.title')}
-            panel={
-              <FixedSchedules
-                schedules={_defaultTo(props.gatewayDetails.schedules, [])}
-                addSchedules={handledFixedSchedulesAddition}
-              />
-            }
-          />
+          {enabled && (
+            <Tab
+              id={AdvancedConfigTabs.schedules}
+              title={getString('ce.co.autoStoppingRule.configuration.step4.tabs.schedules.title')}
+              panel={
+                <FixedSchedules
+                  schedules={_defaultTo(props.gatewayDetails.schedules, [])}
+                  addSchedules={handledFixedSchedulesAddition}
+                />
+              }
+            />
+          )}
         </Tabs>
       </Layout.Vertical>
     </COGatewayConfigStep>

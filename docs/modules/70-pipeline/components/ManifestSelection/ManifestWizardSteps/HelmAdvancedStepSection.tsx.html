@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.79% </span>
+                <span class="strong">82.05% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>28/39</span>
+                <span class='fraction'>32/39</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25.58% </span>
+                <span class="strong">56.98% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>22/86</span>
+                <span class='fraction'>49/86</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">58.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/12</span>
+                <span class='fraction'>7/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.79% </span>
+                <span class="strong">82.05% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/39</span>
+                <span class='fraction'>32/39</span>
             </div>
         
             
@@ -339,13 +339,13 @@
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -386,9 +386,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -532,7 +532,7 @@ const HelmAdvancedStepSection: React.FC&lt;HelmAdvancedStepProps&gt; = ({
 }) =&gt; {
   const { getString } = useStrings()
   const defaultValueToReset = [{ commandType: '', flag: '', id: uuid('', nameSpace()) }]
-  const [commandFlagOptions, setCommandFlagOptions] = useState&lt;{ [x: string]: SelectOption[] }&gt;({ V2: [], V3: [] })
+  const [commandFlagOptions, setCommandFlagOptions] = useState&lt;Record&lt;string, SelectOption[]&gt;&gt;({ V2: [], V3: [] })
 &nbsp;
   const { data: commandFlags, refetch: refetchCommandFlags } = useHelmCmdFlags({
     queryParams: {
@@ -552,13 +552,13 @@ const HelmAdvancedStepSection: React.FC&lt;HelmAdvancedStepProps&gt; = ({
   useDeepCompareEffect(() =&gt; {
     const commandFlagSelectOption = {
       ...commandFlagOptions,
-      [helmVersion]: commandFlags<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?.map(<span class="fstat-no" title="function not covered" >commandFlag </span>=&gt; (<span class="cstat-no" title="statement not covered" >{ label: commandFlag, value: commandFlag })</span>)</span>
+      [helmVersion]: commandFlags<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(commandFlag =&gt; ({ label: commandFlag, value: commandFlag }))
     }
-    setCommandFlagOptions(commandFlagSelectOption as { [x: string]: SelectOption[] })
+    setCommandFlagOptions(commandFlagSelectOption as Record&lt;string, SelectOption[]&gt;)
   }, [commandFlags<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata])
 &nbsp;
-  const commandFlagLabel = <span class="fstat-no" title="function not covered" >(): React.ReactElement =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >    return (</span>
+  const commandFlagLabel = (): React.ReactElement =&gt; {
+    return (
       &lt;Layout.Horizontal flex spacing="small"&gt;
         &lt;String tagName="div" stringID="pipeline.manifestType.helmCommandFlagLabel" /&gt;
       &lt;/Layout.Horizontal&gt;
@@ -589,8 +589,8 @@ const HelmAdvancedStepSection: React.FC&lt;HelmAdvancedStepProps&gt; = ({
           /&gt;
         )}
       &lt;/Layout.Horizontal&gt;
-      {commandFlagOptions[helmVersion]?.length &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;div className={helmcss.commandFlags}&gt;</span>
+      {commandFlagOptions[helmVersion]<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &amp;&amp; (
+        &lt;div className={helmcss.commandFlags}&gt;
           &lt;MultiTypeFieldSelector
             defaultValueToReset={defaultValueToReset}
             name={'commandFlags'}
@@ -599,14 +599,14 @@ const HelmAdvancedStepSection: React.FC&lt;HelmAdvancedStepProps&gt; = ({
           &gt;
             &lt;FieldArray
               name="commandFlags"
-              render={<span class="fstat-no" title="function not covered" >({</span> push, remove }) =&gt; <span class="cstat-no" title="statement not covered" >(</span>
+              render={({ push, remove }) =&gt; (
                 &lt;Layout.Vertical&gt;
-                  {formik.values?.commandFlags?.map(<span class="fstat-no" title="function not covered" >(c</span>ommandFlag: CommandFlags, index: number) =&gt; <span class="cstat-no" title="statement not covered" >(</span>
+                  {formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommandFlags<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap((commandFlag: CommandFlags, index: number) =&gt; (
                     &lt;Layout.Horizontal key={commandFlag.id} spacing="xxlarge" margin={{ top: 'small' }}&gt;
                       &lt;div className={helmcss.halfWidth}&gt;
                         &lt;FormInput.MultiTypeInput
                           name={`commandFlags[${index}].commandType`}
-                          label={index === 0 ? getString('pipeline.manifestType.helmCommandType') : ''}
+                          label={index === 0 ? getString('pipeline.manifestType.helmCommandType') : <span class="branch-1 cbranch-no" title="branch not covered" >''}</span>
                           selectItems={commandFlagOptions[helmVersion]}
                           placeholder={getString('pipeline.manifestType.helmCommandTypePlaceholder')}
                           multiTypeInputProps={{
@@ -628,7 +628,7 @@ const HelmAdvancedStepSection: React.FC&lt;HelmAdvancedStepProps&gt; = ({
                       &lt;div className={helmcss.halfWidth}&gt;
                         &lt;Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}&gt;
                           &lt;FormInput.MultiTextInput
-                            label={index === 0 ? getString('flag') : ''}
+                            label={index === 0 ? getString('flag') : <span class="branch-1 cbranch-no" title="branch not covered" >''}</span>
                             name={`commandFlags[${index}].flag`}
                             multiTextInputProps={{
                               expressions,
@@ -639,9 +639,9 @@ const HelmAdvancedStepSection: React.FC&lt;HelmAdvancedStepProps&gt; = ({
                               ]
                             }}
                           /&gt;
-                          {getMultiTypeFromValue(formik.values?.commandFlags?.[index]?.flag) ===
+                          {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommandFlags<span class="branch-0 cbranch-no" title="branch not covered" >?.[i</span>ndex]<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>lag) ===
                             MultiTypeInputType.RUNTIME &amp;&amp; (
-                            &lt;div
+<span class="branch-1 cbranch-no" title="branch not covered" >                            &lt;div</span>
                               className={cx({
                                 [css.addmarginTop]: index === 0
                               })}
@@ -662,7 +662,7 @@ const HelmAdvancedStepSection: React.FC&lt;HelmAdvancedStepProps&gt; = ({
                             &lt;/div&gt;
                           )}
                           {index !== 0 &amp;&amp; (
-                            &lt;Button
+<span class="branch-1 cbranch-no" title="branch not covered" >                            &lt;Button</span>
                               minimal
                               icon="main-trash"
                               className={cx({
@@ -675,7 +675,7 @@ const HelmAdvancedStepSection: React.FC&lt;HelmAdvancedStepProps&gt; = ({
                       &lt;/div&gt;
                     &lt;/Layout.Horizontal&gt;
                   ))}
-                  {!!(formik.values?.commandFlags?.length &lt; commandFlagOptions[helmVersion].length) &amp;&amp; (
+                  {!!(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommandFlags<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &lt; commandFlagOptions[helmVersion].length) &amp;&amp; (
                     &lt;span&gt;
                       &lt;Button
                         minimal
@@ -703,7 +703,7 @@ export default HelmAdvancedStepSection
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 21 2021 10:47:01 GMT+0000 (Greenwich Mean Time)
+                at Tue Dec 21 2021 12:30:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.63% </span>
+                <span class="strong">57.89% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>68/118</span>
+                <span class='fraction'>66/114</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15.96% </span>
+                <span class="strong">30.82% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>45/282</span>
+                <span class='fraction'>45/146</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">21.05% </span>
+                <span class="strong">23.53% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/19</span>
+                <span class='fraction'>4/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.62% </span>
+                <span class="strong">58.93% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>68/116</span>
+                <span class='fraction'>66/112</span>
             </div>
         
             
@@ -549,25 +549,7 @@
 <a name='L490'></a><a href='#L490'>490</a>
 <a name='L491'></a><a href='#L491'>491</a>
 <a name='L492'></a><a href='#L492'>492</a>
-<a name='L493'></a><a href='#L493'>493</a>
-<a name='L494'></a><a href='#L494'>494</a>
-<a name='L495'></a><a href='#L495'>495</a>
-<a name='L496'></a><a href='#L496'>496</a>
-<a name='L497'></a><a href='#L497'>497</a>
-<a name='L498'></a><a href='#L498'>498</a>
-<a name='L499'></a><a href='#L499'>499</a>
-<a name='L500'></a><a href='#L500'>500</a>
-<a name='L501'></a><a href='#L501'>501</a>
-<a name='L502'></a><a href='#L502'>502</a>
-<a name='L503'></a><a href='#L503'>503</a>
-<a name='L504'></a><a href='#L504'>504</a>
-<a name='L505'></a><a href='#L505'>505</a>
-<a name='L506'></a><a href='#L506'>506</a>
-<a name='L507'></a><a href='#L507'>507</a>
-<a name='L508'></a><a href='#L508'>508</a>
-<a name='L509'></a><a href='#L509'>509</a>
-<a name='L510'></a><a href='#L510'>510</a>
-<a name='L511'></a><a href='#L511'>511</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">57x</span>
+<a name='L493'></a><a href='#L493'>493</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">57x</span>
 <span class="cline-any cline-yes">57x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -594,7 +576,6 @@
 <span class="cline-any cline-yes">57x</span>
 <span class="cline-any cline-yes">57x</span>
 <span class="cline-any cline-yes">57x</span>
-<span class="cline-any cline-yes">57x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">57x</span>
@@ -612,29 +593,12 @@
 <span class="cline-any cline-yes">57x</span>
 <span class="cline-any cline-yes">57x</span>
 <span class="cline-any cline-yes">57x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">57x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">57x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1101,10 +1065,9 @@ import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/compon
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 &nbsp;
-import { K8SDirectInfrastructure, getConnectorListV2Promise, ConnectorResponse } from 'services/cd-ng'
+import { K8SDirectInfrastructure, getConnectorListV2Promise } from 'services/cd-ng'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { getIconByType } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { Scope } from '@common/interfaces/SecretsInterface'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { useQueryParams } from '@common/hooks'
@@ -1117,6 +1080,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
+import { getConnectorName, getConnectorValue } from '@pipeline/components/PipelineSteps/Steps/StepsHelper'
 import { getNameSpaceSchema, getReleaseNameSchema } from '../PipelineStepsUtil'
 import css from './KubernetesInfraSpec.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -1133,24 +1097,6 @@ interface KubernetesInfraSpecEditableProps {
   variablesData: K8SDirectInfrastructure
   allowableTypes?: MultiTypeInputType[]
 }
-&nbsp;
-const getConnectorValue = <span class="fstat-no" title="function not covered" >(c</span>onnector?: ConnectorResponse): string =&gt;
-<span class="cstat-no" title="statement not covered" >  `${</span>
-    connector?.connector?.orgIdentifier &amp;&amp; connector?.connector?.projectIdentifier
-      ? connector?.connector?.identifier
-      : connector?.connector?.orgIdentifier
-      ? `${Scope.ORG}.${connector?.connector?.identifier}`
-      : `${Scope.ACCOUNT}.${connector?.connector?.identifier}`
-  }` || ''
-&nbsp;
-const getConnectorName = <span class="fstat-no" title="function not covered" >(c</span>onnector?: ConnectorResponse): string =&gt;
-<span class="cstat-no" title="statement not covered" >  `${</span>
-    connector?.connector?.orgIdentifier &amp;&amp; connector?.connector?.projectIdentifier
-      ? `${connector?.connector?.type}: ${connector?.connector?.name}`
-      : connector?.connector?.orgIdentifier
-      ? `${connector?.connector?.type}[Org]: ${connector?.connector?.name}`
-      : `${connector?.connector?.type}[Account]: ${connector?.connector?.name}`
-  }` || ''
 &nbsp;
 const KubernetesInfraSpecEditable: React.FC&lt;KubernetesInfraSpecEditableProps&gt; = <span class="fstat-no" title="function not covered" >({</span>
   initialValues,
@@ -1594,7 +1540,7 @@ export class KubernetesInfraSpec extends PipelineStep&lt;K8SDirectInfrastructure
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 21 2021 10:47:01 GMT+0000 (Greenwich Mean Time)
+                at Tue Dec 21 2021 12:30:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

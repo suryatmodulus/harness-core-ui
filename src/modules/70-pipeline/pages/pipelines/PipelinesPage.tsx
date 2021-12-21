@@ -414,7 +414,9 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             initialValues={{
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
               services: getMultiSelectFormOptions(servicesResponse?.data?.content),
-              deploymentType: getMultiSelectFormOptions(deploymentTypeResponse?.data)
+              deploymentType: getMultiSelectFormOptions(
+                deploymentTypeResponse?.data?.filter(deploymentType => deploymentType !== 'NativeHelm') //This filter will be removed once nativeHelm is enabled
+              )
             }}
             type="PipelineSetup"
           />
@@ -430,7 +432,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             targetBranch,
             buildType,
             repositoryName: repoName ? repoName[0] : undefined,
-            deploymentType: getMultiSelectFormOptions(deploymentTypes),
+            deploymentType: deploymentTypes,
             infrastructureType: infrastructureTypes ? infrastructureTypes[0] : undefined,
             services: getMultiSelectFormOptions(serviceNames),
             environments: getMultiSelectFormOptions(environmentNames)

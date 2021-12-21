@@ -62,7 +62,7 @@ export const getValidFilterArguments = (formData: Record<string, any>): Pipeline
         tag
       }),
       cd: {
-        serviceDefinitionTypes: deploymentType?.map((deployment: MultiSelectOption) => deployment?.value),
+        serviceDefinitionTypes: deploymentType,
         infrastructureType: infrastructureType,
         serviceIdentifiers: services?.map((service: MultiSelectOption) => service?.value),
         envIdentifiers: environments?.map((env: MultiSelectOption) => env?.value)

@@ -2,11 +2,21 @@
 
 The Audit trail framework is built using the _registration_ pattern. Developers from each team will need to register their resources with the AuditTrailFactory.
 
+<<<<<<< HEAD
 Registration of **resources** requires the following details -
 
 - **Icon** - Module icon to which the resource belongs.
 - **resourceUrl** - Resource redirection url (For eg. Connector details page in case of connector)
 
+=======
+Registration of **resource** requires the following details -
+   
+   **Icon** - Module icon to which the resource belongs.
+   
+   **resourceUrl** - Resource redirection url (For eg. Connector details page in case of connector)
+   
+   
+>>>>>>> 8e94da0cd483 (Update AuditTrails.md)
 Example of a resource registration:
 
 ```typescript

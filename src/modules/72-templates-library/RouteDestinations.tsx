@@ -11,6 +11,8 @@ import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
 import { String } from 'framework/strings'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import AuditTrailFactory from '@audit-trails/factories/AuditTrailFactory'
+import type { ResourceDTO, ResourceScopeDTO } from 'services/audit'
 import TemplateResourceModal from './components/RbacResourceModals/TemplateResourceModal'
 import TemplateResourceRenderer from './components/RbacResourceModals/TemplateResourceRenderer'
 
@@ -31,6 +33,17 @@ RbacFactory.registerResourceTypeHandler(ResourceType.TEMPLATE, {
   addResourceModalBody: props => <TemplateResourceModal {...props} />,
   // eslint-disable-next-line react/display-name
   staticResourceRenderer: props => <TemplateResourceRenderer {...props} />
+})
+
+AuditTrailFactory.registerResourceHandler('TEMPLATE', {
+  moduleIcon: {
+    name: 'cd-main',
+    size: 30
+  },
+  resourceUrl: (_resource: ResourceDTO, _resourceScope: ResourceScopeDTO) => {
+    // Implementation required
+    return null
+  }
 })
 
 export default (

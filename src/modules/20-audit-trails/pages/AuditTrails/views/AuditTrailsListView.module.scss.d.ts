@@ -4,5 +4,7 @@ declare const styles: {
   readonly table: string
   readonly pagination: string
   readonly notesIcon: string
+  readonly resourceLink: string
+  readonly navSettingIcon: string
 }
 export default styles

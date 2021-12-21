@@ -46,6 +46,7 @@ const EventSummary: React.FC<EventSummaryProps> = props => {
   const clientIP = auditData.requestMetadata?.clientIP
   const {
     resourceScope: { projectIdentifier },
+    resource: { type: resourceType },
     module,
     environment
   } = auditData
@@ -74,7 +75,7 @@ const EventSummary: React.FC<EventSummaryProps> = props => {
                 {module ? renderInfo(getString('module'), module, !!environment?.type) : undefined}
                 {environment?.type ? renderInfo(getString('environment'), environment.type) : undefined}
               </Layout.Horizontal>
-              {AuditTrailFactory.getModuleProperties(module)?.eventSummaryRenderer?.()}
+              {AuditTrailFactory.getResourceHandler(resourceType)?.eventSummaryRenderer?.()}
             </Layout.Vertical>
           </Card>
           {requestMethod && clientIP ? (

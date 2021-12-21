@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { DateRangePickerButton, Layout } from '@wings-software/uicore'
+import { Color, DateRangePickerButton, FontVariation, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { useGetAuditList } from 'services/audit'
@@ -48,9 +48,9 @@ const AuditTrailsPage: React.FC = () => {
       pageIndex: page
     },
     body: {
+      scopes: [{ accountIdentifier: accountId, orgIdentifier, projectIdentifier }],
       ...selectedFilterProperties,
       filterType: 'Audit',
-      scopes: [{ accountIdentifier: accountId, orgIdentifier, projectIdentifier }],
       startTime: startDate.getTime(),
       endTime: endDate.getTime()
     }
@@ -58,8 +58,41 @@ const AuditTrailsPage: React.FC = () => {
 
   return (
     <>
-      <Page.Header title={getString('common.auditTrail')} breadcrumbs={<NGBreadcrumbs />} />
+      <Page.Header
+        title={getString('common.auditTrail')}
+        breadcrumbs={<NGBreadcrumbs />}
+        content={
+          <Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_600}>
+            {getString('auditTrails.externalDataText')}
+            <a target="_blank" href="https://harness.io/docs/api/tag/Audits" rel="noreferrer">
+              {` ${getString('auditTrails.auditLogAPI')}`}
+            </a>
+          </Text>
+        }
+      />
+      <Page.SubHeader className={css.subHeaderContainer}>
+        <Layout.Horizontal flex className={css.subHeader}>
+          <DateRangePickerButton
+            width={240}
+            className={css.dateRange}
+            initialButtonText={getString('common.last7days')}
+            dateRangePickerProps={{ defaultValue: [startDate, endDate] }}
+            onChange={onDateChange}
+            renderButtonText={selectedDates =>
+              `${selectedDates[0].toLocaleDateString()} - ${selectedDates[1].toLocaleDateString()}`
+            }
+          />
+          <Layout.Horizontal flex>
+            <AuditTrailsFilters
+              applyFilters={(properties: AuditFilterProperties) => {
+                setSelectedFilterProperties(properties)
+              }}
+            />
+          </Layout.Horizontal>
+        </Layout.Horizontal>
+      </Page.SubHeader>
       <Page.Body
+        className={css.pageBody}
         noData={{
           when: () => !auditData?.data?.content?.length,
           image: AuditTrailsEmptyState,
@@ -71,27 +104,6 @@ const AuditTrailsPage: React.FC = () => {
         retryOnError={() => refetch()}
         loading={loading}
       >
-        {/* Subheader inside body - review this */}
-        <Page.SubHeader className={css.subHeaderContainer}>
-          <Layout.Horizontal flex className={css.subHeader}>
-            <DateRangePickerButton
-              width={240}
-              initialButtonText={getString('common.last7days')}
-              dateRangePickerProps={{ defaultValue: [startDate, endDate] }}
-              onChange={onDateChange}
-              renderButtonText={selectedDates =>
-                `${selectedDates[0].toLocaleDateString()} - ${selectedDates[1].toLocaleDateString()}`
-              }
-            />
-            <Layout.Horizontal flex>
-              <AuditTrailsFilters
-                applyFilters={(properties: AuditFilterProperties) => {
-                  setSelectedFilterProperties(properties)
-                }}
-              />
-            </Layout.Horizontal>
-          </Layout.Horizontal>
-        </Page.SubHeader>
         <AuditTrailsListView setPage={setPage} data={auditData?.data || {}} />
       </Page.Body>
     </>

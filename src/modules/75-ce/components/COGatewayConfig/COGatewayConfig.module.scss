@@ -67,23 +67,23 @@
   }
 }
 .healthCheckTable {
-  align-items: center;
-  width: 479px;
-  th {
-    font-size: 11px;
-    font-weight: 500;
-    line-height: 150%;
+  button[type='button'][data-id='btn-add'] {
+    display: none;
   }
-  tbody {
-    font-size: 13px;
-    font-weight: normal;
-    line-height: 14px;
-    background-color: #ffffff;
-    td {
-      padding: 11px 11px 0 !important;
+  table tbody td > div[class*='TextInput'] {
+    margin-bottom: 0 !important;
+  }
+}
+
+.portConfigTable {
+  table tbody td {
+    padding: 10px !important;
+    > div[class*='TextInput'] {
+      margin-bottom: 0 !important;
     }
   }
 }
+
 .page {
   overflow: scroll;
   height: calc(100vh - 86px);

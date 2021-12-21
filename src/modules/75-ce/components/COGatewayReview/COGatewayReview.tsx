@@ -357,28 +357,38 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
                     {
                       accessor: 'protocol',
                       Header: 'PROTOCOL',
-                      width: '25%',
+                      width: '20%',
                       Cell: TableCell
                     },
                     {
                       accessor: 'path',
                       Header: 'PATH',
-                      width: '25%',
+                      width: '20%',
                       Cell: TableCell
                     },
                     {
                       accessor: 'port',
                       Header: 'PORT',
-                      width: '25%',
+                      width: '20%',
                       Cell: TableCell,
                       disableSortBy: true
                     },
                     {
                       accessor: 'timeout',
                       Header: 'TIMEOUT(SECS)',
-                      width: '25%',
+                      width: '20%',
                       Cell: TableCell,
                       disableSortBy: true
+                    },
+                    {
+                      accessor: 'status_code_from',
+                      Header: 'STATUS',
+                      width: '20%',
+                      Cell: tableProps => (
+                        <Text lineClamp={3} color={Color.BLACK}>
+                          {`${tableProps.row.original.status_code_from}-${tableProps.row.original.status_code_to}`}
+                        </Text>
+                      )
                     }
                   ]}
                 />

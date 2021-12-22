@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.54% </span>
+                <span class="strong">87.04% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/52</span>
+                <span class='fraction'>47/54</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.09% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>35/46</span>
+                <span class='fraction'>36/48</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.27% </span>
+                <span class="strong">86.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/51</span>
+                <span class='fraction'>45/52</span>
             </div>
         
             
@@ -159,7 +159,21 @@
 <a name='L100'></a><a href='#L100'>100</a>
 <a name='L101'></a><a href='#L101'>101</a>
 <a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">58x</span>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-yes">58x</span>
@@ -176,7 +190,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">58x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -188,6 +211,9 @@
 <span class="cline-any cline-yes">391x</span>
 <span class="cline-any cline-yes">391x</span>
 <span class="cline-any cline-yes">391x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">578x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">391x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,9 +262,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">147x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">145x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -276,13 +304,22 @@ import { useStrings } from 'framework/strings'
 &nbsp;
 export interface NGBreadcrumbsProps extends BreadcrumbsProps {
   orgBreadCrumbOptional: boolean
+  /**
+   * This prop will be used by microfrontend child apps
+   * in order to populate params correctly
+   */
   customPathParams?: Partial&lt;ProjectPathProps &amp; SecretsPathProps &amp; ModulePathParams&gt;
+  /**
+   * This prop will be used for resolving paths against this base URL
+   */
+  baseUrl?: string
 }
 export const NGBreadcrumbs: React.FC&lt;Partial&lt;NGBreadcrumbsProps&gt;&gt; = ({
   links = [],
   className = '',
   orgBreadCrumbOptional = false,
-  customPathParams = {}
+  customPathParams = {},
+  baseUrl
 }) =&gt; {
   const { getString } = useStrings()
   const originalParams = useParams&lt;ProjectPathProps &amp; SecretsPathProps &amp; ModulePathParams&gt;()
@@ -290,10 +327,13 @@ export const NGBreadcrumbs: React.FC&lt;Partial&lt;NGBreadcrumbsProps&gt;&gt; = 
   const { module, projectIdentifier, orgIdentifier } = params
   const { selectedProject, selectedOrg } = useAppStore()
   const { pathname } = useLocation()
+&nbsp;
+  const resolveUrl = (url: string): string =&gt; (baseUrl ? <span class="branch-0 cbranch-no" title="branch not covered" >url.replace(new RegExp(`^${baseUrl}`), '') </span>: url)
+&nbsp;
   let moduleBreadCrumb: Breadcrumb = {
     label: getString('common.accountSettings'),
     iconProps: { name: 'cog', color: 'primary7' },
-    url: paths.toAccountSettings(params)
+    url: resolveUrl(paths.toAccountSettings(params))
   }
 &nbsp;
   const isHome = pathname.indexOf(paths.toHome({ accountId: params.accountId })) !== -1
@@ -303,13 +343,13 @@ export const NGBreadcrumbs: React.FC&lt;Partial&lt;NGBreadcrumbsProps&gt;&gt; = 
     moduleBreadCrumb = {
       label: getString('common.home'),
       iconProps: { name: 'harness', color: 'primary7' },
-      url: paths.toHome(params)
+      url: resolveUrl(paths.toHome(params))
     }
   } else <span class="missing-if-branch" title="if path not taken" >I</span>if (isDashBoards) {
 <span class="cstat-no" title="statement not covered" >    moduleBreadCrumb = {</span>
       label: getString('common.dashboards'),
       iconProps: { name: 'dashboard', color: 'primary7' },
-      url: paths.toCustomDashboard(params)
+      url: resolveUrl(paths.toCustomDashboard(params))
     }
   }
 &nbsp;
@@ -338,6 +378,7 @@ export const NGBreadcrumbs: React.FC&lt;Partial&lt;NGBreadcrumbsProps&gt;&gt; = 
 <span class="cstat-no" title="statement not covered" >        label = getString('featureFlagsText')</span>
 <span class="cstat-no" title="statement not covered" >        break</span>
     }
+&nbsp;
     if (projectIdentifier) {
       // falling back to projectidentifier  from url if selected project in appstore does not match with project identifier in url
       label =
@@ -345,10 +386,11 @@ export const NGBreadcrumbs: React.FC&lt;Partial&lt;NGBreadcrumbsProps&gt;&gt; = 
           ? selectedProject.name
           : projectIdentifier
     }
+&nbsp;
     moduleBreadCrumb = {
       label,
       iconProps: { name: getModuleIcon(module.toUpperCase() as ModuleName) },
-      url
+      url: resolveUrl(url)
     }
   }
   const breadCrumbsList = [moduleBreadCrumb]
@@ -356,7 +398,7 @@ export const NGBreadcrumbs: React.FC&lt;Partial&lt;NGBreadcrumbsProps&gt;&gt; = 
   if (orgIdentifier &amp;&amp; !projectIdentifier &amp;&amp; !orgBreadCrumbOptional) {
     const orgBreadCrumb = {
       label: <span class="branch-1 cbranch-no" title="branch not covered" >selectedOrg?.name </span>&amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >orgIdentifier === selectedOrg?.identifier ?</span> <span class="branch-0 cbranch-no" title="branch not covered" >selectedOrg.name </span>: orgIdentifier,
-      url: paths.toOrganizationDetails(params)
+      url: resolveUrl(paths.toOrganizationDetails(params))
     }
     breadCrumbsList.push(orgBreadCrumb)
   }
@@ -370,7 +412,7 @@ export const NGBreadcrumbs: React.FC&lt;Partial&lt;NGBreadcrumbsProps&gt;&gt; = 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 22 2021 08:12:57 GMT+0000 (Greenwich Mean Time)
+                at Wed Dec 22 2021 09:37:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

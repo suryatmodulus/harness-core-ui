@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.58% </span>
+                <span class="strong">81.08% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>62/76</span>
+                <span class='fraction'>60/74</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.43% </span>
+                <span class="strong">58.11% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>43/79</span>
+                <span class='fraction'>43/74</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.33% </span>
+                <span class="strong">80.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>61/75</span>
+                <span class='fraction'>59/73</span>
             </div>
         
             
@@ -316,12 +316,8 @@
 <a name='L257'></a><a href='#L257'>257</a>
 <a name='L258'></a><a href='#L258'>258</a>
 <a name='L259'></a><a href='#L259'>259</a>
-<a name='L260'></a><a href='#L260'>260</a>
-<a name='L261'></a><a href='#L261'>261</a>
-<a name='L262'></a><a href='#L262'>262</a>
-<a name='L263'></a><a href='#L263'>263</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L260'></a><a href='#L260'>260</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -340,9 +336,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -495,7 +489,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -526,6 +519,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -590,13 +584,11 @@ import {
   GridListToggle,
   HarnessDocTooltip,
   Layout,
-  PageError,
   useModalHook,
   Views
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
-import { defaultTo } from 'lodash-es'
 import { TemplateSettingsModal } from '@templates-library/components/TemplateSettingsModal/TemplateSettingsModal'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'
@@ -608,7 +600,6 @@ import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { NewTemplatePopover } from '@templates-library/pages/TemplatesPage/views/NewTemplatePopover'
 import { DeleteTemplateModal } from '@templates-library/components/DeleteTemplateModal/DeleteTemplateModal'
 import routes from '@common/RouteDefinitions'
-import { PageSpinner } from '@common/components'
 import { useMutateAsGet } from '@common/hooks'
 import NoResultsView from '@templates-library/pages/TemplatesPage/views/NoResultsView/NoResultsView'
 import TemplatesView from '@templates-library/pages/TemplatesPage/views/TemplatesView'
@@ -746,56 +737,56 @@ export default function TemplatesPage(): React.ReactElement {
         }
       /&gt;
 &nbsp;
-      &lt;Page.Body&gt;
-        {loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;PageSpinner /&gt;}</span>
-        {!loading &amp;&amp; error &amp;&amp; (
-<span class="branch-2 cbranch-no" title="branch not covered" >          &lt;PageError message={defaultTo((error.data as Error)?.message, error.message)} onClick={reloadTemplates} /&gt;</span>
-        )}
-        {!loading &amp;&amp; !error &amp;&amp; (
-          &lt;Layout.Vertical height={'100%'}&gt;
-            &lt;Page.SubHeader&gt;
-              &lt;Layout.Horizontal spacing={'medium'}&gt;
-                &lt;NewTemplatePopover /&gt;
-                &lt;DropDown
-                  onChange={<span class="fstat-no" title="function not covered" >item </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                    setType(item.value as TemplateType)</span>
-                  }}
-                  value={type}
-                  filterable={false}
-                  addClearBtn={true}
-                  items={allowedTemplateTypes}
-                  placeholder={getString('all')}
-                  popoverClassName={css.dropdownPopover}
-                /&gt;
-                {isGitSyncEnabled &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;GitSyncStoreProvider&gt;</span>
-                    &lt;GitFilters
-                      onChange={<span class="fstat-no" title="function not covered" >filter </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                        setGitFilter(filter)</span>
-<span class="cstat-no" title="statement not covered" >                        setPage(0)</span>
-                      }}
-                      className={css.gitFilter}
-                      defaultValue={gitFilter || undefined}
-                    /&gt;
-                  &lt;/GitSyncStoreProvider&gt;
-                )}
-              &lt;/Layout.Horizontal&gt;
-              &lt;Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}&gt;
-                &lt;ExpandingSearchInput
-                  alwaysExpanded
-                  width={200}
-                  placeholder={getString('search')}
-                  onChange={<span class="fstat-no" title="function not covered" >(t</span>ext: string) =&gt; {
-<span class="cstat-no" title="statement not covered" >                    setPage(0)</span>
-<span class="cstat-no" title="statement not covered" >                    setSearchParam(text)</span>
-                  }}
-                  ref={searchRef}
-                  defaultValue={searchParam}
-                  className={css.expandSearch}
-                /&gt;
-                &lt;GridListToggle initialSelectedView={view} onViewToggle={setView} /&gt;
-              &lt;/Layout.Horizontal&gt;
-            &lt;/Page.SubHeader&gt;
+      &lt;Page.Body
+        loading={loading}
+        error={<span class="branch-1 cbranch-no" title="branch not covered" >error?.message}</span>
+        retryOnError={/* istanbul ignore next */ () =&gt; reloadTemplates()}
+      &gt;
+        &lt;Layout.Vertical height={'100%'}&gt;
+          &lt;Page.SubHeader&gt;
+            &lt;Layout.Horizontal spacing={'medium'}&gt;
+              &lt;NewTemplatePopover /&gt;
+              &lt;DropDown
+                onChange={<span class="fstat-no" title="function not covered" >item </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                  setType(item.value as TemplateType)</span>
+                }}
+                value={type}
+                filterable={false}
+                addClearBtn={true}
+                items={allowedTemplateTypes}
+                placeholder={getString('all')}
+                popoverClassName={css.dropdownPopover}
+              /&gt;
+              {isGitSyncEnabled &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                &lt;GitSyncStoreProvider&gt;</span>
+                  &lt;GitFilters
+                    onChange={<span class="fstat-no" title="function not covered" >filter </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                      setGitFilter(filter)</span>
+<span class="cstat-no" title="statement not covered" >                      setPage(0)</span>
+                    }}
+                    className={css.gitFilter}
+                    defaultValue={gitFilter || undefined}
+                  /&gt;
+                &lt;/GitSyncStoreProvider&gt;
+              )}
+            &lt;/Layout.Horizontal&gt;
+            &lt;Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}&gt;
+              &lt;ExpandingSearchInput
+                alwaysExpanded
+                width={200}
+                placeholder={getString('search')}
+                onChange={<span class="fstat-no" title="function not covered" >(t</span>ext: string) =&gt; {
+<span class="cstat-no" title="statement not covered" >                  setPage(0)</span>
+<span class="cstat-no" title="statement not covered" >                  setSearchParam(text)</span>
+                }}
+                ref={searchRef}
+                defaultValue={searchParam}
+                className={css.expandSearch}
+              /&gt;
+              &lt;GridListToggle initialSelectedView={view} onViewToggle={setView} /&gt;
+            &lt;/Layout.Horizontal&gt;
+          &lt;/Page.SubHeader&gt;
+          {!loading &amp;&amp; !error &amp;&amp; (
             &lt;Container height={'100%'} style={{ overflow: 'auto' }}&gt;
               {!templateData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >                &lt;NoResultsView</span>
@@ -829,8 +820,8 @@ export default function TemplatesPage(): React.ReactElement {
                 &lt;/Layout.Vertical&gt;
               )}
             &lt;/Container&gt;
-          &lt;/Layout.Vertical&gt;
-        )}
+          )}
+        &lt;/Layout.Vertical&gt;
       &lt;/Page.Body&gt;
       {selectedTemplate &amp;&amp; (
         &lt;TemplateDetailsDrawer
@@ -850,7 +841,7 @@ export default function TemplatesPage(): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 22 2021 06:41:30 GMT+0000 (Greenwich Mean Time)
+                at Wed Dec 22 2021 08:12:57 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

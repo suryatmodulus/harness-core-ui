@@ -41,6 +41,7 @@ const LBAdvancedConfiguration: React.FC<LBAdvancedConfigurationProps> = props =>
   const [activeConfigTabId, setActiveConfigTabId] = useState<string | undefined>(props.activeStepDetails?.tabId)
   const [routingRecords, setRoutingRecords] = useState<PortConfig[]>(props.gatewayDetails.routing.ports)
   const [healthCheckPattern, setHealthCheckPattern] = useState<HealthCheck | null>(props.gatewayDetails.healthCheck)
+  const [showRoutingTable, setShowRoutingTable] = useState<boolean>(false)
 
   const { mutate: getSecurityGroups, loading: loadingSecurityGroups } = useSecurityGroupsOfInstances({
     account_id: accountId, // eslint-disable-line
@@ -53,6 +54,8 @@ const LBAdvancedConfiguration: React.FC<LBAdvancedConfigurationProps> = props =>
   useEffect(() => {
     if (_isEmpty(routingRecords) && !_isEmpty(props.gatewayDetails.selectedInstances)) {
       fetchInstanceSecurityGroups()
+    } else {
+      setShowRoutingTable(true)
     }
   }, [])
 
@@ -95,6 +98,8 @@ const LBAdvancedConfiguration: React.FC<LBAdvancedConfigurationProps> = props =>
       }
     } catch (e) {
       showError(e.data?.message || e.message, undefined, 'ce.creaetap.result.error')
+    } finally {
+      setShowRoutingTable(true)
     }
   }
 
@@ -136,7 +141,7 @@ const LBAdvancedConfiguration: React.FC<LBAdvancedConfigurationProps> = props =>
                     {getString('ce.co.gatewayConfig.routingDescription')}
                   </Text>
                   <Layout.Vertical spacing="large">
-                    {loadingSecurityGroups ? (
+                    {!showRoutingTable || loadingSecurityGroups ? (
                       <Icon
                         name="spinner"
                         size={24}

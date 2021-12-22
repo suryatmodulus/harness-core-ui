@@ -78,6 +78,17 @@ const ResourceAccessUrlSelector: React.FC<ResourceAccessUrlSelectorProps> = ({
     }
   }, [dnsProvider])
 
+  const getServerNames = () => {
+    return gatewayDetails.routing.ports?.map(record => record.server_name).filter(v => !_isEmpty(v))
+  }
+
+  useEffect(() => {
+    const serverNames = getServerNames()
+    if (!_isEmpty(serverNames)) {
+      debouncedCustomDomainTextChange(serverNames.join(','), true)
+    }
+  }, [gatewayDetails.routing.ports])
+
   const shouldDisplayPublicAccessCheck = () => {
     return _isEmpty(gatewayDetails.routing.container_svc)
   }
@@ -110,6 +121,7 @@ const ResourceAccessUrlSelector: React.FC<ResourceAccessUrlSelectorProps> = ({
         <Layout.Horizontal>
           <Radio
             value="no"
+            disabled={!_isEmpty(getServerNames())}
             onChange={e => {
               formikProps.setFieldValue('usingCustomDomain', e.currentTarget.value)
               if (e.currentTarget.value === 'no') {

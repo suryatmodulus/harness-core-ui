@@ -245,7 +245,8 @@ export class StageBuilderModel extends DiagramModel {
               allowAdd: isLastNode,
               isParallelNode: true,
               parentPath: `${parentPath}.parallel.${index}`,
-              errorMap
+              errorMap,
+              templateTypes
             })
             startX = resp.startX
             newY = resp.startY + this.gapY
@@ -281,7 +282,8 @@ export class StageBuilderModel extends DiagramModel {
           allowAdd: true,
           isParallelNode: false,
           parentPath: `${parentPath}.0`,
-          errorMap
+          errorMap,
+          templateTypes
         })
       }
       return { startX, startY, prevNodes }

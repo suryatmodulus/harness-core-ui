@@ -104,7 +104,6 @@ import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStor
 import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
 import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
 import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
-import AuditTrailsPage from '@audit-trails/pages/AuditTrails/AuditTrailsPage'
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
@@ -756,14 +755,6 @@ export default (
       <AccessControlPage>
         <Roles />
       </AccessControlPage>
-    </RouteWithLayout>
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CDSideNavProps}
-      path={routes.toAuditTrail({ ...projectPathProps, ...pipelineModuleParams, ...userGroupPathProps })}
-      exact
-    >
-      <AuditTrailsPage />
     </RouteWithLayout>
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}

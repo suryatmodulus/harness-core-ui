@@ -1,10 +1,10 @@
-import React, { useEffect, useMemo, useState, useCallback } from 'react'
-import { Select, Table, TextInput } from '@wings-software/uicore'
-import type { CellProps, Column } from 'react-table'
-import { debounce } from 'lodash-es'
+import React, { useEffect, useState } from 'react'
+import { FieldArray, Select, TextInput } from '@wings-software/uicore'
+import { Formik } from 'formik'
+import type { Field } from '@wings-software/uicore/dist/components/FieldArray/FieldArray'
 import type { HealthCheck } from 'services/lw'
-import type { InstanceDetails } from '../COCreateGateway/models'
 import css from './COGatewayConfig.module.scss'
+
 interface SelectItem {
   label: string
   value: string
@@ -61,118 +61,95 @@ const COHealthCheckTable: React.FC<COHealthCheckTableProps> = props => {
     props.updatePattern(healthCheckPattern[0])
   }, [healthCheckPattern])
 
-  function updateHealthCheckPattern(column: string, val: string) {
-    const pattern = { ...healthCheckPattern[0] }
-    switch (column) {
-      case 'protocol': {
-        pattern['protocol'] = val
-        break
-      }
-      case 'port': {
-        pattern['port'] = +val
-        break
-      }
-      case 'path': {
-        pattern['path'] = val
-        break
-      }
-      case 'timeout': {
-        pattern['timeout'] = +val
-        break
-      }
-    }
-    setHealthCheckPattern([pattern])
-  }
-
-  const updateInput = useCallback(debounce(updateHealthCheckPattern, 1000), [healthCheckPattern])
-
   function getItembyValue(items: SelectItem[], value: string): SelectItem {
     return items.filter(x => x.value == value)[0]
   }
-  function InputCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
-    return (
-      <TextInput
-        defaultValue={tableProps.value}
-        style={{ border: 'none' }}
-        onChange={e => {
-          const value = (e.currentTarget as HTMLInputElement).value
-          updateInput(tableProps.column.id, value)
-        }}
-      />
-    )
-  }
-  function ProtocolCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
-    return (
-      <Select
-        className={css.selectCell}
-        value={getItembyValue(protocols, tableProps.value)}
-        items={protocols}
-        onChange={e => {
-          updateHealthCheckPattern(tableProps.column.id, e.value.toString())
-        }}
-      />
-    )
-  }
 
-  const StatusCell = (tableProps: CellProps<HealthCheck>) => {
-    return (
-      <StatusRangeInput
-        status_code_from={tableProps.row.original.status_code_from || 200}
-        status_code_to={tableProps.row.original.status_code_to || 299}
-        onChange={value => {
-          if (statusRegEx.test(value)) {
-            const [from, to] = value.split('-').map(Number)
-            setHealthCheckPattern([{ ...healthCheckPattern[0], status_code_from: from, status_code_to: to }])
-          }
-        }}
-      />
-    )
-  }
-
-  const columns: Column<HealthCheck>[] = useMemo(
-    () => [
-      {
-        accessor: 'protocol',
-        Header: 'PROTOCOL',
-        width: '16.5%',
-        Cell: ProtocolCell
-      },
-      {
-        accessor: 'path',
-        Header: 'PATH',
-        width: '16.5%',
-        Cell: InputCell,
-        disableSortBy: true
-      },
-      {
-        accessor: 'port',
-        Header: 'PORT',
-        width: '16.5%',
-        Cell: InputCell
-      },
-      {
-        accessor: 'timeout',
-        Header: 'TIMEOUT(SECS)',
-        width: '16.5%',
-        Cell: InputCell
-      },
-      {
-        accessor: 'status_code_from',
-        Header: 'STATUS (from-to)',
-        width: '20%',
-        Cell: StatusCell
-      }
-    ],
-    [healthCheckPattern]
+  const getTextInputEl: Field['renderer'] = (value, _rowIndex, handleChange) => (
+    <TextInput
+      defaultValue={value}
+      style={{ border: 'none' }}
+      onChange={e => handleChange((e.currentTarget as HTMLInputElement).value)}
+    />
   )
 
+  const fields: Field[] = [
+    {
+      name: 'protocol',
+      label: 'PROTOCOL',
+      renderer: (value, _rowIndex, handleChange) => (
+        <Select
+          className={css.selectCell}
+          value={getItembyValue(protocols, value)}
+          items={protocols}
+          onChange={item => handleChange(item.value)}
+        />
+      )
+    },
+    {
+      name: 'path',
+      label: 'PATH',
+      renderer: getTextInputEl
+    },
+    {
+      name: 'port',
+      label: 'PORT',
+      renderer: getTextInputEl
+    },
+    {
+      name: 'timeout',
+      label: 'TIMEOUT',
+      renderer: getTextInputEl
+    },
+    {
+      name: 'status',
+      label: 'STATUS (from-to)',
+      renderer: (value, _rowIndex, handleChange) => (
+        <StatusRangeInput
+          status_code_from={value?.split('-').map(Number)?.[0] || 200}
+          status_code_to={value?.split('-').map(Number)?.[1] || 299}
+          onChange={
+            val => handleChange(val)
+            // value => {
+            // if (statusRegEx.test(value)) {
+            //   const [from, to] = value.split('-').map(Number)
+            //   setHealthCheckPattern([{ ...healthCheckPattern[0], status_code_from: from, status_code_to: to }])
+            // }
+            // }
+          }
+        />
+      )
+    }
+  ]
+
   return (
-    <Table<HealthCheck>
-      data={healthCheckPattern}
-      bpTableProps={{}}
-      className={css.healthCheckTable}
-      columns={columns}
-    />
+    <div className={css.healthCheckTable}>
+      <Formik
+        initialValues={{ healthCheckData: healthCheckPattern }}
+        onSubmit={values => {
+          console.log(values) // eslint-disable-line
+        }}
+      >
+        {_formikProps => (
+          <FieldArray
+            label={''}
+            name={'healthCheckData'}
+            fields={fields}
+            isDeleteOfRowAllowed={() => false}
+            onChange={data => {
+              const _healthCheckData = (data.modifiedRows as any[])[0]
+              setHealthCheckPattern([
+                {
+                  ..._healthCheckData,
+                  status_code_from: _healthCheckData.status?.split('-').map(Number)?.[0] || 200,
+                  status_code_to: _healthCheckData.status?.split('-').map(Number)?.[1] || 299
+                }
+              ])
+            }}
+          />
+        )}
+      </Formik>
+    </div>
   )
 }
 

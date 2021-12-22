@@ -159,71 +159,7 @@ exports[`Azure DNS setup render azure dns setup page 1`] = `
                     </p>
                     <div
                       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
-                    >
-                      <table
-                        class="bp3-html-table bp3-interactive routingTable"
-                        role="table"
-                      >
-                        <thead>
-                          <tr
-                            role="row"
-                          >
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              LISTEN PROTOCOL
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              LISTEN PORT
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              ACTION
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              TARGET PROTOCOL
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              TARGET PORT
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            />
-                          </tr>
-                        </thead>
-                        <tbody
-                          role="rowgroup"
-                        />
-                      </table>
-                      <div
-                        class="StyledProps--font StyledProps--main rowItem"
-                      >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                        >
-                          ce.co.gatewayConfig.addPortLabel
-                        </p>
-                      </div>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>
@@ -489,71 +425,7 @@ exports[`Use DNS for Setup No Access Point is available 1`] = `
                     </p>
                     <div
                       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
-                    >
-                      <table
-                        class="bp3-html-table bp3-interactive routingTable"
-                        role="table"
-                      >
-                        <thead>
-                          <tr
-                            role="row"
-                          >
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              LISTEN PROTOCOL
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              LISTEN PORT
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              ACTION
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              TARGET PROTOCOL
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              TARGET PORT
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            />
-                          </tr>
-                        </thead>
-                        <tbody
-                          role="rowgroup"
-                        />
-                      </table>
-                      <div
-                        class="StyledProps--font StyledProps--main rowItem"
-                      >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                        >
-                          ce.co.gatewayConfig.addPortLabel
-                        </p>
-                      </div>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>
@@ -819,71 +691,7 @@ exports[`Use DNS for Setup No hosted zone is available 1`] = `
                     </p>
                     <div
                       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
-                    >
-                      <table
-                        class="bp3-html-table bp3-interactive routingTable"
-                        role="table"
-                      >
-                        <thead>
-                          <tr
-                            role="row"
-                          >
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              LISTEN PROTOCOL
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              LISTEN PORT
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              ACTION
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              TARGET PROTOCOL
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              TARGET PORT
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            />
-                          </tr>
-                        </thead>
-                        <tbody
-                          role="rowgroup"
-                        />
-                      </table>
-                      <div
-                        class="StyledProps--font StyledProps--main rowItem"
-                      >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                        >
-                          ce.co.gatewayConfig.addPortLabel
-                        </p>
-                      </div>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>
@@ -1149,71 +957,7 @@ exports[`Use DNS for Setup renders without crashing 1`] = `
                     </p>
                     <div
                       class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
-                    >
-                      <table
-                        class="bp3-html-table bp3-interactive routingTable"
-                        role="table"
-                      >
-                        <thead>
-                          <tr
-                            role="row"
-                          >
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              LISTEN PROTOCOL
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              LISTEN PORT
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              ACTION
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              TARGET PROTOCOL
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            >
-                              TARGET PORT
-                            </th>
-                            <th
-                              colspan="1"
-                              role="columnheader"
-                              style="width: 16.5%;"
-                            />
-                          </tr>
-                        </thead>
-                        <tbody
-                          role="rowgroup"
-                        />
-                      </table>
-                      <div
-                        class="StyledProps--font StyledProps--main rowItem"
-                      >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                        >
-                          ce.co.gatewayConfig.addPortLabel
-                        </p>
-                      </div>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>

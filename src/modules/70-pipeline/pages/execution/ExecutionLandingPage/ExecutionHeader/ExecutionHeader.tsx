@@ -106,6 +106,7 @@ export function ExecutionHeader(): React.ReactElement {
           <RbacButton
             variation={ButtonVariation.SECONDARY}
             size={ButtonSize.SMALL}
+            data-testid="pipelineExecutionEdit"
             permission={{
               resourceScope: { orgIdentifier, projectIdentifier, accountIdentifier: accountId },
               resource: {

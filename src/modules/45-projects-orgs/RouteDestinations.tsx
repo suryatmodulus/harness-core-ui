@@ -479,13 +479,6 @@ export default (
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}
-      path={[routes.toAuditTrail({ ...projectPathProps })]}
-      exact
-    >
-      <AuditTrailsPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      sidebarProps={ProjectDetailsSideNavProps}
       path={[routes.toAccessControl({ ...projectPathProps })]}
       exact
     >

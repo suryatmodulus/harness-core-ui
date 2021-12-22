@@ -264,7 +264,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                   </FormikForm>
                 </Card>
 
-                <Accordion className={css.accordionTitle} activeId="advanced">
+                <Accordion className={css.accordionTitle} activeId="">
                   <Accordion.Panel
                     id="advanced"
                     addDomId={true}

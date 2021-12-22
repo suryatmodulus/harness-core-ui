@@ -6,7 +6,6 @@ import { useTelemetry } from '@common/hooks/useTelemetry'
 import routes from '@common/RouteDefinitions'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/strings'
 import { returnLaunchUrl } from '@common/utils/routeUtils'
 import NavExpandable from '@common/navigation/NavExpandable/NavExpandable'
@@ -22,11 +21,10 @@ const feedbackOptions = [
 ]
 
 export default function CESideNav(): React.ReactElement {
-  const { currentUserInfo } = useAppStore()
   const { identifyUser } = useTelemetry()
 
   useEffect(() => {
-    identifyUser(currentUserInfo.email)
+    identifyUser()
   }, [])
   useTelemetry({ pageName: 'CloudCostPage' })
   return (

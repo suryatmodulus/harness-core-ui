@@ -5,7 +5,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useTelemetryInstance } from './useTelemetryInstance'
 
 type TrackEvent = (eventName: string, properties: Record<string, string>) => void
-type IdentifyUser = (email: string | undefined) => void
+type IdentifyUser = () => void
 interface PageParams {
   pageName?: string
   category?: string
@@ -35,9 +35,10 @@ export function useTelemetry(pageParams: PageParams = {}): TelemetryReturnType {
   const trackEvent: TrackEvent = (eventName: string, properties: Record<string, string>) => {
     telemetry.track({ event: eventName, properties: { userId, groupId, ...properties } })
   }
-  const identifyUser: IdentifyUser = (email: string | undefined) => {
-    if (!email) return
-    telemetry.identify(email)
+  const identifyUser: IdentifyUser = () => {
+    if (userId) {
+      telemetry.identify(userId)
+    }
   }
   return { trackEvent, identifyUser }
 }

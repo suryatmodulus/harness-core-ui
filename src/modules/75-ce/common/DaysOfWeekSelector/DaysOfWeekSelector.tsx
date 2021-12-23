@@ -13,6 +13,7 @@ interface DaysObject {
 interface DaysOfWeekSelectorProps {
   onChange: (selectedDays: DaysObject[]) => void
   selection?: number[]
+  disable?: boolean
 }
 
 export const days: DaysObject[] = Object.keys(DaysOfWeek)
@@ -43,7 +44,7 @@ const DaysOfWeekSelector: React.FC<DaysOfWeekSelectorProps> = props => {
   }
 
   return (
-    <Layout.Horizontal spacing="medium" className={css.daysOfWeekSelectorCont}>
+    <Layout.Horizontal className={cx(css.daysOfWeekSelectorCont, { [css.disabled]: props.disable })}>
       {days.map(d => {
         return (
           <div

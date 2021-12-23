@@ -7,9 +7,8 @@ import { Container, Layout, Label, useModalHook, Button, Formik, FormInput, Form
 import { CEReportSchedule, useCreateReportSetting, useUpdateReportSetting } from 'services/ce'
 import { useStrings } from 'framework/strings'
 import { regexEmail } from '@common/utils/StringUtils'
-
+import TimezoneSelector from '@ce/common/TimeZoneSelector/TimeZoneSelector'
 import Cron from './Cron'
-import CronTimezone from './CronTimezone'
 import css from './PerspectiveCreateReport.module.scss'
 
 export interface ReportDetailsForm {
@@ -123,7 +122,7 @@ const useCreateReportModal = ({ onSuccess, onError }: CreateReportModalProps) =>
                       <Container margin={{ top: 'xlarge', bottom: 'xlarge' }}>
                         <Layout.Horizontal style={{ justifyContent: 'space-between' }} margin={{ bottom: 'small' }}>
                           <Label className={css.cronLabel}>{getString('ce.perspectives.reports.cronLabel')}</Label>
-                          <CronTimezone
+                          <TimezoneSelector
                             timezone={formikProps.values.userCronTimeZone}
                             onTimezoneSelect={tz => formikProps.setFieldValue('userCronTimeZone', tz)}
                           />

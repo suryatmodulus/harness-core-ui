@@ -180,7 +180,15 @@
 <a name='L121'></a><a href='#L121'>121</a>
 <a name='L122'></a><a href='#L122'>122</a>
 <a name='L123'></a><a href='#L123'>123</a>
-<a name='L124'></a><a href='#L124'>124</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -259,7 +267,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -305,7 +321,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import qs from 'qs'
-import { Card, Container, Icon, Text, FontVariation, Layout, FlexExpander } from '@wings-software/uicore'
+import { Card, Container, Icon, Text, FontVariation, Layout, FlexExpander, Color } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
@@ -363,12 +379,12 @@ const RecommendationSummaryCard: () =&gt; JSX.Element = <span class="fstat-no" t
 <span class="cstat-no" title="statement not covered" >    return (</span>
       &lt;Card elevation={1}&gt;
         &lt;Container className={css.mainCard}&gt;
-          &lt;Text color="grey500" font="small"&gt;
+          &lt;Text color={Color.GREY_500} font={{ variation: FontVariation.SMALL }}&gt;
             {getString('ce.recommendation.sideNavText')}
           &lt;/Text&gt;
           &lt;Text
             margin={{
-              top: 'large',
+              top: 'medium',
               bottom: 'small'
             }}
             iconProps={{ size: 21 }}
@@ -376,6 +392,9 @@ const RecommendationSummaryCard: () =&gt; JSX.Element = <span class="fstat-no" t
             icon="money-icon"
           &gt;
             $--
+          &lt;/Text&gt;
+          &lt;Text color={Color.GREY_600} font={{ variation: FontVariation.TINY }}&gt;
+            no Recommendations yet
           &lt;/Text&gt;
         &lt;/Container&gt;
       &lt;/Card&gt;
@@ -386,17 +405,22 @@ const RecommendationSummaryCard: () =&gt; JSX.Element = <span class="fstat-no" t
     &lt;Card elevation={1} interactive={false}&gt;
       &lt;Container className={css.mainCard}&gt;
         &lt;Layout.Horizontal&gt;
-          &lt;Text color="grey500" font="small"&gt;
+          &lt;Text color={Color.GREY_500} font={{ variation: FontVariation.SMALL }}&gt;
             {getString('ce.recommendation.sideNavText')}
           &lt;/Text&gt;
           &lt;FlexExpander /&gt;
-          &lt;Text className={css.viewLink} color="primary7" font="small" onClick={nagvigateToRecommendations}&gt;
+          &lt;Text
+            className={css.viewLink}
+            color={Color.PRIMARY_7}
+            font={{ variation: FontVariation.SMALL }}
+            onClick={nagvigateToRecommendations}
+          &gt;
             {getString('ce.perspectives.recommendations.viewText')}
           &lt;/Text&gt;
         &lt;/Layout.Horizontal&gt;
 &nbsp;
         &lt;Text
-          color="grey400"
+          color={Color.GREY_400}
           margin={{
             top: 'xsmall'
           }}
@@ -417,7 +441,7 @@ const RecommendationSummaryCard: () =&gt; JSX.Element = <span class="fstat-no" t
         &gt;
           {formatCost(recommendationData.totalMonthlySaving)}
         &lt;/Text&gt;
-        &lt;Text color="grey400" font={{ variation: FontVariation.TINY }}&gt;
+        &lt;Text color={Color.GREY_400} font={{ variation: FontVariation.TINY }}&gt;
           {getString('ce.perspectives.recommendations.perMonth')}
         &lt;/Text&gt;
       &lt;/Container&gt;
@@ -433,7 +457,7 @@ export default RecommendationSummaryCard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 23 2021 05:40:08 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 23 2021 11:29:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

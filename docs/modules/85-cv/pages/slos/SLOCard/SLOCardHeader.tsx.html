@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/14</span>
+                <span class='fraction'>6/12</span>
             </div>
         
             
@@ -238,14 +238,7 @@
 <a name='L179'></a><a href='#L179'>179</a>
 <a name='L180'></a><a href='#L180'>180</a>
 <a name='L181'></a><a href='#L181'>181</a>
-<a name='L182'></a><a href='#L182'>182</a>
-<a name='L183'></a><a href='#L183'>183</a>
-<a name='L184'></a><a href='#L184'>184</a>
-<a name='L185'></a><a href='#L185'>185</a>
-<a name='L186'></a><a href='#L186'>186</a>
-<a name='L187'></a><a href='#L187'>187</a>
-<a name='L188'></a><a href='#L188'>188</a>
-<a name='L189'></a><a href='#L189'>189</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L182'></a><a href='#L182'>182</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -270,17 +263,13 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -288,7 +277,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -300,7 +289,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -316,8 +305,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -326,8 +314,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -457,11 +443,7 @@ import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import type { SLOCardHeaderProps } from '../CVSLOsListingPage.types'
 import css from '../CVSLOsListingPage.module.scss'
 &nbsp;
-const SLOCardHeader: React.FC&lt;SLOCardHeaderProps&gt; = ({
-  serviceLevelObjective,
-  onDelete,
-  monitoredServiceIdentifier
-}) =&gt; {
+const SLOCardHeader: React.FC&lt;SLOCardHeaderProps&gt; = ({ serviceLevelObjective, onDelete }) =&gt; {
   const history = useHistory()
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
@@ -510,45 +492,42 @@ const SLOCardHeader: React.FC&lt;SLOCardHeaderProps&gt; = ({
         &lt;Heading level={2} font={{ variation: FontVariation.H4 }} color={Color.GREY_800}&gt;
           {serviceLevelObjective.title}
         &lt;/Heading&gt;
-        {!monitoredServiceIdentifier &amp;&amp; (
-          &lt;Popover
-            isOpen={menuOpen}
-            onInteraction={nextOpenState =&gt; setMenuOpen(nextOpenState)}
-            position={Position.LEFT_TOP}
-            content={
-              &lt;Menu style={{ minWidth: 'unset' }}&gt;
-                &lt;RbacMenuItem
-                  icon="edit"
-                  text={getString('edit')}
-                  onClick={onEdit}
-                  permission={{
-                    permission: PermissionIdentifier.EDIT_SLO_SERVICE,
-                    resource: {
-                      resourceType: ResourceType.SLO,
-                      resourceIdentifier: projectIdentifier
-                    }
-                  }}
-                /&gt;
-                &lt;RbacMenuItem
-                  icon="trash"
-                  text={getString('delete')}
-                  onClick={openDialog}
-                  permission={{
-                    permission: PermissionIdentifier.DELETE_SLO_SERVICE,
-                    resource: {
-                      resourceType: ResourceType.SLO,
-                      resourceIdentifier: projectIdentifier
-                    }
-                  }}
-                /&gt;
-              &lt;/Menu&gt;
-            }
-          &gt;
-            &lt;Button icon="Options" variation={ButtonVariation.ICON} /&gt;
-          &lt;/Popover&gt;
-        )}
+        &lt;Popover
+          isOpen={menuOpen}
+          onInteraction={nextOpenState =&gt; setMenuOpen(nextOpenState)}
+          position={Position.LEFT_TOP}
+          content={
+            &lt;Menu style={{ minWidth: 'unset' }}&gt;
+              &lt;RbacMenuItem
+                icon="edit"
+                text={getString('edit')}
+                onClick={onEdit}
+                permission={{
+                  permission: PermissionIdentifier.EDIT_SLO_SERVICE,
+                  resource: {
+                    resourceType: ResourceType.SLO,
+                    resourceIdentifier: projectIdentifier
+                  }
+                }}
+              /&gt;
+              &lt;RbacMenuItem
+                icon="trash"
+                text={getString('delete')}
+                onClick={openDialog}
+                permission={{
+                  permission: PermissionIdentifier.DELETE_SLO_SERVICE,
+                  resource: {
+                    resourceType: ResourceType.SLO,
+                    resourceIdentifier: projectIdentifier
+                  }
+                }}
+              /&gt;
+            &lt;/Menu&gt;
+          }
+        &gt;
+          &lt;Button icon="Options" variation={ButtonVariation.ICON} /&gt;
+        &lt;/Popover&gt;
       &lt;/Container&gt;
-&nbsp;
       &lt;Container flex={{ alignItems: 'flex-start' }}&gt;
         &lt;Layout.Vertical height={130} spacing="xsmall"&gt;
           &lt;Layout.Horizontal spacing="xsmall"&gt;
@@ -628,7 +607,7 @@ export default SLOCardHeader
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 23 2021 05:40:08 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 23 2021 11:29:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

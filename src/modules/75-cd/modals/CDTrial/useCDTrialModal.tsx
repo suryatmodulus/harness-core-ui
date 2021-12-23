@@ -26,7 +26,7 @@ const CDTrial: React.FC<UseTrialModalProps> = ({ trialType, actionProps, onClose
   const { child } = useGetFormPropsByTrialType({
     trialType,
     actionProps,
-    module: 'ci',
+    module: 'cd',
     onCloseModal
   })
 

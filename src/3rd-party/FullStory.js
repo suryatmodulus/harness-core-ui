@@ -1,6 +1,6 @@
 /* eslint-disable */
 export function injectFullStory() {
-  if (window.HARNESS_ENABLE_FULL_STORY) {
+  if (window.HARNESS_ENABLE_FULL_STORY || location.host.endsWith('app.harness.io')) {
     window['_fs_debug'] = false
     window['_fs_host'] = 'fullstory.com'
     window['_fs_script'] = 'edge.fullstory.com/s/fs.js'

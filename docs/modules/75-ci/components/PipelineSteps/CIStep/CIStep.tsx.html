@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/25</span>
+                <span class='fraction'>26/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.92% </span>
+                <span class="strong">98.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>47/48</span>
+                <span class='fraction'>59/60</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/24</span>
+                <span class='fraction'>25/25</span>
             </div>
         
             
@@ -432,7 +432,19 @@
 <a name='L373'></a><a href='#L373'>373</a>
 <a name='L374'></a><a href='#L374'>374</a>
 <a name='L375'></a><a href='#L375'>375</a>
-<a name='L376'></a><a href='#L376'>376</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">73x</span>
+<a name='L376'></a><a href='#L376'>376</a>
+<a name='L377'></a><a href='#L377'>377</a>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a>
+<a name='L381'></a><a href='#L381'>381</a>
+<a name='L382'></a><a href='#L382'>382</a>
+<a name='L383'></a><a href='#L383'>383</a>
+<a name='L384'></a><a href='#L384'>384</a>
+<a name='L385'></a><a href='#L385'>385</a>
+<a name='L386'></a><a href='#L386'>386</a>
+<a name='L387'></a><a href='#L387'>387</a>
+<a name='L388'></a><a href='#L388'>388</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">73x</span>
 <span class="cline-any cline-yes">73x</span>
 <span class="cline-any cline-yes">73x</span>
 <span class="cline-any cline-yes">73x</span>
@@ -463,20 +475,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">73x</span>
-<span class="cline-any cline-yes">146x</span>
-<span class="cline-any cline-yes">146x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">146x</span>
-<span class="cline-any cline-yes">146x</span>
-<span class="cline-any cline-yes">146x</span>
-<span class="cline-any cline-yes">146x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-yes">135x</span>
+<span class="cline-any cline-yes">135x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">146x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">135x</span>
+<span class="cline-any cline-yes">135x</span>
+<span class="cline-any cline-yes">135x</span>
+<span class="cline-any cline-yes">135x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">135x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">135x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -837,6 +861,12 @@ interface CIStepProps {
   path?: string
 }
 &nbsp;
+const ConnectorRefWidth = {
+  DeploymentFormView: 320,
+  InputSetView: 310,
+  DefaultView: 385
+}
+&nbsp;
 export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
   const { isNewStep, readonly, stepLabel, enableFields, stepViewType, allowableTypes, path } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;{
@@ -878,13 +908,18 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
         ) : null}
       &lt;/Container&gt;
       &lt;Separator topSeparation={8} /&gt;
-      &lt;Container className={css.bottomMargin3}&gt;
-        {Object.prototype.hasOwnProperty.call(enableFields, 'spec.connectorRef') ? (
+      {!enableFields['spec.connectorRef']?.shouldHide &amp;&amp;
+      Object.prototype.hasOwnProperty.call(enableFields, 'spec.connectorRef') ? (
+        &lt;Container className={css.bottomMargin3}&gt;
           &lt;FormMultiTypeConnectorField
             label={enableFields['spec.connectorRef'].label}
             type={enableFields['spec.connectorRef'].type}
             width={
-              stepViewType === StepViewType.DeploymentForm ? <span class="branch-0 cbranch-no" title="branch not covered" >320 </span>: stepViewType === StepViewType.InputSet ? 310 : 385
+              stepViewType === StepViewType.DeploymentForm
+                ? <span class="branch-0 cbranch-no" title="branch not covered" >ConnectorRefWidth.DeploymentFormView</span>
+                : stepViewType === StepViewType.InputSet
+                ? ConnectorRefWidth.InputSetView
+                : ConnectorRefWidth.DefaultView
             }
             name={`${prefix}spec.connectorRef`}
             placeholder={getString('select')}
@@ -900,9 +935,10 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
             gitScope={gitScope}
             setRefValue
           /&gt;
-        ) : null}
-      &lt;/Container&gt;
-      {Object.prototype.hasOwnProperty.call(enableFields, 'spec.image') ? (
+        &lt;/Container&gt;
+      ) : null}
+      {!enableFields['spec.connectorRef']?.shouldHide &amp;&amp;
+      Object.prototype.hasOwnProperty.call(enableFields, 'spec.image') ? (
         &lt;Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}&gt;
           &lt;MultiTypeTextField
             name={`${prefix}spec.image`}
@@ -1189,7 +1225,7 @@ export const CIStep: React.FC&lt;CIStepProps&gt; = props =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 24 2021 12:46:12 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 24 2021 17:46:26 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

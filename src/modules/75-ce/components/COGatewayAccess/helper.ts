@@ -355,3 +355,37 @@ export const getLinkedAccessPoint = (
       : (_ap.metadata?.app_gateway_id || _ap.id) === (matchedLb?.details as AzureAccessPointCore)?.id
   )
 }
+
+export const isValidLoadBalancer = (
+  lb: AccessPointCore,
+  accessPoints: AccessPoint[],
+  savedAccessPoint: AccessPoint | undefined,
+  { isAwsProvider, isAzureProvider }: RuleCreationParams
+) => {
+  let isValid = false
+  if (isAwsProvider) {
+    isValid = Boolean(
+      lb &&
+        accessPoints
+          ?.map(_ap => _ap.metadata?.albArn)
+          ?.filter(_i => _i)
+          ?.includes((lb.details as ALBAccessPointCore)?.albARN)
+    )
+    if (!isValid) {
+      isValid = Boolean(lb && savedAccessPoint?.metadata?.albArn === (lb.details as ALBAccessPointCore)?.albARN)
+    }
+  }
+  if (isAzureProvider) {
+    isValid = Boolean(
+      lb &&
+        accessPoints
+          ?.map(_ap => Utils.getConditionalResult(_ap.status === 'submitted', _ap.id, _ap.metadata?.app_gateway_id))
+          .filter(_i => _i)
+          .includes((lb.details as AzureAccessPointCore).id)
+    )
+    if (!isValid) {
+      isValid = Boolean(lb && savedAccessPoint?.metadata?.app_gateway_id === (lb.details as AzureAccessPointCore)?.id)
+    }
+  }
+  return isValid
+}

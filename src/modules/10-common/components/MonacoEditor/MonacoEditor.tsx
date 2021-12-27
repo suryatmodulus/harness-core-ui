@@ -42,6 +42,8 @@ const MonacoEditor = (props: ExtendedMonacoEditorProps, ref: ReactMonacoEditorRe
         'editor.background': '#f3f3fa'
       }
     })
+    // ref -> https://microsoft.github.io/monaco-editor/api/enums/monaco.editor.EndOfLinePreference.html
+    monaco?.editor?.model?.setEOL?.(0)
     //@ts-ignore
     window.MonacoEnvironment = {
       getWorker(_workerId: unknown, label: string) {

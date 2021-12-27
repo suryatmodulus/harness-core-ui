@@ -43,7 +43,9 @@ const MonacoEditor = (props: ExtendedMonacoEditorProps, ref: ReactMonacoEditorRe
       }
     })
     // ref -> https://microsoft.github.io/monaco-editor/api/enums/monaco.editor.EndOfLinePreference.html
-    monaco?.editor?.model?.setEOL?.(0)
+    // https://stackoverflow.com/questions/56525822/how-to-set-eol-to-lf-for-windows-so-that-api-gets-value-with-n-not-r-n
+    const textModel = monaco.editor.createModel('')
+    textModel.setEOL(0)
     //@ts-ignore
     window.MonacoEnvironment = {
       getWorker(_workerId: unknown, label: string) {

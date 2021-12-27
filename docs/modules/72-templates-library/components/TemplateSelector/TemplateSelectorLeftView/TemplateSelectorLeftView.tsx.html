@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.71% </span>
+                <span class="strong">66.98% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>66/102</span>
+                <span class='fraction'>71/106</span>
             </div>
         
             
@@ -326,7 +326,8 @@
 <a name='L267'></a><a href='#L267'>267</a>
 <a name='L268'></a><a href='#L268'>268</a>
 <a name='L269'></a><a href='#L269'>269</a>
-<a name='L270'></a><a href='#L270'>270</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L270'></a><a href='#L270'>270</a>
+<a name='L271'></a><a href='#L271'>271</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -595,6 +596,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState } from 'react'
 import {
   Color,
@@ -672,11 +674,11 @@ export const TemplateSelectorLeftView: React.FC&lt;TemplateSelectorLeftViewProps
     ],
     []
   )
-  const [selectedScope, setSelectedScope] = useState&lt;SelectOption&gt;(scopeOptions[1])
+  const [selectedScope, setSelectedScope] = useState&lt;SelectOption&gt;(scopeOptions[0])
   const searchRef = React.useRef&lt;ExpandingSearchInputHandle&gt;({} as ExpandingSearchInputHandle)
   const { orgId, projectId } = React.useMemo(() =&gt; {
     switch (selectedScope.value) {
-<span class="branch-0 cbranch-no" title="branch not covered" >      case 'all':</span>
+      case 'all':
       case Scope.PROJECT:
         return { orgId: orgIdentifier, projectId: projectIdentifier }
 <span class="branch-2 cbranch-no" title="branch not covered" >      case Scope.ORG:</span>
@@ -821,6 +823,7 @@ export const TemplateSelectorLeftView: React.FC&lt;TemplateSelectorLeftViewProps
                         }}
                         items={getDropDownItems()}
                         addClearBtn={true}
+                        disabled={!!childTypes}
                         filterable={false}
                         placeholder={`${getString('typeLabel')}: ${getString('all')}`}
                         value={childType}
@@ -837,8 +840,8 @@ export const TemplateSelectorLeftView: React.FC&lt;TemplateSelectorLeftViewProps
             {!loading &amp;&amp; error &amp;&amp; (
 <span class="branch-2 cbranch-no" title="branch not covered" >              &lt;PageError message={defaultTo((error.data as Error)?.message, error.message)} onClick={reloadTemplates} /&gt;</span>
             )}
-            {!templateData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >              &lt;NoResultsView</span>
+            {!loading &amp;&amp; !error &amp;&amp; !templateData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &amp;&amp; (
+<span class="branch-3 cbranch-no" title="branch not covered" >              &lt;NoResultsView</span>
                 hasSearchParam={!!searchParam || !!childType}
                 onReset={reset}
                 text={getString('templatesLibrary.templatesPage.noTemplates', {
@@ -847,7 +850,7 @@ export const TemplateSelectorLeftView: React.FC&lt;TemplateSelectorLeftViewProps
                 minimal={true}
               /&gt;
             )}
-            {!!templateData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &amp;&amp; (
+            {!loading &amp;&amp; !error &amp;&amp; !!templateData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &amp;&amp; (
               &lt;Container style={{ flexGrow: 1 }}&gt;
                 &lt;TemplatesView
                   data={templateData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata}
@@ -871,7 +874,7 @@ export const TemplateSelectorLeftView: React.FC&lt;TemplateSelectorLeftViewProps
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 27 2021 08:15:51 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 27 2021 12:29:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

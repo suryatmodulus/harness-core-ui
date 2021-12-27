@@ -388,18 +388,18 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -706,6 +706,7 @@ import ToggleOnOff from '@cv/pages/monitored-service/CVMonitoredService/componen
 import noServiceAvailableImage from '@cv/assets/noServiceAvailable.png'
 import FilterCard from '@cv/components/FilterCard/FilterCard'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
+import type { MonitoredServiceListItemDTO } from 'services/cv'
 import IconGrid from '../IconGrid/IconGrid'
 import {
   calculateChangePercentage,
@@ -717,15 +718,14 @@ import {
 import type { MonitoredServiceListViewProps } from '../../CVMonitoredService.types'
 import MonitoredServiceCategory from '../../../components/Configurations/components/Dependency/component/components/MonitoredServiceCategory/MonitoredServiceCategory'
 import { getListTitle } from './MonitoredServiceListView.utils'
-import type { NewMonitoredServiceListItemDTO } from './MonitoredServiceListView.types'
 import SLOsIconGrid from '../SLOsIconGrid/SLOsIconGrid'
 import css from '../../CVMonitoredService.module.scss'
 &nbsp;
-const CategoryProps: Renderer&lt;CellProps&lt;NewMonitoredServiceListItemDTO&gt;&gt; = ({ row }) =&gt; (
+const CategoryProps: Renderer&lt;CellProps&lt;MonitoredServiceListItemDTO&gt;&gt; = ({ row }) =&gt; (
   &lt;MonitoredServiceCategory type={row.original.type} abbrText verticalAlign /&gt;
 )
 &nbsp;
-const RenderServiceName: Renderer&lt;CellProps&lt;NewMonitoredServiceListItemDTO&gt;&gt; = ({ row }) =&gt; {
+const RenderServiceName: Renderer&lt;CellProps&lt;MonitoredServiceListItemDTO&gt;&gt; = ({ row }) =&gt; {
   const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
   const monitoredService = row.original
 &nbsp;
@@ -761,7 +761,7 @@ const RenderServiceName: Renderer&lt;CellProps&lt;NewMonitoredServiceListItemDTO
   )
 }
 &nbsp;
-const RenderServiceChanges: Renderer&lt;CellProps&lt;NewMonitoredServiceListItemDTO&gt;&gt; = ({ row }) =&gt; {
+const RenderServiceChanges: Renderer&lt;CellProps&lt;MonitoredServiceListItemDTO&gt;&gt; = ({ row }) =&gt; {
   const { getString } = useStrings()
   const monitoredService = row.original
 &nbsp;
@@ -814,7 +814,7 @@ const RenderServiceChanges: Renderer&lt;CellProps&lt;NewMonitoredServiceListItem
   )
 }
 &nbsp;
-const RenderDependenciesHealth: Renderer&lt;CellProps&lt;NewMonitoredServiceListItemDTO&gt;&gt; = ({ row }) =&gt; {
+const RenderDependenciesHealth: Renderer&lt;CellProps&lt;MonitoredServiceListItemDTO&gt;&gt; = ({ row }) =&gt; {
   const monitoredService = row.original
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (monitoredService.dependentHealthScore<span class="branch-1 cbranch-no" title="branch not covered" >?.length)</span> {
@@ -830,7 +830,7 @@ const RenderDependenciesHealth: Renderer&lt;CellProps&lt;NewMonitoredServiceList
   return null
 }
 &nbsp;
-const RenderSLOErrorBudgetData: Renderer&lt;CellProps&lt;NewMonitoredServiceListItemDTO&gt;&gt; = ({ row }) =&gt; {
+const RenderSLOErrorBudgetData: Renderer&lt;CellProps&lt;MonitoredServiceListItemDTO&gt;&gt; = ({ row }) =&gt; {
   const monitoredService = row.original
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (monitoredService.sloHealthIndicators<span class="branch-1 cbranch-no" title="branch not covered" >?.length)</span> {
@@ -864,7 +864,7 @@ const MonitoredServiceListView: React.FC&lt;MonitoredServiceListViewProps&gt; = 
 &nbsp;
   const { content, pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = monitoredServiceListData || {}
 &nbsp;
-  const RenderStatusToggle: Renderer&lt;CellProps&lt;NewMonitoredServiceListItemDTO&gt;&gt; = ({ row }) =&gt; {
+  const RenderStatusToggle: Renderer&lt;CellProps&lt;MonitoredServiceListItemDTO&gt;&gt; = ({ row }) =&gt; {
     const monitoredService = row.original
 &nbsp;
     const [canToggle] = usePermission(
@@ -1018,7 +1018,7 @@ export default MonitoredServiceListView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Dec 27 2021 08:15:51 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 27 2021 12:29:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

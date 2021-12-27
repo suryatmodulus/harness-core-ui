@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.67% </span>
+                <span class="strong">84.38% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>52/60</span>
+                <span class='fraction'>54/64</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.2% </span>
+                <span class="strong">58.06% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>74/125</span>
+                <span class='fraction'>90/155</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.93% </span>
+                <span class="strong">85.48% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>51/58</span>
+                <span class='fraction'>53/62</span>
             </div>
         
             
@@ -236,7 +236,15 @@
 <a name='L177'></a><a href='#L177'>177</a>
 <a name='L178'></a><a href='#L178'>178</a>
 <a name='L179'></a><a href='#L179'>179</a>
-<a name='L180'></a><a href='#L180'>180</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -317,8 +325,14 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -347,6 +361,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,7 +432,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useContext } from 'react'
-import { debounce, defaultTo, noop, set } from 'lodash-es'
+import { debounce, defaultTo, isEqual, merge, noop, set } from 'lodash-es'
 import { Card, Color, Container, Formik, FormikForm, Heading, Layout, PageError } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
@@ -493,13 +509,19 @@ export const TemplateStageSpecifications = (): JSX.Element =&gt; {
   })
 &nbsp;
   React.useEffect(() =&gt; {
-    try {
-      setInputSetTemplate(parse(defaultTo(templateInputYaml<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata, '')))
-      submitFormsForTab(TemplateTabs.OVERVIEW)
-    } catch (error) {
-<span class="cstat-no" title="statement not covered" >      showError(error.message, undefined, 'template.parse.inputSet.error')</span>
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!loading &amp;&amp; stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage) {
+      try {
+        const templateInputs = parse(defaultTo(templateInputYaml<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata, ''))
+        setInputSetTemplate(templateInputs)
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (!isEqual(templateInputs, stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage.template<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplateInputs)) {
+<span class="cstat-no" title="statement not covered" >          set(stage, 'stage.template.templateInputs', merge({}, templateInputs, stage?.stage.template?.templateInputs))</span>
+<span class="cstat-no" title="statement not covered" >          updateStage(stage.stage)</span>
+        }
+      } catch (error) {
+<span class="cstat-no" title="statement not covered" >        showError(error.message, undefined, 'template.parse.inputSet.error')</span>
+      }
     }
-  }, [templateInputYaml<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata])
+  }, [templateInputYaml<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata, loading])
 &nbsp;
   React.useEffect(() =&gt; {
     subscribeForm({ tab: TemplateTabs.OVERVIEW, form: formikRef })
@@ -526,7 +548,7 @@ export const TemplateStageSpecifications = (): JSX.Element =&gt; {
     &lt;Container className={css.serviceOverrides} height={'100%'} background={Color.FORM_BG}&gt;
       {loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;PageSpinner /&gt;}</span>
       {!loading &amp;&amp; inputSetError &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >&lt;PageError message={inputSetError.message} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetch()}</span> /&gt;}</span>
-      {!loading &amp;&amp; !inputSetError &amp;&amp; inputSetTemplate &amp;&amp; stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate &amp;&amp; (
+      {!loading &amp;&amp; !inputSetError &amp;&amp; inputSetTemplate &amp;&amp; stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplateInputs &amp;&amp; (
         &lt;&gt;
           &lt;ErrorsStripBinded /&gt;
           &lt;Container className={css.contentSection}&gt;
@@ -544,7 +566,9 @@ export const TemplateStageSpecifications = (): JSX.Element =&gt; {
               onSubmit={noop}
               validate={validateForm}
               validationSchema={Yup.object().shape({
-                name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
+                name: NameSchema({
+                  requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError')
+                }),
                 identifier: IdentifierSchema()
               })}
             &gt;
@@ -601,7 +625,7 @@ export const TemplateStageSpecifications = (): JSX.Element =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 25 2021 08:34:47 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 27 2021 06:26:27 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.02% </span>
+                <span class="strong">56.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>69/121</span>
+                <span class='fraction'>68/120</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.44% </span>
+                <span class="strong">32.76% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>61/194</span>
+                <span class='fraction'>57/174</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.5% </span>
+                <span class="strong">57.14% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>69/120</span>
+                <span class='fraction'>68/119</span>
             </div>
         
             
@@ -441,13 +441,7 @@
 <a name='L382'></a><a href='#L382'>382</a>
 <a name='L383'></a><a href='#L383'>383</a>
 <a name='L384'></a><a href='#L384'>384</a>
-<a name='L385'></a><a href='#L385'>385</a>
-<a name='L386'></a><a href='#L386'>386</a>
-<a name='L387'></a><a href='#L387'>387</a>
-<a name='L388'></a><a href='#L388'>388</a>
-<a name='L389'></a><a href='#L389'>389</a>
-<a name='L390'></a><a href='#L390'>390</a>
-<a name='L391'></a><a href='#L391'>391</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L385'></a><a href='#L385'>385</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -553,12 +547,6 @@
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
-<span class="cline-any cline-yes">34x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-yes">34x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -838,10 +826,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Color, IconName, Utils } from '@wings-software/uicore'
-import { defaultTo, get, isEmpty } from 'lodash-es'
+import { isEmpty } from 'lodash-es'
 import type { PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import type { UseStringsReturn } from 'framework/strings'
-import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
+import { getStageType } from '@pipeline/utils/templateUtils'
 import { EmptyStageName } from '../PipelineConstants'
 import type { StagesMap } from '../PipelineContext/PipelineContext'
 import { getCommonStyles, EmptyNodeSeparator, Listeners } from './StageBuilderUtil'
@@ -865,7 +853,7 @@ export interface AddUpdateGraphProps {
   splitPaneSize?: number
   parentPath: string
   errorMap: Map&lt;string, string[]&gt;
-  templateTypes?: { [key: string]: string }
+  templateTypes: { [key: string]: string }
 }
 &nbsp;
 export interface StageBuilderConfiguration {
@@ -892,7 +880,7 @@ export interface RenderGraphNodeProps {
   isParallelNode?: boolean
   parentPath: string
   errorMap: Map&lt;string, string[]&gt;
-  templateTypes?: { [key: string]: string }
+  templateTypes: { [key: string]: string }
 }
 &nbsp;
 export class StageBuilderModel extends DiagramModel {
@@ -943,13 +931,7 @@ export class StageBuilderModel extends DiagramModel {
     let { startX, prevNodes } = props
     <span class="missing-if-branch" title="else path not taken" >E</span>if (node &amp;&amp; node.stage) {
       const isTemplateStage = !!node.stage<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate
-      const stageType = defaultTo(
-        isTemplateStage
-          ? <span class="branch-0 cbranch-no" title="branch not covered" >get(templateTypes, getIdentifierFromValue(defaultTo(node?.stage?.template?.templateRef, '')))</span>
-          : node<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype,
-        ''
-      )
-      const type = stagesMap[stageType]
+      const type = stagesMap[getStageType(node<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage, templateTypes)]
       const hasErrors = errorMap &amp;&amp; [...errorMap.keys()].some(<span class="fstat-no" title="function not covered" >key </span>=&gt; <span class="cstat-no" title="statement not covered" >parentPath &amp;&amp; key.startsWith(parentPath))</span>
 &nbsp;
       startX += isFirstNode
@@ -1018,7 +1000,7 @@ export class StageBuilderModel extends DiagramModel {
           let isSelected = <span class="cstat-no" title="statement not covered" >false</span>
           const icons: Array&lt;IconName&gt; = <span class="cstat-no" title="statement not covered" >[]</span>
 <span class="cstat-no" title="statement not covered" >          node.parallel.forEach(<span class="fstat-no" title="function not covered" >nodeP </span>=&gt; {</span>
-            const type = <span class="cstat-no" title="statement not covered" >stagesMap[nodeP.stage?.type || '']</span>
+            const type = <span class="cstat-no" title="statement not covered" >stagesMap[getStageType(nodeP?.stage, templateTypes)]</span>
 <span class="cstat-no" title="statement not covered" >            if (nodeP.stage?.identifier === selectedStageId) {</span>
 <span class="cstat-no" title="statement not covered" >              parallelStageNames.unshift(nodeP.stage.name)</span>
 <span class="cstat-no" title="statement not covered" >              icons.unshift(type.icon)</span>
@@ -1234,7 +1216,7 @@ export class StageBuilderModel extends DiagramModel {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 25 2021 08:34:47 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 27 2021 06:26:27 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

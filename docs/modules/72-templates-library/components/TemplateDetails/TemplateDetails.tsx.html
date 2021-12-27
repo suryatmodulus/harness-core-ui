@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.67% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>65/75</span>
+                <span class='fraction'>65/78</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/15</span>
+                <span class='fraction'>10/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.73% </span>
+                <span class="strong">86.3% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>63/71</span>
+                <span class='fraction'>63/73</span>
             </div>
         
             
@@ -376,7 +376,11 @@
 <a name='L317'></a><a href='#L317'>317</a>
 <a name='L318'></a><a href='#L318'>318</a>
 <a name='L319'></a><a href='#L319'>319</a>
-<a name='L320'></a><a href='#L320'>320</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a>
+<a name='L323'></a><a href='#L323'>323</a>
+<a name='L324'></a><a href='#L324'>324</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -415,7 +419,6 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -433,6 +436,8 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">15x</span>
@@ -473,6 +478,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -486,7 +495,6 @@
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -729,7 +737,6 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { DefaultNewVersionLabel } from 'framework/Templates/templates'
 import { TemplateContext } from '../TemplateStudio/TemplateContext/TemplateContext'
 import { TemplateInputs } from '../TemplateInputs/TemplateInputs'
 import { TemplateYaml } from '../TemplateYaml/TemplateYaml'
@@ -752,6 +759,8 @@ export enum ParentTemplateTabs {
   BASIC = 'BASIC',
   ACTVITYLOG = 'ACTVITYLOG'
 }
+&nbsp;
+const DefaultStableVersionValue = '-1'
 &nbsp;
 export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt; {
   const { template, allowStableSelection = false, setTemplate } = props
@@ -791,7 +800,11 @@ export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt;
   const onChange = React.useCallback(
 <span class="fstat-no" title="function not covered" >    (o</span>ption: SelectOption): void =&gt; {
       const version = <span class="cstat-no" title="statement not covered" >defaultTo(option.value?.toString(), '')</span>
-<span class="cstat-no" title="statement not covered" >      setSelectedTemplate(templates.find(<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >item.versionLabel === version)</span> || {})</span>
+<span class="cstat-no" title="statement not covered" >      if (version === DefaultStableVersionValue) {</span>
+<span class="cstat-no" title="statement not covered" >        setSelectedTemplate(templates.find(<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >!item.versionLabel)</span>)</span>
+      } else {
+<span class="cstat-no" title="statement not covered" >        setSelectedTemplate(templates.find(<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >item.versionLabel === version)</span>)</span>
+      }
     },
     [templateData?.data?.content]
   )
@@ -805,13 +818,12 @@ export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt;
   React.useEffect(() =&gt; {
     const newVersionOptions: SelectOption[] = templates.map(item =&gt; {
       return {
-        label:
-          item.versionLabel === DefaultNewVersionLabel
-            ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('templatesLibrary.alwaysUseStableVersion')</span>
-            : item.stableTemplate
-            ? getString('templatesLibrary.stableVersion', { entity: item.versionLabel })
-            : <span class="branch-1 cbranch-no" title="branch not covered" >item.versionLabel,</span>
-        value: item.versionLabel
+        label: isEmpty(item.versionLabel)
+          ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('templatesLibrary.alwaysUseStableVersion')</span>
+          : item.stableTemplate
+          ? getString('templatesLibrary.stableVersion', { entity: item.versionLabel })
+          : <span class="branch-1 cbranch-no" title="branch not covered" >item.versionLabel,</span>
+        value: defaultTo(item.versionLabel, DefaultStableVersionValue)
       } as SelectOption
     })
     setVersionOptions(newVersionOptions)
@@ -822,7 +834,7 @@ export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (allowStableSelection) {
       const stableVersion = <span class="cstat-no" title="statement not covered" >{ ...allVersions.find(<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >item.stableTemplate)</span> }</span>
 <span class="cstat-no" title="statement not covered" >      if (stableVersion) {</span>
-<span class="cstat-no" title="statement not covered" >        stableVersion.versionLabel = DefaultNewVersionLabel</span>
+<span class="cstat-no" title="statement not covered" >        delete stableVersion.versionLabel</span>
 <span class="cstat-no" title="statement not covered" >        allVersions.unshift(stableVersion)</span>
       }
     }
@@ -968,7 +980,7 @@ export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt;
                                 &lt;DropDown
                                   filterable={false}
                                   items={versionOptions}
-                                  value={selectedTemplate.versionLabel}
+                                  value={defaultTo(selectedTemplate.versionLabel, DefaultStableVersionValue)}
                                   onChange={onChange}
                                   disabled={isReadonly}
                                   width={300}
@@ -1021,7 +1033,7 @@ export const TemplateDetails: React.FC&lt;TemplateDetailsProps&gt; = props =&gt;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 25 2021 08:34:47 GMT+0000 (Greenwich Mean Time)
+                at Mon Dec 27 2021 06:26:27 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

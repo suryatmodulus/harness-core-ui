@@ -1,22 +1,22 @@
 import type { MultiSelectOption } from '@wings-software/uicore'
-import type { AuditTrailFormType } from '@audit-trails/components/FilterDrawer/FilterDrawer'
+import type { AuditTrailFormType } from '@audit-trail/components/FilterDrawer/FilterDrawer'
 import type { AuditEventDTO, AuditFilterProperties, ResourceDTO } from 'services/audit'
 import type { StringKeys } from 'framework/strings'
 
 export const actionToLabelMap: Record<AuditEventDTO['action'], StringKeys> = {
   CREATE: 'created',
-  UPDATE: 'auditTrails.actions.updated',
-  RESTORE: 'auditTrails.actions.restored',
+  UPDATE: 'auditTrail.actions.updated',
+  RESTORE: 'auditTrail.actions.restored',
   DELETE: 'deleted',
-  UPSERT: 'auditTrails.actions.updated',
-  INVITE: 'auditTrails.actions.invited',
-  RESEND_INVITE: 'auditTrails.actions.invite_resent',
-  REVOKE_INVITE: 'auditTrails.actions.invite_revoked',
-  ADD_COLLABORATOR: 'auditTrails.actions.added_collaborator',
-  REMOVE_COLLABORATOR: 'auditTrails.actions.removed_collaborator',
-  ADD_MEMBERSHIP: 'auditTrails.actions.added_membership',
-  REMOVE_MEMBERSHIP: 'auditTrails.actions.removed_membership',
-  REVOKE_TOKEN: 'auditTrails.actions.revoke_token'
+  UPSERT: 'auditTrail.actions.updated',
+  INVITE: 'auditTrail.actions.invited',
+  RESEND_INVITE: 'auditTrail.actions.invite_resent',
+  REVOKE_INVITE: 'auditTrail.actions.invite_revoked',
+  ADD_COLLABORATOR: 'auditTrail.actions.added_collaborator',
+  REMOVE_COLLABORATOR: 'auditTrail.actions.removed_collaborator',
+  ADD_MEMBERSHIP: 'auditTrail.actions.added_membership',
+  REMOVE_MEMBERSHIP: 'auditTrail.actions.removed_membership',
+  REVOKE_TOKEN: 'auditTrail.actions.revoke_token'
 }
 
 export const moduleToLabelMap: Record<AuditEventDTO['module'], StringKeys> = {

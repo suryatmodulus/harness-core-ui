@@ -5,11 +5,12 @@ export type ResourceType = ResourceDTO['type']
 
 interface ResourceHandler {
   moduleIcon: IconProps
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => string | undefined
+  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => string | null
+  eventSummaryRenderer?: () => React.ReactElement
 }
 
 class AuditTrailFactory {
-  private readonly map: Map<ResourceType, ResourceHandler>
+  private map: Map<ResourceType, ResourceHandler>
 
   constructor() {
     this.map = new Map()

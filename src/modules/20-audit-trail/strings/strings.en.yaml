@@ -1,0 +1,18 @@
+supplementaryDetails: Supplementary Details
+eventSource: Event Source
+http: 'HTTP {{method}} (Client IP: {{clientIP}})'
+actions:
+  updated: Updated
+  restored: Restored
+  invited: Invited
+  invite_resent: Invite Resent
+  invite_revoked: Invite Revoked
+  added_collaborator: Added Collaborator
+  removed_collaborator: Removed Collaborator
+  added_membership: Added Membership
+  removed_membership: Removed Membership
+  revoke_token: Token Revoked
+emptyStateMessageTitle: No records were found to match your search
+emptyStateMessage: Please try to modify your search criteria.
+externalDataText: Export data to external applications via our
+auditLogAPI: Audit Log API

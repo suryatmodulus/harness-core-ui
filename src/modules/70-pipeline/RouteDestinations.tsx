@@ -2,7 +2,6 @@ import React from 'react'
 import '@pipeline/components/CommonPipelineStages/ApprovalStage'
 import '@pipeline/components/CommonPipelineStages/CustomStage'
 import '@pipeline/components/CommonPipelineStages/PipelineStage'
-
 import RbacFactory from '@rbac/factories/RbacFactory'
 import ExecFactory from '@pipeline/factories/ExecutionFactory'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -18,9 +17,6 @@ import { HarnessApprovalView } from '@pipeline/components/execution/StepDetails/
 import { JiraApprovalView } from '@pipeline/components/execution/StepDetails/views/JiraApprovalView/JiraApprovalView'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { ServiceNowApprovalView } from '@pipeline/components/execution/StepDetails/views/ServiceNowApprovalView/ServiceNowApprovalView'
-import AuditTrailFactory from '@audit-trails/factories/AuditTrailFactory'
-import type { ResourceDTO, ResourceScopeDTO } from 'services/audit'
-import routes from '@common/RouteDefinitions'
 import PipelineResourceRenderer from './components/RbacResourceModals/PipelineResourceRenderer/PipelineResourceRenderer'
 import { ModuleName } from '../../framework/types/ModuleName'
 
@@ -68,68 +64,6 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ENVIRONMENT, {
   addResourceModalBody: props => <EnvironmentResourceModal {...props} />
 })
 
-AuditTrailFactory.registerResourceHandler('PIPELINE', {
-  moduleIcon: {
-    name: 'cd-main',
-    size: 30
-  },
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
-    const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
-    if (accountIdentifier && orgIdentifier && projectIdentifier) {
-      return routes.toPipelineDetail({
-        orgIdentifier,
-        accountId: accountIdentifier,
-        projectIdentifier,
-        pipelineIdentifier: resource.identifier,
-        module: 'cd'
-      })
-    }
-
-    return null
-  }
-})
-
-AuditTrailFactory.registerResourceHandler('SERVICE', {
-  moduleIcon: {
-    name: 'cd-main',
-    size: 30
-  },
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
-    const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
-    if (accountIdentifier && orgIdentifier && projectIdentifier) {
-      return routes.toServiceDetails({
-        orgIdentifier,
-        accountId: accountIdentifier,
-        projectIdentifier,
-        serviceId: resource.identifier,
-        module: 'cd'
-      })
-    }
-
-    return null
-  }
-})
-
-AuditTrailFactory.registerResourceHandler('ENVIRONMENT', {
-  moduleIcon: {
-    name: 'cd-main',
-    size: 30
-  },
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
-    const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
-    if (accountIdentifier && orgIdentifier && projectIdentifier) {
-      return routes.toCFEnvironmentDetails({
-        orgIdentifier,
-        accountId: accountIdentifier,
-        projectIdentifier,
-        environmentIdentifier: resource.identifier
-      })
-    }
-
-    return null
-  }
-})
-
 /**
  * Register execution step detail views
  */
@@ -154,23 +88,4 @@ LandingDashboardFactory.registerModuleDashboardHandler(ModuleName.CD, {
   iconProps: { size: 20 },
   // eslint-disable-next-line react/display-name
   moduleDashboardRenderer: () => <LandingDashboardDeploymentsWidget />
-})
-
-AuditTrailFactory.registerResourceHandler('PIPELINE', {
-  moduleIcon: {
-    name: 'cd',
-    size: 30
-  },
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
-    const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope
-    if (accountIdentifier) {
-      return routes.toConnectorDetails({
-        orgIdentifier,
-        accountId: accountIdentifier,
-        connectorId: resource.identifier,
-        projectIdentifier
-      })
-    }
-    return null
-  }
 })

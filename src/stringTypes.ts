@@ -676,23 +676,23 @@ export interface StringsMap {
   'notifications.userGroupsPlaceholder': string
   'notifications.validationPDKey': string
   'notifications.validationWebhook': string
-  'auditTrails.actions.added_collaborator': string
-  'auditTrails.actions.added_membership': string
-  'auditTrails.actions.invite_resent': string
-  'auditTrails.actions.invite_revoked': string
-  'auditTrails.actions.invited': string
-  'auditTrails.actions.removed_collaborator': string
-  'auditTrails.actions.removed_membership': string
-  'auditTrails.actions.restored': string
-  'auditTrails.actions.revoke_token': string
-  'auditTrails.actions.updated': string
-  'auditTrails.auditLogAPI': string
-  'auditTrails.emptyStateMessage': string
-  'auditTrails.emptyStateMessageTitle': string
-  'auditTrails.eventSource': string
-  'auditTrails.externalDataText': string
-  'auditTrails.http': string
-  'auditTrails.supplementaryDetails': string
+  'auditTrail.actions.added_collaborator': string
+  'auditTrail.actions.added_membership': string
+  'auditTrail.actions.invite_resent': string
+  'auditTrail.actions.invite_revoked': string
+  'auditTrail.actions.invited': string
+  'auditTrail.actions.removed_collaborator': string
+  'auditTrail.actions.removed_membership': string
+  'auditTrail.actions.restored': string
+  'auditTrail.actions.revoke_token': string
+  'auditTrail.actions.updated': string
+  'auditTrail.auditLogAPI': string
+  'auditTrail.emptyStateMessage': string
+  'auditTrail.emptyStateMessageTitle': string
+  'auditTrail.eventSource': string
+  'auditTrail.externalDataText': string
+  'auditTrail.http': string
+  'auditTrail.supplementaryDetails': string
   'rbac.accessControlTitle.resourceGroups': string
   'rbac.accessControlTitle.roles': string
   'rbac.accessControlTitle.serviceAccounts': string

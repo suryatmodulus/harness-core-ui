@@ -6,7 +6,7 @@ import type { AuditEventDTO } from 'services/audit'
 // import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { getReadableDateTime } from '@common/utils/dateUtils'
-import AuditTrailFactory from '@audit-trails/factories/AuditTrailFactory'
+import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
 import css from './EventSummary.module.scss'
 
 interface EventSummaryProps {
@@ -82,13 +82,13 @@ const EventSummary: React.FC<EventSummaryProps> = props => {
             <Card className={css.card}>
               <Layout.Vertical>
                 <Text margin={{ bottom: 'xlarge' }} font={{ variation: FontVariation.H5 }}>
-                  {getString('auditTrails.supplementaryDetails')}
+                  {getString('auditTrail.supplementaryDetails')}
                 </Text>
                 <Text margin={{ bottom: 'small' }} font={{ variation: FontVariation.SMALL }}>
-                  {getString('auditTrails.eventSource')}
+                  {getString('auditTrail.eventSource')}
                 </Text>
                 <Text font={{ variation: FontVariation.BODY2 }}>
-                  {getString('auditTrails.http', { method: requestMethod, clientIP })}
+                  {getString('auditTrail.http', { method: requestMethod, clientIP })}
                 </Text>
               </Layout.Vertical>
             </Card>

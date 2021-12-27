@@ -319,10 +319,10 @@ export const getDefaultPortConfigs = (): PortConfig[] => {
 }
 
 export const getApSelectionList = (
-  apCoreResponseList: AccessPointCore[] = [],
+  apCoreResponseList: AccessPointCore[],
   { isAwsProvider, isAzureProvider }: RuleCreationParams
 ): SelectOption[] => {
-  return apCoreResponseList.map(_ap => ({
+  return _defaultTo(apCoreResponseList, []).map(_ap => ({
     label: _ap.details?.name as string,
     value: isAwsProvider
       ? ((_ap.details as ALBAccessPointCore)?.albARN as string)

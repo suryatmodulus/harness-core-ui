@@ -8,13 +8,14 @@ import { useStrings } from 'framework/strings'
 import { Utils } from '@ce/common/Utils'
 import { useAllHostedZones } from 'services/lw'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { DNSLinkSetupFormVal } from '@ce/types'
 import { useGatewayContext } from '@ce/context/GatewayContext'
 import type { GatewayDetails } from '../COCreateGateway/models'
 import CustomDomainMapping from './CustomDomainMapping'
 import css from './COGatewayAccess.module.scss'
 
 interface ResourceAccessUrlSelectorProps {
-  formikProps: FormikProps<any> // TODO: change the type
+  formikProps: FormikProps<DNSLinkSetupFormVal>
   gatewayDetails: GatewayDetails
   setGatewayDetails: (details: GatewayDetails) => void
   setHelpTextSections: (s: string[]) => void

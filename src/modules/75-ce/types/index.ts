@@ -66,3 +66,11 @@ export interface YamlDependency {
 }
 
 export type AccessPointScreenMode = 'create' | 'import' | 'edit'
+
+export interface DNSLinkSetupFormVal {
+  usingCustomDomain: string
+  customURL: string | undefined
+  publicallyAccessible: string
+  dnsProvider: string
+  route53Account: string | undefined
+}

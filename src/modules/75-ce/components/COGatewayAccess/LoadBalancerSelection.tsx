@@ -146,7 +146,7 @@ const LoadBalancerSelection: React.FC<LoadBalancerSelectionProps> = ({ gatewayDe
 
   useEffect(() => {
     const submittedAccessPoints = accessPoints?.response?.filter(_item => _item.status === 'submitted')
-    if (apCoresResponse?.response?.length == 0 && _isEmpty(submittedAccessPoints)) {
+    if (apCoresResponse?.response?.length === 0 && _isEmpty(submittedAccessPoints)) {
       return
     }
 
@@ -177,7 +177,9 @@ const LoadBalancerSelection: React.FC<LoadBalancerSelectionProps> = ({ gatewayDe
   }, [accessPoint, apCoreList])
 
   useEffect(() => {
-    if (!accessPoint || !accessPoint.id) return
+    if (!accessPoint || !accessPoint.id) {
+      return
+    }
     const updatedGatewayDetails = {
       ...gatewayDetails,
       accessPointID: accessPoint.id,
@@ -203,7 +205,9 @@ const LoadBalancerSelection: React.FC<LoadBalancerSelectionProps> = ({ gatewayDe
         if (clearStatus && !isCreateMode) {
           clearAPData()
         }
-        if (isCreateMode) setIsCreateMode(false)
+        if (isCreateMode) {
+          setIsCreateMode(false)
+        }
       },
       handleSave: savedLb => {
         setAccessPoint(savedLb)

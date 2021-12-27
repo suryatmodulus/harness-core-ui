@@ -8,7 +8,8 @@
 import React from 'react'
 import { Heading, Layout, Formik, FormikForm } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { isEmpty as _isEmpty, values as _values, defaultTo as _defaultTo } from 'lodash-es'
+import { isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
+import type { DNSLinkSetupFormVal } from '@ce/types'
 import { useStrings } from 'framework/strings'
 import type { ConnectionMetadata, CustomDomainDetails, GatewayDetails } from '../COCreateGateway/models'
 import { Utils } from '../../common/Utils'
@@ -33,7 +34,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     <Layout.Vertical spacing="medium" padding="medium">
       <Heading level={3}>{getString('ce.co.gatewayAccess.dnsLinkHeader')}</Heading>
 
-      <Formik
+      <Formik<DNSLinkSetupFormVal>
         initialValues={{
           usingCustomDomain: Utils.getConditionalResult(!_isEmpty(props.gatewayDetails.customDomains), 'yes', 'no'),
           customURL: props.gatewayDetails.customDomains?.join(','),

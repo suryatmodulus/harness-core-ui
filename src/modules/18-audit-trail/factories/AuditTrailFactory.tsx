@@ -10,7 +10,7 @@ interface ResourceHandler {
 }
 
 class AuditTrailFactory {
-  private map: Map<ResourceType, ResourceHandler>
+  private readonly map: Map<ResourceType, ResourceHandler>
 
   constructor() {
     this.map = new Map()

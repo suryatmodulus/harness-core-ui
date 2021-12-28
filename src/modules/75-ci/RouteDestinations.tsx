@@ -92,7 +92,6 @@ import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
 import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
 import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
 import ExecutionPolicyEvaluationsView from '@pipeline/pages/execution/ExecutionPolicyEvaluationsView/ExecutionPolicyEvaluationsView'
-import AuditTrailsPage from '@audit-trail/pages/AuditTrails/AuditTrailsPage'
 import CIHomePage from './pages/home/CIHomePage'
 import CIDashboardPage from './pages/dashboard/CIDashboardPage'
 import CIPipelineStudio from './pages/pipeline-studio/CIPipelineStudio'
@@ -789,14 +788,6 @@ export default (
       <AccessControlPage>
         <Roles />
       </AccessControlPage>
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CISideNavProps}
-      path={[routes.toAuditTrail({ ...projectPathProps, ...pipelineModuleParams, ...rolePathProps })]}
-    >
-      <AuditTrailsPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact

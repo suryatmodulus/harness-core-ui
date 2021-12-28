@@ -441,7 +441,10 @@
 <a name='L382'></a><a href='#L382'>382</a>
 <a name='L383'></a><a href='#L383'>383</a>
 <a name='L384'></a><a href='#L384'>384</a>
-<a name='L385'></a><a href='#L385'>385</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">64x</span>
+<a name='L385'></a><a href='#L385'>385</a>
+<a name='L386'></a><a href='#L386'>386</a>
+<a name='L387'></a><a href='#L387'>387</a>
+<a name='L388'></a><a href='#L388'>388</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">64x</span>
 <span class="cline-any cline-yes">64x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -488,7 +491,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -650,6 +655,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -866,6 +872,7 @@ import templateCss from './OSTemplateWithGit.module.scss'
 interface OpenshiftTemplateWithGITPropType {
   stepName: string
   expressions: string[]
+  allowableTypes: MultiTypeInputType[]
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) =&gt; void
   manifestIdsList: Array&lt;string&gt;
@@ -877,6 +884,7 @@ const OpenShiftTemplateWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
   initialValues,
   handleSubmit,
   expressions,
+  allowableTypes,
   prevStepData,
   previousStep,
   manifestIdsList,
@@ -1047,6 +1055,7 @@ const OpenShiftTemplateWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
                 &lt;GitRepositoryName
                   accountUrl={accountUrl}
                   expressions={expressions}
+                  allowableTypes={allowableTypes}
                   fieldValue={formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>epoName}
                   changeFieldValue={<span class="fstat-no" title="function not covered" >(v</span>alue: string) =&gt; <span class="cstat-no" title="statement not covered" >formik.setFieldValue('repoName', value)}</span>
                   isReadonly={isReadonly}
@@ -1071,7 +1080,7 @@ const OpenShiftTemplateWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
                     &lt;FormInput.MultiTextInput
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
                       placeholder={getString('pipeline.manifestType.branchPlaceholder')}
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes }}
                       name="branch"
                     /&gt;
                     {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ranch) === MultiTypeInputType.RUNTIME &amp;&amp; (
@@ -1100,7 +1109,7 @@ const OpenShiftTemplateWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
                     &lt;FormInput.MultiTextInput
                       label={getString('pipeline.manifestType.commitId')}
                       placeholder={getString('pipeline.manifestType.commitPlaceholder')}
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes }}
                       name="commitId"
                     /&gt;
                     {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME &amp;&amp; (
@@ -1131,7 +1140,7 @@ const OpenShiftTemplateWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
                     label={getString('pipeline.manifestType.osTemplatePath')}
                     placeholder={getString('pipeline.manifestType.osTemplatePathPlaceHolder')}
                     name="path"
-                    multiTextInputProps={{ expressions }}
+                    multiTextInputProps={{ expressions, allowableTypes }}
                   /&gt;
                   {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ath) === MultiTypeInputType.RUNTIME &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;ConfigureOptions</span>
@@ -1164,7 +1173,7 @@ const OpenShiftTemplateWithGit: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
                       &lt;FormMultiTypeCheckboxField
                         name="skipResourceVersioning"
                         label={getString('skipResourceVersion')}
-                        multiTypeTextbox={{ expressions }}
+                        multiTypeTextbox={{ expressions, allowableTypes }}
                         className={cx(templateCss.halfWidth, templateCss.checkbox)}
                       /&gt;
                       {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipResourceVersioning) === MultiTypeInputType.RUNTIME &amp;&amp; (
@@ -1216,7 +1225,7 @@ export default OpenShiftTemplateWithGit
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 28 2021 13:26:58 GMT+0000 (Greenwich Mean Time)
+                at Tue Dec 28 2021 15:32:41 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

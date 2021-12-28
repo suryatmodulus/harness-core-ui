@@ -485,7 +485,10 @@
 <a name='L426'></a><a href='#L426'>426</a>
 <a name='L427'></a><a href='#L427'>427</a>
 <a name='L428'></a><a href='#L428'>428</a>
-<a name='L429'></a><a href='#L429'>429</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">64x</span>
+<a name='L429'></a><a href='#L429'>429</a>
+<a name='L430'></a><a href='#L430'>430</a>
+<a name='L431'></a><a href='#L431'>431</a>
+<a name='L432'></a><a href='#L432'>432</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">64x</span>
 <span class="cline-any cline-yes">64x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -532,7 +535,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -698,6 +703,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -954,6 +960,7 @@ import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 interface KustomizeWithGITPropType {
   stepName: string
   expressions: string[]
+  allowableTypes: MultiTypeInputType[]
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) =&gt; void
   manifestIdsList: Array&lt;string&gt;
@@ -965,6 +972,7 @@ const KustomizeWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Ku
   initialValues,
   handleSubmit,
   expressions,
+  allowableTypes,
   prevStepData,
   previousStep,
   manifestIdsList,
@@ -1139,6 +1147,7 @@ const KustomizeWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Ku
                 &lt;GitRepositoryName
                   accountUrl={accountUrl}
                   expressions={expressions}
+                  allowableTypes={allowableTypes}
                   fieldValue={formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>epoName}
                   changeFieldValue={<span class="fstat-no" title="function not covered" >(v</span>alue: string) =&gt; <span class="cstat-no" title="statement not covered" >formik.setFieldValue('repoName', value)}</span>
                   isReadonly={isReadonly}
@@ -1164,7 +1173,7 @@ const KustomizeWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Ku
                     &lt;FormInput.MultiTextInput
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
                       placeholder={getString('pipeline.manifestType.branchPlaceholder')}
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes }}
                       name="branch"
                     /&gt;
                     {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ranch) === MultiTypeInputType.RUNTIME &amp;&amp; (
@@ -1193,7 +1202,7 @@ const KustomizeWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Ku
                     &lt;FormInput.MultiTextInput
                       label={getString('pipeline.manifestType.commitId')}
                       placeholder={getString('pipeline.manifestType.commitPlaceholder')}
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes }}
                       name="commitId"
                     /&gt;
                     {getMultiTypeFromValue(formik.values?.commitId) === MultiTypeInputType.RUNTIME &amp;&amp; (
@@ -1227,7 +1236,7 @@ const KustomizeWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Ku
                     tooltipProps={{
                       dataTooltipId: 'kustomizePathHelperText'
                     }}
-                    multiTextInputProps={{ expressions }}
+                    multiTextInputProps={{ expressions, allowableTypes }}
                   /&gt;
                   {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>olderPath) === MultiTypeInputType.RUNTIME &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;ConfigureOptions</span>
@@ -1258,7 +1267,7 @@ const KustomizeWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Ku
                       dataTooltipId: 'pluginPathHelperText'
                     }}
                     isOptional={true}
-                    multiTextInputProps={{ expressions }}
+                    multiTextInputProps={{ expressions, allowableTypes }}
                   /&gt;
                   {getMultiTypeFromValue(formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>luginPath) === MultiTypeInputType.RUNTIME &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;ConfigureOptions</span>
@@ -1293,7 +1302,7 @@ const KustomizeWithGIT: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Ku
                       &lt;FormMultiTypeCheckboxField
                         name="skipResourceVersioning"
                         label={getString('skipResourceVersion')}
-                        multiTypeTextbox={{ expressions }}
+                        multiTypeTextbox={{ expressions, allowableTypes }}
                         tooltipProps={{
                           dataTooltipId: 'helmSkipResourceVersion'
                         }}
@@ -1348,7 +1357,7 @@ export default KustomizeWithGIT
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 28 2021 13:26:58 GMT+0000 (Greenwich Mean Time)
+                at Tue Dec 28 2021 15:32:41 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

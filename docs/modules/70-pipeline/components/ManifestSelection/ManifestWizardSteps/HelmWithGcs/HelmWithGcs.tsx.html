@@ -499,7 +499,10 @@
 <a name='L440'></a><a href='#L440'>440</a>
 <a name='L441'></a><a href='#L441'>441</a>
 <a name='L442'></a><a href='#L442'>442</a>
-<a name='L443'></a><a href='#L443'>443</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">68x</span>
+<a name='L443'></a><a href='#L443'>443</a>
+<a name='L444'></a><a href='#L444'>444</a>
+<a name='L445'></a><a href='#L445'>445</a>
+<a name='L446'></a><a href='#L446'>446</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">68x</span>
 <span class="cline-any cline-yes">68x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -540,6 +543,7 @@
 <span class="cline-any cline-yes">68x</span>
 <span class="cline-any cline-yes">68x</span>
 <span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -576,6 +580,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">68x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -924,6 +929,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -986,6 +992,7 @@ import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 interface HelmWithGcsPropType {
   stepName: string
   expressions: string[]
+  allowableTypes: MultiTypeInputType[]
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) =&gt; void
   manifestIdsList: Array&lt;string&gt;
@@ -1021,6 +1028,7 @@ const HelmWithGcs: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWit
   stepName,
   prevStepData,
   expressions,
+  allowableTypes,
   initialValues,
   handleSubmit,
   previousStep,
@@ -1181,7 +1189,7 @@ const HelmWithGcs: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWit
                       label={getString('pipeline.manifestType.bucketName')}
                       placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
                       name="bucketName"
-                      multiTextInputProps={{ expressions }}
+                      multiTextInputProps={{ expressions, allowableTypes }}
                     /&gt;
                     {getMultiTypeFromValue(formik.values?.bucketName) === MultiTypeInputType.RUNTIME &amp;&amp; (
                       &lt;ConfigureOptions
@@ -1244,7 +1252,7 @@ const HelmWithGcs: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWit
                 &gt;
                   &lt;FormInput.MultiTextInput
                     label={getString('chartPath')}
-                    multiTextInputProps={{ expressions }}
+                    multiTextInputProps={{ expressions, allowableTypes }}
                     placeholder={getString('pipeline.manifestType.chartPathPlaceholder')}
                     name="folderPath"
                     isOptional={true}
@@ -1272,7 +1280,7 @@ const HelmWithGcs: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWit
                 &gt;
                   &lt;FormInput.MultiTextInput
                     name="chartName"
-                    multiTextInputProps={{ expressions }}
+                    multiTextInputProps={{ expressions, allowableTypes }}
                     label={getString('pipeline.manifestType.http.chartName')}
                     placeholder={getString('pipeline.manifestType.http.chartNamePlaceHolder')}
                   /&gt;
@@ -1300,7 +1308,7 @@ const HelmWithGcs: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWit
                 &gt;
                   &lt;FormInput.MultiTextInput
                     name="chartVersion"
-                    multiTextInputProps={{ expressions }}
+                    multiTextInputProps={{ expressions, allowableTypes }}
                     label={getString('pipeline.manifestType.http.chartVersion')}
                     placeholder={getString('pipeline.manifestType.http.chartVersionPlaceHolder')}
                     isOptional={true}
@@ -1351,6 +1359,7 @@ const HelmWithGcs: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; HelmWit
                     &lt;HelmAdvancedStepSection
                       formik={formik}
                       expressions={expressions}
+                      allowableTypes={allowableTypes}
                       helmVersion={formik.values<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>elmVersion}
                       isReadonly={isReadonly}
                       deploymentType={deploymentType as string}
@@ -1390,7 +1399,7 @@ export default HelmWithGcs
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 28 2021 13:26:58 GMT+0000 (Greenwich Mean Time)
+                at Tue Dec 28 2021 15:32:41 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

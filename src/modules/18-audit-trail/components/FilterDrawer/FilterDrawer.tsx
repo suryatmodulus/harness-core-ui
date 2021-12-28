@@ -21,12 +21,16 @@ interface FilterDrawerProps {
   refetchFilters: () => Promise<void>
 }
 
+export interface ProjectSelectOption extends MultiSelectOption {
+  orgIdentifier: string
+}
+
 export interface AuditTrailFormType {
   actions?: MultiSelectOption[]
   users?: MultiSelectOption[]
   modules?: MultiSelectOption[]
   organizations?: MultiSelectOption[]
-  projects?: MultiSelectOption[]
+  projects?: ProjectSelectOption[]
   resourceType?: MultiSelectOption[]
 }
 

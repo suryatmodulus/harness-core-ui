@@ -1,6 +1,7 @@
 import type { MultiSelectOption } from '@wings-software/uicore'
-import type { AuditTrailFormType } from '@audit-trail/components/FilterDrawer/FilterDrawer'
-import type { AuditEventDTO, AuditFilterProperties, ResourceDTO } from 'services/audit'
+import uniqBy from 'lodash/uniqBy'
+import type { AuditTrailFormType, ProjectSelectOption } from '@audit-trail/components/FilterDrawer/FilterDrawer'
+import type { AuditEventDTO, AuditFilterProperties, ResourceDTO, ResourceScopeDTO } from 'services/audit'
 import type { StringKeys } from 'framework/strings'
 
 export const actionToLabelMap: Record<AuditEventDTO['action'], StringKeys> = {
@@ -61,7 +62,10 @@ export const getResourceTypeForMultiselect = (): MultiSelectOption[] => {
   }))
 }
 
-const getScopes = (formData: AuditTrailFormType, accountId: string): Pick<AuditFilterProperties, 'scopes'> => {
+const getScopesFromFormData = (
+  formData: AuditTrailFormType,
+  accountId: string
+): Pick<AuditFilterProperties, 'scopes'> => {
   const { organizations, projects } = formData
 
   if (organizations && organizations?.length <= 0) {
@@ -70,9 +74,10 @@ const getScopes = (formData: AuditTrailFormType, accountId: string): Pick<AuditF
 
   if (projects && projects?.length > 0) {
     return {
-      scopes: projects.map(project => ({
-        projectIdentifier: project.value as string,
-        accountIdentifier: accountId
+      scopes: projects.map(projectData => ({
+        projectIdentifier: projectData.value as string,
+        accountIdentifier: accountId,
+        orgIdentifier: projectData.orgIdentifier
       }))
     }
   }
@@ -91,7 +96,7 @@ export const getFilterPropertiesFromForm = (formData: AuditTrailFormType, accoun
     filterType: 'Audit',
     actions: formData?.actions?.map(action => action.value) as AuditFilterProperties['actions'],
     modules: formData?.modules?.map((module: MultiSelectOption) => module.value) as AuditFilterProperties['modules'],
-    ...getScopes(formData, accountId),
+    ...getScopesFromFormData(formData, accountId),
     principals: formData?.users?.map(user => ({
       type: 'USER',
       identifier: user.value
@@ -99,6 +104,27 @@ export const getFilterPropertiesFromForm = (formData: AuditTrailFormType, accoun
     resources: formData?.resourceType?.map(resourceType => ({
       type: resourceType.value
     })) as AuditFilterProperties['resources']
+  }
+}
+
+const getOrgAndProjects = (scopes: ResourceScopeDTO[]) => {
+  const organizations: MultiSelectOption[] = []
+  const projects: ProjectSelectOption[] = []
+  scopes.forEach(scope => {
+    if (scope.orgIdentifier) {
+      if (scope.projectIdentifier) {
+        projects.push({
+          label: scope.projectIdentifier,
+          value: scope.projectIdentifier,
+          orgIdentifier: scope.orgIdentifier
+        })
+      }
+      organizations.push({ label: scope.orgIdentifier, value: scope.orgIdentifier })
+    }
+  })
+  return {
+    organizations: uniqBy(organizations, org => org.value),
+    projects
   }
 }
 
@@ -113,11 +139,7 @@ export const getFormValuesFromFilterProperties = (
       label: principal.identifier,
       value: principal.identifier
     })),
-    organizations:
-      filterProperties?.scopes?.map(scope => ({
-        label: scope.orgIdentifier || '',
-        value: scope.orgIdentifier || ''
-      })) || [],
+    ...(filterProperties.scopes ? getOrgAndProjects(filterProperties.scopes) : {}),
     resourceType: filterProperties?.resources?.map(resource => ({
       label: resourceTypeToLabelMapping[resource.type],
       value: resource.type

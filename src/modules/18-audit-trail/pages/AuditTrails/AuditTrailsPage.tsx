@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Color, DateRangePickerButton, FontVariation, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import AuditTrailsFilters from '@audit-trail/components/AuditTrailsFilters'
 import { Page } from '@common/exports'
 import { useGetAuditList } from 'services/audit'
 import { useStrings } from 'framework/strings'
@@ -16,7 +15,7 @@ import css from './AuditTrailsPage.module.scss'
 const AuditTrailsPage: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [page, setPage] = useState(0)
-  const [selectedFilterProperties, setSelectedFilterProperties] = useState<AuditFilterProperties>()
+  const [selectedFilterProperties] = useState<AuditFilterProperties>()
   const { getString } = useStrings()
   const [startDate, setStartDate] = useState<Date>(() => {
     const start = new Date()
@@ -82,13 +81,6 @@ const AuditTrailsPage: React.FC = () => {
               `${selectedDates[0].toLocaleDateString()} - ${selectedDates[1].toLocaleDateString()}`
             }
           />
-          <Layout.Horizontal flex>
-            <AuditTrailsFilters
-              applyFilters={(properties: AuditFilterProperties) => {
-                setSelectedFilterProperties(properties)
-              }}
-            />
-          </Layout.Horizontal>
         </Layout.Horizontal>
       </Page.SubHeader>
       <Page.Body

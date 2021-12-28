@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { TableV2, Text, Layout, Avatar, Icon, Container, Color } from '@wings-software/uicore'
 import type { Column, Renderer, CellProps } from 'react-table'
 import { Link } from 'react-router-dom'
-import EventSummary from '@audit-trail/components/EventSummary/EventSummary'
 import { actionToLabelMap } from '@audit-trail/utils/RequestUtil'
 import type { AuditEventDTO, PageAuditEventDTO } from 'services/audit'
 import { useStrings } from 'framework/strings'
@@ -72,7 +71,6 @@ const renderColumnModule: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
 
 const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage }) => {
   const { getString } = useStrings()
-  const [selectedAuditRow, setSelectedAuditRow] = useState<AuditEventDTO | undefined>(undefined)
 
   const renderColumnResource: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
     const url = AuditTrailFactory.getResourceHandler(row.original.resource.type)?.resourceUrl(
@@ -173,14 +171,6 @@ const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage
           className: css.pagination
         }}
       />
-      {selectedAuditRow && (
-        <EventSummary
-          onClose={() => {
-            setSelectedAuditRow(undefined)
-          }}
-          auditData={selectedAuditRow}
-        />
-      )}
     </>
   )
 }

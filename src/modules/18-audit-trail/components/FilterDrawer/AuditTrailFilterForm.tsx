@@ -5,20 +5,20 @@ import type { FormikProps } from 'formik'
 import { useMutateAsGet } from '@common/hooks'
 import { StringKeys, useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetUsers, useGetOrganizationAggregateDTOList } from 'services/cd-ng'
+import { useGetUsers, useGetOrganizationAggregateDTOList, useGetProjectListWithMultiOrgFilter } from 'services/cd-ng'
 import { UserItemRenderer, UserTagRenderer } from '@rbac/utils/utils'
 import { actionToLabelMap, getResourceTypeForMultiselect, moduleToLabelMap } from '../../utils/RequestUtil'
 import type { AuditTrailFormType } from './FilterDrawer'
 
 interface AuditTrailFormProps {
-  formikProps: FormikProps<AuditTrailFormType>
+  formikProps?: FormikProps<AuditTrailFormType>
 }
 
-const AuditTrailFilterForm: React.FC<AuditTrailFormProps> = () => {
+const AuditTrailFilterForm: React.FC<AuditTrailFormProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const [userQuery, setUserQuery] = useState<string>()
   const [orgQuery, setOrgQuery] = useState<string>()
-  // const [projectsQuery, setProjectsQuery] = useState<string>()
+  const [projectsQuery, setProjectsQuery] = useState<string>()
 
   const { data: userData } = useMutateAsGet(useGetUsers, {
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
@@ -48,23 +48,26 @@ const AuditTrailFilterForm: React.FC<AuditTrailFormProps> = () => {
       value: org.organizationResponse.organization.identifier
     })) || []
 
-  // const getOrgs = (): string[] => {
-  //   if (orgIdentifier) {
-  //     return [orgIdentifier]
-  //   }
+  const getOrgs = (): string[] => {
+    if (orgIdentifier) {
+      return [orgIdentifier]
+    }
 
-  //   return props.formikProps.values.organizations?.map(org => org.value as string) || []
-  // }
+    return props.formikProps?.values.organizations?.map(org => org.value as string) || []
+  }
 
-  // const { data: projectData, refetch: refetchProjectList } = useGetProjectAggregateDTOList({
-  //   queryParams: {
-  //     accountIdentifier: accountId,
-  //     searchTerm: projectsQuery,
-  //     // orgIdentifiers: getOrgs(),
-  //     pageSize: 10
-  //   },
-  //   debounce: 300
-  // })
+  const { data: projectData, refetch: refetchProjectList } = useGetProjectListWithMultiOrgFilter({
+    queryParams: {
+      accountIdentifier: accountId,
+      searchTerm: projectsQuery,
+      orgIdentifiers: getOrgs(),
+      pageSize: 10
+    },
+    queryParamStringifyOptions: {
+      arrayFormat: 'repeat'
+    },
+    debounce: 300
+  })
 
   const getOptionsForMultiSelect = (map: Record<any, StringKeys>): MultiSelectOption[] => {
     return Object.keys(map).map(key => ({
@@ -72,6 +75,13 @@ const AuditTrailFilterForm: React.FC<AuditTrailFormProps> = () => {
       value: key
     }))
   }
+
+  const projects =
+    projectData?.data?.content?.map(project => ({
+      label: project.project.name,
+      value: project.project.identifier,
+      orgIdentifier: project.project.orgIdentifier
+    })) || []
 
   return (
     <>
@@ -96,41 +106,23 @@ const AuditTrailFilterForm: React.FC<AuditTrailFormProps> = () => {
           multiSelectProps={{
             onQueryChange: setOrgQuery
           }}
+          onChange={() => {
+            props.formikProps?.setFieldValue('projects', [])
+          }}
         />
       )}
-
-      {/* <ProjectsMultiSelect formikProps={props.formikProps} items={projectData?.data?.content || []} /> */}
-
-      {/* {!projectIdentifier && (
-        <FormInput.MultiSelect
-          name="projects"
-          key="projects"
-          items={projects}
-          label="Project" // add in string.yaml
-          multiSelectProps={{
-            onQueryChange: query => {
-              setProjectsQuery(query)
-              refetchProjectList()
-            }
-          }}
-          onChange={options => {
-            const orgs = options.map(option => {
-              const project = projectData?.data?.content?.find(
-                project => project.projectResponse.project.identifier === option.value
-              )
-              return {
-                label: project?.organization?.name,
-                value: project?.organization?.identifier
-              }
-            })
-
-            props.formikProps.setFieldValue(
-              'organizations',
-              uniqBy(orgs, org => org.value)
-            )
-          }}
-        />
-      )} */}
+      <FormInput.MultiSelect
+        name="projects"
+        key="projects"
+        label={getString('projectLabel')}
+        items={projects}
+        multiSelectProps={{
+          onQueryChange: query => {
+            setProjectsQuery(query)
+            refetchProjectList()
+          }
+        }}
+      />
       <FormInput.MultiSelect
         items={getOptionsForMultiSelect(moduleToLabelMap)}
         name="modules"

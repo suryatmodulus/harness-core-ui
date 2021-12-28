@@ -20,5 +20,5 @@ export function useFeatureFlag(flag: FeatureFlag): boolean {
 
 export function useFeatureFlags(): FeatureFlagMap {
   const { featureFlags } = useContext(AppStoreContext)
-  return { featureFlags, AUDIT_TRAIL_WEB_INTERFACE: true }
+  return featureFlags
 }

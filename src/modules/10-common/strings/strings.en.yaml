@@ -701,3 +701,5 @@ auditTrail: Audit Trail
 userLabel: User
 resourceLabel: Resource
 resourceTypeLabel: Resource Type
+moduleLabel: 'Module'
+timePstLabel: Time (PST)

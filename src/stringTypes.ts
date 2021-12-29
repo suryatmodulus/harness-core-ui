@@ -319,6 +319,7 @@ export interface StringsMap {
   'common.module.cv': string
   'common.module.pms': string
   'common.module.templateService': string
+  'common.moduleLabel': string
   'common.monthly': string
   'common.moreInfo': string
   'common.moreOptions': string
@@ -582,6 +583,7 @@ export interface StringsMap {
   'common.test.connectionSuccessful': string
   'common.test.inProgress': string
   'common.test.retest': string
+  'common.timePstLabel': string
   'common.tokens': string
   'common.totalHarnessUser': string
   'common.totalLines': string
@@ -6533,10 +6535,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  module: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'moduleRenderer.monitoringSources': string
   /**
    * @deprecated migrate this string to module level file
@@ -8330,10 +8328,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   timeMinutes: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  timePst: string
   /**
    * @deprecated migrate this string to module level file
    */

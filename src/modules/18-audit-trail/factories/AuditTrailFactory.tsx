@@ -6,7 +6,7 @@ export type ResourceType = ResourceDTO['type']
 
 interface ResourceHandler {
   moduleIcon: IconProps
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO, module?: Module) => string | undefined
+  resourceUrl?: (resource: ResourceDTO, resourceScope: ResourceScopeDTO, module?: Module) => string | undefined
 }
 
 class AuditTrailFactory {

@@ -1106,5 +1106,3 @@ lowercase: 'lowercase'
 specialChar: 'special character'
 adminResources: 'Admin:Resources'
 personalAccessToken: 'Personal Access Token'
-module: 'Module'
-timePst: Time (PST)

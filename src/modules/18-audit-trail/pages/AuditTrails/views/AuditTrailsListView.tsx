@@ -73,7 +73,7 @@ const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage
   const { getString } = useStrings()
 
   const renderColumnResource: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-    const url = AuditTrailFactory.getResourceHandler(row.original.resource.type)?.resourceUrl(
+    const url = AuditTrailFactory.getResourceHandler(row.original.resource.type)?.resourceUrl?.(
       row.original.resource,
       row.original.resourceScope
     )
@@ -103,7 +103,7 @@ const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage
 
   const columns: Column<AuditEventDTO>[] = [
     {
-      Header: getString('timePst'),
+      Header: getString('common.timePstLabel'),
       id: 'time',
       width: '10%',
       accessor: row => row.timestamp,
@@ -147,7 +147,7 @@ const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage
     {
       Header: (
         <Text color={Color.GREY_900} flex={{ justifyContent: 'center' }}>
-          {getString('module')}
+          {getString('common.moduleLabel')}
         </Text>
       ),
       id: 'module',

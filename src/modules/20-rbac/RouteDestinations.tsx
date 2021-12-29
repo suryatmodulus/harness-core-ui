@@ -136,7 +136,7 @@ AuditTrailFactory.registerResourceHandler('USER_GROUP', {
       })
     }
 
-    return null
+    return undefined
   }
 })
 
@@ -156,7 +156,7 @@ AuditTrailFactory.registerResourceHandler('USER', {
       })
     }
 
-    return null
+    return undefined
   }
 })
 
@@ -176,7 +176,14 @@ AuditTrailFactory.registerResourceHandler('ROLE', {
       })
     }
 
-    return null
+    return undefined
+  }
+})
+
+AuditTrailFactory.registerResourceHandler('ROLE_ASSIGNMENT', {
+  moduleIcon: {
+    name: 'nav-settings',
+    size: 30
   }
 })
 
@@ -196,7 +203,7 @@ AuditTrailFactory.registerResourceHandler('SERVICE_ACCOUNT', {
       })
     }
 
-    return null
+    return undefined
   }
 })
 
@@ -216,7 +223,7 @@ AuditTrailFactory.registerResourceHandler('RESOURCE_GROUP', {
       })
     }
 
-    return null
+    return undefined
   }
 })
 

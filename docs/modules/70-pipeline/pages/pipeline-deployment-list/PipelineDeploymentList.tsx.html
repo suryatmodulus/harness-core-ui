@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.27% </span>
+                <span class="strong">66.87% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>110/166</span>
+                <span class='fraction'>111/166</span>
             </div>
         
             
@@ -464,7 +464,10 @@
 <a name='L405'></a><a href='#L405'>405</a>
 <a name='L406'></a><a href='#L406'>406</a>
 <a name='L407'></a><a href='#L407'>407</a>
-<a name='L408'></a><a href='#L408'>408</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L408'></a><a href='#L408'>408</a>
+<a name='L409'></a><a href='#L409'>409</a>
+<a name='L410'></a><a href='#L410'>410</a>
+<a name='L411'></a><a href='#L411'>411</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -528,6 +531,8 @@
 <span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -691,6 +696,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-yes">54x</span>
@@ -819,14 +825,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -938,19 +944,21 @@ const getHasFilters = ({
   queryParams,
   filterIdentifier,
   searchTerm,
-  myDeployments
+  myDeployments,
+  status
 }: {
   queryParams: QueryParams
   filterIdentifier?: string
   searchTerm?: string
   myDeployments?: boolean
+  status: GetListOfExecutionsQueryParams['status']
 }): boolean =&gt; {
   return (
     [queryParams.pipelineIdentifier, queryParams.filters, filterIdentifier, searchTerm].some(
       filter =&gt; filter !== undefined
     ) ||
     myDeployments ||
-    (Array.isArray(status) &amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >status.length &gt; 0)</span>
+    (Array.isArray(status) &amp;&amp; status.length &gt; 0)
   )
 }
 &nbsp;
@@ -1095,7 +1103,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     queryParams,
     filterIdentifier,
     searchTerm,
-    myDeployments
+    myDeployments,
+    status
   })
 &nbsp;
   const isCIModule = module === 'ci'
@@ -1222,26 +1231,26 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
 &nbsp;
   return (
     &lt;GitSyncStoreProvider&gt;
-      &lt;Page.Body
-        className={css.main}
-        key={pipelineIdentifier}
-        error={(<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >error?.d</span>ata as Error)<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.message </span>|| <span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >error?.m</span>essage}</span>
-        retryOnError={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >fetchExecutions()}</span>
+      &lt;FilterContextProvider
+        savedFilters={filters}
+        isFetchingFilters={isFetchingFilters}
+        refetchFilters={refetchFilters}
+        queryParams={queryParams}
       &gt;
-        {props.showHealthAndExecution &amp;&amp; (
-          &lt;Container className={css.healthAndExecutions}&gt;
-            &lt;PipelineSummaryCards /&gt;
-            &lt;PipelineBuildExecutionsChart /&gt;
-          &lt;/Container&gt;
-        )}
-&nbsp;
-        &lt;FilterContextProvider
-          savedFilters={filters}
-          isFetchingFilters={isFetchingFilters}
-          refetchFilters={refetchFilters}
-          queryParams={queryParams}
+        {renderDeploymentListHeader({ pipelineExecutionSummary, hasFilters, onRunPipeline: props.onRunPipeline })}
+        &lt;Page.Body
+          className={css.main}
+          key={pipelineIdentifier}
+          error={(<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >error?.d</span>ata as Error)<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.message </span>|| <span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >error?.m</span>essage}</span>
+          retryOnError={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >fetchExecutions()}</span>
         &gt;
-          {renderDeploymentListHeader({ pipelineExecutionSummary, hasFilters, onRunPipeline: props.onRunPipeline })}
+          {props.showHealthAndExecution &amp;&amp; (
+            &lt;Container className={css.healthAndExecutions}&gt;
+              &lt;PipelineSummaryCards /&gt;
+              &lt;PipelineBuildExecutionsChart /&gt;
+            &lt;/Container&gt;
+          )}
+&nbsp;
           {spinner ? (
 <span class="branch-0 cbranch-no" title="branch not covered" >            spinner</span>
           ) : !pipelineExecutionSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent?.length ? (
@@ -1273,8 +1282,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
               &lt;ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} /&gt;
             &lt;/React.Fragment&gt;
           )}
-        &lt;/FilterContextProvider&gt;
-      &lt;/Page.Body&gt;
+        &lt;/Page.Body&gt;
+      &lt;/FilterContextProvider&gt;
     &lt;/GitSyncStoreProvider&gt;
   )
 }
@@ -1285,7 +1294,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 28 2021 15:32:41 GMT+0000 (Greenwich Mean Time)
+                at Wed Dec 29 2021 04:56:25 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

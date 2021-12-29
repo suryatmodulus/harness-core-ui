@@ -80,7 +80,7 @@ AuditTrailFactory.registerResourceHandler('SECRET', {
       })
     }
 
-    return null
+    return undefined
   }
 })
 

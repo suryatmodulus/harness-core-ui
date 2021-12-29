@@ -83,7 +83,7 @@ const TemplateActivity = ({ auditEvent, last }: TemplateActivityProps) => {
       <TimelineIndicators last={last} />
       <div>
         <Layout.Horizontal spacing="xsmall" margin={{ left: 'small', top: 'xsmall' }}>
-          <Text intent="primary">{labels?.username || getString('rbac.user')}</Text>
+          <Text intent="primary">{labels?.username || getString('common.userLabel')}</Text>
           <HumanizedAction action={action} />
           <Text intent="primary">{resource.labels?.versionLabel || ''}</Text>
         </Layout.Horizontal>

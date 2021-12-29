@@ -21,7 +21,7 @@ const FilterTypePopover: React.FC<FilterTypePopoverProps> = ({ filterData, setSe
   return (
     <Container className={css.popoverContainer}>
       <Menu>
-        <MenuItemWithDivider text={getString('ce.recommendation.listPage.filters.resourceType')} />
+        <MenuItemWithDivider text={getString('common.resourceTypeLabel')} />
         {filterData.map(filter => {
           return filter?.key ? (
             <Menu.Item

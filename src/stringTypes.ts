@@ -467,8 +467,8 @@ export interface StringsMap {
   'common.reportNameRequired': string
   'common.repositoryName': string
   'common.resolveConflict': string
-  'common.resource': string
-  'common.resourceType': string
+  'common.resourceLabel': string
+  'common.resourceTypeLabel': string
   'common.role': string
   'common.saveAndClose': string
   'common.saveAsTemplate': string
@@ -593,9 +593,9 @@ export interface StringsMap {
   'common.updating': string
   'common.upgrade': string
   'common.useTemplate': string
-  'common.user': string
   'common.userGroup': string
   'common.userGroups': string
+  'common.userLabel': string
   'common.validation.email.format': string
   'common.validation.email.required': string
   'common.validation.entityIdIsRequired': string

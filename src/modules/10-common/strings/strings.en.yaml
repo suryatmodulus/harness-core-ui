@@ -698,6 +698,6 @@ smtp:
   updatingSMTP: Updating SMTP Configuration
 invalid: INVALID
 auditTrail: Audit Trail
-user: User
-resource: Resource
-resourceType: Resource Type
+userLabel: User
+resourceLabel: Resource
+resourceTypeLabel: Resource Type

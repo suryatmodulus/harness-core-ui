@@ -110,7 +110,7 @@ const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage
       Cell: renderColumnTimeStamp
     },
     {
-      Header: getString('common.user'),
+      Header: getString('common.userLabel'),
       id: 'user',
       width: '15%',
       accessor: row => row.timestamp,
@@ -124,7 +124,7 @@ const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage
       Cell: renderColumnAction
     },
     {
-      Header: getString('common.resource'),
+      Header: getString('common.resourceLabel'),
       id: 'resource',
       width: '18%',
       accessor: row => row.timestamp,

@@ -64,26 +64,6 @@ const RedirectToSecretDetailHome = () => {
   )
 }
 
-AuditTrailFactory.registerResourceHandler('SECRET', {
-  moduleIcon: {
-    name: 'nav-settings',
-    size: 30
-  },
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
-    const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
-    if (accountIdentifier) {
-      return routes.toSecretDetails({
-        orgIdentifier,
-        accountId: accountIdentifier,
-        projectIdentifier,
-        secretId: resource.identifier
-      })
-    }
-
-    return undefined
-  }
-})
-
 export default (
   <>
     <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toSecrets({ ...accountPathProps })} exact>

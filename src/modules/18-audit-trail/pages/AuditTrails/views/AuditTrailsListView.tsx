@@ -30,7 +30,7 @@ const renderColumnUser: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
   const { labels, principal } = row.original.authenticationInfo
   return (
     <Layout.Horizontal padding={{ right: 'medium' }} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-      <Avatar name={row.original.authenticationInfo.principal.identifier} hoverCard={false} />
+      <Avatar className={css.avatar} name={row.original.authenticationInfo.principal.identifier} hoverCard={false} />
       <Text lineClamp={1}>{labels?.username || principal.identifier}</Text>
     </Layout.Horizontal>
   )

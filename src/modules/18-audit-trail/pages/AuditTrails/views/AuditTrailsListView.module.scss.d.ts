@@ -6,5 +6,6 @@ declare const styles: {
   readonly notesIcon: string
   readonly resourceLink: string
   readonly navSettingIcon: string
+  readonly avatar: string
 }
 export default styles

@@ -275,7 +275,6 @@ export interface AccessControlCheckError {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
-    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1550,12 +1549,44 @@ export interface DelegateMetaInfo {
   id?: string
 }
 
-export type DelegateProfileFilterProperties = FilterProperties & {
+export interface DelegateProfileDetailsNg {
+  accountId?: string
+  approvalRequired?: boolean
+  createdAt?: number
+  createdBy?: EmbeddedUserDetails
+  description?: string
+  identifier?: string
+  lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUserDetails
+  name?: string
+  numberOfDelegates?: number
+  orgIdentifier?: string
+  primary?: boolean
+  projectIdentifier?: string
+  scopingRules?: ScopingRuleDetailsNg[]
+  selectors?: string[]
+  startupScript?: string
+  uuid?: string
+}
+
+export interface DelegateProfileFilterProperties {
   approvalRequired?: boolean
   description?: string
+  filterType?:
+    | 'Connector'
+    | 'DelegateProfile'
+    | 'Delegate'
+    | 'PipelineSetup'
+    | 'PipelineExecution'
+    | 'Deployment'
+    | 'Audit'
+    | 'Template'
   identifier?: string
   name?: string
   selectors?: string[]
+  tags?: {
+    [key: string]: string
+  }
 }
 
 export interface DelegateResponseData {
@@ -1572,7 +1603,7 @@ export type DeleteReleaseNameSpec = DeleteResourcesBaseSpec & {
 }
 
 export type DeleteResourceNameSpec = DeleteResourcesBaseSpec & {
-  resourceNames: string[]
+  resourceNames?: string[]
 }
 
 export interface DeleteResourcesBaseSpec {
@@ -1844,6 +1875,12 @@ export type EmailConfigDTO = NotificationSettingConfigDTO & {
 }
 
 export interface EmbeddedUser {
+  email?: string
+  name?: string
+  uuid?: string
+}
+
+export interface EmbeddedUserDetails {
   email?: string
   name?: string
   uuid?: string
@@ -2256,7 +2293,6 @@ export interface Error {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
-    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -2614,7 +2650,6 @@ export interface Failure {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
-    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -4507,9 +4542,10 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export type OAuthSettings = NGAuthSettings & {
+export interface OAuthSettings {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
+  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -5276,28 +5312,7 @@ export interface ResourceDTO {
   labels?: {
     [key: string]: string
   }
-  type:
-    | 'ORGANIZATION'
-    | 'PROJECT'
-    | 'USER_GROUP'
-    | 'SECRET'
-    | 'RESOURCE_GROUP'
-    | 'USER'
-    | 'ROLE'
-    | 'ROLE_ASSIGNMENT'
-    | 'PIPELINE'
-    | 'TRIGGER'
-    | 'TEMPLATE'
-    | 'INPUT_SET'
-    | 'DELEGATE_CONFIGURATION'
-    | 'SERVICE'
-    | 'ENVIRONMENT'
-    | 'DELEGATE'
-    | 'SERVICE_ACCOUNT'
-    | 'CONNECTOR'
-    | 'API_KEY'
-    | 'TOKEN'
-    | 'DELEGATE_TOKEN'
+  type: string
 }
 
 export interface ResourceGroup {
@@ -6199,7 +6214,6 @@ export interface ResponseMessage {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
-    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -6771,13 +6785,6 @@ export interface ResponseValidationResultDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseYamlSchemaDetailsWrapper {
-  correlationId?: string
-  data?: YamlSchemaDetailsWrapper
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
 export interface ResponseYamlSnippets {
   correlationId?: string
   data?: YamlSnippets
@@ -6809,6 +6816,14 @@ export interface RestResponseBoolean {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseDelegateProfileDetailsNg {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateProfileDetailsNg
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseLoginSettings {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -6822,6 +6837,14 @@ export interface RestResponseLoginTypeResponse {
     [key: string]: { [key: string]: any }
   }
   resource?: LoginTypeResponse
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponsePageResponseDelegateProfileDetailsNg {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateProfileDetailsNg[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -7111,6 +7134,12 @@ export interface Scope {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
+}
+
+export interface ScopingRuleDetailsNg {
+  description?: string
+  environmentIds?: string[]
+  environmentTypeId?: string
 }
 
 export type ScriptStateExecutionData = DelegateResponseData & {
@@ -8389,29 +8418,6 @@ export interface WorkloadDeploymentInfo {
   workload?: WorkloadDateCountInfo[]
 }
 
-export interface YamlGroup {
-  group?: string
-}
-
-export interface YamlSchemaDetailsWrapper {
-  yamlSchemaWithDetailsList?: YamlSchemaWithDetails[]
-}
-
-export interface YamlSchemaMetadata {
-  modulesSupported?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE')[]
-  yamlGroup: YamlGroup
-}
-
-export interface YamlSchemaWithDetails {
-  availableAtAccountLevel?: boolean
-  availableAtOrgLevel?: boolean
-  availableAtProjectLevel?: boolean
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
-  schema?: JsonNode
-  schemaClassName?: string
-  yamlSchemaMetadata?: YamlSchemaMetadata
-}
-
 export interface YamlSnippetMetaData {
   description?: string
   iconTag?: string
@@ -8430,6 +8436,8 @@ export type AccountDTORequestBody = AccountDTO
 export type ApiKeyDTORequestBody = ApiKeyDTO
 
 export type ConnectorRequestBody = Connector
+
+export type DelegateProfileDetailsNgRequestBody = DelegateProfileDetailsNg
 
 export type DockerRequestDTORequestBody = DockerRequestDTO
 
@@ -8465,6 +8473,8 @@ export type ScimGroupRequestBody = ScimGroup
 
 export type ScimUserRequestBody = ScimUser
 
+export type ScopingRuleDetailsNgArrayRequestBody = ScopingRuleDetailsNg[]
+
 export type SecretRequestWrapperRequestBody = SecretRequestWrapper
 
 export type SecretRequestWrapper2RequestBody = void
@@ -8489,7 +8499,9 @@ export type UserGroupDTORequestBody = UserGroupDTO
 
 export type GetBuildDetailsForEcrWithYamlBodyRequestBody = string
 
-export type SubscribeBodyRequestBody = string[]
+export type ProcessPollingResultNgBodyRequestBody = string[]
+
+export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
 export type UploadSamlMetaDataRequestBody = void
 
@@ -11784,7 +11796,13 @@ export interface UpdateWhitelistedDomainsQueryParams {
 }
 
 export type UpdateWhitelistedDomainsProps = Omit<
-  MutateProps<RestResponseBoolean, unknown, UpdateWhitelistedDomainsQueryParams, string[], void>,
+  MutateProps<
+    RestResponseBoolean,
+    unknown,
+    UpdateWhitelistedDomainsQueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -11792,7 +11810,13 @@ export type UpdateWhitelistedDomainsProps = Omit<
  * Update Whitelisted domains for an account
  */
 export const UpdateWhitelistedDomains = (props: UpdateWhitelistedDomainsProps) => (
-  <Mutate<RestResponseBoolean, unknown, UpdateWhitelistedDomainsQueryParams, string[], void>
+  <Mutate<
+    RestResponseBoolean,
+    unknown,
+    UpdateWhitelistedDomainsQueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    void
+  >
     verb="PUT"
     path={`/authentication-settings/whitelisted-domains`}
     base={getConfig('ng/api')}
@@ -11801,7 +11825,13 @@ export const UpdateWhitelistedDomains = (props: UpdateWhitelistedDomainsProps) =
 )
 
 export type UseUpdateWhitelistedDomainsProps = Omit<
-  UseMutateProps<RestResponseBoolean, unknown, UpdateWhitelistedDomainsQueryParams, string[], void>,
+  UseMutateProps<
+    RestResponseBoolean,
+    unknown,
+    UpdateWhitelistedDomainsQueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -11809,26 +11839,34 @@ export type UseUpdateWhitelistedDomainsProps = Omit<
  * Update Whitelisted domains for an account
  */
 export const useUpdateWhitelistedDomains = (props: UseUpdateWhitelistedDomainsProps) =>
-  useMutate<RestResponseBoolean, unknown, UpdateWhitelistedDomainsQueryParams, string[], void>(
-    'PUT',
-    `/authentication-settings/whitelisted-domains`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<
+    RestResponseBoolean,
+    unknown,
+    UpdateWhitelistedDomainsQueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    void
+  >('PUT', `/authentication-settings/whitelisted-domains`, { base: getConfig('ng/api'), ...props })
 
 /**
  * Update Whitelisted domains for an account
  */
 export const updateWhitelistedDomainsPromise = (
-  props: MutateUsingFetchProps<RestResponseBoolean, unknown, UpdateWhitelistedDomainsQueryParams, string[], void>,
+  props: MutateUsingFetchProps<
+    RestResponseBoolean,
+    unknown,
+    UpdateWhitelistedDomainsQueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<RestResponseBoolean, unknown, UpdateWhitelistedDomainsQueryParams, string[], void>(
-    'PUT',
-    getConfig('ng/api'),
-    `/authentication-settings/whitelisted-domains`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    RestResponseBoolean,
+    unknown,
+    UpdateWhitelistedDomainsQueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    void
+  >('PUT', getConfig('ng/api'), `/authentication-settings/whitelisted-domains`, props, signal)
 
 export interface GetGCSBucketListQueryParams {
   connectorRef?: string
@@ -13917,6 +13955,554 @@ export const getServiceDetailsPromise = (
     props,
     signal
   )
+
+export interface ListDelegateProfilesNgQueryParams {
+  offset?: string
+  limit?: string
+  fieldsIncluded?: string[]
+  fieldsExcluded?: string[]
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export type ListDelegateProfilesNgProps = Omit<
+  GetProps<RestResponsePageResponseDelegateProfileDetailsNg, unknown, ListDelegateProfilesNgQueryParams, void>,
+  'path'
+>
+
+/**
+ * Lists the Delegate Configurations (profiles)
+ */
+export const ListDelegateProfilesNg = (props: ListDelegateProfilesNgProps) => (
+  <Get<RestResponsePageResponseDelegateProfileDetailsNg, unknown, ListDelegateProfilesNgQueryParams, void>
+    path={`/delegate-profiles/ng`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListDelegateProfilesNgProps = Omit<
+  UseGetProps<RestResponsePageResponseDelegateProfileDetailsNg, unknown, ListDelegateProfilesNgQueryParams, void>,
+  'path'
+>
+
+/**
+ * Lists the Delegate Configurations (profiles)
+ */
+export const useListDelegateProfilesNg = (props: UseListDelegateProfilesNgProps) =>
+  useGet<RestResponsePageResponseDelegateProfileDetailsNg, unknown, ListDelegateProfilesNgQueryParams, void>(
+    `/delegate-profiles/ng`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Lists the Delegate Configurations (profiles)
+ */
+export const listDelegateProfilesNgPromise = (
+  props: GetUsingFetchProps<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateProfilesNgQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePageResponseDelegateProfileDetailsNg, unknown, ListDelegateProfilesNgQueryParams, void>(
+    getConfig('ng/api'),
+    `/delegate-profiles/ng`,
+    props,
+    signal
+  )
+
+export interface AddDelegateProfileNgQueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export type AddDelegateProfileNgProps = Omit<
+  MutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    AddDelegateProfileNgQueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Adds a Delegate Configuration (profile)
+ */
+export const AddDelegateProfileNg = (props: AddDelegateProfileNgProps) => (
+  <Mutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    AddDelegateProfileNgQueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/delegate-profiles/ng`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseAddDelegateProfileNgProps = Omit<
+  UseMutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    AddDelegateProfileNgQueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Adds a Delegate Configuration (profile)
+ */
+export const useAddDelegateProfileNg = (props: UseAddDelegateProfileNgProps) =>
+  useMutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    AddDelegateProfileNgQueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    void
+  >('POST', `/delegate-profiles/ng`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Adds a Delegate Configuration (profile)
+ */
+export const addDelegateProfileNgPromise = (
+  props: MutateUsingFetchProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    AddDelegateProfileNgQueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    AddDelegateProfileNgQueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/delegate-profiles/ng`, props, signal)
+
+export interface DeleteDelegateProfileNgQueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export type DeleteDelegateProfileNgProps = Omit<
+  MutateProps<RestResponseVoid, unknown, DeleteDelegateProfileNgQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Deletes a Delegate Configuration (profile)
+ */
+export const DeleteDelegateProfileNg = (props: DeleteDelegateProfileNgProps) => (
+  <Mutate<RestResponseVoid, unknown, DeleteDelegateProfileNgQueryParams, string, void>
+    verb="DELETE"
+    path={`/delegate-profiles/ng`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteDelegateProfileNgProps = Omit<
+  UseMutateProps<RestResponseVoid, unknown, DeleteDelegateProfileNgQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Deletes a Delegate Configuration (profile)
+ */
+export const useDeleteDelegateProfileNg = (props: UseDeleteDelegateProfileNgProps) =>
+  useMutate<RestResponseVoid, unknown, DeleteDelegateProfileNgQueryParams, string, void>(
+    'DELETE',
+    `/delegate-profiles/ng`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Deletes a Delegate Configuration (profile)
+ */
+export const deleteDelegateProfileNgPromise = (
+  props: MutateUsingFetchProps<RestResponseVoid, unknown, DeleteDelegateProfileNgQueryParams, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseVoid, unknown, DeleteDelegateProfileNgQueryParams, string, void>(
+    'DELETE',
+    getConfig('ng/api'),
+    `/delegate-profiles/ng`,
+    props,
+    signal
+  )
+
+export interface GetDelegateProfileNgQueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export interface GetDelegateProfileNgPathParams {
+  delegateProfileId: string
+}
+
+export type GetDelegateProfileNgProps = Omit<
+  GetProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    GetDelegateProfileNgQueryParams,
+    GetDelegateProfileNgPathParams
+  >,
+  'path'
+> &
+  GetDelegateProfileNgPathParams
+
+/**
+ * Gets Delegate Configuration (profile)
+ */
+export const GetDelegateProfileNg = ({ delegateProfileId, ...props }: GetDelegateProfileNgProps) => (
+  <Get<RestResponseDelegateProfileDetailsNg, unknown, GetDelegateProfileNgQueryParams, GetDelegateProfileNgPathParams>
+    path={`/delegate-profiles/ng/${delegateProfileId}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateProfileNgProps = Omit<
+  UseGetProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    GetDelegateProfileNgQueryParams,
+    GetDelegateProfileNgPathParams
+  >,
+  'path'
+> &
+  GetDelegateProfileNgPathParams
+
+/**
+ * Gets Delegate Configuration (profile)
+ */
+export const useGetDelegateProfileNg = ({ delegateProfileId, ...props }: UseGetDelegateProfileNgProps) =>
+  useGet<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    GetDelegateProfileNgQueryParams,
+    GetDelegateProfileNgPathParams
+  >((paramsInPath: GetDelegateProfileNgPathParams) => `/delegate-profiles/ng/${paramsInPath.delegateProfileId}`, {
+    base: getConfig('ng/api'),
+    pathParams: { delegateProfileId },
+    ...props
+  })
+
+/**
+ * Gets Delegate Configuration (profile)
+ */
+export const getDelegateProfileNgPromise = (
+  {
+    delegateProfileId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    GetDelegateProfileNgQueryParams,
+    GetDelegateProfileNgPathParams
+  > & { delegateProfileId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    GetDelegateProfileNgQueryParams,
+    GetDelegateProfileNgPathParams
+  >(getConfig('ng/api'), `/delegate-profiles/ng/${delegateProfileId}`, props, signal)
+
+export interface UpdateDelegateProfileNgQueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export interface UpdateDelegateProfileNgPathParams {
+  delegateProfileId: string
+}
+
+export type UpdateDelegateProfileNgProps = Omit<
+  MutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateDelegateProfileNgQueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    UpdateDelegateProfileNgPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateDelegateProfileNgPathParams
+
+/**
+ * Updates a Delegate profile
+ */
+export const UpdateDelegateProfileNg = ({ delegateProfileId, ...props }: UpdateDelegateProfileNgProps) => (
+  <Mutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateDelegateProfileNgQueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    UpdateDelegateProfileNgPathParams
+  >
+    verb="PUT"
+    path={`/delegate-profiles/ng/${delegateProfileId}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateDelegateProfileNgProps = Omit<
+  UseMutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateDelegateProfileNgQueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    UpdateDelegateProfileNgPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateDelegateProfileNgPathParams
+
+/**
+ * Updates a Delegate profile
+ */
+export const useUpdateDelegateProfileNg = ({ delegateProfileId, ...props }: UseUpdateDelegateProfileNgProps) =>
+  useMutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateDelegateProfileNgQueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    UpdateDelegateProfileNgPathParams
+  >(
+    'PUT',
+    (paramsInPath: UpdateDelegateProfileNgPathParams) => `/delegate-profiles/ng/${paramsInPath.delegateProfileId}`,
+    { base: getConfig('ng/api'), pathParams: { delegateProfileId }, ...props }
+  )
+
+/**
+ * Updates a Delegate profile
+ */
+export const updateDelegateProfileNgPromise = (
+  {
+    delegateProfileId,
+    ...props
+  }: MutateUsingFetchProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateDelegateProfileNgQueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    UpdateDelegateProfileNgPathParams
+  > & { delegateProfileId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateDelegateProfileNgQueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    UpdateDelegateProfileNgPathParams
+  >('PUT', getConfig('ng/api'), `/delegate-profiles/ng/${delegateProfileId}`, props, signal)
+
+export interface UpdateScopingRulesNgQueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export interface UpdateScopingRulesNgPathParams {
+  delegateProfileId: string
+}
+
+export type UpdateScopingRulesNgProps = Omit<
+  MutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateScopingRulesNgQueryParams,
+    ScopingRuleDetailsNgArrayRequestBody,
+    UpdateScopingRulesNgPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateScopingRulesNgPathParams
+
+/**
+ * Updates the scoping rules inside the Delegate profile
+ */
+export const UpdateScopingRulesNg = ({ delegateProfileId, ...props }: UpdateScopingRulesNgProps) => (
+  <Mutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateScopingRulesNgQueryParams,
+    ScopingRuleDetailsNgArrayRequestBody,
+    UpdateScopingRulesNgPathParams
+  >
+    verb="PUT"
+    path={`/delegate-profiles/ng/${delegateProfileId}/scoping-rules`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateScopingRulesNgProps = Omit<
+  UseMutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateScopingRulesNgQueryParams,
+    ScopingRuleDetailsNgArrayRequestBody,
+    UpdateScopingRulesNgPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateScopingRulesNgPathParams
+
+/**
+ * Updates the scoping rules inside the Delegate profile
+ */
+export const useUpdateScopingRulesNg = ({ delegateProfileId, ...props }: UseUpdateScopingRulesNgProps) =>
+  useMutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateScopingRulesNgQueryParams,
+    ScopingRuleDetailsNgArrayRequestBody,
+    UpdateScopingRulesNgPathParams
+  >(
+    'PUT',
+    (paramsInPath: UpdateScopingRulesNgPathParams) =>
+      `/delegate-profiles/ng/${paramsInPath.delegateProfileId}/scoping-rules`,
+    { base: getConfig('ng/api'), pathParams: { delegateProfileId }, ...props }
+  )
+
+/**
+ * Updates the scoping rules inside the Delegate profile
+ */
+export const updateScopingRulesNgPromise = (
+  {
+    delegateProfileId,
+    ...props
+  }: MutateUsingFetchProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateScopingRulesNgQueryParams,
+    ScopingRuleDetailsNgArrayRequestBody,
+    UpdateScopingRulesNgPathParams
+  > & { delegateProfileId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateScopingRulesNgQueryParams,
+    ScopingRuleDetailsNgArrayRequestBody,
+    UpdateScopingRulesNgPathParams
+  >('PUT', getConfig('ng/api'), `/delegate-profiles/ng/${delegateProfileId}/scoping-rules`, props, signal)
+
+export interface UpdateSelectorsNgQueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export interface UpdateSelectorsNgPathParams {
+  delegateProfileId: string
+}
+
+export type UpdateSelectorsNgProps = Omit<
+  MutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateSelectorsNgQueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    UpdateSelectorsNgPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateSelectorsNgPathParams
+
+/**
+ * Updates the selectors inside the Delegate profile
+ */
+export const UpdateSelectorsNg = ({ delegateProfileId, ...props }: UpdateSelectorsNgProps) => (
+  <Mutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateSelectorsNgQueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    UpdateSelectorsNgPathParams
+  >
+    verb="PUT"
+    path={`/delegate-profiles/ng/${delegateProfileId}/selectors`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateSelectorsNgProps = Omit<
+  UseMutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateSelectorsNgQueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    UpdateSelectorsNgPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateSelectorsNgPathParams
+
+/**
+ * Updates the selectors inside the Delegate profile
+ */
+export const useUpdateSelectorsNg = ({ delegateProfileId, ...props }: UseUpdateSelectorsNgProps) =>
+  useMutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateSelectorsNgQueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    UpdateSelectorsNgPathParams
+  >(
+    'PUT',
+    (paramsInPath: UpdateSelectorsNgPathParams) => `/delegate-profiles/ng/${paramsInPath.delegateProfileId}/selectors`,
+    { base: getConfig('ng/api'), pathParams: { delegateProfileId }, ...props }
+  )
+
+/**
+ * Updates the selectors inside the Delegate profile
+ */
+export const updateSelectorsNgPromise = (
+  {
+    delegateProfileId,
+    ...props
+  }: MutateUsingFetchProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateSelectorsNgQueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    UpdateSelectorsNgPathParams
+  > & { delegateProfileId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateSelectorsNgQueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    UpdateSelectorsNgPathParams
+  >('PUT', getConfig('ng/api'), `/delegate-profiles/ng/${delegateProfileId}/selectors`, props, signal)
 
 export interface GetFeatureRestrictionDetailQueryParams {
   accountIdentifier: string
@@ -20123,220 +20709,6 @@ export const getPartialYamlSchemaPromise = (
     signal
   )
 
-export interface GetPartialYamlSchemaWithDetailsQueryParams {
-  accountIdentifier: string
-  projectIdentifier?: string
-  orgIdentifier?: string
-  scope?: 'account' | 'org' | 'project' | 'unknown'
-}
-
-export type GetPartialYamlSchemaWithDetailsProps = Omit<
-  GetProps<ResponseYamlSchemaDetailsWrapper, Failure | Error, GetPartialYamlSchemaWithDetailsQueryParams, void>,
-  'path'
->
-
-/**
- * Get Partial Yaml Schema with details
- */
-export const GetPartialYamlSchemaWithDetails = (props: GetPartialYamlSchemaWithDetailsProps) => (
-  <Get<ResponseYamlSchemaDetailsWrapper, Failure | Error, GetPartialYamlSchemaWithDetailsQueryParams, void>
-    path={`/partial-yaml-schema/details`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetPartialYamlSchemaWithDetailsProps = Omit<
-  UseGetProps<ResponseYamlSchemaDetailsWrapper, Failure | Error, GetPartialYamlSchemaWithDetailsQueryParams, void>,
-  'path'
->
-
-/**
- * Get Partial Yaml Schema with details
- */
-export const useGetPartialYamlSchemaWithDetails = (props: UseGetPartialYamlSchemaWithDetailsProps) =>
-  useGet<ResponseYamlSchemaDetailsWrapper, Failure | Error, GetPartialYamlSchemaWithDetailsQueryParams, void>(
-    `/partial-yaml-schema/details`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Get Partial Yaml Schema with details
- */
-export const getPartialYamlSchemaWithDetailsPromise = (
-  props: GetUsingFetchProps<
-    ResponseYamlSchemaDetailsWrapper,
-    Failure | Error,
-    GetPartialYamlSchemaWithDetailsQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseYamlSchemaDetailsWrapper, Failure | Error, GetPartialYamlSchemaWithDetailsQueryParams, void>(
-    getConfig('ng/api'),
-    `/partial-yaml-schema/details`,
-    props,
-    signal
-  )
-
-export interface GetMergedPartialYamlSchemaQueryParams {
-  accountIdentifier: string
-  projectIdentifier?: string
-  orgIdentifier?: string
-  scope?: 'account' | 'org' | 'project' | 'unknown'
-}
-
-export type GetMergedPartialYamlSchemaProps = Omit<
-  MutateProps<
-    ResponsePartialSchemaDTO,
-    Failure | Error,
-    GetMergedPartialYamlSchemaQueryParams,
-    YamlSchemaDetailsWrapper,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Get Merged Partial Yaml Schema
- */
-export const GetMergedPartialYamlSchema = (props: GetMergedPartialYamlSchemaProps) => (
-  <Mutate<
-    ResponsePartialSchemaDTO,
-    Failure | Error,
-    GetMergedPartialYamlSchemaQueryParams,
-    YamlSchemaDetailsWrapper,
-    void
-  >
-    verb="POST"
-    path={`/partial-yaml-schema/merged`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetMergedPartialYamlSchemaProps = Omit<
-  UseMutateProps<
-    ResponsePartialSchemaDTO,
-    Failure | Error,
-    GetMergedPartialYamlSchemaQueryParams,
-    YamlSchemaDetailsWrapper,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Get Merged Partial Yaml Schema
- */
-export const useGetMergedPartialYamlSchema = (props: UseGetMergedPartialYamlSchemaProps) =>
-  useMutate<
-    ResponsePartialSchemaDTO,
-    Failure | Error,
-    GetMergedPartialYamlSchemaQueryParams,
-    YamlSchemaDetailsWrapper,
-    void
-  >('POST', `/partial-yaml-schema/merged`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Get Merged Partial Yaml Schema
- */
-export const getMergedPartialYamlSchemaPromise = (
-  props: MutateUsingFetchProps<
-    ResponsePartialSchemaDTO,
-    Failure | Error,
-    GetMergedPartialYamlSchemaQueryParams,
-    YamlSchemaDetailsWrapper,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponsePartialSchemaDTO,
-    Failure | Error,
-    GetMergedPartialYamlSchemaQueryParams,
-    YamlSchemaDetailsWrapper,
-    void
-  >('POST', getConfig('ng/api'), `/partial-yaml-schema/merged`, props, signal)
-
-export interface GetStepYamlSchemaQueryParams {
-  accountIdentifier: string
-  entityType?:
-    | 'Projects'
-    | 'Pipelines'
-    | 'PipelineSteps'
-    | 'Http'
-    | 'JiraCreate'
-    | 'ShellScript'
-    | 'K8sCanaryDeploy'
-    | 'Connectors'
-    | 'Secrets'
-    | 'Service'
-    | 'Environment'
-    | 'InputSets'
-    | 'CvConfig'
-    | 'Delegates'
-    | 'DelegateConfigurations'
-    | 'CvVerificationJob'
-    | 'IntegrationStage'
-    | 'IntegrationSteps'
-    | 'CvKubernetesActivitySource'
-    | 'DeploymentSteps'
-    | 'DeploymentStage'
-    | 'ApprovalStage'
-    | 'FeatureFlagStage'
-    | 'Template'
-    | 'Triggers'
-    | 'MonitoredService'
-    | 'GitRepositories'
-    | 'FeatureFlags'
-    | 'ServiceNowApproval'
-}
-
-export type GetStepYamlSchemaProps = Omit<
-  GetProps<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>,
-  'path'
->
-
-/**
- * Get step YAML schema
- */
-export const GetStepYamlSchema = (props: GetStepYamlSchemaProps) => (
-  <Get<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>
-    path={`/partial-yaml-schema/step`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetStepYamlSchemaProps = Omit<
-  UseGetProps<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>,
-  'path'
->
-
-/**
- * Get step YAML schema
- */
-export const useGetStepYamlSchema = (props: UseGetStepYamlSchemaProps) =>
-  useGet<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>(`/partial-yaml-schema/step`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Get step YAML schema
- */
-export const getStepYamlSchemaPromise = (
-  props: GetUsingFetchProps<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>(
-    getConfig('ng/api'),
-    `/partial-yaml-schema/step`,
-    props,
-    signal
-  )
-
 export type GetProvisionerStepsProps = Omit<GetProps<ResponseStepCategory, Failure | Error, void, void>, 'path'>
 
 /**
@@ -20619,7 +20991,7 @@ export type ProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    SubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -20631,7 +21003,7 @@ export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPol
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    SubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >
     verb="POST"
@@ -20646,7 +21018,7 @@ export type UseProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    SubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -20658,7 +21030,7 @@ export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProc
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    SubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >(
     'POST',
@@ -20674,7 +21046,7 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    SubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
@@ -20683,17 +21055,17 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    SubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>,
+  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>
+  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -20702,22 +21074,28 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>,
+  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>(
+  useMutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     `/polling/subscribe`,
     { base: getConfig('ng/api'), ...props }
   )
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<
+    ResponsePollingResponseDTO,
+    Failure | Error,
+    void,
+    ProcessPollingResultNgBodyRequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, SubscribeBodyRequestBody, void>(
+  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -20726,12 +21104,12 @@ export const subscribePromise = (
   )
 
 export type UnsubscribeProps = Omit<
-  MutateProps<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>,
+  MutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Unsubscribe = (props: UnsubscribeProps) => (
-  <Mutate<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>
+  <Mutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
     verb="POST"
     path={`/polling/unsubscribe`}
     base={getConfig('ng/api')}
@@ -20740,21 +21118,22 @@ export const Unsubscribe = (props: UnsubscribeProps) => (
 )
 
 export type UseUnsubscribeProps = Omit<
-  UseMutateProps<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>,
+  UseMutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useUnsubscribe = (props: UseUnsubscribeProps) =>
-  useMutate<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+    'POST',
+    `/polling/unsubscribe`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 export const unsubscribePromise = (
-  props: MutateUsingFetchProps<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<boolean, Failure | Error, void, SubscribeBodyRequestBody, void>(
+  mutateUsingFetch<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/unsubscribe`,
@@ -20872,67 +21251,6 @@ export const postProjectPromise = (
     'POST',
     getConfig('ng/api'),
     `/projects`,
-    props,
-    signal
-  )
-
-export interface GetProjectListWithMultiOrgFilterQueryParams {
-  accountIdentifier: string
-  orgIdentifiers?: string[]
-  hasModule?: boolean
-  identifiers?: string[]
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
-  searchTerm?: string
-  pageIndex?: number
-  pageSize?: number
-  sortOrders?: string[]
-}
-
-export type GetProjectListWithMultiOrgFilterProps = Omit<
-  GetProps<ResponsePageProjectResponse, Failure | Error, GetProjectListWithMultiOrgFilterQueryParams, void>,
-  'path'
->
-
-/**
- * Get Project list
- */
-export const GetProjectListWithMultiOrgFilter = (props: GetProjectListWithMultiOrgFilterProps) => (
-  <Get<ResponsePageProjectResponse, Failure | Error, GetProjectListWithMultiOrgFilterQueryParams, void>
-    path={`/projects/list`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetProjectListWithMultiOrgFilterProps = Omit<
-  UseGetProps<ResponsePageProjectResponse, Failure | Error, GetProjectListWithMultiOrgFilterQueryParams, void>,
-  'path'
->
-
-/**
- * Get Project list
- */
-export const useGetProjectListWithMultiOrgFilter = (props: UseGetProjectListWithMultiOrgFilterProps) =>
-  useGet<ResponsePageProjectResponse, Failure | Error, GetProjectListWithMultiOrgFilterQueryParams, void>(
-    `/projects/list`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Get Project list
- */
-export const getProjectListWithMultiOrgFilterPromise = (
-  props: GetUsingFetchProps<
-    ResponsePageProjectResponse,
-    Failure | Error,
-    GetProjectListWithMultiOrgFilterQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePageProjectResponse, Failure | Error, GetProjectListWithMultiOrgFilterQueryParams, void>(
-    getConfig('ng/api'),
-    `/projects/list`,
     props,
     signal
   )
@@ -27128,6 +27446,816 @@ export const removeUserPromise = (
     'DELETE',
     getConfig('ng/api'),
     `/user`,
+    props,
+    signal
+  )
+
+export interface ListDelegateConfigsNgV2QueryParams {
+  offset?: string
+  limit?: string
+  fieldsIncluded?: string[]
+  fieldsExcluded?: string[]
+  orgId?: string
+  projectId?: string
+}
+
+export interface ListDelegateConfigsNgV2PathParams {
+  accountId: string
+}
+
+export type ListDelegateConfigsNgV2Props = Omit<
+  GetProps<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2QueryParams,
+    ListDelegateConfigsNgV2PathParams
+  >,
+  'path'
+> &
+  ListDelegateConfigsNgV2PathParams
+
+/**
+ * Lists the Delegate Configurations
+ */
+export const ListDelegateConfigsNgV2 = ({ accountId, ...props }: ListDelegateConfigsNgV2Props) => (
+  <Get<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2QueryParams,
+    ListDelegateConfigsNgV2PathParams
+  >
+    path={`/v2/accounts/${accountId}/delegate-configs`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListDelegateConfigsNgV2Props = Omit<
+  UseGetProps<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2QueryParams,
+    ListDelegateConfigsNgV2PathParams
+  >,
+  'path'
+> &
+  ListDelegateConfigsNgV2PathParams
+
+/**
+ * Lists the Delegate Configurations
+ */
+export const useListDelegateConfigsNgV2 = ({ accountId, ...props }: UseListDelegateConfigsNgV2Props) =>
+  useGet<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2QueryParams,
+    ListDelegateConfigsNgV2PathParams
+  >((paramsInPath: ListDelegateConfigsNgV2PathParams) => `/v2/accounts/${paramsInPath.accountId}/delegate-configs`, {
+    base: getConfig('ng/api'),
+    pathParams: { accountId },
+    ...props
+  })
+
+/**
+ * Lists the Delegate Configurations
+ */
+export const listDelegateConfigsNgV2Promise = (
+  {
+    accountId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2QueryParams,
+    ListDelegateConfigsNgV2PathParams
+  > & { accountId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2QueryParams,
+    ListDelegateConfigsNgV2PathParams
+  >(getConfig('ng/api'), `/v2/accounts/${accountId}/delegate-configs`, props, signal)
+
+export interface AddDelegateProfileNgV2PathParams {
+  accountId: string
+}
+
+export type AddDelegateProfileNgV2Props = Omit<
+  MutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    void,
+    DelegateProfileDetailsNgRequestBody,
+    AddDelegateProfileNgV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  AddDelegateProfileNgV2PathParams
+
+/**
+ * Adds a Delegate profile
+ */
+export const AddDelegateProfileNgV2 = ({ accountId, ...props }: AddDelegateProfileNgV2Props) => (
+  <Mutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    void,
+    DelegateProfileDetailsNgRequestBody,
+    AddDelegateProfileNgV2PathParams
+  >
+    verb="POST"
+    path={`/v2/accounts/${accountId}/delegate-configs`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseAddDelegateProfileNgV2Props = Omit<
+  UseMutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    void,
+    DelegateProfileDetailsNgRequestBody,
+    AddDelegateProfileNgV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  AddDelegateProfileNgV2PathParams
+
+/**
+ * Adds a Delegate profile
+ */
+export const useAddDelegateProfileNgV2 = ({ accountId, ...props }: UseAddDelegateProfileNgV2Props) =>
+  useMutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    void,
+    DelegateProfileDetailsNgRequestBody,
+    AddDelegateProfileNgV2PathParams
+  >(
+    'POST',
+    (paramsInPath: AddDelegateProfileNgV2PathParams) => `/v2/accounts/${paramsInPath.accountId}/delegate-configs`,
+    { base: getConfig('ng/api'), pathParams: { accountId }, ...props }
+  )
+
+/**
+ * Adds a Delegate profile
+ */
+export const addDelegateProfileNgV2Promise = (
+  {
+    accountId,
+    ...props
+  }: MutateUsingFetchProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    void,
+    DelegateProfileDetailsNgRequestBody,
+    AddDelegateProfileNgV2PathParams
+  > & { accountId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    void,
+    DelegateProfileDetailsNgRequestBody,
+    AddDelegateProfileNgV2PathParams
+  >('POST', getConfig('ng/api'), `/v2/accounts/${accountId}/delegate-configs`, props, signal)
+
+export interface ListDelegateConfigsNgV2WithFilterQueryParams {
+  orgId?: string
+  projectId?: string
+  filterIdentifier?: string
+  searchTerm?: string
+  offset?: string
+  limit?: string
+  fieldsIncluded?: string[]
+  fieldsExcluded?: string[]
+}
+
+export interface ListDelegateConfigsNgV2WithFilterPathParams {
+  accountId: string
+}
+
+export type ListDelegateConfigsNgV2WithFilterProps = Omit<
+  MutateProps<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2WithFilterQueryParams,
+    DelegateProfileFilterProperties,
+    ListDelegateConfigsNgV2WithFilterPathParams
+  >,
+  'path' | 'verb'
+> &
+  ListDelegateConfigsNgV2WithFilterPathParams
+
+/**
+ * Lists the Delegate configs with filter
+ */
+export const ListDelegateConfigsNgV2WithFilter = ({ accountId, ...props }: ListDelegateConfigsNgV2WithFilterProps) => (
+  <Mutate<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2WithFilterQueryParams,
+    DelegateProfileFilterProperties,
+    ListDelegateConfigsNgV2WithFilterPathParams
+  >
+    verb="POST"
+    path={`/v2/accounts/${accountId}/delegate-configs/listV2`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListDelegateConfigsNgV2WithFilterProps = Omit<
+  UseMutateProps<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2WithFilterQueryParams,
+    DelegateProfileFilterProperties,
+    ListDelegateConfigsNgV2WithFilterPathParams
+  >,
+  'path' | 'verb'
+> &
+  ListDelegateConfigsNgV2WithFilterPathParams
+
+/**
+ * Lists the Delegate configs with filter
+ */
+export const useListDelegateConfigsNgV2WithFilter = ({
+  accountId,
+  ...props
+}: UseListDelegateConfigsNgV2WithFilterProps) =>
+  useMutate<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2WithFilterQueryParams,
+    DelegateProfileFilterProperties,
+    ListDelegateConfigsNgV2WithFilterPathParams
+  >(
+    'POST',
+    (paramsInPath: ListDelegateConfigsNgV2WithFilterPathParams) =>
+      `/v2/accounts/${paramsInPath.accountId}/delegate-configs/listV2`,
+    { base: getConfig('ng/api'), pathParams: { accountId }, ...props }
+  )
+
+/**
+ * Lists the Delegate configs with filter
+ */
+export const listDelegateConfigsNgV2WithFilterPromise = (
+  {
+    accountId,
+    ...props
+  }: MutateUsingFetchProps<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2WithFilterQueryParams,
+    DelegateProfileFilterProperties,
+    ListDelegateConfigsNgV2WithFilterPathParams
+  > & { accountId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2WithFilterQueryParams,
+    DelegateProfileFilterProperties,
+    ListDelegateConfigsNgV2WithFilterPathParams
+  >('POST', getConfig('ng/api'), `/v2/accounts/${accountId}/delegate-configs/listV2`, props, signal)
+
+export interface DeleteDelegateConfigNgV2QueryParams {
+  orgId?: string
+  projectId?: string
+}
+
+export interface DeleteDelegateConfigNgV2PathParams {
+  accountId: string
+}
+
+export type DeleteDelegateConfigNgV2Props = Omit<
+  MutateProps<
+    ResponseBoolean,
+    unknown,
+    DeleteDelegateConfigNgV2QueryParams,
+    string,
+    DeleteDelegateConfigNgV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  DeleteDelegateConfigNgV2PathParams
+
+/**
+ * Deletes a Delegate config by identifier
+ */
+export const DeleteDelegateConfigNgV2 = ({ accountId, ...props }: DeleteDelegateConfigNgV2Props) => (
+  <Mutate<ResponseBoolean, unknown, DeleteDelegateConfigNgV2QueryParams, string, DeleteDelegateConfigNgV2PathParams>
+    verb="DELETE"
+    path={`/v2/accounts/${accountId}/delegate-configs`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteDelegateConfigNgV2Props = Omit<
+  UseMutateProps<
+    ResponseBoolean,
+    unknown,
+    DeleteDelegateConfigNgV2QueryParams,
+    string,
+    DeleteDelegateConfigNgV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  DeleteDelegateConfigNgV2PathParams
+
+/**
+ * Deletes a Delegate config by identifier
+ */
+export const useDeleteDelegateConfigNgV2 = ({ accountId, ...props }: UseDeleteDelegateConfigNgV2Props) =>
+  useMutate<ResponseBoolean, unknown, DeleteDelegateConfigNgV2QueryParams, string, DeleteDelegateConfigNgV2PathParams>(
+    'DELETE',
+    (paramsInPath: DeleteDelegateConfigNgV2PathParams) => `/v2/accounts/${paramsInPath.accountId}/delegate-configs`,
+    { base: getConfig('ng/api'), pathParams: { accountId }, ...props }
+  )
+
+/**
+ * Deletes a Delegate config by identifier
+ */
+export const deleteDelegateConfigNgV2Promise = (
+  {
+    accountId,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseBoolean,
+    unknown,
+    DeleteDelegateConfigNgV2QueryParams,
+    string,
+    DeleteDelegateConfigNgV2PathParams
+  > & { accountId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseBoolean,
+    unknown,
+    DeleteDelegateConfigNgV2QueryParams,
+    string,
+    DeleteDelegateConfigNgV2PathParams
+  >('DELETE', getConfig('ng/api'), `/v2/accounts/${accountId}/delegate-configs`, props, signal)
+
+export interface GetDelegateConfigNgV2QueryParams {
+  orgId?: string
+  projectId?: string
+}
+
+export interface GetDelegateConfigNgV2PathParams {
+  accountId: string
+  delegateConfigIdentifier: string
+}
+
+export type GetDelegateConfigNgV2Props = Omit<
+  GetProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    GetDelegateConfigNgV2QueryParams,
+    GetDelegateConfigNgV2PathParams
+  >,
+  'path'
+> &
+  GetDelegateConfigNgV2PathParams
+
+/**
+ * Gets Delegate config by identifier
+ */
+export const GetDelegateConfigNgV2 = ({
+  accountId,
+  delegateConfigIdentifier,
+  ...props
+}: GetDelegateConfigNgV2Props) => (
+  <Get<RestResponseDelegateProfileDetailsNg, unknown, GetDelegateConfigNgV2QueryParams, GetDelegateConfigNgV2PathParams>
+    path={`/v2/accounts/${accountId}/delegate-configs/${delegateConfigIdentifier}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateConfigNgV2Props = Omit<
+  UseGetProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    GetDelegateConfigNgV2QueryParams,
+    GetDelegateConfigNgV2PathParams
+  >,
+  'path'
+> &
+  GetDelegateConfigNgV2PathParams
+
+/**
+ * Gets Delegate config by identifier
+ */
+export const useGetDelegateConfigNgV2 = ({
+  accountId,
+  delegateConfigIdentifier,
+  ...props
+}: UseGetDelegateConfigNgV2Props) =>
+  useGet<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    GetDelegateConfigNgV2QueryParams,
+    GetDelegateConfigNgV2PathParams
+  >(
+    (paramsInPath: GetDelegateConfigNgV2PathParams) =>
+      `/v2/accounts/${paramsInPath.accountId}/delegate-configs/${paramsInPath.delegateConfigIdentifier}`,
+    { base: getConfig('ng/api'), pathParams: { accountId, delegateConfigIdentifier }, ...props }
+  )
+
+/**
+ * Gets Delegate config by identifier
+ */
+export const getDelegateConfigNgV2Promise = (
+  {
+    accountId,
+    delegateConfigIdentifier,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    GetDelegateConfigNgV2QueryParams,
+    GetDelegateConfigNgV2PathParams
+  > & { accountId: string; delegateConfigIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    GetDelegateConfigNgV2QueryParams,
+    GetDelegateConfigNgV2PathParams
+  >(getConfig('ng/api'), `/v2/accounts/${accountId}/delegate-configs/${delegateConfigIdentifier}`, props, signal)
+
+export interface UpdateDelegateConfigNgV2QueryParams {
+  orgId?: string
+  projectId?: string
+}
+
+export interface UpdateDelegateConfigNgV2PathParams {
+  accountId: string
+  delegateConfigIdentifier: string
+}
+
+export type UpdateDelegateConfigNgV2Props = Omit<
+  MutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateDelegateConfigNgV2QueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    UpdateDelegateConfigNgV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateDelegateConfigNgV2PathParams
+
+/**
+ * Updates a Delegate Configuration
+ */
+export const UpdateDelegateConfigNgV2 = ({
+  accountId,
+  delegateConfigIdentifier,
+  ...props
+}: UpdateDelegateConfigNgV2Props) => (
+  <Mutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateDelegateConfigNgV2QueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    UpdateDelegateConfigNgV2PathParams
+  >
+    verb="PUT"
+    path={`/v2/accounts/${accountId}/delegate-configs/${delegateConfigIdentifier}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateDelegateConfigNgV2Props = Omit<
+  UseMutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateDelegateConfigNgV2QueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    UpdateDelegateConfigNgV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateDelegateConfigNgV2PathParams
+
+/**
+ * Updates a Delegate Configuration
+ */
+export const useUpdateDelegateConfigNgV2 = ({
+  accountId,
+  delegateConfigIdentifier,
+  ...props
+}: UseUpdateDelegateConfigNgV2Props) =>
+  useMutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateDelegateConfigNgV2QueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    UpdateDelegateConfigNgV2PathParams
+  >(
+    'PUT',
+    (paramsInPath: UpdateDelegateConfigNgV2PathParams) =>
+      `/v2/accounts/${paramsInPath.accountId}/delegate-configs/${paramsInPath.delegateConfigIdentifier}`,
+    { base: getConfig('ng/api'), pathParams: { accountId, delegateConfigIdentifier }, ...props }
+  )
+
+/**
+ * Updates a Delegate Configuration
+ */
+export const updateDelegateConfigNgV2Promise = (
+  {
+    accountId,
+    delegateConfigIdentifier,
+    ...props
+  }: MutateUsingFetchProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateDelegateConfigNgV2QueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    UpdateDelegateConfigNgV2PathParams
+  > & { accountId: string; delegateConfigIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateDelegateConfigNgV2QueryParams,
+    DelegateProfileDetailsNgRequestBody,
+    UpdateDelegateConfigNgV2PathParams
+  >('PUT', getConfig('ng/api'), `/v2/accounts/${accountId}/delegate-configs/${delegateConfigIdentifier}`, props, signal)
+
+export interface UpdateScopingRulesNgV2QueryParams {
+  orgId?: string
+  projectId?: string
+}
+
+export interface UpdateScopingRulesNgV2PathParams {
+  accountId: string
+  delegateConfigIdentifier: string
+}
+
+export type UpdateScopingRulesNgV2Props = Omit<
+  MutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateScopingRulesNgV2QueryParams,
+    ScopingRuleDetailsNgArrayRequestBody,
+    UpdateScopingRulesNgV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateScopingRulesNgV2PathParams
+
+/**
+ * Updates the Scoping Rules inside the Delegate config
+ */
+export const UpdateScopingRulesNgV2 = ({
+  accountId,
+  delegateConfigIdentifier,
+  ...props
+}: UpdateScopingRulesNgV2Props) => (
+  <Mutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateScopingRulesNgV2QueryParams,
+    ScopingRuleDetailsNgArrayRequestBody,
+    UpdateScopingRulesNgV2PathParams
+  >
+    verb="PUT"
+    path={`/v2/accounts/${accountId}/delegate-configs/${delegateConfigIdentifier}/scoping-rules`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateScopingRulesNgV2Props = Omit<
+  UseMutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateScopingRulesNgV2QueryParams,
+    ScopingRuleDetailsNgArrayRequestBody,
+    UpdateScopingRulesNgV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateScopingRulesNgV2PathParams
+
+/**
+ * Updates the Scoping Rules inside the Delegate config
+ */
+export const useUpdateScopingRulesNgV2 = ({
+  accountId,
+  delegateConfigIdentifier,
+  ...props
+}: UseUpdateScopingRulesNgV2Props) =>
+  useMutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateScopingRulesNgV2QueryParams,
+    ScopingRuleDetailsNgArrayRequestBody,
+    UpdateScopingRulesNgV2PathParams
+  >(
+    'PUT',
+    (paramsInPath: UpdateScopingRulesNgV2PathParams) =>
+      `/v2/accounts/${paramsInPath.accountId}/delegate-configs/${paramsInPath.delegateConfigIdentifier}/scoping-rules`,
+    { base: getConfig('ng/api'), pathParams: { accountId, delegateConfigIdentifier }, ...props }
+  )
+
+/**
+ * Updates the Scoping Rules inside the Delegate config
+ */
+export const updateScopingRulesNgV2Promise = (
+  {
+    accountId,
+    delegateConfigIdentifier,
+    ...props
+  }: MutateUsingFetchProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateScopingRulesNgV2QueryParams,
+    ScopingRuleDetailsNgArrayRequestBody,
+    UpdateScopingRulesNgV2PathParams
+  > & { accountId: string; delegateConfigIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateScopingRulesNgV2QueryParams,
+    ScopingRuleDetailsNgArrayRequestBody,
+    UpdateScopingRulesNgV2PathParams
+  >(
+    'PUT',
+    getConfig('ng/api'),
+    `/v2/accounts/${accountId}/delegate-configs/${delegateConfigIdentifier}/scoping-rules`,
+    props,
+    signal
+  )
+
+export interface UpdateSelectorsNgV2QueryParams {
+  orgId?: string
+  projectId?: string
+}
+
+export interface UpdateSelectorsNgV2PathParams {
+  accountId: string
+  delegateConfigIdentifier: string
+}
+
+export type UpdateSelectorsNgV2Props = Omit<
+  MutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateSelectorsNgV2QueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    UpdateSelectorsNgV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateSelectorsNgV2PathParams
+
+/**
+ * Updates the selectors inside the Delegate config
+ */
+export const UpdateSelectorsNgV2 = ({ accountId, delegateConfigIdentifier, ...props }: UpdateSelectorsNgV2Props) => (
+  <Mutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateSelectorsNgV2QueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    UpdateSelectorsNgV2PathParams
+  >
+    verb="PUT"
+    path={`/v2/accounts/${accountId}/delegate-configs/${delegateConfigIdentifier}/selectors`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateSelectorsNgV2Props = Omit<
+  UseMutateProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateSelectorsNgV2QueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    UpdateSelectorsNgV2PathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateSelectorsNgV2PathParams
+
+/**
+ * Updates the selectors inside the Delegate config
+ */
+export const useUpdateSelectorsNgV2 = ({
+  accountId,
+  delegateConfigIdentifier,
+  ...props
+}: UseUpdateSelectorsNgV2Props) =>
+  useMutate<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateSelectorsNgV2QueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    UpdateSelectorsNgV2PathParams
+  >(
+    'PUT',
+    (paramsInPath: UpdateSelectorsNgV2PathParams) =>
+      `/v2/accounts/${paramsInPath.accountId}/delegate-configs/${paramsInPath.delegateConfigIdentifier}/selectors`,
+    { base: getConfig('ng/api'), pathParams: { accountId, delegateConfigIdentifier }, ...props }
+  )
+
+/**
+ * Updates the selectors inside the Delegate config
+ */
+export const updateSelectorsNgV2Promise = (
+  {
+    accountId,
+    delegateConfigIdentifier,
+    ...props
+  }: MutateUsingFetchProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateSelectorsNgV2QueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    UpdateSelectorsNgV2PathParams
+  > & { accountId: string; delegateConfigIdentifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    UpdateSelectorsNgV2QueryParams,
+    UpdateWhitelistedDomainsBodyRequestBody,
+    UpdateSelectorsNgV2PathParams
+  >(
+    'PUT',
+    getConfig('ng/api'),
+    `/v2/accounts/${accountId}/delegate-configs/${delegateConfigIdentifier}/selectors`,
+    props,
+    signal
+  )
+
+export type AddDelegateProfileNgV2noQueryParamsV2Props = Omit<
+  MutateProps<RestResponseDelegateProfileDetailsNg, unknown, void, DelegateProfileDetailsNgRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Adds a Delegate profile
+ */
+export const AddDelegateProfileNgV2noQueryParamsV2 = (props: AddDelegateProfileNgV2noQueryParamsV2Props) => (
+  <Mutate<RestResponseDelegateProfileDetailsNg, unknown, void, DelegateProfileDetailsNgRequestBody, void>
+    verb="POST"
+    path={`/v2/delegate-configs`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseAddDelegateProfileNgV2noQueryParamsV2Props = Omit<
+  UseMutateProps<RestResponseDelegateProfileDetailsNg, unknown, void, DelegateProfileDetailsNgRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Adds a Delegate profile
+ */
+export const useAddDelegateProfileNgV2noQueryParamsV2 = (props: UseAddDelegateProfileNgV2noQueryParamsV2Props) =>
+  useMutate<RestResponseDelegateProfileDetailsNg, unknown, void, DelegateProfileDetailsNgRequestBody, void>(
+    'POST',
+    `/v2/delegate-configs`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Adds a Delegate profile
+ */
+export const addDelegateProfileNgV2noQueryParamsV2Promise = (
+  props: MutateUsingFetchProps<
+    RestResponseDelegateProfileDetailsNg,
+    unknown,
+    void,
+    DelegateProfileDetailsNgRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseDelegateProfileDetailsNg, unknown, void, DelegateProfileDetailsNgRequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/v2/delegate-configs`,
     props,
     signal
   )

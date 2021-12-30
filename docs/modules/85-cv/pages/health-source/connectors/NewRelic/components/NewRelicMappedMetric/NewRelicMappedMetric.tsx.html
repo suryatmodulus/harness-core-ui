@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.19% </span>
+                <span class="strong">75.38% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>48/63</span>
+                <span class='fraction'>49/65</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.96% </span>
+                <span class="strong">49.47% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>76/117</span>
+                <span class='fraction'>47/95</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.85% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>7/13</span>
+                <span class='fraction'>7/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.41% </span>
+                <span class="strong">74.6% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>46/61</span>
+                <span class='fraction'>47/63</span>
             </div>
         
             
@@ -374,18 +374,13 @@
 <a name='L315'></a><a href='#L315'>315</a>
 <a name='L316'></a><a href='#L316'>316</a>
 <a name='L317'></a><a href='#L317'>317</a>
-<a name='L318'></a><a href='#L318'>318</a>
-<a name='L319'></a><a href='#L319'>319</a>
-<a name='L320'></a><a href='#L320'>320</a>
-<a name='L321'></a><a href='#L321'>321</a>
-<a name='L322'></a><a href='#L322'>322</a>
-<a name='L323'></a><a href='#L323'>323</a>
-<a name='L324'></a><a href='#L324'>324</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">17x</span>
+<a name='L318'></a><a href='#L318'>318</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -481,27 +476,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -513,6 +494,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -713,7 +701,8 @@ import {
   useGetLabelNames,
   useGetSampleDataForNRQL,
   useFetchParsedSampleData,
-  NewRelicMetricDefinition
+  NewRelicMetricDefinition,
+  TimeSeriesSampleDTO
 } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
@@ -798,34 +787,20 @@ export default function NewRelicMappedMetric({
     () =&gt; ({
       accountId,
       orgIdentifier,
-      projectIdentifier,
-      jsonResponse: JSON.stringify(sampleRecord),
-      groupName: formikValues<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>roupName<span class="branch-1 cbranch-no" title="branch not covered" >?.value,</span>
-      metricValueJSONPath: formikValues<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etricValue,
-      timestampJSONPath: formikValues<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>imestamp,
-      timestampFormat: formikValues<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>imestampFormat
+      projectIdentifier
     }),
 &nbsp;
-    [
-      accountId,
-      orgIdentifier,
-      projectIdentifier,
-      sampleRecord,
-      formikValues<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>roupName<span class="branch-1 cbranch-no" title="branch not covered" >?.value,</span>
-      formikValues<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etricValue,
-      formikValues<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>imestamp,
-      formikValues<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>imestampFormat
-    ]
+    [accountId, orgIdentifier, projectIdentifier]
   )
 &nbsp;
+  const [newRelicTimeSeriesData, setNewRelicTimeSeriesData] = useState&lt;TimeSeriesSampleDTO[] | undefined&gt;()
+&nbsp;
   const {
-    data: newRelicTimeSeriesData,
-    refetch: fetchNewRelicTimeSeriesData,
+    mutate: fetchNewRelicTimeSeriesData,
     loading: timeSeriesDataLoading,
     error: timeseriesDataError
   } = useFetchParsedSampleData({
-    queryParams: queryParamsForTimeSeriesData,
-    lazy: true
+    queryParams: queryParamsForTimeSeriesData
   })
 &nbsp;
   const fetchNewRelicResponse = useCallback(async () =&gt; {
@@ -835,12 +810,19 @@ export default function NewRelicMappedMetric({
   }, [queryParamsForNRQL])
 &nbsp;
   const handleBuildChart = useCallback(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >    fetchNewRelicTimeSeriesData({ queryParams: queryParamsForTimeSeriesData })</span>
+<span class="cstat-no" title="statement not covered" >    fetchNewRelicTimeSeriesData({</span>
+      groupName: formikValues?.groupName?.value,
+      jsonResponse: JSON.stringify(sampleRecord),
+      metricValueJSONPath: formikValues?.metricValue,
+      timestampJSONPath: formikValues?.timestamp
+    }).then(<span class="fstat-no" title="function not covered" >data </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >      setNewRelicTimeSeriesData(data.data)</span>
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryParamsForTimeSeriesData])
 &nbsp;
   const options = useMemo(() =&gt; {
-    return getOptionsForChart(newRelicTimeSeriesData)
+    return newRelicTimeSeriesData ? <span class="branch-0 cbranch-no" title="branch not covered" >getOptionsForChart(newRelicTimeSeriesData) </span>: []
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newRelicTimeSeriesData])
 &nbsp;
@@ -1033,7 +1015,7 @@ export default function NewRelicMappedMetric({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 30 2021 10:57:12 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 30 2021 13:06:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../prettify.js"></script>

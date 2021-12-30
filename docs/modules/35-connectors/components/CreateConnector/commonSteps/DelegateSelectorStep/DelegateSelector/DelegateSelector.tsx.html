@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.58% </span>
+                <span class="strong">93.46% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>102/109</span>
+                <span class='fraction'>100/107</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.32% </span>
+                <span class="strong">86.96% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>62/71</span>
+                <span class='fraction'>60/69</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.1% </span>
+                <span class="strong">95% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>97/102</span>
+                <span class='fraction'>95/100</span>
             </div>
         
             
@@ -388,14 +388,7 @@
 <a name='L329'></a><a href='#L329'>329</a>
 <a name='L330'></a><a href='#L330'>330</a>
 <a name='L331'></a><a href='#L331'>331</a>
-<a name='L332'></a><a href='#L332'>332</a>
-<a name='L333'></a><a href='#L333'>333</a>
-<a name='L334'></a><a href='#L334'>334</a>
-<a name='L335'></a><a href='#L335'>335</a>
-<a name='L336'></a><a href='#L336'>336</a>
-<a name='L337'></a><a href='#L337'>337</a>
-<a name='L338'></a><a href='#L338'>338</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">181x</span>
-<span class="cline-any cline-yes">181x</span>
+<a name='L332'></a><a href='#L332'>332</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">181x</span>
 <span class="cline-any cline-yes">181x</span>
 <span class="cline-any cline-yes">181x</span>
 <span class="cline-any cline-yes">181x</span>
@@ -510,7 +503,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">166x</span>
-<span class="cline-any cline-yes">148x</span>
 <span class="cline-any cline-yes">148x</span>
 <span class="cline-any cline-yes">148x</span>
 <span class="cline-any cline-yes">148x</span>
@@ -717,11 +709,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -738,7 +726,6 @@ import { ButtonVariation, Color, Container, HarnessDocTooltip, Layout, Text } fr
 import { IOptionProps, Radio } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { DelegateSelectors, useToaster } from '@common/components'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
 import {
@@ -851,7 +838,6 @@ export const DelegateSelector: React.FC&lt;DelegateSelectorProps&gt; = props =&g
   const { getString } = useStrings()
   const { accountId } = useParams&lt;AccountPathProps&gt;()
   const { orgIdentifier, projectIdentifier } = props
-  const { CDNG_ENABLED } = useFeatureFlags()
 &nbsp;
   const scope = { projectIdentifier, orgIdentifier }
 &nbsp;
@@ -1047,22 +1033,18 @@ export const DelegateSelector: React.FC&lt;DelegateSelectorProps&gt; = props =&g
         &lt;Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}&gt;
           {getString('connectors.delegate.testDelegateConnectivity')}
         &lt;/Text&gt;
-        {CDNG_ENABLED ? (
-          &lt;RbacButton
-            icon="plus"
-            variation={ButtonVariation.SECONDARY}
-            withoutBoxShadow
-            font={{ weight: 'semi-bold' }}
-            iconProps={{ margin: { right: 'xsmall' } }}
-            permission={permissionRequestNewDelegate}
-            onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >openDelegateModal()}</span>
-            data-name="installNewDelegateButton"
-          &gt;
-            {getString('connectors.testConnectionStep.installNewDelegate')}
-          &lt;/RbacButton&gt;
-        ) : (
-          &lt;&gt;&lt;/&gt;
-        )}
+        &lt;RbacButton
+          icon="plus"
+          variation={ButtonVariation.SECONDARY}
+          withoutBoxShadow
+          font={{ weight: 'semi-bold' }}
+          iconProps={{ margin: { right: 'xsmall' } }}
+          permission={permissionRequestNewDelegate}
+          onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >openDelegateModal()}</span>
+          data-name="installNewDelegateButton"
+        &gt;
+          {getString('connectors.testConnectionStep.installNewDelegate')}
+        &lt;/RbacButton&gt;
       &lt;/Layout.Horizontal&gt;
       &lt;DelegateSelectorTable {...delegateSelectorTableProps} /&gt;
     &lt;/Layout.Vertical&gt;
@@ -1075,7 +1057,7 @@ export const DelegateSelector: React.FC&lt;DelegateSelectorProps&gt; = props =&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 30 2021 08:09:58 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 30 2021 09:40:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

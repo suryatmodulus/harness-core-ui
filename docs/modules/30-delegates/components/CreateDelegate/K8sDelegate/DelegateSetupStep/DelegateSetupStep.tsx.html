@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.32% </span>
+                <span class="strong">64.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>63/95</span>
+                <span class='fraction'>61/95</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.03% </span>
+                <span class="strong">64.84% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>61/91</span>
+                <span class='fraction'>59/91</span>
             </div>
         
             
@@ -381,7 +381,9 @@
 <a name='L322'></a><a href='#L322'>322</a>
 <a name='L323'></a><a href='#L323'>323</a>
 <a name='L324'></a><a href='#L324'>324</a>
-<a name='L325'></a><a href='#L325'>325</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L325'></a><a href='#L325'>325</a>
+<a name='L326'></a><a href='#L326'>326</a>
+<a name='L327'></a><a href='#L327'>327</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -410,7 +412,6 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -515,7 +516,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
@@ -532,6 +532,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -546,15 +547,19 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -566,7 +571,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -722,7 +726,7 @@ import {
   Tag
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import type { FormikProps } from 'formik'
+import type { FormikProps, FormikActions } from 'formik'
 import {
   DelegateSizeDetails,
   useGetDelegateSizes,
@@ -734,7 +738,6 @@ import { useListDelegateProfilesNg } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 &nbsp;
 import type { DelegateProfile } from '@delegates/DelegateInterface'
-import { useToaster } from '@common/exports'
 &nbsp;
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
@@ -835,14 +838,13 @@ const DelegateSetup: React.FC&lt;StepProps&lt;K8sDelegateWizardData&gt; &amp; De
 &nbsp;
   const delegateSizeMappings: DelegateSizeDetails[] | undefined = delegateSizes<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource
 &nbsp;
-  const { showError } = useToaster()
-&nbsp;
   const [formData, setInitValues] = React.useState&lt;DelegateSetupDetails&gt;(initialValues as DelegateSetupDetails)
 &nbsp;
   const [selectedPermission, setSelectedPermission] = React.useState&lt;k8sPermissionType&gt;(
     k8sPermissionType[initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.k</span>8sConfigDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.k</span>8sPermissionType || <span class="branch-1 cbranch-no" title="branch not covered" >k8sPermissionType.CLUSTER_ADMIN]</span>
   )
-  const onSubmit = <span class="fstat-no" title="function not covered" >async </span>(values: DelegateSetupDetails) =&gt; {
+&nbsp;
+  const onSubmit = <span class="fstat-no" title="function not covered" >async </span>(values: DelegateSetupDetails, formikActions: FormikActions&lt;DelegateSetupDetails&gt;) =&gt; {
     const createParams = <span class="cstat-no" title="statement not covered" >values</span>
 <span class="cstat-no" title="statement not covered" >    if (createParams.tags) {</span>
       const tagsArray = <span class="cstat-no" title="statement not covered" >Object.keys(values.tags || {})</span>
@@ -855,30 +857,35 @@ const DelegateSetup: React.FC&lt;StepProps&lt;K8sDelegateWizardData&gt; &amp; De
 <span class="cstat-no" title="statement not covered" >      set(createParams, 'orgIdentifier', orgIdentifier)</span>
     }
 <span class="cstat-no" title="statement not covered" >    set(createParams, 'delegateType', 'KUBERNETES')</span>
-    const response = <span class="cstat-no" title="statement not covered" >await createKubernetesYaml({</span>
-      ...createParams,
-      k8sConfigDetails: {
-        k8sPermissionType: selectedPermission,
-        namespace: selectedPermission === k8sPermissionType.NAMESPACE_ADMIN ? values?.k8sConfigDetails?.namespace : ''
-      }
-    })
-<span class="cstat-no" title="statement not covered" >    if ((response as any)?.responseMessages.length) {</span>
-      const err = <span class="cstat-no" title="statement not covered" >(response as any)?.responseMessages?.[0]?.message</span>
-<span class="cstat-no" title="statement not covered" >      showError(err)</span>
-    } else {
-      const delegateYaml = <span class="cstat-no" title="statement not covered" >response.resource</span>
-<span class="cstat-no" title="statement not covered" >      if (delegateSizeMappings) {</span>
-        const delegateSize: DelegateSizeDetails =
-<span class="cstat-no" title="statement not covered" >          delegateSizeMappings.find(<span class="fstat-no" title="function not covered" >(i</span>tem: DelegateSizeDetails) =&gt; <span class="cstat-no" title="statement not covered" >item.size === values.size)</span> || delegateSizeMappings[0]</span>
-<span class="cstat-no" title="statement not covered" >        if (delegateSize) {</span>
-          const stepPrevData = <span class="cstat-no" title="statement not covered" >{</span>
-            delegateYaml,
-            name: values.name,
-            replicas: delegateSize?.replicas
+<span class="cstat-no" title="statement not covered" >    try {</span>
+      const response = <span class="cstat-no" title="statement not covered" >await createKubernetesYaml({</span>
+        ...createParams,
+        k8sConfigDetails: {
+          k8sPermissionType: selectedPermission,
+          namespace: selectedPermission === k8sPermissionType.NAMESPACE_ADMIN ? values?.k8sConfigDetails?.namespace : ''
+        }
+      })
+<span class="cstat-no" title="statement not covered" >      if ((response as any)?.responseMessages.length) {</span>
+        const err = <span class="cstat-no" title="statement not covered" >(response as any)?.responseMessages?.[0]?.message</span>
+<span class="cstat-no" title="statement not covered" >        formikActions.setFieldError('name', err)</span>
+      } else {
+        const delegateYaml = <span class="cstat-no" title="statement not covered" >response.resource</span>
+<span class="cstat-no" title="statement not covered" >        if (delegateSizeMappings) {</span>
+          const delegateSize: DelegateSizeDetails =
+<span class="cstat-no" title="statement not covered" >            delegateSizeMappings.find(<span class="fstat-no" title="function not covered" >(i</span>tem: DelegateSizeDetails) =&gt; <span class="cstat-no" title="statement not covered" >item.size === values.size)</span> ||</span>
+            delegateSizeMappings[0]
+<span class="cstat-no" title="statement not covered" >          if (delegateSize) {</span>
+            const stepPrevData = <span class="cstat-no" title="statement not covered" >{</span>
+              delegateYaml,
+              name: values.name,
+              replicas: delegateSize?.replicas
+            }
+<span class="cstat-no" title="statement not covered" >            props?.nextStep?.(stepPrevData)</span>
           }
-<span class="cstat-no" title="statement not covered" >          props?.nextStep?.(stepPrevData)</span>
         }
       }
+    } catch (e) {
+<span class="cstat-no" title="statement not covered" >      formikActions.setFieldError('name', getString('delegates.delegateNameNotUnique'))</span>
     }
   }
 &nbsp;
@@ -887,10 +894,9 @@ const DelegateSetup: React.FC&lt;StepProps&lt;K8sDelegateWizardData&gt; &amp; De
       &lt;Container padding="small"&gt;
         &lt;Formik
           initialValues={formData}
-          onSubmit={<span class="fstat-no" title="function not covered" >values </span>=&gt; {
+          onSubmit={<span class="fstat-no" title="function not covered" >(v</span>alues, formikActions) =&gt; {
 <span class="cstat-no" title="statement not covered" >            setInitValues(values)</span>
-<span class="cstat-no" title="statement not covered" >            onSubmit(values)</span>
-            /** to do here */
+<span class="cstat-no" title="statement not covered" >            onSubmit(values, formikActions)</span>
           }}
           formName="delegateSetupStepForm"
           validationSchema={Yup.object().shape({
@@ -1036,7 +1042,7 @@ export default DelegateSetup
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 30 2021 08:09:58 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 30 2021 09:40:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

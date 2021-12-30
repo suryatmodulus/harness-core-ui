@@ -18,7 +18,12 @@ $header-height: 80px;
   height: 25px;
 }
 .table {
+  height: 80% !important;
   margin: var(--spacing-large);
+  > :nth-child(2) {
+    overflow-y: scroll;
+    height: 100% !important;
+  }
 }
 
 .gitFilter {

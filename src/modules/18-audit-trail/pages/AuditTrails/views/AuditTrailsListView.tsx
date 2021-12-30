@@ -6,7 +6,7 @@ import { actionToLabelMap } from '@audit-trail/utils/RequestUtil'
 import type { AuditEventDTO, PageAuditEventDTO } from 'services/audit'
 import { useStrings } from 'framework/strings'
 import { getReadableDateTime } from '@common/utils/dateUtils'
-import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
+import AuditTrailFactory, { getModuleNameFromAuditModule } from '@audit-trail/factories/AuditTrailFactory'
 import css from './AuditTrailsListView.module.scss'
 
 const DEFAULT_CELL_PLACEHOLDER = '--'
@@ -73,10 +73,20 @@ const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage
   const { getString } = useStrings()
 
   const renderColumnResource: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
-    const url = AuditTrailFactory.getResourceHandler(row.original.resource.type)?.resourceUrl?.(
-      row.original.resource,
-      row.original.resourceScope
-    )
+    const { resourceScope, resource, module } = row.original
+    const { accountIdentifier } = resourceScope
+
+    const url = accountIdentifier
+      ? AuditTrailFactory.getResourceHandler(resource.type)?.resourceUrl?.(
+          row.original.resource,
+          {
+            ...resourceScope,
+            accountIdentifier: accountIdentifier
+          },
+          getModuleNameFromAuditModule(module)
+        )
+      : undefined
+
     return (
       <Layout.Vertical padding={{ right: 'medium' }}>
         {url ? (

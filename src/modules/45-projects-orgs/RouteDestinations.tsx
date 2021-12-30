@@ -1,7 +1,7 @@
 import React from 'react'
 import { useParams, Redirect } from 'react-router-dom'
 import AuditTrailsPage from '@audit-trail/pages/AuditTrails/AuditTrailsPage'
-import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
+import AuditTrailFactory, { ResourceScope } from '@audit-trail/factories/AuditTrailFactory'
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
 import {
@@ -63,7 +63,7 @@ import { GitSyncErrorsWithRedirect } from '@gitsync/pages/errors/GitSyncErrors'
 import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
 import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
 import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
-import type { ResourceDTO, ResourceScopeDTO } from 'services/audit'
+import type { ResourceDTO } from 'services/audit'
 import LandingDashboardPage from './pages/LandingDashboardPage/LandingDashboardPage'
 
 const ProjectDetailsSideNavProps: SidebarContext = {
@@ -105,12 +105,9 @@ AuditTrailFactory.registerResourceHandler('ORGANIZATION', {
     name: 'nav-settings',
     size: 30
   },
-  resourceUrl: (_resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
+  resourceUrl: (_resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier } = resourceScope
-    if (orgIdentifier && accountIdentifier) {
-      return routes.toOrganizationDetails({ orgIdentifier, accountId: accountIdentifier })
-    }
-    return undefined
+    return orgIdentifier ? routes.toOrganizationDetails({ orgIdentifier, accountId: accountIdentifier }) : undefined
   }
 })
 
@@ -119,9 +116,9 @@ AuditTrailFactory.registerResourceHandler('PROJECT', {
     name: 'nav-settings',
     size: 30
   },
-  resourceUrl: (_resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
+  resourceUrl: (_resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
-    if (orgIdentifier && accountIdentifier && projectIdentifier) {
+    if (orgIdentifier && projectIdentifier) {
       return routes.toProjectDetails({ orgIdentifier, accountId: accountIdentifier, projectIdentifier })
     }
     return undefined

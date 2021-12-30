@@ -1,6 +1,6 @@
 import React from 'react'
 
-import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
+import AuditTrailFactory, { ResourceScope } from '@audit-trail/factories/AuditTrailFactory'
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, connectorPathProps } from '@common/utils/routeUtils'
@@ -12,7 +12,7 @@ import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { String } from 'framework/strings'
 import { AccountSideNavProps } from '@common/RouteDestinations'
-import type { ResourceDTO, ResourceScopeDTO } from 'services/audit'
+import type { ResourceDTO } from 'services/audit'
 import ConnectorResourceModalBody from './components/ConnectorResourceModalBody/ConnectorResourceModalBody'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.CONNECTOR, {
@@ -34,17 +34,15 @@ AuditTrailFactory.registerResourceHandler('CONNECTOR', {
     name: 'nav-settings',
     size: 30
   },
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
+  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope
-    if (accountIdentifier) {
-      return routes.toConnectorDetails({
-        orgIdentifier,
-        accountId: accountIdentifier,
-        connectorId: resource.identifier,
-        projectIdentifier
-      })
-    }
-    return undefined
+
+    return routes.toConnectorDetails({
+      orgIdentifier,
+      accountId: accountIdentifier,
+      connectorId: resource.identifier,
+      projectIdentifier
+    })
   }
 })
 

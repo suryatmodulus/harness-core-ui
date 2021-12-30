@@ -33,8 +33,8 @@ import ResourceGroupsResourceModalBody from '@rbac/components/ResourceGroupsRend
 import ResourceGroupsResourceRenderer from '@rbac/components/ResourceGroupsRenderer/ResourceGroupsResourceRenderer'
 import UserGroupsResourceModalBody from '@rbac/components/UserGroupsRenderer/UserGroupsResourceModalBody'
 import UserGroupssResourceRenderer from '@rbac/components/UserGroupsRenderer/UserGroupsResourceRenderer'
-import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
-import type { ResourceDTO, ResourceScopeDTO } from 'services/audit'
+import AuditTrailFactory, { ResourceScope } from '@audit-trail/factories/AuditTrailFactory'
+import type { ResourceDTO } from 'services/audit'
 
 RbacFactory.registerResourceCategory(ResourceCategory.SHARED_RESOURCES, {
   icon: 'support-tour',
@@ -125,18 +125,14 @@ AuditTrailFactory.registerResourceHandler('USER_GROUP', {
     name: 'nav-settings',
     size: 30
   },
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
+  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
-    if (accountIdentifier) {
-      return routes.toUserGroupDetails({
-        orgIdentifier,
-        accountId: accountIdentifier,
-        projectIdentifier,
-        userGroupIdentifier: resource.identifier
-      })
-    }
-
-    return undefined
+    return routes.toUserGroupDetails({
+      orgIdentifier,
+      accountId: accountIdentifier,
+      projectIdentifier,
+      userGroupIdentifier: resource.identifier
+    })
   }
 })
 
@@ -145,18 +141,15 @@ AuditTrailFactory.registerResourceHandler('USER', {
     name: 'nav-settings',
     size: 30
   },
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
+  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
-    if (accountIdentifier) {
-      return routes.toUserDetails({
-        orgIdentifier,
-        accountId: accountIdentifier,
-        projectIdentifier,
-        userIdentifier: resource.identifier
-      })
-    }
 
-    return undefined
+    return routes.toUserDetails({
+      orgIdentifier,
+      accountId: accountIdentifier,
+      projectIdentifier,
+      userIdentifier: resource.identifier
+    })
   }
 })
 
@@ -165,18 +158,15 @@ AuditTrailFactory.registerResourceHandler('ROLE', {
     name: 'nav-settings',
     size: 30
   },
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
+  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
-    if (accountIdentifier) {
-      return routes.toRoleDetails({
-        orgIdentifier,
-        accountId: accountIdentifier,
-        projectIdentifier,
-        roleIdentifier: resource.identifier
-      })
-    }
 
-    return undefined
+    return routes.toRoleDetails({
+      orgIdentifier,
+      accountId: accountIdentifier,
+      projectIdentifier,
+      roleIdentifier: resource.identifier
+    })
   }
 })
 
@@ -192,18 +182,15 @@ AuditTrailFactory.registerResourceHandler('SERVICE_ACCOUNT', {
     name: 'nav-settings',
     size: 30
   },
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
+  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
-    if (accountIdentifier) {
-      return routes.toServiceAccountDetails({
-        orgIdentifier,
-        accountId: accountIdentifier,
-        projectIdentifier,
-        serviceAccountIdentifier: resource.identifier
-      })
-    }
 
-    return undefined
+    return routes.toServiceAccountDetails({
+      orgIdentifier,
+      accountId: accountIdentifier,
+      projectIdentifier,
+      serviceAccountIdentifier: resource.identifier
+    })
   }
 })
 
@@ -212,18 +199,15 @@ AuditTrailFactory.registerResourceHandler('RESOURCE_GROUP', {
     name: 'nav-settings',
     size: 30
   },
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
+  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
-    if (accountIdentifier) {
-      return routes.toResourceGroupDetails({
-        orgIdentifier,
-        accountId: accountIdentifier,
-        projectIdentifier,
-        resourceGroupIdentifier: resource.identifier
-      })
-    }
 
-    return undefined
+    return routes.toResourceGroupDetails({
+      orgIdentifier,
+      accountId: accountIdentifier,
+      projectIdentifier,
+      resourceGroupIdentifier: resource.identifier
+    })
   }
 })
 

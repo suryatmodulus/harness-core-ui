@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.67% </span>
+                <span class="strong">79.73% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>59/75</span>
+                <span class='fraction'>59/74</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.07% </span>
+                <span class="strong">54.89% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>73/135</span>
+                <span class='fraction'>73/133</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.16% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>12/19</span>
+                <span class='fraction'>12/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.08% </span>
+                <span class="strong">79.17% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>57/73</span>
+                <span class='fraction'>57/72</span>
             </div>
         
             
@@ -436,12 +436,7 @@
 <a name='L377'></a><a href='#L377'>377</a>
 <a name='L378'></a><a href='#L378'>378</a>
 <a name='L379'></a><a href='#L379'>379</a>
-<a name='L380'></a><a href='#L380'>380</a>
-<a name='L381'></a><a href='#L381'>381</a>
-<a name='L382'></a><a href='#L382'>382</a>
-<a name='L383'></a><a href='#L383'>383</a>
-<a name='L384'></a><a href='#L384'>384</a>
-<a name='L385'></a><a href='#L385'>385</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
+<a name='L380'></a><a href='#L380'>380</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -471,8 +466,8 @@
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
@@ -644,11 +639,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -851,13 +841,13 @@ import {
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { useHistory, useParams } from 'react-router-dom'
-import copy from 'copy-to-clipboard'
 import { defaultTo } from 'lodash-es'
 import { Project, useGetInvites, Organization, useAddUsers, AddUsers, useGetUsers } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useGetRoleList } from 'services/rbac'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
+import { CopyText } from '@common/components/CopyText/CopyText'
 import routes from '@common/RouteDefinitions'
 import { InvitationStatus, UserItemRenderer, UserTagRenderer, handleInvitationResponse } from '@rbac/utils/utils'
 import { getDefaultRole, getDetailsUrl } from '@projects-orgs/utils/utils'
@@ -886,7 +876,7 @@ const Collaborators: React.FC&lt;CollaboratorModalData&gt; = props =&gt; {
   const { getString } = useStrings()
   const { licenseInformation } = useLicenseStore()
   const isCommunity = isCDCommunity(licenseInformation)
-  const { showSuccess, showError } = useToaster()
+  const { showSuccess } = useToaster()
   const history = useHistory()
   const [search, setSearch] = useState&lt;string&gt;()
   const [modalErrorHandler, setModalErrorHandler] = useState&lt;ModalErrorHandlerBinding&gt;()
@@ -1029,16 +1019,11 @@ const Collaborators: React.FC&lt;CollaboratorModalData&gt; = props =&gt; {
                 disabled
                 rightElement={
                   (
-                    &lt;Button
-                      icon="duplicate"
-                      onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                        copy(getDetailsUrl({ accountId, orgIdentifier, projectIdentifier }))</span>
-                          ? showSuccess(getString('clipboardCopySuccess'))
-                          : showError(getString('clipboardCopyFail'))
-                      }}
-                      inline
-                      minimal
-                      className={css.clone}
+                    &lt;CopyText
+                      className={css.copy}
+                      iconName="duplicate"
+                      textToCopy={getDetailsUrl({ accountId, orgIdentifier, projectIdentifier })}
+                      iconAlwaysVisible
                     /&gt;
                   ) as any
                 }
@@ -1216,7 +1201,7 @@ export default Collaborators
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 30 2021 05:28:45 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 30 2021 08:09:58 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

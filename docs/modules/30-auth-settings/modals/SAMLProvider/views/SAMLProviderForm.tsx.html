@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.91% </span>
+                <span class="strong">93.02% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>40/44</span>
+                <span class='fraction'>40/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.93% </span>
+                <span class="strong">87.04% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>47/56</span>
+                <span class='fraction'>47/54</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.73% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/11</span>
+                <span class='fraction'>8/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.91% </span>
+                <span class="strong">93.02% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>40/44</span>
+                <span class='fraction'>40/43</span>
             </div>
         
             
@@ -343,11 +343,7 @@
 <a name='L284'></a><a href='#L284'>284</a>
 <a name='L285'></a><a href='#L285'>285</a>
 <a name='L286'></a><a href='#L286'>286</a>
-<a name='L287'></a><a href='#L287'>287</a>
-<a name='L288'></a><a href='#L288'>288</a>
-<a name='L289'></a><a href='#L289'>289</a>
-<a name='L290'></a><a href='#L290'>290</a>
-<a name='L291'></a><a href='#L291'>291</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L287'></a><a href='#L287'>287</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -371,8 +367,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -535,10 +531,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -660,11 +652,11 @@ import {
   getErrorInfoFromErrorObject,
   FontVariation
 } from '@wings-software/uicore'
-import copy from 'copy-to-clipboard'
 import { defaultTo } from 'lodash-es'
 import type { ToasterProps } from '@wings-software/uicore/dist/hooks/useToaster/useToaster'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
+import { CopyText } from '@common/components/CopyText/CopyText'
 import { useUploadSamlMetaData, useUpdateSamlMetaData, SamlSettings } from 'services/cd-ng'
 import { getSamlEndpoint } from '@auth-settings/constants/utils'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -694,7 +686,7 @@ const handleSuccess = (
 &nbsp;
 const SAMLProviderForm: React.FC&lt;Props&gt; = ({ onSubmit, onCancel, samlProvider }) =&gt; {
   const { getString } = useStrings()
-  const { showSuccess, showError } = useToaster()
+  const { showSuccess } = useToaster()
   const { accountId } = useParams&lt;AccountPathProps&gt;()
   const [selected, setSelected] = React.useState&lt;SAMLProviderType&gt;()
   const [modalErrorHandler, setModalErrorHandler] = React.useState&lt;ModalErrorHandlerBinding&gt;()
@@ -820,15 +812,11 @@ const SAMLProviderForm: React.FC&lt;Props&gt; = ({ onSubmit, onCancel, samlProvi
                     value={getSamlEndpoint(accountId)}
                     rightElement={
                       (
-                        &lt;Button
-                          icon="duplicate"
-                          inline
-                          variation={ButtonVariation.ICON}
-                          onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                            copy(getSamlEndpoint(accountId))</span>
-                              ? showSuccess(getString('clipboardCopySuccess'))
-                              : showError(getString('clipboardCopyFail'))
-                          }}
+                        &lt;CopyText
+                          className={css.copy}
+                          iconName="duplicate"
+                          textToCopy={getSamlEndpoint(accountId)}
+                          iconAlwaysVisible
                         /&gt;
                       ) as any
                     }
@@ -934,7 +922,7 @@ export default SAMLProviderForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 30 2021 05:28:45 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 30 2021 08:09:58 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>54/75</span>
+                <span class='fraction'>55/77</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.38% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/32</span>
+                <span class='fraction'>11/33</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.23% </span>
+                <span class="strong">70.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>52/73</span>
+                <span class='fraction'>53/75</span>
             </div>
         
             
@@ -201,12 +201,16 @@
 <a name='L142'></a><a href='#L142'>142</a>
 <a name='L143'></a><a href='#L143'>143</a>
 <a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">150x</span>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">150x</span>
 <span class="cline-any cline-yes">150x</span>
 <span class="cline-any cline-yes">150x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">150x</span>
 <span class="cline-any cline-yes">150x</span>
 <span class="cline-any cline-yes">150x</span>
 <span class="cline-any cline-yes">150x</span>
@@ -271,6 +275,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -382,6 +388,7 @@ import CreateDynatraceConnector from '../CreateConnector/DynatraceConnector/Crea
 import CreateSumoLogicConnector from '../CreateConnector/SumoLogicConnector/CreateSumoLogicConnector'
 import CENGAwsConnector from '../CreateConnector/CENGAwsConnector/CreateCeAwsConnector'
 import CreateCeGcpConnector from '../CreateConnector/CEGcpConnector/CreateCeGcpConnector'
+import CreateCustomHealthConnector from '../CreateConnector/CustomHealthConnector/CreateCustomHealthConnector'
 import css from './CreateConnectorWizard.module.scss'
 &nbsp;
 interface CreateConnectorWizardProps {
@@ -415,6 +422,8 @@ export const ConnectorWizard: React.FC&lt;CreateConnectorWizardProps&gt; = props
     'setConnectivityMode'
   ])
   switch (type) {
+<span class="branch-0 cbranch-no" title="branch not covered" >    case Connectors.CUSTOM:</span>
+<span class="cstat-no" title="statement not covered" >      return &lt;CreateCustomHealthConnector {...commonProps} /&gt;</span>
     case Connectors.KUBERNETES_CLUSTER:
       return &lt;CreateK8sConnector {...commonProps} /&gt;
     case Connectors.GIT:
@@ -427,23 +436,23 @@ export const ConnectorWizard: React.FC&lt;CreateConnectorWizardProps&gt; = props
       return &lt;CreateBitbucketConnector {...commonProps} /&gt;
     case Connectors.VAULT:
       return &lt;CreateHashiCorpVault {...commonProps} /&gt;
-<span class="branch-6 cbranch-no" title="branch not covered" >    case Connectors.Jira:</span>
+<span class="branch-7 cbranch-no" title="branch not covered" >    case Connectors.Jira:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;JiraConnector {...commonProps} /&gt;</span>
-<span class="branch-7 cbranch-no" title="branch not covered" >    case Connectors.APP_DYNAMICS:</span>
+<span class="branch-8 cbranch-no" title="branch not covered" >    case Connectors.APP_DYNAMICS:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateAppDynamicsConnector {...commonProps} /&gt;</span>
-<span class="branch-8 cbranch-no" title="branch not covered" >    case Connectors.SPLUNK:</span>
+<span class="branch-9 cbranch-no" title="branch not covered" >    case Connectors.SPLUNK:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateSplunkConnector {...commonProps} /&gt;</span>
-<span class="branch-9 cbranch-no" title="branch not covered" >    case Connectors.NEW_RELIC:</span>
+<span class="branch-10 cbranch-no" title="branch not covered" >    case Connectors.NEW_RELIC:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateNewRelicConnector {...commonProps} /&gt;</span>
-<span class="branch-10 cbranch-no" title="branch not covered" >    case Connectors.PROMETHEUS:</span>
+<span class="branch-11 cbranch-no" title="branch not covered" >    case Connectors.PROMETHEUS:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreatePrometheusConnector {...commonProps} /&gt;</span>
     case Connectors.DOCKER:
       return &lt;CreateDockerConnector {...commonProps} /&gt;
-<span class="branch-12 cbranch-no" title="branch not covered" >    case Connectors.HttpHelmRepo:</span>
+<span class="branch-13 cbranch-no" title="branch not covered" >    case Connectors.HttpHelmRepo:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;HelmRepoConnector {...commonProps} /&gt;</span>
-<span class="branch-13 cbranch-no" title="branch not covered" >    case Connectors.AWS:</span>
+<span class="branch-14 cbranch-no" title="branch not covered" >    case Connectors.AWS:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateAWSConnector {...commonProps} /&gt;</span>
-<span class="branch-14 cbranch-no" title="branch not covered" >    case Connectors.AWS_CODECOMMIT:</span>
+<span class="branch-15 cbranch-no" title="branch not covered" >    case Connectors.AWS_CODECOMMIT:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateAWSCodeCommitConnector {...commonProps} /&gt;</span>
     case Connectors.NEXUS:
       return &lt;CreateNexusConnector {...commonProps} /&gt;
@@ -451,33 +460,33 @@ export const ConnectorWizard: React.FC&lt;CreateConnectorWizardProps&gt; = props
       return &lt;CreateArtifactoryConnector {...commonProps} /&gt;
     case Connectors.GCP:
       return &lt;CreateGcpConnector {...commonProps} /&gt;
-<span class="branch-18 cbranch-no" title="branch not covered" >    case Connectors.AWS_KMS:</span>
+<span class="branch-19 cbranch-no" title="branch not covered" >    case Connectors.AWS_KMS:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateAwsKmsConnector {...commonProps} /&gt;</span>
-<span class="branch-19 cbranch-no" title="branch not covered" >    case Connectors.AWS_SECRET_MANAGER:</span>
+<span class="branch-20 cbranch-no" title="branch not covered" >    case Connectors.AWS_SECRET_MANAGER:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateAwsSecretManagerConnector {...commonProps} /&gt;</span>
     case Connectors.GCP_KMS:
       return &lt;CreateGcpKmsConnector {...commonProps} /&gt;
-<span class="branch-21 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE:</span>
+<span class="branch-22 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateCeAzureConnector {...commonProps} /&gt;</span>
-<span class="branch-22 cbranch-no" title="branch not covered" >    case Connectors.CE_KUBERNETES:</span>
+<span class="branch-23 cbranch-no" title="branch not covered" >    case Connectors.CE_KUBERNETES:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateCEK8sConnector {...commonProps} /&gt;</span>
-<span class="branch-23 cbranch-no" title="branch not covered" >    case Connectors.DATADOG:</span>
+<span class="branch-24 cbranch-no" title="branch not covered" >    case Connectors.DATADOG:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateDataDogConnector {...commonProps} /&gt;</span>
-<span class="branch-24 cbranch-no" title="branch not covered" >    case Connectors.AZURE_KEY_VAULT:</span>
+<span class="branch-25 cbranch-no" title="branch not covered" >    case Connectors.AZURE_KEY_VAULT:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateAzureKeyVaultConnector {...commonProps} /&gt;</span>
-<span class="branch-25 cbranch-no" title="branch not covered" >    case Connectors.DYNATRACE:</span>
+<span class="branch-26 cbranch-no" title="branch not covered" >    case Connectors.DYNATRACE:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateDynatraceConnector {...commonProps} /&gt;</span>
-<span class="branch-26 cbranch-no" title="branch not covered" >    case Connectors.SUMOLOGIC:</span>
+<span class="branch-27 cbranch-no" title="branch not covered" >    case Connectors.SUMOLOGIC:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateSumoLogicConnector {...commonProps} /&gt;</span>
-<span class="branch-27 cbranch-no" title="branch not covered" >    case Connectors.CEAWS:</span>
+<span class="branch-28 cbranch-no" title="branch not covered" >    case Connectors.CEAWS:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CENGAwsConnector {...commonProps} /&gt;</span>
-<span class="branch-28 cbranch-no" title="branch not covered" >    case Connectors.CE_GCP:</span>
+<span class="branch-29 cbranch-no" title="branch not covered" >    case Connectors.CE_GCP:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateCeGcpConnector {...commonProps} /&gt;</span>
-<span class="branch-29 cbranch-no" title="branch not covered" >    case Connectors.PAGER_DUTY:</span>
+<span class="branch-30 cbranch-no" title="branch not covered" >    case Connectors.PAGER_DUTY:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreatePagerDutyConnector {...commonProps} /&gt;</span>
-<span class="branch-30 cbranch-no" title="branch not covered" >    case Connectors.SERVICE_NOW:</span>
+<span class="branch-31 cbranch-no" title="branch not covered" >    case Connectors.SERVICE_NOW:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;ServiceNowConnector {...commonProps} /&gt;</span>
-<span class="branch-31 cbranch-no" title="branch not covered" >    default:</span>
+<span class="branch-32 cbranch-no" title="branch not covered" >    default:</span>
 <span class="cstat-no" title="statement not covered" >      return null</span>
   }
 }
@@ -496,7 +505,7 @@ export const CreateConnectorWizard: React.FC&lt;CreateConnectorWizardProps&gt; =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 29 2021 16:58:56 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 30 2021 05:28:45 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

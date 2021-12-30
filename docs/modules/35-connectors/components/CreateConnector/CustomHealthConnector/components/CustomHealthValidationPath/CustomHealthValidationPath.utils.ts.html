@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/35-connectors/components/CreateConnector/CommonCVConnector/utils.ts</title>
+    <title>Code coverage report for modules/35-connectors/components/CreateConnector/CustomHealthConnector/components/CustomHealthValidationPath/CustomHealthValidationPath.utils.ts</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">modules/35-connectors/components/CreateConnector/CommonCVConnector</a> utils.ts</h1>
+        <h1><a href="../../../../../../../index.html">All files</a> / <a href="index.html">modules/35-connectors/components/CreateConnector/CustomHealthConnector/components/CustomHealthValidationPath</a> CustomHealthValidationPath.utils.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">27.27% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/11</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.11% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/9</span>
+                <span class='fraction'>12/14</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">27.27% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/11</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -87,58 +87,58 @@
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">153x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">159x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">153x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { UseStringsReturn } from 'framework/strings'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { ConnectionConfigProps } from '@connectors/components/CreateConnector/CommonCVConnector/constants'
+import type { CustomHealthValidationPathFormFields } from './CustomHealthValidationPath.types'
+import { HTTPRequestMethod } from './components/HTTPRequestMethod/HTTPRequestMethod.types'
 &nbsp;
-export function dsconfigTypetoResourcesConnectorDetailsTitle(
-  type: ConnectorInfoDTO['type'],
-  getString: UseStringsReturn['getString']
-): string {
-  switch (type) {
-    case 'Prometheus':
-      return getString('connectors.prometheusConnectorDetails')
-<span class="branch-1 cbranch-no" title="branch not covered" >    case 'AppDynamics':</span>
-<span class="cstat-no" title="statement not covered" >      return getString('connectors.appDynamicsDetails')</span>
-<span class="branch-2 cbranch-no" title="branch not covered" >    case 'NewRelic':</span>
-<span class="cstat-no" title="statement not covered" >      return getString('connectors.newRelicConnectorDetails')</span>
-<span class="branch-3 cbranch-no" title="branch not covered" >    case 'Datadog':</span>
-<span class="cstat-no" title="statement not covered" >      return getString('connectors.datadogConnectorDetails')</span>
-<span class="branch-4 cbranch-no" title="branch not covered" >    case 'Dynatrace':</span>
-<span class="cstat-no" title="statement not covered" >      return getString('connectors.dynatraceConnectorDetails')</span>
-<span class="branch-5 cbranch-no" title="branch not covered" >    case 'SumoLogic':</span>
-<span class="cstat-no" title="statement not covered" >      return getString('connectors.sumoLogicConnectorDetails')</span>
-<span class="branch-6 cbranch-no" title="branch not covered" >    case 'Splunk':</span>
-<span class="cstat-no" title="statement not covered" >      return getString('connectors.splunkConnectorDetails')</span>
-<span class="branch-7 cbranch-no" title="branch not covered" >    case 'PagerDuty':</span>
-<span class="cstat-no" title="statement not covered" >      return getString('connectors.pagerDutyConnectorDetails')</span>
-<span class="branch-8 cbranch-no" title="branch not covered" >    default:</span>
-<span class="cstat-no" title="statement not covered" >      return ''</span>
+export function transformDataToStepData(
+  apiData: ConnectionConfigProps['prevStepData']
+): CustomHealthValidationPathFormFields {
+  if (!apiData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec &amp;&amp; !apiData<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alidationPath) {
+    return {
+      validationPath: '',
+      requestMethod: HTTPRequestMethod.GET
+    }
+  }
+&nbsp;
+  if (apiData.validationPath) {
+    return {
+      validationPath: apiData.validationPath,
+      requestMethod: apiData.requestMethod,
+      requestBody: apiData.requestBody
+    }
+  }
+&nbsp;
+  return {
+    validationPath: apiData.spec.validationPath,
+    requestMethod: apiData.spec.method,
+    requestBody: apiData.spec.validationBody
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -148,17 +148,17 @@ export function dsconfigTypetoResourcesConnectorDetailsTitle(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 29 2021 16:58:56 GMT+0000 (Greenwich Mean Time)
+                at Thu Dec 30 2021 05:28:45 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
-        <script src="../../../../../prettify.js"></script>
+        <script src="../../../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../sorter.js"></script>
-        <script src="../../../../../block-navigation.js"></script>
+        <script src="../../../../../../../sorter.js"></script>
+        <script src="../../../../../../../block-navigation.js"></script>
     </body>
 </html>
     

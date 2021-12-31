@@ -238,7 +238,10 @@
 <a name='L179'></a><a href='#L179'>179</a>
 <a name='L180'></a><a href='#L180'>180</a>
 <a name='L181'></a><a href='#L181'>181</a>
-<a name='L182'></a><a href='#L182'>182</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -314,6 +317,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -531,44 +537,47 @@ const SLOCardHeader: React.FC&lt;SLOCardHeaderProps&gt; = ({ serviceLevelObjecti
       &lt;Container flex={{ alignItems: 'flex-start' }}&gt;
         &lt;Layout.Vertical height={130} spacing="xsmall"&gt;
           &lt;Layout.Horizontal spacing="xsmall"&gt;
-            &lt;Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}&gt;
+            &lt;Text width={100} font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}&gt;
               {getString('connectors.cdng.monitoredService.label')}:
             &lt;/Text&gt;
             &lt;Link to={monitoredServicePathname}&gt;
               &lt;Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.PRIMARY_6}&gt;
-                {serviceLevelObjective.monitoredServiceName}
+                {serviceLevelObjective.serviceName}
+              &lt;/Text&gt;
+              &lt;Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.PRIMARY_6}&gt;
+                {serviceLevelObjective.environmentName}
               &lt;/Text&gt;
             &lt;/Link&gt;
           &lt;/Layout.Horizontal&gt;
           &lt;Layout.Horizontal spacing="xsmall"&gt;
-            &lt;Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}&gt;
+            &lt;Text width={100} font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}&gt;
               {getString('cv.slos.sliType')}:
             &lt;/Text&gt;
-            &lt;Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.PRIMARY_6}&gt;
+            &lt;Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.GREY_700}&gt;
               {serviceLevelObjective.type}
             &lt;/Text&gt;
           &lt;/Layout.Horizontal&gt;
           &lt;Layout.Horizontal spacing="xsmall"&gt;
-            &lt;Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}&gt;
+            &lt;Text width={100} font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}&gt;
               {getString('cv.slos.healthSource')}:
             &lt;/Text&gt;
-            &lt;Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.PRIMARY_6}&gt;
+            &lt;Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.GREY_700}&gt;
               {serviceLevelObjective.healthSourceName}
             &lt;/Text&gt;
           &lt;/Layout.Horizontal&gt;
           &lt;Layout.Horizontal spacing="xsmall"&gt;
-            &lt;Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}&gt;
+            &lt;Text width={100} font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}&gt;
               {getString('cv.slos.sloTargetAndBudget.periodType')}:
             &lt;/Text&gt;
-            &lt;Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.PRIMARY_6}&gt;
+            &lt;Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.GREY_700}&gt;
               {serviceLevelObjective.sloTargetType}
             &lt;/Text&gt;
           &lt;/Layout.Horizontal&gt;
           &lt;Layout.Horizontal spacing="xsmall"&gt;
-            &lt;Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}&gt;
+            &lt;Text width={100} font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}&gt;
               {getString('cv.periodLength')}:
             &lt;/Text&gt;
-            &lt;Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.PRIMARY_6}&gt;
+            &lt;Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.GREY_700}&gt;
               {serviceLevelObjective.currentPeriodLengthDays === 1
                 ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('cv.oneDay')</span>
                 : getString('cv.nDays', { n: serviceLevelObjective.currentPeriodLengthDays })}
@@ -607,7 +616,7 @@ export default SLOCardHeader
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 30 2021 17:10:18 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 31 2021 04:56:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

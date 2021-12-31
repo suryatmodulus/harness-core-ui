@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.43% </span>
+                <span class="strong">96.55% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/28</span>
+                <span class='fraction'>28/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.41% </span>
+                <span class="strong">77.78% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>27/34</span>
+                <span class='fraction'>28/36</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.43% </span>
+                <span class="strong">96.55% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>27/28</span>
+                <span class='fraction'>28/29</span>
             </div>
         
             
@@ -211,7 +211,12 @@
 <a name='L152'></a><a href='#L152'>152</a>
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -222,6 +227,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -364,6 +370,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo, useState } from 'react'
 import {
@@ -376,6 +386,7 @@ import {
   PillToggleProps,
   Text
 } from '@wings-software/uicore'
+import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { SLOTargetChart } from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
 import { getDataPointsWithMinMaxXLimit } from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart.utils'
@@ -446,7 +457,7 @@ const SLOCardContent: React.FC&lt;SLOCardContentProps&gt; = ({ serviceLevelObjec
         &lt;PillToggle {...toggleProps} /&gt;
       &lt;/Container&gt;
 &nbsp;
-      &lt;Container&gt;
+      &lt;Container style={{ position: 'relative' }}&gt;
         {toggle === SLOCardToggleViews.SLO &amp;&amp; (
           &lt;&gt;
             &lt;Container flex&gt;
@@ -454,9 +465,7 @@ const SLOCardContent: React.FC&lt;SLOCardContentProps&gt; = ({ serviceLevelObjec
                 {getString('cv.SLOPerformanceTrend')}
               &lt;/Heading&gt;
               {serviceLevelObjective.recalculatingSLI &amp;&amp; (
-                &lt;Text font={{ variation: FontVariation.SMALL }} color={Color.RED_500}&gt;
-                  {getString('cv.sloRecalculationInProgress')}
-                &lt;/Text&gt;
+                &lt;PageSpinner className={css.sloCardSpinner} message={getString('cv.sloRecalculationInProgress')} /&gt;
               )}
             &lt;/Container&gt;
             &lt;Layout.Horizontal spacing="medium"&gt;
@@ -474,7 +483,7 @@ const SLOCardContent: React.FC&lt;SLOCardContentProps&gt; = ({ serviceLevelObjec
                   &lt;/Heading&gt;
                 &lt;/Container&gt;
               &lt;/Layout.Vertical&gt;
-              &lt;Container className={css.flexGrowOne}&gt;
+              &lt;Container style={{ position: 'relative' }} className={css.flexGrowOne}&gt;
                 &lt;SLOTargetChart
                   dataPoints={sloPerformanceTrendData.dataPoints}
                   customChartOptions={getSLOAndErrorBudgetGraphOptions({
@@ -491,6 +500,12 @@ const SLOCardContent: React.FC&lt;SLOCardContentProps&gt; = ({ serviceLevelObjec
         )}
         {toggle === SLOCardToggleViews.ERROR_BUDGET &amp;&amp; (
           &lt;Layout.Horizontal spacing="medium"&gt;
+            {serviceLevelObjective.recalculatingSLI &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >              &lt;PageSpinner</span>
+                className={css.sloCardSpinner}
+                message={getString('cv.errorBudgetRecalculationInProgress')}
+              /&gt;
+            )}
             &lt;Container width={185} className={css.errorBudgetGaugeContainer}&gt;
               &lt;Heading font={{ variation: FontVariation.FORM_HELP }}&gt;{getString('cv.errorBudgetRemaining')}&lt;/Heading&gt;
               &lt;ErrorBudgetGauge customChartOptions={getErrorBudgetGaugeOptions(serviceLevelObjective)} /&gt;
@@ -526,7 +541,7 @@ export default SLOCardContent
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 30 2021 17:10:18 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 31 2021 04:56:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

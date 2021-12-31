@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -178,7 +178,27 @@
 <a name='L119'></a><a href='#L119'>119</a>
 <a name='L120'></a><a href='#L120'>120</a>
 <a name='L121'></a><a href='#L121'>121</a>
-<a name='L122'></a><a href='#L122'>122</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -199,12 +219,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -319,7 +359,11 @@ import {
   PeriodLengthTypes,
   SLOFormFields
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
+import SLOTargetContextualHelpText from './components/SLOTargetContextualHelpText'
 import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
+&nbsp;
+// SONAR recommendation
+const flexStart = 'flex-start'
 &nbsp;
 const SLOTargetAndBudgetPolicy: React.FC&lt;SLOPanelProps&gt; = ({ formikProps, children }) =&gt; {
   const { getString } = useStrings()
@@ -331,86 +375,102 @@ const SLOTargetAndBudgetPolicy: React.FC&lt;SLOPanelProps&gt; = ({ formikProps, 
         {getString('cv.slos.sloTargetAndBudget.setSLOTarget')}
       &lt;/Heading&gt;
       &lt;Card className={css.card}&gt;
-        &lt;Layout.Horizontal spacing="medium"&gt;
-          &lt;FormInput.Select
-            name={SLOFormFields.PERIOD_TYPE}
-            label={getString('cv.slos.sloTargetAndBudget.periodType')}
-            items={getPeriodTypeOptions(getString)}
-          /&gt;
-          {periodType === PeriodTypes.CALENDAR ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >            &lt;&gt;</span>
-              &lt;FormInput.Select
-                name={SLOFormFields.PERIOD_LENGTH_TYPE}
-                label={getString('cv.periodLength')}
-                items={getPeriodLengthOptions(getString)}
+        &lt;Layout.Horizontal flex={{ justifyContent: flexStart, alignItems: flexStart }}&gt;
+          &lt;Container width="50%" border={{ right: true }}&gt;
+            &lt;Layout.Vertical width="100%"&gt;
+              &lt;Heading
+                level={4}
+                font={{ variation: FontVariation.FORM_SUB_SECTION }}
+                margin={{ top: 'small', bottom: 'medium' }}
+              &gt;
+                {getString('cv.slos.sloTargetAndBudget.complianceTimePeriodTitle')}
+              &lt;/Heading&gt;
+              &lt;Layout.Horizontal spacing="medium"&gt;
+                &lt;FormInput.Select
+                  name={SLOFormFields.PERIOD_TYPE}
+                  label={getString('cv.slos.sloTargetAndBudget.periodType')}
+                  items={getPeriodTypeOptions(getString)}
+                /&gt;
+                {periodType === PeriodTypes.CALENDAR ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >                  &lt;&gt;</span>
+                    &lt;FormInput.Select
+                      name={SLOFormFields.PERIOD_LENGTH_TYPE}
+                      label={getString('cv.periodLength')}
+                      items={getPeriodLengthOptions(getString)}
+                    /&gt;
+                    {periodLengthType === PeriodLengthTypes.MONTHLY &amp;&amp; (
+                      &lt;FormInput.Select
+                        name={SLOFormFields.DAY_OF_MONTH}
+                        label={getString('cv.windowEndsDay')}
+                        items={getWindowEndOptionsForMonth()}
+                        disabled={!periodLengthType}
+                      /&gt;
+                    )}
+                    {periodLengthType === PeriodLengthTypes.WEEKLY &amp;&amp; (
+                      &lt;FormInput.Select
+                        name={SLOFormFields.DAY_OF_WEEK}
+                        label={getString('cv.widowEnds')}
+                        items={getWindowEndOptionsForWeek(getString)}
+                        disabled={!periodLengthType}
+                      /&gt;
+                    )}
+                  &lt;/&gt;
+                ) : (
+                  &lt;FormInput.Select
+                    name={SLOFormFields.PERIOD_LENGTH}
+                    label={getString('cv.periodLengthDays')}
+                    items={getPeriodLengthOptionsForRolling()}
+                  /&gt;
+                )}
+              &lt;/Layout.Horizontal&gt;
+&nbsp;
+              &lt;FormInput.Text
+                name={SLOFormFields.SLO_TARGET_PERCENTAGE}
+                label={getString('cv.SLOTarget')}
+                inputGroup={{
+                  type: 'number',
+                  min: 0,
+                  max: 100,
+                  rightElement: &lt;Icon name="percentage" padding="small" /&gt;
+                }}
+                className={css.sloTarget}
               /&gt;
-              {periodLengthType === PeriodLengthTypes.MONTHLY &amp;&amp; (
-                &lt;FormInput.Select
-                  name={SLOFormFields.DAY_OF_MONTH}
-                  label={getString('cv.windowEndsDay')}
-                  items={getWindowEndOptionsForMonth()}
-                  disabled={!periodLengthType}
-                /&gt;
-              )}
-              {periodLengthType === PeriodLengthTypes.WEEKLY &amp;&amp; (
-                &lt;FormInput.Select
-                  name={SLOFormFields.DAY_OF_WEEK}
-                  label={getString('cv.widowEnds')}
-                  items={getWindowEndOptionsForWeek(getString)}
-                  disabled={!periodLengthType}
-                /&gt;
-              )}
-            &lt;/&gt;
-          ) : (
-            &lt;FormInput.Select
-              name={SLOFormFields.PERIOD_LENGTH}
-              label={getString('cv.periodLengthDays')}
-              items={getPeriodLengthOptionsForRolling()}
-            /&gt;
-          )}
-        &lt;/Layout.Horizontal&gt;
+              &lt;Layout.Horizontal spacing="xxxlarge" flex={{ alignItems: flexStart, justifyContent: flexStart }}&gt;
+                &lt;Container width={450}&gt;
+                  &lt;SLOTargetChart
+                    customChartOptions={getCustomOptionsForSLOTargetChart(formikProps.values)}
+                    monitoredServiceIdentifier={formikProps.values.monitoredServiceRef}
+                    serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}
+                    bottomLabel={
+                      &lt;Text
+                        color={Color.GREY_500}
+                        font={{ variation: FontVariation.SMALL_SEMI }}
+                        margin={{ top: 'large', left: 'xxxlarge' }}
+                        icon="symbol-square"
+                        iconProps={{ color: Color.PRIMARY_4 }}
+                      &gt;
+                        {getString('cv.SLIMetricRatio')}
+                      &lt;/Text&gt;
+                    }
+                  /&gt;
+                &lt;/Container&gt;
 &nbsp;
-        &lt;FormInput.Text
-          name={SLOFormFields.SLO_TARGET_PERCENTAGE}
-          label={getString('cv.SLOTarget')}
-          inputGroup={{
-            type: 'number',
-            min: 0,
-            max: 100,
-            rightElement: &lt;Icon name="percentage" padding="small" /&gt;
-          }}
-          className={css.sloTarget}
-        /&gt;
-        &lt;Layout.Horizontal spacing="xxxlarge" flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}&gt;
-          &lt;Container width={450}&gt;
-            &lt;SLOTargetChart
-              customChartOptions={getCustomOptionsForSLOTargetChart(formikProps.values)}
-              monitoredServiceIdentifier={formikProps.values.monitoredServiceRef}
-              serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}
-              bottomLabel={
-                &lt;Text
-                  color={Color.GREY_500}
-                  font={{ variation: FontVariation.SMALL_SEMI }}
-                  margin={{ top: 'large', left: 'xxxlarge' }}
-                  icon="symbol-square"
-                  iconProps={{ color: Color.PRIMARY_4 }}
-                &gt;
-                  {getString('cv.SLIMetricRatio')}
-                &lt;/Text&gt;
-              }
-            /&gt;
+                &lt;Container height={180} background={Color.GREY_100} padding="medium" className={css.errorBudget}&gt;
+                  &lt;Text font={{ variation: FontVariation.BODY2 }} color={Color.GREY_600}&gt;
+                    {getString('cv.errorBudget')}
+                  &lt;/Text&gt;
+                  &lt;Heading inline level={1} font={{ variation: FontVariation.DISPLAY2 }}&gt;
+                    {getErrorBudget(formikProps.values)}
+                  &lt;/Heading&gt;
+                  &lt;Text inline font={{ variation: FontVariation.FORM_SUB_SECTION }}&gt;
+                    {getString('cv.mins')}
+                  &lt;/Text&gt;
+                &lt;/Container&gt;
+              &lt;/Layout.Horizontal&gt;
+            &lt;/Layout.Vertical&gt;
           &lt;/Container&gt;
-&nbsp;
-          &lt;Container height={180} background={Color.GREY_100} padding="medium" className={css.errorBudget}&gt;
-            &lt;Text font={{ variation: FontVariation.BODY2 }} color={Color.GREY_600}&gt;
-              {getString('cv.errorBudget')}
-            &lt;/Text&gt;
-            &lt;Heading inline level={1} font={{ variation: FontVariation.DISPLAY2 }}&gt;
-              {getErrorBudget(formikProps.values)}
-            &lt;/Heading&gt;
-            &lt;Text inline font={{ variation: FontVariation.FORM_SUB_SECTION }}&gt;
-              {getString('cv.mins')}
-            &lt;/Text&gt;
+          &lt;Container className={css.contextualHelp} width="50%" padding={{ left: 'large', right: 'large' }}&gt;
+            &lt;SLOTargetContextualHelpText /&gt;
           &lt;/Container&gt;
         &lt;/Layout.Horizontal&gt;
       &lt;/Card&gt;
@@ -427,7 +487,7 @@ export default SLOTargetAndBudgetPolicy
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 30 2021 17:10:18 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 31 2021 04:56:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../../../prettify.js"></script>

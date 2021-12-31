@@ -23,7 +23,6 @@ $footer-height: 64px;
   height: 25px;
 }
 .table {
-  height: 80% !important;
   margin: var(--spacing-large);
 }
 
@@ -146,6 +145,7 @@ $footer-height: 64px;
 }
 
 .gridLayout {
+  min-height: calc(100vh - var(--page-header-height) - 136px);
   width: 1155px;
   margin: 0 auto !important;
   overflow-y: scroll;
@@ -157,7 +157,6 @@ $footer-height: 64px;
 }
 .pageBody {
   --page-header-height: 144px;
-  // height: 100vh;
 }
 
 .pagination {

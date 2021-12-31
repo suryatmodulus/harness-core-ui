@@ -22,8 +22,7 @@ import {
   getBasePathValue,
   getMetricPathValue,
   initializeGroupNames,
-  initGroupedCreatedMetrics,
-  getGroupAndMetric
+  initGroupedCreatedMetrics
 } from './AppDMappedMetric.utils'
 import BasePath from '../BasePath/BasePath'
 import MetricChart from '../MetricChart/MetricChart'
@@ -104,21 +103,32 @@ export default function AppDMappedMetric({
   )
 
   useEffect(() => {
-    const isMappedMetricEmpty = !Array.from(mappedMetrics?.values()).length
+    setMappedMetrics(oldState => {
+      return updateSelectedMetricsMap({
+        updatedMetric: formikValues.metricName,
+        oldMetric: oldState.selectedMetric,
+        mappedMetrics: oldState.mappedMetrics,
+        formikValues
+      })
+    })
+  }, [formikValues?.groupName, formikValues?.metricName])
+
+  useEffect(() => {
     const defaultMetric = new Map()
     defaultMetric.set('', formikValues)
-    const filteredList = getGroupAndMetric(isMappedMetricEmpty ? defaultMetric : mappedMetrics, formikValues)
-    const updatedFilteredList = filteredList.map(item => {
-      if (item.metricName === selectedMetric) {
-        item.groupName = formikValues.groupName
+    const filteredList = Array.from(mappedMetrics?.values()).map((item, index) => {
+      return {
+        // groupName: item.groupName || item.metricName === selectedMetric ? formikValues?.groupName : undefined,
+        index,
+        groupName: item.groupName,
+        metricName: item.metricName
       }
-      return item
     })
-    const updatedGroupedCreatedMetrics = groupBy(updatedFilteredList, function (item) {
+    const updatedGroupedCreatedMetrics = groupBy(filteredList.reverse(), function (item) {
       return item?.groupName?.label
     })
     setGroupedCreatedMetrics(updatedGroupedCreatedMetrics)
-  }, [formikValues.groupName])
+  }, [formikValues?.groupName, mappedMetrics])
 
   return (
     <SetupSourceLayout
@@ -145,7 +155,7 @@ export default function AppDMappedMetric({
               }
 
               // update map with current values
-              if (formikValues?.metricName !== removedMetric) {
+              if (formikValues?.metricName !== removedMetric && formikValues?.metricName === updatedMetric) {
                 updatedMap.set(updatedMetric, { ...formikValues } || { metricName: updatedMetric })
               }
 

@@ -80,9 +80,9 @@ export function SelectedAppsSideNav(props: SelectedAppsSideNavProps): JSX.Elemen
     <Container className={css.main}>
       {headerText && <Text className={css.navHeader}>{headerText}</Text>}
       {filterProps && <TableFilter {...filterProps} />}
-      {groupedSelectedAppsList ? (
+      {groupedSelectedAppsList.length ? (
         <>
-          {groupedSelectedAppsList.map(groupItem => {
+          {groupedSelectedAppsList.map((groupItem, groupIndex) => {
             if (!groupItem) return
             const [label, items] = groupItem
             return (
@@ -113,7 +113,7 @@ export function SelectedAppsSideNav(props: SelectedAppsSideNavProps): JSX.Elemen
                         className={css.seletedAppContainer}
                         onClick={() => {
                           if (selectedApp.metricName) {
-                            onSelect?.(selectedApp.metricName, index)
+                            onSelect?.(selectedApp.metricName, index + groupIndex)
                           }
                         }}
                       >
@@ -132,7 +132,7 @@ export function SelectedAppsSideNav(props: SelectedAppsSideNavProps): JSX.Elemen
                             onClick={e => {
                               e.stopPropagation()
                               if (selectedApp.metricName) {
-                                onRemoveItem(selectedApp.metricName, index)
+                                onRemoveItem(selectedApp.metricName, index + groupIndex)
                               }
                             }}
                           />

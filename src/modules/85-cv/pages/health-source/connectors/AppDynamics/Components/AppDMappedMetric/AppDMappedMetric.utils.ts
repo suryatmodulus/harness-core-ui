@@ -25,7 +25,9 @@ export function updateSelectedMetricsMap({ updatedMetric, oldMetric, mappedMetri
         continuousVerification: false,
         serviceInstanceMetricPath: '',
         basePath: BasePathInitValue,
-        metricPath: MetricPathInitValue
+        metricPath: MetricPathInitValue,
+        metricName: updatedMetric,
+        groupName: { label: 'Please Select Group Name', value: 'placeholder' }
       }
     })
   }

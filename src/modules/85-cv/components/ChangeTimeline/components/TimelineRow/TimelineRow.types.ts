@@ -27,6 +27,7 @@ export interface TimelineRowProps {
   endTimestamp?: number
   isLoading?: boolean
   noDataMessage?: string | null
+  hideTimeline?: boolean
 }
 
 export interface PointMarkerOptionsObjectCustom extends PointMarkerOptionsObject {

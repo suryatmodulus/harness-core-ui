@@ -9,3 +9,4 @@
 - [Resource Details View and Action Framework](./architectures/ResourceDetailViewAndAction.md)
 - [Dev setup for multiple UI microservices](./architectures/LocalSetupMicroservices.md)
 - [Hotfix process](https://github.com/wings-software/nextgenui#hotfix-process)
+- [Audit Trail](./architectures/AuditTrails.md)

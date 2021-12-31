@@ -9,15 +9,15 @@ export const TemplateTags: React.FC<ListTagsProps> = (props): JSX.Element => {
   const ref = React.useRef<HTMLDivElement | null>(null)
 
   React.useLayoutEffect(() => {
+    setLength(Object.keys(tags).length)
+  }, [JSON.stringify(tags)])
+
+  React.useLayoutEffect(() => {
     const currentHeight = ref?.current?.clientHeight
     if (currentHeight && currentHeight > 20) {
       setLength(length - 1)
     }
   }, [length])
-
-  React.useLayoutEffect(() => {
-    setLength(Object.keys(tags).length)
-  }, [JSON.stringify(tags)])
 
   return (
     <Container className={css.container}>

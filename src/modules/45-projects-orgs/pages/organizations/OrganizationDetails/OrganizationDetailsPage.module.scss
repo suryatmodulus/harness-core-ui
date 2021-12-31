@@ -22,6 +22,10 @@
   max-height: calc(100vh - 144px) !important;
 }
 
+.auditTrail {
+  background-color: var(--primary-2);
+}
+
 .accessControl {
   background-color: var(--lime-50);
 }

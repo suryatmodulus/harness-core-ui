@@ -72,5 +72,14 @@ export enum PermissionIdentifier {
   VIEW_TEMPLATE = 'core_template_view',
   EDIT_TEMPLATE = 'core_template_edit',
   DELETE_TEMPLATE = 'core_template_delete',
-  ACCESS_TEMPLATE = 'core_template_access'
+  ACCESS_TEMPLATE = 'core_template_access',
+
+  // CHANGE INTELLIGENCE Permissions
+  EDIT_MONITORED_SERVICE = 'chi_monitoredservice_edit',
+  VIEW_MONITORED_SERVICE = 'chi_monitoredservice_view',
+  DELETE_MONITORED_SERVICE = 'chi_monitoredservice_delete',
+  TOGGLE_MONITORED_SERVICE = 'chi_monitoredservice_toggle',
+  VIEW_SLO_SERVICE = 'chi_slo_view',
+  EDIT_SLO_SERVICE = 'chi_slo_edit',
+  DELETE_SLO_SERVICE = 'chi_slo_delete'
 }

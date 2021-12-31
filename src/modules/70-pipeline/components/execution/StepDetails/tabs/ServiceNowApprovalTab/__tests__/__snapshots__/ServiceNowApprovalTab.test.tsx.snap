@@ -1,0 +1,590 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ServiceNowApprovalTab/> tests isWaiting test 1`] = `
+<div>
+  <div
+    class="info"
+    data-type="serviceNow"
+  >
+    <div
+      class="timer"
+    >
+      <div>
+        MOCK DURATION
+      </div>
+      <span>
+        pipeline.timeRemainingSuffix
+      </span>
+    </div>
+    <div
+      class="serviceNowTicket"
+    >
+      <span>
+        pipeline.serviceNowApprovalStep.execution.serviceNowTicket
+      </span>
+      <a
+        href="https://harness.atlassian.net/browse/CDNG-1234"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        CDNG-1234
+      </a>
+    </div>
+  </div>
+  <div
+    class="serviceNowApproval"
+  >
+    <div
+      class="collapse serviceNowCriteria"
+    >
+      <div
+        class="title"
+      >
+        <div>
+          <span>
+            pipeline.approvalCriteria.approvalCriteria
+          </span>
+        </div>
+        <button
+          class="bp3-button bp3-minimal bp3-small toggle open"
+          data-testid="toggle-collapse"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-chevron-down"
+            icon="chevron-down"
+          >
+            <svg
+              data-icon="chevron-down"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                chevron-down
+              </desc>
+              <path
+                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div
+        class="bp3-collapse"
+        style="height: auto; overflow-y: visible; transition: none;"
+      >
+        <div
+          aria-hidden="false"
+          class="bp3-collapse-body"
+          style="transform: translateY(0); transition: none;"
+        >
+          <div
+            class="content"
+          >
+            <div
+              class="collapseContainer"
+            >
+              <div>
+                pipeline.jiraApprovalStep.execution.allConditionsMsg
+              </div>
+              <ul
+                class="conditions"
+              >
+                <li>
+                  <span>
+                    pipeline.serviceNowApprovalStep.execution.conditions.equals
+                  </span>
+                  <div
+                    class="keyWarper"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--font-variation-small"
+                      style="--text-line-clamp: 1;"
+                    >
+                      Resolved
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <span>
+                    pipeline.serviceNowApprovalStep.execution.conditions.not_in
+                  </span>
+                  <div
+                    class="keyWarper"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--font-variation-small"
+                      style="--text-line-clamp: 1;"
+                    >
+                      In-progress
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--font-variation-small"
+                      style="--text-line-clamp: 1;"
+                    >
+                      Open
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="collapse serviceNowCriteria"
+    >
+      <div
+        class="title"
+      >
+        <div>
+          <span>
+            pipeline.approvalCriteria.rejectionCriteria
+          </span>
+        </div>
+        <button
+          class="bp3-button bp3-minimal bp3-small toggle open"
+          data-testid="toggle-collapse"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-chevron-down"
+            icon="chevron-down"
+          >
+            <svg
+              data-icon="chevron-down"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                chevron-down
+              </desc>
+              <path
+                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div
+        class="bp3-collapse"
+        style="height: auto; overflow-y: visible; transition: none;"
+      >
+        <div
+          aria-hidden="false"
+          class="bp3-collapse-body"
+          style="transform: translateY(0); transition: none;"
+        >
+          <div
+            class="content"
+          >
+            <div
+              class="collapseContainer"
+            >
+              <span>
+                common.jexlExpression
+              </span>
+              <div
+                class="jexl"
+              >
+                \${changes[0].ref.displayId}-\${repository.name.substring(\${repository.name.indexOf('-')+1})}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<ServiceNowApprovalTab/> tests not isWaiting test - rejected 1`] = `
+<div>
+  <div
+    class="info"
+    data-type="serviceNow"
+  >
+    <div
+      class="serviceNowTicket"
+    >
+      <span>
+        pipeline.serviceNowApprovalStep.execution.wasRejected
+      </span>
+      <a
+        href="https://harness.atlassian.net/browse/CDNG-1234"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        CDNG-1234
+      </a>
+    </div>
+  </div>
+  <div
+    class="serviceNowApproval"
+  >
+    <div
+      class="collapse serviceNowCriteria"
+    >
+      <div
+        class="title"
+      >
+        <div>
+          <span>
+            pipeline.approvalCriteria.approvalCriteria
+          </span>
+        </div>
+        <button
+          class="bp3-button bp3-minimal bp3-small toggle open"
+          data-testid="toggle-collapse"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-chevron-down"
+            icon="chevron-down"
+          >
+            <svg
+              data-icon="chevron-down"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                chevron-down
+              </desc>
+              <path
+                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div
+        class="bp3-collapse"
+        style="height: auto; overflow-y: visible; transition: none;"
+      >
+        <div
+          aria-hidden="false"
+          class="bp3-collapse-body"
+          style="transform: translateY(0); transition: none;"
+        >
+          <div
+            class="content"
+          >
+            <div
+              class="collapseContainer"
+            >
+              <div>
+                pipeline.jiraApprovalStep.execution.allConditionsMsg
+              </div>
+              <ul
+                class="conditions"
+              >
+                <li>
+                  <span>
+                    pipeline.serviceNowApprovalStep.execution.conditions.equals
+                  </span>
+                  <div
+                    class="keyWarper"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--font-variation-small"
+                      style="--text-line-clamp: 1;"
+                    >
+                      Resolved
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <span>
+                    pipeline.serviceNowApprovalStep.execution.conditions.not_in
+                  </span>
+                  <div
+                    class="keyWarper"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--font-variation-small"
+                      style="--text-line-clamp: 1;"
+                    >
+                      In-progress
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--font-variation-small"
+                      style="--text-line-clamp: 1;"
+                    >
+                      Open
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="collapse serviceNowCriteria"
+    >
+      <div
+        class="title"
+      >
+        <div>
+          <span>
+            pipeline.approvalCriteria.rejectionCriteria
+          </span>
+        </div>
+        <button
+          class="bp3-button bp3-minimal bp3-small toggle open"
+          data-testid="toggle-collapse"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-chevron-down"
+            icon="chevron-down"
+          >
+            <svg
+              data-icon="chevron-down"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                chevron-down
+              </desc>
+              <path
+                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div
+        class="bp3-collapse"
+        style="height: auto; overflow-y: visible; transition: none;"
+      >
+        <div
+          aria-hidden="false"
+          class="bp3-collapse-body"
+          style="transform: translateY(0); transition: none;"
+        >
+          <div
+            class="content"
+          >
+            <div
+              class="collapseContainer"
+            >
+              <span>
+                common.jexlExpression
+              </span>
+              <div
+                class="jexl"
+              >
+                \${changes[0].ref.displayId}-\${repository.name.substring(\${repository.name.indexOf('-')+1})}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<ServiceNowApprovalTab/> tests not isWaiting test 1`] = `
+<div>
+  <div
+    class="info"
+    data-type="serviceNow"
+  >
+    <div
+      class="serviceNowTicket"
+    >
+      <span>
+        pipeline.serviceNowApprovalStep.execution.wasApproved
+      </span>
+      <a
+        href="https://harness.atlassian.net/browse/CDNG-1234"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        CDNG-1234
+      </a>
+    </div>
+  </div>
+  <div
+    class="serviceNowApproval"
+  >
+    <div
+      class="collapse serviceNowCriteria"
+    >
+      <div
+        class="title"
+      >
+        <div>
+          <span>
+            pipeline.approvalCriteria.approvalCriteria
+          </span>
+        </div>
+        <button
+          class="bp3-button bp3-minimal bp3-small toggle open"
+          data-testid="toggle-collapse"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-chevron-down"
+            icon="chevron-down"
+          >
+            <svg
+              data-icon="chevron-down"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                chevron-down
+              </desc>
+              <path
+                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div
+        class="bp3-collapse"
+        style="height: auto; overflow-y: visible; transition: none;"
+      >
+        <div
+          aria-hidden="false"
+          class="bp3-collapse-body"
+          style="transform: translateY(0); transition: none;"
+        >
+          <div
+            class="content"
+          >
+            <div
+              class="collapseContainer"
+            >
+              <div>
+                pipeline.jiraApprovalStep.execution.allConditionsMsg
+              </div>
+              <ul
+                class="conditions"
+              >
+                <li>
+                  <span>
+                    pipeline.serviceNowApprovalStep.execution.conditions.equals
+                  </span>
+                  <div
+                    class="keyWarper"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--font-variation-small"
+                      style="--text-line-clamp: 1;"
+                    >
+                      Resolved
+                    </p>
+                  </div>
+                </li>
+                <li>
+                  <span>
+                    pipeline.serviceNowApprovalStep.execution.conditions.not_in
+                  </span>
+                  <div
+                    class="keyWarper"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--font-variation-small"
+                      style="--text-line-clamp: 1;"
+                    >
+                      In-progress
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--font-variation-small"
+                      style="--text-line-clamp: 1;"
+                    >
+                      Open
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="collapse serviceNowCriteria"
+    >
+      <div
+        class="title"
+      >
+        <div>
+          <span>
+            pipeline.approvalCriteria.rejectionCriteria
+          </span>
+        </div>
+        <button
+          class="bp3-button bp3-minimal bp3-small toggle open"
+          data-testid="toggle-collapse"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-chevron-down"
+            icon="chevron-down"
+          >
+            <svg
+              data-icon="chevron-down"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                chevron-down
+              </desc>
+              <path
+                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div
+        class="bp3-collapse"
+        style="height: auto; overflow-y: visible; transition: none;"
+      >
+        <div
+          aria-hidden="false"
+          class="bp3-collapse-body"
+          style="transform: translateY(0); transition: none;"
+        >
+          <div
+            class="content"
+          >
+            <div
+              class="collapseContainer"
+            >
+              <span>
+                common.jexlExpression
+              </span>
+              <div
+                class="jexl"
+              >
+                \${changes[0].ref.displayId}-\${repository.name.substring(\${repository.name.indexOf('-')+1})}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

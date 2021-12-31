@@ -1,125 +1,249 @@
 import React from 'react'
-import { render } from '@testing-library/react'
-import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
-import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
-import routes from '@common/RouteDefinitions'
-import { editParams } from '@cv/utils/routeUtils'
-import { cvModuleParams } from '@cv/RouteDestinations'
+import userEvent from '@testing-library/user-event'
+import { render, screen, waitFor, RenderResult } from '@testing-library/react'
+import * as cvServices from 'services/cv'
+import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
+import { TestWrapper } from '@common/utils/testUtils'
 import CVCreateSLO from '../CVCreateSLO'
-import { mockedUserJourneysData } from '../components/CreateSLOForm/components/SLOName/__tests__/SLOName.mock'
+import { createSLORequestPayload } from '../CVCreateSLO.utils'
+import { Comparators, SLOFormFields } from '../CVCreateSLO.types'
 import {
-  initialFormData,
-  expectedInitialValuesEditFlow,
-  mockedSLODataById,
-  mockPayloadForUpdateRequest
+  testWrapperProps,
+  userJourneyResponse,
+  monitoredServiceWithHealthSourcesResponse,
+  listMetricDTOResponse,
+  SLOResponse,
+  serviceLevelObjective,
+  pathParams,
+  testWrapperPropsForEdit
 } from './CVCreateSLO.mock'
-import { getSLOInitialFormData, createSLORequestPayload } from '../CVCreateSLO.utils'
 
-const testWrapperProps: TestWrapperProps = {
-  path: routes.toCVEditSLOs({ ...accountPathProps, ...projectPathProps }),
-  pathParams: {
-    accountId: '1234_accountId',
-    projectIdentifier: '1234_project',
-    orgIdentifier: '1234_org'
-  }
-}
-
-const editFlowTestWrapperProps: TestWrapperProps = {
-  path: routes.toCVEditSLOs({ ...accountPathProps, ...projectPathProps, ...editParams, ...cvModuleParams }),
-  pathParams: {
-    accountId: '1234_accountId',
-    projectIdentifier: '1234_project',
-    orgIdentifier: '1234_org',
-    identifier: 'SLO5',
-    module: 'cv'
-  }
-}
+const refetchServiceLevelObjective = jest.fn()
+const updateSLO = jest.fn()
 
 jest.mock('services/cv', () => ({
-  useSaveSLOData: jest.fn().mockImplementation(() => ({
-    data: {},
-    loading: false,
-    error: null,
-    refetch: jest.fn()
-  })),
-  useUpdateSLOData: jest.fn().mockImplementation(() => ({
-    data: {},
-    loading: false,
-    error: null,
-    refetch: jest.fn()
-  })),
-  useGetServiceLevelObjective: jest.fn().mockImplementation(() => ({
-    data: {},
-    loading: false,
-    error: null,
-    refetch: jest.fn()
-  })),
-  useGetAllJourneys: jest.fn().mockImplementation(() => ({
-    data: mockedUserJourneysData,
-    loading: false,
-    error: null,
-    refetch: jest.fn()
-  })),
-  useSaveUserJourney: jest.fn().mockImplementation(() => ({
-    data: {},
-    loading: false,
-    error: null,
-    refetch: jest.fn()
-  }))
+  useSaveSLOData: jest.fn().mockImplementation(() => ({ data: {}, loading: false, error: null, refetch: jest.fn() })),
+  useUpdateSLOData: jest
+    .fn()
+    .mockImplementation(() => ({ mutate: updateSLO, loading: false, error: null, refetch: jest.fn() })),
+  useGetServiceLevelObjective: jest
+    .fn()
+    .mockImplementation(() => ({ data: {}, loading: false, error: null, refetch: jest.fn() } as any)),
+  useGetAllJourneys: jest
+    .fn()
+    .mockImplementation(() => ({ data: userJourneyResponse, loading: false, error: null, refetch: jest.fn() })),
+  useSaveUserJourney: jest
+    .fn()
+    .mockImplementation(() => ({ data: {}, loading: false, error: null, refetch: jest.fn() })),
+  useGetAllMonitoredServicesWithTimeSeriesHealthSources: jest.fn().mockImplementation(() => {
+    return { data: monitoredServiceWithHealthSourcesResponse, refetch: jest.fn(), error: null, loading: false }
+  }),
+  useGetSloMetrics: jest
+    .fn()
+    .mockImplementation(() => ({ data: listMetricDTOResponse, loading: false, error: null, refetch: jest.fn() })),
+  useGetSliGraph: jest.fn().mockImplementation(() => ({ data: {}, loading: false, error: null, refetch: jest.fn() }))
 }))
 
-describe('Test CVCreateSLO component', () => {
-  afterEach(() => {
-    jest.clearAllMocks()
+const renderComponent = (): RenderResult => {
+  return render(
+    <TestWrapper {...testWrapperProps}>
+      <CVCreateSLO />
+    </TestWrapper>
+  )
+}
+
+describe('CVCreateSLO', () => {
+  test('it should render breadcrumb, create title and name tab by default', () => {
+    renderComponent()
+
+    expect(screen.getByText('cv.slos.title')).toBeInTheDocument()
+    expect(screen.getByText('cv.slos.createSLO')).toBeInTheDocument()
+    expect(screen.getByText('name')).toHaveAttribute('aria-selected', 'true')
   })
 
-  test('should render CVCreateSLO component', async () => {
-    const { getByText } = render(
-      <TestWrapper {...testWrapperProps}>
-        <CVCreateSLO />
-      </TestWrapper>
-    )
+  test('it should not trigger the GET API for Service Level Objective)', () => {
+    renderComponent()
 
-    // Verify it Title is present and create flow is triigered
-    expect(getByText('cv.slos.title')).toBeInTheDocument()
-    expect(getByText('cv.slos.createSLO')).toBeInTheDocument()
+    expect(refetchServiceLevelObjective).not.toHaveBeenCalled()
   })
 
-  test('verify getInitialValuesSLO method in create flow', async () => {
-    render(
-      <TestWrapper {...testWrapperProps}>
-        <CVCreateSLO />
-      </TestWrapper>
-    )
-    expect(getSLOInitialFormData()).toEqual(initialFormData)
+  test('it should validate Name nad SLI form fields', async () => {
+    const { container } = renderComponent()
+
+    expect(screen.getByText('name')).toHaveAttribute('aria-selected', 'true')
+
+    userEvent.click(screen.getByText('continue'))
+
+    await waitFor(() => {
+      expect(screen.getByText('cv.slos.validations.nameValidation')).toBeInTheDocument()
+      expect(screen.getByText('cv.slos.validations.userJourneyRequired')).toBeInTheDocument()
+    })
+
+    await setFieldValue({ container, type: InputTypes.TEXTFIELD, fieldId: SLOFormFields.NAME, value: 'Text SLO' })
+
+    userEvent.click(screen.getByPlaceholderText('cv.slos.userJourneyPlaceholder'))
+
+    await waitFor(() => {
+      expect(screen.getByText('User Journey 1')).toBeInTheDocument()
+      userEvent.click(screen.getByText('User Journey 1'))
+    })
+
+    await waitFor(() => {
+      expect(screen.queryByText('cv.slos.validations.nameValidation')).not.toBeInTheDocument()
+      expect(screen.queryByText('cv.slos.validations.userJourneyRequired')).not.toBeInTheDocument()
+    })
+
+    userEvent.click(screen.getByText('continue'))
+
+    await waitFor(() => expect(screen.getByText('cv.slos.sli')).toHaveAttribute('aria-selected', 'true'))
+
+    userEvent.click(screen.getByText('continue'))
+
+    await waitFor(() => {
+      expect(screen.getByText('connectors.cdng.validations.monitoringServiceRequired')).toBeInTheDocument()
+      expect(screen.getByText('cv.slos.validations.healthSourceRequired')).toBeInTheDocument()
+      expect(screen.getAllByText('cv.required')).toHaveLength(3)
+      expect(screen.getAllByText('cv.metricIsRequired')).toHaveLength(2)
+      expect(screen.getByText('cv.slos.selectMonitoredServiceForSlo')).toBeInTheDocument()
+    })
+  })
+})
+
+const renderEditComponent = (): RenderResult => {
+  return render(
+    <TestWrapper {...testWrapperPropsForEdit}>
+      <CVCreateSLO />
+    </TestWrapper>
+  )
+}
+
+describe('CVCreateSLO - Edit', () => {
+  beforeEach(() => {
+    jest
+      .spyOn(cvServices, 'useGetServiceLevelObjective')
+      .mockImplementation(() => ({ data: SLOResponse, loading: false, error: null, refetch: jest.fn() } as any))
   })
 
-  test('verify edit Flow', async () => {
-    const { getByText } = render(
-      <TestWrapper {...editFlowTestWrapperProps}>
-        <CVCreateSLO />
-      </TestWrapper>
-    )
+  test('it should render breadcrumb, edit title and name tab by default', () => {
+    renderEditComponent()
 
-    // Verify it Title is present and edit flow is triigered
-    expect(getByText('cv.slos.title')).toBeInTheDocument()
-    expect(getByText('cv.slos.editSLO')).toBeInTheDocument()
+    expect(screen.getByText('cv.slos.title')).toBeInTheDocument()
+    expect(screen.getByText('cv.slos.editSLO')).toBeInTheDocument()
+    expect(screen.getByText('name')).toHaveAttribute('aria-selected', 'true')
   })
 
-  test('verify getInitialValuesSLO method in edit flow', async () => {
-    render(
-      <TestWrapper {...editFlowTestWrapperProps}>
-        <CVCreateSLO />
-      </TestWrapper>
-    )
-    expect(getSLOInitialFormData(mockedSLODataById.resource?.serviceLevelObjective)).toEqual(
-      expectedInitialValuesEditFlow
-    )
+  test('it should trigger the GET API for Service Level Objective)', () => {
+    const fetchSLO = jest.fn()
+    jest
+      .spyOn(cvServices, 'useGetServiceLevelObjective')
+      .mockImplementation(() => ({ data: SLOResponse, loading: false, error: null, refetch: fetchSLO } as any))
+
+    renderEditComponent()
+
+    expect(fetchSLO).toHaveBeenCalled()
   })
 
-  test('verify createSLORequestPayload method', async () => {
-    expect(createSLORequestPayload(expectedInitialValuesEditFlow, 'org-1', 'project-1')).toEqual(
-      mockPayloadForUpdateRequest
+  test('it should render all steps and update the SLO', async () => {
+    const fetchSLO = jest.fn()
+    jest
+      .spyOn(cvServices, 'useGetServiceLevelObjective')
+      .mockImplementation(() => ({ data: SLOResponse, loading: false, error: null, refetch: fetchSLO } as any))
+
+    renderEditComponent()
+
+    expect(fetchSLO).toHaveBeenCalled()
+
+    expect(screen.getByText('name')).toHaveAttribute('aria-selected', 'true')
+
+    userEvent.click(screen.getByText('continue'))
+
+    await waitFor(() => expect(screen.getByText('cv.slos.sli')).toHaveAttribute('aria-selected', 'true'))
+
+    userEvent.click(screen.getByText('continue'))
+
+    await waitFor(() =>
+      expect(screen.getByText('cv.slos.sloTargetAndBudgetPolicy')).toHaveAttribute('aria-selected', 'true')
     )
+
+    userEvent.click(screen.getByText('save'))
+
+    await waitFor(() => {
+      expect(updateSLO).toBeCalledWith(
+        createSLORequestPayload(serviceLevelObjective, pathParams.orgIdentifier, pathParams.projectIdentifier)
+      )
+      expect(screen.getByText('cv.slos.sloUpdated')).toBeInTheDocument()
+    })
+  })
+
+  test('it should not render Event type and Good request metric dropdowns for Threshold based', () => {
+    jest
+      .spyOn(cvServices, 'useGetServiceLevelObjective')
+      .mockImplementation(() => ({ data: SLOResponse, loading: false, error: null, refetch: jest.fn() } as any))
+
+    renderEditComponent()
+
+    userEvent.click(screen.getByText('continue'))
+
+    expect(screen.getByText('cv.slos.sli')).toHaveAttribute('aria-selected', 'true')
+
+    expect(screen.getByLabelText('cv.slos.slis.metricOptions.ratioBased')).toBeChecked()
+    expect(screen.getByText('cv.slos.slis.ratioMetricType.eventType')).toBeInTheDocument()
+    expect(screen.getByText('cv.slos.slis.ratioMetricType.goodRequestsMetrics')).toBeInTheDocument()
+
+    const thresholdMetricRadio = screen.getByLabelText('cv.slos.slis.metricOptions.thresholdBased')
+
+    userEvent.click(thresholdMetricRadio)
+
+    expect(thresholdMetricRadio).toBeChecked()
+    expect(screen.queryByText('cv.slos.slis.ratioMetricType.eventType')).not.toBeInTheDocument()
+    expect(screen.queryByText('cv.slos.slis.ratioMetricType.goodRequestsMetrics')).not.toBeInTheDocument()
+  })
+
+  test('it should render suffix than for operators < and >', async () => {
+    const { container } = renderEditComponent()
+
+    userEvent.click(screen.getByText('continue'))
+
+    expect(screen.getByText('cv.slos.sli')).toHaveAttribute('aria-selected', 'true')
+
+    await setFieldValue({
+      container,
+      type: InputTypes.SELECT,
+      fieldId: SLOFormFields.OBJECTIVE_COMPARATOR,
+      value: Comparators.LESS
+    })
+
+    expect(screen.getByText('cv.thanObjectiveValue')).toBeInTheDocument()
+    expect(screen.queryByText('cv.toObjectiveValue')).not.toBeInTheDocument()
+  })
+
+  test('it should render suffix to for operators <= and >=', async () => {
+    const { container } = renderEditComponent()
+
+    userEvent.click(screen.getByText('continue'))
+
+    expect(screen.getByText('cv.slos.sli')).toHaveAttribute('aria-selected', 'true')
+
+    await setFieldValue({
+      container,
+      type: InputTypes.SELECT,
+      fieldId: SLOFormFields.OBJECTIVE_COMPARATOR,
+      value: Comparators.LESS_EQUAL
+    })
+
+    expect(screen.getByText('cv.toObjectiveValue')).toBeInTheDocument()
+    expect(screen.queryByText('cv.thanObjectiveValue')).not.toBeInTheDocument()
+  })
+
+  test('it should render period length days for period type rolling', async () => {
+    renderEditComponent()
+
+    userEvent.click(screen.getByText('continue'))
+    userEvent.click(screen.getByText('continue'))
+
+    expect(screen.getByText('cv.slos.sloTargetAndBudgetPolicy')).toHaveAttribute('aria-selected', 'true')
+
+    expect(screen.getByText('cv.periodLengthDays')).toBeInTheDocument()
+    expect(screen.queryByText('cv.periodLength')).not.toBeInTheDocument()
   })
 })

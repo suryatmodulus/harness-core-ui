@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Heading, Text, Container, Color } from '@wings-software/uicore'
+import { Heading, Text, Container, Color, HarnessDocTooltip } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import css from './BuildTests.module.scss'
 
@@ -33,6 +33,7 @@ export const TestsExecutionResult: React.FC<TestsExecutionResultProps> = ({
           color={Color.GREY_600}
         >
           {getString('pipeline.testsReports.resultLabel')}
+          <HarnessDocTooltip tooltipId="testExecutionResult" useStandAlone={true} />
         </Heading>
       </Container>
 

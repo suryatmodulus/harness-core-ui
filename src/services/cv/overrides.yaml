@@ -76,6 +76,7 @@ allowpaths:
   - /newrelic/endpoints
   - /newrelic/applications
   - /newrelic/metric-data
+  - /newrelic/fetch-sample-data
   - /cvng-log
   - /verification-job/eligible-cdng-verification-jobs
   - /verification-job/{identifier}
@@ -117,10 +118,10 @@ allowpaths:
   - /slo/{identifier}
   - /slo-dashboard/widgets
   - /monitored-service/all/time-series-health-sources
-  - /newrelic/fetch-sample-data
-  - /newrelic/parse-sample-data
   - /monitored-service/{monitoredServiceIdentifier}/health-source/{healthSourceIdentifier}/slo-metrics
   - /monitored-service/{monitoredServiceIdentifier}/sli/onboarding-graph
+  - /custom-health/sample-data
+  - /parse-sample-data
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

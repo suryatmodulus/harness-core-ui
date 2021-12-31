@@ -31,7 +31,9 @@ const TemplateYamlView: React.FC = () => {
     state: {
       template,
       templateView: { isDrawerOpened, isYamlEditable },
-      templateView
+      templateView,
+      templateYaml,
+      entityValidityDetails: { valid }
     },
     updateTemplateView,
     isReadonly,
@@ -87,6 +89,7 @@ const TemplateYamlView: React.FC = () => {
             entityType="Template"
             isReadOnlyMode={isReadonly || !isYamlEditable}
             existingJSON={{ template }}
+            existingYaml={!valid ? templateYaml : undefined}
             bind={setYamlHandler}
             showSnippetSection={false}
             yamlSanityConfig={{ removeEmptyString: false, removeEmptyObject: false, removeEmptyArray: false }}
@@ -104,7 +107,6 @@ const TemplateYamlView: React.FC = () => {
         <div className={css.buttonsWrapper}>
           <Tag>{getString('common.readOnly')}</Tag>
           <RbacButton
-            disabled={true}
             permission={{
               resourceScope: {
                 accountIdentifier: accountId,
@@ -112,10 +114,10 @@ const TemplateYamlView: React.FC = () => {
                 projectIdentifier
               },
               resource: {
-                resourceType: ResourceType.PIPELINE,
+                resourceType: ResourceType.TEMPLATE,
                 resourceIdentifier: template.identifier
               },
-              permission: PermissionIdentifier.EDIT_PIPELINE
+              permission: PermissionIdentifier.EDIT_TEMPLATE
             }}
             variation={ButtonVariation.SECONDARY}
             text={getString('common.editYaml')}

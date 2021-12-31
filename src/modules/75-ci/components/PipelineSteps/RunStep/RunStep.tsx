@@ -39,7 +39,7 @@ export interface RunStepSpec {
   connectorRef: string
   image: string
   command: string
-  privileged: boolean
+  privileged?: boolean
   reports?: {
     type: 'JUnit'
     spec: {
@@ -119,8 +119,7 @@ export class RunStep extends PipelineStep<RunStepData> {
     spec: {
       connectorRef: '',
       image: '',
-      command: '',
-      privileged: false
+      command: ''
     }
   }
 

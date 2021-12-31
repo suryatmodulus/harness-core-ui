@@ -19,4 +19,17 @@ describe('CFUtils', () => {
       false
     )
   })
+
+  describe('formatToCompactNumber', () => {
+    test('it should format numbers correctly', async () => {
+      expect(CFUtils.formatToCompactNumber(10)).toEqual('10')
+      expect(CFUtils.formatToCompactNumber(100)).toEqual('100')
+      expect(CFUtils.formatToCompactNumber(1000)).toEqual('1K')
+      expect(CFUtils.formatToCompactNumber(10000)).toEqual('10K')
+      expect(CFUtils.formatToCompactNumber(100000)).toEqual('100K')
+      expect(CFUtils.formatToCompactNumber(1000000)).toEqual('1M')
+      expect(CFUtils.formatToCompactNumber(10000000)).toEqual('10M')
+      expect(CFUtils.formatToCompactNumber(100000000)).toEqual('100M')
+    })
+  })
 })

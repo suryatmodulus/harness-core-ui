@@ -5,7 +5,6 @@ import { ButtonVariation, Color, Container, HarnessDocTooltip, Layout, Text } fr
 import { IOptionProps, Radio } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { DelegateSelectors, useToaster } from '@common/components'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import useCreateDelegateModal from '@delegates/modals/DelegateModal/useCreateDelegateModal'
 import {
@@ -118,7 +117,6 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { orgIdentifier, projectIdentifier } = props
-  const { CDNG_ENABLED } = useFeatureFlags()
 
   const scope = { projectIdentifier, orgIdentifier }
 
@@ -314,22 +312,18 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
           {getString('connectors.delegate.testDelegateConnectivity')}
         </Text>
-        {CDNG_ENABLED ? (
-          <RbacButton
-            icon="plus"
-            variation={ButtonVariation.SECONDARY}
-            withoutBoxShadow
-            font={{ weight: 'semi-bold' }}
-            iconProps={{ margin: { right: 'xsmall' } }}
-            permission={permissionRequestNewDelegate}
-            onClick={() => openDelegateModal()}
-            data-name="installNewDelegateButton"
-          >
-            {getString('connectors.testConnectionStep.installNewDelegate')}
-          </RbacButton>
-        ) : (
-          <></>
-        )}
+        <RbacButton
+          icon="plus"
+          variation={ButtonVariation.SECONDARY}
+          withoutBoxShadow
+          font={{ weight: 'semi-bold' }}
+          iconProps={{ margin: { right: 'xsmall' } }}
+          permission={permissionRequestNewDelegate}
+          onClick={() => openDelegateModal()}
+          data-name="installNewDelegateButton"
+        >
+          {getString('connectors.testConnectionStep.installNewDelegate')}
+        </RbacButton>
       </Layout.Horizontal>
       <DelegateSelectorTable {...delegateSelectorTableProps} />
     </Layout.Vertical>

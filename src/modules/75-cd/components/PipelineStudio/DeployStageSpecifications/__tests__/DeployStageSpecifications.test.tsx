@@ -1,6 +1,7 @@
 import React from 'react'
 import { render, fireEvent, act, findByText } from '@testing-library/react'
 
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import {
   PipelineContext,
@@ -54,6 +55,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
     templateTypes: {}
   },
   contextType: PipelineContextType.Pipeline,
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
   setSchemaErrorView: jest.fn(),
   stagesMap: {},
   updateGitDetails: jest.fn(),

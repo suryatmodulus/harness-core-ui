@@ -24,13 +24,13 @@ import {
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { useHistory, useParams } from 'react-router-dom'
-import copy from 'copy-to-clipboard'
 import { defaultTo } from 'lodash-es'
 import { Project, useGetInvites, Organization, useAddUsers, AddUsers, useGetUsers } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useGetRoleList } from 'services/rbac'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
+import { CopyText } from '@common/components/CopyText/CopyText'
 import routes from '@common/RouteDefinitions'
 import { InvitationStatus, UserItemRenderer, UserTagRenderer, handleInvitationResponse } from '@rbac/utils/utils'
 import { getDefaultRole, getDetailsUrl } from '@projects-orgs/utils/utils'
@@ -59,7 +59,7 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
   const { getString } = useStrings()
   const { licenseInformation } = useLicenseStore()
   const isCommunity = isCDCommunity(licenseInformation)
-  const { showSuccess, showError } = useToaster()
+  const { showSuccess } = useToaster()
   const history = useHistory()
   const [search, setSearch] = useState<string>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
@@ -202,16 +202,11 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                 disabled
                 rightElement={
                   (
-                    <Button
-                      icon="duplicate"
-                      onClick={() => {
-                        copy(getDetailsUrl({ accountId, orgIdentifier, projectIdentifier }))
-                          ? showSuccess(getString('clipboardCopySuccess'))
-                          : showError(getString('clipboardCopyFail'))
-                      }}
-                      inline
-                      minimal
-                      className={css.clone}
+                    <CopyText
+                      className={css.copy}
+                      iconName="duplicate"
+                      textToCopy={getDetailsUrl({ accountId, orgIdentifier, projectIdentifier })}
+                      iconAlwaysVisible
                     />
                   ) as any
                 }

@@ -57,10 +57,22 @@ export interface CustomVariableEditableProps extends CustomVariableEditableExtra
   onUpdate?: (data: CustomVariablesData) => void
   stepViewType?: StepViewType
   readonly?: boolean
+  allowableTypes: MultiTypeInputType[]
 }
 
 export function CustomVariableEditable(props: CustomVariableEditableProps): React.ReactElement {
-  const { initialValues, onUpdate, domId, heading, className, yamlProperties, readonly, path, formName } = props
+  const {
+    initialValues,
+    onUpdate,
+    domId,
+    heading,
+    className,
+    yamlProperties,
+    readonly,
+    path,
+    formName,
+    allowableTypes
+  } = props
   const uids = React.useRef<string[]>([])
 
   const [hoveredVariable, setHoveredVariable] = useState<Record<string, boolean>>({})
@@ -243,7 +255,8 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                                 textProps: {
                                   disabled: !initialValues.canAddVariable || readonly,
                                   type: variable.type === VariableType.Number ? 'number' : 'text'
-                                }
+                                },
+                                allowableTypes
                               }}
                               data-testid="variables-test"
                             />

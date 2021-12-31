@@ -26,5 +26,6 @@ declare const styles: {
   readonly email: string
   readonly role: string
   readonly img: string
+  readonly copy: string
 }
 export default styles

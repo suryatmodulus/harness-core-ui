@@ -152,10 +152,29 @@ describe('Project Page List', () => {
       fireEvent.click(form?.querySelector('button[type="submit"]')!)
       await waitFor(() => queryAllByText(document.body, 'projectsOrgs.invite'))
       fireEvent.click(queryByText(document.body, 'saveAndContinue')!)
-      await waitFor(() => queryAllByText(document.body, 'projectsOrgs.purposeList.name'))
-      fireEvent.click(form?.querySelector('[icon="cross"]')!)
+      await waitFor(() => queryAllByText(document.body, 'projectsOrgs.moduleSelectionTitle'))
+      expect(getByText(document.body as HTMLElement, 'projectsOrgs.moduleSelectionTitle')).toBeTruthy()
+      const dialogTitle = getByText(document.body as HTMLElement, 'projectsOrgs.moduleSelectionTitle')
+      const crossIcon = dialogTitle.parentElement?.parentElement?.nextElementSibling
+      fireEvent.click(crossIcon!)
       form = findDialogContainer()
       expect(form).not.toBeTruthy()
+    }),
+    test('Module Selection after project creation', async () => {
+      const newProject = getAllByText?.('projectsOrgs.newProject')[0]
+      expect(newProject).toBeDefined()
+      fireEvent.click(newProject!)
+      await waitFor(() => queryAllByText(document.body, 'projectsOrgs.aboutProject')[0])
+      const form = findDialogContainer()
+      expect(form).toBeTruthy()
+      fireEvent.change(form?.querySelector('input[name="name"]')!, {
+        target: { value: 'dummy name' }
+      })
+      fireEvent.click(form?.querySelector('button[type="submit"]')!)
+      await waitFor(() => queryAllByText(document.body, 'projectsOrgs.invite'))
+      fireEvent.click(queryByText(document.body, 'saveAndContinue')!)
+      await waitFor(() => queryAllByText(document.body, 'projectsOrgs.moduleSelectionTitle'))
+      expect(getByText(document.body as HTMLElement, 'projectsOrgs.moduleSelectionTitle')).toBeTruthy()
     }),
     test('Invite Collaborators', async () => {
       const menu = container

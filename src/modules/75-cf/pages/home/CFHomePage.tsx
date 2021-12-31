@@ -13,9 +13,12 @@ import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
-import { useGetLicensesAndSummary } from 'services/cd-ng'
+import { useGetLicensesAndSummary, useGetProjectList } from 'services/cd-ng'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { Editions, ModuleLicenseType } from '@common/constants/SubscriptionTypes'
+import { useFFTrialModal } from '@cf/modals/FFTrial/useFFTrialModal'
+import { TrialType } from '@pipeline/components/TrialModalTemplate/trialModalUtils'
+import { useGetProjectCreateSuccessHandler, useGetSignUpHandler } from './cfHomeUtils'
 import bgImageURL from './ff.svg'
 
 const CFHomePage: React.FC = () => {
@@ -30,21 +33,42 @@ const CFHomePage: React.FC = () => {
   const { accounts } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
 
-  const { data, error, refetch, loading } = useGetLicensesAndSummary({
+  const {
+    data: licenseData,
+    error: licenseError,
+    refetch: refetchLicense,
+    loading: gettingLicense
+  } = useGetLicensesAndSummary({
     queryParams: { moduleType },
     accountIdentifier: accountId
   })
 
+  // get project lists via accountId
+  const {
+    data: projectListData,
+    loading: gettingProjects,
+    error: projectsErr,
+    refetch: refetchProject
+  } = useGetProjectList({
+    queryParams: {
+      accountIdentifier: accountId,
+      pageSize: 1
+    }
+  })
+  const projectsExist = !!projectListData?.data?.content?.length
+
   const { openProjectModal, closeProjectModal } = useProjectModal({
     onWizardComplete: (projectData?: Project) => {
       closeProjectModal()
-      history.push({
-        pathname: routes.toCFOnboarding({
-          orgIdentifier: projectData?.orgIdentifier || '',
-          projectIdentifier: projectData?.identifier || '',
-          accountId
+      if (projectData) {
+        history.push({
+          pathname: routes.toCFOnboarding({
+            orgIdentifier: projectData?.orgIdentifier || '',
+            projectIdentifier: projectData.identifier,
+            accountId
+          })
         })
-      })
+      }
     }
   })
 
@@ -57,45 +81,65 @@ const CFHomePage: React.FC = () => {
   }
 
   const trialBannerProps = {
-    expiryTime: data?.data?.maxExpiryTime,
-    licenseType: data?.data?.licenseType,
+    expiryTime: licenseData?.data?.maxExpiryTime,
+    licenseType: licenseData?.data?.licenseType,
     module: moduleType,
-    edition: data?.data?.edition as Editions,
-    refetch
+    edition: licenseData?.data?.edition as Editions,
+    refetch: refetchLicense
   }
 
-  const { experience } = useQueryParams<{ experience?: ModuleLicenseType }>()
+  const { experience, modal } = useQueryParams<{ experience?: ModuleLicenseType; modal?: ModuleLicenseType }>()
 
   const history = useHistory()
 
-  const expiryTime = data?.data?.maxExpiryTime
-  const updatedLicenseInfo = data?.data && {
+  const expiryTime = licenseData?.data?.maxExpiryTime
+  const updatedLicenseInfo = licenseData?.data && {
     ...licenseInformation?.[moduleType],
-    ...pick(data?.data, ['licenseType', 'edition']),
+    ...pick(licenseData?.data, ['licenseType', 'edition']),
     expiryTime
   }
+
+  const { openTrialModal } = useFFTrialModal({
+    actionProps: {
+      onCreateProject: openProjectModal
+    },
+    trialType: TrialType.CREATE_OR_SELECT_PROJECT
+  })
+
+  const signUpHandler = useGetSignUpHandler({ gettingProjects, projectsExist, openProjectModal, openTrialModal })
+
+  useEffect(() => {
+    signUpHandler()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [modal, gettingProjects, selectedProject, projectsExist])
 
   useEffect(() => {
     handleUpdateLicenseStore({ ...licenseInformation }, updateLicenseStore, module, updatedLicenseInfo)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data])
+  }, [licenseData])
 
   useEffect(() => {
-    refetch()
+    refetchLicense()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [experience])
 
-  if (loading) {
+  const projectCreateSuccessHandler = useGetProjectCreateSuccessHandler()
+
+  if (gettingLicense || gettingProjects) {
     return <PageSpinner />
   }
 
-  if (error) {
-    return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
+  if (licenseError) {
+    return <PageError message={licenseError.message} onClick={() => refetchLicense()} />
+  }
+
+  if (projectsErr) {
+    return <PageError message={projectsErr.message} onClick={() => refetchProject()} />
   }
 
   const showTrialPages = createdFromNG || NG_LICENSES_ENABLED
 
-  if (showTrialPages && data?.status === 'SUCCESS' && !data.data) {
+  if (showTrialPages && licenseData?.status === 'SUCCESS' && !licenseData.data) {
     history.push(
       routes.toModuleTrialHome({
         accountId,
@@ -116,35 +160,13 @@ const CFHomePage: React.FC = () => {
   }
 
   if (selectedProject && !experience) {
-    history.replace(
+    history.push(
       routes.toCFFeatureFlags({
         projectIdentifier: selectedProject.identifier,
         orgIdentifier: selectedProject.orgIdentifier || '',
         accountId
       })
     )
-  }
-
-  const projectCreateSuccessHandler = (project?: Project): void => {
-    if (experience) {
-      history.push({
-        pathname: routes.toCFOnboarding({
-          orgIdentifier: project?.orgIdentifier || '',
-          projectIdentifier: project?.identifier || '',
-          accountId
-        })
-      })
-      return
-    }
-    if (project) {
-      history.push(
-        routes.toCFFeatureFlags({
-          projectIdentifier: project.identifier,
-          orgIdentifier: project.orgIdentifier || '',
-          accountId
-        })
-      )
-    }
   }
 
   // by default will return Home Page

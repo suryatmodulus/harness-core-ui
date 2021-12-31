@@ -10,17 +10,15 @@ import {
   HarnessDocTooltip,
   ThumbnailSelect,
   Color,
-  ButtonVariation,
-  MultiTypeInputType
+  ButtonVariation
 } from '@wings-software/uicore'
 import type { Item } from '@wings-software/uicore/dist/components/ThumbnailSelect/ThumbnailSelect'
 import cx from 'classnames'
 import * as Yup from 'yup'
-import produce from 'immer'
 import { omit, set } from 'lodash-es'
 import type { FormikProps } from 'formik'
+import produce from 'immer'
 import { useStrings } from 'framework/strings'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type {
   CustomVariablesData,
@@ -33,7 +31,7 @@ import {
   usePipelineContext
 } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { AllNGVariables } from '@pipeline/utils/types'
-import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
+import { NameId, NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
@@ -42,19 +40,32 @@ import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpec
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import type { StringNGVariable } from 'services/cd-ng'
+import { getNameAndIdentifierSchema } from '@pipeline/utils/tempates'
+import type { TemplateSummaryResponse } from 'services/template-ng'
+import { getScopeBasedTemplateRef, getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
 import css from './EditStageView.module.scss'
 import stageCss from '../../DeployStageSetupShell/DeployStage.module.scss'
 
 export interface EditStageViewProps {
   data?: StageElementWrapper<DeploymentStageElementConfig>
+  template?: TemplateSummaryResponse
   onSubmit?: (values: StageElementWrapper<DeploymentStageElementConfig>, identifier?: string) => void
   onChange?: (values: DeploymentStageElementConfig) => void
   context?: string
   isReadonly: boolean
 }
 
+interface Values {
+  identifier: string
+  name: string
+  description?: string
+  tags?: { [key: string]: string }
+  serviceType: string
+}
+
 export const EditStageView: React.FC<EditStageViewProps> = ({
   data,
+  template,
   onSubmit,
   context,
   onChange,
@@ -63,8 +74,10 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
 }): JSX.Element => {
   const {
     state: {
-      pipeline: { stages = [] }
-    }
+      pipeline: { stages = [] },
+      templateTypes
+    },
+    setTemplateTypes
   } = usePipelineContext()
   const { getString } = useStrings()
   const newStageData: Item[] = [
@@ -93,13 +106,12 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
       disabled: true
     }
   ]
-  const { stepsFactory, getStageFromPipeline, contextType } = usePipelineContext()
+  const { stepsFactory, getStageFromPipeline, contextType, allowableTypes } = usePipelineContext()
   const { variablesPipeline, metadataMap } = usePipelineVariables()
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const allNGVariables = (data?.stage?.variables || []) as AllNGVariables[]
   const { errorMap } = useValidationErrors()
   const { subscribeForm, unSubscribeForm, submitFormsForTab } = React.useContext(StageErrorContext)
-
   const formikRef = React.useRef<FormikProps<unknown> | null>(null)
 
   React.useEffect(() => {
@@ -136,6 +148,42 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
     </>
   )
 
+  const handleSubmit = (values: Values): void => {
+    if (data?.stage) {
+      if (template) {
+        if (template.identifier && template.childType) {
+          templateTypes[template.identifier] = template.childType
+          setTemplateTypes(templateTypes)
+        }
+        const newStage = produce({} as DeploymentStageElementConfig, draft => {
+          draft.name = values.name
+          draft.identifier = values.identifier
+          set(draft, 'template.templateRef', getScopeBasedTemplateRef(template))
+          if (template.versionLabel) {
+            set(draft, 'template.versionLabel', template.versionLabel)
+          }
+        })
+        onSubmit?.({ stage: newStage }, values.identifier)
+      } else {
+        data.stage.identifier = values.identifier
+        data.stage.name = values.name
+        if (values.description) {
+          data.stage.description = values.description
+        }
+        if (values.tags) {
+          data.stage.tags = values.tags
+        }
+        if (!data.stage.spec?.serviceConfig) {
+          set(data, 'stage.spec.serviceConfig', {})
+        }
+        if (!data.stage.spec?.infrastructure) {
+          set(data, 'stage.spec.infrastructure', {})
+        }
+        onSubmit?.(data, values.identifier)
+      }
+    }
+  }
+
   return (
     <div className={stageCss.serviceOverrides}>
       <DeployServiceErrors />
@@ -150,37 +198,16 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
           </Text>
         )}
         <Container>
-          <Formik
+          <Formik<Values>
             initialValues={{
-              identifier: data?.stage?.identifier,
-              name: data?.stage?.name,
+              identifier: data?.stage?.identifier || '',
+              name: data?.stage?.name || '',
               description: data?.stage?.description,
               tags: data?.stage?.tags || {},
               serviceType: newStageData[0].value
             }}
             formName="cdEditStage"
-            onSubmit={values => {
-              if (data) {
-                const newData = produce(data, draft => {
-                  if (draft.stage) {
-                    set(draft, 'stage.identifier', values.identifier)
-                    set(draft, 'stage.name', values.name)
-                    set(draft, 'stage.description', values.description)
-                    set(draft, 'stage.tags', values.tags || {})
-
-                    if (!draft.stage.spec?.serviceConfig) {
-                      set(draft, 'stage.spec.serviceConfig', {})
-                    }
-
-                    if (!draft.stage.spec?.infrastructure) {
-                      set(draft, 'stage.spec.infrastructure', {})
-                    }
-                  }
-                })
-
-                onSubmit?.(newData, values.identifier)
-              }
-            }}
+            onSubmit={handleSubmit}
             validate={values => {
               const errors: { name?: string } = {}
               if (isDuplicateStageId(values.identifier || '', stages, !!context)) {
@@ -191,12 +218,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
               }
               return errors
             }}
-            validationSchema={Yup.object().shape({
-              ...(contextType === PipelineContextType.Pipeline && {
-                name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.build.create.stageNameRequiredError') }),
-                identifier: IdentifierSchema()
-              })
-            })}
+            validationSchema={Yup.object().shape(getNameAndIdentifierSchema(getString, contextType))}
           >
             {formikProps => {
               window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.OVERVIEW }))
@@ -219,6 +241,14 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
                             className={css.nameIdDescriptionTags}
                           />
                         </Card>
+                      ) : template ? (
+                        <NameId
+                          identifierProps={{
+                            inputLabel: getString('stageNameLabel'),
+                            isIdentifierEditable: !context && !isReadonly,
+                            inputGroupProps: { disabled: isReadonly }
+                          }}
+                        />
                       ) : (
                         <NameIdDescriptionTags
                           formikProps={formikProps}
@@ -234,7 +264,21 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
                     </>
                   )}
 
-                  {!context ? whatToDeploy : <Card className={stageCss.sectionCard}>{whatToDeploy}</Card>}
+                  {template ? (
+                    <Text
+                      icon={'template-library'}
+                      margin={{ top: 'medium', bottom: 'medium' }}
+                      font={{ size: 'small' }}
+                      iconProps={{ size: 12, margin: { right: 'xsmall' } }}
+                      color={Color.BLACK}
+                    >
+                      {`Using Template: ${getTemplateNameWithLabel(template)}`}
+                    </Text>
+                  ) : !context ? (
+                    whatToDeploy
+                  ) : (
+                    <Card className={stageCss.sectionCard}>{whatToDeploy}</Card>
+                  )}
 
                   {!context && (
                     <Button
@@ -274,11 +318,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
                       readonly={isReadonly}
                       type={StepType.CustomVariable}
                       stepViewType={StepViewType.StageVariable}
-                      allowableTypes={[
-                        MultiTypeInputType.FIXED,
-                        MultiTypeInputType.RUNTIME,
-                        MultiTypeInputType.EXPRESSION
-                      ]}
+                      allowableTypes={allowableTypes}
                       onUpdate={({ variables }: CustomVariablesData) => {
                         onChange?.({ ...(data?.stage as DeploymentStageElementConfig), variables })
                       }}

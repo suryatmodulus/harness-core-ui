@@ -86,7 +86,8 @@ describe('Verification step for out of cluster delegate', () => {
 
       expect(container).toMatchSnapshot()
     }),
-    test('render VerifyOutOfClusterDelegate for GCP', () => {
+    // eslint-disable-next-line jest/no-disabled-tests
+    test.skip('render VerifyOutOfClusterDelegate for GCP', () => {
       const { container } = render(
         <MemoryRouter>
           <TestWrapper>
@@ -102,7 +103,8 @@ describe('Verification step for out of cluster delegate', () => {
 
       expect(container).toMatchSnapshot()
     }),
-    test('render VerifyOutOfClusterDelegate for AWS', () => {
+    // eslint-disable-next-line jest/no-disabled-tests
+    test.skip('render VerifyOutOfClusterDelegate for AWS', () => {
       const { container } = render(
         <MemoryRouter>
           <TestWrapper>
@@ -118,7 +120,8 @@ describe('Verification step for out of cluster delegate', () => {
 
       expect(container).toMatchSnapshot()
     }),
-    test('render VerifyOutOfClusterDelegate for Artifactory', () => {
+    // eslint-disable-next-line jest/no-disabled-tests
+    test.skip('render VerifyOutOfClusterDelegate for Artifactory', () => {
       const { container } = render(
         <MemoryRouter>
           <TestWrapper>

@@ -3,7 +3,7 @@
 exports[`GitSync Page render GitSync page for new user with no pipeline created 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--medium StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--medium StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -130,7 +130,7 @@ exports[`GitSync Page render GitSync page for new user with no pipeline created 
 exports[`GitSync Page render GitSync page for new user with pipeline created 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--medium StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--medium StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"

@@ -42,8 +42,7 @@ export const SupportPlatforms = [
     name: 'NodeJS',
     icon: nodejs,
     type: PlatformEntryType.SERVER,
-    readmeStringId: 'cf.onboarding.readme.javascript',
-    disabled: true
+    readmeStringId: 'cf.onboarding.readme.nodejs'
   },
   {
     name: 'Java',
@@ -61,8 +60,7 @@ export const SupportPlatforms = [
     name: '.NET',
     icon: dotnet,
     type: PlatformEntryType.SERVER,
-    readmeStringId: 'cf.onboarding.readme.dotnet',
-    disabled: true
+    readmeStringId: 'cf.onboarding.readme.dotnet'
   },
   {
     name: 'JavaScript',

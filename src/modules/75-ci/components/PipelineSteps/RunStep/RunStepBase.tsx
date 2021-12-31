@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import {
   Text,
@@ -7,18 +8,24 @@ import {
   MultiTypeInputType,
   FormikForm,
   Accordion,
-  Color
+  Color,
+  Container,
+  FormInput,
+  Layout
 } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
+import get from 'lodash/get'
+import type { K8sDirectInfraYaml } from 'services/ci'
 import { Connectors } from '@connectors/constants'
-import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { StepFormikFowardRef, StepViewType, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
-import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { ShellScriptMonacoField } from '@common/components/ShellScriptMonaco/ShellScriptMonaco'
-
+import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { FormMultiTypeTextAreaField, Separator } from '@common/components'
 import StepCommonFields, {
   GetImagePullPolicyOptions,
   GetShellOptions
@@ -29,11 +36,11 @@ import {
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
-import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
+import { useGitScope } from '@ci/services/CIUtils'
 import type { RunStepProps, RunStepData, RunStepDataUI } from './RunStep'
-import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './RunStepFunctionConfigs'
-import { CIStep } from '../CIStep/CIStep'
-import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
+import { transformValuesFieldsConfig, getEditViewValidateFieldsConfig } from './RunStepFunctionConfigs'
+import { CIStepOptionalConfig, getOptionalSubLabel } from '../CIStep/CIStepOptionalConfig'
+import { useGetPropagatedStageById, validateConnectorRefAndImageDepdendency } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RunStepBase = (
@@ -43,24 +50,106 @@ export const RunStepBase = (
   const {
     state: {
       selectionState: { selectedStageId }
-    },
-    getStageFromPipeline
+    }
   } = usePipelineContext()
 
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
+  const gitScope = useGitScope()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
+    projectIdentifier: string
+    orgIdentifier: string
+    accountId: string
+  }>()
 
-  const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
+  const currentStage = useGetPropagatedStageById(selectedStageId || '')
+
+  const buildInfrastructureType = get(currentStage, 'stage.spec.infrastructure.type') as K8sDirectInfraYaml['type']
+
+  const renderConnectorRefAndImage = React.useCallback(
+    (showOptionalSublabel: boolean) => (
+      <>
+        <Container className={css.bottomMargin3}>
+          <FormMultiTypeConnectorField
+            label={
+              <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
+                <Text
+                  className={css.inpLabel}
+                  color={Color.GREY_600}
+                  font={{ size: 'small', weight: 'semi-bold' }}
+                  style={{ display: 'flex', alignItems: 'center' }}
+                >
+                  {getString('pipelineSteps.connectorLabel')}
+                </Text>
+                &nbsp;
+                {showOptionalSublabel ? getOptionalSubLabel('', getString) : null}
+              </Layout.Horizontal>
+            }
+            type={[Connectors.GCP, Connectors.AWS, Connectors.DOCKER]}
+            width={385}
+            name={`spec.connectorRef`}
+            placeholder={getString('select')}
+            accountIdentifier={accountId}
+            projectIdentifier={projectIdentifier}
+            orgIdentifier={orgIdentifier}
+            multiTypeProps={{
+              expressions,
+              allowableTypes,
+              disabled: readonly
+            }}
+            gitScope={gitScope}
+            setRefValue
+          />
+        </Container>
+        <Container className={cx(css.formGroup, css.lg, css.bottomMargin5)}>
+          <MultiTypeTextField
+            name={`spec.image`}
+            label={
+              <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
+                <Text
+                  className={css.inpLabel}
+                  color={Color.GREY_600}
+                  font={{ size: 'small', weight: 'semi-bold' }}
+                  tooltipProps={
+                    showOptionalSublabel
+                      ? {}
+                      : {
+                          dataTooltipId: 'image'
+                        }
+                  }
+                  placeholder={getString('imagePlaceholder')}
+                >
+                  {getString('imageLabel')}
+                </Text>
+                &nbsp;
+                {showOptionalSublabel ? getOptionalSubLabel('image', getString) : null}
+              </Layout.Horizontal>
+            }
+          />
+        </Container>
+      </>
+    ),
+    []
+  )
 
   return (
     <Formik
       initialValues={getInitialValuesInCorrectFormat<RunStepData, RunStepDataUI>(
         initialValues,
         transformValuesFieldsConfig,
-        { imagePullPolicyOptions: GetImagePullPolicyOptions(), shellOptions: GetShellOptions() }
+        { imagePullPolicyOptions: GetImagePullPolicyOptions(), shellOptions: GetShellOptions(buildInfrastructureType) }
       )}
       formName="ciRunStep"
       validate={valuesToValidate => {
+        /* If a user configures AWS VMs as an infra, the steps can be executed directly on the VMS or in a container on a VM. 
+        For the latter case, even though Container Registry and Image are optional for AWS VMs infra, they both need to be specified for container to be spawned properly */
+        if (buildInfrastructureType === 'VM') {
+          return validateConnectorRefAndImageDepdendency(
+            get(valuesToValidate, 'spec.connectorRef', ''),
+            get(valuesToValidate, 'spec.image', ''),
+            getString
+          )
+        }
         const schemaValues = getFormValuesInCorrectFormat<RunStepDataUI, RunStepData>(
           valuesToValidate,
           transformValuesFieldsConfig
@@ -68,7 +157,7 @@ export const RunStepBase = (
         onChange?.(schemaValues)
         return validate(
           valuesToValidate,
-          editViewValidateFieldsConfig,
+          getEditViewValidateFieldsConfig(buildInfrastructureType),
           {
             initialValues,
             steps: currentStage?.stage?.spec?.execution?.steps || {},
@@ -92,40 +181,34 @@ export const RunStepBase = (
 
         return (
           <FormikForm>
-            <CIStep
-              isNewStep={isNewStep}
-              readonly={readonly}
-              stepViewType={stepViewType}
-              allowableTypes={allowableTypes}
-              enableFields={{
-                name: {},
-                description: {},
-                'spec.connectorRef': {
-                  label: (
-                    <Text
-                      className={css.inpLabel}
-                      color={Color.GREY_600}
-                      font={{ size: 'small', weight: 'semi-bold' }}
-                      style={{ display: 'flex', alignItems: 'center' }}
-                    >
-                      {getString('pipelineSteps.connectorLabel')}
-                    </Text>
-                  ),
-                  type: [Connectors.GCP, Connectors.AWS, Connectors.DOCKER]
-                },
-                'spec.image': {
-                  tooltipId: 'image',
-                  multiTextInputProps: {
-                    placeholder: getString('imagePlaceholder'),
-                    disabled: readonly,
-                    multiTextInputProps: {
-                      expressions
-                    }
-                  }
+            {stepViewType !== StepViewType.Template ? (
+              <Container className={cx(css.formGroup, css.lg, css.nameIdLabel)}>
+                <FormInput.InputWithIdentifier
+                  inputName="name"
+                  idName="identifier"
+                  isIdentifierEditable={isNewStep && !readonly}
+                  inputGroupProps={{ disabled: readonly }}
+                  inputLabel={getString('pipelineSteps.stepNameLabel')}
+                />
+              </Container>
+            ) : null}
+            <Container className={cx(css.formGroup, css.lg)}>
+              <FormMultiTypeTextAreaField
+                name={`description`}
+                label={
+                  <Text color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                    {getString('description')}
+                  </Text>
                 }
-              }}
-              formik={formik}
-            />
+                multiTypeTextArea={{ expressions, allowableTypes, disabled: readonly }}
+              />
+            </Container>
+            {buildInfrastructureType !== 'VM' ? (
+              <>
+                <Separator topSeparation={8} />
+                {renderConnectorRefAndImage(false)}
+              </>
+            ) : null}
             <div className={cx(css.fieldsGroup, css.withoutSpacing, css.topPadding3, css.bottomPadding3)}>
               <MultiTypeFieldSelector
                 name="spec.command"
@@ -184,12 +267,13 @@ export const RunStepBase = (
                 id="optional-config"
                 summary={getString('common.optionalConfig')}
                 details={
-                  <>
+                  <Container margin={{ top: 'medium' }}>
+                    {buildInfrastructureType === 'VM' ? renderConnectorRefAndImage(true) : null}
                     <CIStepOptionalConfig
                       stepViewType={stepViewType}
                       readonly={readonly}
                       enableFields={{
-                        'spec.privileged': {},
+                        'spec.privileged': { shouldHide: buildInfrastructureType === 'VM' },
                         'spec.reportPaths': {},
                         'spec.envVariables': { tooltipId: 'environmentVariables' },
                         'spec.outputVariables': {}
@@ -200,8 +284,9 @@ export const RunStepBase = (
                       enableFields={['spec.imagePullPolicy', 'spec.shell']}
                       disabled={readonly}
                       allowableTypes={allowableTypes}
+                      buildInfrastructureType={buildInfrastructureType}
                     />
-                  </>
+                  </Container>
                 }
               />
             </Accordion>

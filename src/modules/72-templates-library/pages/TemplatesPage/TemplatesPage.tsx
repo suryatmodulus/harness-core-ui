@@ -7,29 +7,32 @@ import {
   GridListToggle,
   HarnessDocTooltip,
   Layout,
-  PageError,
   useModalHook,
   Views
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
-import { defaultTo } from 'lodash-es'
 import { TemplateSettingsModal } from '@templates-library/components/TemplateSettingsModal/TemplateSettingsModal'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import { Sort, SortFields, TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { TemplateDetailsDrawer } from '@templates-library/components/TemplateDetailDrawer/TemplateDetailDrawer'
-import { TemplateSummaryResponse, useGetTemplateList } from 'services/template-ng'
+import {
+  Failure,
+  Error,
+  PageTemplateSummaryResponse,
+  TemplateSummaryResponse,
+  useGetTemplateList
+} from 'services/template-ng'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { NewTemplatePopover } from '@templates-library/pages/TemplatesPage/views/NewTemplatePopover'
 import { DeleteTemplateModal } from '@templates-library/components/DeleteTemplateModal/DeleteTemplateModal'
 import routes from '@common/RouteDefinitions'
-import { PageSpinner } from '@common/components'
 import { useMutateAsGet } from '@common/hooks'
 import NoResultsView from '@templates-library/pages/TemplatesPage/views/NoResultsView/NoResultsView'
 import TemplatesView from '@templates-library/pages/TemplatesPage/views/TemplatesView'
-import ResultsViewHeader from '@templates-library/pages/TemplatesPage/views/ResultsViewHeader'
+import ResultsViewHeader from '@templates-library/pages/TemplatesPage/views/TemplatesListView/ResultsViewHeader/ResultsViewHeader'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
@@ -48,6 +51,8 @@ export default function TemplatesPage(): React.ReactElement {
   const [type, setType] = useState<keyof typeof TemplateType | null>(null)
   const [searchParam, setSearchParam] = useState('')
   const [templateToDelete, setTemplateToDelete] = React.useState<TemplateSummaryResponse>({})
+  const [templateList, setTemplateListList] = useState<PageTemplateSummaryResponse>()
+  const [localError, setLocalError] = useState<Error | Failure | null>(null)
   const [templateIdentifierToSettings, setTemplateIdentifierToSettings] = React.useState<string>()
   const [selectedTemplate, setSelectedTemplate] = React.useState<TemplateSummaryResponse | undefined>()
   const [gitFilter, setGitFilter] = useState<GitFilterScope | null>(null)
@@ -86,6 +91,15 @@ export default function TemplatesPage(): React.ReactElement {
     },
     queryParamStringifyOptions: { arrayFormat: 'comma' }
   })
+
+  React.useEffect(() => {
+    setTemplateListList(templateData?.data)
+    setLocalError(null)
+  }, [templateData])
+
+  React.useEffect(() => {
+    setLocalError(error as Error)
+  }, [error])
 
   const reset = React.useCallback((): void => {
     searchRef.current.clear()
@@ -162,92 +176,88 @@ export default function TemplatesPage(): React.ReactElement {
           />
         }
       />
-
-      <Page.Body>
-        {loading && <PageSpinner />}
-        {!loading && error && (
-          <PageError message={defaultTo((error.data as Error)?.message, error.message)} onClick={reloadTemplates} />
-        )}
-        {!loading && !error && (
-          <Layout.Vertical height={'100%'}>
-            <Page.SubHeader>
-              <Layout.Horizontal spacing={'medium'}>
-                <NewTemplatePopover />
-                <DropDown
-                  onChange={item => {
-                    setType(item.value as TemplateType)
+      <Page.SubHeader>
+        <Layout.Horizontal spacing={'medium'}>
+          <NewTemplatePopover />
+          <DropDown
+            onChange={item => {
+              setType(item.value as TemplateType)
+            }}
+            value={type}
+            filterable={false}
+            addClearBtn={true}
+            items={allowedTemplateTypes}
+            placeholder={getString('all')}
+            popoverClassName={css.dropdownPopover}
+          />
+          {isGitSyncEnabled && (
+            <GitSyncStoreProvider>
+              <GitFilters
+                onChange={filter => {
+                  setGitFilter(filter)
+                  setPage(0)
+                }}
+                className={css.gitFilter}
+                defaultValue={gitFilter || undefined}
+              />
+            </GitSyncStoreProvider>
+          )}
+        </Layout.Horizontal>
+        <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
+          <ExpandingSearchInput
+            alwaysExpanded
+            width={200}
+            placeholder={getString('search')}
+            onChange={(text: string) => {
+              setPage(0)
+              setSearchParam(text)
+            }}
+            ref={searchRef}
+            defaultValue={searchParam}
+            className={css.expandSearch}
+          />
+          <GridListToggle initialSelectedView={view} onViewToggle={setView} />
+        </Layout.Horizontal>
+      </Page.SubHeader>
+      <Page.Body
+        loading={loading}
+        error={localError?.message}
+        className={css.pageBody}
+        retryOnError={/* istanbul ignore next */ () => reloadTemplates()}
+      >
+        <Container height={'100%'} style={{ overflow: 'auto' }}>
+          {!templateList?.content?.length && (
+            <NoResultsView
+              hasSearchParam={!!searchParam || !!type}
+              onReset={reset}
+              text={getString('templatesLibrary.templatesPage.noTemplates', { scope })}
+            />
+          )}
+          {!!templateList?.content?.length && (
+            <Layout.Vertical height={'100%'} margin={{ left: 'xlarge', right: 'xlarge' }}>
+              <ResultsViewHeader templateData={templateList} setPage={setPage} setSort={setSort} />
+              <Container style={{ flexGrow: 1 }} padding={{ bottom: 'large' }}>
+                <TemplatesView
+                  gotoPage={setPage}
+                  data={templateList}
+                  onSelect={setSelectedTemplate}
+                  selectedIdentifier={selectedTemplate?.identifier}
+                  onPreview={setSelectedTemplate}
+                  onOpenEdit={goToTemplateStudio}
+                  onOpenSettings={identifier => {
+                    setTemplateIdentifierToSettings(identifier)
+                    showTemplateSettingsModal()
                   }}
-                  value={type}
-                  filterable={false}
-                  addClearBtn={true}
-                  items={allowedTemplateTypes}
-                  placeholder={getString('all')}
-                  popoverClassName={css.dropdownPopover}
-                />
-                {isGitSyncEnabled && (
-                  <GitSyncStoreProvider>
-                    <GitFilters
-                      onChange={filter => {
-                        setGitFilter(filter)
-                        setPage(0)
-                      }}
-                      className={css.gitFilter}
-                      defaultValue={gitFilter || undefined}
-                    />
-                  </GitSyncStoreProvider>
-                )}
-              </Layout.Horizontal>
-              <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
-                <ExpandingSearchInput
-                  alwaysExpanded
-                  width={200}
-                  placeholder={getString('search')}
-                  onChange={(text: string) => {
-                    setPage(0)
-                    setSearchParam(text)
+                  onDelete={template => {
+                    setTemplateToDelete(template)
+                    showDeleteTemplatesModal()
                   }}
-                  ref={searchRef}
-                  defaultValue={searchParam}
-                  className={css.expandSearch}
+                  view={view}
                 />
-                <GridListToggle initialSelectedView={view} onViewToggle={setView} />
-              </Layout.Horizontal>
-            </Page.SubHeader>
-            <Container height={'100%'} style={{ overflow: 'auto' }}>
-              {!templateData?.data?.content?.length && (
-                <NoResultsView
-                  hasSearchParam={!!searchParam || !!type}
-                  onReset={reset}
-                  text={getString('templatesLibrary.templatesPage.noTemplates', { scope })}
-                />
-              )}
-              {!!templateData?.data?.content?.length && (
-                <Layout.Vertical height={'100%'} margin={{ left: 'xlarge', right: 'xlarge' }}>
-                  <ResultsViewHeader templateData={templateData} setPage={setPage} setSort={setSort} />
-                  <Container style={{ flexGrow: 1 }} padding={{ bottom: 'large' }}>
-                    <TemplatesView
-                      gotoPage={setPage}
-                      data={templateData?.data}
-                      onSelect={setSelectedTemplate}
-                      selectedIdentifier={selectedTemplate?.identifier}
-                      onPreview={setSelectedTemplate}
-                      onOpenEdit={goToTemplateStudio}
-                      onOpenSettings={identifier => {
-                        setTemplateIdentifierToSettings(identifier)
-                        showTemplateSettingsModal()
-                      }}
-                      onDelete={template => {
-                        setTemplateToDelete(template)
-                        showDeleteTemplatesModal()
-                      }}
-                      view={view}
-                    />
-                  </Container>
-                </Layout.Vertical>
-              )}
-            </Container>
-          </Layout.Vertical>
-        )}
+              </Container>
+            </Layout.Vertical>
+          )}
+        </Container>
       </Page.Body>
       {selectedTemplate && (
         <TemplateDetailsDrawer

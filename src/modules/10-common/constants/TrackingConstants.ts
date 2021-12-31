@@ -38,9 +38,10 @@ export enum PipelineActions {
   StartedExecution = 'Started Pipeline Execution',
   // CompletedExecution = 'Completed Pipeline Execution', // this is done from BE
   StartedPipelineCreation = 'Started Pipeline Creation',
-  PipelineCreated = 'Creating/Updating a pipeline using YAML OR Visual Mode',
-  PipelineCreatedViaVisual = 'Creating/Updating a pipeline using Visual Mode',
-  PipelineCreatedViaYAML = 'Creating/Updating a pipeline using YAML editor'
+  PipelineCreatedViaVisual = 'Save a pipeline using Visual Mode',
+  PipelineCreatedViaYAML = 'Save a pipeline using YAML editor',
+  PipelineUpdatedViaVisual = 'Update a pipeline using Visual Mode',
+  PipelineUpdatedViaYAML = 'Update a pipeline using YAML editor'
 }
 
 export enum NavigatedToPage {
@@ -54,4 +55,16 @@ export enum NavigatedToPage {
 
 export enum Category {
   SIGNUP = 'SIGNUP'
+}
+
+export enum ManifestActions {
+  SaveManifestOnPipelinePage = 'Save Manifest on Pipeline Page',
+  UpdateManifestOnPipelinePage = 'Update Manifest on Pipeline Page'
+}
+
+export enum ArtifactActions {
+  SavePrimaryArtifactOnPipelinePage = 'Save Primary Artifact on Pipeline Page',
+  UpdatePrimaryArtifactOnPipelinePage = 'Update Primary Artifact on Pipeline Page',
+  SaveSidecarArtifactOnPipelinePage = 'Save Sidecar Artifact on Pipeline Page',
+  UpdateSidecarArtifactOnPipelinePage = 'Update Sidecar Artifact on Pipeline Page'
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { findAllByText, findByText, fireEvent, render } from '@testing-library/react'
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import type { ManifestConfig } from 'services/cd-ng'
 import { ManifestWizard } from '../ManifestWizard/ManifestWizard'
@@ -19,6 +20,7 @@ describe('ManifestSelection tests', () => {
           initialValues={{} as ManifestStepInitData}
           types={[]}
           expressions={[]}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           isReadonly={false}
           manifestStoreTypes={[]}
           labels={{
@@ -53,6 +55,7 @@ describe('ManifestSelection tests', () => {
           initialValues={initialValues as ManifestStepInitData}
           types={[]}
           expressions={[]}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           isReadonly={false}
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
@@ -83,6 +86,7 @@ describe('ManifestSelection tests', () => {
           initialValues={initialValues as ManifestStepInitData}
           types={['K8sManifest', 'HelmChart']}
           expressions={[]}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           isReadonly={false}
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
@@ -114,6 +118,7 @@ describe('ManifestSelection tests', () => {
           initialValues={initialValues as ManifestStepInitData}
           types={['K8sManifest', 'HelmChart']}
           expressions={[]}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           isReadonly={false}
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
@@ -179,6 +184,7 @@ describe('ManifestSelection tests', () => {
           initialValues={initialValues as ManifestStepInitData}
           types={['K8sManifest', 'HelmChart']}
           expressions={[]}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           isReadonly={false}
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
@@ -242,6 +248,7 @@ describe('ManifestSelection tests', () => {
     const laststepProps = {
       name: 'Manifest Details',
       expressions: [''],
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
       stepName: 'Manifest Details Step',
       initialValues: null as unknown as ManifestConfig,
       handleSubmit: jest.fn(),
@@ -256,6 +263,7 @@ describe('ManifestSelection tests', () => {
           initialValues={initialValues as ManifestStepInitData}
           types={['K8sManifest', 'HelmChart']}
           expressions={[]}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           isReadonly={false}
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{
@@ -282,6 +290,7 @@ describe('ManifestSelection tests', () => {
     const laststepProps = {
       name: 'Manifest Details',
       expressions: [''],
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
       stepName: 'Manifest Details Step',
       manifestIdsList: [],
       initialValues: {
@@ -312,6 +321,7 @@ describe('ManifestSelection tests', () => {
           initialValues={initialValues as ManifestStepInitData}
           types={['K8sManifest', 'HelmChart']}
           expressions={[]}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           isReadonly={false}
           manifestStoreTypes={['Git', 'Github', 'GitLab', 'Bitbucket']}
           labels={{

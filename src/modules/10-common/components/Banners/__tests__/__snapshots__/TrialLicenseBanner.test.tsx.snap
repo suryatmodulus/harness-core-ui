@@ -5,7 +5,7 @@ exports[`TrialLicenseBanner should NOT render banner if api call returns NOT TRI
 exports[`TrialLicenseBanner should render banner and provide feedback button if api call returns TRIAL and not expired 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard trialLicenseBanner notExpired StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard trialLicenseBanner notExpired StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -98,7 +98,7 @@ exports[`TrialLicenseBanner should render banner and provide feedback button if 
 exports[`TrialLicenseBanner should render expired banner BUT NO extend trial button if it is expired more than 14 days 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard trialLicenseBanner expired StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard trialLicenseBanner expired StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -181,7 +181,7 @@ exports[`TrialLicenseBanner should render expired banner BUT NO extend trial but
 exports[`TrialLicenseBanner should render expired banner and extend trial button if it is expired less than or equal to 14 days 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard trialLicenseBanner expired StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard trialLicenseBanner expired StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"

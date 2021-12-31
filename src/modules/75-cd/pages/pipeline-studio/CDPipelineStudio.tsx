@@ -15,7 +15,8 @@ import { useStrings } from 'framework/strings'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
 import { TemplateDrawer } from '@templates-library/components/TemplateDrawer/TemplateDrawer'
-import { getCDTrialDialog, TrialType } from '@cd/modals/CDTrial/useCDTrialModal'
+import { getCDTrialDialog } from '@cd/modals/CDTrial/useCDTrialModal'
+import { TrialType } from '@pipeline/components/TrialModalTemplate/trialModalUtils'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
 import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
@@ -37,8 +38,9 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
     onClose: () => void
   ): React.ReactElement => {
     return getCDTrialDialog({
-      actionProps: { onSuccess: onSubmit, onCloseModal: onClose },
-      trialType: TrialType.SET_UP_PIPELINE
+      actionProps: { onSuccess: onSubmit },
+      trialType: TrialType.SET_UP_PIPELINE,
+      onCloseModal: onClose
     })
   }
 

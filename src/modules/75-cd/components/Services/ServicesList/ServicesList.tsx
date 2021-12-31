@@ -1,8 +1,11 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
+import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 import ReactTimeago from 'react-timeago'
-import { Color, Layout, Text } from '@wings-software/uicore'
+import { Button, Color, Dialog, Layout, Popover, TagsPopover, Text, useModalHook } from '@wings-software/uicore'
+import { Classes, Menu, Position } from '@blueprintjs/core'
+import { defaultTo, pick } from 'lodash-es'
 import routes from '@common/RouteDefinitions'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { DashboardList } from '@cd/components/DashboardList/DashboardList'
@@ -15,6 +18,10 @@ import { PieChart, PieChartProps } from '@cd/components/PieChart/PieChart'
 import { getFixed, INVALID_CHANGE_RATE, numberFormatter } from '@cd/components/Services/common'
 import type { ServiceDetailsDTO } from 'services/cd-ng'
 import { DeploymentTypeIcons } from '@cd/components/DeploymentTypeIcons/DeploymentTypeIcons'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { NewEditServiceModal } from '@cd/components/PipelineSteps/DeployServiceStep/DeployServiceStep'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import css from '@cd/components/Services/ServicesList/ServiceList.module.scss'
 
 export enum DeploymentStatus {
@@ -24,7 +31,10 @@ export enum DeploymentStatus {
 
 export interface ServiceListItem {
   name: string
-  id: string
+  identifier: string
+  tags?: {
+    [key: string]: string
+  }
   deploymentTypeList: string[]
   serviceInstances: {
     count: number
@@ -51,44 +61,50 @@ export interface ServicesListProps {
 
 const transformServiceDetailsData = (data: ServiceDetailsDTO[]): ServiceListItem[] => {
   return data.map(item => ({
-    name: item.serviceName || '',
-    id: item.serviceIdentifier || '',
-    deploymentTypeList: item.deploymentTypeList || [],
+    name: defaultTo(item.serviceName, ''),
+    identifier: defaultTo(item.serviceIdentifier, ''),
+    description: defaultTo(item.description, ''),
+    tags: defaultTo(item.tags, {}),
+    deploymentTypeList: defaultTo(item.deploymentTypeList, []),
     serviceInstances: {
-      count: item.instanceCountDetails?.totalInstances || 0,
-      prodCount: item.instanceCountDetails?.prodInstances || 0,
-      nonProdCount: item.instanceCountDetails?.nonProdInstances || 0
+      count: defaultTo(item.instanceCountDetails?.totalInstances, 0),
+      prodCount: defaultTo(item.instanceCountDetails?.prodInstances, 0),
+      nonProdCount: defaultTo(item.instanceCountDetails?.nonProdInstances, 0)
     },
     deployments: {
       value: numberFormatter(item.totalDeployments),
-      change: item.totalDeploymentChangeRate || 0
+      change: defaultTo(item.totalDeploymentChangeRate, 0)
     },
     failureRate: {
       value: numberFormatter(item.failureRate),
-      change: item.failureRateChangeRate || 0
+      change: defaultTo(item.failureRateChangeRate, 0)
     },
     frequency: {
       value: numberFormatter(item.frequency),
-      change: item.frequencyChangeRate || 0
+      change: defaultTo(item.frequencyChangeRate, 0)
     },
     lastDeployment: {
-      name: item.lastPipelineExecuted?.name || '',
-      id: item.lastPipelineExecuted?.pipelineExecutionId || '',
-      timestamp: item.lastPipelineExecuted?.lastExecutedAt || 0,
-      status: item.lastPipelineExecuted?.status || ''
+      name: defaultTo(item.lastPipelineExecuted?.name, ''),
+      id: defaultTo(item.lastPipelineExecuted?.pipelineExecutionId, ''),
+      timestamp: defaultTo(item.lastPipelineExecuted?.lastExecutedAt, 0),
+      status: defaultTo(item.lastPipelineExecuted?.status, '')
     }
   }))
 }
 
 const RenderServiceName: Renderer<CellProps<ServiceListItem>> = ({ row }) => {
-  const { name, id } = row.original
+  const { name, identifier, tags } = row.original
   const { getString } = useStrings()
-  const idLabel = getString('idLabel', { id })
+  const idLabel = getString('idLabel', { id: identifier })
   return (
     <Layout.Vertical>
-      <Text font={{ weight: 'semi-bold' }} color={Color.GREY_700} margin={{ bottom: 'xsmall' }} lineClamp={1}>
-        {name}
-      </Text>
+      <Layout.Horizontal spacing="small">
+        <Text font={{ weight: 'semi-bold' }} color={Color.GREY_700} margin={{ bottom: 'xsmall' }} lineClamp={1}>
+          {name}
+        </Text>
+        {tags && Object.keys(tags).length ? <TagsPopover tags={tags} /> : null}
+      </Layout.Horizontal>
+
       <Text font={{ size: 'small' }} color={Color.GREY_500} lineClamp={1}>
         {idLabel}
       </Text>
@@ -260,6 +276,82 @@ const RenderLastDeploymentStatus: Renderer<CellProps<ServiceListItem>> = ({ row 
   )
 }
 
+const RenderColumnMenu: Renderer<CellProps<any>> = ({ row, column }) => {
+  const data = row.original
+  const [menuOpen, setMenuOpen] = useState(false)
+  const { orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const { getString } = useStrings()
+
+  const [showModal, hideModal] = useModalHook(
+    () => (
+      <Dialog
+        isOpen={true}
+        enforceFocus={false}
+        canEscapeKeyClose
+        canOutsideClickClose
+        onClose={hideModal}
+        title={getString('editService')}
+        isCloseButtonShown
+        className={cx('padded-dialog')}
+      >
+        <NewEditServiceModal
+          data={{ ...pick(data, ['name', 'identifier', 'description', 'tags']) } || { name: '', identifier: '' }}
+          isEdit={true}
+          isService={false}
+          onCreateOrUpdate={() => {
+            ;(column as any).reload?.()
+            hideModal()
+          }}
+          closeModal={hideModal}
+        />
+      </Dialog>
+    ),
+    [data, orgIdentifier, projectIdentifier]
+  )
+
+  const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    showModal()
+  }
+
+  return (
+    <Layout.Horizontal>
+      <Popover
+        isOpen={menuOpen}
+        onInteraction={nextOpenState => {
+          setMenuOpen(nextOpenState)
+        }}
+        className={Classes.DARK}
+        position={Position.RIGHT_TOP}
+      >
+        <Button
+          minimal
+          icon="Options"
+          onClick={e => {
+            e.stopPropagation()
+            setMenuOpen(true)
+          }}
+        />
+        <Menu style={{ minWidth: 'unset' }}>
+          <RbacMenuItem
+            icon="edit"
+            text={getString('edit')}
+            onClick={handleEdit}
+            permission={{
+              resource: {
+                resourceType: ResourceType.SERVICE,
+                resourceIdentifier: defaultTo(data.identifier, '')
+              },
+              permission: PermissionIdentifier.EDIT_SERVICE
+            }}
+          />
+        </Menu>
+      </Popover>
+    </Layout.Horizontal>
+  )
+}
+
 export const ServicesList: React.FC<ServicesListProps> = props => {
   const { loading, data, error, refetch } = props
   const { getString } = useStrings()
@@ -321,7 +413,7 @@ export const ServicesList: React.FC<ServicesListProps> = props => {
         {
           Header: getString('cd.serviceDashboard.lastDeployment').toLocaleUpperCase(),
           id: 'lastDeployment',
-          width: '25%',
+          width: '22%',
           Cell: RenderLastDeployment
         },
         {
@@ -329,6 +421,14 @@ export const ServicesList: React.FC<ServicesListProps> = props => {
           id: 'status',
           width: '5%',
           Cell: RenderLastDeploymentStatus
+        },
+        {
+          Header: '',
+          width: '3%',
+          id: 'action',
+          Cell: RenderColumnMenu,
+          reload: refetch,
+          disableSortBy: true
         }
       ]
     },
@@ -337,7 +437,7 @@ export const ServicesList: React.FC<ServicesListProps> = props => {
   )
 
   const goToServiceDetails = useCallback(
-    ({ id: serviceId }: ServiceListItem): void => {
+    ({ identifier: serviceId }: ServiceListItem): void => {
       history.push(routes.toServiceDetails({ accountId, orgIdentifier, projectIdentifier, serviceId, module }))
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

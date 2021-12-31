@@ -10,7 +10,8 @@ export enum StageType {
   FEATURE = 'FeatureFlag',
   PIPELINE = 'Pipeline',
   APPROVAL = 'Approval',
-  CUSTOM = 'Custom'
+  CUSTOM = 'Custom',
+  Template = 'Template'
 }
 
 export const changeEmptyValuesToRunTimeInput = (inputset: any): InputSetDTO => {

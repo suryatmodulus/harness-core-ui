@@ -1,12 +1,7 @@
 import type { SelectOption, MultiSelectOption } from '@wings-software/uicore'
 import { isNumber } from 'lodash-es'
 import type { FormikProps } from 'formik'
-import type {
-  MetricDefinition,
-  PrometheusFilter,
-  PrometheusHealthSourceSpec,
-  TimeSeriesMetricDefinition
-} from 'services/cv'
+import type { PrometheusFilter, PrometheusHealthSourceSpec, TimeSeriesMetricDefinition } from 'services/cv'
 import type { StringsMap } from 'stringTypes'
 import type { UseStringsReturn } from 'framework/strings'
 import {
@@ -368,7 +363,7 @@ export function transformPrometheusSetupSourceToHealthSource(setupSource: Promet
       analysis: {
         riskProfile: {
           category: category as RiskProfileCatgory,
-          metricType: metricType as MetricDefinition['type'],
+          metricType: metricType,
           thresholdTypes
         },
         liveMonitoring: { enabled: Boolean(healthScore) },

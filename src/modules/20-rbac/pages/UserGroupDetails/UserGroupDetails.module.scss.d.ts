@@ -8,5 +8,6 @@ declare const styles: {
   readonly memberList: string
   readonly truncatedText: string
   readonly buttonPadding: string
+  readonly popover: string
 }
 export default styles

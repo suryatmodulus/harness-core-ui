@@ -31,7 +31,8 @@ export default function ManifestSelection({
     },
     getStageFromPipeline,
     updateStage,
-    isReadonly
+    isReadonly,
+    allowableTypes
   } = usePipelineContext()
 
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
@@ -149,6 +150,7 @@ export default function ManifestSelection({
         listOfManifests={listOfManifests}
         isReadonly={isReadonly}
         deploymentType={getDeploymentType()}
+        allowableTypes={allowableTypes}
       />
     </Layout.Vertical>
   )

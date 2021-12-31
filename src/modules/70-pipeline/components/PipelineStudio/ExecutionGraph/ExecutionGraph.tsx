@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { cloneDeep, set, isEmpty, noop } from 'lodash-es'
+import { cloneDeep, set, isEmpty } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import { Button, ButtonVariation, Layout, Text } from '@wings-software/uicore'
@@ -167,7 +167,7 @@ export interface ExecutionGraphProp<T extends StageElementConfig> {
   canvasButtonsLayout?: 'horizontal' | 'vertical'
   canvasButtonsTooltipPosition?: 'top' | 'left'
   pathToStage: string
-  templateTypes?: { [key: string]: string }
+  templateTypes: { [key: string]: string }
 }
 
 function ExecutionGraphRef<T extends StageElementConfig>(
@@ -350,6 +350,7 @@ function ExecutionGraphRef<T extends StageElementConfig>(
   const mouseEnterNodeListener = (event: any) => {
     const eventTemp = event as DefaultNodeEvent
     eventTemp.stopPropagation()
+    dynamicPopoverHandler?.hide()
     const node = getStepFromNode(state.stepsData, eventTemp.entity).node as StepElementConfig
     if (node?.when) {
       const { stageStatus, condition } = node.when
@@ -363,9 +364,7 @@ function ExecutionGraphRef<T extends StageElementConfig>(
           isHoverView: true,
           data: node
         },
-        { useArrows: true, darkMode: false, fixedPosition: false, placement: 'top' },
-        noop,
-        true
+        { useArrows: true, darkMode: false, fixedPosition: false, placement: 'top' }
       )
     }
   }
@@ -373,9 +372,6 @@ function ExecutionGraphRef<T extends StageElementConfig>(
   const mouseLeaveNodeListener = (event: any) => {
     const eventTemp = event as DefaultNodeEvent
     eventTemp.stopPropagation()
-    if (dynamicPopoverHandler?.isHoverView?.()) {
-      dynamicPopoverHandler?.hide()
-    }
   }
 
   const nodeListeners: NodeModelListener = {

@@ -5,5 +5,6 @@ declare const styles: {
   readonly fullHeight: string
   readonly title: string
   readonly navigationBtns: string
+  readonly templateNameDialog: string
 }
 export default styles

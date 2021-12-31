@@ -11,7 +11,7 @@ import {
   TimeRangeToDays,
   DashboardTimeRange
 } from '@common/factories/LandingDashboardContext'
-import { useStrings } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import {
   ChartType,
@@ -151,28 +151,56 @@ const getBadge = (type: string, stat: number): JSX.Element | null => {
       return (
         <div className={css.badge} key={type}>
           <Icon name="status-pending" size={16} color={Color.ORANGE_700} />
-          <Text className={css.badgeText}>{`${stat} Pending Manual Interventions`}</Text>
+          <Text className={css.badgeText}>
+            {`${stat} `}
+            {stat > 1 ? (
+              <String stringID={'pipeline.dashboardDeploymentsWidget.pendingManualIntervention.plural'} />
+            ) : (
+              <String stringID={'pipeline.dashboardDeploymentsWidget.pendingManualIntervention.singular'} />
+            )}
+          </Text>
         </div>
       )
     case 'pendingApprovalExecutions':
       return (
         <div className={css.badge} key={type}>
           <Icon name="status-pending" size={16} color={Color.ORANGE_700} />
-          <Text className={css.badgeText}>{`${stat} Pending Approvals`}</Text>
+          <Text className={css.badgeText}>
+            {`${stat} `}
+            {stat > 1 ? (
+              <String stringID={'pipeline.dashboardDeploymentsWidget.pendingApproval.plural'} />
+            ) : (
+              <String stringID={'pipeline.dashboardDeploymentsWidget.pendingApproval.singular'} />
+            )}
+          </Text>
         </div>
       )
     case 'failed24HrsExecutions':
       return (
         <div className={cx(css.badge, css.failed24HrsExecutionsBadge)} key={type}>
           <Icon name="warning-sign" size={12} color={Color.RED_600} />
-          <Text className={css.badgeText}>{`${stat} Pipelines failed in past 24 hours`}</Text>
+          <Text className={css.badgeText}>
+            {`${stat} `}
+            {stat > 1 ? (
+              <String stringID={'pipeline.dashboardDeploymentsWidget.failed24Hrs.plural'} />
+            ) : (
+              <String stringID={'pipeline.dashboardDeploymentsWidget.failed24Hrs.singular'} />
+            )}
+          </Text>
         </div>
       )
     case 'runningExecutions':
       return (
         <div className={cx(css.badge, css.runningExecutions)} key={type}>
           <Icon name="status-running" size={16} color={Color.PRIMARY_7} />
-          <Text className={css.badgeText}>{`${stat} Currently running pipelines`}</Text>
+          <Text className={css.badgeText}>
+            {`${stat} `}
+            {stat > 1 ? (
+              <String stringID={'pipeline.dashboardDeploymentsWidget.runningPipeline.plural'} />
+            ) : (
+              <String stringID={'pipeline.dashboardDeploymentsWidget.runningPipeline.singular'} />
+            )}
+          </Text>
         </div>
       )
     default:

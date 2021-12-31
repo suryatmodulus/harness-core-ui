@@ -2,6 +2,7 @@ import { Color, IconName, Utils } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import type { PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import type { UseStringsReturn } from 'framework/strings'
+import { getStageType } from '@pipeline/utils/templateUtils'
 import { EmptyStageName } from '../PipelineConstants'
 import type { StagesMap } from '../PipelineContext/PipelineContext'
 import { getCommonStyles, EmptyNodeSeparator, Listeners } from './StageBuilderUtil'
@@ -25,6 +26,7 @@ export interface AddUpdateGraphProps {
   splitPaneSize?: number
   parentPath: string
   errorMap: Map<string, string[]>
+  templateTypes: { [key: string]: string }
 }
 
 export interface StageBuilderConfiguration {
@@ -51,6 +53,7 @@ export interface RenderGraphNodeProps {
   isParallelNode?: boolean
   parentPath: string
   errorMap: Map<string, string[]>
+  templateTypes: { [key: string]: string }
 }
 
 export class StageBuilderModel extends DiagramModel {
@@ -88,7 +91,8 @@ export class StageBuilderModel extends DiagramModel {
       isFirstNode = false,
       isParallelNode = false,
       parentPath,
-      errorMap
+      errorMap,
+      templateTypes
     } = props
     const {
       FIRST_AND_LAST_SEGMENT_LENGTH,
@@ -99,7 +103,8 @@ export class StageBuilderModel extends DiagramModel {
     } = this.diagConfig
     let { startX, prevNodes } = props
     if (node && node.stage) {
-      const type = node.stage.type ? stagesMap[node.stage.type] : undefined
+      const isTemplateStage = !!node.stage?.template
+      const type = stagesMap[getStageType(node?.stage, templateTypes)]
       const hasErrors = errorMap && [...errorMap.keys()].some(key => parentPath && key.startsWith(parentPath))
 
       startX += isFirstNode
@@ -127,6 +132,7 @@ export class StageBuilderModel extends DiagramModel {
             conditionalExecutionEnabled: node.stage.when
               ? node.stage.when?.pipelineStatus !== 'Success' || !!node.stage.when?.condition?.trim()
               : false,
+            isTemplate: isTemplateStage,
             iconStyle: { color: isSelected ? Utils.getRealCSSColor(Color.WHITE) : type.iconColor },
             icon: type.icon
           })
@@ -143,6 +149,7 @@ export class StageBuilderModel extends DiagramModel {
             conditionalExecutionEnabled: node.stage.when
               ? node.stage.when?.pipelineStatus !== 'Success' || !!node.stage.when?.condition?.trim()
               : false,
+            isTemplate: isTemplateStage,
             allowAdd: allowAdd === true && !isReadonly,
             height: 40,
             iconStyle: { color: isSelected ? Utils.getRealCSSColor(Color.WHITE) : type?.iconColor },
@@ -166,7 +173,7 @@ export class StageBuilderModel extends DiagramModel {
           let isSelected = false
           const icons: Array<IconName> = []
           node.parallel.forEach(nodeP => {
-            const type = stagesMap[nodeP.stage?.type || '']
+            const type = stagesMap[getStageType(nodeP?.stage, templateTypes)]
             if (nodeP.stage?.identifier === selectedStageId) {
               parallelStageNames.unshift(nodeP.stage.name)
               icons.unshift(type.icon)
@@ -232,7 +239,8 @@ export class StageBuilderModel extends DiagramModel {
               allowAdd: isLastNode,
               isParallelNode: true,
               parentPath: `${parentPath}.parallel.${index}`,
-              errorMap
+              errorMap,
+              templateTypes
             })
             startX = resp.startX
             newY = resp.startY + this.gapY
@@ -268,7 +276,8 @@ export class StageBuilderModel extends DiagramModel {
           allowAdd: true,
           isParallelNode: false,
           parentPath: `${parentPath}.0`,
-          errorMap
+          errorMap,
+          templateTypes
         })
       }
       return { startX, startY, prevNodes }
@@ -286,7 +295,8 @@ export class StageBuilderModel extends DiagramModel {
       selectedStageId,
       splitPaneSize,
       parentPath = '',
-      errorMap
+      errorMap,
+      templateTypes
     } = props
     const { START_AND_END_NODE_WIDTH, FIRST_AND_LAST_SEGMENT_LENGTH, SPACE_BETWEEN_ELEMENTS, NODE_WIDTH } =
       this.diagConfig
@@ -328,7 +338,8 @@ export class StageBuilderModel extends DiagramModel {
         allowAdd: true,
         parentPath: `${parentPath}.${index}`,
         errorMap,
-        isFirstNode: index === 0
+        isFirstNode: index === 0,
+        templateTypes
       })
       startX = resp.startX
       startY = resp.startY

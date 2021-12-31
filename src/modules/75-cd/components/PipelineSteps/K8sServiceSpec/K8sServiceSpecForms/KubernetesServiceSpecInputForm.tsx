@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Layout, MultiTypeInputType } from '@wings-software/uicore'
+import { Layout } from '@wings-software/uicore'
 
 import cx from 'classnames'
 import { connect } from 'formik'
@@ -32,7 +32,8 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
   onUpdate,
   readonly = false,
   stageIdentifier,
-  formik
+  formik,
+  allowableTypes
 }) => {
   const { getString } = useStrings()
 
@@ -73,7 +74,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
               }}
               type={StepType.CustomVariable}
               stepViewType={StepViewType.InputSet}
-              allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+              allowableTypes={allowableTypes}
               onUpdate={({ variables }: CustomVariablesData) => {
                 onUpdate?.({
                   variables: variables as any

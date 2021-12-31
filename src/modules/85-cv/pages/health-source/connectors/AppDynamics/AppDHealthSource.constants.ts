@@ -14,5 +14,6 @@ export const AppDynamicsMonitoringSourceFieldNames = {
   SLI: 'sli',
   BASE_PATH: 'basePath',
   METRIC_PATH: 'metricPath',
-  SERVICE_INSTANCE_METRIC_PATH: 'serviceInstanceMetricPath'
+  SERVICE_INSTANCE_METRIC_PATH: 'serviceInstanceMetricPath',
+  PATH_TYPE: 'pathType'
 }

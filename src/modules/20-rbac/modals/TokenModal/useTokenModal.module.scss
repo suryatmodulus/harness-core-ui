@@ -11,4 +11,15 @@
 
 .form {
   min-height: 350px;
+
+  .tokenValue {
+    input {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .copy {
+      padding: var(--spacing-xsmall) var(--spacing-medium);
+    }
+  }
 }

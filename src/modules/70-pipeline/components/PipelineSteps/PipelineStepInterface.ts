@@ -35,6 +35,7 @@ export enum StepType {
   HelmRollback = 'HelmRollback',
   HarnessApproval = 'HarnessApproval',
   JiraApproval = 'JiraApproval',
+  ServiceNowApproval = 'ServiceNowApproval',
   Verify = 'Verify',
   JiraCreate = 'JiraCreate',
   JiraUpdate = 'JiraUpdate',

@@ -161,3 +161,7 @@ Example:-
 2. To run shell script "setup-github-registry": "sh scripts/setup-github-registry.sh", just change it to "setup-github-registry": "cross-env scripts/setup-github-registry.sh"
 
 > Note: Similary you can update the scripts part wherever needed as per above to run in windows environment.
+
+#### Running cypress tests in local
+
+https://harness.atlassian.net/wiki/spaces/CDNG/pages/21009563753/How+to+run+Cypress+tests+in+local

@@ -18,7 +18,7 @@ exports[`Test Access Point List Renders without errors 1`] = `
       </div>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+      class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
     >
       <div
         class="Layout--vertical StyledProps--main"

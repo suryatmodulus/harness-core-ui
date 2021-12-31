@@ -105,14 +105,16 @@
   }
 }
 
-.tag {
-  text-transform: uppercase;
-}
-
 .right-status {
   display: flex;
   right: 60px;
   position: absolute;
+
+  #tag {
+    text-transform: uppercase;
+    background-color: var(--grey-50) !important;
+    color: var(--primary-9) !important;
+  }
 }
 .label {
   max-width: 100%;

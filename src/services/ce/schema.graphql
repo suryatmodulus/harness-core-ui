@@ -137,7 +137,7 @@ type BudgetSummary {
   budgetAmount: Float!
   forecastCost: Float!
   forecastCostAlerts: [Float]!
-  growthRate: Float
+  growthRate: Float!
   id: String!
   name: String!
   period: BudgetPeriod!
@@ -460,6 +460,8 @@ type Query {
   budgetList(fetchOnlyPerspectiveBudgets: Boolean = false, limit: Int = 1000, offset: Int = 0): [BudgetSummary]
   "Budget card for perspectives"
   budgetSummary(budgetId: String, perspectiveId: String): BudgetSummary
+  "List of budget cards for perspectives"
+  budgetSummaryList(perspectiveId: String): [BudgetSummary]
   "Fetch CCM MetaData for account"
   ccmMetaData: CCMMetaData
   instancedata(instanceid: String!): InstanceDataDemo

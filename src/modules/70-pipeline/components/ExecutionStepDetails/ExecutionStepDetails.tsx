@@ -42,9 +42,7 @@ export default function ExecutionStepDetails(): React.ReactElement {
   const originalStep = defaultTo(allNodeMap?.[selectedStepId], {})
   const selectedStep = defaultTo(retryStep ? allNodeMap[retryStep] : originalStep, {})
   const stepDetails = factory.getStepDetails(selectedStep.stepType as StepType)
-  const interruptHistories = defaultTo(originalStep.interruptHistories, []).filter(
-    ({ interruptConfig }) => interruptConfig.retryInterruptConfig
-  )
+  const interruptHistories = defaultTo(originalStep.interruptHistories, []).filter(row => row.interruptType === 'RETRY')
   const selectedStage = pipelineStagesMap.get(selectedStageId)
 
   let retryCount = interruptHistories.length

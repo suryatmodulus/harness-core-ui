@@ -7,7 +7,6 @@ import type { EntityGitDetails, EntityValidityDetails } from 'services/pipeline-
 import type { DependencyElement } from 'services/ci'
 import type { TemplateType } from '@common/interfaces/RouteInterfaces'
 import type { TemplateSummaryResponse } from 'services/template-ng'
-import type { TemplateConfig } from '@pipeline/utils/tempates'
 import type { StepState } from '../ExecutionGraph/ExecutionGraphUtil'
 import type { AdvancedPanels, StepOrStepGroupOrTemplateStepData } from '../StepCommands/StepCommandTypes'
 
@@ -102,7 +101,7 @@ export interface TemplateDrawerData extends Omit<IDrawerProps, 'isOpen'> {
       templateType: TemplateType
       childTypes?: string[]
       onCopyTemplate?: (template: TemplateSummaryResponse) => void
-      onUseTemplate?: (templateConfig: TemplateConfig) => void
+      onUseTemplate?: (template: TemplateSummaryResponse) => void
       selectedTemplateRef?: string
     }
   }

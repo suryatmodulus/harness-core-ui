@@ -1,3 +1,4 @@
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { TemplateDrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import type { PipelineContextInterface } from '../../PipelineContext/PipelineContext'
 
@@ -185,6 +186,7 @@ const stateMock = {
 const pipelineContextMock: PipelineContextInterface = {
   state: stateMock as any,
   contextType: 'Pipeline',
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
   stepsFactory: {
     getStep: (type: string) => {
       switch (type) {

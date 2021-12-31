@@ -75,11 +75,11 @@ const GrowthRateChart: (props: GrowthRateChartProps) => JSX.Element = ({
                 [Number(moment.utc(startTime).startOf('d').format('x')), +amount],
                 [
                   Number(moment.utc(startTime).startOf('d').add(1, incrementFactor).format('x')),
-                  +amount * (1 + growthRateVal / 100)
+                  +Number(amount * (1 + growthRateVal / 100)).toFixed(2)
                 ],
                 [
                   Number(moment.utc(startTime).startOf('d').add(2, incrementFactor).format('x')),
-                  +amount * (1 + growthRateVal / 100) * (1 + growthRateVal / 100)
+                  +Number(amount * (1 + growthRateVal / 100) * (1 + growthRateVal / 100)).toFixed(2)
                 ]
               ],
               name: '',

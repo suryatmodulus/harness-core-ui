@@ -11,7 +11,7 @@ export interface QueryContentProps {
   onEditQuery?: () => void
   textAreaProps?: TextAreaProps['textArea']
   textAreaName?: string
-  onClickExpand: (isOpen: boolean) => void
+  onClickExpand?: (isOpen: boolean) => void
   isAutoFetch?: boolean
   mandatoryFields?: any[]
   staleRecordsWarning?: string

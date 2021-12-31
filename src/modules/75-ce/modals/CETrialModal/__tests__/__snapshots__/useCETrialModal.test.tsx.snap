@@ -4,27 +4,21 @@ exports[`open and close the CE Trial Modal Rendering should close the start tria
 
 exports[`open and close the CE Trial Modal Rendering should open  the start trial modal 1`] = `
 <div
-  class="bp3-dialog dialog bp3-dialog ceTrial"
+  class="bp3-dialog dialog ceTrial"
 >
   <div
     class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-large"
   >
     <div
-      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-large StyledProps--padding-left-xxxlarge"
-    />
-    <div
       class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
     >
       <div
-        class="StyledProps--font StyledProps--main StyledProps--padding-right-xxxlarge"
-        style="background: transparent url(test-file-stub) no-repeat; background-size: stretch; background-position-x: 15%; background-position-y: center; width: 57%;"
-      />
-      <div
-        style="border-left-width: 1px; border-left-style: solid; height: 425px;"
+        class="StyledProps--font StyledProps--main left"
+        style="background: transparent url(test-file-stub) no-repeat; width: 50%;"
       />
       <div
         class="StyledProps--font StyledProps--main StyledProps--padding-left-xxxlarge"
-        style="width: 40%; height: 500px;"
+        style="width: 50%; height: 500px;"
       >
         <div
           class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"

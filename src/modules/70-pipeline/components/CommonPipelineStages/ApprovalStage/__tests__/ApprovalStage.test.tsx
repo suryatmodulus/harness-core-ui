@@ -51,19 +51,22 @@ jest.mock('resize-observer-polyfill', () => {
 describe('Approval Stage minimal view', () => {
   test('Basic render, selection and setup stage', async () => {
     const props = getPropsForMinimalStage()
+    const pipelineContextMockValue = getDummyPipelineContextValue()
     const { container, getByText, queryByText } = render(
       <TestWrapper>
-        <ApprovalStage
-          minimal={true}
-          stageProps={props.stageProps as any}
-          name={''}
-          type={''}
-          icon={'nav-harness'}
-          isDisabled={false}
-          isApproval={true}
-          title="My approval stage"
-          description={''}
-        />
+        <PipelineContext.Provider value={pipelineContextMockValue}>
+          <ApprovalStage
+            minimal={true}
+            stageProps={props.stageProps as any}
+            name={''}
+            type={''}
+            icon={'nav-harness'}
+            isDisabled={false}
+            isApproval={true}
+            title="My approval stage"
+            description={''}
+          />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
 
@@ -105,19 +108,22 @@ describe('Approval Stage minimal view', () => {
 describe('Jira Approval Stage minimal view', () => {
   test('Basic render, selection and setup stage', async () => {
     const props = getPropsForMinimalStage()
+    const pipelineContextMockValue = getDummyPipelineContextValue()
     const { container, getByText, queryByText } = render(
       <TestWrapper>
-        <ApprovalStage
-          minimal={true}
-          stageProps={props.stageProps as any}
-          name={''}
-          type={''}
-          icon={'service-jira'}
-          isDisabled={false}
-          isApproval={true}
-          title="My approval stage"
-          description={''}
-        />
+        <PipelineContext.Provider value={pipelineContextMockValue}>
+          <ApprovalStage
+            minimal={true}
+            stageProps={props.stageProps as any}
+            name={''}
+            type={''}
+            icon={'service-jira'}
+            isDisabled={false}
+            isApproval={true}
+            title="My approval stage"
+            description={''}
+          />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
 

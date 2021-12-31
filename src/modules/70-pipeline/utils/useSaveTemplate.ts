@@ -98,6 +98,11 @@ export function useSaveTemplate(
     )
   }
 
+  const stringifyTemplate = React.useCallback(
+    (temp: NGTemplateInfoConfig) => yamlStringify(JSON.parse(JSON.stringify({ template: temp })), { version: '1.1' }),
+    []
+  )
+
   const updateExistingLabel = async (
     comments?: string,
     updatedGitDetails?: SaveToGitFormInterface,
@@ -107,7 +112,7 @@ export function useSaveTemplate(
       const response = await updateExistingTemplateLabelPromise({
         templateIdentifier: template.identifier,
         versionLabel: template.versionLabel,
-        body: yamlStringify({ template: omit(cloneDeep(template), 'repo', 'branch') }),
+        body: stringifyTemplate(omit(cloneDeep(template), 'repo', 'branch')),
         queryParams: {
           accountIdentifier: accountId,
           projectIdentifier,
@@ -160,7 +165,7 @@ export function useSaveTemplate(
       hideConfigModal?.()
       try {
         const response = await createTemplatePromise({
-          body: yamlStringify({ template: omit(cloneDeep(latestTemplate), 'repo', 'branch') }),
+          body: stringifyTemplate(omit(cloneDeep(latestTemplate), 'repo', 'branch')),
           queryParams: {
             accountIdentifier: accountId,
             projectIdentifier,
@@ -237,6 +242,22 @@ export function useSaveTemplate(
       saveAngPublishWithGitInfo(gitData, payload, objectId || gitDetails?.objectId || '', isEdit)
   })
 
+  const getUpdatedGitDetails = (
+    currGitDetails: EntityGitDetails,
+    latestTemplate: NGTemplateInfoConfig,
+    isEdit: boolean | undefined = false
+  ): EntityGitDetails => {
+    if (isEdit) {
+      return {
+        filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel.replace(/[^a-zA-Z0-9-_]/g, '')}.yaml`,
+        ...currGitDetails
+      }
+    }
+    return {
+      ...currGitDetails,
+      filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel.replace(/[^a-zA-Z0-9-_]/g, '')}.yaml`
+    }
+  }
   const saveAndPublish = React.useCallback(
     async (updatedTemplate: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs) => {
       const { isEdit } = extraInfo
@@ -279,9 +300,7 @@ export function useSaveTemplate(
             type: 'Template',
             name: latestTemplate.name,
             identifier: latestTemplate.identifier,
-            gitDetails: gitDetails
-              ? { ...gitDetails, filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel}.yaml` }
-              : {}
+            gitDetails: gitDetails ? getUpdatedGitDetails(gitDetails, latestTemplate, isEdit) : {}
           },
           payload: { template: omit(latestTemplate, 'repo', 'branch') }
         })

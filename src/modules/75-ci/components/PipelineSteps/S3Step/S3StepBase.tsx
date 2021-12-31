@@ -1,6 +1,8 @@
 import React from 'react'
-import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
+import { Text, Formik, FormikForm, Accordion, Color, Container } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
+import get from 'lodash/get'
+import type { K8sDirectInfraYaml } from 'services/ci'
 import { Connectors } from '@connectors/constants'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -13,11 +15,11 @@ import {
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
-import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './S3StepFunctionConfigs'
 import type { S3StepData, S3StepDataUI, S3StepProps } from './S3Step'
 import { CIStep } from '../CIStep/CIStep'
 import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
+import { useGetPropagatedStageById } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const S3StepBase = (
@@ -27,13 +29,12 @@ export const S3StepBase = (
   const {
     state: {
       selectionState: { selectedStageId }
-    },
-    getStageFromPipeline
+    }
   } = usePipelineContext()
 
   const { getString } = useStrings()
 
-  const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
+  const currentStage = useGetPropagatedStageById(selectedStageId || '')
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // const pullOptions = usePullOptions()
@@ -42,6 +43,8 @@ export const S3StepBase = (
   // const values = getInitialValuesInCorrectFormat<S3StepData, S3StepDataUI>(initialValues, transformValuesFieldsConfig, {
   //   pullOptions
   // })
+
+  const buildInfrastructureType = get(currentStage, 'stage.spec.infrastructure.type') as K8sDirectInfraYaml['type']
 
   return (
     <Formik
@@ -114,15 +117,19 @@ export const S3StepBase = (
                 id="optional-config"
                 summary={getString('common.optionalConfig')}
                 details={
-                  <>
+                  <Container margin={{ top: 'medium' }}>
                     <CIStepOptionalConfig
                       stepViewType={stepViewType}
                       enableFields={{ 'spec.endpoint': {}, 'spec.target': { tooltipId: 'gcsS3Target' } }}
                       readonly={readonly}
                       allowableTypes={allowableTypes}
                     />
-                    <StepCommonFields disabled={readonly} allowableTypes={allowableTypes} />
-                  </>
+                    <StepCommonFields
+                      disabled={readonly}
+                      allowableTypes={allowableTypes}
+                      buildInfrastructureType={buildInfrastructureType}
+                    />
+                  </Container>
                 }
               />
             </Accordion>

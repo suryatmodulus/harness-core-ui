@@ -5,9 +5,6 @@ exports[`CDTrial Modal validation should validate inputs 1`] = `
   <button
     class="open"
   />
-  <button
-    class="close"
-  />
 </div>
 `;
 
@@ -16,9 +13,6 @@ exports[`CDTrial Modal validation should validate inputs 2`] = `
   <button
     class="open"
   />
-  <button
-    class="close"
-  />
 </div>
 `;
 
@@ -26,9 +20,6 @@ exports[`CDTrial Modal validation should validate inputs 3`] = `
 <div>
   <button
     class="open"
-  />
-  <button
-    class="close"
   />
 </div>
 `;

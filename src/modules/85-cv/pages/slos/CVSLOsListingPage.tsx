@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import {
-  Button,
   Text,
   useToaster,
   ButtonVariation,
@@ -17,9 +16,11 @@ import {
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
+import { PermissionIdentifier, ResourceType } from 'microfrontends'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { useDeleteSLOData, useGetAllJourneys, useGetSLODashboardWidgets, UserJourneyDTO } from 'services/cv'
+import RbacButton from '@rbac/components/Button/Button'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import {
   PAGE_SIZE_DASHBOARD_WIDGETS,
@@ -40,6 +41,11 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
 
   const [selectedUserJourney, setSelectedUserJourney] = useState<UserJourneyDTO>()
   const [pageNumber, setPageNumber] = useState(0)
+
+  useEffect(() => {
+    setPageNumber(0)
+    setSelectedUserJourney(undefined)
+  }, [projectIdentifier])
 
   const {
     data: dashboardWidgetsResponse,
@@ -110,12 +116,19 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
   }
 
   const addNewSLO = (
-    <Button
+    <RbacButton
       icon="plus"
       text={getString('cv.slos.newSLO')}
       variation={ButtonVariation.PRIMARY}
       onClick={() => {
         history.push(routes.toCVCreateSLOs({ accountId, orgIdentifier, projectIdentifier }))
+      }}
+      permission={{
+        permission: PermissionIdentifier.EDIT_SLO_SERVICE,
+        resource: {
+          resourceType: ResourceType.SLO,
+          resourceIdentifier: projectIdentifier
+        }
       }}
     />
   )

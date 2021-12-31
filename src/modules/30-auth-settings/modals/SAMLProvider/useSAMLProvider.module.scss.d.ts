@@ -3,5 +3,6 @@
 declare const styles: {
   readonly dialog: string
   readonly notes: string
+  readonly copy: string
 }
 export default styles

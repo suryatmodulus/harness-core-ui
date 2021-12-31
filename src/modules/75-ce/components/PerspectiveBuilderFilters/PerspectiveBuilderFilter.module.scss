@@ -109,7 +109,10 @@ global {
 }
 
 .groupByLabel {
-  max-height: 420px;
-  overflow-y: auto;
-  max-width: 480px;
+  width: 360px;
+
+  .labelValueContainer {
+    height: 370px;
+    overflow-y: auto;
+  }
 }

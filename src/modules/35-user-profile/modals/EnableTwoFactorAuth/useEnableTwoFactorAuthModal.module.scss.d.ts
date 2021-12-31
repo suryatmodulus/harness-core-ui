@@ -6,5 +6,6 @@ declare const styles: {
   readonly qrCode: string
   readonly description: string
   readonly view: string
+  readonly copy: string
 }
 export default styles

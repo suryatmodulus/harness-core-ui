@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, findByText, fireEvent, findAllByText, waitFor } from '@testing-library/react'
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import {
   PipelineContext,
@@ -174,7 +175,8 @@ describe('ManifestSelection tests', () => {
       refetchConnectors: jest.fn(),
       isReadonly: false,
       listOfManifests: [],
-      deploymentType: 'Kubernetes'
+      deploymentType: 'Kubernetes',
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]
     }
     const { container } = render(
       <TestWrapper>
@@ -198,7 +200,8 @@ describe('ManifestSelection tests', () => {
       refetchConnectors: jest.fn(),
       isReadonly: false,
       listOfManifests: [],
-      deploymentType: 'Kubernetes'
+      deploymentType: 'Kubernetes',
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]
     }
     const { container } = render(
       <TestWrapper>
@@ -222,7 +225,8 @@ describe('ManifestSelection tests', () => {
       refetchConnectors: jest.fn(),
       isReadonly: false,
       listOfManifests: [],
-      deploymentType: 'Kubernetes'
+      deploymentType: 'Kubernetes',
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]
     }
     const { container } = render(
       <TestWrapper>
@@ -246,6 +250,7 @@ describe('ManifestSelection tests', () => {
       refetchConnectors: jest.fn(),
       isReadonly: false,
       deploymentType: 'Kubernetes',
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
       listOfManifests: [
         {
           manifest: {
@@ -294,6 +299,7 @@ describe('ManifestSelection tests', () => {
       refetchConnectors: jest.fn(),
       isReadonly: false,
       deploymentType: 'Kubernetes',
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
       listOfManifests: [
         {
           manifest: {
@@ -349,7 +355,8 @@ describe('ManifestSelection tests', () => {
       refetchConnectors: jest.fn(),
       isReadonly: false,
       listOfManifests: [],
-      deploymentType: 'Kubernetes'
+      deploymentType: 'Kubernetes',
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]
     }
 
     const listOfManifests = props.stage.stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets

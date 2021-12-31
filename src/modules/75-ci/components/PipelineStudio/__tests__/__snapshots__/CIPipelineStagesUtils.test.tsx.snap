@@ -1,3 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CIPipelineStagesUtils getCIPipelineStages works 1`] = `<PipelineStages />`;
+exports[`CIPipelineStagesUtils getCIPipelineStages works 1`] = `
+<PipelineStages
+  closeTemplateSelector={[MockFunction]}
+  openTemplateSelector={[MockFunction]}
+  setTemplateTypes={[MockFunction]}
+  templateTypes={Object {}}
+/>
+`;

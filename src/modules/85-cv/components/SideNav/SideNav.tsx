@@ -56,6 +56,7 @@ export default function CVSideNav(): React.ReactElement {
             label={getString('changes')}
             to={routes.toCVChanges({ accountId, projectIdentifier, orgIdentifier })}
           />
+
           <SidebarLink
             label={getString('cv.slos.title')}
             to={routes.toCVSLOs({ accountId, projectIdentifier, orgIdentifier })}

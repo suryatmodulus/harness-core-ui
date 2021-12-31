@@ -12,5 +12,6 @@ declare const styles: {
   readonly manualQueryWarning: string
   readonly content: string
   readonly accordian: string
+  readonly disabled: string
 }
 export default styles

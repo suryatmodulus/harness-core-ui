@@ -101,7 +101,7 @@ exports[`Subscriptions Page it renders a page error when the license call fails 
 exports[`Subscriptions Page it renders an expired banner when the trial is expired 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -581,7 +581,7 @@ exports[`Subscriptions Page it renders an expired banner when the trial is expir
 exports[`Subscriptions Page it renders the correct card in the subscriptions page 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -1061,7 +1061,7 @@ exports[`Subscriptions Page it renders the correct card in the subscriptions pag
 exports[`Subscriptions Page it renders the subscriptions page 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -1541,7 +1541,7 @@ exports[`Subscriptions Page it renders the subscriptions page 1`] = `
 exports[`Subscriptions Page it renders trial not started information 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -1979,7 +1979,7 @@ exports[`Subscriptions Page it routes to the module trial home page when the tri
 exports[`Subscriptions Page it should update the license store 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -2459,7 +2459,7 @@ exports[`Subscriptions Page it should update the license store 1`] = `
 exports[`Subscriptions Page it shows the header and a loading spinner while the account call is loading 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -2883,7 +2883,7 @@ exports[`Subscriptions Page it shows the header and a loading spinner while the 
 exports[`Subscriptions Page it shows the header and a loading spinner while the license call is loading 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"

@@ -1,5 +1,9 @@
 import React from 'react'
-import { Button, ButtonVariation } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
+import { ButtonVariation } from '@wings-software/uicore'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier, ResourceType } from 'microfrontends'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import ChangeSourceTable from '@cv/pages/ChangeSource/ChangeSourceTable/ChangeSourceTable'
 import type { ChangeSourceDTO } from 'services/cv'
@@ -17,16 +21,24 @@ export default function ChangeSourceTableContainer({
   onAddNewChangeSource: (data: any) => void
 }): JSX.Element {
   const { getString } = useStrings()
+  const { projectIdentifier } = useParams<ProjectPathProps>()
   return (
     <CardWithOuterTitle>
       <>
         <ChangeSourceTable onEdit={onEdit} value={value} onSuccess={onSuccess} />
-        <Button
+        <RbacButton
           icon="plus"
           text={getString('cv.changeSource.addChangeSource')}
           variation={ButtonVariation.LINK}
           onClick={onAddNewChangeSource}
           margin={{ top: 'small' }}
+          permission={{
+            permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
+            resource: {
+              resourceType: ResourceType.MONITOREDSERVICE,
+              resourceIdentifier: projectIdentifier
+            }
+          }}
         />
       </>
     </CardWithOuterTitle>

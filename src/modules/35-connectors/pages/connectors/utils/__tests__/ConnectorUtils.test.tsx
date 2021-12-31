@@ -999,7 +999,6 @@ describe('Connector Utils', () => {
       expect(getIconByType(Connectors.CE_KUBERNETES)).toEqual('service-kubernetes')
       expect(getIconByType(Connectors.CE_GCP)).toEqual('service-gcp')
       expect(getIconByType(Connectors.PAGER_DUTY)).toEqual('service-pagerduty')
-      expect(getIconByType(Connectors.ARGO_CONNECTOR)).toEqual('argo')
     }),
     test('test isSMConnector', () => {
       expect(isSMConnector('AwsSecretManager')).toBeTruthy()

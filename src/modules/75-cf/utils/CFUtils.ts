@@ -35,6 +35,16 @@ export function formatDate(timestamp: number, dateStyle = 'medium'): string {
   }).format(new Date(timestamp))
 }
 
+export const formatToCompactNumber = (longNumber: number): string => {
+  if (longNumber > 999 && longNumber < 1000000) {
+    return (longNumber / 1000).toFixed(0) + 'K'
+  } else if (longNumber >= 1000000) {
+    return (longNumber / 1000000).toFixed(0) + 'M'
+  } else {
+    return longNumber.toString()
+  }
+}
+
 export enum FFDetailPageTab {
   TARGETING = 'targeting',
   METRICS = 'metrics',

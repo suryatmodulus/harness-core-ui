@@ -41,6 +41,12 @@
     padding: 1px !important;
   }
 
+  .template {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+  }
+
   .conditional {
     position: absolute;
     transform: rotate(-45deg);

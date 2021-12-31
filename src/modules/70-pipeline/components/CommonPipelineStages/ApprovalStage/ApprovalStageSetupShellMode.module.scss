@@ -6,7 +6,7 @@
     position: sticky;
     top: 0;
     z-index: 2;
-    padding-right: var(--spacing-xxxlarge);
+    padding-right: var(--spacing-medium);
   }
 
   .fullHeight {
@@ -124,4 +124,11 @@
 
 .graphLoadingSpinner {
   transform: scale(0.6);
+}
+
+.templateNameDialog {
+  width: 380px;
+  overflow: hidden;
+  padding-bottom: 0;
+  position: relative;
 }

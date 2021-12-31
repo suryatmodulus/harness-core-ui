@@ -1,6 +1,8 @@
 import React from 'react'
-import { Text, Formik, FormikForm, Accordion, Color } from '@wings-software/uicore'
+import { Text, Formik, FormikForm, Accordion, Color, Container } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
+import get from 'lodash/get'
+import type { K8sDirectInfraYaml } from 'services/ci'
 import { Connectors } from '@connectors/constants'
 import type { StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { setFormikRef } from '@pipeline/components/AbstractSteps/Step'
@@ -13,11 +15,11 @@ import {
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
-import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './PluginStepFunctionConfigs'
 import type { PluginStepProps, PluginStepData, PluginStepDataUI } from './PluginStep'
 import { CIStep } from '../CIStep/CIStep'
 import { CIStepOptionalConfig } from '../CIStep/CIStepOptionalConfig'
+import { useGetPropagatedStageById } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const PluginStepBase = (
@@ -27,14 +29,15 @@ export const PluginStepBase = (
   const {
     state: {
       selectionState: { selectedStageId }
-    },
-    getStageFromPipeline
+    }
   } = usePipelineContext()
 
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
 
-  const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
+  const currentStage = useGetPropagatedStageById(selectedStageId || '')
+
+  const buildInfrastructureType = get(currentStage, 'stage.spec.infrastructure.type') as K8sDirectInfraYaml['type']
 
   return (
     <Formik
@@ -114,19 +117,24 @@ export const PluginStepBase = (
                 id="optional-config"
                 summary={getString('common.optionalConfig')}
                 details={
-                  <>
+                  <Container margin={{ top: 'medium' }}>
                     <CIStepOptionalConfig
                       stepViewType={stepViewType}
                       readonly={readonly}
-                      enableFields={{ 'spec.privileged': {}, 'spec.settings': {}, 'spec.reportPaths': {} }}
+                      enableFields={{
+                        'spec.privileged': { shouldHide: buildInfrastructureType === 'VM' },
+                        'spec.settings': {},
+                        'spec.reportPaths': {}
+                      }}
                       allowableTypes={allowableTypes}
                     />
                     <StepCommonFields
                       enableFields={['spec.imagePullPolicy']}
                       disabled={readonly}
                       allowableTypes={allowableTypes}
+                      buildInfrastructureType={buildInfrastructureType}
                     />
-                  </>
+                  </Container>
                 }
               />
             </Accordion>

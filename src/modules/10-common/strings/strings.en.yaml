@@ -62,6 +62,7 @@ performAction: Perform Action
 jexlExpression: JEXL Expression
 bash: Bash
 shell: Shell
+powershell: Powershell
 input: Input
 refresh: Refresh
 goBack: Go Back
@@ -186,6 +187,7 @@ purpose:
     subtitle: Deploy in peace - verify activities that take place in your system. Identify risk early.
     description: 'Measure overall service health with always-on change impact analysis.'
     continuous: '{{ $.common.changeIntelligence }}'
+    moduleSelectionSubHeading: Take your software build verification  process to the next level usng our Change Intelligence
 
   ci:
     integration: Integration
@@ -209,6 +211,7 @@ purpose:
     descriptionOnly: 'Gain cloud cost visibility and optimize costs across projects, environments, deployments, and more.'
     description: 'Gain Cloud cost visibilty and optimize costs across projects, environments, clusters, deployments, etc
       <br><br>You can access this module via your free trial. Benefits include: Your software delivery pipeline can now include build stages, Test intelligence - faster and more reliable build processes'
+    moduleSelectionSubHeading: Take your cloud cost management the next level using our Harness Cloud Cost Management
   cf:
     features: Features
     feature: Feature
@@ -217,6 +220,7 @@ purpose:
     description: '{{$.common.purpose.cf.subtitle}}'
     descriptionOnly: 'Automate progressive delivery and feature release pipelines to ship more features with less risk.'
     continuous: Feature Flags
+    moduleSelectionSubHeading: Take your feature rollout processes to the next level using our Harness Feature Flags
 trialInProgress: Trial in progress
 trialInProgressDescription: A Project contains your pipelines, resources, and team members. Get started by creating your first Project.
 letsGetYouStarted: Let’s get you started
@@ -591,6 +595,7 @@ plans:
   subscription: Subsription
   manageSubscription: Manage Subscription
 useTemplate: Use template
+saveAsTemplate: Save as template
 comingSoon: Coming Soon
 comingSoon2: Coming Soon!
 recommended: 'Recommended'
@@ -619,6 +624,11 @@ feature:
     description: 'Requires upgrade to setup '
     requiredPlans: Please upgrade to {{requiredPlans}}
     pleaseUpgrade: Please upgrade
+  overuse:
+    title: Overuse
+  keepGettingShipDone:
+    title: Keep Getting Ship Done!
+    requestUpgrade: Request Upgrade
 repositoryName: Repository Name
 mostActiveServices: Most active services
 allErrors: All Errors
@@ -633,7 +643,7 @@ refreshPage: refresh your page.
 files: Files
 template:
   label: 'Template'
-  saveAsNewTemplateHeading: Save as New Template
+  saveAsNewTemplateHeading: Save as new Template
   saveTemplate:
     publishTemplate: Template published successfully
     errorWhileSaving: Error occurred saving Template
@@ -686,4 +696,7 @@ smtp:
   validationSubject: Subject is required
   validationBody: Body is required
   deleteInProgress: Deleting SMTP Configuration
+  savingSMTP: Saving SMTP Configuration
+  updatingSMTP: Updating SMTP Configuration
 invalid: INVALID
+auditTrail: Audit Trail

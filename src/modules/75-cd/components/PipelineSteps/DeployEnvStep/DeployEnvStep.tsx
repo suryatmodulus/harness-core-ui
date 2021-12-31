@@ -195,6 +195,7 @@ interface DeployEnvironmentProps {
     path?: string
     readonly?: boolean
   }
+  allowableTypes: MultiTypeInputType[]
 }
 
 interface DeployEnvironmentState {
@@ -216,7 +217,8 @@ function isEditEnvironment(data: DeployEnvData): boolean {
 const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   initialValues,
   onUpdate,
-  readonly
+  readonly,
+  allowableTypes
 }): JSX.Element => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
@@ -442,7 +444,8 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                       addClearBtn: !readonly,
                       items: selectOptions || []
                     },
-                    expressions
+                    expressions,
+                    allowableTypes
                   }}
                   selectItems={selectOptions || []}
                 />
@@ -497,7 +500,8 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
 const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: any }> = ({
   inputSetData,
   initialValues,
-  formik
+  formik,
+  allowableTypes
 }) => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
@@ -609,7 +613,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
             selectItems={environments}
             useValue
             multiTypeInputProps={{
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              allowableTypes,
               selectProps: {
                 addClearBtn: !inputSetData?.readonly,
                 items: environments
@@ -705,7 +709,7 @@ export class DeployEnvironmentStep extends Step<DeployEnvData> {
     })
   }
   renderStep(props: StepProps<DeployEnvData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, readonly = false } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, readonly = false, allowableTypes } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <DeployEnvironmentInputStepFormik
@@ -714,6 +718,7 @@ export class DeployEnvironmentStep extends Step<DeployEnvData> {
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           inputSetData={inputSetData}
+          allowableTypes={allowableTypes}
         />
       )
     }
@@ -723,6 +728,7 @@ export class DeployEnvironmentStep extends Step<DeployEnvData> {
         initialValues={initialValues}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
+        allowableTypes={allowableTypes}
       />
     )
   }

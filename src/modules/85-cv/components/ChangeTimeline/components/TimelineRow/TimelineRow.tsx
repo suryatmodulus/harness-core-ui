@@ -10,9 +10,20 @@ import { DATE_FORMAT } from './TimelineRow.constants'
 import css from './TimelineRow.module.scss'
 
 export function TimelineRow(props: TimelineRowProps): JSX.Element {
-  const { labelName, labelWidth, data, isLoading, noDataMessage, leftOffset = 0, startTimestamp, endTimestamp } = props
+  const {
+    labelName,
+    labelWidth,
+    data,
+    isLoading,
+    noDataMessage,
+    leftOffset = 0,
+    startTimestamp,
+    endTimestamp,
+    hideTimeline
+  } = props
   const timelineRowRef = useRef<HTMLDivElement>(null)
   const [dataWithPositions, setDataWithPositions] = useState<TimelineDataPoint[]>([])
+
   useLayoutEffect(() => {
     if (!timelineRowRef?.current) {
       return
@@ -23,12 +34,12 @@ export function TimelineRow(props: TimelineRowProps): JSX.Element {
 
   const renderTimelineRow = useMemo(() => {
     if (isLoading) {
-      return <TimelineRowLoading />
+      return <TimelineRowLoading loadingBlockWidth={hideTimeline ? '20px' : '75px'} />
     } else if (noDataMessage) {
       return <TimelineRowNoData noDataMessage={noDataMessage} />
     }
     return (
-      <Container className={css.timeline}>
+      <>
         <hr />
         {dataWithPositions?.map((datum, index) => {
           const { icon, leftOffset: position, startTime, tooltip } = datum
@@ -65,9 +76,9 @@ export function TimelineRow(props: TimelineRowProps): JSX.Element {
             </Container>
           )
         })}
-      </Container>
+      </>
     )
-  }, [isLoading, noDataMessage, dataWithPositions])
+  }, [isLoading, noDataMessage, dataWithPositions, hideTimeline])
 
   return (
     <Container className={css.main} ref={timelineRowRef}>
@@ -75,7 +86,7 @@ export function TimelineRow(props: TimelineRowProps): JSX.Element {
         <Text lineClamp={1} width={labelWidth} className={css.rowLabel}>
           {labelName}
         </Text>
-        {renderTimelineRow}
+        <Container className={css.timeline}>{renderTimelineRow}</Container>
       </Container>
     </Container>
   )

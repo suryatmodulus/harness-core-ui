@@ -6,6 +6,7 @@ declare const styles: {
   readonly btnWrapper: string
   readonly copyIcon: string
   readonly successIcon: string
+  readonly alwaysVisible: string
   readonly tooltip: string
 }
 export default styles

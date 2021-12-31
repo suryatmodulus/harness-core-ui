@@ -5,5 +5,6 @@ declare const styles: {
   readonly templateColor: string
   readonly actionButton: string
   readonly selected: string
+  readonly pagination: string
 }
 export default styles

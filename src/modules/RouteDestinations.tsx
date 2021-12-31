@@ -1,6 +1,7 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
+import auditTrailRoutes from '@audit-trail/RouteDestinations'
 import delegatesRoutes from '@delegates/RouteDestinations'
 import commonRoutes from '@common/RouteDestinations'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
@@ -22,12 +23,44 @@ import DASHBOARDRoutes from '@dashboards/RouteDestinations'
 import AccountSideNav from '@common/components/AccountSideNav/AccountSideNav'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
+import { String } from 'framework/strings'
+import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
+import RbacFactory from '@rbac/factories/RbacFactory'
+import { PermissionIdentifier } from 'microfrontends'
 
 export const AccountSideNavProps: SidebarContext = {
   navComponent: AccountSideNav,
   icon: 'nav-settings',
   title: 'Account Settings'
 }
+
+RbacFactory.registerResourceCategory(ResourceCategory.CHANGEINTELLIGENCE_FUNCTION, {
+  icon: 'nav-cv',
+  label: 'common.changeIntelligence'
+})
+
+RbacFactory.registerResourceTypeHandler(ResourceType.MONITOREDSERVICE, {
+  icon: 'nav-cv',
+  label: 'cv.monitoredServices.title',
+  category: ResourceCategory.CHANGEINTELLIGENCE_FUNCTION,
+  permissionLabels: {
+    [PermissionIdentifier.VIEW_MONITORED_SERVICE]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.EDIT_MONITORED_SERVICE]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.DELETE_MONITORED_SERVICE]: <String stringID="delete" />,
+    [PermissionIdentifier.TOGGLE_MONITORED_SERVICE]: <String stringID="cf.rbac.featureflag.toggle" />
+  }
+})
+
+RbacFactory.registerResourceTypeHandler(ResourceType.SLO, {
+  icon: 'nav-cv',
+  label: 'cv.SLO',
+  category: ResourceCategory.CHANGEINTELLIGENCE_FUNCTION,
+  permissionLabels: {
+    [PermissionIdentifier.VIEW_SLO_SERVICE]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.EDIT_SLO_SERVICE]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.DELETE_SLO_SERVICE]: <String stringID="delete" />
+  }
+})
 
 export default function RouteDestinations(): React.ReactElement {
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
@@ -36,6 +69,7 @@ export default function RouteDestinations(): React.ReactElement {
     <Switch>
       {...commonRoutes.props.children}
       {...secretsRoutes.props.children}
+      {...auditTrailRoutes.props.children}
       {...rbacRoutes.props.children}
       {...delegatesRoutes.props.children}
       {...projectsOrgsRoutes.props.children}

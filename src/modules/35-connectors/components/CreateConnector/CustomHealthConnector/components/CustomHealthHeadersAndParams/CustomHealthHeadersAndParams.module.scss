@@ -1,0 +1,10 @@
+.header {
+  font-weight: bolder !important;
+  color: var(--black) !important;
+  margin-bottom: var(--spacing-small) !important;
+}
+
+.keyValue {
+  max-height: 400px !important;
+  overflow-y: scroll;
+}

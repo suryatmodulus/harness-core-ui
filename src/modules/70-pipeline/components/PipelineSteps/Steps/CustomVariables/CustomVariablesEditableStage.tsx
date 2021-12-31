@@ -57,7 +57,8 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
     enableValidation,
     readonly,
     formName,
-    tabName = 'OVERVIEW'
+    tabName = 'OVERVIEW',
+    allowableTypes
   } = props
   const uids = React.useRef<string[]>([])
   const { expressions } = useVariablesExpression()
@@ -173,7 +174,8 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                                 textProps: {
                                   disabled: !initialValues.canAddVariable || readonly,
                                   type: variable.type === VariableType.Number ? 'number' : 'text'
-                                }
+                                },
+                                allowableTypes
                               }}
                             />
                           )}

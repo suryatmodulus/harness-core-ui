@@ -128,7 +128,11 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: (resource
   ]
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().trim().required(getString('ce.perspectives.createPerspective.validationErrors.nameError')),
+    name: Yup.string()
+      .trim()
+      .required(getString('ce.perspectives.createPerspective.validationErrors.nameError'))
+      .min(1, getString('ce.perspectives.createPerspective.validationErrors.nameLengthError'))
+      .max(32, getString('ce.perspectives.createPerspective.validationErrors.nameLengthError')),
     viewRules: Yup.array().of(
       Yup.object().shape({
         viewConditions: Yup.array().of(

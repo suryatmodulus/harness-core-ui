@@ -1,0 +1,68 @@
+.keyValHeader {
+  margin-bottom: var(--spacing-xlarge) !important;
+  align-items: center;
+
+  p:first-of-type {
+    flex-basis: 48%;
+  }
+  p:last-of-type {
+    flex-basis: 34%;
+  }
+}
+
+.addRowButton {
+  padding-left: 0 !important;
+  margin-bottom: var(--spacing-small) !important;
+  span:nth-last-child(1) {
+    white-space: nowrap;
+  }
+}
+
+.keyValueContainer {
+  align-items: center;
+  :global {
+    .bp3-form-content {
+      position: relative;
+    }
+
+    .bp3-form-helper-text {
+      position: absolute;
+      [class*='errorDiv'] {
+        margin-top: 0 !important;
+      }
+    }
+  }
+
+  &:first-of-type {
+    margin-top: var(--spacing-small) !important;
+  }
+
+  > *:nth-child(2) {
+    flex-basis: 50%;
+  }
+
+  .textCss {
+    flex-basis: 50%;
+    margin-right: var(--spacing-small) !important;
+    margin-bottom: var(--spacing-small) !important;
+    font-size: var(--font-size-small) !important;
+  }
+
+  .valueTextRef {
+    position: relative;
+    bottom: 14px;
+
+    p[data-testid='dropdown-value'] {
+      font-size: var(--font-size-small) !important;
+    }
+
+    > [class*='label'] {
+      align-self: flex-end;
+    }
+  }
+
+  .removeRow {
+    position: relative;
+    bottom: 5px;
+  }
+}

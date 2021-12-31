@@ -2,9 +2,13 @@ import React from 'react'
 
 export const onNextMock = jest.fn()
 const mockCVConnectorHoc = (input: any) => {
-  const { ConnectorCredentialsStep } = input
+  const { ConnectorCredentialsStep, nestedStep } = input
   return function Wrapper(props: any) {
-    return <ConnectorCredentialsStep {...props} nextStep={onNextMock} prevStepData={props.connectorInfo} />
+    return nestedStep ? (
+      nestedStep
+    ) : (
+      <ConnectorCredentialsStep {...props} nextStep={onNextMock} prevStepData={props.connectorInfo} />
+    )
   }
 }
 

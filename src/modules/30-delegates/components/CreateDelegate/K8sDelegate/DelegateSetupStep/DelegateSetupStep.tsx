@@ -15,7 +15,7 @@ import {
   Tag
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import type { FormikProps } from 'formik'
+import type { FormikProps, FormikActions } from 'formik'
 import {
   DelegateSizeDetails,
   useGetDelegateSizes,
@@ -27,7 +27,6 @@ import { useListDelegateProfilesNg } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 
 import type { DelegateProfile } from '@delegates/DelegateInterface'
-import { useToaster } from '@common/exports'
 
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
@@ -42,6 +41,7 @@ interface DelegateSetupStepProps {
 }
 
 export interface K8sDelegateWizardData {
+  generatedYaml?: string
   delegateYaml?: DelegateSetupDetails
   name: string
   replicas?: number
@@ -127,14 +127,13 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
 
   const delegateSizeMappings: DelegateSizeDetails[] | undefined = delegateSizes?.resource
 
-  const { showError } = useToaster()
-
   const [formData, setInitValues] = React.useState<DelegateSetupDetails>(initialValues as DelegateSetupDetails)
 
   const [selectedPermission, setSelectedPermission] = React.useState<k8sPermissionType>(
     k8sPermissionType[initialValues?.k8sConfigDetails?.k8sPermissionType || k8sPermissionType.CLUSTER_ADMIN]
   )
-  const onSubmit = async (values: DelegateSetupDetails) => {
+
+  const onSubmit = async (values: DelegateSetupDetails, formikActions: FormikActions<DelegateSetupDetails>) => {
     const createParams = values
     if (createParams.tags) {
       const tagsArray = Object.keys(values.tags || {})
@@ -147,30 +146,35 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
       set(createParams, 'orgIdentifier', orgIdentifier)
     }
     set(createParams, 'delegateType', 'KUBERNETES')
-    const response = await createKubernetesYaml({
-      ...createParams,
-      k8sConfigDetails: {
-        k8sPermissionType: selectedPermission,
-        namespace: selectedPermission === k8sPermissionType.NAMESPACE_ADMIN ? values?.k8sConfigDetails?.namespace : ''
-      }
-    })
-    if ((response as any)?.responseMessages.length) {
-      const err = (response as any)?.responseMessages?.[0]?.message
-      showError(err)
-    } else {
-      const delegateYaml = response.resource
-      if (delegateSizeMappings) {
-        const delegateSize: DelegateSizeDetails =
-          delegateSizeMappings.find((item: DelegateSizeDetails) => item.size === values.size) || delegateSizeMappings[0]
-        if (delegateSize) {
-          const stepPrevData = {
-            delegateYaml,
-            name: values.name,
-            replicas: delegateSize?.replicas
+    try {
+      const response = await createKubernetesYaml({
+        ...createParams,
+        k8sConfigDetails: {
+          k8sPermissionType: selectedPermission,
+          namespace: selectedPermission === k8sPermissionType.NAMESPACE_ADMIN ? values?.k8sConfigDetails?.namespace : ''
+        }
+      })
+      if ((response as any)?.responseMessages.length) {
+        const err = (response as any)?.responseMessages?.[0]?.message
+        formikActions.setFieldError('name', err)
+      } else {
+        const delegateYaml = response.resource
+        if (delegateSizeMappings) {
+          const delegateSize: DelegateSizeDetails =
+            delegateSizeMappings.find((item: DelegateSizeDetails) => item.size === values.size) ||
+            delegateSizeMappings[0]
+          if (delegateSize) {
+            const stepPrevData = {
+              delegateYaml,
+              name: values.name,
+              replicas: delegateSize?.replicas
+            }
+            props?.nextStep?.(stepPrevData)
           }
-          props?.nextStep?.(stepPrevData)
         }
       }
+    } catch (e) {
+      formikActions.setFieldError('name', getString('delegates.delegateNameNotUnique'))
     }
   }
 
@@ -179,10 +183,9 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
       <Container padding="small">
         <Formik
           initialValues={formData}
-          onSubmit={values => {
+          onSubmit={(values, formikActions) => {
             setInitValues(values)
-            onSubmit(values)
-            /** to do here */
+            onSubmit(values, formikActions)
           }}
           formName="delegateSetupStepForm"
           validationSchema={Yup.object().shape({

@@ -6,3 +6,13 @@
 .monitoredServiceText {
   font-size: var(--font-size-small);
 }
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  user-select: none;
+}
+
+.notAllowed {
+  cursor: not-allowed !important;
+}

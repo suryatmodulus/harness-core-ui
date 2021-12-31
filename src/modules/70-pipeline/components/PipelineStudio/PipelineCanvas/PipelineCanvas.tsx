@@ -293,6 +293,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     lastObject?: { lastObjectId?: string }
   ): Promise<UseSaveSuccessResponse> => {
     setSchemaErrorView(false)
+    const isEdit = pipelineIdentifier !== DefaultNewPipelineId
     const response = await savePipeline(
       {
         accountIdentifier: accountId,
@@ -303,7 +304,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         ...(updatedGitDetails && updatedGitDetails.isNewBranch ? { baseBranch: branch } : {})
       },
       omit(latestPipeline, 'repo', 'branch'),
-      pipelineIdentifier !== DefaultNewPipelineId,
+      isEdit,
       !!OPA_PIPELINE_GOVERNANCE
     )
     const newPipelineId = latestPipeline?.identifier
@@ -325,8 +326,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         navigateToLocation(newPipelineId, updatedGitDetails)
         location.reload()
       }
-      trackEvent(isYaml ? PipelineActions.PipelineCreatedViaYAML : PipelineActions.PipelineCreatedViaVisual, {})
-      trackEvent(PipelineActions.PipelineCreated, {})
+      if (isEdit) {
+        trackEvent(isYaml ? PipelineActions.PipelineUpdatedViaYAML : PipelineActions.PipelineUpdatedViaVisual, {})
+      } else {
+        trackEvent(isYaml ? PipelineActions.PipelineCreatedViaYAML : PipelineActions.PipelineCreatedViaVisual, {})
+      }
     } else {
       clear()
       setSchemaErrorView(true)
@@ -375,6 +379,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   })
 
   const saveAndPublish = React.useCallback(async () => {
+    window.dispatchEvent(new CustomEvent('SAVE_PIPELINE_CLICKED'))
+
     let latestPipeline: PipelineInfoConfig = pipeline
 
     if (isYaml && yamlHandler) {

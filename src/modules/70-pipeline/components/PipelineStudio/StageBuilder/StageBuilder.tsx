@@ -1,7 +1,7 @@
 import React from 'react'
 import { Intent, Layout, useToaster, useConfirmationDialog } from '@wings-software/uicore'
 import cx from 'classnames'
-import { cloneDeep, debounce, isEmpty, isNil, noop } from 'lodash-es'
+import { cloneDeep, debounce, isEmpty, isNil } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
@@ -18,6 +18,8 @@ import { PipelineOrStageStatus } from '@pipeline/components/PipelineSteps/Advanc
 import ConditionalExecutionTooltip from '@pipeline/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
 import { useGlobalEventListener } from '@common/hooks'
 import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import { StageType } from '@pipeline/utils/stageHelpers'
+import { useTemplateSelector } from '@pipeline/utils/useTemplateSelector'
 import {
   CanvasWidget,
   createEngine,
@@ -43,7 +45,8 @@ import {
   getDependantStages,
   resetServiceSelectionForStages,
   getAffectedDependentStages,
-  getStageIndexByIdentifier
+  getStageIndexByIdentifier,
+  getNewStageFromTemplate
 } from './StageBuilderUtil'
 import { useStageBuilderCanvasState } from './useStageBuilderCanvasState'
 import { StageList } from './views/StageList'
@@ -74,7 +77,7 @@ const DEFAULT_MOVE_STAGE_DETAILS: MoveStageDetailsType = {
   direction: MoveDirection.AHEAD,
   event: undefined
 }
-const initializeStageStateMap = (pipeline: PipelineInfoConfig, mapState: StageStateMap): void => {
+export const initializeStageStateMap = (pipeline: PipelineInfoConfig, mapState: StageStateMap): void => {
   /* istanbul ignore else */ if (pipeline?.stages) {
     pipeline.stages.forEach?.(node => {
       if (node?.stage && node.stage.name !== EmptyStageName) {
@@ -103,7 +106,12 @@ export const renderPopover = ({
   isStageView,
   onSubmitPrimaryData,
   renderPipelineStage,
-  isHoverView
+  isHoverView,
+  contextType,
+  templateTypes,
+  setTemplateTypes,
+  openTemplateSelector,
+  closeTemplateSelector
 }: PopoverData): JSX.Element => {
   if (isStageView && data) {
     const stageData = {
@@ -124,7 +132,11 @@ export const renderPopover = ({
           }
           onSubmitPrimaryData?.(values, identifier)
         }
-      }
+      },
+      openTemplateSelector,
+      closeTemplateSelector,
+      templateTypes,
+      setTemplateTypes
     })
   } else if (isGroupStage) {
     return (
@@ -133,6 +145,7 @@ export const renderPopover = ({
         stages={groupStages || []}
         selectedStageId={groupSelectedStageId}
         onClick={onClickGroupStage}
+        templateTypes={templateTypes}
       />
     )
   } else if (isHoverView && !!data?.stage?.when) {
@@ -150,13 +163,19 @@ export const renderPopover = ({
     isParallel,
     showSelectMenu: true,
     getNewStageFromType: getNewStageFromType as any,
+    getNewStageFromTemplate: getNewStageFromTemplate as any,
     onSelectStage: (type, stage, pipelineTemp) => {
       if (stage) {
         addStage?.(stage, isParallel, event, undefined, true, pipelineTemp)
       } else {
         addStage?.(getNewStageFromType(type as any), isParallel, event)
       }
-    }
+    },
+    contextType: contextType,
+    templateTypes,
+    setTemplateTypes,
+    openTemplateSelector,
+    closeTemplateSelector
   })
 }
 
@@ -170,20 +189,25 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
       },
       pipelineView,
       isInitialized,
-      selectionState: { selectedStageId }
+      selectionState: { selectedStageId },
+      templateTypes
     },
+    contextType = 'Pipeline',
     isReadonly,
     stagesMap,
     updatePipeline,
     updatePipelineView,
     renderPipelineStage,
     getStageFromPipeline,
-    setSelection
+    setSelection,
+    setTemplateTypes
   } = usePipelineContext()
 
   // NOTE: we are using ref as setSelection is getting cached somewhere
   const setSelectionRef = React.useRef(setSelection)
   setSelectionRef.current = setSelection
+
+  const { openTemplateSelector, closeTemplateSelector } = useTemplateSelector()
 
   const { trackEvent } = useTelemetry()
 
@@ -315,7 +339,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
       getString,
       isReadonly,
       parentPath: 'pipeline.stages',
-      errorMap
+      errorMap,
+      templateTypes
     })
     if (newStage.stage && newStage.stage.name !== EmptyStageName) {
       stageMap.set(newStage.stage.identifier, { isConfigured: true, stage: newStage })
@@ -406,7 +431,12 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
               addStage,
               isStageView: false,
               renderPipelineStage,
-              stagesMap
+              stagesMap,
+              contextType,
+              templateTypes,
+              setTemplateTypes,
+              openTemplateSelector,
+              closeTemplateSelector
             },
             { useArrows: true, darkMode: false, fixedPosition: false }
           )
@@ -426,7 +456,12 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
                   moveStageToFocusDelayed(engine, stageId, true, false)
                 },
                 stagesMap,
-                renderPipelineStage
+                renderPipelineStage,
+                contextType,
+                templateTypes,
+                setTemplateTypes,
+                openTemplateSelector,
+                closeTemplateSelector
               },
               { useArrows: false, darkMode: false, fixedPosition: false }
             )
@@ -449,13 +484,18 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
                     setSelectionRef.current({ stageId: identifier })
                   },
                   stagesMap,
-                  renderPipelineStage
+                  renderPipelineStage,
+                  contextType,
+                  templateTypes,
+                  setTemplateTypes,
+                  openTemplateSelector,
+                  closeTemplateSelector
                 },
                 { useArrows: false, darkMode: false, fixedPosition: false }
               )
               setSelectionRef.current({ stageId: undefined, sectionId: undefined })
             } else {
-              setSelectionRef.current({ stageId: data?.stage?.identifier })
+              setSelectionRef.current({ stageId: data?.stage?.identifier, sectionId: undefined })
               moveStageToFocusDelayed(engine, data?.stage?.identifier, true, false)
             }
           } /* istanbul ignore else */ else if (!isSplitViewOpen) {
@@ -477,7 +517,12 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
                     setSelectionRef.current({ stageId: identifier })
                   },
                   stagesMap,
-                  renderPipelineStage
+                  renderPipelineStage,
+                  contextType,
+                  templateTypes,
+                  setTemplateTypes,
+                  openTemplateSelector,
+                  closeTemplateSelector
                 },
                 { useArrows: false, darkMode: false, fixedPosition: false }
               )
@@ -514,7 +559,12 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
             isStageView: false,
             event: eventTemp,
             stagesMap,
-            renderPipelineStage
+            renderPipelineStage,
+            contextType,
+            templateTypes,
+            setTemplateTypes,
+            openTemplateSelector,
+            closeTemplateSelector
           },
           { useArrows: false, darkMode: false, fixedPosition: false },
           eventTemp.callback
@@ -603,19 +653,15 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
             isStageView: false,
             isHoverView: true,
             stagesMap,
-            renderPipelineStage
+            renderPipelineStage,
+            contextType,
+            templateTypes,
+            setTemplateTypes,
+            openTemplateSelector,
+            closeTemplateSelector
           },
-          { useArrows: true, darkMode: false, fixedPosition: false, placement: 'top' },
-          noop,
-          true
+          { useArrows: true, darkMode: false, fixedPosition: false, placement: 'top' }
         )
-      }
-    },
-    [Event.MouseLeaveNode]: (event: any) => {
-      const eventTemp = event as DefaultNodeEvent
-      eventTemp.stopPropagation()
-      if (dynamicPopoverHandler?.isHoverView?.()) {
-        dynamicPopoverHandler?.hide()
       }
     }
   }
@@ -691,7 +737,12 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
             isStageView: true,
             event: eventTemp,
             stagesMap,
-            renderPipelineStage
+            renderPipelineStage,
+            contextType,
+            templateTypes,
+            setTemplateTypes,
+            openTemplateSelector,
+            closeTemplateSelector
           },
           { useArrows: false, darkMode: false, fixedPosition: openSplitView }
         )
@@ -776,7 +827,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     selectedStageId,
     splitPaneSize,
     parentPath: 'pipeline.stages',
-    errorMap
+    errorMap,
+    templateTypes
   })
   const setSplitPaneSizeDeb = React.useRef(debounce(setSplitPaneSize, 200))
   // load model into engine
@@ -824,6 +876,8 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     ? { display: 'flow-root list-item' }
     : { display: 'inline-table' }
 
+  const stageType = selectedStage?.stage?.stage?.template ? StageType.Template : selectedStage?.stage?.stage?.type
+
   return (
     <Layout.Horizontal className={cx(css.canvasContainer)} padding="medium">
       <div className={css.canvasWrapper}>
@@ -848,8 +902,12 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
           >
             {openSplitView && type === SplitViewTypes.StageView
               ? renderPipelineStage({
-                  stageType: selectedStage?.stage?.stage?.type,
-                  minimal: false
+                  stageType: stageType,
+                  minimal: false,
+                  templateTypes,
+                  setTemplateTypes,
+                  openTemplateSelector,
+                  closeTemplateSelector
                 })
               : null}
           </div>

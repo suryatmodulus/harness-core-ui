@@ -32,7 +32,8 @@ interface TextReferenceProps {
   type?: string
   allowSelection?: boolean
   privateSecret?: boolean
-  stringId: keyof StringsMap
+  placeHolder?: string
+  stringId?: keyof StringsMap
 }
 
 interface FormikTextReference extends TextReferenceProps {
@@ -59,7 +60,7 @@ const TextReference: React.FC<FormikTextReference> = props => {
     } else {
       formik.setFieldValue(`${name}fieldType`, ValueType.TEXT)
     }
-  }, [])
+  }, [props.type])
 
   useEffect(() => {
     if (formik.values[`${name}secretField`]) {
@@ -97,10 +98,11 @@ const TextReference: React.FC<FormikTextReference> = props => {
     return val
   }
   useEffect(() => {
-    if (formik.values[props.name]?.type === ValueType.TEXT) {
-      formik.setFieldValue(`${name}textField`, formik.values[props.name].value)
-    } else if (formik.values[props.name]?.type === ValueType.ENCRYPTED) {
-      getSecretInfo(formik.values[props.name].value).then(data => {
+    const type = get(formik.values, `${props.name}.type`)
+    if (type === ValueType.TEXT) {
+      formik.setFieldValue(`${name}textField`, get(formik.values, `${props.name}.value`))
+    } else if (type === ValueType.ENCRYPTED) {
+      getSecretInfo(get(formik.values, `${props.name}.value`)).then(data => {
         formik.setFieldValue(`${name}secretField`, data)
       })
     }
@@ -114,11 +116,13 @@ const TextReference: React.FC<FormikTextReference> = props => {
     <FormGroup helperText={hasError ? get(formik?.errors, name) : null} intent={hasError ? Intent.DANGER : Intent.NONE}>
       <Layout.Vertical className={props.className}>
         <div className={css.label}>
-          <StringWithTooltip
-            tooltipId={dataTooltipId}
-            stringId={props.stringId}
-            className={cx(Classes.LABEL, css.stringWithTooltipLabel)}
-          />
+          {props.stringId && (
+            <StringWithTooltip
+              tooltipId={dataTooltipId}
+              stringId={props.stringId}
+              className={cx(Classes.LABEL, css.stringWithTooltipLabel)}
+            />
+          )}
           <FormInput.DropDown
             name={`${name}fieldType`}
             items={[
@@ -137,9 +141,10 @@ const TextReference: React.FC<FormikTextReference> = props => {
             }}
           />
         </div>
-        {formik.values[`${name}fieldType`] === ValueType.TEXT ? (
+        {get(formik.values, `${name}fieldType`) === ValueType.TEXT ? (
           <FormInput.Text
             name={`${name}textField`}
+            placeholder={props.placeHolder}
             onChange={e => {
               if ((e.target as any).value === '') {
                 formik.setFieldValue(props.name, undefined)

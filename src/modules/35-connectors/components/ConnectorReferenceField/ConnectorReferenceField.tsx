@@ -160,7 +160,7 @@ export function getSelectedRenderer(selected: ConnectorSelectedValue): JSX.Eleme
           size={6}
           style={{ paddingRight: 'var(--spacing-xsmall)' }}
         />
-        <Tag minimal className={css.tag}>
+        <Tag minimal id={css.tag}>
           {getScopeFromValue(selected?.value || '')}
         </Tag>
       </div>

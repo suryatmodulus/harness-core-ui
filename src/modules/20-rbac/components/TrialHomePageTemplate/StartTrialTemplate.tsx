@@ -58,6 +58,7 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
   const { FREE_PLAN_ENABLED, PLANS_ENABLED } = useFeatureFlags()
   const clickEvent = FREE_PLAN_ENABLED ? PlanActions.StartFreeClick : TrialActions.StartTrialClick
   const experience = FREE_PLAN_ENABLED ? ModuleLicenseType.FREE : ModuleLicenseType.TRIAL
+  const modal = FREE_PLAN_ENABLED ? ModuleLicenseType.FREE : ModuleLicenseType.TRIAL
 
   async function handleStartTrial(): Promise<void> {
     trackEvent(clickEvent, {
@@ -72,7 +73,7 @@ const StartTrialComponent: React.FC<StartTrialProps> = startTrialProps => {
 
       history.push({
         pathname: routes.toModuleHome({ accountId, module }),
-        search: `?experience=${experience}`
+        search: `?modal=${modal}&&experience=${experience}`
       })
     } catch (error) {
       showError(error.data?.message)

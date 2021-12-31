@@ -3,6 +3,7 @@ rules:
     - error
     - patterns:
         - lodash.*
+        - modules/20-audit-trail/*
         - modules/22-resource-center/*
         - modules/25-governance/*
         - modules/30-auth-settings/*
@@ -20,6 +21,7 @@ rules:
         - modules/75-cf/*
         - modules/75-ci/*
         - modules/85-cv/*
+        - '@audit-trail/*'
         - '@resource-center/*'
         - '@governance/*'
         - '@auth-settings/*'

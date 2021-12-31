@@ -18,5 +18,6 @@ declare const styles: {
   readonly labelItem: string
   readonly valueFetching: string
   readonly groupByLabel: string
+  readonly labelValueContainer: string
 }
 export default styles

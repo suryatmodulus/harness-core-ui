@@ -80,5 +80,9 @@ module.exports = {
   '/gitops': {
     pathRewrite: { '^/gitops': '' },
     target: process.env.GITOPS_URL || 'https://localhost:8183'
+  },
+  '/audit/api': {
+    pathRewrite: { '^/ng/api': '' },
+    target: targetLocalHost ? 'http://localhost:9005' : baseUrl
   }
 }

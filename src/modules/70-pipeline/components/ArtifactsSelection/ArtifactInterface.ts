@@ -1,3 +1,4 @@
+import type { MultiTypeInputType } from '@wings-software/uicore'
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import type { ArtifactConfig, PrimaryArtifact, PageConnectorResponse, SidecarArtifactWrapper } from 'services/cd-ng'
@@ -57,6 +58,7 @@ export interface ImagePathProps {
   artifactIdentifiers: string[]
   isReadonly?: boolean
   selectedArtifact: ArtifactType | null
+  allowableTypes: MultiTypeInputType[]
 }
 
 export interface ConnectorRefLabelType {

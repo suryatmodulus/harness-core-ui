@@ -192,8 +192,7 @@ const VerifyOutOfClusterDelegate: React.FC<StepProps<VerifyOutOfClusterStepProps
         case Connectors.Jira:
           return 'https://ngdocs.harness.io/article/e6s32ec7i7'
         case Connectors.SERVICE_NOW:
-          //TODO add link once updated
-          return 'https://ngdocs.harness.io/'
+          return 'https://ngdocs.harness.io/article/illz8off8q'
         case Connectors.HttpHelmRepo:
           return 'https://ngdocs.harness.io/article/a0jotsvsi7'
         default:

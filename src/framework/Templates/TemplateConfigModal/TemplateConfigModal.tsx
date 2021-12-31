@@ -185,6 +185,12 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
                         inputGroupProps: { disabled: disabledFields.includes(Fields.Name) || isReadonly }
                       }}
                       className={css.nameIdDescriptionTags}
+                      descriptionProps={{
+                        disabled: disabledFields.includes(Fields.Description) || isReadonly
+                      }}
+                      tagsProps={{
+                        disabled: disabledFields.includes(Fields.Tags) || isReadonly
+                      }}
                     />
                     <FormInput.Text
                       name="versionLabel"

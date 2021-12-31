@@ -949,9 +949,6 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
                                               />
                                             </div>
                                             <div
-                                              class="StyledProps--font StyledProps--main bottomMargin3"
-                                            />
-                                            <div
                                               class="fieldsGroup withoutSpacing topPadding3 bottomPadding3 lg"
                                             >
                                               <div
@@ -1770,7 +1767,8 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                         class="Tag--main"
                                       >
                                         <span
-                                          class="bp3-tag bp3-minimal tag"
+                                          class="bp3-tag bp3-minimal"
+                                          id="tag"
                                         >
                                           <span
                                             class="bp3-text-overflow-ellipsis bp3-fill"
@@ -2771,7 +2769,8 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                                         class="Tag--main"
                                       >
                                         <span
-                                          class="bp3-tag bp3-minimal tag"
+                                          class="bp3-tag bp3-minimal"
+                                          id="tag"
                                         >
                                           <span
                                             class="bp3-text-overflow-ellipsis bp3-fill"

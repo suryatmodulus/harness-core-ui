@@ -30,6 +30,7 @@ export interface KubernetesInputSetProps {
   path?: string
   stageIdentifier: string
   formik?: any
+  allowableTypes: MultiTypeInputType[]
 }
 
 const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetProps) => {
@@ -43,7 +44,8 @@ const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetPr
     readonly = false,
     stageIdentifier,
     stepViewType,
-    formik
+    formik,
+    allowableTypes
   } = props
   const { getString } = useStrings()
   return (
@@ -99,7 +101,7 @@ const KubernetesServiceSpecInputSetModeFormikForm = (props: KubernetesInputSetPr
               }}
               type={StepType.CustomVariable}
               stepViewType={StepViewType.InputSet}
-              allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+              allowableTypes={allowableTypes}
               onUpdate={({ variables }: CustomVariablesData) => {
                 onUpdate?.({
                   variables: variables as any

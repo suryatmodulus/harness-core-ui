@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Icon, StepWizard, Color, StepProps } from '@wings-software/uicore'
+import { Text, Icon, StepWizard, Color, StepProps, MultiTypeInputType } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 
 import { useStrings } from 'framework/strings'
@@ -27,6 +27,7 @@ interface ManifestWizardStepsProps {
   selectedManifest: ManifestTypes | null
   newConnectorView: boolean
   expressions: string[]
+  allowableTypes: MultiTypeInputType[]
   newConnectorSteps?: any
   lastSteps?: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> | null
   changeManifestType: (data: ManifestTypes | null) => void
@@ -40,6 +41,7 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
   initialValues,
   types,
   expressions,
+  allowableTypes,
   manifestStoreTypes,
   labels,
   selectedManifest,
@@ -87,6 +89,7 @@ export const ManifestWizard: React.FC<ManifestWizardStepsProps> = ({
         name={getString('pipeline.manifestType.manifestSource')}
         stepName={labels.secondStepName}
         expressions={expressions}
+        allowableTypes={allowableTypes}
         isReadonly={isReadonly}
         manifestStoreTypes={manifestStoreTypes}
         handleConnectorViewChange={() => handleConnectorViewChange(true)}

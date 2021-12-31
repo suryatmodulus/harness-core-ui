@@ -10,6 +10,7 @@
           "endTs": 551124,
           "interruptHistories": [
             {
+              "interruptType": "RETRY",
               "interruptConfig": {
                 "retryInterruptConfig": {
                   "retryId": "retrystep_1"
@@ -17,6 +18,7 @@
               }
             },
             {
+              "interruptType": "RETRY",
               "interruptConfig": {
                 "retryInterruptConfig": {
                   "retryId": "retrystep_2"
@@ -38,6 +40,7 @@
       "endTs": 551124,
       "interruptHistories": [
         {
+          "interruptType": "RETRY",
           "interruptConfig": {
             "retryInterruptConfig": {
               "retryId": "retrystep_1"

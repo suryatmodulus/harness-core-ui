@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { set } from 'lodash-es'
+import { noop, set } from 'lodash-es'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, pipelineModuleParams, templatePathProps } from '@common/utils/routeUtils'
@@ -12,6 +12,7 @@ import { DefaultNewStageId, DefaultNewStageName, StageTemplateFormWithRef } from
 describe('<StageTemplateFormWithRef /> tests', () => {
   test('snapshot test', async () => {
     const context = { ...pipelineContextMock }
+    context.contextType = 'Template'
     delete context.state.pipeline.stages
     set(context, 'state.pipeline.stages[0].stage', {
       ...stageTemplateMock.spec,
@@ -36,6 +37,14 @@ describe('<StageTemplateFormWithRef /> tests', () => {
       </PipelineContext.Provider>
     )
     expect(container).toMatchSnapshot()
-    expect(context.renderPipelineStage).toBeCalledWith({ stageType: 'Deployment', minimal: false })
+    expect(context.renderPipelineStage).toBeCalledWith({
+      stageType: 'Deployment',
+      minimal: false,
+      contextType: 'Template',
+      templateTypes: context.state.templateTypes,
+      setTemplateTypes: context.setTemplateTypes,
+      openTemplateSelector: noop,
+      closeTemplateSelector: noop
+    })
   })
 })

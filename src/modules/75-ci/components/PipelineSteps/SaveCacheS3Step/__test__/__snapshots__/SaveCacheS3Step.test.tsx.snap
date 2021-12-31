@@ -225,7 +225,8 @@ exports[`Save Cache S3 Step Edit View edit mode works 1`] = `
                               class="Tag--main"
                             >
                               <span
-                                class="bp3-tag bp3-minimal tag"
+                                class="bp3-tag bp3-minimal"
+                                id="tag"
                               >
                                 <span
                                   class="bp3-text-overflow-ellipsis bp3-fill"
@@ -2657,14 +2658,25 @@ exports[`Save Cache S3 Step InputSet View should render all fields 1`] = `
         >
           <div>
             <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="endpoint"
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-baseline"
             >
               <p
                 class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
               >
                 pipelineSteps.endpointLabel
               </p>
+               
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="endpoint"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey400 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  style="text-transform: capitalize;"
+                >
+                  common.optionalLabel
+                </p>
+              </div>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -3188,9 +3200,6 @@ exports[`Save Cache S3 Step InputSet View should render properly 1`] = `
             style="min-height: 24px;"
           />
         </div>
-        <div
-          class="StyledProps--font StyledProps--main bottomMargin3"
-        />
       </div>
     </form>
     <p

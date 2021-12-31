@@ -15,6 +15,7 @@ import type {
 import type { BasePathData } from './Components/BasePath/BasePath.types'
 import type { MetricPathData } from './Components/MetricPath/MetricPath.types'
 import { AppDynamicsMonitoringSourceFieldNames } from './AppDHealthSource.constants'
+import { PATHTYPE } from './Components/AppDMappedMetric/AppDMappedMetric.constant'
 
 export const convertStringBasePathToObject = (baseFolder: string | BasePathData): BasePathData => {
   let basePathObj = {} as any
@@ -256,7 +257,8 @@ export function initializeSelectedMetricsMap(
             metricPath: {},
             appdApplication: '',
             appDTier: '',
-            metricData: {}
+            metricData: {},
+            metricIdentifier: defaultSelectedMetricName.split(' ').join('_')
           }
         ]
       ])
@@ -272,6 +274,38 @@ export function initializeCreatedMetrics(
     createdMetrics: Array.from(mappedMetrics.keys()) || [defaultSelectedMetricName],
     selectedMetricIndex: Array.from(mappedMetrics.keys()).findIndex(metric => metric === selectedMetric)
   }
+}
+
+export const getBaseAndMetricPath = (
+  basePath: BasePathData,
+  metricPath: MetricPathData,
+  fullPath: string | null,
+  appDTier: string
+): { derivedBasePath: string; derivedMetricPath: string } => {
+  // convert full path to metricPath and basePath
+  let derivedBasePath = ''
+  let derivedMetricPath = ''
+  if (fullPath) {
+    const data = convertFullPathToBaseAndMetric(fullPath, appDTier)
+    derivedBasePath = data.derivedBasePath
+    derivedMetricPath = data.derivedMetricPath
+  } else {
+    derivedBasePath = basePath[Object.keys(basePath)[Object.keys(basePath).length - 1]]?.path
+    derivedMetricPath = metricPath[Object.keys(metricPath)[Object.keys(metricPath).length - 1]]?.path
+  }
+
+  return { derivedBasePath, derivedMetricPath }
+}
+
+export const convertFullPathToBaseAndMetric = (
+  fullPath: string,
+  appDTier: string
+): { derivedBasePath: string; derivedMetricPath: string } => {
+  const fullPathArray = fullPath.split('/').map((item: string) => item.trim())
+  const indexOfManager = fullPathArray.indexOf(appDTier)
+  const derivedBasePath = fullPathArray.slice(0, indexOfManager).join('|')
+  const derivedMetricPath = fullPathArray.slice(indexOfManager + 1, fullPathArray.length).join('|')
+  return { derivedBasePath, derivedMetricPath }
 }
 
 export const createAppDynamicsPayload = (formData: any): UpdatedHealthSource | null => {
@@ -296,8 +330,16 @@ export const createAppDynamicsPayload = (formData: any): UpdatedHealthSource | n
         basePath,
         metricPath,
         metricIdentifier,
-        serviceInstanceMetricPath
+        serviceInstanceMetricPath,
+        fullPath
       } = entry[1]
+
+      const { derivedBasePath, derivedMetricPath } = getBaseAndMetricPath(
+        basePath,
+        metricPath,
+        fullPath,
+        formData.appDTier
+      )
 
       const [category, metricType] = riskCategory?.split('/') || []
       const thresholdTypes: RiskProfile['thresholdTypes'] = []
@@ -314,8 +356,8 @@ export const createAppDynamicsPayload = (formData: any): UpdatedHealthSource | n
       specPayload?.metricDefinitions?.push({
         identifier: metricIdentifier,
         metricName,
-        baseFolder: basePath[Object.keys(basePath)[Object.keys(basePath).length - 1]]?.path,
-        metricPath: metricPath[Object.keys(metricPath)[Object.keys(metricPath).length - 1]]?.path,
+        baseFolder: derivedBasePath,
+        metricPath: derivedMetricPath,
         groupName: groupName?.value as string,
         sli: { enabled: Boolean(sli) },
         analysis: {
@@ -410,6 +452,12 @@ export const createAppDFormData = (
   },
   showCustomMetric: boolean
 ): AppDynamicsFomikFormInterface => {
+  const mappedMetricsData = mappedMetrics.get(selectedMetric)
+  const metricIdentifier = mappedMetricsData?.metricIdentifier || selectedMetric.split(' ').join('_')
+  const { basePath = {}, metricPath = {} } = mappedMetricsData || {}
+  const lastItemBasePath = Object.keys(basePath)[Object.keys(basePath).length - 1]
+  const lastItemMetricPath = Object.keys(metricPath)[Object.keys(metricPath).length - 1]
+  const fullPath = `${basePath[lastItemBasePath]?.path}|${appDynamicsData.tierName}|${metricPath[lastItemMetricPath]?.path}`
   return {
     name: appDynamicsData.name,
     identifier: appDynamicsData.identifier,
@@ -421,7 +469,10 @@ export const createAppDFormData = (
     ...nonCustomFeilds,
     ...(mappedMetrics.get(selectedMetric) as MapAppDynamicsMetric),
     metricName: selectedMetric,
-    showCustomMetric
+    fullPath,
+    pathType: PATHTYPE.DropdownPath,
+    showCustomMetric,
+    metricIdentifier
   }
 }
 

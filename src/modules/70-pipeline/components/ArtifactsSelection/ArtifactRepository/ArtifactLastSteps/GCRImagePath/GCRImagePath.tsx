@@ -46,6 +46,7 @@ export const gcrUrlList: SelectOption[] = Object.values(RegistryHostNames).map(i
 export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   context,
   expressions,
+  allowableTypes,
   handleSubmit,
   prevStepData,
   initialValues,
@@ -269,6 +270,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                       resetTag(formik)
                     },
                     expressions,
+                    allowableTypes,
                     selectProps: {
                       allowCreatingNewItems: true,
                       addClearBtn: true,
@@ -299,7 +301,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                   label={getString('pipeline.imagePathLabel')}
                   name="imagePath"
                   placeholder={getString('pipeline.artifactsSelection.existingDocker.imageNamePlaceholder')}
-                  multiTextInputProps={{ expressions }}
+                  multiTextInputProps={{ expressions, allowableTypes }}
                   onChange={() => {
                     tagList.length && setTagList([])
                     resetTag(formik)
@@ -349,6 +351,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                     }
                     multiTypeInputProps={{
                       expressions,
+                      allowableTypes,
                       selectProps: {
                         defaultSelectedItem: formik.values?.tag,
                         noResults: (
@@ -398,7 +401,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                     label={getString('tagRegex')}
                     name="tagRegex"
                     placeholder={getString('pipeline.artifactsSelection.existingDocker.enterTagRegex')}
-                    multiTextInputProps={{ expressions }}
+                    multiTextInputProps={{ expressions, allowableTypes }}
                   />
                   {getMultiTypeFromValue(formik.values.tagRegex) === MultiTypeInputType.RUNTIME && (
                     <div className={css.configureOptions}>

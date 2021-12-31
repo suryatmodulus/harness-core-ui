@@ -1,9 +1,9 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { isEmpty as _isEmpty, omit as _omit, debounce as _debounce } from 'lodash-es'
-import { Icon, Select, Table, TextInput } from '@wings-software/uicore'
-import type { CellProps, Column } from 'react-table'
+import { FieldArray, Select, TextInput } from '@wings-software/uicore'
+import { Formik } from 'formik'
+import type { Field } from '@wings-software/uicore/dist/components/FieldArray/FieldArray'
 import type { PortConfig } from 'services/lw'
-import type { InstanceDetails } from '../COCreateGateway/models'
 import css from './COGatewayConfig.module.scss'
 
 interface SelectItem {
@@ -38,359 +38,158 @@ interface CORoutingTableProps {
   setRoutingRecords: (records: PortConfig[]) => void
 }
 const CORoutingTable: React.FC<CORoutingTableProps> = props => {
-  const [redirectionConfigRows, setRedirectionConfigRows] = useState<Record<string, boolean>>({})
+  const [forwardConfigRows, setForwardConfigRows] = useState<Record<string, boolean>>({})
 
-  const debouncedInputHandler = React.useCallback(
-    _debounce((value: string, tableProps: CellProps<InstanceDetails>) => {
-      updatePortConfig(tableProps.row.index, tableProps.column.id, value)
-    }, 500),
-    [props.routingRecords]
-  )
-
-  const updatePortConfig = (index: number, column: string, val: string) => {
-    const portConfig = [...props.routingRecords]
-    switch (column) {
-      case 'protocol': {
-        portConfig[index]['protocol'] = val
-        break
-      }
-      case 'target_protocol': {
-        portConfig[index]['target_protocol'] = val
-        break
-      }
-      case 'action': {
-        portConfig[index]['action'] = val
-        break
-      }
-      case 'redirect_url': {
-        portConfig[index]['redirect_url'] = val
-        break
-      }
-      case 'server_name': {
-        portConfig[index]['server_name'] = val
-        break
-      }
-      case 'routing_rules': {
-        portConfig[index]['routing_rules'] = [{ path_match: val }] // eslint-disable-line
-        break
-      }
-      case 'port': {
-        portConfig[index]['port'] = +val
-        break
-      }
-      case 'target_port': {
-        portConfig[index]['target_port'] = +val
-        break
-      }
+  useEffect(() => {
+    if (!_isEmpty(props.routingRecords) && _isEmpty(forwardConfigRows)) {
+      const configRows: Record<string, boolean> = {}
+      props.routingRecords.forEach((record, _index) => {
+        if (record.action === 'forward') {
+          configRows[_index] = true
+        }
+      })
+      setForwardConfigRows(configRows)
     }
-    props.setRoutingRecords(portConfig)
-  }
-
-  const deletePortConfig = (index: number) => {
-    const portConfig = [...props.routingRecords]
-    portConfig.splice(index, 1)
-    props.setRoutingRecords(portConfig)
-  }
+  }, [props.routingRecords])
 
   const getItembyValue = (items: SelectItem[], value: string): SelectItem => {
     return items.filter(x => x.value == value)[0]
   }
 
-  const InputCell = (tableProps: CellProps<InstanceDetails>): JSX.Element => {
-    return (
-      <TextInput
-        defaultValue={tableProps.value}
-        style={{ border: 'none' }}
-        onChange={e => debouncedInputHandler((e.target as HTMLInputElement).value, tableProps)}
-      />
-    )
+  const getTextInput: Field['renderer'] = (value, _rowIndex, handleChange) => (
+    <TextInput
+      defaultValue={value}
+      style={{ border: 'none', marginBottom: 0 }}
+      onChange={e => handleChange((e.currentTarget as HTMLInputElement).value)}
+    />
+  )
+
+  const getProtocolSelect: Field['renderer'] = (value, _rowIndex, handleChange) => (
+    <Select
+      className={css.selectCell}
+      value={getItembyValue(protocols, value)}
+      items={protocols}
+      onChange={item => handleChange(item.value)}
+    />
+  )
+
+  const fields: Field[] = [
+    {
+      name: 'protocol',
+      label: 'PROTOCOL',
+      renderer: getProtocolSelect
+    },
+    {
+      name: 'port',
+      label: 'PORT',
+      renderer: getTextInput
+    },
+    {
+      name: 'action',
+      label: 'ACTION',
+      renderer: (value, rowIndex, handleChange) => (
+        <Select
+          className={css.selectCell}
+          value={getItembyValue(actions, value)}
+          items={actions}
+          onChange={item => {
+            handleChange(item.value)
+            if (item.value === 'forward') {
+              setForwardConfigRows(prevRecord => ({ ...prevRecord, [rowIndex]: true }))
+            } else if (forwardConfigRows[rowIndex]) {
+              setForwardConfigRows(prevRecord => _omit(prevRecord, rowIndex))
+            }
+          }}
+        />
+      )
+    },
+    {
+      name: 'target_protocol',
+      label: 'TARGET PROTOCOL',
+      renderer: getProtocolSelect
+    },
+    {
+      name: 'target_port',
+      label: 'TARGET PORT',
+      renderer: getTextInput
+    },
+    {
+      name: 'redirect_url',
+      label: 'REDIRECT URL',
+      renderer: (value, _rowIndex, handleChange) => (
+        <TextInput
+          defaultValue={value}
+          disabled={forwardConfigRows[_rowIndex]}
+          style={{ border: 'none', marginBottom: 0 }}
+          onChange={e => handleChange((e.currentTarget as HTMLInputElement).value)}
+        />
+      )
+    },
+    {
+      name: 'server_name',
+      label: 'SERVER NAME',
+      renderer: getTextInput
+    },
+    {
+      name: 'routing_rules',
+      label: 'PATH MATCH',
+      renderer: (value, _rowIndex, handleChange) => (
+        <TextInput
+          defaultValue={value}
+          style={{ border: 'none', marginBottom: 0 }}
+          onChange={e => handleChange((e.currentTarget as HTMLInputElement).value)}
+          data-testid="routingRules"
+        />
+      )
+    }
+  ]
+
+  const getInitialData = () => {
+    return props.routingRecords.map(_record => {
+      return {
+        ..._record,
+        routing_rules: _isEmpty(_record['routing_rules']) ? '' : _record['routing_rules']?.[0].path_match
+      }
+    })
   }
 
-  const ProtocolCell = (tableProps: CellProps<InstanceDetails>): JSX.Element => {
-    return (
-      <Select
-        className={css.selectCell}
-        value={getItembyValue(protocols, tableProps.value)}
-        items={protocols}
-        onChange={e => {
-          updatePortConfig(tableProps.row.index, tableProps.column.id, e.value.toString())
-        }}
-      />
-    )
-  }
+  const handleFielArrayChange = _debounce(data => {
+    const portConfig = [...(data.modifiedRows as Array<any>)]
+    portConfig.forEach(config => {
+      const routingRules = config['routing_rules']
+      config['routing_rules'] = !_isEmpty(routingRules)
+        ? [{ path_match: Array.isArray(routingRules) ? routingRules[0].path_match : routingRules }]
+        : []
+      if (!_isEmpty(config.port)) {
+        config.port = Number(config.port)
+      }
+      if (!_isEmpty(config.target_port)) {
+        config.target_port = Number(config.target_port)
+      }
+    })
+    props.setRoutingRecords(portConfig)
+  }, 500)
 
-  const ActionCell = (tableProps: CellProps<InstanceDetails>): JSX.Element => {
-    return (
-      <Select
-        className={css.selectCell}
-        value={getItembyValue(actions, tableProps.value)}
-        items={actions}
-        onChange={e => {
-          updatePortConfig(tableProps.row.index, tableProps.column.id, e.value.toString())
-          if (e.value === 'redirect') {
-            setRedirectionConfigRows(prevRecord => ({ ...prevRecord, [tableProps.row.index]: true }))
-          } else if (redirectionConfigRows[tableProps.row.index]) {
-            setRedirectionConfigRows(prevRecord => _omit(prevRecord, tableProps.row.index))
-          }
-        }}
-      />
-    )
-  }
-
-  const PathCell = (tableProps: CellProps<InstanceDetails>): JSX.Element => {
-    return (
-      <TextInput
-        defaultValue={tableProps.value.length ? tableProps.value[0].path_match : ''}
-        style={{ border: 'none' }}
-        onChange={e => debouncedInputHandler((e.target as HTMLInputElement).value, tableProps)}
-      />
-    )
-  }
-
-  const DeleteCell = (tableProps: CellProps<InstanceDetails>): JSX.Element => {
-    return <Icon name="trash" onClick={() => deletePortConfig(tableProps.row.index)}></Icon>
-  }
-
-  const columns: Array<Column<PortConfig>> = useMemo(() => {
-    return !_isEmpty(redirectionConfigRows)
-      ? [
-          {
-            accessor: 'protocol',
-            Header: 'LISTEN PROTOCOL',
-            width: '16.5%',
-            Cell: ProtocolCell
-          },
-          {
-            accessor: 'port',
-            Header: 'LISTEN PORT',
-            width: '16.5%',
-            Cell: InputCell,
-            disableSortBy: true
-          },
-          {
-            accessor: 'action',
-            Header: 'ACTION',
-            width: '16.5%',
-            Cell: ActionCell
-          },
-          {
-            accessor: 'target_protocol',
-            Header: 'TARGET PROTOCOL',
-            width: '16.5%',
-            Cell: ProtocolCell
-          },
-          {
-            accessor: 'target_port',
-            Header: 'TARGET PORT',
-            width: '16.5%',
-            Cell: InputCell
-          },
-          {
-            accessor: 'redirect_url',
-            Header: 'REDIRECT URL',
-            width: '16.5%',
-            Cell: InputCell
-          },
-          {
-            accessor: 'server_name',
-            Header: 'SERVER NAME',
-            width: '16.5%',
-            Cell: InputCell
-          },
-          {
-            accessor: 'routing_rules',
-            Header: 'PATH MATCH',
-            width: '16.5%',
-            Cell: PathCell
-          },
-          {
-            Header: '',
-            id: 'menu',
-            accessor: (row: PortConfig) => row.port,
-            width: '16.5%',
-            Cell: DeleteCell
-          }
-        ]
-      : [
-          {
-            accessor: 'protocol',
-            Header: 'LISTEN PROTOCOL',
-            width: '16.5%',
-            Cell: ProtocolCell
-          },
-          {
-            accessor: 'port',
-            Header: 'LISTEN PORT',
-            width: '16.5%',
-            Cell: InputCell,
-            disableSortBy: true
-          },
-          {
-            accessor: 'action',
-            Header: 'ACTION',
-            width: '16.5%',
-            Cell: ActionCell
-          },
-          {
-            accessor: 'target_protocol',
-            Header: 'TARGET PROTOCOL',
-            width: '16.5%',
-            Cell: ProtocolCell
-          },
-          {
-            accessor: 'target_port',
-            Header: 'TARGET PORT',
-            width: '16.5%',
-            Cell: InputCell
-          },
-          {
-            Header: '',
-            id: 'menu',
-            accessor: (row: PortConfig) => row.port,
-            width: '16.5%',
-            Cell: DeleteCell
-          }
-        ]
-  }, [redirectionConfigRows, props.routingRecords])
-
-  // const fields: Field[] = [
-  //   {
-  //     name: 'protocol',
-  //     label: <div style={{ fontWeight: 'bold' }}>LISTEN PROTOCOL</div>,
-  //     renderer: (value, _index, handleChange) => (
-  //       <Select
-  //         className={css.selectCell}
-  //         value={getItembyValue(protocols, value)}
-  //         items={protocols}
-  //         onChange={e => {
-  //           updateField(_index, e.value.toString())
-  //         }}
-  //       />
-  //     )
-  //   },
-  //   {
-  //     name: 'port',
-  //     label: <div style={{ fontWeight: 'bold' }}>PORT</div>,
-  //     renderer: (value, _index, handleChange) => (
-  //       <TextInput
-  //         defaultValue={value}
-  //         onChange={e => {
-  //           const value = (e.currentTarget as HTMLInputElement).value
-  //           updateField(_index, value)
-  //         }}
-  //       />
-  //     )
-  //   },
-  //   {
-  //     name: 'action',
-  //     label: <div style={{ fontWeight: 'bold' }}>ACTION</div>,
-  //     renderer: (value, _index, handleChange) => (
-  //       <Select
-  //         className={css.selectCell}
-  //         value={getItembyValue(actions, value)}
-  //         items={actions}
-  //         onChange={e => {
-  //           updateField(_index, e.value.toString())
-  //         }}
-  //       />
-  //     )
-  //   },
-  //   {
-  //     name: 'target_protocol',
-  //     label: <div style={{ fontWeight: 'bold' }}>TARGET PROTOCOL</div>,
-  //     renderer: (value, _index, handleChange) => (
-  //       <Select
-  //         className={css.selectCell}
-  //         value={getItembyValue(protocols, value)}
-  //         items={protocols}
-  //         onChange={e => {
-  //           updateField(_index, e.value.toString())
-  //         }}
-  //       />
-  //     )
-  //   },
-  //   {
-  //     name: 'target_port',
-  //     label: <div style={{ fontWeight: 'bold' }}>TARGET PORT</div>,
-  //     renderer: (value, _index, handleChange) => (
-  //       <TextInput
-  //         defaultValue={value}
-  //         onChange={e => {
-  //           const value = (e.currentTarget as HTMLInputElement).value
-  //           updateField(_index, value)
-  //         }}
-  //       />
-  //     )
-  //   },
-  //   {
-  //     name: 'redirect_url',
-  //     label: <div style={{ fontWeight: 'bold' }}>REDIRECT URL</div>,
-  //     renderer: (value, _index, handleChange) => (
-  //       <TextInput
-  //         defaultValue={value}
-  //         onChange={e => {
-  //           const value = (e.currentTarget as HTMLInputElement).value
-  //           updateField(_index, value)
-  //         }}
-  //       />
-  //     )
-  //   },
-  //   {
-  //     name: 'server_name',
-  //     label: <div style={{ fontWeight: 'bold' }}>SERVER NAME</div>,
-  //     renderer: (value, _index, handleChange) => (
-  //       <TextInput
-  //         defaultValue={value}
-  //         onChange={e => {
-  //           const value = (e.currentTarget as HTMLInputElement).value
-  //           updateField(_index, value)
-  //         }}
-  //       />
-  //     )
-  //   },
-  //   {
-  //     name: 'path_match',
-  //     label: <div style={{ fontWeight: 'bold' }}>PATH MATCH</div>,
-  //     renderer: (value, _index, handleChange) => (
-  //       <TextInput
-  //         defaultValue={value}
-  //         onChange={e => {
-  //           const value = (e.currentTarget as HTMLInputElement).value
-  //           updateField(_index, value)
-  //         }}
-  //       />
-  //     )
-  //   }
-  // ]
-  // const [routingData, setRoutingData] = useState<PortConfig[]>(props.routingRecords)
-  // function updateField(index: number, val: string) {
-  //   console.log(index, val)
-  // }
-  // useEffect(() => {
-  //   console.log(routingData, props.routingRecords)
-  //   setRoutingData([...props.routingRecords])
-  // }, [props.routingRecords])
-  // React.useEffect(() => {
-  //   setRoutingData(prevState => [...prevState, ...props.routingRecords])
-  // }, [props.routingRecords])
-  // console.log(routingData)
   return (
-    <Table<PortConfig> data={props.routingRecords} className={css.routingTable} bpTableProps={{}} columns={columns} />
-    // <Formik
-    //   key={Math.random()}
-    //   initialValues={{ routingRecords: routingData }}
-    //   enableReinitialize={true}
-    //   onSubmit={() => console.log('submit')}
-    //   validate={e => {
-    //     console.log(e)
-    //   }}
-    // >
-    //   {fprops => (
-    //     // <form onSubmit={fprops.handleSubmit}>
-    //     <FieldArray name="routingRecords" fields={fields} label="" />
-    //     // </form>
-    //   )}
-    // </Formik>
+    <div className={css.portConfigTable}>
+      <Formik
+        initialValues={{ routingTableData: getInitialData() }}
+        onSubmit={values => {
+          console.log(values) // eslint-disable-line
+        }}
+      >
+        {formikProps => (
+          <form onSubmit={formikProps.handleSubmit}>
+            <FieldArray
+              label={''}
+              name={'routingTableData'}
+              fields={fields}
+              onChange={data => handleFielArrayChange(data)}
+            />
+          </form>
+        )}
+      </Formik>
+    </div>
   )
 }
 

@@ -3,6 +3,7 @@ import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as LicenseStoreContext from 'framework/LicenseStore/LicenseStoreContext'
 import { LICENSE_STATE_VALUES } from 'framework/LicenseStore/licenseStoreUtil'
+import * as FeatureFlag from '@common/hooks/useFeatureFlag'
 import AccountSideNav from '../AccountSideNav/AccountSideNav'
 
 describe('AccountSideNav', () => {
@@ -37,5 +38,41 @@ describe('AccountSideNav', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
+  })
+
+  test('AccountSideNav test governance', () => {
+    jest.spyOn(FeatureFlag, 'useFeatureFlags').mockReturnValue({
+      OPA_PIPELINE_GOVERNANCE: true
+    })
+    const renderObj = render(
+      <TestWrapper>
+        <AccountSideNav />
+      </TestWrapper>
+    )
+    expect(renderObj.getByText('common.governance')).toBeTruthy()
+  })
+
+  test('AccountSideNav test no licenses enabled', () => {
+    jest.spyOn(FeatureFlag, 'useFeatureFlags').mockReturnValue({
+      NG_LICENSES_ENABLED: true
+    })
+    const renderObj = render(
+      <TestWrapper>
+        <AccountSideNav />
+      </TestWrapper>
+    )
+    expect(renderObj.getByText('common.subscriptions.title')).toBeTruthy()
+  })
+
+  test('AccountSideNav test audit trail', () => {
+    jest.spyOn(FeatureFlag, 'useFeatureFlags').mockReturnValue({
+      AUDIT_TRAIL_WEB_INTERFACE: true
+    })
+    const renderObj = render(
+      <TestWrapper>
+        <AccountSideNav />
+      </TestWrapper>
+    )
+    expect(renderObj.getByText('common.auditTrail')).toBeTruthy()
   })
 })

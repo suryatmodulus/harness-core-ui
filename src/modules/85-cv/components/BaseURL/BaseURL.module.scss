@@ -22,3 +22,10 @@
 .prvValue {
   color: var(--grey-200) !important;
 }
+
+.currentValue,
+.prvValue {
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  overflow-x: auto !important;
+}

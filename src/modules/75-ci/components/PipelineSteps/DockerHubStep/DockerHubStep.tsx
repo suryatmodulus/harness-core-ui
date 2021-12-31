@@ -37,7 +37,7 @@ export interface DockerHubStepSpec {
   context?: string
   labels?: MultiTypeMapType
   buildArgs?: MultiTypeMapType
-  optimize: boolean
+  optimize?: boolean
   target?: string
   remoteCacheRepo?: string
   // TODO: Right now we do not support Image Pull Policy but will do in the future
@@ -94,7 +94,7 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
 
   protected type = StepType.DockerHub
   protected stepName = 'Build and Push an image to Docker Registry'
-  protected stepIcon: IconName = 'docker-hub-step'
+  protected stepIcon: IconName = 'docker-step'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.DockerHub'
   protected stepPaletteVisible = false
 
@@ -105,7 +105,6 @@ export class DockerHubStep extends PipelineStep<DockerHubStepData> {
       connectorRef: '',
       repo: '',
       tags: [],
-      optimize: true,
       remoteCacheRepo: ''
     }
   }

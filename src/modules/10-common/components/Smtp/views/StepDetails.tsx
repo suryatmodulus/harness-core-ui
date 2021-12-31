@@ -23,8 +23,9 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { CreateSmtpWizardProps, SmtpSharedObj } from '../CreateSmtpWizard'
 import css from '../useCreateSmtpModal.module.scss'
 
-export interface DetailsForm extends SmtpConfigDTO {
+export interface DetailsForm extends Omit<SmtpConfigDTO, 'port'> {
   name?: string
+  port?: number
 }
 export interface SmtpModalHeaderProps {
   errorHandler: React.Dispatch<React.SetStateAction<ModalErrorHandlerBinding | undefined>>
@@ -58,13 +59,14 @@ const StepSmtpDetails: React.FC<StepProps<NgSmtpDTO> & SmtpSharedObj & CreateSmt
   return (
     <Formik<DetailsForm>
       onSubmit={values => {
-        const valuesExcludeName = { ...values }
         const name = values.name || ''
+        const port = values.port || 0
+        const valuesExcludeName = { ...values, port }
         delete valuesExcludeName.name
         validateName(undefined, { queryParams: { accountId, name }, headers: { 'content-type': 'application/json' } })
           .then(val => {
             if (val.status === 'SUCCESS') {
-              nextStep?.({ name: values.name, value: valuesExcludeName })
+              nextStep?.({ name: name, value: valuesExcludeName })
             } else {
               modalErrorHandler?.showDanger(getErrorInfoFromErrorObject(val))
             }

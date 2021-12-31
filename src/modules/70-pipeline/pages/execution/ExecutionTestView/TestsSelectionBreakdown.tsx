@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { Text, Container, Heading, Color } from '@wings-software/uicore'
+import { Text, Container, Heading, Color, HarnessDocTooltip } from '@wings-software/uicore'
 import { ProgressBar } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import css from './BuildTests.module.scss'
@@ -30,6 +30,7 @@ export const TestsSelectionBreakdown: React.FC<TestsSelectionBreakdownProps> = (
           color={Color.GREY_600}
         >
           {getString('pipeline.testsReports.selectionBreakdown')}
+          <HarnessDocTooltip tooltipId="testSelectionBreakdown" useStandAlone={true} />
         </Heading>
       </Container>
 

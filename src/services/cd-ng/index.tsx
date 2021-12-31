@@ -4,7 +4,7 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
-export const SPEC_VERSION = '1.0'
+export const SPEC_VERSION = '2.0'
 export interface ACLAggregateFilter {
   resourceGroupIdentifiers?: string[]
   roleIdentifiers?: string[]
@@ -305,7 +305,7 @@ export interface AccessControlCheckError {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
@@ -348,6 +348,7 @@ export interface Account {
   nextGenEnabled?: boolean
   oauthEnabled?: boolean
   povAccount?: boolean
+  ringName?: string
   serviceAccountConfig?: ServiceAccountConfig
   serviceGuardLimit?: number
   subdomainUrl?: string
@@ -1917,6 +1918,7 @@ export interface EntityDetail {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
 }
 
 export interface EntityGitDetails {
@@ -2321,7 +2323,7 @@ export interface Error {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
@@ -2678,7 +2680,7 @@ export interface Failure {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
@@ -2744,6 +2746,7 @@ export interface FeatureRestrictionDetailListRequestDTO {
     | 'TERRAFORM_PLAN'
     | 'TERRAFORM_DESTROY'
     | 'TERRAFORM_ROLLBACK'
+    | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
   )[]
 }
 
@@ -2793,6 +2796,7 @@ export interface FeatureRestrictionDetailRequestDTO {
     | 'TERRAFORM_PLAN'
     | 'TERRAFORM_DESTROY'
     | 'TERRAFORM_ROLLBACK'
+    | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
 }
 
 export interface FeatureRestrictionDetailsDTO {
@@ -2844,6 +2848,7 @@ export interface FeatureRestrictionDetailsDTO {
     | 'TERRAFORM_PLAN'
     | 'TERRAFORM_DESTROY'
     | 'TERRAFORM_ROLLBACK'
+    | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
   restriction?: RestrictionDTO
   restrictionType?:
     | 'AVAILABILITY'
@@ -2903,6 +2908,7 @@ export interface FeatureRestrictionMetadataDTO {
     | 'TERRAFORM_PLAN'
     | 'TERRAFORM_DESTROY'
     | 'TERRAFORM_ROLLBACK'
+    | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
   restrictionMetadata?: {
     [key: string]: RestrictionMetadataDTO
   }
@@ -3115,6 +3121,7 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   )[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   searchTerm?: string
@@ -3150,6 +3157,7 @@ export interface GitEntityFilterProperties {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   )[]
   gitSyncConfigIdentifiers?: string[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
@@ -3212,6 +3220,7 @@ export interface GitFullSyncEntityInfoDTO {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   errorMessages?: string[]
   filePath?: string
   name?: string
@@ -3338,6 +3347,7 @@ export interface GitSyncEntityDTO {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   folderPath?: string
   gitConnectorId?: string
   repoProviderType?: 'github' | 'gitlab' | 'bitbucket' | 'unknown'
@@ -3375,6 +3385,7 @@ export interface GitSyncEntityListDTO {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   gitSyncEntities?: GitSyncEntityDTO[]
 }
 
@@ -3429,6 +3440,7 @@ export interface GitSyncErrorDTO {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   errorType?: 'GIT_TO_HARNESS' | 'CONNECTIVITY_ISSUE' | 'FULL_SYNC'
   failureReason?: string
   repoId?: string
@@ -3442,8 +3454,6 @@ export interface GitSyncErrorDetailsDTO {
 }
 
 export interface GitSyncFolderConfigDTO {
-  enabled?: boolean
-  identifier?: string
   isDefault?: boolean
   rootFolder?: string
 }
@@ -3661,7 +3671,6 @@ export type HelmDeployStepInfo = StepSpecType & {
 export interface HelmManifestCommandFlag {
   commandType:
     | 'Fetch'
-    | 'Version'
     | 'Template'
     | 'Pull'
     | 'Install'
@@ -4469,9 +4478,9 @@ export type NexusUsernamePasswordAuth = NexusAuthCredentials & {
 
 export interface NgSmtpDTO {
   accountId?: string
-  name?: string
+  name: string
   uuid?: string
-  value?: SmtpConfigDTO
+  value: SmtpConfigDTO
 }
 
 export interface Node {
@@ -4533,9 +4542,10 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export type OAuthSettings = NGAuthSettings & {
+export interface OAuthSettings {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
+  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -5851,6 +5861,20 @@ export interface ResponseListServiceDefinitionType {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseListServiceNowFieldNG {
+  correlationId?: string
+  data?: ServiceNowFieldNG[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListServiceNowTicketTypeDTO {
+  correlationId?: string
+  data?: ServiceNowTicketTypeDTO[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseListServiceResponse {
   correlationId?: string
   data?: ServiceResponse[]
@@ -6220,7 +6244,7 @@ export interface ResponseMessage {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
@@ -6656,7 +6680,6 @@ export interface ResponseSetHelmCommandFlagType {
   correlationId?: string
   data?: (
     | 'Fetch'
-    | 'Version'
     | 'Template'
     | 'Pull'
     | 'Install'
@@ -7085,6 +7108,7 @@ export type SampleErrorMetadataDTO = ErrorMetadataDTO & {
 export interface ScimGroup {
   displayName?: string
   externalId?: string
+  harnessScopes?: string
   id?: string
   members?: Member[]
   meta?: JsonNode
@@ -7413,12 +7437,48 @@ export interface ServiceHeaderInfo {
   name?: string
 }
 
+export type ServiceNowApprovalStepInfo = StepSpecType & {
+  approvalCriteria: CriteriaSpecWrapper
+  connectorRef: string
+  delegateSelectors?: string[]
+  rejectionCriteria?: CriteriaSpecWrapper
+  ticketNumber: string
+  ticketType: string
+}
+
 export type ServiceNowConnector = ConnectorConfigDTO & {
   delegateSelectors?: string[]
   passwordRef: string
   serviceNowUrl: string
   username?: string
   usernameRef?: string
+}
+
+export interface ServiceNowFieldAllowedValueNG {
+  id?: string
+  name?: string
+  value?: string
+}
+
+export interface ServiceNowFieldNG {
+  allowedValues: ServiceNowFieldAllowedValueNG[]
+  custom?: boolean
+  key: string
+  name: string
+  required?: boolean
+  schema: ServiceNowFieldSchemaNG
+}
+
+export interface ServiceNowFieldSchemaNG {
+  array?: boolean
+  customType?: string
+  type: 'glide_date_time' | 'integer' | 'boolean' | 'string'
+  typeStr: string
+}
+
+export interface ServiceNowTicketTypeDTO {
+  key: string
+  name: string
 }
 
 export interface ServiceOverrides {
@@ -7603,9 +7663,9 @@ export interface SlackNotificationSetting {
 
 export interface SmtpConfigDTO {
   fromAddress?: string
-  host?: string
+  host: string
   password?: string[]
-  port?: number
+  port: number
   startTLS?: boolean
   useSSL?: boolean
   username?: string
@@ -8159,6 +8219,7 @@ export interface UserGroupAggregateDTO {
 export interface UserGroupDTO {
   accountIdentifier?: string
   description?: string
+  externallyManaged?: boolean
   identifier: string
   linkedSsoDisplayName?: string
   linkedSsoId?: string
@@ -8438,7 +8499,7 @@ export type UserGroupDTORequestBody = UserGroupDTO
 
 export type GetBuildDetailsForEcrWithYamlBodyRequestBody = string
 
-export type UnsubscribeBodyRequestBody = string[]
+export type ProcessPollingResultNgBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
@@ -8687,6 +8748,7 @@ export interface ListActivitiesQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
@@ -8716,6 +8778,7 @@ export interface ListActivitiesQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
 }
 
 export type ListActivitiesProps = Omit<GetProps<ResponsePageActivity, unknown, ListActivitiesQueryParams, void>, 'path'>
@@ -8849,6 +8912,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
@@ -8878,6 +8942,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
 }
 
 export type GetActivitiesSummaryProps = Omit<
@@ -14761,6 +14826,7 @@ export interface FetchFeatureRestrictionMetadataPathParams {
     | 'TERRAFORM_PLAN'
     | 'TERRAFORM_DESTROY'
     | 'TERRAFORM_ROLLBACK'
+    | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
 }
 
 export type FetchFeatureRestrictionMetadataProps = Omit<
@@ -14880,6 +14946,7 @@ export const fetchFeatureRestrictionMetadataPromise = (
       | 'TERRAFORM_PLAN'
       | 'TERRAFORM_DESTROY'
       | 'TERRAFORM_ROLLBACK'
+      | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
   },
   signal?: RequestInit['signal']
 ) =>
@@ -14926,6 +14993,7 @@ export interface ListReferredByEntitiesQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   searchTerm?: string
   branch?: string
   repoIdentifier?: string
@@ -16720,6 +16788,7 @@ export interface ListFullSyncFilesQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   syncStatus?: 'QUEUED' | 'PUSHED' | 'FAILED'
 }
 
@@ -16800,6 +16869,7 @@ export interface CountFullSyncFilesWithFilterQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   syncStatus?: 'QUEUED' | 'PUSHED' | 'FAILED'
 }
 
@@ -17051,7 +17121,7 @@ export type GetListOfBranchesWithStatusProps = Omit<
 >
 
 /**
- * Gets list of branches with their status by Git Sync Config Identifier
+ * Gets list of branches with their status by Git Sync Config Id
  */
 export const GetListOfBranchesWithStatus = (props: GetListOfBranchesWithStatusProps) => (
   <Get<ResponseGitBranchListDTO, Failure | Error, GetListOfBranchesWithStatusQueryParams, void>
@@ -17067,7 +17137,7 @@ export type UseGetListOfBranchesWithStatusProps = Omit<
 >
 
 /**
- * Gets list of branches with their status by Git Sync Config Identifier
+ * Gets list of branches with their status by Git Sync Config Id
  */
 export const useGetListOfBranchesWithStatus = (props: UseGetListOfBranchesWithStatusProps) =>
   useGet<ResponseGitBranchListDTO, Failure | Error, GetListOfBranchesWithStatusQueryParams, void>(
@@ -17076,7 +17146,7 @@ export const useGetListOfBranchesWithStatus = (props: UseGetListOfBranchesWithSt
   )
 
 /**
- * Gets list of branches with their status by Git Sync Config Identifier
+ * Gets list of branches with their status by Git Sync Config Id
  */
 export const getListOfBranchesWithStatusPromise = (
   props: GetUsingFetchProps<ResponseGitBranchListDTO, Failure | Error, GetListOfBranchesWithStatusQueryParams, void>,
@@ -17367,6 +17437,7 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
 }
 
 export type ListGitSyncEntitiesByTypeProps = Omit<
@@ -17464,6 +17535,7 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'MonitoredService'
       | 'GitRepositories'
       | 'FeatureFlags'
+      | 'ServiceNowApproval'
   },
   signal?: RequestInit['signal']
 ) =>
@@ -20919,7 +20991,7 @@ export type ProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -20931,7 +21003,7 @@ export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPol
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >
     verb="POST"
@@ -20946,7 +21018,7 @@ export type UseProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -20958,7 +21030,7 @@ export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProc
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >(
     'POST',
@@ -20974,7 +21046,7 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
@@ -20983,17 +21055,17 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgBodyRequestBody,
     ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -21002,22 +21074,28 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  useMutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     `/polling/subscribe`,
     { base: getConfig('ng/api'), ...props }
   )
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<
+    ResponsePollingResponseDTO,
+    Failure | Error,
+    void,
+    ProcessPollingResultNgBodyRequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -21026,12 +21104,12 @@ export const subscribePromise = (
   )
 
 export type UnsubscribeProps = Omit<
-  MutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Unsubscribe = (props: UnsubscribeProps) => (
-  <Mutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
     verb="POST"
     path={`/polling/unsubscribe`}
     base={getConfig('ng/api')}
@@ -21040,21 +21118,22 @@ export const Unsubscribe = (props: UnsubscribeProps) => (
 )
 
 export type UseUnsubscribeProps = Omit<
-  UseMutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useUnsubscribe = (props: UseUnsubscribeProps) =>
-  useMutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+    'POST',
+    `/polling/unsubscribe`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 export const unsubscribePromise = (
-  props: MutateUsingFetchProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/unsubscribe`,
@@ -22553,7 +22632,7 @@ export type GetListOfBranchesByGitConfigProps = Omit<
 >
 
 /**
- * Gets list of branches by Git Config Identifier
+ * Retrieves a list of Git Branches corresponding to a Git Sync Config Id
  */
 export const GetListOfBranchesByGitConfig = (props: GetListOfBranchesByGitConfigProps) => (
   <Get<ResponseListString, Failure | Error, GetListOfBranchesByGitConfigQueryParams, void>
@@ -22569,7 +22648,7 @@ export type UseGetListOfBranchesByGitConfigProps = Omit<
 >
 
 /**
- * Gets list of branches by Git Config Identifier
+ * Retrieves a list of Git Branches corresponding to a Git Sync Config Id
  */
 export const useGetListOfBranchesByGitConfig = (props: UseGetListOfBranchesByGitConfigProps) =>
   useGet<ResponseListString, Failure | Error, GetListOfBranchesByGitConfigQueryParams, void>(
@@ -22578,7 +22657,7 @@ export const useGetListOfBranchesByGitConfig = (props: UseGetListOfBranchesByGit
   )
 
 /**
- * Gets list of branches by Git Config Identifier
+ * Retrieves a list of Git Branches corresponding to a Git Sync Config Id
  */
 export const getListOfBranchesByGitConfigPromise = (
   props: GetUsingFetchProps<ResponseListString, Failure | Error, GetListOfBranchesByGitConfigQueryParams, void>,
@@ -23143,6 +23222,125 @@ export const updateServiceAccountPromise = (
     UpdateServiceAccountPathParams
   >('PUT', getConfig('ng/api'), `/serviceaccount/${identifier}`, props, signal)
 
+export interface GetServiceNowIssueCreateMetadataQueryParams {
+  connectorRef: string
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  ticketType?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export type GetServiceNowIssueCreateMetadataProps = Omit<
+  GetProps<ResponseListServiceNowFieldNG, Failure | Error, GetServiceNowIssueCreateMetadataQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get ServiceNow issue create metadata
+ */
+export const GetServiceNowIssueCreateMetadata = (props: GetServiceNowIssueCreateMetadataProps) => (
+  <Get<ResponseListServiceNowFieldNG, Failure | Error, GetServiceNowIssueCreateMetadataQueryParams, void>
+    path={`/servicenow/createMetadata`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceNowIssueCreateMetadataProps = Omit<
+  UseGetProps<ResponseListServiceNowFieldNG, Failure | Error, GetServiceNowIssueCreateMetadataQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get ServiceNow issue create metadata
+ */
+export const useGetServiceNowIssueCreateMetadata = (props: UseGetServiceNowIssueCreateMetadataProps) =>
+  useGet<ResponseListServiceNowFieldNG, Failure | Error, GetServiceNowIssueCreateMetadataQueryParams, void>(
+    `/servicenow/createMetadata`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get ServiceNow issue create metadata
+ */
+export const getServiceNowIssueCreateMetadataPromise = (
+  props: GetUsingFetchProps<
+    ResponseListServiceNowFieldNG,
+    Failure | Error,
+    GetServiceNowIssueCreateMetadataQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListServiceNowFieldNG, Failure | Error, GetServiceNowIssueCreateMetadataQueryParams, void>(
+    getConfig('ng/api'),
+    `/servicenow/createMetadata`,
+    props,
+    signal
+  )
+
+export interface GetServiceNowTicketTypesQueryParams {
+  connectorRef: string
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export type GetServiceNowTicketTypesProps = Omit<
+  GetProps<ResponseListServiceNowTicketTypeDTO, Failure | Error, GetServiceNowTicketTypesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get serviceNow ticket types
+ */
+export const GetServiceNowTicketTypes = (props: GetServiceNowTicketTypesProps) => (
+  <Get<ResponseListServiceNowTicketTypeDTO, Failure | Error, GetServiceNowTicketTypesQueryParams, void>
+    path={`/servicenow/ticketTypes`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceNowTicketTypesProps = Omit<
+  UseGetProps<ResponseListServiceNowTicketTypeDTO, Failure | Error, GetServiceNowTicketTypesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get serviceNow ticket types
+ */
+export const useGetServiceNowTicketTypes = (props: UseGetServiceNowTicketTypesProps) =>
+  useGet<ResponseListServiceNowTicketTypeDTO, Failure | Error, GetServiceNowTicketTypesQueryParams, void>(
+    `/servicenow/ticketTypes`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get serviceNow ticket types
+ */
+export const getServiceNowTicketTypesPromise = (
+  props: GetUsingFetchProps<
+    ResponseListServiceNowTicketTypeDTO,
+    Failure | Error,
+    GetServiceNowTicketTypesQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListServiceNowTicketTypeDTO, Failure | Error, GetServiceNowTicketTypesQueryParams, void>(
+    getConfig('ng/api'),
+    `/servicenow/ticketTypes`,
+    props,
+    signal
+  )
+
 export interface GetServiceListForProjectQueryParams {
   page?: number
   size?: number
@@ -23415,6 +23613,7 @@ export const createServicesPromise = (
 export interface HelmCmdFlagsQueryParams {
   serviceSpecType: string
   version: 'V2' | 'V3'
+  storeType: string
 }
 
 export type HelmCmdFlagsProps = Omit<
@@ -25638,6 +25837,64 @@ export const getBatchUserGroupListPromise = (
     'POST',
     getConfig('ng/api'),
     `/user-groups/batch`,
+    props,
+    signal
+  )
+
+export interface CopyUserGroupQueryParams {
+  accountIdentifier?: string
+  groupIdentifier?: string
+}
+
+export type CopyUserGroupProps = Omit<
+  MutateProps<ResponseBoolean, Failure | AccessControlCheckError | Error, CopyUserGroupQueryParams, Scope[], void>,
+  'path' | 'verb'
+>
+
+/**
+ * Copy a User Group to several scopes
+ */
+export const CopyUserGroup = (props: CopyUserGroupProps) => (
+  <Mutate<ResponseBoolean, Failure | AccessControlCheckError | Error, CopyUserGroupQueryParams, Scope[], void>
+    verb="PUT"
+    path={`/user-groups/copy`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCopyUserGroupProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | AccessControlCheckError | Error, CopyUserGroupQueryParams, Scope[], void>,
+  'path' | 'verb'
+>
+
+/**
+ * Copy a User Group to several scopes
+ */
+export const useCopyUserGroup = (props: UseCopyUserGroupProps) =>
+  useMutate<ResponseBoolean, Failure | AccessControlCheckError | Error, CopyUserGroupQueryParams, Scope[], void>(
+    'PUT',
+    `/user-groups/copy`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Copy a User Group to several scopes
+ */
+export const copyUserGroupPromise = (
+  props: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | AccessControlCheckError | Error,
+    CopyUserGroupQueryParams,
+    Scope[],
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | AccessControlCheckError | Error, CopyUserGroupQueryParams, Scope[], void>(
+    'PUT',
+    getConfig('ng/api'),
+    `/user-groups/copy`,
     props,
     signal
   )
@@ -28979,6 +29236,7 @@ export interface GetYamlSchemaQueryParams {
     | 'MonitoredService'
     | 'GitRepositories'
     | 'FeatureFlags'
+    | 'ServiceNowApproval'
   subtype?:
     | 'K8sCluster'
     | 'Git'
@@ -29109,6 +29367,7 @@ export interface GetYamlSnippetMetadataQueryParams {
     | 'dynatrace'
     | 'pagerduty'
     | 'customhealth'
+    | 'servicenow'
   )[]
 }
 

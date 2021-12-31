@@ -188,19 +188,20 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main analyticsColHeader"
-                      style="color: rgb(5, 170, 182);"
+                      class="StyledProps--font StyledProps--main analyticsColHeader StyledProps--color StyledProps--color-teal800"
                     >
                       TOTAL SAVINGS TILL DATE
                     </p>
-                    <h1
-                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
-                      level="1"
-                      style="color: rgb(5, 170, 182);"
-                    >
-                      $
-                      NaN
-                    </h1>
+                    <div>
+                      <img
+                        src="test-file-stub"
+                      />
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        ce.noSavingsDataMessage
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -211,15 +212,13 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main analyticsColHeader"
-                      style="color: rgb(89, 43, 170);"
+                      class="StyledProps--font StyledProps--main analyticsColHeader StyledProps--color StyledProps--color-purple700"
                     >
                       TOTAL SPEND TILL DATE
                     </p>
                     <h1
-                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-purple700"
                       level="1"
-                      style="color: rgb(89, 43, 170);"
                     >
                       $
                       NaN
@@ -511,38 +510,29 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
                 style="width: 10%;"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="StyledProps--font StyledProps--main StyledProps--inline"
+                  style="display: inline-flex; align-items: center;"
                 >
                   <span
-                    class="bp3-popover-target Text--targetClass"
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                    icon="full-circle"
                   >
-                    <span
-                      class="StyledProps--font StyledProps--main StyledProps--inline"
-                      style="display: inline-flex; align-items: center;"
-                      tabindex="0"
+                    <svg
+                      data-icon="full-circle"
+                      height="6"
+                      viewBox="0 0 16 16"
+                      width="6"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
-                        icon="full-circle"
-                      >
-                        <svg
-                          data-icon="full-circle"
-                          height="6"
-                          viewBox="0 0 16 16"
-                          width="6"
-                        >
-                          <desc>
-                            full-circle
-                          </desc>
-                          <path
-                            d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      created
-                    </span>
+                      <desc>
+                        full-circle
+                      </desc>
+                      <path
+                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
                   </span>
+                  created
                 </span>
               </div>
               <div
@@ -877,19 +867,20 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main analyticsColHeader"
-                      style="color: rgb(5, 170, 182);"
+                      class="StyledProps--font StyledProps--main analyticsColHeader StyledProps--color StyledProps--color-teal800"
                     >
                       TOTAL SAVINGS TILL DATE
                     </p>
-                    <h1
-                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
-                      level="1"
-                      style="color: rgb(5, 170, 182);"
-                    >
-                      $
-                      NaN
-                    </h1>
+                    <div>
+                      <img
+                        src="test-file-stub"
+                      />
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        ce.noSavingsDataMessage
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -900,15 +891,13 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main analyticsColHeader"
-                      style="color: rgb(89, 43, 170);"
+                      class="StyledProps--font StyledProps--main analyticsColHeader StyledProps--color StyledProps--color-purple700"
                     >
                       TOTAL SPEND TILL DATE
                     </p>
                     <h1
-                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-purple700"
                       level="1"
-                      style="color: rgb(89, 43, 170);"
                     >
                       $
                       NaN
@@ -1200,38 +1189,29 @@ exports[`Test COGatewayList clicking on refresh button refetch all rules 1`] = `
                 style="width: 10%;"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="StyledProps--font StyledProps--main StyledProps--inline"
+                  style="display: inline-flex; align-items: center;"
                 >
                   <span
-                    class="bp3-popover-target Text--targetClass"
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                    icon="full-circle"
                   >
-                    <span
-                      class="StyledProps--font StyledProps--main StyledProps--inline"
-                      style="display: inline-flex; align-items: center;"
-                      tabindex="0"
+                    <svg
+                      data-icon="full-circle"
+                      height="6"
+                      viewBox="0 0 16 16"
+                      width="6"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
-                        icon="full-circle"
-                      >
-                        <svg
-                          data-icon="full-circle"
-                          height="6"
-                          viewBox="0 0 16 16"
-                          width="6"
-                        >
-                          <desc>
-                            full-circle
-                          </desc>
-                          <path
-                            d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      created
-                    </span>
+                      <desc>
+                        full-circle
+                      </desc>
+                      <path
+                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
                   </span>
+                  created
                 </span>
               </div>
               <div
@@ -1566,19 +1546,20 @@ exports[`Test COGatewayList renders without crashing 1`] = `
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main analyticsColHeader"
-                      style="color: rgb(5, 170, 182);"
+                      class="StyledProps--font StyledProps--main analyticsColHeader StyledProps--color StyledProps--color-teal800"
                     >
                       TOTAL SAVINGS TILL DATE
                     </p>
-                    <h1
-                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
-                      level="1"
-                      style="color: rgb(5, 170, 182);"
-                    >
-                      $
-                      NaN
-                    </h1>
+                    <div>
+                      <img
+                        src="test-file-stub"
+                      />
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        ce.noSavingsDataMessage
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -1589,15 +1570,13 @@ exports[`Test COGatewayList renders without crashing 1`] = `
                     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main analyticsColHeader"
-                      style="color: rgb(89, 43, 170);"
+                      class="StyledProps--font StyledProps--main analyticsColHeader StyledProps--color StyledProps--color-purple700"
                     >
                       TOTAL SPEND TILL DATE
                     </p>
                     <h1
-                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                      class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-purple700"
                       level="1"
-                      style="color: rgb(89, 43, 170);"
                     >
                       $
                       NaN
@@ -1889,38 +1868,29 @@ exports[`Test COGatewayList renders without crashing 1`] = `
                 style="width: 10%;"
               >
                 <span
-                  class="bp3-popover-wrapper"
+                  class="StyledProps--font StyledProps--main StyledProps--inline"
+                  style="display: inline-flex; align-items: center;"
                 >
                   <span
-                    class="bp3-popover-target Text--targetClass"
+                    class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                    icon="full-circle"
                   >
-                    <span
-                      class="StyledProps--font StyledProps--main StyledProps--inline"
-                      style="display: inline-flex; align-items: center;"
-                      tabindex="0"
+                    <svg
+                      data-icon="full-circle"
+                      height="6"
+                      viewBox="0 0 16 16"
+                      width="6"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-full-circle StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
-                        icon="full-circle"
-                      >
-                        <svg
-                          data-icon="full-circle"
-                          height="6"
-                          viewBox="0 0 16 16"
-                          width="6"
-                        >
-                          <desc>
-                            full-circle
-                          </desc>
-                          <path
-                            d="M8 0a8 8 0 100 16A8 8 0 108 0z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      created
-                    </span>
+                      <desc>
+                        full-circle
+                      </desc>
+                      <path
+                        d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
                   </span>
+                  created
                 </span>
               </div>
               <div

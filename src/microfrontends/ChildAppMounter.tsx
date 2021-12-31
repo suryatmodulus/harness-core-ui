@@ -43,7 +43,7 @@ export class ChildAppMounter extends React.Component<ChildAppMounterProps, Child
 
     // We use routeMatch instead of location because,
     // we want to pass the mount url and not the actual url
-    const { url, params } = match
+    const { url, params, path } = match
 
     if (this.state.hasError) {
       return <ChildAppError />
@@ -53,6 +53,7 @@ export class ChildAppMounter extends React.Component<ChildAppMounterProps, Child
       <React.Suspense fallback={<PageSpinner />}>
         <ChildApp
           renderUrl={url}
+          matchPath={path}
           scope={params}
           parentContextObj={{
             appStoreContext: AppStoreContext,

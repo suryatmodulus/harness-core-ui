@@ -64,25 +64,20 @@ export interface AuthorInfo {
   url?: string
 }
 
-export type AwsVmBuildJobInfo = BuildJobEnvInfo & {
-  workDir?: string
-}
-
-export type AwsVmInfraYaml = Infrastructure & {
-  spec: AwsVmInfraYamlSpec
-  type: 'KubernetesDirect' | 'UseFromStage' | 'AwsVm'
-}
-
-export interface AwsVmInfraYamlSpec {
-  poolId: string
-}
-
 export type BarrierStepInfo = StepSpecType & {
   barrierRef: string
 }
 
 export type BranchBuildSpec = BuildSpec & {
   branch: string
+}
+
+export type BranchWebhookEvent = WebhookEvent & {
+  baseAttributes?: WebhookBaseAttributes
+  branchName?: string
+  commitDetailsList?: CommitDetails[]
+  link?: string
+  repository?: Repository
 }
 
 export interface Build {
@@ -147,7 +142,12 @@ export interface BuildInfo {
 }
 
 export interface BuildJobEnvInfo {
-  type?: 'K8' | 'AWS_VM'
+  type?: 'K8' | 'VM'
+}
+
+export interface BuildNumberDetails {
+  buildNumber?: number
+  uuid: string
 }
 
 export interface BuildRepositoryCount {
@@ -194,6 +194,13 @@ export interface CIBuildPRHook {
   targetBranch?: string
   title?: string
   triggerCommits?: CIBuildCommit[]
+}
+
+export interface CIExecutionArgs {
+  branch?: string
+  buildNumberDetails?: BuildNumberDetails
+  executionSource?: ExecutionSource
+  inputSet?: InputSet
 }
 
 export interface CIPipelineModuleInfo {
@@ -265,6 +272,16 @@ export interface CodeBase {
   sslVerify?: boolean
 }
 
+export interface CommitDetails {
+  commitId?: string
+  link?: string
+  message?: string
+  ownerEmail?: string
+  ownerId?: string
+  ownerName?: string
+  timeStamp?: number
+}
+
 export interface Condition {
   key: string
   operator: 'equals' | 'not equals' | 'in' | 'not in'
@@ -325,6 +342,11 @@ export interface CriteriaSpec {
 export interface CriteriaSpecWrapper {
   spec: CriteriaSpec
   type: 'Jexl' | 'KeyValues'
+}
+
+export type CustomExecutionSource = ExecutionSource & {
+  branch?: string
+  tag?: string
 }
 
 export interface DashboardBuildExecutionInfo {
@@ -698,7 +720,7 @@ export interface Error {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
@@ -717,6 +739,10 @@ export interface ErrorMetadataDTO {
 export interface ExecutionElementConfig {
   rollbackSteps?: ExecutionWrapperConfig[]
   steps: ExecutionWrapperConfig[]
+}
+
+export interface ExecutionSource {
+  type?: 'WEBHOOK' | 'MANUAL' | 'CUSTOM'
 }
 
 export interface ExecutionTarget {
@@ -1022,7 +1048,7 @@ export interface Failure {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
@@ -1121,7 +1147,7 @@ export interface ImageDetails {
 }
 
 export interface Infrastructure {
-  type?: 'KubernetesDirect' | 'UseFromStage' | 'AwsVm'
+  type?: 'KubernetesDirect' | 'UseFromStage' | 'VM'
 }
 
 export type InitializeStepInfo = StepSpecType & {
@@ -1132,6 +1158,10 @@ export type InitializeStepInfo = StepSpecType & {
   infrastructure: Infrastructure
   skipGitClone: boolean
   timeout?: number
+}
+
+export interface InputSet {
+  type?: 'Manual' | 'Webhook'
 }
 
 export interface InputSetValidator {
@@ -1217,7 +1247,7 @@ export type K8BuildJobEnvInfo = BuildJobEnvInfo & {
 
 export type K8sDirectInfraYaml = Infrastructure & {
   spec: K8sDirectInfraYamlSpec
-  type: 'KubernetesDirect' | 'UseFromStage' | 'AwsVm'
+  type: 'KubernetesDirect' | 'UseFromStage' | 'VM'
 }
 
 export interface K8sDirectInfraYamlSpec {
@@ -1250,6 +1280,13 @@ export interface LastRepositoryInfo {
 export interface Limits {
   cpu?: string
   memory?: string
+}
+
+export type ManualExecutionSource = ExecutionSource & {
+  branch?: string
+  commitSha?: string
+  prNumber?: string
+  tag?: string
 }
 
 export interface ManualFailureSpecConfig {
@@ -1312,6 +1349,20 @@ export type PRBuildSpec = BuildSpec & {
   number: string
 }
 
+export type PRWebhookEvent = WebhookEvent & {
+  baseAttributes?: WebhookBaseAttributes
+  closed?: boolean
+  commitDetailsList?: CommitDetails[]
+  merged?: boolean
+  pullRequestBody?: string
+  pullRequestId?: number
+  pullRequestLink?: string
+  repository?: Repository
+  sourceBranch?: string
+  targetBranch?: string
+  title?: string
+}
+
 export interface PVCParams {
   claimName?: string
   present?: boolean
@@ -1367,6 +1418,7 @@ export interface PatchInstruction {
     | 'SetFeatureFlagState'
     | 'SetOnVariation'
     | 'SetOffVariation'
+    | 'SetDefaultVariations'
     | 'AddRule'
     | 'UpdateRule'
     | 'AddTargetsToVariationTargetMap'
@@ -1436,6 +1488,17 @@ export type RemoveTargetsToVariationTargetMapYaml = PatchInstruction & {
 export interface RemoveTargetsToVariationTargetMapYamlSpec {
   targets: string[]
   variation: string
+}
+
+export interface Repository {
+  branch?: string
+  httpURL?: string
+  link?: string
+  name?: string
+  namespace?: string
+  private?: boolean
+  slug?: string
+  sshURL?: string
 }
 
 export interface RepositoryBuildInfo {
@@ -1800,7 +1863,7 @@ export interface ResponseMessage {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
@@ -1903,21 +1966,21 @@ export type RunStepInfo = StepSpecType & {
   reports?: UnitTestReport
   resources?: ContainerResource
   runAsUser?: number
-  shell?: 'Sh' | 'Bash'
+  shell?: 'Sh' | 'Bash' | 'Powershell'
 }
 
 export type RunTestsStepInfo = StepSpecType & {
   args: string
-  buildTool: 'Maven' | 'Bazel' | 'Gradle'
+  buildTool: 'Maven' | 'Bazel' | 'Gradle' | 'Dotnet'
   connectorRef: string
   envVariables?: {
     [key: string]: string
   }
   image: string
   imagePullPolicy?: 'Always' | 'Never' | 'IfNotPresent'
-  language: 'Java'
+  language: 'Java' | 'Csharp'
   outputVariables?: OutputNGVariable[]
-  packages: string
+  packages?: string
   postCommand?: string
   preCommand?: string
   privileged?: boolean
@@ -1925,6 +1988,7 @@ export type RunTestsStepInfo = StepSpecType & {
   resources?: ContainerResource
   runAsUser?: number
   runOnlySelectedTests?: boolean
+  shell?: 'Sh' | 'Bash' | 'Powershell'
   testAnnotations?: string
 }
 
@@ -1974,6 +2038,17 @@ export interface Serve {
 export interface ServiceDeploymentInfo {
   serviceName?: string
   serviceTag?: string
+}
+
+export type SetDefaultVariationsYaml = PatchInstruction & {
+  identifier: string
+  spec: SetDefaultVariationsYamlSpec
+  type: 'SetDefaultVariations'
+}
+
+export interface SetDefaultVariationsYamlSpec {
+  off: string
+  on: string
 }
 
 export type SetFeatureFlagStateYaml = PatchInstruction & {
@@ -2047,7 +2122,8 @@ export interface StageElementConfig {
   tags?: {
     [key: string]: string
   }
-  type: string
+  template?: TemplateLinkConfig
+  type?: string
   variables?: NGVariable[]
   when?: StageWhenCondition
 }
@@ -2071,7 +2147,6 @@ export interface StepElementConfig {
   identifier: string
   name: string
   spec?: StepSpecType
-  template?: TemplateLinkConfig
   timeout?: string
   type: string
   when?: StepWhenCondition
@@ -2107,6 +2182,19 @@ export type StringNGVariable = NGVariable & {
 
 export type TagBuildSpec = BuildSpec & {
   tag: string
+}
+
+export interface TemplateInputsErrorDTO {
+  fieldName?: string
+  identifierOfErrorSource?: string
+  message?: string
+}
+
+export type TemplateInputsErrorMetadataDTO = ErrorMetadataDTO & {
+  errorMap?: {
+    [key: string]: TemplateInputsErrorDTO
+  }
+  errorYaml?: string
 }
 
 export interface TemplateLinkConfig {
@@ -2196,6 +2284,66 @@ export interface ValidationError {
 export interface VariationYamlSpec {
   variation: string
   weight: number
+}
+
+export type VmBuildJobInfo = BuildJobEnvInfo & {
+  ciExecutionArgs?: CIExecutionArgs
+  workDir?: string
+}
+
+export interface VmInfraSpec {
+  type?: 'Pool'
+}
+
+export type VmInfraYaml = Infrastructure & {
+  spec: VmInfraSpec
+  type: 'KubernetesDirect' | 'UseFromStage' | 'VM'
+}
+
+export type VmPoolYaml = VmInfraSpec & {
+  spec: VmPoolYamlSpec
+  type: 'Pool'
+}
+
+export interface VmPoolYamlSpec {
+  identifier: string
+}
+
+export interface WebhookBaseAttributes {
+  action?: string
+  after?: string
+  authorAvatar?: string
+  authorEmail?: string
+  authorLogin?: string
+  authorName?: string
+  before?: string
+  link?: string
+  message?: string
+  ref?: string
+  sender?: string
+  source?: string
+  target?: string
+}
+
+export interface WebhookEvent {
+  type?: 'PR' | 'BRANCH'
+}
+
+export type WebhookExecutionSource = ExecutionSource & {
+  triggerName?: string
+  user?: WebhookGitUser
+  webhookEvent?: WebhookEvent
+}
+
+export interface WebhookGitUser {
+  avatar?: string
+  email?: string
+  gitId?: string
+  name?: string
+}
+
+export type WebhookTriggerExecutionInputSet = InputSet & {
+  payload?: string
 }
 
 export interface WeightedVariation {
@@ -2482,6 +2630,7 @@ export const getCIHealthStatusPromise = (
 ) => getUsingFetch<RestResponseString, unknown, void, void>(getConfig('ci'), `/health`, props, signal)
 
 export interface GetPartialYamlSchemaQueryParams {
+  accountIdentifier: string
   projectIdentifier?: string
   orgIdentifier?: string
   scope?: 'account' | 'org' | 'project' | 'unknown'

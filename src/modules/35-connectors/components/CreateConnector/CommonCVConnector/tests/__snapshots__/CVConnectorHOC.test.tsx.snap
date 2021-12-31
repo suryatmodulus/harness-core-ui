@@ -40,7 +40,7 @@ exports[`Unit tests for cv connector hoc should render form 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 200px;"
         >
-          connectors.prometheusConnectorDetails
+          overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"

@@ -1,10 +1,11 @@
 import React from 'react'
 import { cloneDeep, isEqual, noop } from 'lodash-es'
-import { VisualYamlSelectedView as SelectedView } from '@wings-software/uicore'
+import { MultiTypeInputType, VisualYamlSelectedView as SelectedView } from '@wings-software/uicore'
 import {
   findAllByKey,
   getTemplateTypesByRef,
-  PipelineContext
+  PipelineContext,
+  PipelineContextType
 } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import {
   initialState,
@@ -38,7 +39,8 @@ export const TemplatePipelineProvider: React.FC<{
   onUpdatePipeline: (pipeline: PipelineInfoConfig) => void
   isReadOnly: boolean
 }> = ({ queryParams, initialValue, onUpdatePipeline, isReadOnly, children }) => {
-  const contextType = 'Template'
+  const contextType = PipelineContextType.Template
+  const allowableTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
   const { CI_LICENSE_STATE, FF_LICENSE_STATE, CD_LICENSE_STATE } = useLicenseStore()
   const isCDEnabled = useFeatureFlag(FeatureFlag.CDNG_ENABLED) && CD_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE
   const isCIEnabled = useFeatureFlag(FeatureFlag.CING_ENABLED) && CI_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE
@@ -177,6 +179,7 @@ export const TemplatePipelineProvider: React.FC<{
         state,
         view,
         contextType,
+        allowableTypes,
         setView,
         runPipeline: noop,
         stepsFactory: factory,

@@ -1,7 +1,9 @@
+import type { SelectOption } from '@wings-software/uicore'
 import { getStageFromPipeline } from '@pipeline/components/PipelineStudio/PipelineContext/helpers'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import type { FeaturesProps } from 'framework/featureStore/featureStoreUtil'
+import type { UseStringsReturn } from 'framework/strings'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import type { InputSetErrorResponse } from 'services/pipeline-ng'
 
@@ -139,3 +141,30 @@ export const getFeaturePropsForRunPipelineButton = (modules?: string[]): Feature
     }
   }
 }
+
+export interface SelectedStageData {
+  stageIdentifier?: string
+  stagesRequired?: string[]
+  stageName?: string
+  message?: string
+}
+export interface StageSelectionData {
+  selectedStages: SelectedStageData[]
+  allStagesSelected: boolean
+  selectedStageItems: SelectOption[]
+}
+
+export const POLL_INTERVAL = 1 /* sec */ * 1000 /* ms */
+
+export const ALL_STAGE_VALUE = 'all'
+
+export const getAllStageData = (getString: UseStringsReturn['getString']): SelectedStageData => ({
+  stageIdentifier: ALL_STAGE_VALUE,
+  stagesRequired: [],
+  stageName: getString('pipeline.allStages')
+})
+
+export const getAllStageItem = (getString: UseStringsReturn['getString']): SelectOption => ({
+  label: getString('pipeline.allStages'),
+  value: ALL_STAGE_VALUE
+})

@@ -3,7 +3,7 @@
 exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -267,7 +267,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
 exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expanded 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -772,7 +772,8 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                                         class="Tag--main"
                                                       >
                                                         <span
-                                                          class="bp3-tag bp3-minimal tag"
+                                                          class="bp3-tag bp3-minimal"
+                                                          id="tag"
                                                         >
                                                           <span
                                                             class="bp3-text-overflow-ellipsis bp3-fill"
@@ -1757,7 +1758,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
 exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -2289,7 +2290,8 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                                         class="Tag--main"
                                                       >
                                                         <span
-                                                          class="bp3-tag bp3-minimal tag"
+                                                          class="bp3-tag bp3-minimal"
+                                                          id="tag"
                                                         >
                                                           <span
                                                             class="bp3-text-overflow-ellipsis bp3-fill"

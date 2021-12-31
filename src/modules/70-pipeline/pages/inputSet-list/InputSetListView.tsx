@@ -61,6 +61,7 @@ type CustomColumn<T extends Record<string, any>> = Column<T> & {
   refetchInputSet?: () => void
   onDeleteInputSet?: (commitMsg: string) => Promise<void>
   onDelete?: (inputSet: InputSetSummaryResponse) => void
+  template?: ResponseInputSetTemplateWithReplacedExpressionsResponse | null
 }
 
 const getIconByType = (type: InputSetSummaryResponse['inputSetType']): IconName => {
@@ -183,6 +184,57 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
   )
 }
 
+const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {
+  const rowData = row.original
+
+  const { pipelineIdentifier } = useParams<{
+    pipelineIdentifier: string
+    module: Module
+  }>()
+
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+  const { getString } = useStrings()
+  const runPipeline = (): void => {
+    openRunPipelineModal()
+  }
+
+  const { openRunPipelineModal } = useRunPipelineModal({
+    inputSetSelected: [
+      {
+        type: rowData.inputSetType || /* istanbul ignore next */ 'INPUT_SET',
+        value: rowData.identifier || /* istanbul ignore next */ '',
+        label: rowData.name || /* istanbul ignore next */ '',
+        gitDetails: rowData.gitDetails
+      }
+    ],
+    pipelineIdentifier: (rowData.pipelineIdentifier || '') as string,
+    repoIdentifier,
+    branch
+  })
+
+  return (
+    <RbacButton
+      disabled={!(column as any)?.pipelineHasRuntimeInputs}
+      icon="run-pipeline"
+      variation={ButtonVariation.PRIMARY}
+      intent="success"
+      text={getString('runPipeline')}
+      onClick={e => {
+        e.stopPropagation()
+        runPipeline()
+      }}
+      featuresProps={getFeaturePropsForRunPipelineButton((column as any).template?.data?.modules)}
+      permission={{
+        resource: {
+          resourceType: ResourceType.PIPELINE,
+          resourceIdentifier: pipelineIdentifier
+        },
+        permission: PermissionIdentifier.EXECUTE_PIPELINE
+      }}
+    />
+  )
+}
+
 export const InputSetListView: React.FC<InputSetListViewProps> = ({
   data,
   gotoPage,
@@ -197,58 +249,6 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
 }): JSX.Element => {
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
-
-  const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {
-    const rowData = row.original
-
-    const { pipelineIdentifier } = useParams<{
-      pipelineIdentifier: string
-      module: Module
-    }>()
-
-    const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-
-    const runPipeline = (): void => {
-      openRunPipelineModal()
-    }
-
-    const { openRunPipelineModal } = useRunPipelineModal({
-      inputSetSelected: [
-        {
-          type: rowData.inputSetType || /* istanbul ignore next */ 'INPUT_SET',
-          value: rowData.identifier || /* istanbul ignore next */ '',
-          label: rowData.name || /* istanbul ignore next */ '',
-          gitDetails: rowData.gitDetails
-        }
-      ],
-      pipelineIdentifier: (rowData.pipelineIdentifier || '') as string,
-      repoIdentifier,
-      branch
-    })
-
-    return (
-      <RbacButton
-        disabled={!(column as any)?.pipelineHasRuntimeInputs}
-        icon="run-pipeline"
-        variation={ButtonVariation.PRIMARY}
-        intent="success"
-        text={getString('runPipeline')}
-        onClick={e => {
-          e.stopPropagation()
-          runPipeline()
-        }}
-        featuresProps={getFeaturePropsForRunPipelineButton(template?.data?.modules)}
-        permission={{
-          resource: {
-            resourceType: ResourceType.PIPELINE,
-            resourceIdentifier: pipelineIdentifier
-          },
-          permission: PermissionIdentifier.EXECUTE_PIPELINE
-        }}
-      />
-    )
-  }
-
   const columns: CustomColumn<InputSetLocal>[] = React.useMemo(
     () => [
       {
@@ -278,7 +278,8 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
         Cell: RenderColumnActions,
         disableSortBy: true,
         goToInputSetDetail,
-        pipelineHasRuntimeInputs
+        pipelineHasRuntimeInputs,
+        template
       },
       {
         Header: '',

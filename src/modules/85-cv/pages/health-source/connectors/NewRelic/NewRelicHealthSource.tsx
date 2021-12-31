@@ -44,6 +44,7 @@ import {
 import NewRelicMappedMetric from './components/NewRelicMappedMetric/NewRelicMappedMetric'
 import type { CreatedMetricsWithSelectedIndex, SelectedAndMappedMetrics } from './NewRelicHealthSource.types'
 import MetricPackCustom from '../MetricPackCustom'
+import { newRelicDefaultMetricName } from './NewRelicHealthSource.constants'
 import css from './NewrelicMonitoredSource.module.scss'
 
 const guid = Utils.randomId()
@@ -74,10 +75,10 @@ export default function NewRelicHealthSource({
   const connectorIdentifier = newRelicData?.connectorRef?.connector?.identifier || newRelicData?.connectorRef
   const [showCustomMetric, setShowCustomMetric] = useState(!!Array.from(newRelicData?.mappedServicesAndEnvs)?.length)
   const [{ selectedMetric, mappedMetrics }, setMappedMetrics] = useState<SelectedAndMappedMetrics>(
-    initializeSelectedMetricsMap('New Relic Metric', newRelicData?.mappedServicesAndEnvs)
+    initializeSelectedMetricsMap(newRelicDefaultMetricName, newRelicData?.mappedServicesAndEnvs)
   )
   const [{ createdMetrics, selectedMetricIndex }, setCreatedMetrics] = useState<CreatedMetricsWithSelectedIndex>(
-    initializeCreatedMetrics('New Relic Metric', selectedMetric, mappedMetrics)
+    initializeCreatedMetrics(newRelicDefaultMetricName, selectedMetric, mappedMetrics)
   )
   const [nonCustomFeilds, setNonCustomFeilds] = useState(initializeNonCustomFields(newRelicData))
 

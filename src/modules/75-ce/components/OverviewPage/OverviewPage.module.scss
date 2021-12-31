@@ -61,6 +61,10 @@
     column-gap: 20px;
     row-gap: 10px;
 
+    a {
+      text-decoration: none !important;
+    }
+
     .recommendation {
       border: 1px solid var(--grey-100);
       box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16);

@@ -566,7 +566,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
               >
                 <div
                   class="Accordion--panel"
-                  data-open="true"
+                  data-open="false"
                   data-testid="advanced-panel"
                   id="advanced-panel"
                 >
@@ -591,47 +591,12 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                   </div>
                   <div
                     class="bp3-collapse Accordion--collapse"
-                    style="height: auto; overflow-y: visible; transition: none;"
                   >
                     <div
                       aria-hidden="false"
                       class="bp3-collapse-body"
-                      style="transform: translateY(0); transition: none;"
-                    >
-                      <div
-                        class="Accordion--details"
-                        data-testid="advanced-details"
-                      >
-                        <div
-                          class="bp3-card bp3-elevation-0 Card--card sectionCardVariables"
-                          id="variables"
-                          style="width: 100%;"
-                        >
-                          <div
-                            class="tabSubHeading"
-                          >
-                            pipeline.stageVariables
-                          </div>
-                          <p
-                            class="StyledProps--font StyledProps--main"
-                            style="line-height: 24px;"
-                          >
-                            workflowVariableInfo
-                          </p>
-                          <div
-                            class="stageSection"
-                          >
-                            <div
-                              class="stageDetails"
-                            >
-                              <div>
-                                {"a":"a","variables":[],"canAddVariable":true}
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                      style="transform: translateY(-undefinedpx);"
+                    />
                   </div>
                 </div>
               </div>
@@ -640,7 +605,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
               class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
             >
               <button
-                class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
+                class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
                 disabled=""
                 tabindex="-1"
                 type="button"
@@ -671,7 +636,7 @@ exports[`BuildStageSetupShell snapshot test initializes ok 1`] = `
                 </span>
               </button>
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon Button--variation Button--variation-primary"
                 type="button"
               >
                 <span

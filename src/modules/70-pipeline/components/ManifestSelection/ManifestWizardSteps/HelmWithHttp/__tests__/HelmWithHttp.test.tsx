@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, fireEvent, act, queryByAttribute, waitFor } from '@testing-library/react'
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import HelmWithHttp from '../HelmWithHttp'
@@ -7,9 +8,14 @@ import HelmWithHttp from '../HelmWithHttp'
 const props = {
   stepName: 'Manifest details',
   expressions: [],
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
   handleSubmit: jest.fn(),
   manifestIdsList: []
 }
+
+jest.mock('services/cd-ng', () => ({
+  useHelmCmdFlags: jest.fn().mockImplementation(() => ({ data: { data: ['Template', 'Pull'] }, refetch: jest.fn() }))
+}))
 
 describe('helm with http tests', () => {
   test(`renders without crashing`, () => {

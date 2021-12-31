@@ -20,7 +20,7 @@ export const getTypeByFeature = (feature: string, getString: UseStringsReturn['g
     case HealthSourceTypes.Splunk:
       return getString('pipeline.verification.analysisTab.logs')
     default:
-      return ''
+      return getString('common.repo_provider.customLabel')
   }
 }
 
@@ -66,6 +66,8 @@ export const getIconBySourceType = (type: string): IconName => {
       return 'service-splunk'
     case 'PagerDuty':
       return 'service-pagerduty'
+    case 'CustomHealth':
+      return 'service-custom-connector'
     default:
       return 'placeholder'
   }

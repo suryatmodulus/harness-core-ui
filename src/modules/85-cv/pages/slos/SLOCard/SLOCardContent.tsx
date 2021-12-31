@@ -12,6 +12,7 @@ import {
 import { useStrings } from 'framework/strings'
 import { SLOTargetChart } from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
 import { getDataPointsWithMinMaxXLimit } from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart.utils'
+import ChangeTimeline from '@cv/components/ChangeTimeline/ChangeTimeline'
 import ErrorBudgetGauge from './ErrorBudgetGauge'
 import { getErrorBudgetGaugeOptions, getSLOAndErrorBudgetGraphOptions } from '../CVSLOListingPage.utils'
 import { SLOCardContentProps, SLOCardToggleViews } from '../CVSLOsListingPage.types'
@@ -19,9 +20,12 @@ import css from '../CVSLOsListingPage.module.scss'
 
 const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }) => {
   const { getString } = useStrings()
-  const { sloPerformanceTrend, sloTargetPercentage, errorBudgetBurndown } = serviceLevelObjective
+  const { sloPerformanceTrend, sloTargetPercentage, errorBudgetBurndown, serviceIdentifier, environmentIdentifier } =
+    serviceLevelObjective
 
   const [toggle, setToggle] = useState(SLOCardToggleViews.SLO)
+  const startTime = sloPerformanceTrend[0]?.timestamp
+  const endTime = sloPerformanceTrend[sloPerformanceTrend.length - 1]?.timestamp
 
   const toggleProps: PillToggleProps<SLOCardToggleViews> = {
     options: [
@@ -48,6 +52,22 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
     [errorBudgetBurndown]
   )
 
+  const renderChangeTimelineSummary = (): JSX.Element => {
+    if (serviceIdentifier && environmentIdentifier && startTime && endTime) {
+      return (
+        <ChangeTimeline
+          serviceIdentifier={serviceIdentifier}
+          environmentIdentifier={environmentIdentifier}
+          startTime={startTime}
+          endTime={endTime}
+          hideTimeline
+        />
+      )
+    } else {
+      return <></>
+    }
+  }
+
   return (
     <Layout.Vertical
       spacing="large"
@@ -62,7 +82,16 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
       <Container>
         {toggle === SLOCardToggleViews.SLO && (
           <>
-            <Heading font={{ variation: FontVariation.FORM_HELP }}>{getString('cv.SLOPerformanceTrend')}</Heading>
+            <Container flex>
+              <Heading level={2} font={{ variation: FontVariation.FORM_HELP }}>
+                {getString('cv.SLOPerformanceTrend')}
+              </Heading>
+              {serviceLevelObjective.recalculatingSLI && (
+                <Text font={{ variation: FontVariation.SMALL }} color={Color.RED_500}>
+                  {getString('cv.sloRecalculationInProgress')}
+                </Text>
+              )}
+            </Container>
             <Layout.Horizontal spacing="medium">
               <Layout.Vertical spacing="medium" margin={{ top: 'large' }}>
                 <Container width={120} background={Color.GREY_100} padding="small" className={css.sloGlanceCard}>
@@ -88,6 +117,7 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
                     maxXLimit: sloPerformanceTrendData.maxXLimit
                   })}
                 />
+                {renderChangeTimelineSummary()}
               </Container>
             </Layout.Horizontal>
           </>
@@ -112,6 +142,7 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
                   maxXLimit: errorBudgetBurndownData.maxXLimit
                 })}
               />
+              {renderChangeTimelineSummary()}
             </Container>
           </Layout.Horizontal>
         )}

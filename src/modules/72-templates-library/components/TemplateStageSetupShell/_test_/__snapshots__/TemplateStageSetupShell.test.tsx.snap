@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TemplateStageSetupShell /> tests snapshot test 1`] = `
+<div>
+  <section
+    class="setupShell"
+  >
+    <div
+      class="template-stage-specifications"
+    />
+  </section>
+</div>
+`;

@@ -1,3 +1,4 @@
+import { MultiTypeInputType } from '@wings-software/uicore'
 import type { PipelineContextInterface } from '../../PipelineContext/PipelineContext'
 import type { PipelineSelectionState } from '../../PipelineQueryParamState/usePipelineQueryParam'
 
@@ -196,6 +197,7 @@ const pipelineContextMock: PipelineContextInterface = {
     getStepIcon: () => 'run-step'
   } as any,
   contextType: 'Pipeline',
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
   stagesMap: {},
   setSchemaErrorView: () => undefined,
   isReadonly: false,

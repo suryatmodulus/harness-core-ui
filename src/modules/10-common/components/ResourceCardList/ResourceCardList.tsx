@@ -11,13 +11,14 @@ import useCreateSmtpModal from '@common/components/Smtp/useCreateSmtpModal'
 import { useGetSmtpConfig } from 'services/cd-ng'
 import css from './ResourceCardList.module.scss'
 
-interface ResourceOption {
+export interface ResourceOption {
   label: JSX.Element
   icon: IconName
   route?: string
   colorClass: string
   onClick?: () => void
   subLabel?: JSX.Element
+  disabled?: boolean
 }
 interface ResourceCardListProps {
   items?: ResourceOption[]
@@ -37,6 +38,7 @@ const ResourceCardList: React.FC<ResourceCardListProps> = ({ items }) => {
     {
       label: <String stringID="common.smtp.conifg" />,
       icon: 'smtp',
+      disabled: loading,
       onClick: () => {
         if (!loading) {
           if (!data?.data) {
@@ -106,6 +108,7 @@ const ResourceCardList: React.FC<ResourceCardListProps> = ({ items }) => {
         <Card
           key={option.icon}
           className={cx(css.card, option.colorClass)}
+          disabled={option.disabled}
           onClick={() => {
             option?.onClick?.()
             if (option.route) {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Color, FontVariation, NestedAccordionPanel, Text } from '@wings-software/uicore'
+import { Color, FontVariation, MultiTypeInputType, NestedAccordionPanel, Text } from '@wings-software/uicore'
 
 import { isEmpty, lowerCase } from 'lodash-es'
 import type { ServiceConfig, ServiceSpec } from 'services/cd-ng'
@@ -26,10 +26,19 @@ export interface ServiceCardProps {
   onUpdateServiceConfig(data: ServiceSpec): void
   readonly?: boolean
   path?: string
+  allowableTypes: MultiTypeInputType[]
 }
 
 export function ServiceCard(props: ServiceCardProps): React.ReactElement {
-  const { serviceConfig, originalServiceConfig, metadataMap, stageIdentifier, onUpdateServiceConfig, readonly } = props
+  const {
+    serviceConfig,
+    originalServiceConfig,
+    metadataMap,
+    stageIdentifier,
+    onUpdateServiceConfig,
+    readonly,
+    allowableTypes
+  } = props
   const { stepsFactory } = usePipelineContext()
   const { getString } = useStrings()
   return (
@@ -54,7 +63,7 @@ export function ServiceCard(props: ServiceCardProps): React.ReactElement {
         initialValues={originalServiceConfig.serviceDefinition?.spec || {}}
         type={StepsMap[originalServiceConfig.serviceDefinition?.type || '']}
         stepViewType={StepViewType.InputVariable}
-        allowableTypes={[]}
+        allowableTypes={allowableTypes}
         onUpdate={onUpdateServiceConfig}
         readonly={readonly}
         customStepProps={{

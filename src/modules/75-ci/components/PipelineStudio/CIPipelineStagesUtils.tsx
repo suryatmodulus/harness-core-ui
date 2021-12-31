@@ -27,6 +27,7 @@ export const getCIPipelineStages: (
       {stagesCollection.getStage(StageType.FEATURE, isCFEnabled, getString)}
       {stagesCollection.getStage(StageType.PIPELINE, false, getString)}
       {stagesCollection.getStage(StageType.CUSTOM, false, getString)}
+      {stagesCollection.getStage(StageType.Template, false, getString)}
     </PipelineStages>
   )
 }

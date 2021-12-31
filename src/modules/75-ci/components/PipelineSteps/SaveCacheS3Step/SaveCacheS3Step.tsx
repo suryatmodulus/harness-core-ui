@@ -77,7 +77,7 @@ export class SaveCacheS3Step extends PipelineStep<SaveCacheS3StepData> {
 
   protected type = StepType.SaveCacheS3
   protected stepName = 'Save Cache to S3'
-  protected stepIcon: IconName = 'save-cache-s3'
+  protected stepIcon: IconName = 'save-cache-s3-step'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.SaveCacheS3'
   protected stepPaletteVisible = false
 

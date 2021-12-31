@@ -27,7 +27,7 @@ export interface GCRStepSpec {
   projectID: string
   imageName: string
   tags: MultiTypeListType
-  optimize: boolean
+  optimize?: boolean
   dockerfile?: string
   context?: string
   labels?: MultiTypeMapType
@@ -97,7 +97,6 @@ export class GCRStep extends PipelineStep<GCRStepData> {
       connectorRef: '',
       host: '',
       projectID: '',
-      optimize: true,
       remoteCacheImage: '',
       imageName: '',
       tags: []

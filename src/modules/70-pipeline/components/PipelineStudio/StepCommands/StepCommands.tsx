@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, ButtonSize, ButtonVariation, Color, Container, Tab, Tabs } from '@wings-software/uicore'
+import { Button, ButtonSize, ButtonVariation, Container, Tab, Tabs } from '@wings-software/uicore'
 import { Expander } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
@@ -14,12 +14,10 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { StageType } from '@pipeline/utils/stageHelpers'
 import type { StepElementConfig } from 'services/cd-ng'
 import type { TemplateStepData } from '@pipeline/utils/tempates'
-import RbacButton from '@rbac/components/Button/Button'
-import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { TemplateBar } from '@pipeline/components/PipelineStudio/StepCommands/TemplateBar/TemplateBar'
 import useCurrentModule from '@common/hooks/useCurrentModule'
 import { ModuleName } from 'framework/types/ModuleName'
+import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
 import { StepCommandsProps, StepCommandsViews } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 
@@ -51,7 +49,6 @@ export function StepCommands(
     onChange,
     onUpdate,
     onUseTemplate,
-    onSaveAsTemplate,
     onRemoveTemplate,
     isStepGroup,
     isReadonly,
@@ -234,21 +231,7 @@ export function StepCommands(
                     }}
                     margin={{ right: 'small' }}
                   />
-                  <RbacButton
-                    withoutCurrentColor
-                    variation={ButtonVariation.ICON}
-                    icon="upload-box"
-                    iconProps={{ color: Color.PRIMARY_7 }}
-                    size={ButtonSize.SMALL}
-                    onClick={() => onSaveAsTemplate?.(step)}
-                    className={css.saveButton}
-                    permission={{
-                      permission: PermissionIdentifier.EDIT_TEMPLATE,
-                      resource: {
-                        resourceType: ResourceType.TEMPLATE
-                      }
-                    }}
-                  />
+                  <SaveTemplateButton data={step} type={'Step'} buttonProps={{ variation: ButtonVariation.ICON }} />
                 </div>
               </>
             ) : null}

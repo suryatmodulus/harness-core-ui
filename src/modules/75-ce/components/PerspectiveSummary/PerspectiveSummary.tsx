@@ -1,13 +1,29 @@
-import React from 'react'
-import { Layout, Card, Text, Container, FlexExpander, Icon, FontVariation, Color } from '@wings-software/uicore'
+import React, { useState } from 'react'
+import {
+  Layout,
+  Card,
+  Text,
+  Container,
+  FlexExpander,
+  Icon,
+  FontVariation,
+  Color,
+  Carousel,
+  Button,
+  Link,
+  ButtonSize,
+  ButtonVariation
+} from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { PerspectiveTrendStats, Maybe, useFetchPerspectiveBudgetQuery } from 'services/ce/services'
+import { PerspectiveTrendStats, Maybe, useFetchPerspectiveBudgetQuery, BudgetSummary } from 'services/ce/services'
 import useBudgetModal from '@ce/components/PerspectiveReportsAndBudget/PerspectiveCreateBudget'
 import formatCost from '@ce/utils/formatCost'
 import { useGetLastMonthCost, useGetForecastCost } from 'services/ce'
 
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import routes from '@common/RouteDefinitions'
 import RecommendationSummaryCard from './RecommendationSummaryCard'
 import css from './PerspectiveSummary.module.scss'
 
@@ -73,7 +89,7 @@ const CostCard: (val: CostCardProps) => JSX.Element = ({
       <Container className={css.mainCard}>
         {!isEmpty ? (
           <>
-            <Text color="grey500" font="small">
+            <Text color={Color.GREY_500} font="small">
               {statsLabel}
             </Text>
             <Layout.Horizontal
@@ -85,9 +101,7 @@ const CostCard: (val: CostCardProps) => JSX.Element = ({
                 bottom: 'small'
               }}
             >
-              <Text color="black" font="medium">
-                {statsValue}
-              </Text>
+              <Text font={{ variation: FontVariation.H3 }}>{statsValue}</Text>
               <FlexExpander />
               <StatsTrendRenderer val={statsTrend} />
             </Layout.Horizontal>
@@ -102,12 +116,107 @@ const CostCard: (val: CostCardProps) => JSX.Element = ({
   )
 }
 
-const BudgetCard: () => JSX.Element | null = () => {
+const BAR_WIDTH = 298
+interface BudgetCardProps {
+  budgetData: BudgetSummary
+}
+
+const BudgetCard: (props: BudgetCardProps) => JSX.Element | null = ({ budgetData }) => {
+  const { accountId } = useParams<AccountPathProps>()
+  const { getString } = useStrings()
+  const { actualCost, budgetAmount } = budgetData
+
+  const percentage = Math.round((actualCost * 100) / (budgetAmount || 1))
+
+  let width = BAR_WIDTH
+
+  if (percentage > 100) {
+    width = BAR_WIDTH * (budgetAmount / actualCost)
+  }
+
+  let intentColor = Color.GREEN_500
+  if (percentage > 50) {
+    intentColor = Color.ORANGE_500
+  }
+  if (percentage > 90) {
+    intentColor = Color.RED_500
+  }
+
+  return (
+    <Container className={cx(css.budgetCard)}>
+      <Layout.Horizontal>
+        <Text color={Color.GREY_500} font={FontVariation.SMALL}>
+          {getString('ce.perspectives.budgets.budgetMonthlyTxt', { period: budgetData.timeScope })}
+        </Text>
+        <FlexExpander />
+        <Link
+          className={css.viewBudgetLink}
+          href={routes.toCEBudgetDetails({
+            budgetId: budgetData.id,
+            budgetName: budgetData.name,
+            accountId: accountId
+          })}
+          size={ButtonSize.SMALL}
+          padding="none"
+          margin="none"
+          font={FontVariation.SMALL}
+          variation={ButtonVariation.LINK}
+        >
+          {getString('ce.perspectives.budgets.viewText')}
+        </Link>
+      </Layout.Horizontal>
+
+      <Layout.Horizontal
+        margin={{
+          top: 'small',
+          bottom: 'small'
+        }}
+        spacing="xsmall"
+        style={{
+          alignItems: 'flex-end'
+        }}
+      >
+        <Text font={{ variation: FontVariation.H3 }}>{formatCost(budgetAmount)}</Text>
+        <Text className={css.thisMonthText} color={Color.GREY_400} font={{ variation: FontVariation.TINY }}>
+          {getString('ce.perspectives.budgets.thisMonth')}
+        </Text>
+      </Layout.Horizontal>
+      <Layout.Horizontal spacing="xsmall">
+        {percentage > 100 ? (
+          <>
+            <Text className={css.spendText} color={Color.GREY_500} font={{ variation: FontVariation.TINY }}>
+              {getString('ce.perspectives.budgets.spendExceededBy')}
+            </Text>
+            <Text color="red500" font={{ variation: FontVariation.TINY_SEMI }}>
+              {formatCost(actualCost - budgetAmount)}
+            </Text>
+          </>
+        ) : (
+          <>
+            <Text className={css.spendText} color={Color.GREY_500} font={{ variation: FontVariation.TINY }}>
+              {getString('ce.perspectives.budgets.monthToDateSpend')}
+            </Text>
+            <Text color={Color.GREY_500} font={{ variation: FontVariation.TINY_SEMI }}>{`${percentage}%`}</Text>
+            <Text color={Color.GREY_500} font={{ variation: FontVariation.TINY }}>
+              {getString('ce.perspectives.budgets.budgetSmallTxt')}
+            </Text>
+          </>
+        )}
+      </Layout.Horizontal>
+      <div className={cx(css.indicatorBar, css.indicatorBarWithPattern)}></div>
+      <Container width={width} background={intentColor} className={css.indicatorBar}></Container>
+    </Container>
+  )
+}
+
+const BudgetCardsCarousel: () => JSX.Element | null = () => {
   const { perspectiveId, accountId, perspectiveName } = useParams<{
     perspectiveId: string
     accountId: string
     perspectiveName: string
   }>()
+
+  const [activeSlide, setActiveSlide] = useState<number>(1)
 
   const { getString } = useStrings()
 
@@ -117,7 +226,7 @@ const BudgetCard: () => JSX.Element | null = () => {
     }
   })
 
-  const budgetData = data?.budgetSummary
+  const budgetData = data?.budgetSummaryList
 
   const { openModal, hideModal } = useBudgetModal({
     onSuccess: () => {
@@ -138,18 +247,18 @@ const BudgetCard: () => JSX.Element | null = () => {
 
   if (budgetFetching) {
     return (
-      <Card elevation={1} interactive={false}>
-        <Container className={cx(css.mainCard, css.budgetCard, { [css.loadingContainer]: budgetFetching })}>
+      <Card className={css.cardContainer} elevation={1} interactive={false}>
+        <Container className={cx(css.budgetCard, { [css.loadingContainer]: budgetFetching })}>
           <Icon name="spinner" color="blue500" size={30} />
         </Container>
       </Card>
     )
   }
 
-  if (!budgetData) {
+  if (!budgetData?.length) {
     return (
-      <Card elevation={1} interactive={false}>
-        <Container className={cx(css.mainCard, css.budgetCard)}>
+      <Card className={css.cardContainer} elevation={1} interactive={false}>
+        <Container className={cx(css.budgetCard)}>
           <Text color="grey800" font="small">
             {getString('ce.perspectives.budgets.title')}
           </Text>
@@ -186,72 +295,49 @@ const BudgetCard: () => JSX.Element | null = () => {
     )
   }
 
-  const { actualCost, budgetAmount } = budgetData
-
-  const percentage = Math.round((actualCost * 100) / (budgetAmount || 1))
-
-  let width = 262
-
-  if (percentage > 100) {
-    width = 262 * (budgetAmount / actualCost)
-  }
-
-  let intentColor = Color.GREEN_500
-  if (percentage > 50) {
-    intentColor = Color.ORANGE_500
-  }
-  if (percentage > 90) {
-    intentColor = Color.RED_500
-  }
-
   return (
-    <Card elevation={1} interactive={false}>
-      <Container className={cx(css.mainCard, css.budgetCard)}>
-        <Text color="grey500" font="small">
-          {getString('ce.perspectives.budgets.budgetMonthlyTxt')}
-        </Text>
-        <Layout.Horizontal
-          margin={{
-            top: 'small',
-            bottom: 'small'
-          }}
-          spacing="xsmall"
-          style={{
-            alignItems: 'flex-end'
-          }}
-        >
-          <Text font="medium" color="black">
-            {formatCost(budgetAmount)}
-          </Text>
-          <Text className={css.thisMonthText} color="grey400" font="xsmall">
-            {getString('ce.perspectives.budgets.thisMonth')}
-          </Text>
-        </Layout.Horizontal>
-        <Layout.Horizontal spacing="xsmall">
-          {percentage > 100 ? (
-            <>
-              <Text className={css.spendText} color="grey500" font={{ variation: FontVariation.TINY }}>
-                {getString('ce.perspectives.budgets.spendExceededBy')}
-              </Text>
-              <Text color="red500" font={{ variation: FontVariation.TINY_SEMI }}>
-                {formatCost(actualCost - budgetAmount)}
-              </Text>
-            </>
+    <Card className={css.cardContainer} elevation={1} interactive={false}>
+      <Carousel
+        className={css.carousel}
+        onChange={setActiveSlide}
+        hideIndicators={true}
+        previousElement={
+          activeSlide > 1 ? (
+            <Button
+              intent="primary"
+              className={css.prevButtons}
+              icon="main-caret-left"
+              minimal
+              iconProps={{
+                size: 8,
+                color: Color.PRIMARY_7
+              }}
+            />
           ) : (
-            <>
-              <Text className={css.spendText} color="grey500" font={{ variation: FontVariation.TINY }}>
-                {getString('ce.perspectives.budgets.monthToDateSpend')}
-              </Text>
-              <Text color="grey500" font={{ variation: FontVariation.TINY_SEMI }}>{`${percentage}%`}</Text>
-              <Text color="grey500" font={{ variation: FontVariation.TINY }}>
-                {getString('ce.perspectives.budgets.budgetSmallTxt')}
-              </Text>
-            </>
-          )}
-        </Layout.Horizontal>
-        <div className={cx(css.indicatorBar, css.indicatorBarWithPattern)}></div>
-        <Container width={width} background={intentColor} className={css.indicatorBar}></Container>
-      </Container>
+            <span />
+          )
+        }
+        nextElement={
+          activeSlide < budgetData.length ? (
+            <Button
+              intent="primary"
+              className={css.nextButton}
+              icon="main-caret-right"
+              minimal
+              iconProps={{
+                size: 8,
+                color: Color.PRIMARY_7
+              }}
+            />
+          ) : (
+            <span />
+          )
+        }
+      >
+        {budgetData.map(bData => (
+          <BudgetCard key={bData?.id} budgetData={bData as BudgetSummary} />
+        ))}
+      </Carousel>
     </Card>
   )
 }
@@ -272,6 +358,11 @@ const PerspectiveSummary: React.FC<PerspectiveSummaryProps> = ({
   isDefaultPerspective,
   hasClusterAsSource
 }) => {
+  let showForecastedCostCard = true
+  if (!fetching && !forecastedCostData?.cost?.statsValue) {
+    showForecastedCostCard = false
+  }
+
   return (
     <Layout.Horizontal margin="xlarge" spacing="large">
       <CostCard
@@ -282,15 +373,17 @@ const PerspectiveSummary: React.FC<PerspectiveSummaryProps> = ({
         statsValue={data?.cost?.statsValue}
         isEmpty={!data?.cost}
       />
-      {!isDefaultPerspective && <BudgetCard />}
-      <CostCard
-        fetching={fetching}
-        statsLabel={forecastedCostData?.cost?.statsLabel}
-        statsDescription={forecastedCostData?.cost?.statsDescription}
-        statsTrend={forecastedCostData?.cost?.statsTrend}
-        statsValue={forecastedCostData?.cost?.statsValue}
-        isEmpty={!forecastedCostData?.cost}
-      />
+      {!isDefaultPerspective && <BudgetCardsCarousel />}
+      {showForecastedCostCard && (
+        <CostCard
+          fetching={fetching}
+          statsLabel={forecastedCostData?.cost?.statsLabel}
+          statsDescription={forecastedCostData?.cost?.statsDescription}
+          statsTrend={forecastedCostData?.cost?.statsTrend}
+          statsValue={forecastedCostData?.cost?.statsValue}
+          isEmpty={!forecastedCostData?.cost}
+        />
+      )}
       {hasClusterAsSource && <RecommendationSummaryCard />}
     </Layout.Horizontal>
   )

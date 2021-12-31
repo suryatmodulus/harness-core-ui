@@ -5,4 +5,5 @@ export interface TimelineProps {
   timestamps?: number[]
   isLoading?: boolean
   rowOffset?: number
+  hideTimeline?: boolean
 }

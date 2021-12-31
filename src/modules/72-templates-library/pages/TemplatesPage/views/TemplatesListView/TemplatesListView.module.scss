@@ -22,4 +22,8 @@
   .selected {
     border: 1px solid var(--primary-7);
   }
+  .pagination {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
 }

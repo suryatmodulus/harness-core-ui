@@ -94,7 +94,8 @@ exports[`TF Config Form tests edit view loads correctly -with commitId 1`] = `
                               class="Tag--main"
                             >
                               <span
-                                class="bp3-tag bp3-minimal tag"
+                                class="bp3-tag bp3-minimal"
+                                id="tag"
                               >
                                 <span
                                   class="bp3-text-overflow-ellipsis bp3-fill"
@@ -498,7 +499,8 @@ exports[`TF Config Form tests edit view loads correctly 1`] = `
                               class="Tag--main"
                             >
                               <span
-                                class="bp3-tag bp3-minimal tag"
+                                class="bp3-tag bp3-minimal"
+                                id="tag"
                               >
                                 <span
                                   class="bp3-text-overflow-ellipsis bp3-fill"
@@ -902,7 +904,8 @@ exports[`TF Config Form tests initial render 1`] = `
                               class="Tag--main"
                             >
                               <span
-                                class="bp3-tag bp3-minimal tag"
+                                class="bp3-tag bp3-minimal"
+                                id="tag"
                               >
                                 <span
                                   class="bp3-text-overflow-ellipsis bp3-fill"

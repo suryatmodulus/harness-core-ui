@@ -15,7 +15,10 @@ const TestComponent = ({ initialValues }: TestProps): React.ReactElement => (
     {/* eslint-disable-next-line @typescript-eslint/no-empty-function */}
     <Formik initialValues={initialValues} onSubmit={() => {}} formName="stepCommonFieldsForm">
       <FormikForm>
-        <StepCommonFields allowableTypes={[MultiTypeInputType.EXPRESSION]} />
+        <StepCommonFields
+          allowableTypes={[MultiTypeInputType.EXPRESSION]}
+          buildInfrastructureType={'KubernetesDirect'}
+        />
       </FormikForm>
     </Formik>
   </TestWrapper>

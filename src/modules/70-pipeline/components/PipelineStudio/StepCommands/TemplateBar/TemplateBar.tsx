@@ -4,6 +4,10 @@ import { Menu, Position } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { TemplateStepData } from '@pipeline/utils/tempates'
 import type { StepOrStepGroupOrTemplateStepData } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import { getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
+import { useStrings } from 'framework/strings'
+import { useFeature } from '@common/hooks/useFeatures'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './TemplateBar.module.scss'
 
 export interface TemplateBarProps {
@@ -22,17 +26,24 @@ interface TemplateMenuItem {
 export const TemplateBar: React.FC<TemplateBarProps> = (props): JSX.Element => {
   const { step, onChangeTemplate, onRemoveTemplate } = props
   const [menuOpen, setMenuOpen] = React.useState(false)
+  const { getString } = useStrings()
+  const { enabled: templatesEnabled } = useFeature({
+    featureRequest: {
+      featureName: FeatureIdentifier.TEMPLATE_SERVICE
+    }
+  })
 
   const getItems = (): TemplateMenuItem[] => {
     return [
       {
         icon: 'command-switch',
-        label: 'Change Template',
+        label: getString('pipeline.changeTemplateLabel'),
+        disabled: !templatesEnabled,
         onClick: () => onChangeTemplate?.(step)
       },
       {
         icon: 'main-trash',
-        label: 'Remove Template',
+        label: getString('pipeline.removeTemplateLabel'),
         onClick: () => onRemoveTemplate?.()
       }
     ]
@@ -43,14 +54,13 @@ export const TemplateBar: React.FC<TemplateBarProps> = (props): JSX.Element => {
       margin={'medium'}
       padding={{ top: 'small', right: 'medium', bottom: 'small', left: 'medium' }}
       background={Color.PRIMARY_6}
+      className={css.container}
       border={{ radius: 4 }}
     >
       <Layout.Horizontal spacing={'small'} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
         <Icon size={11} color={Color.WHITE} name={'template-library'} />
         <Text style={{ flexGrow: 1 }} font={{ size: 'small' }} color={Color.WHITE}>
-          {`Using Template: ${(step as TemplateStepData)?.template?.templateRef} (${
-            (step as TemplateStepData)?.template?.versionLabel || 'Stable'
-          })`}
+          {`Using Template: ${getTemplateNameWithLabel((step as TemplateStepData)?.template)}`}
         </Text>
         <Popover
           isOpen={menuOpen}

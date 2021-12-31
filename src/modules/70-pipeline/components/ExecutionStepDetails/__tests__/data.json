@@ -37,6 +37,7 @@
       "interruptHistories": [
         {
           "interruptId": "interruptId_1",
+          "interruptType": "RETRY",
           "interruptConfig": {
             "retryInterruptConfig": {
               "retryId": "retryId_1"
@@ -45,6 +46,7 @@
         },
         {
           "interruptId": "interruptId_2",
+          "interruptType": "RETRY",
           "interruptConfig": {
             "retryInterruptConfig": {
               "retryId": "retryId_2"

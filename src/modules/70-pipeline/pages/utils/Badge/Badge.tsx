@@ -16,6 +16,7 @@ export interface BadgeProps {
   entityType: string
   uuidToErrorResponseMap?: { [key: string]: InputSetErrorResponse }
   overlaySetErrorDetails?: { [key: string]: string }
+  showInvalidText?: boolean
 }
 
 interface BadgeTooltipContentInterface {
@@ -80,21 +81,28 @@ export const Badge: React.FC<BadgeProps> = (props: BadgeProps): JSX.Element => {
     entityName = '',
     entityType,
     uuidToErrorResponseMap,
-    overlaySetErrorDetails
+    overlaySetErrorDetails,
+    showInvalidText = false
   } = props
   const { getString } = useStrings()
 
-  const badgeUI = (
-    <Container className={css.badge}>
-      <Icon name={iconName} size={10} color={Color.RED_600} className={css.badgeIcon} />
-      <Text color={Color.RED_900} font={{ weight: 'bold' }} className={css.badgeText}>
-        {getString(text)}
-      </Text>
-    </Container>
-  )
+  const badgeUI = React.useCallback(() => {
+    if (showInvalidText) {
+      return (
+        <Container className={css.badge}>
+          <Icon name={iconName} size={10} color={Color.RED_600} className={css.badgeIcon} />
+          <Text color={Color.RED_900} font={{ weight: 'bold' }} className={css.badgeText}>
+            {getString(text)}
+          </Text>
+        </Container>
+      )
+    }
+    return <Icon name={iconName} size={16} color={Color.RED_600} className={css.badgeIcon} data-testid="invalid-icon" />
+  }, [iconName, showInvalidText, text, getString])
+
   return showTooltip ? (
     <Popover interactionKind={PopoverInteractionKind.HOVER} position={Position.BOTTOM} className={Classes.DARK}>
-      {badgeUI}
+      {badgeUI()}
       <TooltipContent
         iconName={iconName}
         entityName={entityName}
@@ -104,6 +112,6 @@ export const Badge: React.FC<BadgeProps> = (props: BadgeProps): JSX.Element => {
       />
     </Popover>
   ) : (
-    badgeUI
+    badgeUI()
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import qs from 'qs'
-import { Card, Container, Icon, Text, FontVariation, Layout, FlexExpander } from '@wings-software/uicore'
+import { Card, Container, Icon, Text, FontVariation, Layout, FlexExpander, Color } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
@@ -58,12 +58,12 @@ const RecommendationSummaryCard: () => JSX.Element = () => {
     return (
       <Card elevation={1}>
         <Container className={css.mainCard}>
-          <Text color="grey500" font="small">
+          <Text color={Color.GREY_500} font={{ variation: FontVariation.SMALL }}>
             {getString('ce.recommendation.sideNavText')}
           </Text>
           <Text
             margin={{
-              top: 'large',
+              top: 'medium',
               bottom: 'small'
             }}
             iconProps={{ size: 21 }}
@@ -71,6 +71,9 @@ const RecommendationSummaryCard: () => JSX.Element = () => {
             icon="money-icon"
           >
             $--
+          </Text>
+          <Text color={Color.GREY_600} font={{ variation: FontVariation.TINY }}>
+            no Recommendations yet
           </Text>
         </Container>
       </Card>
@@ -81,17 +84,22 @@ const RecommendationSummaryCard: () => JSX.Element = () => {
     <Card elevation={1} interactive={false}>
       <Container className={css.mainCard}>
         <Layout.Horizontal>
-          <Text color="grey500" font="small">
+          <Text color={Color.GREY_500} font={{ variation: FontVariation.SMALL }}>
             {getString('ce.recommendation.sideNavText')}
           </Text>
           <FlexExpander />
-          <Text className={css.viewLink} color="primary7" font="small" onClick={nagvigateToRecommendations}>
+          <Text
+            className={css.viewLink}
+            color={Color.PRIMARY_7}
+            font={{ variation: FontVariation.SMALL }}
+            onClick={nagvigateToRecommendations}
+          >
             {getString('ce.perspectives.recommendations.viewText')}
           </Text>
         </Layout.Horizontal>
 
         <Text
-          color="grey400"
+          color={Color.GREY_400}
           margin={{
             top: 'xsmall'
           }}
@@ -112,7 +120,7 @@ const RecommendationSummaryCard: () => JSX.Element = () => {
         >
           {formatCost(recommendationData.totalMonthlySaving)}
         </Text>
-        <Text color="grey400" font={{ variation: FontVariation.TINY }}>
+        <Text color={Color.GREY_400} font={{ variation: FontVariation.TINY }}>
           {getString('ce.perspectives.recommendations.perMonth')}
         </Text>
       </Container>

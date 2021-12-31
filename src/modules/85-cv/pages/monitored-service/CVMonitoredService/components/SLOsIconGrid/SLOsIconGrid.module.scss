@@ -1,0 +1,22 @@
+.container {
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.errorBudgetPopoverLightBg {
+  color: black;
+}
+
+.errorBudgetPopoverDarkBg {
+  color: white;
+  background-color: var(--grey-700);
+
+  :global {
+    .bp3-popover-arrow-fill {
+      fill: var(--grey-700);
+    }
+    .bp3-popover-content {
+      background-color: var(--grey-700);
+    }
+  }
+}

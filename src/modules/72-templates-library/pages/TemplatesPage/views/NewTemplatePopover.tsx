@@ -1,8 +1,8 @@
 import React from 'react'
 import { Position } from '@blueprintjs/core'
-import { ButtonVariation } from '@wings-software/uicore'
+import { Button, ButtonVariation } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
-import { merge } from 'lodash-es'
+import { merge, noop } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { getAllowedTemplateTypes, TemplateType } from '@templates-library/utils/templatesUtils'
 import routes from '@common/RouteDefinitions'
@@ -12,19 +12,25 @@ import {
   TemplatesActionPopover
 } from '@templates-library/components/TemplatesActionPopover/TemplatesActionPopover'
 import { DefaultNewTemplateId } from 'framework/Templates/templates'
-import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { usePermission } from '@rbac/hooks/usePermission'
+import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { useFeature } from '@common/hooks/useFeatures'
+import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 
-export function NewTemplatePopover(): React.ReactElement {
-  const handleAddTemplate = () => undefined
+function NewTemplatePopoverWrapper(): React.ReactElement {
   const { getString } = useStrings()
   const history = useHistory()
   const allowedTemplateTypes = getAllowedTemplateTypes(getString)
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<ProjectPathProps & ModulePathParams>()
   const [menuOpen, setMenuOpen] = React.useState(false)
-
+  const { enabled: templatesEnabled } = useFeature({
+    featureRequest: {
+      featureName: FeatureIdentifier.TEMPLATE_SERVICE
+    }
+  })
   const rbacResourcePermission = {
     resource: {
       resourceType: ResourceType.TEMPLATE
@@ -32,12 +38,8 @@ export function NewTemplatePopover(): React.ReactElement {
   }
   const [canEdit] = usePermission({
     ...rbacResourcePermission,
-    permissions: [PermissionIdentifier.EDIT_TEMPLATE],
-    options: {
-      skipCache: true
-    }
+    permissions: [PermissionIdentifier.EDIT_TEMPLATE]
   })
-
   const goToTemplateStudio = React.useCallback(
     (templateType: TemplateType) => {
       history.push(
@@ -62,27 +64,37 @@ export function NewTemplatePopover(): React.ReactElement {
     })
   }
 
+  const tooltipBtn = React.useCallback(
+    () =>
+      !canEdit ? (
+        <RBACTooltip permission={PermissionIdentifier.EDIT_TEMPLATE} resourceType={ResourceType.TEMPLATE} />
+      ) : !templatesEnabled ? (
+        <FeatureWarningTooltip featureName={FeatureIdentifier.TEMPLATE_SERVICE} isDarkMode />
+      ) : undefined,
+    [canEdit, templatesEnabled]
+  )
+
   return (
     <TemplatesActionPopover
       open={menuOpen}
       minimal={true}
       items={getMenu()}
       position={Position.BOTTOM}
-      disabled={!canEdit}
+      disabled={!canEdit || !templatesEnabled}
       setMenuOpen={setMenuOpen}
       usePortal={false}
     >
-      <RbacButton
+      <Button
         variation={ButtonVariation.PRIMARY}
         icon="plus"
         rightIcon="chevron-down"
         text={getString('templatesLibrary.addNewTemplate')}
-        onClick={handleAddTemplate}
-        permission={{
-          ...rbacResourcePermission,
-          permission: PermissionIdentifier.EDIT_TEMPLATE
-        }}
+        onClick={noop}
+        disabled={!canEdit || !templatesEnabled}
+        tooltip={tooltipBtn()}
       />
     </TemplatesActionPopover>
   )
 }
+
+export const NewTemplatePopover = React.memo(NewTemplatePopoverWrapper)

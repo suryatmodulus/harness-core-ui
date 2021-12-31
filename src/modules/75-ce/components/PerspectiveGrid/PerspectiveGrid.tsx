@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState } from 'react'
-import { Text, Container, Icon } from '@wings-software/uicore'
+import { Container, Icon } from '@wings-software/uicore'
 import type { Column, Row } from 'react-table'
 import { isEqual } from 'lodash-es'
 import type { QlceViewFieldInputInput, QlceViewEntityStatsDataPoint, Maybe } from 'services/ce/services'
@@ -73,14 +73,6 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
     return (
       <Container className={css.gridLoadingContainer}>
         <Icon name="spinner" color="blue500" size={30} />
-      </Container>
-    )
-  }
-
-  if (!gridData.length) {
-    return (
-      <Container className={css.gridLoadingContainer}>
-        <Text>« no data »</Text>
       </Container>
     )
   }

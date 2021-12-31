@@ -2704,7 +2704,8 @@ exports[`Manifest Trigger Tests on click of edit - submits thru the right payloa
                             class="Tag--main"
                           >
                             <span
-                              class="bp3-tag bp3-minimal tag"
+                              class="bp3-tag bp3-minimal"
+                              id="tag"
                             >
                               <span
                                 class="bp3-text-overflow-ellipsis bp3-fill"

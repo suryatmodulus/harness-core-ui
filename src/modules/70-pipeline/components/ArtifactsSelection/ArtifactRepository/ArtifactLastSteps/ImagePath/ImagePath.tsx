@@ -34,6 +34,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   context,
   handleSubmit,
   expressions,
+  allowableTypes,
   prevStepData,
   initialValues,
   previousStep,
@@ -234,7 +235,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                   label={getString('pipeline.imagePathLabel')}
                   name="imagePath"
                   placeholder={getString('pipeline.artifactsSelection.existingDocker.imageNamePlaceholder')}
-                  multiTextInputProps={{ expressions }}
+                  multiTextInputProps={{ expressions, allowableTypes }}
                   onChange={() => {
                     tagList.length && setTagList([])
                     formik.values.tagType === 'value' &&
@@ -284,6 +285,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                     }
                     multiTypeInputProps={{
                       expressions,
+                      allowableTypes,
                       selectProps: {
                         defaultSelectedItem: formik.values?.tag,
                         noResults: (
@@ -340,7 +342,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                     label={getString('tagRegex')}
                     name="tagRegex"
                     placeholder={getString('pipeline.artifactsSelection.existingDocker.enterTagRegex')}
-                    multiTextInputProps={{ expressions }}
+                    multiTextInputProps={{ expressions, allowableTypes }}
                   />
                   {getMultiTypeFromValue(formik.values.tagRegex) === MultiTypeInputType.RUNTIME && (
                     <div className={css.configureOptions}>

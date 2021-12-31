@@ -41,7 +41,7 @@
             }
 
             &:hover:local:not(.active, .disabled) {
-              background: var(--grey-700) !important;
+              background-color: rgba(138, 155, 168, 0.15) !important;
             }
           }
         }

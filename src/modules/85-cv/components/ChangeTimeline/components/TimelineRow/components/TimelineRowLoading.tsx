@@ -3,9 +3,13 @@ import { Classes } from '@blueprintjs/core'
 import { Container } from '@wings-software/uicore'
 import css from './TimelineRowLoading.module.scss'
 
-export default function TimelineRowLoading(): JSX.Element {
+interface TimelineRowLoadingProps {
+  loadingBlockWidth?: string
+}
+
+export default function TimelineRowLoading({ loadingBlockWidth }: TimelineRowLoadingProps): JSX.Element {
   const LoadingBlock = (): JSX.Element => (
-    <Container width={'75px'} height={'5px'} className={Classes.SKELETON}>
+    <Container width={loadingBlockWidth ?? '75px'} height={'5px'} className={Classes.SKELETON}>
       {' '}
       &nbsp;{' '}
     </Container>

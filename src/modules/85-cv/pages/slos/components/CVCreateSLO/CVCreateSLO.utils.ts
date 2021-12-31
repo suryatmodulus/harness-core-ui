@@ -1,5 +1,5 @@
 import { omit } from 'lodash-es'
-import type { SelectOption } from '@wings-software/uicore'
+import { Color, SelectOption, Utils } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import type { UseStringsReturn, StringKeys } from 'framework/strings'
 import type {
@@ -311,6 +311,37 @@ export const getErrorBudget = (values: SLOForm): number => {
   }
 
   return Math.round(((100 - SLOTargetPercentage) / 100) * totalMinutes)
+}
+
+export const getCustomOptionsForSLOTargetChart = (values: SLOForm): Highcharts.Options => {
+  const labelColor = Utils.getRealCSSColor(Color.PRIMARY_7)
+
+  return {
+    chart: { height: 200 },
+    yAxis: {
+      min: 0,
+      max: 100,
+      tickInterval: 25,
+      plotLines: [
+        {
+          value: Number((Number(values.SLOTargetPercentage) || 0).toFixed(2)),
+          color: Utils.getRealCSSColor(Color.PRIMARY_7),
+          width: 2,
+          zIndex: 4,
+          label: {
+            useHTML: true,
+            formatter: function () {
+              return `
+                <div style="background-color:${labelColor};padding:4px 6px;border-radius:4px" >
+                  <span style="color:white" >${Number((Number(values.SLOTargetPercentage) || 0).toFixed(2))}%</span>
+                </div>
+              `
+            }
+          }
+        }
+      ]
+    }
+  }
 }
 
 //

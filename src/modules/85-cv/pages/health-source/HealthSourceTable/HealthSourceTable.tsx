@@ -1,10 +1,14 @@
 import React, { useCallback } from 'react'
 import { cloneDeep } from 'lodash-es'
 import type { CellProps, Renderer } from 'react-table'
-import { Container, Icon, Layout, Text, NoDataCard, Button, ButtonVariation, TableV2 } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
+import { Container, Icon, Layout, Text, NoDataCard, ButtonVariation, TableV2 } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { HealthSource, HealthSourceDTO } from 'services/cv'
 import { useStrings } from 'framework/strings'
+import { PermissionIdentifier, ResourceType } from 'microfrontends'
+import RbacButton from '@rbac/components/Button/Button'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import HealthSources from '@cv/components/PipelineSteps/ContinousVerification/components/HealthSources/HealthSources'
 import type { RowData } from '../HealthSourceDrawer/HealthSourceDrawerContent.types'
@@ -31,6 +35,8 @@ export default function HealthSourceTable({
   const { showError } = useToaster()
   const { getString } = useStrings()
 
+  const { projectIdentifier } = useParams<ProjectPathProps>()
+
   const onDeleteHealthSource = useCallback(
     async (selectedRow: HealthSourceDTO): Promise<void> => {
       const updatedChangeSources = tableData?.filter(
@@ -54,6 +60,22 @@ export default function HealthSourceTable({
             const rowFilteredData =
               tableData?.find((healthSource: RowData) => healthSource.identifier === rowdata.identifier) || null
             onEdit(rowFilteredData)
+          }}
+          RbacPermissions={{
+            edit: {
+              permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
+              resource: {
+                resourceType: ResourceType.MONITOREDSERVICE,
+                resourceIdentifier: projectIdentifier
+              }
+            },
+            delete: {
+              permission: PermissionIdentifier.DELETE_MONITORED_SERVICE,
+              resource: {
+                resourceType: ResourceType.MONITOREDSERVICE,
+                resourceIdentifier: projectIdentifier
+              }
+            }
           }}
         />
       </Layout.Horizontal>
@@ -90,12 +112,20 @@ export default function HealthSourceTable({
         <CardWithOuterTitle>
           <Text className={css.tableTitle}>{getString('connectors.cdng.healthSources.label')}</Text>
           {renderHealthSourceTableInCV(healthSourceTableData)}
-          <Button
+          <RbacButton
             icon="plus"
             text={getString('cv.healthSource.addHealthSource')}
             variation={ButtonVariation.LINK}
             onClick={onAddNewHealthSource}
+            data-testid="addHealthSource-button"
             margin={{ top: 'small' }}
+            permission={{
+              permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
+              resource: {
+                resourceType: ResourceType.MONITOREDSERVICE,
+                resourceIdentifier: projectIdentifier
+              }
+            }}
           />
         </CardWithOuterTitle>
       )

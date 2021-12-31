@@ -75,7 +75,7 @@ export class SaveCacheGCSStep extends PipelineStep<SaveCacheGCSStepData> {
 
   protected type = StepType.SaveCacheGCS
   protected stepName = 'Save Cache to GCS'
-  protected stepIcon: IconName = 'save-cache-gcs'
+  protected stepIcon: IconName = 'save-cache-gcs-step'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.SaveCacheGCS'
   protected stepPaletteVisible = false
 

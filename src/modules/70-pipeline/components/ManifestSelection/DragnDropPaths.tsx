@@ -23,9 +23,10 @@ const defaultValueToReset = [{ path: '', uuid: uuid('', nameSpace()) }]
 const DragnDropPaths: React.FC<{
   formik: any
   expressions: any
+  allowableTypes: MultiTypeInputType[]
   selectedManifest?: string | null
   pathLabel?: string | null
-}> = ({ formik, selectedManifest, expressions, pathLabel }) => {
+}> = ({ formik, selectedManifest, expressions, allowableTypes, pathLabel }) => {
   const { getString } = useStrings()
   const onDragStart = useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
     event.dataTransfer.setData('data', index.toString())
@@ -83,6 +84,7 @@ const DragnDropPaths: React.FC<{
           <div className={css.halfWidth} {...provided.droppableProps} ref={provided.innerRef}>
             <MultiTypeFieldSelector
               defaultValueToReset={defaultValueToReset}
+              allowedTypes={allowableTypes.filter(allowedType => allowedType !== MultiTypeInputType.EXPRESSION)}
               name={'paths'}
               label={
                 <Text>
@@ -134,7 +136,9 @@ const DragnDropPaths: React.FC<{
                                 style={{ width: 275 }}
                                 multiTextInputProps={{
                                   expressions,
-                                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                                  allowableTypes: allowableTypes.filter(
+                                    allowedType => allowedType !== MultiTypeInputType.RUNTIME
+                                  )
                                 }}
                               />
                             </Layout.Horizontal>

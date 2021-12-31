@@ -100,7 +100,7 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
       setModalProps({
         title: getString('templatesLibrary.saveAsNewLabelModal.heading'),
         promise: saveAndPublish,
-        disabledFields: [Fields.Name, Fields.Identifier],
+        disabledFields: [Fields.Name, Fields.Identifier, Fields.Description, Fields.Tags],
         emptyFields: [Fields.VersionLabel]
       })
       showConfigModal()

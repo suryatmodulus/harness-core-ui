@@ -38,12 +38,12 @@ export function QueryContent(props: QueryContentProps): JSX.Element {
         {onEditQuery && (
           <Button icon="Edit" iconProps={{ size: 12 }} className={css.action} onClick={() => onEditQuery()} />
         )}
-        {!isDialogOpen && (
+        {onClickExpand && !isDialogOpen && (
           <Button
             icon="fullscreen"
             iconProps={{ size: 12 }}
             className={css.action}
-            onClick={() => onClickExpand(true)}
+            onClick={() => onClickExpand?.(true)}
           />
         )}
       </Layout.Horizontal>

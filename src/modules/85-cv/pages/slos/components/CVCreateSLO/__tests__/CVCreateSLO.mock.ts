@@ -1,10 +1,13 @@
+import routes from '@common/RouteDefinitions'
+import type { TestWrapperProps } from '@common/utils/testUtils'
+import { projectPathProps } from '@common/utils/routeUtils'
+import { cvModuleParams } from '@cv/RouteDestinations'
+import { editParams } from '@cv/utils/routeUtils'
 import type {
   RestResponseServiceLevelObjectiveResponse,
-  ThresholdSLIMetricSpec,
-  RatioSLIMetricSpec,
-  ServiceLevelObjectiveDTO,
-  CalenderSLOTargetSpec,
-  RollingSLOTargetSpec
+  ResponsePageUserJourneyResponse,
+  ResponseListMonitoredServiceWithHealthSources,
+  RestResponseListMetricDTO
 } from 'services/cv'
 import {
   Comparators,
@@ -15,54 +18,28 @@ import {
   SLITypes,
   SLOForm
 } from '../CVCreateSLO.types'
+import { createSLORequestPayload } from '../CVCreateSLO.utils'
 
-export const mockedSLODataById: RestResponseServiceLevelObjectiveResponse = {
-  metaData: {},
-  resource: {
-    serviceLevelObjective: {
-      orgIdentifier: 'org-1',
-      projectIdentifier: 'project-1',
-      identifier: 'SLO5',
-      name: 'SLO-5-updated',
-      description: 'description added',
-      tags: {},
-      userJourneyRef: 'journey2',
-      monitoredServiceRef: 'test1_env1',
-      healthSourceRef: 'Test_gcp',
-      serviceLevelIndicators: [
-        {
-          name: 'SLO5_metric1',
-          identifier: 'SLO5_metric1',
-          type: 'Latency',
-          sliMissingDataType: SLIMissingDataTypes.GOOD,
-          spec: {
-            type: 'Ratio',
-            spec: {
-              eventType: SLIEventTypes.GOOD,
-              metric1: 'metric1',
-              metric2: 'metric2',
-              metricName: 'metric1',
-              thresholdValue: 10,
-              thresholdType: Comparators.LESS
-            } as ThresholdSLIMetricSpec | RatioSLIMetricSpec
-          }
-        }
-      ],
-      target: {
-        type: 'Rolling',
-        sloTargetPercentage: 0,
-        spec: {
-          periodLength: '30'
-        }
-      }
-    },
-    createdAt: 1635491125651,
-    lastModifiedAt: 1635493371812
-  },
-  responseMessages: []
+export const errorMessage = 'TEST ERROR MESSAGE'
+
+export const pathParams = {
+  accountId: 'account_id',
+  projectIdentifier: 'project_identifier',
+  orgIdentifier: 'org_identifier',
+  module: 'cv'
 }
 
-export const expectedInitialValuesEditFlow: SLOForm = {
+export const testWrapperProps: TestWrapperProps = {
+  path: routes.toCVCreateSLOs({ ...projectPathProps, ...cvModuleParams }),
+  pathParams
+}
+
+export const testWrapperPropsForEdit: TestWrapperProps = {
+  path: routes.toCVEditSLOs({ ...projectPathProps, ...cvModuleParams, ...editParams }),
+  pathParams: { ...pathParams, identifier: 'SLO5' }
+}
+
+export const serviceLevelObjective: SLOForm = {
   name: 'SLO-5-updated',
   identifier: 'SLO5',
   description: 'description added',
@@ -86,6 +63,16 @@ export const expectedInitialValuesEditFlow: SLOForm = {
   SLOTargetPercentage: 0
 }
 
+export const SLOResponse: RestResponseServiceLevelObjectiveResponse = {
+  resource: {
+    serviceLevelObjective: createSLORequestPayload(
+      serviceLevelObjective,
+      pathParams.orgIdentifier,
+      pathParams.projectIdentifier
+    )
+  }
+}
+
 export const initialFormData: SLOForm = {
   name: '',
   identifier: '',
@@ -100,38 +87,29 @@ export const initialFormData: SLOForm = {
   SLOTargetPercentage: 99
 }
 
-export const mockPayloadForUpdateRequest: ServiceLevelObjectiveDTO = {
-  description: 'description added',
-  healthSourceRef: 'Test_gcp',
-  identifier: 'SLO5',
-  monitoredServiceRef: 'test1_env1',
-  name: 'SLO-5-updated',
-  orgIdentifier: 'org-1',
-  projectIdentifier: 'project-1',
-  serviceLevelIndicators: [
+export const userJourneyResponse: ResponsePageUserJourneyResponse = {
+  data: {
+    content: [
+      {
+        userJourney: {
+          name: 'User Journey 1',
+          identifier: 'User_Journey_1'
+        }
+      }
+    ]
+  }
+}
+
+export const monitoredServiceWithHealthSourcesResponse: ResponseListMonitoredServiceWithHealthSources = {
+  data: [
     {
-      spec: {
-        spec: {
-          eventType: SLIEventTypes.GOOD,
-          metric1: 'metric1',
-          metric2: 'metric2',
-          thresholdValue: 10,
-          thresholdType: '<'
-        } as ThresholdSLIMetricSpec | RatioSLIMetricSpec,
-        type: 'Ratio'
-      },
-      type: 'Latency',
-      sliMissingDataType: SLIMissingDataTypes.GOOD
+      name: 'Service_1_Environment_1',
+      identifier: 'Service_1_Environment_1',
+      healthSources: [{ name: 'Health Source 1', identifier: 'Health_source_1' }]
     }
-  ],
-  tags: {},
-  target: {
-    sloTargetPercentage: 0,
-    spec: {
-      periodLength: '30',
-      spec: {}
-    } as CalenderSLOTargetSpec | RollingSLOTargetSpec,
-    type: 'Rolling'
-  },
-  userJourneyRef: 'journey2'
+  ]
+}
+
+export const listMetricDTOResponse: RestResponseListMetricDTO = {
+  resource: [{ metricName: 'Metric 1', identifier: 'Metric_1' }]
 }

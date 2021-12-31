@@ -7,15 +7,17 @@ import {
   Color,
   FontVariation,
   ButtonVariation,
-  Button,
   useConfirmationDialog,
   Views
 } from '@wings-software/uicore'
+import { PermissionIdentifier, ResourceType } from 'microfrontends'
 import { useStrings } from 'framework/strings'
 import { useQueryParams } from '@common/hooks'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import ToggleOnOff from '@common/components/ToggleOnOff/ToggleOnOff'
+import { usePermission } from '@rbac/hooks/usePermission'
+import RbacButton from '@rbac/components/Button/Button'
+import ToggleOnOff from '@cv/pages/monitored-service/CVMonitoredService/components/ToggleOnOff/ToggleOnOff'
 import { getCVMonitoringServicesSearchParam } from '@cv/utils/CommonUtils'
 import { MonitoredServiceEnum } from '@cv/pages/monitored-service/MonitoredServicePage.constants'
 import IconGrid from '@cv/pages/monitored-service/CVMonitoredService/components/IconGrid/IconGrid'
@@ -29,6 +31,7 @@ import type {
   ServiceActionsProps
 } from '../MonitoredServiceGraphView/ServiceDependencyGraph.types'
 import { GraphServiceChanges } from './GraphSummaryCard.utils'
+import SLOsIconGrid from '../SLOsIconGrid/SLOsIconGrid'
 import css from '../MonitoredServiceGraphView/ServiceDependencyGraph.module.scss'
 
 const ServiceActions: React.FC<ServiceActionsProps> = ({
@@ -38,6 +41,18 @@ const ServiceActions: React.FC<ServiceActionsProps> = ({
   onEditService
 }) => {
   const { getString } = useStrings()
+  const { projectIdentifier } = useParams<ProjectPathProps>()
+
+  const [canToggle] = usePermission(
+    {
+      resource: {
+        resourceType: ResourceType.MONITOREDSERVICE,
+        resourceIdentifier: projectIdentifier
+      },
+      permissions: [PermissionIdentifier.TOGGLE_MONITORED_SERVICE]
+    },
+    [projectIdentifier]
+  )
 
   const { openDialog: confirmServiceDelete } = useConfirmationDialog({
     titleText: getString('common.delete', { name: monitoredService.serviceName }),
@@ -53,20 +68,35 @@ const ServiceActions: React.FC<ServiceActionsProps> = ({
 
   return (
     <Container flex>
-      <Button
+      <RbacButton
         icon="Edit"
         iconProps={{ color: Color.GREY_0, size: 14 }}
         variation={ButtonVariation.ICON}
         onClick={onEditService}
+        permission={{
+          permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
+          resource: {
+            resourceType: ResourceType.MONITOREDSERVICE,
+            resourceIdentifier: projectIdentifier
+          }
+        }}
       />
-      <Button
+      <RbacButton
         icon="trash"
         iconProps={{ color: Color.GREY_0, size: 14 }}
         variation={ButtonVariation.ICON}
         margin={{ right: 'small' }}
         onClick={confirmServiceDelete}
+        permission={{
+          permission: PermissionIdentifier.DELETE_MONITORED_SERVICE,
+          resource: {
+            resourceType: ResourceType.MONITOREDSERVICE,
+            resourceIdentifier: projectIdentifier
+          }
+        }}
       />
       <ToggleOnOff
+        disabled={!canToggle}
         checked={!!monitoredService.healthMonitoringEnabled}
         onChange={checked => {
           onToggleService(monitoredService.identifier as string, checked)
@@ -154,7 +184,19 @@ const SummaryCardContent: React.FC<SummaryCardContentProps> = ({ isPageView, mon
         <Text color={Color.GREY_0} font={{ variation: FontVariation.TINY_SEMI }} padding={{ bottom: 'small' }}>
           {getString('cv.dependenciesHealthWithCount', { count: monitoredService.dependentHealthScore?.length ?? 0 })}
         </Text>
-        <IconGrid isDarkBackground iconProps={{ name: 'polygon' }} items={monitoredService.dependentHealthScore} />
+        <IconGrid
+          isDarkBackground
+          iconProps={{ name: 'polygon', size: 14 }}
+          items={monitoredService.dependentHealthScore}
+        />
+        <Text color={Color.GREY_0} font={{ variation: FontVariation.TINY_SEMI }} padding={{ bottom: 'small' }}>
+          {`${getString('cv.slos.title')} (${monitoredService?.sloHealthIndicators?.length ?? 0})`}
+        </Text>
+        <SLOsIconGrid
+          isDarkBackground
+          iconProps={{ name: 'symbol-square', size: 14 }}
+          items={monitoredService?.sloHealthIndicators}
+        />
       </Layout.Vertical>
     </>
   )

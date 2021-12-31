@@ -17,14 +17,12 @@ import { useStrings } from 'framework/strings'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
+import { PermissionIdentifier, ResourceType } from 'microfrontends'
+import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import type { SLOCardHeaderProps } from '../CVSLOsListingPage.types'
 import css from '../CVSLOsListingPage.module.scss'
 
-const SLOCardHeader: React.FC<SLOCardHeaderProps> = ({
-  serviceLevelObjective,
-  onDelete,
-  monitoredServiceIdentifier
-}) => {
+const SLOCardHeader: React.FC<SLOCardHeaderProps> = ({ serviceLevelObjective, onDelete }) => {
   const history = useHistory()
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
@@ -73,23 +71,42 @@ const SLOCardHeader: React.FC<SLOCardHeaderProps> = ({
         <Heading level={2} font={{ variation: FontVariation.H4 }} color={Color.GREY_800}>
           {serviceLevelObjective.title}
         </Heading>
-        {!monitoredServiceIdentifier && (
-          <Popover
-            isOpen={menuOpen}
-            onInteraction={nextOpenState => setMenuOpen(nextOpenState)}
-            position={Position.LEFT_TOP}
-            content={
-              <Menu style={{ minWidth: 'unset' }}>
-                <Menu.Item icon="edit" text={getString('edit')} onClick={onEdit} />
-                <Menu.Item icon="trash" text={getString('delete')} onClick={openDialog} />
-              </Menu>
-            }
-          >
-            <Button icon="Options" variation={ButtonVariation.ICON} />
-          </Popover>
-        )}
+        <Popover
+          isOpen={menuOpen}
+          onInteraction={nextOpenState => setMenuOpen(nextOpenState)}
+          position={Position.LEFT_TOP}
+          content={
+            <Menu style={{ minWidth: 'unset' }}>
+              <RbacMenuItem
+                icon="edit"
+                text={getString('edit')}
+                onClick={onEdit}
+                permission={{
+                  permission: PermissionIdentifier.EDIT_SLO_SERVICE,
+                  resource: {
+                    resourceType: ResourceType.SLO,
+                    resourceIdentifier: projectIdentifier
+                  }
+                }}
+              />
+              <RbacMenuItem
+                icon="trash"
+                text={getString('delete')}
+                onClick={openDialog}
+                permission={{
+                  permission: PermissionIdentifier.DELETE_SLO_SERVICE,
+                  resource: {
+                    resourceType: ResourceType.SLO,
+                    resourceIdentifier: projectIdentifier
+                  }
+                }}
+              />
+            </Menu>
+          }
+        >
+          <Button icon="Options" variation={ButtonVariation.ICON} />
+        </Popover>
       </Container>
-
       <Container flex={{ alignItems: 'flex-start' }}>
         <Layout.Vertical height={130} spacing="xsmall">
           <Layout.Horizontal spacing="xsmall">

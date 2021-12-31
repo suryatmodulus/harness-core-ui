@@ -27,6 +27,7 @@ export interface ActionResponse {
   isLoading?: boolean
   gitDetails?: EntityGitDetails
   entityValidityDetails?: EntityValidityDetails
+  templateYaml?: string
 }
 
 export interface ActionReturnType {

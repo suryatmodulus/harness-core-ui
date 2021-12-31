@@ -40,6 +40,7 @@ export interface TemplateReducerState {
   isUpdated: boolean
   gitDetails: EntityGitDetails
   entityValidityDetails: EntityValidityDetails
+  templateYaml: string
 }
 
 export const initialState: TemplateReducerState = {
@@ -61,7 +62,8 @@ export const initialState: TemplateReducerState = {
   isUpdated: false,
   isInitialized: false,
   gitDetails: {},
-  entityValidityDetails: {}
+  entityValidityDetails: {},
+  templateYaml: ''
 }
 
 export const TemplateReducer = (state: TemplateReducerState, data: ActionReturnType): TemplateReducerState => {

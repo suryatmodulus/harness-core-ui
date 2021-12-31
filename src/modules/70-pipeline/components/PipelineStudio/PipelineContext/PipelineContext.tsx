@@ -2,7 +2,7 @@ import React from 'react'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
 import { isEqual, cloneDeep, pick, isNil, isEmpty, omit, defaultTo, set } from 'lodash-es'
 import { parse } from 'yaml'
-import { IconName, VisualYamlSelectedView as SelectedView } from '@wings-software/uicore'
+import { IconName, MultiTypeInputType, VisualYamlSelectedView as SelectedView } from '@wings-software/uicore'
 import merge from 'lodash-es/merge'
 import type { PipelineInfoConfig, StageElementConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import type { PermissionCheck } from 'services/rbac'
@@ -220,7 +220,8 @@ export interface PipelineContextInterface {
   stagesMap: StagesMap
   stepsFactory: AbstractStepFactory
   view: string
-  contextType: string | undefined
+  contextType: string
+  allowableTypes: MultiTypeInputType[]
   isReadonly: boolean
   setSchemaErrorView: (flag: boolean) => void
   setView: (view: SelectedView) => void
@@ -240,7 +241,7 @@ export interface PipelineContextInterface {
   ): PipelineStageWrapper<T>
   runPipeline: (identifier: string) => void
   pipelineSaved: (pipeline: PipelineInfoConfig) => void
-  updateStage: (stage: StageElementConfig) => Promise<void>
+  updateStage: (stage: StageElementConfig, existingStage?: StageElementConfig) => Promise<void>
   /** @deprecated use `setSelection` */
   setSelectedStageId: (selectedStageId: string | undefined) => void
   /** @deprecated use `setSelection` */
@@ -687,6 +688,11 @@ const _deletePipelineCache = async (
   }
 }
 
+export enum PipelineContextType {
+  Pipeline = 'Pipeline',
+  Template = 'Template'
+}
+
 export const PipelineContext = React.createContext<PipelineContextInterface>({
   state: initialState,
   stepsFactory: {} as AbstractStepFactory,
@@ -694,7 +700,8 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   setSchemaErrorView: () => undefined,
   isReadonly: false,
   view: SelectedView.VISUAL,
-  contextType: undefined,
+  contextType: PipelineContextType.Pipeline,
+  allowableTypes: [],
   updateGitDetails: () => new Promise<void>(() => undefined),
   updateEntityValidityDetails: () => new Promise<void>(() => undefined),
   setView: () => void 0,
@@ -718,11 +725,6 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   getStagePathFromPipeline: () => ''
 })
 
-export enum PipelineContextType {
-  Pipeline = 'Pipeline',
-  Template = 'Template'
-}
-
 export const PipelineProvider: React.FC<{
   queryParams: GetPipelineQueryParams
   pipelineIdentifier: string
@@ -731,7 +733,8 @@ export const PipelineProvider: React.FC<{
   runPipeline: (identifier: string) => void
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
 }> = ({ queryParams, pipelineIdentifier, children, renderPipelineStage, stepsFactory, stagesMap, runPipeline }) => {
-  const contextType = 'Pipeline'
+  const contextType = PipelineContextType.Pipeline
+  const allowableTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const abortControllerRef = React.useRef<AbortController | null>(null)
   const isMounted = React.useRef(false)
@@ -958,6 +961,7 @@ export const PipelineProvider: React.FC<{
         state,
         view,
         contextType,
+        allowableTypes,
         setView,
         runPipeline,
         stepsFactory,

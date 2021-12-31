@@ -26,10 +26,7 @@ exports[`<TemplateInputs /> tests snapshot test 1`] = `
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800"
               >
-                manjutesttemplate
-                :
-                 
-                v4
+                manju-test-template-qq-12344 (v4)
               </p>
               <p
                 class="StyledProps--font StyledProps--main inputsCount StyledProps--font-size-small"

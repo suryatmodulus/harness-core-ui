@@ -139,12 +139,11 @@ const SLOTargetChartWrapper: React.FC<SLOTargetChartWithAPIGetSliGraphProps> = p
     SLIMetricType &&
     validRequestMetric &&
     objectiveValue >= 0 &&
-    objectiveValue <= 100 &&
     objectiveComparator &&
     SLIMissingDataType
   ) {
     if (SLIMetricType === SLIMetricTypes.RATIO) {
-      if (!eventType || !goodRequestMetric || validRequestMetric === goodRequestMetric) {
+      if (!eventType || !goodRequestMetric || validRequestMetric === goodRequestMetric || objectiveValue > 100) {
         return emptyState
       }
     }

@@ -7,7 +7,7 @@ import { TimelineRow } from '../TimelineRow/TimelineRow'
 import css from './Timeline.module.scss'
 
 export function Timeline(props: TimelineProps): JSX.Element {
-  const { timelineRows, timestamps = [], labelWidth, isLoading, rowOffset } = props
+  const { timelineRows, timestamps = [], labelWidth, isLoading, rowOffset, hideTimeline } = props
   const { getString } = useStrings()
   return (
     <Container className={css.main}>
@@ -22,15 +22,18 @@ export function Timeline(props: TimelineProps): JSX.Element {
             {...timelineProps}
             leftOffset={rowOffset}
             key={`${timelineProps.labelName}-${index}`}
+            hideTimeline={hideTimeline}
           />
         )
       })}
-      <Container className={css.timelineChartContainer}>
-        <Text className={css.timelineLabel} width={labelWidth}>
-          {getString('cv.timeline').toUpperCase()}
-        </Text>
-        <TimelineBar startDate={timestamps?.[0]} endDate={timestamps?.[timestamps.length - 1]} columnWidth={65} />
-      </Container>
+      {hideTimeline ? null : (
+        <Container className={css.timelineChartContainer}>
+          <Text className={css.timelineLabel} width={labelWidth}>
+            {getString('cv.timeline').toUpperCase()}
+          </Text>
+          <TimelineBar startDate={timestamps?.[0]} endDate={timestamps?.[timestamps.length - 1]} columnWidth={65} />
+        </Container>
+      )}
     </Container>
   )
 }

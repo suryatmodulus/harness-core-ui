@@ -21,7 +21,6 @@ export const createNewRelicPayload = (formData: any): UpdatedHealthSource | null
         metricName,
         metricIdentifier,
         groupName,
-        queryType,
         query,
         metricValue,
         timestamp,
@@ -50,7 +49,6 @@ export const createNewRelicPayload = (formData: any): UpdatedHealthSource | null
         metricName,
         groupName: groupName?.value as string,
         nrql: query,
-        queryType,
         responseMapping: {
           metricValueJsonPath: metricValue,
           serviceInstanceJsonPath: serviceInstanceIdentifier,
@@ -123,11 +121,9 @@ export const createNewRelicData = (sourceData: any): NewRelicData => {
         metricIdentifier: metricDefinition.identifier,
         groupName: { label: metricDefinition.groupName || '', value: metricDefinition.groupName || '' },
 
-        queryType: (metricDefinition as any)?.queryType,
         query: metricDefinition?.nrql,
 
         metricValue: metricDefinition?.responseMapping?.metricValueJsonPath,
-        serviceInstanceIdentifier: metricDefinition?.responseMapping?.serviceInstanceJsonPath,
         timestampFormat: metricDefinition?.responseMapping?.timestampFormat,
         timestamp: metricDefinition?.responseMapping?.timestampJsonPath,
 

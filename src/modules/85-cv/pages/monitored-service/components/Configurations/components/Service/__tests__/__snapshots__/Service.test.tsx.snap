@@ -637,6 +637,7 @@ exports[`Verify Service Monitored service is poplulated in Edit mode 1`] = `
         </div>
         <button
           class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-top-small Button--with-current-color Button--withLeftIcon Button--variation Button--variation-link"
+          data-testid="addHealthSource-button"
           type="button"
         >
           <span

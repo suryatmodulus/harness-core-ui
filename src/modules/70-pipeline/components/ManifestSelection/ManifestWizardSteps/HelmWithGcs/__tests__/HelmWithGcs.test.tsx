@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, queryByAttribute, fireEvent, act, waitFor } from '@testing-library/react'
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import HelmWithGcs from '../HelmWithGcs'
@@ -7,6 +8,7 @@ import HelmWithGcs from '../HelmWithGcs'
 const props = {
   stepName: 'Manifest details',
   expressions: [],
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
   handleSubmit: jest.fn(),
   manifestIdsList: []
 }
@@ -18,8 +20,10 @@ const mockBukcets = {
 jest.mock('services/cd-ng', () => ({
   useGetGCSBucketList: jest.fn().mockImplementation(() => {
     return { data: mockBukcets, refetch: jest.fn(), error: null, loading: false }
-  })
+  }),
+  useHelmCmdFlags: jest.fn().mockImplementation(() => ({ data: { data: ['Template', 'Pull'] }, refetch: jest.fn() }))
 }))
+
 describe('helm with http tests', () => {
   test(`renders without crashing`, () => {
     const initialValues = {

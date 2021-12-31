@@ -55,14 +55,23 @@ async function _fetchData<TData, TError, TQueryParams, TRequestBody, TPathParams
   mutate: MutateMethod<TData, TQueryParams, TRequestBody, TPathParams>,
   props: WrappedUseMutateProps<TData, TError, TRequestBody, TQueryParams, TPathParams>,
   setInitLoading: Dispatch<SetStateAction<boolean>>,
-  setData: Dispatch<SetStateAction<TData | null>>
+  setData: Dispatch<SetStateAction<TData | null>>,
+  setError: Dispatch<SetStateAction<TError | null>>
 ): Promise<void> {
-  const data = await mutate(props.body, {
-    queryParams: props.queryParams,
-    pathParams: props.pathParams
-  })
-  setInitLoading(false)
-  setData(data)
+  try {
+    const data = await mutate(props.body, {
+      queryParams: props.queryParams,
+      pathParams: props.pathParams
+    })
+    if (data) {
+      setInitLoading(false)
+      setData(data)
+      setError(null)
+    }
+  } catch (e) {
+    setData(null)
+    setError(e)
+  }
 }
 
 export function useMutateAsGet<
@@ -100,7 +109,7 @@ export function useMutateAsGet<
   useDeepCompareEffect(() => {
     if (!props.lazy && !props.mock) {
       try {
-        fetchData(mutate, props, setInitLoading, setData)?.then(identity, e => {
+        fetchData(mutate, props, setInitLoading, setData, setError)?.then(identity, e => {
           if (shouldShowError(e)) setError(e)
         })
       } catch (e) {
@@ -125,7 +134,7 @@ export function useMutateAsGet<
     cancel,
     refetch: newProps => {
       try {
-        return fetchData(mutate, newProps || props, setInitLoading, setData)?.then(identity, e => {
+        return fetchData(mutate, newProps || props, setInitLoading, setData, setError)?.then(identity, e => {
           if (shouldShowError(e)) setError(e)
         })
       } catch (e) {

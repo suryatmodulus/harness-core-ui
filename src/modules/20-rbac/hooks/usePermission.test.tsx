@@ -190,7 +190,7 @@ describe('usePermission', () => {
         <PermissionsProvider debounceWait={0}>{children}</PermissionsProvider>
       </TestWrapper>
     )
-    const { waitForNextUpdate } = renderHook(
+    renderHook(
       () =>
         usePermission({
           resource: {
@@ -203,7 +203,6 @@ describe('usePermission', () => {
     )
 
     jest.runAllTimers()
-    await waitForNextUpdate()
 
     expect(getPermissions).toHaveBeenCalledWith({
       permissions: [

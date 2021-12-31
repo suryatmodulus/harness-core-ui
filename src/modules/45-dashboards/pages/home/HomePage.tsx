@@ -14,7 +14,6 @@ import {
   useModalHook,
   FormInput,
   Formik,
-  Checkbox,
   ExpandingSearchInput,
   Pagination,
   SelectOption,
@@ -35,6 +34,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import ModuleTagsFilter from '@dashboards/components/ModuleTagsFilter/ModuleTagsFilter'
 
 import routes from '@common/RouteDefinitions'
 
@@ -42,6 +42,7 @@ import { useStrings } from 'framework/strings'
 
 import { GetStarted } from './GetStarted'
 
+import moduleTagCss from '@dashboards/common/ModuleTags.module.scss'
 import css from './HomePage.module.scss'
 
 enum Views {
@@ -230,13 +231,22 @@ const TagsRenderer = (data: DashboardInterface) => {
   return (
     <Container className={css.predefinedTags}>
       {data.type === dashboardType.SHARED && (
-        <section className={css.harnessTag}>{getString('dashboards.modules.harness')}</section>
+        <section className={moduleTagCss.harnessTag}>{getString('dashboards.modules.harness')}</section>
       )}
       {data.data_source.map((tag: string) => {
-        if (tag === 'CE') return <section className={css.ceTag}>{getString('common.purpose.ce.cloudCost')}</section>
-        if (tag === 'CI') return <section className={css.ciTag}>{getString('buildsText')}</section>
-        if (tag === 'CD') return <section className={css.cdTag}>{getString('deploymentsText')}</section>
-        if (tag === 'CF') return <section className={css.cfTag}>{getString('common.purpose.cf.continuous')}</section>
+        if (tag === 'CE') {
+          return <section className={moduleTagCss.ceTag}>{getString('common.purpose.ce.cloudCost')}</section>
+        }
+        if (tag === 'CI') {
+          return <section className={moduleTagCss.ciTag}>{getString('buildsText')}</section>
+        }
+        if (tag === 'CD') {
+          return <section className={moduleTagCss.cdTag}>{getString('deploymentsText')}</section>
+        }
+        if (tag === 'CF') {
+          return <section className={moduleTagCss.cfTag}>{getString('common.purpose.cf.continuous')}</section>
+        }
+        return <></>
       })}
       {data?.description &&
         data.type === dashboardType.ACCOUNT &&
@@ -637,51 +647,7 @@ const HomePage: React.FC = () => {
               )}
 
               <Layout.Horizontal className={css.predefinedTags + ' ' + css.mainNavTag}>
-                <>
-                  <Checkbox
-                    checked={selectedFilter['HARNESS']}
-                    onChange={e => {
-                      setPredefinedFilter('HARNESS', e.currentTarget.checked)
-                    }}
-                  />
-                  <section className={css.harnessTag}>{getString('dashboards.modules.harness')}</section>
-                </>
-                <>
-                  <Checkbox
-                    checked={selectedFilter['CE']}
-                    onChange={e => {
-                      setPredefinedFilter('CE', e.currentTarget.checked)
-                    }}
-                  />
-                  <section className={css.ceTag}>{getString('common.purpose.ce.cloudCost')}</section>
-                </>
-                <>
-                  <Checkbox
-                    checked={selectedFilter['CI']}
-                    onChange={e => {
-                      setPredefinedFilter('CI', e.currentTarget.checked)
-                    }}
-                  />
-                  <section className={css.ciTag}>{getString('buildsText')}</section>
-                </>
-                <>
-                  <Checkbox
-                    checked={selectedFilter['CD']}
-                    onChange={e => {
-                      setPredefinedFilter('CD', e.currentTarget.checked)
-                    }}
-                  />
-                  <section className={css.cdTag}>{getString('deploymentsText')}</section>
-                </>
-                <>
-                  <Checkbox
-                    checked={selectedFilter['CF']}
-                    onChange={e => {
-                      setPredefinedFilter('CF', e.currentTarget.checked)
-                    }}
-                  />
-                  <section className={css.cfTag}>{getString('common.purpose.cf.continuous')}</section>
-                </>
+                <ModuleTagsFilter selectedFilter={selectedFilter} setPredefinedFilter={setPredefinedFilter} />
               </Layout.Horizontal>
             </section>
             <Layout.Horizontal>

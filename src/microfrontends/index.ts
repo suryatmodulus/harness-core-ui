@@ -46,6 +46,7 @@ export interface ParentContext {
 export interface ChildAppProps {
   parentContextObj: ParentContext
   renderUrl: string
+  matchPath: string
   scope: Scope
   components: CommonComponents
   hooks: Hooks

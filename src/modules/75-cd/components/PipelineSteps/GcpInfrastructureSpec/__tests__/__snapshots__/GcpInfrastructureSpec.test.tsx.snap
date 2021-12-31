@@ -466,7 +466,8 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                               class="Tag--main"
                             >
                               <span
-                                class="bp3-tag bp3-minimal tag"
+                                class="bp3-tag bp3-minimal"
+                                id="tag"
                               >
                                 <span
                                   class="bp3-text-overflow-ellipsis bp3-fill"
@@ -1287,7 +1288,8 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                               class="Tag--main"
                             >
                               <span
-                                class="bp3-tag bp3-minimal tag"
+                                class="bp3-tag bp3-minimal"
+                                id="tag"
                               >
                                 <span
                                   class="bp3-text-overflow-ellipsis bp3-fill"

@@ -16,11 +16,6 @@ declare const styles: {
   readonly filter: string
   readonly filterPanel: string
   readonly predefinedTags: string
-  readonly harnessTag: string
-  readonly ceTag: string
-  readonly ciTag: string
-  readonly cdTag: string
-  readonly cfTag: string
   readonly customTag: string
   readonly videoContainer: string
   readonly dialog: string

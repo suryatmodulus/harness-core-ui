@@ -277,6 +277,7 @@ targetDetail:
   noFlagConfigured: No feature flags configured for this target
   searchPlaceholder: Search Feature Flags...
   deleteTargetSuccess: Target <strong>{{name}}</strong> deleted.
+  flagDisabled: This flag is disabled. The default off value will be served.
 selectSegmentModal:
   searchSegmentPlaceholder: Search for Target Group by Name or Description
   flagsUsingSegment: '{{ counter }} flag'
@@ -467,6 +468,13 @@ gitSync:
   tryAgain: Try Again
   goToGit: Go to Git to fix issue
   invalidYaml: 'We are unable to render your {{ flagsYamlFilename }} file because it is invalid. Fix the following issues on Git and try again.'
+planEnforcement:
+  freePlan:
+    approachingLimit: 'You have used {{ clientMauUsagePercentage }}% of Monthly Active Users (MAU) included in the free plan. After {{ clientMauPlanLimitFormatted }} MAUs, flag management will be restricted.'
+    upgradeRequired: 'You have used {{ clientMauPlanLimitFormatted }} / {{ clientMauPlanLimitFormatted }}  free Monthly Active Users (MAU) this month. Consider upgrading to manage more MAUs.'
+  teamEnterprisePlan:
+    approachingLimit: 'You have used {{ clientMauUsagePercentage }}% of your Monthly Active Users (MAU) subscription limit.'
+    upgradeRequired: 'You have exceeded your Monthly Active Users (MAU) subscription limit.'
 onboarding:
   listeningToEvent: We’re listening for your flag event...
   simpliestFlag: Our Simplest Flag
@@ -1185,8 +1193,12 @@ onboarding:
       # Install
 
       You can reference the SDK in your project using NuGet package. Package is published to default package repository (nuget.org).
-      Package name is `ff-dotnet-server-sdk`. More information can be found here:
-      [https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio](https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-in-visual-studio)
+      Package name is 
+      ```
+      ff-netF48-server-sdk --version 1.0.8
+      ```
+
+      More information can be found <a href="https://docs.microsoft.com/en-us/nuget/quickstart/install-and-use-a-package-using-the-dotnet-cli">here</>
 
       After the dependency has been added, the SDK elements, primarily `CfClient`, should be accessible in the main application.
 
@@ -1195,6 +1207,9 @@ onboarding:
       `CfClient` is a base class that provides all features of the SDK.
 
       ```
+      using io.harness.cfsdk.client.dto;
+      using io.harness.cfsdk.client.api;
+
       /**
        * Put the API Key here from your environment
        */
@@ -1212,8 +1227,8 @@ onboarding:
        * Define the target for which you would like to evaluate
        * the featureFlag
        */
-      io.harness.cfsdk.client.dto.Target target =
-                      io.harness.cfsdk.client.dto.Target.builder()
+
+      Target target = io.harness.cfsdk.client.dto.Target.builder()
                       .Name("User1") //can change with your target name
                       .Identifier("user1@example.com") //can change with your target identifier
                       .build();
@@ -1223,47 +1238,48 @@ onboarding:
 
       `"YOUR_API_KEY"` is an authentication key, needed for access to Harness services.
 
-      **Your Harness SDK is now initialized. Congratulations!**
+      # Your Harness SDK is now initialized. Congratulations!
 
-      ### Public API Methods ###
+      # Public API Methods 
 
       The Public API exposes a few methods that you can utilize:
 
-      * `public async Task<bool> boolVariation(string key, dto.Target target, bool defaultValue)`
+      ```
+      public async Task<bool> boolVariation(string key, dto.Target target, bool defaultValue)
 
-      * `public async Task<string> stringVariation(string key, dto.Target target, string defaultValue)`
+      public async Task<string> stringVariation(string key, dto.Target target, string defaultValue)
 
-      * `public async Task<double> numberVariation(string key, dto.Target target, int defaultValue)`
+      public async Task<double> numberVariation(string key, dto.Target target, int defaultValue)
 
-      * `public async Task<JObject> jsonVariation(string key, dto.Target target, JObject defaultValue)`
+      public async Task<JObject> jsonVariation(string key, dto.Target target, JObject defaultValue)
+      ```
 
-
-      ## Fetch evaluation's value
+      # Fetch evaluation's value
 
       It is possible to fetch a value for a given evaluation. Evaluation is performed based on a different type. In case there
       is no evaluation with the provided id, the default value is returned.
 
       Use the appropriate method to fetch the desired Evaluation of a certain type.
 
-      ### Bool variation
+      # Bool variation
 
       ```
       boolean result = await cfClient.boolVariation("sample_boolean_flag", target, false);
       ```
 
-      ### Number variation
+      # Number variation
 
       ```
       double result = await cfClient.numberVariation("sample_number_flag", target, 0);
       ```
 
-      ### String variation
+      # String variation
 
       ```
       string result = await cfClient.stringVariation("sample_string_flag", target, "");
       ```
 
-      ## Using feature flags metrics
+      # Using feature flags metrics
 
       The Metrics API endpoint can be changed like this:
 
@@ -1274,7 +1290,187 @@ onboarding:
       ```
 
       Otherwise, the default metrics endpoint URL will be used.
+    nodejs: |
+      # Setup
 
+      You can use npm or yarn to install <a href="https://www.npmjs.com/package/@harnessio/ff-nodejs-server-sdk">ff-nodejs-server-sdk</a> into your project:
+
+      ```
+      npm install @harnessio/ff-nodejs-server-sdk
+      ```
+
+      # Import the package (CommonJS)
+
+      ```
+      const { Client } = require('@harnessio/ff-nodejs-server-sdk');
+      ```
+
+      # Initialize
+
+      This is the most simple way to initialize SDK using only a server type key
+
+      ```
+      const client = new Client('your server type SDK key');
+      ```
+
+      Advanced initialization can be done using options
+
+      ```
+      const client = new Client('your server type SDK key', {
+      enableStream: false,
+      });
+      ```
+
+      # Define a target
+
+      ```
+      const target = {
+      identifier: 'harness',
+      name: 'Harness',
+      attributes: {}
+      };
+      ```
+
+      # Evaluate the flag with default value set to false
+
+      ```
+      const value = await client.boolVariation('test', target, false);
+      ```
+
+      # Shutting down SDK
+
+      ```
+      client.close();
+      ```
+
+      # Available public methods
+
+      ```
+      function boolVariation(
+      identifier: string,
+      target: Target,
+      defaultValue: boolean = true,
+      ): Promise<boolean>;
+
+      function stringVariation(
+      identifier: string,
+      target: Target,
+      defaultValue: boolean = '',
+      ): Promise<string>;
+
+      function numberVariation(
+        identifier: string,
+        target: Target,
+        defaultValue: boolean = 1.0,
+      ): Promise<number>;
+
+      function jsonVariation(
+        identifier: string,
+        target: Target,
+        defaultValue: boolean = {},
+      ): Promise<Record<string, unknown>>;
+
+      function close(): void;
+      ```
+
+      # Available options
+
+      ```
+      baseUrl: string;             // baseUrl is where the flag configurations are located
+      eventsUrl: string;           // eventsUrl is where we send summarized target events
+      pollInterval: number;        // pollInterval (default 60s)
+      eventsSyncInterval: number;  // Metrics push event (default 60s)
+      enableStream: boolean;       // enable server sent events
+      enableAnalytics: boolean;    // enable analytics
+      cache: KeyValueStore;        // set custom cache (default lru cache)
+      store: AsyncKeyValueStore;   // set custom persistent store (default file store)
+      logger: Logger;              // set logger (default console)
+      ```
+
+      # Singleton example
+
+      ```
+      import CfClient from '@harnessio/ff-nodejs-server-sdk';
+
+      CfClient.init('your server type SDK key');
+
+      const FLAG_KEY = 'test_bool';
+      const target = {
+        identifier: 'harness',
+        name: 'Harness',
+        attributes: {}
+      };
+      const defaultValue = false;
+
+      setInterval(async() => {
+          const value = await CfClient.boolVariation(FLAG_KEY, target, defaultValue);
+          console.log("Evaluation for flag test and target none: ", value);
+      }, 10000);
+      ```
+
+      # Wait for initialization example
+
+      ```
+      const { Client } = require('@harnessio/ff-nodejs-server-sdk');
+
+      console.log('Starting application');
+      const client = new Client('1c100d25-4c3f-487b-b198-3b3d01df5794');
+      client
+        .waitForInitialization()
+        .then(() => {
+          setInterval(async () => {
+            const target = {
+              identifier: 'harness',
+            };
+            const value = await client.boolVariation('test', target, false);
+            console.log('Evaluation for flag test and target: ', value, target);
+          }, 10000);
+
+          console.log('Application started');
+        })
+        .catch((error) => {
+          console.log('Error', error);
+        });
+      ```
+
+      # Listening on events
+
+      You can listen on these events:
+
+      Event.READY - SDK successfully initialized
+      Event.FAILED - SDK throws an error
+      Event.CHANGED - any new version of flag or segment triggers this event, if segment is changed then it will find all flags with segment match operator
+
+      Methods:
+
+      ```
+      on(Event.READY, () => {
+        console.log('READY');
+      });
+
+      on(Event.FAILED, () => {
+        console.log('FAILED');
+      });
+
+      on(Event.CHANGED, (identifier) => {
+        console.log('Changed', identifier);
+      });
+      ```
+
+      and if you want to remove the functionReference listener for Event.READY:
+
+      ```
+      off(Event.READY, functionReference);
+      ```
+
+      or if you want to remove all listeners on Event.READY:
+
+      ```
+      off(Event.READY);
+      ```
+
+      or if you call off() without params it will close the client.
+      All events are applicable to off() function.
 learnMore: '{{ $.cf.homepage.learnMore }}'
 cfTrialHomePage:
   startTrial:

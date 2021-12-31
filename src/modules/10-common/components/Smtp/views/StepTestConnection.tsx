@@ -64,7 +64,9 @@ const StepTestConnection: React.FC<StepProps<NgSmtpDTO> & SmtpSharedObj & Create
   }
 
   const handlePrev = (): void => {
-    previousStep?.({ ...prevStepData })
+    if (prevStepData) {
+      previousStep?.({ ...prevStepData })
+    }
   }
   return (
     <Formik<Details>

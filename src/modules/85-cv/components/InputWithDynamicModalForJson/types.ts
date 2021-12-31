@@ -7,8 +7,8 @@ export interface InputWithDynamicModalForJsonProps {
   sampleRecord: Record<string, any> | null
   inputLabel: string
   inputName: string
-  noRecordModalHeader: string
-  noRecordInputLabel: string
+  noRecordModalHeader?: string
+  noRecordInputLabel?: string
   recordsModalHeader: string
   fieldValue: string
   showExactJsonPath?: boolean

@@ -1,6 +1,7 @@
 import React from 'react'
 import { waitFor, act, fireEvent, findByText, findAllByText, render } from '@testing-library/react'
 import { cloneDeep } from 'lodash-es'
+import * as featureFlags from '@common/hooks/useFeatureFlag'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { UseGetReturnData } from '@common/utils/testUtils'
 import type { ResponseConnectorResponse } from 'services/cd-ng'
@@ -56,8 +57,11 @@ jest.mock('services/cd-ng', () => ({
     })
 }))
 
-describe('BuildInfraSpecifications snapshot test', () => {
-  test('initializes ok', async () => {
+describe('BuildInfraSpecifications snapshot tests for K8s Build Infra', () => {
+  jest.spyOn(featureFlags, 'useFeatureFlags').mockImplementation(() => ({
+    CI_VM_INFRASTRUCTURE: false
+  }))
+  test('initializes ok for K8s Build Infra', async () => {
     const { container } = render(
       <TestWrapper pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}>
         <BuildInfraSpecifications />
@@ -65,10 +69,23 @@ describe('BuildInfraSpecifications snapshot test', () => {
     )
     expect(container).toMatchSnapshot()
   })
+
   test('able to select a connector', async () => {
     const { container } = render(
-      <TestWrapper pathParams={{ accountId: 'dummy' }}>
-        <BuildInfraSpecifications />
+      <TestWrapper pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}>
+        <PipelineContext.Provider
+          value={
+            {
+              ...contextMock,
+              getStageFromPipeline: jest.fn(() => {
+                return { stage: contextMock.state.pipeline.stages[0], parent: undefined }
+              }),
+              updatePipeline: jest.fn
+            } as any
+          }
+        >
+          <BuildInfraSpecifications />
+        </PipelineContext.Provider>
       </TestWrapper>
     )
     const selectBtn = await findByText(container, 'tesa 1')
@@ -168,6 +185,38 @@ describe('BuildInfraSpecifications snapshot test', () => {
         </PipelineContext.Provider>
       </TestWrapper>
     )
+    expect(container).toMatchSnapshot()
+  })
+})
+
+describe('BuildInfraSpecifications snapshot tests for AWS Build Infra', () => {
+  test('initializes ok for AWS VMs Build Infra', async () => {
+    jest.spyOn(featureFlags, 'useFeatureFlags').mockImplementation(() => ({
+      CI_VM_INFRASTRUCTURE: true
+    }))
+    const { container } = render(
+      <TestWrapper pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}>
+        <BuildInfraSpecifications />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+  test('Render AWS Build Infra view', async () => {
+    jest.spyOn(featureFlags, 'useFeatureFlags').mockImplementation(() => ({
+      CI_VM_INFRASTRUCTURE: true
+    }))
+    const { container, findByText: getByText } = render(
+      <TestWrapper pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}>
+        <BuildInfraSpecifications />
+      </TestWrapper>
+    )
+    const buildInfraTypeTiles = container.querySelectorAll('input[type="checkbox"]')
+    expect(buildInfraTypeTiles[0]).toBeTruthy()
+    const awsTile = buildInfraTypeTiles[1]
+    expect(awsTile).toBeTruthy()
+    fireEvent.click(awsTile)
+    const poolIdInputText = await getByText('ci.buildInfa.awsVM.poolId')
+    expect(poolIdInputText).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 })

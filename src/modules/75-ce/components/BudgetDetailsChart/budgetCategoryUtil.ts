@@ -32,7 +32,7 @@ export const getTimeRangeExpression: (
 
     case BudgetPeriod.Quarterly:
     case BudgetPeriod.Yearly:
-      rangeTxt = `${startTime.format('MMM YYYY')} - ${endTime.format('MMM YYYY')}`
+      rangeTxt = `${startTime.format('D MMM YYYY')} - ${endTime.format('D MMM YYYY')}`
       break
 
     case BudgetPeriod.Weekly:

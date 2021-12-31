@@ -1,6 +1,31 @@
 import type { ResponseString, ResponsePageTemplateSummaryResponse } from 'services/template-ng'
 import type { UseGetMockDataWithMutateAndRefetch } from '@common/utils/testUtils'
 
+export const stageMockTemplatesInputYaml: ResponseString = {
+  status: 'SUCCESS',
+  data:
+    'type: "Deployment"' +
+    '\nspec:' +
+    '\n  serviceConfig:' +
+    '\n    serviceRef: "<+input>"' +
+    '\n  infrastructure:' +
+    '\n    infrastructureDefinition:' +
+    '\n      type: "KubernetesDirect"' +
+    '\n      spec:' +
+    '\n        namespace: "<+input>"' +
+    '\n  execution:' +
+    '\n    steps:' +
+    '\n    - step:' +
+    '\n        identifier: "Step_1"' +
+    '\n        type: "ShellScript"' +
+    '\n        spec:' +
+    '\n          source:' +
+    '\n            type: "Inline"' +
+    '\n            spec:' +
+    '\n              script: "<+input>"' +
+    '\n'
+}
+
 export const mockTemplatesInputYaml: ResponseString = {
   status: 'SUCCESS',
   data:

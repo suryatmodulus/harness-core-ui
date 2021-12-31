@@ -22,8 +22,8 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
         class="Layout--horizontal StyledProps--main descriptionVerificationWrapper"
       >
         <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-normal"
-          style="--text-line-clamp: 2; width: 408px;"
+          class="StyledProps--font StyledProps--main StyledProps--font-normal"
+          style="width: 408px;"
         >
           delegate.successVerification.description1
         </p>
@@ -32,8 +32,8 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
         class="Layout--horizontal StyledProps--main"
       >
         <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal"
-          style="--text-line-clamp: 2; width: 408px;"
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal"
+          style="width: 408px;"
         >
           delegate.successVerification.description2
         </p>
@@ -219,8 +219,8 @@ exports[`Create Step Verification Script Delegate Click back button 2`] = `
         class="Layout--horizontal StyledProps--main descriptionVerificationWrapper"
       >
         <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-normal"
-          style="--text-line-clamp: 2; width: 408px;"
+          class="StyledProps--font StyledProps--main StyledProps--font-normal"
+          style="width: 408px;"
         >
           delegate.successVerification.description1
         </p>
@@ -229,8 +229,8 @@ exports[`Create Step Verification Script Delegate Click back button 2`] = `
         class="Layout--horizontal StyledProps--main"
       >
         <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal"
-          style="--text-line-clamp: 2; width: 408px;"
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal"
+          style="width: 408px;"
         >
           delegate.successVerification.description2
         </p>
@@ -388,8 +388,8 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
         class="Layout--horizontal StyledProps--main descriptionVerificationWrapper"
       >
         <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-normal"
-          style="--text-line-clamp: 2; width: 408px;"
+          class="StyledProps--font StyledProps--main StyledProps--font-normal"
+          style="width: 408px;"
         >
           delegate.successVerification.description1
         </p>
@@ -398,8 +398,8 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
         class="Layout--horizontal StyledProps--main"
       >
         <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal"
-          style="--text-line-clamp: 2; width: 408px;"
+          class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-normal"
+          style="width: 408px;"
         >
           delegate.successVerification.description2
         </p>

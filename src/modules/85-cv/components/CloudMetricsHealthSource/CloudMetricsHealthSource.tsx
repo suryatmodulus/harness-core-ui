@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { Color, Container, Heading, Utils } from '@wings-software/uicore'
 
-import { Drawer } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
@@ -9,12 +8,8 @@ import { transformSampleDataIntoHighchartOptions } from '@cv/pages/health-source
 
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
 import { QueryContent } from '@cv/components/QueryViewer/QueryViewer'
-import {
-  DrawerOptions,
-  FieldNames
-} from '@cv/pages/health-source/connectors/GCOMetricsHealthSource/GCOMetricsHealthSource.constants'
+import { FieldNames } from '@cv/pages/health-source/connectors/GCOMetricsHealthSource/GCOMetricsHealthSource.constants'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
-import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 import MetricsValidationChart from '@cv/components/CloudMetricsHealthSource/components/validationChart/MetricsValidationChart'
 import MetricDashboardWidgetNav from '@cv/components/MetricDashboardWidgetNav/MetricDashboardWidgetNav'
 import type { CloudMetricsHealthSourceProps } from '@cv/components/CloudMetricsHealthSource/CloudMetricsHealthSource.type'
@@ -44,7 +39,6 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
   const { getString } = useStrings()
   const { onPrevious } = useContext(SetupSourceTabsContext)
   const [shouldShowChart, setShouldShowChart] = useState<boolean>(false)
-  const [isQueryExpanded, setIsQueryExpanded] = useState(false)
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
 
   const sampleData = useMemo(() => {
@@ -109,7 +103,6 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
                     }
                     onFetchTimeseriesData()
                   }}
-                  onClickExpand={setIsQueryExpanded}
                   isDialogOpen={false}
                   query={selectedMetricInfo.query}
                   loading={!selectedMetricInfo}
@@ -129,27 +122,6 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
                     onFetchTimeseriesData()
                   }}
                 />
-                {isQueryExpanded && (
-                  <Drawer
-                    {...DrawerOptions}
-                    onClose={() => {
-                      setIsQueryExpanded(false)
-                    }}
-                  >
-                    <MonacoEditor
-                      language="javascript"
-                      value={selectedMetricInfo?.query}
-                      options={
-                        {
-                          readOnly: false,
-                          wordBasedSuggestions: false,
-                          fontFamily: "'Roboto Mono', monospace",
-                          fontSize: 13
-                        } as any
-                      }
-                    />
-                  </Drawer>
-                )}
               </Container>
             </Container>
             <SelectHealthSourceServices

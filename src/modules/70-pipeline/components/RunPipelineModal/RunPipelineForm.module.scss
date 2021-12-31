@@ -76,6 +76,8 @@
 .run-modal-header {
   min-height: var(--spacing-8);
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
   padding: var(--spacing-medium) var(--spacing-large);
 }
 
@@ -159,6 +161,10 @@
   padding-top: var(--spacing-xxlarge) !important;
 }
 
+.stagesDropdown {
+  margin-left: var(--spacing);
+}
+
 .stageSelectionItem {
   display: grid;
   padding: var(--spacing-small);
@@ -170,6 +176,7 @@
     margin-right: var(--spacing-small) !important;
   }
 }
+
 .infoStrip {
   display: grid;
   grid-template-columns: 25px 1fr;

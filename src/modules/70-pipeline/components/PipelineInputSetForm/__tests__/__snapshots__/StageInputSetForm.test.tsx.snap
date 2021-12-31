@@ -296,9 +296,6 @@ exports[`stageinputset tests viewType DeploymentForm initial render 1`] = `
                   style="min-height: 24px;"
                 />
               </div>
-              <div
-                class="StyledProps--font StyledProps--main bottomMargin3"
-              />
             </div>
           </form>
         </div>
@@ -648,9 +645,6 @@ exports[`stageinputset tests viewType DeploymentForm initial render2 1`] = `
                   style="min-height: 24px;"
                 />
               </div>
-              <div
-                class="StyledProps--font StyledProps--main bottomMargin3"
-              />
             </div>
           </form>
         </div>
@@ -1000,9 +994,6 @@ exports[`stageinputset tests viewType InputSet initial render 1`] = `
                   style="min-height: 24px;"
                 />
               </div>
-              <div
-                class="StyledProps--font StyledProps--main bottomMargin3"
-              />
             </div>
           </form>
         </div>
@@ -1352,9 +1343,6 @@ exports[`stageinputset tests viewType InputSet initial render2 1`] = `
                   style="min-height: 24px;"
                 />
               </div>
-              <div
-                class="StyledProps--font StyledProps--main bottomMargin3"
-              />
             </div>
           </form>
         </div>

@@ -118,4 +118,22 @@ describe('Organization Details', () => {
 
     expect(getByText('common.governance')).toBeTruthy()
   })
+
+  test('Audit trail should be visible', async () => {
+    mockImport('@common/hooks/useFeatureFlag', {
+      useFeatureFlags: () => ({ AUDIT_TRAIL_WEB_INTERFACE: true })
+    })
+
+    render(
+      <TestWrapper
+        path={routes.toOrganizationDetails({ ...orgPathProps })}
+        pathParams={{ accountId: 'testAcc', orgIdentifier: 'testOrg' }}
+      >
+        <OrganizationDetailsPage />
+      </TestWrapper>
+    )
+
+    expect(getByText('common.auditTrail')).toBeTruthy()
+    expect(getByText('projectsOrgs.orgAccessCtrlAndAuditTrail')).toBeTruthy()
+  })
 })

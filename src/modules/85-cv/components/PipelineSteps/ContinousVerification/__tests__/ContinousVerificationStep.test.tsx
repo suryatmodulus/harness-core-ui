@@ -1,5 +1,6 @@
 import React from 'react'
 import { act, findByText, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
+import * as usePermission from '@rbac/hooks/usePermission'
 import { StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
@@ -292,6 +293,7 @@ describe('Test ContinousVerificationStep Step', () => {
   })
 
   test('Verify when Monitored service is present and HealthSource is not present for a given service and environment ', async () => {
+    jest.spyOn(usePermission, 'usePermission').mockImplementation(() => [true])
     ;(useGetMonitoredServiceFromServiceAndEnvironment as jest.Mock).mockImplementation(() => ({
       loading: false,
       data: mockedMonitoredService,
@@ -299,7 +301,7 @@ describe('Test ContinousVerificationStep Step', () => {
     }))
     const onUpdate = jest.fn()
     const ref = React.createRef<StepFormikRef<unknown>>()
-    const { container, getByText } = render(
+    const { container, getByText, getByTestId } = render(
       <TestStepWidget
         initialValues={verifyStepInitialValues}
         type={StepType.Verify}
@@ -325,12 +327,16 @@ describe('Test ContinousVerificationStep Step', () => {
     await waitFor(() => {
       expect(getByText('connectors.cdng.healthSources.label')).toBeTruthy()
       expect(getByText('connectors.cdng.healthSources.noHealthSourcesDefined')).toBeTruthy()
-      const AddHealthSourceLink = getByText('plusAdd')
+      const AddHealthSourceLink = getByTestId('plusAdd-button')
       expect(AddHealthSourceLink).toBeTruthy()
-      // Clicking on Add Health Source Link and verifying if the drawer opens for adding the health source.
-      act(() => {
-        fireEvent.click(getByText('plusAdd'))
-      })
+    })
+
+    // Clicking on Add Health Source Link and verifying if the drawer opens for adding the health source.
+    act(() => {
+      fireEvent.click(getByTestId('plusAdd-button'))
+    })
+
+    await waitFor(() => {
       expect(getByText('cv.healthSource.addHealthSource')).toBeTruthy()
     })
 
@@ -371,7 +377,7 @@ describe('Test ContinousVerificationStep Step', () => {
 
     const onUpdate = jest.fn()
     const ref = React.createRef<StepFormikRef<unknown>>()
-    const { container, getByText } = render(
+    const { container, getByText, getByTestId } = render(
       <TestStepWidget
         initialValues={verifyStepInitialValues}
         type={StepType.Verify}
@@ -407,12 +413,15 @@ describe('Test ContinousVerificationStep Step', () => {
     await waitFor(() => {
       expect(getByText('connectors.cdng.healthSources.label')).toBeTruthy()
       expect(getByText('connectors.cdng.healthSources.noHealthSourcesDefined')).toBeTruthy()
-      const AddHealthSourceLink = getByText('plusAdd')
+      const AddHealthSourceLink = getByTestId('plusAdd-button')
       expect(AddHealthSourceLink).toBeTruthy()
-      // Clicking on Add Health Source Link and verifying if the drawer opens for adding the health source.
-      act(() => {
-        fireEvent.click(getByText('plusAdd'))
-      })
+    })
+    // Clicking on Add Health Source Link and verifying if the drawer opens for adding the health source.
+    act(() => {
+      fireEvent.click(getByTestId('plusAdd-button'))
+    })
+
+    await waitFor(() => {
       expect(getByText('cv.healthSource.addHealthSource')).toBeTruthy()
     })
   })

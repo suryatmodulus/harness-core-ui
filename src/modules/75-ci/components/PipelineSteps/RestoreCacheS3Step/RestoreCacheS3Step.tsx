@@ -83,7 +83,7 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
 
   protected type = StepType.RestoreCacheS3
   protected stepName = 'Restore Cache from S3'
-  protected stepIcon: IconName = 'restore-cache-s3'
+  protected stepIcon: IconName = 'restore-cache-s3-step'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.RestoreCacheS3'
   protected stepPaletteVisible = false
 

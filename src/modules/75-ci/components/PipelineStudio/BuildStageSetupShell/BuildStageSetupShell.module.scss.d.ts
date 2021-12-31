@@ -11,5 +11,6 @@ declare const styles: {
   readonly stageDropDownTab: string
   readonly stageDropDown: string
   readonly bp3Button: string
+  readonly templateNameDialog: string
 }
 export default styles

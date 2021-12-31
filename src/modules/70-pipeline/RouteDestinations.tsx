@@ -17,9 +17,13 @@ import EnvironmentResourceModal from '@pipeline/components/RbacResourceModals/En
 import { HarnessApprovalView } from '@pipeline/components/execution/StepDetails/views/HarnessApprovalView/HarnessApprovalView'
 import { JiraApprovalView } from '@pipeline/components/execution/StepDetails/views/JiraApprovalView/JiraApprovalView'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { ServiceNowApprovalView } from '@pipeline/components/execution/StepDetails/views/ServiceNowApprovalView/ServiceNowApprovalView'
+import type { ResourceDTO, ResourceScopeDTO } from 'services/audit'
+import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
+import routes from '@common/RouteDefinitions'
+import type { Module } from '@common/interfaces/RouteInterfaces'
 import PipelineResourceRenderer from './components/RbacResourceModals/PipelineResourceRenderer/PipelineResourceRenderer'
 import { ModuleName } from '../../framework/types/ModuleName'
-
 /**
  * Register RBAC resources
  */
@@ -75,6 +79,10 @@ ExecFactory.registerStepDetails(StepType.JiraApproval, {
   component: JiraApprovalView
 })
 
+ExecFactory.registerStepDetails(StepType.ServiceNowApproval, {
+  component: ServiceNowApprovalView
+})
+
 /**
  * Register for Landing Page
  * */
@@ -84,4 +92,55 @@ LandingDashboardFactory.registerModuleDashboardHandler(ModuleName.CD, {
   iconProps: { size: 20 },
   // eslint-disable-next-line react/display-name
   moduleDashboardRenderer: () => <LandingDashboardDeploymentsWidget />
+})
+
+/**
+ * Register for Audit Trail
+ * */
+AuditTrailFactory.registerResourceHandler(ResourceType.PIPELINE, {
+  moduleIcon: {
+    name: 'cd-main',
+    size: 30
+  },
+  resourceUrl: (_: ResourceDTO, resourceScope: ResourceScopeDTO, module?: Module) => {
+    const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope
+    if (module && accountIdentifier && orgIdentifier && projectIdentifier) {
+      return routes.toPipelines({
+        module,
+        orgIdentifier,
+        projectIdentifier,
+        accountId: accountIdentifier
+      })
+    }
+    return undefined
+  }
+})
+
+AuditTrailFactory.registerResourceHandler(ResourceType.SERVICE, {
+  moduleIcon: {
+    name: 'cd-main',
+    size: 30
+  },
+  resourceUrl: (_: ResourceDTO, resourceScope: ResourceScopeDTO, module?: Module) => {
+    const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope
+    if (module && accountIdentifier && orgIdentifier && projectIdentifier) {
+      return routes.toServices({
+        module,
+        orgIdentifier,
+        projectIdentifier,
+        accountId: accountIdentifier
+      })
+    }
+    return undefined
+  }
+})
+
+AuditTrailFactory.registerResourceHandler(ResourceType.ENVIRONMENT, {
+  moduleIcon: {
+    name: 'cd-main',
+    size: 30
+  },
+  resourceUrl: (_: ResourceDTO, __: ResourceScopeDTO) => {
+    return undefined
+  }
 })

@@ -35,6 +35,7 @@ import CreateDynatraceConnector from '../CreateConnector/DynatraceConnector/Crea
 import CreateSumoLogicConnector from '../CreateConnector/SumoLogicConnector/CreateSumoLogicConnector'
 import CENGAwsConnector from '../CreateConnector/CENGAwsConnector/CreateCeAwsConnector'
 import CreateCeGcpConnector from '../CreateConnector/CEGcpConnector/CreateCeGcpConnector'
+import CreateCustomHealthConnector from '../CreateConnector/CustomHealthConnector/CreateCustomHealthConnector'
 import css from './CreateConnectorWizard.module.scss'
 
 interface CreateConnectorWizardProps {
@@ -68,6 +69,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
     'setConnectivityMode'
   ])
   switch (type) {
+    case Connectors.CUSTOM:
+      return <CreateCustomHealthConnector {...commonProps} />
     case Connectors.KUBERNETES_CLUSTER:
       return <CreateK8sConnector {...commonProps} />
     case Connectors.GIT:

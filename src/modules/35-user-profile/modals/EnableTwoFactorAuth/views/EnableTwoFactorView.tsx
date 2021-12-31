@@ -1,10 +1,10 @@
 import React from 'react'
 import { Button, Color, Container, Layout, Text, TextInput, ButtonVariation } from '@wings-software/uicore'
 import QRCode from 'react-qr-code'
-import copy from 'copy-to-clipboard'
 import { TwoFactorAuthSettingsInfo, useEnableTwoFactorAuth, useGetTwoFactorAuthSettings } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { PageSpinner, useToaster } from '@common/components'
+import { CopyText } from '@common/components/CopyText/CopyText'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import css from '../useEnableTwoFactorAuthModal.module.scss'
 
@@ -74,15 +74,11 @@ const EnableTwoFactorAuthView: React.FC<EnableTwoFactorAuthViewProps> = ({ isRes
                       value={authSettings.totpSecretKey}
                       rightElement={
                         (
-                          <Button
-                            icon="duplicate"
-                            inline
-                            minimal
-                            onClick={() => {
-                              copy(authSettings.totpSecretKey || '')
-                                ? showSuccess(getString('clipboardCopySuccess'))
-                                : showError(getString('clipboardCopyFail'))
-                            }}
+                          <CopyText
+                            className={css.copy}
+                            iconName="duplicate"
+                            textToCopy={authSettings.totpSecretKey || ''}
+                            iconAlwaysVisible
                           />
                         ) as any
                       }

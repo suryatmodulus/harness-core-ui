@@ -179,133 +179,147 @@ interface ValidateStageProps {
   getString?: UseStringsReturn['getString']
 }
 
-const validateStage = ({
+export const validateStage = ({
   stage,
   template,
   viewType,
   originalStage,
   getString
 }: ValidateStageProps): FormikErrors<StageElementConfig> => {
-  const errors = {}
-
-  // Validation for infrastructure namespace
-  // For CD spec is DeploymentStageConfig
-  const stageConfig = stage.spec as DeploymentStageConfig | undefined
-  const templateStageConfig = template?.spec as DeploymentStageConfig | undefined
-  const originalStageConfig = originalStage?.spec as DeploymentStageConfig | undefined
-  if (
-    isEmpty((stageConfig?.infrastructure as Infrastructure)?.spec?.namespace) &&
-    getMultiTypeFromValue((templateStageConfig?.infrastructure as Infrastructure)?.spec?.namespace) ===
-      MultiTypeInputType.RUNTIME
-  ) {
-    set(
-      errors,
-      'spec.infrastructure.spec.namespace',
-      getString?.('fieldRequired', { field: getString?.('pipelineSteps.build.infraSpecifications.namespace') })
+  if (originalStage?.template) {
+    return set(
+      {},
+      'template.templateInputs',
+      validateStage({
+        stage: stage.template?.templateInputs as StageElementConfig,
+        template: template?.template?.templateInputs as StageElementConfig,
+        viewType,
+        originalStage: originalStage.template.templateInputs as StageElementConfig,
+        getString
+      })
     )
-  }
+  } else {
+    const errors = {}
 
-  if (stage.type === 'Deployment' && templateStageConfig?.serviceConfig?.serviceRef) {
-    const step = factory.getStep(StepType.DeployService)
-    const errorsResponse = step?.validateInputSet({
-      data: stageConfig?.serviceConfig,
-      template: templateStageConfig?.serviceConfig,
-      getString,
-      viewType
-    })
-    if (!isEmpty(errorsResponse)) {
-      set(errors, 'spec.serviceConfig.serviceRef', errorsResponse)
-    }
-  }
-
-  if (stage.type === 'Deployment' && templateStageConfig?.infrastructure?.environmentRef) {
-    const step = factory.getStep(StepType.DeployEnvironment)
-    const errorsResponse = step?.validateInputSet({
-      data: stageConfig?.infrastructure,
-      template: templateStageConfig?.infrastructure,
-      getString,
-      viewType
-    })
-    if (!isEmpty(errorsResponse)) {
-      set(errors, 'spec.infrastructure.environmentRef', errorsResponse)
-    }
-  }
-  if (
-    stageConfig?.infrastructure?.infrastructureDefinition?.spec &&
-    originalStageConfig?.infrastructure?.infrastructureDefinition?.type
-  ) {
-    const step = factory.getStep(originalStageConfig.infrastructure.infrastructureDefinition.type)
-    const errorsResponse = step?.validateInputSet({
-      data: stageConfig?.infrastructure?.infrastructureDefinition?.spec,
-      template: templateStageConfig?.infrastructure?.infrastructureDefinition?.spec,
-      getString,
-      viewType
-    })
-    if (!isEmpty(errorsResponse)) {
-      set(errors, 'spec.infrastructure.infrastructureDefinition.spec', errorsResponse)
-    }
-  }
-  if (stage?.variables) {
-    const step = factory.getStep(StepType.CustomVariable)
-    const errorsResponse: any = step?.validateInputSet({ data: stage, template, getString, viewType })
-
-    if (!isEmpty(errorsResponse)) {
-      set(errors, 'variables', errorsResponse?.variables)
-    }
-  }
-  if (originalStageConfig?.serviceConfig?.serviceDefinition?.type === 'Kubernetes') {
-    const step = factory.getStep(StepType.K8sServiceSpec)
-    const errorsResponse = step?.validateInputSet({
-      data: stageConfig?.serviceConfig?.serviceDefinition?.spec,
-      template: templateStageConfig?.serviceConfig?.serviceDefinition?.spec,
-      getString,
-      viewType
-    })
-
-    if (!isEmpty(errorsResponse)) {
-      set(errors, 'spec.serviceConfig.serviceDefinition.spec', errorsResponse)
+    // Validation for infrastructure namespace
+    // For CD spec is DeploymentStageConfig
+    const stageConfig = stage.spec as DeploymentStageConfig | undefined
+    const templateStageConfig = template?.spec as DeploymentStageConfig | undefined
+    const originalStageConfig = originalStage?.spec as DeploymentStageConfig | undefined
+    if (
+      isEmpty((stageConfig?.infrastructure as Infrastructure)?.spec?.namespace) &&
+      getMultiTypeFromValue((templateStageConfig?.infrastructure as Infrastructure)?.spec?.namespace) ===
+        MultiTypeInputType.RUNTIME
+    ) {
+      set(
+        errors,
+        'spec.infrastructure.spec.namespace',
+        getString?.('fieldRequired', { field: getString?.('pipelineSteps.build.infraSpecifications.namespace') })
+      )
     }
 
-    if (originalStageConfig?.serviceConfig?.serviceDefinition?.spec?.variables) {
-      const currentStep = factory.getStep(StepType.CustomVariable)
-      const stepErrorsResponse = currentStep?.validateInputSet({
+    if (stage.type === 'Deployment' && templateStageConfig?.serviceConfig?.serviceRef) {
+      const step = factory.getStep(StepType.DeployService)
+      const errorsResponse = step?.validateInputSet({
+        data: stageConfig?.serviceConfig,
+        template: templateStageConfig?.serviceConfig,
+        getString,
+        viewType
+      })
+      if (!isEmpty(errorsResponse)) {
+        set(errors, 'spec.serviceConfig', errorsResponse)
+      }
+    }
+
+    if (stage.type === 'Deployment' && templateStageConfig?.infrastructure?.environmentRef) {
+      const step = factory.getStep(StepType.DeployEnvironment)
+      const errorsResponse = step?.validateInputSet({
+        data: stageConfig?.infrastructure,
+        template: templateStageConfig?.infrastructure,
+        getString,
+        viewType
+      })
+      if (!isEmpty(errorsResponse)) {
+        set(errors, 'spec.infrastructure', errorsResponse)
+      }
+    }
+    if (
+      stageConfig?.infrastructure?.infrastructureDefinition?.spec &&
+      originalStageConfig?.infrastructure?.infrastructureDefinition?.type
+    ) {
+      const step = factory.getStep(originalStageConfig.infrastructure.infrastructureDefinition.type)
+      const errorsResponse = step?.validateInputSet({
+        data: stageConfig?.infrastructure?.infrastructureDefinition?.spec,
+        template: templateStageConfig?.infrastructure?.infrastructureDefinition?.spec,
+        getString,
+        viewType
+      })
+      if (!isEmpty(errorsResponse)) {
+        set(errors, 'spec.infrastructure.infrastructureDefinition.spec', errorsResponse)
+      }
+    }
+    if (stage?.variables) {
+      const step = factory.getStep(StepType.CustomVariable)
+      const errorsResponse: any = step?.validateInputSet({ data: stage, template, getString, viewType })
+
+      if (!isEmpty(errorsResponse)) {
+        set(errors, 'variables', errorsResponse?.variables)
+      }
+    }
+    if (originalStageConfig?.serviceConfig?.serviceDefinition?.type === 'Kubernetes') {
+      const step = factory.getStep(StepType.K8sServiceSpec)
+      const errorsResponse = step?.validateInputSet({
         data: stageConfig?.serviceConfig?.serviceDefinition?.spec,
         template: templateStageConfig?.serviceConfig?.serviceDefinition?.spec,
         getString,
         viewType
       })
 
-      if (!isEmpty(stepErrorsResponse)) {
-        set(errors, 'spec.serviceConfig.serviceDefinition.spec', stepErrorsResponse)
+      if (!isEmpty(errorsResponse)) {
+        set(errors, 'spec.serviceConfig.serviceDefinition.spec', errorsResponse)
+      }
+
+      if (originalStageConfig?.serviceConfig?.serviceDefinition?.spec?.variables) {
+        const currentStep = factory.getStep(StepType.CustomVariable)
+        const stepErrorsResponse = currentStep?.validateInputSet({
+          data: stageConfig?.serviceConfig?.serviceDefinition?.spec,
+          template: templateStageConfig?.serviceConfig?.serviceDefinition?.spec,
+          getString,
+          viewType
+        })
+
+        if (!isEmpty(stepErrorsResponse)) {
+          set(errors, 'spec.serviceConfig.serviceDefinition.spec', stepErrorsResponse)
+        }
       }
     }
-  }
-  if (stageConfig?.execution?.steps) {
-    const errorsResponse = validateSteps({
-      steps: stageConfig.execution.steps as ExecutionWrapperConfig[],
-      template: templateStageConfig?.execution?.steps,
-      originalSteps: originalStageConfig?.execution?.steps,
-      getString,
-      viewType
-    })
-    if (!isEmpty(errorsResponse)) {
-      set(errors, 'spec.execution', errorsResponse)
+    if (stageConfig?.execution?.steps) {
+      const errorsResponse = validateSteps({
+        steps: stageConfig.execution.steps as ExecutionWrapperConfig[],
+        template: templateStageConfig?.execution?.steps,
+        originalSteps: originalStageConfig?.execution?.steps,
+        getString,
+        viewType
+      })
+      if (!isEmpty(errorsResponse)) {
+        set(errors, 'spec.execution', errorsResponse)
+      }
     }
-  }
-  if (stageConfig?.execution?.rollbackSteps) {
-    const errorsResponse = validateSteps({
-      steps: stageConfig.execution.rollbackSteps as ExecutionWrapperConfig[],
-      template: templateStageConfig?.execution?.rollbackSteps,
-      originalSteps: originalStageConfig?.execution?.rollbackSteps,
-      getString,
-      viewType
-    })
-    if (!isEmpty(errorsResponse)) {
-      set(errors, 'spec.execution.rollbackSteps', errorsResponse)
+    if (stageConfig?.execution?.rollbackSteps) {
+      const errorsResponse = validateSteps({
+        steps: stageConfig.execution.rollbackSteps as ExecutionWrapperConfig[],
+        template: templateStageConfig?.execution?.rollbackSteps,
+        originalSteps: originalStageConfig?.execution?.rollbackSteps,
+        getString,
+        viewType
+      })
+      if (!isEmpty(errorsResponse)) {
+        set(errors, 'spec.execution.rollbackSteps', errorsResponse)
+      }
     }
-  }
 
-  return errors
+    return errors
+  }
 }
 
 interface ValidatePipelineProps {

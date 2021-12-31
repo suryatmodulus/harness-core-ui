@@ -2,15 +2,21 @@ import React from 'react'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { Button, Color, Container, FormikForm, Intent, Text } from '@wings-software/uicore'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { set } from 'lodash-es'
+import produce from 'immer'
+import {
+  PipelineContextType,
+  usePipelineContext
+} from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components'
 import type { ApprovalStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import { getNameAndIdentifierSchema } from '@pipeline/utils/tempates'
+import { getScopeBasedTemplateRef, getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
+import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import type { ApprovalStageMinimalModeProps, ApprovalStageMinimalValues } from './types'
 import { ApprovalTypeCards } from './ApprovalTypeCards'
-
 import css from './ApprovalStageMinimalMode.module.scss'
 
 const getInitialValues = (data?: StageElementWrapper<ApprovalStageElementConfig>): ApprovalStageMinimalValues => ({
@@ -23,10 +29,12 @@ const getInitialValues = (data?: StageElementWrapper<ApprovalStageElementConfig>
 
 export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> = props => {
   const { getString } = useStrings()
-  const { onChange, onSubmit, data } = props
+  const { onChange, onSubmit, data, template } = props
 
   const {
-    state: { pipeline }
+    state: { pipeline, templateTypes },
+    contextType,
+    setTemplateTypes
   } = usePipelineContext()
 
   const handleValidate = (values: ApprovalStageMinimalValues): Record<string, string | undefined> | undefined => {
@@ -42,12 +50,28 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
 
   const handleSubmit = (values: ApprovalStageMinimalValues): void => {
     if (data?.stage) {
-      data.stage.identifier = values.identifier
-      data.stage.name = values.name
-      data.stage.description = values.description
-      data.stage.tags = values.tags
-      ;(data.stage as any).approvalType = values.approvalType
-      onSubmit?.(data, values.identifier)
+      if (template) {
+        if (template.identifier && template.childType) {
+          templateTypes[template.identifier] = template.childType
+          setTemplateTypes(templateTypes)
+        }
+        const newStage = produce({} as ApprovalStageElementConfig, draft => {
+          draft.name = values.name
+          draft.identifier = values.identifier
+          set(draft, 'template.templateRef', getScopeBasedTemplateRef(template))
+          if (template.versionLabel) {
+            set(draft, 'template.versionLabel', template.versionLabel)
+          }
+        })
+        onSubmit?.({ stage: newStage }, values.identifier)
+      } else {
+        data.stage.identifier = values.identifier
+        data.stage.name = values.name
+        data.stage.description = values.description
+        data.stage.tags = values.tags
+        ;(data.stage as any).approvalType = values.approvalType
+        onSubmit?.(data, values.identifier)
+      }
     }
   }
 
@@ -57,9 +81,10 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
         enableReinitialize
         initialValues={getInitialValues(data)}
         validationSchema={Yup.object().shape({
-          name: NameSchema({ requiredErrorMsg: getString('approvalStage.stageNameRequired') }),
-          identifier: IdentifierSchema(),
-          approvalType: Yup.string().required(getString('pipeline.approvalTypeRequired'))
+          ...getNameAndIdentifierSchema(getString, contextType),
+          ...(!template && {
+            approvalType: Yup.string().required(getString('pipeline.approvalTypeRequired'))
+          })
         })}
         validate={handleValidate}
         onSubmit={(values: ApprovalStageMinimalValues) => handleSubmit(values)}
@@ -75,21 +100,44 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
               {getString('pipelineSteps.build.create.aboutYourStage')}
             </Text>
 
-            <NameIdDescriptionTags
-              formikProps={formikProps}
-              identifierProps={{
-                inputLabel: getString('stageNameLabel')
-              }}
-            />
+            {contextType === PipelineContextType.Pipeline &&
+              (template ? (
+                <NameId
+                  identifierProps={{
+                    inputLabel: getString('stageNameLabel')
+                  }}
+                />
+              ) : (
+                <NameIdDescriptionTags
+                  formikProps={formikProps}
+                  identifierProps={{
+                    inputLabel: getString('stageNameLabel')
+                  }}
+                />
+              ))}
 
-            <Text
-              color={Color.GREY_700}
-              font={{ size: 'normal', weight: 'semi-bold' }}
-              tooltipProps={{ dataTooltipId: 'approvalTypeHeading' }}
-            >
-              {getString('approvalStage.approvalTypeHeading')}
-            </Text>
-            <ApprovalTypeCards formikProps={formikProps} />
+            {template ? (
+              <Text
+                icon={'template-library'}
+                margin={{ top: 'medium', bottom: 'medium' }}
+                font={{ size: 'small' }}
+                iconProps={{ size: 12, margin: { right: 'xsmall' } }}
+                color={Color.BLACK}
+              >
+                {`Using Template: ${getTemplateNameWithLabel(template)}`}
+              </Text>
+            ) : (
+              <>
+                <Text
+                  color={Color.GREY_700}
+                  font={{ size: 'normal', weight: 'semi-bold' }}
+                  tooltipProps={{ dataTooltipId: 'approvalTypeHeading' }}
+                >
+                  {getString('approvalStage.approvalTypeHeading')}
+                </Text>
+                <ApprovalTypeCards formikProps={formikProps} />
+              </>
+            )}
 
             <Button
               type="submit"

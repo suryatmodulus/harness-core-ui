@@ -1,7 +1,7 @@
 {
   "name": "nextgenui",
   "description": "Harness Inc",
-  "version": "0.279.0",
+  "version": "0.280.0",
   "author": "Harness Inc",
   "license": "Harness Inc",
   "homepage": "http://app.harness.io/",
@@ -91,7 +91,7 @@
     "@wings-software/monaco-yaml": "2.4.36",
     "@wings-software/ng-tooltip": "~1.30.55",
     "@wings-software/telemetry": "^1.0.36",
-    "@wings-software/uicore": "0.1.488",
+    "@wings-software/uicore": "1.7.0",
     "anser": "^2.0.1",
     "ansi-to-react": "^6.0.7",
     "classnames": "^2.2.6",

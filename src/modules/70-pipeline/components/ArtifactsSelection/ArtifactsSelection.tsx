@@ -33,6 +33,8 @@ import { buildAWSPayload, buildDockerPayload, buildGcpPayload } from '@connector
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import { useDeepCompareEffect, useQueryParams } from '@common/hooks'
 import type { Scope } from '@common/interfaces/SecretsInterface'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { ArtifactActions } from '@common/constants/TrackingConstants'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import ArtifactWizard from './ArtifactWizard/ArtifactWizard'
@@ -76,7 +78,8 @@ export default function ArtifactsSelection({
     },
     getStageFromPipeline,
     updateStage,
-    isReadonly
+    isReadonly,
+    allowableTypes
   } = usePipelineContext()
 
   const [isEditMode, setIsEditMode] = useState(false)
@@ -88,6 +91,7 @@ export default function ArtifactsSelection({
 
   const { showError } = useToaster()
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
 
   const getPrimaryArtifactByIdentifier = (): PrimaryArtifact => {
     return artifacts
@@ -274,6 +278,7 @@ export default function ArtifactsSelection({
   }, [stage])
 
   const addArtifact = (artifactObj: any): void => {
+    const isCreateMode = context === ModalViewFor.PRIMARY ? !primaryArtifact : sidecarIndex === sideCarArtifact.length
     artifactObj = {
       type: ENABLED_ARTIFACT_TYPES[selectedArtifact as ArtifactType],
       ...artifactObj
@@ -351,6 +356,19 @@ export default function ArtifactsSelection({
     hideConnectorModal()
     setSelectedArtifact(null)
     refetchConnectorList()
+    let telemetryEventName
+    if (isCreateMode) {
+      telemetryEventName =
+        context === ModalViewFor.PRIMARY
+          ? ArtifactActions.SavePrimaryArtifactOnPipelinePage
+          : ArtifactActions.SaveSidecarArtifactOnPipelinePage
+    } else {
+      telemetryEventName =
+        context === ModalViewFor.PRIMARY
+          ? ArtifactActions.UpdatePrimaryArtifactOnPipelinePage
+          : ArtifactActions.UpdateSidecarArtifactOnPipelinePage
+    }
+    trackEvent(telemetryEventName, {})
   }
 
   const getLastStepInitialData = (): any => {
@@ -456,11 +474,12 @@ export default function ArtifactsSelection({
   }
 
   const artifactLastStepProps = (): ImagePathProps => {
-    const imagePathProps: ImagePathProps = {
+    return {
       key: getString('connectors.stepFourName'),
       name: getString('connectors.stepFourName'),
       context,
       expressions,
+      allowableTypes,
       initialValues: getLastStepInitialData(),
       handleSubmit: (data: any) => {
         addArtifact(data)
@@ -469,8 +488,6 @@ export default function ArtifactsSelection({
       isReadonly: isReadonly,
       selectedArtifact
     }
-
-    return imagePathProps
   }
 
   const getLabels = (): ConnectorRefLabelType => {
@@ -627,6 +644,7 @@ export default function ArtifactsSelection({
           iconsProps={getIconProps()}
           types={allowedArtifactTypes}
           expressions={expressions}
+          allowableTypes={allowableTypes}
           lastSteps={getLastSteps()}
           labels={getLabels()}
           isReadonly={isReadonly}
@@ -655,7 +673,7 @@ export default function ArtifactsSelection({
         {renderExistingArtifact()}
       </Dialog>
     ),
-    [context, selectedArtifact, connectorView, primaryArtifact, sidecarIndex, expressions, isEditMode]
+    [context, selectedArtifact, connectorView, primaryArtifact, sidecarIndex, expressions, allowableTypes, isEditMode]
   )
 
   return (

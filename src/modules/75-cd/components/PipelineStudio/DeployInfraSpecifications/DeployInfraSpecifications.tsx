@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
-import { Card, Accordion, Container, Text, MultiTypeInputType } from '@wings-software/uicore'
+import { Card, Accordion, Container, Text } from '@wings-software/uicore'
 import { get, isEmpty, isNil, omit, debounce, set } from 'lodash-es'
 import produce from 'immer'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -49,6 +49,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
       originalPipeline,
       selectionState: { selectedStageId }
     },
+    allowableTypes,
     isReadonly,
     getStageFromPipeline,
     updateStage
@@ -268,7 +269,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
             initialValues={initialInfrastructureDefinitionValues as K8SDirectInfrastructure}
             type={StepType.KubernetesDirect}
             stepViewType={StepViewType.Edit}
-            allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
+            allowableTypes={allowableTypes}
             onUpdate={value =>
               onUpdateInfrastructureDefinition(
                 {
@@ -292,7 +293,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
             initialValues={initialInfrastructureDefinitionValues as GcpInfrastructureSpec}
             type={StepType.KubernetesGcp}
             stepViewType={StepViewType.Edit}
-            allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
+            allowableTypes={allowableTypes}
             onUpdate={value =>
               onUpdateInfrastructureDefinition(
                 {
@@ -346,7 +347,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
               environment: get(stage, 'stage.spec.infrastructure.environment', {}),
               environmentRef: get(stage, 'stage.spec.infrastructure.environmentRef', '')
             }}
-            allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
+            allowableTypes={allowableTypes}
             onUpdate={val => updateEnvStep(val)}
             factory={factory}
             stepViewType={StepViewType.Edit}
@@ -384,11 +385,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                 <Card className={stageCss.sectionCard}>
                   <StepWidget<InfraProvisioningData>
                     factory={factory}
-                    allowableTypes={[
-                      MultiTypeInputType.FIXED,
-                      MultiTypeInputType.RUNTIME,
-                      MultiTypeInputType.EXPRESSION
-                    ]}
+                    allowableTypes={allowableTypes}
                     readonly={isReadonly}
                     key={stage?.stage?.identifier}
                     initialValues={getProvisionerData(stage || ({} as StageElementWrapper))}

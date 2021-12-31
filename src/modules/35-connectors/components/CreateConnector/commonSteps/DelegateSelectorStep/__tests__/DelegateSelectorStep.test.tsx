@@ -76,7 +76,7 @@ describe('DelegateSelectorStep', () => {
     expect(container).toMatchSnapshot()
     expect(container.querySelector('[value="DelegateOptions.DelegateOptionsAny"]')?.getAttribute('disabled')).toBe(null)
     expect(container.querySelectorAll('[data-name="DelegateSelectors"] [data-tag-index]').length).toBe(0)
-    expect(container.querySelector('[data-name="installNewDelegateButton"]')).toBeFalsy()
+    expect(container.querySelector('[data-name="installNewDelegateButton"]')).toBeTruthy()
   })
 
   test('should confirm that install new delegate button is visible if feature flags are present', async () => {

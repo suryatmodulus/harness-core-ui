@@ -2,13 +2,15 @@ import * as uuid from 'uuid'
 import {
   validateMapping,
   createAppDFormData,
+  getBaseAndMetricPath,
   createAppDynamicsPayload,
   initializeCreatedMetrics,
   initializeNonCustomFields,
   initializeSelectedMetricsMap,
   convertMetricPackToMetricData,
   convertStringMetricPathToObject,
-  convertStringBasePathToObject
+  convertStringBasePathToObject,
+  convertFullPathToBaseAndMetric
 } from '../AppDHealthSource.utils'
 import {
   appDMetricValue,
@@ -153,6 +155,36 @@ describe('Test Util funcitons', () => {
         path: 'performance|call per minute',
         value: ''
       }
+    })
+  })
+
+  test('should validate convertFullPathToBaseAndMetric', () => {
+    expect(
+      convertFullPathToBaseAndMetric('Overall Application Performance / manager / Exceptions per Minute', 'manager')
+    ).toEqual({ derivedBasePath: 'Overall Application Performance', derivedMetricPath: 'Exceptions per Minute' })
+  })
+
+  test('should validate getBaseAndMetricPath', () => {
+    const basePath = {
+      basePathDropdown_0: { path: '', value: 'Overall Application Performance' },
+      basePathDropdown_1: { path: 'Overall Application Performance', value: '' }
+    }
+    const metricPath = {
+      metricPathDropdown_0: { value: 'Exceptions per Minute', path: '', isMetric: true },
+      metricPathDropdown_1: { value: '', path: 'Exceptions per Minute', isMetric: false }
+    }
+    expect(
+      getBaseAndMetricPath(
+        basePath,
+        metricPath,
+        'Overall Application Performance / manager / Exceptions per Minute',
+        'manager'
+      )
+    ).toEqual({ derivedBasePath: 'Overall Application Performance', derivedMetricPath: 'Exceptions per Minute' })
+
+    expect(getBaseAndMetricPath(basePath, metricPath, null, 'manager')).toEqual({
+      derivedBasePath: 'Overall Application Performance',
+      derivedMetricPath: 'Exceptions per Minute'
     })
   })
 })

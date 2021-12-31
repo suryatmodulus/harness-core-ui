@@ -9,7 +9,8 @@ import {
   FormInput,
   ModalErrorHandlerBinding,
   ButtonVariation,
-  getErrorInfoFromErrorObject
+  getErrorInfoFromErrorObject,
+  PageSpinner
 } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
@@ -54,12 +55,16 @@ const StepCredentials: React.FC<StepProps<NgSmtpDTO> & SmtpSharedObj & CreateSmt
     }
   }
   const handlePrev = (): void => {
-    previousStep?.({ ...prevStepData })
+    if (prevStepData) {
+      previousStep?.({ ...prevStepData })
+    }
   }
   return (
     <Formik<Details>
       onSubmit={values => {
-        save({ ...prevStepData, value: { ...prevStepData?.value, ...values } })
+        if (prevStepData) {
+          save({ ...prevStepData, value: { ...prevStepData?.value, ...values } })
+        }
       }}
       formName="smtpStepCredentialsForm"
       initialValues={{
@@ -69,34 +74,41 @@ const StepCredentials: React.FC<StepProps<NgSmtpDTO> & SmtpSharedObj & CreateSmt
     >
       {() => {
         return (
-          <Container padding="small" height={570}>
-            <SmtpModalHeader
-              errorHandler={setModalErrorHandler}
-              mainHeading={getString('credentials')}
-              subHeading={getString('common.smtp.modalSubHeading')}
-            />
-            <Container className={css.smtpMdlContainer}>
-              <FormikForm>
-                <FormInput.Text name="username" label={getString('username')}></FormInput.Text>
-                <FormInput.Text name="password" inputGroup={{ type: 'password' }} label={getString('password')} />
+          <>
+            {updateSmtpLoading || saveSmtpLoading ? (
+              <PageSpinner
+                message={isEdit ? getString('common.smtp.updatingSMTP') : getString('common.smtp.savingSMTP')}
+              />
+            ) : null}
+            <Container padding="small" height={570}>
+              <SmtpModalHeader
+                errorHandler={setModalErrorHandler}
+                mainHeading={getString('credentials')}
+                subHeading={getString('common.smtp.modalSubHeading')}
+              />
+              <Container className={css.smtpMdlContainer}>
+                <FormikForm>
+                  <FormInput.Text name="username" label={getString('username')}></FormInput.Text>
+                  <FormInput.Text name="password" inputGroup={{ type: 'password' }} label={getString('password')} />
 
-                <Layout.Horizontal className={css.buttonPanel} spacing="small">
-                  <Button
-                    variation={ButtonVariation.TERTIARY}
-                    text={getString('previous')}
-                    icon="chevron-left"
-                    onClick={handlePrev}
-                  ></Button>
-                  <Button
-                    type="submit"
-                    variation={ButtonVariation.PRIMARY}
-                    text={getString('saveAndContinue')}
-                    disabled={updateSmtpLoading || saveSmtpLoading}
-                  />
-                </Layout.Horizontal>
-              </FormikForm>
+                  <Layout.Horizontal className={css.buttonPanel} spacing="small">
+                    <Button
+                      variation={ButtonVariation.TERTIARY}
+                      text={getString('previous')}
+                      icon="chevron-left"
+                      onClick={handlePrev}
+                    ></Button>
+                    <Button
+                      type="submit"
+                      variation={ButtonVariation.PRIMARY}
+                      text={getString('saveAndContinue')}
+                      disabled={updateSmtpLoading || saveSmtpLoading}
+                    />
+                  </Layout.Horizontal>
+                </FormikForm>
+              </Container>
             </Container>
-          </Container>
+          </>
         )
       }}
     </Formik>

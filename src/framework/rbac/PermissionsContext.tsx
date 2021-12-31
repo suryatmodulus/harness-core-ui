@@ -107,11 +107,15 @@ export function PermissionsProvider(props: React.PropsWithChildren<PermissionsPr
             isEqual(omit(perm, 'permitted'), permissionRequest)
           )?.permitted
 
-          // update current request in the map
-          draft.set(
-            getStringKeyFromObjectValues(permissionRequest, keysToCompare),
-            typeof hasAccess === 'boolean' ? hasAccess : true
-          )
+          // update current request in the map, only if response matches request
+          if (typeof hasAccess === 'boolean') {
+            draft.set(getStringKeyFromObjectValues(permissionRequest, keysToCompare), hasAccess)
+          }
+          // if hasAccess is undefined, it means :
+          // 1. either we had a race condition, and the response is for a previous request.
+          //    in that case, dont overwrite the old data
+          // 2. or the request was invalid (permission doesn't exist).
+          //    in that case, assume default as false
         })
       })
     } catch (err) {

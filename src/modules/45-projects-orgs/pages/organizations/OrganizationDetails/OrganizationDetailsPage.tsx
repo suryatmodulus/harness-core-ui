@@ -13,7 +13,7 @@ import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
-import ResourceCardList from '@common/components/ResourceCardList/ResourceCardList'
+import ResourceCardList, { ResourceOption } from '@common/components/ResourceCardList/ResourceCardList'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import RbacButton from '@rbac/components/Button/Button'
@@ -22,7 +22,7 @@ import css from './OrganizationDetailsPage.module.scss'
 
 const OrganizationDetailsPage: React.FC = () => {
   const { accountId, orgIdentifier } = useParams<OrgPathProps>()
-  const { OPA_PIPELINE_GOVERNANCE } = useFeatureFlags()
+  const { OPA_PIPELINE_GOVERNANCE, AUDIT_TRAIL_WEB_INTERFACE } = useFeatureFlags()
   const history = useHistory()
   const { getString } = useStrings()
   const { data, refetch, loading, error } = useGetOrganizationAggregateDTO({
@@ -64,6 +64,28 @@ const OrganizationDetailsPage: React.FC = () => {
   /* istanbul ignore next */ if (error)
     return <Page.Error message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
   /* istanbul ignore next */ if (!organization) return <></>
+
+  const getResourceCardList = (): ResourceOption[] => {
+    const list: ResourceOption[] = [
+      {
+        label: <String stringID="accessControl" />,
+        icon: 'access-control',
+        route: routes.toAccessControl({ accountId, orgIdentifier }),
+        colorClass: css.accessControl
+      }
+    ]
+
+    if (AUDIT_TRAIL_WEB_INTERFACE) {
+      list.push({
+        label: <String stringID="common.auditTrail" />,
+        icon: 'audit-trail',
+        route: routes.toAuditTrail({ accountId, orgIdentifier }),
+        colorClass: css.auditTrail
+      })
+    }
+
+    return list
+  }
 
   return (
     <>
@@ -185,18 +207,11 @@ const OrganizationDetailsPage: React.FC = () => {
           </Layout.Vertical>
           <Layout.Vertical spacing="medium" padding={{ top: 'large' }}>
             <Heading font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK}>
-              {getString('projectsOrgs.orgAccessControl')}
+              {AUDIT_TRAIL_WEB_INTERFACE
+                ? getString('projectsOrgs.orgAccessCtrlAndAuditTrail')
+                : getString('projectsOrgs.orgAccessControl')}
             </Heading>
-            <ResourceCardList
-              items={[
-                {
-                  label: <String stringID="accessControl" />,
-                  icon: 'access-control',
-                  route: routes.toAccessControl({ accountId, orgIdentifier }),
-                  colorClass: css.accessControl
-                }
-              ]}
-            />
+            <ResourceCardList items={getResourceCardList()} />
           </Layout.Vertical>
           {OPA_PIPELINE_GOVERNANCE && (
             <Layout.Vertical spacing="medium" padding={{ top: 'large' }}>

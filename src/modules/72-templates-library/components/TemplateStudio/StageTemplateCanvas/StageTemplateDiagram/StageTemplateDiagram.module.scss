@@ -3,12 +3,17 @@
   :global(.default-node),
   :global(.create-node) {
     height: auto;
-    padding-bottom: var(--spacing-xlarge);
   }
   .createNewModal {
     margin-top: 0px !important;
   }
-  .stageType {
-    line-height: 40px !important;
+  .approvalLayout {
+    transform: translate(-24px, 12px);
+    .stageType {
+      margin-top: 18px;
+    }
+  }
+  .normalLayout {
+    align-items: center;
   }
 }

@@ -27,7 +27,7 @@ export interface ECRStepSpec {
   account: string
   imageName: string
   tags: MultiTypeListType
-  optimize: boolean
+  optimize?: boolean
   dockerfile?: string
   context?: string
   labels?: MultiTypeMapType
@@ -98,7 +98,6 @@ export class ECRStep extends PipelineStep<ECRStepData> {
       region: '',
       account: '',
       imageName: '',
-      optimize: true,
       remoteCacheImage: '',
       tags: []
     }

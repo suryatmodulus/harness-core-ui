@@ -1,5 +1,6 @@
 import React from 'react'
 import { findAllByText, findByText, fireEvent, render } from '@testing-library/react'
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 import ArtifactWizard from '../ArtifactWizard/ArtifactWizard'
 import type { ArtifactType, InitialArtifactDataType, TagTypes } from '../ArtifactInterface'
@@ -35,6 +36,7 @@ describe('Artifact WizardStep tests', () => {
           changeArtifactType={jest.fn()}
           newConnectorView={false}
           iconsProps={{ name: 'info' }}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
         />
       </TestWrapper>
     )
@@ -52,6 +54,7 @@ describe('Artifact WizardStep tests', () => {
           artifactInitialValue={initialValues as InitialArtifactDataType}
           types={[]}
           expressions={[]}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           isReadonly={false}
           labels={{
             firstStepName: 'first step',
@@ -78,6 +81,7 @@ describe('Artifact WizardStep tests', () => {
           artifactInitialValue={initialValues as InitialArtifactDataType}
           types={['DockerRegistry', 'Gcr', 'Ecr']}
           expressions={[]}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           isReadonly={false}
           labels={{
             firstStepName: 'first step',
@@ -104,6 +108,7 @@ describe('Artifact WizardStep tests', () => {
           artifactInitialValue={initialValues as InitialArtifactDataType}
           types={['DockerRegistry', 'Gcr', 'Ecr']}
           expressions={[]}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           isReadonly={false}
           labels={{
             firstStepName: 'first step',
@@ -156,6 +161,7 @@ describe('Artifact WizardStep tests', () => {
           artifactInitialValue={initialValues as InitialArtifactDataType}
           types={['DockerRegistry', 'Gcr', 'Ecr']}
           expressions={[]}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           isReadonly={false}
           labels={{
             firstStepName: 'first step',
@@ -207,6 +213,7 @@ describe('Artifact WizardStep tests', () => {
     const laststepProps = {
       name: 'Artifact Location',
       expressions: [''],
+      allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
       context: 1,
       initialValues: {
         identifier: 'id',
@@ -227,6 +234,7 @@ describe('Artifact WizardStep tests', () => {
           artifactInitialValue={initialValues as InitialArtifactDataType}
           types={['DockerRegistry', 'Gcr', 'Ecr']}
           expressions={[]}
+          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
           isReadonly={false}
           labels={{
             firstStepName: 'first step',

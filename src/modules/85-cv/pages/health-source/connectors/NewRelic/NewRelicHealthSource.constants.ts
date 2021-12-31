@@ -7,12 +7,10 @@ export const NewRelicHealthSourceFieldNames = {
   GROUP_NAME: 'groupName',
 
   NEWRELIC_QUERY: 'query',
-  NEWRELIC_QUERY_TYPE: 'queryType',
 
   METRIC_VALUE: 'metricValue',
   TIMESTAMP_LOCATOR: 'timestamp',
   TIMESTAMP_FORMAT: 'timestampFormat',
-  SERVICE_INSTANCE: 'serviceInstanceIdentifier',
 
   CONTINUOUS_VERIFICATION: 'continuousVerification',
   HEALTH_SCORE: 'healthScore',
@@ -22,3 +20,5 @@ export const NewRelicHealthSourceFieldNames = {
   HIGHER_BASELINE_DEVIATION: 'higherBaselineDeviation',
   LOWER_BASELINE_DEVIATION: 'lowerBaselineDeviation'
 }
+
+export const newRelicDefaultMetricName = 'New Relic Metric'

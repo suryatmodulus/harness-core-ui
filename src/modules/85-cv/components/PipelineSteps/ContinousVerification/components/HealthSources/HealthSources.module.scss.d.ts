@@ -6,5 +6,6 @@ declare const styles: {
   readonly link: string
   readonly healthsourcetype: string
   readonly healthsourcename: string
+  readonly disabled: string
 }
 export default styles

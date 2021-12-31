@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import {
   Container,
@@ -8,7 +8,8 @@ import {
   Select,
   SelectOption,
   Text,
-  PageError
+  PageError,
+  Pagination
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { Feature, GitDetails, GitSyncErrorResponse, Target, useGetAllFeatures, Variation } from 'services/cf'
@@ -28,7 +29,6 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 
 import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
-import ResponsivePagination from '@cf/components/ResponsivePagination/ResponsivePagination'
 
 import { GitSyncFormValues, GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
@@ -191,12 +191,13 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null; gitSyn
 
             {(data?.itemCount || 0) > CF_DEFAULT_PAGE_SIZE && (
               <Container className={css.pagination}>
-                <ResponsivePagination
+                <Pagination
                   itemCount={data?.itemCount || 0}
                   pageSize={data?.pageSize || 0}
                   pageCount={data?.pageCount || 0}
                   pageIndex={pageNumber}
                   gotoPage={setPageNumber}
+                  breakAt={1660}
                 />
               </Container>
             )}
@@ -305,6 +306,7 @@ export const VariationSelect: React.FC<VariationSelectProps> = ({
   patchParams,
   gitSync
 }) => {
+  const { getString } = useStrings()
   const [index, setIndex] = useState<number>(variations.findIndex(v => v.identifier === selectedIdentifier))
   const value =
     index !== -1
@@ -377,21 +379,27 @@ export const VariationSelect: React.FC<VariationSelectProps> = ({
     }
   }
 
+  const getFeatureRowTooltip = (): ReactElement | undefined => {
+    if (!canEdit) {
+      return (
+        <RBACTooltip resourceType={ResourceType.ENVIRONMENT} permission={PermissionIdentifier.EDIT_FF_FEATUREFLAG} />
+      )
+    }
+
+    if (feature.envProperties?.state === 'off') {
+      return (
+        <Container padding="small" width={300}>
+          {getString('cf.targetDetail.flagDisabled')}
+        </Container>
+      )
+    }
+  }
+
   return (
     <>
-      <Text
-        data-testid={`variation_select_${rowIndex}`}
-        tooltip={
-          !canEdit ? (
-            <RBACTooltip
-              resourceType={ResourceType.ENVIRONMENT}
-              permission={PermissionIdentifier.EDIT_FF_FEATUREFLAG}
-            />
-          ) : undefined
-        }
-      >
+      <Text data-testid={`variation_select_${rowIndex}`} tooltip={getFeatureRowTooltip()}>
         <Select
-          disabled={!canEdit}
+          disabled={!canEdit || feature.envProperties?.state === 'off'}
           items={variations.map<SelectOption>((variation, _index) => ({
             label: variation.name as string,
             value: variation.identifier as string,

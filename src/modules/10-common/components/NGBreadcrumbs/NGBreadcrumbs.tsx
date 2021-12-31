@@ -13,13 +13,22 @@ import { useStrings } from 'framework/strings'
 
 export interface NGBreadcrumbsProps extends BreadcrumbsProps {
   orgBreadCrumbOptional: boolean
+  /**
+   * This prop will be used by microfrontend child apps
+   * in order to populate params correctly
+   */
   customPathParams?: Partial<ProjectPathProps & SecretsPathProps & ModulePathParams>
+  /**
+   * This prop will be used for resolving paths against this base URL
+   */
+  baseUrl?: string
 }
 export const NGBreadcrumbs: React.FC<Partial<NGBreadcrumbsProps>> = ({
   links = [],
   className = '',
   orgBreadCrumbOptional = false,
-  customPathParams = {}
+  customPathParams = {},
+  baseUrl
 }) => {
   const { getString } = useStrings()
   const originalParams = useParams<ProjectPathProps & SecretsPathProps & ModulePathParams>()
@@ -27,10 +36,13 @@ export const NGBreadcrumbs: React.FC<Partial<NGBreadcrumbsProps>> = ({
   const { module, projectIdentifier, orgIdentifier } = params
   const { selectedProject, selectedOrg } = useAppStore()
   const { pathname } = useLocation()
+
+  const resolveUrl = (url: string): string => (baseUrl ? url.replace(new RegExp(`^${baseUrl}`), '') : url)
+
   let moduleBreadCrumb: Breadcrumb = {
     label: getString('common.accountSettings'),
     iconProps: { name: 'cog', color: 'primary7' },
-    url: paths.toAccountSettings(params)
+    url: resolveUrl(paths.toAccountSettings(params))
   }
 
   const isHome = pathname.indexOf(paths.toHome({ accountId: params.accountId })) !== -1
@@ -40,13 +52,13 @@ export const NGBreadcrumbs: React.FC<Partial<NGBreadcrumbsProps>> = ({
     moduleBreadCrumb = {
       label: getString('common.home'),
       iconProps: { name: 'harness', color: 'primary7' },
-      url: paths.toHome(params)
+      url: resolveUrl(paths.toHome(params))
     }
   } else if (isDashBoards) {
     moduleBreadCrumb = {
       label: getString('common.dashboards'),
       iconProps: { name: 'dashboard', color: 'primary7' },
-      url: paths.toCustomDashboard(params)
+      url: resolveUrl(paths.toCustomDashboard(params))
     }
   }
 
@@ -75,6 +87,7 @@ export const NGBreadcrumbs: React.FC<Partial<NGBreadcrumbsProps>> = ({
         label = getString('featureFlagsText')
         break
     }
+
     if (projectIdentifier) {
       // falling back to projectidentifier  from url if selected project in appstore does not match with project identifier in url
       label =
@@ -82,10 +95,11 @@ export const NGBreadcrumbs: React.FC<Partial<NGBreadcrumbsProps>> = ({
           ? selectedProject.name
           : projectIdentifier
     }
+
     moduleBreadCrumb = {
       label,
       iconProps: { name: getModuleIcon(module.toUpperCase() as ModuleName) },
-      url
+      url: resolveUrl(url)
     }
   }
   const breadCrumbsList = [moduleBreadCrumb]
@@ -93,7 +107,7 @@ export const NGBreadcrumbs: React.FC<Partial<NGBreadcrumbsProps>> = ({
   if (orgIdentifier && !projectIdentifier && !orgBreadCrumbOptional) {
     const orgBreadCrumb = {
       label: selectedOrg?.name && orgIdentifier === selectedOrg?.identifier ? selectedOrg.name : orgIdentifier,
-      url: paths.toOrganizationDetails(params)
+      url: resolveUrl(paths.toOrganizationDetails(params))
     }
     breadCrumbsList.push(orgBreadCrumb)
   }

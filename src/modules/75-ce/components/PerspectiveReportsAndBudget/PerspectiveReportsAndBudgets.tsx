@@ -1,27 +1,24 @@
-import React, { useState, useMemo, ReactNode } from 'react'
+import React, { useState, useMemo, ReactNode, useEffect } from 'react'
 import cronstrue from 'cronstrue'
 import { isEmpty } from 'lodash-es'
 import { useHistory, useParams } from 'react-router-dom'
 import type { Column, CellProps, Renderer } from 'react-table'
-import { Button, Container, Text, Layout, Icon, FlexExpander } from '@wings-software/uicore'
+import { Button, Container, Text, Layout, Icon, FlexExpander, useToaster, Color } from '@wings-software/uicore'
 import { Popover, Position, Classes, PopoverInteractionKind } from '@blueprintjs/core'
 import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
 import routes from '@common/RouteDefinitions'
-import { QlceViewFieldInputInput, ViewChartType } from 'services/ce/services'
+import { QlceViewFieldInputInput, ViewChartType, AlertThreshold } from 'services/ce/services'
 import {
   CEView,
   CEReportSchedule,
   useGetReportSetting,
   useListBudgetsForPerspective,
-  AlertThreshold,
   useDeleteBudget,
   useDeleteReportSetting,
-  useGetLastMonthCost,
-  useGetForecastCost
+  Budget
 } from 'services/ce'
 import { useStrings } from 'framework/strings'
 import formatCost from '@ce/utils/formatCost'
-import useDidMountEffect from '@ce/common/useDidMountEffect'
 
 import Table from './Table'
 import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
@@ -60,6 +57,10 @@ const ReportsAndBudgets: React.FC<ReportsAndBudgetsProps> = ({ values, onPrevBut
   const [groupBy, setGroupBy] = useState<QlceViewFieldInputInput>(() => {
     return (values?.viewVisualization?.groupBy as QlceViewFieldInputInput) || DEFAULT_GROUP_BY
   })
+
+  useEffect(() => {
+    values?.viewVisualization?.groupBy && setGroupBy(values?.viewVisualization?.groupBy as QlceViewFieldInputInput)
+  }, [values?.viewVisualization?.groupBy])
 
   const [chartType, setChartType] = useState<ViewChartType>(() => {
     return (values?.viewVisualization?.chartType as ViewChartType) || ViewChartType.StackedLineChart
@@ -136,13 +137,26 @@ const ScheduledReports: React.FC = () => {
       refetch()
     }
   })
+  const { showSuccess, showError } = useToaster()
 
   const handleDelete = async (report: CEReportSchedule) => {
     try {
-      const deleted = await deleteReport(accountId, { queryParams: { reportId: report?.uuid } })
-      if (deleted) refetch()
-    } catch (e) {
-      // TODO: Error handling
+      const deleted = await deleteReport(accountId, {
+        queryParams: { reportId: report?.uuid },
+        headers: {
+          'content-type': 'application/json'
+        }
+      })
+      if (deleted) {
+        showSuccess(
+          getString('ce.perspectives.reports.reportDeletedTxt', {
+            name: report.name
+          })
+        )
+        refetch()
+      }
+    } catch (err) {
+      showError(err?.data?.message || err?.message)
     }
   }
 
@@ -212,112 +226,80 @@ const Budgets = ({ perspectiveName }: { perspectiveName: string }): JSX.Element 
       refetch()
     }
   })
+  const { showSuccess, showError } = useToaster()
 
   const budget = budgets[0] || {}
-  const { budgetAmount, alertThresholds = [] } = budget
 
-  const {
-    data: lmc,
-    loading: lmcLoading,
-    refetch: lmcRefetch
-  } = useGetLastMonthCost({
-    queryParams: { accountIdentifier: accountId, perspectiveId },
-    lazy: true
-  })
-
-  const {
-    data: fc,
-    loading: fcLoading,
-    refetch: fcRefetch
-  } = useGetForecastCost({
-    queryParams: { accountIdentifier: accountId, perspectiveId },
-    lazy: true
-  })
-
-  useDidMountEffect(() => {
-    if (isEmpty(budgets[0])) {
-      lmcRefetch()
-      fcRefetch()
-    }
-  }, [loading])
-
-  const handleDeleteBudget = async () => {
+  const handleDeleteBudget: (id?: string, name?: string) => void = async (id, name) => {
     try {
-      const deleted = await (budget?.uuid && deleteBudget(budget.uuid))
-      if (deleted) refetch()
-    } catch (e) {
-      // TODO: Error handling
+      const deleted = await (id &&
+        deleteBudget(id, {
+          headers: {
+            'content-type': 'application/json'
+          }
+        }))
+      if (deleted) {
+        showSuccess(
+          getString('ce.budgets.budgetDeletedTxt', {
+            name: name
+          })
+        )
+        refetch()
+      }
+    } catch (err) {
+      showError(err?.data?.message || err?.message)
     }
   }
 
-  const columns: Column<AlertThreshold>[] = useMemo(
+  const EditDeleteCell: Renderer<CellProps<Budget>> = ({ row }) => {
+    const originalData = row.original
+    return (
+      <RenderEditDeleteActions
+        onClickEdit={() =>
+          openModal({
+            perspectiveName: perspectiveName,
+            perspective: perspectiveId,
+            isEdit: true,
+            selectedBudget: originalData
+          })
+        }
+        onClickDelete={() => handleDeleteBudget(originalData.uuid, originalData.name)}
+      />
+    )
+  }
+
+  const columns: Column<Budget>[] = useMemo(
     () => [
       {
-        Header: getString('ce.perspectives.budgets.configureAlerts.basedOn'),
-        accessor: 'basedOn',
-        Cell: RenderBasedOn
+        Header: 'Budgeted amount',
+        accessor: 'budgetAmount',
+        Cell: CostCell
       },
       {
-        Header: getString('ce.perspectives.budgets.configureAlerts.percent'),
-        accessor: 'percentage',
-        Cell: RenderAlertThresholds
+        Header: 'Alert at',
+        accessor: 'alertThresholds',
+        Cell: AlertsAtCell
       },
       {
-        Header: getString('ce.perspectives.reports.recipientLabel'),
-        accessor: 'emailAddresses',
-        Cell: ({ row }: CellProps<AlertThreshold>) => {
-          const emailAddresses = [...(row.original.emailAddresses || [])]
-          return <RenderEmailAddresses emailAddresses={emailAddresses} />
-        }
+        Header: 'Cost till date',
+        accessor: 'actualCost',
+        Cell: CostCell
+      },
+      {
+        Header: 'Last period spend',
+        accessor: 'lastMonthCost',
+        Cell: CostCell
+      },
+      {
+        Header: ' ',
+        Cell: EditDeleteCell
       }
     ],
     []
   )
 
-  const renderMeta = () => {
-    return (
-      <Container>
-        <Text inline color="grey800" margin={{ right: 'small' }}>
-          {getString('ce.perspectives.budgets.configureAlerts.budgetAmount')}
-        </Text>
-        <Text inline color="grey800" font={{ weight: 'bold', size: 'normal' }}>
-          {formatCost(+(budgetAmount || 0))}
-        </Text>
-      </Container>
-    )
-  }
-
   const renderGrid = () => {
-    return (
-      <Container>
-        <Layout.Horizontal
-          margin={{ top: 'large', bottom: 'medium' }}
-          spacing="small"
-          style={{
-            justifyContent: 'space-between',
-            alignItems: 'center'
-          }}
-        >
-          <Text font="small" color="grey800">
-            {getString('ce.perspectives.budgets.sendAlerts')}
-          </Text>
-          <Container margin={{ right: 'large' }}>
-            <RenderEditDeleteActions
-              onClickEdit={() =>
-                openModal({
-                  perspectiveName: perspectiveName,
-                  perspective: perspectiveId,
-                  isEdit: true,
-                  selectedBudget: budget
-                })
-              }
-              onClickDelete={handleDeleteBudget}
-            />
-          </Container>
-        </Layout.Horizontal>
-        <Table<AlertThreshold> columns={columns} data={alertThresholds || []} />
-      </Container>
-    )
+    return <Table<Budget> columns={columns} data={budgets || []} />
   }
 
   return (
@@ -330,19 +312,16 @@ const Budgets = ({ perspectiveName }: { perspectiveName: string }): JSX.Element 
           isEdit: false,
           perspectiveName: perspectiveName,
           perspective: perspectiveId,
-          selectedBudget: {
-            lastMonthCost: lmc?.data,
-            forecastCost: fc?.data
-          }
+          selectedBudget: {}
         })
       }
       hasData={!isEmpty(budget)}
-      loading={loading || lmcLoading || fcLoading}
+      loading={loading}
       // Show create budget button only when there's no exisiting budget.
       // A user can create only 1 budget at a time. To create a new, they
       // have to delete the existing one, or just edit it.
       showCreateButton={isEmpty(budget)}
-      meta={renderMeta()}
+      // meta={renderMeta()}
       grid={renderGrid()}
     />
   )
@@ -404,20 +383,6 @@ const RenderReportFrequency: Renderer<CellProps<CEReportSchedule>> = ({ row }) =
   return <span>{cronstrue.toString(cron)}</span>
 }
 
-const RenderBasedOn: Renderer<CellProps<AlertThreshold>> = ({ row }) => {
-  const { getString } = useStrings()
-  const basedOn = row.original.basedOn!
-  const map: Record<string, string> = useMemo(
-    () => ({
-      ACTUAL_COST: getString('ce.perspectives.budgets.actualSpend'),
-      FORECASTED_COST: getString('ce.perspectives.budgets.forecastedCost')
-    }),
-    []
-  )
-
-  return <span>{map[basedOn]}</span>
-}
-
 const RenderEmailAddresses = ({ emailAddresses = [] }: { emailAddresses: string[] }) => {
   const email = emailAddresses.shift()
   const remainingEmailsCount = emailAddresses.length ? `(+${emailAddresses.length})` : ''
@@ -467,9 +432,13 @@ const RenderEditDeleteActions = (props: TableActionsProps): JSX.Element => {
   )
 }
 
-const RenderAlertThresholds: Renderer<CellProps<AlertThreshold>> = ({ row }) => {
-  const percentage = row.original.percentage
-  return <span>{percentage}%</span>
+const CostCell: Renderer<CellProps<Budget>> = cell => {
+  return cell.value || cell.value === 0 ? <Text color={Color.GREY_800}>{formatCost(cell.value)}</Text> : null
+}
+
+const AlertsAtCell: Renderer<CellProps<Budget>> = cell => {
+  const alertString = cell.value?.length ? cell.value.map((al: AlertThreshold) => `${al.percentage}%`).join(', ') : '-'
+  return <Text lineClamp={1}>{alertString}</Text>
 }
 
 export default ReportsAndBudgets

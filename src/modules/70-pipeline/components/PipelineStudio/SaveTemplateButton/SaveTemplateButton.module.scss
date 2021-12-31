@@ -1,0 +1,10 @@
+.configDialog {
+  width: 875px;
+  padding-bottom: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.iconButton {
+  --border: 1px solid var(--primary-7) !important;
+}

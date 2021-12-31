@@ -14,7 +14,12 @@ stageVariables: Stage Variables
 scriptInputVariables: Script Input Variables
 scriptOutputVariables: Script Output Variables
 executionTarget: Execution Target
+removeTemplate: The applied template will be removed from your stage.
+changeTemplate: 'Applying {{name}} to your {{entity}} might reset some fields.'
+copyTemplate: Template configurations will be copied to your pipeline and made editable.
 collapseIsDisabledWhileStageIsRunning: Collapse is disable while stage is running
+changeTemplateLabel: Change Template
+removeTemplateLabel: Remove Template
 onlyPositiveInteger: Only positive integer values
 depth: Depth
 advancedOptions: Advanced Options
@@ -99,6 +104,7 @@ jiraApprovalStep:
     criteriaMsg: Approval/Rejection Criteria Listed Below
     wasApproved: 'Approval Criteria was met for Jira Ticket:'
     wasRejected: 'Rejection Criteria was met for Jira Ticket:'
+    wasExpired: 'Jira approval expired for Ticket:'
     jiraTicket: 'JIRA Ticket Pending Approval:'
     allConditionsMsg: 'If all of the following conditions are met:'
     anyConditionsMsg: 'If any of the following conditions is met:'
@@ -151,6 +157,34 @@ approvalCriteria:
   validations:
     approvalCriteriaCondition: At least one condition is required
     expression: Expression value is required
+serviceNowApprovalStep:
+  connectToServiceNow: Connect to ServiceNow
+  connectorRef: ServiceNow Connector
+  serviceNowConnectorPlaceholder: Select ServiceNow Connector
+  project: ServcieNow Project
+  ticketType: Ticket Type
+  issueTypePlaceholder: Select Ticket Type
+  issueNumber: Ticket Number
+  issueNumberPlaceholder: Enter Ticket Number
+  fetchingTicketTypesPlaceholder: Fetching Ticket Types...
+  fetchTicketTypesError: Failed to fetch ticket types
+  jexlExpressionPlaceholder: |
+    Example: <+ticket.state.value> == "Done"
+  serviceNowField: Service Now Field
+  execution:
+    wasApproved: 'Approval Criteria was met for ServiceNow Ticket:'
+    wasRejected: 'Rejection Criteria was met for ServiceNow Ticket:'
+    wasExpired: 'ServiceNow approval expired for Ticket:'
+    serviceNowTicket: 'ServiceNow Ticket Pending Approval:'
+    conditions:
+      equals: '{{ key }} equals'
+      not_equals: '{{ key }} does not equals'
+      in: '{{ key }} is in'
+      not_in: '{{ key }} is not in'
+  validations:
+    connectorRef: ServiceNow Connector is required
+    ticketType: Ticket Type is required
+    issueNumber: Ticket Number is required
 manifestType:
   manifestTyperequired: Manifest Type is required
   gitConnectorLabel: 'Git'
@@ -646,8 +680,10 @@ addStage:
   title: Select stage type
   description: Hover over stage type for more info.
 pipelineSteps:
+  templateStage: Template Stage
   customStage: Custom Stage
   chainedPipeline: Chained Pipeline
+  templateStageDescription: Use stage template.
   customStageDescription: A blank canvas for custom processes.
   chainedPipelineDescription: Run a Pipeline as a stage in another Pipeline.
   deployStageDescription: Deploy services, Serverless functions, or other workloads.
@@ -783,6 +819,7 @@ stepDescription:
   FlagConfiguration: Create a Boolean or Multivariate Feature Flag.
   HelmDeploy: Performs native Helm deployments. Requires Helm and Tiller and supports basic deployments. Helm charts are also supported in Harness Kubernetes deployments without requiring Helm or Tiller and using all deployment strategies.
   HelmRollback: Rolls back all the deployed objects to the previous version.
+  ServiceNowApproval: Use ServiceNow issues to approve steps and stages.
 executionStrategy:
   executionStrategies: Execution Strategies
   useStrategy: Use Strategy
@@ -886,3 +923,16 @@ commentModal:
 replacedExpressions: Replaced Expressions
 expressionRequired: Expression value is required.
 nativeHelm: Native Helm
+dashboardDeploymentsWidget:
+  pendingManualIntervention:
+    singular: Pending Manual Intervention
+    plural: Pending Manual Interventions
+  pendingApproval:
+    singular: Pending Approval
+    plural: Pending Approvals
+  failed24Hrs:
+    singular: Pipeline failed in past 24 hours
+    plural: Pipelines failed in past 24 hours
+  runningPipeline:
+    singular: Currently running pipeline
+    plural: Currently running pipelines

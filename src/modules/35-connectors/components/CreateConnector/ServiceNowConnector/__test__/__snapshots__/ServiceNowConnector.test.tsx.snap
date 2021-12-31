@@ -666,7 +666,7 @@ exports[`Create ServiceNow Connector  Wizard Should render form 2`] = `
                       class="Tooltip--acenter"
                       data-tooltip-id="serviceNowDetailsForm_passwordRef"
                     >
-                      connectors.apiKey
+                      connectors.apiKeyOrPassword
                     </span>
                   </label>
                   <div

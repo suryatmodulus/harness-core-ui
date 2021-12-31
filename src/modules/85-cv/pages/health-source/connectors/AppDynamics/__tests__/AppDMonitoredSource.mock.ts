@@ -924,9 +924,11 @@ export const formikInitialData = {
   healthScore: true,
   higherBaselineDeviation: true,
   identifier: 'AppD_Single',
+  pathType: 'dropdownPath',
   isEdit: true,
   lowerBaselineDeviation: true,
   metricIdentifier: 'appdMetric',
+  fullPath: 'Overall Application Performance|cvng|Calls per Minute',
   metricData: {
     Errors: true,
     Performance: true

@@ -225,7 +225,8 @@ exports[`GCS Step Edit View edit mode works 1`] = `
                               class="Tag--main"
                             >
                               <span
-                                class="bp3-tag bp3-minimal tag"
+                                class="bp3-tag bp3-minimal"
+                                id="tag"
                               >
                                 <span
                                   class="bp3-text-overflow-ellipsis bp3-fill"
@@ -1447,9 +1448,6 @@ exports[`GCS Step InputSet View InputSet View should not render any fields 1`] =
             style="min-height: 24px;"
           />
         </div>
-        <div
-          class="StyledProps--font StyledProps--main bottomMargin3"
-        />
       </div>
     </form>
     <p
@@ -2063,9 +2061,6 @@ exports[`GCS Step InputSet View InputSet View should render properly 1`] = `
             style="min-height: 24px;"
           />
         </div>
-        <div
-          class="StyledProps--font StyledProps--main bottomMargin3"
-        />
       </div>
     </form>
     <p

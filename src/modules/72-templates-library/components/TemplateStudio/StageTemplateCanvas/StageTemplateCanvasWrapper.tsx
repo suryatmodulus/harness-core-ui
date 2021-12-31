@@ -13,6 +13,7 @@ import { TemplateContext } from '@templates-library/components/TemplateStudio/Te
 import type { TemplateFormRef } from '@templates-library/components/TemplateStudio/TemplateStudio'
 import { DefaultPipeline } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { sanitize } from '@common/utils/JSONUtils'
 
 const StageTemplateCanvasWrapper = (_props: unknown, formikRef: TemplateFormRef) => {
   const {
@@ -42,7 +43,9 @@ const StageTemplateCanvasWrapper = (_props: unknown, formikRef: TemplateFormRef)
 
   const onUpdatePipeline = async (pipelineConfig: PipelineInfoConfig) => {
     const stage = omitBy(omitBy(get(pipelineConfig, 'stages[0].stage'), isUndefined), isEmpty)
-    set(template, 'spec', omit(stage, 'name', 'identifier', 'description', 'tags'))
+    const processNode = omit(stage, 'name', 'identifier', 'description', 'tags')
+    sanitize(processNode, { removeEmptyArray: false, removeEmptyObject: false, removeEmptyString: false })
+    set(template, 'spec', processNode)
     await updateTemplate(template)
   }
 

@@ -84,7 +84,7 @@ const RenderColumnTemplate: Renderer<CellProps<TemplateSummaryResponse>> = ({ ro
               >
                 <Text color={Color.GREY_800}>{getString('nameLabel', { name: data.name })}</Text>
                 <br />
-                <Text>{getString('descriptionLabel', { description: data.description || '-' })}</Text>
+                <Text lineClamp={1}>{getString('descriptionLabel', { description: data.description || '-' })}</Text>
               </Layout.Vertical>
             }
           >
@@ -200,6 +200,7 @@ export const TemplatesListView: React.FC<TemplatesViewProps> = (props): JSX.Elem
       data={data?.content || []}
       onRowClick={item => onSelect(item)}
       pagination={{
+        className: css.pagination,
         itemCount: data?.totalElements || 0,
         pageSize: data?.size || 10,
         pageCount: data?.totalPages || -1,

@@ -243,7 +243,9 @@ export function ExecutionFilters(): React.ReactElement {
             initialValues={{
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
               services: getMultiSelectFormOptions(servicesResponse?.data?.content),
-              deploymentType: getMultiSelectFormOptions(deploymentTypeResponse?.data)
+              deploymentType: getMultiSelectFormOptions(
+                deploymentTypeResponse?.data?.filter(deploymentType => deploymentType !== 'NativeHelm') //This filter will be removed once nativeHelm is enabled
+              )
             }}
             type="PipelineExecution"
           />
@@ -258,7 +260,7 @@ export function ExecutionFilters(): React.ReactElement {
             sourceBranch,
             targetBranch,
             buildType,
-            deploymentType: getMultiSelectFormOptions(serviceDefinitionTypes),
+            deploymentType: serviceDefinitionTypes,
             infrastructureType,
             services: getMultiSelectFormOptions(serviceIdentifiers),
             environments: getMultiSelectFormOptions(envIdentifiers)

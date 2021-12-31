@@ -1,8 +1,10 @@
 import React from 'react'
-import { cloneDeep, isEmpty, isEqual, set } from 'lodash-es'
+import { Expander } from '@blueprintjs/core'
+import { cloneDeep, isEmpty, isEqual, set, get } from 'lodash-es'
 import produce from 'immer'
-import { Tabs, Tab, Icon, Button, Layout, Color } from '@wings-software/uicore'
+import { Tabs, Tab, Icon, Button, Layout, Color, ButtonVariation } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
+import { useFeatureFlags, useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import {
   PipelineContextType,
   usePipelineContext
@@ -23,7 +25,9 @@ import { StepType as StepsStepType } from '@pipeline/components/PipelineSteps/Pi
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
-import type { K8sDirectInfraYaml, UseFromStageInfraYaml } from 'services/ci'
+import type { K8sDirectInfraYaml, UseFromStageInfraYaml, VmInfraYaml, VmPoolYaml } from 'services/ci'
+import { FeatureFlag } from '@common/featureFlags'
+import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
 import BuildAdvancedSpecifications from '../BuildAdvancedSpecifications/BuildAdvancedSpecifications'
@@ -46,7 +50,8 @@ interface StagesFilledStateFlags {
 
 export default function BuildStageSetupShell(): JSX.Element {
   const { getString } = useStrings()
-
+  const { CI_VM_INFRASTRUCTURE } = useFeatureFlags()
+  const isTemplatesEnabled = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
   const [selectedTabId, setSelectedTabId] = React.useState<BuildTabs>(BuildTabs.OVERVIEW)
   const [filledUpStages, setFilledUpStages] = React.useState<StagesFilledStateFlags>({
     specifications: false,
@@ -54,6 +59,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     execution: false
   })
   const layoutRef = React.useRef<HTMLDivElement>(null)
+  const pipelineContext = usePipelineContext()
   const {
     state: {
       pipeline,
@@ -71,7 +77,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     updateStage,
     setSelectedStepId,
     getStagePathFromPipeline
-  } = usePipelineContext()
+  } = pipelineContext
 
   const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
   const [stageData, setStageData] = React.useState<BuildStageElementConfig | undefined>()
@@ -89,7 +95,8 @@ export default function BuildStageSetupShell(): JSX.Element {
     const infra = !!(
       ((stageData?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef &&
         (stageData?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace) ||
-      (stageData?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage
+      (stageData?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage ||
+      ((stageData?.spec?.infrastructure as VmInfraYaml)?.spec as VmPoolYaml)?.spec?.identifier
     )
     const execution = !!stageData?.spec?.execution?.steps?.length
     setFilledUpStages({ specifications, infra, execution })
@@ -103,6 +110,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     (stageData?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     (stageData?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage,
+    ((stageData?.spec?.infrastructure as VmInfraYaml)?.spec as VmPoolYaml)?.spec?.identifier,
     stageData?.spec?.execution?.steps?.length
   ])
 
@@ -165,6 +173,7 @@ export default function BuildStageSetupShell(): JSX.Element {
               : BuildTabs.OVERVIEW
           )
         }
+        variation={ButtonVariation.SECONDARY}
       />
       {selectedTabId === BuildTabs.ADVANCED ? (
         contextType === PipelineContextType.Pipeline ? (
@@ -174,6 +183,7 @@ export default function BuildStageSetupShell(): JSX.Element {
             onClick={() => {
               updatePipelineView({ ...pipelineView, isSplitViewOpen: false })
             }}
+            variation={ButtonVariation.PRIMARY}
           />
         ) : null
       ) : (
@@ -188,10 +198,23 @@ export default function BuildStageSetupShell(): JSX.Element {
               handleTabChange(selectedTabId === BuildTabs.OVERVIEW ? BuildTabs.INFRASTRUCTURE : BuildTabs.EXECUTION)
             }
           }}
+          variation={ButtonVariation.PRIMARY}
         />
       )}
     </Layout.Horizontal>
   )
+
+  const shouldEnableDependencies = React.useCallback((): boolean => {
+    const isPropagatedStage = !isEmpty((stageData?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage)
+    if (isPropagatedStage) {
+      const { stage: baseStage } = getStageFromPipeline<BuildStageElementConfig>(
+        (stageData?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage
+      )
+      return (get(baseStage, 'stage.spec.infrastructure.type') as K8sDirectInfraYaml['type']) !== 'VM'
+    } else {
+      return (get(stageData, 'spec.infrastructure.type') as K8sDirectInfraYaml['type']) !== 'VM'
+    }
+  }, [stageData])
 
   return (
     <section className={css.setupShell} ref={layoutRef} key={selectedStageId}>
@@ -256,7 +279,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                 allowAddGroup={false}
                 hasRollback={false}
                 isReadonly={isReadonly}
-                hasDependencies={true}
+                hasDependencies={CI_VM_INFRASTRUCTURE ? shouldEnableDependencies() : true}
                 stepsFactory={stepsFactory}
                 stage={selectedStageClone}
                 originalStage={originalStage}
@@ -372,6 +395,12 @@ export default function BuildStageSetupShell(): JSX.Element {
           panel={<BuildAdvancedSpecifications>{navBtns}</BuildAdvancedSpecifications>}
           data-testid={getString('ci.advancedLabel')}
         />
+        {contextType === PipelineContextType.Pipeline && isTemplatesEnabled && selectedStage?.stage && (
+          <>
+            <Expander />
+            <SaveTemplateButton data={selectedStage?.stage} type={'Stage'} />
+          </>
+        )}
       </Tabs>
     </section>
   )

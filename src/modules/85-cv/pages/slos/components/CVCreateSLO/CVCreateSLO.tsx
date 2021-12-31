@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Formik, Page, useToaster, Tabs, Container, Layout, Button, ButtonVariation } from '@wings-software/uicore'
+import { PermissionIdentifier, ResourceType } from 'microfrontends'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { useGetServiceLevelObjective, useSaveSLOData, useUpdateSLOData } from 'services/cv'
+import RbacButton from '@rbac/components/Button/Button'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import SLOName from './components/CreateSLOForm/components/SLOName/SLOName'
 import SLI from './components/CreateSLOForm/components/SLI/SLI'
@@ -93,7 +95,7 @@ const CVCreateSLO: React.FC = () => {
         disabled={loading}
         onClick={() => setSelectedTabId(TabsOrder[Math.max(0, TabsOrder.indexOf(selectedTabId) - 1)])}
       />
-      <Button
+      <RbacButton
         rightIcon="chevron-right"
         text={selectedTabId === CreateSLOTabs.SLO_TARGET_BUDGET_POLICY ? getString('save') : getString('continue')}
         variation={ButtonVariation.PRIMARY}
@@ -103,6 +105,13 @@ const CVCreateSLO: React.FC = () => {
             formikProps.submitForm()
           } else if (isFormDataValid(formikProps, selectedTabId)) {
             setSelectedTabId(TabsOrder[Math.min(TabsOrder.length, TabsOrder.indexOf(selectedTabId) + 1)])
+          }
+        }}
+        permission={{
+          permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
+          resource: {
+            resourceType: ResourceType.MONITOREDSERVICE,
+            resourceIdentifier: projectIdentifier
           }
         }}
       />

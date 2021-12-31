@@ -81,11 +81,12 @@ commitsTab:
   youWillSeeYourCommitsHere: You will see your commits here
 artifactoryConnectorLabel: Artifactory Connector
 buildInfa:
+  label: Build Infrastructure is required
   awsVMs: AWS VMs
   selectInfra: Select the infrastructure where you want your builds to run
   infrastructureTypesLabel: Infrastructure Types
-  kubernetesHelpText: Use K8s based infrastructure if you would like your builds to run on a container native architecture where each build stage runs on an ephemeral k8s pod.
-  awsHelpText: Use AWS VM based infrastructure for any specific use cases like Windows builds or where you'd like to run some or all of your build steps on a host VM as opposed to containers.
+  kubernetesHelpText: Use to run your builds on a Kubernetes Cluster, where each CI stage runs on an ephemeral Kubernetes pod.
+  awsHelpText: Use to run your builds on VMs with Windows or Linux based operating systems.
   useNewInfra: Use a New Infrastructure
   k8sLabel: Kubernetes (K8s)
   vmLabel: Virtual Machines (VMs)
@@ -93,3 +94,4 @@ buildInfa:
     poolId: Pool ID
     os: Operating System
     architecture: Achitecture
+    isRequiredWhen: '{{field1}} is required in case {{field2}} is provided'

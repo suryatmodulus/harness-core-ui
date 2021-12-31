@@ -258,7 +258,13 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
               id="review"
               disabled
               title={<ReviewTabTitle isValidConfig={validConfig} isValidAccessSetup={validAccessSetup} />}
-              panel={<COGatewayReview gatewayDetails={props.gatewayDetails} onEdit={handleReviewDetailsEdit} />}
+              panel={
+                <COGatewayReview
+                  gatewayDetails={props.gatewayDetails}
+                  onEdit={handleReviewDetailsEdit}
+                  allServices={servicesData?.response as Service[]}
+                />
+              }
             />
           </Tabs>
         </Container>

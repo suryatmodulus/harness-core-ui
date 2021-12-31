@@ -9,5 +9,6 @@ declare const styles: {
   readonly failureStrategy: string
   readonly footer: string
   readonly graphLoadingSpinner: string
+  readonly templateNameDialog: string
 }
 export default styles

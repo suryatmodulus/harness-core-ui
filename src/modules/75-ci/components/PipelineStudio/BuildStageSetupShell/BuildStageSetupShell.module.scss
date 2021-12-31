@@ -7,7 +7,7 @@
     position: sticky;
     top: 0;
     z-index: 2;
-    padding-right: var(--spacing-xxxlarge);
+    padding-right: var(--spacing-medium);
   }
 
   .fullHeight {
@@ -142,4 +142,10 @@
       margin-right: var(--spacing-small);
     }
   }
+}
+.templateNameDialog {
+  width: 380px;
+  overflow: hidden;
+  padding-bottom: 0;
+  position: relative;
 }

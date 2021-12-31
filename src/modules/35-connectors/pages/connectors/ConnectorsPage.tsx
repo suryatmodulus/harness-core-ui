@@ -307,7 +307,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
         <section className={css.limitWarningTooltipCtn}>
           <FeatureWarningTooltip
             featureName={FeatureIdentifier.CCM_K8S_CLUSTERS}
-            warningMessage={getString('connectors.ceK8.featureWarning', { count: `${count} / ${limit}` })}
+            warningMessage={getString('connectors.ceK8.featureWarning', { count, limit })}
           />
         </section>
       )

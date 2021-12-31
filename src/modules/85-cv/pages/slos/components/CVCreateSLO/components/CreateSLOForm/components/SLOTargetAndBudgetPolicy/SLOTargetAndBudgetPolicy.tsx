@@ -9,7 +9,8 @@ import {
   getWindowEndOptionsForMonth,
   getWindowEndOptionsForWeek,
   convertSLOFormDataToServiceLevelIndicatorDTO,
-  getErrorBudget
+  getErrorBudget,
+  getCustomOptionsForSLOTargetChart
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
 import {
   SLOPanelProps,
@@ -82,6 +83,7 @@ const SLOTargetAndBudgetPolicy: React.FC<SLOPanelProps> = ({ formikProps, childr
         <Layout.Horizontal spacing="xxxlarge" flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
           <Container width={450}>
             <SLOTargetChart
+              customChartOptions={getCustomOptionsForSLOTargetChart(formikProps.values)}
               monitoredServiceIdentifier={formikProps.values.monitoredServiceRef}
               serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}
               bottomLabel={
@@ -95,10 +97,6 @@ const SLOTargetAndBudgetPolicy: React.FC<SLOPanelProps> = ({ formikProps, childr
                   {getString('cv.SLIMetricRatio')}
                 </Text>
               }
-              customChartOptions={{
-                chart: { height: 200 },
-                yAxis: { min: 0, max: 100, tickInterval: 25 }
-              }}
             />
           </Container>
 

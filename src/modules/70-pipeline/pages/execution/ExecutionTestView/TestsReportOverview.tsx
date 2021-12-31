@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Container, Layout, Heading, Color } from '@wings-software/uicore'
+import { Text, Container, Layout, Heading, Color, HarnessDocTooltip } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { Duration } from '@common/exports'
@@ -43,6 +43,7 @@ export const TestsReportOverview: React.FC<TestsReportOverviewProps> = ({
           margin={{ right: 'medium' }}
         >
           {getString('overview')}
+          <HarnessDocTooltip tooltipId="testExecutionOverview" useStandAlone={true} />
         </Heading>
         <Duration
           style={{ marginBottom: 'var(--spacing-3)' }}
@@ -71,6 +72,7 @@ export const TestsReportOverview: React.FC<TestsReportOverviewProps> = ({
         </Layout.Horizontal>
         <Text className={css.overviewResultLabel} padding={{ top: 'medium', bottom: 'medium' }} color={Color.GREY_400}>
           {getString('pipeline.testsReports.resultLabel')}
+          <HarnessDocTooltip tooltipId="testExecutionResult" useStandAlone={true} />
         </Text>
         <Layout.Horizontal margin={{ bottom: 'medium' }} spacing="medium">
           <Text inline icon="stop" iconProps={{ size: 16, style: { color: '#DA291D' } }}>

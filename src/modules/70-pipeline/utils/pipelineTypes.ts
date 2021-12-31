@@ -5,7 +5,7 @@ import type {
   FeatureFlagStageConfig,
   StageElementWrapperConfig
 } from 'services/cd-ng'
-import type { IntegrationStageConfig, K8sDirectInfraYaml, UseFromStageInfraYaml } from 'services/ci'
+import type { IntegrationStageConfig, K8sDirectInfraYaml, UseFromStageInfraYaml, VmPoolYaml } from 'services/ci'
 
 export type AllStageConfig =
   | ApprovalStageConfig
@@ -30,7 +30,7 @@ export interface FeatureFlagStageElementConfig extends StageElementConfig {
 
 export interface BuildStageElementConfig extends StageElementConfig {
   spec?: IntegrationStageConfig & {
-    infrastructure: K8sDirectInfraYaml | UseFromStageInfraYaml
+    infrastructure: K8sDirectInfraYaml | UseFromStageInfraYaml | VmPoolYaml
   }
 }
 

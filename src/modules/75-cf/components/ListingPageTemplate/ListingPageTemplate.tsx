@@ -151,7 +151,7 @@ export const ListingPageTemplate: React.FC<ListingPageTemplateProps> = ({
             data-name="toolbar"
             style={{
               height: toolbarHeight,
-              padding: 'var(--spacing-medium) var(--spacing-xxlarge)',
+              padding: 'var(--spacing-medium) var(--spacing-xlarge)',
               borderBottom: '0.5px solid #d9dae6',
               alignItems: 'center',
               backgroundColor: 'var(--white)',

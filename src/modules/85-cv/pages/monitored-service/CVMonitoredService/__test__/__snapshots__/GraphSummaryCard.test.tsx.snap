@@ -244,9 +244,9 @@ exports[`Monitored Service Summary Card Service data available 1`] = `
             tabindex="0"
           >
             <svg
-              height="16"
+              height="14"
               viewBox="0 0 9.5 12"
-              width="16"
+              width="14"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -259,6 +259,11 @@ exports[`Monitored Service Summary Card Service data available 1`] = `
         </span>
       </span>
     </div>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey0 StyledProps--font-variation-tiny-semi StyledProps--padding-bottom-small"
+    >
+      cv.slos.title (0)
+    </p>
   </div>
 </div>
 `;

@@ -1,4 +1,4 @@
-import type { SelectOption } from '@wings-software/uicore'
+import type { MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type {
   ManifestConfig,
@@ -42,6 +42,7 @@ export interface ManifestListViewProps {
   listOfManifests: Array<any>
   isReadonly: boolean
   deploymentType: string
+  allowableTypes: MultiTypeInputType[]
 }
 
 export interface ManifestStepInitData {
@@ -62,12 +63,14 @@ export interface ManifestLastStepProps {
   key: string
   name: string
   expressions: string[]
+  allowableTypes: MultiTypeInputType[]
   stepName: string
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
   selectedManifest: ManifestTypes | null
   manifestIdsList: Array<string>
   isReadonly?: boolean
+  deploymentType?: string
 }
 export interface CommandFlags {
   commandType: string | SelectOption | undefined
@@ -81,13 +84,13 @@ export interface HelmWithGITDataType {
   repoName?: string
   gitFetchType: 'Branch' | 'Commit'
   folderPath: string
-  helmVersion: string
+  helmVersion: HelmVersionOptions
   skipResourceVersioning: boolean
   commandFlags: Array<CommandFlags>
 }
 export interface HelmWithHTTPDataType {
   identifier: string
-  helmVersion: string
+  helmVersion: HelmVersionOptions
   skipResourceVersioning: boolean
   chartName: string
   chartVersion: string
@@ -96,7 +99,7 @@ export interface HelmWithHTTPDataType {
 
 export interface HelmWithGcsDataType {
   identifier: string
-  helmVersion: string
+  helmVersion: HelmVersionOptions
   skipResourceVersioning: boolean
   chartName: string
   chartVersion: string

@@ -198,6 +198,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'argo'
     case Connectors.HARNESS_MANAGED_GITOPS:
       return 'harness'
+    case Connectors.CUSTOM_HEALTH:
+      return 'service-custom-connector'
     default:
       return 'placeholder'
   }

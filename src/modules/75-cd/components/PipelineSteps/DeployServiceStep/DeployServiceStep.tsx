@@ -179,6 +179,7 @@ interface DeployServiceProps {
     path?: string
     readonly?: boolean
   }
+  allowableTypes: MultiTypeInputType[]
 }
 
 interface DeployServiceState {
@@ -204,7 +205,12 @@ function isEditService(data: DeployServiceData): boolean {
   return false
 }
 
-const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUpdate, readonly }): JSX.Element => {
+const DeployServiceWidget: React.FC<DeployServiceProps> = ({
+  initialValues,
+  onUpdate,
+  readonly,
+  allowableTypes
+}): JSX.Element => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
     PipelineType<{
@@ -416,7 +422,8 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                     disabled: loading,
                     addClearBtn: true && !readonly,
                     items: selectOptions || []
-                  }
+                  },
+                  allowableTypes
                 }}
                 selectItems={selectOptions || []}
               />
@@ -470,7 +477,8 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
 const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = ({
   inputSetData,
   initialValues,
-  formik
+  formik,
+  allowableTypes
 }) => {
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<
@@ -581,7 +589,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
             useValue
             multiTypeInputProps={{
               expressions,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+              allowableTypes: allowableTypes,
               selectProps: {
                 addClearBtn: true && !inputSetData?.readonly,
                 items: services
@@ -677,7 +685,7 @@ export class DeployServiceStep extends Step<DeployServiceData> {
     })
   }
   renderStep(props: StepProps<DeployServiceData>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, readonly = false } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, readonly = false, allowableTypes } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <DeployServiceInputStepFormik
@@ -686,6 +694,7 @@ export class DeployServiceStep extends Step<DeployServiceData> {
           onUpdate={onUpdate}
           stepViewType={stepViewType}
           inputSetData={inputSetData}
+          allowableTypes={allowableTypes}
         />
       )
     }
@@ -695,6 +704,7 @@ export class DeployServiceStep extends Step<DeployServiceData> {
         initialValues={initialValues}
         onUpdate={onUpdate}
         stepViewType={stepViewType}
+        allowableTypes={allowableTypes}
       />
     )
   }

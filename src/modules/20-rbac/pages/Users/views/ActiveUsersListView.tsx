@@ -11,10 +11,11 @@ import {
   useConfirmationDialog,
   useToaster,
   Page,
-  TableV2
+  TableV2,
+  FontVariation
 } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Classes, Position, Menu, Intent } from '@blueprintjs/core'
+import { Classes, Position, Menu, Intent, PopoverInteractionKind, MenuItem } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { defaultTo, noop } from 'lodash-es'
 import {
@@ -284,16 +285,45 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
               permission={permissionRequest}
             />
           ) : null}
-          <RbacMenuItem
-            icon="trash"
-            text={getString('delete')}
-            onClick={e => {
-              e.stopPropagation()
-              setMenuOpen(false)
-              handleDelete()
-            }}
-            permission={permissionRequest}
-          />
+          {data.externallyManaged ? (
+            <Popover
+              position={Position.TOP}
+              fill
+              usePortal
+              inheritDarkTheme={false}
+              interactionKind={PopoverInteractionKind.HOVER}
+              hoverCloseDelay={50}
+              content={
+                <div className={css.popover}>
+                  <Text font={{ variation: FontVariation.SMALL }}>
+                    {getString('rbac.manageSCIMText', {
+                      action: getString('delete').toLowerCase(),
+                      target: getString('rbac.user').toLowerCase()
+                    })}
+                  </Text>
+                </div>
+              }
+            >
+              <div
+                onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+                  event.stopPropagation()
+                }}
+              >
+                <MenuItem icon="trash" text={getString('delete')} disabled />
+              </div>
+            </Popover>
+          ) : (
+            <RbacMenuItem
+              icon="trash"
+              text={getString('delete')}
+              onClick={e => {
+                e.stopPropagation()
+                setMenuOpen(false)
+                handleDelete()
+              }}
+              permission={permissionRequest}
+            />
+          )}
         </Menu>
       </Popover>
     </Layout.Horizontal>

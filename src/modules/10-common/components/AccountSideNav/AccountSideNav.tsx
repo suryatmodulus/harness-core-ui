@@ -15,7 +15,7 @@ export default function AccountSideNav(): React.ReactElement {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { currentUserInfo } = useAppStore()
-  const { NG_LICENSES_ENABLED, OPA_PIPELINE_GOVERNANCE } = useFeatureFlags()
+  const { NG_LICENSES_ENABLED, OPA_PIPELINE_GOVERNANCE, AUDIT_TRAIL_WEB_INTERFACE } = useFeatureFlags()
   const { accounts } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
 
@@ -30,6 +30,9 @@ export default function AccountSideNav(): React.ReactElement {
       <SidebarLink to={routes.toAccessControl({ accountId })} label={getString('accessControl')} />
       {(createdFromNG || NG_LICENSES_ENABLED) && (
         <SidebarLink exact label={getString('common.subscriptions.title')} to={routes.toSubscriptions({ accountId })} />
+      )}
+      {AUDIT_TRAIL_WEB_INTERFACE && (
+        <SidebarLink label={getString('common.auditTrail')} to={routes.toAuditTrail({ accountId })} />
       )}
       <SidebarLink label={getString('orgsText')} to={routes.toOrganizations({ accountId })} />
       <LaunchButton

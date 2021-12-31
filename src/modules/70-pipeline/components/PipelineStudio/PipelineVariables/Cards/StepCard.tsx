@@ -1,5 +1,5 @@
 import React from 'react'
-import { Color, FontVariation, NestedAccordionPanel, Text } from '@wings-software/uicore'
+import { Color, FontVariation, MultiTypeInputType, NestedAccordionPanel, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { StepElementConfig } from 'services/cd-ng'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
@@ -20,10 +20,12 @@ export interface StepCardProps {
   stepPath: string
   readonly?: boolean
   path?: string
+  allowableTypes: MultiTypeInputType[]
 }
 
 export function StepCard(props: StepCardProps): React.ReactElement {
-  const { step, originalStep, metadataMap, stageIdentifier, onUpdateStep, stepPath, readonly, path } = props
+  const { step, originalStep, metadataMap, stageIdentifier, onUpdateStep, stepPath, readonly, path, allowableTypes } =
+    props
   const { stepsFactory } = usePipelineContext()
 
   return (
@@ -37,7 +39,7 @@ export function StepCard(props: StepCardProps): React.ReactElement {
       <StepWidget<StepElementConfig>
         factory={stepsFactory}
         initialValues={originalStep}
-        allowableTypes={[]}
+        allowableTypes={allowableTypes}
         type={originalStep.type as StepType}
         stepViewType={StepViewType.InputVariable}
         onUpdate={(data: StepElementConfig) => onUpdateStep(data, stepPath)}
@@ -86,10 +88,20 @@ export interface StepGroupCardProps {
   stepGroupOriginalName: string
   readonly?: boolean
   path?: string
+  allowableTypes: MultiTypeInputType[]
 }
 
 export function StepGroupCard(props: StepGroupCardProps): React.ReactElement {
-  const { steps, metadataMap, onUpdateStep, stageIdentifier, stepGroupName, stepGroupOriginalName, readonly } = props
+  const {
+    steps,
+    metadataMap,
+    onUpdateStep,
+    stageIdentifier,
+    stepGroupName,
+    stepGroupOriginalName,
+    readonly,
+    allowableTypes
+  } = props
 
   return (
     <React.Fragment>
@@ -109,6 +121,7 @@ export function StepGroupCard(props: StepGroupCardProps): React.ReactElement {
             metadataMap={metadataMap}
             stepPath={path}
             readonly={readonly}
+            allowableTypes={allowableTypes}
             stageIdentifier={stageIdentifier}
             onUpdateStep={onUpdateStep}
           />

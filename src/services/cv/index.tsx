@@ -596,13 +596,32 @@ export interface CustomHealthKeyAndValue {
   valueEncrypted?: boolean
 }
 
+export interface CustomHealthMetricDefinition {
+  analysis?: AnalysisDTO
+  endTime?: TimestampInfo
+  groupName?: string
+  identifier: string
+  method?: 'GET' | 'POST'
+  metricName: string
+  metricResponseMapping?: MetricResponseMapping
+  queryType?: 'SERVICE_BASED' | 'HOST_BASED'
+  requestBody?: string
+  riskProfile?: RiskProfile
+  sli?: Slidto
+  startTime?: TimestampInfo
+  urlPath?: string
+}
+
 export interface CustomHealthSampleDataRequest {
   body?: string
+  endTime: TimestampInfo
   method: 'GET' | 'POST'
-  requestTimestampPlaceholderAndValues: {
-    [key: string]: string
-  }
+  startTime: TimestampInfo
   urlPath: string
+}
+
+export type CustomHealthSourceSpec = HealthSourceSpec & {
+  metricDefinitions?: CustomHealthMetricDefinition[]
 }
 
 export interface DataCollectionInfo {
@@ -719,6 +738,7 @@ export interface DatadogMetricHealthDefinition {
   isManualQuery?: boolean
   metric?: string
   metricName: string
+  metricPath?: string
   metricTags?: string[]
   query?: string
   riskProfile?: RiskProfile
@@ -744,6 +764,12 @@ export interface DatasourceTypeDTO {
     | 'DATADOG_LOG'
     | 'CUSTOM_HEALTH'
   verificationType?: 'TIME_SERIES' | 'LOG'
+}
+
+export interface DemoChangeEventDTO {
+  changeSourceIdentifier?: string
+  changeSourceType?: 'HarnessCDNextGen' | 'PagerDuty' | 'K8sCluster' | 'HarnessCD'
+  monitoredServiceIdentifier?: string
 }
 
 export interface DeploymentActivitySummaryDTO {
@@ -1131,6 +1157,7 @@ export interface Error {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1161,7 +1188,7 @@ export interface Error {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
@@ -1443,6 +1470,7 @@ export interface Failure {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1473,7 +1501,7 @@ export interface Failure {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
@@ -1744,6 +1772,7 @@ export interface HealthSource {
     | 'Splunk'
     | 'DatadogMetrics'
     | 'DatadogLog'
+    | 'CustomHealth'
 }
 
 export interface HealthSourceDTO {
@@ -2082,6 +2111,7 @@ export interface LogAnalysisResult {
   logAnalysisResults?: AnalysisResult[]
   overallRisk?: number
   uuid?: string
+  validUntil?: string
   verificationTaskId?: string
 }
 
@@ -2162,6 +2192,14 @@ export interface MetricDefinitionDTO {
   type?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
   validationPath?: string
   validationResponseJsonPath?: string
+}
+
+export interface MetricGraph {
+  dataPoints?: DataPoints[]
+  endTime?: number
+  metricIdentifier?: string
+  metricName?: string
+  startTime?: number
 }
 
 export interface MetricHistory {
@@ -2267,6 +2305,7 @@ export interface MonitoredServiceListItemDTO {
   name?: string
   serviceName?: string
   serviceRef?: string
+  sloHealthIndicators?: SloHealthIndicatorDTO[]
   tags?: {
     [key: string]: string
   }
@@ -2315,7 +2354,6 @@ export interface NewRelicMetricDefinition {
   identifier: string
   metricName: string
   nrql?: string
-  queryType?: 'SERVICE_BASED' | 'HOST_BASED'
   responseMapping?: MetricResponseMapping
   riskProfile?: RiskProfile
   sli?: Slidto
@@ -2717,6 +2755,13 @@ export interface ResponseInputSetTemplateResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseJsonNode {
+  correlationId?: string
+  data?: JsonNode
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseLinkedHashMap {
   correlationId?: string
   data?: {
@@ -2794,15 +2839,6 @@ export interface ResponseListString {
 export interface ResponseListTimeSeriesSampleDTO {
   correlationId?: string
   data?: TimeSeriesSampleDTO[]
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponseMapStringObject {
-  correlationId?: string
-  data?: {
-    [key: string]: { [key: string]: any }
-  }
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3068,6 +3104,7 @@ export interface ResponseMessage {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -3098,7 +3135,7 @@ export interface ResponseMessage {
     | 'ENGINE_FUNCTOR_ERROR'
     | 'JIRA_CLIENT_ERROR'
     | 'SCM_NOT_MODIFIED'
-    | 'JIRA_STEP_ERROR'
+    | 'APPROVAL_STEP_NG_ERROR'
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
@@ -3127,6 +3164,13 @@ export interface ResponseMetricPackValidationResponse {
 export interface ResponseMonitoredServiceResponse {
   correlationId?: string
   data?: MonitoredServiceResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseObject {
+  correlationId?: string
+  data?: { [key: string]: any }
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3215,6 +3259,13 @@ export interface ResponsePartialSchemaDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseSLORiskCountResponse {
+  correlationId?: string
+  data?: SLORiskCountResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseSetAppdynamicsValidationResponse {
   correlationId?: string
   data?: AppdynamicsValidationResponse[]
@@ -3232,6 +3283,13 @@ export interface ResponseSetTimeSeriesSampleDTO {
 export interface ResponseString {
   correlationId?: string
   data?: string
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseYamlSchemaDetailsWrapper {
+  correlationId?: string
+  data?: YamlSchemaDetailsWrapper
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3660,6 +3718,14 @@ export interface RestResponseRiskSummaryPopoverDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseSLIOnboardingGraphs {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SLIOnboardingGraphs
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseServiceDependencyGraphDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3772,6 +3838,12 @@ export interface ResultSummary {
   testClusterSummaries?: ClusterSummary[]
 }
 
+export interface RiskCount {
+  count?: number
+  displayName?: string
+  identifier?: string
+}
+
 export interface RiskData {
   endTime?: number
   healthScore?: number
@@ -3807,19 +3879,29 @@ export interface SLIMetricSpec {
   [key: string]: any
 }
 
+export interface SLIOnboardingGraphs {
+  metricGraphs?: {
+    [key: string]: MetricGraph
+  }
+  sliGraph?: TimeGraphResponse
+}
+
 export interface SLODashboardWidget {
   burnRate: BurnRate
   currentPeriodEndTime: number
   currentPeriodLengthDays: number
   currentPeriodStartTime: number
+  environmentIdentifier: string
   errorBudgetBurndown: Point[]
   errorBudgetRemaining: number
   errorBudgetRemainingPercentage: number
-  errorBudgetRisk: 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY'
+  errorBudgetRisk: 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'EXHAUSTED'
   healthSourceIdentifier: string
   healthSourceName: string
   monitoredServiceIdentifier: string
   monitoredServiceName: string
+  recalculatingSLI?: boolean
+  serviceIdentifier: string
   sloIdentifier: string
   sloPerformanceTrend: Point[]
   sloTargetPercentage: number
@@ -3833,6 +3915,11 @@ export interface SLODashboardWidget {
   type: 'Availability' | 'Latency'
 }
 
+export interface SLORiskCountResponse {
+  riskCounts?: RiskCount[]
+  totalCount?: number
+}
+
 export interface SLOTarget {
   sloTargetPercentage: number
   spec: SLOTargetSpec
@@ -3841,6 +3928,14 @@ export interface SLOTarget {
 
 export interface SLOTargetSpec {
   [key: string]: any
+}
+
+export interface SampleDataDTO {
+  groupName: string
+  jsonResponse: string
+  metricValueJSONPath: string
+  timestampFormat?: string
+  timestampJSONPath: string
 }
 
 export type SampleErrorMetadataDTO = ErrorMetadataDTO & {
@@ -3924,6 +4019,7 @@ export interface ServiceLevelObjectiveDTO {
     [key: string]: string
   }
   target: SLOTarget
+  type?: 'Availability' | 'Latency'
   userJourneyRef: string
 }
 
@@ -3964,6 +4060,12 @@ export interface ServiceSummaryDetails {
   serviceName?: string
   serviceRef?: string
   type?: 'Application' | 'Infrastructure'
+}
+
+export interface SloHealthIndicatorDTO {
+  errorBudgetRemainingPercentage?: number
+  errorBudgetRisk?: 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'EXHAUSTED'
+  serviceLevelObjectiveIdentifier?: string
 }
 
 export interface Sources {
@@ -4109,6 +4211,7 @@ export interface TimeSeriesAnomalousPatterns {
   createdAt?: number
   lastUpdatedAt?: number
   uuid?: string
+  validUntil?: string
   verificationTaskId?: string
 }
 
@@ -4117,6 +4220,7 @@ export interface TimeSeriesCumulativeSums {
   analysisStartTime?: number
   transactionMetricSums?: TransactionMetricSums[]
   uuid?: string
+  validUntil?: string
   verificationTaskId?: string
 }
 
@@ -4191,6 +4295,7 @@ export interface TimeSeriesRiskSummary {
   overallRisk?: number
   transactionMetricRiskList?: TransactionMetricRisk[]
   uuid?: string
+  validUntil?: string
   verificationTaskId?: string
 }
 
@@ -4207,6 +4312,7 @@ export interface TimeSeriesShortTermHistory {
   lastUpdatedAt?: number
   transactionMetricHistories?: TransactionMetricHistory[]
   uuid?: string
+  validUntil?: string
   verificationTaskId?: string
 }
 
@@ -4278,6 +4384,12 @@ export interface TimeSeriesThresholdDTO {
   metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
   orgIdentifier?: string
   projectIdentifier?: string
+}
+
+export interface TimestampInfo {
+  customTimestampFormat?: string
+  placeholder?: string
+  timestampFormat?: 'SECONDS' | 'MILLISECONDS' | 'CUSTOM'
 }
 
 export interface TransactionMetric {
@@ -4402,6 +4514,29 @@ export type WeeklyCalendarSpec = CalenderSpec & {
   dayOfWeek: 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat' | 'Sun'
 }
 
+export interface YamlGroup {
+  group?: string
+}
+
+export interface YamlSchemaDetailsWrapper {
+  yamlSchemaWithDetailsList?: YamlSchemaWithDetails[]
+}
+
+export interface YamlSchemaMetadata {
+  modulesSupported?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE')[]
+  yamlGroup: YamlGroup
+}
+
+export interface YamlSchemaWithDetails {
+  availableAtAccountLevel?: boolean
+  availableAtOrgLevel?: boolean
+  availableAtProjectLevel?: boolean
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
+  schema?: JsonNode
+  schemaClassName?: string
+  yamlSchemaMetadata?: YamlSchemaMetadata
+}
+
 export type AlertRuleDTORequestBody = AlertRuleDTO
 
 export type ChangeEventDTORequestBody = ChangeEventDTO
@@ -4413,6 +4548,8 @@ export type MetricPackDTOArrayRequestBody = MetricPackDTO[]
 export type MonitoredServiceDTORequestBody = MonitoredServiceDTO
 
 export type ServiceGuardTimeSeriesAnalysisDTORequestBody = ServiceGuardTimeSeriesAnalysisDTO
+
+export type ServiceLevelIndicatorDTORequestBody = ServiceLevelIndicatorDTO
 
 export type ServiceLevelObjectiveDTORequestBody = ServiceLevelObjectiveDTO
 
@@ -6106,6 +6243,67 @@ export const getAppDynamicsTiersPromise = (
   getUsingFetch<ResponsePageAppDynamicsTier, Failure | Error, GetAppDynamicsTiersQueryParams, void>(
     getConfig('cv/api'),
     `/appdynamics/tiers`,
+    props,
+    signal
+  )
+
+export interface FetchSampleDataQueryParams {
+  accountId: string
+  connectorIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  tracingId: string
+}
+
+export type FetchSampleDataProps = Omit<
+  MutateProps<ResponseObject, Failure | Error, FetchSampleDataQueryParams, CustomHealthSampleDataRequest, void>,
+  'path' | 'verb'
+>
+
+/**
+ * get sample data
+ */
+export const FetchSampleData = (props: FetchSampleDataProps) => (
+  <Mutate<ResponseObject, Failure | Error, FetchSampleDataQueryParams, CustomHealthSampleDataRequest, void>
+    verb="POST"
+    path={`/custom-health/sample-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseFetchSampleDataProps = Omit<
+  UseMutateProps<ResponseObject, Failure | Error, FetchSampleDataQueryParams, CustomHealthSampleDataRequest, void>,
+  'path' | 'verb'
+>
+
+/**
+ * get sample data
+ */
+export const useFetchSampleData = (props: UseFetchSampleDataProps) =>
+  useMutate<ResponseObject, Failure | Error, FetchSampleDataQueryParams, CustomHealthSampleDataRequest, void>(
+    'POST',
+    `/custom-health/sample-data`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get sample data
+ */
+export const fetchSampleDataPromise = (
+  props: MutateUsingFetchProps<
+    ResponseObject,
+    Failure | Error,
+    FetchSampleDataQueryParams,
+    CustomHealthSampleDataRequest,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseObject, Failure | Error, FetchSampleDataQueryParams, CustomHealthSampleDataRequest, void>(
+    'POST',
+    getConfig('cv/api'),
+    `/custom-health/sample-data`,
     props,
     signal
   )
@@ -9024,7 +9222,7 @@ export type GetSliGraphProps = Omit<
     RestResponseTimeGraphResponse,
     unknown,
     GetSliGraphQueryParams,
-    ServiceLevelIndicatorDTO,
+    ServiceLevelIndicatorDTORequestBody,
     GetSliGraphPathParams
   >,
   'path' | 'verb'
@@ -9039,7 +9237,7 @@ export const GetSliGraph = ({ monitoredServiceIdentifier, ...props }: GetSliGrap
     RestResponseTimeGraphResponse,
     unknown,
     GetSliGraphQueryParams,
-    ServiceLevelIndicatorDTO,
+    ServiceLevelIndicatorDTORequestBody,
     GetSliGraphPathParams
   >
     verb="POST"
@@ -9054,7 +9252,7 @@ export type UseGetSliGraphProps = Omit<
     RestResponseTimeGraphResponse,
     unknown,
     GetSliGraphQueryParams,
-    ServiceLevelIndicatorDTO,
+    ServiceLevelIndicatorDTORequestBody,
     GetSliGraphPathParams
   >,
   'path' | 'verb'
@@ -9069,7 +9267,7 @@ export const useGetSliGraph = ({ monitoredServiceIdentifier, ...props }: UseGetS
     RestResponseTimeGraphResponse,
     unknown,
     GetSliGraphQueryParams,
-    ServiceLevelIndicatorDTO,
+    ServiceLevelIndicatorDTORequestBody,
     GetSliGraphPathParams
   >(
     'POST',
@@ -9089,7 +9287,7 @@ export const getSliGraphPromise = (
     RestResponseTimeGraphResponse,
     unknown,
     GetSliGraphQueryParams,
-    ServiceLevelIndicatorDTO,
+    ServiceLevelIndicatorDTORequestBody,
     GetSliGraphPathParams
   > & { monitoredServiceIdentifier: string },
   signal?: RequestInit['signal']
@@ -9098,7 +9296,7 @@ export const getSliGraphPromise = (
     RestResponseTimeGraphResponse,
     unknown,
     GetSliGraphQueryParams,
-    ServiceLevelIndicatorDTO,
+    ServiceLevelIndicatorDTORequestBody,
     GetSliGraphPathParams
   >('POST', getConfig('cv/api'), `/monitored-service/${monitoredServiceIdentifier}/sli/onboarding-graph`, props, signal)
 
@@ -9331,61 +9529,6 @@ export const getNewRelicMetricDataPromise = (
     void
   >('POST', getConfig('cv/api'), `/newrelic/metric-data`, props, signal)
 
-export interface GetParsedTimeseriesQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  jsonResponse: string
-  groupName: string
-  metricValueJsonPath: string
-  timestampJsonPath: string
-  timestampFormat?: string
-}
-
-export type GetParsedTimeseriesProps = Omit<
-  GetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>,
-  'path'
->
-
-/**
- * parse sample data for given json response
- */
-export const GetParsedTimeseries = (props: GetParsedTimeseriesProps) => (
-  <Get<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>
-    path={`/newrelic/parse-sample-data`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetParsedTimeseriesProps = Omit<
-  UseGetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>,
-  'path'
->
-
-/**
- * parse sample data for given json response
- */
-export const useGetParsedTimeseries = (props: UseGetParsedTimeseriesProps) =>
-  useGet<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>(
-    `/newrelic/parse-sample-data`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * parse sample data for given json response
- */
-export const getParsedTimeseriesPromise = (
-  props: GetUsingFetchProps<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseListTimeSeriesSampleDTO, Failure | Error, GetParsedTimeseriesQueryParams, void>(
-    getConfig('cv/api'),
-    `/newrelic/parse-sample-data`,
-    props,
-    signal
-  )
-
 export interface GetServicesFromPagerDutyQueryParams {
   accountId?: string
   orgIdentifier: string
@@ -9442,6 +9585,71 @@ export const getServicesFromPagerDutyPromise = (
     props,
     signal
   )
+
+export interface FetchParsedSampleDataQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type FetchParsedSampleDataProps = Omit<
+  MutateProps<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, SampleDataDTO, void>,
+  'path' | 'verb'
+>
+
+/**
+ * parse sample data for given json response
+ */
+export const FetchParsedSampleData = (props: FetchParsedSampleDataProps) => (
+  <Mutate<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, SampleDataDTO, void>
+    verb="POST"
+    path={`/parse-sample-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseFetchParsedSampleDataProps = Omit<
+  UseMutateProps<
+    ResponseListTimeSeriesSampleDTO,
+    Failure | Error,
+    FetchParsedSampleDataQueryParams,
+    SampleDataDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * parse sample data for given json response
+ */
+export const useFetchParsedSampleData = (props: UseFetchParsedSampleDataProps) =>
+  useMutate<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, SampleDataDTO, void>(
+    'POST',
+    `/parse-sample-data`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * parse sample data for given json response
+ */
+export const fetchParsedSampleDataPromise = (
+  props: MutateUsingFetchProps<
+    ResponseListTimeSeriesSampleDTO,
+    Failure | Error,
+    FetchParsedSampleDataQueryParams,
+    SampleDataDTO,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseListTimeSeriesSampleDTO,
+    Failure | Error,
+    FetchParsedSampleDataQueryParams,
+    SampleDataDTO,
+    void
+  >('POST', getConfig('cv/api'), `/parse-sample-data`, props, signal)
 
 export interface GetLabelNamesQueryParams {
   accountId: string
@@ -9715,6 +9923,10 @@ export interface GetServiceLevelObjectivesQueryParams {
   offset: number
   pageSize: number
   userJourneys?: string[]
+  identifiers?: string[]
+  sliTypes?: ('Availability' | 'Latency')[]
+  targetTypes?: ('Rolling' | 'Calender')[]
+  errorBudgetRisks?: ('HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'EXHAUSTED')[]
 }
 
 export type GetServiceLevelObjectivesProps = Omit<
@@ -9844,11 +10056,14 @@ export const saveSLODataPromise = (
   >('POST', getConfig('cv/api'), `/slo`, props, signal)
 
 export interface GetSLODashboardWidgetsQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
   userJourneyIdentifiers?: string[]
   monitoredServiceIdentifier?: string
+  sliTypes?: ('Availability' | 'Latency')[]
+  targetTypes?: ('Rolling' | 'Calender')[]
+  errorBudgetRisks?: ('HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'EXHAUSTED')[]
   pageNumber?: number
   pageSize?: number
 }

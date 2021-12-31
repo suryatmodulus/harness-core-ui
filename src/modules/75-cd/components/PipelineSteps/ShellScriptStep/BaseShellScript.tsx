@@ -82,7 +82,7 @@ export default function BaseShellScript(props: {
           disabled
         />
       </div>
-      <div className={cx(stepCss.formGroup, stepCss.alignStart)}>
+      <div className={cx(stepCss.formGroup)}>
         <MultiTypeFieldSelector
           name="spec.source.spec.script"
           label={getString('script')}

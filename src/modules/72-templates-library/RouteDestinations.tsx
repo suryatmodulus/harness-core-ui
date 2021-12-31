@@ -1,4 +1,5 @@
-import '@templates-library/components/PipelineSteps'
+import './components/PipelineSteps'
+import './components/TemplateStage'
 import React from 'react'
 import { RouteWithLayout } from '@common/router'
 import { AccountSideNavProps } from '@common/RouteDestinations'
@@ -10,6 +11,9 @@ import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
 import { String } from 'framework/strings'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import type { ResourceDTO, ResourceScopeDTO } from 'services/audit'
+import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
+import type { Module } from '@common/interfaces/RouteInterfaces'
 import TemplateResourceModal from './components/RbacResourceModals/TemplateResourceModal'
 import TemplateResourceRenderer from './components/RbacResourceModals/TemplateResourceRenderer'
 
@@ -32,6 +36,28 @@ RbacFactory.registerResourceTypeHandler(ResourceType.TEMPLATE, {
   staticResourceRenderer: props => <TemplateResourceRenderer {...props} />
 })
 
+/**
+ * Register for Audit Trail
+ * */
+AuditTrailFactory.registerResourceHandler(ResourceType.TEMPLATE, {
+  moduleIcon: {
+    name: 'cd-main',
+    size: 30
+  },
+  resourceUrl: (_: ResourceDTO, resourceScope: ResourceScopeDTO, module?: Module) => {
+    const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope
+    if (module && accountIdentifier && orgIdentifier && projectIdentifier) {
+      return routes.toTemplates({
+        module,
+        orgIdentifier,
+        projectIdentifier,
+        accountId: accountIdentifier
+      })
+    }
+    return undefined
+  }
+})
+
 export default (
   <>
     <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toTemplates({ ...accountPathProps })} exact>
@@ -43,7 +69,7 @@ export default (
         ...accountPathProps,
         ...{
           templateIdentifier: ':templateIdentifier',
-          templateType: ':templateType(Step)'
+          templateType: ':templateType'
         }
       })}
       exact
@@ -59,7 +85,7 @@ export default (
         ...orgPathProps,
         ...{
           templateIdentifier: ':templateIdentifier',
-          templateType: ':templateType(Step)'
+          templateType: ':templateType'
         }
       })}
       exact

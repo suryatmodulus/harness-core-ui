@@ -26,7 +26,6 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import {
   getConnectorListV2Promise,
-  ConnectorResponse,
   K8sGcpInfrastructure,
   useGetClusterNamesForGcp,
   getClusterNamesForGcpPromise
@@ -53,6 +52,7 @@ import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
+import { getConnectorName, getConnectorValue } from '@pipeline/components/PipelineSteps/Steps/StepsHelper'
 import { getNameSpaceSchema, getReleaseNameSchema } from '../PipelineStepsUtil'
 import css from './GcpInfrastructureSpec.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -89,25 +89,8 @@ interface GcpInfrastructureSpecEditableProps {
   template?: K8sGcpInfrastructureTemplate
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
   variablesData: K8sGcpInfrastructure
+  allowableTypes: MultiTypeInputType[]
 }
-
-const getConnectorValue = (connector?: ConnectorResponse): string =>
-  `${
-    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
-      ? connector?.connector?.identifier
-      : /* istanbul ignore next */ connector?.connector?.orgIdentifier
-      ? `${Scope.ORG}.${connector?.connector?.identifier}`
-      : `${Scope.ACCOUNT}.${connector?.connector?.identifier}`
-  }` || /* istanbul ignore next */ ''
-
-const getConnectorName = (connector?: ConnectorResponse): string =>
-  `${
-    connector?.connector?.orgIdentifier && connector?.connector?.projectIdentifier
-      ? `${connector?.connector?.type}: ${connector?.connector?.name}`
-      : /* istanbul ignore next */ connector?.connector?.orgIdentifier
-      ? `${connector?.connector?.type}[Org]: ${connector?.connector?.name}`
-      : `${connector?.connector?.type}[Account]: ${connector?.connector?.name}`
-  }` || /* istanbul ignore next */ ''
 
 interface K8sGcpInfrastructureUI extends Omit<K8sGcpInfrastructure, 'cluster'> {
   cluster?: { label?: string; value?: string } | string | any
@@ -116,7 +99,8 @@ interface K8sGcpInfrastructureUI extends Omit<K8sGcpInfrastructure, 'cluster'> {
 const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps> = ({
   initialValues,
   onUpdate,
-  readonly
+  readonly,
+  allowableTypes
 }): JSX.Element => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -227,7 +211,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   tooltipProps={{
                     dataTooltipId: 'gcpInfraConnector'
                   }}
-                  multiTypeProps={{ expressions }}
+                  multiTypeProps={{ expressions, allowableTypes }}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
                   width={450}
@@ -307,7 +291,8 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                             getString('cd.pipelineSteps.infraTab.clusterError')}
                         </Text>
                       )
-                    }
+                    },
+                    allowableTypes
                   }}
                   label={getString('common.cluster')}
                 />
@@ -336,7 +321,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                   className={css.inputWidth}
                   label={getString('common.namespace')}
                   placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
-                  multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
+                  multiTextInputProps={{ expressions, textProps: { disabled: readonly }, allowableTypes }}
                   disabled={readonly}
                 />
                 {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && !readonly && (
@@ -373,7 +358,7 @@ const GcpInfrastructureSpecEditable: React.FC<GcpInfrastructureSpecEditableProps
                         className={css.inputWidth}
                         label={getString('common.releaseName')}
                         placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
-                        multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
+                        multiTextInputProps={{ expressions, textProps: { disabled: readonly }, allowableTypes }}
                         disabled={readonly}
                       />
                       {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && !readonly && (
@@ -418,7 +403,8 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
   initialValues,
   readonly = false,
   path,
-  onUpdate
+  onUpdate,
+  allowableTypes
 }) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -490,7 +476,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
             enableConfigureOptions={false}
             placeholder={getString('connectors.selectConnector')}
             disabled={readonly}
-            multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
+            multiTypeProps={{ allowableTypes, expressions }}
             type={'Gcp'}
             setRefValue
             onChange={(selected, _typeValue, type) => {
@@ -539,7 +525,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
                 addClearBtn: !(loadingClusterNames || readonly)
               },
               expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+              allowableTypes
             }}
           />
         </div>
@@ -551,7 +537,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
             label={getString('common.namespace')}
             disabled={readonly}
             multiTextInputProps={{
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+              allowableTypes,
               expressions
             }}
             placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
@@ -563,7 +549,7 @@ const GcpInfrastructureSpecInputForm: React.FC<GcpInfrastructureSpecEditableProp
           <FormInput.MultiTextInput
             name={`${path}.releaseName`}
             multiTextInputProps={{
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+              allowableTypes,
               expressions
             }}
             label={getString('common.releaseName')}
@@ -776,7 +762,7 @@ export class GcpInfrastructureSpec extends PipelineStep<GcpInfrastructureSpecSte
   }
 
   renderStep(props: StepProps<K8sGcpInfrastructure>): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps, readonly } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, customStepProps, readonly, allowableTypes } = props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <GcpInfrastructureSpecInputForm
@@ -787,6 +773,7 @@ export class GcpInfrastructureSpec extends PipelineStep<GcpInfrastructureSpecSte
           readonly={inputSetData?.readonly}
           template={inputSetData?.template}
           path={inputSetData?.path || ''}
+          allowableTypes={allowableTypes}
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
@@ -808,6 +795,7 @@ export class GcpInfrastructureSpec extends PipelineStep<GcpInfrastructureSpecSte
         stepViewType={stepViewType}
         {...(customStepProps as GcpInfrastructureSpecEditableProps)}
         initialValues={initialValues}
+        allowableTypes={allowableTypes}
       />
     )
   }

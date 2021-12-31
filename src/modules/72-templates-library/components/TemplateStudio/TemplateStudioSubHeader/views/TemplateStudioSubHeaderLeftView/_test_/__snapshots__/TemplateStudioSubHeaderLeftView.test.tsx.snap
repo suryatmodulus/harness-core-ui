@@ -279,9 +279,9 @@ exports[`<TemplateStudioSubHeaderLeftView /> tests edit btn should work as expec
                 data-icon="http-step"
               >
                 <svg
-                  height="18"
+                  height="24"
                   viewBox="0 0 32 32"
-                  width="18"
+                  width="24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path

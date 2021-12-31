@@ -88,13 +88,14 @@ const MonitoredServiceList: React.FC<MonitoredServiceListProps> = ({
 
       const { pageIndex = 0, pageItemCount } = defaultTo(monitoredServiceListData?.data, {})
 
-      await Promise.all([refetchServiceCountData(), refetchMonitoredServiceList()])
+      if (pageIndex && pageItemCount === 1) {
+        setPage(page - 1)
+        await refetchServiceCountData()
+      } else {
+        await Promise.all([refetchServiceCountData(), refetchMonitoredServiceList()])
+      }
 
       showSuccess(getString('cv.monitoredServices.monitoredServiceDeleted'))
-
-      if (pageIndex > 0 && pageItemCount === 1) {
-        setPage(page - 1)
-      }
     } catch (e) {
       showError(getErrorMessage(e))
     }
@@ -139,6 +140,7 @@ const MonitoredServiceList: React.FC<MonitoredServiceListProps> = ({
     >
       <MonitoredServiceListView
         serviceCountData={serviceCountData}
+        refetchServiceCountData={refetchServiceCountData}
         monitoredServiceListData={monitoredServiceListData?.data}
         selectedFilter={selectedFilter}
         onFilter={onFilter}

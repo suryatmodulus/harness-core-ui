@@ -1,5 +1,6 @@
 import React from 'react'
 import { fireEvent, render, act, waitFor } from '@testing-library/react'
+import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { factory } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { RightBar } from '../RightBar'
@@ -116,6 +117,7 @@ const pipelineContext: PipelineContextInterface = {
   updatePipeline: jest.fn(),
   state: stateMock as any,
   contextType: 'Pipeline',
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
   stepsFactory: factory,
   stagesMap: {},
   isReadonly: false,

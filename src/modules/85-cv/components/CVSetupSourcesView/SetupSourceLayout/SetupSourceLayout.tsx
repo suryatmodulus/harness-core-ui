@@ -1,6 +1,10 @@
 import React from 'react'
 import cx from 'classnames'
+import { useParams } from 'react-router-dom'
 import { Button, Container } from '@wings-software/uicore'
+import { PermissionIdentifier, ResourceType } from 'microfrontends'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import RbacButton from '@rbac/components/Button/Button'
 import { useStrings } from 'framework/strings'
 import css from './SetupSourceLayout.module.scss'
 
@@ -22,6 +26,7 @@ export interface SetupSourceLayoutProps {
 export function FooterCTA(props: FooterCTAProps): JSX.Element {
   const { onNext, onPrevious, isSubmit, className } = props
   const { getString } = useStrings()
+  const { projectIdentifier } = useParams<ProjectPathProps>()
   return (
     <Container className={cx(css.footerCta, className)}>
       {onPrevious && (
@@ -30,9 +35,21 @@ export function FooterCTA(props: FooterCTAProps): JSX.Element {
         </Button>
       )}
       {onNext && (
-        <Button icon="chevron-right" className={css.nextButton} intent="primary" onClick={() => onNext()}>
+        <RbacButton
+          icon="chevron-right"
+          className={css.nextButton}
+          intent="primary"
+          permission={{
+            permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
+            resource: {
+              resourceType: ResourceType.MONITOREDSERVICE,
+              resourceIdentifier: projectIdentifier
+            }
+          }}
+          onClick={() => onNext()}
+        >
           {isSubmit ? getString('submit') : getString('next')}
-        </Button>
+        </RbacButton>
       )}
     </Container>
   )

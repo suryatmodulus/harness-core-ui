@@ -2,6 +2,7 @@ import React from 'react'
 import { Text, SelectOption, MultiTypeInputType, Container, Layout, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { connect } from 'formik'
+import type { K8sDirectInfraYaml } from 'services/ci'
 import { useStrings } from 'framework/strings'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
@@ -22,13 +23,17 @@ export const usePullOptions: () => PullOptions = () => {
   ]
 }
 
-export const GetShellOptions: () => SelectOption[] = () => {
+export const GetShellOptions = (buildInfrastructureType?: K8sDirectInfraYaml['type']): SelectOption[] => {
   const { getString } = useStrings()
-  return [
+  const fixedOptions = [
     { label: getString('common.bash'), value: 'Bash' },
     { label: getString('common.shell'), value: 'Sh' }
   ]
+  return buildInfrastructureType === 'VM'
+    ? [...fixedOptions, { label: getString('common.powershell'), value: 'Powershell' }]
+    : fixedOptions
 }
+
 export const GetImagePullPolicyOptions: () => SelectOption[] = () => {
   const { getString } = useStrings()
   return [
@@ -43,16 +48,21 @@ interface StepCommonFieldsProps {
   disabled?: boolean
   enableFields?: string[]
   allowableTypes: MultiTypeInputType[]
+  buildInfrastructureType: K8sDirectInfraYaml['type']
 }
 
 const StepCommonFields = ({
   withoutTimeout,
   disabled,
   enableFields = [],
-  allowableTypes
+  allowableTypes,
+  buildInfrastructureType
 }: StepCommonFieldsProps): JSX.Element => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
+
+  const isVMBuildInfraType = buildInfrastructureType === 'VM'
+
   return (
     <>
       {enableFields.includes('spec.imagePullPolicy') && (
@@ -117,7 +127,7 @@ const StepCommonFields = ({
               placeholder: getString('select'),
               multiTypeInputProps: {
                 expressions,
-                selectProps: { addClearBtn: true, items: GetShellOptions() },
+                selectProps: { addClearBtn: true, items: GetShellOptions(buildInfrastructureType) },
                 allowableTypes: [MultiTypeInputType.FIXED]
               },
               disabled
@@ -127,54 +137,17 @@ const StepCommonFields = ({
           />
         </Container>
       )}
-      <Container className={cx(css.formGroup, css.lg)}>
-        <MultiTypeTextField
-          label={
-            <Layout.Horizontal style={{ display: 'flex', alignItems: 'baseline' }}>
-              <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
-                {getString('pipeline.stepCommonFields.runAsUser')}
-              </Text>
-              &nbsp;
-              <Text
-                tooltipProps={{ dataTooltipId: 'runAsUser' }}
-                className={css.inpLabel}
-                color={Color.GREY_400}
-                font={{ size: 'small', weight: 'semi-bold' }}
-                style={{ textTransform: 'capitalize' }}
-              >
-                {getString('common.optionalLabel')}
-              </Text>
-            </Layout.Horizontal>
-          }
-          name="spec.runAsUser"
-          multiTextInputProps={{
-            multiTextInputProps: { expressions },
-            disabled,
-            placeholder: '1000'
-          }}
-        />
-      </Container>
-      <Separator />
-      <Layout.Vertical className={css.bottomMargin5} spacing="medium">
-        <Text
-          className={css.inpLabel}
-          color={Color.GREY_600}
-          font={{ size: 'small', weight: 'semi-bold' }}
-          tooltipProps={{ dataTooltipId: 'setContainerResources' }}
-        >
-          {getString('pipelineSteps.setContainerResources')}
-        </Text>
-        <Layout.Horizontal spacing="small">
+      {!isVMBuildInfraType ? (
+        <Container className={cx(css.formGroup, css.lg)}>
           <MultiTypeTextField
-            name="spec.limitMemory"
             label={
               <Layout.Horizontal style={{ display: 'flex', alignItems: 'baseline' }}>
                 <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
-                  {getString('pipelineSteps.limitMemoryLabel')}
+                  {getString('pipeline.stepCommonFields.runAsUser')}
                 </Text>
                 &nbsp;
                 <Text
-                  tooltipProps={{ dataTooltipId: 'limitMemory' }}
+                  tooltipProps={{ dataTooltipId: 'runAsUser' }}
                   className={css.inpLabel}
                   color={Color.GREY_400}
                   font={{ size: 'small', weight: 'semi-bold' }}
@@ -184,45 +157,86 @@ const StepCommonFields = ({
                 </Text>
               </Layout.Horizontal>
             }
-            multiTextInputProps={{
-              multiTextInputProps: {
-                expressions,
-                allowableTypes: allowableTypes.filter(type => type !== MultiTypeInputType.RUNTIME)
-              },
-              disabled
-            }}
-            configureOptionsProps={{ variableName: 'spec.limit.memory' }}
-            style={{ flexGrow: 1, flexBasis: '50%' }}
-          />
-          <MultiTypeTextField
-            name="spec.limitCPU"
-            label={
-              <Layout.Horizontal style={{ display: 'flex', alignItems: 'baseline' }}>
-                <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
-                  {getString('pipelineSteps.limitCPULabel')}
-                </Text>
-                &nbsp;
-                <Text
-                  tooltipProps={{ dataTooltipId: 'limitCPULabel' }}
-                  className={css.inpLabel}
-                  color={Color.GREY_400}
-                  font={{ size: 'small', weight: 'semi-bold' }}
-                  style={{ textTransform: 'capitalize' }}
-                >
-                  {getString('common.optionalLabel')}
-                </Text>
-              </Layout.Horizontal>
-            }
+            name="spec.runAsUser"
             multiTextInputProps={{
               multiTextInputProps: { expressions },
-              disabled
+              disabled,
+              placeholder: '1000'
             }}
-            configureOptionsProps={{ variableName: 'spec.limit.cpu' }}
-            style={{ flexGrow: 1, flexBasis: '50%' }}
           />
-        </Layout.Horizontal>
-      </Layout.Vertical>
-      {!withoutTimeout && (
+        </Container>
+      ) : null}
+      <Separator />
+      {!isVMBuildInfraType ? (
+        <Layout.Vertical className={css.bottomMargin5} spacing="medium">
+          <Text
+            className={css.inpLabel}
+            color={Color.GREY_600}
+            font={{ size: 'small', weight: 'semi-bold' }}
+            tooltipProps={{ dataTooltipId: 'setContainerResources' }}
+          >
+            {getString('pipelineSteps.setContainerResources')}
+          </Text>
+          <Layout.Horizontal spacing="small">
+            <MultiTypeTextField
+              name="spec.limitMemory"
+              label={
+                <Layout.Horizontal style={{ display: 'flex', alignItems: 'baseline' }}>
+                  <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                    {getString('pipelineSteps.limitMemoryLabel')}
+                  </Text>
+                  &nbsp;
+                  <Text
+                    tooltipProps={{ dataTooltipId: 'limitMemory' }}
+                    className={css.inpLabel}
+                    color={Color.GREY_400}
+                    font={{ size: 'small', weight: 'semi-bold' }}
+                    style={{ textTransform: 'capitalize' }}
+                  >
+                    {getString('common.optionalLabel')}
+                  </Text>
+                </Layout.Horizontal>
+              }
+              multiTextInputProps={{
+                multiTextInputProps: {
+                  expressions,
+                  allowableTypes: allowableTypes.filter(type => type !== MultiTypeInputType.RUNTIME)
+                },
+                disabled
+              }}
+              configureOptionsProps={{ variableName: 'spec.limit.memory' }}
+              style={{ flexGrow: 1, flexBasis: '50%' }}
+            />
+            <MultiTypeTextField
+              name="spec.limitCPU"
+              label={
+                <Layout.Horizontal style={{ display: 'flex', alignItems: 'baseline' }}>
+                  <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                    {getString('pipelineSteps.limitCPULabel')}
+                  </Text>
+                  &nbsp;
+                  <Text
+                    tooltipProps={{ dataTooltipId: 'limitCPULabel' }}
+                    className={css.inpLabel}
+                    color={Color.GREY_400}
+                    font={{ size: 'small', weight: 'semi-bold' }}
+                    style={{ textTransform: 'capitalize' }}
+                  >
+                    {getString('common.optionalLabel')}
+                  </Text>
+                </Layout.Horizontal>
+              }
+              multiTextInputProps={{
+                multiTextInputProps: { expressions },
+                disabled
+              }}
+              configureOptionsProps={{ variableName: 'spec.limit.cpu' }}
+              style={{ flexGrow: 1, flexBasis: '50%' }}
+            />
+          </Layout.Horizontal>
+        </Layout.Vertical>
+      ) : null}
+      {!withoutTimeout ? (
         <Container className={cx(css.formGroup, css.sm, css.bottomMargin5)}>
           <FormMultiTypeDurationField
             className={css.removeBpLabelMargin}
@@ -248,7 +262,7 @@ const StepCommonFields = ({
             disabled={disabled}
           />
         </Container>
-      )}
+      ) : null}
     </>
   )
 }

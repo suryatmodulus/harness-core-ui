@@ -200,6 +200,7 @@ export class TemplateStep extends PipelineStep<TemplateStepData> {
         isNewStep={isNewStep}
         readonly={readonly}
         factory={factory}
+        allowableTypes={allowableTypes}
       />
     )
   }

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Container } from '@wings-software/uicore'
+import type { GetDataError } from 'restful-react'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetAppdynamicsMetricDataByPath } from 'services/cv'
 import MetricLineChart from '@cv/pages/health-source/common/MetricLineChart/MetricLineChart'
@@ -44,7 +45,7 @@ export default function MetricChart({
 
   return (
     <Container>
-      <MetricLineChart options={options} loading={loading} error={error} />
+      <MetricLineChart options={options} loading={loading} error={error as GetDataError<Error>} />
     </Container>
   )
 }

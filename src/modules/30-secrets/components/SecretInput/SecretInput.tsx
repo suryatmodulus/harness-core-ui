@@ -64,7 +64,7 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
     allowSelection = true,
     privateSecret
   } = props
-  const secretReference = formik.values[name]
+  const secretReference = get(formik.values, name)
 
   const { openCreateOrSelectSecretModal } = useCreateOrSelectSecretModal(
     {

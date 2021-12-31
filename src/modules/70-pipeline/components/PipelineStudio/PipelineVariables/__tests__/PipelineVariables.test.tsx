@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { VisualYamlSelectedView as SelectedView } from '@wings-software/uicore'
+import { MultiTypeInputType, VisualYamlSelectedView as SelectedView } from '@wings-software/uicore'
 
 import { TestWrapper } from '@common/utils/testUtils'
 import * as cdng from 'services/cd-ng'
@@ -18,6 +18,7 @@ const pipelineContext: PipelineContextInterface = {
   updatePipeline: jest.fn(),
   state: { pipeline, pipelineView: { splitViewData: {} }, selectionState: {} } as any,
   contextType: 'Pipeline',
+  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION],
   stepsFactory: factory,
   stagesMap: {},
   isReadonly: false,

@@ -124,7 +124,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
             // Each category has steps data inside it
             k.stepCategories.forEach((v: StepCategory) => {
               v?.stepsData?.forEach((m: StepData) => {
-                if (m.name?.toLowerCase().search(name) !== -1) {
+                if (m.name?.toLowerCase().indexOf(name) !== -1) {
                   _stepsData.push(m)
                 }
               })
@@ -140,7 +140,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
         if (context === FilterContext.SEARCH && k.stepsData) {
           const _stepsData: StepData[] = []
           k.stepsData.forEach((m: StepData) => {
-            if (m.name?.toLowerCase().search(name) !== -1) {
+            if (m.name?.toLowerCase().indexOf(name) !== -1) {
               _stepsData.push(m)
             }
           })

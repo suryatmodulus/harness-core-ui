@@ -31,11 +31,13 @@ pagerDutyConnectorDetails: 'PagerDuty Connector Details'
 sumoLogicConnectorDetails: 'SumoLogic Connector Details'
 newRelicConnectorDetails: New Relic Connector Details
 prometheusConnectorDetails: Prometheus Connector Details
+customConnectorDetails: Custom Health Connector Details
 prometheusLabel: Prometheus
 dynatraceLabel: Dynatrace
 appdLabel: AppDynamics
 newRelicLabel: New Relic
 splunkLabel: Splunk
+customLabel: Custom Health
 stackdriverMetricsLabel: Google Cloud Operations (Metrics)
 stackdriverLogsLabel: Google Cloud Operations (Logs)
 click: 'Click'
@@ -56,6 +58,7 @@ ifReq: if required.
 selectConnector: Select Connector
 showInstructions: Show instructions
 apiKey: '{{$.common.apikey}}'
+apiKeyOrPassword: Password/Api Key
 costVisibility: Cost Visibility
 chooseMethodForK8sConnection: Choose the method for Harness to use when connecting to the cluster.
 chooseMethodForGCPConnection: Choose the method for Harness to use when connecting to GCP.
@@ -64,6 +67,12 @@ createConnector: 'Create a Connector'
 connectorEmptyState: 'There are no connectors in your project'
 readMore: 'Read more'
 connectorsTitle: 'Resources: Connectors'
+parameters: Parameters
+validationPath: Validation Path
+addHeader: Add Header
+addParameter: Add Parameter
+baseURL: Base URL
+requestMethod: Request Method
 connectivityMode:
   validation: 'Please select connectivity mode'
   connectToProvider: 'Connect to the provider'
@@ -295,6 +304,13 @@ sumologic:
   urlValidation: SumoLogic URL is required.
   encryptedAccessIdValidation: SumoLogic Access ID is required.
   encryptedAccessKeyValidation: SumoLogic Access Key is required.
+customHealth:
+  baseURL: Base URL is required.
+  requestBody: Request Body is required for POST requests.
+  requestMethod: Request Method is required.
+  validationPath: Validation Path is required.
+  valueRequired: Value is required.
+  keyRequired: Key is required.
 cdng:
   jobName: Job Name
   continousVerificationType: Continous Verification Type
@@ -433,7 +449,7 @@ ceK8:
     downloadComplete: 'Download Complete'
     applyDelegateText: 'Copy the downloaded YAML to a machine where you have kubectl installed and have access to your Kubernetes cluster. Run the following command to apply the Harness delegate to your Kubernetes Cluster'
     successfulCommandExec: 'Command executed successfully'
-  featureWarning: You have used {{count}} free clusters incuded in your current plan. Consider upgrading for unlimited clusters.
+  featureWarning: You have used {{count}} / {{limit}} free clusters incuded in your current plan. Consider upgrading for unlimited clusters.
 azureKeyVault:
   labels:
     tenantId: '{{ $.connectors.tenantId }}'

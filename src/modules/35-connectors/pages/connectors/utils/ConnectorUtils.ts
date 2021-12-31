@@ -25,6 +25,7 @@ import { ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
 import { setSecretField } from '@secrets/utils/SecretField'
 import { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
+import { transformStepHeadersAndParamsForPayload } from '@connectors/components/CreateConnector/CustomHealthConnector/components/CustomHealthHeadersAndParams/CustomHealthHeadersAndParams.utils'
 import { AuthTypes, GitAuthTypes, GitAPIAuthTypes } from './ConnectorHelper'
 
 export interface DelegateCardInterface {
@@ -32,6 +33,7 @@ export interface DelegateCardInterface {
   info: string
   disabled?: boolean
 }
+
 export interface CredentialType {
   [key: string]: AwsCredential['type']
 }
@@ -1209,6 +1211,27 @@ export const buildNewRelicPayload = (formData: FormData) => ({
   }
 })
 
+export const buildCustomHealthPayload = (formData: FormData) => {
+  return {
+    connector: {
+      name: formData.name,
+      identifier: formData.identifier,
+      projectIdentifier: formData.projectIdentifier,
+      orgIdentifier: formData.orgIdentifier,
+      accountId: formData.accountId,
+      type: Connectors.CUSTOM,
+      spec: {
+        ...transformStepHeadersAndParamsForPayload(formData.headers, formData.params),
+        delegateSelectors: formData.delegateSelectors,
+        baseURL: formData.baseURL,
+        validationPath: formData.validationPath,
+        validationBody: formData.requestBody,
+        method: formData.requestMethod
+      }
+    }
+  }
+}
+
 export const buildPrometheusPayload = (formData: FormData) => {
   return {
     connector: {
@@ -1541,8 +1564,6 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-gcp'
     case Connectors.PAGER_DUTY:
       return 'service-pagerduty'
-    case Connectors.ARGO_CONNECTOR:
-      return 'argo'
     case Connectors.GCP_KMS:
       return 'gcp-kms'
     case Connectors.SERVICE_NOW:

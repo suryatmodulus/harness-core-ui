@@ -302,7 +302,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
         >
           <div
             class="Accordion--panel"
-            data-open="true"
+            data-open="false"
             data-testid="advanced-panel"
             id="advanced-panel"
           >
@@ -327,47 +327,12 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
             </div>
             <div
               class="bp3-collapse Accordion--collapse"
-              style="height: auto; overflow-y: visible; transition: none;"
             >
               <div
                 aria-hidden="false"
                 class="bp3-collapse-body"
-                style="transform: translateY(0); transition: none;"
-              >
-                <div
-                  class="Accordion--details"
-                  data-testid="advanced-details"
-                >
-                  <div
-                    class="bp3-card bp3-elevation-0 Card--card sectionCardVariables"
-                    id="variables"
-                    style="width: 100%;"
-                  >
-                    <div
-                      class="tabSubHeading"
-                    >
-                      pipeline.stageVariables
-                    </div>
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                      style="line-height: 24px;"
-                    >
-                      workflowVariableInfo
-                    </p>
-                    <div
-                      class="stageSection"
-                    >
-                      <div
-                        class="stageDetails"
-                      >
-                        <div>
-                          {"a":"a","variables":[],"canAddVariable":true}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                style="transform: translateY(-undefinedpx);"
+              />
             </div>
           </div>
         </div>

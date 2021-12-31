@@ -9,13 +9,15 @@ import {
   Switch,
   HarnessDocTooltip,
   TextInput,
-  RUNTIME_INPUT_VALUE
+  RUNTIME_INPUT_VALUE,
+  Color
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { isEmpty, set } from 'lodash-es'
+import { defaultTo, isEmpty, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { FormikErrors } from 'formik'
 import { produce } from 'immer'
+import { parse } from 'yaml'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import {
@@ -27,7 +29,7 @@ import {
   ConnectorReferenceField,
   ConnectorReferenceFieldProps
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
-import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
+import { NameId, NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import {
   getIdentifierFromValue,
   getScopeFromDTO,
@@ -40,10 +42,13 @@ import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { useGitScope } from '@ci/services/CIUtils'
 import type { BuildStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import type { TemplateSummaryResponse } from 'services/template-ng'
+import { getScopeBasedTemplateRef, getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
 import css from './EditStageView.module.scss'
 
 export interface EditStageView {
   data?: StageElementWrapper<BuildStageElementConfig>
+  template?: TemplateSummaryResponse
   onSubmit?: (
     values: StageElementWrapper<BuildStageElementConfig>,
     identifier: string,
@@ -62,7 +67,7 @@ interface Values {
   repoName?: string
 }
 
-export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChange }): JSX.Element => {
+export const EditStageView: React.FC<EditStageView> = ({ data, template, onSubmit, onChange }): JSX.Element => {
   const { getString } = useStrings()
   const [connectionType, setConnectionType] = React.useState('')
   const [connectorUrl, setConnectorUrl] = React.useState('')
@@ -70,9 +75,10 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const repositoryNameLabel = getString('common.repositoryName')
 
   const {
-    state: { pipeline },
+    state: { pipeline, templateTypes },
     contextType,
-    isReadonly
+    isReadonly,
+    setTemplateTypes
   } = usePipelineContext()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
@@ -87,7 +93,12 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
     name: data?.stage?.name || '',
     description: data?.stage?.description,
     tags: data?.stage?.tags,
-    cloneCodebase: data?.stage?.spec?.cloneCodebase ?? true
+    cloneCodebase: defaultTo(
+      template
+        ? parse(defaultTo(template.yaml, '')).template.spec.spec.cloneCodebase
+        : data?.stage?.spec?.cloneCodebase,
+      true
+    )
   }
 
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
@@ -179,17 +190,29 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
           }
         })
       }
-      data.stage.identifier = values.identifier
-      data.stage.name = values.name
 
-      if (values.description) data.stage.description = values.description
-      if (values.tags) data.stage.tags = values.tags
-      if (!data.stage.spec) data.stage.spec = {} as any
-      set(data, 'stage.spec.cloneCodebase', values.cloneCodebase)
-      if (pipelineData) {
-        onSubmit?.(data, values.identifier, pipelineData)
+      if (template) {
+        if (template.identifier && template.childType) {
+          templateTypes[template.identifier] = template.childType
+          setTemplateTypes(templateTypes)
+        }
+        const newStage = produce({} as BuildStageElementConfig, draft => {
+          draft.name = values.name
+          draft.identifier = values.identifier
+          set(draft, 'template.templateRef', getScopeBasedTemplateRef(template))
+          if (template.versionLabel) {
+            set(draft, 'template.versionLabel', template.versionLabel)
+          }
+        })
+        onSubmit?.({ stage: newStage }, values.identifier, pipelineData)
       } else {
-        onSubmit?.(data, values.identifier)
+        data.stage.identifier = values.identifier
+        data.stage.name = values.name
+        if (values.description) data.stage.description = values.description
+        if (values.tags) data.stage.tags = values.tags
+        if (!data.stage.spec) data.stage.spec = {} as any
+        set(data, 'stage.spec.cloneCodebase', values.cloneCodebase)
+        onSubmit?.(data, values.identifier, pipelineData)
       }
     }
   }
@@ -216,29 +239,52 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
               >
                 {getString('pipelineSteps.build.create.aboutYourStage')}
               </Text>
-              {contextType === PipelineContextType.Pipeline && (
-                <NameIdDescriptionTags
-                  formikProps={formikProps}
-                  identifierProps={{
-                    inputLabel: getString('stageNameLabel'),
-                    inputGroupProps: {
-                      disabled: isReadonly,
-                      placeholder: getString('pipeline.aboutYourStage.stageNamePlaceholder')
-                    }
-                  }}
-                  descriptionProps={{ disabled: isReadonly }}
-                  tagsProps={{ disabled: isReadonly }}
-                />
+              {contextType === PipelineContextType.Pipeline &&
+                (template ? (
+                  <NameId
+                    identifierProps={{
+                      inputLabel: getString('stageNameLabel'),
+                      inputGroupProps: {
+                        disabled: isReadonly,
+                        placeholder: getString('pipeline.aboutYourStage.stageNamePlaceholder')
+                      }
+                    }}
+                  />
+                ) : (
+                  <NameIdDescriptionTags
+                    formikProps={formikProps}
+                    identifierProps={{
+                      inputLabel: getString('stageNameLabel'),
+                      inputGroupProps: {
+                        disabled: isReadonly,
+                        placeholder: getString('pipeline.aboutYourStage.stageNamePlaceholder')
+                      }
+                    }}
+                    descriptionProps={{ disabled: isReadonly }}
+                    tagsProps={{ disabled: isReadonly }}
+                  />
+                ))}
+              {template ? (
+                <Text
+                  icon={'template-library'}
+                  margin={{ top: 'medium', bottom: 'medium' }}
+                  font={{ size: 'small' }}
+                  iconProps={{ size: 12, margin: { right: 'xsmall' } }}
+                  color={Color.BLACK}
+                >
+                  {`Using Template: ${getTemplateNameWithLabel(template)}`}
+                </Text>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--spacing-small)' }}>
+                  <Switch
+                    label={getString('cloneCodebaseLabel')}
+                    onChange={e => formikProps.setFieldValue('cloneCodebase', e.currentTarget.checked)}
+                    defaultChecked={formikProps.values.cloneCodebase}
+                    disabled={isReadonly}
+                  />
+                  <HarnessDocTooltip tooltipId="cloneCodebase" useStandAlone={true} />
+                </div>
               )}
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--spacing-small)' }}>
-                <Switch
-                  label={getString('cloneCodebaseLabel')}
-                  onChange={e => formikProps.setFieldValue('cloneCodebase', e.currentTarget.checked)}
-                  defaultChecked={formikProps.values.cloneCodebase}
-                  disabled={isReadonly}
-                />
-                <HarnessDocTooltip tooltipId="cloneCodebase" useStandAlone={true} />
-              </div>
               {/* We don't need to configure CI Codebase if it is already configured or we are skipping Clone Codebase step */}
               {!codebase && formikProps.values.cloneCodebase && contextType === PipelineContextType.Pipeline && (
                 <div className={css.configureCodebase}>

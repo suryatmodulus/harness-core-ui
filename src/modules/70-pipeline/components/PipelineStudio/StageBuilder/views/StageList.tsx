@@ -2,19 +2,27 @@ import React from 'react'
 import { IconName, Icon, Layout, Text } from '@wings-software/uicore'
 import type { StageType } from '@pipeline/utils/stageHelpers'
 import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import { getStageType } from '@pipeline/utils/templateUtils'
 import type { StagesMap } from '../../PipelineContext/PipelineContext'
 
 interface StageListProps {
   stages: StageElementWrapper[]
+  templateTypes: { [key: string]: string }
   selectedStageId?: string
   stagesMap: StagesMap
   onClick?: (stageId: string, type: StageType) => void
 }
 
-export const StageList: React.FC<StageListProps> = ({ stages, selectedStageId, onClick, stagesMap }): JSX.Element => {
+export const StageList: React.FC<StageListProps> = ({
+  stages,
+  templateTypes,
+  selectedStageId,
+  onClick,
+  stagesMap
+}): JSX.Element => {
   const list: Array<{ name: string; icon: IconName; identifier: string; type: string }> = []
   stages.forEach((node: StageElementWrapper) => {
-    const type = stagesMap[node.stage?.type || '']
+    const type = stagesMap[getStageType(node.stage, templateTypes)]
 
     if (node.stage?.identifier === selectedStageId) {
       list.unshift({

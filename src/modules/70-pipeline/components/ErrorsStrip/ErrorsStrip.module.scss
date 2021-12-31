@@ -1,6 +1,7 @@
 .errorHeader {
   padding: var(--spacing-small) var(--spacing-large) !important;
   background-color: var(--red-50) !important;
+  height: fit-content;
 }
 
 .runPipelineErrorDesc {

@@ -54,8 +54,19 @@ const MonacoEditor = (props: ExtendedMonacoEditorProps, ref: ReactMonacoEditorRe
   }
 
   const theme = props.options?.readOnly ? 'disable-theme' : 'vs'
+  const { onChange, ...restProps } = props
 
-  return <ReactMonacoEditor {...props} ref={ref} theme={theme} editorWillMount={editorWillMount} />
+  return (
+    <ReactMonacoEditor
+      {...restProps}
+      onChange={(text, event) => {
+        onChange?.(text.replace(/\r/g, ''), event)
+      }}
+      ref={ref}
+      theme={theme}
+      editorWillMount={editorWillMount}
+    />
+  )
 }
 
 export default React.forwardRef(MonacoEditor)

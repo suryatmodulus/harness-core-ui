@@ -116,7 +116,7 @@ const ServiceNowDetailsForm: React.FC<StepProps<ServiceNowFormProps> & Authentic
                   stringId="username"
                   type={formik.values.username ? formik.values.username?.type : ValueType.TEXT}
                 />
-                <SecretInput name={'passwordRef'} label={getString('connectors.apiKey')} />
+                <SecretInput name={'passwordRef'} label={getString('connectors.apiKeyOrPassword')} />
               </Layout.Vertical>
 
               <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">

@@ -8,7 +8,12 @@ import { PageSpinner } from '@wings-software/uicore'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 
-import { ModuleLicenseDTO, useGetAccountLicenses, useGetLastModifiedTimeForAllModuleTypes } from 'services/cd-ng'
+import {
+  getLastModifiedTimeForAllModuleTypesPromise,
+  ModuleLicenseDTO,
+  useGetAccountLicenses,
+  useGetLastModifiedTimeForAllModuleTypes
+} from 'services/cd-ng'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import GenericErrorPage, { GENERIC_ERROR_CODES } from '@common/pages/GenericError/GenericErrorPage'
@@ -141,7 +146,18 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
 
     async function pollVersionMap(versionMap: VersionMap): Promise<void> {
       try {
-        const response = await getVersionMap()
+        // We are using promise since mutate was rerendering the whole applications every 60 seconds
+        // even if no data change in store
+        const response = await getLastModifiedTimeForAllModuleTypesPromise({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          queryParams: { accountIdentifier: accountId, routingId: accountId } as any,
+          body: undefined,
+          requestOptions: {
+            headers: {
+              'content-type': 'application/json'
+            }
+          }
+        })
         const latestVersionMap = response.data
         if (latestVersionMap && !isEqual(latestVersionMap, versionMap)) {
           // refresh licenses
@@ -179,20 +195,23 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
 
   const [isLoading, setIsLoading] = useState(true)
 
-  function getLicenseState(expiryTime?: number): LICENSE_STATE_VALUES {
-    if (!expiryTime) {
-      return LICENSE_STATE_VALUES.NOT_STARTED
-    }
+  const getLicenseState = React.useCallback(
+    (expiryTime?: number): LICENSE_STATE_VALUES => {
+      if (!expiryTime) {
+        return LICENSE_STATE_VALUES.NOT_STARTED
+      }
 
-    const days = Math.round(moment(expiryTime).diff(moment.now(), 'days', true))
-    const isExpired = days < 0
+      const days = Math.round(moment(expiryTime).diff(moment.now(), 'days', true))
+      const isExpired = days < 0
 
-    if (shouldLicensesBeDisabled) {
-      return LICENSE_STATE_VALUES.ACTIVE
-    }
+      if (shouldLicensesBeDisabled) {
+        return LICENSE_STATE_VALUES.ACTIVE
+      }
 
-    return isExpired ? LICENSE_STATE_VALUES.EXPIRED : LICENSE_STATE_VALUES.ACTIVE
-  }
+      return isExpired ? LICENSE_STATE_VALUES.EXPIRED : LICENSE_STATE_VALUES.ACTIVE
+    },
+    [shouldLicensesBeDisabled]
+  )
 
   useEffect(() => {
     const allLicenses = accountLicensesData?.data?.allModuleLicenses || {}
@@ -229,36 +248,39 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accountLicensesData?.data?.allModuleLicenses, currentUserInfo])
 
-  function updateLicenseStore(
-    updateData: Partial<
-      Pick<
-        LicenseStoreContextProps,
-        'licenseInformation' | 'CI_LICENSE_STATE' | 'FF_LICENSE_STATE' | 'CCM_LICENSE_STATE' | 'CD_LICENSE_STATE'
+  const updateLicenseStore = React.useCallback(
+    (
+      updateData: Partial<
+        Pick<
+          LicenseStoreContextProps,
+          'licenseInformation' | 'CI_LICENSE_STATE' | 'FF_LICENSE_STATE' | 'CCM_LICENSE_STATE' | 'CD_LICENSE_STATE'
+        >
       >
-    >
-  ): void {
-    const CIModuleLicenseData = updateData.licenseInformation?.['CI']
-    const FFModuleLicenseData = updateData.licenseInformation?.['CF']
-    const CCMModuleLicenseData = updateData.licenseInformation?.['CE']
-    const CDModuleLicenseData = updateData.licenseInformation?.['CD']
+    ): void => {
+      const CIModuleLicenseData = updateData.licenseInformation?.['CI']
+      const FFModuleLicenseData = updateData.licenseInformation?.['CF']
+      const CCMModuleLicenseData = updateData.licenseInformation?.['CE']
+      const CDModuleLicenseData = updateData.licenseInformation?.['CD']
 
-    setState(prevState => ({
-      ...prevState,
-      licenseInformation: updateData.licenseInformation || prevState.licenseInformation,
-      CI_LICENSE_STATE: CIModuleLicenseData?.expiryTime
-        ? getLicenseState(CIModuleLicenseData.expiryTime)
-        : prevState.CI_LICENSE_STATE,
-      FF_LICENSE_STATE: FFModuleLicenseData?.expiryTime
-        ? getLicenseState(FFModuleLicenseData.expiryTime)
-        : prevState.FF_LICENSE_STATE,
-      CCM_LICENSE_STATE: CCMModuleLicenseData?.expiryTime
-        ? getLicenseState(CCMModuleLicenseData.expiryTime)
-        : prevState.CCM_LICENSE_STATE,
-      CD_LICENSE_STATE: CDModuleLicenseData?.expiryTime
-        ? getLicenseState(CDModuleLicenseData.expiryTime)
-        : prevState.CD_LICENSE_STATE
-    }))
-  }
+      setState(prevState => ({
+        ...prevState,
+        licenseInformation: updateData.licenseInformation || prevState.licenseInformation,
+        CI_LICENSE_STATE: CIModuleLicenseData?.expiryTime
+          ? getLicenseState(CIModuleLicenseData.expiryTime)
+          : prevState.CI_LICENSE_STATE,
+        FF_LICENSE_STATE: FFModuleLicenseData?.expiryTime
+          ? getLicenseState(FFModuleLicenseData.expiryTime)
+          : prevState.FF_LICENSE_STATE,
+        CCM_LICENSE_STATE: CCMModuleLicenseData?.expiryTime
+          ? getLicenseState(CCMModuleLicenseData.expiryTime)
+          : prevState.CCM_LICENSE_STATE,
+        CD_LICENSE_STATE: CDModuleLicenseData?.expiryTime
+          ? getLicenseState(CDModuleLicenseData.expiryTime)
+          : prevState.CD_LICENSE_STATE
+      }))
+    },
+    [getLicenseState]
+  )
 
   let childComponent
 
@@ -277,7 +299,12 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
   return (
     <LicenseStoreContext.Provider
       value={{
-        ...state,
+        CCM_LICENSE_STATE: state.CCM_LICENSE_STATE,
+        CD_LICENSE_STATE: state.CD_LICENSE_STATE,
+        CI_LICENSE_STATE: state.CI_LICENSE_STATE,
+        FF_LICENSE_STATE: state.FF_LICENSE_STATE,
+        licenseInformation: state.licenseInformation,
+        versionMap: state.versionMap,
         updateLicenseStore
       }}
     >

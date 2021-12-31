@@ -95,6 +95,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
           >
             <label
               class="Label--main bp3-label descriptionLabel"
+              data-tooltip-id="pipelineCreate_description"
             >
               optionalField
             </label>
@@ -122,6 +123,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
           >
             <label
               class="Label--main bp3-label descriptionLabel"
+              data-tooltip-id="pipelineCreate_tags"
             >
               optionalField
               <span
@@ -304,6 +306,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
           >
             <label
               class="Label--main bp3-label descriptionLabel"
+              data-tooltip-id="pipelineCreate_description"
             >
               optionalField
               <span
@@ -340,6 +343,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
           >
             <label
               class="Label--main bp3-label descriptionLabel"
+              data-tooltip-id="pipelineCreate_tags"
             >
               optionalField
               <span
@@ -522,6 +526,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
           >
             <label
               class="Label--main bp3-label descriptionLabel"
+              data-tooltip-id="pipelineCreate_description"
             >
               optionalField
               <span
@@ -558,6 +563,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
           >
             <label
               class="Label--main bp3-label descriptionLabel"
+              data-tooltip-id="pipelineCreate_tags"
             >
               optionalField
               <span
@@ -714,6 +720,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
           >
             <label
               class="Label--main bp3-label descriptionLabel"
+              data-tooltip-id="pipelineCreate_description"
             >
               optionalField
             </label>
@@ -741,6 +748,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
           >
             <label
               class="Label--main bp3-label descriptionLabel"
+              data-tooltip-id="pipelineCreate_tags"
             >
               optionalField
               <span

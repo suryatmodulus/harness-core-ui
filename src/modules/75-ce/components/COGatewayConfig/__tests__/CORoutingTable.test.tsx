@@ -71,7 +71,7 @@ describe('Routing Table Tests', () => {
   })
 
   test('render additional columns for redirection rule', async () => {
-    const { container } = render(<CORoutingTable routingRecords={records} setRoutingRecords={jest.fn()} />)
+    const { container, getByTestId } = render(<CORoutingTable routingRecords={records} setRoutingRecords={jest.fn()} />)
 
     const actionCaret = container
       .querySelector(`input[value="Forward"] + [class*="bp3-input-action"]`)
@@ -96,8 +96,8 @@ describe('Routing Table Tests', () => {
     })
     expect(serverNameInput.value).toBe('updated_server_name')
 
-    const routingRulesInput = container.querySelector(`input[value="routing_rules"]`) as HTMLInputElement
-    await waitFor(() => {
+    const routingRulesInput = getByTestId('routingRules') as HTMLInputElement
+    await act(() => {
       fireEvent.change(routingRulesInput!, { target: { value: 'updated_routing_rules' } })
     })
     expect(routingRulesInput.value).toBe('updated_routing_rules')

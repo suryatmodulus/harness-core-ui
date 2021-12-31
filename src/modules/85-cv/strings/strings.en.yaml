@@ -57,7 +57,6 @@ addNew: + Add New
 turnService: Turn service
 showYAMLChange: Show YAML Change
 seeYAML: See full event YAML
-baseUrl: Base URL
 serviceDashboardPage:
   fiveMinutes: 5 Minutes
   fifteenMinutes: 15 Minutes
@@ -461,6 +460,7 @@ monitoredServices:
   failedToFetchSummaryData: Failed to fetch summary data
   changeMonitoredServiceType: Change Monitored Service Type
   changeMonitoredServiceTypeMessage: Changing monitored service type will reset change sources
+  sloErrorBudget: SLO Error Budget
   serviceHealth:
     last4Hrs: Last 4 hours
     last24Hrs: Last 24 hours
@@ -479,6 +479,7 @@ monitoredServices:
         needsAttention: Needs attention
         observe: Observe
         healthy: Healthy
+        exhausted: Exhausted
   monitoredServiceTabs:
     serviceHealth: Service Health
     configurations: Configurations
@@ -577,27 +578,18 @@ healthSource:
       validations:
         application: Please select application
         nrql: NRQL Query is required
-        queryType: Query type is required
-        serviceInstanceIdentifier: Service Instance Identifier Json Path is required
         continuousVerification: Service selection is required
-        metricValue: Metric Value Json Path is required
-        timestamp: Timestamp Field/Locator Json Path is required
+        metricValue: Metric Value JSON Path is required
+        timestamp: Timestamp Field/Locator JSON Path is required
       metricFields:
         metricValueJsonPath:
-          label: Metric Value Json Path
+          label: Metric Value JSON Path
           noRecordModalHeader: New Metric Value
-          noRecordInputLabel: Add Metric Value
           recordsModalHeader: Select path for Metric value
         timestampJsonPath:
-          label: Timestamp Field/Locator Json Path
+          label: Timestamp Field/Locator JSON Path
           noRecordModalHeader: New Timestamp Locator
-          noRecordInputLabel: Add Timestamp Locator
           recordsModalHeader: Select path for timestamp field
-        serviceIdentifierJsonPath:
-          label: Service Instance Identifier Json Path
-          noRecordModalHeader: New Service Instance Identifier
-          noRecordInputLabel: Add Service Instance Identifier
-          recordsModalHeader: Select path for service instance identifier field
         timestampFormat: Timestamp Format
     AppDynamics:
       applicationsAndTiers: Applications & Tiers
@@ -612,6 +604,10 @@ healthSource:
         basePath: Please select base path
         metricPath: Please select metric path
         metricPathWithoutLeafNode: Please select metric in metric path
+      metricPathType:
+        text: Specify a complete metric path
+        dropdown: Select the path from the AppD metric
+      selectedPathLabel: Selected path
     gco:
       selectDashboardTab: 'Select Dashboards'
 slos:
@@ -664,6 +660,7 @@ slos:
       selectMetric2: Select metric 2
 SLO: SLO
 SLOPerformanceTrend: SLO Performance Trend
+sloRecalculationInProgress: SLO recalculation in progress
 errorBudgetRemaining: Error Budget Remaining (mins)
 errorBudgetBurnDown: Error Budget Burndown
 SLITriggered: SLI Triggered
@@ -716,4 +713,21 @@ componentValidations:
   requestMethod: Request Method is required
   queryType: Query Type is required
   queryTypeLabel: Query Type
-  httpRequestMethodLabel: Request Method
+customHealthSource:
+  Querymapping:
+    title: Query specifications and mapping
+    label: Customize the query to get our desired output and map to Harness Service
+    fields:
+      parameter:
+        title: Parameter
+    validation:
+      path: Please select path
+      startTime:
+        placeholder: Please select start time placeholder
+        timestamp: Please select start time timestamp Format
+      endTime:
+        placeholder: Please select end time placeholder
+        timestamp: Please select end time timestamp Format
+  ServiceInstance:
+    pathLabel: Provide Service Instance to map to Harness Service Instance
+    pathModalHeader: Select path for Service Instance

@@ -28,6 +28,12 @@ interface CIStepProps {
   path?: string
 }
 
+const ConnectorRefWidth = {
+  DeploymentFormView: 320,
+  InputSetView: 310,
+  DefaultView: 385
+}
+
 export const CIStep: React.FC<CIStepProps> = props => {
   const { isNewStep, readonly, stepLabel, enableFields, stepViewType, allowableTypes, path } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
@@ -69,13 +75,18 @@ export const CIStep: React.FC<CIStepProps> = props => {
         ) : null}
       </Container>
       <Separator topSeparation={8} />
-      <Container className={css.bottomMargin3}>
-        {Object.prototype.hasOwnProperty.call(enableFields, 'spec.connectorRef') ? (
+      {!enableFields['spec.connectorRef']?.shouldHide &&
+      Object.prototype.hasOwnProperty.call(enableFields, 'spec.connectorRef') ? (
+        <Container className={css.bottomMargin3}>
           <FormMultiTypeConnectorField
             label={enableFields['spec.connectorRef'].label}
             type={enableFields['spec.connectorRef'].type}
             width={
-              stepViewType === StepViewType.DeploymentForm ? 320 : stepViewType === StepViewType.InputSet ? 310 : 385
+              stepViewType === StepViewType.DeploymentForm
+                ? ConnectorRefWidth.DeploymentFormView
+                : stepViewType === StepViewType.InputSet
+                ? ConnectorRefWidth.InputSetView
+                : ConnectorRefWidth.DefaultView
             }
             name={`${prefix}spec.connectorRef`}
             placeholder={getString('select')}
@@ -91,9 +102,10 @@ export const CIStep: React.FC<CIStepProps> = props => {
             gitScope={gitScope}
             setRefValue
           />
-        ) : null}
-      </Container>
-      {Object.prototype.hasOwnProperty.call(enableFields, 'spec.image') ? (
+        </Container>
+      ) : null}
+      {!enableFields['spec.connectorRef']?.shouldHide &&
+      Object.prototype.hasOwnProperty.call(enableFields, 'spec.image') ? (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
             name={`${prefix}spec.image`}

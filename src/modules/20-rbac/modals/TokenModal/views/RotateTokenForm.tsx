@@ -11,17 +11,15 @@ import {
   ModalErrorHandler,
   ModalErrorHandlerBinding,
   Text,
-  TextInput,
   ButtonVariation
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import copy from 'copy-to-clipboard'
 import { useParams } from 'react-router-dom'
-import { Callout } from '@blueprintjs/core'
 import { useToaster } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { TokenDTO, useRotateToken } from 'services/cd-ng'
 import type { ProjectPathProps, ServiceAccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { TokenValueRenderer } from './TokenValueRenderer'
 import css from '@rbac/modals/TokenModal/useTokenModal.module.scss'
 
 interface TokenModalData {
@@ -43,7 +41,7 @@ const RotateTokenForm: React.FC<TokenModalData> = props => {
   >()
   const [expiry, setExpiry] = useState<boolean>(tokenData?.validTo ? true : false)
   const { getString } = useStrings()
-  const { showSuccess, showError } = useToaster()
+  const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const { mutate: rotateToken, loading: saving } = useRotateToken({ identifier: tokenData?.identifier || '' })
   const [token, setToken] = useState<string>()
@@ -109,30 +107,7 @@ const RotateTokenForm: React.FC<TokenModalData> = props => {
                       <Text>{getString('rbac.token.form.rotateTokenExpiryMessage')}</Text>
                     )}
                     {token && (
-                      <Layout.Vertical spacing="small" margin={{ bottom: 'medium' }}>
-                        <Callout intent="success">
-                          <Text>{getString('valueLabel')}</Text>
-                          <TextInput
-                            value={token}
-                            disabled
-                            rightElement={
-                              (
-                                <Button
-                                  icon="duplicate"
-                                  onClick={() => {
-                                    copy(token)
-                                      ? showSuccess(getString('clipboardCopySuccess'))
-                                      : showError(getString('clipboardCopyFail'))
-                                  }}
-                                  inline
-                                  minimal
-                                />
-                              ) as any
-                            }
-                          />
-                          <Text>{getString('rbac.token.form.tokenMessage')}</Text>
-                        </Callout>
-                      </Layout.Vertical>
+                      <TokenValueRenderer token={token} textInputClass={css.tokenValue} copyTextClass={css.copy} />
                     )}
                   </Layout.Vertical>
                 </Container>

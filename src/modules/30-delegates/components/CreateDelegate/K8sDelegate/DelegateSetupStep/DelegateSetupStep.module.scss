@@ -3,7 +3,7 @@
 }
 .leftPanel {
   overflow-y: auto;
-  width: '50%';
+  width: 50% !important;
 }
 
 .delegateSizeWrapper {
@@ -44,14 +44,6 @@
       padding: 20px 7px;
     }
   }
-}
-
-.sizeInfo {
-  // height: 36px;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // flex-direction: column;
 }
 
 .workloadSeparator {

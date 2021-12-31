@@ -3,7 +3,7 @@
 exports[`test cases for Workload details Page should be able to render the details page 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -423,16 +423,19 @@ exports[`test cases for Workload details Page should be able to render the detai
                   <div
                     class="th name"
                     colspan="1"
+                    data-sticky-td="true"
                     role="columnheader"
-                    style="display: inline-block; box-sizing: border-box; width: 250px;"
+                    style="display: inline-block; box-sizing: border-box; width: 250px; position: sticky; z-index: 3; left: 0px;"
                   >
                     Name
                   </div>
                   <div
                     class="th"
                     colspan="1"
+                    data-sticky-last-left-td="true"
+                    data-sticky-td="true"
                     role="columnheader"
-                    style="display: inline-block; box-sizing: border-box; width: 200px;"
+                    style="display: inline-block; box-sizing: border-box; width: 200px; position: sticky; z-index: 3; left: 250px;"
                   >
                     Creation Time
                   </div>
@@ -505,13 +508,14 @@ exports[`test cases for Workload details Page should be able to render the detai
                 >
                   <div
                     class="td name"
+                    data-sticky-td="true"
                     role="cell"
-                    style="display: inline-block; box-sizing: border-box; width: 250px;"
+                    style="display: inline-block; box-sizing: border-box; width: 250px; position: sticky; z-index: 3; left: 0px;"
                   >
                     <div
                       class="cellValue"
                     >
-                      <span
+                      <div
                         class="nameCell"
                       >
                         <span
@@ -522,18 +526,21 @@ exports[`test cases for Workload details Page should be able to render the detai
                             style="background: rgb(37, 166, 247);"
                           />
                         </span>
-                        <span
-                          class="name"
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main name"
+                          style="--text-line-clamp: 1;"
                         >
                           aks-cd-ddbksb-0
-                        </span>
-                      </span>
+                        </p>
+                      </div>
                     </div>
                   </div>
                   <div
                     class="td"
+                    data-sticky-last-left-td="true"
+                    data-sticky-td="true"
                     role="cell"
-                    style="display: inline-block; box-sizing: border-box; width: 200px;"
+                    style="display: inline-block; box-sizing: border-box; width: 200px; position: sticky; z-index: 3; left: 250px;"
                   >
                     <div
                       class="cellValue"

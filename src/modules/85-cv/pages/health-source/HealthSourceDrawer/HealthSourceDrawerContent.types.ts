@@ -8,7 +8,8 @@ import type {
   StackdriverMetricHealthSourceSpec,
   SplunkHealthSourceSpec,
   ChangeSourceDTO,
-  DatadogMetricHealthSourceSpec
+  DatadogMetricHealthSourceSpec,
+  CustomHealthSourceSpec
 } from 'services/cv'
 import type { DatadogLogsHealthSpec } from '@cv/pages/health-source/connectors/DatadogLogsHealthSource/DatadogLogsHealthSource.type'
 import type { GCOLogsHealthSourceSpec } from '../connectors/GCOLogsMonitoringSource/components/MapQueriesToHarnessService/types'
@@ -23,6 +24,7 @@ export interface UpdatedHealthSource extends Omit<HealthSource, 'spec'> {
     | SplunkHealthSourceSpec
     | DatadogMetricHealthSourceSpec
     | DatadogLogsHealthSpec
+    | CustomHealthSourceSpec
 }
 
 export interface RowData extends HealthSource {

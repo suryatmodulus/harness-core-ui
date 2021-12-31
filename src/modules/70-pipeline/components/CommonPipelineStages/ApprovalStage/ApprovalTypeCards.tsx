@@ -4,43 +4,52 @@ import { Layout } from '@wings-software/uicore'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { RbacThumbnailItem, RbacThumbnailSelect } from '@rbac/components/RbacThumbnailSelect/RbacThumbnailSelect'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import css from './ApprovalStageMinimalMode.module.scss'
-
-export const approvalTypeCardsData: RbacThumbnailItem[] = [
-  {
-    label: 'Harness Approval',
-    value: StepType.HarnessApproval,
-    icon: 'nav-harness'
-  },
-  {
-    label: 'Jira',
-    value: StepType.JiraApproval,
-    icon: 'service-jira',
-    featureProps: {
-      featureRequest: {
-        featureName: FeatureIdentifier.INTEGRATED_APPROVALS_WITH_JIRA
-      }
-    }
-  },
-  {
-    label: 'ServiceNow',
-    value: 'SERVICENOW_APPROVAL',
-    icon: 'service-servicenow',
-    disabled: true
-  },
-  {
-    label: 'Custom',
-    value: 'CUSTOM_APPROVAL',
-    icon: 'other-workload',
-    disabled: true
-  }
-]
 
 /*
 The component to select approval type card in stage
 Used in both minimal view as well as detailed view
 */
-export const ApprovalTypeCards = ({ isReadonly }: { formikProps: FormikValues; isReadonly?: boolean }) => {
+export const ApprovalTypeCards = ({ isReadonly }: { formikProps: FormikValues; isReadonly?: boolean }): JSX.Element => {
+  const { SERVICENOW_NG_INTEGRATION } = useFeatureFlags()
+  const approvalTypeCardsData: RbacThumbnailItem[] = React.useMemo(
+    () => [
+      {
+        label: 'Harness Approval',
+        value: StepType.HarnessApproval,
+        icon: 'nav-harness'
+      },
+      {
+        label: 'Jira',
+        value: StepType.JiraApproval,
+        icon: 'service-jira',
+        featureProps: {
+          featureRequest: {
+            featureName: FeatureIdentifier.INTEGRATED_APPROVALS_WITH_JIRA
+          }
+        }
+      },
+      {
+        label: 'ServiceNow',
+        value: 'SERVICENOW_APPROVAL',
+        icon: 'service-servicenow',
+        disabled: SERVICENOW_NG_INTEGRATION ? false : true,
+        featureProps: {
+          featureRequest: {
+            featureName: FeatureIdentifier.INTEGRATED_APPROVALS_WITH_SERVICE_NOW
+          }
+        }
+      },
+      {
+        label: 'Custom',
+        value: 'CUSTOM_APPROVAL',
+        icon: 'other-workload',
+        disabled: true
+      }
+    ],
+    [SERVICENOW_NG_INTEGRATION]
+  )
   return (
     <Layout.Vertical>
       <RbacThumbnailSelect

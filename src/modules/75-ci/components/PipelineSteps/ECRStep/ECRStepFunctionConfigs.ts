@@ -121,6 +121,7 @@ export const editViewValidateFieldsConfig = [
   {
     name: 'spec.tags',
     type: ValidationFieldTypes.List,
+    label: 'tagsLabel',
     isRequired: true
   },
   {
@@ -189,6 +190,7 @@ export function getInputSetViewValidateFieldsConfig(
     {
       name: 'spec.tags',
       type: ValidationFieldTypes.List,
+      label: 'tagsLabel',
       isRequired
     },
     {

@@ -1,5 +1,12 @@
 import type { Color, FontVariation } from '@wings-software/uicore'
 import type { CountServiceDTO, PageMonitoredServiceListItemDTO, RiskData } from 'services/cv'
+import type { PermissionsRequest } from '@rbac/hooks/usePermission'
+import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+
+interface ContextMenuRbacPermissions {
+  edit: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
+  delete: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
+}
 
 export interface ContextMenuActionsProps {
   onEdit?(): void
@@ -9,6 +16,7 @@ export interface ContextMenuActionsProps {
   confirmButtonText?: string
   deleteLabel?: string
   editLabel?: string
+  RbacPermissions?: ContextMenuRbacPermissions
 }
 
 export enum FilterTypes {
@@ -31,7 +39,7 @@ export interface MonitoredServiceListProps {
   serviceCountData: CountServiceDTO | null
   serviceCountLoading?: boolean
   serviceCountErrorMessage?: string
-  refetchServiceCountData: () => void
+  refetchServiceCountData: () => Promise<void>
 }
 
 export interface MonitoredServiceListViewProps {
@@ -42,6 +50,7 @@ export interface MonitoredServiceListViewProps {
   onToggleService: (identifier: string, checked: boolean) => Promise<void>
   onDeleteService: (identifier: string) => Promise<void>
   serviceCountData: CountServiceDTO | null
+  refetchServiceCountData: () => Promise<void>
   healthMonitoringFlagLoading?: boolean
   monitoredServiceListData?: PageMonitoredServiceListItemDTO
 }

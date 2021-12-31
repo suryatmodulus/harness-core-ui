@@ -46,6 +46,7 @@ interface TemplatePayload {
   stableVersion?: string
   gitDetails?: EntityGitDetails
   entityValidityDetails?: EntityValidityDetails
+  templateYaml?: string
 }
 
 const getId = (
@@ -104,6 +105,102 @@ const getTemplatesByIdentifier = (
     })
 }
 
+interface DispatchTemplateSuccessArgs {
+  dispatch: React.Dispatch<ActionReturnType>
+  data: TemplatePayload
+  forceUpdate: boolean
+  template: NGTemplateInfoConfig
+  templateYamlStr: string
+  versions: string[]
+  templateWithGitDetails: TemplateSummaryResponse | undefined
+  id: string
+  stableVersion: string | undefined
+}
+const dispatchTemplateSuccess = async (args: DispatchTemplateSuccessArgs): Promise<void> => {
+  const {
+    dispatch,
+    data,
+    forceUpdate,
+    template,
+    templateYamlStr,
+    versions,
+    templateWithGitDetails,
+    id,
+    stableVersion
+  } = args
+  if (data && !forceUpdate) {
+    dispatch(
+      TemplateContextActions.success({
+        error: '',
+        template: data.template,
+        originalTemplate: cloneDeep(template),
+        isBETemplateUpdated: !isEqual(template, data.originalTemplate),
+        isUpdated: !isEqual(template, data.template),
+        versions: versions,
+        stableVersion: data.stableVersion,
+        gitDetails: templateWithGitDetails?.gitDetails?.objectId
+          ? templateWithGitDetails.gitDetails
+          : defaultTo(data?.gitDetails, {}),
+        entityValidityDetails: defaultTo(
+          templateWithGitDetails?.entityValidityDetails,
+          defaultTo(data?.entityValidityDetails, {})
+        ),
+        templateYaml: data?.templateYaml
+      })
+    )
+    dispatch(TemplateContextActions.initialized())
+  } else if (IdbTemplate) {
+    const payload: TemplatePayload = {
+      [KeyPath]: id,
+      template: template,
+      originalTemplate: cloneDeep(template),
+      isUpdated: false,
+      versions: versions,
+      stableVersion: stableVersion,
+      gitDetails: templateWithGitDetails?.gitDetails?.objectId
+        ? templateWithGitDetails.gitDetails
+        : defaultTo(data?.gitDetails, {}),
+      entityValidityDetails: defaultTo(
+        templateWithGitDetails?.entityValidityDetails,
+        defaultTo(data?.entityValidityDetails, {})
+      ),
+      templateYaml: templateYamlStr
+    }
+    await IdbTemplate.put(IdbTemplateStoreName, payload)
+    dispatch(
+      TemplateContextActions.success({
+        error: '',
+        template: template,
+        originalTemplate: cloneDeep(template),
+        isBETemplateUpdated: false,
+        isUpdated: false,
+        versions: versions,
+        stableVersion: stableVersion,
+        gitDetails: payload.gitDetails,
+        entityValidityDetails: payload.entityValidityDetails,
+        templateYaml: payload.templateYaml
+      })
+    )
+    dispatch(TemplateContextActions.initialized())
+  } else {
+    dispatch(
+      TemplateContextActions.success({
+        error: '',
+        template: template,
+        originalTemplate: cloneDeep(template),
+        isBETemplateUpdated: false,
+        isUpdated: false,
+        versions: versions,
+        stableVersion: stableVersion,
+        gitDetails: templateWithGitDetails?.gitDetails?.objectId ? templateWithGitDetails.gitDetails : {},
+        entityValidityDetails: defaultTo(templateWithGitDetails?.entityValidityDetails, {}),
+        templateYaml: templateYamlStr
+      })
+    )
+    dispatch(TemplateContextActions.initialized())
+  }
+}
+
 const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTemplateUnboundProps): Promise<void> => {
   const { dispatch, queryParams, templateIdentifier, versionLabel = '', gitDetails, templateType } = props
   const { forceFetch = false, forceUpdate = false, signal, repoIdentifier, branch } = params
@@ -134,75 +231,32 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
       const selectedVersion = versions.includes(versionLabel) ? versionLabel : defaultVersion
       const stableVersion = templatesList.find(item => item.stableTemplate)?.versionLabel
       const templateWithGitDetails = templatesList.find(item => item.versionLabel === selectedVersion)
-      const template: NGTemplateInfoConfig = defaultTo(parse(defaultTo(templateWithGitDetails?.yaml, ''))?.template, {})
-
-      if (data && !forceUpdate) {
-        dispatch(
-          TemplateContextActions.success({
-            error: '',
-            template: data.template,
-            originalTemplate: cloneDeep(template),
-            isBETemplateUpdated: !isEqual(template, data.originalTemplate),
-            isUpdated: !isEqual(template, data.template),
-            versions: versions,
-            stableVersion: data.stableVersion,
-            gitDetails: templateWithGitDetails?.gitDetails?.objectId
-              ? templateWithGitDetails.gitDetails
-              : defaultTo(data?.gitDetails, {}),
-            entityValidityDetails: defaultTo(
-              templateWithGitDetails?.entityValidityDetails,
-              defaultTo(data?.entityValidityDetails, {})
-            )
-          })
-        )
-        dispatch(TemplateContextActions.initialized())
-      } else if (IdbTemplate) {
-        const payload: TemplatePayload = {
-          [KeyPath]: id,
-          template: template,
-          originalTemplate: cloneDeep(template),
-          isUpdated: false,
-          versions: versions,
-          stableVersion: stableVersion,
-          gitDetails: templateWithGitDetails?.gitDetails?.objectId
-            ? templateWithGitDetails.gitDetails
-            : defaultTo(data?.gitDetails, {}),
-          entityValidityDetails: defaultTo(
-            templateWithGitDetails?.entityValidityDetails,
-            defaultTo(data?.entityValidityDetails, {})
-          )
+      let template: NGTemplateInfoConfig
+      const templateYamlStr = defaultTo(templateWithGitDetails?.yaml, '')
+      try {
+        template = defaultTo(parse(templateYamlStr)?.template, {})
+      } catch (e) {
+        // It is assumed that execution will come here, if there are only syntatical errors in yaml string
+        template = {
+          name: defaultTo(templateWithGitDetails?.name, ''),
+          identifier: defaultTo(templateWithGitDetails?.identifier, ''),
+          type: defaultTo(templateWithGitDetails?.childType, 'Step') as 'Step' | 'Stage',
+          versionLabel: defaultTo(templateWithGitDetails?.versionLabel, ''),
+          spec: {}
         }
-        await IdbTemplate.put(IdbTemplateStoreName, payload)
-        dispatch(
-          TemplateContextActions.success({
-            error: '',
-            template: template,
-            originalTemplate: cloneDeep(template),
-            isBETemplateUpdated: false,
-            isUpdated: false,
-            versions: versions,
-            stableVersion: stableVersion,
-            gitDetails: payload.gitDetails,
-            entityValidityDetails: payload.entityValidityDetails
-          })
-        )
-        dispatch(TemplateContextActions.initialized())
-      } else {
-        dispatch(
-          TemplateContextActions.success({
-            error: '',
-            template: template,
-            originalTemplate: cloneDeep(template),
-            isBETemplateUpdated: false,
-            isUpdated: false,
-            versions: versions,
-            stableVersion: stableVersion,
-            gitDetails: templateWithGitDetails?.gitDetails?.objectId ? templateWithGitDetails.gitDetails : {},
-            entityValidityDetails: defaultTo(templateWithGitDetails?.entityValidityDetails, {})
-          })
-        )
-        dispatch(TemplateContextActions.initialized())
       }
+
+      dispatchTemplateSuccess({
+        dispatch,
+        data,
+        forceUpdate,
+        id,
+        stableVersion,
+        template,
+        templateWithGitDetails,
+        templateYamlStr,
+        versions
+      })
     } else {
       dispatch(
         TemplateContextActions.success({
@@ -227,7 +281,8 @@ const _fetchTemplate = async (props: FetchTemplateBoundProps, params: FetchTempl
           versions: [DefaultNewVersionLabel],
           stableVersion: DefaultNewVersionLabel,
           gitDetails: defaultTo(data?.gitDetails, {}),
-          entityValidityDetails: defaultTo(data?.entityValidityDetails, {})
+          entityValidityDetails: defaultTo(data?.entityValidityDetails, {}),
+          templateYaml: defaultTo(data?.templateYaml, '')
         })
       )
       dispatch(TemplateContextActions.initialized())

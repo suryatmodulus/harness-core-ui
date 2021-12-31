@@ -33,7 +33,11 @@ const Stepk8ReviewScript: React.FC<StepProps<K8sDelegateWizardData>> = props => 
   }
 
   React.useEffect(() => {
-    onGenYaml()
+    if (props?.prevStepData?.generatedYaml) {
+      setGeneratedYaml(props?.prevStepData?.generatedYaml)
+    } else {
+      onGenYaml()
+    }
   }, [])
 
   const onDownload = (): void => {
@@ -88,7 +92,9 @@ const Stepk8ReviewScript: React.FC<StepProps<K8sDelegateWizardData>> = props => 
               text={getString('continue')}
               rightIcon="chevron-right"
               onClick={() => {
-                props.nextStep?.(props?.prevStepData)
+                const nextData = props?.prevStepData as K8sDelegateWizardData
+                set(nextData, 'generatedYaml', generatedYaml)
+                props.nextStep?.(nextData)
               }}
             />
           </Layout.Horizontal>

@@ -36,6 +36,7 @@ interface ArtifactConnectorProps {
   isReadonly: boolean
   initialValues: InitialArtifactDataType
   selectedArtifact: ArtifactType | null
+  allowableTypes: MultiTypeInputType[]
 }
 
 export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & ArtifactConnectorProps> = props => {
@@ -48,13 +49,13 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
     expressions,
     selectedArtifact,
     isReadonly,
-    handleViewChange
+    handleViewChange,
+    allowableTypes
   } = props
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { getString } = useStrings()
-
   const connectorType = ArtifactToConnectorMap[selectedArtifact as ArtifactType]
   const selectedConnectorLabel = ArtifactConnectorLabelMap[selectedArtifact as ArtifactType]
 
@@ -112,7 +113,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
                   width={400}
-                  multiTypeProps={{ expressions }}
+                  multiTypeProps={{ expressions, allowableTypes }}
                   isNewConnectorLabelVisible={
                     !(
                       getMultiTypeFromValue(formik.values.connectorId) === MultiTypeInputType.RUNTIME &&

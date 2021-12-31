@@ -5,14 +5,10 @@ import type { HealthSourceTypes } from '../../types'
 export type MapNewRelicMetric = {
   metricName: string
   groupName: SelectOption
-
-  queryType: string
   query: string
   metricValue: string
   timestamp: string
   timestampFormat: string
-  serviceInstanceIdentifier?: string
-
   sli?: boolean
   continuousVerification?: boolean
   healthScore?: boolean

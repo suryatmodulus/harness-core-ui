@@ -3,7 +3,6 @@ export interface BasePathData {
 }
 
 export interface BasePathInterface {
-  fullPath: string
   connectorIdentifier: string
   appName: string
   basePathValue: BasePathData

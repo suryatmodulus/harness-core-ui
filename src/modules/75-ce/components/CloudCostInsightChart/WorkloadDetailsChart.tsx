@@ -1,5 +1,4 @@
 import React from 'react'
-import type { OptionsStackingValue } from 'highcharts'
 import Highcharts from 'highcharts/highcharts'
 import moment from 'moment'
 import { Layout } from '@wings-software/uicore'
@@ -97,8 +96,6 @@ const GetChart: React.FC<GetChartProps> = ({ chart, idx, onLoad, chartType, aggr
     }
   }
 
-  const stacking: OptionsStackingValue = 'normal'
-
   const plotOptions = {
     series: {
       connectNulls: true,
@@ -124,8 +121,7 @@ const GetChart: React.FC<GetChartProps> = ({ chart, idx, onLoad, chartType, aggr
             })
           }
         }
-      },
-      stacking
+      }
     },
     line: {
       connectNulls: true,

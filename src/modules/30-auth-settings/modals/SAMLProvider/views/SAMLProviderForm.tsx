@@ -21,11 +21,11 @@ import {
   getErrorInfoFromErrorObject,
   FontVariation
 } from '@wings-software/uicore'
-import copy from 'copy-to-clipboard'
 import { defaultTo } from 'lodash-es'
 import type { ToasterProps } from '@wings-software/uicore/dist/hooks/useToaster/useToaster'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
+import { CopyText } from '@common/components/CopyText/CopyText'
 import { useUploadSamlMetaData, useUpdateSamlMetaData, SamlSettings } from 'services/cd-ng'
 import { getSamlEndpoint } from '@auth-settings/constants/utils'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -55,7 +55,7 @@ const handleSuccess = (
 
 const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider }) => {
   const { getString } = useStrings()
-  const { showSuccess, showError } = useToaster()
+  const { showSuccess } = useToaster()
   const { accountId } = useParams<AccountPathProps>()
   const [selected, setSelected] = React.useState<SAMLProviderType>()
   const [modalErrorHandler, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding>()
@@ -181,15 +181,11 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                     value={getSamlEndpoint(accountId)}
                     rightElement={
                       (
-                        <Button
-                          icon="duplicate"
-                          inline
-                          variation={ButtonVariation.ICON}
-                          onClick={() => {
-                            copy(getSamlEndpoint(accountId))
-                              ? showSuccess(getString('clipboardCopySuccess'))
-                              : showError(getString('clipboardCopyFail'))
-                          }}
+                        <CopyText
+                          className={css.copy}
+                          iconName="duplicate"
+                          textToCopy={getSamlEndpoint(accountId)}
+                          iconAlwaysVisible
                         />
                       ) as any
                     }

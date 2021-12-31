@@ -54,7 +54,7 @@ export const TemplateStudioSubHeader: (props: TemplateStudioSubHeaderProps) => J
       className={css.subHeader}
       height={52}
       padding={{ right: 'xlarge', left: 'xlarge' }}
-      border={{ bottom: true, color: Color.GREY_100 }}
+      border={{ bottom: true, color: Color.GREY_200 }}
       background={Color.WHITE}
     >
       <Layout.Horizontal height={'100%'} flex={{ alignItems: 'center', justifyContent: 'space-between' }}>

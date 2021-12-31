@@ -13,7 +13,10 @@ export const validate = (getString: UseStringsReturn['getString']) => {
   return Yup.object().shape({
     sourceType: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.source')),
     healthSourceName: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.name')),
-    product: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.product')),
+    product: Yup.string()
+      .trim()
+      .required()
+      .notOneOf(['Custom Connector'], getString('cv.onboarding.selectProductScreen.validationText.product')),
     [ConnectorRefFieldName]: Yup.string()
       .nullable()
       .required(getString('cv.onboarding.selectProductScreen.validationText.connectorRef'))
@@ -84,6 +87,13 @@ export const getFeatureOption = (type: string, getString: UseStringsReturn['getS
         {
           value: SplunkProduct.SPLUNK_LOGS,
           label: getString('cv.monitoringSources.gco.product.logs')
+        }
+      ]
+    case Connectors.CUSTOM_HEALTH:
+      return [
+        {
+          label: getString('connectors.customLabel'),
+          value: getString('connectors.customLabel')
         }
       ]
     default:

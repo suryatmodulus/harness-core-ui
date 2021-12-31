@@ -6,6 +6,7 @@ common:
   budget: 'Budget'
 allRegions: 'All Regions'
 allClusters: 'All Clusters'
+noSavingsDataMessage: 'Savings data not computed yet'
 pageErrorMsg:
   recommendationNoData: 'There are no recommendations yet. Recommendations typically take 24 hours to show up. Please check back later.'
   perspectiveNoData: 'There is not data available for the filters applied.'
@@ -468,8 +469,16 @@ savedYamlSuccess: YAML validated successfully
 uploadCertiHeader: Upload a new certificate for the Application Load Balancer
 perspectives:
   newPerspective: New Perspective
-  newPerspectiveLimitWarning: You have used {{count}} free perspectives incuded in your current plan. Consider upgrading for unlimited perspectives.
+  newPerspectiveLimitWarning: You have used {{count}} / {{limit}} free perspectives incuded in your current plan. Consider upgrading for unlimited perspectives.
+  allPerspectiveTxt: 'All ({{ count }})'
+  recentPerspectiveTxt: 'Recent ({{ count }})'
   sideNavText: 'Perspectives'
+  perspectiveCount: 'Total: {{ count }}'
+  confirmDeletePerspectiveTitle: Delete Perspective
+  confirmDeletePerspectiveMsg: 'Are you sure you want to delete the Perspective {{ name }}?'
+  perspectiveDeletedTxt: 'Perspective {{ name }} deleted'
+  perspectiveReportsTxt: 'Reports {{ reportInfo }}'
+  perspectiveReportsMoreTxt: ' +{{ count }} more'
   workloadDetails:
     aggregation:
       text: 'Aggregation:'
@@ -538,6 +547,7 @@ perspectives:
     nextButton: '{{$.next}}'
     prevButton: '{{$.previous}}'
     validationErrors:
+      nameLengthError: The name must be between 1 and 32 characters.
       nameError: '{{$.validation.nameRequired}}'
       ruleError: 'values length should be greater than 1'
     filters:
@@ -570,6 +580,7 @@ perspectives:
     emailPlaceholder: Enter emails separated by comma
     recipientLabel: Send report to
     searchTimezonePlaceholder: Search Timezone
+    reportDeletedTxt: 'Report {{ name }} deleted'
   recommendations:
     viewText: '{{ $.common.viewText }}'
     recommendationCountTxt: '{{ count }} recommendations saving upto'
@@ -578,10 +589,11 @@ perspectives:
     addBudget: Add a budget to this perspective
     title: '{{ $.ce.common.budget}}'
     thisMonth: this month
+    viewText: '{{ $.common.viewText }}'
     spendExceededBy: Spend exceeded budget by
     monthToDateSpend: Spend Till Date spend is
     budgetSmallTxt: budget
-    budgetMonthlyTxt: Budget - Monthly
+    budgetMonthlyTxt: 'Budget - {{ period }}'
     desc: Budget can help you recieve alerts when the spend exceeds or is about to exceed a specified threshold so that it can be prevented.
     createNew: + create new Budget
     wizardTitle: '{{ $.ce.common.newBudget }}'

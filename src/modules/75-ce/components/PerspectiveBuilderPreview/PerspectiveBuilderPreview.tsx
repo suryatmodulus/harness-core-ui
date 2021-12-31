@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Text, Layout, FlexExpander, Icon } from '@wings-software/uicore'
+import { Container, Text, Layout, FlexExpander, Icon, TextInput } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
 import type moment from 'moment'
@@ -17,7 +17,10 @@ import {
   useFetchPerspectiveTimeSeriesQuery,
   QlceViewTimeGroupType,
   useFetchperspectiveGridQuery,
-  ViewTimeRangeType
+  ViewTimeRangeType,
+  Maybe,
+  QlceViewFieldIdentifierData,
+  QlceViewField
 } from 'services/ce/services'
 import CloudCostInsightChart from '@ce/components/CloudCostInsightChart/CloudCostInsightChart'
 import {
@@ -34,6 +37,92 @@ import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Cha
 import { AGGREGATE_FUNCTION } from '../PerspectiveGrid/Columns'
 import PerspectiveGrid from '../PerspectiveGrid/PerspectiveGrid'
 import css from './PerspectiveBuilderPreview.module.scss'
+
+interface GroupByViewSubMenuProps {
+  labelData: Maybe<Maybe<string>[]>
+  field: QlceViewFieldIdentifierData
+  setGroupBy: (groupBy: QlceViewFieldInputInput) => void
+}
+
+const GroupByViewSubMenu: (props: GroupByViewSubMenuProps) => JSX.Element | null = ({
+  field,
+  labelData,
+  setGroupBy
+}) => {
+  const { getString } = useStrings()
+  const [searchText, setSearchText] = React.useState('')
+
+  const filteredLabelData = (labelData || []).filter(label => {
+    if (!label) {
+      return false
+    }
+    return label.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) < 0 ? false : true
+  })
+
+  const renderLabels: (value: QlceViewField) => void = value => {
+    return (
+      <MenuItem className={css.menuItem} key={value.fieldId} text={value.fieldName}>
+        <div className={css.groupByLabel}>
+          <TextInput
+            value={searchText}
+            onChange={(e: any) => {
+              setSearchText(e.target.value)
+            }}
+            placeholder={getString('ce.perspectives.createPerspective.filters.searchText')}
+          />
+          <Container className={css.labelValueContainer}>
+            {filteredLabelData.map(label => (
+              <MenuItem
+                className={css.menuItem}
+                key={label}
+                text={label}
+                onClick={() =>
+                  setGroupBy({
+                    identifier: ViewFieldIdentifier.Label,
+                    fieldId: 'labels.value',
+                    fieldName: label || '',
+                    identifierName: 'Label'
+                  })
+                }
+              />
+            ))}
+          </Container>
+        </div>
+      </MenuItem>
+    )
+  }
+
+  if (field.values.length) {
+    return (
+      <>
+        {field.values.map(value => {
+          if (value) {
+            if (value.fieldId === 'label') {
+              return renderLabels(value)
+            }
+            return (
+              <MenuItem
+                className={css.menuItem}
+                key={value.fieldId}
+                text={value.fieldName}
+                onClick={() =>
+                  setGroupBy({
+                    fieldId: value.fieldId,
+                    fieldName: value.fieldName,
+                    identifier: field.identifier,
+                    identifierName: field.identifierName
+                  })
+                }
+              />
+            )
+          }
+          return null
+        })}
+      </>
+    )
+  }
+  return null
+}
 
 interface GroupByViewProps {
   groupBy: QlceViewFieldInputInput
@@ -87,53 +176,11 @@ const GroupByView: React.FC<GroupByViewProps> = ({ groupBy, setGroupBy, chartTyp
           if (field) {
             return (
               <MenuItem className={css.menuItem} key={field.identifier} text={field.identifierName}>
-                {field.values.length
-                  ? field.values.map(value => {
-                      if (value) {
-                        if (value.fieldId === 'label' && labelData?.length) {
-                          return (
-                            <MenuItem className={css.menuItem} key={value.fieldId} text={value.fieldName}>
-                              <div className={css.groupByLabel}>
-                                {labelData.map(label => (
-                                  <MenuItem
-                                    className={css.menuItem}
-                                    key={label}
-                                    text={label}
-                                    onClick={() =>
-                                      setGroupBy({
-                                        identifier: ViewFieldIdentifier.Label,
-                                        fieldId: 'labels.value',
-                                        fieldName: label || '',
-                                        identifierName: 'Label'
-                                      })
-                                    }
-                                  />
-                                ))}
-                              </div>
-                            </MenuItem>
-                          )
-                        }
-                        return (
-                          <MenuItem
-                            className={css.menuItem}
-                            key={value.fieldId}
-                            text={value.fieldName}
-                            onClick={() =>
-                              setGroupBy({
-                                fieldId: value.fieldId,
-                                fieldName: value.fieldName,
-                                identifier: field.identifier,
-                                identifierName: field.identifierName
-                              })
-                            }
-                          />
-                        )
-                      }
-                    })
-                  : null}
+                <GroupByViewSubMenu setGroupBy={setGroupBy} labelData={labelData || []} field={field} />
               </MenuItem>
             )
           }
+          return null
         })}
       </Menu>
     ) : undefined

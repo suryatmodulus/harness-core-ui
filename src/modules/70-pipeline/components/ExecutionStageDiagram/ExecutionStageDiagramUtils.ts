@@ -159,7 +159,10 @@ export const getNodeStyles = (
         break
       case ExecutionStatusEnum.ApprovalRejected:
       case ExecutionStatusEnum.Failed:
-        style.borderColor = 'var(--execution-pipeline-color-dark-red)'
+        style.borderColor =
+          type === ExecutionPipelineNodeType.DIAMOND
+            ? 'var(--execution-pipeline-color-blue)'
+            : 'var(--execution-pipeline-color-red)'
         style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-red)' : Utils.getRealCSSColor(Color.WHITE)
         break
       default:
@@ -373,7 +376,7 @@ export const getIconStyleBasedOnStatus = (
   if (isSelected && status !== ExecutionStatusEnum.NotStarted) {
     toReturn = { color: Utils.getRealCSSColor(Color.WHITE) }
   }
-  if (status === ExecutionStatusEnum.Skipped || status === ExecutionStatusEnum.Expired) {
+  if (!isSelected && (status === ExecutionStatusEnum.Skipped || status === ExecutionStatusEnum.Expired)) {
     toReturn = { color: Utils.getRealCSSColor(Color.GREY_500) }
   }
 

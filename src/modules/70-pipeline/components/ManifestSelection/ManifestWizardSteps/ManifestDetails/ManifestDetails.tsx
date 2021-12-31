@@ -43,6 +43,7 @@ import css from './ManifestDetails.module.scss'
 interface ManifestDetailsPropType {
   stepName: string
   expressions: string[]
+  allowableTypes: MultiTypeInputType[]
   initialValues: ManifestConfig
   selectedManifest: ManifestTypes | null
   handleSubmit: (data: ManifestConfigWrapper) => void
@@ -54,6 +55,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
   stepName,
   selectedManifest,
   expressions,
+  allowableTypes,
   initialValues,
   handleSubmit,
   prevStepData,
@@ -246,6 +248,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                     <GitRepositoryName
                       accountUrl={accountUrl}
                       expressions={expressions}
+                      allowableTypes={allowableTypes}
                       fieldValue={formik.values?.repoName}
                       changeFieldValue={(value: string) => formik.setFieldValue('repoName', value)}
                       isReadonly={isReadonly}
@@ -268,7 +271,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                         })}
                       >
                         <FormInput.MultiTextInput
-                          multiTextInputProps={{ expressions }}
+                          multiTextInputProps={{ expressions, allowableTypes }}
                           label={getString('pipelineSteps.deploy.inputSet.branch')}
                           placeholder={getString('pipeline.manifestType.branchPlaceholder')}
                           name="branch"
@@ -298,7 +301,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                         })}
                       >
                         <FormInput.MultiTextInput
-                          multiTextInputProps={{ expressions }}
+                          multiTextInputProps={{ expressions, allowableTypes }}
                           label={getString('pipeline.manifestType.commitId')}
                           placeholder={getString('pipeline.manifestType.commitPlaceholder')}
                           name="commitId"
@@ -320,7 +323,12 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                       </div>
                     )}
                   </Layout.Horizontal>
-                  <DragnDropPaths formik={formik} selectedManifest={selectedManifest} expressions={expressions} />
+                  <DragnDropPaths
+                    formik={formik}
+                    selectedManifest={selectedManifest}
+                    expressions={expressions}
+                    allowableTypes={allowableTypes}
+                  />
 
                   {!!(selectedManifest === ManifestDataType.K8sManifest) && (
                     <Accordion
@@ -340,7 +348,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                             <FormMultiTypeCheckboxField
                               name="skipResourceVersioning"
                               label={getString('skipResourceVersion')}
-                              multiTypeTextbox={{ expressions }}
+                              multiTypeTextbox={{ expressions, allowableTypes }}
                               className={css.checkbox}
                             />
                             {getMultiTypeFromValue(formik.values?.skipResourceVersioning) ===

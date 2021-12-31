@@ -1,7 +1,7 @@
 import React from 'react'
 import { Position } from '@blueprintjs/core'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
-import { Icon, Text, Button, ButtonVariation } from '@wings-software/uicore'
+import { Icon, Text, Button, ButtonVariation, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { DefaultPortLabel } from '@pipeline/components/Diagram/port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '@pipeline/components/Diagram/port/DefaultPortModel'
@@ -14,17 +14,19 @@ import cssDefault from '../DefaultNode.module.scss'
 
 export interface DiamondNodeProps {
   node: DiamondNodeModel
-  engine: DiagramEngine
+  engine?: DiagramEngine
 }
 
 const generatePort = (port: DefaultPortModel, props: DiamondNodeProps): JSX.Element => {
-  return (
+  return props.engine ? (
     <DefaultPortLabel
       engine={props.engine}
       port={port}
       key={port.getID()}
       className={cx({ [css.diamondPortIn]: port.getOptions().in }, { [css.diamondPortOut]: !port.getOptions().in })}
     />
+  ) : (
+    <></>
   )
 }
 const onClick = (e: React.MouseEvent<Element, MouseEvent>, node: DiamondNodeModel): void => {
@@ -50,6 +52,8 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
   const options = props.node.getOptions()
   const [dragging, setDragging] = React.useState(false)
   const { getString } = useStrings()
+  const isSelected = options.defaultSelected ?? props.node.isSelected()
+
   return (
     <div
       className={cssDefault.defaultNode}
@@ -82,7 +86,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
           className={cx(
             cssDefault.defaultCard,
             css.diamond,
-            { [cssDefault.selected]: props.node.isSelected() },
+            { [cssDefault.selected]: options.defaultSelected ?? props.node.isSelected() },
             options.nodeClassName
           )}
           style={{
@@ -93,14 +97,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
           }}
         >
           <div className="execution-running-animation" />
-          {options.icon && (
-            <Icon
-              size={28}
-              inverse={options.defaultSelected ?? props.node.isSelected()}
-              name={options.icon}
-              style={options.iconStyle}
-            />
-          )}
+          {options.icon && <Icon size={28} inverse={isSelected} name={options.icon} style={options.iconStyle} />}
           {options.isInComplete && (
             <Icon className={css.inComplete} size={12} name={'warning-sign'} color="orange500" />
           )}
@@ -147,6 +144,14 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
                 <Icon size={26} name={'conditional-skip-new'} color="white" />
               </Text>
             </div>
+          )}
+          {options.isTemplate && (
+            <Icon
+              size={8}
+              className={css.template}
+              name={'template-library'}
+              color={isSelected ? Color.WHITE : Color.PRIMARY_7}
+            />
           )}
           {options.canDelete && (
             <Button

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StepWizard, StepProps, Icon } from '@wings-software/uicore'
+import { StepWizard, StepProps, Icon, MultiTypeInputType } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { String, StringKeys, useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
@@ -27,12 +27,14 @@ interface ArtifactWizardProps {
   newConnectorView: boolean
   iconsProps: IconProps | undefined
   isReadonly: boolean
+  allowableTypes: MultiTypeInputType[]
 }
 
 const ArtifactWizard: React.FC<ArtifactWizardProps> = ({
   types,
   labels,
   expressions,
+  allowableTypes,
   selectedArtifact,
   changeArtifactType,
   handleViewChange,
@@ -84,6 +86,7 @@ const ArtifactWizard: React.FC<ArtifactWizardProps> = ({
         handleViewChange={() => handleViewChange(true)}
         initialValues={artifactInitialValue}
         selectedArtifact={selectedArtifact}
+        allowableTypes={allowableTypes}
       />
 
       {newConnectorView ? newConnectorSteps : null}

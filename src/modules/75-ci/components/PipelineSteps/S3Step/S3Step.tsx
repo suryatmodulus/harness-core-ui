@@ -69,7 +69,7 @@ export class S3Step extends PipelineStep<S3StepData> {
 
   protected type = StepType.S3
   protected stepName = 'Upload Artifacts to S3'
-  protected stepIcon: IconName = 'service-service-s3'
+  protected stepIcon: IconName = 's3-step'
   protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.S3'
   protected stepPaletteVisible = false
 

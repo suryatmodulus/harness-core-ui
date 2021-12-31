@@ -1,23 +1,18 @@
 import React, { useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { Container, Layout, Text } from '@wings-software/uicore'
+import { Color, Container, Layout, Text, FontVariation } from '@wings-software/uicore'
 import { K8sRecommendationFilterDtoInput, RecommendationItemDto, useRecommendationsQuery } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import formatCost from '@ce/utils/formatCost'
 import EmptyView from '@ce/images/empty-state.svg'
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { Loader } from './OverviewPageLayout'
 import css from './OverviewPage.module.scss'
 
-type Params = {
-  accountId: string
-  projectIdentifier: string
-  orgIdentifier: string
-}
-
 const OverviewTopRecommendations = () => {
   const { getString } = useStrings()
-  const pathParams = useParams<Params>()
+  const pathParams = useParams<AccountPathProps>()
   const [result] = useRecommendationsQuery({
     requestPolicy: 'network-only',
     variables: {
@@ -70,6 +65,11 @@ interface RecommendationProps {
 
 const Recommendation = (props: RecommendationProps) => {
   const { getString } = useStrings()
+  const { accountId } = useParams<AccountPathProps>()
+  const {
+    data: { id, resourceName }
+  } = props
+
   const map: Record<string, string> = useMemo(
     () => ({
       WORKLOAD: getString('ce.overview.workload')
@@ -78,24 +78,28 @@ const Recommendation = (props: RecommendationProps) => {
   )
 
   return (
-    <div className={css.recommendation}>
-      <Layout.Vertical spacing="xsmall">
-        <Container>
-          <Text inline className={css.resourceType}>
-            {map[props.data.resourceType]}
+    <Link
+      to={routes.toCERecommendationDetails({ accountId, recommendation: id, recommendationName: resourceName || id })}
+    >
+      <div className={css.recommendation}>
+        <Layout.Vertical spacing="xsmall">
+          <Container>
+            <Text inline className={css.resourceType}>
+              {map[props.data.resourceType]}
+            </Text>
+          </Container>
+          <Text color={Color.GREY_800} lineClamp={1}>
+            {props.data.resourceName}
           </Text>
-        </Container>
-        <Text font="normal" color="grey800" lineClamp={1}>
-          {props.data.resourceName}
-        </Text>
-      </Layout.Vertical>
-      <Layout.Vertical spacing="xsmall" style={{ alignItems: 'flex-end' }}>
-        <Text color="green700">{formatCost(props.data.monthlySaving as number)}</Text>
-        <Text font="small" color="grey400">
-          {getString('ce.overview.savings')}
-        </Text>
-      </Layout.Vertical>
-    </div>
+        </Layout.Vertical>
+        <Layout.Vertical spacing="xsmall" style={{ alignItems: 'flex-end' }}>
+          <Text color={Color.GREEN_700}>{formatCost(props.data.monthlySaving as number)}</Text>
+          <Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}>
+            {getString('ce.overview.savings')}
+          </Text>
+        </Layout.Vertical>
+      </div>
+    </Link>
   )
 }
 

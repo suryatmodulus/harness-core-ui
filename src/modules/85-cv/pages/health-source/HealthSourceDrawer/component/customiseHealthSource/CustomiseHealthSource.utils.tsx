@@ -11,6 +11,7 @@ import { GCOProduct } from '@cv/pages/health-source/connectors/GCOMetricsHealthS
 import { HealthSourceTypes } from '@cv/pages/health-source/types'
 import DatadogMetricsHealthSource from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource'
 import { DatadogProduct } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.utils'
+import { CustomHealthSource } from '@cv/pages/health-source/connectors/CustomHealthSource/CustomHealthSource'
 import { DatadogLogsHealthSource } from '@cv/pages/health-source/connectors/DatadogLogsHealthSource/DatadogLogsHealthSource'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawerContent.types'
 
@@ -52,6 +53,8 @@ export const LoadSourceByType = ({
       return <NewrelicMonitoredSourceContainer data={data} onSubmit={onSubmit} />
     case Connectors.SPLUNK:
       return <SplunkHealthSource data={data} onSubmit={onSubmit} />
+    case Connectors.CUSTOM_HEALTH:
+      return <CustomHealthSource data={data} onSubmit={onSubmit} />
     default:
       return <></>
   }

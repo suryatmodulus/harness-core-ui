@@ -104,7 +104,24 @@ export const ViewUsageLink = ({ size, featureName }: ExplorePlansBtnProps): Reac
   const redirectToOverviewPage = useRedirectToOverviewPage(featureName)
   return (
     <Button
+      data-name="view-usage-link"
       variation={ButtonVariation.LINK}
+      size={size || ButtonSize.SMALL}
+      onClick={(e: React.MouseEvent<Element, MouseEvent>) => {
+        redirectToOverviewPage(e)
+      }}
+    >
+      {capitalize(getString('common.viewUsage'))}
+    </Button>
+  )
+}
+
+export const ViewUsageBtn = ({ featureName, size }: ExplorePlansBtnProps): ReactElement => {
+  const { getString } = useStrings()
+  const redirectToOverviewPage = useRedirectToOverviewPage(featureName)
+  return (
+    <Button
+      variation={ButtonVariation.SECONDARY}
       size={size || ButtonSize.SMALL}
       onClick={(e: React.MouseEvent<Element, MouseEvent>) => {
         redirectToOverviewPage(e)
@@ -131,6 +148,22 @@ export const UpgradeRequiredText = ({ message }: { message: string }): ReactElem
         {message}
       </Text>
     </Layout.Horizontal>
+  )
+}
+
+export const RequestUpgradeBtn = ({ featureName, size }: ExplorePlansBtnProps): ReactElement => {
+  const { getString } = useStrings()
+  const redirectToOverviewPage = useRedirectToOverviewPage(featureName)
+  return (
+    <Button
+      variation={ButtonVariation.SECONDARY}
+      size={size || ButtonSize.SMALL}
+      onClick={(e: React.MouseEvent<Element, MouseEvent>) => {
+        redirectToOverviewPage(e)
+      }}
+    >
+      {getString('common.feature.keepGettingShipDone.requestUpgrade')}
+    </Button>
   )
 }
 

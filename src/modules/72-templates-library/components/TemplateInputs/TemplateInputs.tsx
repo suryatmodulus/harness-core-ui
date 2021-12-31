@@ -24,7 +24,7 @@ import { useStrings } from 'framework/strings'
 import { StageForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { TemplateType } from '@templates-library/utils/templatesUtils'
 import NoResultsView from '@templates-library/pages/TemplatesPage/views/NoResultsView/NoResultsView'
-import { DefaultNewVersionLabel } from 'framework/Templates/templates'
+import { getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
 import css from './TemplateInputs.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -38,6 +38,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
   const [count, setCount] = React.useState<number>(0)
   const { showError } = useToaster()
   const { getString } = useStrings()
+  const allowableTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION, MultiTypeInputType.RUNTIME]
 
   const {
     data: templateInputYaml,
@@ -50,7 +51,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
       accountIdentifier: defaultTo(template.accountId, ''),
       orgIdentifier: template.orgIdentifier,
       projectIdentifier: template.projectIdentifier,
-      versionLabel: template.versionLabel === DefaultNewVersionLabel ? '' : defaultTo(template.versionLabel, '')
+      versionLabel: defaultTo(template.versionLabel, '')
     }
   })
 
@@ -94,8 +95,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
               <Container>
                 <Layout.Horizontal flex={{ alignItems: 'center' }} spacing={'xxxlarge'}>
                   <Text font={{ size: 'normal', weight: 'bold' }} color={Color.GREY_800}>
-                    {template.identifier}:{' '}
-                    {template.versionLabel === DefaultNewVersionLabel ? 'Stable' : template.versionLabel}
+                    {getTemplateNameWithLabel(template)}
                   </Text>
                   <Text className={css.inputsCount} font={{ size: 'small' }}>
                     {getString('templatesLibrary.inputsCount', { count })}
@@ -122,6 +122,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
                           path={'stage'}
                           readonly={true}
                           viewType={StepViewType.InputSet}
+                          allowableTypes={allowableTypes}
                           hideTitle={true}
                           stageClassName={css.stageCard}
                         />
@@ -140,11 +141,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
                             readonly={true}
                             type={(formikProps.values as StepElementConfig)?.type as StepType}
                             stepViewType={StepViewType.InputSet}
-                            allowableTypes={[
-                              MultiTypeInputType.FIXED,
-                              MultiTypeInputType.EXPRESSION,
-                              MultiTypeInputType.RUNTIME
-                            ]}
+                            allowableTypes={allowableTypes}
                           />
                           {getMultiTypeFromValue((formikProps.values as StepElementConfig).spec?.delegateSelectors) ===
                             MultiTypeInputType.RUNTIME && (
@@ -154,11 +151,7 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
                                   projectIdentifier: template.projectIdentifier,
                                   orgIdentifier: template.orgIdentifier
                                 }}
-                                allowableTypes={[
-                                  MultiTypeInputType.FIXED,
-                                  MultiTypeInputType.EXPRESSION,
-                                  MultiTypeInputType.RUNTIME
-                                ]}
+                                allowableTypes={allowableTypes}
                                 label={getString('delegate.DelegateSelector')}
                                 name={'spec.delegateSelectors'}
                                 disabled={true}

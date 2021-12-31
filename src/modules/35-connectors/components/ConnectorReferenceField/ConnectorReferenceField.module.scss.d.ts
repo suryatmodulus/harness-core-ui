@@ -15,8 +15,8 @@ declare const styles: {
   readonly status: string
   readonly redStatus: string
   readonly greenStatus: string
-  readonly tag: string
   readonly rightStatus: string
+  readonly tag: string
   readonly label: string
   readonly selectWrapper: string
   readonly noDataCardContainerConnector: string

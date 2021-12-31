@@ -16,7 +16,8 @@ import {
   useModalHook,
   FlexExpander,
   TextInput,
-  PageError
+  PageError,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import { get, noop, omit, debounce } from 'lodash-es'
 import cx from 'classnames'
@@ -303,6 +304,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
           color={Color.GREY_600}
         >
           {getString('pipeline.testsReports.testExecutions')}
+          <HarnessDocTooltip tooltipId="testExecutions" useStandAlone={true} />
         </Heading>
         {loading && <Icon name="steps-spinner" size={16} color="blue500" margin={{ left: 'xsmall' }} />}
       </Container>
@@ -460,6 +462,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
             <Layout.Horizontal className={css.callgraphHeader}>
               <Text color={Color.GREY_800} style={{ fontWeight: 500, fontSize: '14px', lineHeight: '32px' }}>
                 {getString('pipeline.testsReports.callgraphTitle')}
+                <HarnessDocTooltip tooltipId="callGraphTitle" useStandAlone={true} />
               </Text>
               <FlexExpander />
               <Button

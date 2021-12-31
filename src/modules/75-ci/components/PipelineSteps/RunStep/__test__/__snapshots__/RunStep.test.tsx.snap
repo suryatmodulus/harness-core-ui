@@ -216,12 +216,17 @@ exports[`Run Step Edit View edit mode works 1`] = `
                 class="Tooltip--acenter bp3-label"
                 data-tooltip-id="ciRunStep_spec.connectorRef"
               >
-                <p
-                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-baseline"
                 >
-                  pipelineSteps.connectorLabel
-                </p>
+                  <p
+                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                    style="display: flex; align-items: center;"
+                  >
+                    pipelineSteps.connectorLabel
+                  </p>
+                   
+                </div>
               </span>
             </div>
             <div
@@ -292,7 +297,8 @@ exports[`Run Step Edit View edit mode works 1`] = `
                               class="Tag--main"
                             >
                               <span
-                                class="bp3-tag bp3-minimal tag"
+                                class="bp3-tag bp3-minimal"
+                                id="tag"
                               >
                                 <span
                                   class="bp3-text-overflow-ellipsis bp3-fill"
@@ -361,18 +367,22 @@ exports[`Run Step Edit View edit mode works 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg bottomMargin5"
         >
-          <div
-            style="padding: 0px; margin: 0px;"
-          >
+          <div>
             <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="image"
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-baseline"
             >
-              <p
-                class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="image"
               >
-                imageLabel
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  placeholder="imagePlaceholder"
+                >
+                  imageLabel
+                </p>
+              </div>
+               
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -396,7 +406,6 @@ exports[`Run Step Edit View edit mode works 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="spec.image"
-                        placeholder="imagePlaceholder"
                         type="text"
                         value="image"
                       />
@@ -843,12 +852,17 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
                 class="Tooltip--acenter bp3-label"
                 data-tooltip-id="ciRunStep_spec.connectorRef"
               >
-                <p
-                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-baseline"
                 >
-                  pipelineSteps.connectorLabel
-                </p>
+                  <p
+                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                    style="display: flex; align-items: center;"
+                  >
+                    pipelineSteps.connectorLabel
+                  </p>
+                   
+                </div>
               </span>
             </div>
             <div
@@ -953,18 +967,22 @@ exports[`Run Step Edit View renders runtime inputs 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg bottomMargin5"
         >
-          <div
-            style="padding: 0px; margin: 0px;"
-          >
+          <div>
             <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="image"
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-baseline"
             >
-              <p
-                class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="image"
               >
-                imageLabel
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  placeholder="imagePlaceholder"
+                >
+                  imageLabel
+                </p>
+              </div>
+               
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -1449,12 +1467,17 @@ exports[`Run Step Edit View should render properly 1`] = `
                 class="Tooltip--acenter bp3-label"
                 data-tooltip-id="ciRunStep_spec.connectorRef"
               >
-                <p
-                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-baseline"
                 >
-                  pipelineSteps.connectorLabel
-                </p>
+                  <p
+                    class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                    style="display: flex; align-items: center;"
+                  >
+                    pipelineSteps.connectorLabel
+                  </p>
+                   
+                </div>
               </span>
             </div>
             <div
@@ -1544,18 +1567,22 @@ exports[`Run Step Edit View should render properly 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg bottomMargin5"
         >
-          <div
-            style="padding: 0px; margin: 0px;"
-          >
+          <div>
             <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="image"
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-baseline"
             >
-              <p
-                class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="image"
               >
-                imageLabel
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                  placeholder="imagePlaceholder"
+                >
+                  imageLabel
+                </p>
+              </div>
+               
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -1579,7 +1606,6 @@ exports[`Run Step Edit View should render properly 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="spec.image"
-                        placeholder="imagePlaceholder"
                         type="text"
                         value=""
                       />
@@ -1786,9 +1812,6 @@ exports[`Run Step InputSet View should not render any fields 1`] = `
             style="min-height: 24px;"
           />
         </div>
-        <div
-          class="StyledProps--font StyledProps--main bottomMargin3"
-        />
         <div>
           <div
             style="min-height: 24px;"
@@ -3053,9 +3076,6 @@ exports[`Run Step InputSet View should render properly 1`] = `
             style="min-height: 24px;"
           />
         </div>
-        <div
-          class="StyledProps--font StyledProps--main bottomMargin3"
-        />
         <div>
           <div
             style="min-height: 24px;"

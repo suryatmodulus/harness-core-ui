@@ -39,6 +39,7 @@ import css from './ManifestWizardSteps.module.scss'
 interface ManifestStorePropType {
   stepName: string
   expressions: string[]
+  allowableTypes: MultiTypeInputType[]
   isReadonly: boolean
   manifestStoreTypes: Array<ManifestStores>
   initialValues: ManifestStepInitData
@@ -55,6 +56,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   initialValues,
   previousStep,
   expressions,
+  allowableTypes,
   prevStepData,
   nextStep
 }) => {
@@ -176,7 +178,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                       projectIdentifier={projectIdentifier}
                       orgIdentifier={orgIdentifier}
                       width={400}
-                      multiTypeProps={{ expressions }}
+                      multiTypeProps={{ expressions, allowableTypes }}
                       isNewConnectorLabelVisible={
                         !(
                           getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME &&

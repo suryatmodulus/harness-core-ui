@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState, useMemo } from 'react'
 import cx from 'classnames'
-import { Container, FormInput, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { ButtonVariation, Container, FormInput, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -11,6 +11,8 @@ import {
   useGetMonitoredServiceFromServiceAndEnvironment
 } from 'services/cv'
 import { useStrings } from 'framework/strings'
+import { PermissionIdentifier, ResourceType } from 'microfrontends'
+import RbacButton from '@rbac/components/Button/Button'
 import Card from '@cv/components/Card/Card'
 import VerifyStepHealthSourceTable from '@cv/pages/health-source/HealthSourceTable/VerifyStepHealthSourceTable'
 import type { RowData } from '@cv/pages/health-source/HealthSourceDrawer/HealthSourceDrawerContent.types'
@@ -195,9 +197,19 @@ export default function MonitoredService({
           name={'spec.monitoredServiceRef'}
           label={getString('connectors.cdng.monitoredService.label')}
           render={() => (
-            <a onClick={createMonitoredService}>
-              {getString('connectors.cdng.monitoredService.autoCreateMonitoredService')}
-            </a>
+            <RbacButton
+              variation={ButtonVariation.LINK}
+              permission={{
+                permission: PermissionIdentifier.EDIT_MONITORED_SERVICE,
+                resource: {
+                  resourceType: ResourceType.MONITOREDSERVICE,
+                  resourceIdentifier: projectIdentifier
+                }
+              }}
+              onClick={createMonitoredService}
+              text={getString('connectors.cdng.monitoredService.autoCreateMonitoredService')}
+              style={{ paddingLeft: 0 }}
+            />
           )}
         />
       </Card>

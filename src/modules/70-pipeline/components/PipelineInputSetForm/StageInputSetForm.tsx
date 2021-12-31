@@ -39,7 +39,8 @@ function ServiceDependencyForm({
   onUpdate,
   readonly,
   viewType,
-  path
+  path,
+  allowableTypes
 }: {
   template?: any
   allValues?: any
@@ -48,6 +49,7 @@ function ServiceDependencyForm({
   readonly?: boolean
   viewType?: StepViewType
   path: string
+  allowableTypes: MultiTypeInputType[]
 }): JSX.Element {
   const { getString } = useStrings()
   return (
@@ -64,7 +66,7 @@ function ServiceDependencyForm({
           factory={factory}
           readonly={readonly}
           path={path}
-          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+          allowableTypes={allowableTypes}
           template={template}
           initialValues={values || {}}
           allValues={allValues || {}}
@@ -77,14 +79,16 @@ function ServiceDependencyForm({
   )
 }
 
-function StepForm({
+export function StepForm({
   template,
   allValues,
   values,
   onUpdate,
   readonly,
   viewType,
-  path
+  path,
+  allowableTypes,
+  hideTitle = false
 }: {
   template?: ExecutionWrapperConfig
   allValues?: ExecutionWrapperConfig
@@ -93,6 +97,8 @@ function StepForm({
   readonly?: boolean
   viewType?: StepViewType
   path: string
+  allowableTypes: MultiTypeInputType[]
+  hideTitle?: boolean
 }): JSX.Element {
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
@@ -104,22 +110,24 @@ function StepForm({
 
   return (
     <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
-      <Label>
-        <Icon
-          padding={{ right: 'small' }}
-          {...(factory.getStepIconColor(type || '') ? { color: factory.getStepIconColor(type || '') } : {})}
-          style={{ color: factory.getStepIconColor(type || '') }}
-          name={factory.getStepIcon(type || /* istanbul ignore next */ '')}
-        />
-        {getString('pipeline.execution.stepTitlePrefix')}
-        {getString('pipeline.stepLabel', allValues?.step)}
-      </Label>
+      {!hideTitle && (
+        <Label>
+          <Icon
+            padding={{ right: 'small' }}
+            {...(factory.getStepIconColor(type || '') ? { color: factory.getStepIconColor(type || '') } : {})}
+            style={{ color: factory.getStepIconColor(type || '') }}
+            name={factory.getStepIcon(type || /* istanbul ignore next */ '')}
+          />
+          {getString('pipeline.execution.stepTitlePrefix')}
+          {getString('pipeline.stepLabel', allValues?.step)}
+        </Label>
+      )}
       <div>
         <StepWidget<Partial<StepElementConfig>>
           factory={factory}
           readonly={readonly}
           path={path}
-          allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+          allowableTypes={allowableTypes}
           template={template?.step}
           initialValues={values?.step || {}}
           allValues={allValues?.step || {}}
@@ -132,7 +140,7 @@ function StepForm({
             <MultiTypeDelegateSelector
               expressions={expressions}
               inputProps={{ projectIdentifier, orgIdentifier }}
-              allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+              allowableTypes={allowableTypes}
               label={getString('delegate.DelegateSelector')}
               name={`${path}.spec.delegateSelectors`}
               disabled={readonly}
@@ -152,6 +160,7 @@ export interface StageInputSetFormProps {
   readonly?: boolean
   viewType: StepViewType
   stageIdentifier?: string
+  allowableTypes: MultiTypeInputType[]
 }
 
 function ExecutionWrapperInputSetForm(props: {
@@ -162,8 +171,9 @@ function ExecutionWrapperInputSetForm(props: {
   values?: ExecutionWrapperConfig[]
   readonly?: boolean
   viewType: StepViewType
+  allowableTypes: MultiTypeInputType[]
 }): JSX.Element {
-  const { stepsTemplate, allValues, values, path, formik, readonly, viewType } = props
+  const { stepsTemplate, allValues, values, path, formik, readonly, viewType, allowableTypes } = props
   return (
     <>
       {stepsTemplate?.map((item, index) => {
@@ -179,6 +189,7 @@ function ExecutionWrapperInputSetForm(props: {
               path={`${path}[${index}].step`}
               readonly={readonly}
               viewType={viewType}
+              allowableTypes={allowableTypes}
               onUpdate={data => {
                 /* istanbul ignore next */
                 if (initialValues) {
@@ -223,6 +234,7 @@ function ExecutionWrapperInputSetForm(props: {
                   readonly={readonly}
                   viewType={viewType}
                   path={`${path}[${index}].parallel[${indexp}].step`}
+                  allowableTypes={allowableTypes}
                   onUpdate={data => {
                     if (initialValues) {
                       if (!initialValues.step) {
@@ -265,6 +277,7 @@ function ExecutionWrapperInputSetForm(props: {
                       allValues={stepGroup?.stepGroup?.steps}
                       values={initialValues?.stepGroup?.steps}
                       viewType={viewType}
+                      allowableTypes={allowableTypes}
                     />
                   </CollapseForm>
                 </>
@@ -289,6 +302,7 @@ function ExecutionWrapperInputSetForm(props: {
                   allValues={stepGroup?.stepGroup?.steps}
                   values={initialValues?.stepGroup?.steps}
                   viewType={viewType}
+                  allowableTypes={allowableTypes}
                 />
               </CollapseForm>
             </>
@@ -306,7 +320,8 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
   formik,
   readonly,
   viewType,
-  stageIdentifier
+  stageIdentifier,
+  allowableTypes
 }) => {
   const deploymentStageInputSet = get(formik?.values, path, {})
   const { getString } = useStrings()
@@ -327,7 +342,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 type={StepType.DeployService}
                 stepViewType={viewType}
                 path={`${path}.serviceConfig`}
-                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+                allowableTypes={allowableTypes}
                 readonly={readonly}
                 customStepProps={{ stageIdentifier }}
               />
@@ -340,7 +355,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                     ? (deploymentStageInputSet?.serviceConfig?.stageOverrides as StageOverridesConfig)
                     : deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec || {}
                 }
-                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+                allowableTypes={allowableTypes}
                 template={
                   isPropagating && deploymentStageTemplate
                     ? deploymentStageTemplate?.serviceConfig?.stageOverrides
@@ -394,7 +409,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.namespace`}
                 multiTextInputProps={{
                   expressions,
-                  allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                  allowableTypes: allowableTypes
                 }}
                 disabled={readonly}
               />
@@ -405,7 +420,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.serviceAccountName`}
                 multiTextInputProps={{
                   expressions,
-                  allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                  allowableTypes: allowableTypes
                 }}
                 disabled={readonly}
               />
@@ -418,7 +433,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 multiTextInputProps={{
                   multiTextInputProps: {
                     expressions,
-                    allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                    allowableTypes: allowableTypes
                   },
                   disabled: readonly,
                   placeholder: '1000'
@@ -435,7 +450,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.initTimeout`}
                 multiTypeDurationProps={{
                   expressions,
-                  allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                  allowableTypes: allowableTypes
                 }}
                 disabled={readonly}
               />
@@ -449,7 +464,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 template={deploymentStageTemplate?.infrastructure || {}}
                 type={StepType.DeployEnvironment}
                 stepViewType={viewType}
-                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+                allowableTypes={allowableTypes}
                 path={`${path}.infrastructure`}
                 readonly={readonly}
               />
@@ -459,7 +474,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 factory={factory}
                 template={deploymentStageTemplate.infrastructure.infrastructureDefinition.spec}
                 initialValues={deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec || {}}
-                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+                allowableTypes={allowableTypes}
                 allValues={
                   deploymentStage?.infrastructure?.infrastructureDefinition?.spec || /* istanbul ignore next */ {}
                 }
@@ -500,6 +515,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 formik={formik}
                 readonly={readonly}
                 viewType={viewType}
+                allowableTypes={allowableTypes}
               />
             )}
             {deploymentStageTemplate.infrastructure.infrastructureDefinition?.provisioner?.rollbackSteps && (
@@ -513,6 +529,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 formik={formik}
                 readonly={readonly}
                 viewType={viewType}
+                allowableTypes={allowableTypes}
               />
             )}
           </div>
@@ -527,7 +544,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
             <MultiTypeListInputSet
               name={`${isEmpty(path) ? '' : `${path}.`}sharedPaths`}
               multiTextInputProps={{
-                allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+                allowableTypes: allowableTypes,
                 expressions
               }}
               multiTypeFieldSelectorProps={{
@@ -564,6 +581,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                   values={deploymentStageInputSet?.serviceDependencies?.[index]}
                   readonly={readonly}
                   viewType={viewType}
+                  allowableTypes={allowableTypes}
                   key={identifier}
                   onUpdate={data => {
                     const originalServiceDependency = (deploymentStage as any)?.serviceDependencies?.[index]
@@ -607,6 +625,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 formik={formik}
                 readonly={readonly}
                 viewType={viewType}
+                allowableTypes={allowableTypes}
               />
             )}
             {deploymentStageTemplate.execution?.rollbackSteps && (
@@ -618,6 +637,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 formik={formik}
                 readonly={readonly}
                 viewType={viewType}
+                allowableTypes={allowableTypes}
               />
             )}
           </div>

@@ -1,11 +1,10 @@
 import React from 'react'
-import type { FormEvent } from 'react'
 import { Text, FontVariation, Label, Layout, TextInput } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import css from './RunPipelineForm.module.scss'
 interface ReplacedExpressionInputFormProps {
   expressions?: string[]
-  updateExpressionValue: (e: FormEvent<HTMLElement>) => void
+  updateExpressionValue: React.FormEventHandler<HTMLElement>
 }
 const ReplacedExpressionInputForm = ({
   expressions = [],

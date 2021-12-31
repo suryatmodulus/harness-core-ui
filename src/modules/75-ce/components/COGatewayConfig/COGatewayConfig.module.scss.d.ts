@@ -9,6 +9,7 @@ declare const styles: {
   readonly card: string
   readonly instanceTable: string
   readonly healthCheckTable: string
+  readonly portConfigTable: string
   readonly page: string
   readonly instanceSelection: string
   readonly switchFont: string

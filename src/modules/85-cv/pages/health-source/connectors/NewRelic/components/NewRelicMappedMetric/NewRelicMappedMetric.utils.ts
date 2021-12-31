@@ -1,7 +1,5 @@
-import type { ResponseListTimeSeriesSampleDTO } from 'services/cv'
+import type { TimeSeriesSampleDTO } from 'services/cv'
 
-export const getOptionsForChart = (
-  newRelicTimeSeriesData: ResponseListTimeSeriesSampleDTO | null
-): (number | undefined)[][] => {
-  return newRelicTimeSeriesData?.data?.map(el => [el?.timestamp, el?.metricValue]) || []
+export const getOptionsForChart = (newRelicTimeSeriesData: TimeSeriesSampleDTO[] | null): (number | undefined)[][] => {
+  return newRelicTimeSeriesData?.map(el => [el?.timestamp, el?.metricValue]) || []
 }

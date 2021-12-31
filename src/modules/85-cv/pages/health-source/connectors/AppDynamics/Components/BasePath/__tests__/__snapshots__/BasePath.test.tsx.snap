@@ -3,30 +3,6 @@
 exports[`Base Path should render 1`] = `
 <div>
   <div>
-    <p
-      class="StyledProps--font StyledProps--main StyledProps--padding-bottom-medium StyledProps--font-variation-h6"
-    >
-      cv.monitoringSources.appD.appdPathTitle
-    </p>
-    <p
-      class="StyledProps--font StyledProps--main StyledProps--padding-bottom-medium"
-    >
-      cv.monitoringSources.appD.appdPathDetail
-    </p>
-    <div
-      class="StyledProps--font StyledProps--main basePathContainer"
-    >
-      <p
-        class="StyledProps--font StyledProps--main basePathLabel StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-grey400"
-      >
-        common.path
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main basePathValue StyledProps--font-variation-small-semi"
-      >
-        
-      </p>
-    </div>
     <div
       class="bp3-form-group basePathDropdown"
     >

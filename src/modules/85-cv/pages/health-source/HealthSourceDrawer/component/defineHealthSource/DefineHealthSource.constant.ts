@@ -26,6 +26,10 @@ export const HEALTHSOURCE_LIST = [
   {
     name: HealthSourceTypes.Datadog,
     icon: getConnectorIconByType(Connectors.DATADOG)
+  },
+  {
+    name: HealthSourceTypes.CustomHealth,
+    icon: getConnectorIconByType(Connectors.CUSTOM_HEALTH)
   }
 ]
 

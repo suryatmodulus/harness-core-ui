@@ -47,7 +47,7 @@ const SummaryCardWrapper: React.FC<SummaryCardProps> = ({ point, ...rest }) => {
   }
 
   return createPortal(
-    <foreignObject className="node" width="360px" height="435px">
+    <foreignObject className="node" width="360px" height="485px">
       <Container
         height="100%"
         padding="large"

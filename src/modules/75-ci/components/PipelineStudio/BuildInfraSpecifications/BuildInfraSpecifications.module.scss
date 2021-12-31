@@ -1,12 +1,11 @@
 .wrapper {
-  display: grid;
-  // grid-template-columns: auto 1fr;
+  background-color: var(--form-bg);
+  height: inherit;
 }
 
 .content-section {
   padding: 48px;
   height: 100%;
-  background-color: var(--form-bg);
   padding-bottom: 96px;
 }
 
@@ -23,7 +22,7 @@
   font-weight: 600;
 }
 .sectionCard {
-  width: 1024px;
+  width: 900px;
   margin-top: var(--spacing-medium);
   margin-bottom: 20px;
   box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
@@ -79,6 +78,7 @@
 }
 
 .card {
+  width: 305px;
   // TODO: Replace color once it is available in UIKit
   background: var(--grey-50);
   // TODO: Replace color once it is available in UIKit
@@ -167,10 +167,10 @@
 }
 
 .helptext {
-  height: 350px;
+  height: 260px;
   width: 350px;
   border-radius: 8px;
-  background-color: var(--blue-50) !important;
+  background-color: var(--primary-1) !important;
 }
 
 .formGroup {

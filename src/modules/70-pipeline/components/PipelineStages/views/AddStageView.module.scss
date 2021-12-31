@@ -1,8 +1,8 @@
 .create-new-content {
-  max-width: 530px;
+  max-width: 570px;
   background: #fff;
   display: grid;
-  grid-template-columns: 320px 210px;
+  grid-template-columns: 360px 210px;
   &.parallel {
     .create-new-cards {
       grid-template-columns: 66px 66px 66px;
@@ -34,7 +34,7 @@
   .create-new-cards {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: var(--spacing-xlarge);
+    gap: var(--spacing-xxlarge);
 
     .card-new {
       width: 72px;
@@ -67,10 +67,8 @@
     }
   }
   .stageTitle {
-    font-size: var(--font-size-medium);
-    font-weight: 600;
-    color: var(--grey-800);
-    margin-bottom: 24px;
+    justify-content: space-between;
+    align-items: baseline;
   }
 
   .hoverTitle {

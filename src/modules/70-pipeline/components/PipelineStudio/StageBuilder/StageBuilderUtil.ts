@@ -3,6 +3,7 @@ import { Color, Utils } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import type { NodeModelListener, LinkModelListener, DiagramEngine } from '@projectstorm/react-diagrams-core'
 import produce from 'immer'
+import { parse } from 'yaml'
 import type {
   StageElementWrapperConfig,
   PageConnectorResponse,
@@ -17,6 +18,7 @@ import {
 } from '@common/components/EntityReference/EntityReference'
 import type { StageType } from '@pipeline/utils/stageHelpers'
 import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import type { TemplateSummaryResponse } from 'services/template-ng'
 import { EmptyStageName } from '../PipelineConstants'
 import type { PipelineContextInterface, StagesMap } from '../PipelineContext/PipelineContext'
 import { getStageFromPipeline } from '../PipelineContext/helpers'
@@ -29,6 +31,7 @@ export interface StageState {
 export interface PopoverData {
   data?: StageElementWrapperConfig
   isStageView: boolean
+  contextType?: string
   groupStages?: StageElementWrapperConfig[]
   isGroupStage?: boolean
   stagesMap: StagesMap
@@ -47,6 +50,10 @@ export interface PopoverData {
   onClickGroupStage?: (stageId: string, type: StageType) => void
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
   isHoverView?: boolean
+  templateTypes: { [key: string]: string }
+  setTemplateTypes: (data: { [key: string]: string }) => void
+  openTemplateSelector: (selectorData: any) => void
+  closeTemplateSelector: () => void
 }
 
 export const getStageIndexByIdentifier = (
@@ -71,6 +78,19 @@ export const getStageIndexByIdentifier = (
     }
   }
   return stageDetails
+}
+
+export const getNewStageFromTemplate = (
+  template: TemplateSummaryResponse,
+  clearDefaultValues = false
+): StageElementWrapperConfig => {
+  return {
+    stage: {
+      ...parse(template?.yaml || '')?.template.spec,
+      name: clearDefaultValues ? '' : EmptyStageName,
+      identifier: clearDefaultValues ? '' : uuid()
+    }
+  }
 }
 
 export const getNewStageFromType = (type: string, clearDefaultValues = false): StageElementWrapperConfig => {
@@ -186,7 +206,7 @@ export const mayBeStripCIProps = (pipeline: PipelineInfoConfig): boolean => {
 export const removeNodeFromPipeline = (
   nodeResponse: { stage?: StageElementWrapperConfig; parent?: StageElementWrapperConfig },
   data: PipelineInfoConfig,
-  stageMap: Map<string, StageState>,
+  stageMap?: Map<string, StageState>,
   updateStateMap = true
 ): boolean => {
   const { stage: node, parent } = nodeResponse
@@ -195,14 +215,12 @@ export const removeNodeFromPipeline = (
     if (index > -1) {
       data?.stages?.splice(index, 1)
       if (updateStateMap) {
-        stageMap.delete(node.stage?.identifier || '')
+        stageMap?.delete(node.stage?.identifier || '')
 
         data.stages?.map(currentStage => {
-          if (
-            (currentStage.stage?.spec as DeploymentStageConfig)?.serviceConfig?.useFromStage?.stage ===
-            node?.stage?.identifier
-          ) {
-            ;(currentStage.stage?.spec as DeploymentStageConfig).serviceConfig = {}
+          const spec = currentStage.stage?.spec as DeploymentStageConfig
+          if (spec?.serviceConfig?.useFromStage?.stage === node?.stage?.identifier) {
+            spec.serviceConfig = {}
           }
         })
       }
@@ -222,7 +240,9 @@ export const removeNodeFromPipeline = (
             data?.stages?.splice(oneStageParallel, 1, parent.parallel[0])
           }
         }
-        updateStateMap && stageMap.delete(node.stage?.identifier || '')
+        if (updateStateMap) {
+          stageMap?.delete(node.stage?.identifier || '')
+        }
         return true
       }
     }
@@ -235,7 +255,8 @@ export const getDependantStages = (pipeline: PipelineInfoConfig, node?: StageEle
 
   flattenedStages?.forEach(currentStage => {
     if (
-      (currentStage.stage?.spec as DeploymentStageConfig).serviceConfig?.useFromStage?.stage === node?.stage?.identifier
+      (currentStage.stage?.spec as DeploymentStageConfig)?.serviceConfig?.useFromStage?.stage ===
+      node?.stage?.identifier
     ) {
       dependantStages.push(currentStage.stage?.name || '')
     }
@@ -336,7 +357,8 @@ export const getAffectedDependentStages = (
 
 export const resetStageServiceSpec = (stage: StageElementWrapperConfig): StageElementWrapperConfig =>
   produce(stage, draft => {
-    ;(draft.stage?.spec as DeploymentStageConfig).serviceConfig = {
+    const spec = (draft.stage?.spec as DeploymentStageConfig) || {}
+    spec.serviceConfig = {
       serviceRef: '',
       serviceDefinition: {
         type: 'Kubernetes',

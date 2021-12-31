@@ -262,7 +262,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
         )}
         {options.isTemplate && (
           <Icon
-            size={10}
+            size={8}
             className={css.template}
             name={'template-library'}
             color={isSelected ? Color.WHITE : Color.PRIMARY_7}

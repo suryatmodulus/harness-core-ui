@@ -1,8 +1,37 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useGetLicensesAndSummary, useExtendTrialLicense, useSaveFeedback } from 'services/cd-ng'
+import { useGetLicensesAndSummary, useExtendTrialLicense, useSaveFeedback, useGetProjectList } from 'services/cd-ng'
 import CFHomePage from '../CFHomePage'
+
+const projects = [
+  {
+    project: {
+      accountIdentifier: 'dummy',
+      orgIdentifier: 'default',
+      identifier: 'TestCiproject',
+      name: 'project1',
+      color: '#0063F7',
+      modules: ['CI', 'CF'],
+      description: '',
+      tags: {},
+      lastModifiedAt: 1607348985778
+    }
+  },
+  {
+    project: {
+      accountIdentifier: 'dummy',
+      orgIdentifier: 'default',
+      identifier: 'test11',
+      name: 'project2',
+      color: '#0063F7',
+      modules: ['CF'],
+      description: '',
+      tags: {},
+      lastModifiedAt: 1607075878518
+    }
+  }
+]
 
 jest.mock('services/cd-ng')
 const useGetModuleLicenseInfoMock = useGetLicensesAndSummary as jest.MockedFunction<any>
@@ -17,6 +46,10 @@ useSaveFeedbackMock.mockImplementation(() => {
   return {
     mutate: jest.fn()
   }
+})
+const useGetProjectListMock = useGetProjectList as jest.MockedFunction<any>
+useGetProjectListMock.mockImplementation(() => {
+  return { data: { data: { content: projects } }, refetch: jest.fn(), error: null }
 })
 
 const currentUser = {

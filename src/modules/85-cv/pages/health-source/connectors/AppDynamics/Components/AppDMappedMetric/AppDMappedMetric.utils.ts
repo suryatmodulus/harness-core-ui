@@ -27,7 +27,8 @@ export function updateSelectedMetricsMap({ updatedMetric, oldMetric, mappedMetri
         basePath: BasePathInitValue,
         metricPath: MetricPathInitValue,
         metricName: updatedMetric,
-        groupName: { label: 'Please Select Group Name', value: 'placeholder' }
+        groupName: { label: 'Please Select Group Name', value: 'placeholder' },
+        metricIdentifier: updatedMetric.split(' ').join('_')
       }
     })
   }

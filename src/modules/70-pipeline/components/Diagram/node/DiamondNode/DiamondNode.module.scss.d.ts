@@ -7,6 +7,7 @@ declare const styles: {
   readonly diamondClose: string
   readonly secondaryIcon: string
   readonly tertiaryIcon: string
+  readonly template: string
   readonly conditional: string
   readonly inComplete: string
 }

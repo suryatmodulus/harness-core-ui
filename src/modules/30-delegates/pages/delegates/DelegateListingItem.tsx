@@ -24,6 +24,7 @@ import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { usePermission } from '@rbac/hooks/usePermission'
+import { DelegateTypes } from '@delegates/constants'
 
 import css from './DelegatesPage.module.scss'
 
@@ -34,9 +35,9 @@ type delTroubleshoterProps = {
 
 const columnWidths = {
   icon: '80px',
-  name: '30%',
-  tags: '25%',
-  instances: '10%',
+  name: '25%',
+  tags: '20%',
+  instances: '20%',
   heartbeat: 'calc(15% - 40px)',
   status: 'calc(15% - 40px)',
   actions: '5%'
@@ -314,7 +315,9 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
                 </Layout.Horizontal>
                 <Container className={css.connectivity} width={columnWidths.tags} />
                 <Container width={columnWidths.instances} className={css.instancesColumn}>
-                  {instanceDetails.hostName}
+                  {instanceDetails.delegateType === DelegateTypes.DOCKER
+                    ? `${delegate.groupHostName}-${instanceDetails.hostName}`
+                    : instanceDetails.hostName}
                 </Container>
                 <Layout.Horizontal width={columnWidths.heartbeat}>
                   {instanceDetails.lastHeartBeat ? (
@@ -324,11 +327,7 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
                   )}
                 </Layout.Horizontal>
                 <Layout.Vertical width={columnWidths.status}>
-                  <Text
-                    icon="full-circle"
-                    iconProps={{ size: 6, color: podStatusColor, padding: 'small' }}
-                    color={podStatusColor}
-                  >
+                  <Text icon="full-circle" iconProps={{ size: 6, color: podStatusColor, padding: 'small' }}>
                     {statusText}
                   </Text>
                 </Layout.Vertical>

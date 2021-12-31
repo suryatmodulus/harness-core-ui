@@ -9,6 +9,7 @@ import { Views } from './Constants'
 import { ProjectCollaboratorsStep } from './views/Collaborators'
 import StepAboutProject from './views/StepAboutProject'
 import EditProject from './views/EditProject'
+import { useModuleSelectModal } from '../ModuleSelect/useModuleSelect'
 import css from './useProjectModal.module.scss'
 
 export interface UseProjectModalProps {
@@ -43,11 +44,17 @@ export const useProjectModal = ({
       overflow: 'auto'
     }
   }
+  const { openModuleSelectModal } = useModuleSelectModal({
+    onSuccess: () => onWizardComplete?.(projectData),
+    onCloseModal: () => onWizardComplete?.(projectData)
+  })
   const wizardCompleteHandler = async (wizardData: Project | undefined): Promise<void> => {
     if (!wizardData) {
       setProjectData(wizardData)
     }
-    onWizardComplete?.(wizardData)
+    if (wizardData) {
+      openModuleSelectModal(wizardData)
+    }
   }
   const [showModal, hideModal] = useModalHook(
     () => (

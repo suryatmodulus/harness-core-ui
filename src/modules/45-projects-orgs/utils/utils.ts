@@ -44,7 +44,20 @@ export const getModulePurpose = (module: ModuleName): keyof StringsMap | undefin
       return 'common.purpose.cf.flags'
   }
 }
-
+export const getModuleDescriptionsForModuleSelectionDialog = (module: ModuleName): keyof StringsMap | undefined => {
+  switch (module) {
+    case ModuleName.CD:
+      return 'common.selectAVersion.description'
+    case ModuleName.CV:
+      return 'common.purpose.cv.moduleSelectionSubHeading'
+    case ModuleName.CI:
+      return 'common.purpose.ci.descriptionOnly'
+    case ModuleName.CE:
+      return 'common.purpose.ce.moduleSelectionSubHeading'
+    case ModuleName.CF:
+      return 'common.purpose.cf.moduleSelectionSubHeading'
+  }
+}
 export const getModuleDescription = (module: ModuleName): StringKeys => {
   switch (module) {
     case ModuleName.CD:
@@ -87,4 +100,18 @@ export const getDetailsUrl = ({ accountId, orgIdentifier, projectIdentifier }: S
     return `${window.location.href.split('#')[0]}#${routes.toOrganizationDetails({ accountId, orgIdentifier })}`
   }
   return ''
+}
+export const getModuleFullLengthTitle = (module: ModuleName): keyof StringsMap => {
+  switch (module) {
+    case ModuleName.CV:
+      return 'common.purpose.cv.continuous'
+    case ModuleName.CE:
+      return 'common.purpose.ce.continuous'
+    case ModuleName.CF:
+      return 'common.purpose.cf.continuous'
+    case ModuleName.CI:
+      return 'common.purpose.ci.continuous'
+    default:
+      return 'common.purpose.cd.continuous'
+  }
 }

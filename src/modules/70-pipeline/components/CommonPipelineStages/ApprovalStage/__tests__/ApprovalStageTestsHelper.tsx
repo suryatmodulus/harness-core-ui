@@ -33,7 +33,11 @@ export const getPropsForMinimalStage = (): PipelineStagesProps<ApprovalStageMini
       type: '',
       key: 'approval'
     }
-  ]
+  ],
+  templateTypes: {},
+  setTemplateTypes: jest.fn(),
+  openTemplateSelector: jest.fn(),
+  closeTemplateSelector: jest.fn()
 })
 
 class StepFactory extends AbstractStepFactory {
@@ -166,6 +170,7 @@ export const pipelineContextMock = {
     isInitialized: true,
     error: ''
   },
+  contextType: 'Pipeline',
   stepsFactory: stepFactory,
   stagesMap
 }
@@ -221,6 +226,7 @@ export const pipelineContextMockJiraApproval = {
     isInitialized: true,
     error: ''
   },
+  contextType: 'Pipeline',
   stepsFactory: stepFactory,
   stagesMap
 }

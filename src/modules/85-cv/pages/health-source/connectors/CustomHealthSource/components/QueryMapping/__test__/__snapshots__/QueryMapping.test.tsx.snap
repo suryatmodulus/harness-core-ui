@@ -1,0 +1,1610 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Validate MapMetricsToServices conponent should render MapMetricsToServices 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+  >
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
+    >
+      cv.customHealthSource.Querymapping.label
+    </p>
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--margin-top-medium StyledProps--margin-bottom-medium StyledProps--border StyledProps--border-bottom"
+    >
+      <div
+        class="bp3-form-group"
+      >
+        <label
+          class="bp3-label"
+          for="queryType"
+        >
+          cv.componentValidations.queryTypeLabel
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="StyledProps--main"
+          >
+            
+            <div
+              class="RadioButtonGroup--inline"
+            >
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="queryType"
+                  type="radio"
+                  value="SERVICE_BASED"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                Service Based
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="queryType"
+                  type="radio"
+                  value="HOST_BASED"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                Host Based
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+    >
+      <div
+        class="bp3-form-group bp3-disabled"
+      >
+        <label
+          class="bp3-label"
+          for="baseURL"
+        >
+          connectors.customHealth.baseURL
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="bp3-input-group bp3-disabled"
+          >
+            <input
+              autocomplete="off"
+              class="bp3-input"
+              disabled=""
+              name="baseURL"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group"
+    >
+      <label
+        class="bp3-label"
+        for="requestMethod"
+      >
+        connectors.requestMethod
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="StyledProps--main"
+        >
+          
+          <div
+            class="RadioButtonGroup--inline"
+          >
+            <label
+              class="RadioButton--radio StyledProps--main"
+            >
+              <input
+                class="RadioButton--input"
+                name="requestMethod"
+                type="radio"
+                value="GET"
+              />
+              <span
+                class="RadioButton--radioIcon"
+              />
+              GET
+            </label>
+            <label
+              class="RadioButton--radio StyledProps--main"
+            >
+              <input
+                class="RadioButton--input"
+                name="requestMethod"
+                type="radio"
+                value="POST"
+              />
+              <span
+                class="RadioButton--radioIcon"
+              />
+              POST
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group baseUrl"
+    >
+      <label
+        class="bp3-label"
+        for="pathURL"
+      >
+        common.path
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-input-group"
+        >
+          <input
+            autocomplete="off"
+            class="bp3-input"
+            name="pathURL"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--margin-bottom-medium StyledProps--margin-top-medium"
+    >
+      cv.customHealthSource.Querymapping.fields.parameter.title
+    </p>
+    <div
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main parameterLayout StyledProps--margin-bottom-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-bottom"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
+        style="width: 50%;"
+      >
+        keyLabel
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
+        style="width: 50%;"
+      >
+        valueLabel
+      </p>
+    </div>
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main parameterLayout"
+      >
+        <div
+          class="bp3-form-group widthHalf"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="startTime.placeholder"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group widthHalf"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-popover-wrapper Select--main bp3-fill"
+            >
+              <div
+                class="bp3-popover-target"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="startTime.timestampFormat"
+                    placeholder="- Select -"
+                    style="padding-right: 0px;"
+                    type="text"
+                    value=""
+                  />
+                  <span
+                    class="bp3-input-action"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                      icon="chevron-down"
+                    >
+                      <svg
+                        data-icon="chevron-down"
+                        height="14"
+                        viewBox="0 0 16 16"
+                        width="14"
+                      >
+                        <desc>
+                          chevron-down
+                        </desc>
+                        <path
+                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main parameterLayout"
+      >
+        <div
+          class="bp3-form-group widthHalf"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="endTime.placeholder"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group widthHalf"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-popover-wrapper Select--main bp3-fill"
+            >
+              <div
+                class="bp3-popover-target"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="endTime.timestampFormat"
+                    placeholder="- Select -"
+                    style="padding-right: 0px;"
+                    type="text"
+                    value=""
+                  />
+                  <span
+                    class="bp3-input-action"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                      icon="chevron-down"
+                    >
+                      <svg
+                        data-icon="chevron-down"
+                        height="14"
+                        viewBox="0 0 16 16"
+                        width="14"
+                      >
+                        <desc>
+                          chevron-down
+                        </desc>
+                        <path
+                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main widthHalf StyledProps--margin-top-medium StyledProps--margin-bottom-medium"
+    >
+      <button
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          cv.monitoringSources.gcoLogs.fetchRecords
+        </span>
+      </button>
+      <div
+        class="StyledProps--font StyledProps--main queryAndRecords"
+      >
+        <p
+          class="StyledProps--font StyledProps--main labelText"
+        >
+          cv.monitoringSources.gcoLogs.records
+        </p>
+        <div
+          class="StyledProps--font StyledProps--main chartContainer"
+        >
+          <div
+            class="StyledProps--font StyledProps--main StackTraceList--main recordContainer"
+          >
+            <div
+              class="StyledProps--font StyledProps--main StackTraceList--listContainer"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StackTraceList--panel"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main StackTraceList--textContainer"
+                >
+                  <pre
+                    class="StackTraceList--textContent"
+                    data-is-collapsed="true"
+                  >
+                    {
+  "status": "SUCCESS",
+  "data": {
+    "total": {
+      "results": [
+        {
+          "average": 0.0026334715948905796
+        }
+      ],
+      "beginTimeSeconds": 1639743240,
+      "endTimeSeconds": 1639745040,
+      "inspectedCount": 30
+    },
+    "timeSeries": [
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743240,
+        "endTimeSeconds": 1639743300,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": 0.0030637369491159916
+          }
+        ],
+        "beginTimeSeconds": 1639743300,
+        "endTimeSeconds": 1639743360,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": 0.0030637369491159916
+          }
+        ],
+        "beginTimeSeconds": 1639743360,
+        "endTimeSeconds": 1639743420,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743420,
+        "endTimeSeconds": 1639743480,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743480,
+        "endTimeSeconds": 1639743540,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743540,
+        "endTimeSeconds": 1639743600,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743600,
+        "endTimeSeconds": 1639743660,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": 0.001387411030009389
+          }
+        ],
+        "beginTimeSeconds": 1639743660,
+        "endTimeSeconds": 1639743720,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743720,
+        "endTimeSeconds": 1639743780,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743780,
+        "endTimeSeconds": 1639743840,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743840,
+        "endTimeSeconds": 1639743900,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743900,
+        "endTimeSeconds": 1639743960,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743960,
+        "endTimeSeconds": 1639744020,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744020,
+        "endTimeSeconds": 1639744080,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744080,
+        "endTimeSeconds": 1639744140,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744140,
+        "endTimeSeconds": 1639744200,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": 0.002205845434218645
+          }
+        ],
+        "beginTimeSeconds": 1639744200,
+        "endTimeSeconds": 1639744260,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744260,
+        "endTimeSeconds": 1639744320,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744320,
+        "endTimeSeconds": 1639744380,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": 0.004594903904944658
+          }
+        ],
+        "beginTimeSeconds": 1639744380,
+        "endTimeSeconds": 1639744440,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744440,
+        "endTimeSeconds": 1639744500,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744500,
+        "endTimeSeconds": 1639744560,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744560,
+        "endTimeSeconds": 1639744620,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744620,
+        "endTimeSeconds": 1639744680,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": 0.002273146528750658
+          }
+        ],
+        "beginTimeSeconds": 1639744680,
+        "endTimeSeconds": 1639744740,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744740,
+        "endTimeSeconds": 1639744800,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744800,
+        "endTimeSeconds": 1639744860,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744860,
+        "endTimeSeconds": 1639744920,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744920,
+        "endTimeSeconds": 1639744980,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744980,
+        "endTimeSeconds": 1639745040,
+        "inspectedCount": 1
+      }
+    ],
+    "performanceStats": {
+      "inspectedCount": 30,
+      "omittedCount": 0,
+      "matchCount": 30,
+      "wallClockTime": 145,
+      "matchedFromFileRead": 0,
+      "matchedViaCache": 0
+    },
+    "metadata": {
+      "accounts": [
+        1805869
+      ],
+      "eventTypes": [
+        "Metric"
+      ],
+      "eventType": "Metric",
+      "timeAggregations": [
+        "raw metrics"
+      ],
+      "openEnded": false,
+      "beginTime": "2021-12-17T12:14:00Z",
+      "endTime": "2021-12-17T12:44:00Z",
+      "beginTimeMillis": 1639743240000,
+      "endTimeMillis": 1639745040000,
+      "rawSince": "1639743240000",
+      "rawUntil": "1639745040000",
+      "rawCompareWith": "",
+      "bucketSizeMillis": 60000,
+      "guid": "48d0cbe4-040c-fea2-b8a8-aba18a7a5d64",
+      "routerGuid": "48d0cbe4-040c-fea2-b8a8-aba18a7a5d64",
+      "messages": [],
+      "timeSeries": {
+        "messages": [],
+        "contents": [
+          {
+            "function": "average",
+            "attribute": "apm.service.transaction.duration",
+            "simple": true
+          }
+        ]
+      }
+    }
+  },
+  "metaData": null,
+  "correlationId": "1fe4535e-2665-483b-a23c-6096f20907b1"
+}
+                  </pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Validate MapMetricsToServices conponent should render MapMetricsToServices in editMode 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main"
+  >
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
+    >
+      cv.customHealthSource.Querymapping.label
+    </p>
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--margin-top-medium StyledProps--margin-bottom-medium StyledProps--border StyledProps--border-bottom"
+    >
+      <div
+        class="bp3-form-group"
+      >
+        <label
+          class="bp3-label"
+          for="queryType"
+        >
+          cv.componentValidations.queryTypeLabel
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="StyledProps--main"
+          >
+            
+            <div
+              class="RadioButtonGroup--inline"
+            >
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="queryType"
+                  type="radio"
+                  value="SERVICE_BASED"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                Service Based
+              </label>
+              <label
+                class="RadioButton--radio StyledProps--main"
+              >
+                <input
+                  class="RadioButton--input"
+                  name="queryType"
+                  type="radio"
+                  value="HOST_BASED"
+                />
+                <span
+                  class="RadioButton--radioIcon"
+                />
+                Host Based
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+    >
+      <div
+        class="bp3-form-group bp3-disabled"
+      >
+        <label
+          class="bp3-label"
+          for="baseURL"
+        >
+          connectors.customHealth.baseURL
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="bp3-input-group bp3-disabled"
+          >
+            <input
+              autocomplete="off"
+              class="bp3-input"
+              disabled=""
+              name="baseURL"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group"
+    >
+      <label
+        class="bp3-label"
+        for="requestMethod"
+      >
+        connectors.requestMethod
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="StyledProps--main"
+        >
+          
+          <div
+            class="RadioButtonGroup--inline"
+          >
+            <label
+              class="RadioButton--radio StyledProps--main"
+            >
+              <input
+                class="RadioButton--input"
+                name="requestMethod"
+                type="radio"
+                value="GET"
+              />
+              <span
+                class="RadioButton--radioIcon"
+              />
+              GET
+            </label>
+            <label
+              class="RadioButton--radio StyledProps--main"
+            >
+              <input
+                class="RadioButton--input"
+                name="requestMethod"
+                type="radio"
+                value="POST"
+              />
+              <span
+                class="RadioButton--radioIcon"
+              />
+              POST
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="bp3-form-group baseUrl"
+    >
+      <label
+        class="bp3-label"
+        for="pathURL"
+      >
+        common.path
+         
+        <span
+          class="bp3-text-muted"
+        />
+      </label>
+      <div
+        class="bp3-form-content"
+      >
+        <div
+          class="bp3-input-group"
+        >
+          <input
+            autocomplete="off"
+            class="bp3-input"
+            name="pathURL"
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--margin-bottom-medium StyledProps--margin-top-medium"
+    >
+      cv.customHealthSource.Querymapping.fields.parameter.title
+    </p>
+    <div
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main parameterLayout StyledProps--margin-bottom-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-bottom"
+    >
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
+        style="width: 50%;"
+      >
+        keyLabel
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
+        style="width: 50%;"
+      >
+        valueLabel
+      </p>
+    </div>
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main parameterLayout"
+      >
+        <div
+          class="bp3-form-group widthHalf"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="startTime.placeholder"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group widthHalf"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-popover-wrapper Select--main bp3-fill"
+            >
+              <div
+                class="bp3-popover-target"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="startTime.timestampFormat"
+                    placeholder="- Select -"
+                    style="padding-right: 0px;"
+                    type="text"
+                    value=""
+                  />
+                  <span
+                    class="bp3-input-action"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                      icon="chevron-down"
+                    >
+                      <svg
+                        data-icon="chevron-down"
+                        height="14"
+                        viewBox="0 0 16 16"
+                        width="14"
+                      >
+                        <desc>
+                          chevron-down
+                        </desc>
+                        <path
+                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main parameterLayout"
+      >
+        <div
+          class="bp3-form-group widthHalf"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="endTime.placeholder"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group widthHalf"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-popover-wrapper Select--main bp3-fill"
+            >
+              <div
+                class="bp3-popover-target"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="endTime.timestampFormat"
+                    placeholder="- Select -"
+                    style="padding-right: 0px;"
+                    type="text"
+                    value=""
+                  />
+                  <span
+                    class="bp3-input-action"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                      icon="chevron-down"
+                    >
+                      <svg
+                        data-icon="chevron-down"
+                        height="14"
+                        viewBox="0 0 16 16"
+                        width="14"
+                      >
+                        <desc>
+                          chevron-down
+                        </desc>
+                        <path
+                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main widthHalf StyledProps--margin-top-medium StyledProps--margin-bottom-medium"
+    >
+      <div
+        class="StyledProps--font StyledProps--main main"
+      >
+        <p
+          class="StyledProps--font StyledProps--main labelText"
+        >
+          Body
+        </p>
+        <div
+          class="StyledProps--font StyledProps--main queryContainer"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main queryIcons"
+          >
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main action Button--with-current-color Button--iconOnly Button--withLeftIcon"
+              type="button"
+            >
+              <span
+                class="bp3-icon bp3-icon-fullscreen StyledProps--main"
+                icon="fullscreen"
+              >
+                <svg
+                  data-icon="fullscreen"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    fullscreen
+                  </desc>
+                  <path
+                    d="M3.41 2H5c.55 0 1-.45 1-1s-.45-1-1-1H1C.45 0 0 .45 0 1v4c0 .55.45 1 1 1s1-.45 1-1V3.41L5.29 6.7c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L3.41 2zM6 9c-.28 0-.53.11-.71.29L2 12.59V11c0-.55-.45-1-1-1s-1 .45-1 1v4c0 .55.45 1 1 1h4c.55 0 1-.45 1-1s-.45-1-1-1H3.41l3.29-3.29c.19-.18.3-.43.3-.71 0-.55-.45-1-1-1zm9 1c-.55 0-1 .45-1 1v1.59L10.71 9.3A.965.965 0 0010 9a1.003 1.003 0 00-.71 1.71l3.3 3.29H11c-.55 0-1 .45-1 1s.45 1 1 1h4c.55 0 1-.45 1-1v-4c0-.55-.45-1-1-1zm0-10h-4c-.55 0-1 .45-1 1s.45 1 1 1h1.59l-3.3 3.29a1.003 1.003 0 001.42 1.42L14 3.41V5c0 .55.45 1 1 1s1-.45 1-1V1c0-.55-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+          <div
+            class="bp3-form-group formQueryBox"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <textarea
+                autocomplete="off"
+                class="bp3-input bp3-fill"
+                maxlength="1024"
+                name="query"
+              />
+            </div>
+          </div>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+          >
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                cv.monitoringSources.gcoLogs.fetchRecords
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main queryAndRecords"
+        >
+          <p
+            class="StyledProps--font StyledProps--main labelText"
+          >
+            cv.response
+          </p>
+          <div
+            class="StyledProps--font StyledProps--main chartContainer"
+          >
+            <div
+              class="StyledProps--font StyledProps--main StackTraceList--main recordContainer"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StackTraceList--listContainer"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main StackTraceList--panel"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main StackTraceList--textContainer"
+                  >
+                    <pre
+                      class="StackTraceList--textContent"
+                      data-is-collapsed="true"
+                    >
+                      {
+  "status": "SUCCESS",
+  "data": {
+    "total": {
+      "results": [
+        {
+          "average": 0.0026334715948905796
+        }
+      ],
+      "beginTimeSeconds": 1639743240,
+      "endTimeSeconds": 1639745040,
+      "inspectedCount": 30
+    },
+    "timeSeries": [
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743240,
+        "endTimeSeconds": 1639743300,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": 0.0030637369491159916
+          }
+        ],
+        "beginTimeSeconds": 1639743300,
+        "endTimeSeconds": 1639743360,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": 0.0030637369491159916
+          }
+        ],
+        "beginTimeSeconds": 1639743360,
+        "endTimeSeconds": 1639743420,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743420,
+        "endTimeSeconds": 1639743480,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743480,
+        "endTimeSeconds": 1639743540,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743540,
+        "endTimeSeconds": 1639743600,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743600,
+        "endTimeSeconds": 1639743660,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": 0.001387411030009389
+          }
+        ],
+        "beginTimeSeconds": 1639743660,
+        "endTimeSeconds": 1639743720,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743720,
+        "endTimeSeconds": 1639743780,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743780,
+        "endTimeSeconds": 1639743840,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743840,
+        "endTimeSeconds": 1639743900,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743900,
+        "endTimeSeconds": 1639743960,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639743960,
+        "endTimeSeconds": 1639744020,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744020,
+        "endTimeSeconds": 1639744080,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744080,
+        "endTimeSeconds": 1639744140,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744140,
+        "endTimeSeconds": 1639744200,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": 0.002205845434218645
+          }
+        ],
+        "beginTimeSeconds": 1639744200,
+        "endTimeSeconds": 1639744260,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744260,
+        "endTimeSeconds": 1639744320,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744320,
+        "endTimeSeconds": 1639744380,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": 0.004594903904944658
+          }
+        ],
+        "beginTimeSeconds": 1639744380,
+        "endTimeSeconds": 1639744440,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744440,
+        "endTimeSeconds": 1639744500,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744500,
+        "endTimeSeconds": 1639744560,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744560,
+        "endTimeSeconds": 1639744620,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744620,
+        "endTimeSeconds": 1639744680,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": 0.002273146528750658
+          }
+        ],
+        "beginTimeSeconds": 1639744680,
+        "endTimeSeconds": 1639744740,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744740,
+        "endTimeSeconds": 1639744800,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744800,
+        "endTimeSeconds": 1639744860,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744860,
+        "endTimeSeconds": 1639744920,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744920,
+        "endTimeSeconds": 1639744980,
+        "inspectedCount": 1
+      },
+      {
+        "results": [
+          {
+            "average": null
+          }
+        ],
+        "beginTimeSeconds": 1639744980,
+        "endTimeSeconds": 1639745040,
+        "inspectedCount": 1
+      }
+    ],
+    "performanceStats": {
+      "inspectedCount": 30,
+      "omittedCount": 0,
+      "matchCount": 30,
+      "wallClockTime": 145,
+      "matchedFromFileRead": 0,
+      "matchedViaCache": 0
+    },
+    "metadata": {
+      "accounts": [
+        1805869
+      ],
+      "eventTypes": [
+        "Metric"
+      ],
+      "eventType": "Metric",
+      "timeAggregations": [
+        "raw metrics"
+      ],
+      "openEnded": false,
+      "beginTime": "2021-12-17T12:14:00Z",
+      "endTime": "2021-12-17T12:44:00Z",
+      "beginTimeMillis": 1639743240000,
+      "endTimeMillis": 1639745040000,
+      "rawSince": "1639743240000",
+      "rawUntil": "1639745040000",
+      "rawCompareWith": "",
+      "bucketSizeMillis": 60000,
+      "guid": "48d0cbe4-040c-fea2-b8a8-aba18a7a5d64",
+      "routerGuid": "48d0cbe4-040c-fea2-b8a8-aba18a7a5d64",
+      "messages": [],
+      "timeSeries": {
+        "messages": [],
+        "contents": [
+          {
+            "function": "average",
+            "attribute": "apm.service.transaction.duration",
+            "simple": true
+          }
+        ]
+      }
+    }
+  },
+  "metaData": null,
+  "correlationId": "1fe4535e-2665-483b-a23c-6096f20907b1"
+}
+                    </pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

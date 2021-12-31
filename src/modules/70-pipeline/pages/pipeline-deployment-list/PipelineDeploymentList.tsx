@@ -65,12 +65,14 @@ const getHasFilters = ({
   queryParams,
   filterIdentifier,
   searchTerm,
-  myDeployments
+  myDeployments,
+  status
 }: {
   queryParams: QueryParams
   filterIdentifier?: string
   searchTerm?: string
   myDeployments?: boolean
+  status: GetListOfExecutionsQueryParams['status']
 }): boolean => {
   return (
     [queryParams.pipelineIdentifier, queryParams.filters, filterIdentifier, searchTerm].some(
@@ -222,7 +224,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     queryParams,
     filterIdentifier,
     searchTerm,
-    myDeployments
+    myDeployments,
+    status
   })
 
   const isCIModule = module === 'ci'
@@ -349,26 +352,26 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
 
   return (
     <GitSyncStoreProvider>
-      <Page.Body
-        className={css.main}
-        key={pipelineIdentifier}
-        error={(error?.data as Error)?.message || error?.message}
-        retryOnError={() => fetchExecutions()}
+      <FilterContextProvider
+        savedFilters={filters}
+        isFetchingFilters={isFetchingFilters}
+        refetchFilters={refetchFilters}
+        queryParams={queryParams}
       >
-        {props.showHealthAndExecution && (
-          <Container className={css.healthAndExecutions}>
-            <PipelineSummaryCards />
-            <PipelineBuildExecutionsChart />
-          </Container>
-        )}
-
-        <FilterContextProvider
-          savedFilters={filters}
-          isFetchingFilters={isFetchingFilters}
-          refetchFilters={refetchFilters}
-          queryParams={queryParams}
+        {renderDeploymentListHeader({ pipelineExecutionSummary, hasFilters, onRunPipeline: props.onRunPipeline })}
+        <Page.Body
+          className={css.main}
+          key={pipelineIdentifier}
+          error={(error?.data as Error)?.message || error?.message}
+          retryOnError={() => fetchExecutions()}
         >
-          {renderDeploymentListHeader({ pipelineExecutionSummary, hasFilters, onRunPipeline: props.onRunPipeline })}
+          {props.showHealthAndExecution && (
+            <Container className={css.healthAndExecutions}>
+              <PipelineSummaryCards />
+              <PipelineBuildExecutionsChart />
+            </Container>
+          )}
+
           {spinner ? (
             spinner
           ) : !pipelineExecutionSummary?.content?.length ? (
@@ -400,8 +403,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
               <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
             </React.Fragment>
           )}
-        </FilterContextProvider>
-      </Page.Body>
+        </Page.Body>
+      </FilterContextProvider>
     </GitSyncStoreProvider>
   )
 }

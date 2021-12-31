@@ -1,3 +1,4 @@
+import type { MultiTypeInputType } from '@wings-software/uicore'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { ServiceSpec } from 'services/cd-ng'
@@ -19,6 +20,7 @@ export interface KubernetesServiceInputFormProps {
   path?: string
   stageIdentifier: string
   formik?: any
+  allowableTypes: MultiTypeInputType[]
 }
 
 export interface LastQueryData {

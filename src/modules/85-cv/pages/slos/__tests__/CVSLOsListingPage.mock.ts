@@ -1,4 +1,4 @@
-import type { ResponsePageSLODashboardWidget, SLODashboardWidget, ResponsePageUserJourneyResponse } from 'services/cv'
+import type { ResponsePageSLODashboardWidget, ResponsePageUserJourneyResponse, SLODashboardWidget } from 'services/cv'
 import type { TestWrapperProps } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { projectPathProps } from '@common/utils/routeUtils'
@@ -35,23 +35,28 @@ export const dashboardWidgetsContent: SLODashboardWidget = {
   monitoredServiceIdentifier: 'monitored_service_identifier',
   monitoredServiceName: 'Monitored Service Name',
   sloIdentifier: 'slo_identifier',
-  sloPerformanceTrend: [],
+  sloPerformanceTrend: [
+    { timestamp: 1639993380000, value: 0 },
+    { timestamp: 1639993440000, value: 0 }
+  ],
   sloTargetPercentage: 60,
   sloTargetType: PeriodTypes.ROLLING,
   tags: {},
   timeRemainingDays: 10,
   title: 'Title',
   totalErrorBudget: 100,
-  type: SLITypes.AVAILABILITY
+  type: SLITypes.AVAILABILITY,
+  serviceIdentifier: 'service',
+  environmentIdentifier: 'env'
 }
 
 export const dashboardWidgetsResponse: ResponsePageSLODashboardWidget = {
   data: {
-    totalItems: 12,
-    totalPages: 2,
+    totalItems: 1,
+    totalPages: 1,
     pageIndex: 0,
-    pageItemCount: 10,
-    pageSize: 10,
+    pageItemCount: 1,
+    pageSize: 4,
     content: [dashboardWidgetsContent]
   }
 }
@@ -59,18 +64,8 @@ export const dashboardWidgetsResponse: ResponsePageSLODashboardWidget = {
 export const userJourneyResponse: ResponsePageUserJourneyResponse = {
   data: {
     content: [
-      {
-        userJourney: {
-          name: 'First Journey',
-          identifier: 'First_Journey'
-        }
-      },
-      {
-        userJourney: {
-          name: 'Second Journey',
-          identifier: 'Second_Journey'
-        }
-      }
+      { userJourney: { name: 'First Journey', identifier: 'First_Journey' } },
+      { userJourney: { name: 'Second Journey', identifier: 'Second_Journey' } }
     ]
   }
 }

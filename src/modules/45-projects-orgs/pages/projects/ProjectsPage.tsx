@@ -101,7 +101,6 @@ const ProjectsListPage: React.FC = () => {
     },
     debounce: 300
   })
-
   const projectCreateSuccessHandler = (): void => {
     refetch()
   }

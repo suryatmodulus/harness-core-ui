@@ -1,3 +1,4 @@
+import type { K8sDirectInfraYaml } from 'services/ci'
 import { Types as TransformValuesTypes } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { Types as ValidationFieldTypes } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 
@@ -68,7 +69,7 @@ export const transformValuesFieldsConfig = [
   }
 ]
 
-export const editViewValidateFieldsConfig = [
+export const getEditViewValidateFieldsConfig = (buildInfrastructureType: K8sDirectInfraYaml['type']) => [
   {
     name: 'identifier',
     type: ValidationFieldTypes.Identifier,
@@ -85,13 +86,13 @@ export const editViewValidateFieldsConfig = [
     name: 'spec.connectorRef',
     type: ValidationFieldTypes.Text,
     label: 'pipelineSteps.connectorLabel',
-    isRequired: true
+    isRequired: buildInfrastructureType !== 'VM'
   },
   {
     name: 'spec.image',
     type: ValidationFieldTypes.Text,
     label: 'imageLabel',
-    isRequired: true
+    isRequired: buildInfrastructureType !== 'VM'
   },
   {
     name: 'spec.command',

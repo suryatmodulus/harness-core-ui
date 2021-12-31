@@ -7,5 +7,6 @@ declare const styles: {
   readonly loading: string
   readonly gitFilter: string
   readonly dropdownPopover: string
+  readonly pageBody: string
 }
 export default styles

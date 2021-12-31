@@ -1,4 +1,4 @@
-import type { MonitoredServiceListItemDTO, CountServiceDTO } from 'services/cv'
+import type { CountServiceDTO, MonitoredServiceListItemDTO } from 'services/cv'
 import type { DependencyData } from '@cv/components/DependencyGraph/DependencyGraph.types'
 import type { FilterTypes } from '@cv/pages/monitored-service/CVMonitoredService/CVMonitoredService.types'
 

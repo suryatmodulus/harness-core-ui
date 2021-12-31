@@ -26,7 +26,7 @@ export const TemplateDrawer: React.FC = (): JSX.Element => {
     })
   }, [updateTemplateView])
 
-  if (isLoading) {
+  if (isLoading || !isTemplateDrawerOpened) {
     return <></>
   }
 

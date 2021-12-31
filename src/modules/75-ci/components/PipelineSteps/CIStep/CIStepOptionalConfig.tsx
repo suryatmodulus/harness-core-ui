@@ -3,6 +3,7 @@ import isEmpty from 'lodash/isEmpty'
 import cx from 'classnames'
 import { Color, Container, Layout, MultiTypeInputType, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import type { StringsMap } from 'stringTypes'
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
@@ -25,6 +26,21 @@ interface CIStepOptionalConfigProps {
   path?: string
 }
 
+export const getOptionalSubLabel = (
+  tooltip: string,
+  getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string
+) => (
+  <Text
+    tooltipProps={tooltip ? { dataTooltipId: tooltip } : {}}
+    className={css.inpLabel}
+    color={Color.GREY_400}
+    font={{ size: 'small', weight: 'semi-bold' }}
+    style={{ textTransform: 'capitalize' }}
+  >
+    {getString?.('common.optionalLabel')}
+  </Text>
+)
+
 export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props => {
   const { readonly, enableFields, allowableTypes, stepViewType, path } = props
   const { getString } = useStrings()
@@ -32,20 +48,6 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
   const prefix = isEmpty(path) ? '' : `${path}.`
 
   const stepCss = stepViewType === StepViewType.DeploymentForm ? css.sm : css.lg
-
-  const getOptionalSubLabel = React.useCallback((tooltip: string) => {
-    return (
-      <Text
-        tooltipProps={{ dataTooltipId: tooltip }}
-        className={css.inpLabel}
-        color={Color.GREY_400}
-        font={{ size: 'small', weight: 'semi-bold' }}
-        style={{ textTransform: 'capitalize' }}
-      >
-        {getString('common.optionalLabel')}
-      </Text>
-    )
-  }, [])
 
   const buildArgsRenderCommonProps = {
     name: `${prefix}spec.buildArgs`,
@@ -62,7 +64,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
             {getString('pipelineSteps.buildArgsLabel')}
           </Text>
           &nbsp;
-          {getOptionalSubLabel('buildArgs')}
+          {getOptionalSubLabel('buildArgs', getString)}
         </Layout.Horizontal>
       )
     },
@@ -71,7 +73,8 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
 
   return (
     <>
-      {Object.prototype.hasOwnProperty.call(enableFields, 'spec.privileged') ? (
+      {!enableFields['spec.privileged']?.shouldHide &&
+      Object.prototype.hasOwnProperty.call(enableFields, 'spec.privileged') ? (
         <div className={cx(css.formGroup, css.sm)}>
           <FormMultiTypeCheckboxField
             name={`${prefix}spec.privileged`}
@@ -97,7 +100,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                     {getString('settingsLabel')}
                   </Text>
                   &nbsp;
-                  {getOptionalSubLabel('pluginSettings')}
+                  {getOptionalSubLabel('pluginSettings', getString)}
                 </Layout.Horizontal>
               )
             }}
@@ -125,7 +128,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                     {getString('pipelineSteps.reportPathsLabel')}
                   </Text>
                   &nbsp;
-                  {getOptionalSubLabel('reportPaths')}
+                  {getOptionalSubLabel('reportPaths', getString)}
                 </Layout.Horizontal>
               ),
               allowedTypes: allowableTypes.filter(type => type !== MultiTypeInputType.RUNTIME)
@@ -152,7 +155,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                     {getString('environmentVariables')}
                   </Text>
                   &nbsp;
-                  {getOptionalSubLabel(enableFields['spec.envVariables'].tooltipId)}
+                  {getOptionalSubLabel(enableFields['spec.envVariables'].tooltipId, getString)}
                 </Layout.Horizontal>
               )
             }}
@@ -182,7 +185,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                     {getString('pipelineSteps.outputVariablesLabel')}
                   </Text>
                   &nbsp;
-                  {getOptionalSubLabel('outputVariables')}
+                  {getOptionalSubLabel('outputVariables', getString)}
                 </Layout.Horizontal>
               ),
               allowedTypes: allowableTypes.filter(type => type !== MultiTypeInputType.RUNTIME)
@@ -211,7 +214,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                     {getString('entryPointLabel')}
                   </Text>
                   &nbsp;
-                  {getOptionalSubLabel('dependencyEntryPoint')}
+                  {getOptionalSubLabel('dependencyEntryPoint', getString)}
                 </Layout.Horizontal>
               )
             }}
@@ -236,7 +239,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                     {getString('argsLabel')}
                   </Text>
                   &nbsp;
-                  {getOptionalSubLabel('dependencyArgs')}
+                  {getOptionalSubLabel('dependencyArgs', getString)}
                 </Layout.Horizontal>
               )
             }}
@@ -244,7 +247,8 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
           />
         </Container>
       ) : null}
-      {Object.prototype.hasOwnProperty.call(enableFields, 'spec.optimize') ? (
+      {!enableFields['spec.optimize']?.shouldHide &&
+      Object.prototype.hasOwnProperty.call(enableFields, 'spec.optimize') ? (
         <div className={cx(css.formGroup, css.sm)}>
           <FormMultiTypeCheckboxField
             name={`${prefix}spec.optimize`}
@@ -273,7 +277,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   {getString('pipelineSteps.dockerfileLabel')}
                 </Text>
                 &nbsp;
-                {getOptionalSubLabel('dockerfile')}
+                {getOptionalSubLabel('dockerfile', getString)}
               </Layout.Horizontal>
             }
             multiTextInputProps={{
@@ -298,7 +302,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   {getString('pipelineSteps.contextLabel')}
                 </Text>
                 &nbsp;
-                {getOptionalSubLabel('context')}
+                {getOptionalSubLabel('context', getString)}
               </Layout.Horizontal>
             }
             multiTextInputProps={{
@@ -325,7 +329,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                     {getString('pipelineSteps.labelsLabel')}
                   </Text>
                   &nbsp;
-                  {getOptionalSubLabel('labels')}
+                  {getOptionalSubLabel('labels', getString)}
                 </Layout.Horizontal>
               )
             }}
@@ -347,14 +351,13 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
           <MultiTypeTextField
             name={`${prefix}spec.endpoint`}
             label={
-              <Text
-                tooltipProps={{ dataTooltipId: 'endpoint' }}
-                className={css.inpLabel}
-                color={Color.GREY_600}
-                font={{ size: 'small', weight: 'semi-bold' }}
-              >
-                {getString('pipelineSteps.endpointLabel')}
-              </Text>
+              <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
+                <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
+                  {getString('pipelineSteps.endpointLabel')}
+                </Text>
+                &nbsp;
+                {getOptionalSubLabel('endpoint', getString)}
+              </Layout.Horizontal>
             }
             multiTextInputProps={{
               placeholder: getString('pipelineSteps.endpointPlaceholder'),
@@ -379,7 +382,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   {getString('pipelineSteps.targetLabel')}
                 </Text>
                 &nbsp;
-                {getOptionalSubLabel(enableFields['spec.target'].tooltipId)}
+                {getOptionalSubLabel(enableFields['spec.target'].tooltipId, getString)}
               </Layout.Horizontal>
             }
             multiTextInputProps={{
@@ -390,7 +393,8 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
           />
         </Container>
       ) : null}
-      {Object.prototype.hasOwnProperty.call(enableFields, 'spec.remoteCacheImage') ? (
+      {!enableFields['spec.remoteCacheImage']?.shouldHide &&
+      Object.prototype.hasOwnProperty.call(enableFields, 'spec.remoteCacheImage') ? (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
             name={`${prefix}spec.remoteCacheImage`}
@@ -405,7 +409,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   {getString('ci.remoteCacheImage.label')}
                 </Text>
                 &nbsp;
-                {getOptionalSubLabel('gcrRemoteCache')}
+                {getOptionalSubLabel('gcrRemoteCache', getString)}
               </Layout.Horizontal>
             }
             multiTextInputProps={{
@@ -431,12 +435,17 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   {getString('archiveFormat')}
                 </Text>
                 &nbsp;
-                {getOptionalSubLabel('archiveFormat')}
+                {getOptionalSubLabel('archiveFormat', getString)}
               </Layout.Horizontal>
             }
             multiTypeInputProps={{
               selectItems: ArchiveFormatOptions,
-              multiTypeInputProps: { expressions, allowableTypes },
+              multiTypeInputProps: {
+                expressions,
+                allowableTypes: allowableTypes.filter(
+                  type => type !== MultiTypeInputType.RUNTIME && type !== MultiTypeInputType.EXPRESSION
+                )
+              },
               disabled: readonly
             }}
             disabled={readonly}
@@ -488,7 +497,8 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
           />
         </div>
       ) : null}
-      {Object.prototype.hasOwnProperty.call(enableFields, 'spec.remoteCacheRepo') ? (
+      {!enableFields['spec.remoteCacheRepo']?.shouldHide &&
+      Object.prototype.hasOwnProperty.call(enableFields, 'spec.remoteCacheRepo') ? (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeTextField
             name={`${prefix}spec.remoteCacheRepo`}
@@ -503,7 +513,7 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
                   {getString('ci.remoteCacheRepository.label')}
                 </Text>
                 &nbsp;
-                {getOptionalSubLabel('dockerHubRemoteCache')}
+                {getOptionalSubLabel('dockerHubRemoteCache', getString)}
               </Layout.Horizontal>
             }
             multiTextInputProps={{

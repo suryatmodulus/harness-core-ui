@@ -168,23 +168,25 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                       />
                     </div>
                   </Container>
-                  <Container margin={{ bottom: 'large' }} width={'400px'}>
-                    <Text color={Color.BLACK} font={'small'} margin={{ bottom: 'small' }}>
-                      {getFeatureOption(formik?.values?.sourceType, getString).length === 1
-                        ? getString('common.purpose.cf.feature')
-                        : getString('cv.healthSource.featureLabel')}
-                    </Text>
-                    <FormInput.Select
-                      items={getFeatureOption(formik?.values?.sourceType, getString)}
-                      placeholder={getString('cv.healthSource.featurePlaceholder', {
-                        sourceType: formik?.values?.sourceType
-                      })}
-                      value={formik?.values?.product}
-                      name="product"
-                      disabled={isEdit || getFeatureOption(formik?.values?.sourceType, getString).length === 1}
-                      onChange={product => formik.setFieldValue('product', product)}
-                    />
-                  </Container>
+                  {formik?.values?.sourceType !== HealthSourceTypes.CustomHealth && (
+                    <Container margin={{ bottom: 'large' }} width={'400px'}>
+                      <Text color={Color.BLACK} font={'small'} margin={{ bottom: 'small' }}>
+                        {getFeatureOption(formik?.values?.sourceType, getString).length === 1
+                          ? getString('common.purpose.cf.feature')
+                          : getString('cv.healthSource.featureLabel')}
+                      </Text>
+                      <FormInput.Select
+                        items={getFeatureOption(formik?.values?.sourceType, getString)}
+                        placeholder={getString('cv.healthSource.featurePlaceholder', {
+                          sourceType: formik?.values?.sourceType
+                        })}
+                        value={formik?.values?.product}
+                        name="product"
+                        disabled={isEdit || getFeatureOption(formik?.values?.sourceType, getString).length === 1}
+                        onChange={product => formik.setFieldValue('product', product)}
+                      />
+                    </Container>
+                  )}
                 </>
               </CardWithOuterTitle>
               <DrawerFooter onNext={() => formik.submitForm()} />

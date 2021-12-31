@@ -2584,7 +2584,8 @@ exports[`Test TerraformApply should be able to edit inline config 1`] = `
                                 class="Tag--main"
                               >
                                 <span
-                                  class="bp3-tag bp3-minimal tag"
+                                  class="bp3-tag bp3-minimal"
+                                  id="tag"
                                 >
                                   <span
                                     class="bp3-text-overflow-ellipsis bp3-fill"

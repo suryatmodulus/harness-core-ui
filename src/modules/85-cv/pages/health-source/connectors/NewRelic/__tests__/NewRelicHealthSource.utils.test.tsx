@@ -1,12 +1,15 @@
 import type { StringKeys } from 'framework/strings'
 import { createNewRelicData } from '../NewRelicHealthSourceContainer.util'
-import { validateMapping } from '../NewRelicHealthSource.utils'
+import { initializeSelectedMetricsMap, validateMapping } from '../NewRelicHealthSource.utils'
 import {
   sourceData,
   expectedNewRelicData,
   validationMissingApplication,
   validationMissingMetricData,
-  validationValidPayload
+  validationValidPayload,
+  mockedNewRelicFormikValues,
+  expectedMappedValue,
+  mappedValue
 } from './NewRelic.mock'
 
 function getString(key: StringKeys): StringKeys {
@@ -26,5 +29,25 @@ describe('Test Newrelic Utils', () => {
       metricData: 'cv.monitoringSources.appD.validations.selectMetricPack'
     })
     expect(validateMapping(validationValidPayload, [], 0, getString)).toEqual({})
+  })
+
+  test('Verify initializeSelectedMetricsMap method', () => {
+    const defaultSelectedMetricName = 'New Relic Metric'
+    const mappedServicesAndEnvs = new Map()
+    mappedServicesAndEnvs.set(defaultSelectedMetricName, mappedValue)
+
+    const expectedMappedMetrics = new Map()
+    expectedMappedMetrics.set(defaultSelectedMetricName, expectedMappedValue)
+
+    expect(initializeSelectedMetricsMap(defaultSelectedMetricName, mappedServicesAndEnvs)).toEqual({
+      mappedMetrics: expectedMappedMetrics,
+      selectedMetric: defaultSelectedMetricName
+    })
+  })
+
+  test('Verify validateMapping method, that is no errors should be thrown when all the validation passes.', () => {
+    const createdMetrics = ['New Relic Metric']
+    const selectedMetricIndex = 0
+    expect(validateMapping(mockedNewRelicFormikValues, createdMetrics, selectedMetricIndex, getString)).toEqual({})
   })
 })

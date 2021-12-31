@@ -25,7 +25,7 @@ import { getInputSetViewValidateFieldsConfig, transformValuesFieldsConfig } from
 export interface PluginStepSpec {
   connectorRef: string
   image: string
-  privileged: boolean
+  privileged?: boolean
   reports?: {
     type: 'JUnit'
     spec: {
@@ -95,8 +95,7 @@ export class PluginStep extends PipelineStep<PluginStepData> {
     type: StepType.Plugin as string,
     spec: {
       connectorRef: '',
-      image: '',
-      privileged: false
+      image: ''
     }
   }
 

@@ -28,6 +28,7 @@ declare const styles: {
   readonly secondaryButton: string
   readonly footerCheckbox: string
   readonly inputSetFormRunPipeline: string
+  readonly stagesDropdown: string
   readonly stageSelectionItem: string
   readonly stageWarning: string
   readonly stageName: string

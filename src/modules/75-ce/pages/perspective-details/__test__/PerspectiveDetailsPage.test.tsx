@@ -18,6 +18,7 @@ import ChartResponseData from './ChartDataResponse.json'
 import SummaryResponseData from './SummaryResponse.json'
 import ViewFieldResponseData from './ViewFieldResponse.json'
 import PerspectiveResponseData from './PerspectiveData.json'
+import ReportResponseData from './ReportResponseData.json'
 
 jest.mock('services/ce', () => ({
   ...(jest.requireActual('services/ce') as any),
@@ -35,6 +36,9 @@ jest.mock('services/ce', () => ({
   })),
   useGetPerspective: jest.fn().mockImplementation(() => {
     return { data: PerspectiveResponseData, refetch: jest.fn(), error: null, loading: false }
+  }),
+  useGetReportSetting: jest.fn().mockImplementation(() => {
+    return { data: ReportResponseData, refetch: jest.fn(), error: null, loading: false }
   })
 }))
 

@@ -88,15 +88,13 @@ exports[`Cumulative Analytics tests render component 1`] = `
                 class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
               >
                 <p
-                  class="StyledProps--font StyledProps--main analyticsColHeader"
-                  style="color: rgb(5, 170, 182);"
+                  class="StyledProps--font StyledProps--main analyticsColHeader StyledProps--color StyledProps--color-teal800"
                 >
                   TOTAL SAVINGS TILL DATE
                 </p>
                 <h1
-                  class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                  class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-teal800"
                   level="1"
-                  style="color: rgb(5, 170, 182);"
                 >
                   $
                   21
@@ -111,15 +109,13 @@ exports[`Cumulative Analytics tests render component 1`] = `
                 class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
               >
                 <p
-                  class="StyledProps--font StyledProps--main analyticsColHeader"
-                  style="color: rgb(89, 43, 170);"
+                  class="StyledProps--font StyledProps--main analyticsColHeader StyledProps--color StyledProps--color-purple700"
                 >
                   TOTAL SPEND TILL DATE
                 </p>
                 <h1
-                  class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                  class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-purple700"
                   level="1"
-                  style="color: rgb(89, 43, 170);"
                 >
                   $
                   0

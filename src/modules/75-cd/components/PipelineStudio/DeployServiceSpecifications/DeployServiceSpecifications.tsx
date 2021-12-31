@@ -9,7 +9,6 @@ import {
   Container,
   Color,
   Text,
-  MultiTypeInputType,
   useToaster
 } from '@wings-software/uicore'
 
@@ -39,6 +38,7 @@ import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/
 import SelectDeploymentType from '@cd/components/PipelineStudio/DeployServiceSpecifications/SelectDeploymentType'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { useDeepCompareEffect } from '@common/hooks'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
@@ -49,6 +49,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       pipeline,
       selectionState: { selectedStageId }
     },
+    allowableTypes,
     isReadonly,
     getStageFromPipeline,
     updateStage
@@ -83,7 +84,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   useEffect(() => {
     if (
       !stage?.stage?.spec?.serviceConfig?.serviceDefinition &&
-      !stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
+      !stage?.stage?.spec?.serviceConfig?.useFromStage?.stage &&
+      stage?.stage?.type === StageType.DEPLOY
     ) {
       setDefaultServiceSchema()
     }
@@ -196,7 +198,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           serviceConfig: {
             serviceRef: '',
             serviceDefinition: {
-              type: 'Kubernetes', // Default deployment type needs to be changed to null, after native helm integration
+              type: 'Kubernetes',
               spec: {
                 variables: []
               }
@@ -330,7 +332,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                     service: get(stage, 'stage.spec.serviceConfig.service', {}),
                     serviceRef: get(stage, 'stage.spec.serviceConfig.serviceRef', '')
                   }}
-                  allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
+                  allowableTypes={allowableTypes}
                   onUpdate={data => updateService(data)}
                   factory={factory}
                   stepViewType={StepViewType.Edit}
@@ -352,7 +354,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                     stageIndex,
                     setupModeType
                   }}
-                  allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
+                  allowableTypes={allowableTypes}
                   type={StepType.K8sServiceSpec}
                   stepViewType={StepViewType.Edit}
                 />
@@ -368,7 +370,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
                   stageIndex,
                   setupModeType
                 }}
-                allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME, MultiTypeInputType.EXPRESSION]}
+                allowableTypes={allowableTypes}
                 type={StepType.K8sServiceSpec}
                 stepViewType={StepViewType.Edit}
               />

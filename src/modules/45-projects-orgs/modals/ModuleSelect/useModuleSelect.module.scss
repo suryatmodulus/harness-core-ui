@@ -1,0 +1,16 @@
+.cardsContainer {
+  border-right: 1px solid var(--grey-300);
+  width: 650px !important;
+  display: grid !important;
+  row-gap: 25px;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 0px var(--spacing-huge) 0px 0px !important;
+}
+.card {
+  width: 180px;
+  height: 215px;
+}
+.moduleActionDiv {
+  width: 450px !important;
+  margin-left: var(--spacing-huge) !important;
+}

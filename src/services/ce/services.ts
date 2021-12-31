@@ -346,7 +346,7 @@ export function useFetchOverviewTimeSeriesQuery(
 }
 export const FetchPerspectiveBudgetDocument = gql`
   query FetchPerspectiveBudget($perspectiveId: String) {
-    budgetSummary(perspectiveId: $perspectiveId) {
+    budgetSummaryList(perspectiveId: $perspectiveId) {
       id
       name
       budgetAmount
@@ -354,6 +354,7 @@ export const FetchPerspectiveBudgetDocument = gql`
       timeLeft
       timeUnit
       timeScope
+      period
     }
   }
 `
@@ -1211,7 +1212,7 @@ export type FetchBudgetSummaryQuery = {
     forecastCostAlerts: Array<Maybe<number>>
     forecastCost: number
     perspectiveId: string
-    growthRate: Maybe<number>
+    growthRate: number
     startTime: any
     type: BudgetType
     period: BudgetPeriod
@@ -1249,7 +1250,7 @@ export type FetchBudgetQuery = {
         forecastCostAlerts: Array<Maybe<number>>
         forecastCost: number
         perspectiveId: string
-        growthRate: Maybe<number>
+        growthRate: number
         startTime: any
         type: BudgetType
         period: BudgetPeriod
@@ -1430,16 +1431,21 @@ export type FetchPerspectiveBudgetQueryVariables = Exact<{
 
 export type FetchPerspectiveBudgetQuery = {
   __typename?: 'Query'
-  budgetSummary: Maybe<{
-    __typename?: 'BudgetSummary'
-    id: string
-    name: string
-    budgetAmount: number
-    actualCost: number
-    timeLeft: number
-    timeUnit: string
-    timeScope: string
-  }>
+  budgetSummaryList: Maybe<
+    Array<
+      Maybe<{
+        __typename?: 'BudgetSummary'
+        id: string
+        name: string
+        budgetAmount: number
+        actualCost: number
+        timeLeft: number
+        timeUnit: string
+        timeScope: string
+        period: BudgetPeriod
+      }>
+    >
+  >
 }
 
 export type FetchPerspectiveFiltersValueQueryVariables = Exact<{
@@ -2259,7 +2265,7 @@ export type BudgetSummary = {
   budgetAmount: Scalars['Float']
   forecastCost: Scalars['Float']
   forecastCostAlerts: Array<Maybe<Scalars['Float']>>
-  growthRate: Maybe<Scalars['Float']>
+  growthRate: Scalars['Float']
   id: Scalars['String']
   name: Scalars['String']
   period: BudgetPeriod
@@ -2610,6 +2616,8 @@ export type Query = {
   budgetList: Maybe<Array<Maybe<BudgetSummary>>>
   /** Budget card for perspectives */
   budgetSummary: Maybe<BudgetSummary>
+  /** List of budget cards for perspectives */
+  budgetSummaryList: Maybe<Array<Maybe<BudgetSummary>>>
   /** Fetch CCM MetaData for account */
   ccmMetaData: Maybe<CcmMetaData>
   instancedata: Maybe<InstanceDataDemo>
@@ -2677,6 +2685,11 @@ export type QueryBudgetListArgs = {
 /** Query root */
 export type QueryBudgetSummaryArgs = {
   budgetId: Maybe<Scalars['String']>
+  perspectiveId: Maybe<Scalars['String']>
+}
+
+/** Query root */
+export type QueryBudgetSummaryListArgs = {
   perspectiveId: Maybe<Scalars['String']>
 }
 

@@ -1,14 +1,14 @@
 import React from 'react'
 import { useModalHook, Button, Layout, Text, Color } from '@wings-software/uicore'
-import { Dialog, Classes } from '@blueprintjs/core'
+import { Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
 import moment from 'moment'
 import { useStrings } from 'framework/strings'
 
-import { TrialModalTemplate } from '@common/components/TrialModalTemplate/TrialModalTemplate'
+import { TrialModalTemplate } from '@pipeline/components/TrialModalTemplate/TrialModalTemplate'
 import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
-import ceImage from './images/Illustration.svg'
+import ceImage from './images/ccm.png'
 
 import css from './useCETrialModal.module.scss'
 
@@ -83,7 +83,7 @@ const CETrial: React.FC<CETrialModalData> = props => {
   }
 
   return (
-    <TrialModalTemplate title={getString('ce.continuous')} hideTrialBadge imgSrc={ceImage} rightWidth="40%">
+    <TrialModalTemplate hideTrialBadge imgSrc={ceImage}>
       {getChildComponent()}
     </TrialModalTemplate>
   )
@@ -97,21 +97,12 @@ const useCETrialModal = (props: UseCETrialModalProps): UseCETrialModalReturn => 
       <Dialog
         isOpen={true}
         enforceFocus={false}
-        isCloseButtonShown={false}
         canOutsideClickClose={false}
         canEscapeKeyClose={false}
-        // onClose={closeModal}
-        className={cx(css.dialog, Classes.DIALOG, css.ceTrial)}
+        onClose={onContinue}
+        className={cx(css.dialog, css.ceTrial)}
       >
         <CETrial onContinue={onContinue} experience={experience} />
-        {/* <Button
-          aria-label="close modal"
-          minimal
-          icon="cross"
-          iconProps={{ size: 18 }}
-          onClick={onContinue}
-          className={css.crossIcon}
-        /> */}
       </Dialog>
     )
   }, [onContinue])

@@ -1,4 +1,9 @@
 $header-height: 80px;
+$main-header-height: 71px;
+$subheader-height: 65px;
+$grid-header-height: 72px;
+$footer-height: 64px;
+
 .pageheader {
   display: flex;
   flex-direction: column;
@@ -20,10 +25,6 @@ $header-height: 80px;
 .table {
   height: 80% !important;
   margin: var(--spacing-large);
-  > :nth-child(2) {
-    overflow-y: scroll;
-    height: 100% !important;
-  }
 }
 
 .gitFilter {
@@ -145,9 +146,10 @@ $header-height: 80px;
 }
 
 .gridLayout {
-  min-height: calc(100vh - var(--page-header-height) - 136px);
   width: 1155px;
   margin: 0 auto !important;
+  overflow-y: scroll;
+  height: calc(100vh - #{$main-header-height} - #{$subheader-height} - #{$grid-header-height} - #{$footer-height});
 }
 
 .pagination {
@@ -155,6 +157,7 @@ $header-height: 80px;
 }
 .pageBody {
   --page-header-height: 144px;
+  // height: 100vh;
 }
 
 .pagination {

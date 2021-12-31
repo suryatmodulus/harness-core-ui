@@ -9,7 +9,7 @@ import { getReadableDateTime } from '@common/utils/dateUtils'
 import AuditTrailFactory, { getModuleNameFromAuditModule } from '@audit-trail/factories/AuditTrailFactory'
 import css from './AuditTrailsListView.module.scss'
 
-const DEFAULT_CELL_PLACEHOLDER = '--'
+const DEFAULT_CELL_PLACEHOLDER = 'N/A'
 interface AuditTrailsListViewProps {
   data: PageAuditEventDTO
   setPage: (page: number) => void
@@ -29,7 +29,7 @@ const renderColumnTimeStamp: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
 const renderColumnUser: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
   const { labels, principal } = row.original.authenticationInfo
   return (
-    <Layout.Horizontal padding={{ right: 'medium' }} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+    <Layout.Horizontal padding={{ right: 'xlarge' }} flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
       <Avatar className={css.avatar} name={row.original.authenticationInfo.principal.identifier} hoverCard={false} />
       <Text lineClamp={1}>{labels?.username || principal.identifier}</Text>
     </Layout.Horizontal>
@@ -38,7 +38,7 @@ const renderColumnUser: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
 
 const renderColumnOrganization: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
   return (
-    <Text padding={{ right: 'medium' }} lineClamp={1}>
+    <Text padding={{ right: 'xlarge' }} lineClamp={1}>
       {row.original.resourceScope.orgIdentifier || DEFAULT_CELL_PLACEHOLDER}
     </Text>
   )
@@ -46,7 +46,7 @@ const renderColumnOrganization: Renderer<CellProps<AuditEventDTO>> = ({ row }) =
 
 const renderColumnProject: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
   return (
-    <Text padding={{ right: 'medium' }} lineClamp={1}>
+    <Text padding={{ right: 'xlarge' }} lineClamp={1}>
       {row.original?.resourceScope?.projectIdentifier || DEFAULT_CELL_PLACEHOLDER}
     </Text>
   )
@@ -88,13 +88,13 @@ const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage
       : undefined
 
     return (
-      <Layout.Vertical padding={{ right: 'medium' }}>
+      <Layout.Vertical padding={{ right: 'xlarge' }}>
         {url ? (
           <Link className={css.resourceLink} to={url}>
-            <Text lineClamp={1}>{row.original.resource.identifier}</Text>
+            <Text lineClamp={1}>{resource.labels?.resourceName || resource.identifier}</Text>
           </Link>
         ) : (
-          <Text lineClamp={1}>{row.original.resource.identifier}</Text>
+          <Text lineClamp={1}>{resource.labels?.resourceName || resource.identifier}</Text>
         )}
         <Text padding={{ top: 'xsmall' }} lineClamp={1}>{`${getString('typeLabel')}: ${
           row.original.resource.type
@@ -105,7 +105,7 @@ const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage
 
   const renderColumnAction: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
     return (
-      <Layout.Horizontal padding={{ right: 'medium' }}>
+      <Layout.Horizontal padding={{ right: 'xlarge' }}>
         <Text lineClamp={1}>{getString(actionToLabelMap[row.original.action])}</Text>
       </Layout.Horizontal>
     )

@@ -148,7 +148,7 @@ AuditTrailFactory.registerResourceHandler('USER', {
       orgIdentifier,
       accountId: accountIdentifier,
       projectIdentifier,
-      userIdentifier: resource.identifier
+      userIdentifier: resource.labels?.userId || resource.identifier
     })
   }
 })

@@ -141,7 +141,7 @@ export default function AppDMappedMetric({
     })
     setGroupedCreatedMetrics(updatedGroupedCreatedMetrics)
   }, [formikValues?.groupName, mappedMetrics])
-  
+
   useEffect(() => {
     if (formikValues.pathType === PATHTYPE.DropdownPath) {
       formikSetField('fullPath', '')

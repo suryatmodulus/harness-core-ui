@@ -77,9 +77,7 @@ export const getGroupAndMetric = (
   })
 }
 
-export const initGroupedCreatedMetrics = (mappedMetrics: Map<string, MapAppDynamicsMetric>): GroupedCreatedMetrics => {
-  const groupedValue = groupBy(getGroupAndMetric(mappedMetrics), function (item) {
+export const initGroupedCreatedMetrics = (mappedMetrics: Map<string, MapAppDynamicsMetric>): GroupedCreatedMetrics =>
+  groupBy(getGroupAndMetric(mappedMetrics), function (item) {
     return item?.groupName?.label
   })
-  return groupedValue
-}

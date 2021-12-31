@@ -127,8 +127,6 @@ export default function AppDMappedMetric({
   }, [formikValues?.groupName, formikValues?.metricName])
 
   useEffect(() => {
-    const defaultMetric = new Map()
-    defaultMetric.set('', formikValues)
     const filteredList = Array.from(mappedMetrics?.values()).map((item, index) => {
       return {
         index,

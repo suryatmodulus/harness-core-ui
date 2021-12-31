@@ -61,7 +61,7 @@ const renderColumnModule: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
       <Icon
         className={navSettingsIcon ? css.navSettingIcon : undefined}
         name={moduleIcon.name}
-        size={moduleIcon.size}
+        size={moduleIcon.size || 30}
       />
     </Container>
   ) : (

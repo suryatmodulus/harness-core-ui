@@ -102,8 +102,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.ORGANIZATION, {
 
 AuditTrailFactory.registerResourceHandler('ORGANIZATION', {
   moduleIcon: {
-    name: 'nav-settings',
-    size: 30
+    name: 'nav-settings'
   },
   resourceUrl: (_resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier } = resourceScope
@@ -113,8 +112,7 @@ AuditTrailFactory.registerResourceHandler('ORGANIZATION', {
 
 AuditTrailFactory.registerResourceHandler('PROJECT', {
   moduleIcon: {
-    name: 'nav-settings',
-    size: 30
+    name: 'nav-settings'
   },
   resourceUrl: (_resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope

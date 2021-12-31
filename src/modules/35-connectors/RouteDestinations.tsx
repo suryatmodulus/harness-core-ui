@@ -31,8 +31,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.CONNECTOR, {
 
 AuditTrailFactory.registerResourceHandler('CONNECTOR', {
   moduleIcon: {
-    name: 'nav-settings',
-    size: 30
+    name: 'nav-settings'
   },
   resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope

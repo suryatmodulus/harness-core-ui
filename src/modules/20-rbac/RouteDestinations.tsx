@@ -122,8 +122,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.SERVICEACCOUNT, {
 
 AuditTrailFactory.registerResourceHandler('USER_GROUP', {
   moduleIcon: {
-    name: 'nav-settings',
-    size: 30
+    name: 'nav-settings'
   },
   resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
@@ -138,8 +137,7 @@ AuditTrailFactory.registerResourceHandler('USER_GROUP', {
 
 AuditTrailFactory.registerResourceHandler('USER', {
   moduleIcon: {
-    name: 'nav-settings',
-    size: 30
+    name: 'nav-settings'
   },
   resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
@@ -155,8 +153,7 @@ AuditTrailFactory.registerResourceHandler('USER', {
 
 AuditTrailFactory.registerResourceHandler('ROLE', {
   moduleIcon: {
-    name: 'nav-settings',
-    size: 30
+    name: 'nav-settings'
   },
   resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
@@ -172,15 +169,13 @@ AuditTrailFactory.registerResourceHandler('ROLE', {
 
 AuditTrailFactory.registerResourceHandler('ROLE_ASSIGNMENT', {
   moduleIcon: {
-    name: 'nav-settings',
-    size: 30
+    name: 'nav-settings'
   }
 })
 
 AuditTrailFactory.registerResourceHandler('SERVICE_ACCOUNT', {
   moduleIcon: {
-    name: 'nav-settings',
-    size: 30
+    name: 'nav-settings'
   },
   resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
@@ -196,8 +191,7 @@ AuditTrailFactory.registerResourceHandler('SERVICE_ACCOUNT', {
 
 AuditTrailFactory.registerResourceHandler('RESOURCE_GROUP', {
   moduleIcon: {
-    name: 'nav-settings',
-    size: 30
+    name: 'nav-settings'
   },
   resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope

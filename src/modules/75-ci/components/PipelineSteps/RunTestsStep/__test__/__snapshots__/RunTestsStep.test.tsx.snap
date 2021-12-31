@@ -2907,9 +2907,7 @@ exports[`RunTests Step InputSet View should render all fields 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg bottomMargin5"
         >
-          <div
-            style="padding: 0px; margin: 0px;"
-          >
+          <div>
             <div
               class="Text--withDocsTooltip"
               data-tooltip-id="pluginImageInfo"

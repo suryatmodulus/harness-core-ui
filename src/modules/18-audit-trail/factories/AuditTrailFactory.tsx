@@ -1,12 +1,32 @@
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import type { Module } from '@common/interfaces/RouteInterfaces'
-import type { ResourceDTO, ResourceScopeDTO } from 'services/audit'
+import type { AuditEventDTO, ResourceDTO, ResourceScopeDTO } from 'services/audit'
 
 export type ResourceType = ResourceDTO['type']
 
+export interface ResourceScope extends ResourceScopeDTO {
+  accountIdentifier: string
+}
+
+export const getModuleNameFromAuditModule = (auditModule: AuditEventDTO['module']): Module | undefined => {
+  switch (auditModule) {
+    case 'CD':
+      return 'cd'
+    case 'CI':
+      return 'ci'
+    case 'CF':
+      return 'cf'
+    case 'CE':
+      return 'ce'
+    case 'CV':
+      return 'cv'
+  }
+  return undefined
+}
+
 interface ResourceHandler {
   moduleIcon: IconProps
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO, module?: Module) => string | undefined
+  resourceUrl?: (resource: ResourceDTO, resourceScope: ResourceScope, module?: Module) => string | undefined
 }
 
 class AuditTrailFactory {

@@ -104,7 +104,7 @@ describe('CVCreateSLO', () => {
       expect(screen.getByText('cv.slos.validations.healthSourceRequired')).toBeInTheDocument()
       expect(screen.getAllByText('cv.required')).toHaveLength(3)
       expect(screen.getAllByText('cv.metricIsRequired')).toHaveLength(2)
-      expect(screen.getByText('cv.slos.selectMonitoredServiceForSlo')).toBeInTheDocument()
+      expect(screen.getByText('connectors.cdng.monitoredService.label')).toBeInTheDocument()
     })
   })
 })
@@ -186,11 +186,19 @@ describe('CVCreateSLO - Edit', () => {
 
     expect(screen.getByText('cv.slos.sli')).toHaveAttribute('aria-selected', 'true')
 
-    expect(screen.getByLabelText('cv.slos.slis.metricOptions.ratioBased')).toBeChecked()
+    const ratioMetricRadio = screen.getByRole('radio', {
+      name: /cv.slos.slis.metricOptions.ratioBased/i,
+      hidden: true
+    })
+
+    expect(ratioMetricRadio).toBeChecked()
     expect(screen.getByText('cv.slos.slis.ratioMetricType.eventType')).toBeInTheDocument()
     expect(screen.getByText('cv.slos.slis.ratioMetricType.goodRequestsMetrics')).toBeInTheDocument()
 
-    const thresholdMetricRadio = screen.getByLabelText('cv.slos.slis.metricOptions.thresholdBased')
+    const thresholdMetricRadio = screen.getByRole('radio', {
+      name: /cv.slos.slis.metricOptions.thresholdBased/i,
+      hidden: true
+    })
 
     userEvent.click(thresholdMetricRadio)
 

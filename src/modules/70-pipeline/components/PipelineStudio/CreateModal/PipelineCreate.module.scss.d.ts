@@ -1,7 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly bannerContainer: string
-  readonly upgradeRequiredBanner: string
+  readonly pipelineCreateNameIdDescriptionTags: string
 }
 export default styles

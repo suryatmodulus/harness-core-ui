@@ -5,7 +5,7 @@ exports[`CI: Render feature restriction banner Free Account Do not show any bann
 exports[`CI: Render feature restriction banner Free Account Show warning banner when 90% usage of free total builds 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main bannerContainer StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between StyledProps--background-white StyledProps--padding-left-large StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+    class="Layout--horizontal StyledProps--main bannerContainer infoBanner StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between StyledProps--padding-left-large StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
     style="height: 56px;"
   >
     <div
@@ -16,7 +16,7 @@ exports[`CI: Render feature restriction banner Free Account Show warning banner 
         style="display: flex; align-items: center;"
       >
         <span
-          class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--intent-primary StyledProps--margin-right-xsmall StyledProps--color StyledProps--color-primary7"
+          class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--margin-right-xsmall"
           data-icon="info-message"
         >
           <svg
@@ -34,19 +34,34 @@ exports[`CI: Render feature restriction banner Free Account Show warning banner 
             />
           </svg>
         </span>
+        
         pipeline.featureRestriction.maxTotalBuilds90PercentLimit
       </p>
-      <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--variation Button--variation-secondary Button--size Button--small"
-        style="width: 130px;"
-        type="button"
+      <div
+        class="StyledProps--font StyledProps--main redirectButtons"
       >
-        <span
-          class="bp3-button-text"
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--variation Button--variation-link Button--size Button--small"
+          data-name="view-usage-link"
+          type="button"
         >
-          common.explorePlans
-        </span>
-      </button>
+          <span
+            class="bp3-button-text"
+          >
+            Common.viewusage
+          </span>
+        </button>
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--variation Button--variation-secondary Button--size Button--small"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            common.explorePlans
+          </span>
+        </button>
+      </div>
     </div>
     <button
       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
@@ -90,7 +105,7 @@ exports[`CI: Render feature restriction banner Free Account Show warning banner 
         style="display: flex; align-items: center;"
       >
         <span
-          class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--intent-primary StyledProps--margin-right-xsmall StyledProps--color StyledProps--color-orange900"
+          class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall StyledProps--margin-right-xsmall"
           data-icon="upgrade-bolt"
         >
           <svg
@@ -109,24 +124,37 @@ exports[`CI: Render feature restriction banner Free Account Show warning banner 
           </svg>
         </span>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-orange900"
-          style="font-weight: 700;"
+          class="StyledProps--font StyledProps--main headline"
         >
           COMMON.FEATURE.UPGRADEREQUIRED.TITLE
         </p>
         pipeline.featureRestriction.maxBuildsPerMonth100PercentLimit
       </p>
-      <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--variation Button--variation-secondary Button--size Button--small"
-        style="width: 130px;"
-        type="button"
+      <div
+        class="StyledProps--font StyledProps--main redirectButtons"
       >
-        <span
-          class="bp3-button-text"
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--variation Button--variation-link Button--size Button--small"
+          data-name="view-usage-link"
+          type="button"
         >
-          common.explorePlans
-        </span>
-      </button>
+          <span
+            class="bp3-button-text"
+          >
+            Common.viewusage
+          </span>
+        </button>
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--variation Button--variation-secondary Button--size Button--small"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            common.explorePlans
+          </span>
+        </button>
+      </div>
     </div>
     <button
       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"

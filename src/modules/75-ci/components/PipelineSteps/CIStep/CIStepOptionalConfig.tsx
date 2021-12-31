@@ -5,7 +5,7 @@ import { Color, Container, Layout, MultiTypeInputType, Text } from '@wings-softw
 import { useStrings } from 'framework/strings'
 import type { StringsMap } from 'stringTypes'
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
-import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { MultiTypeTextField, MultiTypeTextProps } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import { MultiTypeMapInputSet } from '@common/components/MultiTypeMapInputSet/MultiTypeMapInputSet'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
@@ -71,21 +71,110 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
     disabled: readonly
   }
 
+  const renderMultiTypeTextField = React.useCallback(
+    ({
+      name,
+      tooltipId,
+      labelKey,
+      inputProps
+    }: {
+      name: string
+      tooltipId: string
+      labelKey: keyof StringsMap
+      inputProps: MultiTypeTextProps['multiTextInputProps']
+    }) => (
+      <MultiTypeTextField
+        name={name}
+        label={
+          <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
+            <Text
+              margin={{ top: 'small' }}
+              className={css.inpLabel}
+              color={Color.GREY_600}
+              font={{ size: 'small', weight: 'semi-bold' }}
+            >
+              {getString(labelKey)}
+            </Text>
+            &nbsp;
+            {getOptionalSubLabel(tooltipId, getString)}
+          </Layout.Horizontal>
+        }
+        multiTextInputProps={inputProps}
+      />
+    ),
+    []
+  )
+
+  const renderMultiTypeCheckboxField = React.useCallback(
+    ({ name, tooltipId, labelKey }: { name: string; tooltipId: string; labelKey: keyof StringsMap }) => (
+      <FormMultiTypeCheckboxField
+        name={name}
+        label={getString(labelKey)}
+        multiTypeTextbox={{
+          expressions,
+          allowableTypes,
+          disabled: readonly
+        }}
+        tooltipProps={{ dataTooltipId: tooltipId }}
+        disabled={readonly}
+      />
+    ),
+    []
+  )
+
+  const renderMultiTypeList = React.useCallback(
+    ({
+      name,
+      tooltipId,
+      labelKey,
+      placeholderKey,
+      allowedTypes
+    }: {
+      name: string
+      tooltipId: string
+      labelKey: keyof StringsMap
+      placeholderKey?: keyof StringsMap
+      allowedTypes?: MultiTypeInputType[]
+    }) => (
+      <MultiTypeList
+        name={name}
+        placeholder={placeholderKey ? getString(placeholderKey) : ''}
+        multiTextInputProps={{
+          expressions
+        }}
+        multiTypeFieldSelectorProps={{
+          label: (
+            <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
+              <Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                className={css.inpLabel}
+                color={Color.GREY_800}
+                font={{ size: 'small', weight: 'semi-bold' }}
+              >
+                {getString(labelKey)}
+              </Text>
+              &nbsp;
+              {getOptionalSubLabel(tooltipId, getString)}
+            </Layout.Horizontal>
+          ),
+          allowedTypes: allowedTypes
+        }}
+        disabled={readonly}
+      />
+    ),
+    []
+  )
+
   return (
     <>
       {!enableFields['spec.privileged']?.shouldHide &&
       Object.prototype.hasOwnProperty.call(enableFields, 'spec.privileged') ? (
         <div className={cx(css.formGroup, css.sm)}>
-          <FormMultiTypeCheckboxField
-            name={`${prefix}spec.privileged`}
-            label={getString('ci.privileged')}
-            multiTypeTextbox={{
-              expressions,
-              allowableTypes
-            }}
-            tooltipProps={{ dataTooltipId: 'privileged' }}
-            disabled={readonly}
-          />
+          {renderMultiTypeCheckboxField({
+            name: `${prefix}spec.privileged`,
+            tooltipId: 'privileged',
+            labelKey: 'ci.privileged'
+          })}
         </div>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.settings') ? (
@@ -110,31 +199,13 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.reportPaths') ? (
         <Container className={cx(css.formGroup, stepCss)}>
-          <MultiTypeList
-            name={`${prefix}spec.reportPaths`}
-            placeholder={getString('pipelineSteps.reportPathsPlaceholder')}
-            multiTextInputProps={{
-              expressions
-            }}
-            multiTypeFieldSelectorProps={{
-              label: (
-                <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
-                  <Text
-                    style={{ display: 'flex', alignItems: 'center' }}
-                    className={css.inpLabel}
-                    color={Color.GREY_800}
-                    font={{ size: 'small', weight: 'semi-bold' }}
-                  >
-                    {getString('pipelineSteps.reportPathsLabel')}
-                  </Text>
-                  &nbsp;
-                  {getOptionalSubLabel('reportPaths', getString)}
-                </Layout.Horizontal>
-              ),
-              allowedTypes: allowableTypes.filter(type => type !== MultiTypeInputType.RUNTIME)
-            }}
-            disabled={readonly}
-          />
+          {renderMultiTypeList({
+            name: `${prefix}spec.reportPaths`,
+            placeholderKey: 'pipelineSteps.reportPathsPlaceholder',
+            labelKey: 'pipelineSteps.reportPathsLabel',
+            tooltipId: 'reportPaths',
+            allowedTypes: allowableTypes.filter(type => type !== MultiTypeInputType.RUNTIME)
+          })}
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.reportPaths') ? <Separator topSeparation={16} /> : null}
@@ -168,30 +239,12 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.outputVariables') ? (
         <Container className={cx(css.formGroup, stepCss)}>
-          <MultiTypeList
-            name={`${prefix}spec.outputVariables`}
-            multiTextInputProps={{
-              expressions
-            }}
-            multiTypeFieldSelectorProps={{
-              label: (
-                <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
-                  <Text
-                    style={{ display: 'flex', alignItems: 'center' }}
-                    className={css.inpLabel}
-                    color={Color.GREY_800}
-                    font={{ size: 'small', weight: 'semi-bold' }}
-                  >
-                    {getString('pipelineSteps.outputVariablesLabel')}
-                  </Text>
-                  &nbsp;
-                  {getOptionalSubLabel('outputVariables', getString)}
-                </Layout.Horizontal>
-              ),
-              allowedTypes: allowableTypes.filter(type => type !== MultiTypeInputType.RUNTIME)
-            }}
-            disabled={readonly}
-          />
+          {renderMultiTypeList({
+            name: `${prefix}spec.outputVariables`,
+            labelKey: 'pipelineSteps.outputVariablesLabel',
+            tooltipId: 'outputVariables',
+            allowedTypes: allowableTypes.filter(type => type !== MultiTypeInputType.RUNTIME)
+          })}
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.outputVariables') ? (
@@ -199,117 +252,56 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.entrypoint') ? (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
-          <MultiTypeList
-            name={`${prefix}spec.entrypoint`}
-            multiTextInputProps={{ expressions, allowableTypes }}
-            multiTypeFieldSelectorProps={{
-              label: (
-                <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
-                  <Text
-                    style={{ display: 'flex', alignItems: 'center' }}
-                    className={css.inpLabel}
-                    color={Color.GREY_800}
-                    font={{ size: 'small', weight: 'semi-bold' }}
-                  >
-                    {getString('entryPointLabel')}
-                  </Text>
-                  &nbsp;
-                  {getOptionalSubLabel('dependencyEntryPoint', getString)}
-                </Layout.Horizontal>
-              )
-            }}
-            disabled={readonly}
-          />
+          {renderMultiTypeList({
+            name: `${prefix}spec.entrypoint`,
+            labelKey: 'entryPointLabel',
+            tooltipId: 'dependencyEntryPoint'
+          })}
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.args') ? (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
-          <MultiTypeList
-            name={`${prefix}spec.args`}
-            multiTextInputProps={{ expressions, allowableTypes }}
-            multiTypeFieldSelectorProps={{
-              label: (
-                <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
-                  <Text
-                    style={{ display: 'flex', alignItems: 'center' }}
-                    className={css.inpLabel}
-                    color={Color.GREY_800}
-                    font={{ size: 'small', weight: 'semi-bold' }}
-                  >
-                    {getString('argsLabel')}
-                  </Text>
-                  &nbsp;
-                  {getOptionalSubLabel('dependencyArgs', getString)}
-                </Layout.Horizontal>
-              )
-            }}
-            disabled={readonly}
-          />
+          {renderMultiTypeList({
+            name: `${prefix}spec.args`,
+            labelKey: 'argsLabel',
+            tooltipId: 'dependencyArgs'
+          })}
         </Container>
       ) : null}
       {!enableFields['spec.optimize']?.shouldHide &&
       Object.prototype.hasOwnProperty.call(enableFields, 'spec.optimize') ? (
         <div className={cx(css.formGroup, css.sm)}>
-          <FormMultiTypeCheckboxField
-            name={`${prefix}spec.optimize`}
-            label={getString('ci.optimize')}
-            multiTypeTextbox={{
-              expressions,
-              allowableTypes
-            }}
-            tooltipProps={{ dataTooltipId: 'optimize' }}
-            disabled={readonly}
-          />
+          {renderMultiTypeCheckboxField({
+            name: `${prefix}spec.optimize`,
+            tooltipId: 'optimize',
+            labelKey: 'ci.optimize'
+          })}
         </div>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.dockerfile') ? (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
-          <MultiTypeTextField
-            name={`${prefix}spec.dockerfile`}
-            label={
-              <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
-                <Text
-                  margin={{ top: 'small' }}
-                  className={css.inpLabel}
-                  color={Color.GREY_600}
-                  font={{ size: 'small', weight: 'semi-bold' }}
-                >
-                  {getString('pipelineSteps.dockerfileLabel')}
-                </Text>
-                &nbsp;
-                {getOptionalSubLabel('dockerfile', getString)}
-              </Layout.Horizontal>
-            }
-            multiTextInputProps={{
+          {renderMultiTypeTextField({
+            name: `${prefix}spec.dockerfile`,
+            tooltipId: 'dockerfile',
+            labelKey: 'pipelineSteps.dockerfileLabel',
+            inputProps: {
               multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
-            }}
-          />
+            }
+          })}
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.context') ? (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
-          <MultiTypeTextField
-            name={`${prefix}spec.context`}
-            label={
-              <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
-                <Text
-                  margin={{ top: 'small' }}
-                  className={css.inpLabel}
-                  color={Color.GREY_600}
-                  font={{ size: 'small', weight: 'semi-bold' }}
-                >
-                  {getString('pipelineSteps.contextLabel')}
-                </Text>
-                &nbsp;
-                {getOptionalSubLabel('context', getString)}
-              </Layout.Horizontal>
-            }
-            multiTextInputProps={{
+          {renderMultiTypeTextField({
+            name: `${prefix}spec.context`,
+            tooltipId: 'context',
+            labelKey: 'pipelineSteps.contextLabel',
+            inputProps: {
               multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
-            }}
-          />
+            }
+          })}
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.labels') ? (
@@ -348,76 +340,45 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.endpoint') ? (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
-          <MultiTypeTextField
-            name={`${prefix}spec.endpoint`}
-            label={
-              <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
-                <Text className={css.inpLabel} color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
-                  {getString('pipelineSteps.endpointLabel')}
-                </Text>
-                &nbsp;
-                {getOptionalSubLabel('endpoint', getString)}
-              </Layout.Horizontal>
-            }
-            multiTextInputProps={{
+          {renderMultiTypeTextField({
+            name: `${prefix}spec.endpoint`,
+            tooltipId: 'endpoint',
+            labelKey: 'pipelineSteps.endpointLabel',
+            inputProps: {
               placeholder: getString('pipelineSteps.endpointPlaceholder'),
               multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
-            }}
-          />
+            }
+          })}
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.target') ? (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
-          <MultiTypeTextField
-            name={`${prefix}spec.target`}
-            label={
-              <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
-                <Text
-                  margin={{ top: 'small' }}
-                  className={css.inpLabel}
-                  color={Color.GREY_600}
-                  font={{ size: 'small', weight: 'semi-bold' }}
-                >
-                  {getString('pipelineSteps.targetLabel')}
-                </Text>
-                &nbsp;
-                {getOptionalSubLabel(enableFields['spec.target'].tooltipId, getString)}
-              </Layout.Horizontal>
-            }
-            multiTextInputProps={{
+          {renderMultiTypeTextField({
+            name: `${prefix}spec.target`,
+            tooltipId: enableFields['spec.target'].tooltipId,
+            labelKey: 'pipelineSteps.targetLabel',
+            inputProps: {
               placeholder: getString('pipelineSteps.artifactsTargetPlaceholder'),
               multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly
-            }}
-          />
+            }
+          })}
         </Container>
       ) : null}
       {!enableFields['spec.remoteCacheImage']?.shouldHide &&
       Object.prototype.hasOwnProperty.call(enableFields, 'spec.remoteCacheImage') ? (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
-          <MultiTypeTextField
-            name={`${prefix}spec.remoteCacheImage`}
-            label={
-              <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
-                <Text
-                  margin={{ top: 'small' }}
-                  className={css.inpLabel}
-                  color={Color.GREY_600}
-                  font={{ size: 'small', weight: 'semi-bold' }}
-                >
-                  {getString('ci.remoteCacheImage.label')}
-                </Text>
-                &nbsp;
-                {getOptionalSubLabel('gcrRemoteCache', getString)}
-              </Layout.Horizontal>
-            }
-            multiTextInputProps={{
+          {renderMultiTypeTextField({
+            name: `${prefix}spec.remoteCacheImage`,
+            tooltipId: 'gcrRemoteCache',
+            labelKey: 'ci.remoteCacheImage.label',
+            inputProps: {
               multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly,
               placeholder: getString('ci.remoteCacheImage.placeholder')
-            }}
-          />
+            }
+          })}
         </Container>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.archiveFormat') ? (
@@ -454,74 +415,44 @@ export const CIStepOptionalConfig: React.FC<CIStepOptionalConfigProps> = props =
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.override') ? (
         <div className={cx(css.formGroup, css.sm, css.bottomMargin5)}>
-          <FormMultiTypeCheckboxField
-            name={`${prefix}spec.override`}
-            label={getString('override')}
-            multiTypeTextbox={{
-              expressions,
-              allowableTypes,
-              disabled: readonly
-            }}
-            disabled={readonly}
-            tooltipProps={{ dataTooltipId: 'saveCacheOverride' }}
-          />
+          {renderMultiTypeCheckboxField({
+            name: `${prefix}spec.override`,
+            tooltipId: 'saveCacheOverride',
+            labelKey: 'override'
+          })}
         </div>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.pathStyle') ? (
         <div className={cx(css.formGroup, css.sm)}>
-          <FormMultiTypeCheckboxField
-            name={`${prefix}spec.pathStyle`}
-            label={getString('pathStyle')}
-            multiTypeTextbox={{
-              expressions,
-              allowableTypes,
-              disabled: readonly
-            }}
-            disabled={readonly}
-            tooltipProps={{ dataTooltipId: 'pathStyle' }}
-          />
+          {renderMultiTypeCheckboxField({
+            name: `${prefix}spec.pathStyle`,
+            tooltipId: 'pathStyle',
+            labelKey: 'pathStyle'
+          })}
         </div>
       ) : null}
       {Object.prototype.hasOwnProperty.call(enableFields, 'spec.failIfKeyNotFound') ? (
         <div className={cx(css.formGroup, css.sm, css.bottomMargin1)}>
-          <FormMultiTypeCheckboxField
-            name={`${prefix}spec.failIfKeyNotFound`}
-            label={getString('failIfKeyNotFound')}
-            multiTypeTextbox={{
-              expressions,
-              allowableTypes,
-              disabled: readonly
-            }}
-            disabled={readonly}
-            tooltipProps={{ dataTooltipId: 'failIfKeyNotFound' }}
-          />
+          {renderMultiTypeCheckboxField({
+            name: `${prefix}spec.failIfKeyNotFound`,
+            tooltipId: 'failIfKeyNotFound',
+            labelKey: 'failIfKeyNotFound'
+          })}
         </div>
       ) : null}
       {!enableFields['spec.remoteCacheRepo']?.shouldHide &&
       Object.prototype.hasOwnProperty.call(enableFields, 'spec.remoteCacheRepo') ? (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
-          <MultiTypeTextField
-            name={`${prefix}spec.remoteCacheRepo`}
-            label={
-              <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'baseline' }}>
-                <Text
-                  margin={{ top: 'small' }}
-                  className={css.inpLabel}
-                  color={Color.GREY_600}
-                  font={{ size: 'small', weight: 'semi-bold' }}
-                >
-                  {getString('ci.remoteCacheRepository.label')}
-                </Text>
-                &nbsp;
-                {getOptionalSubLabel('dockerHubRemoteCache', getString)}
-              </Layout.Horizontal>
-            }
-            multiTextInputProps={{
+          {renderMultiTypeTextField({
+            name: `${prefix}spec.remoteCacheRepo`,
+            tooltipId: 'dockerHubRemoteCache',
+            labelKey: 'ci.remoteCacheRepository.label',
+            inputProps: {
               multiTextInputProps: { expressions, allowableTypes },
               disabled: readonly,
               placeholder: getString('ci.remoteCacheImage.placeholder')
-            }}
-          />
+            }
+          })}
         </Container>
       ) : null}
     </>

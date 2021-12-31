@@ -11,8 +11,8 @@ import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
 import { String } from 'framework/strings'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import type { ResourceDTO, ResourceScopeDTO } from 'services/audit'
-import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
+import type { ResourceDTO } from 'services/audit'
+import AuditTrailFactory, { ResourceScope } from '@audit-trail/factories/AuditTrailFactory'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import TemplateResourceModal from './components/RbacResourceModals/TemplateResourceModal'
 import TemplateResourceRenderer from './components/RbacResourceModals/TemplateResourceRenderer'
@@ -41,12 +41,11 @@ RbacFactory.registerResourceTypeHandler(ResourceType.TEMPLATE, {
  * */
 AuditTrailFactory.registerResourceHandler(ResourceType.TEMPLATE, {
   moduleIcon: {
-    name: 'cd-main',
-    size: 30
+    name: 'cd-main'
   },
-  resourceUrl: (_: ResourceDTO, resourceScope: ResourceScopeDTO, module?: Module) => {
+  resourceUrl: (_: ResourceDTO, resourceScope: ResourceScope, module?: Module) => {
     const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope
-    if (module && accountIdentifier && orgIdentifier && projectIdentifier) {
+    if (module && orgIdentifier && projectIdentifier) {
       return routes.toTemplates({
         module,
         orgIdentifier,

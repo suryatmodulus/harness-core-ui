@@ -151,7 +151,6 @@ project: project
 org: organization
 account: account
 accountScope: Account scope
-user: User
 forUser: For User
 generateToken: Generate Token
 myApiKeys: My {{$.common.apiKeys}}

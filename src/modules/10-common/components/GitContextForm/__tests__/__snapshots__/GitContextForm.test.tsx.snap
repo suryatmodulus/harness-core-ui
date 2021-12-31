@@ -86,56 +86,75 @@ exports[`GitContextForm test GitContextForm for create with deafault restriction
               </div>
             </div>
           </div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300"
-          >
-            common.gitSync.selectBranchLabel
-          </p>
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
           >
             <div
-              class="bp3-popover-wrapper Select--main bp3-fill"
+              class="bp3-form-group bp3-disabled selectBranchInput"
+              data-id="branch-1"
             >
+              <label
+                class="bp3-label"
+                for="branch"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="itContextForm_branch"
+                >
+                  common.gitSync.selectBranchLabel
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
               <div
-                class="bp3-popover-target"
+                class="bp3-form-content"
               >
                 <div
-                  class="bp3-input-group bp3-disabled"
+                  class="bp3-popover-wrapper Select--main bp3-fill"
                 >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    disabled=""
-                    name="branch"
-                    placeholder="- Select -"
-                    style="padding-right: 0px;"
-                    type="text"
-                    value=""
-                  />
-                  <span
-                    class="bp3-input-action"
+                  <div
+                    class="bp3-popover-target"
                   >
-                    <span
-                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                      icon="chevron-down"
+                    <div
+                      class="bp3-input-group bp3-disabled"
                     >
-                      <svg
-                        data-icon="chevron-down"
-                        height="14"
-                        viewBox="0 0 16 16"
-                        width="14"
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        disabled=""
+                        name="branch"
+                        placeholder="- Select -"
+                        style="padding-right: 0px;"
+                        type="text"
+                        value=""
+                      />
+                      <span
+                        class="bp3-input-action"
                       >
-                        <desc>
-                          chevron-down
-                        </desc>
-                        <path
-                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </span>
+                        <span
+                          class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                          icon="chevron-down"
+                        >
+                          <svg
+                            data-icon="chevron-down"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              chevron-down
+                            </desc>
+                            <path
+                              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -233,55 +252,74 @@ exports[`GitContextForm test GitContextForm for create without deafult restricti
               </div>
             </div>
           </div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300"
-          >
-            common.gitSync.selectBranchLabel
-          </p>
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
           >
             <div
-              class="bp3-popover-wrapper Select--main bp3-fill"
+              class="bp3-form-group selectBranchInput"
+              data-id="branch-1"
             >
+              <label
+                class="bp3-label"
+                for="branch"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="itContextForm_branch"
+                >
+                  common.gitSync.selectBranchLabel
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
               <div
-                class="bp3-popover-target"
+                class="bp3-form-content"
               >
                 <div
-                  class="bp3-input-group"
+                  class="bp3-popover-wrapper Select--main bp3-fill"
                 >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    name="branch"
-                    placeholder="- Select -"
-                    style="padding-right: 0px;"
-                    type="text"
-                    value=""
-                  />
-                  <span
-                    class="bp3-input-action"
+                  <div
+                    class="bp3-popover-target"
                   >
-                    <span
-                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                      icon="chevron-down"
+                    <div
+                      class="bp3-input-group"
                     >
-                      <svg
-                        data-icon="chevron-down"
-                        height="14"
-                        viewBox="0 0 16 16"
-                        width="14"
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="branch"
+                        placeholder="- Select -"
+                        style="padding-right: 0px;"
+                        type="text"
+                        value=""
+                      />
+                      <span
+                        class="bp3-input-action"
                       >
-                        <desc>
-                          chevron-down
-                        </desc>
-                        <path
-                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </span>
+                        <span
+                          class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                          icon="chevron-down"
+                        >
+                          <svg
+                            data-icon="chevron-down"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              chevron-down
+                            </desc>
+                            <path
+                              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -380,56 +418,75 @@ exports[`GitContextForm test GitContextForm for edit should have repo and branch
               </div>
             </div>
           </div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey300"
-          >
-            common.gitSync.selectBranchLabel
-          </p>
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
           >
             <div
-              class="bp3-popover-wrapper Select--main bp3-fill"
+              class="bp3-form-group bp3-disabled selectBranchInput"
+              data-id="branch-1"
             >
+              <label
+                class="bp3-label"
+                for="branch"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="itContextForm_branch"
+                >
+                  common.gitSync.selectBranchLabel
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
               <div
-                class="bp3-popover-target"
+                class="bp3-form-content"
               >
                 <div
-                  class="bp3-input-group bp3-disabled"
+                  class="bp3-popover-wrapper Select--main bp3-fill"
                 >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    disabled=""
-                    name="branch"
-                    placeholder="- Select -"
-                    style="padding-right: 0px;"
-                    type="text"
-                    value="feature"
-                  />
-                  <span
-                    class="bp3-input-action"
+                  <div
+                    class="bp3-popover-target"
                   >
-                    <span
-                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                      icon="chevron-down"
+                    <div
+                      class="bp3-input-group bp3-disabled"
                     >
-                      <svg
-                        data-icon="chevron-down"
-                        height="14"
-                        viewBox="0 0 16 16"
-                        width="14"
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        disabled=""
+                        name="branch"
+                        placeholder="- Select -"
+                        style="padding-right: 0px;"
+                        type="text"
+                        value="feature"
+                      />
+                      <span
+                        class="bp3-input-action"
                       >
-                        <desc>
-                          chevron-down
-                        </desc>
-                        <path
-                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </span>
+                        <span
+                          class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                          icon="chevron-down"
+                        >
+                          <svg
+                            data-icon="chevron-down"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              chevron-down
+                            </desc>
+                            <path
+                              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

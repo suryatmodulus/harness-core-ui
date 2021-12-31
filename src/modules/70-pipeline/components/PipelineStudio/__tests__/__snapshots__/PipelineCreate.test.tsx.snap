@@ -10,7 +10,7 @@ exports[`PipelineCreate test initializes ok edit pipeline 1`] = `
     >
       <div>
         <div
-          class="StyledProps--font StyledProps--main main"
+          class="StyledProps--font StyledProps--main main pipelineCreateNameIdDescriptionTags"
         >
           <div
             class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -197,7 +197,7 @@ exports[`PipelineCreate test initializes ok for CD module 1`] = `
     >
       <div>
         <div
-          class="StyledProps--font StyledProps--main main"
+          class="StyledProps--font StyledProps--main main pipelineCreateNameIdDescriptionTags"
         >
           <div
             class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -417,7 +417,7 @@ exports[`PipelineCreate test initializes ok for CI module 1`] = `
     >
       <div>
         <div
-          class="StyledProps--font StyledProps--main main"
+          class="StyledProps--font StyledProps--main main pipelineCreateNameIdDescriptionTags"
         >
           <div
             class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -637,7 +637,7 @@ exports[`PipelineCreate test initializes ok new pipeline 1`] = `
     >
       <div>
         <div
-          class="StyledProps--font StyledProps--main main"
+          class="StyledProps--font StyledProps--main main pipelineCreateNameIdDescriptionTags"
         >
           <div
             class="InputWithIdentifier--txtNameContainer TextInput--main"

@@ -8,7 +8,8 @@ import {
   useGetLabelNames,
   useGetSampleDataForNRQL,
   useFetchParsedSampleData,
-  NewRelicMetricDefinition
+  NewRelicMetricDefinition,
+  TimeSeriesSampleDTO
 } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
@@ -93,34 +94,20 @@ export default function NewRelicMappedMetric({
     () => ({
       accountId,
       orgIdentifier,
-      projectIdentifier,
-      jsonResponse: JSON.stringify(sampleRecord),
-      groupName: formikValues?.groupName?.value,
-      metricValueJSONPath: formikValues?.metricValue,
-      timestampJSONPath: formikValues?.timestamp,
-      timestampFormat: formikValues?.timestampFormat
+      projectIdentifier
     }),
 
-    [
-      accountId,
-      orgIdentifier,
-      projectIdentifier,
-      sampleRecord,
-      formikValues?.groupName?.value,
-      formikValues?.metricValue,
-      formikValues?.timestamp,
-      formikValues?.timestampFormat
-    ]
+    [accountId, orgIdentifier, projectIdentifier]
   )
 
+  const [newRelicTimeSeriesData, setNewRelicTimeSeriesData] = useState<TimeSeriesSampleDTO[] | undefined>()
+
   const {
-    data: newRelicTimeSeriesData,
-    refetch: fetchNewRelicTimeSeriesData,
+    mutate: fetchNewRelicTimeSeriesData,
     loading: timeSeriesDataLoading,
     error: timeseriesDataError
   } = useFetchParsedSampleData({
-    queryParams: queryParamsForTimeSeriesData,
-    lazy: true
+    queryParams: queryParamsForTimeSeriesData
   })
 
   const fetchNewRelicResponse = useCallback(async () => {
@@ -130,12 +117,19 @@ export default function NewRelicMappedMetric({
   }, [queryParamsForNRQL])
 
   const handleBuildChart = useCallback(() => {
-    fetchNewRelicTimeSeriesData({ queryParams: queryParamsForTimeSeriesData })
+    fetchNewRelicTimeSeriesData({
+      groupName: formikValues?.groupName?.value,
+      jsonResponse: JSON.stringify(sampleRecord),
+      metricValueJSONPath: formikValues?.metricValue,
+      timestampJSONPath: formikValues?.timestamp
+    }).then(data => {
+      setNewRelicTimeSeriesData(data.data)
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryParamsForTimeSeriesData])
 
   const options = useMemo(() => {
-    return getOptionsForChart(newRelicTimeSeriesData)
+    return newRelicTimeSeriesData ? getOptionsForChart(newRelicTimeSeriesData) : []
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newRelicTimeSeriesData])
 

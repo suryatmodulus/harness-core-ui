@@ -1,5 +1,7 @@
 .basicDetails {
   padding: var(--spacing-10) var(--spacing-11) !important;
+  border-radius: 6px;
+
   .nameIdDescriptionTags {
     margin-bottom: 0px !important;
     > div {
@@ -12,4 +14,8 @@
   position: absolute;
   top: var(--spacing-6);
   right: var(--spacing-4);
+}
+
+.version-label {
+  margin-bottom: var(--spacing-xlarge) !important;
 }

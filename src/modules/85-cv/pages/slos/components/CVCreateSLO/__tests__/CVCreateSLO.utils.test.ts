@@ -1,0 +1,126 @@
+import { initialValuesSLO } from '../CVCreateSLO.constants'
+import { PeriodLengthTypes, PeriodTypes, SLIMetricTypes, Days } from '../CVCreateSLO.types'
+import {
+  convertServiceLevelIndicatorToSLIFormData,
+  convertSLOFormDataToServiceLevelIndicatorDTO,
+  getSLOInitialFormData,
+  createSLORequestPayload
+} from '../CVCreateSLO.utils'
+import { serviceLevelIndicator, SLIFormData, serviceLevelObjective, SLOResponse, pathParams } from './CVCreateSLO.mock'
+
+const { orgIdentifier, projectIdentifier } = pathParams
+
+describe('Utils', () => {
+  test('convertServiceLevelIndicatorToSLIFormData', () => {
+    expect(convertServiceLevelIndicatorToSLIFormData(serviceLevelIndicator)).toEqual(SLIFormData)
+  })
+
+  test('convertSLOFormDataToServiceLevelIndicatorDTO', () => {
+    expect(convertSLOFormDataToServiceLevelIndicatorDTO(serviceLevelObjective)).toEqual(serviceLevelIndicator)
+  })
+
+  test('convertSLOFormDataToServiceLevelIndicatorDTO for Threshold based', () => {
+    expect(
+      convertSLOFormDataToServiceLevelIndicatorDTO({
+        ...serviceLevelObjective,
+        SLIMetricType: SLIMetricTypes.THRESHOLD
+      })
+    ).toEqual({
+      ...serviceLevelIndicator,
+      spec: {
+        type: SLIMetricTypes.THRESHOLD,
+        spec: {
+          ...serviceLevelIndicator.spec.spec,
+          eventType: undefined,
+          metric2: undefined
+        }
+      }
+    })
+  })
+
+  test('getSLOInitialFormData', () => {
+    expect(getSLOInitialFormData()).toEqual(initialValuesSLO)
+  })
+
+  test('getSLOInitialFormData for edit flow', () => {
+    expect(getSLOInitialFormData(SLOResponse.resource?.serviceLevelObjective)).toEqual(serviceLevelObjective)
+  })
+
+  test('createSLORequestPayload - Ratio based', () => {
+    const SLORequestPayload = createSLORequestPayload(serviceLevelObjective, orgIdentifier, projectIdentifier)
+
+    expect(SLORequestPayload.serviceLevelIndicators[0].spec.spec.eventType).toEqual(serviceLevelObjective.eventType)
+    expect(SLORequestPayload.serviceLevelIndicators[0].spec.spec.metric2).toEqual(
+      serviceLevelObjective.goodRequestMetric
+    )
+  })
+
+  test('createSLORequestPayload - Threshold based', () => {
+    const SLORequestPayload = createSLORequestPayload(
+      { ...serviceLevelObjective, SLIMetricType: SLIMetricTypes.THRESHOLD },
+      orgIdentifier,
+      projectIdentifier
+    )
+
+    expect(SLORequestPayload.serviceLevelIndicators[0].spec.spec.eventType).toBeUndefined()
+    expect(SLORequestPayload.serviceLevelIndicators[0].spec.spec.metric2).toBeUndefined()
+  })
+
+  test('createSLORequestPayload - Rolling', () => {
+    const SLORequestPayload = createSLORequestPayload(serviceLevelObjective, orgIdentifier, projectIdentifier)
+
+    expect(SLORequestPayload.target.spec.periodLength).toEqual(serviceLevelObjective.periodLength)
+    expect(SLORequestPayload.target.spec.spec.dayOfWeek).toBeUndefined()
+    expect(SLORequestPayload.target.spec.spec.dayOfMonth).toBeUndefined()
+  })
+
+  test('createSLORequestPayload - Calendar - Weekly', () => {
+    const SLORequestPayload = createSLORequestPayload(
+      {
+        ...serviceLevelObjective,
+        periodType: PeriodTypes.CALENDAR,
+        periodLengthType: PeriodLengthTypes.WEEKLY,
+        dayOfWeek: Days.MONDAY
+      },
+      orgIdentifier,
+      projectIdentifier
+    )
+
+    expect(SLORequestPayload.target.spec.periodLength).toBeUndefined()
+    expect(SLORequestPayload.target.spec.spec.dayOfWeek).toEqual(Days.MONDAY)
+    expect(SLORequestPayload.target.spec.spec.dayOfMonth).toBeUndefined()
+  })
+
+  test('createSLORequestPayload - Calendar - Monthly', () => {
+    const SLORequestPayload = createSLORequestPayload(
+      {
+        ...serviceLevelObjective,
+        periodType: PeriodTypes.CALENDAR,
+        periodLengthType: PeriodLengthTypes.MONTHLY,
+        dayOfMonth: '2d'
+      },
+      orgIdentifier,
+      projectIdentifier
+    )
+
+    expect(SLORequestPayload.target.spec.periodLength).toBeUndefined()
+    expect(SLORequestPayload.target.spec.spec.dayOfWeek).toBeUndefined()
+    expect(SLORequestPayload.target.spec.spec.dayOfMonth).toEqual('2d')
+  })
+
+  test('createSLORequestPayload - Calendar - Quarterly', () => {
+    const SLORequestPayload = createSLORequestPayload(
+      {
+        ...serviceLevelObjective,
+        periodType: PeriodTypes.CALENDAR,
+        periodLengthType: PeriodLengthTypes.QUARTERLY
+      },
+      orgIdentifier,
+      projectIdentifier
+    )
+
+    expect(SLORequestPayload.target.spec.periodLength).toBeUndefined()
+    expect(SLORequestPayload.target.spec.spec.dayOfWeek).toBeUndefined()
+    expect(SLORequestPayload.target.spec.spec.dayOfMonth).toBeUndefined()
+  })
+})

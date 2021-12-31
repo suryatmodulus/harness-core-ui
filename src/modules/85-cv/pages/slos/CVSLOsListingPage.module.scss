@@ -3,10 +3,11 @@ $headerHeight: 146px;
 .pageBody {
   --page-header-height: #{$headerHeight} !important;
 
-  .userJourney {
-    padding: var(--spacing-small) !important;
-    margin-right: var(--spacing-small);
+  .sloRiskFilterCard {
+    padding: var(--spacing-medium) !important;
+    margin-right: var(--spacing-medium);
     margin-bottom: var(--spacing-medium);
+    width: calc(var(--card-width) - 50px);
   }
 
   .sloCardContainer {
@@ -18,6 +19,25 @@ $headerHeight: 146px;
       margin-bottom: none;
       background-color: #fcfeff;
     }
+  }
+
+  hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid var(--grey-200);
+    margin: var(--spacing-medium) 0;
+  }
+}
+
+.sloFilters_Dropdown {
+  background: var(--grey-0) !important;
+  width: 180px !important;
+}
+
+.sloFilters {
+  --primary-bg: var(--grey-0) !important;
+  p {
+    margin-bottom: var(--spacing-xsmall) !important;
   }
 }
 
@@ -52,5 +72,30 @@ $headerHeight: 146px;
     text-align: center;
     position: absolute;
     bottom: 40%;
+  }
+}
+
+.sloCardSpinner {
+  flex-direction: row !important;
+  justify-content: center;
+  align-items: center !important;
+  background: var(--primary) !important;
+  width: fit-content !important;
+  padding: var(--spacing-2) var(--spacing-4) !important;
+  border-radius: var(--spacing-3);
+  color: var(--grey-0) !important;
+
+  > * + * {
+    --layout-spacing: 0px;
+    margin-left: var(--spacing-3) !important;
+    color: var(--grey-0) !important;
+    font-size: var(--font-size-normal) !important;
+  }
+
+  svg {
+    width: 20px;
+    g path {
+      color: var(--grey-0);
+    }
   }
 }

@@ -1,18 +1,39 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { Formik, Page, useToaster, Tabs, Container, Layout, Button, ButtonVariation } from '@wings-software/uicore'
+import {
+  Formik,
+  Page,
+  useToaster,
+  Tabs,
+  Container,
+  Layout,
+  Button,
+  ButtonVariation,
+  Heading,
+  FontVariation,
+  useModalHook,
+  Dialog,
+  Text,
+  Color
+} from '@wings-software/uicore'
 import { PermissionIdentifier, ResourceType } from 'microfrontends'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { useGetServiceLevelObjective, useSaveSLOData, useUpdateSLOData } from 'services/cv'
+import { ServiceLevelObjectiveDTO, useGetServiceLevelObjective, useSaveSLOData, useUpdateSLOData } from 'services/cv'
 import RbacButton from '@rbac/components/Button/Button'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
+import sloReviewChange from '@cv/assets/sloReviewChange.svg'
 import SLOName from './components/CreateSLOForm/components/SLOName/SLOName'
 import SLI from './components/CreateSLOForm/components/SLI/SLI'
 import SLOTargetAndBudgetPolicy from './components/CreateSLOForm/components/SLOTargetAndBudgetPolicy/SLOTargetAndBudgetPolicy'
-import { getSLOInitialFormData, createSLORequestPayload, isFormDataValid } from './CVCreateSLO.utils'
+import {
+  getSLOInitialFormData,
+  createSLORequestPayload,
+  isFormDataValid,
+  getIsUserUpdatedSLOData
+} from './CVCreateSLO.utils'
 import { TabsOrder, getSLOFormValidationSchema } from './CVCreateSLO.constants'
 import { SLOForm, CreateSLOTabs, NavButtonsProps } from './CVCreateSLO.types'
 import css from './CVCreateSLO.module.scss'
@@ -28,6 +49,7 @@ const CVCreateSLO: React.FC = () => {
   const [selectedTabId, setSelectedTabId] = useState<CreateSLOTabs>(CreateSLOTabs.NAME)
 
   const projectIdentifierRef = useRef<string>()
+  const sloPayloadRef = useRef<ServiceLevelObjectiveDTO | null>(null)
 
   useEffect(() => {
     if (projectIdentifierRef.current && projectIdentifierRef.current !== projectIdentifier) {
@@ -68,19 +90,88 @@ const CVCreateSLO: React.FC = () => {
     }
   }, [identifier, refetchSLOData])
 
+  const [openModal, closeModal] = useModalHook(
+    () => (
+      <Dialog
+        isOpen={true}
+        usePortal={true}
+        autoFocus={true}
+        canEscapeKeyClose={true}
+        canOutsideClickClose={true}
+        enforceFocus={false}
+        style={{
+          width: 600,
+          borderLeft: 0,
+          paddingBottom: 0,
+          paddingTop: 'large',
+          position: 'relative',
+          overflow: 'hidden'
+        }}
+        onClose={closeModal}
+      >
+        <Layout.Vertical>
+          <Layout.Horizontal>
+            <Container width="70%" padding={{ right: 'large' }}>
+              <Heading level={2} font={{ variation: FontVariation.H3 }} margin={{ bottom: 'xxlarge' }}>
+                {getString('cv.slos.reviewChanges')}
+              </Heading>
+              <Text color={Color.GREY_600} font={{ weight: 'light' }} style={{ lineHeight: 'xxlarge' }}>
+                {getString('cv.slos.sloEditWarningMessage')}
+              </Text>
+            </Container>
+            <Container margin={{ top: 'small' }}>
+              <img width="170" src={sloReviewChange} />
+            </Container>
+          </Layout.Horizontal>
+
+          <Layout.Horizontal spacing="medium" margin={{ top: 'large', bottom: 'xlarge' }}>
+            <Button
+              text={getString('common.ok')}
+              onClick={async () => {
+                await updateSLO(sloPayloadRef.current as ServiceLevelObjectiveDTO)
+                sloPayloadRef.current = null
+                showSuccess(getString('cv.slos.sloUpdated'))
+                history.push(routes.toCVSLOs({ accountId, orgIdentifier, projectIdentifier, module: 'cv' }))
+              }}
+              intent="primary"
+            />
+            <Button
+              text={getString('cancel')}
+              onClick={() => {
+                sloPayloadRef.current = null
+                closeModal()
+              }}
+            />
+          </Layout.Horizontal>
+        </Layout.Vertical>
+      </Dialog>
+    ),
+    [projectIdentifier, orgIdentifier, accountId]
+  )
+
   const handleSLOSubmit = async (values: SLOForm): Promise<void> => {
     const sloCreateRequestPayload = createSLORequestPayload(values, orgIdentifier, projectIdentifier)
 
     try {
       if (identifier) {
-        await updateSLO(sloCreateRequestPayload)
-        showSuccess(getString('cv.slos.sloUpdated'))
+        if (
+          !getIsUserUpdatedSLOData(
+            SLODataResponse?.resource?.serviceLevelObjective as ServiceLevelObjectiveDTO,
+            sloCreateRequestPayload
+          )
+        ) {
+          sloPayloadRef.current = sloCreateRequestPayload
+          openModal()
+        } else {
+          await updateSLO(sloCreateRequestPayload)
+          showSuccess(getString('cv.slos.sloUpdated'))
+          history.push(routes.toCVSLOs({ accountId, orgIdentifier, projectIdentifier, module: 'cv' }))
+        }
       } else {
         await createSLO(sloCreateRequestPayload)
         showSuccess(getString('cv.slos.sloCreated'))
+        history.push(routes.toCVSLOs({ accountId, orgIdentifier, projectIdentifier, module: 'cv' }))
       }
-
-      history.push(routes.toCVSLOs({ accountId, orgIdentifier, projectIdentifier, module: 'cv' }))
     } catch (e) {
       showError(getErrorMessage(e))
     }
@@ -131,7 +222,11 @@ const CVCreateSLO: React.FC = () => {
             ]}
           />
         }
-        title={identifier ? getString('cv.slos.editSLO') : getString('cv.slos.createSLO')}
+        title={
+          identifier
+            ? getString('cv.slos.editSLO', { name: SLODataResponse?.resource?.serviceLevelObjective.name })
+            : getString('cv.slos.createSLO')
+        }
       />
       <Formik<SLOForm>
         initialValues={getSLOInitialFormData(SLODataResponse?.resource?.serviceLevelObjective)}
@@ -163,6 +258,9 @@ const CVCreateSLO: React.FC = () => {
                       retryOnError={() => refetchSLOData()}
                       className={css.pageBody}
                     >
+                      <Heading level={2} font={{ variation: FontVariation.FORM_TITLE }} margin={{ bottom: 'small' }}>
+                        {getString('cv.slos.sloDefinition')}
+                      </Heading>
                       <SLOName formikProps={formik} identifier={identifier}>
                         <NavButtons formikProps={formik} />
                       </SLOName>

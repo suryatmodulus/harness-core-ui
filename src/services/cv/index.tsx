@@ -3259,6 +3259,13 @@ export interface ResponsePartialSchemaDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseSLORiskCountResponse {
+  correlationId?: string
+  data?: SLORiskCountResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseSetAppdynamicsValidationResponse {
   correlationId?: string
   data?: AppdynamicsValidationResponse[]
@@ -3831,6 +3838,12 @@ export interface ResultSummary {
   testClusterSummaries?: ClusterSummary[]
 }
 
+export interface RiskCount {
+  count?: number
+  displayName?: string
+  identifier?: string
+}
+
 export interface RiskData {
   endTime?: number
   healthScore?: number
@@ -3902,6 +3915,11 @@ export interface SLODashboardWidget {
   type: 'Availability' | 'Latency'
 }
 
+export interface SLORiskCountResponse {
+  riskCounts?: RiskCount[]
+  totalCount?: number
+}
+
 export interface SLOTarget {
   sloTargetPercentage: number
   spec: SLOTargetSpec
@@ -3910,6 +3928,14 @@ export interface SLOTarget {
 
 export interface SLOTargetSpec {
   [key: string]: any
+}
+
+export interface SampleDataDTO {
+  groupName: string
+  jsonResponse: string
+  metricValueJSONPath: string
+  timestampFormat?: string
+  timestampJSONPath: string
 }
 
 export type SampleErrorMetadataDTO = ErrorMetadataDTO & {
@@ -3993,6 +4019,7 @@ export interface ServiceLevelObjectiveDTO {
     [key: string]: string
   }
   target: SLOTarget
+  type?: 'Availability' | 'Latency'
   userJourneyRef: string
 }
 
@@ -9563,23 +9590,19 @@ export interface FetchParsedSampleDataQueryParams {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  jsonResponse: string
-  groupName: string
-  metricValueJSONPath: string
-  timestampJSONPath: string
-  timestampFormat?: string
 }
 
 export type FetchParsedSampleDataProps = Omit<
-  GetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, void>,
-  'path'
+  MutateProps<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, SampleDataDTO, void>,
+  'path' | 'verb'
 >
 
 /**
  * parse sample data for given json response
  */
 export const FetchParsedSampleData = (props: FetchParsedSampleDataProps) => (
-  <Get<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, void>
+  <Mutate<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, SampleDataDTO, void>
+    verb="POST"
     path={`/parse-sample-data`}
     base={getConfig('cv/api')}
     {...props}
@@ -9587,15 +9610,22 @@ export const FetchParsedSampleData = (props: FetchParsedSampleDataProps) => (
 )
 
 export type UseFetchParsedSampleDataProps = Omit<
-  UseGetProps<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, void>,
-  'path'
+  UseMutateProps<
+    ResponseListTimeSeriesSampleDTO,
+    Failure | Error,
+    FetchParsedSampleDataQueryParams,
+    SampleDataDTO,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * parse sample data for given json response
  */
 export const useFetchParsedSampleData = (props: UseFetchParsedSampleDataProps) =>
-  useGet<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, void>(
+  useMutate<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, SampleDataDTO, void>(
+    'POST',
     `/parse-sample-data`,
     { base: getConfig('cv/api'), ...props }
   )
@@ -9604,15 +9634,22 @@ export const useFetchParsedSampleData = (props: UseFetchParsedSampleDataProps) =
  * parse sample data for given json response
  */
 export const fetchParsedSampleDataPromise = (
-  props: GetUsingFetchProps<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, void>,
+  props: MutateUsingFetchProps<
+    ResponseListTimeSeriesSampleDTO,
+    Failure | Error,
+    FetchParsedSampleDataQueryParams,
+    SampleDataDTO,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseListTimeSeriesSampleDTO, Failure | Error, FetchParsedSampleDataQueryParams, void>(
-    getConfig('cv/api'),
-    `/parse-sample-data`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseListTimeSeriesSampleDTO,
+    Failure | Error,
+    FetchParsedSampleDataQueryParams,
+    SampleDataDTO,
+    void
+  >('POST', getConfig('cv/api'), `/parse-sample-data`, props, signal)
 
 export interface GetLabelNamesQueryParams {
   accountId: string
@@ -9886,6 +9923,10 @@ export interface GetServiceLevelObjectivesQueryParams {
   offset: number
   pageSize: number
   userJourneys?: string[]
+  identifiers?: string[]
+  sliTypes?: ('Availability' | 'Latency')[]
+  targetTypes?: ('Rolling' | 'Calender')[]
+  errorBudgetRisks?: ('HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'EXHAUSTED')[]
 }
 
 export type GetServiceLevelObjectivesProps = Omit<
@@ -10014,12 +10055,70 @@ export const saveSLODataPromise = (
     void
   >('POST', getConfig('cv/api'), `/slo`, props, signal)
 
-export interface GetSLODashboardWidgetsQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+export interface GetServiceLevelObjectivesRiskCountQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
   userJourneyIdentifiers?: string[]
   monitoredServiceIdentifier?: string
+  sliTypes?: ('Availability' | 'Latency')[]
+  targetTypes?: ('Rolling' | 'Calender')[]
+  errorBudgetRisks?: ('HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'EXHAUSTED')[]
+}
+
+export type GetServiceLevelObjectivesRiskCountProps = Omit<
+  GetProps<ResponseSLORiskCountResponse, unknown, GetServiceLevelObjectivesRiskCountQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all service level objectives count by risk
+ */
+export const GetServiceLevelObjectivesRiskCount = (props: GetServiceLevelObjectivesRiskCountProps) => (
+  <Get<ResponseSLORiskCountResponse, unknown, GetServiceLevelObjectivesRiskCountQueryParams, void>
+    path={`/slo-dashboard/risk-count`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceLevelObjectivesRiskCountProps = Omit<
+  UseGetProps<ResponseSLORiskCountResponse, unknown, GetServiceLevelObjectivesRiskCountQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all service level objectives count by risk
+ */
+export const useGetServiceLevelObjectivesRiskCount = (props: UseGetServiceLevelObjectivesRiskCountProps) =>
+  useGet<ResponseSLORiskCountResponse, unknown, GetServiceLevelObjectivesRiskCountQueryParams, void>(
+    `/slo-dashboard/risk-count`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get all service level objectives count by risk
+ */
+export const getServiceLevelObjectivesRiskCountPromise = (
+  props: GetUsingFetchProps<ResponseSLORiskCountResponse, unknown, GetServiceLevelObjectivesRiskCountQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseSLORiskCountResponse, unknown, GetServiceLevelObjectivesRiskCountQueryParams, void>(
+    getConfig('cv/api'),
+    `/slo-dashboard/risk-count`,
+    props,
+    signal
+  )
+
+export interface GetSLODashboardWidgetsQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  userJourneyIdentifiers?: string[]
+  monitoredServiceIdentifier?: string
+  sliTypes?: ('Availability' | 'Latency')[]
+  targetTypes?: ('Rolling' | 'Calender')[]
+  errorBudgetRisks?: ('HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'EXHAUSTED')[]
   pageNumber?: number
   pageSize?: number
 }

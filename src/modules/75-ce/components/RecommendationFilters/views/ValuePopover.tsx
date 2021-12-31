@@ -54,7 +54,7 @@ const ValuePopover: React.FC<ValuePopoverProps> = ({ valueMap, selectedType, set
         </>
       ) : (
         <>
-          <MenuItemWithDivider text={getString('ce.recommendation.listPage.filters.resourceType')} />
+          <MenuItemWithDivider text={getString('common.resourceTypeLabel')} />
           {getValuesToShow()}
         </>
       )}

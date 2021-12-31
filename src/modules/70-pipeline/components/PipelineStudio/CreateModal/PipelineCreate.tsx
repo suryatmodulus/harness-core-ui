@@ -15,6 +15,7 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 import GitContextForm, { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import type { EntityGitDetails } from 'services/pipeline-ng'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
+import css from './PipelineCreate.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
 
@@ -75,6 +76,7 @@ export default function CreatePipelines({
               isIdentifierEditable: pipelineIdentifier === DefaultNewPipelineId
             }}
             tooltipProps={{ dataTooltipId: 'pipelineCreate' }}
+            className={css.pipelineCreateNameIdDescriptionTags}
           />
           {isGitSyncEnabled && (
             <GitSyncStoreProvider>

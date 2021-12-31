@@ -9,6 +9,7 @@ import {
   TimeRangeSelector,
   TimeRangeSelectorProps
 } from '@common/components/TimeRangeSelector/TimeRangeSelector'
+import EntitySetupUsage from '@common/pages/entityUsage/EntityUsage'
 import { useStrings } from 'framework/strings'
 import { DeploymentsTimeRangeContext } from '@cd/components/Services/common'
 import { DeploymentsWidget } from '@cd/components/Services/DeploymentsWidget/DeploymentsWidget'
@@ -18,18 +19,22 @@ import { PipelineExecutions } from '@cd/components/ServiceDetails/PipelineExecut
 import css from '@cd/components/ServiceDetails/ServiceDetailsContent/ServicesDetailsContent.module.scss'
 
 const selectedTab = 'ServiceDetailsSummaryTab'
+const refrencedByTab = 'ServiceRefrencedByTab'
 
-interface ServiceDetailsSummaryProps {
-  timeRange: TimeRangeSelectorProps
-  setTimeRange: (timeRange: TimeRangeSelectorProps) => void
-}
-
-const ServiceDetailsSummary: React.FC<ServiceDetailsSummaryProps> = props => {
+const ServiceDetailsSummary: React.FC = () => {
   const { serviceId } = useParams<ServicePathProps>()
-  const { timeRange, setTimeRange } = props
+  const { getString } = useStrings()
+
+  const [timeRange, setTimeRange] = useState<TimeRangeSelectorProps>({
+    range: [startOfDay(moment().subtract(1, 'month').add(1, 'day')), startOfDay(moment())],
+    label: getString('common.duration.month')
+  })
   return (
     <Page.Body>
-      <Layout.Horizontal margin={{ left: 'xlarge', right: 'xlarge', top: 'large', bottom: 'large' }}>
+      <Container flex className={css.timeRangeContainer}>
+        <TimeRangeSelector timeRange={timeRange?.range} setTimeRange={setTimeRange} />
+      </Container>
+      <Layout.Horizontal margin={{ top: 'large', bottom: 'large' }}>
         <DeploymentsTimeRangeContext.Provider value={{ timeRange, setTimeRange }}>
           <Layout.Vertical margin={{ right: 'xlarge' }}>
             <Layout.Horizontal margin={{ bottom: 'medium' }}>
@@ -50,23 +55,18 @@ const ServiceDetailsSummary: React.FC<ServiceDetailsSummaryProps> = props => {
 }
 
 export const ServiceDetailsContent: React.FC = () => {
+  const { serviceId } = useParams<ServicePathProps>()
   const { getString } = useStrings()
-  const [timeRange, setTimeRange] = useState<TimeRangeSelectorProps>({
-    range: [startOfDay(moment().subtract(1, 'month').add(1, 'day')), startOfDay(moment())],
-    label: getString('common.duration.month')
-  })
 
   return (
-    <Container padding={{ left: 'medium', right: 'medium' }} className={css.tabsContainer}>
+    <Container padding={{ left: 'xlarge', right: 'xlarge' }} className={css.tabsContainer}>
       <Tabs id="serviceDetailsTab" defaultSelectedTabId={selectedTab}>
+        <Tab id={selectedTab} title={getString('summary')} panel={<ServiceDetailsSummary />} />
         <Tab
-          id={selectedTab}
-          title={getString('summary')}
-          panel={<ServiceDetailsSummary timeRange={timeRange} setTimeRange={setTimeRange} />}
+          id={refrencedByTab}
+          title={getString('refrencedBy')}
+          panel={<EntitySetupUsage entityType={'Service'} entityIdentifier={serviceId} />}
         />
-        <Container flex className={css.timeRangeContainer} margin={{ right: 'medium' }}>
-          <TimeRangeSelector timeRange={timeRange?.range} setTimeRange={setTimeRange} />
-        </Container>
       </Tabs>
     </Container>
   )

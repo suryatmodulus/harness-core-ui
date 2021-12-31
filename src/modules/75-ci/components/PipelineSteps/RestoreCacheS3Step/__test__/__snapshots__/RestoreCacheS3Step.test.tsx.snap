@@ -2101,7 +2101,7 @@ exports[`Restore Cache S3 Step InputSet View should render all fields 1`] = `
               class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-baseline"
             >
               <p
-                class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                class="StyledProps--font StyledProps--main inpLabel StyledProps--margin-top-small StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
               >
                 pipelineSteps.endpointLabel
               </p>

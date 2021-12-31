@@ -179,6 +179,9 @@ export interface StringsMap {
   'common.extendTrial.feedback.title': string
   'common.extendTrial.heading': string
   'common.failureRate': string
+  'common.feature.keepGettingShipDone.requestUpgrade': string
+  'common.feature.keepGettingShipDone.title': string
+  'common.feature.overuse.title': string
   'common.feature.upgradeRequired.description': string
   'common.feature.upgradeRequired.pleaseUpgrade': string
   'common.feature.upgradeRequired.requiredPlans': string
@@ -315,7 +318,11 @@ export interface StringsMap {
   'common.module.ce': string
   'common.module.cf': string
   'common.module.ci': string
+  'common.module.core': string
   'common.module.cv': string
+  'common.module.pms': string
+  'common.module.templateService': string
+  'common.moduleLabel': string
   'common.monthly': string
   'common.moreInfo': string
   'common.moreOptions': string
@@ -464,6 +471,8 @@ export interface StringsMap {
   'common.reportNameRequired': string
   'common.repositoryName': string
   'common.resolveConflict': string
+  'common.resourceLabel': string
+  'common.resourceTypeLabel': string
   'common.role': string
   'common.saveAndClose': string
   'common.saveAsTemplate': string
@@ -577,6 +586,7 @@ export interface StringsMap {
   'common.test.connectionSuccessful': string
   'common.test.inProgress': string
   'common.test.retest': string
+  'common.timePstLabel': string
   'common.tokens': string
   'common.totalHarnessUser': string
   'common.totalLines': string
@@ -590,6 +600,7 @@ export interface StringsMap {
   'common.useTemplate': string
   'common.userGroup': string
   'common.userGroups': string
+  'common.userLabel': string
   'common.validation.email.format': string
   'common.validation.email.required': string
   'common.validation.entityIdIsRequired': string
@@ -670,6 +681,23 @@ export interface StringsMap {
   'notifications.userGroupsPlaceholder': string
   'notifications.validationPDKey': string
   'notifications.validationWebhook': string
+  'auditTrail.actions.added_collaborator': string
+  'auditTrail.actions.added_membership': string
+  'auditTrail.actions.invite_resent': string
+  'auditTrail.actions.invite_revoked': string
+  'auditTrail.actions.invited': string
+  'auditTrail.actions.removed_collaborator': string
+  'auditTrail.actions.removed_membership': string
+  'auditTrail.actions.restored': string
+  'auditTrail.actions.revoke_token': string
+  'auditTrail.actions.updated': string
+  'auditTrail.auditLogAPI': string
+  'auditTrail.emptyStateMessage': string
+  'auditTrail.emptyStateMessageTitle': string
+  'auditTrail.eventSource': string
+  'auditTrail.externalDataText': string
+  'auditTrail.http': string
+  'auditTrail.supplementaryDetails': string
   'rbac.accessControlTitle.resourceGroups': string
   'rbac.accessControlTitle.roles': string
   'rbac.accessControlTitle.serviceAccounts': string
@@ -780,7 +808,6 @@ export interface StringsMap {
   'rbac.token.successMessage': string
   'rbac.unableToEditSCIMMembership': string
   'rbac.updateNotificationSuccess': string
-  'rbac.user': string
   'rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText': string
   'rbac.userDetails.linkToSSOProviderModal.delinkLabel': string
   'rbac.userDetails.linkToSSOProviderModal.delinkText': string
@@ -2641,7 +2668,6 @@ export interface StringsMap {
   'pipeline.testsReports.numberOfSelectedTests': string
   'pipeline.testsReports.onlyUncoveredFiles': string
   'pipeline.testsReports.poweredByTI': string
-  'pipeline.testsReports.resource': string
   'pipeline.testsReports.result': string
   'pipeline.testsReports.resultLabel': string
   'pipeline.testsReports.selectedTestMethods': string
@@ -3588,7 +3614,6 @@ export interface StringsMap {
   'ce.recommendation.listPage.filters.minSaving': string
   'ce.recommendation.listPage.filters.name': string
   'ce.recommendation.listPage.filters.namespace': string
-  'ce.recommendation.listPage.filters.resourceType': string
   'ce.recommendation.listPage.forecatedCostSubText': string
   'ce.recommendation.listPage.listTableHeaders.details': string
   'ce.recommendation.listPage.listTableHeaders.monthlyCost': string
@@ -4285,6 +4310,7 @@ export interface StringsMap {
   'cv.dependenciesHealthWithCount': string
   'cv.errorBudget': string
   'cv.errorBudgetBurnDown': string
+  'cv.errorBudgetRecalculationInProgress': string
   'cv.errorBudgetRemaining': string
   'cv.evaluationPeriod': string
   'cv.failures': string
@@ -4734,7 +4760,27 @@ export interface StringsMap {
   'cv.showYAMLChange': string
   'cv.sliMissingDataTypeIsRequired': string
   'cv.sloRecalculationInProgress': string
+  'cv.slos.configureSLIQueries': string
   'cv.slos.confirmDeleteSLO': string
+  'cv.slos.contextualHelp.sli.availabilityDescription': string
+  'cv.slos.contextualHelp.sli.healthSource': string
+  'cv.slos.contextualHelp.sli.intro': string
+  'cv.slos.contextualHelp.sli.latencyDescription': string
+  'cv.slos.contextualHelp.sli.ratioBasedDescription': string
+  'cv.slos.contextualHelp.sli.sliDefinition': string
+  'cv.slos.contextualHelp.sli.sliDefinition2': string
+  'cv.slos.contextualHelp.sli.thresholdDescription': string
+  'cv.slos.contextualHelp.sli.whatIsSli': string
+  'cv.slos.contextualHelp.target.calendarBased': string
+  'cv.slos.contextualHelp.target.calendarBasedDefinition': string
+  'cv.slos.contextualHelp.target.calendarBasedDefinition2': string
+  'cv.slos.contextualHelp.target.compliance': string
+  'cv.slos.contextualHelp.target.complianceDefinition': string
+  'cv.slos.contextualHelp.target.complianceDefinition2': string
+  'cv.slos.contextualHelp.target.complianceDefinition3': string
+  'cv.slos.contextualHelp.target.rollingWindowBased': string
+  'cv.slos.contextualHelp.target.rollingWindowDefinition': string
+  'cv.slos.contextualHelp.target.rollingWindowDefinition2': string
   'cv.slos.createSLO': string
   'cv.slos.deleteSLO': string
   'cv.slos.editSLO': string
@@ -4744,11 +4790,13 @@ export interface StringsMap {
   'cv.slos.newSLO': string
   'cv.slos.noData': string
   'cv.slos.pickMetricsSLI': string
+  'cv.slos.reviewChanges': string
   'cv.slos.selectHealthsource': string
   'cv.slos.selectMonitoredService': string
   'cv.slos.selectMonitoredServiceForSlo': string
   'cv.slos.sli': string
   'cv.slos.sliType': string
+  'cv.slos.sliTypeChooseMetric': string
   'cv.slos.slis.metricOptions.ratioBased': string
   'cv.slos.slis.metricOptions.thresholdBased': string
   'cv.slos.slis.ratioMetricType.eventType': string
@@ -4759,8 +4807,11 @@ export interface StringsMap {
   'cv.slos.slis.type.availability': string
   'cv.slos.slis.type.latency': string
   'cv.slos.sloCreated': string
+  'cv.slos.sloDefinition': string
   'cv.slos.sloDeleted': string
+  'cv.slos.sloEditWarningMessage': string
   'cv.slos.sloName': string
+  'cv.slos.sloTargetAndBudget.complianceTimePeriodTitle': string
   'cv.slos.sloTargetAndBudget.periodType': string
   'cv.slos.sloTargetAndBudget.periodTypeOptions.calendar': string
   'cv.slos.sloTargetAndBudget.periodTypeOptions.rolling': string
@@ -4768,6 +4819,7 @@ export interface StringsMap {
   'cv.slos.sloTargetAndBudgetPolicy': string
   'cv.slos.sloUpdated': string
   'cv.slos.title': string
+  'cv.slos.totalServices': string
   'cv.slos.userJourney': string
   'cv.slos.userJourneyCreated': string
   'cv.slos.userJourneyPlaceholder': string

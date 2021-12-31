@@ -10,8 +10,12 @@ declare const styles: {
   readonly metricSelect: string
   readonly objectiveValue: string
   readonly comparatorOptions: string
+  readonly graphContainer: string
   readonly card: string
   readonly sloTarget: string
   readonly errorBudget: string
+  readonly radioGroup: string
+  readonly contextualHelp: string
+  readonly title: string
 }
 export default styles

@@ -612,7 +612,7 @@ healthSource:
       selectDashboardTab: 'Select Dashboards'
 slos:
   title: SLOs
-  editSLO: Edit SLO
+  editSLO: 'Edit SLO: {{name}}'
   deleteSLO: Delete SLO
   newSLO: New SLO
   createSLO: Create SLO
@@ -626,6 +626,7 @@ slos:
   sloTargetAndBudgetPolicy: SLO Target & Error Budget Policy
   sloName: SLO Name
   userJourney: User Journey
+  totalServices: Total Services
   userJourneyPlaceholder: Select or create user journey
   userJourneyCreated: User journey created successfully
   selectMonitoredService: Select Monitored Service
@@ -633,8 +634,13 @@ slos:
   selectHealthsource: Select Health Source
   healthSourceForSLI: Health Source for SLI
   sliType: SLI Type
+  sliTypeChooseMetric: SLI Type - Choose a metric
   latencySLI: Latency SLI measures the proportion of requests that were faster than some threshold.
   pickMetricsSLI: Pick metrics powering the SLI
+  configureSLIQueries: Configure SLI queries
+  sloDefinition: Define SLO identifcation
+  reviewChanges: Review changes
+  sloEditWarningMessage: It may take a few minutes to recalculate the error budget. Are you sure you want to proceed?
   validations:
     nameValidation: SLO name is required
     userJourneyRequired: User journey is required
@@ -644,7 +650,8 @@ slos:
     periodTypeOptions:
       rolling: Rolling
       calendar: Calendar
-    setSLOTarget: Set SLO Target
+    setSLOTarget: Set the SLO time window and target
+    complianceTimePeriodTitle: Compliance time period for evaluating SLO
   slis:
     type:
       availability: Availability
@@ -658,9 +665,34 @@ slos:
       validRequestsMetrics: Metric for valid requests
       selectMetric1: Select metric 1
       selectMetric2: Select metric 2
+  contextualHelp:
+    sli:
+      intro: To evaluate the performance of the monitored service, a collection of performance metrics such as duration, error rate, and so on will be applied.
+      healthSource: A Health Source is a combination of a Harness Service and associated Environment that monitors changes in health trends of the service using logs or metrics collected from an Application Performance Management or logging tool.
+      whatIsSli: What is an SLI?
+      sliDefinition: An SLI (service level indicator), which measures the performance of the service. Also, an SLI measures compliance with an SLO (service level objective).
+      sliDefinition2: So, if your SLA (Service Level Agreement) specifies that your systems will be available 99.95% of the time, your SLO is likely 99.95% uptime and your SLI is the actual measurement of your uptime.
+      availabilityDescription: Measures how available your service was to users or valid requests served successfully.
+      latencyDescription: Measures how fast your service responded to users or how many valid request served faster than a defined thresholds.
+      thresholdDescription: The number of valid requests is compared to the length of time.
+      ratioBasedDescription: Percentage of good requests that are acceptable.
+
+    target:
+      compliance: Compliance
+      complianceDefinition: Compliance measures the current performance of the system and is measured against your SLO. There are two types of compliance periods for SLOs
+      complianceDefinition2: Rolling periods (from n days ago to now, where n ranges from 1 to 30 days)
+      complianceDefinition3: Calendar-based periods (from date to date)
+      rollingWindowBased: Rolling window-based
+      rollingWindowDefinition: Measures compliance over a rolling period, so that you are always evaluating, for example, the last 30 days. With a rolling period, the oldest data in the previous calculation drops out of the current calculation and new data replaces it.
+      rollingWindowDefinition2: Rolling windows are more closely aligned with user experience
+      calendarBased: Calendar-based
+      calendarBasedDefinition: Compliance periods can be set to calendar periods like a weekly, monthly or quarterly. At the end of a calendar period, you are given a performance score. The performance score, which is calculated against the performance threshold, tells you whether your service was compliant or not. Even though you may view the performance throughout the period when you use a calendar period, you only get a compliance rating for every compliance period.
+      calendarBasedDefinition2: Calendar windows are more closely aligned with business planning and project work.
+
 SLO: SLO
 SLOPerformanceTrend: SLO Performance Trend
 sloRecalculationInProgress: SLO recalculation in progress
+errorBudgetRecalculationInProgress: Error Budget recalculation in progress
 errorBudgetRemaining: Error Budget Remaining (mins)
 errorBudgetBurnDown: Error Budget Burndown
 SLITriggered: SLI Triggered

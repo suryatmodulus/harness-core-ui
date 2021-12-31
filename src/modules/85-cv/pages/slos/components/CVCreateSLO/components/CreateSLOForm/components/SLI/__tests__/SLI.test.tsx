@@ -1,9 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import { Formik } from 'formik'
 import { FormikForm } from '@wings-software/uicore'
-import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
 import { initialFormData } from '@cv/pages/slos/components/CVCreateSLO/__tests__/CVCreateSLO.mock'
 import type { StringKeys } from 'framework/strings'
@@ -12,7 +10,6 @@ import {
   getMonitoredServiceOptions
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
 import { getSLIMetricOptions, getSLITypeOptions } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.constants'
-import { SLOFormFields, Comparators } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
 import SLI from '../SLI'
 import { expectedHealthSourcesOptions, expectedMonitoredServiceOptions, mockedMonitoredServiceData } from './SLI.mock'
 
@@ -98,57 +95,5 @@ describe('Test SLI component', () => {
         value: 'Ratio'
       }
     ])
-  })
-})
-
-describe('PickMetric', () => {
-  test('Event type and Good request metrics dropdowns should not be in the document for Threshold', () => {
-    render(<WrapperComponent initialValues={initialFormData} />)
-
-    const ratioMetricRadio = screen.getByLabelText('cv.slos.slis.metricOptions.ratioBased')
-
-    expect(ratioMetricRadio).toBeChecked()
-    expect(screen.queryByText('cv.slos.slis.ratioMetricType.eventType')).toBeInTheDocument()
-    expect(screen.queryByText('cv.slos.slis.ratioMetricType.goodRequestsMetrics')).toBeInTheDocument()
-
-    const thresholdMetricRadio = screen.getByLabelText('cv.slos.slis.metricOptions.thresholdBased')
-
-    userEvent.click(thresholdMetricRadio)
-
-    expect(thresholdMetricRadio).toBeChecked()
-    expect(screen.queryByText('cv.slos.slis.ratioMetricType.eventType')).not.toBeInTheDocument()
-    expect(screen.queryByText('cv.slos.slis.ratioMetricType.goodRequestsMetrics')).not.toBeInTheDocument()
-  })
-
-  test('Suffix "than" should be in the document for operators < and >', () => {
-    const { container } = render(<WrapperComponent initialValues={initialFormData} />)
-
-    fillAtForm([
-      {
-        container,
-        type: InputTypes.SELECT,
-        fieldId: SLOFormFields.OBJECTIVE_COMPARATOR,
-        value: Comparators.LESS
-      }
-    ])
-
-    expect(screen.getByText('cv.thanObjectiveValue')).toBeInTheDocument()
-    expect(screen.queryByText('cv.toObjectiveValue')).not.toBeInTheDocument()
-  })
-
-  test('Suffix "to" should be in the document for operators <= and >=', () => {
-    const { container } = render(<WrapperComponent initialValues={initialFormData} />)
-
-    fillAtForm([
-      {
-        container,
-        type: InputTypes.SELECT,
-        fieldId: SLOFormFields.OBJECTIVE_COMPARATOR,
-        value: Comparators.LESS_EQUAL
-      }
-    ])
-
-    expect(screen.getByText('cv.toObjectiveValue')).toBeInTheDocument()
-    expect(screen.queryByText('cv.thanObjectiveValue')).not.toBeInTheDocument()
   })
 })

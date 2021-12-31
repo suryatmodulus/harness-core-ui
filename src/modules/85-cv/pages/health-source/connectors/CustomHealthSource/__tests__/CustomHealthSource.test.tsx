@@ -20,7 +20,7 @@ describe('Verify CustomHealthSource', () => {
       .mockImplementation(() => ({ loading: false, error: null, mutate: getSampleData } as any))
     jest
       .spyOn(cvServices, 'useFetchParsedSampleData')
-      .mockImplementation(() => ({ loading: false, error: null, data: {} } as any))
+      .mockImplementation(() => ({ loading: false, error: null, mutate: jest.fn() } as any))
     jest
       .spyOn(cdServices, 'useGetConnector')
       .mockImplementation(() => ({ loading: false, error: null, data: {} } as any))

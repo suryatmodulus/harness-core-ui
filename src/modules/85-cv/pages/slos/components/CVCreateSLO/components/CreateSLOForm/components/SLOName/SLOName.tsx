@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
-import { Card, Container, SelectOption, useToaster, Utils } from '@wings-software/uicore'
+import { Card, Layout, Container, SelectOption, useToaster, Utils } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
@@ -76,36 +76,40 @@ const SLOName: React.FC<SLOPanelProps> = ({ formikProps, identifier, children })
   return (
     <>
       <Card className={css.card}>
-        <Container width={350}>
-          <NameIdDescriptionTags
-            formikProps={formikProps}
-            identifierProps={{
-              inputLabel: getString('cv.slos.sloName'),
-              inputName: SLOFormFields.NAME,
-              isIdentifierEditable: !identifier
-            }}
-          />
-          <HarnessServiceAsFormField
-            key={key}
-            customRenderProps={{
-              name: SLOFormFields.USER_JOURNEY_REF,
-              label: TEXT_USER_JOURNEY
-            }}
-            serviceProps={{
-              item: activeUserJourney,
-              options: userJourneyOptions,
-              onSelect: selectedUserJourney =>
-                formikProps.setFieldValue(SLOFormFields.USER_JOURNEY_REF, selectedUserJourney.value),
-              modalTitle: TEXT_USER_JOURNEY,
-              placeholder: getString('cv.slos.userJourneyPlaceholder'),
-              skipServiceCreateOrUpdate: true,
-              onNewCreated: newOption => handleCreateUserJourney(newOption),
-              loading: userJourneysLoading,
-              name: TEXT_USER_JOURNEY
-            }}
-            customLoading={saveUserJourneyLoading}
-          />
-        </Container>
+        <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+          <Container width={'50%'}>
+            <Layout.Vertical width={350}>
+              <NameIdDescriptionTags
+                formikProps={formikProps}
+                identifierProps={{
+                  inputLabel: getString('cv.slos.sloName'),
+                  inputName: SLOFormFields.NAME,
+                  isIdentifierEditable: !identifier
+                }}
+              />
+              <HarnessServiceAsFormField
+                key={key}
+                customRenderProps={{
+                  name: SLOFormFields.USER_JOURNEY_REF,
+                  label: TEXT_USER_JOURNEY
+                }}
+                serviceProps={{
+                  item: activeUserJourney,
+                  options: userJourneyOptions,
+                  onSelect: selectedUserJourney =>
+                    formikProps.setFieldValue(SLOFormFields.USER_JOURNEY_REF, selectedUserJourney.value),
+                  modalTitle: TEXT_USER_JOURNEY,
+                  placeholder: getString('cv.slos.userJourneyPlaceholder'),
+                  skipServiceCreateOrUpdate: true,
+                  onNewCreated: newOption => handleCreateUserJourney(newOption),
+                  loading: userJourneysLoading,
+                  name: TEXT_USER_JOURNEY
+                }}
+                customLoading={saveUserJourneyLoading}
+              />
+            </Layout.Vertical>
+          </Container>
+        </Layout.Horizontal>
       </Card>
       {children}
     </>

@@ -87,7 +87,7 @@ describe('Test CreateSLOForm component', () => {
 
     // Should go to the next tab of SLI when continue is clicked
     await waitFor(() => {
-      expect(getByText('cv.slos.selectMonitoredServiceForSlo')).toBeInTheDocument()
+      expect(getByText('connectors.cdng.monitoredService.label')).toBeInTheDocument()
     })
 
     // When continue is clicked without filling required fields in SLI tab
@@ -97,7 +97,7 @@ describe('Test CreateSLOForm component', () => {
 
     // Should stay on the current Tab of SLI and should not navigate to Error Budget Tab.
     await waitFor(() => {
-      expect(getByText('cv.slos.selectMonitoredServiceForSlo')).toBeInTheDocument()
+      expect(getByText('connectors.cdng.monitoredService.label')).toBeInTheDocument()
     })
   })
 
@@ -123,7 +123,7 @@ describe('Test CreateSLOForm component', () => {
 
     // Should go to the next tab of SLI when continue is clicked
     await waitFor(() => {
-      expect(getByText('cv.slos.selectMonitoredServiceForSlo')).toBeInTheDocument()
+      expect(getByText('connectors.cdng.monitoredService.label')).toBeInTheDocument()
     })
 
     // When continue is clicked without filling required fields in SLI tab

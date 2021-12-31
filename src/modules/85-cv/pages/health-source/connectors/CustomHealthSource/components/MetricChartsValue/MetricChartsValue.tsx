@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useMemo, useCallback, useState } from 'react'
 import type { GetDataError } from 'restful-react'
 import { useParams } from 'react-router-dom'
 import { Container, FormInput } from '@wings-software/uicore'
@@ -8,7 +8,7 @@ import MetricLineChart from '@cv/pages/health-source/common/MetricLineChart/Metr
 import { QueryType } from '@cv/pages/health-source/common/HealthSourceQueryType/HealthSourceQueryType.types'
 import Button from '@rbac/components/Button/Button'
 import { useStrings } from 'framework/strings'
-import { useFetchParsedSampleData } from 'services/cv'
+import { TimeSeriesSampleDTO, useFetchParsedSampleData } from 'services/cv'
 import type { MetricChartsValueInterface } from './MetricChartsValue.types'
 import { CustomHealthSourceFieldNames } from '../../CustomHealthSource.constants'
 import { getOptionsForChart } from '../../../NewRelic/components/NewRelicMappedMetric/NewRelicMappedMetric.utils'
@@ -36,37 +36,34 @@ export default function MetricChartsValue({
       timestampFormat: formikValues?.timestampFormat as string
     }),
 
-    [
-      accountId,
-      orgIdentifier,
-      projectIdentifier,
-      recordsData,
-      formikValues?.groupName?.value,
-      formikValues?.metricValue,
-      formikValues?.timestamp,
-      formikValues?.timestampFormat
-    ]
+    [accountId, orgIdentifier, projectIdentifier]
   )
-
+  const [customTimeSeriesData, setCustomTimeSeriesData] = useState<TimeSeriesSampleDTO[] | undefined>()
   const {
-    data: newRelicTimeSeriesData,
-    refetch: fetchNewRelicTimeSeriesData,
+    mutate: fetchNewRelicTimeSeriesData,
     loading: timeSeriesDataLoading,
     error: timeseriesDataError
   } = useFetchParsedSampleData({
-    queryParams: queryParamsForTimeSeriesData,
-    lazy: true
+    queryParams: queryParamsForTimeSeriesData
   })
 
   const handleBuildChart = useCallback(() => {
-    fetchNewRelicTimeSeriesData({ queryParams: queryParamsForTimeSeriesData })
+    fetchNewRelicTimeSeriesData({
+      groupName: formikValues?.groupName?.value as string,
+      jsonResponse: recordsData as string,
+      timestampFormat: formikValues?.timestampFormat,
+      metricValueJSONPath: formikValues?.metricValue as string,
+      timestampJSONPath: formikValues?.timestamp as string
+    }).then(data => {
+      setCustomTimeSeriesData(data.data)
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryParamsForTimeSeriesData])
 
   const options = useMemo(() => {
-    return getOptionsForChart(newRelicTimeSeriesData)
+    return customTimeSeriesData ? getOptionsForChart(customTimeSeriesData) : []
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [newRelicTimeSeriesData])
+  }, [customTimeSeriesData])
 
   return (
     <Container className={css.widthHalf}>

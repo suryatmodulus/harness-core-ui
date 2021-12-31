@@ -122,6 +122,7 @@ allowpaths:
   - /monitored-service/{monitoredServiceIdentifier}/sli/onboarding-graph
   - /custom-health/sample-data
   - /parse-sample-data
+  - /slo-dashboard/risk-count
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

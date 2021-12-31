@@ -10,258 +10,345 @@ exports[`Test SLI component should render SLI component 1`] = `
         class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-variation-form-title StyledProps--margin-bottom-xsmall"
         level="2"
       >
-        connectors.cdng.monitoredService.label
+        cv.slos.configureSLIQueries
       </h2>
       <div
         class="bp3-card bp3-elevation-0 Card--card cardSli"
       >
         <div
-          class="bp3-form-group selectPrimary"
-          data-id="monitoredServiceRef-0"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
         >
-          <label
-            class="bp3-label"
-            for="monitoredServiceRef"
-          >
-            cv.slos.selectMonitoredServiceForSlo
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
           <div
-            class="bp3-form-content"
+            class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-right"
+            style="width: 50%;"
           >
             <div
-              class="bp3-popover-wrapper Select--main bp3-fill"
+              class="Layout--vertical StyledProps--main"
+              style="width: 350px;"
             >
               <div
-                class="bp3-popover-target"
+                class="bp3-form-group selectPrimary"
+                data-id="monitoredServiceRef-0"
+              >
+                <label
+                  class="bp3-label"
+                  for="monitoredServiceRef"
+                >
+                  connectors.cdng.monitoredService.label
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select--main bp3-fill"
+                  >
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="monitoredServiceRef"
+                          placeholder="- cv.slos.selectMonitoredService -"
+                          style="padding-right: 0px;"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
+                          >
+                            <svg
+                              data-icon="chevron-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                chevron-down
+                              </desc>
+                              <path
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group bp3-disabled selectPrimary"
+                data-id="healthSourceRef-1"
+              >
+                <label
+                  class="bp3-label"
+                  for="healthSourceRef"
+                >
+                  cv.slos.healthSourceForSLI
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select--main bp3-fill"
+                  >
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group bp3-disabled"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          disabled=""
+                          name="healthSourceRef"
+                          placeholder="- cv.slos.selectHealthsource -"
+                          style="padding-right: 0px;"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
+                          >
+                            <svg
+                              data-icon="chevron-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                chevron-down
+                              </desc>
+                              <path
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--vertical StyledProps--main"
+              style="width: 80%;"
+            >
+              <h4
+                class="StyledProps--font StyledProps--font-h4 StyledProps--main StyledProps--font-variation-form-sub-section StyledProps--margin-top-xlarge StyledProps--margin-bottom-small"
+                level="4"
+              >
+                cv.slos.sliTypeChooseMetric
+              </h4>
+              <div
+                class="bp3-form-group radioGroup"
+                data-id="SLIType-2"
               >
                 <div
-                  class="bp3-input-group"
+                  class="bp3-form-content"
                 >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    name="monitoredServiceRef"
-                    placeholder="- cv.slos.selectMonitoredService -"
-                    style="padding-right: 0px;"
-                    type="text"
-                    value=""
-                  />
-                  <span
-                    class="bp3-input-action"
+                  <div
+                    class="StyledProps--main"
                   >
-                    <span
-                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                      icon="chevron-down"
+                    
+                    <div
+                      class=""
                     >
-                      <svg
-                        data-icon="chevron-down"
-                        height="14"
-                        viewBox="0 0 16 16"
-                        width="14"
+                      <label
+                        class="RadioButton--radio StyledProps--main"
                       >
-                        <desc>
-                          chevron-down
-                        </desc>
-                        <path
-                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                          fill-rule="evenodd"
+                        <input
+                          class="RadioButton--input"
+                          name="SLIType"
+                          type="radio"
+                          value="Availability"
                         />
-                      </svg>
-                    </span>
-                  </span>
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+                        >
+                          cv.slos.slis.type.availability
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 StyledProps--font-size-small"
+                        >
+                          cv.slos.contextualHelp.sli.availabilityDescription
+                        </p>
+                      </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          checked=""
+                          class="RadioButton--input"
+                          name="SLIType"
+                          type="radio"
+                          value="Latency"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+                        >
+                          cv.slos.slis.type.latency
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 StyledProps--font-size-small"
+                        >
+                          cv.slos.contextualHelp.sli.latencyDescription
+                        </p>
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-variation-form-title StyledProps--margin-top-xxlarge StyledProps--margin-bottom-xsmall"
-        level="2"
-      >
-        cv.slos.healthSourceForSLI
-      </h2>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card cardSli"
-      >
-        <div
-          class="bp3-form-group bp3-disabled selectPrimary"
-          data-id="healthSourceRef-1"
-        >
           <div
-            class="bp3-form-content"
+            class="StyledProps--font StyledProps--main contextualHelp StyledProps--padding-left-large StyledProps--padding-right-large"
+            style="width: 50%;"
           >
-            <div
-              class="bp3-popover-wrapper Select--main bp3-fill"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
             >
-              <div
-                class="bp3-popover-target"
-              >
-                <div
-                  class="bp3-input-group bp3-disabled"
-                >
-                  <input
-                    autocomplete="off"
-                    class="bp3-input"
-                    disabled=""
-                    name="healthSourceRef"
-                    placeholder="- cv.slos.selectHealthsource -"
-                    style="padding-right: 0px;"
-                    type="text"
-                    value=""
-                  />
-                  <span
-                    class="bp3-input-action"
-                  >
-                    <span
-                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                      icon="chevron-down"
-                    >
-                      <svg
-                        data-icon="chevron-down"
-                        height="14"
-                        viewBox="0 0 16 16"
-                        width="14"
-                      >
-                        <desc>
-                          chevron-down
-                        </desc>
-                        <path
-                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </div>
+              cv.slos.contextualHelp.sli.intro
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
+            >
+              cv.slos.contextualHelp.sli.healthSource
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main title"
+            >
+              cv.slos.contextualHelp.sli.whatIsSli
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
+            >
+              cv.slos.contextualHelp.sli.sliDefinition
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              cv.slos.contextualHelp.sli.sliDefinition2
+            </p>
           </div>
         </div>
       </div>
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-variation-form-title StyledProps--margin-top-xxlarge StyledProps--margin-bottom-xsmall"
-        level="2"
-      >
-        cv.slos.sliType
-      </h2>
-      <div
-        class="bp3-card bp3-elevation-0 Card--card cardSli"
-      >
-        <div
-          class="bp3-form-group"
-          data-id="SLIType-2"
-        >
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="StyledProps--main"
-            >
-              
-              <div
-                class="RadioButtonGroup--inline"
-              >
-                <label
-                  class="RadioButton--radio StyledProps--main"
-                >
-                  <input
-                    class="RadioButton--input"
-                    name="SLIType"
-                    type="radio"
-                    value="Availability"
-                  />
-                  <span
-                    class="RadioButton--radioIcon"
-                  />
-                  cv.slos.slis.type.availability
-                </label>
-                <label
-                  class="RadioButton--radio StyledProps--main"
-                >
-                  <input
-                    checked=""
-                    class="RadioButton--input"
-                    name="SLIType"
-                    type="radio"
-                    value="Latency"
-                  />
-                  <span
-                    class="RadioButton--radioIcon"
-                  />
-                  cv.slos.slis.type.latency
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-variation-form-title StyledProps--margin-top-xxlarge StyledProps--margin-bottom-xsmall"
-        level="2"
-      >
-        cv.slos.pickMetricsSLI
-      </h2>
       <div
         class="bp3-card bp3-elevation-0 Card--card cardPickMetric"
       >
-        <div
-          class="bp3-form-group"
-          data-id="SLIMetricType-3"
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-variation-form-title StyledProps--margin-top-xlarge StyledProps--margin-bottom-large"
+          level="2"
         >
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="StyledProps--main"
-            >
-              
-              <div
-                class="RadioButtonGroup--inline"
-              >
-                <label
-                  class="RadioButton--radio StyledProps--main"
-                >
-                  <input
-                    class="RadioButton--input"
-                    name="SLIMetricType"
-                    type="radio"
-                    value="Threshold"
-                  />
-                  <span
-                    class="RadioButton--radioIcon"
-                  />
-                  cv.slos.slis.metricOptions.thresholdBased
-                </label>
-                <label
-                  class="RadioButton--radio StyledProps--main"
-                >
-                  <input
-                    checked=""
-                    class="RadioButton--input"
-                    name="SLIMetricType"
-                    type="radio"
-                    value="Ratio"
-                  />
-                  <span
-                    class="RadioButton--radioIcon"
-                  />
-                  cv.slos.slis.metricOptions.ratioBased
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
+          cv.slos.pickMetricsSLI
+        </h2>
         <div
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main"
         >
           <div
             class="StyledProps--font StyledProps--main StyledProps--padding-right-xxlarge StyledProps--border StyledProps--border-right"
+            style="width: 50%;"
           >
+            <div
+              class="Layout--vertical StyledProps--main"
+              style="width: 80%;"
+            >
+              <div
+                class="bp3-form-group radioGroup"
+                data-id="SLIMetricType-3"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="StyledProps--main"
+                  >
+                    
+                    <div
+                      class=""
+                    >
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          class="RadioButton--input"
+                          name="SLIMetricType"
+                          type="radio"
+                          value="Threshold"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+                        >
+                          cv.slos.slis.metricOptions.thresholdBased
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 StyledProps--font-size-small"
+                        >
+                          cv.slos.contextualHelp.sli.thresholdDescription
+                        </p>
+                      </label>
+                      <label
+                        class="RadioButton--radio StyledProps--main"
+                      >
+                        <input
+                          checked=""
+                          class="RadioButton--input"
+                          name="SLIMetricType"
+                          type="radio"
+                          value="Ratio"
+                        />
+                        <span
+                          class="RadioButton--radioIcon"
+                        />
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700"
+                        >
+                          cv.slos.slis.metricOptions.ratioBased
+                        </p>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey350 StyledProps--font-size-small"
+                        >
+                          cv.slos.contextualHelp.sli.ratioBasedDescription
+                        </p>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div
               class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main"
             >
@@ -646,8 +733,8 @@ exports[`Test SLI component should render SLI component 1`] = `
             </div>
           </div>
           <div
-            class="StyledProps--font StyledProps--main StyledProps--margin-left-xxlarge"
-            style="width: 100%; height: inherit;"
+            class="StyledProps--font StyledProps--main graphContainer StyledProps--padding-left-xxlarge"
+            style="width: 50%; height: inherit;"
           >
             <span
               data-testid="SLO-target-chart"

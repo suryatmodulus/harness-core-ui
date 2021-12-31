@@ -4,13 +4,15 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
-export const SPEC_VERSION = '1.0'
+export const SPEC_VERSION = '2.0'
 export interface AccessControlCheckError {
   code?:
     | 'DEFAULT_ERROR_CODE'
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -329,6 +331,7 @@ export interface AuditEventDTO {
     | 'REVOKE_INVITE'
     | 'ADD_COLLABORATOR'
     | 'REMOVE_COLLABORATOR'
+    | 'REVOKE_TOKEN'
     | 'ADD_MEMBERSHIP'
     | 'REMOVE_MEMBERSHIP'
   auditEventData?: AuditEventData
@@ -364,6 +367,7 @@ export interface AuditFilterProperties {
     | 'REVOKE_INVITE'
     | 'ADD_COLLABORATOR'
     | 'REMOVE_COLLABORATOR'
+    | 'REVOKE_TOKEN'
     | 'ADD_MEMBERSHIP'
     | 'REMOVE_MEMBERSHIP'
   )[]
@@ -419,6 +423,8 @@ export interface Error {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -724,6 +730,8 @@ export interface Failure {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -1138,11 +1146,33 @@ export interface ResourceDTO {
   labels?: {
     [key: string]: string
   }
-  type: string
+  type:
+    | 'ORGANIZATION'
+    | 'PROJECT'
+    | 'USER_GROUP'
+    | 'SECRET'
+    | 'RESOURCE_GROUP'
+    | 'USER'
+    | 'ROLE'
+    | 'ROLE_ASSIGNMENT'
+    | 'PIPELINE'
+    | 'TRIGGER'
+    | 'TEMPLATE'
+    | 'INPUT_SET'
+    | 'DELEGATE_CONFIGURATION'
+    | 'SERVICE'
+    | 'ENVIRONMENT'
+    | 'DELEGATE'
+    | 'SERVICE_ACCOUNT'
+    | 'CONNECTOR'
+    | 'API_KEY'
+    | 'TOKEN'
+    | 'DELEGATE_TOKEN'
 }
 
 export interface ResourceGroupDTO {
   accountIdentifier: string
+  allowedScopeLevels?: string[]
   color?: string
   description?: string
   fullScopeSelected?: boolean
@@ -1252,6 +1282,8 @@ export interface ResponseMessage {
     | 'INVALID_ARGUMENT'
     | 'INVALID_EMAIL'
     | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'COMMNITY_EDITION_NOT_FOUND'
+    | 'DEPLOY_MODE_IS_NOT_ON_PREM'
     | 'USER_ALREADY_REGISTERED'
     | 'USER_INVITATION_DOES_NOT_EXIST'
     | 'USER_DOES_NOT_EXIST'
@@ -1679,6 +1711,24 @@ export interface TemplateDTO {
   team?: 'OTHER' | 'CD' | 'CV' | 'CI' | 'FFM' | 'PIPELINE' | 'PL' | 'GTM' | 'UNRECOGNIZED'
 }
 
+export type TemplateEventData = AuditEventData & {
+  comments?: string
+  templateUpdateEventType?: string
+}
+
+export interface TemplateInputsErrorDTO {
+  fieldName?: string
+  identifierOfErrorSource?: string
+  message?: string
+}
+
+export type TemplateInputsErrorMetadataDTO = ErrorMetadataDTO & {
+  errorMap?: {
+    [key: string]: TemplateInputsErrorDTO
+  }
+  errorYaml?: string
+}
+
 export interface Throwable {
   cause?: Throwable
   localizedMessage?: string
@@ -2039,7 +2089,7 @@ export const postFilterPromise = (
   )
 
 export interface UpdateFilterQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
 }
 
 export type UpdateFilterProps = Omit<
@@ -2090,7 +2140,7 @@ export const updateFilterPromise = (
   )
 
 export interface DeleteFilterQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
   type:
@@ -2151,7 +2201,7 @@ export const deleteFilterPromise = (
   )
 
 export interface GetFilterQueryParams {
-  accountIdentifier?: string
+  accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
   type:

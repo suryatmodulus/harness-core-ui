@@ -148,7 +148,7 @@ const renderRow = (name: string, value: string): string =>
 const renderNodeTooltip = (node: UnknownHighChartType, getString: UseStringsReturn['getString']): string => `
 <div class=${css.callgraphTooltip}>
   <p class=${css.sourceMethod}>${getString(
-  node.class ? 'pipeline.testsReports.sourceMethod' : 'pipeline.testsReports.resource'
+  node.class ? 'pipeline.testsReports.sourceMethod' : 'common.resourceLabel'
 ).toUpperCase()}</p>
   <p class=${css.methodName}>${node.class || node.file || ''}</p>
   <div>

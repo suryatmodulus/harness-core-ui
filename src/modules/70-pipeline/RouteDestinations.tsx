@@ -18,8 +18,8 @@ import { HarnessApprovalView } from '@pipeline/components/execution/StepDetails/
 import { JiraApprovalView } from '@pipeline/components/execution/StepDetails/views/JiraApprovalView/JiraApprovalView'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { ServiceNowApprovalView } from '@pipeline/components/execution/StepDetails/views/ServiceNowApprovalView/ServiceNowApprovalView'
-import type { ResourceDTO, ResourceScopeDTO } from 'services/audit'
-import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
+import type { ResourceDTO } from 'services/audit'
+import AuditTrailFactory, { ResourceScope } from '@audit-trail/factories/AuditTrailFactory'
 import routes from '@common/RouteDefinitions'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import PipelineResourceRenderer from './components/RbacResourceModals/PipelineResourceRenderer/PipelineResourceRenderer'
@@ -99,12 +99,11 @@ LandingDashboardFactory.registerModuleDashboardHandler(ModuleName.CD, {
  * */
 AuditTrailFactory.registerResourceHandler(ResourceType.PIPELINE, {
   moduleIcon: {
-    name: 'cd-main',
-    size: 30
+    name: 'cd-main'
   },
-  resourceUrl: (_: ResourceDTO, resourceScope: ResourceScopeDTO, module?: Module) => {
+  resourceUrl: (_: ResourceDTO, resourceScope: ResourceScope, module?: Module) => {
     const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope
-    if (module && accountIdentifier && orgIdentifier && projectIdentifier) {
+    if (module && orgIdentifier && projectIdentifier) {
       return routes.toPipelines({
         module,
         orgIdentifier,
@@ -118,12 +117,11 @@ AuditTrailFactory.registerResourceHandler(ResourceType.PIPELINE, {
 
 AuditTrailFactory.registerResourceHandler(ResourceType.SERVICE, {
   moduleIcon: {
-    name: 'cd-main',
-    size: 30
+    name: 'cd-main'
   },
-  resourceUrl: (_: ResourceDTO, resourceScope: ResourceScopeDTO, module?: Module) => {
+  resourceUrl: (_: ResourceDTO, resourceScope: ResourceScope, module?: Module) => {
     const { accountIdentifier, orgIdentifier, projectIdentifier } = resourceScope
-    if (module && accountIdentifier && orgIdentifier && projectIdentifier) {
+    if (module && orgIdentifier && projectIdentifier) {
       return routes.toServices({
         module,
         orgIdentifier,
@@ -137,10 +135,6 @@ AuditTrailFactory.registerResourceHandler(ResourceType.SERVICE, {
 
 AuditTrailFactory.registerResourceHandler(ResourceType.ENVIRONMENT, {
   moduleIcon: {
-    name: 'cd-main',
-    size: 30
-  },
-  resourceUrl: (_: ResourceDTO, __: ResourceScopeDTO) => {
-    return undefined
+    name: 'cd-main'
   }
 })

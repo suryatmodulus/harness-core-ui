@@ -9,6 +9,7 @@ import {
   PillToggleProps,
   Text
 } from '@wings-software/uicore'
+import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
 import { SLOTargetChart } from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
 import { getDataPointsWithMinMaxXLimit } from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart.utils'
@@ -79,7 +80,7 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
         <PillToggle {...toggleProps} />
       </Container>
 
-      <Container>
+      <Container style={{ position: 'relative' }}>
         {toggle === SLOCardToggleViews.SLO && (
           <>
             <Container flex>
@@ -87,9 +88,7 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
                 {getString('cv.SLOPerformanceTrend')}
               </Heading>
               {serviceLevelObjective.recalculatingSLI && (
-                <Text font={{ variation: FontVariation.SMALL }} color={Color.RED_500}>
-                  {getString('cv.sloRecalculationInProgress')}
-                </Text>
+                <PageSpinner className={css.sloCardSpinner} message={getString('cv.sloRecalculationInProgress')} />
               )}
             </Container>
             <Layout.Horizontal spacing="medium">
@@ -107,7 +106,7 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
                   </Heading>
                 </Container>
               </Layout.Vertical>
-              <Container className={css.flexGrowOne}>
+              <Container style={{ position: 'relative' }} className={css.flexGrowOne}>
                 <SLOTargetChart
                   dataPoints={sloPerformanceTrendData.dataPoints}
                   customChartOptions={getSLOAndErrorBudgetGraphOptions({
@@ -124,6 +123,12 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
         )}
         {toggle === SLOCardToggleViews.ERROR_BUDGET && (
           <Layout.Horizontal spacing="medium">
+            {serviceLevelObjective.recalculatingSLI && (
+              <PageSpinner
+                className={css.sloCardSpinner}
+                message={getString('cv.errorBudgetRecalculationInProgress')}
+              />
+            )}
             <Container width={185} className={css.errorBudgetGaugeContainer}>
               <Heading font={{ variation: FontVariation.FORM_HELP }}>{getString('cv.errorBudgetRemaining')}</Heading>
               <ErrorBudgetGauge customChartOptions={getErrorBudgetGaugeOptions(serviceLevelObjective)} />

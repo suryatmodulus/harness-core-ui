@@ -3,12 +3,18 @@ import { render, screen } from '@testing-library/react'
 import { Formik } from 'formik'
 import { FormikForm } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
-import { initialFormData } from '@cv/pages/slos/components/CVCreateSLO/__tests__/CVCreateSLO.mock'
+import {
+  initialFormData,
+  serviceLevelObjective
+} from '@cv/pages/slos/components/CVCreateSLO/__tests__/CVCreateSLO.mock'
 import type { StringKeys } from 'framework/strings'
 import {
   getPeriodTypeOptions,
-  getWindowEndOptionsForMonth
+  getWindowEndOptionsForMonth,
+  getErrorBudget,
+  getPeriodLengthOptionsForRolling
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
+import { PeriodLengthTypes, PeriodTypes } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
 import SLOTargetAndBudgetPolicy from '../SLOTargetAndBudgetPolicy'
 
 jest.mock('@cv/pages/slos/components/SLOTargetChart/SLOTargetChart', () => ({
@@ -71,5 +77,42 @@ describe('Test SLOTargetAndBudgetPolicy component', () => {
       .map((_, i) => ({ label: `${i + 1}`, value: `${i + 1}` }))
 
     expect(getWindowEndOptionsForMonth()).toEqual(periodLengthOptions)
+  })
+
+  test('verify getPeriodLengthOptionsForRolling method', async () => {
+    const periodLengthOptions = Array(31)
+      .fill(0)
+      .map((_, i) => ({ label: `${i + 1}`, value: `${i + 1}d` }))
+
+    expect(getPeriodLengthOptionsForRolling()).toEqual(periodLengthOptions)
+  })
+
+  test('verify getErrorBudget', () => {
+    expect(getErrorBudget(serviceLevelObjective)).toEqual(43200)
+    expect(getErrorBudget({ ...serviceLevelObjective, SLOTargetPercentage: NaN })).toEqual(0)
+    expect(getErrorBudget({ ...serviceLevelObjective, SLOTargetPercentage: -1 })).toEqual(0)
+    expect(getErrorBudget({ ...serviceLevelObjective, SLOTargetPercentage: 101 })).toEqual(0)
+    expect(getErrorBudget({ ...serviceLevelObjective, periodLength: 'NaN' })).toEqual(0)
+    expect(
+      getErrorBudget({
+        ...serviceLevelObjective,
+        periodType: PeriodTypes.CALENDAR,
+        periodLengthType: PeriodLengthTypes.WEEKLY
+      })
+    ).toEqual(10080)
+    expect(
+      getErrorBudget({
+        ...serviceLevelObjective,
+        periodType: PeriodTypes.CALENDAR,
+        periodLengthType: PeriodLengthTypes.MONTHLY
+      })
+    ).toEqual(43200)
+    expect(
+      getErrorBudget({
+        ...serviceLevelObjective,
+        periodType: PeriodTypes.CALENDAR,
+        periodLengthType: PeriodLengthTypes.QUARTERLY
+      })
+    ).toEqual(129600)
   })
 })

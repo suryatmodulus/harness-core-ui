@@ -37,7 +37,7 @@ describe('NewRelicMappedMetric component', () => {
       .spyOn(cvServices, 'useGetLabelNames')
       .mockReturnValue({ loading: false, error: null, data: {}, refetch: refetchMock } as any)
 
-    jest.spyOn(cvServices, 'useFetchParsedSampleData').mockReturnValue({ refetch: jest.fn() } as any)
+    jest.spyOn(cvServices, 'useFetchParsedSampleData').mockReturnValue({ mutate: jest.fn() } as any)
   })
 
   test('should render query viewer', async () => {

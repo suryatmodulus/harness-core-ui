@@ -197,6 +197,7 @@ const BasicTemplateDetails = (props: BasicDetailsInterface): JSX.Element => {
                       placeholder={getString('templatesLibrary.createNewModal.versionPlaceholder')}
                       label={versionLabelText}
                       disabled={disabledFields.includes(Fields.VersionLabel) || isReadonly}
+                      className={css.versionLabel}
                     />
                     {isGitSyncEnabled && showGitFields && (
                       <GitSyncStoreProvider>

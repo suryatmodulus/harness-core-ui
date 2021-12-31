@@ -367,9 +367,7 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg bottomMargin5"
         >
-          <div
-            style="padding: 0px; margin: 0px;"
-          >
+          <div>
             <div
               class="Text--withDocsTooltip"
               data-tooltip-id="pluginImageInfo"
@@ -855,9 +853,7 @@ exports[`Plugin Step Edit View renders runtime inputs 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg bottomMargin5"
         >
-          <div
-            style="padding: 0px; margin: 0px;"
-          >
+          <div>
             <div
               class="Text--withDocsTooltip"
               data-tooltip-id="pluginImageInfo"
@@ -1318,9 +1314,7 @@ exports[`Plugin Step Edit View should render properly 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg bottomMargin5"
         >
-          <div
-            style="padding: 0px; margin: 0px;"
-          >
+          <div>
             <div
               class="Text--withDocsTooltip"
               data-tooltip-id="pluginImageInfo"
@@ -1684,9 +1678,7 @@ exports[`Plugin Step InputSet View should render all fields 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg bottomMargin5"
         >
-          <div
-            style="padding: 0px; margin: 0px;"
-          >
+          <div>
             <div
               class="Text--withDocsTooltip"
               data-tooltip-id="pluginImageInfo"

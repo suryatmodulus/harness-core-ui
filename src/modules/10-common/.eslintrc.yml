@@ -4,7 +4,7 @@ rules:
     - patterns:
         - lodash.*
         - modules/15-notifications/*
-        - modules/20-audit-trail/*
+        - modules/18-audit-trail/*
         - modules/20-rbac/*
         - modules/22-resource-center/*
         - modules/25-governance/*

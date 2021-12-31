@@ -1,12 +1,51 @@
 import moment from 'moment'
 import type Highcharts from 'highcharts'
-import { Utils, Color } from '@wings-software/uicore'
-import type { UserJourneyResponse, UserJourneyDTO, SLODashboardWidget } from 'services/cv'
+import { Utils, Color, SelectOption } from '@wings-software/uicore'
+import type { UseStringsReturn } from 'framework/strings'
+import type { StringsMap } from 'stringTypes'
+import type {
+  UserJourneyResponse,
+  UserJourneyDTO,
+  SLODashboardWidget,
+  ResponseListMonitoredServiceWithHealthSources,
+  RiskCount
+} from 'services/cv'
 import { getRiskColorValue } from '@cv/utils/CommonUtils'
-import { SLOCardToggleViews, GetSLOAndErrorBudgetGraphOptions } from './CVSLOsListingPage.types'
+import {
+  SLOCardToggleViews,
+  GetSLOAndErrorBudgetGraphOptions,
+  SLORiskFilter,
+  RiskTypes
+} from './CVSLOsListingPage.types'
+import { getUserJourneyOptions } from './components/CVCreateSLO/CVCreateSLO.utils'
+import { getMonitoredServicesOptions } from './components/CVCreateSLO/components/CreateSLOForm/components/SLI/SLI.utils'
 
 export const getUserJourneys = (userJourneyResponse?: UserJourneyResponse[]): UserJourneyDTO[] => {
   return userJourneyResponse?.map(response => response.userJourney) ?? []
+}
+
+export const getSLORiskTypeFilter = (
+  getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string,
+  riskTypes?: RiskCount[],
+  totalCount?: number
+): SLORiskFilter[] => {
+  if (!riskTypes) {
+    return []
+  }
+
+  const totalCountDetail = {
+    displayName: getString('cv.slos.totalServices'),
+    identifier: getString('all'),
+    displayColor: Color.BLACK,
+    count: totalCount
+  }
+
+  const riskTypesCardData = riskTypes.map(riskType => ({
+    ...riskType,
+    displayColor: getRiskColorValue(riskType.identifier as RiskTypes, false)
+  }))
+
+  return [totalCountDetail as SLORiskFilter, ...riskTypesCardData]
 }
 
 export const getErrorBudgetGaugeOptions = (serviceLevelObjective: SLODashboardWidget): Highcharts.Options => ({
@@ -104,4 +143,78 @@ export const getSLOAndErrorBudgetGraphOptions = ({
     plotOptions:
       type === SLOCardToggleViews.ERROR_BUDGET ? { area: { color: Utils.getRealCSSColor(Color.RED_400) } } : undefined
   }
+}
+
+const getAllOption = (getString: UseStringsReturn['getString']): SelectOption => {
+  return { label: getString('all'), value: getString('all') }
+}
+
+export const getUserJourneyOptionsForFilter = (
+  userJourneyData: UserJourneyResponse[] | undefined,
+  getString: UseStringsReturn['getString']
+): SelectOption[] => {
+  return [getAllOption(getString), ...getUserJourneyOptions(userJourneyData)]
+}
+
+export const getMonitoredServicesOptionsForFilter = (
+  monitoredServiceData: ResponseListMonitoredServiceWithHealthSources | null,
+  getString: UseStringsReturn['getString']
+): SelectOption[] => {
+  return [getAllOption(getString), ...getMonitoredServicesOptions(monitoredServiceData)]
+}
+
+export const getSliTypeOptionsForFilter = (getString: UseStringsReturn['getString']): SelectOption[] => {
+  return [
+    getAllOption(getString),
+    {
+      label: 'Availability',
+      value: 'Availability'
+    },
+    {
+      label: 'Latency',
+      value: 'Latency'
+    }
+  ]
+}
+
+export const getPeriodTypeOptionsForFilter = (getString: UseStringsReturn['getString']): SelectOption[] => {
+  return [
+    getAllOption(getString),
+    {
+      label: 'Rolling',
+      value: 'Rolling'
+    },
+    {
+      label: 'Calender',
+      value: 'Calender'
+    }
+  ]
+}
+
+export function getFilterValueForSLODashboardParams(
+  getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string,
+  selectedValue?: string
+): string[] | undefined {
+  if (selectedValue && selectedValue !== getString('all')) {
+    return [selectedValue]
+  }
+}
+
+export function getIsSLODashboardAPIsLoading(
+  userJourneysLoading: boolean,
+  dashboardWidgetsLoading: boolean,
+  deleteSLOLoading: boolean,
+  monitoredServicesLoading: boolean,
+  riskCountLoading: boolean
+): boolean {
+  return (
+    userJourneysLoading || dashboardWidgetsLoading || deleteSLOLoading || monitoredServicesLoading || riskCountLoading
+  )
+}
+
+export function getMonitoredServicesInitialValue(
+  getString: (key: keyof StringsMap, vars?: Record<string, any> | undefined) => string,
+  monitoredServiceIdentifier?: string
+): string {
+  return monitoredServiceIdentifier ?? getString('all')
 }

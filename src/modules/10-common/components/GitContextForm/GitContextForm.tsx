@@ -1,14 +1,14 @@
-import { Color, Container, FormInput, Icon, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
+import { Container, FormInput, Icon, Layout, SelectOption, Text } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import type { FormikContext } from 'formik'
 import React from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { Menu } from '@blueprintjs/core'
 import { GitSyncConfig, EntityGitDetails, useGetListOfBranchesWithStatus, GitBranchDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import css from './GitContextForm.module.scss'
 
 export interface IGitContextFormProps extends EntityGitDetails {
   getDefaultFromOtherRepo: boolean
@@ -175,27 +175,18 @@ const GitContextForm: React.FC<GitContextFormProps<Record<string, any> & GitCont
           }
         }}
       />
-      <Text color={Color.GREY_300}>{getString('common.gitSync.selectBranchLabel')}</Text>
-      <Layout.Horizontal spacing="small">
-        <Select
+      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center' }}>
+        <FormInput.Select
           name="branch"
-          value={branchSelectOptions.find(branchOption => branchOption.value === formikProps.values.branch)}
+          label={getString('common.gitSync.selectBranchLabel')}
           items={branchSelectOptions}
           onQueryChange={(query: string) => setSearchTerm(query)}
           disabled={loadingBranchList || isEditing || gitDetails?.getDefaultFromOtherRepo}
-          itemRenderer={(item: SelectOption): React.ReactElement => {
-            return (
-              <Menu.Item
-                key={item.value as string}
-                active={item.value === formikProps.values?.branch}
-                onClick={() => {
-                  onBranchChange?.({ branch: (item.value || '') as string })
-                  formikProps.setFieldValue('branch', item.value)
-                }}
-                text={item.label}
-              />
-            )
+          onChange={(selected: SelectOption) => {
+            const selectedBranch = branchSelectOptions.find(branchOption => branchOption.value === selected.value)
+            onBranchChange?.({ branch: (selectedBranch || '') as string })
           }}
+          className={css.selectBranchInput}
         />
         {loadingBranchList && <Icon margin={{ top: 'xsmall' }} name="spinner" />}
       </Layout.Horizontal>

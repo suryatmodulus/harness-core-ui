@@ -1,4 +1,5 @@
-import type { SLODashboardWidget } from 'services/cv'
+import type { RiskCount, SLODashboardWidget } from 'services/cv'
+import type { SLOWidgetData } from './SLOCard/SLOCardHeader.types'
 
 export interface CVSLOsListingPageProps {
   monitoredServiceIdentifier?: string
@@ -7,7 +8,7 @@ export interface CVSLOsListingPageProps {
 // SLOCardHeader
 
 export interface SLOCardHeaderProps {
-  serviceLevelObjective: SLODashboardWidget
+  serviceLevelObjective: SLOWidgetData
   onDelete: (identifier: string, name: string) => void
   monitoredServiceIdentifier?: string
 }
@@ -29,3 +30,20 @@ export interface GetSLOAndErrorBudgetGraphOptions {
   type: SLOCardToggleViews
   serviceLevelObjective: SLODashboardWidget
 }
+
+export type RiskTypes = 'HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'EXHAUSTED'
+
+export interface SLODashboardRiskCount {
+  displayName?: string
+  count?: number
+  identifier?: RiskTypes
+}
+
+export interface SLORiskFilter extends RiskCount {
+  displayColor: string
+}
+
+export type SLITypes = 'Availability' | 'Latency' | 'All'
+export type SLITypesParams = 'Availability' | 'Latency'
+export type TargetTypes = 'Rolling' | 'Calender' | 'All'
+export type TargetTypesParams = 'Rolling' | 'Calender'

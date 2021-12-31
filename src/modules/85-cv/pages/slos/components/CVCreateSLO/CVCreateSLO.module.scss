@@ -20,7 +20,8 @@
 // SLI
 
 .cardSli {
-  width: 950px;
+  width: 100%;
+  margin-bottom: var(--spacing-xxlarge);
 
   .selectPrimary {
     width: 350px;
@@ -30,14 +31,14 @@
 // PickMetric
 
 .cardPickMetric {
-  width: 950px;
+  width: 100%;
 
   .eventType {
     width: 100px;
   }
 
   .metricSelect {
-    width: 300px;
+    width: 350px;
   }
 
   .objectiveValue {
@@ -47,12 +48,16 @@
   .comparatorOptions {
     width: 60px;
   }
+
+  div.graphContainer {
+    margin-left: 0px !important;
+  }
 }
 
 // SLOTargetAndBudgetPolicy
 
 .card {
-  width: 950px;
+  width: 100%;
 
   .sloTarget {
     width: 120px;
@@ -61,5 +66,37 @@
   .errorBudget {
     min-width: 180px;
     border-radius: var(--spacing-small);
+  }
+}
+
+.radioGroup {
+  label {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    grid-gap: var(--spacing-2) var(--spacing-3);
+    align-items: center;
+    font-size: var(--font-size-normal) !important;
+    margin-bottom: var(--spacing-medium) !important;
+
+    p:nth-of-type(2) {
+      grid-column: 2;
+    }
+  }
+}
+
+.contextualHelp {
+  p:not(.title) {
+    color: var(--grey-400) !important;
+    font: {
+      weight: light !important;
+    }
+  }
+
+  .title {
+    color: var(--grey-500) !important;
+    font: {
+      weight: bold !important;
+    }
+    margin-bottom: var(--spacing-xsmall);
   }
 }

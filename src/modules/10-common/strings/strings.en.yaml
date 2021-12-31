@@ -607,6 +607,9 @@ module:
   cf: FF
   ce: CCM
   cv: CV
+  core: CORE
+  pms: PMS
+  templateService: TEMPLATESERVICE
 customPricing: for Custom Pricing
 specified: Specified
 file: File
@@ -624,6 +627,11 @@ feature:
     description: 'Requires upgrade to setup '
     requiredPlans: Please upgrade to {{requiredPlans}}
     pleaseUpgrade: Please upgrade
+  overuse:
+    title: Overuse
+  keepGettingShipDone:
+    title: Keep Getting Ship Done!
+    requestUpgrade: Request Upgrade
 repositoryName: Repository Name
 mostActiveServices: Most active services
 allErrors: All Errors
@@ -695,3 +703,8 @@ smtp:
   updatingSMTP: Updating SMTP Configuration
 invalid: INVALID
 auditTrail: Audit Trail
+userLabel: User
+resourceLabel: Resource
+resourceTypeLabel: Resource Type
+moduleLabel: 'Module'
+timePstLabel: Time (PST)

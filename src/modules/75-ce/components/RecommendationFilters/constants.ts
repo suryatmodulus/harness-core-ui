@@ -13,11 +13,11 @@ export function getLabelMappingForFilters(getString: UseStringsReturn['getString
   return {
     clusterName: getString('ce.recommendation.listPage.filters.clusterName'),
     name: getString('ce.recommendation.listPage.filters.name'),
-    resourceType: getString('ce.recommendation.listPage.filters.resourceType'),
+    resourceType: getString('common.resourceTypeLabel'),
     namespace: getString('ce.recommendation.listPage.filters.namespace'),
     clusterNames: getString('ce.recommendation.listPage.filters.clusterName'),
     names: getString('ce.recommendation.listPage.filters.name'),
-    resourceTypes: getString('ce.recommendation.listPage.filters.resourceType'),
+    resourceTypes: getString('common.resourceTypeLabel'),
     namespaces: getString('ce.recommendation.listPage.filters.namespace')
   }
 }

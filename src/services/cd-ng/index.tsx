@@ -275,6 +275,7 @@ export interface AccessControlCheckError {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1603,7 +1604,7 @@ export type DeleteReleaseNameSpec = DeleteResourcesBaseSpec & {
 }
 
 export type DeleteResourceNameSpec = DeleteResourcesBaseSpec & {
-  resourceNames?: string[]
+  resourceNames: string[]
 }
 
 export interface DeleteResourcesBaseSpec {
@@ -2293,6 +2294,7 @@ export interface Error {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -2650,6 +2652,7 @@ export interface Failure {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -4542,10 +4545,9 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export interface OAuthSettings {
+export type OAuthSettings = NGAuthSettings & {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
-  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -5312,7 +5314,28 @@ export interface ResourceDTO {
   labels?: {
     [key: string]: string
   }
-  type: string
+  type:
+    | 'ORGANIZATION'
+    | 'PROJECT'
+    | 'USER_GROUP'
+    | 'SECRET'
+    | 'RESOURCE_GROUP'
+    | 'USER'
+    | 'ROLE'
+    | 'ROLE_ASSIGNMENT'
+    | 'PIPELINE'
+    | 'TRIGGER'
+    | 'TEMPLATE'
+    | 'INPUT_SET'
+    | 'DELEGATE_CONFIGURATION'
+    | 'SERVICE'
+    | 'ENVIRONMENT'
+    | 'DELEGATE'
+    | 'SERVICE_ACCOUNT'
+    | 'CONNECTOR'
+    | 'API_KEY'
+    | 'TOKEN'
+    | 'DELEGATE_TOKEN'
 }
 
 export interface ResourceGroup {
@@ -6214,6 +6237,7 @@ export interface ResponseMessage {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -6781,6 +6805,13 @@ export interface ResponseUserInfo {
 export interface ResponseValidationResultDTO {
   correlationId?: string
   data?: ValidationResultDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseYamlSchemaDetailsWrapper {
+  correlationId?: string
+  data?: YamlSchemaDetailsWrapper
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -8418,6 +8449,29 @@ export interface WorkloadDeploymentInfo {
   workload?: WorkloadDateCountInfo[]
 }
 
+export interface YamlGroup {
+  group?: string
+}
+
+export interface YamlSchemaDetailsWrapper {
+  yamlSchemaWithDetailsList?: YamlSchemaWithDetails[]
+}
+
+export interface YamlSchemaMetadata {
+  modulesSupported?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE')[]
+  yamlGroup: YamlGroup
+}
+
+export interface YamlSchemaWithDetails {
+  availableAtAccountLevel?: boolean
+  availableAtOrgLevel?: boolean
+  availableAtProjectLevel?: boolean
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
+  schema?: JsonNode
+  schemaClassName?: string
+  yamlSchemaMetadata?: YamlSchemaMetadata
+}
+
 export interface YamlSnippetMetaData {
   description?: string
   iconTag?: string
@@ -8499,7 +8553,7 @@ export type UserGroupDTORequestBody = UserGroupDTO
 
 export type GetBuildDetailsForEcrWithYamlBodyRequestBody = string
 
-export type ProcessPollingResultNgBodyRequestBody = string[]
+export type UnsubscribeBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
@@ -20709,6 +20763,220 @@ export const getPartialYamlSchemaPromise = (
     signal
   )
 
+export interface GetPartialYamlSchemaWithDetailsQueryParams {
+  accountIdentifier: string
+  projectIdentifier?: string
+  orgIdentifier?: string
+  scope?: 'account' | 'org' | 'project' | 'unknown'
+}
+
+export type GetPartialYamlSchemaWithDetailsProps = Omit<
+  GetProps<ResponseYamlSchemaDetailsWrapper, Failure | Error, GetPartialYamlSchemaWithDetailsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Partial Yaml Schema with details
+ */
+export const GetPartialYamlSchemaWithDetails = (props: GetPartialYamlSchemaWithDetailsProps) => (
+  <Get<ResponseYamlSchemaDetailsWrapper, Failure | Error, GetPartialYamlSchemaWithDetailsQueryParams, void>
+    path={`/partial-yaml-schema/details`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetPartialYamlSchemaWithDetailsProps = Omit<
+  UseGetProps<ResponseYamlSchemaDetailsWrapper, Failure | Error, GetPartialYamlSchemaWithDetailsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Partial Yaml Schema with details
+ */
+export const useGetPartialYamlSchemaWithDetails = (props: UseGetPartialYamlSchemaWithDetailsProps) =>
+  useGet<ResponseYamlSchemaDetailsWrapper, Failure | Error, GetPartialYamlSchemaWithDetailsQueryParams, void>(
+    `/partial-yaml-schema/details`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get Partial Yaml Schema with details
+ */
+export const getPartialYamlSchemaWithDetailsPromise = (
+  props: GetUsingFetchProps<
+    ResponseYamlSchemaDetailsWrapper,
+    Failure | Error,
+    GetPartialYamlSchemaWithDetailsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseYamlSchemaDetailsWrapper, Failure | Error, GetPartialYamlSchemaWithDetailsQueryParams, void>(
+    getConfig('ng/api'),
+    `/partial-yaml-schema/details`,
+    props,
+    signal
+  )
+
+export interface GetMergedPartialYamlSchemaQueryParams {
+  accountIdentifier: string
+  projectIdentifier?: string
+  orgIdentifier?: string
+  scope?: 'account' | 'org' | 'project' | 'unknown'
+}
+
+export type GetMergedPartialYamlSchemaProps = Omit<
+  MutateProps<
+    ResponsePartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapper,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Merged Partial Yaml Schema
+ */
+export const GetMergedPartialYamlSchema = (props: GetMergedPartialYamlSchemaProps) => (
+  <Mutate<
+    ResponsePartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapper,
+    void
+  >
+    verb="POST"
+    path={`/partial-yaml-schema/merged`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetMergedPartialYamlSchemaProps = Omit<
+  UseMutateProps<
+    ResponsePartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapper,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Merged Partial Yaml Schema
+ */
+export const useGetMergedPartialYamlSchema = (props: UseGetMergedPartialYamlSchemaProps) =>
+  useMutate<
+    ResponsePartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapper,
+    void
+  >('POST', `/partial-yaml-schema/merged`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Get Merged Partial Yaml Schema
+ */
+export const getMergedPartialYamlSchemaPromise = (
+  props: MutateUsingFetchProps<
+    ResponsePartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapper,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapper,
+    void
+  >('POST', getConfig('ng/api'), `/partial-yaml-schema/merged`, props, signal)
+
+export interface GetStepYamlSchemaQueryParams {
+  accountIdentifier: string
+  entityType?:
+    | 'Projects'
+    | 'Pipelines'
+    | 'PipelineSteps'
+    | 'Http'
+    | 'JiraCreate'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
+    | 'Connectors'
+    | 'Secrets'
+    | 'Service'
+    | 'Environment'
+    | 'InputSets'
+    | 'CvConfig'
+    | 'Delegates'
+    | 'DelegateConfigurations'
+    | 'CvVerificationJob'
+    | 'IntegrationStage'
+    | 'IntegrationSteps'
+    | 'CvKubernetesActivitySource'
+    | 'DeploymentSteps'
+    | 'DeploymentStage'
+    | 'ApprovalStage'
+    | 'FeatureFlagStage'
+    | 'Template'
+    | 'Triggers'
+    | 'MonitoredService'
+    | 'GitRepositories'
+    | 'FeatureFlags'
+    | 'ServiceNowApproval'
+}
+
+export type GetStepYamlSchemaProps = Omit<
+  GetProps<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get step YAML schema
+ */
+export const GetStepYamlSchema = (props: GetStepYamlSchemaProps) => (
+  <Get<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>
+    path={`/partial-yaml-schema/step`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetStepYamlSchemaProps = Omit<
+  UseGetProps<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get step YAML schema
+ */
+export const useGetStepYamlSchema = (props: UseGetStepYamlSchemaProps) =>
+  useGet<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>(`/partial-yaml-schema/step`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get step YAML schema
+ */
+export const getStepYamlSchemaPromise = (
+  props: GetUsingFetchProps<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>(
+    getConfig('ng/api'),
+    `/partial-yaml-schema/step`,
+    props,
+    signal
+  )
+
 export type GetProvisionerStepsProps = Omit<GetProps<ResponseStepCategory, Failure | Error, void, void>, 'path'>
 
 /**
@@ -20991,7 +21259,7 @@ export type ProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -21003,7 +21271,7 @@ export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPol
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >
     verb="POST"
@@ -21018,7 +21286,7 @@ export type UseProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -21030,7 +21298,7 @@ export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProc
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >(
     'POST',
@@ -21046,7 +21314,7 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
@@ -21055,17 +21323,17 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
+  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -21074,28 +21342,22 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  useMutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     `/polling/subscribe`,
     { base: getConfig('ng/api'), ...props }
   )
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<
-    ResponsePollingResponseDTO,
-    Failure | Error,
-    void,
-    ProcessPollingResultNgBodyRequestBody,
-    void
-  >,
+  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -21104,12 +21366,12 @@ export const subscribePromise = (
   )
 
 export type UnsubscribeProps = Omit<
-  MutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  MutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Unsubscribe = (props: UnsubscribeProps) => (
-  <Mutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
+  <Mutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/unsubscribe`}
     base={getConfig('ng/api')}
@@ -21118,22 +21380,21 @@ export const Unsubscribe = (props: UnsubscribeProps) => (
 )
 
 export type UseUnsubscribeProps = Omit<
-  UseMutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  UseMutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useUnsubscribe = (props: UseUnsubscribeProps) =>
-  useMutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
-    'POST',
-    `/polling/unsubscribe`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
 
 export const unsubscribePromise = (
-  props: MutateUsingFetchProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  props: MutateUsingFetchProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  mutateUsingFetch<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/unsubscribe`,
@@ -21251,6 +21512,67 @@ export const postProjectPromise = (
     'POST',
     getConfig('ng/api'),
     `/projects`,
+    props,
+    signal
+  )
+
+export interface GetProjectListWithMultiOrgFilterQueryParams {
+  accountIdentifier: string
+  orgIdentifiers?: string[]
+  hasModule?: boolean
+  identifiers?: string[]
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
+  searchTerm?: string
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+}
+
+export type GetProjectListWithMultiOrgFilterProps = Omit<
+  GetProps<ResponsePageProjectResponse, Failure | Error, GetProjectListWithMultiOrgFilterQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Project list
+ */
+export const GetProjectListWithMultiOrgFilter = (props: GetProjectListWithMultiOrgFilterProps) => (
+  <Get<ResponsePageProjectResponse, Failure | Error, GetProjectListWithMultiOrgFilterQueryParams, void>
+    path={`/projects/list`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetProjectListWithMultiOrgFilterProps = Omit<
+  UseGetProps<ResponsePageProjectResponse, Failure | Error, GetProjectListWithMultiOrgFilterQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Project list
+ */
+export const useGetProjectListWithMultiOrgFilter = (props: UseGetProjectListWithMultiOrgFilterProps) =>
+  useGet<ResponsePageProjectResponse, Failure | Error, GetProjectListWithMultiOrgFilterQueryParams, void>(
+    `/projects/list`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get Project list
+ */
+export const getProjectListWithMultiOrgFilterPromise = (
+  props: GetUsingFetchProps<
+    ResponsePageProjectResponse,
+    Failure | Error,
+    GetProjectListWithMultiOrgFilterQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageProjectResponse, Failure | Error, GetProjectListWithMultiOrgFilterQueryParams, void>(
+    getConfig('ng/api'),
+    `/projects/list`,
     props,
     signal
   )

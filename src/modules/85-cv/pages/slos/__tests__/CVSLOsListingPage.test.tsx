@@ -67,6 +67,31 @@ describe('CVSLOsListingPage', () => {
       refetch: refetchDashboardWidgets
     } as any)
 
+    jest.spyOn(cvServices, 'useGetAllMonitoredServicesWithTimeSeriesHealthSources').mockReturnValue({
+      data: [],
+      loading: false,
+      error: null,
+      refetch: jest.fn()
+    } as any)
+
+    jest.spyOn(cvServices, 'useGetServiceLevelObjectivesRiskCount').mockReturnValue({
+      data: {
+        data: {
+          riskCounts: [
+            {
+              displayName: 'Healthy',
+              identifier: 'HEALTHY',
+              count: 2
+            }
+          ],
+          totalCount: 3
+        }
+      },
+      loading: false,
+      error: null,
+      refetch: jest.fn()
+    } as any)
+
     useDeleteSLOData = jest
       .spyOn(cvServices, 'useDeleteSLOData')
       .mockReturnValue({ mutate: jest.fn(), loading: false, error: null } as any)
@@ -122,11 +147,12 @@ describe('CVSLOsListingPage', () => {
       refetch: jest.fn()
     })
 
-    render(<ComponentWrapper />)
+    const { container } = render(<ComponentWrapper />)
+
+    screen.debug(container, 90000)
 
     expect(screen.getByText('Loading, please wait...')).toBeInTheDocument()
     expect(screen.getAllByTestId('slo-card-container')).toHaveLength(1)
-    expect(screen.getByText('First Journey')).toBeInTheDocument()
   })
 
   test('page retry should trigger both dashboard widget and user journey APIs when both returned error response', () => {
@@ -221,7 +247,7 @@ describe('CVSLOsListingPage', () => {
     expect(screen.getByTestId('slo-card-container')).toBeInTheDocument()
   })
 
-  test('User journey filter select and deselect', async () => {
+  test('Risk filter select and deselect', async () => {
     useGetAllJourneys.mockReturnValue({ data: userJourneyResponse, loading: false, error: null, refetch: jest.fn() })
     useGetSLODashboardWidgets.mockReturnValue({
       data: dashboardWidgetsResponse,
@@ -234,27 +260,19 @@ describe('CVSLOsListingPage', () => {
 
     expect(container).toMatchSnapshot()
 
-    expect(screen.getByText('First Journey')).toBeInTheDocument()
     expect(screen.getAllByTestId('slo-card-container')).toHaveLength(1)
     expect(screen.getAllByTestId('slo-card-header')).toHaveLength(1)
     expect(screen.getAllByTestId('slo-card-content')).toHaveLength(1)
 
-    expect(screen.getByText('First Journey').parentElement).not.toHaveClass('Card--selected')
-    expect(screen.getByText('Second Journey').parentElement).not.toHaveClass('Card--selected')
+    expect(screen.getByText('Healthy').parentElement).not.toHaveClass('Card--selected')
 
-    userEvent.click(screen.getByText('First Journey'))
+    userEvent.click(screen.getByText('Healthy'))
 
-    expect(screen.getByText('First Journey').parentElement).toHaveClass('Card--selected')
+    expect(screen.getByText('Healthy').parentElement).toHaveClass('Card--selected')
 
-    userEvent.click(screen.getByText('Second Journey'))
+    userEvent.click(screen.getByText('Healthy'))
 
-    expect(screen.getByText('Second Journey').parentElement).toHaveClass('Card--selected')
-    expect(screen.getByText('First Journey').parentElement).not.toHaveClass('Card--selected')
-
-    userEvent.click(screen.getByText('Second Journey'))
-
-    expect(screen.getByText('First Journey').parentElement).not.toHaveClass('Card--selected')
-    expect(screen.getByText('Second Journey').parentElement).not.toHaveClass('Card--selected')
+    expect(screen.getByText('Healthy').parentElement).not.toHaveClass('Card--selected')
   })
 
   test('deleting a widget', async () => {
@@ -280,5 +298,27 @@ describe('CVSLOsListingPage', () => {
 
     await waitFor(() => expect(refetch).toHaveBeenCalled())
     await waitFor(() => expect(screen.getByText('cv.slos.sloDeleted')).toBeInTheDocument())
+  })
+
+  describe('Filters', () => {
+    test('should check whether all the filters are present', () => {
+      useGetSLODashboardWidgets.mockReturnValue({
+        data: dashboardWidgetsResponse,
+        loading: false,
+        error: null,
+        refetch: jest.fn()
+      })
+      render(<ComponentWrapper />)
+
+      const userJourneyFilter = screen.getByTestId('userJourney-filter')
+      const monitoredServicesFilter = screen.getByTestId('monitoredServices-filter')
+      const sloTargetAndBudgetFilter = screen.getByTestId('sloTargetAndBudget-filter')
+      const sliTypeFilter = screen.getByTestId('sliType-filter')
+
+      expect(userJourneyFilter).toBeInTheDocument()
+      expect(monitoredServicesFilter).toBeInTheDocument()
+      expect(sloTargetAndBudgetFilter).toBeInTheDocument()
+      expect(sliTypeFilter).toBeInTheDocument()
+    })
   })
 })

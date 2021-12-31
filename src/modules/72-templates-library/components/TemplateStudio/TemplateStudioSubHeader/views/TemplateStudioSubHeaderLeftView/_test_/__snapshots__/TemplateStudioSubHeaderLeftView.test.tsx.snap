@@ -187,7 +187,7 @@ exports[`<TemplateStudioSubHeaderLeftView /> tests edit btn should work as expec
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group bp3-disabled"
+                    class="bp3-form-group bp3-disabled versionLabel"
                     data-id="versionLabel-1"
                   >
                     <label

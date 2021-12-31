@@ -1,183 +1,31 @@
-import React, { Dispatch, SetStateAction } from 'react'
-import cx from 'classnames'
-import { Button, ButtonSize, ButtonVariation, Color, Layout, Text, Container } from '@wings-software/uicore'
-import { useHistory, useParams } from 'react-router-dom'
-import { isEmpty } from 'lodash-es'
-import routes from '@common/RouteDefinitions'
-import type { StringsMap } from 'stringTypes'
-import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
+import React from 'react'
+import type { Module } from '@common/interfaces/RouteInterfaces'
 import { useFeatures } from '@common/hooks/useFeatures'
-import { useLocalStorage } from '@common/hooks'
-import type { CheckFeatureReturn, CheckFeaturesReturn, FeatureDetail } from 'framework/featureStore/featureStoreUtil'
+import type { CheckFeaturesReturn } from 'framework/featureStore/featureStoreUtil'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
-import { useStrings, UseStringsReturn } from 'framework/strings'
-import css from './FeatureRestrictionBannersFactory.module.scss'
+import FeatureWarningCommonBanner from '@common/components/FeatureWarning/FeatureWarningCommonBanner'
+import {
+  FeatureWarningTheme,
+  RedirectButton,
+  DisplayBanner,
+  getDismissBannerKey
+} from '@common/components/FeatureWarning/FeatureWarningCommonBannerUtils'
+import { useStrings } from 'framework/strings'
+import {
+  getBannerDependencyMet,
+  getQualifiedEnforcedBanner,
+  ModuleToFeatureMapValue
+} from './FeatureRestrictionBannersFactoryUtils'
 
-interface Dependency {
-  [key: string]: { enabled?: boolean }
-}
-
-type ModuleToFeatureMapValue = {
-  limit?: number
-  limitPercent?: number
-  limitCrossedMessage?: keyof StringsMap
-  upgradeRequiredBanner?: boolean
-  dependency?: Dependency
-}
-
-interface DisplayBanner {
-  featureName: string
-  allowed?: boolean
-  messageString: string
-  upgradeRequiredBanner?: boolean
-  isFeatureRestrictionAllowedForModule?: boolean
-}
-
-const getBannerDependencyMet = ({
-  features,
-  featureName,
-  dependency
-}: {
-  featureName?: FeatureIdentifier
-  features: Map<FeatureIdentifier, CheckFeatureReturn>
-  dependency?: Dependency
-}): boolean => {
-  if (dependency) {
-    const dependencyKeys = Object.entries(dependency)
-    // featureName ACTIVE_COMMITTERS featureDetail check is required to show the api finished to prevent banner flicker
-    if (
-      dependencyKeys?.some(
-        ([key, value]) =>
-          features.get(key as FeatureIdentifier)?.enabled !== value.enabled ||
-          (featureName === FeatureIdentifier.ACTIVE_COMMITTERS &&
-            isEmpty(features.get(key as FeatureIdentifier)?.featureDetail || {}))
-      )
-    ) {
-      return false
-    }
-  }
-
-  return true
-}
-
-const getQualifiedEnforcedBanner = ({
-  dependencyMet,
-  featureDetail,
-  uiDisplayBanner,
-  getString,
-  featureName
-}: {
-  dependencyMet: boolean
-  featureDetail?: FeatureDetail
-  uiDisplayBanner: ModuleToFeatureMapValue
-  getString: UseStringsReturn['getString']
-  featureName: FeatureIdentifier
-}): DisplayBanner | undefined => {
-  let _isLimitBreached = false
-  if (dependencyMet && typeof featureDetail?.count !== 'undefined' && featureDetail.limit) {
-    _isLimitBreached =
-      typeof uiDisplayBanner?.limit !== 'undefined'
-        ? featureDetail.count >= uiDisplayBanner.limit
-        : uiDisplayBanner.limitPercent
-        ? (featureDetail.count / featureDetail.limit) * 100 >= uiDisplayBanner.limitPercent
-        : false
-
-    if (_isLimitBreached) {
-      const usagePercent = Math.min(Math.floor((featureDetail.count / featureDetail.limit) * 100), 100)
-      const messageString =
-        uiDisplayBanner?.limitCrossedMessage &&
-        getString(uiDisplayBanner.limitCrossedMessage, {
-          usagePercent,
-          limit: featureDetail.limit,
-          count: featureDetail.count
-        })
-
-      if (messageString && featureDetail?.enabled) {
-        return {
-          featureName,
-          isFeatureRestrictionAllowedForModule: featureDetail.enabled,
-          upgradeRequiredBanner: uiDisplayBanner.upgradeRequiredBanner,
-          messageString
-        }
-      }
-    }
-  }
-  return undefined
-}
-
-const Banner = ({
-  banner,
-  getString,
-  history,
-  accountId,
-  module,
-  setDismissedBanners,
-  dismissedBanners
-}: {
-  banner: DisplayBanner
-  getString: UseStringsReturn['getString']
-  history: { push: (route: string) => void }
-  accountId: string
-  module: Module
-  setDismissedBanners: Dispatch<SetStateAction<string[]>>
-  dismissedBanners: string[]
-}): JSX.Element => {
-  return (
-    <Layout.Horizontal
-      key={banner.messageString}
-      className={cx(css.bannerContainer, banner.upgradeRequiredBanner && css.upgradeRequiredBanner)}
-      flex={{ alignItems: 'center', justifyContent: 'space-between' }}
-      background={banner.upgradeRequiredBanner ? '#FFF5ED' : Color.WHITE}
-      height={56}
-      padding={{ left: 'large', top: 'medium', bottom: 'medium' }}
-    >
-      <Container flex>
-        <Text
-          icon={banner.upgradeRequiredBanner ? 'upgrade-bolt' : 'info-message'}
-          iconProps={{
-            intent: 'primary',
-            size: 20,
-            margin: { right: 'xsmall' },
-            color: banner.upgradeRequiredBanner ? Color.ORANGE_900 : Color.PRIMARY_7
-          }}
-          font={{ weight: 'semi-bold', size: 'small' }}
-          color={Color.PRIMARY_10}
-          margin={{ right: 'medium' }}
-        >
-          {banner.upgradeRequiredBanner && (
-            <Text style={{ fontWeight: 700, marginRight: 'var(--spacing-5)' }} color={Color.ORANGE_900}>
-              {getString('common.feature.upgradeRequired.title').toUpperCase()}
-            </Text>
-          )}
-          {banner.messageString}
-        </Text>
-        <Button
-          variation={ButtonVariation.SECONDARY}
-          size={ButtonSize.SMALL}
-          width={130}
-          onClick={() => {
-            history.push(
-              routes.toSubscriptions({
-                accountId,
-                moduleCard: module
-              })
-            )
-          }}
-        >
-          {getString('common.explorePlans')}
-        </Button>
-      </Container>
-      <Button icon="cross" minimal onClick={() => setDismissedBanners([...dismissedBanners, banner.featureName])} />
-    </Layout.Horizontal>
-  )
-}
-
-export const ModuleToFeatureMap: Record<string, Record<string, ModuleToFeatureMapValue[]>> = {
+// If multiple limits within a FeatureIdentifier, show higher limit first in the array
+const ModuleToFeatureMap: Record<string, Record<string, ModuleToFeatureMapValue[]>> = {
   cd: {
     SERVICES: [
       {
         limit: 5,
-        limitCrossedMessage: 'pipeline.featureRestriction.serviceLimitExceeded'
+        bannerKey: getDismissBannerKey({ featureIdentifier: FeatureIdentifier.SERVICES, limit: 5 }),
+        limitCrossedMessage: 'pipeline.featureRestriction.serviceLimitExceeded',
+        theme: FeatureWarningTheme.UPGRADE_REQUIRED
       }
     ]
   },
@@ -185,32 +33,41 @@ export const ModuleToFeatureMap: Record<string, Record<string, ModuleToFeatureMa
     MAX_TOTAL_BUILDS: [
       {
         limit: 2250,
-        limitCrossedMessage: 'pipeline.featureRestriction.maxTotalBuilds90PercentLimit'
+        bannerKey: getDismissBannerKey({ featureIdentifier: FeatureIdentifier.MAX_TOTAL_BUILDS, limit: 2250 }),
+        limitCrossedMessage: 'pipeline.featureRestriction.maxTotalBuilds90PercentLimit',
+        theme: FeatureWarningTheme.INFO,
+        redirectButtons: [RedirectButton.VIEW_USAGE_LINK, RedirectButton.EXPLORE_PLANS]
       }
     ],
     MAX_BUILDS_PER_MONTH: [
       {
         limit: 100,
+        bannerKey: getDismissBannerKey({ featureIdentifier: FeatureIdentifier.MAX_BUILDS_PER_MONTH, limit: 100 }),
         limitCrossedMessage: 'pipeline.featureRestriction.maxBuildsPerMonth100PercentLimit',
-        upgradeRequiredBanner: true,
+        theme: FeatureWarningTheme.UPGRADE_REQUIRED,
+        redirectButtons: [RedirectButton.VIEW_USAGE_LINK, RedirectButton.EXPLORE_PLANS],
         dependency: {
           MAX_TOTAL_BUILDS: { enabled: false }
         }
       },
       {
         limit: 0,
+        bannerKey: getDismissBannerKey({ featureIdentifier: FeatureIdentifier.MAX_BUILDS_PER_MONTH, limit: 0 }),
         limitCrossedMessage: 'pipeline.featureRestriction.numMonthlyBuilds',
+        theme: FeatureWarningTheme.INFO,
+        redirectButtons: [RedirectButton.VIEW_USAGE_LINK, RedirectButton.EXPLORE_PLANS],
         dependency: {
           MAX_TOTAL_BUILDS: { enabled: false }
         }
-        //
       }
     ],
     ACTIVE_COMMITTERS: [
       {
         limitPercent: 100,
+        bannerKey: getDismissBannerKey({ featureIdentifier: FeatureIdentifier.ACTIVE_COMMITTERS, limitPercent: 100 }),
         limitCrossedMessage: 'pipeline.featureRestriction.subscriptionExceededLimit',
-        upgradeRequiredBanner: true,
+        theme: FeatureWarningTheme.OVERUSE,
+        redirectButtons: [RedirectButton.MANAGE_SUBSCRIPTION],
         dependency: {
           MAX_TOTAL_BUILDS: { enabled: true },
           MAX_BUILDS_PER_MONTH: { enabled: true }
@@ -218,7 +75,10 @@ export const ModuleToFeatureMap: Record<string, Record<string, ModuleToFeatureMa
       },
       {
         limitPercent: 90,
+        bannerKey: getDismissBannerKey({ featureIdentifier: FeatureIdentifier.ACTIVE_COMMITTERS, limitPercent: 90 }),
         limitCrossedMessage: 'pipeline.featureRestriction.subscription90PercentLimit',
+        theme: FeatureWarningTheme.INFO,
+        redirectButtons: [RedirectButton.MANAGE_SUBSCRIPTION],
         dependency: {
           MAX_TOTAL_BUILDS: { enabled: true },
           MAX_BUILDS_PER_MONTH: { enabled: true }
@@ -226,18 +86,12 @@ export const ModuleToFeatureMap: Record<string, Record<string, ModuleToFeatureMa
       }
     ]
   },
-  cf: {
-    SERVICES: []
-  },
-  cv: {
-    SERVICES: []
-  },
-  ce: {
-    SERVICES: []
-  }
+  cf: {},
+  cv: {},
+  ce: {}
 }
 
-export const getFeatureRestrictionDetailsForModule = (
+const getFeatureRestrictionDetailsForModule = (
   module: Module,
   featureIdentifier: FeatureIdentifier
 ): ModuleToFeatureMapValue[] | undefined => {
@@ -255,11 +109,8 @@ interface FeatureRestrictionBannersProps {
 // Show this banner if limit usage is breached for the feature
 export const FeatureRestrictionBanners = (props: FeatureRestrictionBannersProps): JSX.Element | null => {
   const { getString } = useStrings()
-  const history = useHistory()
-  const { accountId } = useParams<AccountPathProps>()
   const { module, featureNames = [] } = props
-  const shownBanners: DisplayBanner[] = []
-  const [dismissedBanners, setDismissedBanners] = useLocalStorage<string[]>('dismiss_banners', [])
+  const banners: DisplayBanner[] = []
   const { features } = useFeatures({ featuresRequest: { featureNames } })
 
   // only 1 banner will be shown for this module
@@ -273,22 +124,24 @@ export const FeatureRestrictionBanners = (props: FeatureRestrictionBannersProps)
       if (
         featureDetail?.enabled === false &&
         featureDetail?.moduleType === module.toUpperCase() &&
-        uiDisplayBanner.upgradeRequiredBanner
+        uiDisplayBanner.theme === FeatureWarningTheme.UPGRADE_REQUIRED
       ) {
-        // when feature is not allowed and upgrade banner should be shown
+        // when feature is not allowed (typically free account) and upgrade banner should be shown
         // moduleType necessary since sometimes enabled===false and no moduleType exists
         const dependency = uiDisplayBanner?.dependency
         const dependencyMet = getBannerDependencyMet({ features, featureName, dependency })
         const messageString = uiDisplayBanner?.limitCrossedMessage && getString(uiDisplayBanner.limitCrossedMessage)
         if (dependencyMet && messageString) {
-          shownBanners.push({
+          banners.push({
             featureName,
             isFeatureRestrictionAllowedForModule: featureDetail.enabled,
-            upgradeRequiredBanner: uiDisplayBanner.upgradeRequiredBanner,
+            theme: uiDisplayBanner.theme,
+            redirectButtons: uiDisplayBanner.redirectButtons,
+            bannerKey: uiDisplayBanner.bannerKey,
             messageString
           })
+          bannerAdded = true
         }
-        bannerAdded = true
       } else if (featureDetail?.enabled) {
         /*
           Show the banner if
@@ -299,7 +152,6 @@ export const FeatureRestrictionBanners = (props: FeatureRestrictionBannersProps)
           3. Usage limit | percent uiDisplayBanner is breached
           4. Message is present in the above map value
         */
-
         const dependency = uiDisplayBanner?.dependency
         const dependencyMet = getBannerDependencyMet({ features, dependency })
         const addBanner = getQualifiedEnforcedBanner({
@@ -310,31 +162,20 @@ export const FeatureRestrictionBanners = (props: FeatureRestrictionBannersProps)
           featureName
         })
         if (addBanner) {
-          shownBanners.push(addBanner)
+          banners.push(addBanner)
           bannerAdded = true
         }
       }
       return bannerAdded
     })
   })
-
-  if (shownBanners.length) {
+  // Awaiting PM/UX for multiple banners or aggregated single banner
+  if (banners.length) {
     return (
       <>
-        {shownBanners
-          .filter(shownBanner => !dismissedBanners.includes(shownBanner?.featureName))
-          .map(banner => (
-            <Banner
-              key={banner?.messageString}
-              banner={banner}
-              getString={getString}
-              history={history}
-              accountId={accountId}
-              module={module}
-              setDismissedBanners={setDismissedBanners}
-              dismissedBanners={dismissedBanners}
-            />
-          ))}
+        {banners.map(banner => (
+          <FeatureWarningCommonBanner key={banner.messageString} banner={banner} />
+        ))}
       </>
     )
   }

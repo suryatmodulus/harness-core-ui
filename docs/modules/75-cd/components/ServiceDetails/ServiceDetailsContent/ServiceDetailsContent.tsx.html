@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>23/23</span>
+                <span class='fraction'>26/26</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>25/25</span>
             </div>
         
             
@@ -144,6 +144,14 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -153,12 +161,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,16 +183,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,6 +214,7 @@ import {
   TimeRangeSelector,
   TimeRangeSelectorProps
 } from '@common/components/TimeRangeSelector/TimeRangeSelector'
+import EntitySetupUsage from '@common/pages/entityUsage/EntityUsage'
 import { useStrings } from 'framework/strings'
 import { DeploymentsTimeRangeContext } from '@cd/components/Services/common'
 import { DeploymentsWidget } from '@cd/components/Services/DeploymentsWidget/DeploymentsWidget'
@@ -223,18 +224,22 @@ import { PipelineExecutions } from '@cd/components/ServiceDetails/PipelineExecut
 import css from '@cd/components/ServiceDetails/ServiceDetailsContent/ServicesDetailsContent.module.scss'
 &nbsp;
 const selectedTab = 'ServiceDetailsSummaryTab'
+const refrencedByTab = 'ServiceRefrencedByTab'
 &nbsp;
-interface ServiceDetailsSummaryProps {
-  timeRange: TimeRangeSelectorProps
-  setTimeRange: (timeRange: TimeRangeSelectorProps) =&gt; void
-}
-&nbsp;
-const ServiceDetailsSummary: React.FC&lt;ServiceDetailsSummaryProps&gt; = props =&gt; {
+const ServiceDetailsSummary: React.FC = () =&gt; {
   const { serviceId } = useParams&lt;ServicePathProps&gt;()
-  const { timeRange, setTimeRange } = props
+  const { getString } = useStrings()
+&nbsp;
+  const [timeRange, setTimeRange] = useState&lt;TimeRangeSelectorProps&gt;({
+    range: [startOfDay(moment().subtract(1, 'month').add(1, 'day')), startOfDay(moment())],
+    label: getString('common.duration.month')
+  })
   return (
     &lt;Page.Body&gt;
-      &lt;Layout.Horizontal margin={{ left: 'xlarge', right: 'xlarge', top: 'large', bottom: 'large' }}&gt;
+      &lt;Container flex className={css.timeRangeContainer}&gt;
+        &lt;TimeRangeSelector timeRange={timeRange<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ange} setTimeRange={setTimeRange} /&gt;
+      &lt;/Container&gt;
+      &lt;Layout.Horizontal margin={{ top: 'large', bottom: 'large' }}&gt;
         &lt;DeploymentsTimeRangeContext.Provider value={{ timeRange, setTimeRange }}&gt;
           &lt;Layout.Vertical margin={{ right: 'xlarge' }}&gt;
             &lt;Layout.Horizontal margin={{ bottom: 'medium' }}&gt;
@@ -255,23 +260,18 @@ const ServiceDetailsSummary: React.FC&lt;ServiceDetailsSummaryProps&gt; = props 
 }
 &nbsp;
 export const ServiceDetailsContent: React.FC = () =&gt; {
+  const { serviceId } = useParams&lt;ServicePathProps&gt;()
   const { getString } = useStrings()
-  const [timeRange, setTimeRange] = useState&lt;TimeRangeSelectorProps&gt;({
-    range: [startOfDay(moment().subtract(1, 'month').add(1, 'day')), startOfDay(moment())],
-    label: getString('common.duration.month')
-  })
 &nbsp;
   return (
-    &lt;Container padding={{ left: 'medium', right: 'medium' }} className={css.tabsContainer}&gt;
+    &lt;Container padding={{ left: 'xlarge', right: 'xlarge' }} className={css.tabsContainer}&gt;
       &lt;Tabs id="serviceDetailsTab" defaultSelectedTabId={selectedTab}&gt;
+        &lt;Tab id={selectedTab} title={getString('summary')} panel={&lt;ServiceDetailsSummary /&gt;} /&gt;
         &lt;Tab
-          id={selectedTab}
-          title={getString('summary')}
-          panel={&lt;ServiceDetailsSummary timeRange={timeRange} setTimeRange={setTimeRange} /&gt;}
+          id={refrencedByTab}
+          title={getString('refrencedBy')}
+          panel={&lt;EntitySetupUsage entityType={'Service'} entityIdentifier={serviceId} /&gt;}
         /&gt;
-        &lt;Container flex className={css.timeRangeContainer} margin={{ right: 'medium' }}&gt;
-          &lt;TimeRangeSelector timeRange={timeRange<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ange} setTimeRange={setTimeRange} /&gt;
-        &lt;/Container&gt;
       &lt;/Tabs&gt;
     &lt;/Container&gt;
   )
@@ -283,7 +283,7 @@ export const ServiceDetailsContent: React.FC = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 31 2021 06:54:19 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 31 2021 09:23:30 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

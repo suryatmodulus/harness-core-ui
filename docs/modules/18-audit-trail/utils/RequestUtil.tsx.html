@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/20-audit-trail/factories/AuditTrailFactory.tsx</title>
+    <title>Code coverage report for modules/18-audit-trail/utils/RequestUtil.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">modules/20-audit-trail/factories</a> AuditTrailFactory.tsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">modules/18-audit-trail/utils</a> RequestUtil.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
@@ -75,17 +75,10 @@
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a>
-<a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -100,47 +93,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
-import type { Module } from '@common/interfaces/RouteInterfaces'
-import type { ResourceDTO, ResourceScopeDTO } from 'services/audit'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { AuditEventDTO } from 'services/audit'
+import type { StringKeys } from 'framework/strings'
 &nbsp;
-export type ResourceType = ResourceDTO['type']
-&nbsp;
-interface ResourceHandler {
-  moduleIcon: IconProps
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO, module?: Module) =&gt; string | undefined
+export const actionToLabelMap: Record&lt;AuditEventDTO['action'], StringKeys&gt; = {
+  CREATE: 'created',
+  UPDATE: 'auditTrail.actions.updated',
+  RESTORE: 'auditTrail.actions.restored',
+  DELETE: 'deleted',
+  UPSERT: 'auditTrail.actions.updated',
+  INVITE: 'auditTrail.actions.invited',
+  RESEND_INVITE: 'auditTrail.actions.invite_resent',
+  REVOKE_INVITE: 'auditTrail.actions.invite_revoked',
+  ADD_COLLABORATOR: 'auditTrail.actions.added_collaborator',
+  REMOVE_COLLABORATOR: 'auditTrail.actions.removed_collaborator',
+  ADD_MEMBERSHIP: 'auditTrail.actions.added_membership',
+  REMOVE_MEMBERSHIP: 'auditTrail.actions.removed_membership',
+  REVOKE_TOKEN: 'auditTrail.actions.revoke_token'
 }
-&nbsp;
-class AuditTrailFactory {
-  private readonly map: Map&lt;ResourceType, ResourceHandler&gt;
-&nbsp;
-  constructor() {
-    this.map = new Map()
-  }
-&nbsp;
-  registerResourceHandler(resourceType: ResourceType, handler: ResourceHandler): void {
-    this.map.set(resourceType, handler)
-  }
-&nbsp;
-  getResourceHandler(resourceType: ResourceType): ResourceHandler | undefined {
-    return this.map.get(resourceType)
-  }
-}
-&nbsp;
-export default new AuditTrailFactory()
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -148,7 +118,7 @@ export default new AuditTrailFactory()
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Dec 31 2021 06:54:19 GMT+0000 (Greenwich Mean Time)
+                at Fri Dec 31 2021 09:23:30 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -172,7 +172,6 @@ resourceGroup:
   updateResourceGroupDialogTitle: 'Update Resource Group'
   color: '{{ $.color}}'
   dragAndDropData: Please select or drag and drop the type of resources, you would like to add to your group.
-  resourceGroupColumn: 'Resource Group'
   summary: '{{ $.summary }}'
   createSuccess: 'Resource Group created successfully'
   updateSuccess: 'Resource Group updated successfully'

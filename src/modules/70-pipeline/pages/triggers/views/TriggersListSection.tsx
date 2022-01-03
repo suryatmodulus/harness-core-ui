@@ -91,7 +91,7 @@ const RenderColumnMenu: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
 
   const { openDialog: confirmDelete } = useConfirmationDialog({
     contentText: `${column.getString('pipeline.triggers.confirmDelete')} ${data.name || /* istanbul ignore next */ ''}`,
-    titleText: column.getString('pipeline.triggers.triggerLabel'),
+    titleText: column.getString('auditTrail.resourceType.trigger'),
     confirmButtonText: column.getString('delete'),
     cancelButtonText: column.getString('cancel'),
     intent: Intent.DANGER,
@@ -106,7 +106,7 @@ const RenderColumnMenu: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
           /* istanbul ignore else */
           if (deleted.status === ResponseStatus.SUCCESS) {
             column.showSuccess(
-              `${column.getString('pipeline.triggers.triggerLabel')} ${
+              `${column.getString('auditTrail.resourceType.trigger')} ${
                 data.name || /* istanbul ignore next */ ''
               } ${column.getString('deleted')}`
             )
@@ -543,7 +543,7 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
     // const columns: CustomColumn<NGTriggerDetailsResponse>[] = React.useMemo( // wait for backend to support condition
     () => [
       {
-        Header: getString('pipeline.triggers.triggerLabel').toUpperCase(),
+        Header: getString('common.triggerLabel').toUpperCase(),
         accessor: 'name',
         width: '25%',
         Cell: RenderColumnTrigger,

@@ -204,7 +204,7 @@ describe('Input Set List - Actions tests', () => {
     const deleteMenu = getAllByText?.('delete')[0]
     await act(async () => {
       fireEvent.click(deleteMenu!)
-      await waitFor(() => getByText(document.body, 'delete inputSets.inputSetLabel'))
+      await waitFor(() => getByText(document.body, 'delete common.inputSetLabel'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
       const deleteBtn = queryByText(form as HTMLElement, 'delete')
@@ -235,7 +235,7 @@ describe('Input Set List - Actions tests', () => {
     const menu = getAllByText?.('inputSets.newInputSet')[0]
     fireEvent.click(menu!)
     const popover = findPopoverContainer()
-    const newInputSet = getByText(popover as HTMLElement, 'inputSets.inputSetLabel')
+    const newInputSet = getByText(popover as HTMLElement, 'common.inputSetLabel')
     await act(async () => {
       fireEvent.click(newInputSet)
       await waitFor(() => getByTestId(document.body, 'location'))

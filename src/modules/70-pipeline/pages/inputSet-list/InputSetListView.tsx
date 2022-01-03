@@ -252,7 +252,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
   const columns: CustomColumn<InputSetLocal>[] = React.useMemo(
     () => [
       {
-        Header: getString('inputSets.inputSetLabel').toUpperCase(),
+        Header: getString('common.inputSetLabel').toUpperCase(),
         accessor: 'name',
         width: isGitSyncEnabled ? '25%' : '30%',
         Cell: RenderColumnInputSet

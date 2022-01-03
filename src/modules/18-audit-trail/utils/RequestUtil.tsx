@@ -20,35 +20,39 @@ export const actionToLabelMap: Record<AuditEventDTO['action'], StringKeys> = {
   REVOKE_TOKEN: 'auditTrail.actions.revoke_token'
 }
 
-const resourceTypeToLabelMapping: Record<ResourceDTO['type'], string> = {
-  ORGANIZATION: 'ORGANIZATION',
-  PROJECT: 'PROJECT',
-  USER_GROUP: 'USER_GROUP',
-  SECRET: 'SECRET',
-  RESOURCE_GROUP: 'RESOURCE_GROUP',
-  USER: 'USER',
-  ROLE: 'ROLE',
-  ROLE_ASSIGNMENT: 'ROLE_ASSIGNMENT',
-  PIPELINE: 'PIPELINE',
-  TRIGGER: 'TRIGGER',
-  TEMPLATE: 'TEMPLATE',
-  INPUT_SET: 'INPUT_SET',
-  DELEGATE_CONFIGURATION: 'DELEGATE_CONFIGURATION',
-  SERVICE: 'SERVICE',
-  ENVIRONMENT: 'ENVIRONMENT',
-  DELEGATE: 'DELEGATE',
-  SERVICE_ACCOUNT: 'SERVICE_ACCOUNT',
-  CONNECTOR: 'CONNECTOR',
-  API_KEY: 'API_KEY',
-  TOKEN: 'TOKEN',
-  DELEGATE_TOKEN: 'DELEGATE_TOKEN'
+export const moduleToLabelMap: Record<AuditEventDTO['module'], StringKeys> = {
+  CD: 'common.module.cd',
+  CE: 'common.module.ce',
+  CF: 'common.module.cf',
+  CV: 'common.module.cv',
+  CI: 'common.module.ci',
+  CORE: 'common.module.core',
+  PMS: 'common.module.pms',
+  TEMPLATESERVICE: 'common.module.templateService'
 }
 
-export const getResourceTypeForMultiselect = (): MultiSelectOption[] => {
-  return Object.keys(resourceTypeToLabelMapping).map(key => ({
-    label: resourceTypeToLabelMapping[key],
-    value: key
-  }))
+export const resourceTypeToLabelMapping: Record<ResourceDTO['type'], StringKeys> = {
+  ORGANIZATION: 'orgLabel',
+  PROJECT: 'projectLabel',
+  USER_GROUP: 'common.userGroup',
+  SECRET: 'secretType',
+  RESOURCE_GROUP: 'common.resourceGroupLabel',
+  USER: 'common.userLabel',
+  ROLE: 'common.role',
+  ROLE_ASSIGNMENT: 'common.roleAssignmentLabel',
+  PIPELINE: 'common.pipeline',
+  TRIGGER: 'common.triggerLabel',
+  TEMPLATE: 'common.template.label',
+  INPUT_SET: 'common.inputSetLabel',
+  DELEGATE_CONFIGURATION: 'common.delegateConfigurationLabel',
+  SERVICE: 'service',
+  ENVIRONMENT: 'environment',
+  DELEGATE: 'common.delegateLabel',
+  SERVICE_ACCOUNT: 'serviceAccount',
+  CONNECTOR: 'connector',
+  API_KEY: 'common.apikey',
+  TOKEN: 'token',
+  DELEGATE_TOKEN: 'common.delegateTokenLabel'
 }
 
 const getScopesFromFormData = (

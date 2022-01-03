@@ -441,7 +441,6 @@ triggers:
   deleteTrigger: 'Delete Trigger'
   confirmDelete: 'Are you sure you want to delete trigger' # followed by name
   pageNotFound: 'Page not found'
-  triggerLabel: 'Trigger'
   lastActivationLabel: 'LAST ACTIVATION'
   activityActivation: '{{numActivations}} Activations in'
   activityDays: 'Last {{numDays}} days'

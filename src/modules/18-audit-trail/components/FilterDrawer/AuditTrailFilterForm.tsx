@@ -6,8 +6,8 @@ import { useMutateAsGet } from '@common/hooks'
 import { StringKeys, useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetUsers, useGetOrganizationAggregateDTOList, useGetProjectListWithMultiOrgFilter } from 'services/cd-ng'
-import { UserItemRenderer, UserTagRenderer } from '@rbac/utils/utils'
-import { actionToLabelMap, getResourceTypeForMultiselect, moduleToLabelMap } from '../../utils/RequestUtil'
+import { UserItemRenderer, UserTagRenderer } from '@audit-trail/utils/utils'
+import { actionToLabelMap, moduleToLabelMap, resourceTypeToLabelMapping } from '../../utils/RequestUtil'
 import type { AuditTrailFormType } from './FilterDrawer'
 
 interface AuditTrailFormProps {
@@ -89,7 +89,7 @@ const AuditTrailFilterForm: React.FC<AuditTrailFormProps> = props => {
         name="users"
         key="users"
         items={users}
-        label={getString('common.user')}
+        label={getString('common.userLabel')}
         multiSelectProps={{
           allowCreatingNewItems: true,
           onQueryChange: setUserQuery,
@@ -102,7 +102,7 @@ const AuditTrailFilterForm: React.FC<AuditTrailFormProps> = props => {
           name="organizations"
           key="organizations"
           items={organizations}
-          label="Org"
+          label={getString('orgLabel')}
           multiSelectProps={{
             onQueryChange: setOrgQuery
           }}
@@ -126,13 +126,13 @@ const AuditTrailFilterForm: React.FC<AuditTrailFormProps> = props => {
       <FormInput.MultiSelect
         items={getOptionsForMultiSelect(moduleToLabelMap)}
         name="modules"
-        label={getString('module')}
+        label={getString('common.moduleLabel')}
         key="modules"
       />
       <FormInput.MultiSelect
-        items={getResourceTypeForMultiselect()}
+        items={getOptionsForMultiSelect(resourceTypeToLabelMapping)}
         name="resourceType"
-        label={getString('common.resourceType')}
+        label={getString('common.resourceTypeLabel')}
         key="resourceType"
       />
       <FormInput.MultiSelect

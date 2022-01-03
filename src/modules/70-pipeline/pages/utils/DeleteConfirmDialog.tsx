@@ -13,7 +13,7 @@ const useGetEntityText = (entityType: string): string => {
     case 'pipeline':
       return getString('common.pipeline')
     case 'inputSet':
-      return getString('inputSets.inputSetLabel')
+      return getString('common.inputSetLabel')
     case 'overlayInputSet':
       return getString('inputSets.overlayInputSet')
     case 'template':

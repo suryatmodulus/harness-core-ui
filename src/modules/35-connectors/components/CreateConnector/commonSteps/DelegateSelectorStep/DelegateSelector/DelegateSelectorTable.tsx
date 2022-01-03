@@ -126,7 +126,7 @@ export const DelegateSelectorTable: React.FC<DelegateSelectorTableProps> = props
     () => {
       const cols = [
         {
-          Header: getString('delegate.DelegateName').toLocaleUpperCase(),
+          Header: getString('common.delegateLabel').toLocaleUpperCase(),
           id: 'name',
           width: '35%',
           accessor: (row: DelegateInnerCustom) => row.delegateName || row.hostName,

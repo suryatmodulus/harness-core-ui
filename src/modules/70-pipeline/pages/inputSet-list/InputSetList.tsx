@@ -216,7 +216,7 @@ const InputSetList: React.FC = (): JSX.Element => {
             content={
               <Menu className={css.menuList}>
                 <MenuItem
-                  text={getString('inputSets.inputSetLabel')}
+                  text={getString('common.inputSetLabel')}
                   onClick={() => {
                     goToInputSetForm()
                   }}

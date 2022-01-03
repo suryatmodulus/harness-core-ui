@@ -20,7 +20,7 @@ import { UserGroupDTO, usePostUserGroup, usePutUserGroup, useGetUsers } from 'se
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useMutateAsGet } from '@common/hooks'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { UserItem, UserItemRenderer, UserTagRenderer } from '@rbac/utils/utils'
+import { UserItemRenderer, UserTagRenderer, UserItem } from '@audit-trail/utils/utils'
 import css from '@rbac/modals/UserGroupModal/useUserGroupModal.module.scss'
 
 interface UserGroupModalData {

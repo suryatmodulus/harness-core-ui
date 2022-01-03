@@ -20,10 +20,8 @@ import { useStrings } from 'framework/strings'
 import { UserMetadataDTO, RoleAssignmentMetadataDTO, useGetUsers, useAddUsers, AddUsers } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import {
-  UserItemRenderer,
   handleInvitationResponse,
   getScopeBasedDefaultAssignment,
-  UserTagRenderer,
   InvitationStatus,
   isNewRoleAssignment
 } from '@rbac/utils/utils'
@@ -32,6 +30,7 @@ import { useMutateAsGet } from '@common/hooks/useMutateAsGet'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
 import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { UserItemRenderer, UserTagRenderer } from '@audit-trail/utils/utils'
 import RoleAssignmentForm from './RoleAssignmentForm'
 
 interface UserRoleAssignmentData {

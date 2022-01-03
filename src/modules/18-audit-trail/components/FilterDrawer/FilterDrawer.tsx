@@ -97,7 +97,7 @@ const FilterDrawer: React.FC<FilterDrawerProps> = ({
     if (saveOrUpdateHandler && typeof saveOrUpdateHandler === 'function') {
       const payload = {
         ...data.metadata,
-        identifier: StringUtils.getIdentifierFromName(data.metadata.name),
+        identifier: isUpdate ? data.metadata.identifier : StringUtils.getIdentifierFromName(data.metadata.name),
         filterProperties: getFilterPropertiesFromForm(data.formValues, accountId)
       }
       await saveOrUpdateHandler(isUpdate, payload)

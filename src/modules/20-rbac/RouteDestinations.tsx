@@ -142,12 +142,16 @@ AuditTrailFactory.registerResourceHandler('USER', {
   resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
 
-    return routes.toUserDetails({
-      orgIdentifier,
-      accountId: accountIdentifier,
-      projectIdentifier,
-      userIdentifier: resource.labels?.userId || resource.identifier
-    })
+    const userId = resource.labels?.userId
+    if (userId) {
+      return routes.toUserDetails({
+        orgIdentifier,
+        accountId: accountIdentifier,
+        projectIdentifier,
+        userIdentifier: resource.labels?.userId || resource.identifier
+      })
+    }
+    return undefined
   }
 })
 

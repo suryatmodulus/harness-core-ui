@@ -50,16 +50,12 @@ const AuditTrailsFilters: React.FC<AuditFiltersProps> = ({ applyFilters }) => {
     )
   }, [filterResponse, selectedFilter])
 
-  const onFilterButtonClick = (): void => {
-    openDrawer()
-  }
-
   return (
     <>
       <FilterSelector<FilterDTO>
         appliedFilter={selectedFilter}
         filters={filterResponse?.data?.content}
-        onFilterBtnClick={onFilterButtonClick}
+        onFilterBtnClick={openDrawer}
         onFilterSelect={(option: SelectOption) => {
           onFilterSelect(option.value as string)
         }}

@@ -19,6 +19,7 @@ const AuditTrailFilterForm: React.FC<AuditTrailFormProps> = props => {
   const [userQuery, setUserQuery] = useState<string>()
   const [orgQuery, setOrgQuery] = useState<string>()
   const [projectsQuery, setProjectsQuery] = useState<string>()
+  const { getString } = useStrings()
 
   const { data: userData } = useMutateAsGet(useGetUsers, {
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
@@ -33,7 +34,6 @@ const AuditTrailFilterForm: React.FC<AuditTrailFormProps> = props => {
     debounce: 300
   })
 
-  const { getString } = useStrings()
   const users =
     userData?.data?.content?.map(user => {
       return {

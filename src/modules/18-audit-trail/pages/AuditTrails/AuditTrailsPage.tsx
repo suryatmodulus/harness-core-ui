@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Color, DateRangePickerButton, FontVariation, Layout, Text } from '@wings-software/uicore'
+import { DateRangePickerButton, Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { useGetAuditList } from 'services/audit'
@@ -32,6 +32,7 @@ const AuditTrailsPage: React.FC = () => {
   })
 
   const onDateChange = (selectedDates: [Date, Date]): void => {
+    setPage(0)
     setStartDate(selectedDates[0])
     setEndDate(selectedDates[1])
   }
@@ -61,14 +62,14 @@ const AuditTrailsPage: React.FC = () => {
       <Page.Header
         title={getString('common.auditTrail')}
         breadcrumbs={<NGBreadcrumbs />}
-        content={
-          <Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_600}>
-            {getString('auditTrail.externalDataText')}
-            <a target="_blank" href="https://harness.io/docs/api/tag/Audits" rel="noreferrer">
-              {` ${getString('auditTrail.auditLogAPI')}`}
-            </a>
-          </Text>
-        }
+        // content={
+        //   <Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_600}>
+        //     {getString('auditTrail.externalDataText')}
+        //     <a target="_blank" href="https://harness.io/docs/api/tag/Audits" rel="noreferrer">
+        //       {` ${getString('auditTrail.auditLogAPI')}`}
+        //     </a>
+        //   </Text>
+        // }
       />
       <Page.SubHeader className={css.subHeaderContainer}>
         <Layout.Horizontal flex className={css.subHeader}>
@@ -85,6 +86,7 @@ const AuditTrailsPage: React.FC = () => {
           <Layout.Horizontal flex>
             <AuditTrailsFilters
               applyFilters={(properties: AuditFilterProperties) => {
+                setPage(0)
                 setSelectedFilterProperties(properties)
               }}
             />

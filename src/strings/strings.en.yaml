@@ -480,6 +480,7 @@ lastUpdatedBy: Last Updated By
 loggedAt: 'Logged at {{time}}'
 order: Order
 inputSets:
+  inputSetLabel: Input Set
   editTitle: 'Edit Input Set: {{name}}'
   editOverlayTitle: 'Edit Overlay Input Set: {{name}}'
   newInputSet: + New Input Set
@@ -683,6 +684,7 @@ delegate:
   selectEnvs: Select Environments...
   notConnected: Not Connected
   delegates: 'Delegates'
+  DelegateName: 'Delegate'
   DelegateSelector: 'Delegate Selector'
   DelegateselectionLabel: 'Delegates Setup'
   DelegateselectionConnectorText: 'Limit usage of this Connector to the Delegates that have the following Tags'
@@ -737,6 +739,7 @@ delegate:
       icon: 'service-ecs'
       name: 'Linux'
   delegateConfigurations: 'Delegate Configurations'
+  delegateConfiguration: 'Delegate Configuration'
   CONFIGURATION_NAME: 'Delegate Configuration Name'
   Scope: 'Scope'
   Init_Script: 'Initialization Script'

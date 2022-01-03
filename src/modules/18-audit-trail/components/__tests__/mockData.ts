@@ -27,7 +27,7 @@ export const filters = {
       },
       {
         name: 'org_filter',
-        identifier: 'org_filter',
+        identifier: '',
         orgIdentifier: null,
         projectIdentifier: null,
         filterProperties: {

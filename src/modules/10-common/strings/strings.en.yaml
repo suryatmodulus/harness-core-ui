@@ -711,7 +711,4 @@ timePstLabel: Time (PST)
 resourceGroupLabel: Resource Group
 roleAssignmentLabel: Role Assignment
 triggerLabel: Trigger
-inputSetLabel: Input Set
-delegateConfigurationLabel: Delegate Configuration
-delegateLabel: Delegate
 delegateTokenLabel: Delegate Token

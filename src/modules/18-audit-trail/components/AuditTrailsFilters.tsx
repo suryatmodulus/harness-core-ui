@@ -61,11 +61,7 @@ const AuditTrailsFilters: React.FC<AuditFiltersProps> = ({ applyFilters }) => {
         filters={filterResponse?.data?.content}
         onFilterBtnClick={onFilterButtonClick}
         onFilterSelect={(option: SelectOption) => {
-          if (option.value) {
-            onFilterSelect(option.value as string)
-          } else {
-            onFilterSelect(undefined)
-          }
+          onFilterSelect(option.value as string)
         }}
         fieldToLabelMapping={new Map<string, string>()}
         filterWithValidFields={{}}

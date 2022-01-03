@@ -141,9 +141,7 @@ export interface StringsMap {
   'common.datePickerShortcuts.Yesterday': string
   'common.default': string
   'common.defaultExperience': string
-  'common.delegateConfigurationLabel': string
   'common.delegateForTask': string
-  'common.delegateLabel': string
   'common.delegateTokenLabel': string
   'common.delete': string
   'common.descriptionPlaceholder': string
@@ -292,7 +290,6 @@ export interface StringsMap {
   'common.hourly': string
   'common.in': string
   'common.input': string
-  'common.inputSetLabel': string
   'common.instanceLabel': string
   'common.instanceValidation.maximumCountInstance': string
   'common.instanceValidation.maximumCountPercentage': string
@@ -5434,6 +5431,10 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  'delegate.DelegateName': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   'delegate.DelegateSelector': string
   /**
    * @deprecated migrate this string to module level file
@@ -5535,6 +5536,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.delegateCPU': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'delegate.delegateConfiguration': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6319,6 +6324,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'inputSets.inputSetIsRequired': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  'inputSets.inputSetLabel': string
   /**
    * @deprecated migrate this string to module level file
    */

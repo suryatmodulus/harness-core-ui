@@ -8,14 +8,15 @@ import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { AuditFilterProperties } from 'services/audit'
 import { useMutateAsGet } from '@common/hooks'
+import AuditTrailsFilters from '@audit-trail/components/AuditTrailsFilters'
 import AuditTrailsListView from './views/AuditTrailsListView'
 import AuditTrailsEmptyState from './audit_trails_empty_state.png'
 import css from './AuditTrailsPage.module.scss'
 
 const AuditTrailsPage: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const [selectedFilterProperties, setSelectedFilterProperties] = useState<AuditFilterProperties>()
   const [page, setPage] = useState(0)
-  const [selectedFilterProperties] = useState<AuditFilterProperties>()
   const { getString } = useStrings()
   const [startDate, setStartDate] = useState<Date>(() => {
     const start = new Date()
@@ -81,6 +82,13 @@ const AuditTrailsPage: React.FC = () => {
               `${selectedDates[0].toLocaleDateString()} - ${selectedDates[1].toLocaleDateString()}`
             }
           />
+          <Layout.Horizontal flex>
+            <AuditTrailsFilters
+              applyFilters={(properties: AuditFilterProperties) => {
+                setSelectedFilterProperties(properties)
+              }}
+            />
+          </Layout.Horizontal>
         </Layout.Horizontal>
       </Page.SubHeader>
       <Page.Body

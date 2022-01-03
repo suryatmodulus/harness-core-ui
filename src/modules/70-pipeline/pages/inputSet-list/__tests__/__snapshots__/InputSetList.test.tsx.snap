@@ -104,7 +104,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
           >
-            COMMON.INPUTSETLABEL
+            INPUTSETS.INPUTSETLABEL
           </p>
         </div>
         <div

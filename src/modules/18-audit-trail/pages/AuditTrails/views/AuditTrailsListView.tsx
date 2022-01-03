@@ -2,7 +2,7 @@ import React from 'react'
 import { TableV2, Text, Layout, Avatar, Icon, Container, Color } from '@wings-software/uicore'
 import type { Column, Renderer, CellProps } from 'react-table'
 import { Link } from 'react-router-dom'
-import { actionToLabelMap } from '@audit-trail/utils/RequestUtil'
+import { actionToLabelMap, resourceTypeToLabelMapping } from '@audit-trail/utils/RequestUtil'
 import type { AuditEventDTO, PageAuditEventDTO } from 'services/audit'
 import { useStrings } from 'framework/strings'
 import { getReadableDateTime } from '@common/utils/dateUtils'
@@ -96,9 +96,9 @@ const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage
         ) : (
           <Text lineClamp={1}>{resource.labels?.resourceName || resource.identifier}</Text>
         )}
-        <Text padding={{ top: 'xsmall' }} lineClamp={1}>{`${getString('typeLabel')}: ${
-          row.original.resource.type
-        }`}</Text>
+        <Text padding={{ top: 'xsmall' }} lineClamp={1}>{`${getString('typeLabel')}: ${getString(
+          resourceTypeToLabelMapping[row.original.resource.type]
+        )}`}</Text>
       </Layout.Vertical>
     )
   }

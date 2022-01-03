@@ -133,7 +133,7 @@ exports[`Access Control Page render 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <div
-          class="bp3-popover-wrapper DropDown--main DropDown--disabled"
+          class="bp3-popover-wrapper DropDown--main"
         >
           <div
             class="bp3-popover-target"
@@ -154,7 +154,7 @@ exports[`Access Control Page render 1`] = `
                     data-testid="dropdown-value"
                     style="--text-line-clamp: 1;"
                   >
-                    common.filters.noFilterSaved
+                    filters.selectFilter
                   </p>
                 </div>
                 <div

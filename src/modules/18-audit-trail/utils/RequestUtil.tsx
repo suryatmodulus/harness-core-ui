@@ -146,7 +146,7 @@ export const getFormValuesFromFilterProperties = (
 
   if (resources) {
     formData['resourceType'] = resources?.map(resource => ({
-      label: resourceTypeToLabelMapping[resource.type],
+      label: getString(resourceTypeToLabelMapping[resource.type]),
       value: resource.type
     }))
   }

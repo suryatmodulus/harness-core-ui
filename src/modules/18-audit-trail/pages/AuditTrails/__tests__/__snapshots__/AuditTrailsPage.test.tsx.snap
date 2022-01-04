@@ -72,18 +72,6 @@ exports[`Access Control Page render 1`] = `
         common.auditTrail
       </h2>
     </div>
-    <p
-      class="StyledProps--font StyledProps--main StyledProps--font-variation-small StyledProps--color StyledProps--color-grey600"
-    >
-      auditTrail.externalDataText
-      <a
-        href="https://harness.io/docs/api/tag/Audits"
-        rel="noreferrer"
-        target="_blank"
-      >
-         auditTrail.auditLogAPI
-      </a>
-    </p>
   </div>
   <div
     class="Layout--horizontal StyledProps--main PageSubHeader--container subHeaderContainer StyledProps--flex"

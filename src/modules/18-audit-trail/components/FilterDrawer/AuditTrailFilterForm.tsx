@@ -6,8 +6,9 @@ import { useMutateAsGet } from '@common/hooks'
 import { StringKeys, useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetUsers, useGetOrganizationAggregateDTOList, useGetProjectListWithMultiOrgFilter } from 'services/cd-ng'
-import { UserItemRenderer, UserTagRenderer } from '@audit-trail/utils/utils'
-import { actionToLabelMap, moduleToLabelMap, resourceTypeToLabelMapping } from '../../utils/RequestUtil'
+import { actionToLabelMap, moduleToLabelMap, resourceTypeToLabelMapping } from '@audit-trail/utils/RequestUtil'
+import UserItemRenderer from '@audit-trail/components/UserItemRenderer/UserItemRenderer'
+import UserTagRenderer from '@audit-trail/components/UserTagRenderer/UserTagRenderer'
 import type { AuditTrailFormType } from './FilterDrawer'
 
 interface AuditTrailFormProps {
@@ -93,8 +94,8 @@ const AuditTrailFilterForm: React.FC<AuditTrailFormProps> = props => {
         multiSelectProps={{
           allowCreatingNewItems: true,
           onQueryChange: setUserQuery,
-          tagRenderer: UserTagRenderer,
-          itemRender: UserItemRenderer
+          tagRenderer: (item: MultiSelectOption) => <UserTagRenderer item={item} />,
+          itemRender: (item, { handleClick }) => <UserItemRenderer item={item} handleClick={handleClick} />
         }}
       />
       {!orgIdentifier && (

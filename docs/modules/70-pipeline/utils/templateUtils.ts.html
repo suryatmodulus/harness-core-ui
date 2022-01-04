@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.12% </span>
+                <span class="strong">45.65% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>15/34</span>
+                <span class='fraction'>21/46</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -86,28 +86,35 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">28x</span>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">104x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">104x</span>
+<span class="cline-any cline-yes">104x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
-<span class="cline-any cline-yes">28x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">104x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">104x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">104x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -115,19 +122,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">104x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { defaultTo, get } from 'lodash-es'
-import type { StageElementConfig, TemplateLinkConfig } from 'services/cd-ng'
-import type { TemplateConfig } from '@pipeline/utils/tempates'
+import type { StageElementConfig, StepElementConfig } from 'services/cd-ng'
 import type { TemplateSummaryResponse } from 'services/template-ng'
 import { getIdentifierFromValue, getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import type { TemplateStepNode } from 'services/pipeline-ng'
 &nbsp;
-export const getTemplateNameWithLabel = (
-  template?: TemplateLinkConfig | TemplateConfig | TemplateSummaryResponse
-): string =&gt; {
-  return `${
-    (template as TemplateSummaryResponse)<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame || <span class="branch-1 cbranch-no" title="branch not covered" >(template as TemplateLinkConfig | TemplateConfig)?.templateRef</span>
-  } (${defaultTo(template<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>ersionLabel, 'Stable')})`
+export const getTemplateNameWithLabel = (template?: TemplateSummaryResponse): string =&gt; {
+  return `${(template as TemplateSummaryResponse)<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame} (${defaultTo(template<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>ersionLabel, 'Stable')})`
 }
 &nbsp;
 export const getScopeBasedTemplateRef = (template: TemplateSummaryResponse): string =&gt; {
@@ -144,6 +161,19 @@ export const getStageType = (stage?: StageElementConfig, templateTypes?: { [key:
     ''
   )
 }
+&nbsp;
+export const getStepType = (
+  step?: StepElementConfig | TemplateStepNode,
+  templateTypes?: { [key: string]: string }
+): StepType =&gt; {
+  const isTemplate = !!(step as TemplateStepNode)<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate
+  return isTemplate
+    ? (<span class="branch-0 cbranch-no" title="branch not covered" >get(</span>
+        templateTypes,
+        getIdentifierFromValue(defaultTo((step as TemplateStepNode)?.template?.templateRef, ''))
+      ) as StepType)
+    : ((step as StageElementConfig)<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype as StepType)
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -151,7 +181,7 @@ export const getStageType = (stage?: StageElementConfig, templateTypes?: { [key:
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 04 2022 06:06:01 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 04 2022 06:49:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

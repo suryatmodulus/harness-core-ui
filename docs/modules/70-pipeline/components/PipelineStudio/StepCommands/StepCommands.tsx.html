@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.29% </span>
+                <span class="strong">61.19% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>41/68</span>
+                <span class='fraction'>41/67</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">23% </span>
+                <span class="strong">24.24% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>23/100</span>
+                <span class='fraction'>24/99</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.67% </span>
+                <span class="strong">45.45% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/12</span>
+                <span class='fraction'>5/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.7% </span>
+                <span class="strong">60.61% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>40/67</span>
+                <span class='fraction'>40/66</span>
             </div>
         
             
@@ -302,7 +302,9 @@
 <a name='L243'></a><a href='#L243'>243</a>
 <a name='L244'></a><a href='#L244'>244</a>
 <a name='L245'></a><a href='#L245'>245</a>
-<a name='L246'></a><a href='#L246'>246</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -317,10 +319,10 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -531,7 +533,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -562,11 +566,11 @@ import type { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineSt
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import type { StepElementConfig } from 'services/cd-ng'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
-import { TemplateBar } from '@pipeline/components/PipelineStudio/StepCommands/TemplateBar/TemplateBar'
 import useCurrentModule from '@common/hooks/useCurrentModule'
 import { ModuleName } from 'framework/types/ModuleName'
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
+import type { TemplateStepNode } from 'services/pipeline-ng'
+import { TemplateBar } from '@pipeline/components/PipelineStudio/TemplateBar/TemplateBar'
 import { StepCommandsProps, StepCommandsViews } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 &nbsp;
@@ -618,7 +622,7 @@ export function StepCommands(
   const [activeTab, setActiveTab] = React.useState(StepCommandTabs.StepConfiguration)
   const stepRef = React.useRef&lt;FormikProps&lt;unknown&gt; | null&gt;(null)
   const advancedConfRef = React.useRef&lt;FormikProps&lt;unknown&gt; | null&gt;(null)
-  const isTemplateStep = !!(step as TemplateStepData)<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate
+  const isTemplateStep = !!(step as TemplateStepNode)<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate
 &nbsp;
   const { isModule } = useCurrentModule()
 &nbsp;
@@ -729,9 +733,13 @@ export function StepCommands(
 &nbsp;
   return (
     &lt;div className={cx(css.stepCommand, className)}&gt;
-      {stepType === StepType.Template ? (
+      {stepType === StepType.Template &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >onUseTemplate </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >onRemoveTemplate </span>? (
 <span class="branch-0 cbranch-no" title="branch not covered" >        &lt;&gt;</span>
-          &lt;TemplateBar step={step} onChangeTemplate={onUseTemplate} onRemoveTemplate={onRemoveTemplate} /&gt;
+          &lt;TemplateBar
+            templateLinkConfig={(step as TemplateStepNode).template}
+            onOpenTemplateSelector={onUseTemplate}
+            onRemoveTemplate={onRemoveTemplate}
+          /&gt;
           &lt;Container padding={'large'}&gt;{getStepWidgetWithFormikRef()}&lt;/Container&gt;
         &lt;/&gt;
       ) : (
@@ -775,9 +783,7 @@ export function StepCommands(
                     size={ButtonSize.SMALL}
                     icon="template-library"
                     iconProps={{ size: 12 }}
-                    onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                      onUseTemplate?.(step)</span>
-                    }}
+                    onClick={onUseTemplate}
                     margin={{ right: 'small' }}
                   /&gt;
                   &lt;SaveTemplateButton data={step} type={'Step'} buttonProps={{ variation: ButtonVariation.ICON }} /&gt;
@@ -799,7 +805,7 @@ export const StepCommandsWithRef = React.forwardRef(StepCommands)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 04 2022 06:06:01 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 04 2022 06:49:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

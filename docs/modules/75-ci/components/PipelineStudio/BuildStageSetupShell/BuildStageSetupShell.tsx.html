@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.43% </span>
+                <span class="strong">80.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>74/92</span>
+                <span class='fraction'>77/96</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.52% </span>
+                <span class="strong">55.49% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>201/362</span>
+                <span class='fraction'>202/364</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.43% </span>
+                <span class="strong">80.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>74/92</span>
+                <span class='fraction'>77/96</span>
             </div>
         
             
@@ -464,7 +464,13 @@
 <a name='L405'></a><a href='#L405'>405</a>
 <a name='L406'></a><a href='#L406'>406</a>
 <a name='L407'></a><a href='#L407'>407</a>
-<a name='L408'></a><a href='#L408'>408</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L408'></a><a href='#L408'>408</a>
+<a name='L409'></a><a href='#L409'>409</a>
+<a name='L410'></a><a href='#L410'>410</a>
+<a name='L411'></a><a href='#L411'>411</a>
+<a name='L412'></a><a href='#L412'>412</a>
+<a name='L413'></a><a href='#L413'>413</a>
+<a name='L414'></a><a href='#L414'>414</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -492,6 +498,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -607,6 +614,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
@@ -794,6 +802,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -901,6 +913,7 @@ import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { K8sDirectInfraYaml, UseFromStageInfraYaml, VmInfraYaml, VmPoolYaml } from 'services/ci'
 import { FeatureFlag } from '@common/featureFlags'
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
+import { useAddStepTemplate } from '@pipeline/hooks/useAddStepTemplate'
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
 import BuildAdvancedSpecifications from '../BuildAdvancedSpecifications/BuildAdvancedSpecifications'
@@ -1015,6 +1028,7 @@ export default function BuildStageSetupShell(): JSX.Element {
   }, [selectedTabId])
 &nbsp;
   const executionRef = React.useRef&lt;ExecutionGraphRefObj | null&gt;(null)
+  const { addTemplate } = useAddStepTemplate({ executionRef: executionRef.current })
   const selectedStage = getStageFromPipeline&lt;BuildStageElementConfig&gt;(selectedStageId).stage
   const originalStage = getStageFromPipeline&lt;BuildStageElementConfig&gt;(selectedStageId, originalPipeline).stage
   const infraHasWarning = !filledUpStages.infra
@@ -1200,24 +1214,28 @@ export default function BuildStageSetupShell(): JSX.Element {
                       }
                     })
                   } else {
-                    updatePipelineView({
-                      ...pipelineView,
-                      isDrawerOpened: true,
-                      drawerData: {
-                        type: DrawerTypes.AddStep,
-                        data: {
-                          paletteData: {
-                            entity: event.entity,
-                            stepsMap: event.stepsMap,
-                            onUpdate: executionRef.current<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.s</span>tepGroupUpdated,</span>
-                            // isAddStepOverride: true,
-                            isRollback: event.isRollback,
-                            isParallelNodeClicked: event.isParallel,
-                            hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if (event.isTemplate) {
+<span class="cstat-no" title="statement not covered" >                      addTemplate(event)</span>
+                    } else {
+                      updatePipelineView({
+                        ...pipelineView,
+                        isDrawerOpened: true,
+                        drawerData: {
+                          type: DrawerTypes.AddStep,
+                          data: {
+                            paletteData: {
+                              entity: event.entity,
+                              stepsMap: event.stepsMap,
+                              onUpdate: executionRef.current<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.s</span>tepGroupUpdated,</span>
+                              // isAddStepOverride: true,
+                              isRollback: event.isRollback,
+                              isParallelNodeClicked: event.isParallel,
+                              hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
+                            }
                           }
                         }
-                      }
-                    })
+                      })
+                    }
                   }
                 }}
                 onEditStep={(event: ExecutionGraphEditStepEvent) =&gt; {
@@ -1285,7 +1303,7 @@ export default function BuildStageSetupShell(): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 04 2022 06:06:01 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 04 2022 06:49:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

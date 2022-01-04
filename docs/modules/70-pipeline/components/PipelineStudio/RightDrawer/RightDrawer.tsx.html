@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.38% </span>
+                <span class="strong">63.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>189/303</span>
+                <span class='fraction'>189/298</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.9% </span>
+                <span class="strong">48.26% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>514/1073</span>
+                <span class='fraction'>514/1065</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">51.35% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>19/38</span>
+                <span class='fraction'>19/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.76% </span>
+                <span class="strong">63.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>182/290</span>
+                <span class='fraction'>182/285</span>
             </div>
         
             
@@ -852,15 +852,7 @@
 <a name='L793'></a><a href='#L793'>793</a>
 <a name='L794'></a><a href='#L794'>794</a>
 <a name='L795'></a><a href='#L795'>795</a>
-<a name='L796'></a><a href='#L796'>796</a>
-<a name='L797'></a><a href='#L797'>797</a>
-<a name='L798'></a><a href='#L798'>798</a>
-<a name='L799'></a><a href='#L799'>799</a>
-<a name='L800'></a><a href='#L800'>800</a>
-<a name='L801'></a><a href='#L801'>801</a>
-<a name='L802'></a><a href='#L802'>802</a>
-<a name='L803'></a><a href='#L803'>803</a>
-<a name='L804'></a><a href='#L804'>804</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L796'></a><a href='#L796'>796</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -885,12 +877,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -1411,18 +1403,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1687,13 +1671,13 @@ import { StageType } from '@pipeline/utils/stageHelpers'
 import type { BuildStageElementConfig, DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { DependencyElement } from 'services/ci'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
 import type { TemplateSummaryResponse } from 'services/template-ng'
 import { PipelineGovernanceView } from '@governance/PipelineGovernanceView'
 import { getStepPaletteModuleInfosFromStage } from '@pipeline/utils/stepUtils'
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import { useTemplateSelector } from '@pipeline/utils/useTemplateSelector'
 import { getScopeBasedTemplateRef } from '@pipeline/utils/templateUtils'
+import type { TemplateStepNode } from 'services/pipeline-ng'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -1811,7 +1795,7 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
   let stepData = (data?.stepConfig?.node as StepElementConfig)?.type
     ? stepsFactory.getStepData((data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tepConfig<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ode as StepElementConfig)<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>
     : null
-  const templateStepTemplate = (data?.stepConfig?.node as TemplateStepData)?.template
+  const templateStepTemplate = (data?.stepConfig?.node as TemplateStepNode)?.template
   const formikRef = React.useRef&lt;StepFormikRef | null&gt;(null)
   const executionStrategyRef = React.useRef&lt;ExecutionStrategyRefInterface | null&gt;(null)
   const { getString } = useStrings()
@@ -1956,7 +1940,7 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
 &nbsp;
   const onSubmitStep = async (item: Partial&lt;Values&gt;, drawerType: DrawerTypes): Promise&lt;void&gt; =&gt; {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tepConfig<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ode) {
-      const processNode = produce(data.stepConfig.node as StepElementConfig &amp; TemplateStepData, node =&gt; {
+      const processNode = produce(data.stepConfig.node as StepElementConfig &amp; TemplateStepNode, node =&gt; {
         // Add/replace values only if they are presented
         <span class="missing-if-branch" title="else path not taken" >E</span>if (item.name &amp;&amp; item.tab !== TabTypes.Advanced) node.name = item.name
         <span class="missing-if-branch" title="else path not taken" >E</span>if (item.identifier &amp;&amp; item.tab !== TabTypes.Advanced) node.identifier = item.identifier
@@ -2182,7 +2166,7 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
     updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
   }
 &nbsp;
-  const updateNode = <span class="fstat-no" title="function not covered" >async </span>(processNode: StepElementConfig | TemplateStepData) =&gt; {
+  const updateNode = <span class="fstat-no" title="function not covered" >async </span>(processNode: StepElementConfig | TemplateStepNode) =&gt; {
     const newPipelineView = <span class="cstat-no" title="statement not covered" >produce(pipelineView, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      set(draft, 'drawerData.data.stepConfig.node', processNode)</span>
     })
@@ -2199,42 +2183,34 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
 <span class="cstat-no" title="statement not covered" >    drawerData.data?.stepConfig?.onUpdate?.(processNode)</span>
   }
 &nbsp;
-  const onUseTemplate = <span class="fstat-no" title="function not covered" >(_</span>step: StepOrStepGroupOrTemplateStepData) =&gt; {
+  const onUseTemplate = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
     const stepType =
 <span class="cstat-no" title="statement not covered" >      (data?.stepConfig?.node as StepElementConfig)?.type ||</span>
-      get(templateTypes, getIdentifierFromValue((data?.stepConfig?.node as TemplateStepData).template.templateRef))
+      get(templateTypes, getIdentifierFromValue((data?.stepConfig?.node as TemplateStepNode).template.templateRef))
 <span class="cstat-no" title="statement not covered" >    openTemplateSelector({</span>
       templateType: 'Step',
       childTypes: [stepType],
       selectedTemplateRef: getIdentifierFromValue(
-        defaultTo((data?.stepConfig?.node as TemplateStepData)?.template?.templateRef, '')
+        defaultTo((data?.stepConfig?.node as TemplateStepNode)?.template?.templateRef, '')
       ),
-      onCopyTemplate: <span class="fstat-no" title="function not covered" >async </span>(copiedTemplate: TemplateSummaryResponse) =&gt; {
+      onUseTemplate: <span class="fstat-no" title="function not covered" >async </span>(templateSummary: TemplateSummaryResponse, isCopied = <span class="branch-0 cbranch-no" title="branch not covered" >false)</span> =&gt; {
 <span class="cstat-no" title="statement not covered" >        closeTemplateSelector()</span>
         const node = <span class="cstat-no" title="statement not covered" >drawerData.data?.stepConfig?.node as StepOrStepGroupOrTemplateStepData</span>
-        const processNode = <span class="cstat-no" title="statement not covered" >produce(</span>
-          defaultTo(parse(copiedTemplate?.yaml || '').template.spec, {}) as StepElementConfig,
-<span class="fstat-no" title="function not covered" >          draft </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >            draft.name = defaultTo(node?.name, '')</span>
-<span class="cstat-no" title="statement not covered" >            draft.identifier = defaultTo(node?.identifier, '')</span>
-          }
-        )
+        const processNode = <span class="cstat-no" title="statement not covered" >isCopied</span>
+          ? produce(defaultTo(parse(templateSummary?.yaml || '').template.spec, {}) as StepElementConfig, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >              draft.name = defaultTo(node?.name, '')</span>
+<span class="cstat-no" title="statement not covered" >              draft.identifier = defaultTo(node?.identifier, '')</span>
+            })
+          : produce({} as TemplateStepNode, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >              draft.name = defaultTo(node?.name, '')</span>
+<span class="cstat-no" title="statement not covered" >              draft.identifier = defaultTo(node?.identifier, '')</span>
+<span class="cstat-no" title="statement not covered" >              set(draft, 'template.templateRef', getScopeBasedTemplateRef(templateSummary))</span>
+<span class="cstat-no" title="statement not covered" >              if (templateSummary.versionLabel) {</span>
+<span class="cstat-no" title="statement not covered" >                set(draft, 'template.versionLabel', templateSummary.versionLabel)</span>
+              }
+            })
 <span class="cstat-no" title="statement not covered" >        await updateNode(processNode)</span>
-<span class="cstat-no" title="statement not covered" >        formikRef.current?.resetForm()</span>
-      },
-      onUseTemplate: <span class="fstat-no" title="function not covered" >async </span>(templateSummary: TemplateSummaryResponse) =&gt; {
-<span class="cstat-no" title="statement not covered" >        closeTemplateSelector()</span>
-        const node = <span class="cstat-no" title="statement not covered" >drawerData.data?.stepConfig?.node</span>
-        const processNode = <span class="cstat-no" title="statement not covered" >produce({} as TemplateStepData, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          draft.name = defaultTo(node?.name, '')</span>
-<span class="cstat-no" title="statement not covered" >          draft.identifier = defaultTo(node?.identifier, '')</span>
-<span class="cstat-no" title="statement not covered" >          set(draft, 'template.templateRef', getScopeBasedTemplateRef(templateSummary))</span>
-<span class="cstat-no" title="statement not covered" >          if (templateSummary.versionLabel) {</span>
-<span class="cstat-no" title="statement not covered" >            set(draft, 'template.versionLabel', templateSummary.versionLabel)</span>
-          }
-        })
-<span class="cstat-no" title="statement not covered" >        await updateNode(processNode)</span>
-<span class="cstat-no" title="statement not covered" >        if (templateSummary?.identifier &amp;&amp; templateSummary?.childType) {</span>
+<span class="cstat-no" title="statement not covered" >        if (!isCopied &amp;&amp; templateSummary?.identifier &amp;&amp; templateSummary?.childType) {</span>
 <span class="cstat-no" title="statement not covered" >          templateTypes[templateSummary.identifier] = templateSummary.childType</span>
 <span class="cstat-no" title="statement not covered" >          setTemplateTypes(templateTypes)</span>
         }
@@ -2243,7 +2219,7 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
   }
 &nbsp;
   const onRemoveTemplate = <span class="fstat-no" title="function not covered" >async </span>() =&gt; {
-    const node = <span class="cstat-no" title="statement not covered" >drawerData.data?.stepConfig?.node as TemplateStepData</span>
+    const node = <span class="cstat-no" title="statement not covered" >drawerData.data?.stepConfig?.node as TemplateStepNode</span>
     const processNode = <span class="cstat-no" title="statement not covered" >produce({} as StepElementConfig, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      draft.name = node.name</span>
 <span class="cstat-no" title="statement not covered" >      draft.identifier = node.identifier</span>
@@ -2473,7 +2449,7 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 04 2022 06:06:01 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 04 2022 06:49:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

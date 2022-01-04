@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.13% </span>
+                <span class="strong">84.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>53/63</span>
+                <span class='fraction'>55/65</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.06% </span>
+                <span class="strong">59.39% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>90/155</span>
+                <span class='fraction'>98/165</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.25% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>52/61</span>
+                <span class='fraction'>54/63</span>
             </div>
         
             
@@ -243,7 +243,17 @@
 <a name='L184'></a><a href='#L184'>184</a>
 <a name='L185'></a><a href='#L185'>185</a>
 <a name='L186'></a><a href='#L186'>186</a>
-<a name='L187'></a><a href='#L187'>187</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -258,6 +268,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -357,8 +368,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -449,12 +469,13 @@ import { useToaster } from '@common/exports'
 import { useGetTemplateInputSetYaml } from 'services/template-ng'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StageForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
-import { StageTemplateBar } from '@pipeline/components/PipelineStudio/StageTemplateBar/StageTemplateBar'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { TemplateTabs } from '@templates-library/components/TemplateStageSetupShell/TemplateStageSetupShellUtils'
 import { validateStage } from '@pipeline/components/PipelineStudio/StepUtil'
 import { useGlobalEventListener } from '@common/hooks'
 import ErrorsStripBinded from '@pipeline/components/ErrorsStrip/ErrorsStripBinded'
+import { useStageTemplateActions } from '@pipeline/utils/useStageTemplateActions'
+import { TemplateBar } from '@pipeline/components/PipelineStudio/TemplateBar/TemplateBar'
 import css from './TemplateStageSpecifications.module.scss'
 &nbsp;
 declare global {
@@ -541,6 +562,8 @@ export const TemplateStageSpecifications = (): JSX.Element =&gt; {
 <span class="cstat-no" title="statement not covered" >    return set({}, 'template.templateInputs', errorsResponse)</span>
   }
 &nbsp;
+  const { onRemoveTemplate, onOpenTemplateSelector } = useStageTemplateActions()
+&nbsp;
   return (
     &lt;Container className={css.serviceOverrides} height={'100%'} background={Color.FORM_BG}&gt;
       {loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;PageSpinner /&gt;}</span>
@@ -549,7 +572,14 @@ export const TemplateStageSpecifications = (): JSX.Element =&gt; {
         &lt;&gt;
           &lt;ErrorsStripBinded /&gt;
           &lt;Container className={css.contentSection}&gt;
-            &lt;StageTemplateBar /&gt;
+            {stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage &amp;&amp; (
+              &lt;TemplateBar
+                templateLinkConfig={stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage.template}
+                onRemoveTemplate={onRemoveTemplate}
+                onOpenTemplateSelector={onOpenTemplateSelector}
+                className={css.templateBar}
+              /&gt;
+            )}
             &lt;Formik&lt;StageElementConfig&gt;
               initialValues={{
                 name: defaultTo(stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame, ''),
@@ -622,7 +652,7 @@ export const TemplateStageSpecifications = (): JSX.Element =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 04 2022 06:06:01 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 04 2022 06:49:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

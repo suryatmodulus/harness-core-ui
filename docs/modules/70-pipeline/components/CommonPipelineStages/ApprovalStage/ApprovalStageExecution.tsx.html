@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.22% </span>
+                <span class="strong">68.18% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/18</span>
+                <span class='fraction'>15/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.69% </span>
+                <span class="strong">6.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/13</span>
+                <span class='fraction'>1/15</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">70% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/16</span>
+                <span class='fraction'>14/20</span>
             </div>
         
             
@@ -149,7 +149,13 @@
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,6 +165,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -175,6 +182,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -198,6 +206,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -251,6 +263,7 @@ import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import { useAddStepTemplate } from '@pipeline/hooks/useAddStepTemplate'
 &nbsp;
 export const ApprovalStageExecution: React.FC = () =&gt; {
   const {
@@ -271,6 +284,7 @@ export const ApprovalStageExecution: React.FC = () =&gt; {
   const selectedStage = getStageFromPipeline(selectedStageId).stage
   const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
   const executionRef = React.useRef&lt;ExecutionGraphRefObj | null&gt;(null)
+  const { addTemplate } = useAddStepTemplate({ executionRef: executionRef.current })
   const stagePath = getStagePathFromPipeline(selectedStageId || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span> 'pipeline.stages')
   return (
     &lt;ExecutionGraph
@@ -289,23 +303,27 @@ export const ApprovalStageExecution: React.FC = () =&gt; {
 <span class="cstat-no" title="statement not covered" >        if (stageData.stage) <span class="cstat-no" title="statement not covered" >updateStage(stageData.stage)</span></span>
       }}
       onAddStep={<span class="fstat-no" title="function not covered" >(e</span>vent: ExecutionGraphAddStepEvent) =&gt; {
-<span class="cstat-no" title="statement not covered" >        updatePipelineView({</span>
-          ...pipelineView,
-          isDrawerOpened: true,
-          drawerData: {
-            type: DrawerTypes.AddStep,
-            data: {
-              paletteData: {
-                entity: event.entity,
-                stepsMap: event.stepsMap,
-                onUpdate: executionRef.current?.stepGroupUpdated,
-                isRollback: false,
-                isParallelNodeClicked: event.isParallel,
-                hiddenAdvancedPanels: [AdvancedPanels.PreRequisites]
+<span class="cstat-no" title="statement not covered" >        if (event.isTemplate) {</span>
+<span class="cstat-no" title="statement not covered" >          addTemplate(event)</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          updatePipelineView({</span>
+            ...pipelineView,
+            isDrawerOpened: true,
+            drawerData: {
+              type: DrawerTypes.AddStep,
+              data: {
+                paletteData: {
+                  entity: event.entity,
+                  stepsMap: event.stepsMap,
+                  onUpdate: executionRef.current?.stepGroupUpdated,
+                  isRollback: false,
+                  isParallelNodeClicked: event.isParallel,
+                  hiddenAdvancedPanels: [AdvancedPanels.PreRequisites]
+                }
               }
             }
-          }
-        })
+          })
+        }
       }}
       onEditStep={<span class="fstat-no" title="function not covered" >(e</span>vent: ExecutionGraphEditStepEvent) =&gt; {
 <span class="cstat-no" title="statement not covered" >        updatePipelineView({</span>
@@ -340,7 +358,7 @@ export const ApprovalStageExecution: React.FC = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 04 2022 06:06:01 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 04 2022 06:49:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

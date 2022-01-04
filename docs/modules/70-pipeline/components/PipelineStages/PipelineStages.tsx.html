@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.62% </span>
+                <span class="strong">10.64% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/52</span>
+                <span class='fraction'>5/47</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/75</span>
+                <span class='fraction'>0/68</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.62% </span>
+                <span class="strong">10.64% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/52</span>
+                <span class='fraction'>5/47</span>
             </div>
         
             
@@ -219,19 +219,10 @@
 <a name='L160'></a><a href='#L160'>160</a>
 <a name='L161'></a><a href='#L161'>161</a>
 <a name='L162'></a><a href='#L162'>162</a>
-<a name='L163'></a><a href='#L163'>163</a>
-<a name='L164'></a><a href='#L164'>164</a>
-<a name='L165'></a><a href='#L165'>165</a>
-<a name='L166'></a><a href='#L166'>166</a>
-<a name='L167'></a><a href='#L167'>167</a>
-<a name='L168'></a><a href='#L168'>168</a>
-<a name='L169'></a><a href='#L169'>169</a>
-<a name='L170'></a><a href='#L170'>170</a>
-<a name='L171'></a><a href='#L171'>171</a>
-<a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L163'></a><a href='#L163'>163</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
@@ -323,18 +314,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -344,7 +325,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -406,6 +386,7 @@ import { defaultTo } from 'lodash-es'
 import { useDeepCompareEffect } from '@common/hooks'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import type { TemplateSummaryResponse } from 'services/template-ng'
+import type { SelectorData } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { AddStageView } from './views/AddStageView'
 import type { PipelineStageProps } from './PipelineStage'
 &nbsp;
@@ -422,7 +403,7 @@ export interface PipelineStagesProps&lt;T = Record&lt;string, unknown&gt;&gt; {
   contextType?: string
   templateTypes: { [key: string]: string }
   setTemplateTypes: (data: { [key: string]: string }) =&gt; void
-  openTemplateSelector: (selectorData: any) =&gt; void
+  openTemplateSelector: (selectorData: SelectorData) =&gt; void
   closeTemplateSelector: () =&gt; void
 }
 &nbsp;
@@ -486,27 +467,17 @@ export function <span class="fstat-no" title="function not covered" >PipelineSta
   }, [selected])
 &nbsp;
   const onUseTemplate = <span class="cstat-no" title="statement not covered" >React.useCallback(</span>
-<span class="fstat-no" title="function not covered" >    (t</span>emplateSummary: TemplateSummaryResponse) =&gt; {
-<span class="cstat-no" title="statement not covered" >      closeTemplateSelector?.()</span>
-<span class="cstat-no" title="statement not covered" >      if (getNewStageFromType) {</span>
-<span class="cstat-no" title="statement not covered" >        setTemplate(templateSummary)</span>
-<span class="cstat-no" title="statement not covered" >        setShowMenu(false)</span>
-<span class="cstat-no" title="statement not covered" >        setType(templateSummary.childType)</span>
-<span class="cstat-no" title="statement not covered" >        setStageData(getNewStageFromType?.(templateSummary.childType || '', true))</span>
-      } else {
-<span class="cstat-no" title="statement not covered" >        onSelectStage?.(defaultTo(templateSummary.childType, ''))</span>
-      }
-    },
-    [closeTemplateSelector, onSelectStage]
-  )
-&nbsp;
-  const onCopyTemplate = <span class="cstat-no" title="statement not covered" >React.useCallback(</span>
-<span class="fstat-no" title="function not covered" >    (t</span>emplateSummary: TemplateSummaryResponse) =&gt; {
+<span class="fstat-no" title="function not covered" >    (t</span>emplateSummary: TemplateSummaryResponse, isCopied = <span class="branch-0 cbranch-no" title="branch not covered" >false)</span> =&gt; {
 <span class="cstat-no" title="statement not covered" >      closeTemplateSelector?.()</span>
 <span class="cstat-no" title="statement not covered" >      if (getNewStageFromType) {</span>
 <span class="cstat-no" title="statement not covered" >        setShowMenu(false)</span>
 <span class="cstat-no" title="statement not covered" >        setType(templateSummary.childType)</span>
-<span class="cstat-no" title="statement not covered" >        setStageData(getNewStageFromTemplate?.(templateSummary, true))</span>
+<span class="cstat-no" title="statement not covered" >        if (isCopied) {</span>
+<span class="cstat-no" title="statement not covered" >          setStageData(getNewStageFromTemplate?.(templateSummary, true))</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >          setStageData(getNewStageFromType?.(templateSummary.childType || '', true))</span>
+<span class="cstat-no" title="statement not covered" >          setTemplate(templateSummary)</span>
+        }
       } else {
 <span class="cstat-no" title="statement not covered" >        onSelectStage?.(defaultTo(templateSummary.childType, ''))</span>
       }
@@ -517,10 +488,9 @@ export function <span class="fstat-no" title="function not covered" >PipelineSta
   const onOpenTemplateSelector = <span class="cstat-no" title="statement not covered" >React.useCallback(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    openTemplateSelector?.({</span>
       templateType: 'Stage',
-      onUseTemplate,
-      onCopyTemplate
+      onUseTemplate
     })
-  }, [openTemplateSelector, onUseTemplate, onCopyTemplate])
+  }, [openTemplateSelector, onUseTemplate])
 &nbsp;
   const selectedStageIndex = <span class="cstat-no" title="statement not covered" >selected?.index || 0</span>
   const stage = <span class="cstat-no" title="statement not covered" >React.Children.toArray(children)[selectedStageIndex] as React.ReactElement&lt;PipelineStageProps&gt;</span>
@@ -580,7 +550,7 @@ export function <span class="fstat-no" title="function not covered" >PipelineSta
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 04 2022 06:06:01 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 04 2022 06:49:00 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

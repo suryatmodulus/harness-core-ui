@@ -41,5 +41,8 @@ export const validateConnectorRefAndImageDepdendency = (
 }
 
 export const shouldRenderRunTimeInputView = (entity: any): boolean => {
-  return getMultiTypeFromValue(entity as string) === MultiTypeInputType.RUNTIME
+  return (
+    getMultiTypeFromValue(entity as string) === MultiTypeInputType.RUNTIME ||
+    (entity && Object.keys(entity).some(key => Object.is(entity[key], MultiTypeInputType.RUNTIME)))
+  )
 }

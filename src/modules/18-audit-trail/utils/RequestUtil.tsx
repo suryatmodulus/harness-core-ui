@@ -139,3 +139,13 @@ export const getFormValuesFromFilterProperties = (
     }))
   }
 }
+
+export const formToLabelMap = (obj: Record<string, any>) => {
+  const labelMap: {
+    [key: string]: any
+  } = {}
+  Object.keys(obj).forEach((key: string) => {
+    labelMap[key] = Array.isArray(obj[key]) ? obj[key].map((value: MultiSelectOption) => value.value) : obj[key]
+  })
+  return labelMap
+}

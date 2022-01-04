@@ -55,49 +55,51 @@ export const resourceTypeToLabelMapping: Record<ResourceDTO['type'], StringKeys>
   DELEGATE_TOKEN: 'common.delegateTokenLabel'
 }
 
-const getScopesFromFormData = (
-  formData: AuditTrailFormType,
-  accountId: string
-): Pick<AuditFilterProperties, 'scopes'> => {
-  const { organizations, projects } = formData
-
-  if (organizations && organizations?.length <= 0) {
-    return {}
-  }
-
-  if (projects && projects?.length > 0) {
-    return {
-      scopes: projects.map(projectData => ({
-        projectIdentifier: projectData.value as string,
-        accountIdentifier: accountId,
-        orgIdentifier: projectData.orgIdentifier
-      }))
-    }
-  }
-
-  return {
-    scopes: formData?.organizations?.map(org => ({
-      orgIdentifier: org.value as string,
-      accountIdentifier: accountId
-    }))
-  }
-}
-
-// create different multiselect types
 export const getFilterPropertiesFromForm = (formData: AuditTrailFormType, accountId: string): AuditFilterProperties => {
-  return {
-    filterType: 'Audit',
-    actions: formData?.actions?.map(action => action.value) as AuditFilterProperties['actions'],
-    modules: formData?.modules?.map((module: MultiSelectOption) => module.value) as AuditFilterProperties['modules'],
-    ...getScopesFromFormData(formData, accountId),
-    principals: formData?.users?.map(user => ({
+  const filterProperties: AuditFilterProperties = { filterType: 'Audit' }
+  const { actions, modules, users, resourceType, organizations, projects } = formData
+  if (actions) {
+    filterProperties['actions'] = actions.map(action => action.value) as AuditFilterProperties['actions']
+  }
+  if (modules) {
+    filterProperties['modules'] = modules.map(
+      (module: MultiSelectOption) => module.value
+    ) as AuditFilterProperties['modules']
+  }
+
+  if (users) {
+    filterProperties['principals'] = users.map(user => ({
       type: 'USER',
       identifier: user.value
-    })) as AuditFilterProperties['principals'],
-    resources: formData?.resourceType?.map(resourceType => ({
-      type: resourceType.value
+    })) as AuditFilterProperties['principals']
+  }
+
+  if (resourceType) {
+    filterProperties['resources'] = resourceType.map(type => ({
+      type: type.value
     })) as AuditFilterProperties['resources']
   }
+
+  if (projects && projects.length > 0) {
+    filterProperties['scopes'] = projects.map(projectData => ({
+      projectIdentifier: projectData.value as string,
+      accountIdentifier: accountId,
+      orgIdentifier: projectData.orgIdentifier
+    }))
+  }
+
+  if (organizations) {
+    organizations.forEach(org => {
+      if (filterProperties['scopes']?.findIndex(scope => scope.orgIdentifier === org.value) === -1) {
+        filterProperties['scopes'].push({
+          accountIdentifier: accountId,
+          orgIdentifier: org.value as string
+        })
+      }
+    })
+  }
+
+  return filterProperties
 }
 
 const getOrgAndProjects = (scopes: ResourceScopeDTO[]) => {
@@ -125,18 +127,33 @@ export const getFormValuesFromFilterProperties = (
   filterProperties: AuditFilterProperties,
   getString: (key: StringKeys, vars?: Record<string, any>) => string
 ): AuditTrailFormType => {
-  return {
-    actions: filterProperties?.actions?.map(action => ({ label: getString(actionToLabelMap[action]), value: action })),
-    modules: filterProperties?.modules?.map(module => ({ label: getString(moduleToLabelMap[module]), value: module })),
-    users: filterProperties?.principals?.map(principal => ({
+  const formData: AuditTrailFormType = {}
+  const { actions, modules, principals, scopes, resources } = filterProperties
+  if (actions) {
+    formData['actions'] = actions?.map(action => ({ label: getString(actionToLabelMap[action]), value: action }))
+  }
+
+  if (modules) {
+    formData['modules'] = modules?.map(module => ({ label: getString(moduleToLabelMap[module]), value: module }))
+  }
+
+  if (principals) {
+    formData['users'] = principals?.map(principal => ({
       label: principal.identifier,
       value: principal.identifier
-    })),
-    ...(filterProperties.scopes ? getOrgAndProjects(filterProperties.scopes) : {}),
-    resourceType: filterProperties?.resources?.map(resource => ({
+    }))
+  }
+
+  if (resources) {
+    formData['resourceType'] = resources?.map(resource => ({
       label: resourceTypeToLabelMapping[resource.type],
       value: resource.type
     }))
+  }
+
+  return {
+    ...formData,
+    ...(scopes ? getOrgAndProjects(scopes) : {})
   }
 }
 

@@ -15,6 +15,7 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { Connectors } from '@connectors/constants'
 import type { RunStepProps } from './RunStep'
 import { CIStep } from '../CIStep/CIStep'
+import { shouldRenderRunTimeInputView } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readonly, stepViewType, allowableTypes }) => {
@@ -122,37 +123,39 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
           />
         </div>
       )}
-      {getMultiTypeFromValue(template?.spec?.reports?.spec?.paths as string) === MultiTypeInputType.RUNTIME && (
-        <Container className={cx(css.formGroup, stepCss)}>
-          <MultiTypeListInputSet
-            name={`${prefix}spec.reports.spec.paths`}
-            multiTextInputProps={{
-              allowableTypes,
-              expressions
-            }}
-            multiTypeFieldSelectorProps={{
-              label: (
-                <Text
-                  style={{ display: 'flex', alignItems: 'center' }}
-                  className={css.inpLabel}
-                  color={Color.GREY_800}
-                  font={{ size: 'small', weight: 'semi-bold' }}
-                  tooltipProps={{ dataTooltipId: 'reportPaths' }}
-                >
-                  {getString('pipelineSteps.reportPathsLabel')}
-                </Text>
-              ),
-              allowedTypes: allowableTypes.filter(
-                type => type !== MultiTypeInputType.EXPRESSION && type !== MultiTypeInputType.RUNTIME
-              )
-            }}
-            placeholder={getString('pipelineSteps.reportPathsPlaceholder')}
-            disabled={readonly}
-          />
-        </Container>
+      {shouldRenderRunTimeInputView(template?.spec?.reports?.spec?.paths) && (
+        <>
+          <Container className={cx(css.formGroup, stepCss)}>
+            <MultiTypeListInputSet
+              name={`${prefix}spec.reports.spec.paths`}
+              multiTextInputProps={{
+                allowableTypes,
+                expressions
+              }}
+              multiTypeFieldSelectorProps={{
+                label: (
+                  <Text
+                    style={{ display: 'flex', alignItems: 'center' }}
+                    className={css.inpLabel}
+                    color={Color.GREY_800}
+                    font={{ size: 'small', weight: 'semi-bold' }}
+                    tooltipProps={{ dataTooltipId: 'reportPaths' }}
+                  >
+                    {getString('pipelineSteps.reportPathsLabel')}
+                  </Text>
+                ),
+                allowedTypes: allowableTypes.filter(
+                  type => type !== MultiTypeInputType.EXPRESSION && type !== MultiTypeInputType.RUNTIME
+                )
+              }}
+              placeholder={getString('pipelineSteps.reportPathsPlaceholder')}
+              disabled={readonly}
+            />
+          </Container>
+          <Separator topSeparation={24} />
+        </>
       )}
-      <Separator topSeparation={24} />
-      {getMultiTypeFromValue(template?.spec?.envVariables as string) === MultiTypeInputType.RUNTIME && (
+      {shouldRenderRunTimeInputView(template?.spec?.envVariables as string) && (
         <Container className={cx(css.formGroup, stepCss)}>
           <MultiTypeMapInputSet
             name={`${prefix}spec.envVariables`}

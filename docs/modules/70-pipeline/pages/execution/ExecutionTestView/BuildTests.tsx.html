@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.39% </span>
+                <span class="strong">77.62% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>306/441</span>
+                <span class='fraction'>319/411</span>
             </div>
         
             
@@ -566,30 +566,7 @@
 <a name='L507'></a><a href='#L507'>507</a>
 <a name='L508'></a><a href='#L508'>508</a>
 <a name='L509'></a><a href='#L509'>509</a>
-<a name='L510'></a><a href='#L510'>510</a>
-<a name='L511'></a><a href='#L511'>511</a>
-<a name='L512'></a><a href='#L512'>512</a>
-<a name='L513'></a><a href='#L513'>513</a>
-<a name='L514'></a><a href='#L514'>514</a>
-<a name='L515'></a><a href='#L515'>515</a>
-<a name='L516'></a><a href='#L516'>516</a>
-<a name='L517'></a><a href='#L517'>517</a>
-<a name='L518'></a><a href='#L518'>518</a>
-<a name='L519'></a><a href='#L519'>519</a>
-<a name='L520'></a><a href='#L520'>520</a>
-<a name='L521'></a><a href='#L521'>521</a>
-<a name='L522'></a><a href='#L522'>522</a>
-<a name='L523'></a><a href='#L523'>523</a>
-<a name='L524'></a><a href='#L524'>524</a>
-<a name='L525'></a><a href='#L525'>525</a>
-<a name='L526'></a><a href='#L526'>526</a>
-<a name='L527'></a><a href='#L527'>527</a>
-<a name='L528'></a><a href='#L528'>528</a>
-<a name='L529'></a><a href='#L529'>529</a>
-<a name='L530'></a><a href='#L530'>530</a>
-<a name='L531'></a><a href='#L531'>531</a>
-<a name='L532'></a><a href='#L532'>532</a>
-<a name='L533'></a><a href='#L533'>533</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L510'></a><a href='#L510'>510</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -637,8 +614,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -761,28 +736,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1147,12 +1101,12 @@ import {
 } from 'services/ti-service'
 import { PageSpinner } from '@common/components'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { BuildZeroState } from './BuildZeroState'
 import { TestsExecution } from './TestsExecution'
 import { TestsOverview } from './TestsOverview'
 import { TestsExecutionResult } from './TestsExecutionResult'
 import { TestsSelectionBreakdown } from './TestsSelectionBreakdown'
-import { TestsReportOverview } from './TestsReportOverview'
 import { TICallToAction } from './TICallToAction'
 // import { TestsCoverage } from './TestsCoverage'
 import css from './BuildTests.module.scss'
@@ -1169,8 +1123,6 @@ interface BuildTestsProps {
   reportSummaryMock?: TestReportSummary
   testOverviewMock?: SelectionOverview
 }
-&nbsp;
-const enableReportsWithCTA = false // ui feature flag
 &nbsp;
 const renderTestsOverview = ({
   testOverviewData,
@@ -1290,15 +1242,17 @@ export const Reports = ({
   stepId?: string
   serviceToken?: string | null
   testsCountDiff?: number
-}): JSX.Element =&gt;
-  enableReportsWithCTA ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >    &lt;&gt;</span>
+}): JSX.Element =&gt; {
+  const { NG_LICENSES_ENABLED } = useFeatureFlags()
+&nbsp;
+  return (
+    &lt;&gt;
       {header}
       &lt;Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}&gt;
-        {typeof reportSummaryData?.total_tests !== 'undefined' &amp;&amp;
-          typeof reportSummaryData?.skipped_tests !== 'undefined' &amp;&amp;
-          typeof reportSummaryData?.duration_ms !== 'undefined' &amp;&amp;
-          typeof reportSummaryData?.failed_tests !== 'undefined' &amp;&amp; (
+        {typeof reportSummaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal_tests !== 'undefined' &amp;&amp;
+          typeof reportSummaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipped_tests !== 'undefined' &amp;&amp;
+          typeof reportSummaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>uration_ms !== 'undefined' &amp;&amp;
+          typeof reportSummaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ailed_tests !== 'undefined' &amp;&amp; (
             &lt;TestsOverview
               totalTests={reportSummaryData.total_tests}
               skippedTests={reportSummaryData.skipped_tests}
@@ -1308,10 +1262,10 @@ export const Reports = ({
               testsCountDiff={testsCountDiff}
             /&gt;
           )}
-        {typeof reportSummaryData?.total_tests !== 'undefined' &amp;&amp;
-          typeof reportSummaryData?.failed_tests !== 'undefined' &amp;&amp;
-          typeof reportSummaryData?.successful_tests !== 'undefined' &amp;&amp;
-          typeof reportSummaryData?.skipped_tests !== 'undefined' &amp;&amp; (
+        {typeof reportSummaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal_tests !== 'undefined' &amp;&amp;
+          typeof reportSummaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ailed_tests !== 'undefined' &amp;&amp;
+          typeof reportSummaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccessful_tests !== 'undefined' &amp;&amp;
+          typeof reportSummaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipped_tests !== 'undefined' &amp;&amp; (
             &lt;TestsExecutionResult
               totalTests={reportSummaryData.total_tests}
               failedTests={reportSummaryData.failed_tests}
@@ -1319,7 +1273,7 @@ export const Reports = ({
               skippedTests={reportSummaryData.skipped_tests}
             /&gt;
           )}
-        &lt;TICallToAction /&gt;
+        {NG_LICENSES_ENABLED &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;TICallToAction /&gt;}</span>
       &lt;/Layout.Horizontal&gt;
       &lt;Layout.Horizontal spacing="large"&gt;
         {/* &lt;TestsCoverage /&gt; */}
@@ -1329,31 +1283,8 @@ export const Reports = ({
         )}
       &lt;/Layout.Horizontal&gt;
     &lt;/&gt;
-  ) : (
-    &lt;&gt;
-      {header}
-      &lt;Layout.Horizontal spacing="large"&gt;
-        {typeof reportSummaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal_tests !== 'undefined' &amp;&amp;
-          typeof reportSummaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ailed_tests !== 'undefined' &amp;&amp;
-          typeof reportSummaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccessful_tests !== 'undefined' &amp;&amp;
-          typeof reportSummaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipped_tests !== 'undefined' &amp;&amp;
-          typeof reportSummaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>uration_ms !== 'undefined' &amp;&amp; (
-            &lt;TestsReportOverview
-              totalTests={reportSummaryData.total_tests}
-              failedTests={reportSummaryData.failed_tests}
-              successfulTests={reportSummaryData.successful_tests}
-              skippedTests={reportSummaryData.skipped_tests}
-              durationMS={reportSummaryData.duration_ms}
-            /&gt;
-          )}
-        {/* Overview and Reports split the width  */}
-        {stageId &amp;&amp; stepId &amp;&amp; serviceToken &amp;&amp; (
-          &lt;TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} /&gt;
-        )}
-      &lt;/Layout.Horizontal&gt;
-    &lt;/&gt;
   )
-&nbsp;
+}
 const BuildTests: React.FC&lt;BuildTestsProps&gt; = ({ reportSummaryMock, testOverviewMock }) =&gt; {
   const context = useExecutionContext()
   const { getString } = useStrings()
@@ -1660,7 +1591,7 @@ export default BuildTests
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 04 2022 20:00:52 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 04 2022 23:33:37 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -3,8 +3,8 @@ rules:
     - error
     - patterns:
         - lodash.*
-        - modules/85-sto/*
-        - '@sto/*'
+        - modules/85-cv/*
+        - '@cv/*'
       paths:
         - lodash
         - name: yaml

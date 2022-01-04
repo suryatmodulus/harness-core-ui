@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.72% </span>
+                <span class="strong">81.93% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>67/81</span>
+                <span class='fraction'>68/83</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.7% </span>
+                <span class="strong">54.4% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>303/544</span>
+                <span class='fraction'>303/557</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.75% </span>
+                <span class="strong">64.71% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>11/16</span>
+                <span class='fraction'>11/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.42% </span>
+                <span class="strong">83.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>65/77</span>
+                <span class='fraction'>66/79</span>
             </div>
         
             
@@ -628,7 +628,12 @@
 <a name='L569'></a><a href='#L569'>569</a>
 <a name='L570'></a><a href='#L570'>570</a>
 <a name='L571'></a><a href='#L571'>571</a>
-<a name='L572'></a><a href='#L572'>572</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">63x</span>
+<a name='L572'></a><a href='#L572'>572</a>
+<a name='L573'></a><a href='#L573'>573</a>
+<a name='L574'></a><a href='#L574'>574</a>
+<a name='L575'></a><a href='#L575'>575</a>
+<a name='L576'></a><a href='#L576'>576</a>
+<a name='L577'></a><a href='#L577'>577</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">63x</span>
 <span class="cline-any cline-yes">63x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">63x</span>
@@ -753,6 +758,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">37x</span>
@@ -894,9 +907,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1199,7 +1209,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">63x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback } from 'react'
 import cx from 'classnames'
 &nbsp;
 import { connect } from 'formik'
@@ -1324,6 +1334,14 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
   }))
 &nbsp;
   const isSelectedStage = stageIdentifier === formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues?.stageId
+&nbsp;
+  const shouldDisplayRepositoryName = useCallback(<span class="fstat-no" title="function not covered" >item </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >    return (</span>
+      item?.record?.spec?.connectionType === GitRepoName.Repo ||
+      item?.record?.spec?.type === GitRepoName.Repo ||
+      item?.connector?.spec?.type === GitRepoName.Repo
+    )
+  }, [])
 &nbsp;
   const fromPipelineInputTriggerTab = () =&gt; {
     return (
@@ -1464,10 +1482,7 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                         onChange={<span class="fstat-no" title="function not covered" >(s</span>elected, _itemType, multiType) =&gt; {
                           const item = <span class="cstat-no" title="statement not covered" >selected as unknown as { record?: GitConfigDTO; scope: Scope }</span>
 <span class="cstat-no" title="statement not covered" >                          if (multiType === MultiTypeInputType.FIXED) {</span>
-<span class="cstat-no" title="statement not covered" >                            if (</span>
-                              item?.record?.spec?.connectionType === GitRepoName.Repo ||
-                              item?.record?.spec?.type === GitRepoName.Repo
-                            ) {
+<span class="cstat-no" title="statement not covered" >                            if (shouldDisplayRepositoryName(item)) {</span>
 <span class="cstat-no" title="statement not covered" >                              setShowRepoName(false)</span>
                             } else {
 <span class="cstat-no" title="statement not covered" >                              setShowRepoName(true)</span>
@@ -1777,7 +1792,7 @@ export const ManifestInputForm = connect(ManifestInputSetForm)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 04 2022 13:12:24 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 04 2022 16:09:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

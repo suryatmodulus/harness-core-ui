@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.45% </span>
+                <span class="strong">58.76% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>54/94</span>
+                <span class='fraction'>57/97</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.81% </span>
+                <span class="strong">52.75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>47/89</span>
+                <span class='fraction'>48/91</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.99% </span>
+                <span class="strong">58.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>53/93</span>
+                <span class='fraction'>56/96</span>
             </div>
         
             
@@ -426,7 +426,14 @@
 <a name='L367'></a><a href='#L367'>367</a>
 <a name='L368'></a><a href='#L368'>368</a>
 <a name='L369'></a><a href='#L369'>369</a>
-<a name='L370'></a><a href='#L370'>370</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L370'></a><a href='#L370'>370</a>
+<a name='L371'></a><a href='#L371'>371</a>
+<a name='L372'></a><a href='#L372'>372</a>
+<a name='L373'></a><a href='#L373'>373</a>
+<a name='L374'></a><a href='#L374'>374</a>
+<a name='L375'></a><a href='#L375'>375</a>
+<a name='L376'></a><a href='#L376'>376</a>
+<a name='L377'></a><a href='#L377'>377</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -461,6 +468,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -523,6 +532,8 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -756,7 +767,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -837,6 +851,8 @@ import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
+import UsageLimitBanner from '@cf/components/UsageLimitBanner/UsageLimitBanner'
 import { NoTargetsView } from './NoTargetsView'
 import { NewTargets } from './NewTarget'
 &nbsp;
@@ -893,6 +909,8 @@ export const TargetsPage: React.FC = () =&gt; {
   const noTargetExists = targetsData?.targets<span class="branch-1 cbranch-no" title="branch not covered" >?.length </span>=== 0
   const noEnvironmentExists = !loadingEnvironments &amp;&amp; environments?.length === 0
   const title = getString('cf.shared.targets')
+&nbsp;
+  const { isPlanEnforcementEnabled } = usePlanEnforcement()
 &nbsp;
   const toolbar = (
     &lt;Layout.Horizontal spacing="medium"&gt;
@@ -1120,15 +1138,18 @@ export const TargetsPage: React.FC = () =&gt; {
       hasEnvironment={!!environments?.length}
     /&gt;
   ) : (
-    &lt;Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}&gt;
-      &lt;TableV2&lt;Target&gt;
-        columns={columns}
-        data={targetsData?.targets || []}
-        onRowClick={<span class="fstat-no" title="function not covered" >target </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >          gotoTargetDetailPage(target.identifier as string)</span>
-        }}
-      /&gt;
-    &lt;/Container&gt;
+    &lt;&gt;
+      {isPlanEnforcementEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;UsageLimitBanner /&gt;}</span>
+      &lt;Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}&gt;
+        &lt;TableV2&lt;Target&gt;
+          columns={columns}
+          data={targetsData?.targets || []}
+          onRowClick={<span class="fstat-no" title="function not covered" >target </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >            gotoTargetDetailPage(target.identifier as string)</span>
+          }}
+        /&gt;
+      &lt;/Container&gt;
+    &lt;/&gt;
   )
 &nbsp;
   return (
@@ -1171,7 +1192,7 @@ export const TargetsPage: React.FC = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 04 2022 13:12:24 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 04 2022 16:09:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

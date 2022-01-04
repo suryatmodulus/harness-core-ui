@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.49% </span>
+                <span class="strong">34.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>71/212</span>
+                <span class='fraction'>74/215</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.08% </span>
+                <span class="strong">28.23% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>82/292</span>
+                <span class='fraction'>83/294</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.15% </span>
+                <span class="strong">36.1% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>71/202</span>
+                <span class='fraction'>74/205</span>
             </div>
         
             
@@ -659,7 +659,17 @@
 <a name='L600'></a><a href='#L600'>600</a>
 <a name='L601'></a><a href='#L601'>601</a>
 <a name='L602'></a><a href='#L602'>602</a>
-<a name='L603'></a><a href='#L603'>603</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L603'></a><a href='#L603'>603</a>
+<a name='L604'></a><a href='#L604'>604</a>
+<a name='L605'></a><a href='#L605'>605</a>
+<a name='L606'></a><a href='#L606'>606</a>
+<a name='L607'></a><a href='#L607'>607</a>
+<a name='L608'></a><a href='#L608'>608</a>
+<a name='L609'></a><a href='#L609'>609</a>
+<a name='L610'></a><a href='#L610'>610</a>
+<a name='L611'></a><a href='#L611'>611</a>
+<a name='L612'></a><a href='#L612'>612</a>
+<a name='L613'></a><a href='#L613'>613</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -704,6 +714,8 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1082,6 +1094,8 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1153,6 +1167,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1308,6 +1328,7 @@ import type { FeatureFlagPathProps, ProjectPathProps } from '@common/interfaces/
 &nbsp;
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import { GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
+import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -1316,6 +1337,7 @@ import patch, { ClauseData, getDiff } from '../../utils/instructions'
 import { MetricsView } from './views/MetricsView'
 import { NoEnvironment } from '../NoEnvironment/NoEnvironment'
 import SaveFlagToGitSubFormModal from '../SaveFlagToGitSubFormModal/SaveFlagToGitSubFormModal'
+import UsageLimitBanner from '../UsageLimitBanner/UsageLimitBanner'
 import css from './FlagActivation.module.scss'
 &nbsp;
 // Show loading and wait 3s when the first environment is created before reloading
@@ -1683,6 +1705,8 @@ const FlagActivation: React.FC&lt;FlagActivationProps&gt; = props =&gt; {
   const history = useHistory()
   const pathParams = useParams&lt;ProjectPathProps &amp; FeatureFlagPathProps&gt;()
 &nbsp;
+  const { isPlanEnforcementEnabled } = usePlanEnforcement()
+&nbsp;
   useEffect(() =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (tab !== activeTabId) {
 <span class="cstat-no" title="statement not covered" >      history.replace(withActiveEnvironment(routes.toCFFeatureFlagsDetail(pathParams) + `?tab=${activeTabId}`))</span>
@@ -1770,6 +1794,12 @@ const FlagActivation: React.FC&lt;FlagActivationProps&gt; = props =&gt; {
                 &lt;FlexExpander /&gt;
                 &lt;CFEnvironmentSelect component={&lt;EnvironmentSelect /&gt;} /&gt;
               &lt;/Layout.Horizontal&gt;
+              {isPlanEnforcementEnabled &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                &lt;Container margin={{ left: 'xlarge' }}&gt;</span>
+                  &lt;UsageLimitBanner /&gt;
+                &lt;/Container&gt;
+              )}
+&nbsp;
               &lt;Container
                 className={cx(css.tabContainer, (!editing || activeTabId !== FFDetailPageTab.TARGETING) &amp;&amp; css.noEdit)}
               &gt;
@@ -1870,7 +1900,7 @@ export default FlagActivation
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 04 2022 13:12:24 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 04 2022 16:09:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -266,6 +266,7 @@ export interface AccessControlCheckError {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -332,6 +333,9 @@ export interface AuditEventDTO {
     | 'ADD_COLLABORATOR'
     | 'REMOVE_COLLABORATOR'
     | 'REVOKE_TOKEN'
+    | 'LOGIN'
+    | 'LOGIN2FA'
+    | 'UNSUCCESSFUL_LOGIN'
     | 'ADD_MEMBERSHIP'
     | 'REMOVE_MEMBERSHIP'
   auditEventData?: AuditEventData
@@ -352,7 +356,12 @@ export interface AuditEventDTO {
 }
 
 export interface AuditEventData {
-  type: string
+  type:
+    | 'UserInvitationAuditEventData'
+    | 'AddCollaboratorAuditEventData'
+    | 'TemplateAuditEventData'
+    | 'USER_INVITE'
+    | 'USER_MEMBERSHIP'
 }
 
 export interface AuditFilterProperties {
@@ -368,6 +377,9 @@ export interface AuditFilterProperties {
     | 'ADD_COLLABORATOR'
     | 'REMOVE_COLLABORATOR'
     | 'REVOKE_TOKEN'
+    | 'LOGIN'
+    | 'LOGIN2FA'
+    | 'UNSUCCESSFUL_LOGIN'
     | 'ADD_MEMBERSHIP'
     | 'REMOVE_MEMBERSHIP'
   )[]
@@ -678,6 +690,7 @@ export interface Error {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -985,6 +998,7 @@ export interface Failure {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1537,6 +1551,7 @@ export interface ResponseMessage {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -2695,7 +2710,7 @@ export type GetResourceGroupProps = Omit<
   GetResourceGroupPathParams
 
 /**
- * Get a resource group by identifier
+ * Get a resource group by Identifier
  */
 export const GetResourceGroup = ({ identifier, ...props }: GetResourceGroupProps) => (
   <Get<
@@ -2722,7 +2737,7 @@ export type UseGetResourceGroupProps = Omit<
   GetResourceGroupPathParams
 
 /**
- * Get a resource group by identifier
+ * Get a resource group by Identifier
  */
 export const useGetResourceGroup = ({ identifier, ...props }: UseGetResourceGroupProps) =>
   useGet<
@@ -2737,7 +2752,7 @@ export const useGetResourceGroup = ({ identifier, ...props }: UseGetResourceGrou
   })
 
 /**
- * Get a resource group by identifier
+ * Get a resource group by Identifier
  */
 export const getResourceGroupPromise = (
   {

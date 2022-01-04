@@ -129,7 +129,7 @@ const SLOCardContent: React.FC<SLOCardContentProps> = ({ serviceLevelObjective }
                 message={getString('cv.errorBudgetRecalculationInProgress')}
               />
             )}
-            <Container width={185} className={css.errorBudgetGaugeContainer}>
+            <Container width={185} height={200} className={css.errorBudgetGaugeContainer}>
               <Heading font={{ variation: FontVariation.FORM_HELP }}>{getString('cv.errorBudgetRemaining')}</Heading>
               <ErrorBudgetGauge customChartOptions={getErrorBudgetGaugeOptions(serviceLevelObjective)} />
               <Text font={{ variation: FontVariation.SMALL }} className={css.errorBudgetRemaining} width={175}>

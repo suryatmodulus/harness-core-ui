@@ -6,6 +6,7 @@
 .createSloTabsContainer {
   :global {
     .bp3-tab-list {
+      background-color: var(--white);
       padding: var(--spacing-none) var(--spacing-xlarge);
       align-items: center;
       border-bottom: 1px solid var(--grey-200);

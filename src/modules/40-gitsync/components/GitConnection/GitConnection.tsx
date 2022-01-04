@@ -5,13 +5,7 @@ import { Radio } from '@blueprintjs/core'
 import { Button, Card, Color, Container, Layout, StepProps, Text } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
-import {
-  GitSyncConfig,
-  isSaasGitPromise,
-  ResponseSaasGitDTO,
-  usePostGitSync,
-  usePostGitSyncSetting
-} from 'services/cd-ng'
+import { GitSyncConfig, useIsSaasGit, ResponseSaasGitDTO, usePostGitSync, usePostGitSyncSetting } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import DelegatesGit from '@gitsync/icons/DelegatesGit.svg'
@@ -45,17 +39,19 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
     queryParams: { accountIdentifier: accountId }
   })
 
+  const { mutate: isSaasGit, loading: checkingIsSaasGit } = useIsSaasGit({
+    queryParams: {}
+  })
+
   const { mutate: registerAgent } = usePostGitSyncSetting({
     requestOptions: { headers: { accept: 'application/json' } }
   })
 
   React.useEffect(() => {
-    setLoading(true)
-    isSaasGitPromise({
+    isSaasGit(undefined, {
       queryParams: {
         repoURL: encodeURIComponent(prevStepData?.repo || '')
-      },
-      body: undefined
+      }
     })
       .then((res: ResponseSaasGitDTO) => {
         const { saasGit } = res?.data || {}
@@ -67,7 +63,6 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
       .catch(e => {
         showError(e.data?.message || e.message)
       })
-    setLoading(false)
   }, [prevStepData?.repo])
 
   const onSubmit = async (): Promise<void> => {
@@ -135,7 +130,7 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
               <Radio
                 onClick={() => setAgent(Agent.Manager)}
                 checked={agent === Agent.Manager}
-                disabled={loading || !isSaaS}
+                disabled={loading || checkingIsSaasGit || !isSaaS}
               />
             </Layout.Horizontal>
             <Text font="small" style={{ lineHeight: 'var(--spacing-large' }}>
@@ -144,7 +139,7 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
             <img src={PlatformGit} width="100%" className={css.img} />
           </Card>
           <Card
-            disabled={loading}
+            disabled={loading || checkingIsSaasGit}
             className={cx(css.card, { [css.selected]: agent === Agent.Delegate })}
             onClick={() => setAgent(Agent.Delegate)}
           >
@@ -155,7 +150,7 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
               <Radio
                 onClick={() => setAgent(Agent.Delegate)}
                 checked={!isSaaS || agent === Agent.Delegate}
-                disabled={loading}
+                disabled={loading || checkingIsSaasGit}
               />
             </Layout.Horizontal>
             <Text font="small" padding={{ bottom: 'huge' }} style={{ lineHeight: 'var(--spacing-large' }}>
@@ -175,7 +170,7 @@ const GitConnection: React.FC<StepProps<GitConnectionStepProps> & GitConnectionP
           intent="primary"
           text={isLastStep ? getString('save') : getString('saveAndContinue')}
           rightIcon="chevron-right"
-          disabled={loading || !agent}
+          disabled={loading || checkingIsSaasGit || !agent}
           onClick={onSubmit}
         />
       </Layout.Horizontal>

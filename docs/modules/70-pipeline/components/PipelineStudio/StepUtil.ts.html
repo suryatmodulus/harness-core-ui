@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.72% </span>
+                <span class="strong">59.62% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>467/782</span>
+                <span class='fraction'>465/780</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.06% </span>
+                <span class="strong">76.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>143/188</span>
+                <span class='fraction'>144/189</span>
             </div>
         
             
@@ -918,7 +918,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1060,38 +1060,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">60x</span>
-<span class="cline-any cline-yes">65x</span>
+<span class="cline-any cline-yes">67x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">35x</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">60x</span>
-<span class="cline-any cline-yes">52x</span>
-<span class="cline-any cline-yes">52x</span>
-<span class="cline-any cline-yes">52x</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">52x</span>
-<span class="cline-any cline-yes">52x</span>
-<span class="cline-any cline-yes">52x</span>
-<span class="cline-any cline-yes">52x</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
@@ -1436,9 +1436,9 @@ export const validateCICodebase = ({
   getString
 }: ValidatePipelineProps): FormikErrors&lt;PipelineInfoConfig&gt; =&gt; {
   const errors = {}
-  const shouldValidateCICodebase =
-    originalPipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tages<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ome(stage =&gt; get(stage, 'stage.spec.cloneCodebase')) ||
-    !isEmpty(get(originalPipeline, 'properties.ci.codebase'))
+  const shouldValidateCICodebase = originalPipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tages<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ome(stage =&gt;
+    Object.is(get(stage, 'stage.spec.cloneCodebase'), true)
+  )
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (
     shouldValidateCICodebase &amp;&amp;
@@ -1618,7 +1618,7 @@ export const getErrorsList = memoize((errors: any): { errorStrings: string[]; er
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 05 2022 05:05:55 GMT+0000 (Greenwich Mean Time)
+                at Wed Jan 05 2022 06:30:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

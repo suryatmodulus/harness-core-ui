@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.03% </span>
+                <span class="strong">62.96% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>49/79</span>
+                <span class='fraction'>51/81</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.64% </span>
+                <span class="strong">56% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>83/144</span>
+                <span class='fraction'>84/150</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.03% </span>
+                <span class="strong">62.96% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>49/79</span>
+                <span class='fraction'>51/81</span>
             </div>
         
             
@@ -357,7 +357,11 @@
 <a name='L298'></a><a href='#L298'>298</a>
 <a name='L299'></a><a href='#L299'>299</a>
 <a name='L300'></a><a href='#L300'>300</a>
-<a name='L301'></a><a href='#L301'>301</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -397,6 +401,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -418,6 +423,7 @@
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-yes">41x</span>
+<span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -584,6 +590,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -697,6 +705,7 @@ import {
   removeNullAndEmpty,
   flattenObject
 } from '@common/components/Filter/utils/FilterUtils'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useFiltersContext } from '../../FiltersContext/FiltersContext'
 import PipelineFilterForm from '../../PipelineFilterForm/PipelineFilterForm'
 import type { StringQueryParams } from '../../types'
@@ -718,6 +727,7 @@ export function ExecutionFilters(): React.ReactElement {
   const isCIEnabled = (selectedProject?.modules &amp;&amp; selectedProject.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ndexOf('CI') &gt; -1) || false
   const filterRef = React.useRef&lt;FilterRef&lt;FilterDTO&gt; | null&gt;(null)
   const { savedFilters: filters, isFetchingFilters, refetchFilters, queryParams } = useFiltersContext()
+  const { NG_NATIVE_HELM } = useFeatureFlags()
 &nbsp;
   const { data: servicesResponse, loading: isFetchingServices } = useGetServiceListForProject({
     queryParams: { accountId, orgIdentifier, projectIdentifier },
@@ -903,7 +913,9 @@ export function ExecutionFilters(): React.ReactElement {
               environments: getMultiSelectFormOptions(environmentsResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent),
               services: getMultiSelectFormOptions(servicesResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent),
               deploymentType: getMultiSelectFormOptions(
-                deploymentTypeResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata?.filter(deploymentType =&gt; deploymentType !== 'NativeHelm') //This filter will be removed once nativeHelm is enabled
+                NG_NATIVE_HELM
+                  ? <span class="branch-0 cbranch-no" title="branch not covered" >deploymentTypeResponse?.data</span>
+                  : deploymentTypeResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata?.filter(deploymentType =&gt; deploymentType !== 'NativeHelm')
               )
             }}
             type="PipelineExecution"
@@ -964,7 +976,7 @@ export function ExecutionFilters(): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 05 2022 07:49:28 GMT+0000 (Greenwich Mean Time)
+                at Wed Jan 05 2022 12:38:31 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

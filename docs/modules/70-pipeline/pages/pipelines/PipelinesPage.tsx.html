@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.91% </span>
+                <span class="strong">70.18% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>158/226</span>
+                <span class='fraction'>160/228</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.39% </span>
+                <span class="strong">45.69% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>180/388</span>
+                <span class='fraction'>180/394</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.91% </span>
+                <span class="strong">70.18% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>158/226</span>
+                <span class='fraction'>160/228</span>
             </div>
         
             
@@ -845,7 +845,11 @@
 <a name='L786'></a><a href='#L786'>786</a>
 <a name='L787'></a><a href='#L787'>787</a>
 <a name='L788'></a><a href='#L788'>788</a>
-<a name='L789'></a><a href='#L789'>789</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L789'></a><a href='#L789'>789</a>
+<a name='L790'></a><a href='#L790'>790</a>
+<a name='L791'></a><a href='#L791'>791</a>
+<a name='L792'></a><a href='#L792'>792</a>
+<a name='L793'></a><a href='#L793'>793</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -913,6 +917,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1000,6 +1005,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">82x</span>
 <span class="cline-any cline-yes">82x</span>
 <span class="cline-any cline-yes">82x</span>
 <span class="cline-any cline-yes">82x</span>
@@ -1253,6 +1259,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1709,6 +1717,7 @@ import { NavigatedToPage } from '@common/constants/TrackingConstants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
 import PipelineFilterForm from '../pipeline-deployment-list/PipelineFilterForm/PipelineFilterForm'
@@ -1792,6 +1801,7 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
   const isCIEnabled = (selectedProject?.modules &amp;&amp; selectedProject.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ndexOf('CI') &gt; -1) || false
   const isCIModule = module === 'ci'
   const searchRef = useRef&lt;ExpandingSearchInputHandle&gt;({} as ExpandingSearchInputHandle)
+  const { NG_NATIVE_HELM } = useFeatureFlags()
 &nbsp;
   const goToPipelineDetail = useCallback(
 <span class="fstat-no" title="function not covered" >    (/</span>* istanbul ignore next */ pipeline?: PMSPipelineSummaryResponse) =&gt; {
@@ -2056,7 +2066,9 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
               services: getMultiSelectFormOptions(servicesResponse?.data?.content),
               deploymentType: getMultiSelectFormOptions(
-                deploymentTypeResponse?.data?.filter(<span class="fstat-no" title="function not covered" >deploymentType </span>=&gt; <span class="cstat-no" title="statement not covered" >deploymentType !== 'NativeHelm')</span> //This filter will be removed once nativeHelm is enabled
+                NG_NATIVE_HELM
+                  ? deploymentTypeResponse?.data
+                  : deploymentTypeResponse?.data?.filter(<span class="fstat-no" title="function not covered" >deploymentType </span>=&gt; <span class="cstat-no" title="statement not covered" >deploymentType !== 'NativeHelm')</span>
               )
             }}
             type="PipelineSetup"
@@ -2428,7 +2440,7 @@ export default PipelinesPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 05 2022 07:49:28 GMT+0000 (Greenwich Mean Time)
+                at Wed Jan 05 2022 12:38:31 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

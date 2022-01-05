@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/14</span>
+                <span class='fraction'>13/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.73% </span>
+                <span class="strong">92.31% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/11</span>
+                <span class='fraction'>12/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/14</span>
+                <span class='fraction'>13/14</span>
             </div>
         
             
@@ -107,7 +107,11 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">41x</span>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-yes">41x</span>
@@ -124,19 +128,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">41x</span>
-<span class="cline-any cline-yes">1008x</span>
-<span class="cline-any cline-yes">1008x</span>
-<span class="cline-any cline-yes">1008x</span>
+<span class="cline-any cline-yes">1011x</span>
+<span class="cline-any cline-yes">1011x</span>
+<span class="cline-any cline-yes">1011x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1011x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1008x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,9 +185,9 @@ export function CopyText(props: CopyTextProps): React.ReactElement {
   const { iconAlwaysVisible = false } = props
   const [copied, setCopied] = React.useState(false)
   const icon = props.iconName || 'copy-alt'
-  function <span class="fstat-no" title="function not covered" >handleClick(</span>): void {
-<span class="cstat-no" title="statement not covered" >    Utils.copy(props.textToCopy)</span>
-<span class="cstat-no" title="statement not covered" >    setCopied(true)</span>
+  function handleClick(): void {
+    Utils.copy(props.textToCopy)
+    setCopied(true)
   }
 &nbsp;
   function <span class="fstat-no" title="function not covered" >onClosed(</span>): void {
@@ -189,21 +197,25 @@ export function CopyText(props: CopyTextProps): React.ReactElement {
   return (
     &lt;div className={cx(css.main, props.className)}&gt;
       &lt;div className={cx(css.text, props.valueClassName)}&gt;{props.children}&lt;/div&gt;
-      &lt;Button
-        data-name={icon}
-        icon={copied ? <span class="branch-0 cbranch-no" title="branch not covered" >'execution-success' </span>: icon}
-        minimal
-        intent="primary"
-        small
-        className={cx(css.copyIcon, copied &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >css.successIcon)</span>}
-        tooltip={&lt;String className={css.tooltip} stringID={copied ? <span class="branch-0 cbranch-no" title="branch not covered" >'copiedToClipboard' </span>: 'clickToCopy'} /&gt;}
-        tooltipProps={{
-          wrapperTagName: 'div',
-          className: iconAlwaysVisible ? cx(css.alwaysVisible, Classes.DARK) : css.btnWrapper,
-          onClosed
-        }}
-        onClick={handleClick}
-      /&gt;
+      {window.isSecureContext &amp;&amp; (
+        &lt;Button
+          data-testid="copy-btn"
+          disabled={!window.isSecureContext}
+          data-name={icon}
+          icon={copied ? 'execution-success' : icon}
+          minimal
+          intent="primary"
+          small
+          className={cx(css.copyIcon, copied &amp;&amp; css.successIcon)}
+          tooltip={&lt;String className={css.tooltip} stringID={copied ? 'copiedToClipboard' : 'clickToCopy'} /&gt;}
+          tooltipProps={{
+            wrapperTagName: 'div',
+            className: iconAlwaysVisible ? <span class="branch-0 cbranch-no" title="branch not covered" >cx(css.alwaysVisible, Classes.DARK) </span>: css.btnWrapper,
+            onClosed
+          }}
+          onClick={handleClick}
+        /&gt;
+      )}
     &lt;/div&gt;
   )
 }
@@ -214,7 +226,7 @@ export function CopyText(props: CopyTextProps): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 05 2022 07:49:28 GMT+0000 (Greenwich Mean Time)
+                at Wed Jan 05 2022 12:38:31 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -2,8 +2,20 @@
   width: 100%;
   // Prevent horizontal resizing since it is breaking UI
   resize: vertical;
+  min-height: var(--spacing-12) !important;
 }
 
 .multi-btn {
-  height: auto !important;
+  height: var(--spacing-7) !important;
+  width: var(--spacing-7) !important;
+  padding: 0 !important;
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  border: 1px solid var(--form-field-border) !important;
+  border-radius: var(--spacing-2) !important;
+
+  &::before {
+    display: none !important;
+  }
 }

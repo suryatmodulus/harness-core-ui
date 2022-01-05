@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { FormGroup, IFormGroupProps, Intent, ITextAreaProps, TextArea } from '@blueprintjs/core'
 import {
   ExpressionAndRuntimeType,
@@ -54,16 +54,26 @@ export interface MultiTypeTextAreaProps
 export const MultiTypeTextArea: React.FC<MultiTypeTextAreaProps> = props => {
   const { name, value, onChange, enableConfigureOptions = true, textAreaProps, configureOptionsProps, ...rest } = props
   const { getString } = useStrings()
+  const [multiType, setMultiType] = useState<MultiTypeInputType>(getMultiTypeFromValue(value))
+
+  const handleChange = useCallback(
+    (val, valueType, type) => {
+      setMultiType(type)
+      onChange?.(val, valueType, type)
+    },
+    [onChange]
+  )
+
   const expressionAndRuntimeTypeComponent = (
     <ExpressionAndRuntimeType
       name={name}
       value={value}
-      onChange={onChange}
+      onChange={handleChange}
       {...rest}
       fixedTypeComponentProps={textAreaProps}
       fixedTypeComponent={MultiTypeTextAreaFixedTypeComponent}
       style={{ flexGrow: 1 }}
-      btnClassName={css.multiBtn}
+      btnClassName={multiType === MultiTypeInputType.FIXED ? css.multiBtn : ''}
     />
   )
   return (
@@ -71,7 +81,7 @@ export const MultiTypeTextArea: React.FC<MultiTypeTextAreaProps> = props => {
       {enableConfigureOptions ? (
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {expressionAndRuntimeTypeComponent}
-          {getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME && (
+          {multiType === MultiTypeInputType.RUNTIME && (
             <ConfigureOptions
               value={value as string}
               type={getString('string')}

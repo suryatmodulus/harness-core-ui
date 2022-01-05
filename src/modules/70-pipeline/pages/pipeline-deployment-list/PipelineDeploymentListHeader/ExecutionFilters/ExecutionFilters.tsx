@@ -38,6 +38,7 @@ import {
   removeNullAndEmpty,
   flattenObject
 } from '@common/components/Filter/utils/FilterUtils'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useFiltersContext } from '../../FiltersContext/FiltersContext'
 import PipelineFilterForm from '../../PipelineFilterForm/PipelineFilterForm'
 import type { StringQueryParams } from '../../types'
@@ -59,6 +60,7 @@ export function ExecutionFilters(): React.ReactElement {
   const isCIEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CI') > -1) || false
   const filterRef = React.useRef<FilterRef<FilterDTO> | null>(null)
   const { savedFilters: filters, isFetchingFilters, refetchFilters, queryParams } = useFiltersContext()
+  const { NG_NATIVE_HELM } = useFeatureFlags()
 
   const { data: servicesResponse, loading: isFetchingServices } = useGetServiceListForProject({
     queryParams: { accountId, orgIdentifier, projectIdentifier },
@@ -244,7 +246,9 @@ export function ExecutionFilters(): React.ReactElement {
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
               services: getMultiSelectFormOptions(servicesResponse?.data?.content),
               deploymentType: getMultiSelectFormOptions(
-                deploymentTypeResponse?.data?.filter(deploymentType => deploymentType !== 'NativeHelm') //This filter will be removed once nativeHelm is enabled
+                NG_NATIVE_HELM
+                  ? deploymentTypeResponse?.data
+                  : deploymentTypeResponse?.data?.filter(deploymentType => deploymentType !== 'NativeHelm')
               )
             }}
             type="PipelineExecution"

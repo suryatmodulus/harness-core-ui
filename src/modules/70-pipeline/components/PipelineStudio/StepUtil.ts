@@ -8,7 +8,6 @@ import reduce from 'lodash-es/reduce'
 import isObject from 'lodash-es/isObject'
 import memoize from 'lodash-es/memoize'
 import get from 'lodash-es/get'
-import { defaultTo } from 'lodash-es'
 import type {
   StageElementConfig,
   ExecutionWrapperConfig,
@@ -78,20 +77,19 @@ export function getStageFromPipeline(
 export interface ValidateStepProps {
   step: StepElementConfig
   template?: StepElementConfig
-  originalSteps?: ExecutionWrapperConfig[]
+  originalStep?: ExecutionWrapperConfig
   getString?: UseStringsReturn['getString']
   viewType: StepViewType
 }
 
-const validateStep = ({
+export const validateStep = ({
   step,
   template,
-  originalSteps,
+  originalStep,
   getString,
   viewType
 }: ValidateStepProps): FormikErrors<StepElementConfig> => {
   const errors = {}
-  const originalStep = getStepFromStage(defaultTo(step.identifier, ''), originalSteps)
   const isTemplateStep = !!(originalStep?.step as unknown as TemplateStepData)?.template
   const stepType = isTemplateStep ? StepType.Template : originalStep?.step?.type
   const pipelineStep = factory.getStep(stepType)
@@ -129,7 +127,7 @@ const validateSteps = ({
       const errorResponse = validateStep({
         step: stepObj.step,
         template: template?.[index].step,
-        originalSteps,
+        originalStep: getStepFromStage(stepObj.step.identifier, originalSteps),
         getString,
         viewType
       })
@@ -142,7 +140,7 @@ const validateSteps = ({
           const errorResponse = validateStep({
             step: stepParallel.step,
             template: template?.[index]?.parallel?.[indexP]?.step,
-            originalSteps,
+            originalStep: getStepFromStage(stepParallel.step.identifier, originalSteps),
             getString,
             viewType
           })

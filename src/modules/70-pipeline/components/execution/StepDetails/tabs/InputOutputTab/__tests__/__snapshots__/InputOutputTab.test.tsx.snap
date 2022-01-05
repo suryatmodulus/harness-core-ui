@@ -108,40 +108,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                       >
                         type
                       </div>
-                      <div
-                        class="bp3-popover-wrapper btnWrapper"
-                      >
-                        <span
-                          class="bp3-popover-target"
-                        >
-                          <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                            data-name="copy-alt"
-                            tabindex="0"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="copy-alt"
-                            >
-                              <svg
-                                fill="none"
-                                height="16"
-                                viewBox="0 0 8 9"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  clip-rule="evenodd"
-                                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                  fill="currentColor"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </span>
-                      </div>
                     </div>
                   </div>
                   <div
@@ -154,40 +120,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                         class="text"
                       >
                         KubernetesDirect
-                      </div>
-                      <div
-                        class="bp3-popover-wrapper btnWrapper"
-                      >
-                        <span
-                          class="bp3-popover-target"
-                        >
-                          <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                            data-name="copy-alt"
-                            tabindex="0"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="copy-alt"
-                            >
-                              <svg
-                                fill="none"
-                                height="16"
-                                viewBox="0 0 8 9"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  clip-rule="evenodd"
-                                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                  fill="currentColor"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </span>
                       </div>
                     </div>
                   </div>
@@ -246,40 +178,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                             >
                               connectorRef
                             </div>
-                            <div
-                              class="bp3-popover-wrapper btnWrapper"
-                            >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                  data-name="copy-alt"
-                                  tabindex="0"
-                                  type="button"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps--main"
-                                    data-icon="copy-alt"
-                                  >
-                                    <svg
-                                      fill="none"
-                                      height="16"
-                                      viewBox="0 0 8 9"
-                                      width="16"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        clip-rule="evenodd"
-                                        d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                        fill="currentColor"
-                                        fill-rule="evenodd"
-                                      />
-                                    </svg>
-                                  </span>
-                                </button>
-                              </span>
-                            </div>
                           </div>
                         </div>
                         <div
@@ -292,40 +190,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                               class="text"
                             >
                               account.KubernetesConnectorForAutomationTestasd
-                            </div>
-                            <div
-                              class="bp3-popover-wrapper btnWrapper"
-                            >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                  data-name="copy-alt"
-                                  tabindex="0"
-                                  type="button"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps--main"
-                                    data-icon="copy-alt"
-                                  >
-                                    <svg
-                                      fill="none"
-                                      height="16"
-                                      viewBox="0 0 8 9"
-                                      width="16"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        clip-rule="evenodd"
-                                        d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                        fill="currentColor"
-                                        fill-rule="evenodd"
-                                      />
-                                    </svg>
-                                  </span>
-                                </button>
-                              </span>
                             </div>
                           </div>
                         </div>
@@ -345,40 +209,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                             >
                               namespace
                             </div>
-                            <div
-                              class="bp3-popover-wrapper btnWrapper"
-                            >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                  data-name="copy-alt"
-                                  tabindex="0"
-                                  type="button"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps--main"
-                                    data-icon="copy-alt"
-                                  >
-                                    <svg
-                                      fill="none"
-                                      height="16"
-                                      viewBox="0 0 8 9"
-                                      width="16"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        clip-rule="evenodd"
-                                        d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                        fill="currentColor"
-                                        fill-rule="evenodd"
-                                      />
-                                    </svg>
-                                  </span>
-                                </button>
-                              </span>
-                            </div>
                           </div>
                         </div>
                         <div
@@ -391,40 +221,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                               class="text"
                             >
                               ng-testing
-                            </div>
-                            <div
-                              class="bp3-popover-wrapper btnWrapper"
-                            >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                  data-name="copy-alt"
-                                  tabindex="0"
-                                  type="button"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps--main"
-                                    data-icon="copy-alt"
-                                  >
-                                    <svg
-                                      fill="none"
-                                      height="16"
-                                      viewBox="0 0 8 9"
-                                      width="16"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        clip-rule="evenodd"
-                                        d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                        fill="currentColor"
-                                        fill-rule="evenodd"
-                                      />
-                                    </svg>
-                                  </span>
-                                </button>
-                              </span>
                             </div>
                           </div>
                         </div>
@@ -444,40 +240,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                             >
                               releaseName
                             </div>
-                            <div
-                              class="bp3-popover-wrapper btnWrapper"
-                            >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                  data-name="copy-alt"
-                                  tabindex="0"
-                                  type="button"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps--main"
-                                    data-icon="copy-alt"
-                                  >
-                                    <svg
-                                      fill="none"
-                                      height="16"
-                                      viewBox="0 0 8 9"
-                                      width="16"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        clip-rule="evenodd"
-                                        d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                        fill="currentColor"
-                                        fill-rule="evenodd"
-                                      />
-                                    </svg>
-                                  </span>
-                                </button>
-                              </span>
-                            </div>
                           </div>
                         </div>
                         <div
@@ -490,40 +252,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                               class="text"
                             >
                               release-pipeline-1
-                            </div>
-                            <div
-                              class="bp3-popover-wrapper btnWrapper"
-                            >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                  data-name="copy-alt"
-                                  tabindex="0"
-                                  type="button"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps--main"
-                                    data-icon="copy-alt"
-                                  >
-                                    <svg
-                                      fill="none"
-                                      height="16"
-                                      viewBox="0 0 8 9"
-                                      width="16"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        clip-rule="evenodd"
-                                        d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                        fill="currentColor"
-                                        fill-rule="evenodd"
-                                      />
-                                    </svg>
-                                  </span>
-                                </button>
-                              </span>
                             </div>
                           </div>
                         </div>
@@ -543,40 +271,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                             >
                               releaseNumber
                             </div>
-                            <div
-                              class="bp3-popover-wrapper btnWrapper"
-                            >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                  data-name="copy-alt"
-                                  tabindex="0"
-                                  type="button"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps--main"
-                                    data-icon="copy-alt"
-                                  >
-                                    <svg
-                                      fill="none"
-                                      height="16"
-                                      viewBox="0 0 8 9"
-                                      width="16"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        clip-rule="evenodd"
-                                        d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                        fill="currentColor"
-                                        fill-rule="evenodd"
-                                      />
-                                    </svg>
-                                  </span>
-                                </button>
-                              </span>
-                            </div>
                           </div>
                         </div>
                         <div
@@ -589,40 +283,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                               class="text"
                             >
                               6
-                            </div>
-                            <div
-                              class="bp3-popover-wrapper btnWrapper"
-                            >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                  data-name="copy-alt"
-                                  tabindex="0"
-                                  type="button"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps--main"
-                                    data-icon="copy-alt"
-                                  >
-                                    <svg
-                                      fill="none"
-                                      height="16"
-                                      viewBox="0 0 8 9"
-                                      width="16"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        clip-rule="evenodd"
-                                        d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                        fill="currentColor"
-                                        fill-rule="evenodd"
-                                      />
-                                    </svg>
-                                  </span>
-                                </button>
-                              </span>
                             </div>
                           </div>
                         </div>
@@ -642,40 +302,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                             >
                               foo
                             </div>
-                            <div
-                              class="bp3-popover-wrapper btnWrapper"
-                            >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                  data-name="copy-alt"
-                                  tabindex="0"
-                                  type="button"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps--main"
-                                    data-icon="copy-alt"
-                                  >
-                                    <svg
-                                      fill="none"
-                                      height="16"
-                                      viewBox="0 0 8 9"
-                                      width="16"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        clip-rule="evenodd"
-                                        d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                        fill="currentColor"
-                                        fill-rule="evenodd"
-                                      />
-                                    </svg>
-                                  </span>
-                                </button>
-                              </span>
-                            </div>
                           </div>
                         </div>
                         <div
@@ -688,40 +314,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                               class="text"
                             >
                               true
-                            </div>
-                            <div
-                              class="bp3-popover-wrapper btnWrapper"
-                            >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                                  data-name="copy-alt"
-                                  tabindex="0"
-                                  type="button"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps--main"
-                                    data-icon="copy-alt"
-                                  >
-                                    <svg
-                                      fill="none"
-                                      height="16"
-                                      viewBox="0 0 8 9"
-                                      width="16"
-                                      xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                      <path
-                                        clip-rule="evenodd"
-                                        d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                        fill="currentColor"
-                                        fill-rule="evenodd"
-                                      />
-                                    </svg>
-                                  </span>
-                                </button>
-                              </span>
                             </div>
                           </div>
                         </div>
@@ -786,40 +378,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                       >
                         name
                       </div>
-                      <div
-                        class="bp3-popover-wrapper btnWrapper"
-                      >
-                        <span
-                          class="bp3-popover-target"
-                        >
-                          <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                            data-name="copy-alt"
-                            tabindex="0"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="copy-alt"
-                            >
-                              <svg
-                                fill="none"
-                                height="16"
-                                viewBox="0 0 8 9"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  clip-rule="evenodd"
-                                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                  fill="currentColor"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </span>
-                      </div>
                     </div>
                   </div>
                   <div
@@ -832,40 +390,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                         class="text"
                       >
                         env1
-                      </div>
-                      <div
-                        class="bp3-popover-wrapper btnWrapper"
-                      >
-                        <span
-                          class="bp3-popover-target"
-                        >
-                          <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                            data-name="copy-alt"
-                            tabindex="0"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="copy-alt"
-                            >
-                              <svg
-                                fill="none"
-                                height="16"
-                                viewBox="0 0 8 9"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  clip-rule="evenodd"
-                                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                  fill="currentColor"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </span>
                       </div>
                     </div>
                   </div>
@@ -885,40 +409,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                       >
                         identifier
                       </div>
-                      <div
-                        class="bp3-popover-wrapper btnWrapper"
-                      >
-                        <span
-                          class="bp3-popover-target"
-                        >
-                          <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                            data-name="copy-alt"
-                            tabindex="0"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="copy-alt"
-                            >
-                              <svg
-                                fill="none"
-                                height="16"
-                                viewBox="0 0 8 9"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  clip-rule="evenodd"
-                                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                  fill="currentColor"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </span>
-                      </div>
                     </div>
                   </div>
                   <div
@@ -931,40 +421,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                         class="text"
                       >
                         env
-                      </div>
-                      <div
-                        class="bp3-popover-wrapper btnWrapper"
-                      >
-                        <span
-                          class="bp3-popover-target"
-                        >
-                          <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                            data-name="copy-alt"
-                            tabindex="0"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="copy-alt"
-                            >
-                              <svg
-                                fill="none"
-                                height="16"
-                                viewBox="0 0 8 9"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  clip-rule="evenodd"
-                                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                  fill="currentColor"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </span>
                       </div>
                     </div>
                   </div>
@@ -984,40 +440,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                       >
                         type
                       </div>
-                      <div
-                        class="bp3-popover-wrapper btnWrapper"
-                      >
-                        <span
-                          class="bp3-popover-target"
-                        >
-                          <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                            data-name="copy-alt"
-                            tabindex="0"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="copy-alt"
-                            >
-                              <svg
-                                fill="none"
-                                height="16"
-                                viewBox="0 0 8 9"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  clip-rule="evenodd"
-                                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                  fill="currentColor"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </span>
-                      </div>
                     </div>
                   </div>
                   <div
@@ -1030,40 +452,6 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                         class="text"
                       >
                         Production
-                      </div>
-                      <div
-                        class="bp3-popover-wrapper btnWrapper"
-                      >
-                        <span
-                          class="bp3-popover-target"
-                        >
-                          <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                            data-name="copy-alt"
-                            tabindex="0"
-                            type="button"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="copy-alt"
-                            >
-                              <svg
-                                fill="none"
-                                height="16"
-                                viewBox="0 0 8 9"
-                                width="16"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  clip-rule="evenodd"
-                                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                                  fill="currentColor"
-                                  fill-rule="evenodd"
-                                />
-                              </svg>
-                            </span>
-                          </button>
-                        </span>
                       </div>
                     </div>
                   </div>
@@ -1147,40 +535,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                 >
                   type
                 </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </div>
               </div>
             </div>
             <div
@@ -1193,40 +547,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                   class="text"
                 >
                   environmentOutcome
-                </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
                 </div>
               </div>
             </div>
@@ -1246,40 +566,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                 >
                   name
                 </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </div>
               </div>
             </div>
             <div
@@ -1292,40 +578,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                   class="text"
                 >
                   env1
-                </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
                 </div>
               </div>
             </div>
@@ -1345,40 +597,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                 >
                   identifier
                 </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </div>
               </div>
             </div>
             <div
@@ -1391,40 +609,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                   class="text"
                 >
                   env
-                </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
                 </div>
               </div>
             </div>
@@ -1444,40 +628,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                 >
                   environmentType
                 </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </div>
               </div>
             </div>
             <div
@@ -1490,40 +640,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                   class="text"
                 >
                   Production
-                </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
                 </div>
               </div>
             </div>
@@ -1585,40 +701,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                 >
                   type
                 </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </div>
               </div>
             </div>
             <div
@@ -1631,40 +713,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                   class="text"
                 >
                   KubernetesDirect
-                </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
                 </div>
               </div>
             </div>
@@ -1684,40 +732,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                 >
                   connectorRef
                 </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </div>
               </div>
             </div>
             <div
@@ -1730,40 +744,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                   class="text"
                 >
                   account.KubernetesConnectorForAutomationTestasd
-                </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
                 </div>
               </div>
             </div>
@@ -1783,40 +763,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                 >
                   namespace
                 </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </div>
               </div>
             </div>
             <div
@@ -1829,40 +775,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                   class="text"
                 >
                   ng-testing
-                </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
                 </div>
               </div>
             </div>
@@ -1882,40 +794,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                 >
                   releaseName
                 </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </div>
               </div>
             </div>
             <div
@@ -1928,40 +806,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                   class="text"
                 >
                   release-pipeline-1
-                </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
                 </div>
               </div>
             </div>
@@ -1981,40 +825,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                 >
                   kind
                 </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </div>
               </div>
             </div>
             <div
@@ -2027,40 +837,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                   class="text"
                 >
                   KubernetesDirect
-                </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
                 </div>
               </div>
             </div>
@@ -2079,40 +855,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                 >
                   path
                 </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </div>
               </div>
             </div>
             <div
@@ -2125,40 +867,6 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                   class="text"
                 >
                   path1, path2
-                </div>
-                <div
-                  class="bp3-popover-wrapper btnWrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                      data-name="copy-alt"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="copy-alt"
-                      >
-                        <svg
-                          fill="none"
-                          height="16"
-                          viewBox="0 0 8 9"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            clip-rule="evenodd"
-                            d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
                 </div>
               </div>
             </div>

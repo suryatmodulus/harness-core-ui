@@ -4,7 +4,6 @@ import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { connect } from 'formik'
 import { useStrings } from 'framework/strings'
-import { Separator } from '@common/components'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -113,10 +112,10 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
           />
         </Container>
       )}
-      <Separator />
+
       {isLimitCPURuntime && (
         <>
-          <Container className={css.bottomMargin5}>
+          <Container className={cx(css.bottomMargin5, css.topMargin5)}>
             <Text
               className={css.inpLabel}
               color={Color.GREY_600}

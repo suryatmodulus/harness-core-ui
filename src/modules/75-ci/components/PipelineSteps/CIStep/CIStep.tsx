@@ -7,7 +7,6 @@ import { FormInput, Text, Container, Color, MultiTypeInputType } from '@wings-so
 import { MultiTypeTextField, MultiTypeTextProps } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { FormMultiTypeTextAreaField } from '@common/components'
-import { Separator } from '@common/components/Separator/Separator'
 import { useGitScope } from '@ci/services/CIUtils'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -131,7 +130,6 @@ export const CIStep: React.FC<CIStepProps> = props => {
           />
         ) : null}
       </Container>
-      <Separator topSeparation={8} />
       {!enableFields['spec.connectorRef']?.shouldHide &&
       Object.prototype.hasOwnProperty.call(enableFields, 'spec.connectorRef') ? (
         <Container className={css.bottomMargin3}>

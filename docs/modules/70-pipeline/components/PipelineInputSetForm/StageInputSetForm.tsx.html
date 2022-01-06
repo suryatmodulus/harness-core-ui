@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.62% </span>
+                <span class="strong">84.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/52</span>
+                <span class='fraction'>43/51</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">49.45% </span>
+                <span class="strong">49.64% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>271/548</span>
+                <span class='fraction'>274/552</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.31% </span>
+                <span class="strong">84% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>43/51</span>
+                <span class='fraction'>42/50</span>
             </div>
         
             
@@ -724,7 +724,9 @@
 <a name='L665'></a><a href='#L665'>665</a>
 <a name='L666'></a><a href='#L666'>666</a>
 <a name='L667'></a><a href='#L667'>667</a>
-<a name='L668'></a><a href='#L668'>668</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">41x</span>
+<a name='L668'></a><a href='#L668'>668</a>
+<a name='L669'></a><a href='#L669'>669</a>
+<a name='L670'></a><a href='#L670'>670</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-yes">41x</span>
@@ -747,7 +749,6 @@
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-yes">41x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -830,8 +831,6 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -846,6 +845,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1414,7 +1418,6 @@ import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/Mult
 import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelector/MultiTypeDelegateSelector'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { TemplateStepNode } from 'services/pipeline-ng'
-import { getStepType } from '@pipeline/utils/templateUtils'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 &nbsp;
@@ -1497,14 +1500,16 @@ export function StepForm({
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier } = useParams&lt;ProjectPathProps&gt;()
   const { expressions } = useVariablesExpression()
-  const type = getStepType(allValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tep)
-&nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if ((allValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tep as TemplateStepNode)<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate) {
+  <span class="missing-if-branch" title="if path not taken" >I</span>if ((allValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tep as unknown as TemplateStepNode)<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>emplate) {
 <span class="cstat-no" title="statement not covered" >    return (</span>
       &lt;StepForm
-        template={{ step: (template?.step as TemplateStepNode)?.template?.templateInputs as StepElementConfig }}
-        allValues={{ step: (allValues?.step as TemplateStepNode)?.template?.templateInputs as StepElementConfig }}
-        values={{ step: (values?.step as TemplateStepNode)?.template?.templateInputs as StepElementConfig }}
+        template={{
+          step: (template?.step as unknown as TemplateStepNode)?.template?.templateInputs as StepElementConfig
+        }}
+        allValues={{
+          step: (allValues?.step as unknown as TemplateStepNode)?.template?.templateInputs as StepElementConfig
+        }}
+        values={{ step: (values?.step as unknown as TemplateStepNode)?.template?.templateInputs as StepElementConfig }}
         path={`${path}.template.templateInputs`}
         readonly={readonly}
         viewType={viewType}
@@ -1513,6 +1518,7 @@ export function StepForm({
       /&gt;
     )
   } else {
+    const type = (allValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tep as StepElementConfig)<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype as StepType
     return (
       &lt;Layout.Vertical spacing="medium" padding={{ top: 'medium' }}&gt;
         {!hideTitle &amp;&amp; (
@@ -2065,7 +2071,7 @@ export const StageInputSetForm = connect(StageInputSetFormInternal)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jan 06 2022 07:02:04 GMT+0000 (Greenwich Mean Time)
+                at Thu Jan 06 2022 08:05:25 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

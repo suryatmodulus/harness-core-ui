@@ -3365,11 +3365,16 @@ exports[`Dependency InputSet View should render all fields 1`] = `
             class="formGroup lg"
           >
             <div>
-              <p
-                class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="limitCPULabel"
               >
-                pipelineSteps.limitCPULabel
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main inpLabel StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold"
+                >
+                  pipelineSteps.limitCPULabel
+                </p>
+              </div>
               <div
                 style="display: flex; align-items: center;"
               >

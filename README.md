@@ -1,4 +1,4 @@
-# Harness Next Gen UI
+# Harness Next Gen UI 
 
 Grouped Code Coverage report for master branch: [Coverage Report](https://github.com/wings-software/nextgenui/wiki/Coverage)
 

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.18% </span>
+                <span class="strong">70.94% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>160/228</span>
+                <span class='fraction'>166/234</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.69% </span>
+                <span class="strong">48.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>180/394</span>
+                <span class='fraction'>194/400</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.67% </span>
+                <span class="strong">59.38% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>17/30</span>
+                <span class='fraction'>19/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.18% </span>
+                <span class="strong">70.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>160/228</span>
+                <span class='fraction'>165/233</span>
             </div>
         
             
@@ -849,7 +849,17 @@
 <a name='L790'></a><a href='#L790'>790</a>
 <a name='L791'></a><a href='#L791'>791</a>
 <a name='L792'></a><a href='#L792'>792</a>
-<a name='L793'></a><a href='#L793'>793</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L793'></a><a href='#L793'>793</a>
+<a name='L794'></a><a href='#L794'>794</a>
+<a name='L795'></a><a href='#L795'>795</a>
+<a name='L796'></a><a href='#L796'>796</a>
+<a name='L797'></a><a href='#L797'>797</a>
+<a name='L798'></a><a href='#L798'>798</a>
+<a name='L799'></a><a href='#L799'>799</a>
+<a name='L800'></a><a href='#L800'>800</a>
+<a name='L801'></a><a href='#L801'>801</a>
+<a name='L802'></a><a href='#L802'>802</a>
+<a name='L803'></a><a href='#L803'>803</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1198,6 +1208,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">82x</span>
+<span class="cline-any cline-yes">82x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">82x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1275,9 +1297,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1662,7 +1682,7 @@ import {
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
-import { defaultTo, pick } from 'lodash-es'
+import { defaultTo, isEmpty, pick } from 'lodash-es'
 import { Page, StringUtils, useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import {
@@ -1990,6 +2010,18 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
   }
 &nbsp;
   const { data: deploymentTypeResponse, loading: isFetchingDeploymentTypes } = useGetServiceDefinitionTypes({})
+  const [deploymentTypeSelectOptions, setDeploymentTypeSelectOptions] = React.useState&lt;SelectOption[]&gt;([])
+&nbsp;
+  React.useEffect(() =&gt; {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!isEmpty(deploymentTypeResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata) &amp;&amp; deploymentTypeResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata) {
+      const options: SelectOption[] = deploymentTypeResponse.data.map(type =&gt; ({
+        label: type === 'NativeHelm' ? getString('pipeline.nativeHelm') : getString('kubernetesText'),
+        value: type as string
+      }))
+      setDeploymentTypeSelectOptions(options)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deploymentTypeResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata])
 &nbsp;
   const {
     data: servicesResponse,
@@ -2065,11 +2097,9 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
             initialValues={{
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
               services: getMultiSelectFormOptions(servicesResponse?.data?.content),
-              deploymentType: getMultiSelectFormOptions(
-                NG_NATIVE_HELM
-                  ? deploymentTypeResponse?.data
-                  : deploymentTypeResponse?.data?.filter(<span class="fstat-no" title="function not covered" >deploymentType </span>=&gt; <span class="cstat-no" title="statement not covered" >deploymentType !== 'NativeHelm')</span>
-              )
+              deploymentType: NG_NATIVE_HELM
+                ? deploymentTypeSelectOptions
+                : deploymentTypeSelectOptions.filter(<span class="fstat-no" title="function not covered" >deploymentType </span>=&gt; <span class="cstat-no" title="statement not covered" >deploymentType.value !== 'NativeHelm')</span>
             }}
             type="PipelineSetup"
           /&gt;
@@ -2440,7 +2470,7 @@ export default PipelinesPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jan 06 2022 12:16:48 GMT+0000 (Greenwich Mean Time)
+                at Thu Jan 06 2022 17:26:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

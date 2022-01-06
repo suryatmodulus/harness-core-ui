@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.49% </span>
+                <span class="strong">71.6% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>122/166</span>
+                <span class='fraction'>116/162</span>
             </div>
         
             
@@ -132,23 +132,12 @@
 <a name='L73'></a><a href='#L73'>73</a>
 <a name='L74'></a><a href='#L74'>74</a>
 <a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">74x</span>
+<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">74x</span>
 <span class="cline-any cline-yes">74x</span>
 <span class="cline-any cline-yes">74x</span>
 <span class="cline-any cline-yes">74x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">74x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">74x</span>
@@ -202,6 +191,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -223,13 +213,7 @@ import { getScopeFromValue } from '@common/components/EntityReference/EntityRefe
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { GitRepoName, ManifestStoreMap } from '../Manifesthelper'
-import type {
-  CommandFlags,
-  HelmWithGcsDataType,
-  HelmWithGITDataType,
-  HelmWithHTTPDataType,
-  HelmWithS3DataType
-} from '../ManifestInterface'
+import type { CommandFlags, HelmWithGcsDataType, HelmWithGITDataType, HelmWithHTTPDataType } from '../ManifestInterface'
 &nbsp;
 const getRepoNameBasedonScope = (initialValues: ManifestConfig, prevStepData: any): string =&gt; {
   const connectorScope = getScopeFromValue(initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec.store?.spec.connectorRef)
@@ -275,25 +259,26 @@ export const getRepositoryName = (prevStepData: any, initialValues: ManifestConf
 &nbsp;
 export const handleCommandFlagsSubmitData = (
   manifestObj: ManifestConfigWrapper,
-  formData: (HelmWithGcsDataType | HelmWithHTTPDataType | HelmWithS3DataType | HelmWithGITDataType) &amp; {
+  formData: (HelmWithGcsDataType | HelmWithGITDataType | HelmWithHTTPDataType) &amp; {
     store?: string
     connectorRef?: string
   }
 ): void =&gt; {
   if (formData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommandFlags.length &amp;&amp; formData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommandFlags[0].commandType) {
-    ;(manifestObj<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>anifest<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as any).commandFlags = formData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommandFlags.map((commandFlag: CommandFlags) =&gt;
-      commandFlag.commandType &amp;&amp; commandFlag.flag
-        ? {
-            commandType: commandFlag.commandType,
-            flag: commandFlag.flag
-          }
-        : <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
+    ;(manifestObj.manifest as ManifestConfig).spec.commandFlags = formData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommandFlags.map(
+      (commandFlag: CommandFlags) =&gt;
+        commandFlag.commandType &amp;&amp; commandFlag.flag
+          ? {
+              commandType: commandFlag.commandType,
+              flag: commandFlag.flag
+            }
+          : <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
     )
     const filteredCommandFlags = manifestObj<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>anifest<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommandFlags.filter(
       (currFlag: CommandFlags) =&gt; !isEmpty(currFlag)
     )
     <span class="missing-if-branch" title="if path not taken" >I</span>if (filteredCommandFlags.length === 0) {
-<span class="cstat-no" title="statement not covered" >      delete (manifestObj?.manifest?.spec as any).commandFlags</span>
+      delete <span class="cstat-no" title="statement not covered" >manifestObj?.manifest?.spec?.commandFlags</span>
     }
   }
 }
@@ -304,7 +289,7 @@ export const handleCommandFlagsSubmitData = (
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jan 06 2022 12:16:48 GMT+0000 (Greenwich Mean Time)
+                at Thu Jan 06 2022 17:26:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

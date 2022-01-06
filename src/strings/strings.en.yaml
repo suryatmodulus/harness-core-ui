@@ -989,7 +989,6 @@ validation:
   uniqueStepAndServiceDependenciesId: Identifier should be unique across the steps and service dependencies
   uniqueKeys: Keys should be unique
   uniqueValues: Values should be unique
-  matchPattern: Invalid value. See info above to learn more
   duplicateIdError: 'Failed to create Connector: {{ connectorName }}. There is already a Connector with identifier {{ connectorIdentifier }} present or soft deleted. Please provide a new unique identifier and save again.'
   username: 'Username is required'
   password: 'Password is required'

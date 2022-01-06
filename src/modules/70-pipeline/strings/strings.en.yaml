@@ -770,6 +770,8 @@ stepCommonFields:
   ifNotPresent: 'If Not Present'
   validation:
     mustBeANumber: '{{label}} must be a number'
+    invalidLimitMemory: Invalid Limit Memory. To learn more, hover over the Set Container Resources tooltip.
+    invalidLimitCPU: Invalid Limit CPU. To learn more, hover over the Set Container Resources tooltip.
 ciCodebase:
   prCloneStrategy: Pull Request Clone Strategy
   buildType: CI Codebase Build Type

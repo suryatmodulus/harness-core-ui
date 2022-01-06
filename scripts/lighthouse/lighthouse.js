@@ -3,9 +3,13 @@ const lighthouse = require('lighthouse')
 const reportGenerator = require('lighthouse/lighthouse-core/report/report-generator')
 const QA_URL = 'https://qa.harness.io/ng/'
 const PROD_URL = 'https://app.harness.io/ng/'
+const dbConnection = require('./connection')
 const fs = require('fs')
-const PROD_PAGES = ['/home/projects', '/home/get-started']
-const lighthouseRunTimes = 3
+const PROD_PAGES = [
+  { name: 'home', url: '/home/projects' },
+  { name: 'getstarted', url: '/home/get-started' }
+]
+const lighthouseRunTimes = 1
 const acceptableChange = process.env.LIGHT_HOUSE_ACCEPTANCE_CHANGE
   ? parseInt(process.env.LIGHT_HOUSE_ACCEPTANCE_CHANGE)
   : 5
@@ -22,7 +26,7 @@ async function run() {
     url = QA_URL
     passWord = process.env.PASSWORD
   } else {
-    passWord = process.env.LIGHT_HOUSE_SECRET
+    passWord = 'Harness@123'
   }
   if (!url) {
     throw 'Please provide URL as a first argument'
@@ -41,7 +45,7 @@ async function run() {
     const map = new Map()
     if (!isQA) {
       PROD_PAGES.map(value => {
-        map.set(`${url}${value}`, scores)
+        map.set(value.name, { url: `${url}${value.url}`, ...scores })
       })
     }
     return map
@@ -111,8 +115,8 @@ async function run() {
   const runLightHouseOnPages = async (numberOfTimes, map) => {
     for (let key of map.keys()) {
       try {
-        const result = await runLightHouseNtimes(numberOfTimes, key)
-        map.set(key, getFilterResults(result))
+        const result = await runLightHouseNtimes(numberOfTimes, map.get(key).url)
+        map.set(key, { ...map.get(key), ...getFilterResults(result) })
       } catch (e) {
         console.log(e)
         process.exit(1)
@@ -123,8 +127,8 @@ async function run() {
 
   const runLightHouseNtimesAndGetResults = async (numberOfTimes, passedUrl) => {
     const browser = await puppeteer.launch({
-      headless: true,
-      executablePath: '/usr/bin/google-chrome',
+      headless: false,
+      //executablePath: '/usr/bin/google-chrome',
       args: ['--no-sandbox', `--remote-debugging-port=${PORT}`]
     })
     let page = await browser.newPage()
@@ -163,6 +167,10 @@ async function run() {
 
   if (!isQA) {
     let finalResults = await runLightHouseNtimesAndGetResults(lighthouseRunTimes, url)
+
+    console.log(finalResults)
+    dbConnection.insertDataintoDB(finalResults)
+    //process.exit(1)
     let finalReport = `| Source | Performance | Accessibility | Best Practices | SEO | Time To Interactive | First ContentFul Paint | First Meaningful Paint |
 |--------|-------------|---------------|----------------|-----|---------------------|------------------------|------------------------|
 `

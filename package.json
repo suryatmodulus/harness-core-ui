@@ -77,7 +77,9 @@
     "generate-microfrontend-types": "rm -rf src/microfrontends/dist && webpack --config src/microfrontends/webpack.config.js",
     "publish-types": "yarn generate-microfrontend-types; yarn publish src/microfrontends;",
     "generate-certificate": "sh scripts/generate-certificate.sh",
-    "build-docker": "sh scripts/docker-build.sh"
+    "build-docker": "sh scripts/docker-build.sh",
+    "sqltest": "node scripts/lighthouse/connection.js",
+    "lighthouse": "node scripts/lighthouse/lighthouse.js"
   },
   "dependencies": {
     "@blueprintjs/core": "3.26.1",
@@ -229,6 +231,7 @@
     "mini-css-extract-plugin": "^2.4.2",
     "monaco-editor-webpack-plugin": "1.8.*",
     "mustache": "^4.0.1",
+    "mysql": "^2.18.1",
     "npm-run-all": "^4.1.5",
     "null-loader": "^4.0.1",
     "nyc": "^15.1.0",

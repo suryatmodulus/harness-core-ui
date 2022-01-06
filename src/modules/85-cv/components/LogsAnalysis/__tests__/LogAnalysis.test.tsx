@@ -1,12 +1,14 @@
 import React from 'react'
+import userEvent from '@testing-library/user-event'
 import { render, waitFor, screen, fireEvent, act } from '@testing-library/react'
+import type * as cvServices from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
 import LogAnalysis from '@cv/components/LogsAnalysis/LogAnalysis'
 import {
   mockedClustersData,
   mockedHealthSourcesData
 } from '@cv/pages/monitored-service/components/ServiceHealth/components/MetricsAndLogs/__tests__/MetricsAndLogs.mock'
-import type { LogAnalysisProps } from '../LogAnalysis.types'
+import { LogAnalysisProps, LogEvents } from '../LogAnalysis.types'
 import { mockedLogAnalysisData } from './LogAnalysis.mocks'
 
 const WrapperComponent = (props: LogAnalysisProps): JSX.Element => {
@@ -20,18 +22,19 @@ const WrapperComponent = (props: LogAnalysisProps): JSX.Element => {
 jest.mock('highcharts-react-official', () => () => <></>)
 const fetchLogAnalysis = jest.fn()
 const fetchClusterData = jest.fn()
+let useGetAllLogsClusterDataQueryParams: cvServices.GetAllLogsClusterDataQueryParams | undefined
+let useGetAllLogsDataQueryParams: cvServices.GetAllLogsDataQueryParams | undefined
 
 jest.mock('services/cv', () => ({
-  useGetAllLogsData: jest.fn().mockImplementation(() => ({
-    data: mockedLogAnalysisData,
-    loading: false,
-    error: null,
-    refetch: fetchLogAnalysis
-  })),
+  useGetAllLogsData: jest.fn().mockImplementation(props => {
+    useGetAllLogsDataQueryParams = props.queryParams
+    return { data: mockedLogAnalysisData, loading: false, error: null, refetch: fetchLogAnalysis }
+  }),
   useGetAllHealthSourcesForServiceAndEnvironment: jest.fn().mockImplementation(() => {
     return { data: mockedHealthSourcesData, error: null, loading: false }
   }),
-  useGetAllLogsClusterData: jest.fn().mockImplementation(() => {
+  useGetAllLogsClusterData: jest.fn().mockImplementation(props => {
+    useGetAllLogsClusterDataQueryParams = props.queryParams
     return { data: mockedClustersData, error: null, loading: false, refetch: fetchClusterData }
   })
 }))
@@ -100,5 +103,24 @@ describe('Unit tests for LogAnalysisContainer', () => {
       el => el.logData.tag === 'UNKNOWN'
     )
     await waitFor(() => expect(getAllByText('Unknown')).toHaveLength(unknownClusterTypeMockedData.length))
+  })
+
+  test('it should not pass field clusterTypes to BE for event type All', () => {
+    render(<WrapperComponent {...props} />)
+
+    const clusterTypeFilterDropdown = screen.getByPlaceholderText(
+      'pipeline.verification.logs.filterByClusterType'
+    ) as HTMLInputElement
+
+    expect(clusterTypeFilterDropdown.value).toBe('pipeline.verification.logs.unknownEvent')
+    expect(useGetAllLogsClusterDataQueryParams?.clusterTypes).toEqual([LogEvents.UNKNOWN])
+    expect(useGetAllLogsDataQueryParams?.clusterTypes).toEqual([LogEvents.UNKNOWN])
+
+    userEvent.click(clusterTypeFilterDropdown)
+    userEvent.click(screen.getByText('pipeline.verification.logs.allEvents'))
+
+    expect(clusterTypeFilterDropdown.value).toBe('pipeline.verification.logs.allEvents')
+    expect(useGetAllLogsClusterDataQueryParams).not.toHaveProperty('clusterTypes')
+    expect(useGetAllLogsDataQueryParams).not.toHaveProperty('clusterTypes')
   })
 })

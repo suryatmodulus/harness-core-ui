@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.29% </span>
+                <span class="strong">83.87% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/34</span>
+                <span class='fraction'>26/31</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.29% </span>
+                <span class="strong">58.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>9/14</span>
+                <span class='fraction'>7/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.29% </span>
+                <span class="strong">83.87% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/34</span>
+                <span class='fraction'>26/31</span>
             </div>
         
             
@@ -333,12 +333,9 @@
 <a name='L274'></a><a href='#L274'>274</a>
 <a name='L275'></a><a href='#L275'>275</a>
 <a name='L276'></a><a href='#L276'>276</a>
-<a name='L277'></a><a href='#L277'>277</a>
-<a name='L278'></a><a href='#L278'>278</a>
-<a name='L279'></a><a href='#L279'>279</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">61x</span>
+<a name='L277'></a><a href='#L277'>277</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-yes">61x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -358,6 +355,12 @@
 <span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">61x</span>
@@ -368,18 +371,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -426,7 +422,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">111x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -492,7 +488,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">150x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -623,7 +619,6 @@ import {
   getMultiTypeFromValue,
   Layout,
   MultiTypeInputType,
-  SelectOption,
   Text
 } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
@@ -636,15 +631,16 @@ import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/Mu
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 &nbsp;
-import type { ShellScriptFormData, ShellScriptOutputStepVariable, ShellScriptStepVariable } from './shellScriptTypes'
+import {
+  scriptInputType,
+  scriptOutputType,
+  ShellScriptFormData,
+  ShellScriptOutputStepVariable,
+  ShellScriptStepVariable
+} from './shellScriptTypes'
 &nbsp;
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './ShellScript.module.scss'
-&nbsp;
-export const scriptInputType: SelectOption[] = [
-  { label: 'String', value: 'String' },
-  { label: 'Number', value: 'Number' }
-]
 &nbsp;
 export const targetTypeOptions: IOptionProps[] = [
   {
@@ -656,8 +652,6 @@ export const targetTypeOptions: IOptionProps[] = [
     value: 'delegate'
   }
 ]
-&nbsp;
-export const scriptOutputType: SelectOption[] = [{ label: 'String', value: 'String' }]
 &nbsp;
 export default function OptionalConfiguration(props: {
   formik: FormikProps&lt;ShellScriptFormData&gt;
@@ -704,7 +698,7 @@ export default function OptionalConfiguration(props: {
                           &lt;FormInput.MultiTextInput
                             name={`spec.environmentVariables[${i}].value`}
                             multiTextInputProps={{
-                              allowableTypes: allowableTypes.filter(item =&gt; item !== MultiTypeInputType.RUNTIME),
+                              allowableTypes,
                               expressions,
                               disabled: readonly
                             }}
@@ -770,7 +764,7 @@ export default function OptionalConfiguration(props: {
                           &lt;FormInput.MultiTextInput
                             name={`spec.outputVariables[${i}].value`}
                             multiTextInputProps={{
-                              allowableTypes: allowableTypes.filter(item =&gt; item !== MultiTypeInputType.RUNTIME),
+                              allowableTypes,
                               expressions,
                               disabled: readonly
                             }}
@@ -898,7 +892,7 @@ export default function OptionalConfiguration(props: {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jan 07 2022 08:36:17 GMT+0000 (Greenwich Mean Time)
+                at Fri Jan 07 2022 10:24:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

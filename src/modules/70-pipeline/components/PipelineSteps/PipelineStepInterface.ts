@@ -19,6 +19,7 @@ export enum StepType {
   CustomVariable = 'CustomVariable',
   Dependency = 'Service',
   Plugin = 'Plugin',
+  Security = 'Security',
   Run = 'Run',
   GCR = 'BuildAndPushGCR',
   ECR = 'BuildAndPushECR',

@@ -16,6 +16,10 @@
             "name": "Plugin"
           },
           {
+            "type": "Security",
+            "name": "Security"
+          },
+          {
             "type": "RestoreCacheS3",
             "name": "Restore Cache From S3"
           },

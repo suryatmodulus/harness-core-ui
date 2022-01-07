@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.58% </span>
+                <span class="strong">82.93% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>31/38</span>
+                <span class='fraction'>34/41</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.58% </span>
+                <span class="strong">82.93% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/38</span>
+                <span class='fraction'>34/41</span>
             </div>
         
             
@@ -172,7 +172,24 @@
 <a name='L113'></a><a href='#L113'>113</a>
 <a name='L114'></a><a href='#L114'>114</a>
 <a name='L115'></a><a href='#L115'>115</a>
-<a name='L116'></a><a href='#L116'>116</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -181,6 +198,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -232,6 +251,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -294,16 +328,18 @@ import { Page } from '@common/exports'
 import { useGetAuditList } from 'services/audit'
 import { useStrings } from 'framework/strings'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import type { AuditFilterProperties } from 'services/audit'
 import { useMutateAsGet } from '@common/hooks'
 import AuditTrailsFilters from '@audit-trail/components/AuditTrailsFilters'
+import ScopedTitle from '@common/components/Title/ScopedTitle'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import AuditTrailsListView from './views/AuditTrailsListView'
 import AuditTrailsEmptyState from './audit_trails_empty_state.png'
 import css from './AuditTrailsPage.module.scss'
 &nbsp;
 const AuditTrailsPage: React.FC = () =&gt; {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
+  const { accountId, orgIdentifier } = useParams&lt;OrgPathProps&gt;()
   const [selectedFilterProperties, setSelectedFilterProperties] = useState&lt;AuditFilterProperties&gt;()
   const [page, setPage] = useState(0)
   const { getString } = useStrings()
@@ -338,7 +374,7 @@ const AuditTrailsPage: React.FC = () =&gt; {
       pageIndex: page
     },
     body: {
-      scopes: [{ accountIdentifier: accountId, orgIdentifier, projectIdentifier }],
+      scopes: [{ accountIdentifier: accountId, orgIdentifier }],
       ...selectedFilterProperties,
       filterType: 'Audit',
       startTime: startDate.getTime(),
@@ -346,16 +382,32 @@ const AuditTrailsPage: React.FC = () =&gt; {
     }
   })
 &nbsp;
+  const auditTrailTitle = getString('common.auditTrail')
   return (
     &lt;&gt;
       &lt;Page.Header
-        title={getString('common.auditTrail')}
+        title={
+          &lt;ScopedTitle
+            title={{
+              [Scope.ACCOUNT]: auditTrailTitle,
+              [Scope.PROJECT]: auditTrailTitle,
+              [Scope.ORG]: auditTrailTitle
+            }}
+          /&gt;
+        }
         breadcrumbs={&lt;NGBreadcrumbs /&gt;}
         // content={
-        //   &lt;Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_600}&gt;
+        //   &lt;Text margin={{ right: 'tiny' }} font={{ variation: FontVariation.SMALL }} color={Color.GREY_600}&gt;
         //     {getString('auditTrail.externalDataText')}
-        //     &lt;a target="_blank" href="https://harness.io/docs/api/tag/Audits" rel="noreferrer"&gt;
+        //     &lt;a className={css.link} target="_blank" href="https://harness.io/docs/api/tag/Audits" rel="noreferrer"&gt;
         //       {` ${getString('auditTrail.auditLogAPI')}`}
+        //       &lt;Icon
+        //         className={css.launchIcon}
+        //         margin={{ left: 'tiny', bottom: 'tiny' }}
+        //         color={Color.PRIMARY_7}
+        //         name="launch"
+        //         size={12}
+        //       /&gt;
         //     &lt;/a&gt;
         //   &lt;/Text&gt;
         // }
@@ -363,7 +415,6 @@ const AuditTrailsPage: React.FC = () =&gt; {
       &lt;Page.SubHeader className={css.subHeaderContainer}&gt;
         &lt;Layout.Horizontal flex className={css.subHeader}&gt;
           &lt;DateRangePickerButton
-            width={240}
             className={css.dateRange}
             initialButtonText={getString('common.last7days')}
             dateRangePickerProps={{ defaultValue: [startDate, endDate] }}
@@ -409,7 +460,7 @@ export default AuditTrailsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jan 07 2022 16:21:18 GMT+0000 (Greenwich Mean Time)
+                at Fri Jan 07 2022 17:33:49 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

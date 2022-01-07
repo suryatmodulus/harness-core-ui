@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.67% </span>
+                <span class="strong">90.59% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>68/75</span>
+                <span class='fraction'>77/85</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.89% </span>
+                <span class="strong">75.44% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>85/112</span>
+                <span class='fraction'>86/114</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.67% </span>
+                <span class="strong">90.59% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>68/75</span>
+                <span class='fraction'>77/85</span>
             </div>
         
             
@@ -340,10 +340,7 @@
 <a name='L281'></a><a href='#L281'>281</a>
 <a name='L282'></a><a href='#L282'>282</a>
 <a name='L283'></a><a href='#L283'>283</a>
-<a name='L284'></a><a href='#L284'>284</a>
-<a name='L285'></a><a href='#L285'>285</a>
-<a name='L286'></a><a href='#L286'>286</a>
-<a name='L287'></a><a href='#L287'>287</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L284'></a><a href='#L284'>284</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -381,6 +378,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -596,7 +596,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -604,23 +603,18 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -633,7 +627,7 @@
 import cx from 'classnames'
 import { Container, Text, Page } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { pick } from 'lodash-es'
+import { get, pick } from 'lodash-es'
 import {
   CcmMetaData,
   StatsInfo,
@@ -668,6 +662,9 @@ import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStor
 import type { TrialBannerProps } from '@projects-orgs/pages/HomePageTemplate/HomePageTemplate'
 import type { Editions } from '@common/constants/SubscriptionTypes'
 import { useGetUsageAndLimit } from '@auth-settings/hooks/useGetUsageAndLimit'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import FeatureWarningUpgradeBanner from '@common/components/FeatureWarning/FeatureWarningUpgradeBanner'
+import { ENFORCEMENT_USAGE_THRESHOLD } from '@ce/constants'
 import bgImage from './images/CD/overviewBg.png'
 import css from './Overview.module.scss'
 &nbsp;
@@ -882,7 +879,6 @@ const OverviewPage: React.FC = () =&gt; {
 // Also, there are certain TODOs in this component, complete them
 // for full functionality
 &nbsp;
-// const USAGE_THRESHOLD = 90 // in percentage
 const CEUsageInfo = () =&gt; {
   const { limitData, usageData } = useGetUsageAndLimit(ModuleName.CE)
   const isLoading = limitData.loadingLimit || usageData.loadingUsage
@@ -890,28 +886,23 @@ const CEUsageInfo = () =&gt; {
 <span class="cstat-no" title="statement not covered" >    return null</span>
   }
 &nbsp;
-  // TODO: make use of usage and limit to calculate the percentage threshold.
-  //
-  // const { usage } = usageData
-  // const { limit } = limitData
-  // const usagePercentage = (usage / limit) * 100
-  // if (usagePercentage &lt; USAGE_THRESHOLD) {
-  //   return null
-  // }
+  const { usage } = usageData
+  const { limit } = limitData
 &nbsp;
-  // TODO:
-  // This is temporary
-  // once useGetUsageAndLimit(ModuleName.CE) begins to work
-  // return the actual component below.
-  // Make sure to replace the 250k/250k with actual values of `usage` and `limit`
-  return null
+  const usageCost = get(usage, 'ccm.activeSpend.count', 0)
+  const limitCost = get(limit, 'ccm.totalSpendLimit', 1)
 &nbsp;
-  // return (
-  //   &lt;FeatureWarningUpgradeBanner
-  //     featureName={FeatureIdentifier.PERSPECTIVES}
-  //     message={`You have used $250K / $250K free cloud spend incuded in your current plan. Consider upgrading to manage higher cloud spend.`}
-  //   /&gt;
-  // )
+  const usagePercentage = (usageCost / limitCost) * 100
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (usagePercentage &lt; ENFORCEMENT_USAGE_THRESHOLD) {
+    return null
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;FeatureWarningUpgradeBanner
+      featureName={FeatureIdentifier.PERSPECTIVES}
+      message={`You have used ${usageCost} / ${limitCost} free cloud spend incuded in your current plan. Consider upgrading to manage higher cloud spend.`}
+    /&gt;
+  )
 }
 &nbsp;
 export default OverviewPage
@@ -922,7 +913,7 @@ export default OverviewPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jan 07 2022 14:41:21 GMT+0000 (Greenwich Mean Time)
+                at Fri Jan 07 2022 15:32:32 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

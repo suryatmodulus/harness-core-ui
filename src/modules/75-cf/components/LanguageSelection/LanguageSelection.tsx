@@ -11,6 +11,7 @@ import ios from './icons/ios.svg'
 import java from './icons/java.svg'
 import javascript from './icons/javascript.svg'
 import nodejs from './icons/nodejs.svg'
+import reactnative from './icons/reactnative.svg'
 import css from './LanguageSelection.module.scss'
 
 export enum PlatformEntryType {
@@ -79,6 +80,12 @@ export const SupportPlatforms = [
     icon: ios,
     type: PlatformEntryType.CLIENT,
     readmeStringId: 'cf.onboarding.readme.ios'
+  },
+  {
+    name: 'React Native',
+    icon: reactnative,
+    type: PlatformEntryType.CLIENT,
+    readmeStringId: 'cf.onboarding.readme.reactnative'
   }
 ].sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1)) as Array<PlatformEntry>
 

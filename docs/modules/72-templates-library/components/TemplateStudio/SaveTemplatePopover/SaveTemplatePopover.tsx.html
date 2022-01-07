@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.47% </span>
+                <span class="strong">77.36% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>39/51</span>
+                <span class='fraction'>41/53</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76% </span>
+                <span class="strong">76.92% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>38/50</span>
+                <span class='fraction'>40/52</span>
             </div>
         
             
@@ -234,7 +234,11 @@
 <a name='L175'></a><a href='#L175'>175</a>
 <a name='L176'></a><a href='#L176'>176</a>
 <a name='L177'></a><a href='#L177'>177</a>
-<a name='L178'></a><a href='#L178'>178</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -252,6 +256,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -267,6 +272,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
@@ -339,6 +345,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -346,6 +353,7 @@
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -428,6 +436,7 @@ import {
 import { useSaveTemplate } from '@pipeline/utils/useSaveTemplate'
 import type { Failure } from 'services/template-ng'
 import { DefaultNewTemplateId } from 'framework/Templates/templates'
+import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import css from './SaveTemplatePopover.module.scss'
 export interface GetErrorResponse extends Omit&lt;Failure, 'errors'&gt; {
   errors?: FormikErrors&lt;unknown&gt;
@@ -452,6 +461,7 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
   const [menuOpen, setMenuOpen] = React.useState(false)
   const [saveOptions, setSaveOptions] = React.useState&lt;TemplateMenuItem[]&gt;([])
   const [disabled, setDisabled] = React.useState&lt;boolean&gt;(false)
+  const { isGitSyncEnabled } = React.useContext(AppStoreContext)
 &nbsp;
   const [showConfigModal, hideConfigModal] = useModalHook(
 <span class="fstat-no" title="function not covered" >    () =</span>&gt; (
@@ -514,7 +524,8 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
         title: getString('templatesLibrary.saveAsNewLabelModal.heading'),
         promise: saveAndPublish,
         disabledFields: [Fields.Name, Fields.Identifier, Fields.Description, Fields.Tags],
-        emptyFields: [Fields.VersionLabel]
+        emptyFields: [Fields.VersionLabel],
+        shouldGetComment: !isGitSyncEnabled
       })
 <span class="cstat-no" title="statement not covered" >      showConfigModal()</span>
     })
@@ -525,7 +536,8 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
 <span class="cstat-no" title="statement not covered" >      setModalProps({</span>
         title: getString('common.template.saveAsNewTemplateHeading'),
         promise: saveAndPublish,
-        emptyFields: [Fields.Name, Fields.Identifier, Fields.VersionLabel]
+        emptyFields: [Fields.Name, Fields.Identifier, Fields.VersionLabel],
+        shouldGetComment: !isGitSyncEnabled
       })
 <span class="cstat-no" title="statement not covered" >      showConfigModal()</span>
     })
@@ -595,7 +607,7 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jan 07 2022 11:47:52 GMT+0000 (Greenwich Mean Time)
+                at Fri Jan 07 2022 14:01:25 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.12% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/17</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.45% </span>
+                <span class="strong">16.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/22</span>
+                <span class='fraction'>1/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -198,14 +198,12 @@
 <a name='L139'></a><a href='#L139'>139</a>
 <a name='L140'></a><a href='#L140'>140</a>
 <a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a>
-<a name='L145'></a><a href='#L145'>145</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L142'></a><a href='#L142'>142</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -231,11 +229,7 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -345,10 +339,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Card, Color, FontVariation, FormInput, Heading, Icon, Layout, Text, Container } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { SLOTargetChart } from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
+import SLOTargetChartWrapper from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
 import {
   getPeriodLengthOptions,
   getPeriodLengthOptionsForRolling,
@@ -356,7 +350,8 @@ import {
   getWindowEndOptionsForMonth,
   getWindowEndOptionsForWeek,
   getErrorBudget,
-  getCustomOptionsForSLOTargetChart
+  getCustomOptionsForSLOTargetChart,
+  convertSLOFormDataToServiceLevelIndicatorDTO
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
 import {
   SLOTargetAndBudgetPolicyProps,
@@ -370,14 +365,9 @@ import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 // SONAR recommendation
 const flexStart = 'flex-start'
 &nbsp;
-const SLOTargetAndBudgetPolicy: React.FC&lt;SLOTargetAndBudgetPolicyProps&gt; = ({ children, formikProps, sliGraphData }) =&gt; {
+const SLOTargetAndBudgetPolicy: React.FC&lt;SLOTargetAndBudgetPolicyProps&gt; = ({ children, formikProps }) =&gt; {
   const { getString } = useStrings()
   const { periodType, periodLengthType } = formikProps.values
-&nbsp;
-  const dataPoints = useMemo(
-    () =&gt; <span class="branch-1 cbranch-no" title="branch not covered" >sliGraphData?.dataPoints<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.map(<span class="fstat-no" title="function not covered" >point </span>=&gt; <span class="cstat-no" title="statement not covered" >[Number(point.timeStamp) || 0, Number(point.value) || 0])</span>,</span>
-    [<span class="branch-1 cbranch-no" title="branch not covered" >sliGraphData?.dataPoints]</span>
-  )
 &nbsp;
   return (
     &lt;&gt;
@@ -447,9 +437,10 @@ const SLOTargetAndBudgetPolicy: React.FC&lt;SLOTargetAndBudgetPolicyProps&gt; = 
               /&gt;
               &lt;Layout.Horizontal spacing="xxxlarge" flex={{ alignItems: flexStart, justifyContent: flexStart }}&gt;
                 &lt;Container width={450}&gt;
-                  &lt;SLOTargetChart
+                  &lt;SLOTargetChartWrapper
                     customChartOptions={getCustomOptionsForSLOTargetChart(formikProps.values)}
-                    dataPoints={dataPoints}
+                    monitoredServiceIdentifier={formikProps.values.monitoredServiceRef}
+                    serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}
                     bottomLabel={
                       &lt;Text
                         color={Color.GREY_500}
@@ -496,7 +487,7 @@ export default SLOTargetAndBudgetPolicy
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jan 08 2022 08:13:22 GMT+0000 (Greenwich Mean Time)
+                at Sun Jan 09 2022 14:27:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../../../prettify.js"></script>

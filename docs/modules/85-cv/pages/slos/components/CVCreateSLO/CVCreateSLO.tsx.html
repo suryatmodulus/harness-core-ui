@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.67% </span>
+                <span class="strong">74.32% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>56/75</span>
+                <span class='fraction'>55/74</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.67% </span>
+                <span class="strong">74.32% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>56/75</span>
+                <span class='fraction'>55/74</span>
             </div>
         
             
@@ -365,14 +365,7 @@
 <a name='L306'></a><a href='#L306'>306</a>
 <a name='L307'></a><a href='#L307'>307</a>
 <a name='L308'></a><a href='#L308'>308</a>
-<a name='L309'></a><a href='#L309'>309</a>
-<a name='L310'></a><a href='#L310'>310</a>
-<a name='L311'></a><a href='#L311'>311</a>
-<a name='L312'></a><a href='#L312'>312</a>
-<a name='L313'></a><a href='#L313'>313</a>
-<a name='L314'></a><a href='#L314'>314</a>
-<a name='L315'></a><a href='#L315'>315</a>
-<a name='L316'></a><a href='#L316'>316</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L309'></a><a href='#L309'>309</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -396,12 +389,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -420,14 +407,13 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
@@ -710,13 +696,7 @@ import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import {
-  ServiceLevelObjectiveDTO,
-  TimeGraphResponse,
-  useGetServiceLevelObjective,
-  useSaveSLOData,
-  useUpdateSLOData
-} from 'services/cv'
+import { ServiceLevelObjectiveDTO, useGetServiceLevelObjective, useSaveSLOData, useUpdateSLOData } from 'services/cv'
 import RbacButton from '@rbac/components/Button/Button'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import sloReviewChange from '@cv/assets/sloReviewChange.svg'
@@ -743,7 +723,6 @@ const CVCreateSLO: React.FC = () =&gt; {
   &gt;()
 &nbsp;
   const [selectedTabId, setSelectedTabId] = useState&lt;CreateSLOTabs&gt;(CreateSLOTabs.NAME)
-  const [sliGraphData, setSliGraphData] = useState&lt;TimeGraphResponse&gt;()
 &nbsp;
   const projectIdentifierRef = useRef&lt;string&gt;()
   const sloPayloadRef = useRef&lt;ServiceLevelObjectiveDTO | null&gt;(null)
@@ -970,7 +949,7 @@ const CVCreateSLO: React.FC = () =&gt; {
                       retryOnError={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetchSLOData()}</span>
                       className={css.pageBody}
                     &gt;
-                      &lt;SLI formikProps={formik} sliGraphData={sliGraphData} setSliGraphData={setSliGraphData}&gt;
+                      &lt;SLI formikProps={formik}&gt;
                         &lt;NavButtons formikProps={formik} /&gt;
                       &lt;/SLI&gt;
                     &lt;/Page.Body&gt;
@@ -986,7 +965,7 @@ const CVCreateSLO: React.FC = () =&gt; {
                       retryOnError={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetchSLOData()}</span>
                       className={css.pageBody}
                     &gt;
-                      &lt;SLOTargetAndBudgetPolicy formikProps={formik} sliGraphData={sliGraphData}&gt;
+                      &lt;SLOTargetAndBudgetPolicy formikProps={formik}&gt;
                         &lt;NavButtons formikProps={formik} loading={createSLOLoading || updateSLOLoading} /&gt;
                       &lt;/SLOTargetAndBudgetPolicy&gt;
                     &lt;/Page.Body&gt;
@@ -1009,7 +988,7 @@ export default CVCreateSLO
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jan 08 2022 08:13:22 GMT+0000 (Greenwich Mean Time)
+                at Sun Jan 09 2022 14:27:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

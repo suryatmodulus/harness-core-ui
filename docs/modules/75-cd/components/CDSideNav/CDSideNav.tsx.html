@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">82.98% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/44</span>
+                <span class='fraction'>39/47</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.71% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>16/35</span>
+                <span class='fraction'>20/40</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">82.98% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>36/44</span>
+                <span class='fraction'>39/47</span>
             </div>
         
             
@@ -224,7 +224,9 @@
 <a name='L165'></a><a href='#L165'>165</a>
 <a name='L166'></a><a href='#L166'>166</a>
 <a name='L167'></a><a href='#L167'>167</a>
-<a name='L168'></a><a href='#L168'>168</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -250,6 +252,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -280,7 +283,8 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -417,6 +421,7 @@ import ProjectSetupMenu from '@common/navigation/ProjectSetupMenu/ProjectSetupMe
 import { returnLaunchUrl } from '@common/utils/routeUtils'
 import { LaunchButton } from '@common/components/LaunchButton/LaunchButton'
 import type { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
+import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 &nbsp;
 export default function CDSideNav(): React.ReactElement {
   const params = useParams&lt;
@@ -447,7 +452,8 @@ export default function CDSideNav(): React.ReactElement {
   const { ARGO_PHASE1 } = useFeatureFlags()
   const { getString } = useStrings()
   const { experience } = useQueryParams&lt;{ experience?: ModuleLicenseType }&gt;()
-&nbsp;
+  const { licenseInformation } = useLicenseStore()
+  const isCommunity = isCDCommunity(licenseInformation)
   return (
     &lt;Layout.Vertical spacing="small"&gt;
       &lt;ProjectSelector
@@ -543,11 +549,11 @@ export default function CDSideNav(): React.ReactElement {
       /&gt;
       {projectIdentifier &amp;&amp; orgIdentifier ? (
         &lt;React.Fragment&gt;
-          &lt;SidebarLink label="Overview" to={routes.toProjectOverview({ ...params, module })} /&gt;
+          {!isCommunity &amp;&amp; &lt;SidebarLink label="Overview" to={routes.toProjectOverview({ ...params, module })} /&gt;}
           &lt;SidebarLink label="Deployments" to={routes.toDeployments({ ...params, module })} /&gt;
           &lt;SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} /&gt;
-          &lt;SidebarLink label="Services" to={routes.toServices({ ...params, module })} /&gt;
-          {ARGO_PHASE1 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;SidebarLink label="GitOps" to={routes.toGitOps({ ...params, module })} /&gt;}</span>
+          {!isCommunity &amp;&amp; &lt;SidebarLink label="Services" to={routes.toServices({ ...params, module })} /&gt;}
+          {ARGO_PHASE1 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isCommunity </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >&lt;SidebarLink label="GitOps" to={routes.toGitOps({ ...params, module })} /&gt;}</span>
           &lt;ProjectSetupMenu module={module} /&gt;
         &lt;/React.Fragment&gt;
       ) : null}
@@ -565,7 +571,7 @@ export default function CDSideNav(): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jan 08 2022 08:13:22 GMT+0000 (Greenwich Mean Time)
+                at Sun Jan 09 2022 14:27:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

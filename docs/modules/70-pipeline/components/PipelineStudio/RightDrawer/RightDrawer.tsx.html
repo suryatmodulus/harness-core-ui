@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.64% </span>
+                <span class="strong">64.07% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>189/297</span>
+                <span class='fraction'>189/295</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.63% </span>
+                <span class="strong">47.77% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>514/1057</span>
+                <span class='fraction'>514/1076</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.35% </span>
+                <span class="strong">52.78% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>19/37</span>
+                <span class='fraction'>19/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.08% </span>
+                <span class="strong">64.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>182/284</span>
+                <span class='fraction'>182/282</span>
             </div>
         
             
@@ -851,7 +851,8 @@
 <a name='L792'></a><a href='#L792'>792</a>
 <a name='L793'></a><a href='#L793'>793</a>
 <a name='L794'></a><a href='#L794'>794</a>
-<a name='L795'></a><a href='#L795'>795</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<a name='L795'></a><a href='#L795'>795</a>
+<a name='L796'></a><a href='#L796'>796</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1402,12 +1403,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1657,7 +1659,7 @@ import {
   ButtonVariation,
   ButtonSize
 } from '@wings-software/uicore'
-import { cloneDeep, defaultTo, get, isEmpty, isNil, set, unset } from 'lodash-es'
+import { cloneDeep, defaultTo, get, isEmpty, isEqual, isNil, set } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
 import { parse } from 'yaml'
@@ -1674,7 +1676,7 @@ import { PipelineGovernanceView } from '@governance/PipelineGovernanceView'
 import { getStepPaletteModuleInfosFromStage } from '@pipeline/utils/stepUtils'
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import { useTemplateSelector } from '@pipeline/utils/useTemplateSelector'
-import { getScopeBasedTemplateRef } from '@pipeline/utils/templateUtils'
+import { createTemplate } from '@pipeline/utils/templateUtils'
 import type { TemplateStepNode } from 'services/pipeline-ng'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -2191,24 +2193,25 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
       selectedTemplateRef: getIdentifierFromValue(
         defaultTo((data?.stepConfig?.node as TemplateStepNode)?.template?.templateRef, '')
       ),
-      onUseTemplate: <span class="fstat-no" title="function not covered" >async </span>(templateSummary: TemplateSummaryResponse, isCopied = <span class="branch-0 cbranch-no" title="branch not covered" >false)</span> =&gt; {
+      onUseTemplate: <span class="fstat-no" title="function not covered" >async </span>(template: TemplateSummaryResponse, isCopied = <span class="branch-0 cbranch-no" title="branch not covered" >false)</span> =&gt; {
 <span class="cstat-no" title="statement not covered" >        closeTemplateSelector()</span>
         const node = <span class="cstat-no" title="statement not covered" >drawerData.data?.stepConfig?.node as StepOrStepGroupOrTemplateStepData</span>
+<span class="cstat-no" title="statement not covered" >        if (</span>
+          !isCopied &amp;&amp;
+          isEqual((node as TemplateStepNode)?.template?.templateRef, template.identifier) &amp;&amp;
+          isEqual((node as TemplateStepNode)?.template?.versionLabel, template.versionLabel)
+        ) {
+<span class="cstat-no" title="statement not covered" >          return</span>
+        }
         const processNode = <span class="cstat-no" title="statement not covered" >isCopied</span>
-          ? produce(defaultTo(parse(templateSummary?.yaml || '').template.spec, {}) as StepElementConfig, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
+          ? produce(defaultTo(parse(template?.yaml || '').template.spec, {}) as StepElementConfig, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >              draft.name = defaultTo(node?.name, '')</span>
 <span class="cstat-no" title="statement not covered" >              draft.identifier = defaultTo(node?.identifier, '')</span>
             })
-          : produce(node as TemplateStepNode, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >              unset(draft, 'template')</span>
-<span class="cstat-no" title="statement not covered" >              set(draft, 'template.templateRef', getScopeBasedTemplateRef(templateSummary))</span>
-<span class="cstat-no" title="statement not covered" >              if (templateSummary.versionLabel) {</span>
-<span class="cstat-no" title="statement not covered" >                set(draft, 'template.versionLabel', templateSummary.versionLabel)</span>
-              }
-            })
+          : createTemplate&lt;TemplateStepNode&gt;(node as unknown as TemplateStepNode, template)
 <span class="cstat-no" title="statement not covered" >        await updateNode(processNode)</span>
-<span class="cstat-no" title="statement not covered" >        if (!isCopied &amp;&amp; templateSummary?.identifier &amp;&amp; templateSummary?.childType) {</span>
-<span class="cstat-no" title="statement not covered" >          templateTypes[templateSummary.identifier] = templateSummary.childType</span>
+<span class="cstat-no" title="statement not covered" >        if (!isCopied &amp;&amp; template?.identifier &amp;&amp; template?.childType) {</span>
+<span class="cstat-no" title="statement not covered" >          templateTypes[template.identifier] = template.childType</span>
 <span class="cstat-no" title="statement not covered" >          setTemplateTypes(templateTypes)</span>
         }
       }
@@ -2446,7 +2449,7 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jan 08 2022 08:13:22 GMT+0000 (Greenwich Mean Time)
+                at Sun Jan 09 2022 14:27:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

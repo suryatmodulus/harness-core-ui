@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/7</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -103,18 +103,44 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,8 +177,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Color, Container, Text, Layout } from '@wings-software/uicore'
+import { defaultTo } from 'lodash-es'
 import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 &nbsp;
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import css from './TemplateYaml.module.scss'
 &nbsp;
 export interface TemplateYamlProps {
@@ -160,9 +188,16 @@ export interface TemplateYamlProps {
 }
 &nbsp;
 export const TemplateYaml: React.FC&lt;TemplateYamlProps&gt; = ({ templateYaml }) =&gt; {
+  const [height, setHeight] = React.useState&lt;number&gt;()
+&nbsp;
+  React.useEffect(() =&gt; {
+    const stringifiedYaml = yamlStringify(templateYaml) as string
+    setHeight((defaultTo(stringifiedYaml.match(/\n/g)<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength, 0) + 1) * 20)
+  }, [templateYaml])
+&nbsp;
   return (
-    &lt;Container height={'100%'} className={css.container}&gt;
-      &lt;Layout.Vertical height={'100%'} spacing={'medium'}&gt;
+    &lt;Container className={css.container}&gt;
+      &lt;Layout.Vertical spacing={'medium'}&gt;
         &lt;Container
           padding={{ top: 'large', right: 'xxlarge', bottom: 'large', left: 'xxlarge' }}
           border={{ bottom: true }}
@@ -176,7 +211,7 @@ export const TemplateYaml: React.FC&lt;TemplateYamlProps&gt; = ({ templateYaml }
           &lt;MonacoEditor
             value={templateYaml}
             language={'yaml'}
-            height={'100%'}
+            height={height}
             options={
               {
                 classNames: css.editor,
@@ -186,6 +221,10 @@ export const TemplateYaml: React.FC&lt;TemplateYamlProps&gt; = ({ templateYaml }
                   enabled: false
                 },
                 readOnly: true,
+                scrollbar: {
+                  handleMouseWheel: false
+                },
+                overviewRulerLanes: 0,
                 scrollBeyondLastLine: false
               } as any
             }
@@ -202,7 +241,7 @@ export const TemplateYaml: React.FC&lt;TemplateYamlProps&gt; = ({ templateYaml }
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jan 08 2022 08:13:22 GMT+0000 (Greenwich Mean Time)
+                at Sun Jan 09 2022 14:27:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

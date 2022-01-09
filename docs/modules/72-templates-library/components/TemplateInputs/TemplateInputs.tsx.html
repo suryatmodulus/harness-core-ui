@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.87% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>37/39</span>
+                <span class='fraction'>34/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.96% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>31/47</span>
+                <span class='fraction'>30/45</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/5</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.74% </span>
+                <span class="strong">94.29% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>36/38</span>
+                <span class='fraction'>33/35</span>
             </div>
         
             
@@ -227,10 +227,7 @@
 <a name='L168'></a><a href='#L168'>168</a>
 <a name='L169'></a><a href='#L169'>169</a>
 <a name='L170'></a><a href='#L170'>170</a>
-<a name='L171'></a><a href='#L171'>171</a>
-<a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a>
-<a name='L174'></a><a href='#L174'>174</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L171'></a><a href='#L171'>171</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -288,7 +285,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -296,11 +292,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -316,6 +307,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -461,41 +455,38 @@ export const TemplateInputs: React.FC&lt;TemplateInputsProps&gt; = props =&gt; {
   })
 &nbsp;
   React.useEffect(() =&gt; {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (!loading) {
-      try {
-        const templateInput = parse(templateInputYaml<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>
-        setCount((JSON.stringify(templateInput).match(/&lt;\+input&gt;/g) || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>.length)
-        setInputSetTemplate(templateInput)
-      } catch (error) {
-<span class="cstat-no" title="statement not covered" >        showError(error.message, undefined, 'template.parse.inputSet.error')</span>
-      }
+    try {
+      const templateInput = parse(templateInputYaml<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>
+      setCount((JSON.stringify(templateInput).match(/&lt;\+input&gt;/g) || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>.length)
+      setInputSetTemplate(templateInput)
+    } catch (error) {
+<span class="cstat-no" title="statement not covered" >      showError(error.message, undefined, 'template.parse.inputSet.error')</span>
     }
-  }, [loading, templateInputYaml<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata])
-&nbsp;
-  React.useEffect(() =&gt; {
-    refetch()
-  }, [template])
+  }, [templateInputYaml<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata])
 &nbsp;
   return (
     &lt;Container
       style={{ overflow: 'auto' }}
-      height={'100%'}
-      padding={{ top: 'xlarge', left: 'xxlarge', bottom: 'xlarge', right: 'xxlarge' }}
+      padding={{ top: 'xlarge', left: 'xxlarge', right: 'xxlarge' }}
       className={css.container}
     &gt;
-      &lt;Layout.Vertical flex={{ align: 'center-center' }} height={'100%'}&gt;
+      &lt;Layout.Vertical&gt;
         {loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;PageSpinner /&gt;}</span>
         {!loading &amp;&amp; inputSetError &amp;&amp; (
-<span class="branch-2 cbranch-no" title="branch not covered" >          &lt;PageError</span>
-            message={defaultTo((inputSetError.data as Error)?.message, inputSetError.message)}
-            onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetch()}</span>
-          /&gt;
+<span class="branch-2 cbranch-no" title="branch not covered" >          &lt;Container height={300}&gt;</span>
+            &lt;PageError
+              message={defaultTo((inputSetError.data as Error)?.message, inputSetError.message)}
+              onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetch()}</span>
+            /&gt;
+          &lt;/Container&gt;
         )}
         {!loading &amp;&amp; !inputSetError &amp;&amp; !inputSetTemplate &amp;&amp; (
-          &lt;NoResultsView minimal={true} text={getString('templatesLibrary.noInputsRequired')} /&gt;
+          &lt;Container height={300}&gt;
+            &lt;NoResultsView minimal={true} text={getString('templatesLibrary.noInputsRequired')} /&gt;
+          &lt;/Container&gt;
         )}
         {!loading &amp;&amp; !inputSetError &amp;&amp; inputSetTemplate &amp;&amp; (
-          &lt;Container height={'100%'} width={'100%'} className={css.inputsContainer}&gt;
+          &lt;Container className={css.inputsContainer}&gt;
             &lt;Layout.Vertical spacing={'xlarge'}&gt;
               &lt;Container&gt;
                 &lt;Layout.Horizontal flex={{ alignItems: 'center' }} spacing={'xxxlarge'}&gt;
@@ -583,7 +574,7 @@ export const TemplateInputs: React.FC&lt;TemplateInputsProps&gt; = props =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jan 08 2022 08:13:22 GMT+0000 (Greenwich Mean Time)
+                at Sun Jan 09 2022 14:27:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

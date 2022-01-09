@@ -191,6 +191,7 @@
     "@urql/devtools": "^2.0.3",
     "@wings-software/css-types-loader": "^2.1.0",
     "@wings-software/jarvis": "0.11.0",
+    "@wings-software/test-app-publish-": "3.0.24",
     "@zerollup/ts-transform-paths": "^1.7.18",
     "assert": "^2.0.0",
     "babel-loader": "^8.2.2",

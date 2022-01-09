@@ -27,6 +27,8 @@ import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { PermissionIdentifier } from 'microfrontends'
 
+import { RoutesTemp } from '@wings-software/test-app-publish-'
+import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 export const AccountSideNavProps: SidebarContext = {
   navComponent: AccountSideNav,
   icon: 'nav-settings',
@@ -80,9 +82,10 @@ export default function RouteDestinations(): React.ReactElement {
       {...CING_ENABLED ? CIRoutes.props.children : []}
       {...CDNG_ENABLED ? CDRoutes.props.children : []}
       {...CVNG_ENABLED ? CVRoutes.props.children : []}
-      <Route path="/account/:accountId/settings">
+      <RoutesTemp contextObj={AppStoreContext} />
+      {/* <Route path="/account/:accountId/settings">
         <AuthSettingsRoutes />
-      </Route>
+      </Route> */}
       {CENG_ENABLED ? (
         <Route path="/account/:accountId/:module(ce)">
           <CERoutes />

@@ -7,6 +7,7 @@ import {
   createTemplatePromise,
   EntityGitDetails,
   NGTemplateInfoConfig,
+  TemplateSummaryResponse,
   updateExistingTemplateLabelPromise
 } from 'services/template-ng'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
@@ -21,7 +22,6 @@ import type { GitQueryParams, ModulePathParams, TemplateStudioPathProps } from '
 import { useQueryParams } from '@common/hooks'
 import type { PromiseExtraArgs } from 'framework/Templates/TemplateConfigModal/TemplateConfigModal'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
-import useCommentModal from '@common/hooks/CommentModal/useCommentModal'
 
 export interface FetchTemplateUnboundProps {
   forceFetch?: boolean
@@ -31,12 +31,21 @@ export interface FetchTemplateUnboundProps {
   branch?: string
 }
 
+declare global {
+  interface WindowEventMap {
+    TEMPLATE_SAVED: CustomEvent<TemplateSummaryResponse>
+  }
+}
+
 interface SaveTemplateObj {
   template: NGTemplateInfoConfig
 }
 
 interface UseSaveTemplateReturnType {
-  saveAndPublish: (updatedTemplate: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs) => Promise<void>
+  saveAndPublish: (
+    updatedTemplate: NGTemplateInfoConfig,
+    extraInfo: PromiseExtraArgs
+  ) => Promise<UseSaveSuccessResponse>
 }
 
 export interface TemplateContextMetadata {
@@ -51,10 +60,7 @@ export interface TemplateContextMetadata {
   stableVersion?: string
 }
 
-export function useSaveTemplate(
-  TemplateContextMetadata: TemplateContextMetadata,
-  hideConfigModal?: () => void
-): UseSaveTemplateReturnType {
+export function useSaveTemplate(TemplateContextMetadata: TemplateContextMetadata): UseSaveTemplateReturnType {
   const {
     template,
     yamlHandler,
@@ -74,8 +80,6 @@ export function useSaveTemplate(
   const { getString } = useStrings()
   const { showSuccess, showError, clear } = useToaster()
   const history = useHistory()
-  const { getComments } = useCommentModal()
-
   const isYaml = view === SelectedView.YAML
 
   const navigateToLocation = (
@@ -162,7 +166,6 @@ export function useSaveTemplate(
     if (isEdit) {
       return updateExistingLabel(comments, updatedGitDetails, lastObject)
     } else {
-      hideConfigModal?.()
       try {
         const response = await createTemplatePromise({
           body: stringifyTemplate(omit(cloneDeep(latestTemplate), 'repo', 'branch')),
@@ -178,6 +181,9 @@ export function useSaveTemplate(
         })
         setLoading?.(false)
         if (response && response.status === 'SUCCESS') {
+          if (response.data?.templateResponseDTO) {
+            window.dispatchEvent(new CustomEvent('TEMPLATE_SAVED', { detail: response.data?.templateResponseDTO }))
+          }
           if (!isGitSyncEnabled) {
             clear()
             showSuccess(getString('common.template.saveTemplate.publishTemplate'))
@@ -249,70 +255,56 @@ export function useSaveTemplate(
   ): EntityGitDetails => {
     if (isEdit) {
       return {
-        filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel.replace(/[^a-zA-Z0-9-_]/g, '')}.yaml`,
+        filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel
+          .toString()
+          .replace(/[^a-zA-Z0-9-_]/g, '')}.yaml`,
         ...currGitDetails
       }
     }
     return {
       ...currGitDetails,
-      filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel.replace(/[^a-zA-Z0-9-_]/g, '')}.yaml`
+      filePath: `${latestTemplate.identifier}_${latestTemplate.versionLabel
+        .toString()
+        .replace(/[^a-zA-Z0-9-_]/g, '')}.yaml`
     }
   }
   const saveAndPublish = React.useCallback(
-    async (updatedTemplate: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs) => {
-      const { isEdit } = extraInfo
-      let latestTemplate: NGTemplateInfoConfig = defaultTo(updatedTemplate, template)
-
-      if (isYaml && yamlHandler) {
-        if (!parse(yamlHandler.getLatestYaml())) {
-          clear()
-          showError(getString('invalidYamlText'))
-          return
-        }
-        try {
-          latestTemplate = parse(yamlHandler.getLatestYaml()).template as NGTemplateInfoConfig
-        } /* istanbul ignore next */ catch (err) {
-          showError(err.message || err, undefined, 'pipeline.save.pipeline.error')
-        }
-      }
+    async (updatedTemplate: NGTemplateInfoConfig, extraInfo: PromiseExtraArgs): Promise<UseSaveSuccessResponse> => {
+      const { isEdit, comment } = extraInfo
+      const latestTemplate: NGTemplateInfoConfig = defaultTo(updatedTemplate, template)
 
       // if Git sync enabled then display modal
       if (isGitSyncEnabled) {
         if (isEmpty(gitDetails?.repoIdentifier) || isEmpty(gitDetails?.branch)) {
           clear()
           showError(getString('pipeline.gitExperience.selectRepoBranch'))
-          return
+          return Promise.reject(getString('pipeline.gitExperience.selectRepoBranch'))
+        } else {
+          // @TODO - Uncomment below snippet when schema validation is available at BE.
+          // When git sync enabled, do not irritate user by taking all git info then at the end showing BE errors related to schema
+          // const error = await validateJSONWithSchema({ template: latestTemplate }, templateSchema?.data as any)
+          // if (error.size > 0) {
+          //   clear()
+          //   showError(error)
+          //   return
+          // }
+          // if (isYaml && yamlHandler && !isValidYaml()) {
+          //   return
+          // }
+          openSaveToGitDialog({
+            isEditing: defaultTo(isEdit, false),
+            resource: {
+              type: 'Template',
+              name: latestTemplate.name,
+              identifier: latestTemplate.identifier,
+              gitDetails: gitDetails ? getUpdatedGitDetails(gitDetails, latestTemplate, isEdit) : {}
+            },
+            payload: { template: omit(latestTemplate, 'repo', 'branch') }
+          })
+          return Promise.resolve({ status: 'SUCCESS' })
         }
-        // @TODO - Uncomment below snippet when schema validation is available at BE.
-        // When git sync enabled, do not irritate user by taking all git info then at the end showing BE errors related to schema
-        // const error = await validateJSONWithSchema({ template: latestTemplate }, templateSchema?.data as any)
-        // if (error.size > 0) {
-        //   clear()
-        //   showError(error)
-        //   return
-        // }
-        // if (isYaml && yamlHandler && !isValidYaml()) {
-        //   return
-        // }
-        openSaveToGitDialog({
-          isEditing: defaultTo(isEdit, false),
-          resource: {
-            type: 'Template',
-            name: latestTemplate.name,
-            identifier: latestTemplate.identifier,
-            gitDetails: gitDetails ? getUpdatedGitDetails(gitDetails, latestTemplate, isEdit) : {}
-          },
-          payload: { template: omit(latestTemplate, 'repo', 'branch') }
-        })
       } else {
-        const comments = await getComments(
-          getString('pipeline.commentModal.heading', {
-            name: latestTemplate.name,
-            version: latestTemplate.versionLabel
-          }),
-          stableVersion === latestTemplate.versionLabel ? getString('pipeline.commentModal.info') : undefined
-        )
-        await saveAndPublishTemplate(latestTemplate, comments, isEdit)
+        return saveAndPublishTemplate(latestTemplate, comment, isEdit)
       }
     },
     [

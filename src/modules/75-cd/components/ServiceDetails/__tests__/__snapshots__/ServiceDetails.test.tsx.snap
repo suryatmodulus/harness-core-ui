@@ -119,26 +119,26 @@ exports[`ServiceDetails should render ServiceDetails 1`] = `
             />
           </div>
           <div
-            aria-controls="bp3-tab-panel_serviceDetailsTab_ServiceDetailsSummaryTab"
+            aria-controls="bp3-tab-panel_serviceDetailsTab_summaryTab"
             aria-disabled="false"
             aria-expanded="true"
             aria-selected="true"
             class="bp3-tab"
-            data-tab-id="ServiceDetailsSummaryTab"
-            id="bp3-tab-title_serviceDetailsTab_ServiceDetailsSummaryTab"
+            data-tab-id="summaryTab"
+            id="bp3-tab-title_serviceDetailsTab_summaryTab"
             role="tab"
             tabindex="0"
           >
             summary
           </div>
           <div
-            aria-controls="bp3-tab-panel_serviceDetailsTab_ServiceRefrencedByTab"
+            aria-controls="bp3-tab-panel_serviceDetailsTab_refrencedByTab"
             aria-disabled="false"
             aria-expanded="false"
             aria-selected="false"
             class="bp3-tab"
-            data-tab-id="ServiceRefrencedByTab"
-            id="bp3-tab-title_serviceDetailsTab_ServiceRefrencedByTab"
+            data-tab-id="refrencedByTab"
+            id="bp3-tab-title_serviceDetailsTab_refrencedByTab"
             role="tab"
             tabindex="0"
           >
@@ -147,9 +147,9 @@ exports[`ServiceDetails should render ServiceDetails 1`] = `
         </div>
         <div
           aria-hidden="false"
-          aria-labelledby="bp3-tab-title_serviceDetailsTab_ServiceDetailsSummaryTab"
+          aria-labelledby="bp3-tab-title_serviceDetailsTab_summaryTab"
           class="bp3-tab-panel"
-          id="bp3-tab-panel_serviceDetailsTab_ServiceDetailsSummaryTab"
+          id="bp3-tab-panel_serviceDetailsTab_summaryTab"
           role="tabpanel"
         >
           <div

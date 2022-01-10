@@ -63,7 +63,7 @@ const getPropsForCIStage = (): PipelineInputSetFormProps => ({
           spec: {
             // eslint-disable-next-line
             // @ts-ignore
-            cloneCodebase: 'clonecodebase'
+            cloneCodebase: true
           }
         }
       }

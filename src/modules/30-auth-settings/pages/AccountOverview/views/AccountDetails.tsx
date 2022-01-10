@@ -54,11 +54,13 @@ const AccountDetails: React.FC = () => {
           }
         }}
       />
-      <Button
-        variation={ButtonVariation.LINK}
-        text={getString('common.switchAccount')}
-        onClick={openSwitchAccountModal}
-      />
+      {!isCommunity && (
+        <Button
+          variation={ButtonVariation.LINK}
+          text={getString('common.switchAccount')}
+          onClick={openSwitchAccountModal}
+        />
+      )}
     </React.Fragment>
   )
 

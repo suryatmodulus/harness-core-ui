@@ -45,40 +45,6 @@ exports[`Collaborators test Render Collaborators  1`] = `
                   <div
                     class="text"
                   />
-                  <div
-                    class="bp3-popover-wrapper alwaysVisible bp3-dark"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                        data-name="duplicate"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon bp3-icon-duplicate StyledProps--main"
-                          icon="duplicate"
-                        >
-                          <svg
-                            data-icon="duplicate"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              duplicate
-                            </desc>
-                            <path
-                              d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </div>
                 </div>
               </span>
             </div>

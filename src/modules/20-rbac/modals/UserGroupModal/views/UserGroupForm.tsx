@@ -20,7 +20,8 @@ import { UserGroupDTO, usePostUserGroup, usePutUserGroup, useGetUsers } from 'se
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useMutateAsGet } from '@common/hooks'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
-import { UserItem, UserItemRenderer, UserTagRenderer } from '@rbac/utils/utils'
+import UserItemRenderer, { UserItem } from '@audit-trail/components/UserItemRenderer/UserItemRenderer'
+import UserTagRenderer from '@audit-trail/components/UserTagRenderer/UserTagRenderer'
 import css from '@rbac/modals/UserGroupModal/useUserGroupModal.module.scss'
 
 interface UserGroupModalData {
@@ -152,8 +153,8 @@ const UserGroupForm: React.FC<UserGroupModalData> = props => {
                     onQueryChange: (query: string) => {
                       setSearch(query)
                     },
-                    tagRenderer: item => UserTagRenderer(item, false),
-                    itemRender: UserItemRenderer
+                    tagRenderer: (item: MultiSelectOption) => <UserTagRenderer item={item} />,
+                    itemRender: (item, { handleClick }) => <UserItemRenderer item={item} handleClick={handleClick} />
                   }}
                 />
               )}

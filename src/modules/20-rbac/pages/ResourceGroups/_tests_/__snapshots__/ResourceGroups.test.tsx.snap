@@ -101,7 +101,7 @@ exports[`Resource Groups Page render data 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
           >
-            rbac.resourceGroup.resourceGroupColumn
+            common.resourceGroupLabel
           </p>
         </div>
         <div

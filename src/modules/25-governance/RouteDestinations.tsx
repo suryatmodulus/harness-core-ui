@@ -7,7 +7,11 @@ import { RouteWithLayout } from '@common/router'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import AccountSideNav from '@common/components/AccountSideNav/AccountSideNav'
 import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
+import { String } from 'framework/strings'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
+import RbacFactory from '@rbac/factories/RbacFactory'
+import { ResourceCategory } from '@rbac/interfaces/ResourceType'
+import { ResourceType, PermissionIdentifier } from 'microfrontends'
 import { GovernanceRemoteComponentMounter } from './GovernanceApp'
 
 export const AccountSideNavProps: SidebarContext = {
@@ -15,6 +19,21 @@ export const AccountSideNavProps: SidebarContext = {
   icon: 'nav-settings',
   title: 'Account Settings'
 }
+
+RbacFactory.registerResourceTypeHandler(ResourceType.GOVERNANCE, {
+  icon: 'nav-settings',
+  label: 'common.governance',
+  category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
+  permissionLabels: {
+    [PermissionIdentifier.GOV_VIEW_POLICY]: <String stringID="rbac.permissionLabels.access" />,
+    [PermissionIdentifier.GOV_EDIT_POLICY]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.GOV_DELETE_POLICY]: <String stringID="rbac.permissionLabels.delete" />,
+    [PermissionIdentifier.GOV_VIEW_POLICYSET]: <String stringID="rbac.permissionLabels.access" />,
+    [PermissionIdentifier.GOV_EDIT_POLICYSET]: <String stringID="rbac.permissionLabels.createEdit" />,
+    [PermissionIdentifier.GOV_DELETE_POLICYSET]: <String stringID="rbac.permissionLabels.delete" />,
+    [PermissionIdentifier.GOV_EVALUATE_POLICYSET]: <String stringID="rbac.permissionLabels.evaluate" />
+  }
+})
 
 const RedirectToDefaultGovernanceRoute: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<GovernancePathProps>()

@@ -35,10 +35,10 @@ jest.mock('@cv/pages/slos/SLOCard/SLOCardContent.tsx', () => ({
   }
 }))
 
-const ComponentWrapper: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceIdentifier }) => {
+const ComponentWrapper: React.FC<CVSLOsListingPageProps> = ({ monitoredService }) => {
   return (
     <TestWrapper {...testWrapperProps}>
-      <CVSLOsListingPage monitoredServiceIdentifier={monitoredServiceIdentifier} />
+      <CVSLOsListingPage monitoredService={monitoredService} />
     </TestWrapper>
   )
 }
@@ -105,7 +105,11 @@ describe('CVSLOsListingPage', () => {
   })
 
   test('With monitoredServiceIdentifier it should not render with the page header and +New SLO button', () => {
-    render(<ComponentWrapper monitoredServiceIdentifier="monitored_service_identifier" />)
+    render(
+      <ComponentWrapper
+        monitoredService={{ identifier: 'monitored_service_identifier', name: 'monitored_service_identifier' }}
+      />
+    )
 
     expect(screen.queryByText('cv.slos.title')).not.toBeInTheDocument()
     expect(screen.queryByText('cv.slos.newSLO')).not.toBeInTheDocument()
@@ -147,9 +151,7 @@ describe('CVSLOsListingPage', () => {
       refetch: jest.fn()
     })
 
-    const { container } = render(<ComponentWrapper />)
-
-    screen.debug(container, 90000)
+    render(<ComponentWrapper />)
 
     expect(screen.getByText('Loading, please wait...')).toBeInTheDocument()
     expect(screen.getAllByTestId('slo-card-container')).toHaveLength(1)

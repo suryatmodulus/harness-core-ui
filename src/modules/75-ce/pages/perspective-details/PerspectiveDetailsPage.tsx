@@ -59,8 +59,13 @@ import {
 import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import EmptyView from '@ce/images/empty-state.svg'
-import { CCM_CHART_TYPES } from '@ce/constants'
+import { CCM_CHART_TYPES, ENFORCEMENT_USAGE_THRESHOLD } from '@ce/constants'
 import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Chart'
+import { ModuleName } from 'framework/types/ModuleName'
+import { useGetUsageAndLimit } from '@auth-settings/hooks/useGetUsageAndLimit'
+import { useFeature } from '@common/hooks/useFeatures'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import FeatureWarningSubscriptionInfoBanner from '@common/components/FeatureWarning/FeatureWarningSubscriptionInfoBanner'
 import css from './PerspectiveDetailsPage.module.scss'
 
 const PAGE_SIZE = 10
@@ -177,6 +182,8 @@ const PerspectiveDetailsPage: React.FC = () => {
   const history = useHistory()
   const { perspectiveId, accountId } = useParams<PerspectiveParams>()
   const { getString } = useStrings()
+
+  const { limitData, usageData } = useGetUsageAndLimit(ModuleName.CE)
 
   const { data: perspectiveRes, loading } = useGetPerspective({
     queryParams: {
@@ -343,19 +350,19 @@ const PerspectiveDetailsPage: React.FC = () => {
     !chartFetching &&
     !gridFetching
 
-  // Uncomment this code when you uncomment
-  // <FeatureWarningSubscriptionInfoBanner />
-  // this flag is used to decide if we need to
-  // show the enforcement banner.
-  //
-  // const { enabled: featureEnabled } = useFeature({
-  //   featureRequest: {
-  //     featureName: FeatureIdentifier.PERSPECTIVES
-  //   }
-  // })
+  const { enabled: featureEnabled } = useFeature({
+    featureRequest: {
+      featureName: FeatureIdentifier.PERSPECTIVES
+    }
+  })
 
   const { licenseInformation } = useLicenseStore()
   const isFreeEdition = licenseInformation['CE']?.edition === ModuleLicenseType.FREE
+
+  const totalSpend = limitData.limit?.ccm?.totalSpendLimit || 1
+  const activeSpend = usageData.usage?.ccm?.activeSpend?.count || 0
+
+  const usagePercentage = Math.ceil((activeSpend / totalSpend) * 100)
 
   return (
     <>
@@ -379,19 +386,12 @@ const PerspectiveDetailsPage: React.FC = () => {
           timeRange={timeRange}
           showHourlyAggr={isClusterOnly}
         />
-        {
-          // enable this when useGetUsageAndLimit is implemented by the GTM Team
-          // calculate the percentage utilisation and replace that value with 95%
-          // hardcoded here.
-          // Just confirm if we need to show the banner only if the utilisation
-          // reaches above certain threshold.
-          /* {!featureEnabled && (
+        {!featureEnabled && usagePercentage > ENFORCEMENT_USAGE_THRESHOLD && (
           <FeatureWarningSubscriptionInfoBanner
             featureName={FeatureIdentifier.PERSPECTIVES}
-            message={`You have used ${95}% of your cloud spend subscription limit.`} // use useGetUsageAndLimit hook once it's implemented
+            message={getString('ce.perspectives.featureWarningSubInfoText', { usagePercentage: usagePercentage })}
           />
-        )} */
-        }
+        )}
         <PerspectiveSummary
           data={summaryData?.perspectiveTrendStats as any}
           fetching={summaryFetching}

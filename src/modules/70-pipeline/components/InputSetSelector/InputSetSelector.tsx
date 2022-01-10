@@ -14,7 +14,7 @@ import {
   PageSpinner,
   Container
 } from '@wings-software/uicore'
-import { clone, isEmpty } from 'lodash-es'
+import { clone, defaultTo, isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
@@ -47,6 +47,9 @@ export interface InputSetSelectorProps {
   onChange?: (value?: InputSetValue[]) => void
   width?: number
   selectedValueClass?: string
+  selectedRepo?: string
+  selectedBranch?: string
+  isOverlayInputSet?: boolean
 }
 
 const getIconByType = (type: InputSetSummaryResponse['inputSetType']): IconName => {
@@ -119,6 +122,7 @@ const RenderValue = React.memo(function RenderValue({
       {value?.map((item, index) => (
         <li
           key={item.label}
+          data-testid={item.value}
           className={css.selectedInputSetLi}
           draggable={true}
           onDragStart={event => {
@@ -215,7 +219,10 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
   value,
   onChange,
   pipelineIdentifier,
-  selectedValueClass
+  selectedValueClass,
+  selectedRepo,
+  selectedBranch,
+  isOverlayInputSet
 }): JSX.Element => {
   const [searchParam, setSearchParam] = React.useState('')
   const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetValue[]>(value || [])
@@ -227,6 +234,24 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
     accountId: string
   }>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+
+  const getGitQueryParams = React.useCallback(() => {
+    if (!isEmpty(selectedRepo) && !isEmpty(selectedBranch)) {
+      return {
+        repoIdentifier: selectedRepo,
+        branch: selectedBranch
+      }
+    }
+    if (!isEmpty(repoIdentifier) && !isEmpty(branch)) {
+      return {
+        repoIdentifier,
+        branch,
+        getDefaultFromOtherRepo: true
+      }
+    }
+    return {}
+  }, [repoIdentifier, branch, selectedRepo, selectedBranch])
+
   const {
     data: inputSetResponse,
     refetch,
@@ -237,17 +262,16 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
       orgIdentifier,
       projectIdentifier,
       pipelineIdentifier,
-      ...(!isEmpty(repoIdentifier) && !isEmpty(branch)
-        ? {
-            repoIdentifier,
-            branch,
-            getDefaultFromOtherRepo: true
-          }
-        : {})
+      inputSetType: isOverlayInputSet ? 'INPUT_SET' : undefined,
+      ...getGitQueryParams()
     },
     debounce: 300,
     lazy: true
   })
+
+  React.useEffect(() => {
+    refetch()
+  }, [repoIdentifier, branch, selectedRepo, selectedBranch, refetch])
 
   const { showError } = useToaster()
 
@@ -257,7 +281,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
       label: string,
       val: string,
       type: InputSetSummaryResponse['inputSetType'],
-      gitDetails: EntityGitDetails | null,
+      inputSetGitDetails: EntityGitDetails | null,
       inputSetErrorDetails?: InputSetErrorWrapper,
       overlaySetErrorDetails?: { [key: string]: string }
     ) => {
@@ -268,7 +292,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
           label,
           value: val,
           type,
-          gitDetails: gitDetails ?? {},
+          gitDetails: defaultTo(inputSetGitDetails, {}),
           inputSetErrorDetails,
           overlaySetErrorDetails
         })
@@ -342,7 +366,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
           selected.label,
           selected.value as string,
           selected.type,
-          selected.gitDetails ?? {},
+          defaultTo(selected.gitDetails, {}),
           selected.inputSetErrorDetails,
           selected.overlaySetErrorDetails
         )
@@ -361,9 +385,17 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
         <Checkbox
           className={css.checkbox}
           labelElement={
-            <Text className={css.labelText} font={{ size: 'small' }} icon={getIconByType(selected.type)}>
-              {selected.label}
-            </Text>
+            <Layout.Horizontal flex={{ alignItems: 'center' }} padding={{ left: true }}>
+              <Icon name={getIconByType(selected.type)}></Icon>
+              <Container margin={{ left: true }} className={css.nameIdContainer}>
+                <Text lineClamp={1} font={{ weight: 'bold' }} color={Color.GREY_800}>
+                  {selected.label}
+                </Text>
+                <Text font="small" lineClamp={1} margin={{ top: 'xsmall' }} color={Color.GREY_450}>
+                  {getString('idLabel', { id: selected.value })}
+                </Text>
+              </Container>
+            </Layout.Horizontal>
           }
           checked={true}
         />
@@ -381,11 +413,11 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
             />
           </Container>
         )}
-        <span className={css.order}>
-          <Text className={css.orderText}>{index + 1}</Text>
-          <Icon name="main-reorder" size={12} />
-        </span>
       </Layout.Horizontal>
+      <span className={css.order}>
+        <Text className={css.orderText}>{index + 1}</Text>
+        <Icon name="drag-handle-vertical" className={css.drag} size={16} />
+      </span>
     </li>
   ))
 
@@ -401,46 +433,60 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
         })
         return filter
       })
-      .filter(set => (set.identifier || '').toLowerCase().indexOf(searchParam.toLowerCase()) > -1)
+      .filter(set => defaultTo(set.identifier, '').toLowerCase().indexOf(searchParam.toLowerCase()) > -1)
       .map(inputSet => (
         <li
           className={cx(css.item)}
           key={inputSet.identifier}
           onClick={() => {
+            if (isInputSetInvalid(inputSet)) {
+              return
+            }
             onCheckBoxHandler(
               true,
-              inputSet.name || '',
-              inputSet.identifier || '',
-              inputSet.inputSetType || 'INPUT_SET',
-              inputSet.gitDetails ?? null,
+              defaultTo(inputSet.name, ''),
+              defaultTo(inputSet.identifier, ''),
+              defaultTo(inputSet.inputSetType, 'INPUT_SET'),
+              defaultTo(inputSet.gitDetails, null),
               inputSet.inputSetErrorDetails,
               inputSet.overlaySetErrorDetails
             )
           }}
         >
           <Layout.Horizontal flex={{ distribution: 'space-between' }}>
-            <Checkbox
-              className={css.checkbox}
-              labelElement={
-                <Text font={{ size: 'small' }} className={css.labelText} icon={getIconByType(inputSet.inputSetType)}>
-                  {inputSet.name}
-                </Text>
-              }
-            />
+            <Layout.Horizontal flex={{ alignItems: 'center' }}>
+              <Checkbox
+                className={css.checkbox}
+                disabled={isInputSetInvalid(inputSet)}
+                labelElement={
+                  <Layout.Horizontal flex={{ alignItems: 'center' }} padding={{ left: true }}>
+                    <Icon name={getIconByType(inputSet.inputSetType)}></Icon>
+                    <Container margin={{ left: true }} className={css.nameIdContainer}>
+                      <Text lineClamp={1} font={{ weight: 'bold' }} color={Color.GREY_800}>
+                        {inputSet.name}
+                      </Text>
+                      <Text font="small" lineClamp={1} margin={{ top: 'xsmall' }} color={Color.GREY_450}>
+                        {getString('idLabel', { id: inputSet.identifier })}
+                      </Text>
+                    </Container>
+                  </Layout.Horizontal>
+                }
+              />
+              {isInputSetInvalid(inputSet) && (
+                <Container padding={{ left: 'large' }}>
+                  <Badge
+                    text={'common.invalid'}
+                    iconName="warning-sign"
+                    showTooltip={true}
+                    entityName={inputSet.name}
+                    entityType={inputSet.inputSetType === 'INPUT_SET' ? 'Input Set' : 'Overlay Input Set'}
+                    uuidToErrorResponseMap={inputSet.inputSetErrorDetails?.uuidToErrorResponseMap}
+                    overlaySetErrorDetails={inputSet.overlaySetErrorDetails}
+                  />
+                </Container>
+              )}
+            </Layout.Horizontal>
             {inputSet.gitDetails?.repoIdentifier ? <InputSetGitDetails gitDetails={inputSet.gitDetails} /> : null}
-            {isInputSetInvalid(inputSet) && (
-              <Container padding={{ left: 'large' }}>
-                <Badge
-                  text={'common.invalid'}
-                  iconName="warning-sign"
-                  showTooltip={true}
-                  entityName={inputSet.name}
-                  entityType={inputSet.inputSetType === 'INPUT_SET' ? 'Input Set' : 'Overlay Input Set'}
-                  uuidToErrorResponseMap={inputSet.inputSetErrorDetails?.uuidToErrorResponseMap}
-                  overlaySetErrorDetails={inputSet.overlaySetErrorDetails}
-                />
-              </Container>
-            )}
           </Layout.Horizontal>
         </li>
       ))
@@ -460,7 +506,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
       }}
     >
       <RenderValue
-        value={value || []}
+        value={defaultTo(value, [])}
         onChange={onChange}
         setSelectedInputSets={setSelectedInputSets}
         setOpenInputSetsList={setOpenInputSetsList}
@@ -479,10 +525,13 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
               }}
             />
           </div>
+          <Container className={css.overlayIsHelperTextContainer} border={{ bottom: true }}>
+            <Text className={css.overlayIsHelperText}>{getString('pipeline.inputSets.overlayISHelperText')}</Text>
+          </Container>
           {!inputSets ? (
             <PageSpinner className={css.spinner} />
           ) : (
-            <Layout.Vertical padding="small">
+            <Layout.Vertical padding={{ bottom: 'medium' }}>
               {inputSets && inputSets.length > 0 ? (
                 <>
                   <ul className={cx(Classes.MENU, css.list, { [css.multiple]: inputSets.length > 0 })}>
@@ -492,6 +541,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                     </>
                   </ul>
                   <Button
+                    margin="small"
                     text={
                       selectedInputSets?.length > 1
                         ? getString('pipeline.inputSets.applyInputSets')

@@ -141,10 +141,6 @@ export default function TemplatesPage(): React.ReactElement {
     [templateIdentifierToSettings, reloadTemplates]
   )
 
-  React.useEffect(() => {
-    reloadTemplates()
-  }, [page, accountId, projectIdentifier, orgIdentifier, module, searchParam, sort, type])
-
   const goToTemplateStudio = (template: TemplateSummaryResponse): void => {
     history.push(
       routes.toTemplateStudio({

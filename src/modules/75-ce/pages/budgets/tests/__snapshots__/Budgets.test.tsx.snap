@@ -560,8 +560,12 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                     style="width: 3px;"
                   />
                   <div
-                    class="forecastedBar alert"
+                    class="forecastedBar danger"
                     style="width: 266px;"
+                  />
+                  <div
+                    class="budgetStatusBar"
+                    style="width: 44px;"
                   />
                   <div
                     class="actualCostMarker"
@@ -722,15 +726,19 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                   style="width: 266px;"
                 >
                   <div
-                    class="actualCostBar alert"
+                    class="actualCostBar danger"
                     style="width: 144px;"
                   />
                   <div
-                    class="forecastedBar alert"
+                    class="forecastedBar danger"
                     style="width: 266px;"
                   />
                   <div
-                    class="actualCostMarker alert"
+                    class="budgetStatusBar"
+                    style="width: 53px;"
+                  />
+                  <div
+                    class="actualCostMarker danger"
                     style="left: 144px;"
                   />
                   <p

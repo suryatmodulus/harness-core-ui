@@ -332,6 +332,7 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                       <MonacoEditor
                         language="javascript"
                         value={formatJSON(formikProps.values.query)}
+                        data-testid="monaco-editor"
                         onChange={val => formikProps.setFieldValue(FieldNames.QUERY, val)}
                         options={
                           {

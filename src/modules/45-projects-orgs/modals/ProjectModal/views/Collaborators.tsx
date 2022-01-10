@@ -32,10 +32,12 @@ import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import { CopyText } from '@common/components/CopyText/CopyText'
 import routes from '@common/RouteDefinitions'
-import { InvitationStatus, UserItemRenderer, UserTagRenderer, handleInvitationResponse } from '@rbac/utils/utils'
+import { InvitationStatus, handleInvitationResponse } from '@rbac/utils/utils'
 import { getDefaultRole, getDetailsUrl } from '@projects-orgs/utils/utils'
 import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { useMutateAsGet } from '@common/hooks'
+import UserItemRenderer from '@audit-trail/components/UserItemRenderer/UserItemRenderer'
+import UserTagRenderer from '@audit-trail/components/UserTagRenderer/UserTagRenderer'
 import InviteListRenderer from './InviteListRenderer'
 import css from './Steps.module.scss'
 
@@ -248,8 +250,8 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
                     onQueryChange: (query: string) => {
                       setSearch(query)
                     },
-                    tagRenderer: UserTagRenderer,
-                    itemRender: UserItemRenderer
+                    tagRenderer: (item: MultiSelectOption) => <UserTagRenderer item={item} />,
+                    itemRender: (item, { handleClick }) => <UserItemRenderer item={item} handleClick={handleClick} />
                   }}
                   className={css.input}
                 />

@@ -21,8 +21,6 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { FormMultiTypeCheckboxField } from '@common/components'
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
-import { Scope } from '@common/interfaces/SecretsInterface'
-import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import type { OpenShiftTemplateGITDataType } from '../../ManifestInterface'
 import {
   gitFetchTypeList,
@@ -33,6 +31,7 @@ import {
   ManifestStoreMap
 } from '../../Manifesthelper'
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
+import { getRepositoryName } from '../ManifestUtils'
 import css from '../ManifestWizardSteps.module.scss'
 import templateCss from './OSTemplateWithGit.module.scss'
 
@@ -73,32 +72,6 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
         : prevStepData?.url
       : null
 
-  const getRepoName = (): string => {
-    let repoName = ''
-    if (getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED) {
-      repoName = prevStepData?.connectorRef
-    } else if (prevStepData?.connectorRef) {
-      const connectorScope = getScopeFromValue(initialValues?.spec?.store?.spec?.connectorRef)
-      if (connectorScope === Scope.ACCOUNT) {
-        if (
-          initialValues?.spec?.store?.spec?.connectorRef ===
-          `account.${prevStepData?.connectorRef?.connector?.identifier}`
-        ) {
-          repoName = initialValues?.spec?.store?.spec?.repoName
-        } else {
-          repoName = ''
-        }
-      } else {
-        repoName =
-          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store?.spec?.connectorRef
-            ? initialValues?.spec?.store?.spec?.repoName
-            : ''
-      }
-      return repoName
-    }
-    return repoName
-  }
-
   const getInitialValues = React.useCallback((): OpenShiftTemplateGITDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
 
@@ -107,7 +80,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
         ...specValues,
         identifier: initialValues.identifier,
         paths: specValues.paths,
-        repoName: getRepoName(),
+        repoName: getRepositoryName(prevStepData, initialValues),
         path:
           getMultiTypeFromValue(specValues?.paths) === MultiTypeInputType.RUNTIME
             ? specValues.paths
@@ -124,7 +97,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
       gitFetchType: 'Branch',
       path: '',
       skipResourceVersioning: false,
-      repoName: getRepoName()
+      repoName: getRepositoryName(prevStepData, initialValues)
     }
   }, [])
 

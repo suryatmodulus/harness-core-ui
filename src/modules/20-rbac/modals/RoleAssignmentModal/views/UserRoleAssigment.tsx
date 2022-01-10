@@ -20,10 +20,8 @@ import { useStrings } from 'framework/strings'
 import { UserMetadataDTO, RoleAssignmentMetadataDTO, useGetUsers, useAddUsers, AddUsers } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import {
-  UserItemRenderer,
   handleInvitationResponse,
   getScopeBasedDefaultAssignment,
-  UserTagRenderer,
   InvitationStatus,
   isNewRoleAssignment
 } from '@rbac/utils/utils'
@@ -32,6 +30,8 @@ import { useMutateAsGet } from '@common/hooks/useMutateAsGet'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
 import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import UserItemRenderer from '@audit-trail/components/UserItemRenderer/UserItemRenderer'
+import UserTagRenderer from '@audit-trail/components/UserTagRenderer/UserTagRenderer'
 import RoleAssignmentForm from './RoleAssignmentForm'
 
 interface UserRoleAssignmentData {
@@ -261,8 +261,8 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
                   setQuery(val)
                   refetchUsers()
                 },
-                tagRenderer: UserTagRenderer,
-                itemRender: UserItemRenderer
+                tagRenderer: (item: MultiSelectOption) => <UserTagRenderer item={item} />,
+                itemRender: (item, { handleClick }) => <UserItemRenderer item={item} handleClick={handleClick} />
               }}
               disabled={!isInvite}
             />

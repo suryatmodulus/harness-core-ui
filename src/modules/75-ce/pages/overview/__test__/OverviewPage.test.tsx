@@ -44,6 +44,30 @@ useSaveFeedbackMock.mockImplementation(() => {
   }
 })
 
+jest.mock('@auth-settings/hooks/useGetUsageAndLimit', () => ({
+  useGetUsageAndLimit: () => {
+    return {
+      limitData: {
+        limit: {
+          ccm: {
+            totalSpendLimit: 250000
+          }
+        }
+      },
+      usageData: {
+        usage: {
+          ccm: {
+            activeSpend: {
+              count: 200000,
+              displayName: ''
+            }
+          }
+        }
+      }
+    }
+  }
+}))
+
 const params = {
   accountId: 'TEST_ACC',
   perspetiveId: 'perspectiveId',

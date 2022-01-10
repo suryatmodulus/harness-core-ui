@@ -50,7 +50,7 @@ export function useAddStepTemplate(props: AddStepTemplate): AddStepTemplateRetur
           selectorData: {
             templateType: 'Step',
             onUseTemplate: async (template: TemplateSummaryResponse, isCopied = false) => {
-              const processNode = isCopied
+              const processNode = (isCopied
                 ? produce(defaultTo(parse(template?.yaml || '').template.spec, {}) as StepElementConfig, draft => {
                     draft.name = defaultTo(template?.name, '')
                     draft.identifier = generateRandomString(defaultTo(template?.name, ''))
@@ -62,7 +62,7 @@ export function useAddStepTemplate(props: AddStepTemplate): AddStepTemplateRetur
                     if (template.versionLabel) {
                       set(draft, 'template.versionLabel', template.versionLabel)
                     }
-                  })
+                  })) as unknown as StepElementConfig
               const newStepData = { step: processNode }
               const { stage: pipelineStage } = cloneDeep(getStageFromPipeline(selectedStageId || ''))
               if (pipelineStage && !pipelineStage.stage?.spec) {

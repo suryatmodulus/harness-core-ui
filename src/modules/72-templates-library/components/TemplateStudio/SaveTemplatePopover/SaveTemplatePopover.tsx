@@ -15,6 +15,8 @@ import {
 import { useSaveTemplate } from '@pipeline/utils/useSaveTemplate'
 import type { Failure } from 'services/template-ng'
 import { DefaultNewTemplateId } from 'framework/Templates/templates'
+import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
+import useCommentModal from '@common/hooks/CommentModal/useCommentModal'
 import css from './SaveTemplatePopover.module.scss'
 export interface GetErrorResponse extends Omit<Failure, 'errors'> {
   errors?: FormikErrors<unknown>
@@ -39,6 +41,8 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
   const [menuOpen, setMenuOpen] = React.useState(false)
   const [saveOptions, setSaveOptions] = React.useState<TemplateMenuItem[]>([])
   const [disabled, setDisabled] = React.useState<boolean>(false)
+  const { isGitSyncEnabled } = React.useContext(AppStoreContext)
+  const { getComments } = useCommentModal()
 
   const [showConfigModal, hideConfigModal] = useModalHook(
     () => (
@@ -58,19 +62,16 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
     [template, modalProps]
   )
 
-  const { saveAndPublish } = useSaveTemplate(
-    {
-      template,
-      yamlHandler,
-      gitDetails,
-      setLoading,
-      fetchTemplate,
-      deleteTemplateCache,
-      view,
-      stableVersion
-    },
-    hideConfigModal
-  )
+  const { saveAndPublish } = useSaveTemplate({
+    template,
+    yamlHandler,
+    gitDetails,
+    setLoading,
+    fetchTemplate,
+    deleteTemplateCache,
+    view,
+    stableVersion
+  })
 
   const checkErrors = React.useCallback(
     (callback: () => void) => {
@@ -83,17 +84,35 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
     [getErrors]
   )
 
+  const onSubmit = React.useCallback(
+    (isEdit: boolean) => {
+      checkErrors(async () => {
+        try {
+          const comment = !isGitSyncEnabled
+            ? await getComments(
+                getString('pipeline.commentModal.heading', {
+                  name: template.name,
+                  version: template.versionLabel
+                }),
+                stableVersion === template.versionLabel ? getString('pipeline.commentModal.info') : undefined
+              )
+            : ''
+          await saveAndPublish(template, { isEdit, comment })
+        } catch (_err) {
+          // do nothing as user has cancelled the save operation
+        }
+      })
+    },
+    [checkErrors, isGitSyncEnabled, template, stableVersion, saveAndPublish]
+  )
+
   const onSave = React.useCallback(() => {
-    checkErrors(() => {
-      saveAndPublish(template, { isEdit: false })
-    })
-  }, [checkErrors, saveAndPublish, template])
+    onSubmit(false)
+  }, [onSubmit])
 
   const onUpdate = React.useCallback(() => {
-    checkErrors(() => {
-      saveAndPublish(template, { isEdit: true })
-    })
-  }, [checkErrors, saveAndPublish, template])
+    onSubmit(true)
+  }, [onSubmit])
 
   const onSaveAsNewLabel = React.useCallback(() => {
     checkErrors(() => {
@@ -101,7 +120,8 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
         title: getString('templatesLibrary.saveAsNewLabelModal.heading'),
         promise: saveAndPublish,
         disabledFields: [Fields.Name, Fields.Identifier, Fields.Description, Fields.Tags],
-        emptyFields: [Fields.VersionLabel]
+        emptyFields: [Fields.VersionLabel],
+        shouldGetComment: !isGitSyncEnabled
       })
       showConfigModal()
     })
@@ -112,7 +132,8 @@ export function SaveTemplatePopover(props: SaveTemplatePopoverProps): React.Reac
       setModalProps({
         title: getString('common.template.saveAsNewTemplateHeading'),
         promise: saveAndPublish,
-        emptyFields: [Fields.Name, Fields.Identifier, Fields.VersionLabel]
+        emptyFields: [Fields.Name, Fields.Identifier, Fields.VersionLabel],
+        shouldGetComment: !isGitSyncEnabled
       })
       showConfigModal()
     })

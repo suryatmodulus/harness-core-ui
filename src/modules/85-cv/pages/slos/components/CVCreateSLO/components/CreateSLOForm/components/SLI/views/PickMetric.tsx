@@ -18,7 +18,7 @@ import { useGetSloMetrics } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import SLOTargetChart from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
+import SLOTargetChartWrapper from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
 import CVRadioLabelTextAndDescription from '@cv/components/CVRadioLabelTextAndDescription'
 import {
   getSLOMetricOptions,
@@ -31,10 +31,10 @@ import {
   getEventTypeOptions,
   getMissingDataTypeOptions
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.constants'
-import { SLOPanelProps, SLIMetricTypes, SLOFormFields } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
+import { SLIProps, SLIMetricTypes, SLOFormFields } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
 import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 
-const PickMetric: React.FC<Omit<SLOPanelProps, 'children'>> = ({ formikProps }) => {
+const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps }) => {
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
@@ -198,7 +198,7 @@ const PickMetric: React.FC<Omit<SLOPanelProps, 'children'>> = ({ formikProps }) 
           </Container>
 
           <Container height="inherit" width="50%" className={css.graphContainer} padding={{ left: 'xxlarge' }}>
-            <SLOTargetChart
+            <SLOTargetChartWrapper
               monitoredServiceIdentifier={monitoredServiceRef}
               serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}
               topLabel={

@@ -2325,7 +2325,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                       </span>
                     </div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
                     >
                       idLabel
                     </p>
@@ -2345,7 +2345,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             >
               <div>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                  class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey600"
                   style="--text-line-clamp: 2;"
                 >
                   executionsText
@@ -2360,7 +2360,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 </p>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-medium"
               >
                 1
               </p>
@@ -2702,7 +2702,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                       </span>
                     </div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
                     >
                       idLabel
                     </p>
@@ -2722,7 +2722,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             >
               <div>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                  class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey600"
                   style="--text-line-clamp: 2;"
                 >
                   executionsText
@@ -2737,7 +2737,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 </p>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-medium"
               >
                 9
               </p>
@@ -3079,7 +3079,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                       </span>
                     </div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
                     >
                       idLabel
                     </p>
@@ -3099,7 +3099,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             >
               <div>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                  class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey600"
                   style="--text-line-clamp: 2;"
                 >
                   executionsText
@@ -3114,7 +3114,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 </p>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-medium"
               >
                 1
               </p>

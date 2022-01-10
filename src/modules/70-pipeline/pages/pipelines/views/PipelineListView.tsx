@@ -197,7 +197,7 @@ const RenderColumnPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
               </Text>
               {data.tags && Object.keys(data.tags || {}).length ? <TagsPopover tags={data.tags} /> : null}
             </Layout.Horizontal>
-            <Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_400}>
+            <Text tooltipProps={{ position: Position.BOTTOM }} color={Color.GREY_600} font="small">
               {getString('idLabel', { id: data.identifier })}
             </Text>
           </Layout.Vertical>
@@ -227,11 +227,11 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => {
   return (
     <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
       <div>
-        <Text color={Color.GREY_400} className={`${deployments ? css.clickable : ''}`} font="small" lineClamp={2}>
+        <Text color={Color.GREY_600} className={`${deployments ? css.clickable : ''}`} lineClamp={2}>
           {getString('executionsText')}
         </Text>
         <Text
-          color={deployments ? Color.PRIMARY_7 : Color.GREY_400}
+          color={deployments ? Color.PRIMARY_7 : Color.GREY_600}
           className={`${deployments ? css.clickable : ''}`}
           onClick={event => {
             event.stopPropagation()
@@ -245,7 +245,7 @@ const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => {
         </Text>
       </div>
 
-      <Text color={Color.GREY_400} font="medium" iconProps={{ size: 18 }}>
+      <Text color={Color.GREY_600} font="medium" iconProps={{ size: 18 }}>
         {formatCount(deployments)}
       </Text>
 

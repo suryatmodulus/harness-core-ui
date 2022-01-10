@@ -113,7 +113,7 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
       {!!data?.resource?.totalPages && (
         <Pagination
           pageSize={data.resource.pageSize as number}
-          pageCount={data.resource.totalPages + 1}
+          pageCount={data.resource.totalPages}
           itemCount={data.resource.totalItems as number}
           pageIndex={data.resource.pageIndex}
           gotoPage={goToPage}

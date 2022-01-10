@@ -104,3 +104,11 @@ export const initialFormData = {
     }
   }
 }
+
+export const initialStateForDisableTest = {
+  userJourney: { label: 'all', value: 'all' },
+  monitoredService: { label: 'all', value: 'all' },
+  sliTypes: { label: 'all', value: 'all' },
+  targetTypes: { label: 'all', value: 'all' },
+  sloRiskFilter: null
+}

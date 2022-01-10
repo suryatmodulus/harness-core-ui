@@ -123,13 +123,18 @@ export interface NavButtonsProps {
   loading?: boolean
 }
 
-export interface SLOPanelProps {
-  formikProps: FormikProps<SLOForm>
+export interface SLONameProps {
   children: JSX.Element
+  formikProps: FormikProps<SLOForm>
   identifier?: string
 }
 
-export interface CreateSLOFormProps {
+export interface SLIProps {
+  children: JSX.Element
   formikProps: FormikProps<SLOForm>
-  identifier?: string
+}
+
+export interface SLOTargetAndBudgetPolicyProps {
+  children: JSX.Element
+  formikProps: FormikProps<SLOForm>
 }

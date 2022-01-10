@@ -8,7 +8,7 @@ import {
 import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { getConnectorIconByType, getConnectorIconPropsByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import DelegateSelectorStep, { DelegateSelectorProps } from '../commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import type { ConnectionConfigProps } from './constants'
@@ -53,7 +53,7 @@ export function cvConnectorHOC(hocInput: CVConnectorHOCInput): (props: CreateCon
       : null
 
     return (
-      <StepWizard icon={getConnectorIconByType(connectorType)} iconProps={{ size: 37 }}>
+      <StepWizard icon={getConnectorIconByType(connectorType)} iconProps={getConnectorIconPropsByType(connectorType)}>
         <ConnectorDetailsStep
           type={connectorType}
           name={getString('overview')}

@@ -16,6 +16,7 @@ import {
 import { Popover, Spinner } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
+import { isEmpty } from 'lodash-es'
 import { EmailSchema } from '@common/utils/Validation'
 import { useToaster } from '@common/components'
 import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
@@ -176,7 +177,10 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
         <Formik
           onSubmit={handleSubmit}
           validationSchema={Yup.object().shape({
-            emailIds: EmailSchema({ allowMultiple: true, emailSeparator: ',' })
+            emailIds: Yup.string().when('userGroups', {
+              is: val => isEmpty(val),
+              then: EmailSchema({ allowMultiple: true, emailSeparator: ',' })
+            })
           })}
           initialValues={{
             emailIds: props.config?.emailIds.toString() || '',

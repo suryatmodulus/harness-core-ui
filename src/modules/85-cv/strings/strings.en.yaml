@@ -626,7 +626,7 @@ slos:
   sloTargetAndBudgetPolicy: SLO Target & Error Budget Policy
   sloName: SLO Name
   userJourney: User Journey
-  totalServices: Total Services
+  totalServices: Total SLOs
   userJourneyPlaceholder: Select or create user journey
   userJourneyCreated: User journey created successfully
   selectMonitoredService: Select Monitored Service

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
 import { Container, Text, Page } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { pick } from 'lodash-es'
+import { get, pick } from 'lodash-es'
 import {
   CcmMetaData,
   StatsInfo,
@@ -37,6 +37,9 @@ import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStor
 import type { TrialBannerProps } from '@projects-orgs/pages/HomePageTemplate/HomePageTemplate'
 import type { Editions } from '@common/constants/SubscriptionTypes'
 import { useGetUsageAndLimit } from '@auth-settings/hooks/useGetUsageAndLimit'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import FeatureWarningUpgradeBanner from '@common/components/FeatureWarning/FeatureWarningUpgradeBanner'
+import { ENFORCEMENT_USAGE_THRESHOLD } from '@ce/constants'
 import bgImage from './images/CD/overviewBg.png'
 import css from './Overview.module.scss'
 
@@ -251,7 +254,6 @@ const OverviewPage: React.FC = () => {
 // Also, there are certain TODOs in this component, complete them
 // for full functionality
 
-// const USAGE_THRESHOLD = 90 // in percentage
 const CEUsageInfo = () => {
   const { limitData, usageData } = useGetUsageAndLimit(ModuleName.CE)
   const isLoading = limitData.loadingLimit || usageData.loadingUsage
@@ -259,28 +261,23 @@ const CEUsageInfo = () => {
     return null
   }
 
-  // TODO: make use of usage and limit to calculate the percentage threshold.
-  //
-  // const { usage } = usageData
-  // const { limit } = limitData
-  // const usagePercentage = (usage / limit) * 100
-  // if (usagePercentage < USAGE_THRESHOLD) {
-  //   return null
-  // }
+  const { usage } = usageData
+  const { limit } = limitData
 
-  // TODO:
-  // This is temporary
-  // once useGetUsageAndLimit(ModuleName.CE) begins to work
-  // return the actual component below.
-  // Make sure to replace the 250k/250k with actual values of `usage` and `limit`
-  return null
+  const usageCost = get(usage, 'ccm.activeSpend.count', 0)
+  const limitCost = get(limit, 'ccm.totalSpendLimit', 1)
 
-  // return (
-  //   <FeatureWarningUpgradeBanner
-  //     featureName={FeatureIdentifier.PERSPECTIVES}
-  //     message={`You have used $250K / $250K free cloud spend incuded in your current plan. Consider upgrading to manage higher cloud spend.`}
-  //   />
-  // )
+  const usagePercentage = (usageCost / limitCost) * 100
+  if (usagePercentage < ENFORCEMENT_USAGE_THRESHOLD) {
+    return null
+  }
+
+  return (
+    <FeatureWarningUpgradeBanner
+      featureName={FeatureIdentifier.PERSPECTIVES}
+      message={`You have used ${usageCost} / ${limitCost} free cloud spend incuded in your current plan. Consider upgrading to manage higher cloud spend.`}
+    />
+  )
 }
 
 export default OverviewPage

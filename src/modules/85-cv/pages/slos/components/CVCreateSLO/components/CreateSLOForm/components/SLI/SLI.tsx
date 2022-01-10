@@ -16,7 +16,7 @@ import { useGetAllMonitoredServicesWithTimeSeriesHealthSources } from 'services/
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { defaultOption } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.constants'
-import { SLOPanelProps, SLOFormFields, SLITypes } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
+import { SLIProps, SLOFormFields, SLITypes } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
 import {
   getMonitoredServiceOptions,
   getHealthSourceOptions
@@ -26,7 +26,7 @@ import SLIContextualHelpText from './components/SLIContextualHelpText'
 import PickMetric from './views/PickMetric'
 import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 
-const SLI: React.FC<SLOPanelProps> = ({ formikProps, children }) => {
+const SLI: React.FC<SLIProps> = ({ children, formikProps }) => {
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()

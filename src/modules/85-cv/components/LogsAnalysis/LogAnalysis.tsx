@@ -47,7 +47,7 @@ const ClusterChartContainer: React.FC<LogAnalysisContentProps> = ({
       environmentIdentifier,
       startTime,
       endTime,
-      clusterTypes: [logEvent],
+      ...(logEvent ? { clusterTypes: [logEvent] } : {}),
       healthSources: healthSource ? [healthSource] : undefined
     },
     queryParamStringifyOptions: {
@@ -106,7 +106,7 @@ const LogAnalysisContent: React.FC<LogAnalysisContentProps> = ({
       environmentIdentifier,
       startTime,
       endTime,
-      clusterTypes: [logEvent],
+      ...(logEvent ? { clusterTypes: [logEvent] } : {}),
       healthSources: healthSource ? [healthSource] : undefined
     },
     queryParamStringifyOptions: {

@@ -183,6 +183,7 @@ exports[`FeatureFlagsDetailPage FeatureFlagsDetailPage should render data correc
           class="StyledProps--font StyledProps--main StyledProps--inline"
           style="background-color: rgb(239, 251, 255); padding: 4px 8px; border-radius: 4px; font-size: 12px; line-height: 15px; color: rgb(34, 34, 42); border: 1px solid #d9dae6;"
         >
+          idLabel
           hello_world
           <button
             style="background: none; padding: 0px; transform: translateY(-2px); cursor: pointer;"

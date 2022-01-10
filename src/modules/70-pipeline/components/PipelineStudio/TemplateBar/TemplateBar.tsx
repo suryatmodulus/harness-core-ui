@@ -83,7 +83,6 @@ export const TemplateBar = (props: TemplateBarProps): JSX.Element => {
 
   return (
     <Container
-      margin={'medium'}
       padding={{ top: 'small', right: 'medium', bottom: 'small', left: 'medium' }}
       background={Color.PRIMARY_6}
       border={{ radius: 4 }}

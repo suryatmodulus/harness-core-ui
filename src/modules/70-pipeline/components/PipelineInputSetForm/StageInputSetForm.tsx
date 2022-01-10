@@ -21,7 +21,6 @@ import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/Mult
 import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelector/MultiTypeDelegateSelector'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { TemplateStepNode } from 'services/pipeline-ng'
-import { getStepType } from '@pipeline/utils/templateUtils'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
@@ -104,14 +103,16 @@ export function StepForm({
   const { getString } = useStrings()
   const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { expressions } = useVariablesExpression()
-  const type = getStepType(allValues?.step)
-
-  if ((allValues?.step as TemplateStepNode)?.template) {
+  if ((allValues?.step as unknown as TemplateStepNode)?.template) {
     return (
       <StepForm
-        template={{ step: (template?.step as TemplateStepNode)?.template?.templateInputs as StepElementConfig }}
-        allValues={{ step: (allValues?.step as TemplateStepNode)?.template?.templateInputs as StepElementConfig }}
-        values={{ step: (values?.step as TemplateStepNode)?.template?.templateInputs as StepElementConfig }}
+        template={{
+          step: (template?.step as unknown as TemplateStepNode)?.template?.templateInputs as StepElementConfig
+        }}
+        allValues={{
+          step: (allValues?.step as unknown as TemplateStepNode)?.template?.templateInputs as StepElementConfig
+        }}
+        values={{ step: (values?.step as unknown as TemplateStepNode)?.template?.templateInputs as StepElementConfig }}
         path={`${path}.template.templateInputs`}
         readonly={readonly}
         viewType={viewType}
@@ -120,6 +121,7 @@ export function StepForm({
       />
     )
   } else {
+    const type = (allValues?.step as StepElementConfig)?.type as StepType
     return (
       <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
         {!hideTitle && (

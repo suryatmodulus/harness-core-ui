@@ -1,6 +1,6 @@
 import React, { SetStateAction, Dispatch } from 'react'
 import cx from 'classnames'
-import { FormInput, SelectOption, Text, Container } from '@wings-software/uicore'
+import { FormInput, SelectOption, Text, Container, FontVariation, Color } from '@wings-software/uicore'
 import { isEmpty, isUndefined } from 'lodash-es'
 import type { StringKeys, UseStringsReturn } from 'framework/strings'
 import { GitSourceProviders } from './TriggersListUtils'
@@ -111,7 +111,11 @@ export const renderNonCustomEventFields = ({
           {actionsOptions?.length !== 0 && (
             <div className={css.actionsContainer}>
               <div>
-                <Text style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
+                <Text
+                  font={{ variation: FontVariation.FORM_INPUT_TEXT, weight: 'semi-bold' }}
+                  color={Color.GREY_600}
+                  style={{ marginBottom: 'var(--spacing-xsmall)' }}
+                >
                   {getString('pipeline.triggers.triggerConfigurationPanel.actions')}
                 </Text>
                 <FormInput.MultiSelect

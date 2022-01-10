@@ -141,7 +141,7 @@ describe('Test useCreateGitSyncModal', () => {
       gitSyncFolderConfigDTOs: [
         {
           isDefault: true,
-          rootFolder: 'src/.harness/'
+          rootFolder: '/src/.harness/'
         }
       ],
       identifier: 'repoName',

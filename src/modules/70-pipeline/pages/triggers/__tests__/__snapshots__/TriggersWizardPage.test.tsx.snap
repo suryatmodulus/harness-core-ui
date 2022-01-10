@@ -1924,8 +1924,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         >
                           <div>
                             <p
-                              class="StyledProps--font StyledProps--main"
-                              style="font-size: 13px;"
+                              class="StyledProps--font StyledProps--main StyledProps--font-variation-form-input-text StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
                             >
                               pipeline.triggers.triggerConfigurationPanel.actions
                             </p>
@@ -2812,7 +2811,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             plusAdd
                           </p>
                           <p
-                            class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                            class="StyledProps--font StyledProps--main StyledProps--font-variation-form-input-text StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-bottom-xsmall"
                             data-tooltip-id="repoUrl"
                           >
                             repositoryUrlLabel
@@ -2906,8 +2905,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                         >
                           <div>
                             <p
-                              class="StyledProps--font StyledProps--main"
-                              style="font-size: 13px;"
+                              class="StyledProps--font StyledProps--main StyledProps--font-variation-form-input-text StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600"
                             >
                               pipeline.triggers.triggerConfigurationPanel.actions
                             </p>

@@ -448,6 +448,13 @@ segmentDetail:
   noFlagsUseThisSegment: No Flags use this target group.
   addToFlag: + Add to Flag
   addSegmentToFlag: Add Target Group to Flag
+  criteria: Criteria
+  specificTargets: Specific Targets
+  targetBasedOnCondition: Target based on condition
+  noTargetDefined: No Target defined
+  includeTheFollowing: Include the following
+  excludeTheFollowing: Exclude the following
+  noConditionDefined: No Condition defined
 selectFlagsModal:
   empty: No feature flags found.
   searchPlaceholder: Search for Flag by name or description
@@ -495,7 +502,7 @@ onboarding:
   testYourFlag: '3. Test Your Flag'
   letsStart: Let's start off by creating a simple flag
   inputLabel: Give your flag a memorable name
-  successLabel: 'You have created <strong>{{name}}</strong> with ID: <strong>{{identifier}}</strong>'
+  successLabel: 'You have created <strong>{{name}}</strong> with Id: <strong>{{identifier}}</strong>'
   setupLabel: Set up your application and code to communicate with our platform.
   selectLanguage: Select your language
   selectEnvironment: Select your environment
@@ -511,8 +518,8 @@ onboarding:
   listenToEvent: We’re listening for the event of your feature flag.
   toggleLabel: Toggle your flag ON/OFF and verify that the event we received has the same value.
   help:
-    heading1: The Importance of Your Flag ID
-    text1: Your flag ID is required to reference the flag in your code.
+    heading1: The Importance of Your Flag Id
+    text1: Your flag Id is required to reference the flag in your code.
     heading2: Installing an SDK to Your Environment
     text2: Your flag is automatically available for use in all environments of your project. However, you need to install our SDK to environments you wish to initiate your flag in.
     getStarted: Get started with SDKs
@@ -545,7 +552,7 @@ onboarding:
       /**
       * Put the API Key here from your environment
       */
-      String apiKey = "YOUR_API_KEY";
+      String apiKey = '{{apiKey}}';
 
       CfClient cfClient = new CfClient(apiKey, Config.builder().build());
 
@@ -561,7 +568,6 @@ onboarding:
       ```
 
       `target` represents the desired target for which we want features to be evaluated.
-      `"YOUR_API_KEY"` is an authentication key, needed for access to Harness services.
 
       Your Harness SDK is now initialized. Congratulations!
 
@@ -799,12 +805,10 @@ onboarding:
 
       val target = Target().identifier("target")
 
-      CfClient.getInstance().initialize(context, "YOUR_API_KEY", sdkConfiguration, target)
+      CfClient.getInstance().initialize(context, '{{apiKey}}', sdkConfiguration, target)
       ```
 
       `target` represents a desired target for which we want features to be evaluated.
-
-      `"YOUR_API_KEY"` is a authentication key, needed for access to Harness services.
 
       **Your Harness SDK is now initialized. Congratulations!!!**
 
@@ -1071,7 +1075,7 @@ onboarding:
       ```Swift
       let configuration = CfConfiguration.builder().setStreamEnabled(true).build()
       let target = CfTarget.builder().setIdentifier("YOUR_ACCOUNT_IDENTIFIER").build()
-      CfClient.sharedInstance.initialize(apiKey: "YOUR_API_KEY", configuration: configuration, target: target) { (result) in
+      CfClient.sharedInstance.initialize(apiKey: '{{apiKey}}', configuration: configuration, target: target) { (result) in
           switch result {
               case .failure(let error):
                   //Do something to gracefully handle initialization/authorization failure
@@ -1213,7 +1217,7 @@ onboarding:
       /**
        * Put the API Key here from your environment
        */
-      String API_KEY = "YOUR_API_KEY";
+      String API_KEY = '{{apiKey}}';
 
       config = Config.Builder()
                       .SetPollingInterval(60000)
@@ -1235,8 +1239,6 @@ onboarding:
       ```
 
       `target` represents the desired target for which we want features to be evaluated.
-
-      `"YOUR_API_KEY"` is an authentication key, needed for access to Harness services.
 
       # Your Harness SDK is now initialized. Congratulations!
 
@@ -1471,6 +1473,106 @@ onboarding:
 
       or if you call off() without params it will close the client.
       All events are applicable to off() function.
+    python: |
+      # Setup
+
+      Using terminal install the SDK with:
+
+      ```
+      pip install harness-featureflags
+      ```
+
+      After the package has been added, the SDK elements, primarily CfClient should be accessible in the main application.
+
+
+      # Initialization
+
+      CfClient is a base class that provides all features of the SDK.
+
+      Put the API Key here from your environment
+
+      ```
+      api_key = '{{apiKey}}';
+
+      cf = CfClient(api_key);
+      ```
+
+      Define the target on which you would like to evaluate the feature flag
+
+      ```
+      target = Target(identifier="user1", name="user1")
+      ```
+
+      'target' represents the desired target for which we want features to be evaluated.
+
+
+      # Your Harness SDK is now initialized. Congratulations!
+
+
+      # Public API Methods
+
+      The Public API exposes a few methods that you can utilize:
+
+      ```
+      bool_variation(key: str, target: Target, default: bool) -> bool
+      ```
+
+      ```
+      string_variation(key: str, target: Target, default: str) -> str
+      ```
+
+      ```
+      number_variation(key: str, target: Target, default: float) -> float
+      ```
+
+      ```
+      json_variation(String key, Target target, default: dict) -> dict
+      ```
+
+      ```
+      close()
+      ```
+
+      # Fetch evaluation's value
+      It is possible to fetch a value for a given evaluation. Evaluation is performed based on a different type. In case there is no evaluation with provided id, the default value is returned.
+
+      Use the appropriate method to fetch the desired Evaluation of a certain type.
+
+      # Bool variation
+
+      ```
+      result = cf.bool_variation("sample_boolean_flag", target, False);
+      ```
+
+      # Number variation
+      ```
+      result = cf.number_variation("sample_number_flag", target, 0);
+      ```
+
+      # String variation
+      ```
+      result = cf.string_variation("sample_string_flag", target, "");
+      ```
+
+      # Using feature flags metrics
+
+      Metrics API endpoint can be changed like this:
+      ```
+      cf = CfClient(api_key, with_events_url('METRICS_API_EVENTS_URL'));
+      ```
+
+      Otherwise, the default metrics endpoint URL will be used.
+      ```
+      https://events.ff.harness.io/api/1.0
+      ```
+
+      # Shutting down the SDK
+
+      To avoid potential memory leak, when SDK is no longer needed (when the app is closed, for example), a caller should call this method:
+
+      ```
+      cf.close();
+      ```
 learnMore: '{{ $.cf.homepage.learnMore }}'
 cfTrialHomePage:
   startTrial:

@@ -45,6 +45,7 @@ import type { FeatureFlagPathProps, ProjectPathProps } from '@common/interfaces/
 
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import { GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
+import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
 import FlagElemTest from '../CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -53,6 +54,7 @@ import patch, { ClauseData, getDiff } from '../../utils/instructions'
 import { MetricsView } from './views/MetricsView'
 import { NoEnvironment } from '../NoEnvironment/NoEnvironment'
 import SaveFlagToGitSubFormModal from '../SaveFlagToGitSubFormModal/SaveFlagToGitSubFormModal'
+import UsageLimitBanner from '../UsageLimitBanner/UsageLimitBanner'
 import css from './FlagActivation.module.scss'
 
 // Show loading and wait 3s when the first environment is created before reloading
@@ -420,6 +422,8 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
   const history = useHistory()
   const pathParams = useParams<ProjectPathProps & FeatureFlagPathProps>()
 
+  const { isPlanEnforcementEnabled } = usePlanEnforcement()
+
   useEffect(() => {
     if (tab !== activeTabId) {
       history.replace(withActiveEnvironment(routes.toCFFeatureFlagsDetail(pathParams) + `?tab=${activeTabId}`))
@@ -507,6 +511,12 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
                 <FlexExpander />
                 <CFEnvironmentSelect component={<EnvironmentSelect />} />
               </Layout.Horizontal>
+              {isPlanEnforcementEnabled && (
+                <Container margin={{ left: 'xlarge' }}>
+                  <UsageLimitBanner />
+                </Container>
+              )}
+
               <Container
                 className={cx(css.tabContainer, (!editing || activeTabId !== FFDetailPageTab.TARGETING) && css.noEdit)}
               >

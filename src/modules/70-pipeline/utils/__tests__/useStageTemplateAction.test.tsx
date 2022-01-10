@@ -17,7 +17,9 @@ const Wrapped = (): React.ReactElement => {
   const { onUseTemplate, onRemoveTemplate, onOpenTemplateSelector } = useStageTemplateActions()
   return (
     <>
-      <button onClick={() => onUseTemplate({})}>Use Template</button>
+      <button onClick={() => onUseTemplate({ identifier: 'identifier', versionLabel: 'versionLabel' })}>
+        Use Template
+      </button>
       <button onClick={onRemoveTemplate}>Remove Template</button>
       <button onClick={onOpenTemplateSelector}>Open Template Selector</button>
     </>

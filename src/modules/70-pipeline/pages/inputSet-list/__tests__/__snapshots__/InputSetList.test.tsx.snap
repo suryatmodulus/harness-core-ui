@@ -210,7 +210,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                   >
-                    OverLayInput
+                    idLabel
                   </p>
                 </div>
                 <div
@@ -404,7 +404,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                   >
-                    asd
+                    idLabel
                   </p>
                 </div>
                 <div

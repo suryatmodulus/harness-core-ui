@@ -1,8 +1,34 @@
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { isEmpty } from 'lodash-es'
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import type { ManifestConfig } from 'services/cd-ng'
+import type { ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { GitRepoName, ManifestStoreMap } from '../Manifesthelper'
+import type { CommandFlags, HelmWithGcsDataType, HelmWithGITDataType, HelmWithHTTPDataType } from '../ManifestInterface'
+
+const getRepoNameBasedonScope = (initialValues: ManifestConfig, prevStepData: any): string => {
+  const connectorScope = getScopeFromValue(initialValues?.spec.store?.spec.connectorRef)
+  switch (connectorScope) {
+    case Scope.ACCOUNT:
+      return initialValues?.spec.store.spec.connectorRef === `account.${prevStepData.connectorRef.connector.identifier}`
+        ? initialValues?.spec.store?.spec.repoName
+        : ''
+
+    case Scope.PROJECT:
+      return prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec.store?.spec.connectorRef
+        ? initialValues?.spec.store?.spec.repoName
+        : ''
+
+    case Scope.ORG:
+      return `${prevStepData.connectorRef.scope}.${prevStepData.connectorRef.connector.identifier}` ===
+        initialValues?.spec.store.spec.connectorRef
+        ? initialValues?.spec.store?.spec.repoName
+        : ''
+
+    default:
+      return ''
+  }
+}
 
 export const getRepositoryName = (prevStepData: any, initialValues: ManifestConfig): string => {
   const gitConnectionType: string = prevStepData?.store === ManifestStoreMap.Git ? 'connectionType' : 'type'
@@ -11,31 +37,39 @@ export const getRepositoryName = (prevStepData: any, initialValues: ManifestConf
     prevStepData?.urlType === GitRepoName.Repo
       ? GitRepoName.Repo
       : GitRepoName.Account
-  let repoName = ''
+
   if (getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED) {
-    repoName = prevStepData?.connectorRef
-  } else if (prevStepData?.connectorRef) {
+    return prevStepData.connectorRef
+  } else {
     if (connectionType === GitRepoName.Repo) {
-      repoName = prevStepData?.connectorRef?.connector?.spec?.url
-    } else {
-      const connectorScope = getScopeFromValue(initialValues?.spec?.store?.spec?.connectorRef)
-      if (connectorScope === Scope.ACCOUNT) {
-        if (
-          initialValues?.spec?.store.spec?.connectorRef ===
-          `account.${prevStepData?.connectorRef?.connector?.identifier}`
-        ) {
-          repoName = initialValues?.spec?.store?.spec?.repoName
-        } else {
-          repoName = ''
-        }
-      } else {
-        repoName =
-          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store?.spec?.connectorRef
-            ? initialValues?.spec?.store?.spec?.repoName
-            : ''
-      }
+      return prevStepData.connectorRef?.connector?.spec.url
     }
-    return repoName
+    return getRepoNameBasedonScope(initialValues, prevStepData)
   }
-  return repoName
+}
+
+export const handleCommandFlagsSubmitData = (
+  manifestObj: ManifestConfigWrapper,
+  formData: (HelmWithGcsDataType | HelmWithGITDataType | HelmWithHTTPDataType) & {
+    store?: string
+    connectorRef?: string
+  }
+): void => {
+  if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
+    ;(manifestObj.manifest as ManifestConfig).spec.commandFlags = formData?.commandFlags.map(
+      (commandFlag: CommandFlags) =>
+        commandFlag.commandType && commandFlag.flag
+          ? {
+              commandType: commandFlag.commandType,
+              flag: commandFlag.flag
+            }
+          : {}
+    )
+    const filteredCommandFlags = manifestObj?.manifest?.spec?.commandFlags.filter(
+      (currFlag: CommandFlags) => !isEmpty(currFlag)
+    )
+    if (filteredCommandFlags.length === 0) {
+      delete manifestObj?.manifest?.spec?.commandFlags
+    }
+  }
 }

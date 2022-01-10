@@ -163,9 +163,10 @@ export const TemplateSelectorLeftView: React.FC<TemplateSelectorLeftViewProps> =
   }, [selectedTemplateRef, templateData?.data?.content])
 
   useEffect(() => {
-    setSelectedTemplate(undefined)
-    reloadTemplates()
-  }, [page, accountId, projectIdentifier, orgIdentifier, module, searchParam, selectedScope, childType])
+    if (loading) {
+      setSelectedTemplate(undefined)
+    }
+  }, [loading])
 
   return (
     <Container width={762} background={Color.FORM_BG} className={css.container}>

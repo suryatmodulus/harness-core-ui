@@ -3,6 +3,7 @@ import React from 'react'
 import { Card, Color, Heading, Layout } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
+import CCMUsageInfo from '@auth-settings/pages/subscriptions/overview/CCMUsageInfo'
 import CIUsageInfo from './CIUsageInfo'
 import FFUsageInfo from './FFUsageInfo'
 import css from '../SubscriptionsPage.module.scss'
@@ -17,6 +18,8 @@ const getModuleUsages = (props: SubscriptionUsageProps): React.ReactElement | un
       return <CIUsageInfo />
     case ModuleName.CF:
       return <FFUsageInfo />
+    case ModuleName.CE:
+      return <CCMUsageInfo />
     default:
       return undefined
   }

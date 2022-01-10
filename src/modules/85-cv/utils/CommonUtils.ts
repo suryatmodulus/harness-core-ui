@@ -144,3 +144,7 @@ export const getCVMonitoringServicesSearchParam = ({ view, tab }: GetCVMonitorin
 export const prepareFilterInfo = (data?: MultiSelectOption[]): Array<string | number> => {
   return data ? data.map((d: MultiSelectOption) => d.value as string) : []
 }
+
+export const isNumeric = (val: string): boolean => {
+  return /^-?\d+$/.test(val)
+}

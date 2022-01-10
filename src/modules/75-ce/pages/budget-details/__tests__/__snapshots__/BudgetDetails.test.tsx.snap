@@ -152,7 +152,7 @@ exports[`test cases for Budgets List Page should be able to render the budget li
                   role="columnheader"
                   style="display: inline-block; box-sizing: border-box; width: 150px;"
                 >
-                  ce.budgets.detailsPage.tableHeaders.month
+                  ce.budgets.detailsPage.tableHeaders.budgetPeriod
                 </div>
                 <div
                   class="th"

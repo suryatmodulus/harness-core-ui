@@ -7,8 +7,8 @@ identityProvider: Identity Provider metadata XML downloaded from your {{ selecte
 chooseFile: Choose a file...
 enableAuthorization: Enable Authorization
 groupAttributeName: Group Attribute Name
-enableEntityIdLabel: Add Entity ID
-entityIdLabel: Entity ID
+enableEntityIdLabel: Add Entity Id
+entityIdLabel: Entity Id
 friendlyReminder: Friendly Reminder
 friendlyReminderDescription: Email addresses is how Harness identifies Users. Always ensure that the email addresses of your registered Harness Users match the SAML provider users you want to authenticate and authorize.
 enablingAuthorization: Enabling Authorization

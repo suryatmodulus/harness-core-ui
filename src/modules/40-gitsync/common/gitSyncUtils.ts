@@ -5,10 +5,9 @@ import { Connectors } from '@connectors/constants'
 import type { GitSyncConfig, ConnectorInfoDTO, GitSyncEntityDTO } from 'services/cd-ng'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getPipelineListPromise } from 'services/pipeline-ng'
-import { GitSuffixRegex, HarnessFolderNameSanityRegex } from '@common/utils/StringUtils'
+import { GitSuffixRegex } from '@common/utils/StringUtils'
 import { getAllFeaturesPromise } from 'services/cf'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import { FeatureFlag } from '@common/featureFlags'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
 export const getGitConnectorIcon = (type: GitSyncConfig['gitConnectorType']): IconName => {
   switch (type) {
@@ -89,35 +88,30 @@ export const getRepoUrl = (baseUrl: string, repoName: string) => {
   return `${baseUrl}/${repoName}`
 }
 
-export const getHarnessFolderPathWithSuffix = (folderPath: string, suffix: string) => {
-  const sanitizedRootFolder = folderPath.replace(HarnessFolderNameSanityRegex, '/$2')
-  return sanitizedRootFolder.endsWith('/')
-    ? sanitizedRootFolder.concat(suffix.substring(1))
-    : sanitizedRootFolder.concat(suffix)
+export const getHarnessFolderPathWithSuffix = (folderPath: string, suffix: string): string => {
+  const sanitizedRootFolder = folderPath.split('/').reduce(rootFolderFormatter, '')
+  return sanitizedRootFolder.concat(suffix)
+}
+
+const rootFolderFormatter = (previousValue: string, currentValue: string): string => {
+  /* Convert folder paths like
+    /* ///////a/////b////c///// to a/b/c/ */
+  /* a/////b////c to a/b/c */
+  /* ///////a/////b////c to a/b/c */
+  const folderPart = currentValue.trim()
+  return folderPart ? `${previousValue}/${folderPart}` : previousValue
 }
 
 export const getCompleteGitPath = (repo: string, folderPath: string, suffix: string): string => {
-  const folderPathSuffix = folderPath.endsWith('/') ? suffix.substring(1) : suffix
-  /* Convert repo url like 
+  // Convert repo url like
   /* https://github.com/wings-software/vb.git//// to https://github.com/wings-software/vb */
   /* https://github.com/wings-software/vb.git to https://github.com/wings-software/vb */
   const sanitizedRepo = repo.replace(GitSuffixRegex, '')
-  if (folderPath) {
-    /* Convert folder paths like  
-    /* ///////a/////b////c///// to /a/b/c/ */
-    /* a/////b////c to a/b/c */
-    /* ///////a/////b////c to /a/b/c */
-    const sanitizedRootFolder = folderPath.replace(HarnessFolderNameSanityRegex, '/$2')
-    if (sanitizedRepo.endsWith('/') && sanitizedRootFolder.startsWith('/')) {
-      return `${sanitizedRepo}${sanitizedRootFolder.substring(1)}${folderPathSuffix}`
-    } else if (
-      (sanitizedRepo.endsWith('/') && !sanitizedRootFolder.startsWith('/')) ||
-      (!sanitizedRepo.endsWith('/') && sanitizedRootFolder.startsWith('/'))
-    ) {
-      return `${sanitizedRepo}${sanitizedRootFolder}${folderPathSuffix}`
-    } else if (!sanitizedRepo.endsWith('/') && !sanitizedRootFolder.startsWith('/')) {
-      return `${sanitizedRepo}/${sanitizedRootFolder}${folderPathSuffix}`
-    }
+  const sanitizedRootFolder = folderPath.split('/').reduce(rootFolderFormatter, '')
+  if (sanitizedRootFolder) {
+    return sanitizedRepo.endsWith('/')
+      ? `${sanitizedRepo}${sanitizedRootFolder.substring(1)}${suffix}`
+      : `${sanitizedRepo}${sanitizedRootFolder}${suffix}`
   } else {
     return `${sanitizedRepo}${sanitizedRepo.endsWith('/') ? suffix.substring(1) : suffix}`
   }
@@ -157,8 +151,7 @@ export const getEntityUrl = (entity: GitSyncEntityDTO): string => {
  */
 
 export const useCanEnableGitExperience = (queryParam: ProjectPathProps & ModulePathParams): boolean => {
-  const FF_GITSYNC = useFeatureFlag(FeatureFlag.FF_GITSYNC)
-
+  const { NG_GIT_FULL_SYNC, FF_GITSYNC } = useFeatureFlags()
   const [canEnableGit, setCanEnableGit] = useState<boolean>(false)
 
   useEffect(() => {
@@ -208,5 +201,5 @@ export const useCanEnableGitExperience = (queryParam: ProjectPathProps & ModuleP
     checkEnableGitConditions()
   }, [])
 
-  return canEnableGit
+  return NG_GIT_FULL_SYNC ? true : canEnableGit
 }

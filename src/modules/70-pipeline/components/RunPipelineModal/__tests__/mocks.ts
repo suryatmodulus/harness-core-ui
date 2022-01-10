@@ -155,6 +155,12 @@ export const mockInputSetsList: UseGetMockDataWithMutateAndRefetch<ResponsePageI
           pipelineIdentifier: 'PipelineId'
         },
         {
+          identifier: 'inputset3',
+          inputSetType: 'INPUT_SET',
+          name: 'is3',
+          pipelineIdentifier: 'PipelineId'
+        },
+        {
           identifier: 'overlay1',
           inputSetType: 'OVERLAY_INPUT_SET',
           name: 'ov1',

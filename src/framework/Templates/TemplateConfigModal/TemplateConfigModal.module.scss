@@ -8,14 +8,14 @@
       margin-bottom: var(--spacing-medium) !important;
     }
   }
+
+  .comment {
+    max-height: 240px !important;
+  }
 }
 
 .closeIcon {
   position: absolute;
   top: var(--spacing-6);
   right: var(--spacing-4);
-}
-
-.version-label {
-  margin-bottom: var(--spacing-xlarge) !important;
 }

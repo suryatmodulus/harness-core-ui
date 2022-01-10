@@ -152,7 +152,7 @@ const stateMock = {
     filePath: 'test_pipeline.yaml',
     objectId: '4471ec3aa40c26377353974c29a6670d998db06f',
     repoIdentifier: 'gitSyncRepo',
-    rootFolder: 'rootFolderTest/.harness/'
+    rootFolder: '/rootFolderTest/.harness/'
   },
   entityValidityDetails: { valid: true },
   isLoading: false,
@@ -385,7 +385,7 @@ export const putPipelinePromiseArg = {
     orgIdentifier: 'default',
     projectIdentifier: 'testProject',
     repoIdentifier: 'gitSyncRepo',
-    rootFolder: 'rootFolderTest/.harness/',
+    rootFolder: '/rootFolderTest/.harness/',
     targetBranch: ''
   },
   requestOptions: {
@@ -451,7 +451,7 @@ export const createPipelinePromiseArg = {
     orgIdentifier: 'default',
     projectIdentifier: 'testProject',
     repoIdentifier: 'gitSyncRepo',
-    rootFolder: 'rootFolderTest/.harness/',
+    rootFolder: '/rootFolderTest/.harness/',
     targetBranch: ''
   },
   requestOptions: {

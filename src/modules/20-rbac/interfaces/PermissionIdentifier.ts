@@ -81,5 +81,14 @@ export enum PermissionIdentifier {
   TOGGLE_MONITORED_SERVICE = 'chi_monitoredservice_toggle',
   VIEW_SLO_SERVICE = 'chi_slo_view',
   EDIT_SLO_SERVICE = 'chi_slo_edit',
-  DELETE_SLO_SERVICE = 'chi_slo_delete'
+  DELETE_SLO_SERVICE = 'chi_slo_delete',
+
+  // Governance Permissions
+  GOV_VIEW_POLICY = 'core_governancePolicy_view',
+  GOV_EDIT_POLICY = 'core_governancePolicy_edit',
+  GOV_DELETE_POLICY = 'core_governancePolicy_delete',
+  GOV_VIEW_POLICYSET = 'core_governancePolicySets_view',
+  GOV_EDIT_POLICYSET = 'core_governancePolicySets_edit',
+  GOV_DELETE_POLICYSET = 'core_governancePolicySets_delete',
+  GOV_EVALUATE_POLICYSET = 'core_governancePolicySets_evaluate'
 }

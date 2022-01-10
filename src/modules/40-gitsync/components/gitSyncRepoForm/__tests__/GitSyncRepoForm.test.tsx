@@ -164,7 +164,7 @@ describe('Git Sync - repo tab', () => {
         gitSyncFolderConfigDTOs: [
           {
             isDefault: true,
-            rootFolder: 'src/.harness/'
+            rootFolder: '/src/.harness/'
           }
         ],
         identifier: 'repoName',

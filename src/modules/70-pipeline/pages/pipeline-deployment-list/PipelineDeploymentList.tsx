@@ -25,6 +25,7 @@ import RbacButton from '@rbac/components/Button/Button'
 import PipelineSummaryCards from '@pipeline/components/Dashboards/PipelineSummaryCards/PipelineSummaryCards'
 import PipelineBuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecutionsChart/PipelineBuildExecutionsChart'
 import useTabVisible from '@common/hooks/useTabVisible'
+import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import ExecutionsList from './ExecutionsList/ExecutionsList'
 import ExecutionsPagination from './ExecutionsPagination/ExecutionsPagination'
 import { PipelineDeploymentListHeader } from './PipelineDeploymentListHeader/PipelineDeploymentListHeader'
@@ -249,6 +250,9 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     setData(await (await reloadPipelines({ filterType: 'PipelineSetup' }))?.data?.totalElements)
   }, [cancel])
 
+  const { licenseInformation } = useLicenseStore()
+  const isCommunityAndCDModule = module === 'cd' && isCDCommunity(licenseInformation)
+
   const {
     data,
     loading,
@@ -365,7 +369,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
           error={(error?.data as Error)?.message || error?.message}
           retryOnError={() => fetchExecutions()}
         >
-          {props.showHealthAndExecution && (
+          {props.showHealthAndExecution && !isCommunityAndCDModule && (
             <Container className={css.healthAndExecutions}>
               <PipelineSummaryCards />
               <PipelineBuildExecutionsChart />

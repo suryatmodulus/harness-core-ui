@@ -97,7 +97,6 @@ exports[`<TemplateDetails /> tests snapshot test 1`] = `
               >
                 <div
                   class="Layout--vertical StyledProps--main"
-                  style="height: 100%;"
                 >
                   <div
                     class="StyledProps--font StyledProps--main"
@@ -330,7 +329,7 @@ exports[`<TemplateDetails /> tests snapshot test 1`] = `
                     </div>
                   </div>
                   <div
-                    class="StyledProps--font StyledProps--main tabsContainer StyledProps--border StyledProps--border-top"
+                    class="StyledProps--font StyledProps--main innerTabsContainer"
                   >
                     <div
                       class="bp3-tabs Tabs--main Tabs--horizontal"
@@ -395,11 +394,9 @@ exports[`<TemplateDetails /> tests snapshot test 1`] = `
                       >
                         <div
                           class="StyledProps--font StyledProps--main container"
-                          style="height: 100%;"
                         >
                           <div
                             class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
-                            style="height: 100%;"
                           >
                             <div
                               class="StyledProps--font StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-xxlarge StyledProps--padding-bottom-large StyledProps--padding-left-xxlarge StyledProps--border StyledProps--border-bottom StyledProps--background-white"

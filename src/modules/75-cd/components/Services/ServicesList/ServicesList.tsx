@@ -3,7 +3,19 @@ import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 import ReactTimeago from 'react-timeago'
-import { Button, Color, Dialog, Layout, Popover, TagsPopover, Text, useModalHook } from '@wings-software/uicore'
+import {
+  Button,
+  Color,
+  Dialog,
+  Intent,
+  Layout,
+  Popover,
+  TagsPopover,
+  Text,
+  useConfirmationDialog,
+  useModalHook,
+  useToaster
+} from '@wings-software/uicore'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { defaultTo, pick } from 'lodash-es'
 import routes from '@common/RouteDefinitions'
@@ -16,12 +28,13 @@ import type { TableProps } from '@common/components/Table/Table'
 import { Ticker } from '@common/components/Ticker/Ticker'
 import { PieChart, PieChartProps } from '@cd/components/PieChart/PieChart'
 import { getFixed, INVALID_CHANGE_RATE, numberFormatter } from '@cd/components/Services/common'
-import type { ServiceDetailsDTO } from 'services/cd-ng'
+import { ServiceDetailsDTO, useDeleteServiceV2 } from 'services/cd-ng'
 import { DeploymentTypeIcons } from '@cd/components/DeploymentTypeIcons/DeploymentTypeIcons'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { NewEditServiceModal } from '@cd/components/PipelineSteps/DeployServiceStep/DeployServiceStep'
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
+import { ServiceTabs } from '@cd/components/ServiceDetails/ServiceDetailsContent/ServiceDetailsContent'
 import css from '@cd/components/Services/ServicesList/ServiceList.module.scss'
 
 export enum DeploymentStatus {
@@ -279,8 +292,19 @@ const RenderLastDeploymentStatus: Renderer<CellProps<ServiceListItem>> = ({ row 
 const RenderColumnMenu: Renderer<CellProps<any>> = ({ row, column }) => {
   const data = row.original
   const [menuOpen, setMenuOpen] = useState(false)
-  const { orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const [deleteError, setDeleteError] = useState('')
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
+  const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
+  const history = useHistory()
+
+  const { mutate: deleteService } = useDeleteServiceV2({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: orgIdentifier,
+      projectIdentifier: projectIdentifier
+    }
+  })
 
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -309,10 +333,68 @@ const RenderColumnMenu: Renderer<CellProps<any>> = ({ row, column }) => {
     [data, orgIdentifier, projectIdentifier]
   )
 
+  const { openDialog: openDeleteErrorDialog } = useConfirmationDialog({
+    titleText: getString('common.deleteServiceFailure'),
+    contentText: deleteError,
+    cancelButtonText: getString('close'),
+    confirmButtonText: getString('common.viewReferences'),
+    intent: Intent.DANGER,
+    onCloseDialog: async isConfirmed => {
+      setDeleteError('')
+      if (isConfirmed) {
+        history.push({
+          pathname: routes.toServiceDetails({
+            accountId,
+            orgIdentifier,
+            projectIdentifier,
+            serviceId: data.identifier,
+            module
+          }),
+          search: `tab=${ServiceTabs.REFERENCED_BY}`
+        })
+      }
+    }
+  })
+
+  const { openDialog } = useConfirmationDialog({
+    titleText: getString('common.deleteService'),
+    contentText: getString('common.deleteServiceConfirmation', { name: data.name }),
+    cancelButtonText: getString('cancel'),
+    confirmButtonText: getString('confirm'),
+    intent: Intent.DANGER,
+    onCloseDialog: async isConfirmed => {
+      if (isConfirmed) {
+        try {
+          const response = await deleteService(data.identifier, {
+            headers: { 'content-type': 'application/json' }
+          })
+          if (response.status === 'SUCCESS') {
+            showSuccess(getString('common.deleteServiceMessage'))
+            ;(column as any).reload?.()
+          }
+        } catch (err) {
+          if (err?.data?.code === 'INVALID_REQUEST') {
+            // showing reference by error in modal
+            setDeleteError(err?.data?.message || err?.message)
+            openDeleteErrorDialog()
+          } else {
+            showError(err?.data?.message || err?.message)
+          }
+        }
+      }
+    }
+  })
+
   const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     e.stopPropagation()
     setMenuOpen(false)
     showModal()
+  }
+
+  const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    openDialog()
   }
 
   return (
@@ -346,6 +428,19 @@ const RenderColumnMenu: Renderer<CellProps<any>> = ({ row, column }) => {
               permission: PermissionIdentifier.EDIT_SERVICE
             }}
           />
+          <RbacMenuItem
+            className={css.hideDeleteButton}
+            icon="trash"
+            text={getString('delete')}
+            onClick={handleDelete}
+            permission={{
+              resource: {
+                resourceType: ResourceType.SERVICE,
+                resourceIdentifier: defaultTo(data.identifier, '')
+              },
+              permission: PermissionIdentifier.DELETE_SERVICE
+            }}
+          />
         </Menu>
       </Popover>
     </Layout.Horizontal>
@@ -356,7 +451,6 @@ export const ServicesList: React.FC<ServicesListProps> = props => {
   const { loading, data, error, refetch } = props
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
-
   const history = useHistory()
 
   const ServiceListHeaderCustomPrimary = useMemo(

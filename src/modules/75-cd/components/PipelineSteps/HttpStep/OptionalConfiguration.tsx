@@ -74,7 +74,7 @@ export default function OptionalConfiguration(props: {
                         name={`spec.headers[${i}].value`}
                         disabled={readonly}
                         multiTextInputProps={{
-                          allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME),
+                          allowableTypes: allowableTypes,
                           expressions,
                           disabled: readonly
                         }}
@@ -130,7 +130,7 @@ export default function OptionalConfiguration(props: {
                           name={`spec.outputVariables[${i}].value`}
                           disabled={readonly}
                           multiTextInputProps={{
-                            allowableTypes: allowableTypes.filter(item => item !== MultiTypeInputType.RUNTIME),
+                            allowableTypes: allowableTypes,
                             expressions,
                             disabled: readonly
                           }}

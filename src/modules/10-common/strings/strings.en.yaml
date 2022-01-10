@@ -10,8 +10,8 @@ delegateForTask: '{{delegate}} for {{taskName}}'
 noDelegateForTask: 'No delegate found for {{taskName}}'
 connectThroughPlatform: 'Connect through Harness Platform'
 connectThroughDelegate: 'Connect through a Harness Delegate'
-connectThroughPlatformInfo: 'This option is meant for a SaaS Git provider.  Communication with the Git provider will be done through the Harness Platform.'
-connectThroughDelegateInfo: 'This option is meant for a Git Provider that is behind your corporate firewall. Communication wth the Git provider will be done through a Harness Delegate. You will need to install a Harness Delegate with this option. This option provides enhanced security but may result in slower response times.'
+connectThroughPlatformInfo: 'Use this option to connect to a SaaS Git provider. Secure communication with the Git provider is done through the Harness Platform. All credentials are encrypted and stored in the Secret Manager configured in Harness.'
+connectThroughDelegateInfo: 'Use this option to connect to a Git Provider behind your corporate firewall. Secure communication with the Git provider is through a Harness Delegate you install in your environment. The Delegate securely connects to the Harness Platform and performs tasks using your repositories.'
 pipeline: Pipeline
 duplicateId: 'Duplicate Identifier'
 createPipeline: Create a Pipeline
@@ -50,7 +50,7 @@ viewText: View
 PermissibleActions: Permissible Actions
 My: My
 ok: OK
-ID: ID
+ID: Id
 org: Org
 instanceValidation:
   required: Instance is an required field
@@ -122,7 +122,7 @@ validation:
   fieldCannotbeLongerThanN: '{{ name }} cannot be longer than {{ n }} characters'
   fieldMustBeAlphanumeric: '{{ name }} can only contain alphanumerics, _ and $'
   groupAttributeIsRequired: Group Attribute is required
-  entityIdIsRequired: Entity ID is required
+  entityIdIsRequired: Entity Id is required
   valueMustBeGreaterThanOrEqualToN: Value must be greater than or equal to {{ n }}
   valueMustBeLessThanOrEqualToN: Value must be less than or equal to {{ n }}
   valueMustBeANumber: Value must be number
@@ -288,8 +288,8 @@ git:
   testRepositoryDescription: Please provide a Repository name to test the credentials. The Connector will still be created at the Account level.
   APIAuthentication: 'API Authentication'
   gitHubApp: 'GitHub App'
-  installationId: 'GitHub Installation ID'
-  applicationId: 'GitHub Application ID'
+  installationId: 'GitHub Installation Id'
+  applicationId: 'GitHub Application Id'
   privateKey: 'GitHub Private Key'
   currentUserLabel: 'Using the Git credentials of {{user}}'
   noUserLabel: 'We don’t have your git credentials for the selected folder. Please update the credentials in user profile.'
@@ -450,7 +450,7 @@ selectVersion: Select version
 confirmText: Are you sure?
 paste: Paste
 artifactTag: tag
-clientId: Client ID
+clientId: Client Id
 filters:
   saveNewFilter: Save New Filter
   unsavedFilter: Unsaved Filter
@@ -467,7 +467,7 @@ noteAccountSwitch: 'Note: Switching Account might require re-authentication base
 accountOverview: Account Overview
 accountDetails: Account Details
 addAccountName: Add Account Name
-accountId: Account ID
+accountId: Account Id
 harnessClusterHostingAccount: Harness Cluster Hosting Account
 defaultExperience: Default Experience
 selectDefaultExperience: Select the default experience to launch after Sign-in
@@ -575,11 +575,16 @@ videoNotSupportedError: Your browser doesn't support HTML5 video.
 sidecarArtifactsText: '{{$.sidecarArtifactText}}s'
 serviceCreated: Service created successfully
 serviceUpdated: Service updated successfully
+deleteService: Delete Service?
+deleteServiceMessage: Service deleted
+deleteServiceFailure: Unable to delete Service
+deleteServiceConfirmation: 'Are you sure you want to delete service {{name}}?'
+viewReferences: View references
 environmentCreated: Environment created successfully
 environmentUpdated: Environment updated successfully
 discard: Discard
 default: Default
-searchPlaceholder: Search by name or ID
+searchPlaceholder: Search by name or Id
 monthly: Monthly
 perMonth: /month
 hourly: Hourly
@@ -708,3 +713,7 @@ resourceLabel: Resource
 resourceTypeLabel: Resource Type
 moduleLabel: 'Module'
 timePstLabel: Time (PST)
+resourceGroupLabel: Resource Group
+roleAssignmentLabel: Role Assignment
+triggerLabel: Trigger
+delegateTokenLabel: Delegate Token

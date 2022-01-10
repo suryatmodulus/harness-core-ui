@@ -1,21 +1,24 @@
 import React, { useState } from 'react'
-import { Color, DateRangePickerButton, FontVariation, Layout, Text } from '@wings-software/uicore'
+import { DateRangePickerButton, Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { useGetAuditList } from 'services/audit'
 import { useStrings } from 'framework/strings'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import type { AuditFilterProperties } from 'services/audit'
 import { useMutateAsGet } from '@common/hooks'
+import AuditTrailsFilters from '@audit-trail/components/AuditTrailsFilters'
+import ScopedTitle from '@common/components/Title/ScopedTitle'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import AuditTrailsListView from './views/AuditTrailsListView'
 import AuditTrailsEmptyState from './audit_trails_empty_state.png'
 import css from './AuditTrailsPage.module.scss'
 
 const AuditTrailsPage: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, orgIdentifier } = useParams<OrgPathProps>()
+  const [selectedFilterProperties, setSelectedFilterProperties] = useState<AuditFilterProperties>()
   const [page, setPage] = useState(0)
-  const [selectedFilterProperties] = useState<AuditFilterProperties>()
   const { getString } = useStrings()
   const [startDate, setStartDate] = useState<Date>(() => {
     const start = new Date()
@@ -31,6 +34,7 @@ const AuditTrailsPage: React.FC = () => {
   })
 
   const onDateChange = (selectedDates: [Date, Date]): void => {
+    setPage(0)
     setStartDate(selectedDates[0])
     setEndDate(selectedDates[1])
   }
@@ -47,7 +51,7 @@ const AuditTrailsPage: React.FC = () => {
       pageIndex: page
     },
     body: {
-      scopes: [{ accountIdentifier: accountId, orgIdentifier, projectIdentifier }],
+      scopes: [{ accountIdentifier: accountId, orgIdentifier }],
       ...selectedFilterProperties,
       filterType: 'Audit',
       startTime: startDate.getTime(),
@@ -55,24 +59,39 @@ const AuditTrailsPage: React.FC = () => {
     }
   })
 
+  const auditTrailTitle = getString('common.auditTrail')
   return (
     <>
       <Page.Header
-        title={getString('common.auditTrail')}
-        breadcrumbs={<NGBreadcrumbs />}
-        content={
-          <Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_600}>
-            {getString('auditTrail.externalDataText')}
-            <a target="_blank" href="https://harness.io/docs/api/tag/Audits" rel="noreferrer">
-              {` ${getString('auditTrail.auditLogAPI')}`}
-            </a>
-          </Text>
+        title={
+          <ScopedTitle
+            title={{
+              [Scope.ACCOUNT]: auditTrailTitle,
+              [Scope.PROJECT]: auditTrailTitle,
+              [Scope.ORG]: auditTrailTitle
+            }}
+          />
         }
+        breadcrumbs={<NGBreadcrumbs />}
+        // content={
+        //   <Text margin={{ right: 'tiny' }} font={{ variation: FontVariation.SMALL }} color={Color.GREY_600}>
+        //     {getString('auditTrail.externalDataText')}
+        //     <a className={css.link} target="_blank" href="https://harness.io/docs/api/tag/Audits" rel="noreferrer">
+        //       {` ${getString('auditTrail.auditLogAPI')}`}
+        //       <Icon
+        //         className={css.launchIcon}
+        //         margin={{ left: 'tiny', bottom: 'tiny' }}
+        //         color={Color.PRIMARY_7}
+        //         name="launch"
+        //         size={12}
+        //       />
+        //     </a>
+        //   </Text>
+        // }
       />
       <Page.SubHeader className={css.subHeaderContainer}>
         <Layout.Horizontal flex className={css.subHeader}>
           <DateRangePickerButton
-            width={240}
             className={css.dateRange}
             initialButtonText={getString('common.last7days')}
             dateRangePickerProps={{ defaultValue: [startDate, endDate] }}
@@ -81,6 +100,14 @@ const AuditTrailsPage: React.FC = () => {
               `${selectedDates[0].toLocaleDateString()} - ${selectedDates[1].toLocaleDateString()}`
             }
           />
+          <Layout.Horizontal flex>
+            <AuditTrailsFilters
+              applyFilters={(properties: AuditFilterProperties) => {
+                setPage(0)
+                setSelectedFilterProperties(properties)
+              }}
+            />
+          </Layout.Horizontal>
         </Layout.Horizontal>
       </Page.SubHeader>
       <Page.Body

@@ -142,7 +142,12 @@ export interface StringsMap {
   'common.default': string
   'common.defaultExperience': string
   'common.delegateForTask': string
+  'common.delegateTokenLabel': string
   'common.delete': string
+  'common.deleteService': string
+  'common.deleteServiceConfirmation': string
+  'common.deleteServiceFailure': string
+  'common.deleteServiceMessage': string
   'common.descriptionPlaceholder': string
   'common.disable': string
   'common.discard': string
@@ -471,9 +476,11 @@ export interface StringsMap {
   'common.reportNameRequired': string
   'common.repositoryName': string
   'common.resolveConflict': string
+  'common.resourceGroupLabel': string
   'common.resourceLabel': string
   'common.resourceTypeLabel': string
   'common.role': string
+  'common.roleAssignmentLabel': string
   'common.saveAndClose': string
   'common.saveAsTemplate': string
   'common.savedSuccessfully': string
@@ -593,6 +600,7 @@ export interface StringsMap {
   'common.totalSelected': string
   'common.trialInProgress': string
   'common.trialInProgressDescription': string
+  'common.triggerLabel': string
   'common.unlimited': string
   'common.unsavedChanges': string
   'common.updating': string
@@ -630,6 +638,7 @@ export interface StringsMap {
   'common.videoNotSupportedError': string
   'common.viewContent': string
   'common.viewLatest': string
+  'common.viewReferences': string
   'common.viewText': string
   'common.viewUsage': string
   'common.webhookURL': string
@@ -738,6 +747,7 @@ export interface StringsMap {
   'rbac.permissionLabels.create': string
   'rbac.permissionLabels.createEdit': string
   'rbac.permissionLabels.delete': string
+  'rbac.permissionLabels.evaluate': string
   'rbac.permissionLabels.execute': string
   'rbac.permissionLabels.invite': string
   'rbac.permissionLabels.manage': string
@@ -758,7 +768,6 @@ export interface StringsMap {
   'rbac.resourceGroup.noResourceGroup': string
   'rbac.resourceGroup.noResourceGroupFound': string
   'rbac.resourceGroup.noResourceGroupTypes': string
-  'rbac.resourceGroup.resourceGroupColumn': string
   'rbac.resourceGroup.selectResourceGroup': string
   'rbac.resourceGroup.summary': string
   'rbac.resourceGroup.updateResourceGroupDialogTitle': string
@@ -1507,6 +1516,8 @@ export interface StringsMap {
   'connectors.ceGcp.billingExport.followInstruction': string
   'connectors.ceGcp.billingExport.heading': string
   'connectors.ceGcp.billingExport.launchTemplate': string
+  'connectors.ceGcp.billingExport.tableIdLabel': string
+  'connectors.ceGcp.billingExport.tableIdTooltipDesc': string
   'connectors.ceGcp.billingExport.tooltipDescription': string
   'connectors.ceGcp.billingExtention.heading': string
   'connectors.ceGcp.billingExtention.link1': string
@@ -2366,6 +2377,7 @@ export interface StringsMap {
   'pipeline.inputSets.inputSetPlaceholder': string
   'pipeline.inputSets.noRuntimeInputsCurrently': string
   'pipeline.inputSets.noRuntimeInputsWhileExecution': string
+  'pipeline.inputSets.overlayISHelperText': string
   'pipeline.inputSets.selectPlaceholder': string
   'pipeline.jiraApprovalStep.connectToJira': string
   'pipeline.jiraApprovalStep.connectorRef': string
@@ -2828,7 +2840,6 @@ export interface StringsMap {
   'pipeline.triggers.triggerConfigurationPanel.payloadType': string
   'pipeline.triggers.triggerConfigurationPanel.title': string
   'pipeline.triggers.triggerConfigurationPanel.triggerName': string
-  'pipeline.triggers.triggerLabel': string
   'pipeline.triggers.triggerOverviewPanel.title': string
   'pipeline.triggers.triggersLabel': string
   'pipeline.triggers.triggersSubLabel': string
@@ -3066,6 +3077,7 @@ export interface StringsMap {
   'cd.workloadRequired': string
   'ce.allClusters': string
   'ce.allRegions': string
+  'ce.budgets.addNewBudget': string
   'ce.budgets.budgetDeletedTxt': string
   'ce.budgets.confirmDeleteBudgetMsg': string
   'ce.budgets.confirmDeleteBudgetTitle': string
@@ -3080,6 +3092,7 @@ export interface StringsMap {
   'ce.budgets.detailsPage.monthToDateCost': string
   'ce.budgets.detailsPage.tableHeaders.actualCost': string
   'ce.budgets.detailsPage.tableHeaders.budgetCost': string
+  'ce.budgets.detailsPage.tableHeaders.budgetPeriod': string
   'ce.budgets.detailsPage.tableHeaders.budgetVariance': string
   'ce.budgets.detailsPage.tableHeaders.budgetVariancePercentage': string
   'ce.budgets.detailsPage.tableHeaders.month': string
@@ -3340,6 +3353,7 @@ export interface StringsMap {
   'ce.co.sshSetup': string
   'ce.common.budget': string
   'ce.common.newBudget': string
+  'ce.common.spendTillDate': string
   'ce.connector.AWS.crossAccountRole.arn': string
   'ce.connector.AWS.crossAccountRole.externalID': string
   'ce.connector.AWS.crossAccountRole.instructionLabel': string
@@ -3447,6 +3461,8 @@ export interface StringsMap {
   'ce.perspectives.budgets.addBudget': string
   'ce.perspectives.budgets.budgetMonthlyTxt': string
   'ce.perspectives.budgets.budgetSmallTxt': string
+  'ce.perspectives.budgets.budgetText': string
+  'ce.perspectives.budgets.budgetTextWithGrowthRate': string
   'ce.perspectives.budgets.configureAlerts.actual': string
   'ce.perspectives.budgets.configureAlerts.basedOn': string
   'ce.perspectives.budgets.configureAlerts.budgetAmount': string
@@ -3454,6 +3470,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.configureAlerts.exceeds': string
   'ce.perspectives.budgets.configureAlerts.forecasted': string
   'ce.perspectives.budgets.configureAlerts.percent': string
+  'ce.perspectives.budgets.configureAlerts.sendAlertTo': string
   'ce.perspectives.budgets.configureAlerts.subTitle': string
   'ce.perspectives.budgets.configureAlerts.title': string
   'ce.perspectives.budgets.createNew': string
@@ -3465,6 +3482,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.desc': string
   'ce.perspectives.budgets.forecastedCost': string
   'ce.perspectives.budgets.monthToDateSpend': string
+  'ce.perspectives.budgets.perspectiveCreateBudgetTitle': string
   'ce.perspectives.budgets.sendAlerts': string
   'ce.perspectives.budgets.setBudgetAmount.budgetPeriod': string
   'ce.perspectives.budgets.setBudgetAmount.budgetPeriods.monthly': string
@@ -3513,6 +3531,7 @@ export interface StringsMap {
   'ce.perspectives.createPerspective.validationErrors.nameError': string
   'ce.perspectives.createPerspective.validationErrors.nameLengthError': string
   'ce.perspectives.createPerspective.validationErrors.ruleError': string
+  'ce.perspectives.featureWarningSubInfoText': string
   'ce.perspectives.newPerspective': string
   'ce.perspectives.newPerspectiveLimitWarning': string
   'ce.perspectives.nodeDetails.aggregation.average': string
@@ -3526,6 +3545,7 @@ export interface StringsMap {
   'ce.perspectives.recommendations.perMonth': string
   'ce.perspectives.recommendations.recommendationCountTxt': string
   'ce.perspectives.recommendations.viewText': string
+  'ce.perspectives.reports.addReportSchedule': string
   'ce.perspectives.reports.createNew': string
   'ce.perspectives.reports.cronLabel': string
   'ce.perspectives.reports.desc': string
@@ -3920,6 +3940,7 @@ export interface StringsMap {
   'cf.onboarding.readme.java': string
   'cf.onboarding.readme.javascript': string
   'cf.onboarding.readme.nodejs': string
+  'cf.onboarding.readme.python': string
   'cf.onboarding.sdkButtonLabel': string
   'cf.onboarding.sdkKeyLabel': string
   'cf.onboarding.secret': string
@@ -4013,9 +4034,16 @@ export interface StringsMap {
   'cf.segmentDetail.addSegmentToFlag': string
   'cf.segmentDetail.addToFlag': string
   'cf.segmentDetail.autoAdded': string
+  'cf.segmentDetail.criteria': string
   'cf.segmentDetail.directlyAdded': string
+  'cf.segmentDetail.excludeTheFollowing': string
+  'cf.segmentDetail.includeTheFollowing': string
+  'cf.segmentDetail.noConditionDefined': string
   'cf.segmentDetail.noFlagsUseThisSegment': string
+  'cf.segmentDetail.noTargetDefined': string
   'cf.segmentDetail.removeFomFlag': string
+  'cf.segmentDetail.specificTargets': string
+  'cf.segmentDetail.targetBasedOnCondition': string
   'cf.segments.create': string
   'cf.segments.delete.message': string
   'cf.segments.delete.title': string
@@ -6328,19 +6356,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'inputSets.inputSetName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'inputSets.inputSetSaved': string
   /**
    * @deprecated migrate this string to module level file
    */
   'inputSets.inputSetSavedError': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'inputSets.nameIsRequired': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6369,10 +6389,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'inputSets.overlayInputSetSavedError': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'inputSets.overlaySetName': string
   /**
    * @deprecated migrate this string to module level file
    */

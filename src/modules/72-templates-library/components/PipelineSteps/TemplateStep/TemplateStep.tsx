@@ -18,6 +18,7 @@ import { TemplateType } from '@templates-library/utils/templatesUtils'
 import stepFactory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import type { TemplateStepNode } from 'services/pipeline-ng'
 import type { StepElementConfig } from 'services/cd-ng'
+import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { TemplateStepWidgetWithRef } from './TemplateStepWidget/TemplateStepWidget'
 
 const logger = loggerFor(ModuleName.TEMPLATES)
@@ -174,7 +175,8 @@ export class TemplateStep extends PipelineStep<TemplateStepNode> {
       readonly,
       factory,
       inputSetData,
-      allowableTypes
+      allowableTypes,
+      customStepProps
     } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
@@ -190,7 +192,18 @@ export class TemplateStep extends PipelineStep<TemplateStepNode> {
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
-      return <div />
+      return (
+        <StepWidget<StepElementConfig>
+          factory={factory}
+          initialValues={initialValues.template?.templateInputs as StepElementConfig}
+          allowableTypes={allowableTypes}
+          type={(initialValues.template?.templateInputs as StepElementConfig)?.type as StepType}
+          stepViewType={stepViewType}
+          onUpdate={onUpdate}
+          readonly={readonly}
+          customStepProps={customStepProps}
+        />
+      )
     }
     return (
       <TemplateStepWidgetWithRef

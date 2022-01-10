@@ -21,8 +21,6 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { FormMultiTypeCheckboxField } from '@common/components'
-import { Scope } from '@common/interfaces/SecretsInterface'
-import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import type { KustomizeWithGITDataType } from '../../ManifestInterface'
 import {
   gitFetchTypeList,
@@ -33,6 +31,7 @@ import {
   ManifestStoreMap
 } from '../../Manifesthelper'
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
+import { getRepositoryName } from '../ManifestUtils'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
@@ -74,36 +73,6 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
         : prevStepData?.url
       : null
 
-  const getRepoName = (): string => {
-    let repoName = ''
-    if (getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED) {
-      repoName = prevStepData?.connectorRef
-    } else if (prevStepData?.connectorRef) {
-      if (connectionType === GitRepoName.Repo) {
-        repoName = prevStepData?.connectorRef?.connector?.spec?.url
-      } else {
-        const connectorScope = getScopeFromValue(initialValues?.spec?.store?.spec?.connectorRef)
-        if (connectorScope === Scope.ACCOUNT) {
-          if (
-            initialValues?.spec?.store.spec?.connectorRef ===
-            `account.${prevStepData?.connectorRef?.connector?.identifier}`
-          ) {
-            repoName = initialValues?.spec?.store?.spec?.repoName
-          } else {
-            repoName = ''
-          }
-        } else {
-          repoName =
-            prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store?.spec?.connectorRef
-              ? initialValues?.spec?.store?.spec?.repoName
-              : ''
-        }
-      }
-      return repoName
-    }
-    return repoName
-  }
-
   const getInitialValues = React.useCallback((): KustomizeWithGITDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
 
@@ -112,7 +81,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
         ...specValues,
         identifier: initialValues.identifier,
         folderPath: specValues.folderPath,
-        repoName: getRepoName(),
+        repoName: getRepositoryName(prevStepData, initialValues),
         pluginPath: initialValues.spec?.pluginPath,
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning
       }
@@ -125,7 +94,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
       gitFetchType: 'Branch',
       folderPath: '',
       skipResourceVersioning: false,
-      repoName: getRepoName(),
+      repoName: getRepositoryName(prevStepData, initialValues),
       pluginPath: ''
     }
   }, [])

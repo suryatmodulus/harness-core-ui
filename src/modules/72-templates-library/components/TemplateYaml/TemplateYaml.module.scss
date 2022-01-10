@@ -1,9 +1,8 @@
 .container {
   background-color: #f3f3fa !important;
-
-  .editor {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
+  :global {
+    .monaco-editor .rename-box {
+      top: 0;
+    }
   }
 }

@@ -716,6 +716,7 @@ exports[`FlagActivation it should render form correctly 1`] = `
     </button>
     <button
       class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--variation Button--variation-tertiary"
+      data-testid="save-flag-to-git-modal-cancel-button"
       type="button"
     >
       <span

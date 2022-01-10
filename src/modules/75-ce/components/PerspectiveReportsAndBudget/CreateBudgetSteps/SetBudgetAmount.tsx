@@ -394,7 +394,12 @@ const SetBudgetAmount: React.FC<StepProps<BudgetStepData> & Props> = props => {
                 </Container>
               ) : null}
               <Container className={css.selectPerspectiveContainer}>
-                <Text font={{ variation: FontVariation.H4 }}>
+                <Text
+                  font={{ variation: FontVariation.H4 }}
+                  tooltipProps={{
+                    dataTooltipId: 'createBudgetSetBudget'
+                  }}
+                >
                   {getString('ce.perspectives.budgets.setBudgetAmount.title')}
                 </Text>
 

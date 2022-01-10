@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, ButtonSize, ButtonVariation, Container, Tab, Tabs } from '@wings-software/uicore'
+import { Button, ButtonSize, ButtonVariation, Container, Tab, Tabs, Layout } from '@wings-software/uicore'
 import { Expander } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
@@ -181,14 +181,14 @@ export function StepCommands(
   return (
     <div className={cx(css.stepCommand, className)}>
       {stepType === StepType.Template && onUseTemplate && onRemoveTemplate ? (
-        <>
+        <Layout.Vertical margin={'xlarge'} spacing={'xxlarge'}>
           <TemplateBar
             templateLinkConfig={(step as TemplateStepNode).template}
             onOpenTemplateSelector={onUseTemplate}
             onRemoveTemplate={onRemoveTemplate}
           />
-          <Container padding={'large'}>{getStepWidgetWithFormikRef()}</Container>
-        </>
+          <Container>{getStepWidgetWithFormikRef()}</Container>
+        </Layout.Vertical>
       ) : (
         <div className={cx(css.stepTabs, { stepTabsAdvanced: activeTab === StepCommandTabs.Advanced })}>
           <Tabs id="step-commands" selectedTabId={activeTab} onChange={handleTabChange}>

@@ -36,6 +36,7 @@ $headerHeight: 146px;
 
 .sloFilters {
   --primary-bg: var(--grey-0) !important;
+  align-items: center;
   p {
     margin-bottom: var(--spacing-xsmall) !important;
   }
@@ -98,4 +99,8 @@ $headerHeight: 146px;
       color: var(--grey-0);
     }
   }
+}
+
+.clearButton {
+  align-self: flex-end;
 }

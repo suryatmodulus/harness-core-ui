@@ -126,7 +126,7 @@ export default function DeploymentExecutionsChart(props: any) {
                   formatter: function (this) {
                     let time = new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short' })
                     if (data?.data?.executionDeploymentList?.length) {
-                      const val = data?.data?.executionDeploymentList[this.pos].time
+                      const val = data?.data?.executionDeploymentList?.[this.pos]?.time
                       time = val ? new Date(val).toLocaleDateString('en-US', { day: 'numeric', month: 'short' }) : time
                     }
                     return time

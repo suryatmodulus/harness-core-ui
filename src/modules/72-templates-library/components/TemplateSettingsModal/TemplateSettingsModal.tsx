@@ -15,12 +15,12 @@ import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner, useToaster } from '@common/components'
 import { TemplatePreview } from '@templates-library/components/TemplatePreview/TemplatePreview'
 import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { useGetTemplateList, TemplateSummaryResponse, useUpdateStableTemplate } from 'services/template-ng'
-import { useMutateAsGet } from '@common/hooks'
+import { useMutateAsGet, useQueryParams } from '@common/hooks'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
@@ -134,6 +134,7 @@ export const TemplateSettingsModal = (props: TemplateSettingsModalProps) => {
   const [previewValues, setPreviewValues] = useState<TemplateSummaryResponse>()
   const params = useParams<ProjectPathProps>()
   const { accountId, orgIdentifier, projectIdentifier } = params
+  const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { showSuccess, showError } = useToaster()
   const { getString } = useStrings()
 
@@ -162,7 +163,9 @@ export const TemplateSettingsModal = (props: TemplateSettingsModalProps) => {
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
-      orgIdentifier
+      orgIdentifier,
+      repoIdentifier,
+      branch
     },
     requestOptions: { headers: { 'content-type': 'application/json' } }
   })

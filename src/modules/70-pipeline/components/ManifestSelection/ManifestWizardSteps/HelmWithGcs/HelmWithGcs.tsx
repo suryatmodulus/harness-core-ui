@@ -9,7 +9,6 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   Text,
-  SelectOption,
   ButtonVariation,
   getErrorInfoFromErrorObject,
   FontVariation
@@ -27,16 +26,11 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/components'
 
-import type {
-  CommandFlags,
-  HelmWithGcsDataType,
-  HelmWithGITDataType,
-  HelmWithHTTPDataType,
-  HelmWithS3DataType
-} from '../../ManifestInterface'
+import type { HelmWithGcsDataType } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 
 import { helmVersions, ManifestDataType, ManifestIdentifierValidation } from '../../Manifesthelper'
+import { handleCommandFlagsSubmitData } from '../ManifestUtils'
 import css from '../ManifestWizardSteps.module.scss'
 import helmcss from '../HelmWithGIT/HelmWithGIT.module.scss'
 
@@ -49,30 +43,6 @@ interface HelmWithGcsPropType {
   manifestIdsList: Array<string>
   isReadonly?: boolean
   deploymentType?: string
-}
-export const handleCommandFlagsSubmitData = (
-  manifestObj: ManifestConfigWrapper,
-  formData: (HelmWithGcsDataType | HelmWithHTTPDataType | HelmWithS3DataType | HelmWithGITDataType) & {
-    store?: string
-    connectorRef?: string
-  }
-): void => {
-  if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
-    ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) =>
-      commandFlag.commandType && commandFlag.flag
-        ? {
-            commandType: (commandFlag.commandType as SelectOption)?.value as string,
-            flag: commandFlag.flag
-          }
-        : {}
-    )
-    const filteredCommandFlags = manifestObj?.manifest?.spec?.commandFlags.filter(
-      (currFlag: CommandFlags) => !isEmpty(currFlag)
-    )
-    if (filteredCommandFlags.length === 0) {
-      delete (manifestObj?.manifest?.spec as any).commandFlags
-    }
-  }
 }
 
 const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType> = ({
@@ -126,7 +96,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
     const specValues = get(initialValues, 'spec.store.spec', null)
 
     if (specValues) {
-      const values = {
+      return {
         ...specValues,
         identifier: initialValues.identifier,
         helmVersion: initialValues.spec?.helmVersion,
@@ -134,12 +104,11 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
         chartName: initialValues.spec?.chartName,
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
         commandFlags: initialValues.spec?.commandFlags?.map((commandFlag: { commandType: string; flag: string }) => ({
-          commandType: { label: commandFlag.commandType, value: commandFlag.commandType },
+          commandType: commandFlag.commandType,
           flag: commandFlag.flag
           // id: uuid(commandFlag, nameSpace())
         })) || [{ commandType: undefined, flag: undefined, id: uuid('', nameSpace()) }]
       }
-      return values
     }
     return {
       identifier: '',

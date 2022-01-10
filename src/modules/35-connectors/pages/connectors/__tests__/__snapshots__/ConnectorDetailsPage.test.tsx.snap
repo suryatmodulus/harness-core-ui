@@ -151,11 +151,15 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           <div
             class="StyledProps--font StyledProps--main"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-medium StyledProps--font-weight-bold"
+            <div
+              class="Layout--horizontal StyledProps--main"
             >
-              Sample
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-h4"
+              >
+                account connectors.connectorsTitle
+              </p>
+            </div>
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >
@@ -688,11 +692,15 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
           <div
             class="StyledProps--font StyledProps--main"
           >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-medium StyledProps--font-weight-bold"
+            <div
+              class="Layout--horizontal StyledProps--main"
             >
-              Sample
-            </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-variation-h4"
+              >
+                orgLabel connectors.connectorsTitle
+              </p>
+            </div>
             <div
               class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
             >

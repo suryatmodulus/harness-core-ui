@@ -1,4 +1,5 @@
 import { omit, isEqual } from 'lodash-es'
+import type { TabId } from '@blueprintjs/core'
 import { Color, SelectOption, Utils } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import type { UseStringsReturn, StringKeys } from 'framework/strings'
@@ -177,6 +178,30 @@ export const isFormDataValid = (formikProps: FormikProps<SLOForm>, selectedTabId
   }
 
   return true
+}
+
+export const handleTabChange = (
+  nextTabId: TabId,
+  formik: FormikProps<SLOForm>,
+  setSelectedTabId: (tabId: CreateSLOTabs) => void
+): void => {
+  switch (nextTabId) {
+    case CreateSLOTabs.SLI: {
+      isFormDataValid(formik, CreateSLOTabs.NAME) && setSelectedTabId(CreateSLOTabs.SLI)
+      break
+    }
+    case CreateSLOTabs.SLO_TARGET_BUDGET_POLICY: {
+      if (isFormDataValid(formik, CreateSLOTabs.NAME) && isFormDataValid(formik, CreateSLOTabs.SLI)) {
+        setSelectedTabId(CreateSLOTabs.SLO_TARGET_BUDGET_POLICY)
+      } else if (isFormDataValid(formik, CreateSLOTabs.NAME)) {
+        setSelectedTabId(CreateSLOTabs.SLI)
+      }
+      break
+    }
+    default: {
+      setSelectedTabId(CreateSLOTabs.NAME)
+    }
+  }
 }
 
 // SLO Name

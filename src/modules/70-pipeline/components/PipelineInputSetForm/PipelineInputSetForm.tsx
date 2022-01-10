@@ -157,8 +157,8 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
 
   const isCloneCodebaseEnabledAtLeastAtOneStage = originalPipeline?.stages?.some(
     stage =>
-      get(stage, 'stage.spec.cloneCodebase') ||
-      stage.parallel?.some(parallelStage => get(parallelStage, 'stage.spec.cloneCodebase'))
+      Object.is(get(stage, 'stage.spec.cloneCodebase'), true) ||
+      stage.parallel?.some(parallelStage => Object.is(get(parallelStage, 'stage.spec.cloneCodebase'), true))
   )
 
   const { expressions } = useVariablesExpression()

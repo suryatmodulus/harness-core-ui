@@ -187,7 +187,9 @@ function generateSchemaForMap(
   if (isInputSet) {
     // We can't add validation for key uniqueness and key's value
     return yup.mixed().test('validKeys', getString('validation.validKeyRegex'), map => {
-      if (!map) return true
+      if (!map || getMultiTypeFromValue(map as string) === MultiTypeInputType.RUNTIME) {
+        return true
+      }
       return Object.keys(map).every(key => regexIdentifier.test(key))
     })
   } else {

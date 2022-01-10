@@ -39,7 +39,8 @@ const BudgetStatusBar: (props: BudgetStatusBarProps) => JSX.Element | null = ({ 
 
   const [widthState, setWidthState] = useState({
     actualCostBarWidth: 0,
-    forecastCostBarWidth: 0
+    forecastCostBarWidth: 0,
+    budgetCostBarWidth: 0
   })
 
   useEffect(() => {
@@ -61,9 +62,11 @@ const BudgetStatusBar: (props: BudgetStatusBarProps) => JSX.Element | null = ({ 
 
     const actualCostBarWidth = Math.floor(BAR_WIDTH * actualCostStatus.ratio)
     const forecastCostBarWidth = Math.floor(BAR_WIDTH * forecastedCostStatus.ratio)
+    const budgetCostBarWidth = Math.floor(BAR_WIDTH * budgetAmountStatus.ratio)
     setWidthState({
       actualCostBarWidth,
-      forecastCostBarWidth
+      forecastCostBarWidth,
+      budgetCostBarWidth
     })
   }, [rowData])
 
@@ -82,25 +85,44 @@ const BudgetStatusBar: (props: BudgetStatusBarProps) => JSX.Element | null = ({ 
           style={{
             width: widthState.actualCostBarWidth
           }}
-          className={cx(css.actualCostBar, { [css.alert]: costState.actualCostStatus.status === AlertStatus.Danger })}
+          className={cx(
+            css.actualCostBar,
+            { [css.alert]: costState.actualCostStatus.status === AlertStatus.Warning },
+            { [css.danger]: costState.actualCostStatus.status === AlertStatus.Danger }
+          )}
         ></div>
 
         <div
           style={{
             width: widthState.forecastCostBarWidth
           }}
-          className={cx(css.forecastedBar, {
-            [css.alert]: costState.forecastedCostStatus.status === AlertStatus.Danger
-          })}
+          className={cx(
+            css.forecastedBar,
+            { [css.alert]: costState.forecastedCostStatus.status === AlertStatus.Warning },
+            { [css.danger]: costState.forecastedCostStatus.status === AlertStatus.Danger }
+          )}
         ></div>
+
+        {costState.forecastedCostStatus.status === AlertStatus.Danger ? (
+          <div
+            style={{
+              width: widthState.budgetCostBarWidth
+            }}
+            className={css.budgetStatusBar}
+          ></div>
+        ) : null}
+
         <div
           style={{
             left: widthState.actualCostBarWidth
           }}
-          className={cx(css.actualCostMarker, {
-            [css.alert]: costState.actualCostStatus.status === AlertStatus.Danger
-          })}
+          className={cx(
+            css.actualCostMarker,
+            { [css.alert]: costState.actualCostStatus.status === AlertStatus.Warning },
+            { [css.danger]: costState.actualCostStatus.status === AlertStatus.Danger }
+          )}
         ></div>
+
         <Text
           font={{ variation: FontVariation.SMALL_BOLD }}
           padding={{

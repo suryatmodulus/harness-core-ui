@@ -8,7 +8,7 @@ import { setFormikRef, StepFormikFowardRef, StepViewType } from '@pipeline/compo
 import { useStrings } from 'framework/strings'
 
 import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
-import type { ShellScriptFormData } from './shellScriptTypes'
+import { ShellScriptFormData, variableSchema } from './shellScriptTypes'
 import BaseShellScript from './BaseShellScript'
 import OptionalConfiguration from './OptionalConfiguration'
 
@@ -52,20 +52,8 @@ export function ShellScriptWidget(
           script: Yup.string().trim().required(getString('cd.scriptRequired'))
         })
       }),
-      environmentVariables: Yup.array().of(
-        Yup.object({
-          name: Yup.string().required(getString('common.validation.nameIsRequired')),
-          value: Yup.string().required(getString('common.validation.valueIsRequired')),
-          type: Yup.string().trim().required(getString('common.validation.typeIsRequired'))
-        })
-      ),
-      outputVariables: Yup.array().of(
-        Yup.object({
-          name: Yup.string().required(getString('common.validation.nameIsRequired')),
-          value: Yup.string().required(getString('common.validation.valueIsRequired')),
-          type: Yup.string().trim().required(getString('common.validation.typeIsRequired'))
-        })
-      )
+      environmentVariables: variableSchema(getString),
+      outputVariables: variableSchema(getString)
     }),
     ...getNameAndIdentifierSchema(getString, stepViewType)
   })

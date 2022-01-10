@@ -40,7 +40,7 @@ const ResourceGroupsResourceModalBody: React.FC<RbacResourceModalProps> = ({
         selectedData={selectedData}
         columns={[
           {
-            Header: getString('rbac.resourceGroup.resourceGroupColumn'),
+            Header: getString('common.resourceGroupLabel'),
             id: 'name',
             accessor: row => row.resourceGroup.name,
             width: '95%',

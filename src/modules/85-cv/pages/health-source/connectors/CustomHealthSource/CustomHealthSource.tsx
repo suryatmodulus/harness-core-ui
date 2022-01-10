@@ -8,7 +8,7 @@ import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSource
 import { MultiItemsSideNav } from '@cv/components/MultiItemsSideNav/MultiItemsSideNav'
 import { SetupSourceCardHeader } from '@cv/components/CVSetupSourcesView/SetupSourceCardHeader/SetupSourceCardHeader'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
-import { TimeSeriesSampleDTO, useGetLabelNames, useGetMetricPacks } from 'services/cv'
+import { useGetLabelNames, useGetMetricPacks } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import {
   initializeCreatedMetrics,
@@ -67,9 +67,9 @@ export function CustomHealthSource(props: CustomHealthSourceProps): JSX.Element 
 
   const [isQueryExecuted, setIsQueryExecuted] = useState(false)
   const [sampleDataLoading, setSampleDataLoading] = useState(false)
-  const [recordsData, setrecordsData] = useState<TimeSeriesSampleDTO | undefined>()
+  const [recordsData, setrecordsData] = useState<Record<string, unknown> | undefined>()
 
-  const onFetchRecordsSuccess = useCallback((data: TimeSeriesSampleDTO | undefined): void => {
+  const onFetchRecordsSuccess = useCallback((data: Record<string, unknown> | undefined): void => {
     setrecordsData(data)
     setIsQueryExecuted(true)
   }, [])

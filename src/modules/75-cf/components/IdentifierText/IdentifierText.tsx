@@ -28,6 +28,7 @@ export const IdentifierText: React.FC<IdentifierTextProps> = ({ identifier, styl
       }}
       {...props}
     >
+      {getString('idLabel')}
       {identifier}
       {allowCopy && (
         <Button

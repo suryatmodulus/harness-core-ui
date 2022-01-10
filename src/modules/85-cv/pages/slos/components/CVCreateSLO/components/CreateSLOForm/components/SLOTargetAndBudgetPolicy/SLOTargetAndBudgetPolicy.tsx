@@ -1,19 +1,19 @@
 import React from 'react'
 import { Card, Color, FontVariation, FormInput, Heading, Icon, Layout, Text, Container } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import SLOTargetChart from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
+import SLOTargetChartWrapper from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
 import {
   getPeriodLengthOptions,
   getPeriodLengthOptionsForRolling,
   getPeriodTypeOptions,
   getWindowEndOptionsForMonth,
   getWindowEndOptionsForWeek,
-  convertSLOFormDataToServiceLevelIndicatorDTO,
   getErrorBudget,
-  getCustomOptionsForSLOTargetChart
+  getCustomOptionsForSLOTargetChart,
+  convertSLOFormDataToServiceLevelIndicatorDTO
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
 import {
-  SLOPanelProps,
+  SLOTargetAndBudgetPolicyProps,
   PeriodTypes,
   PeriodLengthTypes,
   SLOFormFields
@@ -24,7 +24,7 @@ import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 // SONAR recommendation
 const flexStart = 'flex-start'
 
-const SLOTargetAndBudgetPolicy: React.FC<SLOPanelProps> = ({ formikProps, children }) => {
+const SLOTargetAndBudgetPolicy: React.FC<SLOTargetAndBudgetPolicyProps> = ({ children, formikProps }) => {
   const { getString } = useStrings()
   const { periodType, periodLengthType } = formikProps.values
 
@@ -96,7 +96,7 @@ const SLOTargetAndBudgetPolicy: React.FC<SLOPanelProps> = ({ formikProps, childr
               />
               <Layout.Horizontal spacing="xxxlarge" flex={{ alignItems: flexStart, justifyContent: flexStart }}>
                 <Container width={450}>
-                  <SLOTargetChart
+                  <SLOTargetChartWrapper
                     customChartOptions={getCustomOptionsForSLOTargetChart(formikProps.values)}
                     monitoredServiceIdentifier={formikProps.values.monitoredServiceRef}
                     serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}

@@ -181,4 +181,8 @@ export class Utils {
       }
     }
   }
+
+  static isUserAbortedRequest = (e: any) => {
+    return e.message.includes('The user aborted a request')
+  }
 }

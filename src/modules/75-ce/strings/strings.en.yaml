@@ -4,6 +4,7 @@ trialCta: 'Start 14 day CCM trial'
 common:
   newBudget: 'New Budget'
   budget: 'Budget'
+  spendTillDate: 'Spend Till Date'
 allRegions: 'All Regions'
 allClusters: 'All Clusters'
 noSavingsDataMessage: 'Savings data not computed yet'
@@ -275,7 +276,7 @@ co:
     rdp: 'RDP'
     backgroundTasks: 'Background Tasks'
   instanceSelector:
-    name: 'Name and ID'
+    name: 'Name and Id'
     ipAddress: '{{$.ce.co.gatewayAccess.ip}}'
     launchTime: 'Launch Time'
   gatewayReview:
@@ -381,7 +382,7 @@ connector:
       externalID: '{{$.connectors.aws.externalId}}'
       validation:
         arnRequired: '{{$.connectors.aws.validation.crossAccountRoleArn}}'
-        extIDRequired: External ID is required
+        extIDRequired: External Id is required
       submitText: Save & Continue
       templateLaunchText: Launch Template in AWS Console
     testConnection:
@@ -468,6 +469,7 @@ savedYamlSuccess: YAML validated successfully
 uploadCertiHeader: Upload a new certificate for the Application Load Balancer
 perspectives:
   newPerspective: New Perspective
+  featureWarningSubInfoText: 'You have used {{usagePercentage}}% of your cloud spend subscription limit.'
   newPerspectiveLimitWarning: You have used {{count}} / {{limit}} free perspectives incuded in your current plan. Consider upgrading for unlimited perspectives.
   allPerspectiveTxt: 'All ({{ count }})'
   recentPerspectiveTxt: 'Recent ({{ count }})'
@@ -568,10 +570,11 @@ perspectives:
       opNull: 'NULL'
       opNotNull: 'NOT NULL'
   reports:
-    title: Report Schedules
+    title: 'Report Schedules({{ count }})'
     desc: Reports can send a cost report to specified users at the specified frequency.
     msg: You have not created any yet.
     createNew: '+ create new Report schedule'
+    addReportSchedule: 'add Report schedule'
     reportName: '{{ $.common.reportName }}'
     frequency: '{{ $.common.frequency }}'
     recipients: Recipients
@@ -585,7 +588,10 @@ perspectives:
     recommendationCountTxt: '{{ count }} recommendations saving upto'
     perMonth: per month
   budgets:
+    budgetText: '{{ index }}. Budget Amount: {{ amount }}'
+    budgetTextWithGrowthRate: '{{ index }}. Budget Amount: {{ amount }} with {{ growth }}% growth rate'
     addBudget: Add a budget to this perspective
+    perspectiveCreateBudgetTitle: '{{ $.ce.common.budget}}({{ count }})'
     title: '{{ $.ce.common.budget}}'
     thisMonth: this month
     viewText: '{{ $.common.viewText }}'
@@ -626,6 +632,7 @@ perspectives:
       subTitle: Send an alert to Harness User Groups when the actual or forecasted cost exceeds a percentage of your Budget amount created in the previous step.
       budgetAmount: Budget Amount
       actual: Actual
+      sendAlertTo: Send Alert To
       forecasted: Forecasted
       basedOn: Based on
       exceeds: exceeds
@@ -696,6 +703,7 @@ budgets:
   confirmDeleteBudgetTitle: Delete Budget
   confirmDeleteBudgetMsg: 'Are you sure you want to delete the Budget {{ name }}?'
   budgetDeletedTxt: 'Budget {{ name }} deleted'
+  addNewBudget: add new Budget
   listPage:
     title: All Budgets
     newBudget: '{{ $.ce.common.newBudget }}'
@@ -716,15 +724,16 @@ budgets:
       actualCost: Actual cost
       budgetedCost: '{{ $.ce.common.budget}}'
       forecastCost: Forecased cost
-      currentMonthCost: Spend Till Date cost
+      currentMonthCost: '{{ $.ce.common.spendTillDate }}'
     tableHeaders:
+      budgetPeriod: BUDGET PERIOD
       month: MONTH
       actualCost: ACTUAL COST
       budgetCost: BUDGETED COST
       budgetVariance: BUDGET VARIANCE ($)
       budgetVariancePercentage: BUDGET VARIANCE (%)
-    budgetStatus: 'Budget Status - {{ timeScope }}'
+    budgetStatus: 'Budget Period - {{ timeScope }}'
     timeLeft: '{{ timeLeft }} {{ timeUnit }} left'
-    monthToDateCost: Spend Till Date Cost
+    monthToDateCost: '{{ $.ce.common.spendTillDate }}'
     budgetAmount: Budget amount
     alertsAt: Alerts at

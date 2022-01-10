@@ -3,7 +3,7 @@
 declare const styles: {
   readonly basicDetails: string
   readonly nameIdDescriptionTags: string
+  readonly comment: string
   readonly closeIcon: string
-  readonly versionLabel: string
 }
 export default styles

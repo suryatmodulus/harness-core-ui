@@ -79,7 +79,7 @@ const getDefaultInputSet = (
   orgIdentifier: string,
   projectIdentifier: string
 ): InputSetDTO => ({
-  name: undefined,
+  name: '',
   identifier: '',
   description: undefined,
   orgIdentifier,
@@ -261,7 +261,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           description: parsedInputSetObj.inputSet.description,
           orgIdentifier: parsedInputSetObj.inputSet.orgIdentifier,
           projectIdentifier: parsedInputSetObj.inputSet.projectIdentifier,
-          pipeline: clearRuntimeInput(parsedInputSetObj.inputSet.pipeline),
+          pipeline: clearRuntimeInput(parsedPipelineWithValues),
           gitDetails: defaultTo(inputSetObj.gitDetails, {}),
           entityValidityDetails: defaultTo(inputSetObj.entityValidityDetails, {})
         }
@@ -483,7 +483,10 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
               if (isEmpty(errors.pipeline)) delete errors.pipeline
             }
 
-            setFormErrors(errors)
+            if (!isEmpty(formErrors)) {
+              setFormErrors(errors)
+            }
+
             return errors
           }}
           onSubmit={values => {
@@ -503,7 +506,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                             <NameIdDescriptionTags
                               className={css.nameiddescription}
                               identifierProps={{
-                                inputLabel: getString('inputSets.inputSetName'),
+                                inputLabel: getString('name'),
                                 isIdentifierEditable: !isEdit && isEditable,
                                 inputGroupProps: {
                                   disabled: !isEditable
@@ -547,7 +550,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                             type="submit"
                             onClick={e => {
                               e.preventDefault()
-                              formikProps.validateForm().then(() => {
+                              formikProps.validateForm().then(errors => {
+                                setFormErrors(errors)
                                 if (
                                   formikProps?.values?.name?.length &&
                                   formikProps?.values?.identifier?.length &&

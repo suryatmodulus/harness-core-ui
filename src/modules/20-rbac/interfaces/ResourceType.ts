@@ -23,7 +23,8 @@ export enum ResourceType {
   DASHBOARDS = 'DASHBOARDS',
   TEMPLATE = 'TEMPLATE',
   MONITOREDSERVICE = 'MONITOREDSERVICE',
-  SLO = 'SLO'
+  SLO = 'SLO',
+  GOVERNANCE = 'GOVERNANCE'
 }
 
 export enum ResourceCategory {

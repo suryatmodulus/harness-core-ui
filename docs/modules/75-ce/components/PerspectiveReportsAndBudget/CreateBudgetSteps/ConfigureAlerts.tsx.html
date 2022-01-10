@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.75% </span>
+                <span class="strong">69.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>48/73</span>
+                <span class='fraction'>48/69</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">27.91% </span>
+                <span class="strong">41.38% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/43</span>
+                <span class='fraction'>12/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52% </span>
+                <span class="strong">54.17% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>13/25</span>
+                <span class='fraction'>13/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">69.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>48/72</span>
+                <span class='fraction'>48/69</span>
             </div>
         
             
@@ -375,7 +375,10 @@
 <a name='L316'></a><a href='#L316'>316</a>
 <a name='L317'></a><a href='#L317'>317</a>
 <a name='L318'></a><a href='#L318'>318</a>
-<a name='L319'></a><a href='#L319'>319</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -464,29 +467,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -782,7 +788,8 @@ const ConfigureAlerts: React.FC&lt;StepProps&lt;BudgetStepData&gt; &amp; Props&g
       }
     })
 &nbsp;
-    const emptyThresholds = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(t</span>: AlertThreshold) =&gt; <span class="cstat-no" title="statement not covered" >(t.emailAddresses?.length || 0) &gt; 0 &amp;&amp; t.percentage</span></span>
+    /* istanbul ignore next */
+    const emptyThresholds = (t: AlertThreshold) =&gt; (t.emailAddresses?.length || 0) &gt; 0 &amp;&amp; t.percentage
     const payload = <span class="cstat-no" title="statement not covered" >{</span>
       name: budgetName,
       alertThresholds: altThresholds.filter(emptyThresholds),
@@ -799,12 +806,14 @@ const ConfigureAlerts: React.FC&lt;StepProps&lt;BudgetStepData&gt; &amp; Props&g
     }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      await (isEditMode ? updateBudget(payload as Budget) : createBudget(payload as Budget))</span>
+      /* istanbul ignore next */
+      await (isEditMode ? updateBudget(payload as Budget) : createBudget(payload as Budget))
 <span class="cstat-no" title="statement not covered" >      props.onSuccess()</span>
     } catch (e) {
 <span class="cstat-no" title="statement not covered" >      setError(true)</span>
 <span class="cstat-no" title="statement not covered" >      setLoading(false)</span>
-<span class="cstat-no" title="statement not covered" >      modalErrorHandler?.showDanger(e.data.message)</span>
+      /* istanbul ignore next */
+      modalErrorHandler?.showDanger(e.data.message)
     }
   }
 &nbsp;
@@ -892,7 +901,7 @@ const Thresholds = (props: ThresholdsProps): JSX.Element =&gt; {
         &lt;Text className={css.label}&gt;{getString('ce.perspectives.budgets.configureAlerts.basedOn')}&lt;/Text&gt;
         &lt;Text color="grey0"&gt;{getString('ce.perspectives.budgets.configureAlerts.exceeds')}&lt;/Text&gt;
         &lt;Text className={css.label}&gt;{getString('ce.perspectives.budgets.configureAlerts.percent')}&lt;/Text&gt;
-        &lt;Text className={css.label}&gt;{getString('ce.perspectives.reports.recipientLabel')}&lt;/Text&gt;
+        &lt;Text className={css.label}&gt;{getString('ce.perspectives.budgets.configureAlerts.sendAlertTo')}&lt;/Text&gt;
       &lt;/div&gt;
     )
   }
@@ -1018,7 +1027,7 @@ export default ConfigureAlerts
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jan 10 2022 07:59:47 GMT+0000 (Greenwich Mean Time)
+                at Mon Jan 10 2022 09:34:17 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,6 +23,7 @@ interface SubscribeInfoProps {
   newSubscribeProps: NewSubscribeProps[]
   showConfirm: boolean
   setConfirm: (value: boolean) => void
+  isUpdate: boolean
 }
 
 interface CurrentPlanInfo {
@@ -64,10 +65,16 @@ const CurrentPlan = ({ currentPlan, services }: CurrentPlanInfo): JSX.Element =>
 
 const SubscribePlan = ({ invoiceData, unit }: { invoiceData?: InvoiceDetailDTO; unit: PLAN_UNIT }): JSX.Element => {
   const { getString } = useStrings()
-  const totalAmount = (invoiceData?.totalAmount || 0) / 100
   const unitStr = unit === PLAN_UNIT.MONTHLY ? 'm' : 'y'
   const newTotalLblStr = getString('authSettings.newTotal', { unit: unit.toLowerCase() })
-  const newTotalStr = `$${totalAmount}/${unitStr}`
+  const newTotalAmount =
+    invoiceData?.items?.reduce((acc, item) => {
+      if (!item.proration) {
+        acc = acc + (item.amount || 0)
+      }
+      return acc
+    }, 0) || 0
+  const newTotalStr = `$${newTotalAmount / 100}/${unitStr}`
   const timepoint = `On ${moment().format('MMM DD, YYYY')}`
 
   return (
@@ -76,7 +83,11 @@ const SubscribePlan = ({ invoiceData, unit }: { invoiceData?: InvoiceDetailDTO; 
         {getString('authSettings.changingTo')}
       </Text>
       {invoiceData?.items?.map((value, index) => {
-        return <Line key={index} label={value.description || ''} value={(value.price?.unitAmount || 0) / 100 || ''} />
+        return (
+          !value.proration && (
+            <Line key={index} label={value.description || ''} value={(value.price?.unitAmount || 0) / 100 || ''} />
+          )
+        )
       })}
       <Layout.Horizontal width="100%">
         <Layout.Horizontal width="85%">
@@ -96,11 +107,13 @@ const SubscribePlan = ({ invoiceData, unit }: { invoiceData?: InvoiceDetailDTO; 
 const Footer = ({
   payment,
   showConfirm,
-  setConfirm
+  setConfirm,
+  isUpdate
 }: {
   payment?: number
   showConfirm: boolean
   setConfirm: (value: boolean) => void
+  isUpdate: boolean
 }): JSX.Element => {
   const { getString } = useStrings()
   const paymentStr = `$${(payment || 0) / 100}`
@@ -111,7 +124,7 @@ const Footer = ({
           <Text font={{ variation: FontVariation.H4 }}>{getString('authSettings.payingToday')}</Text>
           <Text font={{ variation: FontVariation.H4 }}>{paymentStr}</Text>
         </Layout.Horizontal>
-        <Text>{getString('authSettings.proratedForNextDays')}</Text>
+        {isUpdate && <Text>{getString('authSettings.proratedForNextDays')}</Text>}
       </Card>
       {showConfirm && (
         <Button
@@ -135,7 +148,8 @@ const SubscribeInfo = ({
   currentPlanInfo,
   newSubscribeProps,
   showConfirm,
-  setConfirm
+  setConfirm,
+  isUpdate
 }: SubscribeInfoProps): React.ReactElement => {
   const { accountId } = useParams<AccountPathProps>()
   const {
@@ -162,6 +176,21 @@ const SubscribeInfo = ({
     return <PageError message={getInvoiceErrors.message} onClick={() => getInvoice()} />
   }
 
+  function getPayingToday(): number {
+    if (isUpdate) {
+      return (
+        invoiceData?.data?.items?.reduce((acc, item) => {
+          if (item.proration) {
+            acc = acc + (item.amount || 0)
+          }
+          return acc
+        }, 0) || 0
+      )
+    }
+
+    return invoiceData?.data?.amountDue || 0
+  }
+
   return (
     <Layout.Vertical className={css.subscribeInfo}>
       <Container padding={'huge'}>
@@ -170,7 +199,12 @@ const SubscribeInfo = ({
         <SubscribePlan invoiceData={invoiceData?.data} unit={unit} />
       </Container>
       <Container padding={{ bottom: 'huge', left: 'xlarge', right: 'xlarge' }}>
-        <Footer payment={invoiceData?.data?.amountDue} showConfirm={showConfirm} setConfirm={setConfirm} />
+        <Footer
+          payment={parseFloat(getPayingToday())}
+          showConfirm={showConfirm}
+          setConfirm={setConfirm}
+          isUpdate={isUpdate}
+        />
       </Container>
     </Layout.Vertical>
   )

@@ -96,7 +96,7 @@ const Footer = ({
           showSuccess('Congrats!')
         })
         .catch(err => {
-          showError(err?.message)
+          // showError(err?.message)
         })
         .finally(() => {
           onClose()

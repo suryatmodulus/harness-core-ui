@@ -151,6 +151,7 @@ const SubscribePayContainer = ({
         currentPlanInfo={currentPlanInfo}
         showConfirm={!isConfirm}
         setConfirm={setConfirm}
+        isUpdate={isUpdate}
       />
       {isConfirm && secret && (
         <PaymentInfo

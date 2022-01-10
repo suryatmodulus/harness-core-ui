@@ -24,6 +24,7 @@ import ProjectSetupMenu from '@common/navigation/ProjectSetupMenu/ProjectSetupMe
 import { returnLaunchUrl } from '@common/utils/routeUtils'
 import { LaunchButton } from '@common/components/LaunchButton/LaunchButton'
 import type { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
+import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 
 export default function CDSideNav(): React.ReactElement {
   const params = useParams<
@@ -54,7 +55,8 @@ export default function CDSideNav(): React.ReactElement {
   const { ARGO_PHASE1 } = useFeatureFlags()
   const { getString } = useStrings()
   const { experience } = useQueryParams<{ experience?: ModuleLicenseType }>()
-
+  const { licenseInformation } = useLicenseStore()
+  const isCommunity = isCDCommunity(licenseInformation)
   return (
     <Layout.Vertical spacing="small">
       <ProjectSelector
@@ -150,11 +152,11 @@ export default function CDSideNav(): React.ReactElement {
       />
       {projectIdentifier && orgIdentifier ? (
         <React.Fragment>
-          <SidebarLink label="Overview" to={routes.toProjectOverview({ ...params, module })} />
+          {!isCommunity && <SidebarLink label="Overview" to={routes.toProjectOverview({ ...params, module })} />}
           <SidebarLink label="Deployments" to={routes.toDeployments({ ...params, module })} />
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
-          <SidebarLink label="Services" to={routes.toServices({ ...params, module })} />
-          {ARGO_PHASE1 && <SidebarLink label="GitOps" to={routes.toGitOps({ ...params, module })} />}
+          {!isCommunity && <SidebarLink label="Services" to={routes.toServices({ ...params, module })} />}
+          {ARGO_PHASE1 && !isCommunity && <SidebarLink label="GitOps" to={routes.toGitOps({ ...params, module })} />}
           <ProjectSetupMenu module={module} />
         </React.Fragment>
       ) : null}

@@ -8,7 +8,6 @@ import {
   SelectOption,
   Select,
   PageSpinner,
-  NoDataCard,
   PageError
 } from '@wings-software/uicore'
 import { Menu, Tag } from '@blueprintjs/core'
@@ -20,63 +19,35 @@ import {
   ConnectorResponse,
   EntityGitDetails,
   useGetListOfBranchesWithStatus,
-  GitBranchDTO
+  GitBranchDTO,
+  ResponseConnectorResponse
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import ActivityHistory from '@connectors/components/activityHistory/ActivityHistory/ActivityHistory'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { ProjectPathProps, ConnectorPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import routes from '@common/RouteDefinitions'
-import EntitySetupUsage from '@common/pages/entityUsage/EntityUsage'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import ScopedTitle from '@common/components/Title/ScopedTitle'
-import ConnectorView from './ConnectorView'
 import { getIconByType } from './utils/ConnectorUtils'
+import RenderViewBasisActiveCategory from './views/RenderViewBasisActiveCategory/RenderViewBasisActiveCategory'
 import css from './ConnectorDetailsPage.module.scss'
 
 interface Categories {
   [key: string]: string
 }
 
-interface RenderViewBasisActiveCategoryProps {
-  activeCategory: number
-  data: ConnectorResponse
-  refetch: () => Promise<void>
+interface MockData {
+  data: ResponseConnectorResponse
 }
 
-const RenderViewBasisActiveCategory: React.FC<RenderViewBasisActiveCategoryProps> = ({
-  activeCategory,
-  data,
-  refetch
-}) => {
-  const { getString } = useStrings()
-  switch (activeCategory) {
-    case 0:
-      return data.connector?.type ? (
-        <ConnectorView
-          type={data.connector.type}
-          response={data || ({} as ConnectorResponse)}
-          refetchConnector={refetch}
-        />
-      ) : (
-        <NoDataCard message={getString('connectors.connectorNotFound')} icon="question" />
-      )
-    case 1:
-      if (data.connector?.identifier) {
-        return <EntitySetupUsage entityType={'Connectors'} entityIdentifier={data.connector?.identifier} />
-      }
-      return <></>
-    case 2:
-      return <ActivityHistory referredEntityType="Connectors" entityIdentifier={data.connector?.identifier || ''} />
-    default:
-      return <></>
-  }
+interface ConnectorDetailsPageProps {
+  mockData: MockData
 }
 
-const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
+const ConnectorDetailsPage: React.FC<ConnectorDetailsPageProps> = props => {
   const { getString } = useStrings()
   const [data, setData] = React.useState<ConnectorResponse>({})
   const [activeCategory, setActiveCategory] = React.useState(0)
@@ -269,9 +240,10 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
       return <PageSpinner />
     }
     if (error) {
+      const errorMessage = (error.data as Error)?.message || error.message
       return (
         <PageError
-          message={(error.data as Error)?.message || error.message}
+          message={errorMessage}
           onClick={() =>
             refetch({
               queryParams: selectedBranch

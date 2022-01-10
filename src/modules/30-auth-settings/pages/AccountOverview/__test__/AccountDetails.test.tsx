@@ -1,6 +1,8 @@
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
+import { noop } from 'lodash-es'
 import { TestWrapper, queryByNameAttribute } from '@common/utils/testUtils'
+import { LICENSE_STATE_VALUES } from 'framework/LicenseStore/licenseStoreUtil'
 import { useGetAccountNG, useUpdateAccountDefaultExperienceNG, useUpdateAccountNameNG } from 'services/cd-ng'
 import AccountDetails from '../views/AccountDetails'
 
@@ -50,6 +52,7 @@ describe('AccountDetails', () => {
       </TestWrapper>
     )
     expect(getByText('account name')).toBeDefined()
+    expect(getByText('common.switchAccount')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 
@@ -129,5 +132,27 @@ describe('AccountDetails', () => {
     fireEvent.click(getByText('save'))
     await waitFor(() => expect(getByText('update version failed')).toBeDefined())
     expect(getByText('common.harnessNextGeneration')).toBeDefined()
+  })
+  test('Hide SwitchAccount button for community edition', async () => {
+    const { queryByText } = render(
+      <TestWrapper
+        defaultLicenseStoreValues={{
+          licenseInformation: {
+            CD: {
+              edition: 'COMMUNITY'
+            }
+          },
+          CD_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
+          CI_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
+          FF_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
+          CCM_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
+          updateLicenseStore: noop,
+          versionMap: {}
+        }}
+      >
+        <AccountDetails />
+      </TestWrapper>
+    )
+    expect(queryByText('common.switchAccount')).toBeNull()
   })
 })

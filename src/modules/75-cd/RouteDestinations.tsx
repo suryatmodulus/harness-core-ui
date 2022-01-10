@@ -100,7 +100,12 @@ import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory
 import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory/index'
 import ExecutionPolicyEvaluationsView from '@pipeline/pages/execution/ExecutionPolicyEvaluationsView/ExecutionPolicyEvaluationsView'
 
-import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
+import {
+  isCDCommunity,
+  LicenseRedirectProps,
+  LICENSE_STATE_NAMES,
+  useLicenseStore
+} from 'framework/LicenseStore/LicenseStoreContext'
 import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
 import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
 import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
@@ -166,6 +171,21 @@ const RedirectToCDProject = (): React.ReactElement => {
     )
   } else {
     return <Redirect to={routes.toCDHome({ accountId })} />
+  }
+}
+
+const CDDashboardPageOrRedirect = (): React.ReactElement => {
+  const params = useParams<ProjectPathProps>()
+  const { selectedProject } = useAppStore()
+  const { licenseInformation } = useLicenseStore()
+  const isCommunity = isCDCommunity(licenseInformation)
+
+  if (!isCommunity) {
+    return <CDDashboardPage />
+  } else if (selectedProject?.modules?.includes(ModuleName.CD)) {
+    return <Redirect to={routes.toDeployments({ ...params, module: 'cd' })} />
+  } else {
+    return <Redirect to={routes.toCDHome(params)} />
   }
 }
 
@@ -287,7 +307,7 @@ export default (
       path={routes.toProjectOverview({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
       exact
     >
-      <CDDashboardPage />
+      <CDDashboardPageOrRedirect />
     </RouteWithLayout>
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}

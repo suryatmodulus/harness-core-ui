@@ -119,7 +119,7 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
         canEscapeKeyClose
         canOutsideClickClose
         onClose={() => setOpen(false)}
-        className={css.dialog}
+        className={cx(css.referenceSelect, css.dialog)}
         title={ReferenceSelectDialogTitle(componentName)}
       >
         <div className={cx(css.contentContainer)}>

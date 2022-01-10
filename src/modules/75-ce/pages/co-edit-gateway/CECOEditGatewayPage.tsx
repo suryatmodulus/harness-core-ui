@@ -74,7 +74,7 @@ export const CECOEditGatewayPage: React.FC = () => {
   useEffect(() => {
     if (loading) return
     const service = data?.response?.service as Service
-    const deps = data?.response?.deps as ServiceDep[]
+    const deps = _defaultTo(data?.response?.deps as ServiceDep[], [])
     const hasAsg = !_isEmpty(service.routing?.instance?.scale_group)
     const isK8sRule = service.kind === GatewayKindType.KUBERNETES
 

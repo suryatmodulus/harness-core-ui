@@ -31,16 +31,6 @@ const RouteDestinationsWithoutAuth: React.FC = () => {
       <Route exact path="/">
         <RedirectToHome />
       </Route>
-      {/* {__DEV__ ? (
-        <Route path={routes.toLogin()}>
-          <LoginPage />
-        </Route>
-      ) : null}
-      {__DEV__ ? (
-        <Route path={routes.toSignup()}>
-          <SignupPage />
-        </Route>
-      ) : null} */}
       <Route path={routes.toRedirect()}>
         <RedirectPage />
       </Route>

@@ -98,6 +98,6 @@ module.exports = {
   },
   '/auth': {
     pathRewrite: { '^/auth': '' },
-    target: targetLocalHost ? 'http://localhost:3000' : 'https://qa.harness.io/auth'
+    target: 'https://qa.harness.io/auth'
   }
 }

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.3% </span>
+                <span class="strong">89.8% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/46</span>
+                <span class='fraction'>44/49</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.34% </span>
+                <span class="strong">92.73% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>50/53</span>
+                <span class='fraction'>51/55</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">91.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>42/45</span>
+                <span class='fraction'>44/48</span>
             </div>
         
             
@@ -236,12 +236,24 @@
 <a name='L177'></a><a href='#L177'>177</a>
 <a name='L178'></a><a href='#L178'>178</a>
 <a name='L179'></a><a href='#L179'>179</a>
-<a name='L180'></a><a href='#L180'>180</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -282,6 +294,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -432,6 +454,7 @@ import { MonitoredServiceEnum } from './MonitoredServicePage.constants'
 import ServiceHealth from './components/ServiceHealth/ServiceHealth'
 import HealthScoreCard from './components/ServiceHealth/components/HealthScoreCard/HealthScoreCard'
 import CVSLOsListingPage from '../slos/CVSLOsListingPage'
+import { isProjectChangedOnMonitoredService } from './MonitoredServicePage.utils'
 import css from './MonitoredServicePage.module.scss'
 &nbsp;
 const ServiceHealthAndConfiguration: React.FC = () =&gt; {
@@ -460,7 +483,17 @@ const ServiceHealthAndConfiguration: React.FC = () =&gt; {
   const { monitoredService, lastModifiedAt } = monitoredServiceData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata ?? {}
 &nbsp;
   if (error) {
-    return &lt;PageError message={getErrorMessage(error)} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetch()}</span> /&gt;
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (isProjectChangedOnMonitoredService(error, identifier)) {
+<span class="cstat-no" title="statement not covered" >      history.push(</span>
+        routes.toCVMonitoringServices({
+          projectIdentifier,
+          orgIdentifier,
+          accountId
+        })
+      )
+    } else {
+      return &lt;PageError message={getErrorMessage(error)} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetch()}</span> /&gt;
+    }
   }
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (!loading &amp;&amp; !monitoredService) {
@@ -601,7 +634,7 @@ export default CVMonitoredServiceDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jan 10 2022 06:48:33 GMT+0000 (Greenwich Mean Time)
+                at Mon Jan 10 2022 07:59:47 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

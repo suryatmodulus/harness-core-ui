@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import auditTrailRoutes from '@audit-trail/RouteDestinations'
 import delegatesRoutes from '@delegates/RouteDestinations'
 import commonRoutes from '@common/RouteDestinations'
@@ -33,6 +33,8 @@ import { String } from 'framework/strings'
 import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { PermissionIdentifier } from 'microfrontends'
+import routes from '@common/RouteDefinitions'
+import SessionToken from 'framework/utils/SessionToken'
 
 export const AccountSideNavProps: SidebarContext = {
   navComponent: AccountSideNav,
@@ -87,6 +89,11 @@ export default function RouteDestinations(): React.ReactElement {
       {...CING_ENABLED ? CIRoutes.props.children : []}
       {...CDNG_ENABLED ? CDRoutes.props.children : []}
       {...CVNG_ENABLED ? CVRoutes.props.children : []}
+      {__DEV__ && (
+        <Route path="/account/:accountId/dashboard">
+          <Redirect to={routes.toHome({ accountId: SessionToken.accountId() })} />
+        </Route>
+      )}
       <Route path="/account/:accountId/settings">
         <AuthSettingsRoutes />
       </Route>

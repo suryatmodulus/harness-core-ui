@@ -10,8 +10,6 @@ import { Route, Switch, Redirect, useHistory } from 'react-router-dom'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
 import routes from '@common/RouteDefinitions'
 import SessionToken from 'framework/utils/SessionToken'
-import LoginPage from '@common/pages/login/LoginPage'
-import SignupPage from '@common/pages/signup/SignupPage'
 import { getLoginPageURL } from 'framework/utils/SessionUtils'
 import RedirectPage from '@common/pages/redirect/Redirect'
 import { returnUrlParams } from '@common/utils/routeUtils'
@@ -33,7 +31,7 @@ const RouteDestinationsWithoutAuth: React.FC = () => {
       <Route exact path="/">
         <RedirectToHome />
       </Route>
-      {__DEV__ ? (
+      {/* {__DEV__ ? (
         <Route path={routes.toLogin()}>
           <LoginPage />
         </Route>
@@ -42,7 +40,7 @@ const RouteDestinationsWithoutAuth: React.FC = () => {
         <Route path={routes.toSignup()}>
           <SignupPage />
         </Route>
-      ) : null}
+      ) : null} */}
       <Route path={routes.toRedirect()}>
         <RedirectPage />
       </Route>

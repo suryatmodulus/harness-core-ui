@@ -35,6 +35,10 @@ module.exports = {
   '/api': {
     target: targetLocalHost ? 'https://localhost:9090' : baseUrl
   },
+  '/gateway': {
+    pathRewrite: { '^/gateway': '' },
+    target: targetLocalHost ? 'https://localhost:9090' : baseUrl
+  },
   '/template/api': {
     pathRewrite: { '^/template/api': '/api' },
     target: targetLocalHost ? 'http://localhost:15001' : baseUrl
@@ -91,5 +95,9 @@ module.exports = {
   '/audit/api': {
     pathRewrite: { '^/ng/api': '' },
     target: targetLocalHost ? 'http://localhost:9005' : baseUrl
+  },
+  '/auth': {
+    pathRewrite: { '^/auth': '' },
+    target: targetLocalHost ? 'http://localhost:3000' : 'https://qa.harness.io/auth'
   }
 }

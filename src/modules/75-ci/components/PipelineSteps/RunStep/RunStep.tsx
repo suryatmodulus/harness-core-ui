@@ -90,6 +90,7 @@ export interface RunStepProps {
   onUpdate?: (data: RunStepData) => void
   onChange?: (data: RunStepData) => void
   allowableTypes: MultiTypeInputType[]
+  formik?: any
 }
 
 export class RunStep extends PipelineStep<RunStepData> {

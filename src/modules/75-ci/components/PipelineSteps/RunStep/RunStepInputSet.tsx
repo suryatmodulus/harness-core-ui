@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'formik'
 import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm, Color, Container } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
@@ -18,13 +19,22 @@ import { CIStep } from '../CIStep/CIStep'
 import { shouldRenderRunTimeInputView } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readonly, stepViewType, allowableTypes }) => {
+export const RunStepInputSetBasic: React.FC<RunStepProps> = ({
+  template,
+  path,
+  readonly,
+  stepViewType,
+  allowableTypes,
+  formik
+}) => {
   const { getString } = useStrings()
   const prefix = isEmpty(path) ? '' : `${path}.`
 
   const { expressions } = useVariablesExpression()
 
   const stepCss = stepViewType === StepViewType.DeploymentForm ? css.sm : css.lg
+
+  console.log(formik)
 
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
@@ -219,3 +229,6 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
     </FormikForm>
   )
 }
+
+const RunStepInputSet = connect(RunStepInputSetBasic)
+export { RunStepInputSet }

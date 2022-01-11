@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import ConnectorDetailsPage from '../ConnectorDetailsPage'
+import ConnectorDetailsPage from '../ConnectorDetailsPage/ConnectorDetailsPage'
 import connector from './mocks/get-connector-mock.json'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')

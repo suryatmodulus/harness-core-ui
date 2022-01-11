@@ -1,16 +1,6 @@
 import React, { useEffect, useMemo } from 'react'
-import {
-  Layout,
-  Container,
-  Icon,
-  Text,
-  Color,
-  SelectOption,
-  Select,
-  PageSpinner,
-  PageError
-} from '@wings-software/uicore'
-import { Menu, Tag } from '@blueprintjs/core'
+import { Layout, Container, Icon, Text, Color, SelectOption, PageSpinner, PageError } from '@wings-software/uicore'
+import { Tag } from '@blueprintjs/core'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
@@ -31,8 +21,9 @@ import routes from '@common/RouteDefinitions'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import ScopedTitle from '@common/components/Title/ScopedTitle'
-import { getIconByType } from './utils/ConnectorUtils'
-import RenderViewBasisActiveCategory from './views/RenderViewBasisActiveCategory/RenderViewBasisActiveCategory'
+import { getIconByType } from '../utils/ConnectorUtils'
+import RenderViewBasisActiveCategory from '../views/RenderViewBasisActiveCategory/RenderViewBasisActiveCategory'
+import ConnectorPageGitDetails from './ConnectorDetailsPageGitDetails/ConnectorPageGitDetails'
 import css from './ConnectorDetailsPage.module.scss'
 
 interface Categories {
@@ -44,7 +35,7 @@ interface MockData {
 }
 
 interface ConnectorDetailsPageProps {
-  mockData: MockData
+  mockData?: MockData
 }
 
 const ConnectorDetailsPage: React.FC<ConnectorDetailsPageProps> = props => {
@@ -167,36 +158,16 @@ const ConnectorDetailsPage: React.FC<ConnectorDetailsPageProps> = props => {
 
   const RenderGitDetails = useMemo(() => {
     return (
-      <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium">
-        <Layout.Horizontal spacing="small">
-          <Icon name="repository" margin={{ left: 'large' }}></Icon>
-          <Text lineClamp={1} className={css.filePath}>{`${gitDetails?.rootFolder}${gitDetails?.filePath}`}</Text>
-        </Layout.Horizontal>
-
-        <Layout.Horizontal spacing="small">
-          <Icon name="git-new-branch" margin={{ left: 'large' }}></Icon>
-          <Select
-            name="branch"
-            className={css.gitBranch}
-            value={{ label: selectedBranch, value: selectedBranch }}
-            items={branchSelectOptions}
-            onQueryChange={(query: string) => {
-              setSearchTerm(query)
-            }}
-            itemRenderer={(item: SelectOption): React.ReactElement => {
-              return (
-                <Menu.Item
-                  key={item.value as string}
-                  active={item.value === selectedBranch}
-                  onClick={() => handleBranchClick(item.value as string)}
-                  text={item.value}
-                />
-              )
-            }}
-          />
-          {loadingBranchList ? <Icon margin={{ top: 'xsmall' }} name="spinner" /> : null}
-        </Layout.Horizontal>
-      </Layout.Horizontal>
+      <ConnectorPageGitDetails
+        handleBranchClick={handleBranchClick}
+        gitDetails={gitDetails}
+        selectedBranch={selectedBranch}
+        branchSelectOptions={branchSelectOptions}
+        loadingBranchList={loadingBranchList}
+        onQueryChange={(query: string) => {
+          setSearchTerm(query)
+        }}
+      />
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [branchSelectOptions, selectedBranch, loadingBranchList])

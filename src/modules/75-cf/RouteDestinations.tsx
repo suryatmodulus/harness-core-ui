@@ -23,7 +23,7 @@ import FeatureFlagsDetailPage from '@cf/pages/feature-flags-detail/FeatureFlagsD
 import EnvironmentsPage from '@cf/pages/environments/EnvironmentsPage'
 import EnvironmentDetails from '@cf/pages/environment-details/EnvironmentDetails'
 import CFWorkflowsPage from '@cf/pages/workflows/CFWorkflowsPage'
-import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
+import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
 import SecretReferences from '@secrets/pages/secretReferences/SecretReferences'

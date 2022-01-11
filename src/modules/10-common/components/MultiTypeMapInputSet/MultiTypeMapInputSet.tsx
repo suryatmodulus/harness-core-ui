@@ -9,7 +9,8 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  MultiTextInputProps
+  MultiTextInputProps,
+  FontVariation
 } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { get, isEmpty } from 'lodash-es'
@@ -161,8 +162,12 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
 
             return (
               <div className={cx(css.group, css.withoutAligning)} key={id}>
-                <div style={{ flexGrow: 1 }}>
-                  {index === 0 && <Text margin={{ bottom: 'xsmall' }}>{props.keyLabel || getString('keyLabel')}</Text>}
+                <div>
+                  {index === 0 && (
+                    <Text margin={{ bottom: 'xsmall' }} font={{ variation: FontVariation.FORM_LABEL }}>
+                      {props.keyLabel || getString('keyLabel')}
+                    </Text>
+                  )}
                   <TextInput
                     name={`${name}[${index}].key`}
                     value={key}
@@ -173,10 +178,11 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
                     data-testid={`key-${name}-[${index}]`}
                   />
                 </div>
-
-                <div style={{ flexGrow: 1 }}>
+                <div>
                   {index === 0 && (
-                    <Text margin={{ bottom: 'xsmall' }}>{props.valueLabel || getString('valueLabel')}</Text>
+                    <Text margin={{ bottom: 'xsmall' }} font={{ variation: FontVariation.FORM_LABEL }}>
+                      {props.valueLabel || getString('valueLabel')}
+                    </Text>
                   )}
                   <div className={cx(css.group, css.withoutAligning, css.withoutSpacing)}>
                     <MultiTextInput
@@ -197,7 +203,6 @@ export const MultiTypeMapInputSet = (props: MultiTypeMapProps): React.ReactEleme
                         iconProps={{ size: 20 }}
                         minimal
                         data-testid={`remove-${name}-[${index}]`}
-                        style={{ marginTop: 4 }}
                         onClick={() => removeValue(index)}
                       />
                     )}

@@ -230,7 +230,12 @@
 <a name='L171'></a><a href='#L171'>171</a>
 <a name='L172'></a><a href='#L172'>172</a>
 <a name='L173'></a><a href='#L173'>173</a>
-<a name='L174'></a><a href='#L174'>174</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
@@ -310,6 +315,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -513,37 +523,42 @@ export default function QueryMapping({
         name={CustomHealthSourceFieldNames.PATH}
       /&gt;
 &nbsp;
-      &lt;Text color={'black'} font={{ size: 'medium', weight: 'bold' }} margin={{ bottom: 'medium', top: 'medium' }}&gt;
-        {getString('cv.customHealthSource.Querymapping.fields.parameter.title')}
+      &lt;Text color={'black'} font={{ size: 'medium', weight: 'bold' }} margin={{ bottom: 'small', top: 'medium' }}&gt;
+        {getString('cv.customHealthSource.Querymapping.startAndEndTimeTitle')}
       &lt;/Text&gt;
-      &lt;Layout.Horizontal
-        margin={{ bottom: 'medium' }}
-        padding={{ bottom: 'small' }}
-        border={{ bottom: true }}
-        spacing={'large'}
-        className={css.parameterLayout}
-      &gt;
-        &lt;Text width={'50%'} font={{ variation: FontVariation.FORM_LABEL }}&gt;
-          {getString('keyLabel')}
-        &lt;/Text&gt;
-        &lt;Text width={'50%'} font={{ variation: FontVariation.FORM_LABEL }}&gt;
-          {getString('valueLabel')}
-        &lt;/Text&gt;
-      &lt;/Layout.Horizontal&gt;
+      &lt;hr className={css.sectionDivider} /&gt;
       &lt;Layout.Vertical&gt;
         &lt;Layout.Horizontal spacing={'large'} className={css.parameterLayout}&gt;
-          &lt;FormInput.Text className={css.widthHalf} name={'startTime.placeholder'} /&gt;
-          &lt;FormInput.Select className={css.widthHalf} items={timeFormatOptions} name={'startTime.timestampFormat'} /&gt;
+          &lt;FormInput.Text
+            className={css.widthHalf}
+            name={'startTime.placeholder'}
+            label={getString('cv.customHealthSource.Querymapping.startTimeLabel')}
+          /&gt;
+          &lt;FormInput.Select
+            className={css.widthHalf}
+            items={timeFormatOptions}
+            name="startTime.timestampFormat"
+            label={getString('cv.unit')}
+          /&gt;
         &lt;/Layout.Horizontal&gt;
         &lt;Layout.Horizontal spacing={'large'} className={css.parameterLayout}&gt;
-          &lt;FormInput.Text className={css.widthHalf} name={'endTime.placeholder'} /&gt;
-          &lt;FormInput.Select className={css.widthHalf} items={timeFormatOptions} name={'endTime.timestampFormat'} /&gt;
+          &lt;FormInput.Text
+            className={css.widthHalf}
+            name="endTime.placeholder"
+            label={getString('cv.customHealthSource.Querymapping.endTimeLabel')}
+          /&gt;
+          &lt;FormInput.Select
+            className={css.widthHalf}
+            items={timeFormatOptions}
+            name={'endTime.timestampFormat'}
+            label={getString('cv.unit')}
+          /&gt;
         &lt;/Layout.Horizontal&gt;
       &lt;/Layout.Vertical&gt;
-      &lt;Container className={css.widthHalf} margin={{ top: 'medium', bottom: 'medium' }}&gt;
+      &lt;Container margin={{ top: 'medium', bottom: 'medium' }}&gt;
         {formikValues<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>equestMethod === 'POST' ? (
           &lt;QueryViewer
-            queryLabel={'Body'}
+            queryLabel={getString('common.smtp.labelBody')}
             isQueryExecuted={isQueryExecuted}
             queryNotExecutedMessage={getString('cv.healthSource.connectors.NewRelic.submitQueryNoRecords')}
             records={recordsData ? [recordsData] : <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
@@ -568,7 +583,7 @@ export default function QueryMapping({
               error={sampleDataError}
               query={'*'}
               isQueryExecuted={isQueryExecuted}
-              queryNotExecutedMessage={getString('cv.monitoringSources.prometheus.submitQueryToSeeRecords')}
+              queryNotExecutedMessage={getString('cv.customHealthSource.fetchRecordsButton')}
             /&gt;
           &lt;/&gt;
         )}
@@ -583,7 +598,7 @@ export default function QueryMapping({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jan 10 2022 15:21:16 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 11 2022 04:28:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../prettify.js"></script>

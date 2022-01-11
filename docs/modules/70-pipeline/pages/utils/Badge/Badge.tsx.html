@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.85% </span>
+                <span class="strong">38.46% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/13</span>
+                <span class='fraction'>5/13</span>
             </div>
         
             
@@ -174,7 +174,9 @@
 <a name='L115'></a><a href='#L115'>115</a>
 <a name='L116'></a><a href='#L116'>116</a>
 <a name='L117'></a><a href='#L117'>117</a>
-<a name='L118'></a><a href='#L118'>118</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">49x</span>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,26 +206,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">49x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -276,6 +278,8 @@
 <span class="cline-any cline-yes">86x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">86x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -292,7 +296,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Classes, PopoverInteractionKind, Position } from '@blueprintjs/core'
+import { Classes, Intent, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { Color, Container, Icon, Text, IconName, Popover, Layout } from '@wings-software/uicore'
 import type { InputSetErrorResponse } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
@@ -325,9 +329,9 @@ const TooltipContent: React.FC&lt;BadgeTooltipContentInterface&gt; = (props: Bad
   const { getString } = useStrings()
   const nonGitErrors = uuidToErrorResponseMap
     ? getFormattedErrors(uuidToErrorResponseMap)
-    : overlaySetErrorDetails
+    : <span class="branch-1 cbranch-no" title="branch not covered" >overlaySetErrorDetails</span>
     ? overlaySetErrorDetails
-    : <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
+    : {}
   const { errorStrings: nonGitErrorStrings, errorCount: nonGitErrorsCount } = getErrorsList(nonGitErrors)
   return (
     &lt;Container padding="medium"&gt;
@@ -350,7 +354,7 @@ const TooltipContent: React.FC&lt;BadgeTooltipContentInterface&gt; = (props: Bad
         // Show git errors
 <span class="branch-1 cbranch-no" title="branch not covered" >        &lt;Layout.Horizontal&gt;</span>
           &lt;div className={css.tooltipIcon}&gt;
-            &lt;Icon name={iconName} size={14} color={Color.RED_600} /&gt;
+            &lt;Icon name={iconName} size={18} intent={Intent.DANGER} /&gt;
           &lt;/div&gt;
           &lt;Layout.Vertical width={292} padding={{ left: 'small' }}&gt;
             &lt;Text width={244} color={Color.GREY_0} margin={{ bottom: 'small' }} className={css.tooltipContentText}&gt;
@@ -383,14 +387,16 @@ export const Badge: React.FC&lt;BadgeProps&gt; = (props: BadgeProps): JSX.Elemen
     <span class="missing-if-branch" title="if path not taken" >I</span>if (showInvalidText) {
 <span class="cstat-no" title="statement not covered" >      return (</span>
         &lt;Container className={css.badge}&gt;
-          &lt;Icon name={iconName} size={10} color={Color.RED_600} className={css.badgeIcon} /&gt;
+          &lt;Icon name={iconName} size={14} className={css.badgeIcon} intent={Intent.DANGER} /&gt;
           &lt;Text color={Color.RED_900} font={{ weight: 'bold' }} className={css.badgeText}&gt;
             {getString(text)}
           &lt;/Text&gt;
         &lt;/Container&gt;
       )
     }
-    return &lt;Icon name={iconName} size={16} color={Color.RED_600} className={css.badgeIcon} data-testid="invalid-icon" /&gt;
+    return (
+      &lt;Icon name={iconName} size={20} className={css.badgeIcon} data-testid="invalid-icon" intent={Intent.DANGER} /&gt;
+    )
   }, [iconName, showInvalidText, text, getString])
 &nbsp;
   return showTooltip ? (
@@ -415,7 +421,7 @@ export const Badge: React.FC&lt;BadgeProps&gt; = (props: BadgeProps): JSX.Elemen
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jan 10 2022 15:21:16 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 11 2022 04:28:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

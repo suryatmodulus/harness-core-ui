@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.07% </span>
+                <span class="strong">80.95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>137/169</span>
+                <span class='fraction'>136/168</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.29% </span>
+                <span class="strong">69.68% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>194/280</span>
+                <span class='fraction'>216/310</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.48% </span>
+                <span class="strong">81.37% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>132/162</span>
+                <span class='fraction'>131/161</span>
             </div>
         
             
@@ -501,7 +501,11 @@
 <a name='L442'></a><a href='#L442'>442</a>
 <a name='L443'></a><a href='#L443'>443</a>
 <a name='L444'></a><a href='#L444'>444</a>
-<a name='L445'></a><a href='#L445'>445</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L445'></a><a href='#L445'>445</a>
+<a name='L446'></a><a href='#L446'>446</a>
+<a name='L447'></a><a href='#L447'>447</a>
+<a name='L448'></a><a href='#L448'>448</a>
+<a name='L449'></a><a href='#L449'>449</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
@@ -818,7 +822,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -845,6 +848,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -906,6 +913,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1036,7 +1044,7 @@ function generateTreeNode(type: string, data: any, id: string, isExpanded = fals
       return {
         id,
         hasCaret: true,
-        label: &lt;TreeNodeLabel width={LabelWidth.FIRST_LEVEL} label={id} /&gt;,
+        label: &lt;TreeNodeLabel width={LabelWidth.FIRST_LEVEL} label={data.name} /&gt;,
         childNodes: [],
         nodeData: {
           data,
@@ -1057,7 +1065,7 @@ function generateTreeNode(type: string, data: any, id: string, isExpanded = fals
     case NodeType.METRIC:
       return {
         id: id,
-        label: &lt;TreeNodeLabel width={LabelWidth.THIRD_LEVEL} label={id} /&gt;,
+        label: &lt;TreeNodeLabel width={LabelWidth.THIRD_LEVEL} label={data.metric} /&gt;,
         hasCaret: false,
         isExpanded: false,
         nodeData: {
@@ -1102,7 +1110,7 @@ function transformDashboardsToTreeNodes(
 &nbsp;
   for (const dashboard of dashboardWidgetItems || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span> {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (dashboard<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>itle &amp;&amp; dashboard.itemId) {
-      treeNodes.push(generateTreeNode(NodeType.DASHBOARD, dashboard.itemId, dashboard.title))
+      treeNodes.push(generateTreeNode(NodeType.DASHBOARD, { name: dashboard.title }, dashboard.itemId))
     }
   }
 &nbsp;
@@ -1161,8 +1169,8 @@ function transformWidgetsToTreeNodes(
 &nbsp;
       const metric: ITreeNode&lt;NodeDataType&gt; = generateTreeNode(
         NodeType.METRIC,
-        { widget: treeNode.id, query: dataSet.query },
-        dataSet.name
+        { metric: dataSet.name, widget: widget.widgetName, query: dataSet.query },
+        dataSet.id
       )
       if (isFirstLoad &amp;&amp; dataSetIndex === 0 &amp;&amp; widgetIndex === 0) {
         metric.isSelected = true
@@ -1212,7 +1220,7 @@ export default function MetricDashboardWidgetNav&lt;T&gt;(props: MetricDashboard
   )
   const [isFirstLoad, setIsFirstLoad] = useState(true)
   const [selectedDashboard, setSelectedDashboard] = useState&lt;MetricDashboardItem | undefined&gt;(
-    dashboards<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ilter(dashboard =&gt; dashboard<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>temId &amp;&amp; dashboard.title)[0] || []
+    dashboards<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ilter(dashboard =&gt; dashboard<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>temId &amp;&amp; dashboard.title)[0]
   )
   const { getString } = useStrings()
   const { showError } = useToaster()
@@ -1225,13 +1233,13 @@ export default function MetricDashboardWidgetNav&lt;T&gt;(props: MetricDashboard
   const metricWidgets: MetricWidget[] = useMemo(() =&gt; {
     return (
       dashboardWidgetsData?.data?.map((widgetToMap: any) =&gt; {
-        return dashboardWidgetMapper(widgetToMap)
+        return dashboardWidgetMapper(selectedDashboard?.itemId || '', widgetToMap)
       }) || []
     )
   }, [dashboardWidgetsData, dashboardWidgetMapper])
 &nbsp;
   useEffect(() =&gt; {
-    const selectedDashIndex = navContent.findIndex(treeNode =&gt; treeNode.id === selectedDashboard<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>itle)
+    const selectedDashIndex = navContent.findIndex(treeNode =&gt; treeNode.id === selectedDashboard?.itemId)
     if (selectedDashIndex === -1 || loading) {
       return
     }
@@ -1255,13 +1263,12 @@ export default function MetricDashboardWidgetNav&lt;T&gt;(props: MetricDashboard
         setSelectedMetricPath(metricPath)
         onSelectMetric(
           metric<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>d as string,
+          metric<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>odeData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etric,
           datum<span class="branch-0 cbranch-no" title="branch not covered" >?.q</span>uery,
           datum<span class="branch-0 cbranch-no" title="branch not covered" >?.w</span>idget,
-          selectedDashboard<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>itle as string,
-          selectedDashboard<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>temId as string
+          selectedDashboard<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>temId,
+          selectedDashboard<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>itle as string
         )
-      }
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (isFirstLoad) {
         setIsFirstLoad(false)
       }
     }
@@ -1285,7 +1292,11 @@ export default function MetricDashboardWidgetNav&lt;T&gt;(props: MetricDashboard
   // when only manually input query is selected on load, run this hook
   useEffect(() =&gt; {
     if (!loading &amp;&amp; isFirstLoad &amp;&amp; selectedMetricPath<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>oString() === '0,0' &amp;&amp; navContent[0]<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>hildNodes<span class="branch-0 cbranch-no" title="branch not covered" >?.[0</span>]) {
-      onSelectMetric(navContent[0]<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>hildNodes<span class="branch-0 cbranch-no" title="branch not covered" >?.[0</span>]<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>d as string, MANUAL_INPUT_QUERY)
+      onSelectMetric(
+        navContent[0]<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>hildNodes<span class="branch-0 cbranch-no" title="branch not covered" >?.[0</span>]<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>d as string,
+        navContent[0]<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>hildNodes<span class="branch-0 cbranch-no" title="branch not covered" >?.[0</span>]<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>d as string,
+        MANUAL_INPUT_QUERY
+      )
     }
   }, [])
 &nbsp;
@@ -1307,7 +1318,7 @@ export default function MetricDashboardWidgetNav&lt;T&gt;(props: MetricDashboard
           ) {
 <span class="cstat-no" title="statement not covered" >            navContent.forEach(<span class="fstat-no" title="function not covered" >dashboard </span>=&gt; (<span class="cstat-no" title="statement not covered" >dashboard.isExpanded = false)</span>)</span>
 <span class="cstat-no" title="statement not covered" >            node.childNodes = LoadingSkeleton</span>
-<span class="cstat-no" title="statement not covered" >            setSelectedDashboard({ title: node.id as string, itemId: datum })</span>
+<span class="cstat-no" title="statement not covered" >            setSelectedDashboard({ title: datum.name, itemId: node.id as string })</span>
           }
 <span class="cstat-no" title="statement not covered" >          node.isExpanded = true</span>
 <span class="cstat-no" title="statement not covered" >          setNavContent([...navContent])</span>
@@ -1325,7 +1336,7 @@ export default function MetricDashboardWidgetNav&lt;T&gt;(props: MetricDashboard
 <span class="cstat-no" title="statement not covered" >              node.isExpanded = !isExpanded</span>
 <span class="cstat-no" title="statement not covered" >              if (type !== NodeType.MANUAL_INPUT_QUERY &amp;&amp; node.isExpanded &amp;&amp; !childNodes?.length) {</span>
 <span class="cstat-no" title="statement not covered" >                node.childNodes = LoadingSkeleton</span>
-<span class="cstat-no" title="statement not covered" >                setSelectedDashboard({ title: id as string, itemId: datum })</span>
+<span class="cstat-no" title="statement not covered" >                setSelectedDashboard({ title: nodeData?.data.name as string, itemId: id as string })</span>
               }
 <span class="cstat-no" title="statement not covered" >              break</span>
 <span class="branch-1 cbranch-no" title="branch not covered" >            case NodeDepth.WIDGET:</span>
@@ -1337,7 +1348,7 @@ export default function MetricDashboardWidgetNav&lt;T&gt;(props: MetricDashboard
 <span class="cstat-no" title="statement not covered" >                deselectMetric(navContent, selectedMetricPath)</span>
 <span class="cstat-no" title="statement not covered" >                setSelectedMetricPath(nodePath)</span>
 <span class="cstat-no" title="statement not covered" >                setSelectedDashboard(undefined)</span>
-<span class="cstat-no" title="statement not covered" >                onSelectMetric(node.id as string, MANUAL_INPUT_QUERY)</span>
+<span class="cstat-no" title="statement not covered" >                onSelectMetric(node.id as string, node.id as string, MANUAL_INPUT_QUERY)</span>
               } else {
 <span class="cstat-no" title="statement not covered" >                node.isExpanded = !isExpanded</span>
               }
@@ -1351,10 +1362,11 @@ export default function MetricDashboardWidgetNav&lt;T&gt;(props: MetricDashboard
               setSelectedMetricPath(nodePath)
               onSelectMetric(
                 id as string,
+                datum.metric,
                 datum.query,
                 datum.widget,
-                selectedDashboard<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>itle as string,
-                selectedDashboard<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>temId as string
+                selectedDashboard<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>temId,
+                selectedDashboard<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>itle as string
               )
               break
 <span class="branch-3 cbranch-no" title="branch not covered" >            default:</span>
@@ -1381,7 +1393,7 @@ export default function MetricDashboardWidgetNav&lt;T&gt;(props: MetricDashboard
             }
             setNavContent([...navContent])
             setSelectedMetricPath([0, 0])
-            onSelectMetric(values.metricName, MANUAL_INPUT_QUERY)
+            onSelectMetric(values.metricName, values.metricName, MANUAL_INPUT_QUERY)
           }}
           closeModal={() =&gt; setIsModalOpen(false)}
         /&gt;
@@ -1396,7 +1408,7 @@ export default function MetricDashboardWidgetNav&lt;T&gt;(props: MetricDashboard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 11 2022 05:46:47 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 11 2022 07:05:02 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

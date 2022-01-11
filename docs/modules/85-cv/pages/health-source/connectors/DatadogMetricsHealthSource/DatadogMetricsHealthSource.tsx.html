@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.81% </span>
+                <span class="strong">75.28% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>62/84</span>
+                <span class='fraction'>67/89</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.68% </span>
+                <span class="strong">70.43% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>67/99</span>
+                <span class='fraction'>81/115</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.17% </span>
+                <span class="strong">74.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>60/82</span>
+                <span class='fraction'>65/87</span>
             </div>
         
             
@@ -297,7 +297,20 @@
 <a name='L238'></a><a href='#L238'>238</a>
 <a name='L239'></a><a href='#L239'>239</a>
 <a name='L240'></a><a href='#L240'>240</a>
-<a name='L241'></a><a href='#L241'>241</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
@@ -334,6 +347,8 @@
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -398,6 +413,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -500,6 +516,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -519,6 +544,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -575,6 +601,8 @@ import { getErrorMessage } from '@cv/utils/CommonUtils'
 import CloudMetricsHealthSource from '@cv/components/CloudMetricsHealthSource/CloudMetricsHealthSource'
 import type { SelectedWidgetMetricData } from '@cv/components/CloudMetricsHealthSource/CloudMetricsHealthSource.type'
 import DatadogMetricsDetailsContent from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/components/DatadogMetricsDetailsContent/DatadogMetricsDetailsContent'
+import { FieldNames } from '@cv/pages/health-source/connectors/GCOMetricsHealthSource/GCOMetricsHealthSource.constants'
+import { getPlaceholderForIdentifier } from '@cv/pages/health-source/connectors/GCOMetricsHealthSource/GCOMetricsHealthSource.utils'
 import { DatadogMetricsQueryExtractor } from './components/DatadogMetricsDetailsContent/DatadogMetricsDetailsContent.utils'
 &nbsp;
 export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSourceProps): JSX.Element {
@@ -584,8 +612,8 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
   const [metricHealthDetailsData, setMetricHealthDetailsData] = useState(transformedData.metricDefinition)
   const [activeMetricsTracingId, metricTagsTracingId] = useMemo(() =&gt; [Utils.randomId(), Utils.randomId()], [])
   const { projectIdentifier, orgIdentifier, accountId } = useParams&lt;ProjectPathProps&gt;()
-  const [selectedMetric, setSelectedMetric] = useState&lt;string&gt;()
-  const selectedMetricData = metricHealthDetailsData.get(selectedMetric || '')
+  const [selectedMetricId, setSelectedMetricId] = useState&lt;string&gt;()
+  const selectedMetricData = metricHealthDetailsData.get(selectedMetricId || '')
   const { data: activeMetrics } = useGetDatadogActiveMetrics({
     queryParams: {
       projectIdentifier,
@@ -639,6 +667,7 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
   const selectedDashboards = useMemo(() =&gt; {
     return getSelectedDashboards(data)
   }, [data])
+&nbsp;
   const handleOnTimeseriesFetch = (): void =&gt; {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (selectedMetricData<span class="branch-0 cbranch-no" title="branch not covered" >?.q</span>uery) {
       timeseriesRefech({
@@ -669,18 +698,18 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
     selectedWidgetMetricData: SelectedWidgetMetricData,
     formikProps: FormikProps&lt;DatadogMetricInfo&gt;
   ): void =&gt; {
-    let metricInfo: DatadogMetricInfo | undefined = metricHealthDetailsData.get(selectedWidgetMetricData.metricName)
+    let metricInfo: DatadogMetricInfo | undefined = metricHealthDetailsData.get(selectedWidgetMetricData.id)
     const query = selectedWidgetMetricData.query === MANUAL_INPUT_QUERY ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: selectedWidgetMetricData.query
     <span class="missing-if-branch" title="else path not taken" >E</span>if (!metricInfo) {
       metricInfo = mapSelectedWidgetDataToDatadogMetricInfo(selectedWidgetMetricData, query, activeMetrics<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>
     }
-    metricHealthDetailsData.set(selectedWidgetMetricData.metricName, metricInfo)
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedMetric) {
+    metricHealthDetailsData.set(selectedWidgetMetricData.id, metricInfo)
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedMetricId) {
       // save changes for previous metric
-<span class="cstat-no" title="statement not covered" >      metricHealthDetailsData.set(selectedMetric, { ...selectedMetricData, ...formikProps.values })</span>
+<span class="cstat-no" title="statement not covered" >      metricHealthDetailsData.set(selectedMetricId, { ...selectedMetricData, ...formikProps.values })</span>
     }
     setMetricHealthDetailsData(new Map(metricHealthDetailsData))
-    setSelectedMetric(selectedWidgetMetricData.metricName)
+    setSelectedMetricId(selectedWidgetMetricData.id)
     setCurrentTimeseriesData(null)
   }
   const handleOnNext = <span class="fstat-no" title="function not covered" >async </span>(formikProps: FormikProps&lt;DatadogMetricInfo&gt;): Promise&lt;void&gt; =&gt; {
@@ -698,13 +727,13 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
 <span class="cstat-no" title="statement not covered" >      formikProps.setErrors({ ...errors })</span>
 <span class="cstat-no" title="statement not covered" >      return</span>
     }
-<span class="cstat-no" title="statement not covered" >    if (selectedMetric) {</span>
-<span class="cstat-no" title="statement not covered" >      metricHealthDetailsData.set(selectedMetric, { ...selectedMetricData, ...formikProps.values })</span>
+<span class="cstat-no" title="statement not covered" >    if (selectedMetricId) {</span>
+<span class="cstat-no" title="statement not covered" >      metricHealthDetailsData.set(selectedMetricId, { ...selectedMetricData, ...formikProps.values })</span>
     }
     const filteredData = <span class="cstat-no" title="statement not covered" >new Map()</span>
 <span class="cstat-no" title="statement not covered" >    for (const metric of metricHealthDetailsData) {</span>
       const [metricName, metricInfo] = <span class="cstat-no" title="statement not covered" >metric</span>
-<span class="cstat-no" title="statement not covered" >      if (isEmpty(validateFormMappings(metricInfo, getString))) {</span>
+<span class="cstat-no" title="statement not covered" >      if (isEmpty(validateFormMappings(metricInfo, metricHealthDetailsData, getString))) {</span>
 <span class="cstat-no" title="statement not covered" >        filteredData.set(metricName, metricInfo)</span>
       }
     }
@@ -718,8 +747,8 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
   }
   const dashboardRequest = useGetDatadogDashboardDetails({ lazy: true })
   const dashboardDetailToMetricWidgetItemMapper = useCallback(
-<span class="fstat-no" title="function not covered" >    (d</span>atadogDashboardDetail: DatadogDashboardDetail): MetricWidget =&gt; {
-<span class="cstat-no" title="statement not covered" >      return mapDatadogDashboardDetailToMetricWidget(datadogDashboardDetail)</span>
+<span class="fstat-no" title="function not covered" >    (d</span>ashboardId: string, datadogDashboardDetail: DatadogDashboardDetail): MetricWidget =&gt; {
+<span class="cstat-no" title="statement not covered" >      return mapDatadogDashboardDetailToMetricWidget(dashboardId, datadogDashboardDetail)</span>
     },
     []
   )
@@ -731,49 +760,59 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
       onSubmit={noop}
       validate={<span class="fstat-no" title="function not covered" >values </span>=&gt; {
         const newMap = <span class="cstat-no" title="statement not covered" >new Map(metricHealthDetailsData)</span>
-<span class="cstat-no" title="statement not covered" >        if (selectedMetric) {</span>
-<span class="cstat-no" title="statement not covered" >          newMap.set(selectedMetric, { ...values })</span>
+<span class="cstat-no" title="statement not covered" >        if (selectedMetricId) {</span>
+<span class="cstat-no" title="statement not covered" >          newMap.set(selectedMetricId, { ...values })</span>
         }
 <span class="cstat-no" title="statement not covered" >        return validate(values, newMap, getString)</span>
       }}
     &gt;
-      {formikProps =&gt; (
-        &lt;FormikForm&gt;
-          &lt;CloudMetricsHealthSource
-            formikProps={formikProps}
-            dashboardDetailRequest={dashboardRequest}
-            dashboardDetailMapper={dashboardDetailToMetricWidgetItemMapper}
-            dataSourceType={DatasourceTypeEnum.DATADOG_METRICS}
-            addManualQueryTitle={'cv.monitoringSources.datadog.manualInputQueryModal.modalTitle'}
-            manualQueries={getManuallyCreatedQueries(metricHealthDetailsData)}
-            onNextClicked={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >handleOnNext(formikProps)}</span>
-            selectedMetricInfo={{
-              query: formikProps.values.query,
-              queryEditable: false,
-              timeseriesData: currentTimeseriesData
-            }}
-            onFetchTimeseriesData={handleOnTimeseriesFetch}
-            timeseriesDataLoading={timeseriesLoading}
-            timeseriesDataError={timeseriesDataErrorMessage}
-            dashboards={selectedDashboards}
-            connectorRef={data<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef as string}
-            onWidgetMetricSelected={selectedWidgetMetricData =&gt;
-              handleOnMetricSelected(selectedWidgetMetricData, formikProps)
-            }
-            metricDetailsContent={
-              &lt;DatadogMetricsDetailsContent
-                selectedMetric={selectedMetric}
-                selectedMetricData={selectedMetricData}
-                metricHealthDetailsData={metricHealthDetailsData}
-                formikProps={formikProps}
-                setMetricHealthDetailsData={setMetricHealthDetailsData}
-                metricTags={metricTags<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
-                activeMetrics={activeMetrics<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
-              /&gt;
-            }
-          /&gt;
-        &lt;/FormikForm&gt;
-      )}
+      {formikProps =&gt; {
+        const shouldShowIdentifierPlaceholder = !selectedMetricData?.identifier &amp;&amp; !formikProps.values<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
+&nbsp;
+        if (shouldShowIdentifierPlaceholder) {
+          formikProps.setFieldValue(
+            FieldNames.IDENTIFIER,
+            getPlaceholderForIdentifier(formikProps.values<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etricName, getString)
+          )
+        }
+        return (
+          &lt;FormikForm&gt;
+            &lt;CloudMetricsHealthSource
+              formikProps={formikProps}
+              dashboardDetailRequest={dashboardRequest}
+              dashboardDetailMapper={dashboardDetailToMetricWidgetItemMapper}
+              dataSourceType={DatasourceTypeEnum.DATADOG_METRICS}
+              addManualQueryTitle={'cv.monitoringSources.datadog.manualInputQueryModal.modalTitle'}
+              manualQueries={getManuallyCreatedQueries(metricHealthDetailsData)}
+              onNextClicked={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >handleOnNext(formikProps)}</span>
+              selectedMetricInfo={{
+                query: formikProps.values.query,
+                queryEditable: false,
+                timeseriesData: currentTimeseriesData
+              }}
+              onFetchTimeseriesData={handleOnTimeseriesFetch}
+              timeseriesDataLoading={timeseriesLoading}
+              timeseriesDataError={timeseriesDataErrorMessage}
+              dashboards={selectedDashboards}
+              connectorRef={data<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef as string}
+              onWidgetMetricSelected={selectedWidgetMetricData =&gt;
+                handleOnMetricSelected(selectedWidgetMetricData, formikProps)
+              }
+              metricDetailsContent={
+                &lt;DatadogMetricsDetailsContent
+                  selectedMetric={selectedMetricId}
+                  selectedMetricData={selectedMetricData}
+                  metricHealthDetailsData={metricHealthDetailsData}
+                  formikProps={formikProps}
+                  setMetricHealthDetailsData={setMetricHealthDetailsData}
+                  metricTags={metricTags<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
+                  activeMetrics={activeMetrics<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
+                /&gt;
+              }
+            /&gt;
+          &lt;/FormikForm&gt;
+        )
+      }}
     &lt;/Formik&gt;
   )
 }
@@ -784,7 +823,7 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 11 2022 05:46:47 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 11 2022 07:05:02 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

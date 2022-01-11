@@ -4402,6 +4402,7 @@ export interface StepData {
     | 'TERRAFORM_DESTROY'
     | 'TERRAFORM_ROLLBACK'
     | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
+    | 'ZERONORTH_STEP'
   name?: string
   type?: string
 }

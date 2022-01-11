@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -257,18 +257,7 @@
 <a name='L198'></a><a href='#L198'>198</a>
 <a name='L199'></a><a href='#L199'>199</a>
 <a name='L200'></a><a href='#L200'>200</a>
-<a name='L201'></a><a href='#L201'>201</a>
-<a name='L202'></a><a href='#L202'>202</a>
-<a name='L203'></a><a href='#L203'>203</a>
-<a name='L204'></a><a href='#L204'>204</a>
-<a name='L205'></a><a href='#L205'>205</a>
-<a name='L206'></a><a href='#L206'>206</a>
-<a name='L207'></a><a href='#L207'>207</a>
-<a name='L208'></a><a href='#L208'>208</a>
-<a name='L209'></a><a href='#L209'>209</a>
-<a name='L210'></a><a href='#L210'>210</a>
-<a name='L211'></a><a href='#L211'>211</a>
-<a name='L212'></a><a href='#L212'>212</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L201'></a><a href='#L201'>201</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -282,7 +271,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -291,6 +280,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -329,22 +319,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -406,6 +381,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -440,6 +417,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -491,7 +469,7 @@ import PlansCss from './Plans.module.scss'
 import PlanCss from './Plan.module.scss'
 &nbsp;
 const centerCenter = 'center-center'
-const getBulletList = (stringList: string[]) =&gt; {
+const getBulletList = (stringList: string[]): React.ReactElement[] =&gt; {
   return stringList.map(item =&gt; (
     &lt;li key={item} className={css.li}&gt;
       &lt;Text&gt;{item}&lt;/Text&gt;
@@ -505,10 +483,11 @@ const getVerticalPart = (
   getString: (key: StringKeys, vars?: Record&lt;string, any&gt;) =&gt; string,
   title2key: StringKeys,
   linkKey: StringKeys,
-  linkText: StringKeys
-) =&gt; (
+  linkText: StringKeys,
+  image?: string
+): React.ReactElement =&gt; (
   &lt;Layout.Vertical flex={{ align: centerCenter }} spacing="large" padding={{ bottom: 'xsmall' }}&gt;
-    &lt;img src={saasImage} /&gt;
+    {image &amp;&amp; &lt;img src={image} /&gt;}
     &lt;Layout.Vertical padding={{ top: 'large' }} flex={{ align: centerCenter }} spacing="medium"&gt;
       &lt;Layout.Horizontal spacing="small"&gt;
         &lt;Text color={Color.BLACK} font={{ size: 'medium' }} className={PlanCss.desc}&gt;
@@ -529,7 +508,7 @@ const getVerticalPart = (
   &lt;/Layout.Vertical&gt;
 )
 &nbsp;
-const CommunityPlansCard = () =&gt; {
+const CommunityPlansCard = (): React.ReactElement =&gt; {
   const { getString } = useStrings()
 &nbsp;
   const communityPlanStrings = [
@@ -537,8 +516,7 @@ const CommunityPlansCard = () =&gt; {
     getString('authSettings.cdCommunityPlan.communityPlanStrings.item2'),
     getString('authSettings.cdCommunityPlan.communityPlanStrings.item3'),
     getString('authSettings.cdCommunityPlan.communityPlanStrings.item4'),
-    getString('authSettings.cdCommunityPlan.communityPlanStrings.item5'),
-    getString('authSettings.cdCommunityPlan.communityPlanStrings.item6')
+    getString('authSettings.cdCommunityPlan.communityPlanStrings.item5')
   ]
 &nbsp;
   return (
@@ -564,23 +542,9 @@ const CommunityPlansCard = () =&gt; {
           &lt;Text font={{ weight: 'semi-bold', size: 'large' }} className={css.titleFont}&gt;
             {getString('authSettings.cdCommunityPlan.communityTitle')}
           &lt;/Text&gt;
-          &lt;Layout.Vertical
-            padding={{ top: 'large', bottom: 'xxxlarge' }}
-            flex={{ align: centerCenter }}
-            spacing="medium"
-          &gt;
-            &lt;Layout.Horizontal spacing="small"&gt;
-              &lt;Text font={{ weight: 'semi-bold', size: 'large' }} color={Color.BLACK}&gt;
-                {getString('authSettings.cdCommunityPlan.communityPrice')}
-              &lt;/Text&gt;
-            &lt;/Layout.Horizontal&gt;
-            &lt;Text
-              color={Color.BLACK}
-              font={{ weight: 'light', size: 'small' }}
-              padding={{ left: 'large', right: 'large' }}
-              className={PlanCss.centerText}
-            &gt;
-              {getString('authSettings.cdCommunityPlan.communityPriceText')}
+          &lt;Layout.Vertical padding={{ top: 'large', bottom: 'xxxlarge' }} flex={{ align: centerCenter }}&gt;
+            &lt;Text font={{ weight: 'semi-bold', size: 'medium' }} color={Color.BLACK}&gt;
+              {getString('authSettings.cdCommunityPlan.communityPrice')}
             &lt;/Text&gt;
           &lt;/Layout.Vertical&gt;
           &lt;Text
@@ -609,13 +573,15 @@ const CommunityPlansCard = () =&gt; {
   )
 }
 &nbsp;
-const EnterprisePlansCard = () =&gt; {
+const EnterprisePlansCard = (): React.ReactElement =&gt; {
   const { getString } = useStrings()
 &nbsp;
   const enterpriseListStrings = [
     getString('authSettings.cdCommunityPlan.enterprisePlanStrings.item1'),
     getString('authSettings.cdCommunityPlan.enterprisePlanStrings.item2'),
-    getString('authSettings.cdCommunityPlan.enterprisePlanStrings.item3')
+    getString('authSettings.cdCommunityPlan.enterprisePlanStrings.item3'),
+    getString('authSettings.cdCommunityPlan.enterprisePlanStrings.item4'),
+    getString('authSettings.cdCommunityPlan.enterprisePlanStrings.item5')
   ]
   return (
     &lt;Card className={cx(css.plan, css.normalPlanBorder)}&gt;
@@ -648,7 +614,7 @@ const EnterprisePlansCard = () =&gt; {
   )
 }
 &nbsp;
-const SaasPlansCard = () =&gt; {
+const SaasPlansCard = (): React.ReactElement =&gt; {
   const { getString } = useStrings()
   return (
     &lt;Card className={cx(css.plan, css.normalPlanBorder)}&gt;
@@ -657,14 +623,15 @@ const SaasPlansCard = () =&gt; {
           getString,
           'authSettings.cdCommunityPlan.saasTitle2',
           linkStringKey,
-          'authSettings.cdCommunityPlan.saasLinkText'
+          'authSettings.cdCommunityPlan.saasLinkText',
+          saasImage
         )}
       &lt;/Layout.Vertical&gt;
     &lt;/Card&gt;
   )
 }
 &nbsp;
-const CommunityPlans = () =&gt; {
+const CommunityPlans = (): React.ReactElement =&gt; {
   const { getString } = useStrings()
   return (
     &lt;Layout.Vertical className={PlansCss.plans} spacing="large"&gt;
@@ -697,7 +664,7 @@ export default CommunityPlans
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 11 2022 13:14:09 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 11 2022 15:59:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

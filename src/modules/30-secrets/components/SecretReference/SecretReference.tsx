@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Icon, SelectOption, Text, Button, Container, Layout, ButtonVariation, Color } from '@wings-software/uicore'
 import { Select } from '@blueprintjs/select'
 import { MenuItem } from '@blueprintjs/core'
@@ -40,6 +40,8 @@ export interface SecretReferenceProps {
 }
 
 const fetchRecords = (
+  pageIndex: number,
+  setPagedSecretData: (data: ResponsePageSecretResponseWrapper) => void,
   scope: Scope,
   search: string | undefined,
   done: (records: EntityReferenceResponse<SecretRef>[]) => void,
@@ -69,13 +71,16 @@ const fetchRecords = (
       searchTerm: search?.trim(),
       projectIdentifier: scope === Scope.PROJECT ? projectIdentifier : undefined,
       orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? orgIdentifier : undefined,
-      source_category: sourceCategory
+      source_category: sourceCategory,
+      pageIndex: pageIndex,
+      pageSize: 10
     },
     mock
   })
     .then(responseData => {
       if (responseData?.data?.content) {
         const secrets = responseData.data.content
+        setPagedSecretData(responseData)
         const response: EntityReferenceResponse<SecretRef>[] = []
         secrets.forEach(secret => {
           response.push({
@@ -106,7 +111,8 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
     handleInlineSSHSecretCreation
   } = props
   const { getString } = useStrings()
-
+  const [pagedSecretData, setPagedSecretData] = useState<ResponsePageSecretResponseWrapper>({})
+  const [pageNo, setPageNo] = useState(0)
   const secretTypeOptions: SelectOption[] = [
     {
       label: getString('secrets.secret.labelText'),
@@ -199,9 +205,11 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
           className: css.noDataCardContainerSecret
         }}
         recordClassName={css.listItem}
-        fetchRecords={(scope, search, done) => {
+        fetchRecords={(page = 0, scope, search, done) => {
           const selectedType = type || (secretType?.value as SecretDTOV2['type'])
           fetchRecords(
+            page,
+            setPagedSecretData,
             scope,
             search,
             done,
@@ -219,6 +227,13 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
         noRecordsText={getString('secrets.secret.noSecretsFound')}
         searchInlineComponent={!type ? selectTypeDropdown : undefined}
         renderTabSubHeading
+        pagination={{
+          itemCount: pagedSecretData?.data?.totalItems || 0,
+          pageSize: pagedSecretData?.data?.pageSize || 10,
+          pageCount: pagedSecretData?.data?.totalPages || -1,
+          pageIndex: pageNo || 0,
+          gotoPage: pageIndex => setPageNo(pageIndex)
+        }}
         recordRender={({ item, selected }) => (
           <>
             <Layout.Horizontal className={css.item} flex={{ alignItems: 'center', justifyContent: 'space-between' }}>

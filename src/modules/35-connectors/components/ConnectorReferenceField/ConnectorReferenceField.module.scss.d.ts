@@ -1,14 +1,10 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly listItem: string
   readonly item: string
-  readonly connectorInfo: string
+  readonly leftInfo: string
   readonly connectorNameId: string
   readonly editBtn: string
-  readonly itemWithGit: string
-  readonly gitInfo: string
-  readonly gitBranchIcon: string
   readonly iconCheck: string
   readonly iconChecked: string
   readonly connectorLabel: string
@@ -21,6 +17,13 @@ declare const styles: {
   readonly selectWrapper: string
   readonly noDataCardContainerConnector: string
   readonly noDataCardContainerContent: string
-  readonly lastConnected: string
+  readonly gitInfo: string
+  readonly gitBranchIcon: string
+  readonly connectorDetails: string
+  readonly gitHubConnectorDetails: string
+  readonly gitUrlStyle: string
+  readonly gitUrl: string
+  readonly flexOne: string
+  readonly flexTwo: string
 }
 export default styles

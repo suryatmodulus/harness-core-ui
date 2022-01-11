@@ -30,7 +30,12 @@ import css from './PerspectiveListView.module.scss'
 
 interface PerspectiveListViewProps {
   pespectiveData: QlceView[]
-  navigateToPerspectiveDetailsPage: (perspectiveId: string, viewState: ViewState, name: string) => void
+  navigateToPerspectiveDetailsPage: (
+    perspectiveId: string,
+    viewState: ViewState,
+    name: string,
+    viewType: ViewType
+  ) => void
   deletePerpsective: (perspectiveId: string, perspectiveName: string) => void
   clonePerspective: (values: QlceView | Record<string, string>, isClone: boolean) => void
 }
@@ -232,7 +237,10 @@ const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
   return (
     <TableV2<QlceView>
       onRowClick={row => {
-        row.id && row.viewState && row.name && navigateToPerspectiveDetailsPage(row.id, row.viewState, row.name)
+        row.id &&
+          row.viewState &&
+          row.name &&
+          navigateToPerspectiveDetailsPage(row.id, row.viewState, row.name, row.viewType || ViewType.Customer)
       }}
       columns={columns}
       data={pespectiveData}

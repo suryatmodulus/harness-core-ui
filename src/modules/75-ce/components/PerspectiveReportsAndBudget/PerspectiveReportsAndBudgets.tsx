@@ -40,6 +40,8 @@ import {
 import { useStrings } from 'framework/strings'
 import formatCost from '@ce/utils/formatCost'
 
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import Table from './Table'
 import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
 import useCreateReportModal from './PerspectiveCreateReport'
@@ -85,6 +87,7 @@ const ReportsAndBudgets: React.FC<ReportsAndBudgetsProps> = ({ values, onPrevBut
   })
 
   const history = useHistory()
+  const { trackEvent } = useTelemetry()
   const { getString } = useStrings()
   const { perspectiveId, accountId } = useParams<UrlParams>()
 
@@ -117,7 +120,14 @@ const ReportsAndBudgets: React.FC<ReportsAndBudgetsProps> = ({ values, onPrevBut
           <FlexExpander />
           <Layout.Horizontal padding={{ top: 'medium' }} spacing="large">
             <Button icon="chevron-left" text={getString('previous')} onClick={onPrevButtonClick} />
-            <Button intent="primary" text={getString('ce.perspectives.save')} onClick={() => savePerspective()} />
+            <Button
+              intent="primary"
+              text={getString('ce.perspectives.save')}
+              onClick={() => {
+                trackEvent(USER_JOURNEY_EVENTS.SAVE_PERSPECTIVE, {})
+                savePerspective()
+              }}
+            />
           </Layout.Horizontal>
         </Layout.Vertical>
         {values && (
@@ -147,6 +157,7 @@ const useFetchReports = (accountId: string, perspectiveId: string) => {
 const ScheduledReports: React.FC = () => {
   const { getString } = useStrings()
   const { accountId, perspectiveId } = useParams<UrlParams>()
+  const { trackEvent } = useTelemetry()
   const { reports, loading, refetch } = useFetchReports(accountId, perspectiveId)
   const { mutate: deleteReport } = useDeleteReportSetting({})
   const { openModal, hideModal } = useCreateReportModal({
@@ -210,6 +221,11 @@ const ScheduledReports: React.FC = () => {
     []
   )
 
+  const openCreateReportModal = () => {
+    trackEvent(USER_JOURNEY_EVENTS.CREATE_PERSPECTIVE_ADD_NEW_REPORT, {})
+    openModal()
+  }
+
   return (
     <Container>
       <Layout.Horizontal>
@@ -223,7 +239,7 @@ const ScheduledReports: React.FC = () => {
         <FlexExpander />
         {reports.length ? (
           <Link
-            onClick={() => openModal()}
+            onClick={openCreateReportModal}
             size={ButtonSize.SMALL}
             padding="none"
             margin="none"
@@ -245,7 +261,7 @@ const ScheduledReports: React.FC = () => {
       </Text>
       <List
         buttonText={getString('ce.perspectives.reports.createNew')}
-        onButtonClick={() => openModal()}
+        onButtonClick={openCreateReportModal}
         showCreateButton={!reports.length}
         hasData={!!reports.length}
         loading={loading}
@@ -267,6 +283,7 @@ const Budgets = ({ perspectiveName }: { perspectiveName: string }): JSX.Element 
   const { accountId, perspectiveId } = useParams<UrlParams>()
   const { mutate: deleteBudget } = useDeleteBudget({ queryParams: { accountIdentifier: accountId } })
   const { budgets, loading, refetch } = useFetchBudget(accountId, perspectiveId)
+  const { trackEvent } = useTelemetry()
   const { openModal, hideModal } = useBudgetModal({
     onSuccess: () => {
       hideModal()
@@ -377,6 +394,7 @@ const Budgets = ({ perspectiveName }: { perspectiveName: string }): JSX.Element 
   }
 
   const openCreateNewBudgetModal = (): void => {
+    trackEvent(USER_JOURNEY_EVENTS.CREATE_PERSPECTIVE_ADD_NEW_BUDGET, {})
     openModal({
       isEdit: false,
       perspectiveName: perspectiveName,
@@ -435,14 +453,7 @@ const Budgets = ({ perspectiveName }: { perspectiveName: string }): JSX.Element 
         <List
           grid={null}
           loading={loading}
-          onButtonClick={() =>
-            openModal({
-              isEdit: false,
-              perspectiveName: perspectiveName,
-              perspective: perspectiveId,
-              selectedBudget: {}
-            })
-          }
+          onButtonClick={openCreateNewBudgetModal}
           buttonText={getString('ce.perspectives.budgets.createNew')}
           hasData={false}
           showCreateButton={true}

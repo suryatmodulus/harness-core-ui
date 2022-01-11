@@ -233,7 +233,12 @@ const NoDataPerspectivePage: (props: NoDataPerspectivePageProps) => JSX.Element 
 interface PerspectiveListGridViewProps {
   pespectiveList: QlceView[]
   recentViewList: QlceView[]
-  navigateToPerspectiveDetailsPage: (perspectiveId: string, viewState: ViewState, name: string) => void
+  navigateToPerspectiveDetailsPage: (
+    perspectiveId: string,
+    viewState: ViewState,
+    name: string,
+    viewType: ViewType
+  ) => void
   deletePerpsective: (perspectiveId: string, perspectiveName: string) => void
   createNewPerspective: (values: QlceView | Record<string, string>, isClone: boolean) => void
   filteredPerspectiveData: QlceView[]
@@ -446,11 +451,16 @@ const PerspectiveListPage: React.FC = () => {
     }
   }
 
-  const navigateToPerspectiveDetailsPage: (perspectiveId: string, viewState: ViewState, name: string) => void = (
-    perspectiveId,
-    viewState,
-    name
-  ) => {
+  const navigateToPerspectiveDetailsPage: (
+    perspectiveId: string,
+    viewState: ViewState,
+    name: string,
+    viewType: ViewType
+  ) => void = (perspectiveId, viewState, name, viewType) => {
+    trackEvent(USER_JOURNEY_EVENTS.OPEN_PERSPECTIVE_DETAILS, {
+      perspectiveType: viewType
+    })
+
     if (viewState !== ViewState.Draft) {
       history.push(
         routes.toPerspectiveDetails({

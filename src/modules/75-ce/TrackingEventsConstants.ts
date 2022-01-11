@@ -14,7 +14,8 @@ const PERSPECTIVE_EVENTS = {
   PERSPECTIVE_STEP1_NEXT: PREFIX_CCM_EVENTS + 'create_perspective_step1_next',
   CREATE_PERSPECTIVE_ADD_NEW_REPORT: PREFIX_CCM_EVENTS + 'create_perspective_add_new_report',
   CREATE_PERSPECTIVE_ADD_NEW_BUDGET: PREFIX_CCM_EVENTS + 'create_perspective_add_new_budget',
-  SAVE_PERSPECTIVE: PREFIX_CCM_EVENTS + 'save_perspective'
+  SAVE_PERSPECTIVE: PREFIX_CCM_EVENTS + 'save_perspective',
+  OPEN_PERSPECTIVE_DETAILS: PREFIX_CCM_EVENTS + 'open_perspective_details'
 }
 
 export const USER_JOURNEY_EVENTS = {

@@ -13,6 +13,7 @@ import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, withAccountId } from '@common/utils/routeUtils'
 
+import SessionToken from 'framework/utils/SessionToken'
 import type { SidebarContext } from './navigation/SidebarProvider'
 import type { AccountPathProps } from './interfaces/RouteInterfaces'
 import GenericErrorPage from './pages/GenericError/GenericErrorPage'
@@ -43,6 +44,11 @@ const justAccountPath = withAccountId(() => '/')
 
 export default (
   <>
+    {__DEV__ && (
+      <Route path="/account/:accountId/dashboard">
+        <Redirect to={routes.toHome({ accountId: SessionToken.accountId() })} />
+      </Route>
+    )}
     <Route exact path={[justAccountPath({ ...accountPathProps }), routes.toHome({ ...accountPathProps })]}>
       <RedirectToHome />
     </Route>

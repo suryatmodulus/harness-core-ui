@@ -9,7 +9,7 @@ require('dotenv').config()
 
 const baseUrl = process.env.BASE_URL ?? 'https://qa.harness.io/gateway'
 const targetLocalHost = (process.env.TARGET_LOCALHOST && JSON.parse(process.env.TARGET_LOCALHOST)) ?? true // set to false to target baseUrl environment instead of localhost
-console.table({ baseUrl, targetLocalHost })
+console.table({ baseUrl, targetLocalHost, enableNgAuth: process.env.ENABLE_NG_AUTH })
 
 module.exports = {
   '/ng/api': {
@@ -35,7 +35,7 @@ module.exports = {
   '/api': {
     target: targetLocalHost ? 'https://localhost:9090' : baseUrl
   },
-  '/gateway': {
+  '/gateway/api': {
     pathRewrite: { '^/gateway': '' },
     target: targetLocalHost ? 'https://localhost:9090' : baseUrl
   },
@@ -98,6 +98,6 @@ module.exports = {
   },
   '/auth': {
     pathRewrite: { '^/auth': '' },
-    target: 'https://qa.harness.io/auth'
+    target: 'https://app.harness.io/auth'
   }
 }

@@ -44,6 +44,9 @@
     <% if (__DEV__) { %>
     <script>
       window.deploymentType = 'SAAS'
+    </script>
+    <% } %> <% if (__ENABLE_NG_AUTH_DEV__) { %>
+    <script>
       window.HARNESS_ENABLE_NG_AUTH_UI = true
     </script>
     <% } %>

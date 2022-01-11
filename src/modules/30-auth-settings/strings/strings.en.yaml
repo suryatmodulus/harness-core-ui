@@ -117,25 +117,25 @@ oauthSupport: OAuth authentication
 twoFactorAuthSupport: Two Factor Auth Support
 cdCommunityPlan:
   planLink: 'https://harness.io/pricing'
-  communityPrice: '0$'
-  communityPriceText: 'Free Forever'
+  communityPrice: 'Free and Open Software'
   communityTitle: 'Community'
   enterpriseTitle: 'Enterprise'
-  communityTitle2: 'Powered by Open Source Community - Fast, Reliable & Efficient CI'
+  communityTitle2: 'Self-Hosted Only'
   enterpriseTitle2: 'Upgrade to a self hosted Enterprise Plan'
-  saasTitle2: 'Harness offers a variety of exciting SaaS plans'
+  saasTitle2: 'Harness CD is also available in a variety of exciting SaaS plans'
   communityLinkText: 'Supported by Community'
   enterpriseLinkText: 'Go to Enterprise'
   saasLinkText: '{{$.common.exploreSaaSPlans}}'
   harnessLinkText: 'Explore All Harness Plans'
   communityPlanStrings:
-    item1: 'Unlimited Developers'
-    item2: 'Unlimited Builds'
-    item3: 'Git Experience (Pipeline as Code)'
-    item4: 'REST API & Webhook executions'
-    item5: 'Pipeline Plugins support'
-    item6: 'Data Storage - Sqlite'
+    item1: 'Kubernetes, VMs, Serverless Deployments supported on all popular platforms & clouds'
+    item2: 'Advanced Deployment Strategies & Automated Rollback'
+    item3: 'Built-in User & Secret Management'
+    item4: 'Built-in Approvals'
+    item5: 'Git Experience'
   enterprisePlanStrings:
-    item1: 'No limit on services'
-    item2: 'Advanced Security'
-    item3: 'Organize by multiple orgs'
+    item1: 'Unlimited Scalability & High Availability'
+    item2: 'Enterprise Security & Governance'
+    item3: 'External Approvals & Secrets Management'
+    item4: Multiple Projects & Organizations
+    item5: Template Library & Custom Dashboards

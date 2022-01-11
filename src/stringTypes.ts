@@ -872,15 +872,15 @@ export interface StringsMap {
   'authSettings.cdCommunityPlan.communityPlanStrings.item3': string
   'authSettings.cdCommunityPlan.communityPlanStrings.item4': string
   'authSettings.cdCommunityPlan.communityPlanStrings.item5': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item6': string
   'authSettings.cdCommunityPlan.communityPrice': string
-  'authSettings.cdCommunityPlan.communityPriceText': string
   'authSettings.cdCommunityPlan.communityTitle': string
   'authSettings.cdCommunityPlan.communityTitle2': string
   'authSettings.cdCommunityPlan.enterpriseLinkText': string
   'authSettings.cdCommunityPlan.enterprisePlanStrings.item1': string
   'authSettings.cdCommunityPlan.enterprisePlanStrings.item2': string
   'authSettings.cdCommunityPlan.enterprisePlanStrings.item3': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item4': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item5': string
   'authSettings.cdCommunityPlan.enterpriseTitle': string
   'authSettings.cdCommunityPlan.enterpriseTitle2': string
   'authSettings.cdCommunityPlan.harnessLinkText': string

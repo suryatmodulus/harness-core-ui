@@ -250,7 +250,7 @@ export const RunTestsStepInputSetBasic: React.FC<RunTestsStepProps> = ({
           </div>
         </Container>
       )}
-      {getMultiTypeFromValue(template?.spec?.reports?.spec?.paths as string) === MultiTypeInputType.RUNTIME && (
+      {shouldRenderRunTimeInputView(template?.spec?.reports?.spec?.paths) && (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeListInputSet
             name={`${prefix}spec.reports.spec.paths`}
@@ -306,7 +306,7 @@ export const RunTestsStepInputSetBasic: React.FC<RunTestsStepProps> = ({
           />
         </Container>
       )}
-      {getMultiTypeFromValue(template?.spec?.outputVariables as string) === MultiTypeInputType.RUNTIME && (
+      {shouldRenderRunTimeInputView(template?.spec?.outputVariables) && (
         <Container className={cx(css.formGroup, stepCss, css.bottomMargin5)}>
           <MultiTypeListInputSet
             name={`${prefix}spec.outputVariables`}

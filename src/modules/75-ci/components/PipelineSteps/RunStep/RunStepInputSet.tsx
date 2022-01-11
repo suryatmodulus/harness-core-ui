@@ -190,7 +190,7 @@ export const RunStepInputSetBasic: React.FC<RunStepProps> = ({
           />
         </Container>
       )}
-      {getMultiTypeFromValue(template?.spec?.outputVariables as string) === MultiTypeInputType.RUNTIME && (
+      {shouldRenderRunTimeInputView(template?.spec?.outputVariables) && (
         <Container className={cx(css.formGroup, stepCss)}>
           <MultiTypeListInputSet
             name={`${prefix}spec.outputVariables`}

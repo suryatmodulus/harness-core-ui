@@ -88,7 +88,7 @@ export const DockerHubStepInputSetBasic: React.FC<DockerHubStepProps> = ({
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.tags as string) === MultiTypeInputType.RUNTIME && (
+      {shouldRenderRunTimeInputView(template?.spec?.tags) && (
         <MultiTypeListInputSet
           name={`${isEmpty(path) ? '' : `${path}.`}spec.tags`}
           multiTextInputProps={{

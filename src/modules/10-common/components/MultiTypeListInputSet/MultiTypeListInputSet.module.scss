@@ -2,7 +2,7 @@
   display: flex;
 
   &:not(:first-child):not(.without-spacing) {
-    margin-top: var(--spacing-medium);
+    margin-top: var(--spacing-small);
   }
 
   &:not(.withoutAligning) {

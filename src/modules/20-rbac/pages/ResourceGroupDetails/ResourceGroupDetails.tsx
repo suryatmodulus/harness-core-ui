@@ -147,6 +147,7 @@ const ResourceGroupDetails: React.FC = () => {
       selectedScope,
       resourceSelectors
     )
+
     try {
       const updated = await updateResourceGroup(dataToSubmit)
       if (updated) {

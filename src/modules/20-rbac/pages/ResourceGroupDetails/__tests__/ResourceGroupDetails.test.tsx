@@ -64,7 +64,7 @@ describe('Resource Groups Page', () => {
   })
   test('test projects selection and save', async () => {
     const { getAllByText, container } = renderObj
-    const project = queryByAttribute('data-testid', container, 'CHECK-BOX-PROJECT')
+    const project = queryByAttribute('data-testid', container, 'CHECK-BOX-CONNECTOR')
     expect(project).toBeTruthy()
     act(() => {
       fireEvent.click(project!)
@@ -80,8 +80,8 @@ describe('Resource Groups Page', () => {
       identifier: 'ewrewew',
       name: 'nameewrewew',
       resourceSelectors: [
-        { type: 'DynamicResourceSelector', resourceType: 'ORGANIZATION' },
-        { type: 'DynamicResourceSelector', resourceType: 'PROJECT' }
+        { type: 'DynamicResourceSelector', resourceType: 'SECRET', includeChildScopes: false },
+        { type: 'DynamicResourceSelector', resourceType: 'CONNECTOR', includeChildScopes: false }
       ],
       tags: {},
       description: '',
@@ -90,11 +90,11 @@ describe('Resource Groups Page', () => {
   })
   test('test orgs selection and save', async () => {
     const { container, getByTestId } = renderObj
-    const specifiedResource = getByTestId('static-ORGANIZATION')
+    const specifiedResource = getByTestId('static-SECRET')
     act(() => {
       fireEvent.click(specifiedResource)
     })
-    const addResources = getByTestId('addResources-ORGANIZATION')
+    const addResources = getByTestId('addResources-SECRET')
     expect(addResources).toBeTruthy()
     act(() => {
       fireEvent.click(addResources)
@@ -118,8 +118,8 @@ describe('Resource Groups Page', () => {
       identifier: 'ewrewew',
       name: 'nameewrewew',
       resourceSelectors: [
-        { type: 'DynamicResourceSelector', resourceType: 'ORGANIZATION' },
-        { type: 'DynamicResourceSelector', resourceType: 'PROJECT' }
+        { type: 'DynamicResourceSelector', resourceType: 'SECRET', includeChildScopes: false },
+        { type: 'DynamicResourceSelector', resourceType: 'CONNECTOR', includeChildScopes: false }
       ],
       tags: {},
       description: '',

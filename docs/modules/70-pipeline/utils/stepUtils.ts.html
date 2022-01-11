@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.48% </span>
+                <span class="strong">79.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/21</span>
+                <span class='fraction'>23/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/10</span>
+                <span class='fraction'>8/12</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.48% </span>
+                <span class="strong">79.31% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/21</span>
+                <span class='fraction'>23/29</span>
             </div>
         
             
@@ -133,8 +133,26 @@
 <a name='L74'></a><a href='#L74'>74</a>
 <a name='L75'></a><a href='#L75'>75</a>
 <a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">93x</span>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">93x</span>
 <span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">93x</span>
@@ -177,6 +195,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -209,8 +241,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { get } from 'lodash-es'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StageType } from '@pipeline/utils/stageHelpers'
+import type { StageElementConfig } from 'services/cd-ng'
 import type { StepPalleteModuleInfo } from 'services/pipeline-ng'
 &nbsp;
 export enum StepMode {
@@ -252,7 +286,21 @@ export function <span class="fstat-no" title="function not covered" >getAllStepP
   ]
 }
 &nbsp;
-export function getStepPaletteModuleInfosFromStage(stageType?: string): StepPalleteModuleInfo[] {
+export function getStepPaletteModuleInfosFromStage(
+  stageType?: string,
+  stage?: StageElementConfig,
+  initialCategory?: string
+): StepPalleteModuleInfo[] {
+  const deploymentType = get(stage, 'spec.serviceConfig.serviceDefinition.type', undefined)
+  let category = initialCategory
+  switch (deploymentType) {
+    case 'Kubernetes':
+<span class="cstat-no" title="statement not covered" >      category = 'Kubernetes'</span>
+<span class="cstat-no" title="statement not covered" >      break</span>
+    case 'NativeHelm':
+<span class="cstat-no" title="statement not covered" >      category = 'Helm'</span>
+<span class="cstat-no" title="statement not covered" >      break</span>
+  }
   switch (stageType) {
     case StageType.BUILD:
       return [
@@ -275,7 +323,7 @@ export function getStepPaletteModuleInfosFromStage(stageType?: string): StepPall
       return [
         {
           module: 'cd',
-          category: stageType === StageType.APPROVAL ? <span class="branch-0 cbranch-no" title="branch not covered" >'Approval' </span>: undefined,
+          category: stageType === StageType.APPROVAL ? <span class="branch-0 cbranch-no" title="branch not covered" >'Approval' </span>: category,
           shouldShowCommonSteps: true
         },
         {
@@ -292,7 +340,7 @@ export function getStepPaletteModuleInfosFromStage(stageType?: string): StepPall
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 11 2022 09:20:01 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 11 2022 10:34:38 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

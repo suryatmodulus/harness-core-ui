@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.62% </span>
+                <span class="strong">84.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>143/169</span>
+                <span class='fraction'>144/171</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.52% </span>
+                <span class="strong">59.47% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>247/415</span>
+                <span class='fraction'>248/417</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.34% </span>
+                <span class="strong">83.93% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>140/166</span>
+                <span class='fraction'>141/168</span>
             </div>
         
             
@@ -802,7 +802,11 @@
 <a name='L743'></a><a href='#L743'>743</a>
 <a name='L744'></a><a href='#L744'>744</a>
 <a name='L745'></a><a href='#L745'>745</a>
-<a name='L746'></a><a href='#L746'>746</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L746'></a><a href='#L746'>746</a>
+<a name='L747'></a><a href='#L747'>747</a>
+<a name='L748'></a><a href='#L748'>748</a>
+<a name='L749'></a><a href='#L749'>749</a>
+<a name='L750'></a><a href='#L750'>750</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -1156,6 +1160,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1169,6 +1174,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1900,21 +1908,25 @@ export const InputSetForm: React.FC&lt;InputSetFormProps&gt; = (props): JSX.Elem
     let response: ResponseInputSetResponse | null = null
     try {
       <span class="missing-if-branch" title="else path not taken" >E</span>if (isEdit) {
-        response = await updateInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
-          pathParams: {
-            inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ ''
-          },
-          queryParams: {
-            accountIdentifier: accountId,
-            orgIdentifier,
-            pipelineIdentifier,
-            projectIdentifier,
-            pipelineRepoID: repoIdentifier,
-            pipelineBranch: branch,
-            ...(gitDetails ? <span class="branch-0 cbranch-no" title="branch not covered" >{ ...gitDetails, lastObjectId: objectId } </span>: {}),
-            ...(gitDetails &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >gitDetails.isNewBranch </span>? <span class="branch-0 cbranch-no" title="branch not covered" >{ baseBranch: initialGitDetails.branch } </span>: {})
-          }
-        })
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (inputSetObj.identifier) {
+          response = await updateInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
+            pathParams: {
+              inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ ''
+            },
+            queryParams: {
+              accountIdentifier: accountId,
+              orgIdentifier,
+              pipelineIdentifier,
+              projectIdentifier,
+              pipelineRepoID: repoIdentifier,
+              pipelineBranch: branch,
+              ...(gitDetails ? <span class="branch-0 cbranch-no" title="branch not covered" >{ ...gitDetails, lastObjectId: objectId } </span>: {}),
+              ...(gitDetails &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >gitDetails.isNewBranch </span>? <span class="branch-0 cbranch-no" title="branch not covered" >{ baseBranch: initialGitDetails.branch } </span>: {})
+            }
+          })
+        } else {
+<span class="cstat-no" title="statement not covered" >          throw new Error(getString('pipeline.triggers.validation.identifier'))</span>
+        }
       } else {
 <span class="cstat-no" title="statement not covered" >        response = await createInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {</span>
           queryParams: {
@@ -2299,7 +2311,7 @@ export const EnhancedInputSetForm: React.FC&lt;InputSetFormProps&gt; = props =&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 11 2022 09:20:01 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 11 2022 10:34:38 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

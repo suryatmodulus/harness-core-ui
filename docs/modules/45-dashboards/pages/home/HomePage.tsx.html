@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/178</span>
+                <span class='fraction'>0/180</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/289</span>
+                <span class='fraction'>0/285</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/54</span>
+                <span class='fraction'>0/55</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/176</span>
+                <span class='fraction'>0/178</span>
             </div>
         
             
@@ -932,11 +932,7 @@
 <a name='L873'></a><a href='#L873'>873</a>
 <a name='L874'></a><a href='#L874'>874</a>
 <a name='L875'></a><a href='#L875'>875</a>
-<a name='L876'></a><a href='#L876'>876</a>
-<a name='L877'></a><a href='#L877'>877</a>
-<a name='L878'></a><a href='#L878'>878</a>
-<a name='L879'></a><a href='#L879'>879</a>
-<a name='L880'></a><a href='#L880'>880</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L876'></a><a href='#L876'>876</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1357,6 +1353,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1500,18 +1500,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1535,6 +1526,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1544,11 +1536,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1807,6 +1798,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2233,6 +2225,10 @@ const HomePage: React.FC = <span class="cstat-no" title="statement not covered" 
 <span class="cstat-no" title="statement not covered" >    return str.join('&amp;')</span>
   }
 &nbsp;
+  const folderIdOrBlank = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    return folderId === 'shared' ? '' : folderId</span>
+  }
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  React.useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
     const script = <span class="cstat-no" title="statement not covered" >document.createElement('script')</span>
 &nbsp;
@@ -2251,7 +2247,7 @@ const HomePage: React.FC = <span class="cstat-no" title="statement not covered" 
     path: 'gateway/dashboard/v1/search',
     queryParams: {
       accountId: accountId,
-      folderId: folderId === 'shared' ? '' : folderId,
+      folderId: folderIdOrBlank(),
       searchTerm,
       page: page + 1,
       pageSize: 20,
@@ -2266,7 +2262,7 @@ const HomePage: React.FC = <span class="cstat-no" title="statement not covered" 
     path: 'gateway/dashboard/v1/tags',
     queryParams: {
       accountId: accountId,
-      folderId: folderId === 'shared' ? '' : folderId
+      folderId: folderIdOrBlank()
     }
   })
 &nbsp;
@@ -2295,7 +2291,7 @@ const HomePage: React.FC = <span class="cstat-no" title="statement not covered" 
   const { data: folderDetail } = <span class="cstat-no" title="statement not covered" >useGet({</span>
     // Inferred from RestfulProvider in index.js
     path: 'gateway/dashboard/folderDetail',
-    queryParams: { accountId: accountId, folderId: folderId === 'shared' ? '' : folderId }
+    queryParams: { accountId: accountId, folderId: folderIdOrBlank() }
   })
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  React.useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
@@ -2386,310 +2382,302 @@ const HomePage: React.FC = <span class="cstat-no" title="statement not covered" 
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;Page.Body
-      loading={loading || cloning}
-      className={css.pageContainer}
-      retryOnError={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >        return</span>
-      }}
-      error={(error?.data as Error)?.message}
-    &gt;
-      &lt;GetStarted isOpen={isOpen} setDrawerOpen={<span class="fstat-no" title="function not covered" >val </span>=&gt; <span class="cstat-no" title="statement not covered" >setDrawerOpen(val)}</span> /&gt;
-      &lt;Layout.Vertical padding="large" background={Color.GREY_0}&gt;
-        &lt;Layout.Horizontal style={{ justifyContent: 'space-between', alignItems: 'center' }}&gt;
-          &lt;Layout.Vertical spacing="medium"&gt;
-            &lt;Breadcrumbs links={links} /&gt;
-            &lt;Text color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }}&gt;
-              {folderId !== 'shared' ? title : getString('common.dashboards')}
-            &lt;/Text&gt;
-          &lt;/Layout.Vertical&gt;
-          &lt;Layout.Horizontal&gt;
-            &lt;Layout.Horizontal spacing="medium"&gt;
-              &lt;NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toCustomDashboardHome({ accountId, folderId })}
-              &gt;
-                {getString('common.dashboards')}
-              &lt;/NavLink&gt;
-              &lt;NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toCustomFolderHome({ accountId })}
-              &gt;
-                {getString('dashboards.homePage.folders')}
-              &lt;/NavLink&gt;
-            &lt;/Layout.Horizontal&gt;
-          &lt;/Layout.Horizontal&gt;
+    &lt;Container className={css.pageContainer}&gt;
+      &lt;Page.Header
+        title={folderId !== 'shared' ? title : getString('common.dashboards')}
+        breadcrumbs={&lt;Breadcrumbs links={links} /&gt;}
+        content={
           &lt;Layout.Horizontal spacing="medium"&gt;
-            &lt;Text color={Color.PRIMARY_6} style={{ cursor: 'pointer' }} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setDrawerOpen(true)}</span>&gt;
-              {' '}
-              &lt;Icon name="question" /&gt; {getString('getStarted')}
-            &lt;/Text&gt;
+            &lt;NavLink
+              className={css.tags}
+              activeClassName={css.activeTag}
+              to={routes.toCustomDashboardHome({ accountId, folderId })}
+            &gt;
+              {getString('common.dashboards')}
+            &lt;/NavLink&gt;
+            &lt;NavLink className={css.tags} activeClassName={css.activeTag} to={routes.toCustomFolderHome({ accountId })}&gt;
+              {getString('dashboards.homePage.folders')}
+            &lt;/NavLink&gt;
           &lt;/Layout.Horizontal&gt;
-        &lt;/Layout.Horizontal&gt;
-        &lt;Layout.Horizontal
-          style={{
-            borderBottom: '1px solid var(--grey-100)',
-            justifyContent: 'space-between',
-            paddingLeft: 0,
-            paddingRight: 0
-          }}
-          padding="medium"
-          flex={true}
-        &gt;
-          &lt;Layout.Horizontal
-            spacing="medium"
-            style={{ justifyContent: 'space-between', alignItems: 'center', width: '100%' }}
-          &gt;
-            &lt;section style={{ display: 'flex' }}&gt;
-              {folderId === 'shared' &amp;&amp; (
-                &lt;Button
-                  intent="primary"
-                  text={getString('dashboardLabel')}
-                  onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >showModal()}</span>
-                  icon="plus"
-                  style={{ minWidth: '110px', marginRight: 'var(--spacing-11)' }}
-                /&gt;
-              )}
-              {folderId !== 'shared' &amp;&amp; (
-                &lt;RbacButton
-                  intent="primary"
-                  text={getString('dashboardLabel')}
-                  onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >showModal()}</span>
-                  icon="plus"
-                  style={{ minWidth: '110px', marginRight: 'var(--spacing-11)' }}
-                  permission={permissionObj}
-                /&gt;
-              )}
-&nbsp;
-              &lt;Layout.Horizontal className={css.predefinedTags + ' ' + css.mainNavTag}&gt;
-                &lt;ModuleTagsFilter selectedFilter={selectedFilter} setPredefinedFilter={setPredefinedFilter} /&gt;
-              &lt;/Layout.Horizontal&gt;
-            &lt;/section&gt;
-            &lt;Layout.Horizontal&gt;
-              &lt;CustomSelect
-                items={sortingOptions}
-                filterable={false}
-                itemRenderer={<span class="fstat-no" title="function not covered" >(i</span>tem, { handleClick }) =&gt; (
-<span class="cstat-no" title="statement not covered" >                  &lt;div key={item.value.toString()}&gt;</span>
-                    &lt;Menu.Item text={item.label} onClick={handleClick} /&gt;
-                  &lt;/div&gt;
-                )}
-                onItemSelect={<span class="fstat-no" title="function not covered" >item </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                  setSortingFilter(item)</span>
-                }}
-                popoverProps={{ minimal: true, popoverClassName: '' }}
-              &gt;
-                &lt;Button
-                  inline
-                  round
-                  rightIcon="chevron-down"
-                  className={css.customSelect}
-                  text={
-                    &lt;Layout.Horizontal spacing="xsmall"&gt;
-                      &lt;Text color={Color.BLACK}&gt;{'Sort By'}&lt;/Text&gt;
-                      &lt;Text&gt;{sortby?.label}&lt;/Text&gt;
-                    &lt;/Layout.Horizontal&gt;
-                  }
-                /&gt;
-              &lt;/CustomSelect&gt;
-              &lt;Layout.Horizontal&gt;
-                &lt;Button
-                  minimal
-                  icon="grid-view"
-                  intent={layoutView === LayoutViews.GRID ? 'primary' : 'none'}
-                  onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                    setLayoutView(LayoutViews.GRID)</span>
-                  }}
-                /&gt;
-                &lt;Button
-                  minimal
-                  icon="list"
-                  intent={layoutView === LayoutViews.LIST ? 'primary' : 'none'}
-                  onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                    setLayoutView(LayoutViews.LIST)</span>
-                  }}
-                /&gt;
-              &lt;/Layout.Horizontal&gt;
-            &lt;/Layout.Horizontal&gt;
-          &lt;/Layout.Horizontal&gt;
-        &lt;/Layout.Horizontal&gt;
-      &lt;/Layout.Vertical&gt;
-      &lt;Layout.Vertical className={css.filterPanel} padding="medium" spacing="medium"&gt;
-        &lt;Container&gt;
-          &lt;Text font={{ weight: 'semi-bold' }} color={Color.GREY_800}&gt;
-            FILTER BY TAGS
+        }
+        toolbar={
+          &lt;Text color={Color.PRIMARY_6} style={{ cursor: 'pointer' }} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setDrawerOpen(true)}</span>&gt;
+            {' '}
+            &lt;Icon name="question" /&gt; {getString('getStarted')}
           &lt;/Text&gt;
-        &lt;/Container&gt;
-        &lt;Container&gt;
-          &lt;Layout.Vertical spacing="small"&gt;
-            &lt;Container className={css.predefinedTags}&gt;
-              {fetchingTags &amp;&amp; &lt;span&gt;{getString('loading')} &lt;/span&gt;}
-              {!fetchingTags &amp;&amp;
-                tagsList?.resource?.tags?.length &gt; 0 &amp;&amp;
-                tagsList?.resource?.tags?.split(',').map(<span class="fstat-no" title="function not covered" >(t</span>ag: string, index: number) =&gt; {
-<span class="cstat-no" title="statement not covered" >                  if (tag) {</span>
-<span class="cstat-no" title="statement not covered" >                    return (</span>
-                      &lt;section
-                        className={css.customTag}
-                        key={tag + index}
-                        onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                          if (filteredTags.indexOf(tag) === -1) {</span>
-<span class="cstat-no" title="statement not covered" >                            setFilteredTags([...filteredTags, tag])</span>
-                          }
-                        }}
-                      &gt;
-                        {tag}
-                      &lt;/section&gt;
-                    )
-                  }
-                })}
-&nbsp;
-              {tagsList?.resource?.tags?.length === 0 &amp;&amp; &lt;span&gt;{getString('dashboards.homePage.noTags')}&lt;/span&gt;}
-            &lt;/Container&gt;
-          &lt;/Layout.Vertical&gt;
-        &lt;/Container&gt;
-      &lt;/Layout.Vertical&gt;
-&nbsp;
-      &lt;Layout.Vertical
-        padding="large"
-        style={{ width: 'calc(100% - 280px)', height: 'calc(100vh - 226px)', paddingTop: 0, overflow: 'scroll' }}
+        }
+      /&gt;
+      &lt;Page.Body
+        loading={loading || cloning}
+        retryOnError={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >          return</span>
+        }}
+        error={(error?.data as Error)?.message}
       &gt;
-        &lt;Layout.Horizontal style={{ padding: 'var(--spacing-6) var(--spacing-9) ' }}&gt;
-          &lt;ExpandingSearchInput
-            placeholder={getString('dashboards.homePage.searchPlaceholder')}
-            onChange={<span class="fstat-no" title="function not covered" >(t</span>ext: string) =&gt; {
-<span class="cstat-no" title="statement not covered" >              setSearchTerm(text)</span>
+        &lt;GetStarted isOpen={isOpen} setDrawerOpen={<span class="fstat-no" title="function not covered" >val </span>=&gt; <span class="cstat-no" title="statement not covered" >setDrawerOpen(val)}</span> /&gt;
+        &lt;Layout.Vertical padding="large" background={Color.GREY_0}&gt;
+          &lt;Layout.Horizontal
+            style={{
+              borderBottom: '1px solid var(--grey-100)',
+              justifyContent: 'space-between',
+              paddingLeft: 0,
+              paddingRight: 0
             }}
-            className={css.search}
-          /&gt;
-        &lt;/Layout.Horizontal&gt;
-        &lt;Layout.Horizontal style={{ marginLeft: 'var(--spacing-xxxlarge)', alignItems: 'baseline' }}&gt;
-          &lt;section className={css.filteredTags}&gt;
-            {filteredTags.map(<span class="fstat-no" title="function not covered" >(t</span>ag: string, index: number) =&gt; {
-<span class="cstat-no" title="statement not covered" >              return (</span>
-                &lt;section className={css.customTag} key={tag + index}&gt;
-                  {tag}{' '}
-                  &lt;Icon
-                    name="cross"
-                    style={{ cursor: 'pointer' }}
+            flex={true}
+          &gt;
+            &lt;Layout.Horizontal
+              spacing="medium"
+              style={{ justifyContent: 'space-between', alignItems: 'center', width: '100%' }}
+            &gt;
+              &lt;section style={{ display: 'flex' }}&gt;
+                {folderId === 'shared' &amp;&amp; (
+                  &lt;Button
+                    intent="primary"
+                    text={getString('dashboardLabel')}
+                    onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >showModal()}</span>
+                    icon="plus"
+                    style={{ minWidth: '110px', marginRight: 'var(--spacing-11)' }}
+                  /&gt;
+                )}
+                {folderId !== 'shared' &amp;&amp; (
+                  &lt;RbacButton
+                    intent="primary"
+                    text={getString('dashboardLabel')}
+                    onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >showModal()}</span>
+                    icon="plus"
+                    style={{ minWidth: '110px', marginRight: 'var(--spacing-11)' }}
+                    permission={permissionObj}
+                  /&gt;
+                )}
+&nbsp;
+                &lt;Layout.Horizontal className={css.predefinedTags + ' ' + css.mainNavTag}&gt;
+                  &lt;ModuleTagsFilter selectedFilter={selectedFilter} setPredefinedFilter={setPredefinedFilter} /&gt;
+                &lt;/Layout.Horizontal&gt;
+              &lt;/section&gt;
+              &lt;Layout.Horizontal&gt;
+                &lt;CustomSelect
+                  items={sortingOptions}
+                  filterable={false}
+                  itemRenderer={<span class="fstat-no" title="function not covered" >(i</span>tem, { handleClick }) =&gt; (
+<span class="cstat-no" title="statement not covered" >                    &lt;div key={item.value.toString()}&gt;</span>
+                      &lt;Menu.Item text={item.label} onClick={handleClick} /&gt;
+                    &lt;/div&gt;
+                  )}
+                  onItemSelect={<span class="fstat-no" title="function not covered" >item </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                    setSortingFilter(item)</span>
+                  }}
+                  popoverProps={{ minimal: true, popoverClassName: '' }}
+                &gt;
+                  &lt;Button
+                    inline
+                    round
+                    rightIcon="chevron-down"
+                    className={css.customSelect}
+                    text={
+                      &lt;Layout.Horizontal spacing="xsmall"&gt;
+                        &lt;Text color={Color.BLACK}&gt;{'Sort By'}&lt;/Text&gt;
+                        &lt;Text&gt;{sortby?.label}&lt;/Text&gt;
+                      &lt;/Layout.Horizontal&gt;
+                    }
+                  /&gt;
+                &lt;/CustomSelect&gt;
+                &lt;Layout.Horizontal&gt;
+                  &lt;Button
+                    minimal
+                    icon="grid-view"
+                    intent={layoutView === LayoutViews.GRID ? 'primary' : 'none'}
                     onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-                      const filterTags = <span class="cstat-no" title="statement not covered" >filteredTags.filter(<span class="fstat-no" title="function not covered" >v </span>=&gt; <span class="cstat-no" title="statement not covered" >v !== tag)</span></span>
-<span class="cstat-no" title="statement not covered" >                      setFilteredTags(filterTags)</span>
+<span class="cstat-no" title="statement not covered" >                      setLayoutView(LayoutViews.GRID)</span>
                     }}
                   /&gt;
-                &lt;/section&gt;
-              )
-            })}
-          &lt;/section&gt;
-          {filteredTags?.length &gt; 0 &amp;&amp; (
-            &lt;Text
-              color={Color.PRIMARY_7}
-              style={{ cursor: 'pointer' }}
-              font={{ weight: 'semi-bold' }}
-              onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setFilteredTags([])}</span>
-            &gt;
-              Clear All
+                  &lt;Button
+                    minimal
+                    icon="list"
+                    intent={layoutView === LayoutViews.LIST ? 'primary' : 'none'}
+                    onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                      setLayoutView(LayoutViews.LIST)</span>
+                    }}
+                  /&gt;
+                &lt;/Layout.Horizontal&gt;
+              &lt;/Layout.Horizontal&gt;
+            &lt;/Layout.Horizontal&gt;
+          &lt;/Layout.Horizontal&gt;
+        &lt;/Layout.Vertical&gt;
+        &lt;Layout.Vertical className={css.filterPanel} padding="medium" spacing="medium"&gt;
+          &lt;Container&gt;
+            &lt;Text font={{ weight: 'semi-bold' }} color={Color.GREY_800}&gt;
+              FILTER BY TAGS
             &lt;/Text&gt;
-          )}
-        &lt;/Layout.Horizontal&gt;
-        {filteredDashboardList &amp;&amp; filteredDashboardList.length &gt; 0 &amp;&amp; layoutView === LayoutViews.GRID &amp;&amp; (
-          &lt;Container className={css.masonry}&gt;
-            &lt;Layout.Masonry
-              gutter={25}
-              items={filteredDashboardList}
-              renderItem={<span class="fstat-no" title="function not covered" >(d</span>ashboard: DashboardInterface) =&gt; (
-<span class="cstat-no" title="statement not covered" >                &lt;Card className={cx(css.dashboardCard)}&gt;</span>
-                  &lt;Container&gt;
-                    {(dashboard?.type === dashboardType.SHARED || dashboard?.type === dashboardType.ACCOUNT) &amp;&amp; (
-                      &lt;CardBody.Menu
-                        menuContent={
-                          &lt;Menu&gt;
-                            &lt;MenuItem text="clone" onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >clone(dashboard.id)}</span> /&gt;
-                          &lt;/Menu&gt;
-                        }
-                        menuPopoverProps={{
-                          className: Classes.DARK
-                        }}
-                      /&gt;
-                    )}
-&nbsp;
-                    &lt;Layout.Vertical
-                      spacing="large"
-                      onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                        history.push({</span>
-                          pathname: routes.toViewCustomDashboard({
-                            viewId: dashboard.id,
-                            accountId: accountId,
-                            folderId: folderId === 'shared' ? 'shared' : dashboard?.resourceIdentifier
-                          })
-                        })
-                      }}
-                    &gt;
-                      &lt;Text color={Color.BLACK_100} font={{ size: 'normal', weight: 'semi-bold' }}&gt;
-                        {dashboard?.title}
-                      &lt;/Text&gt;
-                      {TagsRenderer(dashboard)}
-&nbsp;
-                      &lt;Layout.Horizontal spacing="medium"&gt;
-                        {dashboard?.type !== dashboardType.SHARED &amp;&amp; (
-                          &lt;&gt;
-                            &lt;Layout.Horizontal style={{ marginRight: 'var(--spacing-8)' }}&gt;
-                              &lt;Icon name="eye-open" size={18} style={{ marginRight: 'var(--spacing-4)' }} /&gt;
-                              &lt;Text color={Color.BLACK_100} font={{ size: 'normal', weight: 'semi-bold' }}&gt;
-                                {dashboard?.view_count}
-                              &lt;/Text&gt;
-                            &lt;/Layout.Horizontal&gt;
-&nbsp;
-                            &lt;Layout.Horizontal&gt;
-                              &lt;Icon name="star-empty" size={18} style={{ marginRight: 'var(--spacing-4)' }} /&gt;
-                              &lt;Text color={Color.BLACK_100} font={{ size: 'normal', weight: 'semi-bold' }}&gt;
-                                {dashboard?.favorite_count}
-                              &lt;/Text&gt;
-                            &lt;/Layout.Horizontal&gt;
-                          &lt;/&gt;
-                        )}
-                      &lt;/Layout.Horizontal&gt;
-                    &lt;/Layout.Vertical&gt;
-                  &lt;/Container&gt;
-                &lt;/Card&gt;
-              )}
-              keyOf={<span class="fstat-no" title="function not covered" >dashboard </span>=&gt; <span class="cstat-no" title="statement not covered" >dashboard?.id}</span>
-            /&gt;
           &lt;/Container&gt;
-        )}
+          &lt;Container&gt;
+            &lt;Layout.Vertical spacing="small"&gt;
+              &lt;Container className={css.predefinedTags}&gt;
+                {fetchingTags &amp;&amp; &lt;span&gt;{getString('loading')} &lt;/span&gt;}
+                {!fetchingTags &amp;&amp;
+                  tagsList?.resource?.tags?.length &gt; 0 &amp;&amp;
+                  tagsList?.resource?.tags?.split(',').map(<span class="fstat-no" title="function not covered" >(t</span>ag: string, index: number) =&gt; {
+<span class="cstat-no" title="statement not covered" >                    if (tag) {</span>
+<span class="cstat-no" title="statement not covered" >                      return (</span>
+                        &lt;section
+                          className={css.customTag}
+                          key={tag + index}
+                          onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                            if (filteredTags.indexOf(tag) === -1) {</span>
+<span class="cstat-no" title="statement not covered" >                              setFilteredTags([...filteredTags, tag])</span>
+                            }
+                          }}
+                        &gt;
+                          {tag}
+                        &lt;/section&gt;
+                      )
+                    }
+                  })}
 &nbsp;
-        {filteredDashboardList &amp;&amp; filteredDashboardList.length &gt; 0 &amp;&amp; layoutView === LayoutViews.LIST &amp;&amp; (
-          &lt;Container className={css.masonry}&gt;
-            &lt;TableV2&lt;DashboardInterface&gt; className={css.table} columns={columns} data={filteredDashboardList || []} /&gt;
-          &lt;/Container&gt;
-        )}
-&nbsp;
-        {filteredDashboardList &amp;&amp; filteredDashboardList.length === 0 &amp;&amp; !loading &amp;&amp; (
-          &lt;Container style={{ height: 'calc(100vh - 226px)' }} flex={{ align: 'center-center' }}&gt;
-            &lt;Layout.Vertical spacing="medium" width={470} style={{ alignItems: 'center', marginTop: '-48px' }}&gt;
-              &lt;Icon name="dashboard" color={Color.GREY_300} size={35} /&gt;
-              &lt;Heading level={2} font={{ align: 'center' }} color={Color.GREY_500}&gt;
-                {getString('dashboards.homePage.noDashboardsAvailable')}
-              &lt;/Heading&gt;
+                {tagsList?.resource?.tags?.length === 0 &amp;&amp; &lt;span&gt;{getString('dashboards.homePage.noTags')}&lt;/span&gt;}
+              &lt;/Container&gt;
             &lt;/Layout.Vertical&gt;
           &lt;/Container&gt;
-        )}
-      &lt;/Layout.Vertical&gt;
+        &lt;/Layout.Vertical&gt;
 &nbsp;
-      {!loading &amp;&amp; (
-        &lt;Container className={css.pagination}&gt;
-          &lt;Pagination
-            itemCount={100}
-            pageSize={10}
-            pageCount={100}
-            pageIndex={page}
-            gotoPage={<span class="fstat-no" title="function not covered" >(p</span>ageNumber: number) =&gt; <span class="cstat-no" title="statement not covered" >setPage(pageNumber)}</span>
-          /&gt;
-        &lt;/Container&gt;
-      )}
-    &lt;/Page.Body&gt;
+        &lt;Layout.Vertical
+          padding="large"
+          style={{ width: 'calc(100% - 280px)', height: 'calc(100vh - 226px)', paddingTop: 0, overflow: 'scroll' }}
+        &gt;
+          &lt;Layout.Horizontal style={{ padding: 'var(--spacing-6) var(--spacing-9) ' }}&gt;
+            &lt;ExpandingSearchInput
+              placeholder={getString('dashboards.homePage.searchPlaceholder')}
+              onChange={<span class="fstat-no" title="function not covered" >(t</span>ext: string) =&gt; {
+<span class="cstat-no" title="statement not covered" >                setSearchTerm(text)</span>
+              }}
+              className={css.search}
+            /&gt;
+          &lt;/Layout.Horizontal&gt;
+          &lt;Layout.Horizontal style={{ marginLeft: 'var(--spacing-xxxlarge)', alignItems: 'baseline' }}&gt;
+            &lt;section className={css.filteredTags}&gt;
+              {filteredTags.map(<span class="fstat-no" title="function not covered" >(t</span>ag: string, index: number) =&gt; {
+<span class="cstat-no" title="statement not covered" >                return (</span>
+                  &lt;section className={css.customTag} key={tag + index}&gt;
+                    {tag}{' '}
+                    &lt;Icon
+                      name="cross"
+                      style={{ cursor: 'pointer' }}
+                      onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+                        const filterTags = <span class="cstat-no" title="statement not covered" >filteredTags.filter(<span class="fstat-no" title="function not covered" >v </span>=&gt; <span class="cstat-no" title="statement not covered" >v !== tag)</span></span>
+<span class="cstat-no" title="statement not covered" >                        setFilteredTags(filterTags)</span>
+                      }}
+                    /&gt;
+                  &lt;/section&gt;
+                )
+              })}
+            &lt;/section&gt;
+            {filteredTags?.length &gt; 0 &amp;&amp; (
+              &lt;Text
+                color={Color.PRIMARY_7}
+                style={{ cursor: 'pointer' }}
+                font={{ weight: 'semi-bold' }}
+                onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setFilteredTags([])}</span>
+              &gt;
+                Clear All
+              &lt;/Text&gt;
+            )}
+          &lt;/Layout.Horizontal&gt;
+          {filteredDashboardList &amp;&amp; filteredDashboardList.length &gt; 0 &amp;&amp; layoutView === LayoutViews.GRID &amp;&amp; (
+            &lt;Container className={css.masonry}&gt;
+              &lt;Layout.Masonry
+                gutter={25}
+                items={filteredDashboardList}
+                renderItem={<span class="fstat-no" title="function not covered" >(d</span>ashboard: DashboardInterface) =&gt; (
+<span class="cstat-no" title="statement not covered" >                  &lt;Card className={cx(css.dashboardCard)}&gt;</span>
+                    &lt;Container&gt;
+                      {(dashboard?.type === dashboardType.SHARED || dashboard?.type === dashboardType.ACCOUNT) &amp;&amp; (
+                        &lt;CardBody.Menu
+                          menuContent={
+                            &lt;Menu&gt;
+                              &lt;MenuItem text="clone" onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >clone(dashboard.id)}</span> /&gt;
+                            &lt;/Menu&gt;
+                          }
+                          menuPopoverProps={{
+                            className: Classes.DARK
+                          }}
+                        /&gt;
+                      )}
+&nbsp;
+                      &lt;Layout.Vertical
+                        spacing="large"
+                        onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                          history.push({</span>
+                            pathname: routes.toViewCustomDashboard({
+                              viewId: dashboard.id,
+                              accountId: accountId,
+                              folderId: folderId === 'shared' ? 'shared' : dashboard?.resourceIdentifier
+                            })
+                          })
+                        }}
+                      &gt;
+                        &lt;Text color={Color.BLACK_100} font={{ size: 'normal', weight: 'semi-bold' }}&gt;
+                          {dashboard?.title}
+                        &lt;/Text&gt;
+                        {TagsRenderer(dashboard)}
+&nbsp;
+                        &lt;Layout.Horizontal spacing="medium"&gt;
+                          {dashboard?.type !== dashboardType.SHARED &amp;&amp; (
+                            &lt;&gt;
+                              &lt;Layout.Horizontal style={{ marginRight: 'var(--spacing-8)' }}&gt;
+                                &lt;Icon name="eye-open" size={18} style={{ marginRight: 'var(--spacing-4)' }} /&gt;
+                                &lt;Text color={Color.BLACK_100} font={{ size: 'normal', weight: 'semi-bold' }}&gt;
+                                  {dashboard?.view_count}
+                                &lt;/Text&gt;
+                              &lt;/Layout.Horizontal&gt;
+&nbsp;
+                              &lt;Layout.Horizontal&gt;
+                                &lt;Icon name="star-empty" size={18} style={{ marginRight: 'var(--spacing-4)' }} /&gt;
+                                &lt;Text color={Color.BLACK_100} font={{ size: 'normal', weight: 'semi-bold' }}&gt;
+                                  {dashboard?.favorite_count}
+                                &lt;/Text&gt;
+                              &lt;/Layout.Horizontal&gt;
+                            &lt;/&gt;
+                          )}
+                        &lt;/Layout.Horizontal&gt;
+                      &lt;/Layout.Vertical&gt;
+                    &lt;/Container&gt;
+                  &lt;/Card&gt;
+                )}
+                keyOf={<span class="fstat-no" title="function not covered" >dashboard </span>=&gt; <span class="cstat-no" title="statement not covered" >dashboard?.id}</span>
+              /&gt;
+            &lt;/Container&gt;
+          )}
+&nbsp;
+          {filteredDashboardList &amp;&amp; filteredDashboardList.length &gt; 0 &amp;&amp; layoutView === LayoutViews.LIST &amp;&amp; (
+            &lt;Container className={css.masonry}&gt;
+              &lt;TableV2&lt;DashboardInterface&gt; className={css.table} columns={columns} data={filteredDashboardList || []} /&gt;
+            &lt;/Container&gt;
+          )}
+&nbsp;
+          {filteredDashboardList &amp;&amp; filteredDashboardList.length === 0 &amp;&amp; !loading &amp;&amp; (
+            &lt;Container style={{ height: 'calc(100vh - 226px)' }} flex={{ align: 'center-center' }}&gt;
+              &lt;Layout.Vertical spacing="medium" width={470} style={{ alignItems: 'center', marginTop: '-48px' }}&gt;
+                &lt;Icon name="dashboard" color={Color.GREY_300} size={35} /&gt;
+                &lt;Heading level={2} font={{ align: 'center' }} color={Color.GREY_500}&gt;
+                  {getString('dashboards.homePage.noDashboardsAvailable')}
+                &lt;/Heading&gt;
+              &lt;/Layout.Vertical&gt;
+            &lt;/Container&gt;
+          )}
+        &lt;/Layout.Vertical&gt;
+&nbsp;
+        {!loading &amp;&amp; (
+          &lt;Layout.Vertical padding={{ left: 'medium', right: 'medium' }}&gt;
+            &lt;Pagination
+              itemCount={100}
+              pageSize={10}
+              pageCount={100}
+              pageIndex={page}
+              gotoPage={<span class="fstat-no" title="function not covered" >(p</span>ageNumber: number) =&gt; <span class="cstat-no" title="statement not covered" >setPage(pageNumber)}</span>
+            /&gt;
+          &lt;/Layout.Vertical&gt;
+        )}
+      &lt;/Page.Body&gt;
+    &lt;/Container&gt;
   )
 }
 &nbsp;
@@ -2701,7 +2689,7 @@ const HomePage: React.FC = <span class="cstat-no" title="statement not covered" 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 11 2022 18:51:24 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 11 2022 20:13:07 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

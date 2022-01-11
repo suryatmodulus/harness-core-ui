@@ -12,6 +12,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useTelemetryInstance } from './useTelemetryInstance'
 
 type TrackEvent = (eventName: string, properties: Record<string, string>) => void
+type TrackPage = (name: string, properties: Record<string, string>, category?: string) => void
 type IdentifyUser = (email: string | undefined) => void
 interface PageParams {
   pageName?: string
@@ -21,6 +22,7 @@ interface PageParams {
 interface TelemetryReturnType {
   trackEvent: TrackEvent
   identifyUser: IdentifyUser
+  trackPage: TrackPage
 }
 
 export function useTelemetry(pageParams: PageParams = {}): TelemetryReturnType {
@@ -42,9 +44,14 @@ export function useTelemetry(pageParams: PageParams = {}): TelemetryReturnType {
   const trackEvent: TrackEvent = (eventName: string, properties: Record<string, string>) => {
     telemetry.track({ event: eventName, properties: { userId, groupId, ...properties } })
   }
+
+  const trackPage: TrackPage = (name: string, properties: Record<string, string>, category?: string) => {
+    telemetry.page({ name: name, properties: properties, category: category })
+  }
+
   const identifyUser: IdentifyUser = (email: string | undefined) => {
     if (!email) return
     telemetry.identify(email)
   }
-  return { trackEvent, identifyUser }
+  return { trackEvent, identifyUser, trackPage }
 }

@@ -7,6 +7,16 @@
 
 const PREFIX_CCM_EVENTS = 'ccm_'
 
+const PERSPECTIVE_EVENTS = {
+  PERSPECTIVE_NAV_CLICK: PREFIX_CCM_EVENTS + 'perspective_nav_click',
+  CREATE_NEW_PERSPECTIVE: PREFIX_CCM_EVENTS + 'create_new_perspective',
+  ADD_PERSPECTIVE_RULE: PREFIX_CCM_EVENTS + 'add_perspective_rule',
+  PERSPECTIVE_STEP1_NEXT: PREFIX_CCM_EVENTS + 'create_perspective_step1_next',
+  CREATE_PERSPECTIVE_ADD_NEW_REPORT: PREFIX_CCM_EVENTS + 'create_perspective_add_new_report',
+  CREATE_PERSPECTIVE_ADD_NEW_BUDGET: PREFIX_CCM_EVENTS + 'create_perspective_add_new_budget',
+  SAVE_PERSPECTIVE: PREFIX_CCM_EVENTS + 'save_perspective'
+}
+
 export const USER_JOURNEY_EVENTS = {
   AS_NAV_CLICK: PREFIX_CCM_EVENTS + 'as_nav_click',
   LOAD_AS_LANDING_PAGE: PREFIX_CCM_EVENTS + 'load_as_landing_page',
@@ -20,5 +30,10 @@ export const USER_JOURNEY_EVENTS = {
   SAVE_RULE_CLICK: PREFIX_CCM_EVENTS + 'save_rule_click',
   CREATE_FIXED_SCHEDULE: PREFIX_CCM_EVENTS + 'create_fixed_schedule',
   LOAD_AS_SUMMARY_PAGE: PREFIX_CCM_EVENTS + 'load_as_summary_page',
-  LOAD_RULE_DETAILS_WINDOW: PREFIX_CCM_EVENTS + 'load_rule_details_window'
+  LOAD_RULE_DETAILS_WINDOW: PREFIX_CCM_EVENTS + 'load_rule_details_window',
+  ...PERSPECTIVE_EVENTS
+}
+
+export const PAGE_EVENTS = {
+  PERSPECTIVE_LIST: PREFIX_CCM_EVENTS + 'perpective_page'
 }

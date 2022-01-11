@@ -26,6 +26,7 @@ import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { PageSpinner, useToaster } from '@common/components'
 import { useFeature } from '@common/hooks/useFeatures'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import { useCreatePerspective, useDeletePerspective, CEView } from 'services/ce'
 import {
@@ -44,6 +45,7 @@ import { FeatureWarningWithTooltip } from '@common/components/FeatureWarning/Fea
 import PerspectiveGridView from '@ce/components/PerspectiveViews/PerspectiveGridView'
 import { useCreateConnectorMinimal } from '@ce/components/CreateConnector/CreateConnector'
 import { Utils } from '@ce/common/Utils'
+import { PAGE_EVENTS, USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import bgImage from './images/perspectiveBg.png'
 import css from './PerspectiveListPage.module.scss'
 
@@ -360,6 +362,7 @@ const PerspectiveListPage: React.FC = () => {
   const { showError, showSuccess } = useToaster()
   const [view, setView] = useState(Views.GRID)
   const [quickFilters, setQuickFilters] = useState<Record<string, boolean>>({})
+  const { trackPage, trackEvent } = useTelemetry()
 
   const [result, executeQuery] = useFetchAllPerspectivesQuery()
   const { data, fetching } = result
@@ -474,6 +477,10 @@ const PerspectiveListPage: React.FC = () => {
 
   const pespectiveList = (data?.perspectives?.customerViews || []) as QlceView[]
 
+  useEffect(() => {
+    trackPage(PAGE_EVENTS.PERSPECTIVE_LIST, {})
+  })
+
   useMemo(() => {
     pespectiveList.sort(perspectiveSortFunction)
   }, [pespectiveList])
@@ -525,6 +532,7 @@ const PerspectiveListPage: React.FC = () => {
             icon="plus"
             disabled={!featureEnabled}
             onClick={async () => {
+              trackEvent(USER_JOURNEY_EVENTS.CREATE_NEW_PERSPECTIVE, {})
               await createNewPerspective({}, false)
             }}
           />

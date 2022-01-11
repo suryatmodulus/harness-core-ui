@@ -33,6 +33,8 @@ import {
 import { useStrings } from 'framework/strings'
 import type { ViewIdCondition } from 'services/ce/'
 import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import PerspectiveFilters from '../PerspectiveFilters'
 import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
 // import ProTipIcon from './images/pro-tip.svg'
@@ -63,6 +65,7 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: (resource
   const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
   const history = useHistory()
   const { showError } = useToaster()
+  const { trackEvent } = useTelemetry()
 
   const { perspectiveData } = props
 
@@ -285,6 +288,7 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: (resource
                       disabled={!!Object.keys(formikProps.errors).length}
                       text={getString('ce.perspectives.createPerspective.nextButton')}
                       onClick={() => {
+                        trackEvent(USER_JOURNEY_EVENTS.PERSPECTIVE_STEP1_NEXT, {})
                         makeCreateCall(formikProps.values)
                       }}
                     />

@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'formik'
 import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
@@ -14,9 +15,17 @@ import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/Step
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { GCRStepProps } from './GCRStep'
+import { shouldRenderRunTimeInputView } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const GCRStepInputSet: React.FC<GCRStepProps> = ({ template, path, readonly, allowableTypes, stepViewType }) => {
+export const GCRStepInputSetBasic: React.FC<GCRStepProps> = ({
+  template,
+  path,
+  readonly,
+  allowableTypes,
+  stepViewType,
+  formik
+}) => {
   const { getString } = useStrings()
 
   const { expressions } = useVariablesExpression()
@@ -174,7 +183,7 @@ export const GCRStepInputSet: React.FC<GCRStepProps> = ({ template, path, readon
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.labels as string) === MultiTypeInputType.RUNTIME && (
+      {shouldRenderRunTimeInputView(template?.spec?.labels) && (
         <MultiTypeMapInputSet
           name={`${isEmpty(path) ? '' : `${path}.`}spec.labels`}
           valueMultiTextInputProps={{
@@ -191,9 +200,10 @@ export const GCRStepInputSet: React.FC<GCRStepProps> = ({ template, path, readon
           }}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
+          formik={formik}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.buildArgs as string) === MultiTypeInputType.RUNTIME && (
+      {shouldRenderRunTimeInputView(template?.spec?.buildArgs) && (
         <MultiTypeMapInputSet
           name={`${isEmpty(path) ? '' : `${path}.`}spec.buildArgs`}
           valueMultiTextInputProps={{
@@ -210,6 +220,7 @@ export const GCRStepInputSet: React.FC<GCRStepProps> = ({ template, path, readon
           }}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
+          formik={formik}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.optimize) === MultiTypeInputType.RUNTIME && (
@@ -274,3 +285,6 @@ export const GCRStepInputSet: React.FC<GCRStepProps> = ({ template, path, readon
     </FormikForm>
   )
 }
+
+const GCRStepInputSet = connect(GCRStepInputSetBasic)
+export { GCRStepInputSet }

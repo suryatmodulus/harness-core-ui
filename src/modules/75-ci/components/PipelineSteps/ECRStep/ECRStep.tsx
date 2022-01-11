@@ -76,6 +76,7 @@ export interface ECRStepProps {
   onUpdate?: (data: ECRStepData) => void
   onChange?: (data: ECRStepData) => void
   allowableTypes: MultiTypeInputType[]
+  formik?: any
 }
 
 export class ECRStep extends PipelineStep<ECRStepData> {

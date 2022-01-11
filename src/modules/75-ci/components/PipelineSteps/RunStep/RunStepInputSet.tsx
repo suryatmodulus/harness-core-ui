@@ -178,6 +178,7 @@ export const RunStepInputSetBasic: React.FC<RunStepProps> = ({
                   className={css.inpLabel}
                   color={Color.GREY_800}
                   font={{ size: 'small', weight: 'semi-bold' }}
+                  tooltipProps={{ dataTooltipId: 'environmentVariables' }}
                 >
                   {getString('environmentVariables')}
                 </Text>

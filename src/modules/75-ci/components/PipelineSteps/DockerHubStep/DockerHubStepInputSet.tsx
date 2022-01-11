@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'formik'
 import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
@@ -14,14 +15,16 @@ import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/Step
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { DockerHubStepProps } from './DockerHubStep'
+import { shouldRenderRunTimeInputView } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({
+export const DockerHubStepInputSetBasic: React.FC<DockerHubStepProps> = ({
   template,
   path,
   readonly,
   allowableTypes,
-  stepViewType
+  stepViewType,
+  formik
 }) => {
   const { getString } = useStrings()
 
@@ -156,7 +159,7 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.labels as string) === MultiTypeInputType.RUNTIME && (
+      {shouldRenderRunTimeInputView(template?.spec?.labels) && (
         <MultiTypeMapInputSet
           name={`${isEmpty(path) ? '' : `${path}.`}spec.labels`}
           valueMultiTextInputProps={{
@@ -173,9 +176,10 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({
           }}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
+          formik={formik}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.buildArgs as string) === MultiTypeInputType.RUNTIME && (
+      {shouldRenderRunTimeInputView(template?.spec?.buildArgs) && (
         <MultiTypeMapInputSet
           name={`${isEmpty(path) ? '' : `${path}.`}spec.buildArgs`}
           valueMultiTextInputProps={{
@@ -192,6 +196,7 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({
           }}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
+          formik={formik}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.target) === MultiTypeInputType.RUNTIME && (
@@ -245,3 +250,6 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({
     </FormikForm>
   )
 }
+
+const DockerHubStepInputSet = connect(DockerHubStepInputSetBasic)
+export { DockerHubStepInputSet }

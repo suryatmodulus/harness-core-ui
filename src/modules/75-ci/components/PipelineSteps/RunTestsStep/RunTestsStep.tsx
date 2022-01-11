@@ -89,6 +89,7 @@ export interface RunTestsStepProps {
   onUpdate?: (data: RunTestsStepData) => void
   onChange?: (data: RunTestsStepData) => void
   allowableTypes: MultiTypeInputType[]
+  formik?: any
 }
 
 export class RunTestsStep extends PipelineStep<RunTestsStepData> {

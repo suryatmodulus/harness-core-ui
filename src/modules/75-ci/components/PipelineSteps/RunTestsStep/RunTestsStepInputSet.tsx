@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'formik'
 import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm, Color, Container } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
@@ -14,15 +15,17 @@ import { Connectors } from '@connectors/constants'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { RunTestsStepProps } from './RunTestsStep'
+import { shouldRenderRunTimeInputView } from '../CIStep/StepUtils'
 import { CIStep } from '../CIStep/CIStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
-export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({
+export const RunTestsStepInputSetBasic: React.FC<RunTestsStepProps> = ({
   template,
   path,
   readonly,
   stepViewType,
-  allowableTypes
+  allowableTypes,
+  formik
 }) => {
   const { getString } = useStrings()
 
@@ -276,7 +279,7 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({
           />
         </Container>
       )}
-      {getMultiTypeFromValue(template?.spec?.envVariables as string) === MultiTypeInputType.RUNTIME && (
+      {shouldRenderRunTimeInputView(template?.spec?.envVariables) && (
         <Container className={cx(css.formGroup, css.bottomMargin5)}>
           <MultiTypeMapInputSet
             name={`${prefix}spec.envVariables`}
@@ -299,6 +302,7 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({
               allowedTypes: allowableTypes.filter(type => type !== MultiTypeInputType.EXPRESSION)
             }}
             disabled={readonly}
+            formik={formik}
           />
         </Container>
       )}
@@ -342,3 +346,6 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({
     </FormikForm>
   )
 }
+
+const RunTestsStepInputSet = connect(RunTestsStepInputSetBasic)
+export { RunTestsStepInputSet }

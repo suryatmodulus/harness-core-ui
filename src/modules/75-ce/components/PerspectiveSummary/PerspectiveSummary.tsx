@@ -15,7 +15,7 @@ import {
   ButtonVariation
 } from '@wings-software/uicore'
 import cx from 'classnames'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { PerspectiveTrendStats, Maybe, useFetchPerspectiveBudgetQuery, BudgetSummary } from 'services/ce/services'
 import useBudgetModal from '@ce/components/PerspectiveReportsAndBudget/PerspectiveCreateBudget'
@@ -125,6 +125,7 @@ const BudgetCard: (props: BudgetCardProps) => JSX.Element | null = ({ budgetData
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const { actualCost, budgetAmount } = budgetData
+  const history = useHistory()
 
   const percentage = Math.round((actualCost * 100) / (budgetAmount || 1))
 
@@ -151,11 +152,16 @@ const BudgetCard: (props: BudgetCardProps) => JSX.Element | null = ({ budgetData
         <FlexExpander />
         <Link
           className={css.viewBudgetLink}
-          href={routes.toCEBudgetDetails({
-            budgetId: budgetData.id,
-            budgetName: budgetData.name,
-            accountId: accountId
-          })}
+          withoutHref
+          onClick={() =>
+            history.push(
+              routes.toCEBudgetDetails({
+                budgetId: budgetData.id,
+                budgetName: budgetData.name,
+                accountId: accountId
+              })
+            )
+          }
           size={ButtonSize.SMALL}
           padding="none"
           margin="none"

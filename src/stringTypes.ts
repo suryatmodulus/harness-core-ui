@@ -489,6 +489,7 @@ export interface StringsMap {
   'common.saveAndClose': string
   'common.saveAsTemplate': string
   'common.savedSuccessfully': string
+  'common.scope': string
   'common.searchPlaceholder': string
   'common.seconds': string
   'common.secretKey': string
@@ -757,6 +758,7 @@ export interface StringsMap {
   'rbac.permissionLabels.create': string
   'rbac.permissionLabels.createEdit': string
   'rbac.permissionLabels.delete': string
+  'rbac.permissionLabels.edit': string
   'rbac.permissionLabels.evaluate': string
   'rbac.permissionLabels.execute': string
   'rbac.permissionLabels.invite': string
@@ -779,6 +781,7 @@ export interface StringsMap {
   'rbac.resourceGroup.noResourceGroupFound': string
   'rbac.resourceGroup.noResourceGroupTypes': string
   'rbac.resourceGroup.selectResourceGroup': string
+  'rbac.resourceGroup.selectionHeading': string
   'rbac.resourceGroup.summary': string
   'rbac.resourceGroup.updateResourceGroupDialogTitle': string
   'rbac.resourceGroup.updateSuccess': string
@@ -796,6 +799,11 @@ export interface StringsMap {
   'rbac.roleDetails.updateRolePermissions': string
   'rbac.roleForm.createSuccess': string
   'rbac.roleForm.updateSuccess': string
+  'rbac.scopeItems.accountAll': string
+  'rbac.scopeItems.accountOnly': string
+  'rbac.scopeItems.orgAll': string
+  'rbac.scopeItems.orgOnly': string
+  'rbac.scopeItems.projectOnly': string
   'rbac.serviceAccounts.confirmDelete': string
   'rbac.serviceAccounts.confirmDeleteTitle': string
   'rbac.serviceAccounts.email': string

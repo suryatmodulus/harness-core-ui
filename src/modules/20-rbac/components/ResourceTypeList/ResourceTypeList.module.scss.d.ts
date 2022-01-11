@@ -8,8 +8,10 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
+  readonly resourceTypeList: string
   readonly resourceTypeCard: string
   readonly resourceSubList: string
   readonly checkBox: string
+  readonly resourcePicker: string
 }
 export default styles

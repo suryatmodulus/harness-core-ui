@@ -32,6 +32,11 @@ export enum PrincipalType {
   SERVICE = 'SERVICE_ACCOUNT'
 }
 
+export enum SelectionType {
+  ALL = 'ALL',
+  SPECIFIED = 'SPECIFIED'
+}
+
 export const getRoleIcon = (roleIdentifier: string): IconName => {
   switch (roleIdentifier) {
     case '_account_viewer':

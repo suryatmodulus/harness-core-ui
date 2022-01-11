@@ -6,14 +6,17 @@
  */
 
 import React from 'react'
-import { Card, Layout, Text, Color, Checkbox } from '@wings-software/uicore'
+import { Card, Layout, Text, Color, Checkbox, RadioButtonGroup, FontVariation } from '@wings-software/uicore'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
+import { SelectionType } from '@rbac/utils/utils'
 import css from './ResourceTypeList.module.scss'
 
 interface ResourceTypeListProps {
+  selectionType: SelectionType
   resourceCategoryMap?: Map<ResourceType | ResourceCategory, ResourceType[] | undefined>
+  onSelectionTypeChange: (type: SelectionType) => void
   onResourceSelectionChange: (resource: ResourceType, isAdd: boolean) => void
   onResourceCategorySelect: (types: ResourceType[], isAdd: boolean) => void
   preSelectedResourceList: ResourceType[]
@@ -21,7 +24,9 @@ interface ResourceTypeListProps {
 }
 const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
   const {
+    selectionType,
     resourceCategoryMap,
+    onSelectionTypeChange,
     onResourceSelectionChange,
     onResourceCategorySelect,
     preSelectedResourceList,
@@ -42,7 +47,32 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
     Array.from(resourceTypes).some(value => preSelectedResourceList.includes(value))
 
   return (
-    <Layout.Vertical flex spacing="small">
+    <Layout.Vertical flex spacing="small" className={css.resourceTypeList}>
+      <Layout.Horizontal flex className={css.resourcePicker} padding={{ bottom: 'small' }}>
+        <Text font={{ variation: FontVariation.H6 }} color={Color.GREY_800}>
+          {getString('resources')}
+        </Text>
+        <RadioButtonGroup
+          name="resource-picker"
+          inline={true}
+          selectedValue={selectionType}
+          onChange={e => {
+            onSelectionTypeChange(e.currentTarget.value as SelectionType)
+          }}
+          options={[
+            {
+              label: getString('rbac.resourceGroup.all'),
+              value: SelectionType.ALL,
+              tooltipId: `SelectionType${SelectionType.ALL}`
+            },
+            {
+              label: getString('common.specified'),
+              value: SelectionType.SPECIFIED,
+              tooltipId: `SelectionType${SelectionType.SPECIFIED}`
+            }
+          ]}
+        />
+      </Layout.Horizontal>
       {resourceCategoryMap?.keys() &&
         Array.from(resourceCategoryMap.keys()).map(resourceCategory => {
           const resourceCategoryHandler =

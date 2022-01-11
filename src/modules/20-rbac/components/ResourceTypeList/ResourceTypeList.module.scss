@@ -4,17 +4,23 @@
  * that can be found in the licenses directory at the root of this repository, also available at
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
+ 
+.resourceTypeList {
+  .resourceTypeCard {
+    width: 100%;
+    box-shadow: var(--card-shadow);
+  }
 
-.resourceTypeCard {
-  width: 100%;
-  box-shadow: var(--card-shadow);
-}
+  .resourceSubList {
+    padding-left: var(--spacing-xxxlarge) !important;
+    padding-top: var(--spacing-medium) !important;
+  }
 
-.resourceSubList {
-  padding-left: var(--spacing-xxxlarge) !important;
-  padding-top: var(--spacing-medium) !important;
-}
+  .checkBox {
+    margin: var(--spacing-none) !important;
+  }
 
-.checkBox {
-  margin: var(--spacing-none) !important;
+  .resourcePicker {
+    width: 100% !important;
+  }
 }

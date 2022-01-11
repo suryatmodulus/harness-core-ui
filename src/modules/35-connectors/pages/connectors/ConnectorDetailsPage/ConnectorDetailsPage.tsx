@@ -156,22 +156,6 @@ const ConnectorDetailsPage: React.FC<ConnectorDetailsPageProps> = props => {
     }
   }
 
-  const RenderGitDetails = useMemo(() => {
-    return (
-      <ConnectorPageGitDetails
-        handleBranchClick={handleBranchClick}
-        gitDetails={gitDetails}
-        selectedBranch={selectedBranch}
-        branchSelectOptions={branchSelectOptions}
-        loadingBranchList={loadingBranchList}
-        onQueryChange={(query: string) => {
-          setSearchTerm(query)
-        }}
-      />
-    )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [branchSelectOptions, selectedBranch, loadingBranchList])
-
   const renderTitle = useMemo(
     () => (
       <Layout.Vertical>
@@ -196,7 +180,18 @@ const ConnectorDetailsPage: React.FC<ConnectorDetailsPageProps> = props => {
               <Text color={Color.GREY_400}>
                 {connectorData?.data?.connector?.identifier || data?.connector?.identifier}
               </Text>
-              {activeCategory === 0 && gitDetails?.objectId ? RenderGitDetails : null}
+              {activeCategory === 0 && gitDetails?.objectId ? (
+                <ConnectorPageGitDetails
+                  handleBranchClick={handleBranchClick}
+                  gitDetails={gitDetails}
+                  selectedBranch={selectedBranch}
+                  branchSelectOptions={branchSelectOptions}
+                  loadingBranchList={loadingBranchList}
+                  onQueryChange={(query: string) => {
+                    setSearchTerm(query)
+                  }}
+                />
+              ) : null}
             </Layout.Horizontal>
           </Container>
         </Layout.Horizontal>

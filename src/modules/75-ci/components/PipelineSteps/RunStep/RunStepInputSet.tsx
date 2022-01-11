@@ -34,8 +34,6 @@ export const RunStepInputSetBasic: React.FC<RunStepProps> = ({
 
   const stepCss = stepViewType === StepViewType.DeploymentForm ? css.sm : css.lg
 
-  console.log(formik)
-
   return (
     <FormikForm className={css.removeBpPopoverWrapperTopMargin}>
       <CIStep
@@ -187,6 +185,7 @@ export const RunStepInputSetBasic: React.FC<RunStepProps> = ({
               allowedTypes: allowableTypes.filter(type => type !== MultiTypeInputType.EXPRESSION)
             }}
             disabled={readonly}
+            formik={formik}
           />
         </Container>
       )}

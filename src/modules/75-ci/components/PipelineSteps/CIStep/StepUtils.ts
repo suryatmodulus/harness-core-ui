@@ -1,6 +1,6 @@
 import isEmpty from 'lodash/isEmpty'
 import type { FormikErrors } from 'formik'
-import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { getMultiTypeFromValue, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import type { UseFromStageInfraYaml } from 'services/ci'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { StringsMap } from 'stringTypes'
@@ -41,8 +41,12 @@ export const validateConnectorRefAndImageDepdendency = (
 }
 
 export const shouldRenderRunTimeInputView = (entity: any): boolean => {
-  return (
-    getMultiTypeFromValue(entity as string) === MultiTypeInputType.RUNTIME ||
-    (entity && Object.keys(entity).some(key => Object.is(entity[key], MultiTypeInputType.RUNTIME)))
-  )
+  if (entity) {
+    if (typeof entity === 'object') {
+      return Object.keys(entity).some(key => Object.is(entity[key], RUNTIME_INPUT_VALUE))
+    } else {
+      return Object.is(getMultiTypeFromValue(entity as string), RUNTIME_INPUT_VALUE)
+    }
+  }
+  return false
 }

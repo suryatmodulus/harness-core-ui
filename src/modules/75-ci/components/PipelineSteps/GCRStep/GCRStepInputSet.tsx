@@ -2,13 +2,10 @@ import React from 'react'
 import { connect } from 'formik'
 import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
-import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import MultiTypeMapInputSet from '@common/components/MultiTypeMapInputSet/MultiTypeMapInputSet'
 import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
@@ -16,6 +13,7 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { GCRStepProps } from './GCRStep'
 import { shouldRenderRunTimeInputView } from '../CIStep/StepUtils'
+import { ArtifactoryInputSetCommonField } from '../CIStep/ArtifactoryInputSetCommonField'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const GCRStepInputSetBasic: React.FC<GCRStepProps> = ({
@@ -145,117 +143,7 @@ export const GCRStepInputSetBasic: React.FC<GCRStepProps> = ({
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.dockerfile) === MultiTypeInputType.RUNTIME && (
-        <MultiTypeTextField
-          className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.dockerfile`}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'dockerfile' }}>
-              {getString('pipelineSteps.dockerfileLabel')}
-            </Text>
-          }
-          multiTextInputProps={{
-            disabled: readonly,
-            multiTextInputProps: {
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            }
-          }}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-        />
-      )}
-      {getMultiTypeFromValue(template?.spec?.context) === MultiTypeInputType.RUNTIME && (
-        <MultiTypeTextField
-          className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.context`}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'context' }}>
-              {getString('pipelineSteps.contextLabel')}
-            </Text>
-          }
-          multiTextInputProps={{
-            disabled: readonly,
-            multiTextInputProps: {
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            }
-          }}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-        />
-      )}
-      {shouldRenderRunTimeInputView(template?.spec?.labels) && (
-        <MultiTypeMapInputSet
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.labels`}
-          valueMultiTextInputProps={{
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
-            expressions
-          }}
-          multiTypeFieldSelectorProps={{
-            label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'labels' }}>
-                {getString('pipelineSteps.labelsLabel')}
-              </Text>
-            ),
-            allowedTypes: [MultiTypeInputType.FIXED]
-          }}
-          disabled={readonly}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-          formik={formik}
-        />
-      )}
-      {shouldRenderRunTimeInputView(template?.spec?.buildArgs) && (
-        <MultiTypeMapInputSet
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.buildArgs`}
-          valueMultiTextInputProps={{
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
-            expressions
-          }}
-          multiTypeFieldSelectorProps={{
-            label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'buildArgs' }}>
-                {getString('pipelineSteps.buildArgsLabel')}
-              </Text>
-            ),
-            allowedTypes: [MultiTypeInputType.FIXED]
-          }}
-          disabled={readonly}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-          formik={formik}
-        />
-      )}
-      {getMultiTypeFromValue(template?.spec?.optimize) === MultiTypeInputType.RUNTIME && (
-        <div className={cx(css.formGroup, css.sm)}>
-          <FormMultiTypeCheckboxField
-            name={`${isEmpty(path) ? '' : `${path}.`}spec.optimize`}
-            label={getString('ci.optimize')}
-            disabled={readonly}
-            multiTypeTextbox={{
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            }}
-            setToFalseWhenEmpty={true}
-          />
-        </div>
-      )}
-      {getMultiTypeFromValue(template?.spec?.target) === MultiTypeInputType.RUNTIME && (
-        <MultiTypeTextField
-          className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.target`}
-          label={
-            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'target' }}>
-              {getString('pipelineSteps.targetLabel')}
-            </Text>
-          }
-          multiTextInputProps={{
-            disabled: readonly,
-            multiTextInputProps: {
-              expressions,
-              allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-            }
-          }}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-        />
-      )}
+      <ArtifactoryInputSetCommonField template={template} path={path} readonly={readonly} formik={formik} />
       {getMultiTypeFromValue(template?.spec?.remoteCacheImage) === MultiTypeInputType.RUNTIME && (
         <MultiTypeTextField
           className={css.removeBpLabelMargin}

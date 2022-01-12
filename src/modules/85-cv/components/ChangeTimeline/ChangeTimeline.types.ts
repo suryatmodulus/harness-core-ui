@@ -10,6 +10,7 @@ export interface ChangeTimelineProps {
   changeSourceTypes?: ChangeSourceTypeRequest[]
   startTime?: number
   endTime?: number
+  hasTimeline?: boolean
   onSliderMoved?: React.Dispatch<React.SetStateAction<ChangesInfoCardData[] | null>>
   selectedTimePeriod?: SelectOption
   hideTimeline?: boolean

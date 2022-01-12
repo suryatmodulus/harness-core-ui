@@ -138,6 +138,7 @@ export const TimeLine = ({
           serviceIdentifier={serviceIdentifier}
           environmentIdentifier={environmentIdentifier}
           timeFormat={timeFormat}
+          hasTimeline={showTimelineSlider}
           startTime={timeRange?.startTime as number}
           endTime={timeRange?.endTime as number}
           selectedTimePeriod={selectedTimePeriod}

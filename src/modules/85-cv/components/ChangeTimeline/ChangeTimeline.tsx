@@ -28,7 +28,8 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
     onSliderMoved,
     changeCategories,
     changeSourceTypes,
-    hideTimeline
+    hideTimeline,
+    hasTimeline
   } = props
 
   const { data, refetch, loading, error, cancel } = useChangeEventTimeline({
@@ -98,7 +99,7 @@ export default function ChangeTimeline(props: ChangeTimelineProps): JSX.Element 
 
   return (
     <Timeline
-      isLoading={loading}
+      isLoading={!hasTimeline && loading}
       rowOffset={90}
       timelineRows={[
         {

@@ -880,17 +880,14 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                         <div
                           class="group withoutAligning"
                         >
-                          <div
-                            style="flex-grow: 1;"
-                          >
+                          <div>
                             <p
-                              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                              class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                             >
                               keyLabel
                             </p>
                             <div
                               class="bp3-form-group"
-                              style="margin: 0px;"
                             >
                               <div
                                 class="bp3-form-content"
@@ -909,11 +906,9 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                               </div>
                             </div>
                           </div>
-                          <div
-                            style="flex-grow: 1;"
-                          >
+                          <div>
                             <p
-                              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                              class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                             >
                               valueLabel
                             </p>
@@ -922,7 +917,6 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                             >
                               <div
                                 class="bp3-form-group"
-                                style="flex-grow: 1;"
                               >
                                 
                                 <div
@@ -1942,17 +1936,14 @@ exports[`Test TerraformDestroy expand backend Spec config 1`] = `
                         <div
                           class="group withoutAligning"
                         >
-                          <div
-                            style="flex-grow: 1;"
-                          >
+                          <div>
                             <p
-                              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                              class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                             >
                               keyLabel
                             </p>
                             <div
                               class="bp3-form-group"
-                              style="margin: 0px;"
                             >
                               <div
                                 class="bp3-form-content"
@@ -1971,11 +1962,9 @@ exports[`Test TerraformDestroy expand backend Spec config 1`] = `
                               </div>
                             </div>
                           </div>
-                          <div
-                            style="flex-grow: 1;"
-                          >
+                          <div>
                             <p
-                              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                              class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                             >
                               valueLabel
                             </p>
@@ -1984,7 +1973,6 @@ exports[`Test TerraformDestroy expand backend Spec config 1`] = `
                             >
                               <div
                                 class="bp3-form-group"
-                                style="flex-grow: 1;"
                               >
                                 
                                 <div
@@ -2975,17 +2963,14 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                         <div
                           class="group withoutAligning"
                         >
-                          <div
-                            style="flex-grow: 1;"
-                          >
+                          <div>
                             <p
-                              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                              class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                             >
                               keyLabel
                             </p>
                             <div
                               class="bp3-form-group"
-                              style="margin: 0px;"
                             >
                               <div
                                 class="bp3-form-content"
@@ -3004,11 +2989,9 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                               </div>
                             </div>
                           </div>
-                          <div
-                            style="flex-grow: 1;"
-                          >
+                          <div>
                             <p
-                              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                              class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                             >
                               valueLabel
                             </p>
@@ -3017,7 +3000,6 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                             >
                               <div
                                 class="bp3-form-group"
-                                style="flex-grow: 1;"
                               >
                                 
                                 <div

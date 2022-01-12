@@ -285,17 +285,6 @@ exports[`stageinputset tests viewType DeploymentForm initial render 1`] = `
               <div
                 class="StyledProps--font StyledProps--main formGroup sm"
               />
-              <div>
-                <div
-                  style="min-height: 8px;"
-                />
-                <div
-                  class="separator"
-                />
-                <div
-                  style="min-height: 24px;"
-                />
-              </div>
             </div>
           </form>
         </div>
@@ -634,17 +623,6 @@ exports[`stageinputset tests viewType DeploymentForm initial render2 1`] = `
               <div
                 class="StyledProps--font StyledProps--main formGroup sm"
               />
-              <div>
-                <div
-                  style="min-height: 8px;"
-                />
-                <div
-                  class="separator"
-                />
-                <div
-                  style="min-height: 24px;"
-                />
-              </div>
             </div>
           </form>
         </div>
@@ -983,17 +961,6 @@ exports[`stageinputset tests viewType InputSet initial render 1`] = `
               <div
                 class="StyledProps--font StyledProps--main formGroup lg"
               />
-              <div>
-                <div
-                  style="min-height: 8px;"
-                />
-                <div
-                  class="separator"
-                />
-                <div
-                  style="min-height: 24px;"
-                />
-              </div>
             </div>
           </form>
         </div>
@@ -1332,17 +1299,6 @@ exports[`stageinputset tests viewType InputSet initial render2 1`] = `
               <div
                 class="StyledProps--font StyledProps--main formGroup lg"
               />
-              <div>
-                <div
-                  style="min-height: 8px;"
-                />
-                <div
-                  class="separator"
-                />
-                <div
-                  style="min-height: 24px;"
-                />
-              </div>
             </div>
           </form>
         </div>

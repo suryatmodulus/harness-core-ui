@@ -2085,6 +2085,7 @@ export interface StringsMap {
   'pipeline.addStage.description': string
   'pipeline.addStage.title': string
   'pipeline.advancedOptions': string
+  'pipeline.allFixedOrallRuntimeInputs': string
   'pipeline.allStages': string
   'pipeline.and': string
   'pipeline.approvalCriteria.allConditions': string

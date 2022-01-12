@@ -936,3 +936,4 @@ dashboardDeploymentsWidget:
   runningPipeline:
     singular: Currently running pipeline
     plural: Currently running pipelines
+allFixedOrallRuntimeInputs: Values need to be either all fixed or all run-time inputs

@@ -119,17 +119,6 @@ exports[`GCR Step Edit View edit mode works 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg"
         />
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
         <div
           class="StyledProps--font StyledProps--main bottomMargin3"
         >
@@ -1031,17 +1020,6 @@ exports[`GCR Step Edit View renders runtime inputs 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg"
         />
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
         <div
           class="StyledProps--font StyledProps--main bottomMargin3"
         >
@@ -1791,17 +1769,6 @@ exports[`GCR Step Edit View should render properly 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg"
         />
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
         <div
           class="StyledProps--font StyledProps--main bottomMargin3"
         >
@@ -3027,11 +2994,9 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
               <div
                 class="group withoutAligning"
               >
-                <div
-                  style="flex-grow: 1;"
-                >
+                <div>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                    class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall StyledProps--font-variation-form-label"
                   >
                     keyLabel
                   </p>
@@ -3051,11 +3016,9 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
                     </div>
                   </div>
                 </div>
-                <div
-                  style="flex-grow: 1;"
-                >
+                <div>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                    class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall StyledProps--font-variation-form-label"
                   >
                     valueLabel
                   </p>
@@ -3109,7 +3072,6 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       data-testid="remove-spec.labels-[0]"
-                      style="margin-top: 4px;"
                       type="button"
                     >
                       <span
@@ -3232,11 +3194,9 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
               <div
                 class="group withoutAligning"
               >
-                <div
-                  style="flex-grow: 1;"
-                >
+                <div>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                    class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall StyledProps--font-variation-form-label"
                   >
                     keyLabel
                   </p>
@@ -3256,11 +3216,9 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
                     </div>
                   </div>
                 </div>
-                <div
-                  style="flex-grow: 1;"
-                >
+                <div>
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                    class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall StyledProps--font-variation-form-label"
                   >
                     valueLabel
                   </p>
@@ -3314,7 +3272,6 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
                     <button
                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       data-testid="remove-spec.buildArgs-[0]"
-                      style="margin-top: 4px;"
                       type="button"
                     >
                       <span

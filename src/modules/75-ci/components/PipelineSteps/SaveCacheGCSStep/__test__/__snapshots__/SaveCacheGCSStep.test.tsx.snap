@@ -119,17 +119,6 @@ exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg"
         />
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
         <div
           class="StyledProps--font StyledProps--main bottomMargin3"
         >
@@ -778,17 +767,6 @@ exports[`Save Cache GCS Step Edit View renders runtime inputs 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg"
         />
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
         <div
           class="StyledProps--font StyledProps--main bottomMargin3"
         >
@@ -1424,17 +1402,6 @@ exports[`Save Cache GCS Step Edit View should render properly 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg"
         />
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
         <div
           class="StyledProps--font StyledProps--main bottomMargin3"
         >
@@ -1836,17 +1803,6 @@ exports[`Save Cache GCS Step InputSet View should not render any fields 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg"
         />
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
       </div>
     </form>
     <p
@@ -1883,17 +1839,6 @@ exports[`Save Cache GCS Step InputSet View should render all fields 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg"
         />
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
         <div
           class="StyledProps--font StyledProps--main bottomMargin3"
         >
@@ -2723,17 +2668,6 @@ exports[`Save Cache GCS Step InputSet View should render properly 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg"
         />
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
       </div>
     </form>
     <p

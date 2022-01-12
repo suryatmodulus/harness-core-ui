@@ -190,17 +190,17 @@ exports[`Plugin Step Edit View edit mode works 1`] = `
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
+          <div>
+            <div
+              style="min-height: 8px;"
+            />
+            <div
+              class="separator"
+            />
+            <div
+              style="min-height: 24px;"
+            />
+          </div>
         </div>
         <div
           class="StyledProps--font StyledProps--main bottomMargin3"
@@ -712,17 +712,17 @@ exports[`Plugin Step Edit View renders runtime inputs 1`] = `
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
+          <div>
+            <div
+              style="min-height: 8px;"
+            />
+            <div
+              class="separator"
+            />
+            <div
+              style="min-height: 24px;"
+            />
+          </div>
         </div>
         <div
           class="StyledProps--font StyledProps--main bottomMargin3"
@@ -1188,17 +1188,17 @@ exports[`Plugin Step Edit View should render properly 1`] = `
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
+          <div>
+            <div
+              style="min-height: 8px;"
+            />
+            <div
+              class="separator"
+            />
+            <div
+              style="min-height: 24px;"
+            />
+          </div>
         </div>
         <div
           class="StyledProps--font StyledProps--main bottomMargin3"
@@ -1436,17 +1436,6 @@ exports[`Plugin Step InputSet View should not render any fields 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg"
         />
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
       </div>
     </form>
     <p
@@ -1552,17 +1541,17 @@ exports[`Plugin Step InputSet View should render all fields 1`] = `
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
+          <div>
+            <div
+              style="min-height: 8px;"
+            />
+            <div
+              class="separator"
+            />
+            <div
+              style="min-height: 24px;"
+            />
+          </div>
         </div>
         <div
           class="StyledProps--font StyledProps--main bottomMargin3"
@@ -1900,18 +1889,15 @@ exports[`Plugin Step InputSet View should render all fields 1`] = `
                 <div
                   class="group withoutAligning"
                 >
-                  <div
-                    style="flex-grow: 1;"
-                  >
+                  <div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                     >
                       keyLabel
                     </p>
                     <div
                       class="bp3-form-group"
                       data-id="spec.settings[0].key-5"
-                      style="margin: 0px;"
                     >
                       <div
                         class="bp3-form-content"
@@ -1930,11 +1916,9 @@ exports[`Plugin Step InputSet View should render all fields 1`] = `
                       </div>
                     </div>
                   </div>
-                  <div
-                    style="flex-grow: 1;"
-                  >
+                  <div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                     >
                       valueLabel
                     </p>
@@ -1944,7 +1928,6 @@ exports[`Plugin Step InputSet View should render all fields 1`] = `
                       <div
                         class="bp3-form-group"
                         data-id="spec.settings[0].value-6"
-                        style="flex-grow: 1;"
                       >
                         
                         <div
@@ -2255,17 +2238,6 @@ exports[`Plugin Step InputSet View should render properly 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg"
         />
-        <div>
-          <div
-            style="min-height: 8px;"
-          />
-          <div
-            class="separator"
-          />
-          <div
-            style="min-height: 24px;"
-          />
-        </div>
       </div>
     </form>
     <p

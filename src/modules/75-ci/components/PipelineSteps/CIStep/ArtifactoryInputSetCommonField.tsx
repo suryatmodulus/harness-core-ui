@@ -121,7 +121,7 @@ export const ArtifactoryInputSetCommonField: React.FC<ArtifactoryInputSetProps> 
           }}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
-          formik={formik}
+          formik={stepViewType === StepViewType.DeploymentForm ? formik : undefined}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.target) === MultiTypeInputType.RUNTIME && (

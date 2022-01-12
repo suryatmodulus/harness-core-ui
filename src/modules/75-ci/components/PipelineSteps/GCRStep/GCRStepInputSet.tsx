@@ -143,7 +143,13 @@ export const GCRStepInputSetBasic: React.FC<GCRStepProps> = ({
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
-      <ArtifactoryInputSetCommonField template={template} path={path} readonly={readonly} formik={formik} />
+      <ArtifactoryInputSetCommonField
+        template={template}
+        path={path}
+        readonly={readonly}
+        formik={formik}
+        stepViewType={stepViewType}
+      />
       {getMultiTypeFromValue(template?.spec?.remoteCacheImage) === MultiTypeInputType.RUNTIME && (
         <MultiTypeTextField
           className={css.removeBpLabelMargin}

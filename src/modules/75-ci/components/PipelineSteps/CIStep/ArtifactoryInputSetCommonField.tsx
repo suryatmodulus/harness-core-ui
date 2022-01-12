@@ -7,6 +7,7 @@ import MultiTypeMapInputSet from '@common/components/MultiTypeMapInputSet/MultiT
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { shouldRenderRunTimeInputView } from '../CIStep/StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -15,13 +16,15 @@ interface ArtifactoryInputSetProps {
   path?: string
   readonly?: boolean
   formik?: any
+  stepViewType: StepViewType
 }
 
 export const ArtifactoryInputSetCommonField: React.FC<ArtifactoryInputSetProps> = ({
   template,
   path,
   readonly,
-  formik
+  formik,
+  stepViewType
 }) => {
   const { getString } = useStrings()
 
@@ -98,7 +101,7 @@ export const ArtifactoryInputSetCommonField: React.FC<ArtifactoryInputSetProps> 
           }}
           disabled={readonly}
           style={{ marginBottom: 'var(--spacing-small)' }}
-          formik={formik}
+          formik={stepViewType === StepViewType.DeploymentForm ? formik : undefined}
         />
       )}
       {shouldRenderRunTimeInputView(template?.spec?.buildArgs) && (

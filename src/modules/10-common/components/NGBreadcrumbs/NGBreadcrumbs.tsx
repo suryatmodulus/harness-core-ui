@@ -1,5 +1,5 @@
 import React from 'react'
-import { Breadcrumbs as UiCoreBreadcrumbs, BreadcrumbsProps, Breadcrumb } from '@wings-software/uicore'
+import { Breadcrumbs as UiCoreBreadcrumbs, BreadcrumbsProps, Breadcrumb } from '@harness/uicore'
 import { defaults } from 'lodash-es'
 import { useLocation, useParams } from 'react-router-dom'
 

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { capitalize } from 'lodash-es'
 import { useHistory, useParams } from 'react-router-dom'
-import { Button, ButtonSize, ButtonVariation, Text, Color, FontVariation, Layout } from '@wings-software/uicore'
+import { Button, ButtonSize, ButtonVariation, Text, Color, FontVariation, Layout } from '@harness/uicore'
 import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { LICENSE_STATE_VALUES } from 'framework/LicenseStore/licenseStoreUtil'
 import routes from '@common/RouteDefinitions'

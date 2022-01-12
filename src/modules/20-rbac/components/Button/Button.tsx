@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { pick } from 'lodash-es'
-import { Button as CoreButton, ButtonProps as CoreButtonProps } from '@wings-software/uicore'
+import { Button as CoreButton, ButtonProps as CoreButtonProps } from '@harness/uicore'
 import { PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import cx from 'classnames'
 import {
   ExpressionAndRuntimeTypeProps,
@@ -16,7 +16,13 @@ import { Classes, FormGroup, Intent } from '@blueprintjs/core'
 import { get, isEmpty } from 'lodash-es'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import useCreateConnectorMultiTypeModal from '@connectors/modals/ConnectorModal/useCreateConnectorMultiTypeModal'
-import { ConnectorConfigDTO, ConnectorInfoDTO, ConnectorResponse, useGetConnector } from 'services/cd-ng'
+import {
+  ConnectorConfigDTO,
+  ConnectorInfoDTO,
+  ConnectorResponse,
+  ResponsePageConnectorResponse,
+  useGetConnector
+} from 'services/cd-ng'
 import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { useStrings } from 'framework/strings'
@@ -279,6 +285,8 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
       canUpdateSelectedConnector
     )
   }
+  const [pagedConnectorData, setPagedConnectorData] = useState<ResponsePageConnectorResponse>({})
+  const [page, setPage] = useState(0)
 
   const component = (
     <FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} style={{ marginBottom: 0 }}>
@@ -300,8 +308,16 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
             placeholder: placeHolderLocal,
             label,
             getString,
-            openConnectorModal
+            openConnectorModal,
+            setPagedConnectorData
           }),
+          pagination: {
+            itemCount: pagedConnectorData?.data?.totalItems || 0,
+            pageSize: pagedConnectorData?.data?.pageSize || 10,
+            pageCount: pagedConnectorData?.data?.totalPages || -1,
+            pageIndex: page || 0,
+            gotoPage: pageIndex => setPage(pageIndex)
+          },
           isNewConnectorLabelVisible: canUpdate && isNewConnectorLabelVisible,
           selectedRenderer: getSelectedRenderer(selectedValue),
           ...optionalReferenceSelectProps,

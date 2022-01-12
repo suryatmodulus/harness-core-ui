@@ -92,6 +92,7 @@ export interface EntityReferenceProps<T> {
   onCancel?: () => void
   renderTabSubHeading?: boolean
   pagination: PaginationProps
+  disableCollapse?: boolean
 }
 
 function getDefaultScope(orgIdentifier?: string, projectIdentifier?: string): Scope {
@@ -116,7 +117,8 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     // recordClassName = '',
     searchInlineComponent,
     noDataCard,
-    renderTabSubHeading = false
+    renderTabSubHeading = false,
+    disableCollapse
   } = props
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [selectedScope, setSelectedScope] = useState<Scope>(
@@ -219,6 +221,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
             collapsedRecordRender={collapsedRecordRender}
             selectedScope={selectedScope}
             pagination={props.pagination}
+            disableCollapse={disableCollapse}
           />
         ) : (
           <Container padding={{ top: 'xlarge' }} flex={{ align: 'center-center' }} className={css.noDataContainer}>

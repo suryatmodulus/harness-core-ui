@@ -902,6 +902,8 @@ export interface StringsMap {
   'resourceCenter.ticketmenu.tickets': string
   'resourceCenter.ticketmenu.ticketsDesc': string
   'resourceCenter.title': string
+  'governance.permissions.governancePolicies': string
+  'governance.permissions.governancePolicySets': string
   'authSettings.SAMLProvider': string
   'authSettings.WhitelistedDomainsUpdated': string
   'authSettings.accountOrOAuthLogin': string

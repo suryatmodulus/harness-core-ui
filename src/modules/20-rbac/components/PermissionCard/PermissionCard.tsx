@@ -7,6 +7,7 @@ import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceTy
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useStrings } from 'framework/strings'
 import css from './PermissionCard.module.scss'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
 interface PermissionCardProps {
   resourceTypes?: ResourceType[]
@@ -74,6 +75,7 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
       )
     }
   }
+  const flags = useFeatureFlags()
   const resourceHandler =
     RbacFactory.getResourceCategoryHandler(resourceCategory as ResourceCategory) ||
     RbacFactory.getResourceTypeHandler(resourceCategory as ResourceType)
@@ -95,8 +97,15 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
           <Layout.Vertical padding={{ top: 'large' }}>
             {Array.from(resourceTypes).map(resource => {
               const handler = RbacFactory.getResourceTypeHandler(resource)
+              let display = true
+
+              if (handler && handler.featureFlag && !flags[handler.featureFlag]) {
+                display = false
+              }
+
               return (
-                handler && (
+                handler &&
+                display && (
                   <div key={resource} className={cx(css.permissionRow, css.groupRow)}>
                     <Text color={Color.BLACK} padding={{ left: 'large' }}>
                       {getString(handler.label)}

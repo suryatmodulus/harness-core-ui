@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react'
 import { Route, useHistory, useParams } from 'react-router-dom'
 import { Container } from '@wings-software/uicore'
+//import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
 import { RouteWithLayout } from '@common/router'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import AccountSideNav from '@common/components/AccountSideNav/AccountSideNav'
 import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
+import { FeatureFlag } from '@common/featureFlags'
 import { String } from 'framework/strings'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import RbacFactory from '@rbac/factories/RbacFactory'
@@ -20,19 +22,29 @@ export const AccountSideNavProps: SidebarContext = {
   title: 'Account Settings'
 }
 
-RbacFactory.registerResourceTypeHandler(ResourceType.GOVERNANCE, {
+RbacFactory.registerResourceTypeHandler(ResourceType.GOVERNANCEPOLICY, {
   icon: 'nav-settings',
-  label: 'common.governance',
-  category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
+  label: 'governance.permissions.governancePolicies',
+  category: ResourceCategory.SHARED_RESOURCES,
   permissionLabels: {
-    [PermissionIdentifier.GOV_VIEW_POLICY]: <String stringID="rbac.permissionLabels.access" />,
+    [PermissionIdentifier.GOV_VIEW_POLICY]: <String stringID="rbac.permissionLabels.view" />,
     [PermissionIdentifier.GOV_EDIT_POLICY]: <String stringID="rbac.permissionLabels.createEdit" />,
-    [PermissionIdentifier.GOV_DELETE_POLICY]: <String stringID="rbac.permissionLabels.delete" />,
-    [PermissionIdentifier.GOV_VIEW_POLICYSET]: <String stringID="rbac.permissionLabels.access" />,
+    [PermissionIdentifier.GOV_DELETE_POLICY]: <String stringID="rbac.permissionLabels.delete" />
+  },
+  featureFlag: FeatureFlag.OPA_PIPELINE_GOVERNANCE
+})
+
+RbacFactory.registerResourceTypeHandler(ResourceType.GOVERNANCEPOLICYSETS, {
+  icon: 'nav-settings',
+  label: 'governance.permissions.governancePolicySets',
+  category: ResourceCategory.SHARED_RESOURCES,
+  permissionLabels: {
+    [PermissionIdentifier.GOV_VIEW_POLICYSET]: <String stringID="rbac.permissionLabels.view" />,
     [PermissionIdentifier.GOV_EDIT_POLICYSET]: <String stringID="rbac.permissionLabels.createEdit" />,
     [PermissionIdentifier.GOV_DELETE_POLICYSET]: <String stringID="rbac.permissionLabels.delete" />,
     [PermissionIdentifier.GOV_EVALUATE_POLICYSET]: <String stringID="rbac.permissionLabels.evaluate" />
-  }
+  },
+  featureFlag: FeatureFlag.OPA_PIPELINE_GOVERNANCE
 })
 
 const RedirectToDefaultGovernanceRoute: React.FC = () => {

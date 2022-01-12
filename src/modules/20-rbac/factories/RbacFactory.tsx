@@ -4,6 +4,7 @@ import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceTy
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ResourceScope } from '@rbac/interfaces/ResourceScope'
 import type { StringsMap } from 'framework/strings/StringsContext'
+import type { FeatureFlag } from '@common/featureFlags'
 
 export interface RbacResourceModalProps {
   searchTerm: string
@@ -27,6 +28,7 @@ export interface ResourceHandler {
   addResourceModalBody?: (props: RbacResourceModalProps) => React.ReactElement
   staticResourceRenderer?: (props: RbacResourceRendererProps) => React.ReactElement
   category?: ResourceCategory
+  featureFlag?: FeatureFlag
 }
 
 export interface ResourceCategoryHandler {

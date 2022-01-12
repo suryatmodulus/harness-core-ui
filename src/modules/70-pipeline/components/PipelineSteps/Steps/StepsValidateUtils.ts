@@ -131,17 +131,21 @@ function generateSchemaForList(
             .ensure()
             .compact((val: any) => !val?.value)
             .min(1, getString('fieldRequired', { field: getString(label as StringKeys) }))
-            .test('allFixedOrallRuntimeInputs', getString('pipeline.allFixedOrallRuntimeInputs'), list => {
-              const runtimeInputsCount = (list as Array<{ id: string; value: string }>).filter(
-                item => item?.value === RUNTIME_INPUT_VALUE
-              )?.length
-              const fixedValueCount = (list as Array<{ id: string; value: string }>).filter(
-                item => item?.value !== 'undefined' && item?.value !== RUNTIME_INPUT_VALUE
-              )?.length
-              return (
-                (runtimeInputsCount === 0 && fixedValueCount > 0) || (runtimeInputsCount > 0 && fixedValueCount === 0)
-              )
-            })
+            .test(
+              'allFixedOrallRuntimeInputs',
+              getString('pipeline.allFixedOrallRuntimeInputs', { field: getString(label as StringKeys) }),
+              list => {
+                const runtimeInputsCount = (list as Array<{ id: string; value: string }>).filter(
+                  item => item?.value === RUNTIME_INPUT_VALUE
+                )?.length
+                const fixedValueCount = (list as Array<{ id: string; value: string }>).filter(
+                  item => item?.value !== 'undefined' && item?.value !== RUNTIME_INPUT_VALUE
+                )?.length
+                return (
+                  (runtimeInputsCount === 0 && fixedValueCount > 0) || (runtimeInputsCount > 0 && fixedValueCount === 0)
+                )
+              }
+            )
         }
 
         return schema

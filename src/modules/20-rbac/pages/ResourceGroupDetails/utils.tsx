@@ -33,6 +33,7 @@ enum ValidatorTypes {
 }
 
 export const getSelectedResourcesMap = (
+  resourceTypes: ResourceType[],
   resourceSelectorList?: ResourceSelector[]
 ): Map<ResourceType, string[] | string> => {
   const map: Map<ResourceType, string[] | string> = new Map()
@@ -40,6 +41,10 @@ export const getSelectedResourcesMap = (
   resourceSelectorList?.map(resourceSelector => {
     if (isDynamicResourceSelector(resourceSelector.type)) {
       map.set(resourceSelector.resourceType, RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR)
+    } else if (resourceSelector.type === RbacResourceGroupTypes.SCOPE_RESOURCE_SELECTOR) {
+      resourceTypes.forEach(resourceType => {
+        map.set(resourceType, RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR)
+      })
     } else {
       map.set(resourceSelector.resourceType, resourceSelector.identifiers)
     }
@@ -169,6 +174,7 @@ export const getScopeDropDownItems = (scope: Scope, getString: UseStringsReturn[
         { label: getString('rbac.scopeItems.orgAll'), value: SelectorScope.INCLUDE_CHILD_SCOPES }
       ]
     case Scope.ACCOUNT:
+    default:
       return [
         { label: getString('rbac.scopeItems.accountOnly'), value: SelectorScope.CURRENT },
         { label: getString('rbac.scopeItems.accountAll'), value: SelectorScope.INCLUDE_CHILD_SCOPES }
@@ -179,7 +185,7 @@ export const getScopeDropDownItems = (scope: Scope, getString: UseStringsReturn[
 export const getResourceSelectionType = (data: ResponseResourceGroupResponse | null): SelectionType => {
   if (
     data?.data?.resourceGroup.resourceSelectors?.find(
-      selector => selector.type == RbacResourceGroupTypes.SCOPE_RESOURCE_SELECTOR
+      selector => selector.type === RbacResourceGroupTypes.SCOPE_RESOURCE_SELECTOR
     )
   ) {
     return SelectionType.ALL
@@ -194,15 +200,21 @@ export const getFormattedDataForApi = (
   selectedScope: SelectorScope,
   resourceSelectors: ResourceSelector[]
 ): ResourceGroupRequestRequestBody => {
+  const { accountIdentifier, orgIdentifier, projectIdentifier } = data
   return {
     resourcegroup: {
       ...data,
       resourceSelectors:
-        selectionType == SelectionType.ALL
+        selectionType === SelectionType.ALL
           ? [
               {
                 type: 'ResourceSelectorByScope',
-                includeChildScopes: selectedScope === SelectorScope.INCLUDE_CHILD_SCOPES
+                includeChildScopes: selectedScope === SelectorScope.INCLUDE_CHILD_SCOPES,
+                scope: {
+                  accountIdentifier,
+                  orgIdentifier,
+                  projectIdentifier
+                }
               }
             ]
           : resourceSelectors
@@ -215,18 +227,16 @@ export const getFilteredResourceTypes = (
   selectedScope: SelectorScope
 ): ResourceType[] => {
   const resourceTypes = data?.data?.resourceTypes || []
-  switch (selectedScope) {
-    case SelectorScope.CURRENT:
-      return resourceTypes?.reduce((acc: ResourceType[], value) => {
-        if (value.validatorTypes?.includes(ValidatorTypes.BY_RESOURCE_TYPE) && value.name) {
-          acc.push(value.name as ResourceType)
-        }
-        return acc
-      }, [])
-
-    default:
-      return getResourceTypes(resourceTypes)
+  if (selectedScope === SelectorScope.CURRENT) {
+    return resourceTypes?.reduce((acc: ResourceType[], value) => {
+      if (value.validatorTypes?.includes(ValidatorTypes.BY_RESOURCE_TYPE) && value.name) {
+        acc.push(value.name as ResourceType)
+      }
+      return acc
+    }, [])
   }
+
+  return getResourceTypes(resourceTypes)
 }
 
 export const cleanUpResourcesMap = (

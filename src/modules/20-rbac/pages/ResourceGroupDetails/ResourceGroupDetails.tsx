@@ -114,7 +114,9 @@ const ResourceGroupDetails: React.FC = () => {
   }, [resourceTypes])
 
   useEffect(() => {
-    setSelectedResourceMap(getSelectedResourcesMap(resourceGroupDetails?.data?.resourceGroup.resourceSelectors))
+    setSelectedResourceMap(
+      getSelectedResourcesMap(resourceTypes, resourceGroupDetails?.data?.resourceGroup.resourceSelectors)
+    )
     setIsUpdated(false)
     setSelectionType(getResourceSelectionType(resourceGroupDetails))
   }, [resourceGroupDetails?.data?.resourceGroup])
@@ -171,7 +173,7 @@ const ResourceGroupDetails: React.FC = () => {
   const onSelectionTypeChange = (type: SelectionType): void => {
     setSelectionType(type)
     setIsUpdated(true)
-    if (type == SelectionType.ALL) {
+    if (type === SelectionType.ALL) {
       computeResourceMapOnMultiChange(setSelectedResourceMap, selectedResourcesMap, resourceTypes, true)
     }
   }
@@ -183,7 +185,7 @@ const ResourceGroupDetails: React.FC = () => {
 
   const resourceGroup = resourceGroupDetails?.data?.resourceGroup
   const isHarnessManaged = resourceGroupDetails?.data?.harnessManaged
-  const disableAddingResources = isHarnessManaged || !canEdit || selectionType == SelectionType.ALL
+  const disableAddingResources = isHarnessManaged || !canEdit || selectionType === SelectionType.ALL
 
   useDocumentTitle([defaultTo(resourceGroup?.name, ''), getString('resourceGroups')])
 

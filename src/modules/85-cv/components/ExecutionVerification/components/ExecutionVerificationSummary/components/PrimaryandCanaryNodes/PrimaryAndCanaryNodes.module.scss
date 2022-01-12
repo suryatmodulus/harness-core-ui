@@ -1,18 +1,16 @@
 .main {
-  display: flex;
-  width: 80% !important;
-  margin: 0 auto !important;
-  padding: var(--spacing-small) !important;
-
+  margin-top: var(--spacing-medium) !important;
   .primaryNodes,
   .canaryNodes {
     width: 100% !important;
     &:first-child {
-      margin-right: 40px !important;
+      margin-bottom: var(--spacing-large) !important;
     }
+  }
 
-    > p {
-      margin-bottom: var(--spacing-medium) !important;
-    }
+  .details {
+    color: var(--grey-400) !important;
+    font-size: var(--font-size-small) !important;
+    margin-bottom: var(--spacing-medium) !important;
   }
 }

@@ -24,16 +24,17 @@ export function healthSourceTypeToLogo(healthSourceType: any): IconName {
 }
 
 export function transformControlAndTestDataToHighChartsSeries(
-  controlData: Highcharts.SeriesLineOptions['data'][],
+  controlData: Highcharts.SeriesAreasplineOptions['data'][],
   testData: HostTestData[]
-): Highcharts.SeriesLineOptions[][] {
-  const highchartsOptions: Highcharts.SeriesLineOptions[][] = []
+): Highcharts.SeriesAreasplineOptions[][] {
+  const highchartsOptions: Highcharts.SeriesAreasplineOptions[][] = []
 
   for (let index = 0; index < controlData.length; index++) {
     const testDataLineColor = getRiskColorValue(testData[index].risk)
+
     highchartsOptions.push([
       {
-        type: 'line',
+        type: 'areaspline',
         data: controlData[index] || [],
         color: 'var(--grey-200)',
         name: testData[index].name,
@@ -42,10 +43,12 @@ export function transformControlAndTestDataToHighChartsSeries(
           lineWidth: 1,
           fillColor: 'var(--white)',
           lineColor: 'var(--grey-200)'
-        }
+        },
+        lineColor: 'var(--grey-200)',
+        lineWidth: 2
       },
       {
-        type: 'line',
+        type: 'areaspline',
         data: testData[index].points || [],
         color: testDataLineColor,
         name: testData[index].name,
@@ -54,7 +57,9 @@ export function transformControlAndTestDataToHighChartsSeries(
           lineWidth: 1,
           fillColor: 'var(--white)',
           lineColor: testDataLineColor
-        }
+        },
+        lineColor: testDataLineColor,
+        lineWidth: 2
       }
     ])
   }

@@ -1,7 +1,8 @@
 .main {
-  height: 100% !important;
   position: relative;
   padding: var(--spacing-small) var(--spacing-large) !important;
+  width: 300px;
+  min-width: 300px;
 
   .failureMessage {
     margin-bottom: var(--spacing-small) !important;

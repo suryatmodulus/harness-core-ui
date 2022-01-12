@@ -1,15 +1,20 @@
-export function chartsConfig(series: Highcharts.SeriesLineOptions[], width: number): Highcharts.Options {
-  let xAxisTicks = series[0]?.data?.map((v: any) => v.x as number)
-  if (!xAxisTicks?.length) {
-    xAxisTicks = series?.[1]?.data?.map((v: any) => v.x as number)
-  }
+export function chartsConfig(
+  series: Highcharts.SeriesAreasplineOptions[],
+  width: number,
+  nodeIndex: number
+): Highcharts.Options {
+  // let xAxisTicks = series[0]?.data?.map((v: any) => v.x as number)
+  // if (!xAxisTicks?.length) {
+  //   xAxisTicks = series?.[1]?.data?.map((v: any) => v.x as number)
+  // }
+
   return {
     chart: {
       height: 120,
       width,
-      type: 'line',
-      zoomType: 'xy',
-      spacing: [2, 1, 1, 2]
+      type: 'areaspline'
+      // zoomType: 'xy',
+      // spacing: [2, 1, 1, 2]
     },
     credits: undefined,
     title: {
@@ -20,19 +25,21 @@ export function chartsConfig(series: Highcharts.SeriesLineOptions[], width: numb
     },
     xAxis: {
       tickLength: 0,
-      lineWidth: 1,
+      // lineWidth: 1,
+
       labels: {
         enabled: false
       },
-      tickPositions: xAxisTicks,
-      gridLineWidth: 1,
-      gridLineDashStyle: 'LongDash',
+      // tickPositions: xAxisTicks,
+      // gridLineWidth: 0,
+      // gridLineDashStyle: 'LongDash',
       title: {
-        text: ''
+        text: `Node ${nodeIndex + 1}`,
+        align: 'low'
       }
     },
     yAxis: {
-      lineWidth: 0,
+      // lineWidth: 0,
       gridLineWidth: 0,
       labels: {
         enabled: false
@@ -44,8 +51,11 @@ export function chartsConfig(series: Highcharts.SeriesLineOptions[], width: numb
     plotOptions: {
       series: {
         stickyTracking: false,
-        lineWidth: 1,
+        lineWidth: 3,
         turboThreshold: 50000
+      },
+      areaspline: {
+        fillOpacity: 0.5
       }
     },
     tooltip: {

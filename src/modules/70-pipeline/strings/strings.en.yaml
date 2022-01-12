@@ -37,6 +37,7 @@ repositoryUrlPlaceholder: Enter Repository URL
 lastSevenDays: In Last 7 days
 neverRan: This pipeline never ran
 startedOn: Started On
+nodes: nodes
 poweredByHarness: powered by Harness
 outOf: Out Of
 clickToExpandErrorDetails: Click to expand error details
@@ -750,6 +751,11 @@ verification:
   analysisTab:
     metrics: 'Metrics'
     logs: 'Logs'
+  controlHostName: Control Hostname
+  anomalousMetricsFilterLabel: Display only anomalous metrics and affected nodes
+  testHostName: Test Hostname
+  expandAll: Expand All
+  collapseAll: Collapse All
   logs:
     logCluster: Log cluster
     filterByClusterType: Filter by cluster type

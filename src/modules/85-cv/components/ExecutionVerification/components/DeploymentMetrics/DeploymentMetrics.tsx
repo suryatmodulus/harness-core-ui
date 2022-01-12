@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import {
   Color,
   Container,
@@ -8,7 +8,13 @@ import {
   Icon,
   Pagination,
   PageError,
-  NoDataCard
+  NoDataCard,
+  Accordion,
+  AccordionHandle,
+  Checkbox,
+  Layout,
+  Button,
+  ButtonVariation
 } from '@wings-software/uicore'
 import { isEqual } from 'lodash-es'
 import { useParams } from 'react-router-dom'
@@ -31,6 +37,7 @@ import {
   DeploymentMetricsAnalysisRowProps
 } from './components/DeploymentMetricsAnalysisRow/DeploymentMetricsAnalysisRow'
 import { transformMetricData, getErrorMessage } from './DeploymentMetrics.utils'
+import MetricsAccordionPanelSummary from './components/DeploymentAccordionPanel/MetricsAccordionPanelSummary'
 import { HealthSourceDropDown } from '../HealthSourcesDropdown/HealthSourcesDropdown'
 import css from './DeploymentMetrics.module.scss'
 
@@ -58,7 +65,9 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
     pageNumber: 0,
     pageSize: PAGE_SIZE
   })
+  const accordionRef = useRef<AccordionHandle>(null)
   const [pollingIntervalId, setPollingIntervalId] = useState(-1)
+  const [anomalousMetricsFilterChecked, setAnomalousMetricsFilterChecked] = useState(false)
   const [{ hasNewData, shouldUpdateView, currentViewData, showSpinner }, setUpdateViewInfo] = useState<UpdateViewState>(
     {
       hasNewData: false,
@@ -141,6 +150,15 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
     }
   }, [data])
 
+  useEffect(() => {
+    setQueryParams(oldQueryParams => ({
+      ...oldQueryParams,
+      pageNumber: 0,
+      anomalousMetricsOnly: anomalousMetricsFilterChecked
+    }))
+    setUpdateViewInfo(oldInfo => ({ ...oldInfo, shouldUpdateView: true, showSpinner: true }))
+  }, [anomalousMetricsFilterChecked])
+
   const paginationInfo = data?.resource?.pageResponse || DEFAULT_PAGINATION_VALUEE
 
   const handleHealthSourceChange = useCallback(selectedHealthSource => {
@@ -152,6 +170,11 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
 
     setUpdateViewInfo(oldInfo => ({ ...oldInfo, shouldUpdateView: true, showSpinner: true }))
   }, [])
+
+  const updatedAnomalousMetricsFilter = useCallback(
+    () => setAnomalousMetricsFilterChecked(currentFilterStatus => !currentFilterStatus),
+    []
+  )
 
   const renderContent = (): JSX.Element => {
     if (loading && showSpinner) {
@@ -176,20 +199,35 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
 
     return (
       <>
-        {currentViewData?.map(analysisRow => {
-          const { transactionName, metricName, healthSourceType, controlData, testData } = analysisRow
-          return (
-            <DeploymentMetricsAnalysisRow
-              key={`${analysisRow.transactionName}-${analysisRow.metricName}-${analysisRow.healthSourceType}`}
-              transactionName={transactionName}
-              metricName={metricName}
-              controlData={controlData}
-              testData={testData}
-              healthSourceType={healthSourceType}
-              className={css.analysisRow}
-            />
-          )
-        })}
+        {/* <button onClick={() => accordionRef.current?.open(['1', '2'])}>Open</button> */}
+        <Accordion
+          allowMultiOpen
+          panelClassName={css.deploymentMetricsAccordionPanel}
+          summaryClassName={css.deploymentMetricsAccordionSummary}
+          ref={accordionRef}
+        >
+          {currentViewData?.map(analysisRow => {
+            const { transactionName, metricName, healthSourceType, controlData, testData } = analysisRow
+            return (
+              <Accordion.Panel
+                key={`${analysisRow.transactionName}-${analysisRow.metricName}-${analysisRow.healthSourceType}`}
+                id={`${analysisRow.transactionName}-${analysisRow.metricName}-${analysisRow.healthSourceType}`}
+                summary={<MetricsAccordionPanelSummary analysisRow={analysisRow} />}
+                details={
+                  <DeploymentMetricsAnalysisRow
+                    key={`${analysisRow.transactionName}-${analysisRow.metricName}-${analysisRow.healthSourceType}`}
+                    transactionName={transactionName}
+                    metricName={metricName}
+                    controlData={controlData}
+                    testData={testData}
+                    healthSourceType={healthSourceType}
+                    className={css.analysisRow}
+                  />
+                }
+              />
+            )
+          })}
+        </Accordion>
       </>
     )
   }
@@ -232,16 +270,35 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
           onChange={handleHealthSourceChange}
           verificationType={VerificationType.TIME_SERIES}
         />
-        <ExpandingSearchInput
-          throttle={500}
-          className={css.filterBy}
-          placeholder={getString('pipeline.verification.metricViewPlaceholder')}
-          onChange={filterString => {
-            setQueryParams(oldQueryParams => ({ ...oldQueryParams, filter: filterString, pageNumber: 0 }))
-            setUpdateViewInfo(oldInfo => ({ ...oldInfo, shouldUpdateView: true, showSpinner: true }))
-          }}
+        <Checkbox
+          onChange={updatedAnomalousMetricsFilter}
+          checked={anomalousMetricsFilterChecked}
+          label={getString('pipeline.verification.anomalousMetricsFilterLabel')}
         />
       </Container>
+      <Layout.Horizontal className={css.filterSecondRow} border={{ bottom: true }} margin={{ bottom: 'large' }}>
+        <Container className={css.accordionToggleButtons}>
+          <Button variation={ButtonVariation.LINK} border={{ right: true }}>
+            {getString('pipeline.verification.expandAll')}
+          </Button>
+          <Button variation={ButtonVariation.LINK}>{getString('pipeline.verification.collapseAll')}</Button>
+        </Container>
+        <Container>
+          {pollingIntervalId !== -1 && hasNewData && (
+            <RefreshViewForNewData
+              className={css.refreshButton}
+              onClick={() => {
+                setUpdateViewInfo(prevState => ({
+                  ...prevState,
+                  hasNewData: false,
+                  currentViewData: transformMetricData(data)
+                }))
+              }}
+            />
+          )}
+          <Layout.Horizontal className={css.legend}></Layout.Horizontal>
+        </Container>
+      </Layout.Horizontal>
       <Container className={css.content}>{renderContent()}</Container>
       <Pagination
         pageSize={paginationInfo.pageSize as number}

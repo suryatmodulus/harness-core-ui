@@ -2,7 +2,8 @@ import React, { useRef, useState, useLayoutEffect, useMemo } from 'react'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import cx from 'classnames'
-import { Color, Container, Text, Icon, Button } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
+import { Color, Container, Text, Icon, Button, Layout } from '@wings-software/uicore'
 import { chartsConfig } from './DeeploymentMetricsChartConfig'
 import {
   healthSourceTypeToLogo,
@@ -25,64 +26,49 @@ export function DeploymentMetricsAnalysisRow(props: DeploymentMetricsAnalysisRow
   const graphContainerRef = useRef<HTMLDivElement>(null)
   const [graphWidth, setGraphWidth] = useState(0)
   const [indxOfLastVisibleGraph, setIndexOfLastVisibleGraph] = useState(3)
-  const charts: Highcharts.SeriesLineOptions[][] = useMemo(() => {
+  const charts: Highcharts.SeriesAreasplineOptions[][] = useMemo(() => {
     return transformControlAndTestDataToHighChartsSeries(controlData || [], testData || [])
   }, [controlData, testData])
+
+  const { getString } = useStrings()
 
   useLayoutEffect(() => {
     if (!graphContainerRef?.current) {
       return
     }
     const containerWidth = graphContainerRef.current.getBoundingClientRect().width
-    setGraphWidth(containerWidth / 3)
+    setGraphWidth(containerWidth / 4)
   }, [graphContainerRef])
+
+  console.log('graphWidth', graphWidth)
 
   return (
     <Container className={cx(css.main, className)}>
-      <Container className={css.transactionMetric}>
-        <Icon name={healthSourceTypeToLogo(healthSourceType)} size={25} />
-        <Text intent="primary" lineClamp={1} width={152}>
-          {transactionName}
-        </Text>
-        <Text color={Color.BLACK} lineClamp={1} width={152} font={{ size: 'small' }}>
-          {metricName}
-        </Text>
-      </Container>
-      {indxOfLastVisibleGraph - 3 > 0 ? (
-        <Button
-          className={css.scrollArrow}
-          data-name="previousArrow"
-          icon="chevron-left"
-          onClick={() => {
-            if (graphContainerRef.current) {
-              graphContainerRef.current.scrollLeft -= graphWidth + 4 * (indxOfLastVisibleGraph - 3)
-              setIndexOfLastVisibleGraph(lastIndex => lastIndex - 1)
-            }
-          }}
-        />
-      ) : (
-        <Container className={css.scrollArrowPlaceholder} />
-      )}
+      <Layout.Horizontal className={css.nodeDetails}>
+        <Container>
+          <Text>{getString('pipeline.verification.controlHostName')}</Text>
+          <Text color={Color.GREY_800}>Control host name here</Text>
+        </Container>
+        <Container>
+          <Text>{getString('pipeline.verification.testHostName')}</Text>
+          <Text color={Color.GREY_800}>{testData?.[0].name}</Text>
+        </Container>
+        <Container>
+          <Text>{getString('cv.healthScore')}</Text>
+          <Layout.Horizontal>
+            <Icon name={healthSourceTypeToLogo(healthSourceType)} margin={{ right: 'small' }} size={16} />
+            <Text lineClamp={1} width="100%">
+              {healthSourceType}
+            </Text>
+          </Layout.Horizontal>
+        </Container>
+      </Layout.Horizontal>
+
       <div className={css.graphs} ref={graphContainerRef}>
         {charts.map((series, index) => (
-          <HighchartsReact key={index} highcharts={Highcharts} options={chartsConfig(series, graphWidth)} />
+          <HighchartsReact key={index} highcharts={Highcharts} options={chartsConfig(series, graphWidth, index)} />
         ))}
       </div>
-      {indxOfLastVisibleGraph < charts.length ? (
-        <Button
-          className={css.scrollArrow}
-          data-name="nextArrow"
-          icon="chevron-right"
-          onClick={() => {
-            if (graphContainerRef.current) {
-              graphContainerRef.current.scrollLeft += graphWidth + 4 * (indxOfLastVisibleGraph - 3)
-              setIndexOfLastVisibleGraph(lastIndex => lastIndex + 1)
-            }
-          }}
-        />
-      ) : (
-        <Container className={css.scrollArrowPlaceholder} />
-      )}
     </Container>
   )
 }

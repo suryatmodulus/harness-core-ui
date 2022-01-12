@@ -11,6 +11,11 @@ declare const styles: {
   readonly error: string
   readonly noActivityId: string
   readonly analysisRow: string
+  readonly filterSecondRow: string
+  readonly accordionToggleButtons: string
+  readonly legend: string
   readonly maxDropDownWidth: string
+  readonly deploymentMetricsAccordionPanel: string
+  readonly deploymentMetricsAccordionSummary: string
 }
 export default styles

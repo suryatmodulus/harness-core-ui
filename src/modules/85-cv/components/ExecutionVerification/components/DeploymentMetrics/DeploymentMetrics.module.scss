@@ -1,4 +1,10 @@
+@mixin CardStyle {
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+  border-radius: 3px;
+}
+
 .main {
+  --layout-spacing: var(--spacing-medium);
   height: 100% !important;
   width: 100% !important;
   padding: var(--spacing-medium) !important;
@@ -11,7 +17,7 @@
   }
 
   .filters {
-    margin-bottom: var(--spacing-xlarge) !important;
+    margin-bottom: var(--spacing-medium) !important;
     display: flex;
     align-items: center;
     > * {
@@ -57,8 +63,56 @@
   .analysisRow {
     margin-bottom: var(--spacing-xsmall) !important;
   }
+
+  .filterSecondRow {
+    display: flex;
+    justify-content: space-between;
+
+    .accordionToggleButtons {
+      margin-bottom: var(--spacing-small);
+      button {
+        --button-height: 18px !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+
+        span {
+          font-weight: normal !important;
+        }
+
+        &:nth-of-type(1) {
+          padding-right: var(--spacing-small) !important;
+          border-right: 1px solid var(--grey-250) !important;
+        }
+        &:nth-of-type(2) {
+          padding-left: var(--spacing-small) !important;
+        }
+      }
+    }
+
+    .legend {
+      margin-left: var(--spacing-small);
+    }
+  }
 }
 
 .maxDropDownWidth {
   max-width: 250px;
+}
+
+.DeploymentMetrics_accordion--panel {
+  @include CardStyle;
+  background: var(--white);
+  margin-bottom: var(--spacing-small);
+  padding: var(--spacing-medium) !important;
+}
+
+.DeploymentMetrics_accordion--summary {
+  width: 100%;
+  flex-direction: row-reverse;
+
+  div:first-child {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 150px 150px 1fr;
+  }
 }

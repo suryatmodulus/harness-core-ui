@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.79% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>189/267</span>
+                <span class='fraction'>190/266</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.35% </span>
+                <span class="strong">45.36% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>215/496</span>
+                <span class='fraction'>225/496</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.83% </span>
+                <span class="strong">65.96% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>30/47</span>
+                <span class='fraction'>31/47</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.68% </span>
+                <span class="strong">71.32% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>188/266</span>
+                <span class='fraction'>189/265</span>
             </div>
         
             
@@ -767,8 +767,7 @@
 <a name='L708'></a><a href='#L708'>708</a>
 <a name='L709'></a><a href='#L709'>709</a>
 <a name='L710'></a><a href='#L710'>710</a>
-<a name='L711'></a><a href='#L711'>711</a>
-<a name='L712'></a><a href='#L712'>712</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">66x</span>
+<a name='L711'></a><a href='#L711'>711</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">66x</span>
 <span class="cline-any cline-yes">66x</span>
 <span class="cline-any cline-yes">66x</span>
 <span class="cline-any cline-yes">66x</span>
@@ -1185,10 +1184,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1287,7 +1286,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1297,7 +1296,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1416,8 +1415,6 @@
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1426,7 +1423,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1896,10 +1894,10 @@ export default function ArtifactsSelection({
   )
 &nbsp;
   const getLastStepInitialData = useCallback((): any =&gt; {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (context === ModalViewFor.PRIMARY) {
+    if (context === ModalViewFor.PRIMARY) {
       return primaryArtifact
     } else {
-<span class="cstat-no" title="statement not covered" >      return sideCarArtifact?.[sidecarIndex]?.sidecar</span>
+      return sideCarArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.[s</span>idecarIndex]<span class="branch-1 cbranch-no" title="branch not covered" >?.sidecar</span>
     }
   }, [context, primaryArtifact, sideCarArtifact, sidecarIndex])
 &nbsp;
@@ -2008,7 +2006,7 @@ export default function ArtifactsSelection({
       handleSubmit: <span class="fstat-no" title="function not covered" >(d</span>ata: any) =&gt; {
 <span class="cstat-no" title="statement not covered" >        addArtifact(data)</span>
       },
-      artifactIdentifiers: sideCarArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(<span class="fstat-no" title="function not covered" >(i</span>tem: SidecarArtifactWrapper) =&gt; <span class="cstat-no" title="statement not covered" >item.sidecar?.identifier as string),</span>
+      artifactIdentifiers: sideCarArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap((item: SidecarArtifactWrapper) =&gt; item.sidecar<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier as string),
       isReadonly: isReadonly,
       selectedArtifact
     }
@@ -2126,18 +2124,17 @@ export default function ArtifactsSelection({
 &nbsp;
   const getLastSteps = useCallback((): JSX.Element =&gt; {
     switch (selectedArtifact) {
-      case ENABLED_ARTIFACT_TYPES.DockerRegistry:
-        return &lt;ImagePath {...artifactLastStepProps()} /&gt;
-<span class="branch-1 cbranch-no" title="branch not covered" >      case ENABLED_ARTIFACT_TYPES.Gcr:</span>
+<span class="branch-0 cbranch-no" title="branch not covered" >      case ENABLED_ARTIFACT_TYPES.Gcr:</span>
 <span class="cstat-no" title="statement not covered" >        return &lt;GCRImagePath {...artifactLastStepProps()} /&gt;</span>
-<span class="branch-2 cbranch-no" title="branch not covered" >      case ENABLED_ARTIFACT_TYPES.Ecr:</span>
+<span class="branch-1 cbranch-no" title="branch not covered" >      case ENABLED_ARTIFACT_TYPES.Ecr:</span>
 <span class="cstat-no" title="statement not covered" >        return &lt;ECRArtifact {...artifactLastStepProps()} /&gt;</span>
-<span class="branch-3 cbranch-no" title="branch not covered" >      case ENABLED_ARTIFACT_TYPES.Nexus:</span>
+<span class="branch-2 cbranch-no" title="branch not covered" >      case ENABLED_ARTIFACT_TYPES.Nexus:</span>
 <span class="cstat-no" title="statement not covered" >        return &lt;NexusArtifact {...artifactLastStepProps()} /&gt;</span>
-<span class="branch-4 cbranch-no" title="branch not covered" >      case ENABLED_ARTIFACT_TYPES.Artifactory:</span>
+<span class="branch-3 cbranch-no" title="branch not covered" >      case ENABLED_ARTIFACT_TYPES.Artifactory:</span>
 <span class="cstat-no" title="statement not covered" >        return &lt;Artifactory {...artifactLastStepProps()} /&gt;</span>
+      case ENABLED_ARTIFACT_TYPES.DockerRegistry:
       default:
-        return &lt;&gt;&lt;/&gt;
+        return &lt;ImagePath {...artifactLastStepProps()} /&gt;
     }
   }, [artifactLastStepProps, selectedArtifact])
 &nbsp;
@@ -2197,7 +2194,7 @@ export default function ArtifactsSelection({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jan 13 2022 16:45:09 GMT+0000 (Greenwich Mean Time)
+                at Thu Jan 13 2022 17:18:30 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

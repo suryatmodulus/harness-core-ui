@@ -12,6 +12,7 @@ import java from './icons/java.svg'
 import javascript from './icons/javascript.svg'
 import nodejs from './icons/nodejs.svg'
 import python from './icons/python.svg'
+import flutter from './icons/flutter.svg'
 import css from './LanguageSelection.module.scss'
 
 export enum PlatformEntryType {
@@ -84,6 +85,12 @@ export const SupportPlatforms = [
   {
     name: 'iOS',
     icon: ios,
+    type: PlatformEntryType.CLIENT,
+    readmeStringId: 'cf.onboarding.readme.ios'
+  },
+  {
+    name: 'Flutter',
+    icon: flutter,
     type: PlatformEntryType.CLIENT,
     readmeStringId: 'cf.onboarding.readme.ios'
   }

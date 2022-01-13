@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.95% </span>
+                <span class="strong">79.07% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>136/168</span>
+                <span class='fraction'>136/172</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.68% </span>
+                <span class="strong">67.63% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>216/310</span>
+                <span class='fraction'>211/312</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.37% </span>
+                <span class="strong">79.39% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>131/161</span>
+                <span class='fraction'>131/165</span>
             </div>
         
             
@@ -505,7 +505,25 @@
 <a name='L446'></a><a href='#L446'>446</a>
 <a name='L447'></a><a href='#L447'>447</a>
 <a name='L448'></a><a href='#L448'>448</a>
-<a name='L449'></a><a href='#L449'>449</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L449'></a><a href='#L449'>449</a>
+<a name='L450'></a><a href='#L450'>450</a>
+<a name='L451'></a><a href='#L451'>451</a>
+<a name='L452'></a><a href='#L452'>452</a>
+<a name='L453'></a><a href='#L453'>453</a>
+<a name='L454'></a><a href='#L454'>454</a>
+<a name='L455'></a><a href='#L455'>455</a>
+<a name='L456'></a><a href='#L456'>456</a>
+<a name='L457'></a><a href='#L457'>457</a>
+<a name='L458'></a><a href='#L458'>458</a>
+<a name='L459'></a><a href='#L459'>459</a>
+<a name='L460'></a><a href='#L460'>460</a>
+<a name='L461'></a><a href='#L461'>461</a>
+<a name='L462'></a><a href='#L462'>462</a>
+<a name='L463'></a><a href='#L463'>463</a>
+<a name='L464'></a><a href='#L464'>464</a>
+<a name='L465'></a><a href='#L465'>465</a>
+<a name='L466'></a><a href='#L466'>466</a>
+<a name='L467'></a><a href='#L467'>467</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
@@ -540,6 +558,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -641,6 +660,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -823,6 +850,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -992,7 +1028,8 @@ const NodeType = {
   MANUAL_INPUT_QUERY: 'ManuualyInputQuery',
   DASHBOARD: 'Dashboard',
   WIDGET: 'Widget',
-  METRIC: 'Metric'
+  METRIC: 'Metric',
+  LABEL: 'Label'
 }
 &nbsp;
 const LoadingSkeleton = [
@@ -1087,6 +1124,14 @@ function generateTreeNode(type: string, data: any, id: string, isExpanded = fals
         nodeData: {
           type: NodeType.MANUAL_INPUT_QUERY
         }
+      }
+<span class="branch-4 cbranch-no" title="branch not covered" >    case NodeType.LABEL:</span>
+<span class="cstat-no" title="statement not covered" >      return {</span>
+        id: id,
+        label: &lt;TreeNodeLabel width={LabelWidth.SECOND_LEVEL} label={data.label} /&gt;,
+        hasCaret: false,
+        isExpanded: false,
+        isSelected: false
       }
     case NodeType.MANUAL_INPUT_METRIC:
     default:
@@ -1243,7 +1288,7 @@ export default function MetricDashboardWidgetNav&lt;T&gt;(props: MetricDashboard
     if (selectedDashIndex === -1 || loading) {
       return
     }
-    if (error?.data || (!metricWidgets<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >!isFirstLoad)</span>) {
+    if (error?.data) {
       navContent[selectedDashIndex].isExpanded = false
       navContent[selectedDashIndex].childNodes = []
       setNavContent([...navContent])
@@ -1271,6 +1316,15 @@ export default function MetricDashboardWidgetNav&lt;T&gt;(props: MetricDashboard
         )
         setIsFirstLoad(false)
       }
+    } else <span class="cstat-no" title="statement not covered" >if (dashboardWidgetsData?.data &amp;&amp; !metricWidgets.length) {</span>
+<span class="cstat-no" title="statement not covered" >      navContent[selectedDashIndex].childNodes = [</span>
+        generateTreeNode(
+          NodeType.LABEL,
+          { label: getString('cv.monitoringSources.datadog.noMetricsWidgets') },
+          'no_data_label_id'
+        )
+      ]
+<span class="cstat-no" title="statement not covered" >      setNavContent([...navContent])</span>
     }
   }, [metricWidgets, loading])
 &nbsp;
@@ -1408,7 +1462,7 @@ export default function MetricDashboardWidgetNav&lt;T&gt;(props: MetricDashboard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jan 13 2022 09:26:19 GMT+0000 (Greenwich Mean Time)
+                at Thu Jan 13 2022 11:08:37 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

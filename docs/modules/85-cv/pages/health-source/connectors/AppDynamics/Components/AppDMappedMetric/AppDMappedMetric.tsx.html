@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.02% </span>
+                <span class="strong">71.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>46/63</span>
+                <span class='fraction'>43/60</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.67% </span>
+                <span class="strong">36.36% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/12</span>
+                <span class='fraction'>4/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.58% </span>
+                <span class="strong">71.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/62</span>
+                <span class='fraction'>43/60</span>
             </div>
         
             
@@ -338,21 +338,9 @@
 <a name='L279'></a><a href='#L279'>279</a>
 <a name='L280'></a><a href='#L280'>280</a>
 <a name='L281'></a><a href='#L281'>281</a>
-<a name='L282'></a><a href='#L282'>282</a>
-<a name='L283'></a><a href='#L283'>283</a>
-<a name='L284'></a><a href='#L284'>284</a>
-<a name='L285'></a><a href='#L285'>285</a>
-<a name='L286'></a><a href='#L286'>286</a>
-<a name='L287'></a><a href='#L287'>287</a>
-<a name='L288'></a><a href='#L288'>288</a>
-<a name='L289'></a><a href='#L289'>289</a>
-<a name='L290'></a><a href='#L290'>290</a>
-<a name='L291'></a><a href='#L291'>291</a>
-<a name='L292'></a><a href='#L292'>292</a>
-<a name='L293'></a><a href='#L293'>293</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
+<a name='L282'></a><a href='#L282'>282</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -365,11 +353,6 @@
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-yes">19x</span>
@@ -407,10 +390,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -640,14 +619,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useMemo, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   Container,
   Accordion,
   SelectOption,
-  Utils,
   FormInput,
   Text,
   Color,
@@ -656,12 +633,7 @@ import {
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
-import {
-  useGetMetricPacks,
-  useGetLabelNames,
-  useGetServiceInstanceMetricPath,
-  AppDMetricDefinitions
-} from 'services/cv'
+import { useGetMetricPacks, useGetServiceInstanceMetricPath, AppDMetricDefinitions } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { SetupSourceCardHeader } from '@cv/components/CVSetupSourcesView/SetupSourceCardHeader/SetupSourceCardHeader'
@@ -698,14 +670,10 @@ export default function AppDMappedMetric({
   setCreatedMetrics
 }: AppDMappedMetricInterface): JSX.Element {
   const { getString } = useStrings()
-  const labelNameTracingId = useMemo(() =&gt; Utils.randomId(), [])
   const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
 &nbsp;
   const metricPackResponse = useGetMetricPacks({
     queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'APP_DYNAMICS' }
-  })
-  const labelNamesResponse = useGetLabelNames({
-    queryParams: { projectIdentifier, orgIdentifier, accountId, connectorIdentifier, tracingId: labelNameTracingId }
   })
 &nbsp;
   const { data: serviceInsanceData, refetch: refetchServiceInsance } = useGetServiceInstanceMetricPath({ lazy: true })
@@ -920,7 +888,6 @@ export default function AppDMappedMetric({
                         continuousVerification: !!formikValues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontinuousVerification
                       }}
                       metricPackResponse={metricPackResponse}
-                      labelNamesResponse={labelNamesResponse}
                       hideServiceIdentifier
                     /&gt;
                   &lt;/&gt;
@@ -940,7 +907,7 @@ export default function AppDMappedMetric({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jan 13 2022 09:26:19 GMT+0000 (Greenwich Mean Time)
+                at Thu Jan 13 2022 11:08:37 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../prettify.js"></script>

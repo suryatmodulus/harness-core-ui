@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/60</span>
+                <span class='fraction'>36/54</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">45.45% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/12</span>
+                <span class='fraction'>5/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.42% </span>
+                <span class="strong">65.38% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>39/57</span>
+                <span class='fraction'>34/52</span>
             </div>
         
             
@@ -281,21 +281,9 @@
 <a name='L222'></a><a href='#L222'>222</a>
 <a name='L223'></a><a href='#L223'>223</a>
 <a name='L224'></a><a href='#L224'>224</a>
-<a name='L225'></a><a href='#L225'>225</a>
-<a name='L226'></a><a href='#L226'>226</a>
-<a name='L227'></a><a href='#L227'>227</a>
-<a name='L228'></a><a href='#L228'>228</a>
-<a name='L229'></a><a href='#L229'>229</a>
-<a name='L230'></a><a href='#L230'>230</a>
-<a name='L231'></a><a href='#L231'>231</a>
-<a name='L232'></a><a href='#L232'>232</a>
-<a name='L233'></a><a href='#L233'>233</a>
-<a name='L234'></a><a href='#L234'>234</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L225'></a><a href='#L225'>225</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
@@ -334,14 +322,9 @@
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -522,18 +505,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useContext, useMemo, useCallback } from 'react'
 import { Container, Formik, FormikForm, Layout, Utils, Accordion } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
 import { MultiItemsSideNav } from '@cv/components/MultiItemsSideNav/MultiItemsSideNav'
 import { SetupSourceCardHeader } from '@cv/components/CVSetupSourcesView/SetupSourceCardHeader/SetupSourceCardHeader'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
-import { useGetLabelNames } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import {
   initializeCreatedMetrics,
@@ -567,14 +546,9 @@ export interface CustomHealthSourceProps {
 export function CustomHealthSource(props: CustomHealthSourceProps): JSX.Element {
   const { getString } = useStrings()
   const { onPrevious } = useContext(SetupSourceTabsContext)
-  const { projectIdentifier, orgIdentifier, accountId } = useParams&lt;ProjectPathProps &amp; { identifier: string }&gt;()
-  const [labelNameTracingId] = useMemo(() =&gt; [Utils.randomId()], [])
 &nbsp;
   const { data: sourceData, onSubmit } = props
   const connectorIdentifier = sourceData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
-  const labelNamesResponse = useGetLabelNames({
-    queryParams: { projectIdentifier, orgIdentifier, accountId, connectorIdentifier, tracingId: labelNameTracingId }
-  })
 &nbsp;
   const transformedSourceData = useMemo(() =&gt; transformCustomHealthSourceToSetupSource(sourceData), [sourceData])
 &nbsp;
@@ -725,7 +699,6 @@ export function CustomHealthSource(props: CustomHealthSourceProps): JSX.Element 
                           }}
                           hideServiceIdentifier
                           metricPackResponse={metricPacks}
-                          labelNamesResponse={labelNamesResponse}
                           hideCV={formikProps.values<span class="branch-0 cbranch-no" title="branch not covered" >?.q</span>ueryType === QueryType.SERVICE_BASED}
                           hideSLIAndHealthScore={formikProps.values<span class="branch-0 cbranch-no" title="branch not covered" >?.q</span>ueryType === QueryType.HOST_BASED}
                         /&gt;
@@ -763,7 +736,7 @@ export function CustomHealthSource(props: CustomHealthSourceProps): JSX.Element 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jan 13 2022 09:26:19 GMT+0000 (Greenwich Mean Time)
+                at Thu Jan 13 2022 11:08:37 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

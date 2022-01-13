@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.73% </span>
+                <span class="strong">89.51% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>131/146</span>
+                <span class='fraction'>128/143</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.73% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>16/22</span>
+                <span class='fraction'>15/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.21% </span>
+                <span class="strong">90.07% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>129/143</span>
+                <span class='fraction'>127/141</span>
             </div>
         
             
@@ -489,18 +489,7 @@
 <a name='L430'></a><a href='#L430'>430</a>
 <a name='L431'></a><a href='#L431'>431</a>
 <a name='L432'></a><a href='#L432'>432</a>
-<a name='L433'></a><a href='#L433'>433</a>
-<a name='L434'></a><a href='#L434'>434</a>
-<a name='L435'></a><a href='#L435'>435</a>
-<a name='L436'></a><a href='#L436'>436</a>
-<a name='L437'></a><a href='#L437'>437</a>
-<a name='L438'></a><a href='#L438'>438</a>
-<a name='L439'></a><a href='#L439'>439</a>
-<a name='L440'></a><a href='#L440'>440</a>
-<a name='L441'></a><a href='#L441'>441</a>
-<a name='L442'></a><a href='#L442'>442</a>
-<a name='L443'></a><a href='#L443'>443</a>
-<a name='L444'></a><a href='#L444'>444</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L433'></a><a href='#L433'>433</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -709,16 +698,6 @@
 <span class="cline-any cline-yes">60x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">60x</span>
-<span class="cline-any cline-yes">60x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">60x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -863,7 +842,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -967,7 +945,7 @@ import { Drawer } from '@blueprintjs/core'
 import isEmpty from 'lodash-es/isEmpty'
 import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { StackdriverDefinition, useGetLabelNames, useGetMetricPacks, useGetStackdriverSampleData } from 'services/cv'
+import { StackdriverDefinition, useGetMetricPacks, useGetStackdriverSampleData } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
@@ -1152,16 +1130,6 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
   const metricPackResponse = useGetMetricPacks({
     queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'STACKDRIVER' }
   })
-  const labelNameTracingId = useMemo(() =&gt; Utils.randomId(), [])
-  const labelNamesResponse = useGetLabelNames({
-    queryParams: {
-      projectIdentifier,
-      orgIdentifier,
-      accountId,
-      connectorIdentifier: data.connectorRef,
-      tracingId: labelNameTracingId
-    }
-  })
 &nbsp;
   const formInitialValues: GCOMetricInfo = updatedData.get(selectedMetric || '') || {}
 &nbsp;
@@ -1298,7 +1266,6 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                     continuousVerification
                   }}
                   metricPackResponse={metricPackResponse}
-                  labelNamesResponse={labelNamesResponse}
                   hideServiceIdentifier
                 /&gt;
 &nbsp;
@@ -1393,7 +1360,7 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jan 13 2022 09:26:19 GMT+0000 (Greenwich Mean Time)
+                at Thu Jan 13 2022 11:08:37 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

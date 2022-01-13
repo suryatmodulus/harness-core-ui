@@ -1,5 +1,15 @@
 import React, { useState } from 'react'
-import { Icon, SelectOption, Text, Button, Container, Layout, ButtonVariation, Color } from '@wings-software/uicore'
+import {
+  Icon,
+  SelectOption,
+  Text,
+  Button,
+  Container,
+  Layout,
+  ButtonVariation,
+  Color,
+  FontVariation
+} from '@wings-software/uicore'
 import { Select } from '@blueprintjs/select'
 import { MenuItem } from '@blueprintjs/core'
 import cx from 'classnames'
@@ -167,7 +177,12 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
   )
   return (
     <Container className={css.secretRefContainer}>
-      <Layout.Horizontal className={css.createSecretsBtnLayout}>
+      <Layout.Horizontal flex={{ distribution: 'space-between' }} margin={{ bottom: 'large', right: 'xsmall' }}>
+        <Text font={{ variation: FontVariation.H4 }}>
+          {getString('common.entityReferenceTitle', {
+            compName: getString('secretType')
+          })}
+        </Text>
         {type !== 'SSHKey' && (
           <Button
             text={
@@ -182,7 +197,7 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
               )
             }
             variation={ButtonVariation.SECONDARY}
-            margin={{ bottom: 'medium' }}
+            margin={{ right: 'large' }}
           />
         )}
         {type === 'SSHKey' && handleInlineSSHSecretCreation && (
@@ -191,7 +206,7 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
             icon="plus"
             onClick={handleInlineSSHSecretCreation}
             variation={ButtonVariation.SECONDARY}
-            margin={{ bottom: 'medium' }}
+            margin={{ right: 'large' }}
           />
         )}
       </Layout.Horizontal>
@@ -245,7 +260,7 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
                 <Layout.Horizontal spacing="medium" className={css.leftInfo}>
                   <Icon
                     className={cx(css.iconCheck, { [css.iconChecked]: selected })}
-                    size={12}
+                    size={14}
                     name="pipeline-approval"
                   />
                   <Layout.Horizontal flex={{ alignItems: 'center' }}>
@@ -253,7 +268,7 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
                       <Icon
                         name={item.record.type === 'SecretText' ? 'text' : 'file'}
                         size={24}
-                        // className={css.secretIcon}
+                        className={css.secretIcon}
                       />
                     ) : null}
                     <Layout.Vertical padding={{ left: 'small' }}>

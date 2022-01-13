@@ -206,7 +206,7 @@
   }
 
   .item {
-    height: 63px;
+    height: var(--spacing-11);
     display: flex;
     align-items: center;
     cursor: pointer;

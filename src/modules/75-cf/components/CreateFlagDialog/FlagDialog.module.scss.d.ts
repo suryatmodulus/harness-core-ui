@@ -6,6 +6,5 @@ declare const styles: {
   readonly typeFlagContainer: string
   readonly typeFlagBtns: string
   readonly iconMl: string
-  readonly openModalBtn: string
 }
 export default styles

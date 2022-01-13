@@ -87,6 +87,7 @@ const ConfigureAlerts: React.FC<StepProps<BudgetStepData> & Props> = props => {
       }
     })
 
+    /* istanbul ignore next */
     const emptyThresholds = (t: AlertThreshold) => (t.emailAddresses?.length || 0) > 0 && t.percentage
     const payload = {
       name: budgetName,
@@ -104,11 +105,13 @@ const ConfigureAlerts: React.FC<StepProps<BudgetStepData> & Props> = props => {
     }
 
     try {
+      /* istanbul ignore next */
       await (isEditMode ? updateBudget(payload as Budget) : createBudget(payload as Budget))
       props.onSuccess()
     } catch (e) {
       setError(true)
       setLoading(false)
+      /* istanbul ignore next */
       modalErrorHandler?.showDanger(e.data.message)
     }
   }
@@ -126,7 +129,12 @@ const ConfigureAlerts: React.FC<StepProps<BudgetStepData> & Props> = props => {
           return (
             <FormikForm>
               <Container className={css.selectPerspectiveContainer}>
-                <Text font={{ variation: FontVariation.H4 }}>
+                <Text
+                  font={{ variation: FontVariation.H4 }}
+                  tooltipProps={{
+                    dataTooltipId: 'createBudgetConfigureAlerts'
+                  }}
+                >
                   {getString('ce.perspectives.budgets.configureAlerts.title')}
                 </Text>
                 <ModalErrorHandler bind={setModalErrorHandler} />
@@ -197,7 +205,7 @@ const Thresholds = (props: ThresholdsProps): JSX.Element => {
         <Text className={css.label}>{getString('ce.perspectives.budgets.configureAlerts.basedOn')}</Text>
         <Text color="grey0">{getString('ce.perspectives.budgets.configureAlerts.exceeds')}</Text>
         <Text className={css.label}>{getString('ce.perspectives.budgets.configureAlerts.percent')}</Text>
-        <Text className={css.label}>{getString('ce.perspectives.reports.recipientLabel')}</Text>
+        <Text className={css.label}>{getString('ce.perspectives.budgets.configureAlerts.sendAlertTo')}</Text>
       </div>
     )
   }

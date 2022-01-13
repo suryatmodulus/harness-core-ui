@@ -4,6 +4,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { useGetLicensesAndSummary } from 'services/cd-ng'
 import { useGetLicenseUsage } from 'services/cf'
 import { useGetUsage } from 'services/ci'
+import { useGetCCMLicenseUsage } from 'services/ce'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useGetUsageAndLimit } from '../useGetUsageAndLimit'
 
@@ -33,6 +34,22 @@ useGetCILicenseUsageMock.mockImplementation(() => {
       data: {
         activeCommitters: {
           count: 23,
+          displayName: 'Last 30 Days'
+        }
+      },
+      status: 'SUCCESS'
+    }
+  }
+})
+
+jest.mock('services/ce')
+const useGetCCMLicenseUsageMock = useGetCCMLicenseUsage as jest.MockedFunction<any>
+useGetCCMLicenseUsageMock.mockImplementation(() => {
+  return {
+    data: {
+      data: {
+        activeSpend: {
+          count: 29,
           displayName: 'Last 30 Days'
         }
       },
@@ -84,5 +101,28 @@ describe('useGetUsageAndLimit', () => {
     expect(result.current.usageData.usage?.ci).toBeUndefined()
     expect(result.current.usageData.usage?.ff?.activeClientMAUs?.count).toBe(32)
     expect(result.current.usageData.usage?.ff?.activeFeatureFlagUsers?.count).toBe(55)
+  })
+
+  test('should fetch CCM usage and limit when module is CCM', async () => {
+    useGetLicensesAndSummaryMock.mockImplementation(() => {
+      return {
+        data: {
+          data: {
+            totalSpendLimit: 1000
+          },
+          status: 'SUCCESS'
+        }
+      }
+    })
+    const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
+      <TestWrapper>{children}</TestWrapper>
+    )
+    const { result } = renderHook(() => useGetUsageAndLimit(ModuleName.CE), { wrapper })
+    expect(result.current.limitData.limit?.ci).toBeUndefined()
+    expect(result.current.limitData.limit?.ff).toBeUndefined()
+    expect(result.current.limitData.limit?.ccm?.totalSpendLimit).toBe(1000)
+    expect(result.current.usageData.usage?.ci).toBeUndefined()
+    expect(result.current.usageData.usage?.ff).toBeUndefined()
+    expect(result.current.usageData.usage?.ccm?.activeSpend?.count).toBe(29)
   })
 })

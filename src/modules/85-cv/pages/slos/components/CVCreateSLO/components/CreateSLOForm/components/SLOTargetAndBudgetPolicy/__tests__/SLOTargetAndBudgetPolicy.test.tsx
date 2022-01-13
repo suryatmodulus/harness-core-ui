@@ -15,10 +15,14 @@ import {
   getPeriodLengthOptionsForRolling
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
 import { PeriodLengthTypes, PeriodTypes } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
-import * as SLOTargetChart from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
 import SLOTargetAndBudgetPolicy from '../SLOTargetAndBudgetPolicy'
 
-jest.spyOn(SLOTargetChart, 'SLOTargetChart').mockReturnValue((<span data-testid="SLO-target-chart" />) as any)
+jest.mock('@cv/pages/slos/components/SLOTargetChart/SLOTargetChart', () => ({
+  __esModule: true,
+  default: function SLOTargetChart() {
+    return <span data-testid="SLO-target-chart" />
+  }
+}))
 
 function WrapperComponent(props: { initialValues: any }): JSX.Element {
   const { initialValues } = props

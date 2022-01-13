@@ -20,7 +20,6 @@ import type { Cell, CellProps, Column, Renderer } from 'react-table'
 import type { MutateMethod } from 'restful-react'
 import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
-import { useConfirmAction } from '@common/hooks'
 import {
   DeleteFeatureFlagQueryParams,
   Feature,
@@ -51,13 +50,10 @@ import {
   getErrorMessage,
   isFeatureFlagOn,
   rewriteCurrentLocationWithActiveEnvironment,
-  showToaster,
   useFeatureFlagTypeToStringMapping
 } from '@cf/utils/CFUtils'
 import { FlagTypeVariations } from '@cf/components/CreateFlagDialog/FlagDialogUtils'
-// import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
 import FlagDialog from '@cf/components/CreateFlagDialog/FlagDialog'
-import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 
 import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
@@ -65,7 +61,8 @@ import GitSyncActions from '@cf/components/GitSyncActions/GitSyncActions'
 import { GitDetails, GitSyncFormValues, GIT_SYNC_ERROR_CODE, useGitSync, UseGitSync } from '@cf/hooks/useGitSync'
 import UsageLimitBanner from '@cf/components/UsageLimitBanner/UsageLimitBanner'
 import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
-import imageURL from './Feature_Flags_LP.svg'
+import FlagOptionsMenuButton from '@cf/components/FlagOptionsMenuButton/FlagOptionsMenuButton'
+import imageURL from './Feature_Flags_Teepee.svg'
 import { FeatureFlagStatus, FlagStatus } from './FlagStatus'
 import { FlagResult } from './FlagResult'
 import css from './FeatureFlagsPage.module.scss'
@@ -342,13 +339,7 @@ interface ColumnMenuProps {
 
 const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ gitSync, deleteFlag, cell: { row, column }, environment }) => {
   const data = row.original
-  const { showError, clear } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<Record<string, string>>()
-  const history = useHistory()
-  const { withActiveEnvironment } = useActiveEnvironment()
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
-
-  const { getString } = useStrings()
   const queryParams = {
     project: projectIdentifier as string,
     account: accountId,
@@ -358,107 +349,15 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ gitSync, deleteFlag, cell
 
   const refetch = (column as unknown as { refetch: () => void }).refetch
 
-  const handleDeleteFlag = async (gitSyncFormValues?: GitSyncFormValues): Promise<void> => {
-    let commitMsg = ''
-
-    if (gitSync.isGitSyncEnabled) {
-      const { gitSyncInitialValues } = gitSync.getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.DELETED_FLAG)
-
-      if (gitSync.isAutoCommitEnabled) {
-        commitMsg = gitSyncInitialValues.gitDetails.commitMsg
-      } else {
-        commitMsg = gitSyncFormValues?.gitDetails.commitMsg || ''
-      }
-    }
-
-    try {
-      clear()
-
-      await deleteFlag(data.identifier, { queryParams: { ...queryParams, commitMsg } })
-
-      if (gitSync.isGitSyncEnabled && gitSyncFormValues?.autoCommit) {
-        await gitSync.handleAutoCommit(gitSyncFormValues?.autoCommit)
-      }
-
-      showToaster(getString('cf.messages.flagDeleted'))
-      refetch?.()
-    } catch (error: any) {
-      if (error.status === GIT_SYNC_ERROR_CODE) {
-        gitSync.handleError(error.data as GitSyncErrorResponse)
-      } else {
-        showError(getErrorMessage(error), 0, 'cf.toggle.ff.status.error')
-      }
-    }
-  }
-
-  const confirmDeleteFlag = useConfirmAction({
-    title: getString('cf.featureFlags.deleteFlag'),
-    confirmText: getString('delete'),
-    message: (
-      <Text>
-        <span
-          dangerouslySetInnerHTML={{ __html: getString('cf.featureFlags.deleteFlagMessage', { name: data.name }) }}
-        />
-      </Text>
-    ),
-    action: async () => {
-      if (gitSync?.isGitSyncEnabled && !gitSync?.isAutoCommitEnabled) {
-        setIsDeleteModalOpen(true)
-      } else {
-        handleDeleteFlag()
-      }
-    }
-  })
-
-  const gotoDetailPage = (): void => {
-    history.push(
-      withActiveEnvironment(
-        routes.toCFFeatureFlagsDetail({
-          orgIdentifier: orgIdentifier as string,
-          projectIdentifier: projectIdentifier as string,
-          featureFlagIdentifier: data.identifier,
-          accountId
-        }),
-        environment
-      )
-    )
-  }
-
   return (
     <Container style={{ textAlign: 'right' }} onClick={Utils.stopEvent}>
-      <Container onClick={event => event.stopPropagation()}>
-        {isDeleteModalOpen && (
-          <SaveFlagToGitModal
-            flagName={data.name}
-            flagIdentifier={data.identifier}
-            onSubmit={handleDeleteFlag}
-            onClose={() => {
-              setIsDeleteModalOpen(false)
-            }}
-          />
-        )}
-      </Container>
-      <RbacOptionsMenuButton
-        items={[
-          {
-            icon: 'edit',
-            text: getString('edit'),
-            onClick: gotoDetailPage,
-            permission: {
-              resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: environment },
-              permission: PermissionIdentifier.EDIT_FF_FEATUREFLAG
-            }
-          },
-          {
-            icon: 'trash',
-            text: getString('delete'),
-            onClick: confirmDeleteFlag,
-            permission: {
-              resource: { resourceType: ResourceType.FEATUREFLAG },
-              permission: PermissionIdentifier.DELETE_FF_FEATUREFLAG
-            }
-          }
-        ]}
+      <FlagOptionsMenuButton
+        environment={environment}
+        flagData={data}
+        queryParams={queryParams}
+        deleteFlag={deleteFlag}
+        gitSync={gitSync}
+        refetchFlags={refetch}
       />
     </Container>
   )

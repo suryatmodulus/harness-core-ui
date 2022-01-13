@@ -574,17 +574,29 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font StyledProps--main label StyledProps--font-small StyledProps--color StyledProps--color-grey700"
                     style="width: 80px;"
                   >
                     services
                   </p>
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-black"
-                    style="--text-line-clamp: 1;"
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
                   >
-                    nginx service
-                  </p>
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="entityContainer"
+                        tabindex="0"
+                      >
+                        <div
+                          class="firstEntity"
+                        >
+                          nginx service
+                        </div>
+                      </div>
+                    </span>
+                  </span>
                 </div>
               </div>
               <div
@@ -972,17 +984,29 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font StyledProps--main label StyledProps--font-small StyledProps--color StyledProps--color-grey700"
                     style="width: 80px;"
                   >
                     services
                   </p>
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-black"
-                    style="--text-line-clamp: 1;"
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
                   >
-                    nginx service
-                  </p>
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="entityContainer"
+                        tabindex="0"
+                      >
+                        <div
+                          class="firstEntity"
+                        >
+                          nginx service
+                        </div>
+                      </div>
+                    </span>
+                  </span>
                 </div>
               </div>
               <div
@@ -1379,7 +1403,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font StyledProps--main label StyledProps--font-small StyledProps--color StyledProps--color-grey700"
                     style="width: 80px;"
                   >
                     services

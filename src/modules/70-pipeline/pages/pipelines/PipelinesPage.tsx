@@ -19,7 +19,7 @@ import {
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
-import { defaultTo, pick } from 'lodash-es'
+import { defaultTo, isEmpty, pick } from 'lodash-es'
 import { Page, StringUtils, useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import {
@@ -74,6 +74,7 @@ import { NavigatedToPage } from '@common/constants/TrackingConstants'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
 import PipelineFilterForm from '../pipeline-deployment-list/PipelineFilterForm/PipelineFilterForm'
@@ -157,6 +158,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const isCIEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CI') > -1) || false
   const isCIModule = module === 'ci'
   const searchRef = useRef<ExpandingSearchInputHandle>({} as ExpandingSearchInputHandle)
+  const { NG_NATIVE_HELM } = useFeatureFlags()
 
   const goToPipelineDetail = useCallback(
     (/* istanbul ignore next */ pipeline?: PMSPipelineSummaryResponse) => {
@@ -345,6 +347,18 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   }
 
   const { data: deploymentTypeResponse, loading: isFetchingDeploymentTypes } = useGetServiceDefinitionTypes({})
+  const [deploymentTypeSelectOptions, setDeploymentTypeSelectOptions] = React.useState<SelectOption[]>([])
+
+  React.useEffect(() => {
+    if (!isEmpty(deploymentTypeResponse?.data) && deploymentTypeResponse?.data) {
+      const options: SelectOption[] = deploymentTypeResponse.data.map(type => ({
+        label: type === 'NativeHelm' ? getString('pipeline.nativeHelm') : getString('kubernetesText'),
+        value: type as string
+      }))
+      setDeploymentTypeSelectOptions(options)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deploymentTypeResponse?.data])
 
   const {
     data: servicesResponse,
@@ -420,9 +434,9 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             initialValues={{
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
               services: getMultiSelectFormOptions(servicesResponse?.data?.content),
-              deploymentType: getMultiSelectFormOptions(
-                deploymentTypeResponse?.data?.filter(deploymentType => deploymentType !== 'NativeHelm') //This filter will be removed once nativeHelm is enabled
-              )
+              deploymentType: NG_NATIVE_HELM
+                ? deploymentTypeSelectOptions
+                : deploymentTypeSelectOptions.filter(deploymentType => deploymentType.value !== 'NativeHelm')
             }}
             type="PipelineSetup"
           />

@@ -97,22 +97,10 @@ export interface HelmWithHTTPDataType {
   commandFlags: Array<CommandFlags>
 }
 
-export interface HelmWithGcsDataType {
-  identifier: string
-  helmVersion: HelmVersionOptions
-  skipResourceVersioning: boolean
-  chartName: string
-  chartVersion: string
-  commandFlags: Array<CommandFlags>
-  bucketName: string
-  folderPath: string
-}
-export interface HelmWithS3DataType extends HelmWithHTTPDataType {
-  folderPath: string
-  region: SelectOption | string
+export interface HelmWithGcsDataType extends HelmWithHTTPDataType {
   bucketName: SelectOption | string
+  folderPath: string
 }
-
 export interface OpenShiftTemplateGITDataType {
   identifier: string
   branch: string | undefined

@@ -13,3 +13,9 @@
 .pageBody {
   --page-header-height: 146px;
 }
+.link {
+  color: var(--primary-7);
+  .launchIcon {
+    margin: 0 0 var(--spacing-tiny) var(--spacing-tiny) !important;
+  }
+}

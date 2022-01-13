@@ -167,7 +167,7 @@ const SaveAsInputSet = ({
                 handleSubmit(input, { repoIdentifier: input.repo, branch: input.branch })
               }}
               validationSchema={Yup.object().shape({
-                name: NameSchema({ requiredErrorMsg: getString('inputSets.nameIsRequired') }),
+                name: NameSchema({ requiredErrorMsg: getString('common.validation.nameIsRequired') }),
                 identifier: IdentifierSchema()
               })}
               initialValues={
@@ -186,7 +186,7 @@ const SaveAsInputSet = ({
                   <Layout.Vertical padding="large" width={400}>
                     <NameIdDescriptionTags
                       identifierProps={{
-                        inputLabel: getString('inputSets.inputSetName'),
+                        inputLabel: getString('name'),
                         isIdentifierEditable: true,
                         inputGroupProps: {
                           disabled: !canEdit

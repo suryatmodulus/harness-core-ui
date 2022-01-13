@@ -219,6 +219,8 @@ const FoldersPage: React.FC = () => {
   const [sortby, setSortingFilter] = useState<SelectOption>(defaultSortBy)
   const [isOpen, setDrawerOpen] = useState(false)
 
+  const strRefFolders = 'dashboards.homePage.folders'
+
   React.useEffect(() => {
     const script = document.createElement('script')
 
@@ -319,294 +321,288 @@ const FoldersPage: React.FC = () => {
   const { openDialog } = useDeleteFolder(deleteContext, onDeleted)
 
   return (
-    <Page.Body
-      loading={loading}
-      className={css.pageContainer}
-      retryOnError={() => {
-        return
-      }}
-      error={(error?.data as Error)?.message}
-    >
-      <GetStarted isOpen={isOpen} setDrawerOpen={val => setDrawerOpen(val)} />
-      <Layout.Vertical padding="large" background={Color.GREY_0}>
-        <Layout.Horizontal style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-          <Layout.Vertical spacing="medium">
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toCustomDashboardHome({ accountId }),
-                  label: 'Home'
-                },
-                {
-                  url: routes.toCustomDashboardHome({ accountId }),
-                  label: getString('common.dashboards')
-                }
-              ]}
-            />
-            <Text color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }}>
-              {getString('dashboards.homePage.folders')}
-            </Text>
-          </Layout.Vertical>
-          <Layout.Horizontal>
-            <Layout.Horizontal spacing="medium">
-              <NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toCustomDashboardHome({ accountId })}
-              >
-                {getString('common.dashboards')}
-              </NavLink>
-              <NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toCustomFolderHome({ accountId })}
-              >
-                {getString('dashboards.homePage.folders')}
-              </NavLink>
-            </Layout.Horizontal>
-          </Layout.Horizontal>
+    <Container className={css.pageContainer}>
+      <Page.Header
+        title={getString(strRefFolders)}
+        breadcrumbs={
+          <Breadcrumbs
+            links={[
+              {
+                url: routes.toCustomDashboardHome({ accountId }),
+                label: 'Home'
+              },
+              {
+                url: routes.toCustomDashboardHome({ accountId }),
+                label: getString('common.dashboards')
+              }
+            ]}
+          />
+        }
+        toolbar={
+          <Text color={Color.PRIMARY_6} style={{ cursor: 'pointer' }} onClick={() => setDrawerOpen(true)}>
+            {' '}
+            <Icon name="question" /> {getString('getStarted')}
+          </Text>
+        }
+        content={
           <Layout.Horizontal spacing="medium">
-            <Text color={Color.PRIMARY_6} style={{ cursor: 'pointer' }} onClick={() => setDrawerOpen(true)}>
-              {' '}
-              <Icon name="question" /> {getString('getStarted')}
-            </Text>
+            <NavLink
+              className={css.tags}
+              activeClassName={css.activeTag}
+              to={routes.toCustomDashboardHome({ accountId })}
+            >
+              {getString('common.dashboards')}
+            </NavLink>
+            <NavLink activeClassName={css.activeTag} className={css.tags} to={routes.toCustomFolderHome({ accountId })}>
+              {getString(strRefFolders)}
+            </NavLink>
           </Layout.Horizontal>
-        </Layout.Horizontal>
-        <Layout.Horizontal
-          style={{
-            borderBottom: '1px solid var(--grey-100)',
-            justifyContent: 'space-between',
-            paddingLeft: 0,
-            paddingRight: 0
-          }}
-          padding="medium"
-          flex={true}
-        >
+        }
+      />
+      <Page.Body
+        retryOnError={() => {
+          return
+        }}
+        loading={loading}
+        error={(error?.data as Error)?.message}
+      >
+        <GetStarted isOpen={isOpen} setDrawerOpen={val => setDrawerOpen(val)} />
+        <Layout.Vertical background={Color.GREY_0} padding="large">
           <Layout.Horizontal
-            spacing="medium"
-            style={{ justifyContent: 'space-between', alignItems: 'center', width: '100%' }}
+            flex={true}
+            style={{
+              borderBottom: '1px solid var(--grey-100)',
+              justifyContent: 'space-between',
+              paddingLeft: 0,
+              paddingRight: 0
+            }}
           >
-            <section style={{ display: 'flex' }}>
-              <RbacButton
-                intent="primary"
-                text={getString('dashboards.homePage.folders')}
-                onClick={() => showModal()}
-                icon="plus"
-                style={{ minWidth: '110px', marginRight: 'var(--spacing-11)' }}
-                permission={{
-                  permission: PermissionIdentifier.EDIT_ACCOUNT,
-                  resource: {
-                    resourceType: ResourceType.ACCOUNT
-                  }
-                }}
-              />
-            </section>
-            <Layout.Horizontal>
-              <CustomSelect
-                items={sortingOptions}
-                filterable={false}
-                itemRenderer={(item, { handleClick }) => (
-                  <div key={item.value.toString()}>
-                    <Menu.Item text={item.label} onClick={handleClick} />
-                  </div>
-                )}
-                onItemSelect={item => {
-                  setSortingFilter(item)
-                }}
-                popoverProps={{ minimal: true, popoverClassName: '' }}
-              >
-                <Button
-                  inline
-                  round
-                  rightIcon="chevron-down"
-                  className={css.customSelect}
-                  text={
-                    <Layout.Horizontal spacing="xsmall">
-                      <Text color={Color.BLACK}>{'Sort By'}</Text>
-                      <Text>{sortby?.label}</Text>
-                    </Layout.Horizontal>
-                  }
+            <Layout.Horizontal
+              spacing="medium"
+              style={{ justifyContent: 'space-between', alignItems: 'center', width: '100%' }}
+            >
+              <section style={{ display: 'flex' }}>
+                <RbacButton
+                  intent="primary"
+                  text={getString(strRefFolders)}
+                  onClick={() => showModal()}
+                  icon="plus"
+                  style={{ minWidth: '110px', marginRight: 'var(--spacing-11)' }}
+                  permission={{
+                    permission: PermissionIdentifier.EDIT_ACCOUNT,
+                    resource: {
+                      resourceType: ResourceType.ACCOUNT
+                    }
+                  }}
                 />
-              </CustomSelect>
+              </section>
               <Layout.Horizontal>
-                <Button
-                  minimal
-                  icon="grid-view"
-                  intent={layoutView === LayoutViews.GRID ? 'primary' : 'none'}
-                  onClick={() => {
-                    setLayoutView(LayoutViews.GRID)
+                <CustomSelect
+                  items={sortingOptions}
+                  filterable={false}
+                  itemRenderer={(item, { handleClick }) => (
+                    <div key={item.value.toString()}>
+                      <Menu.Item text={item.label} onClick={handleClick} />
+                    </div>
+                  )}
+                  onItemSelect={item => {
+                    setSortingFilter(item)
                   }}
-                />
-                <Button
-                  minimal
-                  icon="list"
-                  intent={layoutView === LayoutViews.LIST ? 'primary' : 'none'}
-                  onClick={() => {
-                    setLayoutView(LayoutViews.LIST)
-                  }}
-                />
+                  popoverProps={{ minimal: true, popoverClassName: '' }}
+                >
+                  <Button
+                    inline
+                    round
+                    rightIcon="chevron-down"
+                    className={css.customSelect}
+                    text={
+                      <Layout.Horizontal spacing="xsmall">
+                        <Text color={Color.BLACK}>{'Sort By'}</Text>
+                        <Text>{sortby?.label}</Text>
+                      </Layout.Horizontal>
+                    }
+                  />
+                </CustomSelect>
+                <Layout.Horizontal>
+                  <Button
+                    minimal
+                    icon="grid-view"
+                    intent={layoutView === LayoutViews.GRID ? 'primary' : 'none'}
+                    onClick={() => {
+                      setLayoutView(LayoutViews.GRID)
+                    }}
+                  />
+                  <Button
+                    minimal
+                    icon="list"
+                    intent={layoutView === LayoutViews.LIST ? 'primary' : 'none'}
+                    onClick={() => {
+                      setLayoutView(LayoutViews.LIST)
+                    }}
+                  />
+                </Layout.Horizontal>
               </Layout.Horizontal>
             </Layout.Horizontal>
           </Layout.Horizontal>
-        </Layout.Horizontal>
-      </Layout.Vertical>
+        </Layout.Vertical>
 
-      <Layout.Vertical padding="large" style={{ height: 'calc(100vh - 226px)', paddingTop: 0, overflow: 'scroll' }}>
-        <Layout.Horizontal style={{ padding: 'var(--spacing-6) var(--spacing-9) ' }}>
-          <ExpandingSearchInput
-            placeholder={getString('dashboards.homePage.searchPlaceholder')}
-            onChange={(text: string) => {
-              setSearchTerm(text)
-            }}
-            className={css.search}
-          />
-        </Layout.Horizontal>
-        <Layout.Horizontal style={{ marginLeft: 'var(--spacing-xxxlarge)', alignItems: 'baseline' }}>
-          <section className={css.filteredTags}>
-            {filteredTags.map((tag: string, index: number) => {
-              return (
-                <section className={css.customTag} key={tag + index}>
-                  {tag}{' '}
-                  <Icon
-                    name="cross"
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => {
-                      const filterTags = filteredTags.filter(v => v !== tag)
-                      setFilteredTags(filterTags)
-                    }}
-                  />
-                </section>
-              )
-            })}
-          </section>
-          {filteredTags?.length > 0 && (
-            <Text
-              color={Color.PRIMARY_7}
-              style={{ cursor: 'pointer' }}
-              font={{ weight: 'semi-bold' }}
-              onClick={() => setFilteredTags([])}
-            >
-              Clear All
-            </Text>
-          )}
-        </Layout.Horizontal>
+        <Layout.Vertical padding="large" style={{ height: 'calc(100vh - 226px)', paddingTop: 0, overflow: 'scroll' }}>
+          <Layout.Horizontal style={{ padding: 'var(--spacing-6) var(--spacing-9) ' }}>
+            <ExpandingSearchInput
+              placeholder={getString('dashboards.homePage.searchPlaceholder')}
+              onChange={(text: string) => {
+                setSearchTerm(text)
+              }}
+              className={css.search}
+            />
+          </Layout.Horizontal>
+          <Layout.Horizontal style={{ marginLeft: 'var(--spacing-xxxlarge)', alignItems: 'baseline' }}>
+            <section className={css.filteredTags}>
+              {filteredTags.map((tag: string, index: number) => {
+                return (
+                  <section className={css.customTag} key={tag + index}>
+                    {tag}{' '}
+                    <Icon
+                      name="cross"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => {
+                        const filterTags = filteredTags.filter(v => v !== tag)
+                        setFilteredTags(filterTags)
+                      }}
+                    />
+                  </section>
+                )
+              })}
+            </section>
+            {filteredTags?.length > 0 && (
+              <Text
+                color={Color.PRIMARY_7}
+                style={{ cursor: 'pointer' }}
+                font={{ weight: 'semi-bold' }}
+                onClick={() => setFilteredTags([])}
+              >
+                Clear All
+              </Text>
+            )}
+          </Layout.Horizontal>
 
-        {filteredFoldersList && filteredFoldersList.length > 0 && layoutView === LayoutViews.GRID && (
-          <Layout.Vertical padding="large">
-            <Container className={css.folderMasonry}>
-              <Layout.Masonry
-                center
-                gutter={25}
-                items={filteredFoldersList}
-                renderItem={(folder: FolderInterface) => (
-                  <Card className={cx(css.dashboardCard)}>
-                    <Container>
-                      {folder?.type !== folderType.SHARED && (
-                        <CardBody.Menu
-                          menuContent={
-                            <Menu>
-                              <MenuItem
-                                text="Delete"
-                                onClick={() => {
-                                  setDeleteContext(folder)
-                                  openDialog()
-                                }}
-                              />
-                            </Menu>
-                          }
-                          menuPopoverProps={{
-                            className: Classes.DARK
-                          }}
-                        />
-                      )}
-
-                      <Layout.Vertical
-                        spacing="large"
-                        onClick={() => {
-                          history.push({
-                            pathname: routes.toCustomDashboardHome({
-                              folderId: folder?.id ? folder?.id : 'shared',
-                              accountId: accountId
-                            })
-                          })
-                        }}
-                      >
-                        <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
-                          {folder?.name}
-                        </Text>
-                        {/* {TagsRenderer(folder)} */}
-                        <Layout.Horizontal spacing="medium">
-                          <Container
-                            flex
-                            style={{
-                              borderRadius: '5px',
-                              flexDirection: 'row',
-                              justifyContent: 'start',
-                              alignItems: 'center'
+          {filteredFoldersList && filteredFoldersList.length > 0 && layoutView === LayoutViews.GRID && (
+            <Layout.Vertical padding="large">
+              <Container className={css.folderMasonry}>
+                <Layout.Masonry
+                  center
+                  gutter={25}
+                  items={filteredFoldersList}
+                  renderItem={(folder: FolderInterface) => (
+                    <Card className={cx(css.dashboardCard)}>
+                      <Container>
+                        {folder?.type !== folderType.SHARED && (
+                          <CardBody.Menu
+                            menuContent={
+                              <Menu>
+                                <MenuItem
+                                  text="Delete"
+                                  onClick={() => {
+                                    setDeleteContext(folder)
+                                    openDialog()
+                                  }}
+                                />
+                              </Menu>
+                            }
+                            menuPopoverProps={{
+                              className: Classes.DARK
                             }}
-                          >
-                            <Layout.Vertical padding="none">
-                              <Layout.Horizontal spacing="small">
-                                <img src={dashboardIcon} height={20} />
-                                <Text color={Color.PRIMARY_7} font={{ size: 'medium', weight: 'semi-bold' }}>
-                                  {folder?.child_count || 0}
-                                </Text>
-                              </Layout.Horizontal>
-                            </Layout.Vertical>
-                          </Container>
-                        </Layout.Horizontal>
-                      </Layout.Vertical>
-                    </Container>
-                  </Card>
-                )}
-                keyOf={folder => folder?.id}
+                          />
+                        )}
+
+                        <Layout.Vertical
+                          spacing="large"
+                          onClick={() => {
+                            history.push({
+                              pathname: routes.toCustomDashboardHome({
+                                folderId: folder?.id ? folder?.id : 'shared',
+                                accountId: accountId
+                              })
+                            })
+                          }}
+                        >
+                          <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
+                            {folder?.name}
+                          </Text>
+                          {/* {TagsRenderer(folder)} */}
+                          <Layout.Horizontal spacing="medium">
+                            <Container
+                              flex
+                              style={{
+                                borderRadius: '5px',
+                                flexDirection: 'row',
+                                justifyContent: 'start',
+                                alignItems: 'center'
+                              }}
+                            >
+                              <Layout.Vertical padding="none">
+                                <Layout.Horizontal spacing="small">
+                                  <img src={dashboardIcon} height={20} />
+                                  <Text color={Color.PRIMARY_7} font={{ size: 'medium', weight: 'semi-bold' }}>
+                                    {folder?.child_count || 0}
+                                  </Text>
+                                </Layout.Horizontal>
+                              </Layout.Vertical>
+                            </Container>
+                          </Layout.Horizontal>
+                        </Layout.Vertical>
+                      </Container>
+                    </Card>
+                  )}
+                  keyOf={folder => folder?.id}
+                />
+              </Container>
+            </Layout.Vertical>
+          )}
+
+          {filteredFoldersList && filteredFoldersList.length > 0 && layoutView === LayoutViews.LIST && (
+            <Container className={css.folderMasonry}>
+              <TableV2<FolderInterface>
+                className={css.table}
+                columns={columns}
+                data={filteredFoldersList || []}
+                onRowClick={data => {
+                  history.push({
+                    pathname: routes.toCustomDashboardHome({
+                      folderId: data?.id ? data?.id : 'shared',
+                      accountId: accountId
+                    })
+                  })
+                }}
               />
             </Container>
+          )}
+
+          {filteredFoldersList && filteredFoldersList.length === 0 && !loading && (
+            <Container style={{ height: 'calc(100vh - 226px)' }} flex={{ align: 'center-center' }}>
+              <Layout.Vertical spacing="medium" width={470} style={{ alignItems: 'center', marginTop: '-48px' }}>
+                <Icon name="folder-open" color={Color.GREY_300} size={35} />
+                <Heading level={2} font={{ align: 'center' }} color={Color.GREY_500}>
+                  {getString('dashboards.homePage.noFolderAvailable')}
+                </Heading>
+              </Layout.Vertical>
+            </Container>
+          )}
+        </Layout.Vertical>
+
+        {!loading && (
+          <Layout.Vertical padding={{ right: 'medium', left: 'medium' }}>
+            <Pagination
+              gotoPage={(pageNumber: number) => setPage(pageNumber)}
+              itemCount={100}
+              pageCount={100}
+              pageIndex={page}
+              pageSize={10}
+            />
           </Layout.Vertical>
         )}
-
-        {filteredFoldersList && filteredFoldersList.length > 0 && layoutView === LayoutViews.LIST && (
-          <Container className={css.folderMasonry}>
-            <TableV2<FolderInterface>
-              className={css.table}
-              columns={columns}
-              data={filteredFoldersList || []}
-              onRowClick={data => {
-                history.push({
-                  pathname: routes.toCustomDashboardHome({
-                    folderId: data?.id ? data?.id : 'shared',
-                    accountId: accountId
-                  })
-                })
-              }}
-            />
-          </Container>
-        )}
-
-        {filteredFoldersList && filteredFoldersList.length === 0 && !loading && (
-          <Container style={{ height: 'calc(100vh - 226px)' }} flex={{ align: 'center-center' }}>
-            <Layout.Vertical spacing="medium" width={470} style={{ alignItems: 'center', marginTop: '-48px' }}>
-              <Icon name="folder-open" color={Color.GREY_300} size={35} />
-              <Heading level={2} font={{ align: 'center' }} color={Color.GREY_500}>
-                {getString('dashboards.homePage.noFolderAvailable')}
-              </Heading>
-            </Layout.Vertical>
-          </Container>
-        )}
-      </Layout.Vertical>
-
-      {!loading && (
-        <Container className={css.pagination}>
-          <Pagination
-            itemCount={100}
-            pageSize={10}
-            pageCount={100}
-            pageIndex={page}
-            gotoPage={(pageNumber: number) => setPage(pageNumber)}
-          />
-        </Container>
-      )}
-    </Page.Body>
+      </Page.Body>
+    </Container>
   )
 }
 

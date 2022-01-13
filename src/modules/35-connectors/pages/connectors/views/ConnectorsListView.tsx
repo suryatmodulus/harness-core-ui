@@ -277,9 +277,9 @@ export const RenderGitDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }
               margin={{ left: 'xsmall', top: 'xsmall' }}
               color={Color.GREY_700}
             ></Icon>
-            <div className={css.name} color={Color.BLACK} title={data.gitDetails?.branch}>
+            <Text lineClamp={1} className={classNames(css.name, css.listingGitBranch)} color={Color.BLACK}>
               {data.gitDetails?.branch}
-            </div>
+            </Text>
           </Layout.Horizontal>
         )}
       </Layout.Horizontal>

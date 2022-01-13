@@ -35,8 +35,11 @@
     }
     .inputs-container {
       position: relative;
-      min-height: 200px;
+      min-height: 300px;
       width: 1024px;
+      .error {
+        min-height: 200px;
+      }
       .stageCard {
         margin: 0px 0px var(--spacing-xxlarge) 0px;
         padding: var(--spacing-5) 0px;

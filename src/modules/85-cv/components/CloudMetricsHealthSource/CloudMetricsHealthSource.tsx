@@ -76,8 +76,9 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
             manuallyInputQueries={manualQueries}
             dashboards={dashboards}
             showSpinnerOnLoad={!selectedMetricInfo}
-            onSelectMetric={(metricName, query, widget, dashboardTitle, dashboardId) => {
+            onSelectMetric={(id, metricName, query, widget, dashboardId, dashboardTitle) => {
               onWidgetMetricSelected({
+                id,
                 metricName,
                 query,
                 widgetName: widget,
@@ -93,7 +94,21 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
               {getString('cv.monitoringSources.gco.mapMetricsToServicesPage.querySpecifications')}
             </Heading>
             <Container className={css.metricsMappingContent}>
-              <Container className={css.metricsQueryBuilderContainer}>{metricDetailsContent}</Container>
+              <Container className={css.metricsQueryBuilderContainer}>
+                {metricDetailsContent}
+                <Container className={css.healthServicesContainer}>
+                  <SelectHealthSourceServices
+                    values={{
+                      sli,
+                      healthScore,
+                      continuousVerification
+                    }}
+                    metricPackResponse={metricPackResponse}
+                    labelNamesResponse={labelNamesResponse}
+                    hideServiceIdentifier
+                  />
+                </Container>
+              </Container>
               <Container className={css.validationContainer}>
                 <QueryContent
                   textAreaProps={{ readOnly: !selectedMetricInfo?.queryEditable }}
@@ -124,16 +139,6 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
                 />
               </Container>
             </Container>
-            <SelectHealthSourceServices
-              values={{
-                sli,
-                healthScore,
-                continuousVerification
-              }}
-              metricPackResponse={metricPackResponse}
-              labelNamesResponse={labelNamesResponse}
-              hideServiceIdentifier
-            />
             <DrawerFooter onPrevious={onPrevious} isSubmit onNext={onNextClicked} />
           </Container>
         }

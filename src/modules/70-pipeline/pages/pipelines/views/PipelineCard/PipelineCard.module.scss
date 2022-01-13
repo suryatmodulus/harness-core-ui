@@ -7,6 +7,19 @@
   .label {
     flex-shrink: 0;
   }
+  .entityContainer {
+    display: flex;
+    color: var(--black);
+  }
+  .firstEntity {
+    max-width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .additionalEntitiesCount {
+    margin-left: 4px;
+  }
   :global {
     .bp3-popover-wrapper {
       display: inline-flex;

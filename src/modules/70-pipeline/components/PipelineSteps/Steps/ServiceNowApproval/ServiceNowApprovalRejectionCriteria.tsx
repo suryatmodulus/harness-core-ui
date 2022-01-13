@@ -221,7 +221,7 @@ export const Jexl = (props: SnowApprovalRejectionCriteriaProps): JSX.Element => 
         name={`spec.${props.mode}.spec.expression`}
         disabled={isApprovalStepFieldDisabled(props.readonly)}
         label={
-          props.mode === 'approvelCriteria'
+          props.mode === 'approvalCriteria'
             ? getString('pipeline.approvalCriteria.jexlExpressionLabelApproval')
             : getString('pipeline.approvalCriteria.jexlExpressionLabelRejection')
         }

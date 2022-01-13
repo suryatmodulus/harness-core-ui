@@ -14,5 +14,6 @@ declare const styles: {
   readonly errorBudgetGaugeContainer: string
   readonly errorBudgetRemaining: string
   readonly sloCardSpinner: string
+  readonly clearButton: string
 }
 export default styles

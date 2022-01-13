@@ -1,4 +1,6 @@
 import type { MutateMethod } from 'restful-react'
+import { getScopeFromValue, getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
+import type { UseGetConnectorProps } from 'services/cd-ng'
 import type {
   CustomHealthMetricDefinition,
   CustomHealthSampleDataRequest,
@@ -6,6 +8,7 @@ import type {
   ResponseObject,
   TimestampInfo
 } from 'services/cv'
+import { Scope } from '@common/interfaces/SecretsInterface'
 
 export const onFetchRecords = async (
   urlPath?: string,
@@ -33,5 +36,33 @@ export const onFetchRecords = async (
   const recordsvalue = await getSampleData?.(payload)
   if (recordsvalue?.data) {
     onFetchRecordsSuccess?.(recordsvalue?.data)
+  }
+}
+
+export const connectorParams = (
+  connectorIdentifier: string,
+  {
+    projectIdentifier,
+    orgIdentifier,
+    accountId
+  }: { projectIdentifier: string; orgIdentifier: string; accountId: string }
+): UseGetConnectorProps => {
+  const queryParams = { accountIdentifier: accountId } as {
+    projectIdentifier: string
+    orgIdentifier: string
+    accountIdentifier: string
+  }
+  let scope = getScopeFromValue(connectorIdentifier)
+  const identifier = getIdentifierFromValue(connectorIdentifier)
+  if (scope === Scope.PROJECT) {
+    queryParams.projectIdentifier = projectIdentifier
+    scope = Scope.ORG
+  }
+  if (scope === Scope.ORG) {
+    queryParams.orgIdentifier = orgIdentifier
+  }
+  return {
+    identifier,
+    queryParams
   }
 }

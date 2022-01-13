@@ -4,8 +4,7 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
-import type { TemplateStepNode } from '../pipeline-ng'
-export const SPEC_VERSION = '2.0'
+export const SPEC_VERSION = '1.0'
 export interface ACLAggregateFilter {
   resourceGroupIdentifiers?: string[]
   roleIdentifiers?: string[]
@@ -311,6 +310,7 @@ export interface AccessControlCheckError {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   failedPermissionChecks?: PermissionCheck[]
@@ -597,6 +597,10 @@ export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
   username?: string
 }
 
+export type AppFilter = Filter & {
+  filterType?: string
+}
+
 export interface AppPermission {
   actions?: (
     | 'ALL'
@@ -610,7 +614,7 @@ export interface AppPermission {
     | 'EXECUTE_WORKFLOW_ROLLBACK'
     | 'DEFAULT'
   )[]
-  appFilter?: GenericEntityFilter
+  appFilter?: AppFilter
   entityFilter?: Filter
   permissionType?:
     | 'ACCOUNT'
@@ -1458,7 +1462,7 @@ export type CountInstanceSelection = InstanceSelectionBase & {
 
 export interface CreateInvite {
   inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE' | 'SCIM_INITIATED_INVITE'
-  roleBindings: RoleBinding[]
+  roleBindings?: RoleBinding[]
   userGroups?: string[]
   users: string[]
 }
@@ -1928,6 +1932,7 @@ export interface EntityGitDetails {
   filePath?: string
   objectId?: string
   repoIdentifier?: string
+  repoName?: string
   rootFolder?: string
 }
 
@@ -2330,6 +2335,7 @@ export interface Error {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -2388,7 +2394,7 @@ export interface ExecutionTarget {
 
 export interface ExecutionWrapperConfig {
   parallel?: ParallelStepElementConfig
-  step?: StepElementConfig | TemplateStepNode
+  step?: StepElementConfig
   stepGroup?: StepGroupElementConfig
 }
 
@@ -2688,6 +2694,7 @@ export interface Failure {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -2981,6 +2988,7 @@ export interface GatewayAccountRequestDTO {
 
 export interface GcpBillingExportSpec {
   datasetId: string
+  tableId: string
 }
 
 export type GcpCloudCostConnector = ConnectorConfigDTO & {
@@ -3902,7 +3910,7 @@ export interface Invite {
   name: string
   orgIdentifier?: string
   projectIdentifier?: string
-  roleBindings: RoleBinding[]
+  roleBindings?: RoleBinding[]
   userGroups?: string[]
 }
 
@@ -4546,9 +4554,10 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export type OAuthSettings = NGAuthSettings & {
+export interface OAuthSettings {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
+  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -5857,6 +5866,13 @@ export interface ResponseListModuleLicenseDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseListPartialSchemaDTO {
+  correlationId?: string
+  data?: PartialSchemaDTO[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseListProject {
   correlationId?: string
   data?: Project[]
@@ -6273,6 +6289,7 @@ export interface ResponseMessage {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -6529,13 +6546,6 @@ export interface ResponsePageUserGroupDTO {
 export interface ResponsePageUserMetadataDTO {
   correlationId?: string
   data?: PageUserMetadataDTO
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponsePartialSchemaDTO {
-  correlationId?: string
-  data?: PartialSchemaDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -8459,6 +8469,7 @@ export interface YamlSchemaDetailsWrapper {
 }
 
 export interface YamlSchemaMetadata {
+  featureFlags?: string[]
   modulesSupported?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE')[]
   yamlGroup: YamlGroup
 }
@@ -8551,6 +8562,8 @@ export type TokenDTORequestBody = TokenDTO
 export type UserFilterRequestBody = UserFilter
 
 export type UserGroupDTORequestBody = UserGroupDTO
+
+export type YamlSchemaDetailsWrapperRequestBody = YamlSchemaDetailsWrapper
 
 export type GetBuildDetailsForEcrWithYamlBodyRequestBody = string
 
@@ -20721,7 +20734,7 @@ export interface GetPartialYamlSchemaQueryParams {
 }
 
 export type GetPartialYamlSchemaProps = Omit<
-  GetProps<ResponsePartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>,
+  GetProps<ResponseListPartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>,
   'path'
 >
 
@@ -20729,7 +20742,7 @@ export type GetPartialYamlSchemaProps = Omit<
  * Get Partial Yaml Schema
  */
 export const GetPartialYamlSchema = (props: GetPartialYamlSchemaProps) => (
-  <Get<ResponsePartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>
+  <Get<ResponseListPartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>
     path={`/partial-yaml-schema`}
     base={getConfig('ng/api')}
     {...props}
@@ -20737,7 +20750,7 @@ export const GetPartialYamlSchema = (props: GetPartialYamlSchemaProps) => (
 )
 
 export type UseGetPartialYamlSchemaProps = Omit<
-  UseGetProps<ResponsePartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>,
+  UseGetProps<ResponseListPartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>,
   'path'
 >
 
@@ -20745,7 +20758,7 @@ export type UseGetPartialYamlSchemaProps = Omit<
  * Get Partial Yaml Schema
  */
 export const useGetPartialYamlSchema = (props: UseGetPartialYamlSchemaProps) =>
-  useGet<ResponsePartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>(`/partial-yaml-schema`, {
+  useGet<ResponseListPartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>(`/partial-yaml-schema`, {
     base: getConfig('ng/api'),
     ...props
   })
@@ -20754,10 +20767,10 @@ export const useGetPartialYamlSchema = (props: UseGetPartialYamlSchemaProps) =>
  * Get Partial Yaml Schema
  */
 export const getPartialYamlSchemaPromise = (
-  props: GetUsingFetchProps<ResponsePartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>,
+  props: GetUsingFetchProps<ResponseListPartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponsePartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>(
+  getUsingFetch<ResponseListPartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>(
     getConfig('ng/api'),
     `/partial-yaml-schema`,
     props,
@@ -20820,88 +20833,11 @@ export const getPartialYamlSchemaWithDetailsPromise = (
     signal
   )
 
-export interface GetMergedPartialYamlSchemaQueryParams {
+export interface GetStepYamlSchemaQueryParams {
   accountIdentifier: string
   projectIdentifier?: string
   orgIdentifier?: string
   scope?: 'account' | 'org' | 'project' | 'unknown'
-}
-
-export type GetMergedPartialYamlSchemaProps = Omit<
-  MutateProps<
-    ResponsePartialSchemaDTO,
-    Failure | Error,
-    GetMergedPartialYamlSchemaQueryParams,
-    YamlSchemaDetailsWrapper,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Get Merged Partial Yaml Schema
- */
-export const GetMergedPartialYamlSchema = (props: GetMergedPartialYamlSchemaProps) => (
-  <Mutate<
-    ResponsePartialSchemaDTO,
-    Failure | Error,
-    GetMergedPartialYamlSchemaQueryParams,
-    YamlSchemaDetailsWrapper,
-    void
-  >
-    verb="POST"
-    path={`/partial-yaml-schema/merged`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetMergedPartialYamlSchemaProps = Omit<
-  UseMutateProps<
-    ResponsePartialSchemaDTO,
-    Failure | Error,
-    GetMergedPartialYamlSchemaQueryParams,
-    YamlSchemaDetailsWrapper,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Get Merged Partial Yaml Schema
- */
-export const useGetMergedPartialYamlSchema = (props: UseGetMergedPartialYamlSchemaProps) =>
-  useMutate<
-    ResponsePartialSchemaDTO,
-    Failure | Error,
-    GetMergedPartialYamlSchemaQueryParams,
-    YamlSchemaDetailsWrapper,
-    void
-  >('POST', `/partial-yaml-schema/merged`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Get Merged Partial Yaml Schema
- */
-export const getMergedPartialYamlSchemaPromise = (
-  props: MutateUsingFetchProps<
-    ResponsePartialSchemaDTO,
-    Failure | Error,
-    GetMergedPartialYamlSchemaQueryParams,
-    YamlSchemaDetailsWrapper,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponsePartialSchemaDTO,
-    Failure | Error,
-    GetMergedPartialYamlSchemaQueryParams,
-    YamlSchemaDetailsWrapper,
-    void
-  >('POST', getConfig('ng/api'), `/partial-yaml-schema/merged`, props, signal)
-
-export interface GetStepYamlSchemaQueryParams {
-  accountIdentifier: string
   entityType?:
     | 'Projects'
     | 'Pipelines'
@@ -20932,51 +20868,153 @@ export interface GetStepYamlSchemaQueryParams {
     | 'GitRepositories'
     | 'FeatureFlags'
     | 'ServiceNowApproval'
+  yamlGroup?: string
 }
 
 export type GetStepYamlSchemaProps = Omit<
-  GetProps<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>,
-  'path'
+  MutateProps<
+    ResponseJsonNode,
+    Failure | Error,
+    GetStepYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Get step YAML schema
  */
 export const GetStepYamlSchema = (props: GetStepYamlSchemaProps) => (
-  <Get<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>
-    path={`/partial-yaml-schema/step`}
+  <Mutate<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, YamlSchemaDetailsWrapperRequestBody, void>
+    verb="POST"
+    path={`/partial-yaml-schema/get`}
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
 export type UseGetStepYamlSchemaProps = Omit<
-  UseGetProps<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>,
-  'path'
+  UseMutateProps<
+    ResponseJsonNode,
+    Failure | Error,
+    GetStepYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Get step YAML schema
  */
 export const useGetStepYamlSchema = (props: UseGetStepYamlSchemaProps) =>
-  useGet<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>(`/partial-yaml-schema/step`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, YamlSchemaDetailsWrapperRequestBody, void>(
+    'POST',
+    `/partial-yaml-schema/get`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
  * Get step YAML schema
  */
 export const getStepYamlSchemaPromise = (
-  props: GetUsingFetchProps<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>,
+  props: MutateUsingFetchProps<
+    ResponseJsonNode,
+    Failure | Error,
+    GetStepYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, void>(
-    getConfig('ng/api'),
-    `/partial-yaml-schema/step`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseJsonNode,
+    Failure | Error,
+    GetStepYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/partial-yaml-schema/get`, props, signal)
+
+export interface GetMergedPartialYamlSchemaQueryParams {
+  accountIdentifier: string
+  projectIdentifier?: string
+  orgIdentifier?: string
+  scope?: 'account' | 'org' | 'project' | 'unknown'
+}
+
+export type GetMergedPartialYamlSchemaProps = Omit<
+  MutateProps<
+    ResponseListPartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Merged Partial Yaml Schema
+ */
+export const GetMergedPartialYamlSchema = (props: GetMergedPartialYamlSchemaProps) => (
+  <Mutate<
+    ResponseListPartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/partial-yaml-schema/merged`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetMergedPartialYamlSchemaProps = Omit<
+  UseMutateProps<
+    ResponseListPartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Merged Partial Yaml Schema
+ */
+export const useGetMergedPartialYamlSchema = (props: UseGetMergedPartialYamlSchemaProps) =>
+  useMutate<
+    ResponseListPartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >('POST', `/partial-yaml-schema/merged`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Get Merged Partial Yaml Schema
+ */
+export const getMergedPartialYamlSchemaPromise = (
+  props: MutateUsingFetchProps<
+    ResponseListPartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseListPartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/partial-yaml-schema/merged`, props, signal)
 
 export type GetProvisionerStepsProps = Omit<GetProps<ResponseStepCategory, Failure | Error, void, void>, 'path'>
 

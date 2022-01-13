@@ -708,7 +708,9 @@ ceGcp:
     followInstruction: 'Please follow the instructions to provide create a Billing export for the specified Project Id'
     launchTemplate: 'Launch GCP console'
     datasetIdLabel: 'Dataset Id'
-    tooltipDescription: GCP DataSet Id where billing export is available
+    tableIdLabel: 'Table Id'
+    tooltipDescription: GCP DataSet Id where billing table is available
+    tableIdTooltipDesc: GCP Table Id where billing export is available
   billingExtention:
     heading: 'How to create GCP Billing Export and find DataSet Id?'
     prerequisite: 'Pre-Requisite:A project where the Cloud Billing data will be stored with billing enabled on the project.'

@@ -10,7 +10,7 @@ import {
   ButtonVariation,
   ButtonSize
 } from '@wings-software/uicore'
-import { cloneDeep, defaultTo, get, isEmpty, isNil, set } from 'lodash-es'
+import { cloneDeep, defaultTo, get, isEmpty, isEqual, isNil, set } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
 import { parse } from 'yaml'
@@ -27,7 +27,7 @@ import { PipelineGovernanceView } from '@governance/PipelineGovernanceView'
 import { getStepPaletteModuleInfosFromStage } from '@pipeline/utils/stepUtils'
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import { useTemplateSelector } from '@pipeline/utils/useTemplateSelector'
-import { getScopeBasedTemplateRef } from '@pipeline/utils/templateUtils'
+import { createTemplate } from '@pipeline/utils/templateUtils'
 import type { TemplateStepNode } from 'services/pipeline-ng'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -544,25 +544,25 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       selectedTemplateRef: getIdentifierFromValue(
         defaultTo((data?.stepConfig?.node as TemplateStepNode)?.template?.templateRef, '')
       ),
-      onUseTemplate: async (templateSummary: TemplateSummaryResponse, isCopied = false) => {
+      onUseTemplate: async (template: TemplateSummaryResponse, isCopied = false) => {
         closeTemplateSelector()
         const node = drawerData.data?.stepConfig?.node as StepOrStepGroupOrTemplateStepData
+        if (
+          !isCopied &&
+          isEqual((node as TemplateStepNode)?.template?.templateRef, template.identifier) &&
+          isEqual((node as TemplateStepNode)?.template?.versionLabel, template.versionLabel)
+        ) {
+          return
+        }
         const processNode = isCopied
-          ? produce(defaultTo(parse(templateSummary?.yaml || '').template.spec, {}) as StepElementConfig, draft => {
+          ? produce(defaultTo(parse(template?.yaml || '').template.spec, {}) as StepElementConfig, draft => {
               draft.name = defaultTo(node?.name, '')
               draft.identifier = defaultTo(node?.identifier, '')
             })
-          : produce({} as TemplateStepNode, draft => {
-              draft.name = defaultTo(node?.name, '')
-              draft.identifier = defaultTo(node?.identifier, '')
-              set(draft, 'template.templateRef', getScopeBasedTemplateRef(templateSummary))
-              if (templateSummary.versionLabel) {
-                set(draft, 'template.versionLabel', templateSummary.versionLabel)
-              }
-            })
+          : createTemplate<TemplateStepNode>(node as unknown as TemplateStepNode, template)
         await updateNode(processNode)
-        if (!isCopied && templateSummary?.identifier && templateSummary?.childType) {
-          templateTypes[templateSummary.identifier] = templateSummary.childType
+        if (!isCopied && template?.identifier && template?.childType) {
+          templateTypes[template.identifier] = template.childType
           setTemplateTypes(templateTypes)
         }
       }
@@ -647,7 +647,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.AddStep && selectedStageId && data?.paletteData && (
         <StepPalette
           stepsFactory={stepsFactory}
-          stepPaletteModuleInfos={getStepPaletteModuleInfosFromStage(stageType)}
+          stepPaletteModuleInfos={getStepPaletteModuleInfosFromStage(stageType, selectedStage?.stage)}
           stageType={stageType as StageType}
           onSelect={onStepSelection}
         />
@@ -704,7 +704,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.AddProvisionerStep && selectedStageId && data?.paletteData && (
         <StepPalette
           stepsFactory={stepsFactory}
-          stepPaletteModuleInfos={getStepPaletteModuleInfosFromStage(stageType)}
+          stepPaletteModuleInfos={getStepPaletteModuleInfosFromStage(stageType, undefined, 'Provisioner')}
           stageType={stageType as StageType}
           isProvisioner={true}
           onSelect={async (item: StepData) => {

@@ -71,6 +71,30 @@ export const serviceDetails = {
         frequencyChangeRate: 0.0,
         instanceCountDetails: null,
         lastPipelineExecuted: null
+      },
+
+      {
+        serviceName: 'service one',
+        serviceIdentifier: 'service_one',
+        description: '',
+        tags: { type: 'dummy' },
+        deploymentTypeList: ['Kubernetes'],
+        totalDeployments: 3,
+        totalDeploymentChangeRate: 1,
+        successRate: 1,
+        successRateChangeRate: 1,
+        failureRate: 1,
+        failureRateChangeRate: 1,
+        frequency: 1,
+        frequencyChangeRate: 0,
+        instanceCountDetails: null,
+        lastPipelineExecuted: {
+          pipelineExecutionId: '60c99de2a6187a57e841993b',
+          identifier: 'Test',
+          name: 'Test',
+          status: 'SUCCESS',
+          lastExecutedAt: 1523825890218
+        }
       }
     ]
   }

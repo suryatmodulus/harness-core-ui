@@ -1,9 +1,6 @@
 .hiddenField input {
   display: none;
 }
-textarea[name='query'] {
-  width: 490px !important;
-}
 
 .setupContainer {
   margin-bottom: 80px !important;
@@ -68,6 +65,10 @@ textarea[name='query'] {
     display: flex;
     align-items: center;
     margin-bottom: var(--spacing-large) !important;
+
+    textarea[name='query'] {
+      width: 490px !important;
+    }
 
     .textAreaLabel {
       display: flex;

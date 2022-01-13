@@ -1,12 +1,13 @@
 import React from 'react'
 import { TableV2, Text, Layout, Avatar, Icon, Container, Color } from '@wings-software/uicore'
 import type { Column, Renderer, CellProps } from 'react-table'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { actionToLabelMap, resourceTypeToLabelMapping } from '@audit-trail/utils/RequestUtil'
 import type { AuditEventDTO, PageAuditEventDTO } from 'services/audit'
 import { useStrings } from 'framework/strings'
 import { getReadableDateTime } from '@common/utils/dateUtils'
 import AuditTrailFactory, { getModuleNameFromAuditModule } from '@audit-trail/factories/AuditTrailFactory'
+import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './AuditTrailsListView.module.scss'
 
 const DEFAULT_CELL_PLACEHOLDER = 'N/A'
@@ -70,6 +71,7 @@ const renderColumnModule: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
 }
 
 const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage }) => {
+  const { orgIdentifier } = useParams<OrgPathProps>()
   const { getString } = useStrings()
 
   const renderColumnResource: Renderer<CellProps<AuditEventDTO>> = ({ row }) => {
@@ -115,43 +117,47 @@ const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage
     {
       Header: getString('common.timePstLabel'),
       id: 'time',
-      width: '10%',
       accessor: row => row.timestamp,
+      width: '10%',
       Cell: renderColumnTimeStamp
     },
     {
       Header: getString('common.userLabel'),
       id: 'user',
-      width: '15%',
-      accessor: row => row.timestamp,
+      accessor: row => row.authenticationInfo.principal.identifier,
+      width: orgIdentifier ? '20%' : '18%',
       Cell: renderColumnUser
     },
     {
       Header: getString('action'),
       id: 'action',
-      width: '15%',
-      accessor: row => row.timestamp,
+      accessor: row => row.action,
+      width: '12%',
       Cell: renderColumnAction
     },
     {
       Header: getString('common.resourceLabel'),
       id: 'resource',
-      width: '18%',
-      accessor: row => row.timestamp,
+      accessor: row => row.resource.identifier,
+      width: orgIdentifier ? '23%' : '18%',
       Cell: renderColumnResource
     },
-    {
-      Header: getString('orgLabel'),
-      id: 'organization',
-      width: '15%',
-      accessor: row => row.timestamp,
-      Cell: renderColumnOrganization
-    },
+    ...(!orgIdentifier
+      ? [
+          {
+            Header: getString('orgLabel'),
+            id: 'organization',
+            accessor: row => row.resourceScope.orgIdentifier,
+            width: '15%',
+            Cell: renderColumnOrganization
+          } as Column<AuditEventDTO>
+        ]
+      : []),
     {
       Header: getString('projectLabel'),
       id: 'project',
-      width: '15%',
-      accessor: row => row.timestamp,
+      accessor: row => row.resourceScope.projectIdentifier,
+      width: orgIdentifier ? '20%' : '15%',
       Cell: renderColumnProject
     },
     {
@@ -161,8 +167,8 @@ const AuditTrailsListView: React.FC<AuditTrailsListViewProps> = ({ data, setPage
         </Text>
       ),
       id: 'module',
+      accessor: row => row.module,
       width: '12%',
-      accessor: row => row.timestamp,
       Cell: renderColumnModule
     }
   ]

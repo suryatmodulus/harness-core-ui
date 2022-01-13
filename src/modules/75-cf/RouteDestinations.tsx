@@ -43,14 +43,16 @@ import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
-import { GitSyncErrorsWithRedirect } from '@gitsync/pages/errors/GitSyncErrors'
+import GitSyncErrors from '@gitsync/pages/errors/GitSyncErrors'
 import { TargetsPage } from './pages/target-management/targets/TargetsPage'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
 import { SegmentsPage } from './pages/target-management/segments/SegmentsPage'
 import { SegmentDetailPage } from './pages/segment-details/SegmentDetailPage'
+import TargetGroupDetailPage from './pages/target-group-detail/TargetGroupDetailPage'
 import { OnboardingPage } from './pages/onboarding/OnboardingPage'
 
 import { OnboardingDetailPage } from './pages/onboarding/OnboardingDetailPage'
@@ -117,298 +119,302 @@ RbacFactory.registerResourceTypeHandler(ResourceType.TARGETGROUP, {
   }
 })
 
-const CFRoutes: FC = () => (
-  <>
-    <RouteWithLayout licenseRedirectData={licenseRedirectData} path={routes.toCF({ ...accountPathProps })} exact>
-      <RedirectToCFHome />
-    </RouteWithLayout>
+const CFRoutes: FC = () => {
+  const { FFM_1512 } = useFeatureFlags()
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      path={routes.toCFProject({ ...accountPathProps, ...projectPathProps })}
-      exact
-    >
-      <RedirectToCFProject />
-    </RouteWithLayout>
+  return (
+    <>
+      <RouteWithLayout licenseRedirectData={licenseRedirectData} path={routes.toCF({ ...accountPathProps })} exact>
+        <RedirectToCFHome />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      layout={MinimalLayout}
-      path={routes.toModuleTrialHome({ ...accountPathProps, module: 'cf' })}
-      exact
-    >
-      <CFTrialHomePage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        path={routes.toCFProject({ ...accountPathProps, ...projectPathProps })}
+        exact
+      >
+        <RedirectToCFProject />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toCFHome({ ...accountPathProps })}
-      exact
-    >
-      <CFHomePage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        layout={MinimalLayout}
+        path={routes.toModuleTrialHome({ ...accountPathProps, module: 'cf' })}
+        exact
+      >
+        <CFTrialHomePage />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toCFFeatureFlags({ ...accountPathProps, ...projectPathProps })}
-      exact
-    >
-      <FeatureFlagsLandingPage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toCFHome({ ...accountPathProps })}
+        exact
+      >
+        <CFHomePage />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toCFFeatureFlagsDetail({
-        ...accountPathProps,
-        ...projectPathProps,
-        ...featureFlagPathProps
-      })}
-      exact
-    >
-      <FeatureFlagsDetailPage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toCFFeatureFlags({ ...accountPathProps, ...projectPathProps })}
+        exact
+      >
+        <FeatureFlagsLandingPage />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toCFSegmentDetails({
-        ...accountPathProps,
-        ...projectPathProps,
-        ...segmentPathProps
-      })}
-      exact
-    >
-      <SegmentDetailPage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toCFFeatureFlagsDetail({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...featureFlagPathProps
+        })}
+        exact
+      >
+        <FeatureFlagsDetailPage />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toCFTargetDetails({
-        ...accountPathProps,
-        ...projectPathProps,
-        ...targetPathProps
-      })}
-      exact
-    >
-      <TargetDetailPage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toCFSegmentDetails({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...segmentPathProps
+        })}
+        exact
+      >
+        {FFM_1512 ? <TargetGroupDetailPage /> : <SegmentDetailPage />}
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      path={routes.toCFTargetManagement({ ...accountPathProps, ...projectPathProps })}
-      exact
-    >
-      <RedirectToTargets />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toCFTargetDetails({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...targetPathProps
+        })}
+        exact
+      >
+        <TargetDetailPage />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toCFSegments({ ...accountPathProps, ...projectPathProps })}
-      exact
-    >
-      <SegmentsPage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        path={routes.toCFTargetManagement({ ...accountPathProps, ...projectPathProps })}
+        exact
+      >
+        <RedirectToTargets />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toCFTargets({ ...accountPathProps, ...projectPathProps })}
-      exact
-    >
-      <TargetsPage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toCFSegments({ ...accountPathProps, ...projectPathProps })}
+        exact
+      >
+        <SegmentsPage />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toCFEnvironments({ ...accountPathProps, ...projectPathProps })}
-      exact
-    >
-      <EnvironmentsPage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toCFTargets({ ...accountPathProps, ...projectPathProps })}
+        exact
+      >
+        <TargetsPage />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toCFEnvironmentDetails({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
-      exact
-    >
-      <EnvironmentDetails />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toCFEnvironments({ ...accountPathProps, ...projectPathProps })}
+        exact
+      >
+        <EnvironmentsPage />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toCFOnboarding({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
-      exact
-    >
-      <OnboardingPage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toCFEnvironmentDetails({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
+        exact
+      >
+        <EnvironmentDetails />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toCFOnboardingDetail({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
-      exact
-    >
-      <OnboardingDetailPage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toCFOnboarding({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
+        exact
+      >
+        <OnboardingPage />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toCFWorkflows({ ...accountPathProps, ...projectPathProps })}
-      exact
-    >
-      <CFWorkflowsPage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toCFOnboardingDetail({ ...accountPathProps, ...projectPathProps, ...environmentPathProps })}
+        exact
+      >
+        <OnboardingDetailPage />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      path={routes.toConnectors({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
-      sidebarProps={CFSideNavProps}
-      exact
-    >
-      <ConnectorsPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
-      exact
-    >
-      <CreateConnectorFromYamlPage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toCFWorkflows({ ...accountPathProps, ...projectPathProps })}
+        exact
+      >
+        <CFWorkflowsPage />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toConnectorDetails({
-        ...accountPathProps,
-        ...projectPathProps,
-        ...connectorPathProps,
-        ...cfModuleParams
-      })}
-      exact
-    >
-      <ConnectorDetailsPage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        path={routes.toConnectors({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+        sidebarProps={CFSideNavProps}
+        exact
+      >
+        <ConnectorsPage />
+      </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toCreateConnectorFromYaml({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+        exact
+      >
+        <CreateConnectorFromYamlPage />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
-      exact
-    >
-      <SecretsPage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toConnectorDetails({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...connectorPathProps,
+          ...cfModuleParams
+        })}
+        exact
+      >
+        <ConnectorDetailsPage />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toCreateSecretFromYaml({
-        ...accountPathProps,
-        ...projectPathProps,
-        ...pipelineModuleParams
-      })}
-      exact
-    >
-      <CreateSecretFromYamlPage />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+        exact
+      >
+        <SecretsPage />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toSecretDetails({
-        ...accountPathProps,
-        ...projectPathProps,
-        ...secretPathProps,
-        ...modulePathProps
-      })}
-      exact
-    >
-      <RedirectToSecretDetailHome />
-    </RouteWithLayout>
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toSecretDetailsOverview({
-        ...accountPathProps,
-        ...projectPathProps,
-        ...secretPathProps,
-        ...modulePathProps
-      })}
-      exact
-    >
-      <SecretDetailsHomePage>
-        <SecretDetails />
-      </SecretDetailsHomePage>
-    </RouteWithLayout>
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toSecretDetailsReferences({
-        ...accountPathProps,
-        ...projectPathProps,
-        ...secretPathProps,
-        ...modulePathProps
-      })}
-      exact
-    >
-      <SecretDetailsHomePage>
-        <SecretReferences />
-      </SecretDetailsHomePage>
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toCreateSecretFromYaml({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...pipelineModuleParams
+        })}
+        exact
+      >
+        <CreateSecretFromYamlPage />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      exact
-      path={[routes.toGitSyncAdmin({ ...accountPathProps, ...modulePathProps, ...projectPathProps })]}
-    >
-      <RedirectToGitSyncHome />
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toSecretDetails({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...secretPathProps,
+          ...modulePathProps
+        })}
+        exact
+      >
+        <RedirectToSecretDetailHome />
+      </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toSecretDetailsOverview({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...secretPathProps,
+          ...modulePathProps
+        })}
+        exact
+      >
+        <SecretDetailsHomePage>
+          <SecretDetails />
+        </SecretDetailsHomePage>
+      </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toSecretDetailsReferences({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...secretPathProps,
+          ...modulePathProps
+        })}
+        exact
+      >
+        <SecretDetailsHomePage>
+          <SecretReferences />
+        </SecretDetailsHomePage>
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      path={routes.toGitSyncReposAdmin({ ...accountPathProps, ...projectPathProps, ...cfModuleParams })}
-      sidebarProps={CFSideNavProps}
-      exact
-    >
-      <GitSyncPage>
-        <GitSyncRepoTab />
-      </GitSyncPage>
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        exact
+        path={[routes.toGitSyncAdmin({ ...accountPathProps, ...modulePathProps, ...projectPathProps })]}
+      >
+        <RedirectToGitSyncHome />
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toGitSyncEntitiesAdmin({ ...accountPathProps, ...cfModuleParams, ...projectPathProps })}
-      exact
-    >
-      <GitSyncPage>
-        <GitSyncEntityTab />
-      </GitSyncPage>
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        path={routes.toGitSyncReposAdmin({ ...accountPathProps, ...projectPathProps, ...cfModuleParams })}
+        sidebarProps={CFSideNavProps}
+        exact
+      >
+        <GitSyncPage>
+          <GitSyncRepoTab />
+        </GitSyncPage>
+      </RouteWithLayout>
 
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toGitSyncErrors({ ...accountPathProps, ...cfModuleParams, ...projectPathProps })}
-      exact
-    >
-      <GitSyncPage>
-        <GitSyncErrorsWithRedirect />
-      </GitSyncPage>
-    </RouteWithLayout>
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toGitSyncEntitiesAdmin({ ...accountPathProps, ...cfModuleParams, ...projectPathProps })}
+        exact
+      >
+        <GitSyncPage>
+          <GitSyncEntityTab />
+        </GitSyncPage>
+      </RouteWithLayout>
 
-    <AdminRouteDestinations />
-    <PipelineRouteDestinations />
-  </>
-)
+      <RouteWithLayout
+        licenseRedirectData={licenseRedirectData}
+        sidebarProps={CFSideNavProps}
+        path={routes.toGitSyncErrors({ ...accountPathProps, ...cfModuleParams, ...projectPathProps })}
+        exact
+      >
+        <GitSyncPage>
+          <GitSyncErrors />
+        </GitSyncPage>
+      </RouteWithLayout>
+
+      <AdminRouteDestinations />
+      <PipelineRouteDestinations />
+    </>
+  )
+}
 
 export default CFRoutes

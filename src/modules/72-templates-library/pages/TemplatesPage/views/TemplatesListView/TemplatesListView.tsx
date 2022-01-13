@@ -100,7 +100,7 @@ const RenderColumnTemplate: Renderer<CellProps<TemplateSummaryResponse>> = ({ ro
         <Container>
           <Badge
             text={'common.invalid'}
-            iconName="warning-sign"
+            iconName="error-outline"
             showTooltip={true}
             entityName={data.name}
             entityType={'Template'}

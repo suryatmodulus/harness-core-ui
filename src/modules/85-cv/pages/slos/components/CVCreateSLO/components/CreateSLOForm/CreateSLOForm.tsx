@@ -51,11 +51,7 @@ export default function CreateSLOForm(props: CreateSLOFormProps): JSX.Element {
           <Tab
             id={CreateSLOEnum.SLI}
             title={getString('cv.slos.sli')}
-            panel={
-              <SLI formikProps={formikProps as any} setSliGraphData={jest.fn()}>
-                {navButtons}
-              </SLI>
-            }
+            panel={<SLI formikProps={formikProps as any}>{navButtons}</SLI>}
           />
           <Tab
             id={CreateSLOEnum.SLO_TARGET_BUDGET_POLICY}

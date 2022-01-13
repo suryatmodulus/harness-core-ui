@@ -101,7 +101,6 @@ describe('SLOTargetChartWrapper', () => {
       <TestWrapper {...testWrapperProps}>
         <SLOTargetChartWrapper
           monitoredServiceIdentifier="Service_1_Environment_1"
-          setSliGraphData={jest.fn()}
           serviceLevelIndicator={{
             ...serviceLevelIndicator,
             spec: {
@@ -120,7 +119,6 @@ describe('SLOTargetChartWrapper', () => {
   })
 
   test('it should not render empty state for Threshold based with objective value > 100', async () => {
-    const setSliGraphData = jest.fn()
     const serviceLevelIndicatorThreshold = {
       ...serviceLevelIndicator,
       spec: {
@@ -137,7 +135,6 @@ describe('SLOTargetChartWrapper', () => {
         <SLOTargetChartWrapper
           monitoredServiceIdentifier="Service_1_Environment_1"
           serviceLevelIndicator={serviceLevelIndicatorThreshold}
-          setSliGraphData={setSliGraphData}
         />
       </TestWrapper>
     )
@@ -146,7 +143,6 @@ describe('SLOTargetChartWrapper', () => {
     await waitFor(() => {
       expect(getSLIGraph).toHaveBeenCalledTimes(1)
       expect(getSLIGraph).toBeCalledWith(serviceLevelIndicatorThreshold)
-      expect(setSliGraphData).toBeCalledWith({})
     })
   })
 
@@ -158,7 +154,6 @@ describe('SLOTargetChartWrapper', () => {
         <SLOTargetChartWrapper
           monitoredServiceIdentifier="Service_1_Environment_1"
           serviceLevelIndicator={serviceLevelIndicator}
-          setSliGraphData={jest.fn()}
         />
       </TestWrapper>
     )
@@ -176,7 +171,6 @@ describe('SLOTargetChartWrapper', () => {
         <SLOTargetChartWrapper
           monitoredServiceIdentifier="Service_1_Environment_1"
           serviceLevelIndicator={serviceLevelIndicator}
-          setSliGraphData={jest.fn()}
         />
       </TestWrapper>
     )

@@ -30,9 +30,20 @@ describe('Http Step', () => {
         url: RUNTIME_INPUT_VALUE,
         requestBody: RUNTIME_INPUT_VALUE,
         timeout: RUNTIME_INPUT_VALUE,
-        assertion: RUNTIME_INPUT_VALUE
-        // headers: RUNTIME_INPUT_VALUE
-        // outputVariables: RUNTIME_INPUT_VALUE
+        assertion: RUNTIME_INPUT_VALUE,
+        headers: [
+          {
+            key: 'Header',
+            value: RUNTIME_INPUT_VALUE
+          }
+        ],
+        outputVariables: [
+          {
+            name: 'Output',
+            type: 'String',
+            value: RUNTIME_INPUT_VALUE
+          }
+        ]
       }
     }
     const { container } = render(
@@ -56,6 +67,10 @@ describe('Http Step', () => {
           {
             key: 'Content-Type',
             value: 'application/json'
+          },
+          {
+            key: 'Header',
+            value: RUNTIME_INPUT_VALUE
           }
         ],
         outputVariables: [
@@ -63,6 +78,11 @@ describe('Http Step', () => {
             name: 'myVar',
             type: 'String',
             value: 'response.message'
+          },
+          {
+            name: 'myVar1',
+            type: 'String',
+            value: RUNTIME_INPUT_VALUE
           }
         ]
       }

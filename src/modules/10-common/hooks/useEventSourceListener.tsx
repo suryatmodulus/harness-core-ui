@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import qs, { IStringifyOptions } from 'qs'
 import { EventSourcePolyfill } from 'event-source-polyfill'
 import { useHistory, useParams } from 'react-router-dom'
 import SessionToken from 'framework/utils/SessionToken'
@@ -6,6 +7,7 @@ import { returnUrlParams } from '@common/utils/routeUtils'
 import { getLoginPageURL } from 'framework/utils/SessionUtils'
 import routes from '@common/RouteDefinitions'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { useDeepCompareEffect } from './useDeepCompareEffect'
 
 interface EventSourceListenerReturn {
   startListening: () => void
@@ -29,13 +31,17 @@ export type EventSourceEvent<T> = {
 interface EventSourceListenerProps<T> {
   url: string
   event: EventSourceEvent<T>
+  queryParams?: Record<string, unknown>
+  queryParamStringifyOptions?: IStringifyOptions
   lazy?: boolean
 }
 
 export const useEventSourceListener = <T extends unknown>({
   url,
   event,
-  lazy = false
+  lazy = false,
+  queryParams,
+  queryParamStringifyOptions
 }: EventSourceListenerProps<T>): EventSourceListenerReturn => {
   const [init, setInit] = useState<boolean>(false)
   const { accountId } = useParams<AccountPathProps>()
@@ -54,6 +60,10 @@ export const useEventSourceListener = <T extends unknown>({
 
     return { headers }
   }, [token])
+
+  const getQueryParams = (params?: Record<string, unknown>): string => {
+    return `?${qs.stringify({ ...params, routingId: accountId }, queryParamStringifyOptions)}`
+  }
 
   const onMessageEventListener = (_event: Event & { data: string }): void => {
     let parsedData
@@ -74,16 +84,16 @@ export const useEventSourceListener = <T extends unknown>({
     onError?.(_event)
   }
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     if (!token) {
       history.push({
         pathname: routes.toRedirect(),
         search: returnUrlParams(getLoginPageURL({ returnUrl: window.location.href }))
       })
     } else {
-      setSource(new EventSourcePolyfill(`${url}?routingId=${accountId}`, getRequestOptions()))
+      setSource(new EventSourcePolyfill(`${url}${getQueryParams(queryParams)}`, getRequestOptions()))
     }
-  }, [url, token])
+  }, [url, token, queryParams, accountId])
 
   const createListener = (_source: EventSource): void => {
     removeListener(_source)

@@ -70,18 +70,6 @@ describe('useSaveTemplate Test', () => {
     await act(async () => {
       fireEvent.click(saveBtn)
     })
-    const commentsDialog = findDialogContainer()
-    expect(commentsDialog).toBeDefined()
-    const textarea = commentsDialog!.querySelector('textarea[name="comments"]')!
-    await act(async () => {
-      fireEvent.change(textarea, {
-        target: { value: 'some random comment' }
-      })
-    })
-    const submitBtn = commentsDialog!.querySelector('button[type="submit"]')!
-    await act(async () => {
-      fireEvent.click(submitBtn)
-    })
     expect(createTemplatePromise).toBeCalled()
     expect(props.deleteTemplateCache).toBeCalled()
   })
@@ -99,11 +87,6 @@ describe('useSaveTemplate Test', () => {
     const saveBtn = getByText('Edit')
     await act(async () => {
       fireEvent.click(saveBtn)
-    })
-    const commentsDialog = findDialogContainer()
-    const submitBtn = commentsDialog!.querySelector('button[type="submit"]')!
-    await act(async () => {
-      fireEvent.click(submitBtn)
     })
     expect(updateExistingTemplateLabelPromise).toBeCalled()
     expect(props.fetchTemplate).toBeCalled()

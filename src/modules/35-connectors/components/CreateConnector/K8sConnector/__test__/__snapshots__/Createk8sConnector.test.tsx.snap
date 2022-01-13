@@ -4211,7 +4211,7 @@ exports[`should render form for edit authtype clientKey 2`] = `
                     data-name="DelegateSelectors"
                   >
                     <div
-                      class="bp3-popover-wrapper formInput delegatePopover bp3-fill"
+                      class="bp3-popover-wrapper delegateInput delegatePopover bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"

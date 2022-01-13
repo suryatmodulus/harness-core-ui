@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Access Control Page render 1`] = `
+exports[`Audit trail Page render 1`] = `
 <div>
   <div
     class="Layout--horizontal StyledProps--main PageHeader--container PageHeader--standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge StyledProps--background-white"
@@ -65,12 +65,15 @@ exports[`Access Control Page render 1`] = `
           </div>
         </div>
       </div>
-      <h2
-        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-        level="2"
+      <div
+        class="Layout--horizontal StyledProps--main"
       >
-        common.auditTrail
-      </h2>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-h4"
+        >
+          account common.auditTrail
+        </p>
+      </div>
     </div>
   </div>
   <div
@@ -87,7 +90,6 @@ exports[`Access Control Page render 1`] = `
         >
           <button
             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main dateRange Button--with-current-color Button--without-shadow Button--withRightIcon"
-            style="width: 240px;"
             type="button"
           >
             <span

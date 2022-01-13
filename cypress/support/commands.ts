@@ -32,6 +32,7 @@ declare global {
     interface Chainable<Subject> {
       login(username: string, pass: string): void
       visitCreatePipeline(): void
+      visitChangeIntelligence(): void
       fillName(name: string): void
       clickSubmit(): void
       fillField(fieldName: string, value: string): void
@@ -64,4 +65,11 @@ Cypress.Commands.add('visitCreatePipeline', () => {
 
 Cypress.Commands.add('fillName', (value: string) => {
   cy.fillField('name', value)
+})
+
+// Change Intelligence commands
+Cypress.Commands.add('visitChangeIntelligence', () => {
+  cy.contains('p', 'Change Intelligence').click()
+  cy.contains('p', 'Select a Project').click()
+  cy.contains('p', 'Project 1').click()
 })

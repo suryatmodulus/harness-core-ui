@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { fromPairs } from 'lodash-es'
-import { PageSpinner } from '@wings-software/uicore'
+import { PageSpinner } from '@harness/uicore'
 import { useQueryParams } from '@common/hooks'
 import {
   Project,

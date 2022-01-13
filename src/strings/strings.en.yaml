@@ -488,10 +488,7 @@ inputSets:
   newOverlayInputSet: New Overlay Input Set
   newInputSetLabel: New Input Set
   inputSetSaved: Input Set saved
-  nameIsRequired: Input Set Name is required
   inputSetIsRequired: Input Set field is required
-  inputSetName: Input Set name
-  overlaySetName: Overlay Set name
   overlayInputSetSavedError: 'Error while saving Overlay Input Set'
   selectInputSets: Select Input Sets
   selectInputSetsHelp: Multiple Input Sets can be overlaid together. They are applied in the order specified. The first set is applied first, and subsequent sets are layered in their order and override any previously specified values.

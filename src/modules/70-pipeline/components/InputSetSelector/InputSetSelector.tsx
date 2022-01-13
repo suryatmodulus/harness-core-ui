@@ -14,7 +14,7 @@ import {
   PageSpinner,
   Container
 } from '@wings-software/uicore'
-import { clone, isEmpty } from 'lodash-es'
+import { clone, defaultTo, isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
@@ -47,6 +47,9 @@ export interface InputSetSelectorProps {
   onChange?: (value?: InputSetValue[]) => void
   width?: number
   selectedValueClass?: string
+  selectedRepo?: string
+  selectedBranch?: string
+  isOverlayInputSet?: boolean
 }
 
 const getIconByType = (type: InputSetSummaryResponse['inputSetType']): IconName => {
@@ -119,6 +122,7 @@ const RenderValue = React.memo(function RenderValue({
       {value?.map((item, index) => (
         <li
           key={item.label}
+          data-testid={item.value}
           className={css.selectedInputSetLi}
           draggable={true}
           onDragStart={event => {
@@ -131,6 +135,7 @@ const RenderValue = React.memo(function RenderValue({
         >
           <Button
             key={item.label}
+            data-testid={`button-${item.label}`}
             round={true}
             rightIcon="cross"
             iconProps={{
@@ -175,7 +180,7 @@ const RenderValue = React.memo(function RenderValue({
       <Button
         icon="small-plus"
         className={css.addInputSetButton}
-        onClick={() => setOpenInputSetsList(false)}
+        onClick={() => setOpenInputSetsList(true)}
         color={Color.PRIMARY_7}
         minimal
         variation={ButtonVariation.LINK}
@@ -215,7 +220,10 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
   value,
   onChange,
   pipelineIdentifier,
-  selectedValueClass
+  selectedValueClass,
+  selectedRepo,
+  selectedBranch,
+  isOverlayInputSet
 }): JSX.Element => {
   const [searchParam, setSearchParam] = React.useState('')
   const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetValue[]>(value || [])
@@ -227,6 +235,24 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
     accountId: string
   }>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
+
+  const getGitQueryParams = React.useCallback(() => {
+    if (!isEmpty(selectedRepo) && !isEmpty(selectedBranch)) {
+      return {
+        repoIdentifier: selectedRepo,
+        branch: selectedBranch
+      }
+    }
+    if (!isEmpty(repoIdentifier) && !isEmpty(branch)) {
+      return {
+        repoIdentifier,
+        branch,
+        getDefaultFromOtherRepo: true
+      }
+    }
+    return {}
+  }, [repoIdentifier, branch, selectedRepo, selectedBranch])
+
   const {
     data: inputSetResponse,
     refetch,
@@ -237,17 +263,16 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
       orgIdentifier,
       projectIdentifier,
       pipelineIdentifier,
-      ...(!isEmpty(repoIdentifier) && !isEmpty(branch)
-        ? {
-            repoIdentifier,
-            branch,
-            getDefaultFromOtherRepo: true
-          }
-        : {})
+      inputSetType: isOverlayInputSet ? 'INPUT_SET' : undefined,
+      ...getGitQueryParams()
     },
     debounce: 300,
     lazy: true
   })
+
+  React.useEffect(() => {
+    refetch()
+  }, [repoIdentifier, branch, selectedRepo, selectedBranch, refetch])
 
   const { showError } = useToaster()
 
@@ -257,7 +282,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
       label: string,
       val: string,
       type: InputSetSummaryResponse['inputSetType'],
-      gitDetails: EntityGitDetails | null,
+      inputSetGitDetails: EntityGitDetails | null,
       inputSetErrorDetails?: InputSetErrorWrapper,
       overlaySetErrorDetails?: { [key: string]: string }
     ) => {
@@ -268,7 +293,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
           label,
           value: val,
           type,
-          gitDetails: gitDetails ?? {},
+          gitDetails: defaultTo(inputSetGitDetails, {}),
           inputSetErrorDetails,
           overlaySetErrorDetails
         })
@@ -342,7 +367,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
           selected.label,
           selected.value as string,
           selected.type,
-          selected.gitDetails ?? {},
+          defaultTo(selected.gitDetails, {}),
           selected.inputSetErrorDetails,
           selected.overlaySetErrorDetails
         )
@@ -380,7 +405,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
           <Container padding={{ left: 'large' }}>
             <Badge
               text={'common.invalid'}
-              iconName="warning-sign"
+              iconName="error-outline"
               showTooltip={true}
               entityName={selected.name}
               entityType={selected.inputSetType === 'INPUT_SET' ? 'Input Set' : 'Overlay Input Set'}
@@ -409,7 +434,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
         })
         return filter
       })
-      .filter(set => (set.identifier || '').toLowerCase().indexOf(searchParam.toLowerCase()) > -1)
+      .filter(set => defaultTo(set.identifier, '').toLowerCase().indexOf(searchParam.toLowerCase()) > -1)
       .map(inputSet => (
         <li
           className={cx(css.item)}
@@ -420,10 +445,10 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
             }
             onCheckBoxHandler(
               true,
-              inputSet.name || '',
-              inputSet.identifier || '',
-              inputSet.inputSetType || 'INPUT_SET',
-              inputSet.gitDetails ?? null,
+              defaultTo(inputSet.name, ''),
+              defaultTo(inputSet.identifier, ''),
+              defaultTo(inputSet.inputSetType, 'INPUT_SET'),
+              defaultTo(inputSet.gitDetails, null),
               inputSet.inputSetErrorDetails,
               inputSet.overlaySetErrorDetails
             )
@@ -438,7 +463,12 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                   <Layout.Horizontal flex={{ alignItems: 'center' }} padding={{ left: true }}>
                     <Icon name={getIconByType(inputSet.inputSetType)}></Icon>
                     <Container margin={{ left: true }} className={css.nameIdContainer}>
-                      <Text lineClamp={1} font={{ weight: 'bold' }} color={Color.GREY_800}>
+                      <Text
+                        data-testid={`popover-${inputSet.name}`}
+                        lineClamp={1}
+                        font={{ weight: 'bold' }}
+                        color={Color.GREY_800}
+                      >
                         {inputSet.name}
                       </Text>
                       <Text font="small" lineClamp={1} margin={{ top: 'xsmall' }} color={Color.GREY_450}>
@@ -452,7 +482,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                 <Container padding={{ left: 'large' }}>
                   <Badge
                     text={'common.invalid'}
-                    iconName="warning-sign"
+                    iconName="error-outline"
                     showTooltip={true}
                     entityName={inputSet.name}
                     entityType={inputSet.inputSetType === 'INPUT_SET' ? 'Input Set' : 'Overlay Input Set'}
@@ -468,27 +498,36 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
       ))
 
   const [openInputSetsList, setOpenInputSetsList] = useState(false)
+
   return (
     <Popover
       position={Position.BOTTOM}
       usePortal={false}
+      isOpen={openInputSetsList}
       minimal={true}
       className={css.isPopoverParent}
       onOpening={() => {
         refetch()
+        setOpenInputSetsList(true)
+      }}
+      onInteraction={interaction => {
+        if (!interaction) {
+          setOpenInputSetsList(false)
+        }
       }}
       onClosing={() => {
+        setOpenInputSetsList(false)
         onChange?.(selectedInputSets)
       }}
     >
       <RenderValue
-        value={value || []}
+        value={defaultTo(value, [])}
         onChange={onChange}
         setSelectedInputSets={setSelectedInputSets}
         setOpenInputSetsList={setOpenInputSetsList}
         selectedValueClass={selectedValueClass}
       />
-      {openInputSetsList ? null : (
+      {openInputSetsList ? (
         <Layout.Vertical spacing="small" className={css.popoverContainer}>
           <div className={!inputSets ? css.loadingSearchContainer : css.searchContainer}>
             <TextInput
@@ -526,7 +565,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                     variation={ButtonVariation.PRIMARY}
                     disabled={!selectedInputSets?.length}
                     onClick={() => {
-                      setOpenInputSetsList(true)
+                      setOpenInputSetsList(false)
                       onChange?.(selectedInputSets)
                     }}
                   />
@@ -545,7 +584,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
             </Layout.Vertical>
           )}
         </Layout.Vertical>
-      )}
+      ) : null}
     </Popover>
   )
 }

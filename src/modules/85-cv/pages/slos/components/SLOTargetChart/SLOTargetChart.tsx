@@ -1,10 +1,10 @@
-import React, { useMemo, useEffect, useCallback } from 'react'
+import React, { useMemo, useState, useEffect, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { merge, debounce } from 'lodash-es'
 import type Highcharts from 'highcharts'
 import { Container, Icon, Color, PageError, Text, FontVariation } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { useGetSliGraph, ServiceLevelIndicatorDTO } from 'services/cv'
+import { useGetSliGraph, ServiceLevelIndicatorDTO, TimeGraphResponse } from 'services/cv'
 import { TimeSeriesAreaChart } from '@common/components'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
@@ -43,12 +43,12 @@ const SLOTargetChartWithAPIGetSliGraph: React.FC<SLOTargetChartWithAPIGetSliGrap
   customChartOptions,
   monitoredServiceIdentifier = '',
   serviceLevelIndicator,
-  sliGraphData,
-  setSliGraphData,
   debounceWait
 }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const sliFormData = convertServiceLevelIndicatorToSLIFormData(serviceLevelIndicator)
+
+  const [sliGraphData, setSliGraphData] = useState<TimeGraphResponse>()
 
   const dataPoints = useMemo(
     () => sliGraphData?.dataPoints?.map(point => [Number(point.timeStamp) || 0, Number(point.value) || 0]),
@@ -70,7 +70,7 @@ const SLOTargetChartWithAPIGetSliGraph: React.FC<SLOTargetChartWithAPIGetSliGrap
 
       setSliGraphData(sliGraphResponseData.resource)
     } catch (e) {
-      setSliGraphData(undefined)
+      //
     }
   }
 

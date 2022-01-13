@@ -1,4 +1,4 @@
-import { defaultTo, set } from 'lodash-es'
+import { defaultTo, isEqual } from 'lodash-es'
 import { parse } from 'yaml'
 import produce from 'immer'
 import { useCallback } from 'react'
@@ -6,7 +6,7 @@ import type { StageElementConfig } from 'services/cd-ng'
 import type { TemplateSummaryResponse } from 'services/template-ng'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useTemplateSelector } from '@pipeline/utils/useTemplateSelector'
-import { getScopeBasedTemplateRef, getStageType } from '@pipeline/utils/templateUtils'
+import { createTemplate, getStageType } from '@pipeline/utils/templateUtils'
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 
 interface TemplateActionsReturnType {
@@ -32,18 +32,19 @@ export function useStageTemplateActions(): TemplateActionsReturnType {
     async (template: TemplateSummaryResponse, isCopied = false) => {
       closeTemplateSelector()
       const node = stage?.stage
+      if (
+        !isCopied &&
+        isEqual(node?.template?.templateRef, template.identifier) &&
+        isEqual(node?.template?.versionLabel, template.versionLabel)
+      ) {
+        return
+      }
       const processNode = isCopied
         ? produce(defaultTo(parse(template?.yaml || '')?.template.spec, {}) as StageElementConfig, draft => {
             draft.name = defaultTo(node?.name, '')
             draft.identifier = defaultTo(node?.identifier, '')
           })
-        : produce(node as StageElementConfig, draft => {
-            delete draft.template
-            set(draft, 'template.templateRef', getScopeBasedTemplateRef(template))
-            if (template.versionLabel) {
-              set(draft, 'template.versionLabel', template.versionLabel)
-            }
-          })
+        : createTemplate(node, template)
       await updateStage(processNode)
       if (!isCopied && template?.identifier && template?.childType) {
         templateTypes[template.identifier] = template.childType

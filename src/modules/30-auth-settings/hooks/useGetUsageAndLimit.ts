@@ -15,6 +15,7 @@ import { useGetUsage as useGetCIUsage } from 'services/ci'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useGetCCMLicenseUsage } from 'services/ce'
+import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 
 interface UsageAndLimitReturn {
   limitData: LimitReturn
@@ -144,6 +145,11 @@ function useGetLimit(module: ModuleName): LimitReturn {
 
 const timestamp = moment.now()
 
+function useGetCCMTimeStamp(): number {
+  const { licenseInformation } = useLicenseStore()
+  return licenseInformation?.CE?.startTime || 0
+}
+
 function useGetUsage(module: ModuleName): UsageReturn {
   const { accountId } = useParams<AccountPathProps>()
   const [usageData, setUsageData] = useState<UsageReturn>({})
@@ -181,7 +187,7 @@ function useGetUsage(module: ModuleName): UsageReturn {
   } = useGetCCMLicenseUsage({
     queryParams: {
       accountIdentifier: accountId,
-      timestamp
+      timestamp: useGetCCMTimeStamp()
     },
     lazy: module !== ModuleName.CE
   })

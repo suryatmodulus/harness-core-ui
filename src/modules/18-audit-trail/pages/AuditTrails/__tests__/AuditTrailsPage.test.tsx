@@ -9,7 +9,7 @@ import { filters } from '../../../components/__tests__/mockData'
 
 jest.spyOn(auditServices, 'useGetFilterList').mockImplementation(() => ({ data: filters, loading: false } as any))
 
-describe('Access Control Page', () => {
+describe('Audit trail Page', () => {
   test('render', () => {
     const renderObj = render(
       <TestWrapper path={routes.toAuditTrail({ ...accountPathProps })} pathParams={{ accountId: 'testAcc' }}>

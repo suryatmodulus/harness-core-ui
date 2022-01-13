@@ -59,7 +59,7 @@ import { HomeSideNavProps, AccountSideNavProps } from '@common/RouteDestinations
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
-import { GitSyncErrorsWithRedirect } from '@gitsync/pages/errors/GitSyncErrors'
+import GitSyncErrors from '@gitsync/pages/errors/GitSyncErrors'
 import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
 import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
 import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
@@ -582,7 +582,7 @@ export default (
       exact
     >
       <GitSyncPage>
-        <GitSyncErrorsWithRedirect />
+        <GitSyncErrors />
       </GitSyncPage>
     </RouteWithLayout>
 

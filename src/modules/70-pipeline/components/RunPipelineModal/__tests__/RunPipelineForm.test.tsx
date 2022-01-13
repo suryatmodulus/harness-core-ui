@@ -200,7 +200,7 @@ describe('STUDIO MODE', () => {
     })
 
     // Check on input set form
-    await waitFor(() => expect(queryByText('inputSets.inputSetName')).toBeTruthy())
+    await waitFor(() => expect(queryByText('name')).toBeTruthy())
 
     // Enter input set name
     const inputSetNameDiv = document.body.querySelector('input[name="name"]')

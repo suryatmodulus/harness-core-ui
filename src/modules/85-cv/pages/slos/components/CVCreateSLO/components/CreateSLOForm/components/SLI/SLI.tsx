@@ -26,7 +26,7 @@ import SLIContextualHelpText from './components/SLIContextualHelpText'
 import PickMetric from './views/PickMetric'
 import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 
-const SLI: React.FC<SLIProps> = ({ children, formikProps, sliGraphData, setSliGraphData }) => {
+const SLI: React.FC<SLIProps> = ({ children, formikProps }) => {
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
@@ -145,7 +145,7 @@ const SLI: React.FC<SLIProps> = ({ children, formikProps, sliGraphData, setSliGr
         </Layout.Horizontal>
       </Card>
 
-      <PickMetric formikProps={formikProps} sliGraphData={sliGraphData} setSliGraphData={setSliGraphData} />
+      <PickMetric formikProps={formikProps} />
 
       {children}
     </>

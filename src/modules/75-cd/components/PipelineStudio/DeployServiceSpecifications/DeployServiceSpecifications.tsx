@@ -39,6 +39,7 @@ import SelectDeploymentType from '@cd/components/PipelineStudio/DeployServiceSpe
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { useDeepCompareEffect } from '@common/hooks'
 import { StageType } from '@pipeline/utils/stageHelpers'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
@@ -56,6 +57,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   } = usePipelineContext()
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const { showError } = useToaster()
+  const { NG_NATIVE_HELM } = useFeatureFlags()
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdateStage = useCallback(
@@ -64,7 +66,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   )
   const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const getDeploymentType = (): string => {
-    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
+    return get(stage, 'stage.spec.serviceConfig.serviceDefinition.type', !NG_NATIVE_HELM ? 'Kubernetes' : undefined)
   }
 
   const [setupModeType, setSetupMode] = useState('')
@@ -198,7 +200,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           serviceConfig: {
             serviceRef: '',
             serviceDefinition: {
-              type: 'Kubernetes',
+              type: !NG_NATIVE_HELM ? 'Kubernetes' : undefined,
               spec: {
                 variables: []
               }

@@ -32,12 +32,48 @@ import routes from '@common/RouteDefinitions'
 import EntitySetupUsage from '@common/pages/entityUsage/EntityUsage'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import ScopedTitle from '@common/components/Title/ScopedTitle'
 import ConnectorView from './ConnectorView'
 import { getIconByType } from './utils/ConnectorUtils'
 import css from './ConnectorDetailsPage.module.scss'
 
 interface Categories {
   [key: string]: string
+}
+
+interface RenderViewBasisActiveCategoryProps {
+  activeCategory: number
+  data: ConnectorResponse
+  refetch: () => Promise<void>
+}
+
+const RenderViewBasisActiveCategory: React.FC<RenderViewBasisActiveCategoryProps> = ({
+  activeCategory,
+  data,
+  refetch
+}) => {
+  const { getString } = useStrings()
+  switch (activeCategory) {
+    case 0:
+      return data.connector?.type ? (
+        <ConnectorView
+          type={data.connector.type}
+          response={data || ({} as ConnectorResponse)}
+          refetchConnector={refetch}
+        />
+      ) : (
+        <NoDataCard message={getString('connectors.connectorNotFound')} icon="question" />
+      )
+    case 1:
+      if (data.connector?.identifier) {
+        return <EntitySetupUsage entityType={'Connectors'} entityIdentifier={data.connector?.identifier} />
+      }
+      return <></>
+    case 2:
+      return <ActivityHistory referredEntityType="Connectors" entityIdentifier={data.connector?.identifier || ''} />
+    default:
+      return <></>
+  }
 }
 
 const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
@@ -64,7 +100,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     error
   } = useGetConnector({
     identifier: connectorId as string,
-    queryParams: repoIdentifier && branch ? { ...defaultQueryParam, repoIdentifier, branch } : defaultQueryParam,
+    queryParams: { ...defaultQueryParam, repoIdentifier, branch },
     mock: props.mockData
   })
 
@@ -205,9 +241,15 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
             size={35}
           ></Icon>
           <Container>
-            <Text color={Color.GREY_800} font={{ size: 'medium', weight: 'bold' }}>
-              {connectorData?.data?.connector?.name || connectorName}
-            </Text>
+            <ScopedTitle
+              title={{
+                [Scope.PROJECT]: `${getString('connectorsLabel')}: ${
+                  connectorData?.data?.connector?.name || connectorName || ''
+                }`,
+                [Scope.ORG]: getString('connectors.connectorsTitle'),
+                [Scope.ACCOUNT]: getString('connectors.connectorsTitle')
+              }}
+            />
             <Layout.Horizontal spacing="small">
               <Text color={Color.GREY_400}>
                 {connectorData?.data?.connector?.identifier || data?.connector?.identifier}
@@ -244,24 +286,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
         />
       )
     }
-    if (activeCategory === 0) {
-      return data?.connector?.type ? (
-        <ConnectorView
-          type={data.connector.type}
-          response={data || ({} as ConnectorResponse)}
-          refetchConnector={refetch}
-        />
-      ) : (
-        <NoDataCard message={getString('connectors.connectorNotFound')} icon="question" />
-      )
-    }
-    if (activeCategory === 1 && data?.connector?.identifier) {
-      return <EntitySetupUsage entityType={'Connectors'} entityIdentifier={data?.connector?.identifier} />
-    }
-    if (activeCategory === 2 && data) {
-      return <ActivityHistory referredEntityType="Connectors" entityIdentifier={data?.connector?.identifier || ''} />
-    }
-    return <></>
+    return <RenderViewBasisActiveCategory activeCategory={activeCategory} data={data} refetch={refetch} />
   }
 
   return (

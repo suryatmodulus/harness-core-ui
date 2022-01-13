@@ -7,6 +7,7 @@ import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import * as cvServices from 'services/cv'
 import { yamlResponse, monitoredServiceMockData } from '../CVMonitoredService/__test__/CVMonitoredService.mock'
 import MonitoredServicePage from '../MonitoredServicePage'
+import { isProjectChangedOnMonitoredService } from '../MonitoredServicePage.utils'
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVAddMonitoringServicesSetup({ ...accountPathProps, ...projectPathProps }),
@@ -223,5 +224,25 @@ describe('Unit tests for createting monitored source', () => {
     act(() => {
       fireEvent.click(container.querySelector('div[data-tab-id="Configurations"]')!)
     })
+  })
+
+  test('should return true when isProjectChangedOnMonitoredService method is called with the correct error message', () => {
+    const identifier = 'app_1'
+    const error = {
+      data: {
+        message: `Invalid request: Monitored Source Entity with identifier ${identifier} is not present`
+      }
+    }
+    expect(isProjectChangedOnMonitoredService(error, identifier)).toEqual(true)
+  })
+
+  test('should return false when isProjectChangedOnMonitoredService method is called with different error message', () => {
+    const identifier = 'app_1'
+    const error = {
+      data: {
+        message: `Invalid request:`
+      }
+    }
+    expect(isProjectChangedOnMonitoredService(error, identifier)).toEqual(false)
   })
 })

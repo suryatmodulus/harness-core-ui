@@ -50,6 +50,7 @@ permissionLabels:
   execute: '{{$.common.execute}}'
   manage: '{{$.common.manage}}'
   invite: Invite
+  evaluate: Evaluate
 categoryLabels:
   sharedResources: Shared Resources
 roleBinding: Role Bindings (Role - Resource Group)

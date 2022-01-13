@@ -3,6 +3,7 @@
 declare const styles: {
   readonly widthHalf: string
   readonly baseUrl: string
+  readonly sectionDivider: string
   readonly parameterLayout: string
 }
 export default styles

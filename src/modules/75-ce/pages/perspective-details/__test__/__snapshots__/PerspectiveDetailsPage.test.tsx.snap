@@ -126,7 +126,7 @@ exports[`test cases for Perspective details Page should be able to render no dat
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main StyledProps--background-white StyledProps--padding-small"
+      class="StyledProps--font StyledProps--main StyledProps--background-white StyledProps--padding-small StyledProps--border StyledProps--border-bottom"
     >
       <div
         class="StyledProps--font StyledProps--main mainContainer"
@@ -651,7 +651,7 @@ exports[`test cases for Perspective details Page should be able to render the de
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main StyledProps--background-white StyledProps--padding-small"
+      class="StyledProps--font StyledProps--main StyledProps--background-white StyledProps--padding-small StyledProps--border StyledProps--border-bottom"
     >
       <div
         class="StyledProps--font StyledProps--main mainContainer"

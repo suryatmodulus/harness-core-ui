@@ -27,9 +27,11 @@ export interface StringsMap {
   'common.addAccountName': string
   'common.addVariable': string
   'common.advanced': string
+  'common.agent': string
   'common.allErrors': string
   'common.apiKeys': string
   'common.apikey': string
+  'common.application': string
   'common.apply': string
   'common.approve': string
   'common.artifactTag': string
@@ -87,6 +89,7 @@ export interface StringsMap {
   'common.ce.visibility': string
   'common.ce.visibilityLaunchButton': string
   'common.ce.visibilityWarning': string
+  'common.certificate': string
   'common.cgLaunchText': string
   'common.changeDefaultAccountMessage': string
   'common.changeDefaultAccountTitle': string
@@ -144,6 +147,10 @@ export interface StringsMap {
   'common.delegateForTask': string
   'common.delegateTokenLabel': string
   'common.delete': string
+  'common.deleteService': string
+  'common.deleteServiceConfirmation': string
+  'common.deleteServiceFailure': string
+  'common.deleteServiceMessage': string
   'common.descriptionPlaceholder': string
   'common.disable': string
   'common.discard': string
@@ -276,6 +283,7 @@ export interface StringsMap {
   'common.gitSync.updateResource': string
   'common.goBack': string
   'common.governance': string
+  'common.gpgkey': string
   'common.harnessClusterHostingAccount': string
   'common.harnessFirstGeneration': string
   'common.harnessFirstGenerationDescription': string
@@ -576,6 +584,7 @@ export interface StringsMap {
   'common.switchAccount': string
   'common.switchAccountError': string
   'common.switchAccountSearch': string
+  'common.sync': string
   'common.template.deleteTemplate.errorWhileDeleting': string
   'common.template.deleteTemplate.templatesDeleted': string
   'common.template.label': string
@@ -634,6 +643,7 @@ export interface StringsMap {
   'common.videoNotSupportedError': string
   'common.viewContent': string
   'common.viewLatest': string
+  'common.viewReferences': string
   'common.viewText': string
   'common.viewUsage': string
   'common.webhookURL': string
@@ -742,6 +752,7 @@ export interface StringsMap {
   'rbac.permissionLabels.create': string
   'rbac.permissionLabels.createEdit': string
   'rbac.permissionLabels.delete': string
+  'rbac.permissionLabels.evaluate': string
   'rbac.permissionLabels.execute': string
   'rbac.permissionLabels.invite': string
   'rbac.permissionLabels.manage': string
@@ -909,15 +920,15 @@ export interface StringsMap {
   'authSettings.cdCommunityPlan.communityPlanStrings.item3': string
   'authSettings.cdCommunityPlan.communityPlanStrings.item4': string
   'authSettings.cdCommunityPlan.communityPlanStrings.item5': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item6': string
   'authSettings.cdCommunityPlan.communityPrice': string
-  'authSettings.cdCommunityPlan.communityPriceText': string
   'authSettings.cdCommunityPlan.communityTitle': string
   'authSettings.cdCommunityPlan.communityTitle2': string
   'authSettings.cdCommunityPlan.enterpriseLinkText': string
   'authSettings.cdCommunityPlan.enterprisePlanStrings.item1': string
   'authSettings.cdCommunityPlan.enterprisePlanStrings.item2': string
   'authSettings.cdCommunityPlan.enterprisePlanStrings.item3': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item4': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item5': string
   'authSettings.cdCommunityPlan.enterpriseTitle': string
   'authSettings.cdCommunityPlan.enterpriseTitle2': string
   'authSettings.cdCommunityPlan.harnessLinkText': string
@@ -1510,6 +1521,8 @@ export interface StringsMap {
   'connectors.ceGcp.billingExport.followInstruction': string
   'connectors.ceGcp.billingExport.heading': string
   'connectors.ceGcp.billingExport.launchTemplate': string
+  'connectors.ceGcp.billingExport.tableIdLabel': string
+  'connectors.ceGcp.billingExport.tableIdTooltipDesc': string
   'connectors.ceGcp.billingExport.tooltipDescription': string
   'connectors.ceGcp.billingExtention.heading': string
   'connectors.ceGcp.billingExtention.link1': string
@@ -2970,6 +2983,7 @@ export interface StringsMap {
   'cd.duplicateGitOpsServerIdError': string
   'cd.duplicateIdError': string
   'cd.dynamicProvisioning': string
+  'cd.enterpriseGitOps': string
   'cd.environmentCreated': string
   'cd.environmentUpdated': string
   'cd.filePathPlaceholder': string
@@ -3069,6 +3083,7 @@ export interface StringsMap {
   'cd.workloadRequired': string
   'ce.allClusters': string
   'ce.allRegions': string
+  'ce.budgets.addNewBudget': string
   'ce.budgets.budgetDeletedTxt': string
   'ce.budgets.confirmDeleteBudgetMsg': string
   'ce.budgets.confirmDeleteBudgetTitle': string
@@ -3083,6 +3098,7 @@ export interface StringsMap {
   'ce.budgets.detailsPage.monthToDateCost': string
   'ce.budgets.detailsPage.tableHeaders.actualCost': string
   'ce.budgets.detailsPage.tableHeaders.budgetCost': string
+  'ce.budgets.detailsPage.tableHeaders.budgetPeriod': string
   'ce.budgets.detailsPage.tableHeaders.budgetVariance': string
   'ce.budgets.detailsPage.tableHeaders.budgetVariancePercentage': string
   'ce.budgets.detailsPage.tableHeaders.month': string
@@ -3343,6 +3359,7 @@ export interface StringsMap {
   'ce.co.sshSetup': string
   'ce.common.budget': string
   'ce.common.newBudget': string
+  'ce.common.spendTillDate': string
   'ce.connector.AWS.crossAccountRole.arn': string
   'ce.connector.AWS.crossAccountRole.externalID': string
   'ce.connector.AWS.crossAccountRole.instructionLabel': string
@@ -3450,6 +3467,8 @@ export interface StringsMap {
   'ce.perspectives.budgets.addBudget': string
   'ce.perspectives.budgets.budgetMonthlyTxt': string
   'ce.perspectives.budgets.budgetSmallTxt': string
+  'ce.perspectives.budgets.budgetText': string
+  'ce.perspectives.budgets.budgetTextWithGrowthRate': string
   'ce.perspectives.budgets.configureAlerts.actual': string
   'ce.perspectives.budgets.configureAlerts.basedOn': string
   'ce.perspectives.budgets.configureAlerts.budgetAmount': string
@@ -3457,6 +3476,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.configureAlerts.exceeds': string
   'ce.perspectives.budgets.configureAlerts.forecasted': string
   'ce.perspectives.budgets.configureAlerts.percent': string
+  'ce.perspectives.budgets.configureAlerts.sendAlertTo': string
   'ce.perspectives.budgets.configureAlerts.subTitle': string
   'ce.perspectives.budgets.configureAlerts.title': string
   'ce.perspectives.budgets.createNew': string
@@ -3468,6 +3488,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.desc': string
   'ce.perspectives.budgets.forecastedCost': string
   'ce.perspectives.budgets.monthToDateSpend': string
+  'ce.perspectives.budgets.perspectiveCreateBudgetTitle': string
   'ce.perspectives.budgets.sendAlerts': string
   'ce.perspectives.budgets.setBudgetAmount.budgetPeriod': string
   'ce.perspectives.budgets.setBudgetAmount.budgetPeriods.monthly': string
@@ -3516,6 +3537,7 @@ export interface StringsMap {
   'ce.perspectives.createPerspective.validationErrors.nameError': string
   'ce.perspectives.createPerspective.validationErrors.nameLengthError': string
   'ce.perspectives.createPerspective.validationErrors.ruleError': string
+  'ce.perspectives.featureWarningSubInfoText': string
   'ce.perspectives.newPerspective': string
   'ce.perspectives.newPerspectiveLimitWarning': string
   'ce.perspectives.nodeDetails.aggregation.average': string
@@ -3529,6 +3551,7 @@ export interface StringsMap {
   'ce.perspectives.recommendations.perMonth': string
   'ce.perspectives.recommendations.recommendationCountTxt': string
   'ce.perspectives.recommendations.viewText': string
+  'ce.perspectives.reports.addReportSchedule': string
   'ce.perspectives.reports.createNew': string
   'ce.perspectives.reports.cronLabel': string
   'ce.perspectives.reports.desc': string
@@ -3923,6 +3946,7 @@ export interface StringsMap {
   'cf.onboarding.readme.java': string
   'cf.onboarding.readme.javascript': string
   'cf.onboarding.readme.nodejs': string
+  'cf.onboarding.readme.python': string
   'cf.onboarding.sdkButtonLabel': string
   'cf.onboarding.sdkKeyLabel': string
   'cf.onboarding.secret': string
@@ -4016,9 +4040,16 @@ export interface StringsMap {
   'cf.segmentDetail.addSegmentToFlag': string
   'cf.segmentDetail.addToFlag': string
   'cf.segmentDetail.autoAdded': string
+  'cf.segmentDetail.criteria': string
   'cf.segmentDetail.directlyAdded': string
+  'cf.segmentDetail.excludeTheFollowing': string
+  'cf.segmentDetail.includeTheFollowing': string
+  'cf.segmentDetail.noConditionDefined': string
   'cf.segmentDetail.noFlagsUseThisSegment': string
+  'cf.segmentDetail.noTargetDefined': string
   'cf.segmentDetail.removeFomFlag': string
+  'cf.segmentDetail.specificTargets': string
+  'cf.segmentDetail.targetBasedOnCondition': string
   'cf.segments.create': string
   'cf.segments.delete.message': string
   'cf.segments.delete.title': string
@@ -4290,9 +4321,12 @@ export interface StringsMap {
   'cv.continuous': string
   'cv.copyURL': string
   'cv.currentProductionRisk': string
-  'cv.customHealthSource.Querymapping.fields.parameter.title': string
+  'cv.customHealthSource.Querymapping.endTimeLabel': string
   'cv.customHealthSource.Querymapping.label': string
+  'cv.customHealthSource.Querymapping.startAndEndTimeTitle': string
+  'cv.customHealthSource.Querymapping.startTimeLabel': string
   'cv.customHealthSource.Querymapping.title': string
+  'cv.customHealthSource.Querymapping.validation.body': string
   'cv.customHealthSource.Querymapping.validation.endTime.placeholder': string
   'cv.customHealthSource.Querymapping.validation.endTime.timestamp': string
   'cv.customHealthSource.Querymapping.validation.path': string
@@ -4300,6 +4334,7 @@ export interface StringsMap {
   'cv.customHealthSource.Querymapping.validation.startTime.timestamp': string
   'cv.customHealthSource.ServiceInstance.pathLabel': string
   'cv.customHealthSource.ServiceInstance.pathModalHeader': string
+  'cv.customHealthSource.fetchRecordsButton': string
   'cv.cvChanges.changeTypeFilterDefault': string
   'cv.cvChanges.changesTimeline': string
   'cv.cvChanges.monitoredSVC': string
@@ -4847,6 +4882,7 @@ export interface StringsMap {
   'cv.tuesday': string
   'cv.turnService': string
   'cv.unexpected': string
+  'cv.unit': string
   'cv.unknown': string
   'cv.urlCopied': string
   'cv.verificationErrored': string
@@ -6331,19 +6367,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'inputSets.inputSetName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'inputSets.inputSetSaved': string
   /**
    * @deprecated migrate this string to module level file
    */
   'inputSets.inputSetSavedError': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'inputSets.nameIsRequired': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6372,10 +6400,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'inputSets.overlayInputSetSavedError': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'inputSets.overlaySetName': string
   /**
    * @deprecated migrate this string to module level file
    */

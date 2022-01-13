@@ -32,6 +32,10 @@
       width: 48% !important;
       max-width: 550px;
       margin-right: var(--spacing-medium);
+
+      .healthServicesContainer {
+        margin-top: var(--spacing-medium);
+      }
     }
 
     .validationContainer {

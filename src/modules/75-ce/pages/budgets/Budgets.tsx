@@ -14,7 +14,7 @@ import {
   useToaster
 } from '@wings-software/uicore'
 import { Classes, Menu, MenuItem, Position, Intent } from '@blueprintjs/core'
-import type { CellProps, Renderer } from 'react-table'
+import type { CellProps, Renderer, Column } from 'react-table'
 import { useParams, useHistory } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { useFetchBudgetQuery, BudgetSummary } from 'services/ce/services'
@@ -181,6 +181,39 @@ const BudgetsList: (props: BudgetsListProps) => JSX.Element | null = ({
     )
   }
 
+  const columns: Column<BudgetSummary>[] = React.useMemo(
+    () => [
+      {
+        accessor: 'name',
+        Header: getString('ce.budgets.listPage.tableHeaders.name'),
+        width: '25%',
+        Cell: NameCell
+      },
+      {
+        accessor: 'budgetAmount',
+        Header: getString('ce.budgets.listPage.tableHeaders.budgetAmount'),
+        width: '20%',
+        Cell: CostCell
+      },
+      {
+        Header: getString('ce.budgets.listPage.tableHeaders.monthToDate'),
+        width: '35%',
+        Cell: BudgetStatusCell
+      },
+      {
+        Header: getString('ce.budgets.listPage.tableHeaders.alerts'),
+        width: '15%',
+        Cell: AlertCell
+      },
+      {
+        Header: ' ',
+        width: '5%',
+        Cell: MenuCell
+      }
+    ],
+    []
+  )
+
   if (!budgetData.length) {
     return null
   }
@@ -191,35 +224,7 @@ const BudgetsList: (props: BudgetsListProps) => JSX.Element | null = ({
       onRowClick={row => {
         navigateToBudgetDetailsPage(row.id, row.name)
       }}
-      columns={[
-        {
-          accessor: 'name',
-          Header: getString('ce.budgets.listPage.tableHeaders.name'),
-          width: '25%',
-          Cell: NameCell
-        },
-        {
-          accessor: 'budgetAmount',
-          Header: getString('ce.budgets.listPage.tableHeaders.budgetAmount'),
-          width: '20%',
-          Cell: CostCell
-        },
-        {
-          Header: getString('ce.budgets.listPage.tableHeaders.monthToDate'),
-          width: '35%',
-          Cell: BudgetStatusCell
-        },
-        {
-          Header: getString('ce.budgets.listPage.tableHeaders.alerts'),
-          width: '15%',
-          Cell: AlertCell
-        },
-        {
-          Header: ' ',
-          width: '5%',
-          Cell: MenuCell
-        }
-      ]}
+      columns={columns}
     />
   )
 }

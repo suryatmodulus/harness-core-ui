@@ -3,6 +3,11 @@ home: Home
 welcome: Welcome
 dashboards: Dashboards
 setup: Setup
+agent: Agent
+application: Application
+certificate: Certificate
+gpgkey: 'GPG Key'
+sync: Sync
 accountSetup: Account Setup
 projectSetup: Project Setup
 orgSetup: Org Setup
@@ -246,7 +251,7 @@ gitSync:
   selectBranchLabel: Select a Branch
   updateResource: 'Update {{type}} {{name}}'
   createResource: 'Create {{type}} {{name}}'
-  sync: Sync
+  sync: '{{$.common.sync}}'
   syncStartSuccess: 'Sync started for branch {{branch}}'
   syncing:
     header: Sync in progress
@@ -575,6 +580,11 @@ videoNotSupportedError: Your browser doesn't support HTML5 video.
 sidecarArtifactsText: '{{$.sidecarArtifactText}}s'
 serviceCreated: Service created successfully
 serviceUpdated: Service updated successfully
+deleteService: Delete Service?
+deleteServiceMessage: Service deleted
+deleteServiceFailure: Unable to delete Service
+deleteServiceConfirmation: 'Are you sure you want to delete service {{name}}?'
+viewReferences: View references
 environmentCreated: Environment created successfully
 environmentUpdated: Environment updated successfully
 discard: Discard
@@ -595,7 +605,7 @@ plans:
   subscription: Subsription
   manageSubscription: Manage Subscription
 useTemplate: Use template
-saveAsTemplate: Save as template
+saveAsTemplate: Save as Template
 comingSoon: Coming Soon
 comingSoon2: Coming Soon!
 recommended: 'Recommended'

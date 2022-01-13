@@ -8,7 +8,6 @@ import reduce from 'lodash-es/reduce'
 import isObject from 'lodash-es/isObject'
 import memoize from 'lodash-es/memoize'
 import get from 'lodash-es/get'
-import { defaultTo } from 'lodash-es'
 import type {
   StageElementConfig,
   ExecutionWrapperConfig,
@@ -22,7 +21,6 @@ import type {
 import type { UseStringsReturn } from 'framework/strings'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { TemplateStepNode } from 'services/pipeline-ng'
-import { getStepType } from '@pipeline/utils/templateUtils'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 // eslint-disable-next-line no-restricted-imports
@@ -92,8 +90,8 @@ export const validateStep = ({
   viewType
 }: ValidateStepProps): FormikErrors<StepElementConfig> => {
   const errors = {}
-  const isTemplateStep = !!(originalStep?.step as TemplateStepNode)?.template
-  const stepType = getStepType(originalStep?.step)
+  const isTemplateStep = !!(originalStep?.step as unknown as TemplateStepNode)?.template
+  const stepType = isTemplateStep ? StepType.Template : (originalStep?.step as StepElementConfig)?.type
   const pipelineStep = factory.getStep(stepType)
   const errorResponse = pipelineStep?.validateInputSet({
     data: step,
@@ -129,7 +127,7 @@ const validateSteps = ({
       const errorResponse = validateStep({
         step: stepObj.step,
         template: template?.[index].step,
-        originalStep: getStepFromStage(defaultTo(stepObj.step.identifier, ''), originalSteps),
+        originalStep: getStepFromStage(stepObj.step.identifier, originalSteps),
         getString,
         viewType
       })
@@ -142,7 +140,7 @@ const validateSteps = ({
           const errorResponse = validateStep({
             step: stepParallel.step,
             template: template?.[index]?.parallel?.[indexP]?.step,
-            originalStep: getStepFromStage(defaultTo(stepParallel.step.identifier, ''), originalSteps),
+            originalStep: getStepFromStage(stepParallel.step.identifier, originalSteps),
             getString,
             viewType
           })

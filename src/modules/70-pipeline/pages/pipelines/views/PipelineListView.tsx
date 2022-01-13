@@ -205,7 +205,7 @@ const RenderColumnPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
             <Container padding={{ left: 'large' }}>
               <Badge
                 text={'common.invalid'}
-                iconName="warning-sign"
+                iconName="error-outline"
                 showTooltip={true}
                 entityName={data.name}
                 entityType={'Pipeline'}

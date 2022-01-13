@@ -21,13 +21,7 @@ import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import {
-  ServiceLevelObjectiveDTO,
-  TimeGraphResponse,
-  useGetServiceLevelObjective,
-  useSaveSLOData,
-  useUpdateSLOData
-} from 'services/cv'
+import { ServiceLevelObjectiveDTO, useGetServiceLevelObjective, useSaveSLOData, useUpdateSLOData } from 'services/cv'
 import RbacButton from '@rbac/components/Button/Button'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import sloReviewChange from '@cv/assets/sloReviewChange.svg'
@@ -38,7 +32,8 @@ import {
   getSLOInitialFormData,
   createSLORequestPayload,
   isFormDataValid,
-  getIsUserUpdatedSLOData
+  getIsUserUpdatedSLOData,
+  handleTabChange
 } from './CVCreateSLO.utils'
 import { TabsOrder, getSLOFormValidationSchema } from './CVCreateSLO.constants'
 import { SLOForm, CreateSLOTabs, NavButtonsProps } from './CVCreateSLO.types'
@@ -53,7 +48,6 @@ const CVCreateSLO: React.FC = () => {
   >()
 
   const [selectedTabId, setSelectedTabId] = useState<CreateSLOTabs>(CreateSLOTabs.NAME)
-  const [sliGraphData, setSliGraphData] = useState<TimeGraphResponse>()
 
   const projectIdentifierRef = useRef<string>()
   const sloPayloadRef = useRef<ServiceLevelObjectiveDTO | null>(null)
@@ -249,11 +243,7 @@ const CVCreateSLO: React.FC = () => {
             <Tabs
               id="createSLOTabs"
               selectedTabId={selectedTabId}
-              onChange={nextTab => {
-                if (isFormDataValid(formik, selectedTabId)) {
-                  setSelectedTabId(nextTab as CreateSLOTabs)
-                }
-              }}
+              onChange={nextTabId => handleTabChange(nextTabId, formik, setSelectedTabId)}
               tabList={[
                 {
                   id: CreateSLOTabs.NAME,
@@ -284,7 +274,7 @@ const CVCreateSLO: React.FC = () => {
                       retryOnError={() => refetchSLOData()}
                       className={css.pageBody}
                     >
-                      <SLI formikProps={formik} sliGraphData={sliGraphData} setSliGraphData={setSliGraphData}>
+                      <SLI formikProps={formik}>
                         <NavButtons formikProps={formik} />
                       </SLI>
                     </Page.Body>
@@ -300,7 +290,7 @@ const CVCreateSLO: React.FC = () => {
                       retryOnError={() => refetchSLOData()}
                       className={css.pageBody}
                     >
-                      <SLOTargetAndBudgetPolicy formikProps={formik} sliGraphData={sliGraphData}>
+                      <SLOTargetAndBudgetPolicy formikProps={formik}>
                         <NavButtons formikProps={formik} loading={createSLOLoading || updateSLOLoading} />
                       </SLOTargetAndBudgetPolicy>
                     </Page.Body>

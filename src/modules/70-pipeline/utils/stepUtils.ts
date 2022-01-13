@@ -1,5 +1,7 @@
+import { get } from 'lodash-es'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StageType } from '@pipeline/utils/stageHelpers'
+import type { StageElementConfig } from 'services/cd-ng'
 import type { StepPalleteModuleInfo } from 'services/pipeline-ng'
 
 export enum StepMode {
@@ -41,7 +43,21 @@ export function getAllStepPaletteModuleInfos(): StepPalleteModuleInfo[] {
   ]
 }
 
-export function getStepPaletteModuleInfosFromStage(stageType?: string): StepPalleteModuleInfo[] {
+export function getStepPaletteModuleInfosFromStage(
+  stageType?: string,
+  stage?: StageElementConfig,
+  initialCategory?: string
+): StepPalleteModuleInfo[] {
+  const deploymentType = get(stage, 'spec.serviceConfig.serviceDefinition.type', undefined)
+  let category = initialCategory
+  switch (deploymentType) {
+    case 'Kubernetes':
+      category = 'Kubernetes'
+      break
+    case 'NativeHelm':
+      category = 'Helm'
+      break
+  }
   switch (stageType) {
     case StageType.BUILD:
       return [
@@ -64,7 +80,7 @@ export function getStepPaletteModuleInfosFromStage(stageType?: string): StepPall
       return [
         {
           module: 'cd',
-          category: stageType === StageType.APPROVAL ? 'Approval' : undefined,
+          category: stageType === StageType.APPROVAL ? 'Approval' : category,
           shouldShowCommonSteps: true
         },
         {

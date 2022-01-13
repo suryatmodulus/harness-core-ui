@@ -4,6 +4,8 @@ declare const styles: {
   readonly budgetBar: string
   readonly actualCostBar: string
   readonly alert: string
+  readonly danger: string
+  readonly budgetStatusBar: string
   readonly forecastedBar: string
   readonly actualCostMarker: string
   readonly overBudgetMarker: string

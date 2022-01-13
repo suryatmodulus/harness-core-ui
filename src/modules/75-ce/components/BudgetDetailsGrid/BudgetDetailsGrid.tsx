@@ -20,6 +20,7 @@ const BudgetDetailsGrid: (props: BudgetDetailsGridProps) => JSX.Element | null =
     return null
   }
 
+  /* istanbul ignore next */
   const costData = gridData.costData || []
 
   const CostCell: Renderer<CellProps<BudgetCostData>> = ({ cell }) => {
@@ -64,6 +65,7 @@ const BudgetDetailsGrid: (props: BudgetDetailsGridProps) => JSX.Element | null =
     return <Text font={{ variation: FontVariation.BODY }}>{rangeText}</Text>
   }
 
+  /* istanbul ignore next */
   const formattedData = costData.filter(e => e?.time).sort((a, b) => b?.time - a?.time) as BudgetCostData[]
 
   return (
@@ -71,7 +73,7 @@ const BudgetDetailsGrid: (props: BudgetDetailsGridProps) => JSX.Element | null =
       <Grid<BudgetCostData>
         columns={[
           {
-            Header: getString('ce.budgets.detailsPage.tableHeaders.month'),
+            Header: getString('ce.budgets.detailsPage.tableHeaders.budgetPeriod'),
             accessor: 'time',
             Cell: TimeCell
           },

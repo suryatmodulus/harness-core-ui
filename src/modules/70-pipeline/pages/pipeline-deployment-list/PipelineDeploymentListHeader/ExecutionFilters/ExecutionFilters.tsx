@@ -38,6 +38,7 @@ import {
   removeNullAndEmpty,
   flattenObject
 } from '@common/components/Filter/utils/FilterUtils'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useFiltersContext } from '../../FiltersContext/FiltersContext'
 import PipelineFilterForm from '../../PipelineFilterForm/PipelineFilterForm'
 import type { StringQueryParams } from '../../types'
@@ -59,6 +60,7 @@ export function ExecutionFilters(): React.ReactElement {
   const isCIEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CI') > -1) || false
   const filterRef = React.useRef<FilterRef<FilterDTO> | null>(null)
   const { savedFilters: filters, isFetchingFilters, refetchFilters, queryParams } = useFiltersContext()
+  const { NG_NATIVE_HELM } = useFeatureFlags()
 
   const { data: servicesResponse, loading: isFetchingServices } = useGetServiceListForProject({
     queryParams: { accountId, orgIdentifier, projectIdentifier },
@@ -73,6 +75,8 @@ export function ExecutionFilters(): React.ReactElement {
     queryParams: { accountId, orgIdentifier, projectIdentifier },
     lazy: isFiltersDrawerOpen
   })
+
+  const [deploymentTypeSelectOptions, setDeploymentTypeSelectOptions] = React.useState<SelectOption[]>([])
 
   const { mutate: createFilter } = usePostFilter({
     queryParams: { accountIdentifier: accountId }
@@ -90,6 +94,17 @@ export function ExecutionFilters(): React.ReactElement {
       type: 'PipelineExecution'
     }
   })
+
+  React.useEffect(() => {
+    if (!isFetchingDeploymentTypes && !isEmpty(deploymentTypeResponse?.data) && deploymentTypeResponse?.data) {
+      const options: SelectOption[] = deploymentTypeResponse.data.map(type => ({
+        label: type === 'NativeHelm' ? getString('pipeline.nativeHelm') : getString('kubernetesText'),
+        value: type as string
+      }))
+      setDeploymentTypeSelectOptions(options)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deploymentTypeResponse?.data, isFetchingDeploymentTypes])
 
   const isFetchingMetaData = isFetchingDeploymentTypes || isFetchingEnvironments || isFetchingServices
 
@@ -243,9 +258,9 @@ export function ExecutionFilters(): React.ReactElement {
             initialValues={{
               environments: getMultiSelectFormOptions(environmentsResponse?.data?.content),
               services: getMultiSelectFormOptions(servicesResponse?.data?.content),
-              deploymentType: getMultiSelectFormOptions(
-                deploymentTypeResponse?.data?.filter(deploymentType => deploymentType !== 'NativeHelm') //This filter will be removed once nativeHelm is enabled
-              )
+              deploymentType: NG_NATIVE_HELM
+                ? deploymentTypeSelectOptions
+                : deploymentTypeSelectOptions.filter(deploymentType => deploymentType.value !== 'NativeHelm')
             }}
             type="PipelineExecution"
           />

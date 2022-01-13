@@ -1,6 +1,12 @@
 import { cloneDeep } from 'lodash-es'
 import type { FormikProps } from 'formik'
-import type { CustomHealthMetricDefinition, CustomHealthSourceSpec, RiskProfile } from 'services/cv'
+import type {
+  CustomHealthMetricDefinition,
+  CustomHealthSourceSpec,
+  RiskProfile,
+  MetricPackDTO,
+  useGetMetricPacks
+} from 'services/cv'
 import type { StringKeys, UseStringsReturn } from 'framework/strings'
 import type {
   CreatedMetricsWithSelectedIndex,
@@ -179,7 +185,7 @@ const validateCustomMetricFields = (
   }
 
   if (values?.requestMethod === 'POST' && !values?.query) {
-    completErrors['query'] = getString('cv.healthSource.connectors.NewRelic.validations.nrql')
+    completErrors['query'] = getString('cv.customHealthSource.Querymapping.validation.body')
   }
 
   if (!values?.metricValue) {
@@ -452,5 +458,91 @@ export const onSubmitCustomHealthSource = ({
         mappedServicesAndEnvs: mappedMetrics
       })
     )
+  }
+}
+
+function getMetricPackDTO(
+  identifier: MetricPackDTO['identifier'],
+  category: MetricPackDTO['category'],
+  metrics: MetricPackDTO['metrics']
+): MetricPackDTO {
+  return {
+    uuid: '2',
+    accountId: '',
+    orgIdentifier: '',
+    projectIdentifier: '',
+    dataSourceType: 'CUSTOM_HEALTH',
+    identifier,
+    category,
+    metrics
+  }
+}
+
+export function generateCustomMetricPack(): ReturnType<typeof useGetMetricPacks> {
+  const categories: MetricPackDTO['category'][] = ['ERRORS', 'INFRASTRUCTURE', 'PERFORMANCE']
+  const packs: MetricPackDTO[] = []
+  for (const category of categories) {
+    switch (category) {
+      case 'ERRORS':
+        packs.push(
+          getMetricPackDTO('Errors', 'Errors' as MetricPackDTO['category'], [
+            {
+              name: 'Errors',
+              type: 'ERROR',
+              thresholds: [],
+              included: false
+            }
+          ])
+        )
+        break
+      case 'INFRASTRUCTURE':
+        packs.push(
+          getMetricPackDTO('Infrastructure', 'Infrastructure' as MetricPackDTO['category'], [
+            {
+              name: 'Infrastructure',
+              type: 'INFRA',
+              thresholds: [],
+              included: false
+            }
+          ])
+        )
+        break
+      case 'PERFORMANCE':
+        packs.push(
+          getMetricPackDTO('Performance', 'Performance' as MetricPackDTO['category'], [
+            {
+              name: 'Throughput',
+              type: 'THROUGHPUT',
+              thresholds: [],
+              included: false
+            },
+            {
+              name: 'Other',
+              type: 'ERROR',
+              thresholds: [],
+              included: false
+            },
+            {
+              name: 'Response Time',
+              type: 'RESP_TIME',
+              thresholds: [],
+              included: false
+            }
+          ])
+        )
+    }
+  }
+
+  return {
+    loading: false,
+    error: null,
+    data: {
+      metaData: {},
+      resource: packs
+    },
+    absolutePath: '',
+    cancel: () => undefined,
+    refetch: () => Promise.resolve(),
+    response: null
   }
 }

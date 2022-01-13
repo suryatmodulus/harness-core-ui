@@ -11,6 +11,7 @@ import type { StringKeys } from 'framework/strings'
 import type { DatadogMetricInfo } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.type'
 
 export interface SelectedWidgetMetricData {
+  id: string
   metricName: string
   query: string
   widgetName?: string
@@ -38,6 +39,6 @@ export interface CloudMetricsHealthSourceProps<T> {
   addManualQueryTitle: StringKeys
   dataSourceType: DatasourceTypeEnum
   dashboardDetailRequest: UseGetReturn<any, any, any>
-  dashboardDetailMapper: (detail: T) => MetricWidget
+  dashboardDetailMapper: (dashboardId: string, detail: T) => MetricWidget
   formikProps: FormikProps<DatadogMetricInfo>
 }

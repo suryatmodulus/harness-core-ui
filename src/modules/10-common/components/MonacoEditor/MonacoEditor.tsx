@@ -2,6 +2,9 @@ import React, { MutableRefObject } from 'react'
 import ReactMonacoEditor from 'react-monaco-editor'
 import type { MonacoEditorProps } from 'react-monaco-editor'
 //@ts-ignore
+import { StaticServices } from 'monaco-editor/esm/vs/editor/standalone/browser/standaloneServices'
+StaticServices.configurationService.get().updateValue('files.eol', '\n')
+//@ts-ignore
 import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.worker'
 //@ts-ignore
 import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
@@ -54,19 +57,8 @@ const MonacoEditor = (props: ExtendedMonacoEditorProps, ref: ReactMonacoEditorRe
   }
 
   const theme = props.options?.readOnly ? 'disable-theme' : 'vs'
-  const { onChange, ...restProps } = props
 
-  return (
-    <ReactMonacoEditor
-      {...restProps}
-      onChange={(text, event) => {
-        onChange?.(text.replace(/\r/g, ''), event)
-      }}
-      ref={ref}
-      theme={theme}
-      editorWillMount={editorWillMount}
-    />
-  )
+  return <ReactMonacoEditor {...props} ref={ref} theme={theme} editorWillMount={editorWillMount} />
 }
 
 export default React.forwardRef(MonacoEditor)

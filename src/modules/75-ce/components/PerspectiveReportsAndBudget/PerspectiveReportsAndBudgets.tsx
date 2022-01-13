@@ -3,7 +3,20 @@ import cronstrue from 'cronstrue'
 import { isEmpty } from 'lodash-es'
 import { useHistory, useParams } from 'react-router-dom'
 import type { Column, CellProps, Renderer } from 'react-table'
-import { Button, Container, Text, Layout, Icon, FlexExpander, useToaster, Color } from '@wings-software/uicore'
+import {
+  Button,
+  Container,
+  Text,
+  Layout,
+  Icon,
+  FlexExpander,
+  useToaster,
+  Color,
+  FontVariation,
+  ButtonSize,
+  ButtonVariation,
+  Link
+} from '@wings-software/uicore'
 import { Popover, Position, Classes, PopoverInteractionKind } from '@blueprintjs/core'
 import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
 import routes from '@common/RouteDefinitions'
@@ -27,8 +40,6 @@ import useBudgetModal from './PerspectiveCreateBudget'
 import css from './PerspectiveReportsAndBudgets.module.scss'
 
 interface ListProps {
-  title: string
-  subTitle: string
   grid: ReactNode
   buttonText: string
   hasData: boolean
@@ -193,18 +204,47 @@ const ScheduledReports: React.FC = () => {
   )
 
   return (
-    <List
-      title={getString('ce.perspectives.reports.title')}
-      subTitle={`${getString('ce.perspectives.reports.desc')} ${
-        !reports.length ? getString('ce.perspectives.reports.msg') : ''
-      }`}
-      buttonText={getString('ce.perspectives.reports.createNew')}
-      onButtonClick={() => openModal()}
-      hasData={!!reports.length}
-      loading={loading}
-      grid={<Table<CEReportSchedule> data={reports} columns={columns} />}
-      showCreateButton
-    />
+    <Container>
+      <Layout.Horizontal>
+        <Container>
+          <Text color={Color.GREY_800} font={{ variation: FontVariation.H4 }}>
+            {getString('ce.perspectives.reports.title', {
+              count: reports.length || 0
+            })}
+          </Text>
+        </Container>
+        <FlexExpander />
+        {reports.length ? (
+          <Link
+            onClick={() => openModal()}
+            size={ButtonSize.SMALL}
+            padding="none"
+            margin="none"
+            font={FontVariation.SMALL}
+            variation={ButtonVariation.LINK}
+            icon="plus"
+            iconProps={{
+              size: 10
+            }}
+          >
+            {getString('ce.perspectives.reports.addReportSchedule')}
+          </Link>
+        ) : null}
+      </Layout.Horizontal>
+      <Text padding={{ top: 'large', bottom: 'large' }} color={Color.GREY_800} font="small">
+        {`${getString('ce.perspectives.reports.desc')} ${
+          !reports.length ? getString('ce.perspectives.reports.msg') : ''
+        }`}
+      </Text>
+      <List
+        buttonText={getString('ce.perspectives.reports.createNew')}
+        onButtonClick={() => openModal()}
+        showCreateButton={!reports.length}
+        hasData={!!reports.length}
+        loading={loading}
+        grid={<Table<CEReportSchedule> data={reports} columns={columns} />}
+      />
+    </Container>
   )
 }
 
@@ -228,20 +268,13 @@ const Budgets = ({ perspectiveName }: { perspectiveName: string }): JSX.Element 
   })
   const { showSuccess, showError } = useToaster()
 
-  const budget = budgets[0] || {}
-
-  const handleDeleteBudget: (id?: string, name?: string) => void = async (id, name) => {
+  const handleDeleteBudget: (budget: Budget) => void = async budget => {
     try {
-      const deleted = await (id &&
-        deleteBudget(id, {
-          headers: {
-            'content-type': 'application/json'
-          }
-        }))
+      const deleted = await (budget?.uuid && deleteBudget(budget.uuid))
       if (deleted) {
         showSuccess(
           getString('ce.budgets.budgetDeletedTxt', {
-            name: name
+            name: budget.name
           })
         )
         refetch()
@@ -251,89 +284,169 @@ const Budgets = ({ perspectiveName }: { perspectiveName: string }): JSX.Element 
     }
   }
 
-  const EditDeleteCell: Renderer<CellProps<Budget>> = ({ row }) => {
-    const originalData = row.original
-    return (
-      <RenderEditDeleteActions
-        onClickEdit={() =>
-          openModal({
-            perspectiveName: perspectiveName,
-            perspective: perspectiveId,
-            isEdit: true,
-            selectedBudget: originalData
-          })
-        }
-        onClickDelete={() => handleDeleteBudget(originalData.uuid, originalData.name)}
-      />
-    )
-  }
-
-  const columns: Column<Budget>[] = useMemo(
+  const columns: Column<AlertThreshold>[] = useMemo(
     () => [
       {
-        Header: 'Budgeted amount',
-        accessor: 'budgetAmount',
-        Cell: CostCell
+        Header: getString('ce.perspectives.budgets.configureAlerts.basedOn'),
+        accessor: 'basedOn',
+        Cell: RenderBasedOn
       },
       {
-        Header: 'Alert at',
-        accessor: 'alertThresholds',
-        Cell: AlertsAtCell
+        Header: getString('ce.perspectives.budgets.configureAlerts.percent'),
+        accessor: 'percentage',
+        Cell: RenderAlertThresholds
       },
       {
-        Header: 'Cost till date',
-        accessor: 'actualCost',
-        Cell: CostCell
-      },
-      {
-        Header: 'Last period spend',
-        accessor: 'lastMonthCost',
-        Cell: CostCell
-      },
-      {
-        Header: ' ',
-        Cell: EditDeleteCell
+        Header: getString('ce.perspectives.reports.recipientLabel'),
+        accessor: 'emailAddresses',
+        Cell: ({ row }: CellProps<AlertThreshold>) => {
+          const emailAddresses = [...(row.original.emailAddresses || [])] as string[]
+          return <RenderEmailAddresses emailAddresses={emailAddresses} />
+        }
       }
     ],
     []
   )
 
-  const renderGrid = () => {
-    return <Table<Budget> columns={columns} data={budgets || []} />
+  const renderMeta: (budget: Budget, index: number) => JSX.Element = (budget, index) => {
+    const { budgetAmount = 0, growthRate } = budget
+
+    return (
+      <Container>
+        <Text font={{ variation: FontVariation.H6 }}>
+          {growthRate
+            ? getString('ce.perspectives.budgets.budgetTextWithGrowthRate', {
+                index: index + 1,
+                amount: formatCost(budgetAmount),
+                growth: growthRate
+              })
+            : getString('ce.perspectives.budgets.budgetText', {
+                index: index + 1,
+                amount: formatCost(budgetAmount)
+              })}
+        </Text>
+      </Container>
+    )
+  }
+
+  const renderGrid: (budget: Budget) => JSX.Element = budget => {
+    const { alertThresholds = [] } = budget
+
+    return (
+      <Container>
+        <Layout.Horizontal
+          margin={{ top: 'large', bottom: 'medium' }}
+          spacing="small"
+          style={{
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}
+        >
+          <Text font="small" color={Color.GREY_800}>
+            {getString('ce.perspectives.budgets.sendAlerts')}
+          </Text>
+          <Container margin={{ right: 'large' }}>
+            <RenderEditDeleteActions
+              onClickEdit={() =>
+                openModal({
+                  perspectiveName: perspectiveName,
+                  perspective: perspectiveId,
+                  isEdit: true,
+                  selectedBudget: budget
+                })
+              }
+              onClickDelete={() => handleDeleteBudget(budget)}
+            />
+          </Container>
+        </Layout.Horizontal>
+        <Table<AlertThreshold> columns={columns} data={(alertThresholds || []) as any} />
+      </Container>
+    )
+  }
+
+  const openCreateNewBudgetModal = (): void => {
+    openModal({
+      isEdit: false,
+      perspectiveName: perspectiveName,
+      perspective: perspectiveId,
+      selectedBudget: {}
+    })
   }
 
   return (
-    <List
-      title={getString('ce.perspectives.budgets.title')}
-      subTitle={getString('ce.perspectives.budgets.desc')}
-      buttonText={getString('ce.perspectives.budgets.createNew')}
-      onButtonClick={() =>
-        openModal({
-          isEdit: false,
-          perspectiveName: perspectiveName,
-          perspective: perspectiveId,
-          selectedBudget: {}
-        })
-      }
-      hasData={!isEmpty(budget)}
-      loading={loading}
-      // Show create budget button only when there's no exisiting budget.
-      // A user can create only 1 budget at a time. To create a new, they
-      // have to delete the existing one, or just edit it.
-      showCreateButton={isEmpty(budget)}
-      // meta={renderMeta()}
-      grid={renderGrid()}
-    />
+    <Container>
+      <Layout.Horizontal>
+        <Text color={Color.GREY_800} font={{ variation: FontVariation.H4 }}>
+          {getString('ce.perspectives.budgets.perspectiveCreateBudgetTitle', {
+            count: budgets.length || 0
+          })}
+        </Text>
+        <FlexExpander />
+        {budgets.length ? (
+          <Link
+            size={ButtonSize.SMALL}
+            padding="none"
+            margin="none"
+            font={FontVariation.SMALL}
+            variation={ButtonVariation.LINK}
+            icon="plus"
+            iconProps={{
+              size: 10
+            }}
+            onClick={openCreateNewBudgetModal}
+          >
+            {getString('ce.budgets.addNewBudget')}
+          </Link>
+        ) : null}
+      </Layout.Horizontal>
+      <Text padding={{ top: 'large', bottom: 'large' }} color={Color.GREY_800} font="small">
+        {getString('ce.perspectives.budgets.desc')}
+      </Text>
+      {budgets.map((budget, idx) => {
+        return (
+          <List
+            key={budget.uuid}
+            buttonText={getString('ce.perspectives.budgets.createNew')}
+            onButtonClick={openCreateNewBudgetModal}
+            hasData={!isEmpty(budget)}
+            loading={loading}
+            // Show create budget button only when there's no exisiting budget.
+            // A user can create only 1 budget at a time. To create a new, they
+            // have to delete the existing one, or just edit it.
+            showCreateButton={isEmpty(budget)}
+            meta={renderMeta(budget, idx)}
+            grid={renderGrid(budget)}
+          />
+        )
+      })}
+      {!budgets.length ? (
+        <List
+          grid={null}
+          loading={loading}
+          onButtonClick={() =>
+            openModal({
+              isEdit: false,
+              perspectiveName: perspectiveName,
+              perspective: perspectiveId,
+              selectedBudget: {}
+            })
+          }
+          buttonText={getString('ce.perspectives.budgets.createNew')}
+          hasData={false}
+          showCreateButton={true}
+        />
+      ) : null}
+    </Container>
   )
 }
 
 const List = (props: ListProps): JSX.Element => {
-  const { title, subTitle, grid, buttonText, hasData, onButtonClick, loading, meta, showCreateButton } = props
+  const { grid, buttonText, hasData, onButtonClick, loading, meta, showCreateButton } = props
 
   const renderLoader = (): JSX.Element => {
     return (
       <Container className={css.loader}>
-        <Icon name="spinner" color="blue500" size={30} />
+        <Icon name="spinner" color={Color.BLUE_500} size={30} />
       </Container>
     )
   }
@@ -359,13 +472,11 @@ const List = (props: ListProps): JSX.Element => {
   }
 
   return (
-    <Container>
-      <Text color="grey800" style={{ fontSize: 16 }}>
-        {title}
-      </Text>
-      <Text padding={{ top: 'large', bottom: 'large' }} color="grey800" font="small">
-        {subTitle}
-      </Text>
+    <Container
+      margin={{
+        bottom: 'xlarge'
+      }}
+    >
       {loading && renderLoader()}
       {!loading && hasData && (
         <>
@@ -383,13 +494,27 @@ const RenderReportFrequency: Renderer<CellProps<CEReportSchedule>> = ({ row }) =
   return <span>{cronstrue.toString(cron)}</span>
 }
 
+const RenderBasedOn: Renderer<CellProps<AlertThreshold>> = ({ row }) => {
+  const { getString } = useStrings()
+  const basedOn = row.original.basedOn!
+  const map: Record<string, string> = useMemo(
+    () => ({
+      ACTUAL_COST: getString('ce.perspectives.budgets.actualSpend'),
+      FORECASTED_COST: getString('ce.perspectives.budgets.forecastedCost')
+    }),
+    []
+  )
+
+  return <span>{map[basedOn]}</span>
+}
+
 const RenderEmailAddresses = ({ emailAddresses = [] }: { emailAddresses: string[] }) => {
   const email = emailAddresses.shift()
   const remainingEmailsCount = emailAddresses.length ? `(+${emailAddresses.length})` : ''
 
   return (
     <Layout.Horizontal spacing="xsmall">
-      <Text color="grey700" font="small">
+      <Text color={Color.GREY_700} font="small">
         {email}
       </Text>
       {emailAddresses.length ? (
@@ -432,13 +557,9 @@ const RenderEditDeleteActions = (props: TableActionsProps): JSX.Element => {
   )
 }
 
-const CostCell: Renderer<CellProps<Budget>> = cell => {
-  return cell.value || cell.value === 0 ? <Text color={Color.GREY_800}>{formatCost(cell.value)}</Text> : null
-}
-
-const AlertsAtCell: Renderer<CellProps<Budget>> = cell => {
-  const alertString = cell.value?.length ? cell.value.map((al: AlertThreshold) => `${al.percentage}%`).join(', ') : '-'
-  return <Text lineClamp={1}>{alertString}</Text>
+const RenderAlertThresholds: Renderer<CellProps<AlertThreshold>> = ({ row }) => {
+  const percentage = row.original.percentage
+  return <span>{percentage}%</span>
 }
 
 export default ReportsAndBudgets

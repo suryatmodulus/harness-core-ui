@@ -6,5 +6,7 @@ declare const styles: {
   readonly dateRange: string
   readonly emptyStateImage: string
   readonly pageBody: string
+  readonly link: string
+  readonly launchIcon: string
 }
 export default styles

@@ -123,3 +123,5 @@ export enum DaysOfWeek {
 export enum AS_RESOURCE_TYPE {
   rule = 'autostop_rule'
 }
+
+export const ENFORCEMENT_USAGE_THRESHOLD = 90

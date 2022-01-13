@@ -32,6 +32,14 @@ const Wrapped = ({ lazy = false }: { lazy?: boolean }): React.ReactElement => {
 
   const { startListening, stopListening } = useEventSourceListener<string>({
     url: 'test-url',
+    queryParams: {
+      projectid: 'projectid',
+      orgid: 'orgid',
+      orgmd: ['a', 'b']
+    },
+    queryParamStringifyOptions: {
+      arrayFormat: 'repeat'
+    },
     lazy,
     event: { onMessage: event => setMessage(event.data) }
   })

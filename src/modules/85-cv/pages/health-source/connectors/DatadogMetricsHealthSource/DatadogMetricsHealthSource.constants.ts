@@ -1,4 +1,5 @@
 export const DatadogMetricsHealthSourceFieldNames = {
+  METRIC_IDENTIFIER: 'identifier',
   METRIC_NAME: 'metricName',
   METRIC: 'metric',
   METRIC_TAGS: 'metricTags',

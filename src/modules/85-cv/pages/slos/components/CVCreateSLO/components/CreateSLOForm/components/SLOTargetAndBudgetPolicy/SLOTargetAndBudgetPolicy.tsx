@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Card, Color, FontVariation, FormInput, Heading, Icon, Layout, Text, Container } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { SLOTargetChart } from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
+import SLOTargetChartWrapper from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
 import {
   getPeriodLengthOptions,
   getPeriodLengthOptionsForRolling,
@@ -9,7 +9,8 @@ import {
   getWindowEndOptionsForMonth,
   getWindowEndOptionsForWeek,
   getErrorBudget,
-  getCustomOptionsForSLOTargetChart
+  getCustomOptionsForSLOTargetChart,
+  convertSLOFormDataToServiceLevelIndicatorDTO
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.utils'
 import {
   SLOTargetAndBudgetPolicyProps,
@@ -23,14 +24,9 @@ import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 // SONAR recommendation
 const flexStart = 'flex-start'
 
-const SLOTargetAndBudgetPolicy: React.FC<SLOTargetAndBudgetPolicyProps> = ({ children, formikProps, sliGraphData }) => {
+const SLOTargetAndBudgetPolicy: React.FC<SLOTargetAndBudgetPolicyProps> = ({ children, formikProps }) => {
   const { getString } = useStrings()
   const { periodType, periodLengthType } = formikProps.values
-
-  const dataPoints = useMemo(
-    () => sliGraphData?.dataPoints?.map(point => [Number(point.timeStamp) || 0, Number(point.value) || 0]),
-    [sliGraphData?.dataPoints]
-  )
 
   return (
     <>
@@ -100,9 +96,10 @@ const SLOTargetAndBudgetPolicy: React.FC<SLOTargetAndBudgetPolicyProps> = ({ chi
               />
               <Layout.Horizontal spacing="xxxlarge" flex={{ alignItems: flexStart, justifyContent: flexStart }}>
                 <Container width={450}>
-                  <SLOTargetChart
+                  <SLOTargetChartWrapper
                     customChartOptions={getCustomOptionsForSLOTargetChart(formikProps.values)}
-                    dataPoints={dataPoints}
+                    monitoredServiceIdentifier={formikProps.values.monitoredServiceRef}
+                    serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}
                     bottomLabel={
                       <Text
                         color={Color.GREY_500}

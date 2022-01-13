@@ -7,8 +7,7 @@ import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/Rout
 import { getPipelineListPromise } from 'services/pipeline-ng'
 import { GitSuffixRegex } from '@common/utils/StringUtils'
 import { getAllFeaturesPromise } from 'services/cf'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import { FeatureFlag } from '@common/featureFlags'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
 export const getGitConnectorIcon = (type: GitSyncConfig['gitConnectorType']): IconName => {
   switch (type) {
@@ -152,8 +151,7 @@ export const getEntityUrl = (entity: GitSyncEntityDTO): string => {
  */
 
 export const useCanEnableGitExperience = (queryParam: ProjectPathProps & ModulePathParams): boolean => {
-  const FF_GITSYNC = useFeatureFlag(FeatureFlag.FF_GITSYNC)
-
+  const { NG_GIT_FULL_SYNC, FF_GITSYNC } = useFeatureFlags()
   const [canEnableGit, setCanEnableGit] = useState<boolean>(false)
 
   useEffect(() => {
@@ -203,5 +201,5 @@ export const useCanEnableGitExperience = (queryParam: ProjectPathProps & ModuleP
     checkEnableGitConditions()
   }, [])
 
-  return canEnableGit
+  return NG_GIT_FULL_SYNC ? true : canEnableGit
 }

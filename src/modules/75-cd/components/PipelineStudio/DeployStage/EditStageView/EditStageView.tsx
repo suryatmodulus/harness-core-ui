@@ -17,7 +17,6 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import { omit, set } from 'lodash-es'
 import type { FormikProps } from 'formik'
-import produce from 'immer'
 import { useStrings } from 'framework/strings'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type {
@@ -42,7 +41,7 @@ import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipelin
 import type { StringNGVariable } from 'services/cd-ng'
 import { getNameAndIdentifierSchema } from '@pipeline/utils/tempates'
 import type { TemplateSummaryResponse } from 'services/template-ng'
-import { getScopeBasedTemplateRef, getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
+import { createTemplate, getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
 import css from './EditStageView.module.scss'
 import stageCss from '../../DeployStageSetupShell/DeployStage.module.scss'
 
@@ -155,15 +154,7 @@ export const EditStageView: React.FC<EditStageViewProps> = ({
           templateTypes[template.identifier] = template.childType
           setTemplateTypes(templateTypes)
         }
-        const newStage = produce({} as DeploymentStageElementConfig, draft => {
-          draft.name = values.name
-          draft.identifier = values.identifier
-          set(draft, 'template.templateRef', getScopeBasedTemplateRef(template))
-          if (template.versionLabel) {
-            set(draft, 'template.versionLabel', template.versionLabel)
-          }
-        })
-        onSubmit?.({ stage: newStage }, values.identifier)
+        onSubmit?.({ stage: createTemplate(values, template) }, values.identifier)
       } else {
         data.stage.identifier = values.identifier
         data.stage.name = values.name

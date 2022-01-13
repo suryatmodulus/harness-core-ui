@@ -5,16 +5,18 @@ import { Page } from '@common/exports'
 import { useGetAuditList } from 'services/audit'
 import { useStrings } from 'framework/strings'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import type { AuditFilterProperties } from 'services/audit'
 import { useMutateAsGet } from '@common/hooks'
 import AuditTrailsFilters from '@audit-trail/components/AuditTrailsFilters'
+import ScopedTitle from '@common/components/Title/ScopedTitle'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import AuditTrailsListView from './views/AuditTrailsListView'
 import AuditTrailsEmptyState from './audit_trails_empty_state.png'
 import css from './AuditTrailsPage.module.scss'
 
 const AuditTrailsPage: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+  const { accountId, orgIdentifier } = useParams<OrgPathProps>()
   const [selectedFilterProperties, setSelectedFilterProperties] = useState<AuditFilterProperties>()
   const [page, setPage] = useState(0)
   const { getString } = useStrings()
@@ -49,7 +51,7 @@ const AuditTrailsPage: React.FC = () => {
       pageIndex: page
     },
     body: {
-      scopes: [{ accountIdentifier: accountId, orgIdentifier, projectIdentifier }],
+      scopes: [{ accountIdentifier: accountId, orgIdentifier }],
       ...selectedFilterProperties,
       filterType: 'Audit',
       startTime: startDate.getTime(),
@@ -57,16 +59,32 @@ const AuditTrailsPage: React.FC = () => {
     }
   })
 
+  const auditTrailTitle = getString('common.auditTrail')
   return (
     <>
       <Page.Header
-        title={getString('common.auditTrail')}
+        title={
+          <ScopedTitle
+            title={{
+              [Scope.ACCOUNT]: auditTrailTitle,
+              [Scope.PROJECT]: auditTrailTitle,
+              [Scope.ORG]: auditTrailTitle
+            }}
+          />
+        }
         breadcrumbs={<NGBreadcrumbs />}
         // content={
-        //   <Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_600}>
+        //   <Text margin={{ right: 'tiny' }} font={{ variation: FontVariation.SMALL }} color={Color.GREY_600}>
         //     {getString('auditTrail.externalDataText')}
-        //     <a target="_blank" href="https://harness.io/docs/api/tag/Audits" rel="noreferrer">
+        //     <a className={css.link} target="_blank" href="https://harness.io/docs/api/tag/Audits" rel="noreferrer">
         //       {` ${getString('auditTrail.auditLogAPI')}`}
+        //       <Icon
+        //         className={css.launchIcon}
+        //         margin={{ left: 'tiny', bottom: 'tiny' }}
+        //         color={Color.PRIMARY_7}
+        //         name="launch"
+        //         size={12}
+        //       />
         //     </a>
         //   </Text>
         // }
@@ -74,7 +92,6 @@ const AuditTrailsPage: React.FC = () => {
       <Page.SubHeader className={css.subHeaderContainer}>
         <Layout.Horizontal flex className={css.subHeader}>
           <DateRangePickerButton
-            width={240}
             className={css.dateRange}
             initialButtonText={getString('common.last7days')}
             dateRangePickerProps={{ defaultValue: [startDate, endDate] }}

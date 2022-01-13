@@ -1,19 +1,23 @@
 import {
+  getIsAllIDsUnique,
   getManuallyCreatedQueries,
   getSelectedDashboards,
   mapDatadogMetricHealthSourceToDatadogMetricSetupSource,
   mapDatadogMetricSetupSourceToDatadogHealthSource,
-  mapSelectedWidgetDataToDatadogMetricInfo
+  mapSelectedWidgetDataToDatadogMetricInfo,
+  validate
 } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.utils'
 import {
   DatadogMetricsHealthSourceMock,
   DatadogMetricsMockHealthSourceData,
   DatadogMetricsSetupSource,
   EXPECTED_DATADOG_METRIC_INFO,
+  METRIC_VALIDATION_RESULT,
   MOCK_MANUAL_QUERIES_LIST,
   MOCK_SELECTED_DASHBOARDS_WIDGETS,
   MOCK_SELECTED_WIDGET_DATA
 } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/tests/mock'
+import type { DatadogMetricInfo } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.type'
 
 describe('Validate DatadogMetricsHealthSource Utils', () => {
   test('validate health source data to DatadogSetupSource mapping', () => {
@@ -41,5 +45,56 @@ describe('Validate DatadogMetricsHealthSource Utils', () => {
         []
       )
     ).toEqual(EXPECTED_DATADOG_METRIC_INFO)
+  })
+
+  test('should detect identifier duplicates', () => {
+    const metricWithSameIdentifierToCheck = {
+      ...DatadogMetricsSetupSource.metricDefinition.get('mock_metric_path'),
+      metricPath: 'mock_metric_path_changed'
+    }
+    DatadogMetricsSetupSource.metricDefinition.set('mock_metric_path_changed', metricWithSameIdentifierToCheck)
+    expect(getIsAllIDsUnique(DatadogMetricsSetupSource.metricDefinition, metricWithSameIdentifierToCheck!)).toEqual(
+      false
+    )
+  })
+
+  test('should validate that all ids are unique', () => {
+    const metricWithDiffIdentifierToCheck = {
+      ...DatadogMetricsSetupSource.metricDefinition.get('mock_metric_path'),
+      identifier: 'unique_identifier',
+      metricPath: 'mock_metric_path_changed'
+    }
+    DatadogMetricsSetupSource.metricDefinition.set('mock_metric_path_changed', metricWithDiffIdentifierToCheck)
+    expect(getIsAllIDsUnique(DatadogMetricsSetupSource.metricDefinition, metricWithDiffIdentifierToCheck)).toEqual(true)
+  })
+
+  test('should validate all required fields for metrics', () => {
+    const getStringMock = jest.fn()
+    getStringMock.mockReturnValueOnce('query not valid')
+    getStringMock.mockReturnValueOnce('SLI, CV or HealthScore must be selected')
+    getStringMock.mockReturnValueOnce('metricName not valid')
+    getStringMock.mockReturnValueOnce('metric not valid')
+    getStringMock.mockReturnValueOnce('groupName not valid')
+
+    const metricToCheck: DatadogMetricInfo = {
+      ...DatadogMetricsSetupSource.metricDefinition.get('mock_metric_path'),
+      identifier: 'unique_identifier',
+      metricPath: 'mock_metric_path_changed',
+      query: '', // pass empty query for validation
+      metricName: '',
+      metric: '',
+      groupName: { label: '', value: '' }
+    }
+    const allSelectedMetrics = DatadogMetricsSetupSource.metricDefinition
+    allSelectedMetrics.set('mock_metric_path_changed', metricToCheck)
+    // should give us error for empty query
+    expect(validate(metricToCheck, allSelectedMetrics, getStringMock)).toEqual({
+      ...METRIC_VALIDATION_RESULT,
+      query: 'query not valid',
+      sli: 'SLI, CV or HealthScore must be selected',
+      metricName: 'metricName not valid',
+      metric: 'metric not valid',
+      groupName: 'groupName not valid'
+    })
   })
 })

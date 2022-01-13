@@ -9,7 +9,6 @@ declare const styles: {
   readonly create: string
   readonly stepWizard: string
   readonly formContainer: string
-  readonly pagination: string
   readonly table: string
   readonly masonry: string
   readonly folderMasonry: string

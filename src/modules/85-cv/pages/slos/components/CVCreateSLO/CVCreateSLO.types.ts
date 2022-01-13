@@ -6,8 +6,7 @@ import type {
   RatioSLIMetricSpec,
   SLOTarget,
   CalenderSLOTargetSpec,
-  WeeklyCalendarSpec,
-  TimeGraphResponse
+  WeeklyCalendarSpec
 } from 'services/cv'
 
 export enum CreateSLOTabs {
@@ -133,12 +132,9 @@ export interface SLONameProps {
 export interface SLIProps {
   children: JSX.Element
   formikProps: FormikProps<SLOForm>
-  sliGraphData?: TimeGraphResponse
-  setSliGraphData: (sliGraphData?: TimeGraphResponse) => void
 }
 
 export interface SLOTargetAndBudgetPolicyProps {
   children: JSX.Element
   formikProps: FormikProps<SLOForm>
-  sliGraphData?: TimeGraphResponse
 }

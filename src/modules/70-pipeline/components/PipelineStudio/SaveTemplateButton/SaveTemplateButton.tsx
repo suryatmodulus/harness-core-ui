@@ -17,6 +17,7 @@ import { useSaveTemplate } from '@pipeline/utils/useSaveTemplate'
 import type { JsonNode, StageElementConfig } from 'services/cd-ng'
 import type { StepOrStepGroupOrTemplateStepData } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import css from './SaveTemplateButton.module.scss'
 
 interface SaveTemplateButtonProps {
@@ -31,6 +32,7 @@ export const SaveTemplateButton = ({ data, buttonProps, type }: SaveTemplateButt
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [template, setTemplate] = React.useState<NGTemplateInfoConfig>()
   const [modalProps, setModalProps] = React.useState<ModalProps>()
+  const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const [showConfigModal, hideConfigModal] = useModalHook(
     () => (
       <Dialog enforceFocus={false} isOpen={true} className={css.configDialog}>
@@ -45,14 +47,11 @@ export const SaveTemplateButton = ({ data, buttonProps, type }: SaveTemplateButt
     ),
     [template, modalProps, repoIdentifier, branch]
   )
-  const { saveAndPublish } = useSaveTemplate(
-    {
-      template: template as NGTemplateInfoConfig,
-      gitDetails: { repoIdentifier, branch },
-      isPipelineStudio: true
-    },
-    hideConfigModal
-  )
+  const { saveAndPublish } = useSaveTemplate({
+    template: template as NGTemplateInfoConfig,
+    gitDetails: { repoIdentifier, branch },
+    isPipelineStudio: true
+  })
 
   const onSaveAsTemplate = () => {
     setTemplate(
@@ -65,7 +64,8 @@ export const SaveTemplateButton = ({ data, buttonProps, type }: SaveTemplateButt
     )
     setModalProps({
       title: getString('common.template.saveAsNewTemplateHeading'),
-      promise: saveAndPublish
+      promise: saveAndPublish,
+      shouldGetComment: !isGitSyncEnabled
     })
     showConfigModal()
   }

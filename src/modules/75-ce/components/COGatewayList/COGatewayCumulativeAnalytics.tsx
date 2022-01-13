@@ -1,7 +1,7 @@
 // import { ProgressBar } from '@blueprintjs/core'
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { isEmpty as _isEmpty } from 'lodash-es'
+import { isEmpty as _isEmpty, defaultTo as _defaultTo } from 'lodash-es'
 import { Color, Container, HarnessDocTooltip, Heading, Icon, Layout, Text } from '@wings-software/uicore'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
@@ -14,6 +14,9 @@ import css from './COGatewayCumulativeAnalytics.module.scss'
 interface COGatewayCumulativeAnalyticsProps {
   activeServicesCount: number
 }
+
+const toFixedDecimalNumber = (num: number, decimalPlaces = 2) => Number(num.toFixed(decimalPlaces))
+
 function getStackedAreaChartOptions(
   title: string,
   categories: string[],
@@ -26,6 +29,14 @@ function getStackedAreaChartOptions(
     categories = categories.map(x => getDay(x, 'YYYY-MM-DDTHH:mm:ssZ'))
     step = Math.ceil(categories.length * 0.25)
   }
+  savingsData = _defaultTo(
+    savingsData.map(n => toFixedDecimalNumber(n)),
+    []
+  )
+  spendData = _defaultTo(
+    spendData.map(n => toFixedDecimalNumber(n)),
+    []
+  )
   return {
     chart: {
       type: 'spline',
@@ -58,7 +69,7 @@ function getStackedAreaChartOptions(
       enabled: false
     },
     tooltip: {
-      pointFormat: '{series.name}: {point.y}<br/>'
+      pointFormat: '{series.name}: ${point.y}<br/>'
     },
     plotOptions: {
       area: {

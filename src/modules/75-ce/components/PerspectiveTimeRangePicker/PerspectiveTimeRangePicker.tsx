@@ -16,6 +16,8 @@ import {
   getStartDateTime,
   getEndDateTime
 } from '@ce/utils/momentUtils'
+import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
 import css from './PerspectiveTimeRangePicker.module.scss'
 
 const getDateLabelToDisplayText: (getString: UseStringsReturn['getString']) => Record<string, string> = getString => {
@@ -152,10 +154,10 @@ const DateLabelRenderer: React.FC<DateLabelRendererProps> = ({ text, dateRange, 
         }}
         spacing="large"
       >
-        <Text className={css.pointerText} color={disable ? Color.GREEN_200 : Color.GREEN_600}>
+        <Text className={css.pointerText} color={disable ? Color.GREY_200 : Color.GREY_600}>
           {labelToTextMapping[text]}
         </Text>
-        <Text className={css.pointerText} color={disable ? Color.GREEN_200 : Color.GREEN_300}>{`${dateRange[0].format(
+        <Text className={css.pointerText} color={disable ? Color.GREY_200 : Color.GREY_300}>{`${dateRange[0].format(
           dateFormat[0]
         )} ${dateFormat[1] ? '- ' + dateRange[1].format(dateFormat[1]) : ''}`}</Text>
       </Layout.Horizontal>
@@ -177,12 +179,13 @@ interface PerspectiveTimeRangePickerProps {
   featureEnabled?: boolean
 }
 
-const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
-  timeRange,
-  setTimeRange,
-  featureEnabled
-}) => {
+const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({ timeRange, setTimeRange }) => {
   const { getString } = useStrings()
+
+  const { licenseInformation } = useLicenseStore()
+  const isFreeEdition = licenseInformation['CE']?.edition === ModuleLicenseType.FREE
+
+  const featureEnabled = !isFreeEdition
 
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean | undefined>()
 

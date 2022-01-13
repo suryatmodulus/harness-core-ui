@@ -197,7 +197,7 @@ describe('Render Forms - Snapshot Testing', () => {
   })
 
   test('render Overlay Input Set Form view', async () => {
-    const { getAllByText } = render(
+    const { getByText } = render(
       <TestWrapper
         path={TEST_INPUT_SET_PATH}
         pathParams={{
@@ -214,13 +214,15 @@ describe('Render Forms - Snapshot Testing', () => {
     )
     jest.runOnlyPendingTimers()
     const container = findDialogContainer()
-    await waitFor(() => getAllByText('inputSets.addInputSetPlus'))
-    const addNew = getAllByText('inputSets.addInputSetPlus')[0]
+
+    await waitFor(() => getByText('pipeline.inputSets.selectPlaceholder'))
     // Add two
-    fireEvent.click(addNew)
-    fireEvent.click(addNew)
+    act(() => {
+      fireEvent.click(getByText('pipeline.inputSets.selectPlaceholder'))
+      fireEvent.click(getByText('pipeline.inputSets.selectPlaceholder'))
+    })
     // Remove the last
-    const remove = container?.querySelectorAll('[data-icon="main-trash"]')[1]
+    const remove = container?.querySelectorAll('[data-icon="cross"]')[1]
     fireEvent.click(remove!)
     expect(container).toMatchSnapshot()
   })
@@ -286,7 +288,7 @@ describe('Render Forms - Snapshot Testing', () => {
     )
     jest.runOnlyPendingTimers()
     const container = findDialogContainer()
-    await waitFor(() => getAllByText('2.'))
+    await waitFor(() => getByText('test'))
     expect(container).toMatchSnapshot()
     fireEvent.click(getByText('save'))
     // Switch Mode
@@ -296,7 +298,7 @@ describe('Render Forms - Snapshot Testing', () => {
   })
 
   test('render Edit Overlay Input Set Form and test drag drop', async () => {
-    const { getByTestId } = render(
+    const { getByTestId, getByText } = render(
       <TestWrapper
         path={TEST_INPUT_SET_PATH}
         pathParams={{
@@ -312,11 +314,14 @@ describe('Render Forms - Snapshot Testing', () => {
       </TestWrapper>
     )
     jest.runOnlyPendingTimers()
-    await waitFor(() => getByTestId('asd'))
+    await waitFor(() => getByText('asd'))
+
+    act(() => {
+      fireEvent.click(getByText('pipeline.inputSets.selectPlaceholder'))
+    })
 
     const container = getByTestId('asd')
     const container2 = getByTestId('test')
-
     act(() => {
       const dragStartEvent = Object.assign(createEvent.dragStart(container), eventData)
 

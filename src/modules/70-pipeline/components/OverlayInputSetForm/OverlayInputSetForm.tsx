@@ -7,10 +7,7 @@ import {
   ButtonVariation,
   Formik,
   FormikForm,
-  FormInput,
-  Icon,
   Layout,
-  SelectOption,
   Text,
   PageSpinner,
   VisualYamlSelectedView as SelectedView,
@@ -19,7 +16,6 @@ import {
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
-import { FieldArray, FieldArrayRenderProps } from 'formik'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 
@@ -57,6 +53,7 @@ import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
+import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import css from './OverlayInputSetForm.module.scss'
 
 export interface OverlayInputSetDTO extends Omit<OverlayInputSetResponse, 'identifier'> {
@@ -120,10 +117,6 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
 const clearNullUndefined = /* istanbul ignore next */ (data: OverlayInputSetDTO): OverlayInputSetDTO =>
   omitBy(omitBy(data, isUndefined), isNull)
 
-interface InputSetSelectOption extends SelectOption {
-  branch?: string
-}
-
 export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
   hideForm,
   identifier,
@@ -149,6 +142,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [selectedRepo, setSelectedRepo] = React.useState<string>(overlayInputSetRepoIdentifier || repoIdentifier || '')
   const [selectedBranch, setSelectedBranch] = React.useState<string>(overlayInputSetBranch || branch || '')
+  const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetSelectorProps['value']>()
   const { showSuccess, showError, clear } = useToaster()
 
   const {
@@ -295,16 +289,6 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
     }
   }, [inputSet.entityValidityDetails?.valid])
 
-  const inputSetListOptions: InputSetSelectOption[] = React.useMemo(() => {
-    return (
-      inputSetList?.data?.content?.map(item => ({
-        label: item.name || /* istanbul ignore next */ '',
-        value: item.identifier || /* istanbul ignore next */ '',
-        branch: item.gitDetails?.branch
-      })) || []
-    )
-  }, [inputSetList?.data?.content?.map, inputSetList])
-
   const inputSetListYaml: CompletionItemInterface[] = React.useMemo(() => {
     return (
       inputSetList?.data?.content?.map(item => ({
@@ -314,6 +298,22 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
       })) || []
     )
   }, [inputSetList?.data?.content?.map, inputSetList])
+
+  React.useEffect(() => {
+    const inputSetsToSelect = inputSet.inputSetReferences?.map(inputSetRef => {
+      const foundInputSet = inputSetList?.data?.content?.find(currInputSet => currInputSet.identifier === inputSetRef)
+      return {
+        ...foundInputSet,
+        label: defaultTo(foundInputSet?.name, ''),
+        value: defaultTo(foundInputSet?.identifier, ''),
+        type: foundInputSet?.inputSetType,
+        gitDetails: defaultTo(foundInputSet?.gitDetails, {}),
+        inputSetErrorDetails: foundInputSet?.inputSetErrorDetails,
+        overlaySetErrorDetails: foundInputSet?.overlaySetErrorDetails
+      }
+    })
+    setSelectedInputSets(inputSetsToSelect)
+  }, [inputSetList?.data?.content, inputSet.inputSetReferences])
 
   React.useEffect(() => {
     if (identifier) {
@@ -490,44 +490,6 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
     ]
   )
 
-  const onDragStart = React.useCallback((event: React.DragEvent<HTMLDivElement>, index: number) => {
-    event.dataTransfer.setData('data', index.toString())
-    event.currentTarget.classList.add(css.dragging)
-  }, [])
-
-  const onDragEnd = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    event.currentTarget.classList.remove(css.dragging)
-  }, [])
-
-  const onDragLeave = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    event.currentTarget.classList.remove(css.dragOver)
-  }, [])
-
-  const onDragOver = React.useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    /* istanbul ignore else */
-    if (event.preventDefault) {
-      event.preventDefault()
-    }
-    event.currentTarget.classList.add(css.dragOver)
-    event.dataTransfer.dropEffect = 'move'
-  }, [])
-
-  const onDrop = React.useCallback(
-    (event: React.DragEvent<HTMLDivElement>, arrayHelpers: FieldArrayRenderProps, droppedIndex: number) => {
-      /* istanbul ignore else */
-      if (event.preventDefault) {
-        event.preventDefault()
-      }
-      const data = event.dataTransfer.getData('data')
-      /* istanbul ignore else */
-      if (data) {
-        const index = parseInt(data, 10)
-        arrayHelpers.swap(index, droppedIndex)
-      }
-      event.currentTarget.classList.remove(css.dragOver)
-    },
-    []
-  )
   /* istanbul ignore else */
   if (
     errorPipeline ||
@@ -570,6 +532,10 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
     }
   })
 
+  const selectedInputSetReferences: string[] | undefined = React.useMemo(() => {
+    return selectedInputSets?.map(currInputSet => defaultTo(currInputSet.identifier, currInputSet.value) as string)
+  }, [selectedInputSets])
+
   return (
     <Dialog
       title={
@@ -607,11 +573,14 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
             formName="overlayInputSet"
             enableReinitialize={true}
             validationSchema={Yup.object().shape({
-              name: NameSchema({ requiredErrorMsg: getString('inputSets.nameIsRequired') }),
+              name: NameSchema({ requiredErrorMsg: getString('common.validation.nameIsRequired') }),
               inputSetReferences: Yup.array().of(Yup.string().required(getString('inputSets.inputSetIsRequired')))
             })}
             onSubmit={values => {
-              handleSubmit(values, { repoIdentifier: values.repo, branch: values.branch })
+              handleSubmit(
+                { ...values, inputSetReferences: selectedInputSetReferences },
+                { repoIdentifier: values.repo, branch: values.branch }
+              )
             }}
           >
             {formikProps => {
@@ -623,7 +592,7 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                         <NameIdDescriptionTags
                           className={css.inputSetName}
                           identifierProps={{
-                            inputLabel: getString('inputSets.overlaySetName'),
+                            inputLabel: getString('name'),
                             isIdentifierEditable: !isEdit && !isReadOnly,
                             inputGroupProps: {
                               disabled: isReadOnly
@@ -661,61 +630,21 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                           >
                             {getString('inputSets.selectInputSetsHelp')}
                           </Text>
-                          <Layout.Vertical padding={{ top: 'xxxlarge', bottom: 'large' }}>
-                            <FieldArray
-                              name="inputSetReferences"
-                              render={arrayHelpers => (
-                                <Layout.Vertical>
-                                  {formikProps?.values.inputSetReferences?.map((inputReference, index) => (
-                                    <Layout.Horizontal
-                                      key={`${index}-${inputReference}`}
-                                      flex={{ distribution: 'space-between' }}
-                                      style={{ alignItems: 'end' }}
-                                    >
-                                      <Layout.Horizontal
-                                        spacing="medium"
-                                        style={{ alignItems: 'baseline' }}
-                                        draggable={true}
-                                        onDragStart={event => {
-                                          onDragStart(event, index)
-                                        }}
-                                        data-testid={inputReference}
-                                        onDragEnd={onDragEnd}
-                                        onDragOver={onDragOver}
-                                        onDragLeave={onDragLeave}
-                                        onDrop={event => onDrop(event, arrayHelpers, index)}
-                                      >
-                                        <Icon name="drag-handle-vertical" className={css.drag} />
-                                        <Text>{`${index + 1}.`}</Text>
-                                        <FormInput.Select
-                                          items={inputSetListOptions}
-                                          name={`inputSetReferences[${index}]`}
-                                          style={{ width: 400 }}
-                                          placeholder={getString('pipeline.inputSets.inputSetPlaceholder')}
-                                          disabled={isReadOnly}
-                                        />
-                                      </Layout.Horizontal>
-                                      <Button
-                                        minimal
-                                        icon="main-trash"
-                                        onClick={() => arrayHelpers.remove(index)}
-                                        disabled={isReadOnly}
-                                      />
-                                    </Layout.Horizontal>
-                                  ))}
-                                  <span>
-                                    <Button
-                                      minimal
-                                      text={getString('inputSets.addInputSetPlus')}
-                                      variation={ButtonVariation.LINK}
-                                      onClick={() => arrayHelpers.push('')}
-                                      disabled={isReadOnly}
-                                    />
-                                  </span>
-                                </Layout.Vertical>
-                              )}
-                            />
-                          </Layout.Vertical>
+                          {inputSet && (
+                            <GitSyncStoreProvider>
+                              <InputSetSelector
+                                pipelineIdentifier={pipelineIdentifier}
+                                onChange={inputsets => {
+                                  setSelectedInputSets(inputsets)
+                                }}
+                                value={selectedInputSets}
+                                selectedRepo={selectedRepo}
+                                selectedBranch={selectedBranch}
+                                isOverlayInputSet={true}
+                                selectedValueClass={css.selectedInputSetsContainer}
+                              />
+                            </GitSyncStoreProvider>
+                          )}
                         </Layout.Vertical>
                       </div>
                       <Layout.Horizontal padding={{ top: 'medium' }}>
@@ -736,7 +665,12 @@ export const OverlayInputSetForm: React.FC<OverlayInputSetFormProps> = ({
                       ) : (
                         <YAMLBuilder
                           {...yamlBuilderReadOnlyModeProps}
-                          existingJSON={{ overlayInputSet: omit(formikProps?.values, 'pipeline', 'repo', 'branch') }}
+                          existingJSON={{
+                            overlayInputSet: {
+                              ...omit(formikProps?.values, 'pipeline', 'repo', 'branch'),
+                              inputSetReferences: selectedInputSetReferences
+                            }
+                          }}
                           invocationMap={invocationMap}
                           bind={setYamlHandler}
                           schema={pipelineSchema?.data}

@@ -24,8 +24,6 @@ import { FormMultiTypeCheckboxField } from '@common/components'
 
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
-import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
-import { Scope } from '@common/interfaces/SecretsInterface'
 import type { ManifestDetailDataType, ManifestTypes } from '../../ManifestInterface'
 import {
   gitFetchTypeList,
@@ -38,6 +36,7 @@ import {
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import DragnDropPaths from '../../DragnDropPaths'
 
+import { getRepositoryName } from '../ManifestUtils'
 import css from './ManifestDetails.module.scss'
 
 interface ManifestDetailsPropType {
@@ -80,32 +79,6 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
         : prevStepData?.url
       : null
 
-  const getRepoName = (): string => {
-    let repoName = ''
-    if (getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED) {
-      repoName = prevStepData?.connectorRef
-    } else if (prevStepData?.connectorRef) {
-      const connectorScope = getScopeFromValue(initialValues?.spec?.store?.spec?.connectorRef)
-      if (connectorScope === Scope.ACCOUNT) {
-        if (
-          initialValues?.spec?.store.spec?.connectorRef ===
-          `account.${prevStepData?.connectorRef?.connector?.identifier}`
-        ) {
-          repoName = initialValues?.spec?.store?.spec?.repoName
-        } else {
-          repoName = ''
-        }
-      } else {
-        repoName =
-          prevStepData?.connectorRef?.connector?.identifier === initialValues?.spec?.store?.spec?.connectorRef
-            ? initialValues?.spec?.store?.spec?.repoName
-            : ''
-      }
-      return repoName
-    }
-    return repoName
-  }
-
   const getInitialValues = useCallback((): ManifestDetailDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
 
@@ -114,7 +87,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
         ...specValues,
         identifier: initialValues.identifier,
         skipResourceVersioning: initialValues?.spec?.skipResourceVersioning,
-        repoName: getRepoName(),
+        repoName: getRepositoryName(prevStepData, initialValues),
         paths:
           typeof specValues.paths === 'string'
             ? specValues.paths
@@ -129,7 +102,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
       gitFetchType: 'Branch',
       paths: [{ path: '', uuid: uuid('', nameSpace()) }],
       skipResourceVersioning: false,
-      repoName: getRepoName()
+      repoName: getRepositoryName(prevStepData, initialValues)
     }
   }, [])
 

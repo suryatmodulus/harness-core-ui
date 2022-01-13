@@ -1,12 +1,10 @@
 import React, { createRef, useEffect, useState } from 'react'
-import { Redirect, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Button, ButtonVariation, Color, ExpandingSearchInput, Layout, Tab, Tabs, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useGetGitSyncErrorsCount } from 'services/cd-ng'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
-import routes from '@common/RouteDefinitions'
-import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { GitSyncErrorsPanel } from '@gitsync/pages/errors/GitSyncErrorsPanel/GitSyncErrorsPanel'
 import {
   GitErrorExperienceTab,
@@ -15,16 +13,6 @@ import {
   GitErrorExperienceSubTab
 } from '@gitsync/pages/errors/GitSyncErrorContext'
 import styles from '@gitsync/pages/errors/GitSyncErrors.module.scss'
-
-export const GitSyncErrorsWithRedirect: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
-  const { NG_GIT_ERROR_EXPERIENCE } = useFeatureFlags()
-  return NG_GIT_ERROR_EXPERIENCE ? (
-    <GitSyncErrors />
-  ) : (
-    <Redirect to={routes.toGitSyncReposAdmin({ accountId, orgIdentifier, projectIdentifier, module })} />
-  )
-}
 
 const TabTitle: React.FC<{ title: string; count: number; showCount: boolean }> = props => {
   const { title, count, showCount } = props

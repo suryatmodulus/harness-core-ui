@@ -416,6 +416,10 @@ const HomePage: React.FC = () => {
     return str.join('&')
   }
 
+  const folderIdOrBlank = () => {
+    return folderId === 'shared' ? '' : folderId
+  }
+
   React.useEffect(() => {
     const script = document.createElement('script')
 
@@ -434,7 +438,7 @@ const HomePage: React.FC = () => {
     path: 'gateway/dashboard/v1/search',
     queryParams: {
       accountId: accountId,
-      folderId: folderId === 'shared' ? '' : folderId,
+      folderId: folderIdOrBlank(),
       searchTerm,
       page: page + 1,
       pageSize: 20,
@@ -449,7 +453,7 @@ const HomePage: React.FC = () => {
     path: 'gateway/dashboard/v1/tags',
     queryParams: {
       accountId: accountId,
-      folderId: folderId === 'shared' ? '' : folderId
+      folderId: folderIdOrBlank()
     }
   })
 
@@ -478,7 +482,7 @@ const HomePage: React.FC = () => {
   const { data: folderDetail } = useGet({
     // Inferred from RestfulProvider in index.js
     path: 'gateway/dashboard/folderDetail',
-    queryParams: { accountId: accountId, folderId: folderId === 'shared' ? '' : folderId }
+    queryParams: { accountId: accountId, folderId: folderIdOrBlank() }
   })
 
   React.useEffect(() => {
@@ -569,310 +573,302 @@ const HomePage: React.FC = () => {
   }
 
   return (
-    <Page.Body
-      loading={loading || cloning}
-      className={css.pageContainer}
-      retryOnError={() => {
-        return
-      }}
-      error={(error?.data as Error)?.message}
-    >
-      <GetStarted isOpen={isOpen} setDrawerOpen={val => setDrawerOpen(val)} />
-      <Layout.Vertical padding="large" background={Color.GREY_0}>
-        <Layout.Horizontal style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-          <Layout.Vertical spacing="medium">
-            <Breadcrumbs links={links} />
-            <Text color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }}>
-              {folderId !== 'shared' ? title : getString('common.dashboards')}
-            </Text>
-          </Layout.Vertical>
-          <Layout.Horizontal>
-            <Layout.Horizontal spacing="medium">
-              <NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toCustomDashboardHome({ accountId, folderId })}
-              >
-                {getString('common.dashboards')}
-              </NavLink>
-              <NavLink
-                className={css.tags}
-                activeClassName={css.activeTag}
-                to={routes.toCustomFolderHome({ accountId })}
-              >
-                {getString('dashboards.homePage.folders')}
-              </NavLink>
-            </Layout.Horizontal>
-          </Layout.Horizontal>
+    <Container className={css.pageContainer}>
+      <Page.Header
+        title={folderId !== 'shared' ? title : getString('common.dashboards')}
+        breadcrumbs={<Breadcrumbs links={links} />}
+        content={
           <Layout.Horizontal spacing="medium">
-            <Text color={Color.PRIMARY_6} style={{ cursor: 'pointer' }} onClick={() => setDrawerOpen(true)}>
-              {' '}
-              <Icon name="question" /> {getString('getStarted')}
-            </Text>
+            <NavLink
+              className={css.tags}
+              activeClassName={css.activeTag}
+              to={routes.toCustomDashboardHome({ accountId, folderId })}
+            >
+              {getString('common.dashboards')}
+            </NavLink>
+            <NavLink className={css.tags} activeClassName={css.activeTag} to={routes.toCustomFolderHome({ accountId })}>
+              {getString('dashboards.homePage.folders')}
+            </NavLink>
           </Layout.Horizontal>
-        </Layout.Horizontal>
-        <Layout.Horizontal
-          style={{
-            borderBottom: '1px solid var(--grey-100)',
-            justifyContent: 'space-between',
-            paddingLeft: 0,
-            paddingRight: 0
-          }}
-          padding="medium"
-          flex={true}
-        >
-          <Layout.Horizontal
-            spacing="medium"
-            style={{ justifyContent: 'space-between', alignItems: 'center', width: '100%' }}
-          >
-            <section style={{ display: 'flex' }}>
-              {folderId === 'shared' && (
-                <Button
-                  intent="primary"
-                  text={getString('dashboardLabel')}
-                  onClick={() => showModal()}
-                  icon="plus"
-                  style={{ minWidth: '110px', marginRight: 'var(--spacing-11)' }}
-                />
-              )}
-              {folderId !== 'shared' && (
-                <RbacButton
-                  intent="primary"
-                  text={getString('dashboardLabel')}
-                  onClick={() => showModal()}
-                  icon="plus"
-                  style={{ minWidth: '110px', marginRight: 'var(--spacing-11)' }}
-                  permission={permissionObj}
-                />
-              )}
-
-              <Layout.Horizontal className={css.predefinedTags + ' ' + css.mainNavTag}>
-                <ModuleTagsFilter selectedFilter={selectedFilter} setPredefinedFilter={setPredefinedFilter} />
-              </Layout.Horizontal>
-            </section>
-            <Layout.Horizontal>
-              <CustomSelect
-                items={sortingOptions}
-                filterable={false}
-                itemRenderer={(item, { handleClick }) => (
-                  <div key={item.value.toString()}>
-                    <Menu.Item text={item.label} onClick={handleClick} />
-                  </div>
-                )}
-                onItemSelect={item => {
-                  setSortingFilter(item)
-                }}
-                popoverProps={{ minimal: true, popoverClassName: '' }}
-              >
-                <Button
-                  inline
-                  round
-                  rightIcon="chevron-down"
-                  className={css.customSelect}
-                  text={
-                    <Layout.Horizontal spacing="xsmall">
-                      <Text color={Color.BLACK}>{'Sort By'}</Text>
-                      <Text>{sortby?.label}</Text>
-                    </Layout.Horizontal>
-                  }
-                />
-              </CustomSelect>
-              <Layout.Horizontal>
-                <Button
-                  minimal
-                  icon="grid-view"
-                  intent={layoutView === LayoutViews.GRID ? 'primary' : 'none'}
-                  onClick={() => {
-                    setLayoutView(LayoutViews.GRID)
-                  }}
-                />
-                <Button
-                  minimal
-                  icon="list"
-                  intent={layoutView === LayoutViews.LIST ? 'primary' : 'none'}
-                  onClick={() => {
-                    setLayoutView(LayoutViews.LIST)
-                  }}
-                />
-              </Layout.Horizontal>
-            </Layout.Horizontal>
-          </Layout.Horizontal>
-        </Layout.Horizontal>
-      </Layout.Vertical>
-      <Layout.Vertical className={css.filterPanel} padding="medium" spacing="medium">
-        <Container>
-          <Text font={{ weight: 'semi-bold' }} color={Color.GREY_800}>
-            FILTER BY TAGS
+        }
+        toolbar={
+          <Text color={Color.PRIMARY_6} style={{ cursor: 'pointer' }} onClick={() => setDrawerOpen(true)}>
+            {' '}
+            <Icon name="question" /> {getString('getStarted')}
           </Text>
-        </Container>
-        <Container>
-          <Layout.Vertical spacing="small">
-            <Container className={css.predefinedTags}>
-              {fetchingTags && <span>{getString('loading')} </span>}
-              {!fetchingTags &&
-                tagsList?.resource?.tags?.length > 0 &&
-                tagsList?.resource?.tags?.split(',').map((tag: string, index: number) => {
-                  if (tag) {
-                    return (
-                      <section
-                        className={css.customTag}
-                        key={tag + index}
-                        onClick={() => {
-                          if (filteredTags.indexOf(tag) === -1) {
-                            setFilteredTags([...filteredTags, tag])
-                          }
-                        }}
-                      >
-                        {tag}
-                      </section>
-                    )
-                  }
-                })}
-
-              {tagsList?.resource?.tags?.length === 0 && <span>{getString('dashboards.homePage.noTags')}</span>}
-            </Container>
-          </Layout.Vertical>
-        </Container>
-      </Layout.Vertical>
-
-      <Layout.Vertical
-        padding="large"
-        style={{ width: 'calc(100% - 280px)', height: 'calc(100vh - 226px)', paddingTop: 0, overflow: 'scroll' }}
+        }
+      />
+      <Page.Body
+        loading={loading || cloning}
+        retryOnError={() => {
+          return
+        }}
+        error={(error?.data as Error)?.message}
       >
-        <Layout.Horizontal style={{ padding: 'var(--spacing-6) var(--spacing-9) ' }}>
-          <ExpandingSearchInput
-            placeholder={getString('dashboards.homePage.searchPlaceholder')}
-            onChange={(text: string) => {
-              setSearchTerm(text)
+        <GetStarted isOpen={isOpen} setDrawerOpen={val => setDrawerOpen(val)} />
+        <Layout.Vertical padding="large" background={Color.GREY_0}>
+          <Layout.Horizontal
+            style={{
+              borderBottom: '1px solid var(--grey-100)',
+              justifyContent: 'space-between',
+              paddingLeft: 0,
+              paddingRight: 0
             }}
-            className={css.search}
-          />
-        </Layout.Horizontal>
-        <Layout.Horizontal style={{ marginLeft: 'var(--spacing-xxxlarge)', alignItems: 'baseline' }}>
-          <section className={css.filteredTags}>
-            {filteredTags.map((tag: string, index: number) => {
-              return (
-                <section className={css.customTag} key={tag + index}>
-                  {tag}{' '}
-                  <Icon
-                    name="cross"
-                    style={{ cursor: 'pointer' }}
+            flex={true}
+          >
+            <Layout.Horizontal
+              spacing="medium"
+              style={{ justifyContent: 'space-between', alignItems: 'center', width: '100%' }}
+            >
+              <section style={{ display: 'flex' }}>
+                {folderId === 'shared' && (
+                  <Button
+                    intent="primary"
+                    text={getString('dashboardLabel')}
+                    onClick={() => showModal()}
+                    icon="plus"
+                    style={{ minWidth: '110px', marginRight: 'var(--spacing-11)' }}
+                  />
+                )}
+                {folderId !== 'shared' && (
+                  <RbacButton
+                    intent="primary"
+                    text={getString('dashboardLabel')}
+                    onClick={() => showModal()}
+                    icon="plus"
+                    style={{ minWidth: '110px', marginRight: 'var(--spacing-11)' }}
+                    permission={permissionObj}
+                  />
+                )}
+
+                <Layout.Horizontal className={css.predefinedTags + ' ' + css.mainNavTag}>
+                  <ModuleTagsFilter selectedFilter={selectedFilter} setPredefinedFilter={setPredefinedFilter} />
+                </Layout.Horizontal>
+              </section>
+              <Layout.Horizontal>
+                <CustomSelect
+                  items={sortingOptions}
+                  filterable={false}
+                  itemRenderer={(item, { handleClick }) => (
+                    <div key={item.value.toString()}>
+                      <Menu.Item text={item.label} onClick={handleClick} />
+                    </div>
+                  )}
+                  onItemSelect={item => {
+                    setSortingFilter(item)
+                  }}
+                  popoverProps={{ minimal: true, popoverClassName: '' }}
+                >
+                  <Button
+                    inline
+                    round
+                    rightIcon="chevron-down"
+                    className={css.customSelect}
+                    text={
+                      <Layout.Horizontal spacing="xsmall">
+                        <Text color={Color.BLACK}>{'Sort By'}</Text>
+                        <Text>{sortby?.label}</Text>
+                      </Layout.Horizontal>
+                    }
+                  />
+                </CustomSelect>
+                <Layout.Horizontal>
+                  <Button
+                    minimal
+                    icon="grid-view"
+                    intent={layoutView === LayoutViews.GRID ? 'primary' : 'none'}
                     onClick={() => {
-                      const filterTags = filteredTags.filter(v => v !== tag)
-                      setFilteredTags(filterTags)
+                      setLayoutView(LayoutViews.GRID)
                     }}
                   />
-                </section>
-              )
-            })}
-          </section>
-          {filteredTags?.length > 0 && (
-            <Text
-              color={Color.PRIMARY_7}
-              style={{ cursor: 'pointer' }}
-              font={{ weight: 'semi-bold' }}
-              onClick={() => setFilteredTags([])}
-            >
-              Clear All
+                  <Button
+                    minimal
+                    icon="list"
+                    intent={layoutView === LayoutViews.LIST ? 'primary' : 'none'}
+                    onClick={() => {
+                      setLayoutView(LayoutViews.LIST)
+                    }}
+                  />
+                </Layout.Horizontal>
+              </Layout.Horizontal>
+            </Layout.Horizontal>
+          </Layout.Horizontal>
+        </Layout.Vertical>
+        <Layout.Vertical className={css.filterPanel} padding="medium" spacing="medium">
+          <Container>
+            <Text font={{ weight: 'semi-bold' }} color={Color.GREY_800}>
+              FILTER BY TAGS
             </Text>
-          )}
-        </Layout.Horizontal>
-        {filteredDashboardList && filteredDashboardList.length > 0 && layoutView === LayoutViews.GRID && (
-          <Container className={css.masonry}>
-            <Layout.Masonry
-              gutter={25}
-              items={filteredDashboardList}
-              renderItem={(dashboard: DashboardInterface) => (
-                <Card className={cx(css.dashboardCard)}>
-                  <Container>
-                    {(dashboard?.type === dashboardType.SHARED || dashboard?.type === dashboardType.ACCOUNT) && (
-                      <CardBody.Menu
-                        menuContent={
-                          <Menu>
-                            <MenuItem text="clone" onClick={() => clone(dashboard.id)} />
-                          </Menu>
-                        }
-                        menuPopoverProps={{
-                          className: Classes.DARK
-                        }}
-                      />
-                    )}
-
-                    <Layout.Vertical
-                      spacing="large"
-                      onClick={() => {
-                        history.push({
-                          pathname: routes.toViewCustomDashboard({
-                            viewId: dashboard.id,
-                            accountId: accountId,
-                            folderId: folderId === 'shared' ? 'shared' : dashboard?.resourceIdentifier
-                          })
-                        })
-                      }}
-                    >
-                      <Text color={Color.BLACK_100} font={{ size: 'normal', weight: 'semi-bold' }}>
-                        {dashboard?.title}
-                      </Text>
-                      {TagsRenderer(dashboard)}
-
-                      <Layout.Horizontal spacing="medium">
-                        {dashboard?.type !== dashboardType.SHARED && (
-                          <>
-                            <Layout.Horizontal style={{ marginRight: 'var(--spacing-8)' }}>
-                              <Icon name="eye-open" size={18} style={{ marginRight: 'var(--spacing-4)' }} />
-                              <Text color={Color.BLACK_100} font={{ size: 'normal', weight: 'semi-bold' }}>
-                                {dashboard?.view_count}
-                              </Text>
-                            </Layout.Horizontal>
-
-                            <Layout.Horizontal>
-                              <Icon name="star-empty" size={18} style={{ marginRight: 'var(--spacing-4)' }} />
-                              <Text color={Color.BLACK_100} font={{ size: 'normal', weight: 'semi-bold' }}>
-                                {dashboard?.favorite_count}
-                              </Text>
-                            </Layout.Horizontal>
-                          </>
-                        )}
-                      </Layout.Horizontal>
-                    </Layout.Vertical>
-                  </Container>
-                </Card>
-              )}
-              keyOf={dashboard => dashboard?.id}
-            />
           </Container>
-        )}
+          <Container>
+            <Layout.Vertical spacing="small">
+              <Container className={css.predefinedTags}>
+                {fetchingTags && <span>{getString('loading')} </span>}
+                {!fetchingTags &&
+                  tagsList?.resource?.tags?.length > 0 &&
+                  tagsList?.resource?.tags?.split(',').map((tag: string, index: number) => {
+                    if (tag) {
+                      return (
+                        <section
+                          className={css.customTag}
+                          key={tag + index}
+                          onClick={() => {
+                            if (filteredTags.indexOf(tag) === -1) {
+                              setFilteredTags([...filteredTags, tag])
+                            }
+                          }}
+                        >
+                          {tag}
+                        </section>
+                      )
+                    }
+                  })}
 
-        {filteredDashboardList && filteredDashboardList.length > 0 && layoutView === LayoutViews.LIST && (
-          <Container className={css.masonry}>
-            <TableV2<DashboardInterface> className={css.table} columns={columns} data={filteredDashboardList || []} />
-          </Container>
-        )}
-
-        {filteredDashboardList && filteredDashboardList.length === 0 && !loading && (
-          <Container style={{ height: 'calc(100vh - 226px)' }} flex={{ align: 'center-center' }}>
-            <Layout.Vertical spacing="medium" width={470} style={{ alignItems: 'center', marginTop: '-48px' }}>
-              <Icon name="dashboard" color={Color.GREY_300} size={35} />
-              <Heading level={2} font={{ align: 'center' }} color={Color.GREY_500}>
-                {getString('dashboards.homePage.noDashboardsAvailable')}
-              </Heading>
+                {tagsList?.resource?.tags?.length === 0 && <span>{getString('dashboards.homePage.noTags')}</span>}
+              </Container>
             </Layout.Vertical>
           </Container>
-        )}
-      </Layout.Vertical>
+        </Layout.Vertical>
 
-      {!loading && (
-        <Container className={css.pagination}>
-          <Pagination
-            itemCount={100}
-            pageSize={10}
-            pageCount={100}
-            pageIndex={page}
-            gotoPage={(pageNumber: number) => setPage(pageNumber)}
-          />
-        </Container>
-      )}
-    </Page.Body>
+        <Layout.Vertical
+          padding="large"
+          style={{ width: 'calc(100% - 280px)', height: 'calc(100vh - 226px)', paddingTop: 0, overflow: 'scroll' }}
+        >
+          <Layout.Horizontal style={{ padding: 'var(--spacing-6) var(--spacing-9) ' }}>
+            <ExpandingSearchInput
+              placeholder={getString('dashboards.homePage.searchPlaceholder')}
+              onChange={(text: string) => {
+                setSearchTerm(text)
+              }}
+              className={css.search}
+            />
+          </Layout.Horizontal>
+          <Layout.Horizontal style={{ marginLeft: 'var(--spacing-xxxlarge)', alignItems: 'baseline' }}>
+            <section className={css.filteredTags}>
+              {filteredTags.map((tag: string, index: number) => {
+                return (
+                  <section className={css.customTag} key={tag + index}>
+                    {tag}{' '}
+                    <Icon
+                      name="cross"
+                      style={{ cursor: 'pointer' }}
+                      onClick={() => {
+                        const filterTags = filteredTags.filter(v => v !== tag)
+                        setFilteredTags(filterTags)
+                      }}
+                    />
+                  </section>
+                )
+              })}
+            </section>
+            {filteredTags?.length > 0 && (
+              <Text
+                color={Color.PRIMARY_7}
+                style={{ cursor: 'pointer' }}
+                font={{ weight: 'semi-bold' }}
+                onClick={() => setFilteredTags([])}
+              >
+                Clear All
+              </Text>
+            )}
+          </Layout.Horizontal>
+          {filteredDashboardList && filteredDashboardList.length > 0 && layoutView === LayoutViews.GRID && (
+            <Container className={css.masonry}>
+              <Layout.Masonry
+                gutter={25}
+                items={filteredDashboardList}
+                renderItem={(dashboard: DashboardInterface) => (
+                  <Card className={cx(css.dashboardCard)}>
+                    <Container>
+                      {(dashboard?.type === dashboardType.SHARED || dashboard?.type === dashboardType.ACCOUNT) && (
+                        <CardBody.Menu
+                          menuContent={
+                            <Menu>
+                              <MenuItem text="clone" onClick={() => clone(dashboard.id)} />
+                            </Menu>
+                          }
+                          menuPopoverProps={{
+                            className: Classes.DARK
+                          }}
+                        />
+                      )}
+
+                      <Layout.Vertical
+                        spacing="large"
+                        onClick={() => {
+                          history.push({
+                            pathname: routes.toViewCustomDashboard({
+                              viewId: dashboard.id,
+                              accountId: accountId,
+                              folderId: folderId === 'shared' ? 'shared' : dashboard?.resourceIdentifier
+                            })
+                          })
+                        }}
+                      >
+                        <Text color={Color.BLACK_100} font={{ size: 'normal', weight: 'semi-bold' }}>
+                          {dashboard?.title}
+                        </Text>
+                        {TagsRenderer(dashboard)}
+
+                        <Layout.Horizontal spacing="medium">
+                          {dashboard?.type !== dashboardType.SHARED && (
+                            <>
+                              <Layout.Horizontal style={{ marginRight: 'var(--spacing-8)' }}>
+                                <Icon name="eye-open" size={18} style={{ marginRight: 'var(--spacing-4)' }} />
+                                <Text color={Color.BLACK_100} font={{ size: 'normal', weight: 'semi-bold' }}>
+                                  {dashboard?.view_count}
+                                </Text>
+                              </Layout.Horizontal>
+
+                              <Layout.Horizontal>
+                                <Icon name="star-empty" size={18} style={{ marginRight: 'var(--spacing-4)' }} />
+                                <Text color={Color.BLACK_100} font={{ size: 'normal', weight: 'semi-bold' }}>
+                                  {dashboard?.favorite_count}
+                                </Text>
+                              </Layout.Horizontal>
+                            </>
+                          )}
+                        </Layout.Horizontal>
+                      </Layout.Vertical>
+                    </Container>
+                  </Card>
+                )}
+                keyOf={dashboard => dashboard?.id}
+              />
+            </Container>
+          )}
+
+          {filteredDashboardList && filteredDashboardList.length > 0 && layoutView === LayoutViews.LIST && (
+            <Container className={css.masonry}>
+              <TableV2<DashboardInterface> className={css.table} columns={columns} data={filteredDashboardList || []} />
+            </Container>
+          )}
+
+          {filteredDashboardList && filteredDashboardList.length === 0 && !loading && (
+            <Container style={{ height: 'calc(100vh - 226px)' }} flex={{ align: 'center-center' }}>
+              <Layout.Vertical spacing="medium" width={470} style={{ alignItems: 'center', marginTop: '-48px' }}>
+                <Icon name="dashboard" color={Color.GREY_300} size={35} />
+                <Heading level={2} font={{ align: 'center' }} color={Color.GREY_500}>
+                  {getString('dashboards.homePage.noDashboardsAvailable')}
+                </Heading>
+              </Layout.Vertical>
+            </Container>
+          )}
+        </Layout.Vertical>
+
+        {!loading && (
+          <Layout.Vertical padding={{ left: 'medium', right: 'medium' }}>
+            <Pagination
+              itemCount={100}
+              pageSize={10}
+              pageCount={100}
+              pageIndex={page}
+              gotoPage={(pageNumber: number) => setPage(pageNumber)}
+            />
+          </Layout.Vertical>
+        )}
+      </Page.Body>
+    </Container>
   )
 }
 

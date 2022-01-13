@@ -34,7 +34,7 @@ import {
 import { SLIProps, SLIMetricTypes, SLOFormFields } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
 import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 
-const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps, sliGraphData, setSliGraphData }) => {
+const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps }) => {
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
@@ -201,8 +201,6 @@ const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps, sliGrap
             <SLOTargetChartWrapper
               monitoredServiceIdentifier={monitoredServiceRef}
               serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}
-              sliGraphData={sliGraphData}
-              setSliGraphData={setSliGraphData}
               topLabel={
                 <Text
                   font={{ variation: FontVariation.TINY_SEMI }}

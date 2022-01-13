@@ -107,6 +107,44 @@ describe('CVCreateSLO', () => {
       expect(screen.getByText('connectors.cdng.monitoredService.label')).toBeInTheDocument()
     })
   })
+
+  test('it should validate form fields for tab change and allow to go back on prev tabs', async () => {
+    const { container } = renderComponent()
+
+    expect(screen.getByText('name')).toHaveAttribute('aria-selected', 'true')
+
+    userEvent.click(screen.getByText('cv.slos.sli'))
+
+    expect(screen.getByText('name')).toHaveAttribute('aria-selected', 'true')
+
+    await waitFor(() => expect(screen.getByText('cv.slos.validations.nameValidation')).toBeInTheDocument())
+
+    userEvent.click(screen.getByText('cv.slos.sloTargetAndBudgetPolicy'))
+
+    expect(screen.getByText('name')).toHaveAttribute('aria-selected', 'true')
+
+    await setFieldValue({ container, type: InputTypes.TEXTFIELD, fieldId: SLOFormFields.NAME, value: 'Text SLO' })
+
+    userEvent.click(screen.getByPlaceholderText('cv.slos.userJourneyPlaceholder'))
+
+    await waitFor(() => {
+      expect(screen.getByText('User Journey 1')).toBeInTheDocument()
+      userEvent.click(screen.getByText('User Journey 1'))
+    })
+
+    userEvent.click(screen.getByText('cv.slos.sli'))
+
+    expect(screen.getByText('cv.slos.sli')).toHaveAttribute('aria-selected', 'true')
+
+    userEvent.click(screen.getByText('name'))
+
+    expect(screen.getByText('name')).toHaveAttribute('aria-selected', 'true')
+
+    userEvent.click(screen.getByText('cv.slos.sloTargetAndBudgetPolicy'))
+
+    expect(screen.getByText('cv.slos.sli')).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByText('connectors.cdng.validations.monitoringServiceRequired')).toBeInTheDocument()
+  })
 })
 
 const renderEditComponent = (): RenderResult => {

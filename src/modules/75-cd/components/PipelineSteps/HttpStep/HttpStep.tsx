@@ -3,7 +3,7 @@ import { Color, getMultiTypeFromValue, IconName, MultiTypeInputType, SelectOptio
 import * as Yup from 'yup'
 import { FormikErrors, yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
-import { isEmpty, set } from 'lodash-es'
+import { isArray, isEmpty, set } from 'lodash-es'
 
 import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -111,6 +111,34 @@ export class HttpStep extends PipelineStep<HttpStepData> {
       isEmpty(data?.spec?.requestBody)
     ) {
       set(errors, 'spec.requestBody', getString?.('fieldRequired', { field: 'Request Body' }))
+    }
+
+    /* istanbul ignore else */
+    if ((isArray(template?.spec?.headers) || isArray(template?.spec?.outputVariables)) && getString) {
+      const schema = Yup.object().shape({
+        spec: Yup.object().shape({
+          headers: Yup.array().of(
+            Yup.object().shape({
+              value: Yup.string().required(getString('common.validation.valueIsRequired'))
+            })
+          ),
+          outputVariables: Yup.array().of(
+            Yup.object().shape({
+              value: Yup.string().required(getString('common.validation.valueIsRequired'))
+            })
+          )
+        })
+      })
+      try {
+        schema.validateSync(data)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors, err)
+        }
+      }
     }
 
     /* istanbul ignore else */

@@ -16,10 +16,13 @@ import { DeploymentsWidget } from '@cd/components/Services/DeploymentsWidget/Dep
 import type { ServicePathProps } from '@common/interfaces/RouteInterfaces'
 import { InstanceCountHistory } from '@cd/components/ServiceDetails/InstanceCountHistory/InstanceCountHistory'
 import { PipelineExecutions } from '@cd/components/ServiceDetails/PipelineExecutions/PipelineExecutions'
+import { useQueryParams } from '@common/hooks'
 import css from '@cd/components/ServiceDetails/ServiceDetailsContent/ServicesDetailsContent.module.scss'
 
-const selectedTab = 'ServiceDetailsSummaryTab'
-const refrencedByTab = 'ServiceRefrencedByTab'
+export enum ServiceTabs {
+  SUMMARY = 'summaryTab',
+  REFERENCED_BY = 'refrencedByTab'
+}
 
 const ServiceDetailsSummary: React.FC = () => {
   const { serviceId } = useParams<ServicePathProps>()
@@ -57,13 +60,13 @@ const ServiceDetailsSummary: React.FC = () => {
 export const ServiceDetailsContent: React.FC = () => {
   const { serviceId } = useParams<ServicePathProps>()
   const { getString } = useStrings()
-
+  const { tab } = useQueryParams<{ tab: string }>()
   return (
     <Container padding={{ left: 'xlarge', right: 'xlarge' }} className={css.tabsContainer}>
-      <Tabs id="serviceDetailsTab" defaultSelectedTabId={selectedTab}>
-        <Tab id={selectedTab} title={getString('summary')} panel={<ServiceDetailsSummary />} />
+      <Tabs id="serviceDetailsTab" defaultSelectedTabId={tab || ServiceTabs.SUMMARY}>
+        <Tab id={ServiceTabs.SUMMARY} title={getString('summary')} panel={<ServiceDetailsSummary />} />
         <Tab
-          id={refrencedByTab}
+          id={ServiceTabs.REFERENCED_BY}
           title={getString('refrencedBy')}
           panel={<EntitySetupUsage entityType={'Service'} entityIdentifier={serviceId} />}
         />

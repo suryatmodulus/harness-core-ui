@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.7% </span>
+                <span class="strong">91.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>39/43</span>
+                <span class='fraction'>44/48</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.63% </span>
+                <span class="strong">78.21% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>118/152</span>
+                <span class='fraction'>122/156</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.48% </span>
+                <span class="strong">91.49% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>38/42</span>
+                <span class='fraction'>43/47</span>
             </div>
         
             
@@ -258,7 +258,14 @@
 <a name='L199'></a><a href='#L199'>199</a>
 <a name='L200'></a><a href='#L200'>200</a>
 <a name='L201'></a><a href='#L201'>201</a>
-<a name='L202'></a><a href='#L202'>202</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">17x</span>
+<a name='L202'></a><a href='#L202'>202</a>
+<a name='L203'></a><a href='#L203'>203</a>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -276,6 +283,8 @@
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-yes">17x</span>
@@ -303,14 +312,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">392x</span>
-<span class="cline-any cline-yes">196x</span>
-<span class="cline-any cline-yes">248x</span>
+<span class="cline-any cline-yes">336x</span>
+<span class="cline-any cline-yes">168x</span>
+<span class="cline-any cline-yes">220x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">196x</span>
+<span class="cline-any cline-yes">168x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -350,6 +361,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">196x</span>
 <span class="cline-any cline-yes">196x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">168x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -477,6 +491,8 @@ import cx from 'classnames'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import { BGColorWrapper } from '@cv/pages/health-source/common/StyledComponents'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
@@ -512,6 +528,8 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+&nbsp;
+  const isCustomEnabled = useFeatureFlag(FeatureFlag.CHI_CUSTOM_HEALTH)
 &nbsp;
   return (
     &lt;BGColorWrapper&gt;
@@ -550,6 +568,9 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                           {HEALTHSOURCE_LIST.map(({ name, icon }) =&gt; {
                             const connectorTypeName =
                               name === HealthSourceTypes.GoogleCloudOperations ? Connectors.GCP : name
+                            if (isCustomEnabled === false &amp;&amp; name === HealthSourceTypes.CustomHealth) {
+                              return null
+                            }
                             return (
                               &lt;div key={name} className={cx(css.squareCardContainer, isEdit &amp;&amp; css.disabled)}&gt;
                                 &lt;Card
@@ -667,7 +688,7 @@ export default DefineHealthSource
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jan 13 2022 20:19:49 GMT+0000 (Greenwich Mean Time)
+                at Thu Jan 13 2022 21:49:05 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

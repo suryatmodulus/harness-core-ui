@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.98% </span>
+                <span class="strong">67.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>155/228</span>
+                <span class='fraction'>158/235</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.75% </span>
+                <span class="strong">43.12% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>119/272</span>
+                <span class='fraction'>119/276</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.48% </span>
+                <span class="strong">39.53% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>17/42</span>
+                <span class='fraction'>17/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.14% </span>
+                <span class="strong">67.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>154/226</span>
+                <span class='fraction'>157/232</span>
             </div>
         
             
@@ -873,7 +873,15 @@
 <a name='L814'></a><a href='#L814'>814</a>
 <a name='L815'></a><a href='#L815'>815</a>
 <a name='L816'></a><a href='#L816'>816</a>
-<a name='L817'></a><a href='#L817'>817</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L817'></a><a href='#L817'>817</a>
+<a name='L818'></a><a href='#L818'>818</a>
+<a name='L819'></a><a href='#L819'>819</a>
+<a name='L820'></a><a href='#L820'>820</a>
+<a name='L821'></a><a href='#L821'>821</a>
+<a name='L822'></a><a href='#L822'>822</a>
+<a name='L823'></a><a href='#L823'>823</a>
+<a name='L824'></a><a href='#L824'>824</a>
+<a name='L825'></a><a href='#L825'>825</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -931,6 +939,8 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1002,6 +1012,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1216,6 +1227,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1749,6 +1765,8 @@ import type { FilterInterface, FilterDataInterface } from '@common/components/Fi
 import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterCRUD'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
+import { FeatureFlag } from '@common/featureFlags'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -1820,6 +1838,7 @@ const ConnectorsPage: React.FC&lt;ConnectorsListProps&gt; = ({ catalogueMockData
   }
   const history = useHistory()
   useDocumentTitle(getString('connectorsLabel'))
+  const isCustomHealthEnabled = useFeatureFlag(FeatureFlag.CHI_CUSTOM_HEALTH)
 &nbsp;
   const ConnectorCatalogueNames = new Map&lt;ConnectorCatalogueItem['category'], string&gt;()
   // This list will control which categories will be displayed in UI and its order
@@ -2032,6 +2051,11 @@ const ConnectorsPage: React.FC&lt;ConnectorsListProps&gt; = ({ catalogueMockData
               items:
                 item.connectors
                   ?.sort(<span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; (<span class="cstat-no" title="statement not covered" >getConnectorDisplayName(a) &lt; getConnectorDisplayName(b) ? -1 : 1)</span>)
+                  .filter(<span class="fstat-no" title="function not covered" >entry </span>=&gt; {
+                    const name = <span class="cstat-no" title="statement not covered" >entry.valueOf() || ''</span>
+<span class="cstat-no" title="statement not covered" >                    if (name !== 'CustomHealth') <span class="cstat-no" title="statement not covered" >return true</span></span>
+<span class="cstat-no" title="statement not covered" >                    return isCustomHealthEnabled !== false</span>
+                  })
                   .map(<span class="fstat-no" title="function not covered" >entry </span>=&gt; {
                     const name = <span class="cstat-no" title="statement not covered" >entry.valueOf() || ''</span>
 <span class="cstat-no" title="statement not covered" >                    return {</span>
@@ -2512,7 +2536,7 @@ export default ConnectorsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jan 13 2022 20:19:49 GMT+0000 (Greenwich Mean Time)
+                at Thu Jan 13 2022 21:49:05 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -972,17 +972,17 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
                                                   </div>
                                                 </div>
                                               </div>
-                                            </div>
-                                            <div>
-                                              <div
-                                                style="min-height: 8px;"
-                                              />
-                                              <div
-                                                class="separator"
-                                              />
-                                              <div
-                                                style="min-height: 24px;"
-                                              />
+                                              <div>
+                                                <div
+                                                  style="min-height: 8px;"
+                                                />
+                                                <div
+                                                  class="separator"
+                                                />
+                                                <div
+                                                  style="min-height: 24px;"
+                                                />
+                                              </div>
                                             </div>
                                             <div
                                               class="fieldsGroup withoutSpacing topPadding3 bottomPadding3 lg"
@@ -1092,17 +1092,6 @@ exports[`TriggersWizardPage Triggers tests Payload/Values Comparison Existing Tr
                                                   </div>
                                                 </div>
                                               </div>
-                                            </div>
-                                            <div>
-                                              <div
-                                                style="min-height: 24px;"
-                                              />
-                                              <div
-                                                class="separator"
-                                              />
-                                              <div
-                                                style="min-height: 24px;"
-                                              />
                                             </div>
                                           </div>
                                         </form>

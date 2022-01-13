@@ -821,17 +821,14 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                         <div
                           class="group withoutAligning"
                         >
-                          <div
-                            style="flex-grow: 1;"
-                          >
+                          <div>
                             <p
-                              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                              class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                             >
                               keyLabel
                             </p>
                             <div
                               class="bp3-form-group"
-                              style="margin: 0px;"
                             >
                               <div
                                 class="bp3-form-content"
@@ -850,11 +847,9 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                               </div>
                             </div>
                           </div>
-                          <div
-                            style="flex-grow: 1;"
-                          >
+                          <div>
                             <p
-                              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                              class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                             >
                               valueLabel
                             </p>
@@ -863,7 +858,6 @@ exports[`Test TerraformApply expand backend Spec config 1`] = `
                             >
                               <div
                                 class="bp3-form-group"
-                                style="flex-grow: 1;"
                               >
                                 
                                 <div
@@ -2298,17 +2292,14 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                         <div
                           class="group withoutAligning"
                         >
-                          <div
-                            style="flex-grow: 1;"
-                          >
+                          <div>
                             <p
-                              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                              class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                             >
                               keyLabel
                             </p>
                             <div
                               class="bp3-form-group"
-                              style="margin: 0px;"
                             >
                               <div
                                 class="bp3-form-content"
@@ -2327,11 +2318,9 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                               </div>
                             </div>
                           </div>
-                          <div
-                            style="flex-grow: 1;"
-                          >
+                          <div>
                             <p
-                              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                              class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label StyledProps--margin-bottom-xsmall"
                             >
                               valueLabel
                             </p>
@@ -2340,7 +2329,6 @@ exports[`Test TerraformApply rendering more than one varfile 2`] = `
                             >
                               <div
                                 class="bp3-form-group"
-                                style="flex-grow: 1;"
                               >
                                 
                                 <div

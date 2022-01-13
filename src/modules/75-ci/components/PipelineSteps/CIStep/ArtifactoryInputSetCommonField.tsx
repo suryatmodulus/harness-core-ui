@@ -8,7 +8,7 @@ import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import { shouldRenderRunTimeInputView } from '../CIStep/StepUtils'
+import { shouldRenderRunTimeInputView } from './StepUtils'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface ArtifactoryInputSetProps {

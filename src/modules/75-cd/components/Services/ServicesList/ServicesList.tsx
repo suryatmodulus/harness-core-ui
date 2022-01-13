@@ -373,7 +373,7 @@ const RenderColumnMenu: Renderer<CellProps<any>> = ({ row, column }) => {
             ;(column as any).reload?.()
           }
         } catch (err) {
-          if (err?.data?.code === 'INVALID_REQUEST') {
+          if (err?.data?.code === 'ENTITY_REFERENCE_EXCEPTION') {
             // showing reference by error in modal
             setDeleteError(err?.data?.message || err?.message)
             openDeleteErrorDialog()
@@ -429,7 +429,6 @@ const RenderColumnMenu: Renderer<CellProps<any>> = ({ row, column }) => {
             }}
           />
           <RbacMenuItem
-            className={css.hideDeleteButton}
             icon="trash"
             text={getString('delete')}
             onClick={handleDelete}

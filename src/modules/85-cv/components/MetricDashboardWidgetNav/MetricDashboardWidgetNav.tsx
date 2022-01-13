@@ -89,7 +89,7 @@ function generateTreeNode(type: string, data: any, id: string, isExpanded = fals
       return {
         id,
         hasCaret: true,
-        label: <TreeNodeLabel width={LabelWidth.FIRST_LEVEL} label={id} />,
+        label: <TreeNodeLabel width={LabelWidth.FIRST_LEVEL} label={data.name} />,
         childNodes: [],
         nodeData: {
           data,
@@ -110,7 +110,7 @@ function generateTreeNode(type: string, data: any, id: string, isExpanded = fals
     case NodeType.METRIC:
       return {
         id: id,
-        label: <TreeNodeLabel width={LabelWidth.THIRD_LEVEL} label={id} />,
+        label: <TreeNodeLabel width={LabelWidth.THIRD_LEVEL} label={data.metric} />,
         hasCaret: false,
         isExpanded: false,
         nodeData: {
@@ -155,7 +155,7 @@ function transformDashboardsToTreeNodes(
 
   for (const dashboard of dashboardWidgetItems || []) {
     if (dashboard?.title && dashboard.itemId) {
-      treeNodes.push(generateTreeNode(NodeType.DASHBOARD, dashboard.itemId, dashboard.title))
+      treeNodes.push(generateTreeNode(NodeType.DASHBOARD, { name: dashboard.title }, dashboard.itemId))
     }
   }
 
@@ -214,8 +214,8 @@ function transformWidgetsToTreeNodes(
 
       const metric: ITreeNode<NodeDataType> = generateTreeNode(
         NodeType.METRIC,
-        { widget: treeNode.id, query: dataSet.query },
-        dataSet.name
+        { metric: dataSet.name, widget: widget.widgetName, query: dataSet.query },
+        dataSet.id
       )
       if (isFirstLoad && dataSetIndex === 0 && widgetIndex === 0) {
         metric.isSelected = true
@@ -265,7 +265,7 @@ export default function MetricDashboardWidgetNav<T>(props: MetricDashboardWidget
   )
   const [isFirstLoad, setIsFirstLoad] = useState(true)
   const [selectedDashboard, setSelectedDashboard] = useState<MetricDashboardItem | undefined>(
-    dashboards?.filter(dashboard => dashboard?.itemId && dashboard.title)[0] || []
+    dashboards?.filter(dashboard => dashboard?.itemId && dashboard.title)[0]
   )
   const { getString } = useStrings()
   const { showError } = useToaster()
@@ -278,13 +278,13 @@ export default function MetricDashboardWidgetNav<T>(props: MetricDashboardWidget
   const metricWidgets: MetricWidget[] = useMemo(() => {
     return (
       dashboardWidgetsData?.data?.map((widgetToMap: any) => {
-        return dashboardWidgetMapper(widgetToMap)
+        return dashboardWidgetMapper(selectedDashboard?.itemId || '', widgetToMap)
       }) || []
     )
   }, [dashboardWidgetsData, dashboardWidgetMapper])
 
   useEffect(() => {
-    const selectedDashIndex = navContent.findIndex(treeNode => treeNode.id === selectedDashboard?.title)
+    const selectedDashIndex = navContent.findIndex(treeNode => treeNode.id === selectedDashboard?.itemId)
     if (selectedDashIndex === -1 || loading) {
       return
     }
@@ -308,13 +308,12 @@ export default function MetricDashboardWidgetNav<T>(props: MetricDashboardWidget
         setSelectedMetricPath(metricPath)
         onSelectMetric(
           metric?.id as string,
+          metric?.nodeData?.data?.metric,
           datum?.query,
           datum?.widget,
-          selectedDashboard?.title as string,
-          selectedDashboard?.itemId as string
+          selectedDashboard?.itemId,
+          selectedDashboard?.title as string
         )
-      }
-      if (isFirstLoad) {
         setIsFirstLoad(false)
       }
     }
@@ -338,7 +337,11 @@ export default function MetricDashboardWidgetNav<T>(props: MetricDashboardWidget
   // when only manually input query is selected on load, run this hook
   useEffect(() => {
     if (!loading && isFirstLoad && selectedMetricPath?.toString() === '0,0' && navContent[0]?.childNodes?.[0]) {
-      onSelectMetric(navContent[0]?.childNodes?.[0]?.id as string, MANUAL_INPUT_QUERY)
+      onSelectMetric(
+        navContent[0]?.childNodes?.[0]?.id as string,
+        navContent[0]?.childNodes?.[0]?.id as string,
+        MANUAL_INPUT_QUERY
+      )
     }
   }, [])
 
@@ -360,7 +363,7 @@ export default function MetricDashboardWidgetNav<T>(props: MetricDashboardWidget
           ) {
             navContent.forEach(dashboard => (dashboard.isExpanded = false))
             node.childNodes = LoadingSkeleton
-            setSelectedDashboard({ title: node.id as string, itemId: datum })
+            setSelectedDashboard({ title: datum.name, itemId: node.id as string })
           }
           node.isExpanded = true
           setNavContent([...navContent])
@@ -378,7 +381,7 @@ export default function MetricDashboardWidgetNav<T>(props: MetricDashboardWidget
               node.isExpanded = !isExpanded
               if (type !== NodeType.MANUAL_INPUT_QUERY && node.isExpanded && !childNodes?.length) {
                 node.childNodes = LoadingSkeleton
-                setSelectedDashboard({ title: id as string, itemId: datum })
+                setSelectedDashboard({ title: nodeData?.data.name as string, itemId: id as string })
               }
               break
             case NodeDepth.WIDGET:
@@ -390,7 +393,7 @@ export default function MetricDashboardWidgetNav<T>(props: MetricDashboardWidget
                 deselectMetric(navContent, selectedMetricPath)
                 setSelectedMetricPath(nodePath)
                 setSelectedDashboard(undefined)
-                onSelectMetric(node.id as string, MANUAL_INPUT_QUERY)
+                onSelectMetric(node.id as string, node.id as string, MANUAL_INPUT_QUERY)
               } else {
                 node.isExpanded = !isExpanded
               }
@@ -404,10 +407,11 @@ export default function MetricDashboardWidgetNav<T>(props: MetricDashboardWidget
               setSelectedMetricPath(nodePath)
               onSelectMetric(
                 id as string,
+                datum.metric,
                 datum.query,
                 datum.widget,
-                selectedDashboard?.title as string,
-                selectedDashboard?.itemId as string
+                selectedDashboard?.itemId,
+                selectedDashboard?.title as string
               )
               break
             default:
@@ -434,7 +438,7 @@ export default function MetricDashboardWidgetNav<T>(props: MetricDashboardWidget
             }
             setNavContent([...navContent])
             setSelectedMetricPath([0, 0])
-            onSelectMetric(values.metricName, MANUAL_INPUT_QUERY)
+            onSelectMetric(values.metricName, values.metricName, MANUAL_INPUT_QUERY)
           }}
           closeModal={() => setIsModalOpen(false)}
         />

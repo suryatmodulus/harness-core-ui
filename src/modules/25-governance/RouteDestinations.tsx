@@ -10,8 +10,8 @@ import type { GovernancePathProps } from '@common/interfaces/RouteInterfaces'
 import { String } from 'framework/strings'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import RbacFactory from '@rbac/factories/RbacFactory'
-import { ResourceCategory } from '@rbac/interfaces/ResourceType'
-import { ResourceType, PermissionIdentifier } from 'microfrontends'
+import { ResourceCategory, ResourceType } from '@rbac/interfaces/ResourceType'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { GovernanceRemoteComponentMounter } from './GovernanceApp'
 
 export const AccountSideNavProps: SidebarContext = {

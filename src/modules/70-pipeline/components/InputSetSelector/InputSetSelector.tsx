@@ -135,6 +135,7 @@ const RenderValue = React.memo(function RenderValue({
         >
           <Button
             key={item.label}
+            data-testid={`button-${item.label}`}
             round={true}
             rightIcon="cross"
             iconProps={{
@@ -179,7 +180,7 @@ const RenderValue = React.memo(function RenderValue({
       <Button
         icon="small-plus"
         className={css.addInputSetButton}
-        onClick={() => setOpenInputSetsList(false)}
+        onClick={() => setOpenInputSetsList(true)}
         color={Color.PRIMARY_7}
         minimal
         variation={ButtonVariation.LINK}
@@ -404,7 +405,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
           <Container padding={{ left: 'large' }}>
             <Badge
               text={'common.invalid'}
-              iconName="warning-sign"
+              iconName="error-outline"
               showTooltip={true}
               entityName={selected.name}
               entityType={selected.inputSetType === 'INPUT_SET' ? 'Input Set' : 'Overlay Input Set'}
@@ -462,7 +463,12 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                   <Layout.Horizontal flex={{ alignItems: 'center' }} padding={{ left: true }}>
                     <Icon name={getIconByType(inputSet.inputSetType)}></Icon>
                     <Container margin={{ left: true }} className={css.nameIdContainer}>
-                      <Text lineClamp={1} font={{ weight: 'bold' }} color={Color.GREY_800}>
+                      <Text
+                        data-testid={`popover-${inputSet.name}`}
+                        lineClamp={1}
+                        font={{ weight: 'bold' }}
+                        color={Color.GREY_800}
+                      >
                         {inputSet.name}
                       </Text>
                       <Text font="small" lineClamp={1} margin={{ top: 'xsmall' }} color={Color.GREY_450}>
@@ -476,7 +482,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                 <Container padding={{ left: 'large' }}>
                   <Badge
                     text={'common.invalid'}
-                    iconName="warning-sign"
+                    iconName="error-outline"
                     showTooltip={true}
                     entityName={inputSet.name}
                     entityType={inputSet.inputSetType === 'INPUT_SET' ? 'Input Set' : 'Overlay Input Set'}
@@ -492,16 +498,25 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
       ))
 
   const [openInputSetsList, setOpenInputSetsList] = useState(false)
+
   return (
     <Popover
       position={Position.BOTTOM}
       usePortal={false}
+      isOpen={openInputSetsList}
       minimal={true}
       className={css.isPopoverParent}
       onOpening={() => {
         refetch()
+        setOpenInputSetsList(true)
+      }}
+      onInteraction={interaction => {
+        if (!interaction) {
+          setOpenInputSetsList(false)
+        }
       }}
       onClosing={() => {
+        setOpenInputSetsList(false)
         onChange?.(selectedInputSets)
       }}
     >
@@ -512,7 +527,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
         setOpenInputSetsList={setOpenInputSetsList}
         selectedValueClass={selectedValueClass}
       />
-      {openInputSetsList ? null : (
+      {openInputSetsList ? (
         <Layout.Vertical spacing="small" className={css.popoverContainer}>
           <div className={!inputSets ? css.loadingSearchContainer : css.searchContainer}>
             <TextInput
@@ -550,7 +565,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                     variation={ButtonVariation.PRIMARY}
                     disabled={!selectedInputSets?.length}
                     onClick={() => {
-                      setOpenInputSetsList(true)
+                      setOpenInputSetsList(false)
                       onChange?.(selectedInputSets)
                     }}
                   />
@@ -569,7 +584,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
             </Layout.Vertical>
           )}
         </Layout.Vertical>
-      )}
+      ) : null}
     </Popover>
   )
 }

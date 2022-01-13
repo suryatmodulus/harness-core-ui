@@ -15,7 +15,7 @@ import {
   useGetEditionActions,
   useExtendTrialLicense
 } from 'services/cd-ng'
-import CommunityPlans from '@auth-settings/pages/subscriptions/plans/CommunityPlans'
+import { Editions } from '@common/constants/SubscriptionTypes'
 import SubscriptionPlans from '../plans/SubscriptionPlans'
 import { plansData } from './plansData'
 
@@ -161,11 +161,31 @@ describe('Subscription Plans', () => {
   })
 
   test('should render the plans for CD Community', () => {
-    const { container } = render(
-      <TestWrapper>
-        <CommunityPlans />
+    const data = cloneDeep(plansData)
+    const responseState = {
+      executeQuery: ({ query }: { query: DocumentNode }) => {
+        if (query === FetchPlansDocument) {
+          return fromValue(data)
+        }
+        return fromValue({})
+      }
+    }
+    const { container, getByText } = render(
+      <TestWrapper
+        defaultLicenseStoreValues={{
+          licenseInformation: {
+            CD: {
+              edition: Editions.COMMUNITY
+            }
+          }
+        }}
+      >
+        <Provider value={responseState as any}>
+          <SubscriptionPlans module={ModuleName.CD} />
+        </Provider>
       </TestWrapper>
     )
+    expect(getByText('authSettings.cdCommunityPlan.communityTitle')).toBeInTheDocument()
     expect(container).toMatchSnapshot()
   })
 
@@ -245,16 +265,6 @@ describe('Subscription Plans', () => {
       }
     }
     await act(async () => {
-      useGetLicensesAndSummaryMock.mockImplementation(() => {
-        return {
-          data: {
-            data: null,
-            status: 'SUCCESS'
-          },
-          refetch: jest.fn(),
-          loading: false
-        }
-      })
       const { getAllByText } = render(
         <TestWrapper>
           <Provider value={responseState as any}>

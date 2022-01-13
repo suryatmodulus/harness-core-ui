@@ -48,7 +48,10 @@ export const EXPECTED_METRIC_SELECT_OPTIONS = [
 ]
 
 export const MockDatadogMetricInfo: DatadogMetricInfo = {
+  dashboardId: 'mock_dashboard_id',
+  identifier: 'mockMetricName',
   metricName: 'mockMetricName',
+  metricPath: 'mock_metric_path',
   groupName: { value: 'mockGroupName', label: 'mockGroupName' },
   query: MOCK_QUERY_OUTPUT,
   metric: MOCK_ACTIVE_METRIC,
@@ -57,6 +60,7 @@ export const MockDatadogMetricInfo: DatadogMetricInfo = {
   }),
   serviceInstanceIdentifierTag: 'host',
   aggregator: MOCK_AGGREGATION,
+  sli: false,
   isManualQuery: false,
   continuousVerification: true
 }

@@ -313,13 +313,13 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
   const { openDialog: openUseTemplateDialog } = useConfirmationDialog({
     intent: Intent.WARNING,
-    cancelButtonText: getString('cancel'),
+    cancelButtonText: getString('no'),
     contentText: getString('pipeline.changeTemplate', {
       name: savedTemplate?.name,
       entity: savedTemplate?.templateEntityType?.toLowerCase()
     }),
     titleText: `Use Template ${savedTemplate?.name}?`,
-    confirmButtonText: getString('confirm'),
+    confirmButtonText: getString('yes'),
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
         onUseTemplateConfirm()

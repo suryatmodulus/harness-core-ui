@@ -10,7 +10,7 @@ import PlansCss from './Plans.module.scss'
 import PlanCss from './Plan.module.scss'
 
 const centerCenter = 'center-center'
-const getBulletList = (stringList: string[]) => {
+const getBulletList = (stringList: string[]): React.ReactElement[] => {
   return stringList.map(item => (
     <li key={item} className={css.li}>
       <Text>{item}</Text>
@@ -24,10 +24,11 @@ const getVerticalPart = (
   getString: (key: StringKeys, vars?: Record<string, any>) => string,
   title2key: StringKeys,
   linkKey: StringKeys,
-  linkText: StringKeys
-) => (
+  linkText: StringKeys,
+  image?: string
+): React.ReactElement => (
   <Layout.Vertical flex={{ align: centerCenter }} spacing="large" padding={{ bottom: 'xsmall' }}>
-    <img src={saasImage} />
+    {image && <img src={image} />}
     <Layout.Vertical padding={{ top: 'large' }} flex={{ align: centerCenter }} spacing="medium">
       <Layout.Horizontal spacing="small">
         <Text color={Color.BLACK} font={{ size: 'medium' }} className={PlanCss.desc}>
@@ -48,7 +49,7 @@ const getVerticalPart = (
   </Layout.Vertical>
 )
 
-const CommunityPlansCard = () => {
+const CommunityPlansCard = (): React.ReactElement => {
   const { getString } = useStrings()
 
   const communityPlanStrings = [
@@ -56,8 +57,7 @@ const CommunityPlansCard = () => {
     getString('authSettings.cdCommunityPlan.communityPlanStrings.item2'),
     getString('authSettings.cdCommunityPlan.communityPlanStrings.item3'),
     getString('authSettings.cdCommunityPlan.communityPlanStrings.item4'),
-    getString('authSettings.cdCommunityPlan.communityPlanStrings.item5'),
-    getString('authSettings.cdCommunityPlan.communityPlanStrings.item6')
+    getString('authSettings.cdCommunityPlan.communityPlanStrings.item5')
   ]
 
   return (
@@ -83,23 +83,9 @@ const CommunityPlansCard = () => {
           <Text font={{ weight: 'semi-bold', size: 'large' }} className={css.titleFont}>
             {getString('authSettings.cdCommunityPlan.communityTitle')}
           </Text>
-          <Layout.Vertical
-            padding={{ top: 'large', bottom: 'xxxlarge' }}
-            flex={{ align: centerCenter }}
-            spacing="medium"
-          >
-            <Layout.Horizontal spacing="small">
-              <Text font={{ weight: 'semi-bold', size: 'large' }} color={Color.BLACK}>
-                {getString('authSettings.cdCommunityPlan.communityPrice')}
-              </Text>
-            </Layout.Horizontal>
-            <Text
-              color={Color.BLACK}
-              font={{ weight: 'light', size: 'small' }}
-              padding={{ left: 'large', right: 'large' }}
-              className={PlanCss.centerText}
-            >
-              {getString('authSettings.cdCommunityPlan.communityPriceText')}
+          <Layout.Vertical padding={{ top: 'large', bottom: 'xxxlarge' }} flex={{ align: centerCenter }}>
+            <Text font={{ weight: 'semi-bold', size: 'medium' }} color={Color.BLACK}>
+              {getString('authSettings.cdCommunityPlan.communityPrice')}
             </Text>
           </Layout.Vertical>
           <Text
@@ -128,13 +114,15 @@ const CommunityPlansCard = () => {
   )
 }
 
-const EnterprisePlansCard = () => {
+const EnterprisePlansCard = (): React.ReactElement => {
   const { getString } = useStrings()
 
   const enterpriseListStrings = [
     getString('authSettings.cdCommunityPlan.enterprisePlanStrings.item1'),
     getString('authSettings.cdCommunityPlan.enterprisePlanStrings.item2'),
-    getString('authSettings.cdCommunityPlan.enterprisePlanStrings.item3')
+    getString('authSettings.cdCommunityPlan.enterprisePlanStrings.item3'),
+    getString('authSettings.cdCommunityPlan.enterprisePlanStrings.item4'),
+    getString('authSettings.cdCommunityPlan.enterprisePlanStrings.item5')
   ]
   return (
     <Card className={cx(css.plan, css.normalPlanBorder)}>
@@ -167,7 +155,7 @@ const EnterprisePlansCard = () => {
   )
 }
 
-const SaasPlansCard = () => {
+const SaasPlansCard = (): React.ReactElement => {
   const { getString } = useStrings()
   return (
     <Card className={cx(css.plan, css.normalPlanBorder)}>
@@ -176,14 +164,15 @@ const SaasPlansCard = () => {
           getString,
           'authSettings.cdCommunityPlan.saasTitle2',
           linkStringKey,
-          'authSettings.cdCommunityPlan.saasLinkText'
+          'authSettings.cdCommunityPlan.saasLinkText',
+          saasImage
         )}
       </Layout.Vertical>
     </Card>
   )
 }
 
-const CommunityPlans = () => {
+const CommunityPlans = (): React.ReactElement => {
   const { getString } = useStrings()
   return (
     <Layout.Vertical className={PlansCss.plans} spacing="large">

@@ -8,7 +8,7 @@ import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSource
 import { MultiItemsSideNav } from '@cv/components/MultiItemsSideNav/MultiItemsSideNav'
 import { SetupSourceCardHeader } from '@cv/components/CVSetupSourcesView/SetupSourceCardHeader/SetupSourceCardHeader'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
-import { useGetLabelNames, useGetMetricPacks } from 'services/cv'
+import { useGetLabelNames } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import {
   initializeCreatedMetrics,
@@ -16,7 +16,8 @@ import {
   updateSelectedMetricsMap,
   transformCustomHealthSourceToSetupSource,
   validateMappings,
-  onSubmitCustomHealthSource
+  onSubmitCustomHealthSource,
+  generateCustomMetricPack
 } from './CustomHealthSource.utils'
 import type {
   CreatedMetricsWithSelectedIndex,
@@ -46,10 +47,6 @@ export function CustomHealthSource(props: CustomHealthSourceProps): JSX.Element 
 
   const { data: sourceData, onSubmit } = props
   const connectorIdentifier = sourceData?.connectorRef || ''
-
-  const metricPackResponse = useGetMetricPacks({
-    queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'CUSTOM_HEALTH' }
-  })
   const labelNamesResponse = useGetLabelNames({
     queryParams: { projectIdentifier, orgIdentifier, accountId, connectorIdentifier, tracingId: labelNameTracingId }
   })
@@ -64,6 +61,8 @@ export function CustomHealthSource(props: CustomHealthSourceProps): JSX.Element 
   const [{ createdMetrics, selectedMetricIndex }, setCreatedMetrics] = useState<CreatedMetricsWithSelectedIndex>(
     initializeCreatedMetrics(defaultMetricName, selectedMetric, mappedMetrics)
   )
+
+  const metricPacks = useMemo(() => generateCustomMetricPack(), [])
 
   const [isQueryExecuted, setIsQueryExecuted] = useState(false)
   const [sampleDataLoading, setSampleDataLoading] = useState(false)
@@ -200,7 +199,7 @@ export function CustomHealthSource(props: CustomHealthSourceProps): JSX.Element 
                             continuousVerification: !!formikProps?.values?.continuousVerification
                           }}
                           hideServiceIdentifier
-                          metricPackResponse={metricPackResponse}
+                          metricPackResponse={metricPacks}
                           labelNamesResponse={labelNamesResponse}
                           hideCV={formikProps.values?.queryType === QueryType.SERVICE_BASED}
                           hideSLIAndHealthScore={formikProps.values?.queryType === QueryType.HOST_BASED}

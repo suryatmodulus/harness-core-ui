@@ -3,7 +3,7 @@ import { isEmpty, isEqual } from 'lodash-es'
 import produce from 'immer'
 
 import { useParams } from 'react-router-dom'
-import { useToaster } from '@wings-software/uicore'
+import { useToaster } from '@harness/uicore'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import {

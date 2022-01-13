@@ -9,6 +9,7 @@ declare const styles: {
   readonly wrapper: string
   readonly name: string
   readonly flex: string
+  readonly listingGitBranch: string
   readonly invalidConnector: string
   readonly viewDetails: string
   readonly link: string

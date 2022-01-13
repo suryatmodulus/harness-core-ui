@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text, Icon, Layout } from '@wings-software/uicore'
+import { Container, Text, Icon, Layout } from '@harness/uicore'
 import { useParams, Link } from 'react-router-dom'
 import { useQueryParams } from '@common/hooks'
 import routes from '@common/RouteDefinitions'

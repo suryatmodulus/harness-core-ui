@@ -1,4 +1,4 @@
-import React, { FormEvent, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { FormInput, SelectOption } from '@wings-software/uicore'
 import { DatadogMetricsHealthSourceFieldNames } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.constants'
 import GroupName from '@cv/components/GroupName/GroupName'
@@ -11,6 +11,7 @@ import {
   mapMetricTagsHostIdentifierKeysOptions,
   mapMetricTagsToMetricTagsOptions
 } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/components/DatadogMetricsDetailsContent/DatadogMetricsDetailsContent.utils'
+import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import type { DatadogMetricsDetailsContentProps } from './DatadogMetricsDetailsContent.type'
 
 export default function DatadogMetricsDetailsContent(props: DatadogMetricsDetailsContentProps): JSX.Element {
@@ -95,37 +96,33 @@ export default function DatadogMetricsDetailsContent(props: DatadogMetricsDetail
   }
   return (
     <>
-      <FormInput.Text
-        disabled={!selectedMetricData}
-        label={getString('cv.monitoringSources.metricNameLabel')}
-        name={DatadogMetricsHealthSourceFieldNames.METRIC_NAME}
-        onChange={(newMetricName: FormEvent<HTMLInputElement>) => {
-          formikProps.setFieldValue(
-            DatadogMetricsHealthSourceFieldNames.METRIC_NAME,
-            newMetricName.currentTarget?.value || ''
-          )
+      <NameId
+        nameLabel={getString('cv.monitoringSources.metricNameLabel')}
+        identifierProps={{
+          inputName: DatadogMetricsHealthSourceFieldNames.METRIC_NAME,
+          idName: DatadogMetricsHealthSourceFieldNames.METRIC_IDENTIFIER,
+          isIdentifierEditable: Boolean(!selectedMetricData?.identifier || selectedMetricData?.isNew)
         }}
       />
-      {
-        <GroupName
-          disabled={!selectedMetricData?.isManualQuery}
-          item={formikProps?.values?.groupName || { label: '', value: '' }}
-          fieldName={DatadogMetricsHealthSourceFieldNames.GROUP_NAME}
-          newGroupDialogTitle={'cv.monitoringSources.datadog.newDatadogGroupName'}
-          groupNames={metricGroupNames}
-          onChange={(fieldName: string, chosenOption: SelectOption) => {
-            formikProps.setFieldValue(fieldName, chosenOption)
-            onRebuildMetricData(
-              formikProps.values.metric,
-              formikProps.values.aggregator,
-              formikProps.values.metricTags,
-              formikProps.values.serviceInstanceIdentifierTag,
-              chosenOption
-            )
-          }}
-          setGroupNames={setMetricGroupNames}
-        />
-      }
+      <GroupName
+        disabled={!selectedMetricData?.isManualQuery}
+        item={formikProps?.values?.groupName || { label: '', value: '' }}
+        fieldName={DatadogMetricsHealthSourceFieldNames.GROUP_NAME}
+        title={getString('cv.monitoringSources.datadog.newDatadogGroupName')}
+        groupNames={metricGroupNames}
+        onChange={(fieldName: string, chosenOption: SelectOption) => {
+          formikProps.setFieldValue(fieldName, chosenOption)
+          onRebuildMetricData(
+            formikProps.values.metric,
+            formikProps.values.aggregator,
+            formikProps.values.metricTags,
+            formikProps.values.serviceInstanceIdentifierTag,
+            chosenOption
+          )
+        }}
+        setGroupNames={setMetricGroupNames}
+      />
+
       <FormInput.Select
         disabled={!selectedMetricData || !selectedMetricData?.isManualQuery}
         label={getString('cv.monitoringSources.metricLabel')}

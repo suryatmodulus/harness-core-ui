@@ -4,6 +4,7 @@ import type { StringKeys } from 'framework/strings'
 export interface MetricWidget {
   widgetName: string
   dataSets: {
+    id: string
     name: string
     query: string
   }[]
@@ -20,15 +21,16 @@ export interface MetricDashboardWidgetNavProps<T> {
   manuallyInputQueries?: string[]
   connectorIdentifier: string
   onSelectMetric: (
-    selectedMetric: string,
+    id: string,
+    metricName: string,
     query: string,
     widgetName?: string,
-    dashboardTitle?: string,
-    dashboardId?: string
+    dashboardId?: string,
+    dashboardTitle?: string
   ) => void
   showSpinnerOnLoad?: boolean
   addManualQueryTitle: StringKeys
-  dashboardWidgetMapper: (item: T) => MetricWidget
+  dashboardWidgetMapper: (dashboardId: string, item: T) => MetricWidget
   dashboardDetailsRequest: UseGetReturn<any, any, any>
 }
 

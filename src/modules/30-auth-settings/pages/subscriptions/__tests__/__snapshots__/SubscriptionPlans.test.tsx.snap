@@ -1660,21 +1660,12 @@ exports[`Subscription Plans should render the plans for CD Community 1`] = `
               authSettings.cdCommunityPlan.communityTitle
             </p>
             <div
-              class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--padding-bottom-xxxlarge StyledProps--flex StyledProps--flex-align-center-center"
+              class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-bottom-xxxlarge StyledProps--flex StyledProps--flex-align-center-center"
             >
-              <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black"
-                >
-                  authSettings.cdCommunityPlan.communityPrice
-                </p>
-              </div>
               <p
-                class="StyledProps--font StyledProps--main centerText StyledProps--color StyledProps--color-black StyledProps--font-weight-light StyledProps--font-size-small StyledProps--padding-left-large StyledProps--padding-right-large"
+                class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
               >
-                authSettings.cdCommunityPlan.communityPriceText
+                authSettings.cdCommunityPlan.communityPrice
               </p>
             </div>
             <p
@@ -1735,15 +1726,6 @@ exports[`Subscription Plans should render the plans for CD Community 1`] = `
                 authSettings.cdCommunityPlan.communityPlanStrings.item5
               </p>
             </li>
-            <li
-              class="li"
-            >
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                authSettings.cdCommunityPlan.communityPlanStrings.item6
-              </p>
-            </li>
           </ul>
         </div>
         <div
@@ -1783,9 +1765,6 @@ exports[`Subscription Plans should render the plans for CD Community 1`] = `
               <div
                 class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--padding-bottom-xsmall"
               >
-                <img
-                  src="test-file-stub"
-                />
                 <div
                   class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-large StyledProps--flex StyledProps--flex-align-center-center"
                 >
@@ -1850,6 +1829,24 @@ exports[`Subscription Plans should render the plans for CD Community 1`] = `
                   class="StyledProps--font StyledProps--main"
                 >
                   authSettings.cdCommunityPlan.enterprisePlanStrings.item3
+                </p>
+              </li>
+              <li
+                class="li"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  authSettings.cdCommunityPlan.enterprisePlanStrings.item4
+                </p>
+              </li>
+              <li
+                class="li"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  authSettings.cdCommunityPlan.enterprisePlanStrings.item5
                 </p>
               </li>
             </ul>

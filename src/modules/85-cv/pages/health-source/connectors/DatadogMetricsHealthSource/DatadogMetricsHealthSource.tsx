@@ -36,6 +36,8 @@ import { getErrorMessage } from '@cv/utils/CommonUtils'
 import CloudMetricsHealthSource from '@cv/components/CloudMetricsHealthSource/CloudMetricsHealthSource'
 import type { SelectedWidgetMetricData } from '@cv/components/CloudMetricsHealthSource/CloudMetricsHealthSource.type'
 import DatadogMetricsDetailsContent from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/components/DatadogMetricsDetailsContent/DatadogMetricsDetailsContent'
+import { FieldNames } from '@cv/pages/health-source/connectors/GCOMetricsHealthSource/GCOMetricsHealthSource.constants'
+import { getPlaceholderForIdentifier } from '@cv/pages/health-source/connectors/GCOMetricsHealthSource/GCOMetricsHealthSource.utils'
 import { DatadogMetricsQueryExtractor } from './components/DatadogMetricsDetailsContent/DatadogMetricsDetailsContent.utils'
 
 export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSourceProps): JSX.Element {
@@ -45,8 +47,8 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
   const [metricHealthDetailsData, setMetricHealthDetailsData] = useState(transformedData.metricDefinition)
   const [activeMetricsTracingId, metricTagsTracingId] = useMemo(() => [Utils.randomId(), Utils.randomId()], [])
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
-  const [selectedMetric, setSelectedMetric] = useState<string>()
-  const selectedMetricData = metricHealthDetailsData.get(selectedMetric || '')
+  const [selectedMetricId, setSelectedMetricId] = useState<string>()
+  const selectedMetricData = metricHealthDetailsData.get(selectedMetricId || '')
   const { data: activeMetrics } = useGetDatadogActiveMetrics({
     queryParams: {
       projectIdentifier,
@@ -100,6 +102,7 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
   const selectedDashboards = useMemo(() => {
     return getSelectedDashboards(data)
   }, [data])
+
   const handleOnTimeseriesFetch = (): void => {
     if (selectedMetricData?.query) {
       timeseriesRefech({
@@ -130,18 +133,18 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
     selectedWidgetMetricData: SelectedWidgetMetricData,
     formikProps: FormikProps<DatadogMetricInfo>
   ): void => {
-    let metricInfo: DatadogMetricInfo | undefined = metricHealthDetailsData.get(selectedWidgetMetricData.metricName)
+    let metricInfo: DatadogMetricInfo | undefined = metricHealthDetailsData.get(selectedWidgetMetricData.id)
     const query = selectedWidgetMetricData.query === MANUAL_INPUT_QUERY ? '' : selectedWidgetMetricData.query
     if (!metricInfo) {
       metricInfo = mapSelectedWidgetDataToDatadogMetricInfo(selectedWidgetMetricData, query, activeMetrics?.data || [])
     }
-    metricHealthDetailsData.set(selectedWidgetMetricData.metricName, metricInfo)
-    if (selectedMetric) {
+    metricHealthDetailsData.set(selectedWidgetMetricData.id, metricInfo)
+    if (selectedMetricId) {
       // save changes for previous metric
-      metricHealthDetailsData.set(selectedMetric, { ...selectedMetricData, ...formikProps.values })
+      metricHealthDetailsData.set(selectedMetricId, { ...selectedMetricData, ...formikProps.values })
     }
     setMetricHealthDetailsData(new Map(metricHealthDetailsData))
-    setSelectedMetric(selectedWidgetMetricData.metricName)
+    setSelectedMetricId(selectedWidgetMetricData.id)
     setCurrentTimeseriesData(null)
   }
   const handleOnNext = async (formikProps: FormikProps<DatadogMetricInfo>): Promise<void> => {
@@ -159,13 +162,13 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
       formikProps.setErrors({ ...errors })
       return
     }
-    if (selectedMetric) {
-      metricHealthDetailsData.set(selectedMetric, { ...selectedMetricData, ...formikProps.values })
+    if (selectedMetricId) {
+      metricHealthDetailsData.set(selectedMetricId, { ...selectedMetricData, ...formikProps.values })
     }
     const filteredData = new Map()
     for (const metric of metricHealthDetailsData) {
       const [metricName, metricInfo] = metric
-      if (isEmpty(validateFormMappings(metricInfo, getString))) {
+      if (isEmpty(validateFormMappings(metricInfo, metricHealthDetailsData, getString))) {
         filteredData.set(metricName, metricInfo)
       }
     }
@@ -179,8 +182,8 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
   }
   const dashboardRequest = useGetDatadogDashboardDetails({ lazy: true })
   const dashboardDetailToMetricWidgetItemMapper = useCallback(
-    (datadogDashboardDetail: DatadogDashboardDetail): MetricWidget => {
-      return mapDatadogDashboardDetailToMetricWidget(datadogDashboardDetail)
+    (dashboardId: string, datadogDashboardDetail: DatadogDashboardDetail): MetricWidget => {
+      return mapDatadogDashboardDetailToMetricWidget(dashboardId, datadogDashboardDetail)
     },
     []
   )
@@ -192,49 +195,59 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
       onSubmit={noop}
       validate={values => {
         const newMap = new Map(metricHealthDetailsData)
-        if (selectedMetric) {
-          newMap.set(selectedMetric, { ...values })
+        if (selectedMetricId) {
+          newMap.set(selectedMetricId, { ...values })
         }
         return validate(values, newMap, getString)
       }}
     >
-      {formikProps => (
-        <FormikForm>
-          <CloudMetricsHealthSource
-            formikProps={formikProps}
-            dashboardDetailRequest={dashboardRequest}
-            dashboardDetailMapper={dashboardDetailToMetricWidgetItemMapper}
-            dataSourceType={DatasourceTypeEnum.DATADOG_METRICS}
-            addManualQueryTitle={'cv.monitoringSources.datadog.manualInputQueryModal.modalTitle'}
-            manualQueries={getManuallyCreatedQueries(metricHealthDetailsData)}
-            onNextClicked={() => handleOnNext(formikProps)}
-            selectedMetricInfo={{
-              query: formikProps.values.query,
-              queryEditable: false,
-              timeseriesData: currentTimeseriesData
-            }}
-            onFetchTimeseriesData={handleOnTimeseriesFetch}
-            timeseriesDataLoading={timeseriesLoading}
-            timeseriesDataError={timeseriesDataErrorMessage}
-            dashboards={selectedDashboards}
-            connectorRef={data?.connectorRef as string}
-            onWidgetMetricSelected={selectedWidgetMetricData =>
-              handleOnMetricSelected(selectedWidgetMetricData, formikProps)
-            }
-            metricDetailsContent={
-              <DatadogMetricsDetailsContent
-                selectedMetric={selectedMetric}
-                selectedMetricData={selectedMetricData}
-                metricHealthDetailsData={metricHealthDetailsData}
-                formikProps={formikProps}
-                setMetricHealthDetailsData={setMetricHealthDetailsData}
-                metricTags={metricTags?.data || []}
-                activeMetrics={activeMetrics?.data || []}
-              />
-            }
-          />
-        </FormikForm>
-      )}
+      {formikProps => {
+        const shouldShowIdentifierPlaceholder = !selectedMetricData?.identifier && !formikProps.values?.identifier
+
+        if (shouldShowIdentifierPlaceholder) {
+          formikProps.setFieldValue(
+            FieldNames.IDENTIFIER,
+            getPlaceholderForIdentifier(formikProps.values?.metricName, getString)
+          )
+        }
+        return (
+          <FormikForm>
+            <CloudMetricsHealthSource
+              formikProps={formikProps}
+              dashboardDetailRequest={dashboardRequest}
+              dashboardDetailMapper={dashboardDetailToMetricWidgetItemMapper}
+              dataSourceType={DatasourceTypeEnum.DATADOG_METRICS}
+              addManualQueryTitle={'cv.monitoringSources.datadog.manualInputQueryModal.modalTitle'}
+              manualQueries={getManuallyCreatedQueries(metricHealthDetailsData)}
+              onNextClicked={() => handleOnNext(formikProps)}
+              selectedMetricInfo={{
+                query: formikProps.values.query,
+                queryEditable: false,
+                timeseriesData: currentTimeseriesData
+              }}
+              onFetchTimeseriesData={handleOnTimeseriesFetch}
+              timeseriesDataLoading={timeseriesLoading}
+              timeseriesDataError={timeseriesDataErrorMessage}
+              dashboards={selectedDashboards}
+              connectorRef={data?.connectorRef as string}
+              onWidgetMetricSelected={selectedWidgetMetricData =>
+                handleOnMetricSelected(selectedWidgetMetricData, formikProps)
+              }
+              metricDetailsContent={
+                <DatadogMetricsDetailsContent
+                  selectedMetric={selectedMetricId}
+                  selectedMetricData={selectedMetricData}
+                  metricHealthDetailsData={metricHealthDetailsData}
+                  formikProps={formikProps}
+                  setMetricHealthDetailsData={setMetricHealthDetailsData}
+                  metricTags={metricTags?.data || []}
+                  activeMetrics={activeMetrics?.data || []}
+                />
+              }
+            />
+          </FormikForm>
+        )
+      }}
     </Formik>
   )
 }

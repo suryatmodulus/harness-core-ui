@@ -1,4 +1,4 @@
-import type { IconName } from '@wings-software/uicore'
+import type { IconName } from '@harness/uicore'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { ModuleName } from 'framework/types/ModuleName'
 

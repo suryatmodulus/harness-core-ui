@@ -228,15 +228,16 @@ const SetBudgetForm: (props: SetBudgetFormProps) => JSX.Element = ({
             : getString('ce.perspectives.budgets.setBudgetAmount.specifyAmount')
         }
       />
-      <FormInput.CheckBox
-        name="growthRateCheck"
-        disabled={formikProps.values.type === 'PREVIOUS_PERIOD_SPEND' ? true : false}
-        label={getString('ce.perspectives.budgets.setBudgetAmount.growthRateCheck')}
-        tooltipProps={{
-          dataTooltipId: 'growthRateCheckbox'
-        }}
-      />
-      {formikProps.values.growthRateCheck ? (
+      {formikProps.values.type === 'SPECIFIED_AMOUNT' ? (
+        <FormInput.CheckBox
+          name="growthRateCheck"
+          label={getString('ce.perspectives.budgets.setBudgetAmount.growthRateCheck')}
+          tooltipProps={{
+            dataTooltipId: 'growthRateCheckbox'
+          }}
+        />
+      ) : null}
+      {formikProps.values.growthRateCheck && formikProps.values.type === 'SPECIFIED_AMOUNT' ? (
         <Layout.Horizontal
           margin={{
             top: 'xlarge'

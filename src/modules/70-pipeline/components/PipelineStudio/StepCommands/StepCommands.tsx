@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, ButtonSize, ButtonVariation, Container, Tab, Tabs, Layout } from '@wings-software/uicore'
+import { Container, Tab, Tabs, Layout } from '@wings-software/uicore'
 import { Expander } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
@@ -223,18 +223,7 @@ export function StepCommands(
             {templatesEnabled && !isStepGroup && viewType === StepCommandsViews.Pipeline ? (
               <>
                 <Expander />
-                <div>
-                  <Button
-                    text={getString('common.useTemplate')}
-                    variation={ButtonVariation.SECONDARY}
-                    size={ButtonSize.SMALL}
-                    icon="template-library"
-                    iconProps={{ size: 12 }}
-                    onClick={onUseTemplate}
-                    margin={{ right: 'small' }}
-                  />
-                  <SaveTemplateButton data={step} type={'Step'} buttonProps={{ variation: ButtonVariation.ICON }} />
-                </div>
+                <SaveTemplateButton data={step} type={'Step'} />
               </>
             ) : null}
           </Tabs>

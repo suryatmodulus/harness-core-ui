@@ -5,7 +5,7 @@ import { useState, useCallback, useEffect, Dispatch, SetStateAction } from 'reac
 import type { Cancelable, DebounceSettings } from 'lodash' // only type imports
 import { debounce, identity } from 'lodash-es'
 
-import { shouldShowError } from '@wings-software/uicore'
+import { shouldShowError } from '@harness/uicore'
 import { useDeepCompareEffect } from './useDeepCompareEffect'
 
 const isCancellable = <T extends (...args: any[]) => any>(func: T): func is T & Cancelable => {

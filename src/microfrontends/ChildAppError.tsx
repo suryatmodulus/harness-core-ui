@@ -1,5 +1,5 @@
 import React from 'react'
-import { PageError } from '@wings-software/uicore'
+import { PageError } from '@harness/uicore'
 
 const devErrorMsg = 'This app is rendered as a microfrontend. It looks like it is not reachable.'
 

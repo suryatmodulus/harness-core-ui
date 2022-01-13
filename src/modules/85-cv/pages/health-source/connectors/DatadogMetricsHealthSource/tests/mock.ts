@@ -28,11 +28,11 @@ export const MockSampleData = [
 ]
 
 export const mockWidgetSelectedData: SelectedWidgetMetricData = {
+  id: 'MOCK_METRIC_ID',
   metricName: 'MOCK_METRIC_NAME',
   query: 'MOCKED_QUERY',
   widgetName: 'MOCK_WIDGET_NAME',
-  dashboardTitle: 'MOCK_DASHBOARD_TITLE',
-  dashboardId: 'MOCK_DASHBOARD_ID'
+  dashboardTitle: 'MOCK_DASHBOARD_TITLE'
 }
 
 export const DatadogMetricsHealthSourceMock = {
@@ -44,11 +44,13 @@ export const DatadogMetricsHealthSourceMock = {
     feature: 'Datadog Cloud Metrics',
     metricDefinitions: [
       {
+        identifier: 'mock_identifier',
         aggregation: 'avg',
         dashboardId: 'mock_dashboard_id',
         dashboardName: 'mock_dashboard_name',
         groupingQuery: 'mock_grouping_query',
         isManualQuery: true,
+        metricPath: 'mock_metric_path',
         metric: 'mock_active_metric',
         metricName: 'mock_metric_name',
         metricTags: [],
@@ -86,16 +88,18 @@ export const DatadogMetricsMockHealthSourceData = {
 
 const mockMetricDefinitionsMap: Map<string, DatadogMetricInfo> = new Map([
   [
-    'mock_metric_name',
+    'mock_metric_path',
     {
       aggregator: 'avg',
       groupName: {
         label: 'mock_dashboard_name',
         value: 'mock_dashboard_name'
       },
+      identifier: 'mock_identifier',
+      dashboardId: 'mock_dashboard_id',
       groupingQuery: 'mock_grouping_query',
       higherBaselineDeviation: false,
-      id: 'mock_dashboard_id',
+      metricPath: 'mock_metric_path',
       isManualQuery: true,
       lowerBaselineDeviation: false,
       metric: 'mock_active_metric',
@@ -128,7 +132,7 @@ export const DatadogMetricsSetupSource: DatadogMetricSetupSource = {
   ]
 }
 
-export const MOCK_MANUAL_QUERIES_LIST = ['mock_metric_name']
+export const MOCK_MANUAL_QUERIES_LIST = ['mock_metric_path']
 
 export const MOCK_SELECTED_DASHBOARDS_WIDGETS = [
   {
@@ -138,6 +142,7 @@ export const MOCK_SELECTED_DASHBOARDS_WIDGETS = [
 ]
 
 export const MOCK_SELECTED_WIDGET_DATA = {
+  id: 'mock_metric_path',
   metricName: 'mock_metric_name',
   query: 'mock_query',
   widgetName: 'mock_metric_name',
@@ -151,8 +156,13 @@ export const EXPECTED_DATADOG_METRIC_INFO = {
     label: 'datadog_dashboard',
     value: 'datadog_dashboard'
   },
-  id: 'mock_dashboard_id',
+  metricPath: 'mock_metric_path',
+  dashboardId: 'mock_dashboard_id',
+  isNew: true,
   isManualQuery: false,
   metricName: 'mock_metric_name',
+  identifier: 'mock_metric_name',
   query: 'avg:datadog.agent.running{*}.rollup(avg,60)'
 }
+
+export const METRIC_VALIDATION_RESULT = { overall: undefined, sli: undefined }

@@ -107,6 +107,7 @@ serviceDashboard:
   noActiveServiceInstances: No Active Service Instances
   noActiveServices: No Active Services in {{timeRange}}
 gitOps: GitOps
+enterpriseGitOps: Enterprise GitOps
 newAdapter: New Adapter
 newGitOpsServer: New GitOps Server
 adapterDetails: Adapter Details

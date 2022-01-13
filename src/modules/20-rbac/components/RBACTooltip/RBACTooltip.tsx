@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Layout, Text } from '@wings-software/uicore'
+import { Color, Layout, Text } from '@harness/uicore'
 import { useStrings } from 'framework/strings'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'

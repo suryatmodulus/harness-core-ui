@@ -9,7 +9,7 @@ const ExactSharedPackages = [
   'react-dom',
   'react',
   'react-router-dom',
-  '@wings-software/uicore',
+  '@harness/uicore',
   '@blueprintjs/core',
   '@blueprintjs/select',
   '@blueprintjs/datetime',

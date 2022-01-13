@@ -1,5 +1,5 @@
 import React from 'react'
-import { Classes, PopoverInteractionKind, Position } from '@blueprintjs/core'
+import { Classes, Intent, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { Color, Container, Icon, Text, IconName, Popover, Layout } from '@wings-software/uicore'
 import type { InputSetErrorResponse } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
@@ -57,7 +57,7 @@ const TooltipContent: React.FC<BadgeTooltipContentInterface> = (props: BadgeTool
         // Show git errors
         <Layout.Horizontal>
           <div className={css.tooltipIcon}>
-            <Icon name={iconName} size={14} color={Color.RED_600} />
+            <Icon name={iconName} size={18} intent={Intent.DANGER} />
           </div>
           <Layout.Vertical width={292} padding={{ left: 'small' }}>
             <Text width={244} color={Color.GREY_0} margin={{ bottom: 'small' }} className={css.tooltipContentText}>
@@ -90,14 +90,16 @@ export const Badge: React.FC<BadgeProps> = (props: BadgeProps): JSX.Element => {
     if (showInvalidText) {
       return (
         <Container className={css.badge}>
-          <Icon name={iconName} size={10} color={Color.RED_600} className={css.badgeIcon} />
+          <Icon name={iconName} size={14} className={css.badgeIcon} intent={Intent.DANGER} />
           <Text color={Color.RED_900} font={{ weight: 'bold' }} className={css.badgeText}>
             {getString(text)}
           </Text>
         </Container>
       )
     }
-    return <Icon name={iconName} size={16} color={Color.RED_600} className={css.badgeIcon} data-testid="invalid-icon" />
+    return (
+      <Icon name={iconName} size={20} className={css.badgeIcon} data-testid="invalid-icon" intent={Intent.DANGER} />
+    )
   }, [iconName, showInvalidText, text, getString])
 
   return showTooltip ? (

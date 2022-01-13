@@ -1,6 +1,8 @@
-.dialog {
-  width: auto;
-  padding-bottom: 0;
+.referenceSelect {
+  &.dialog {
+    width: auto;
+    padding-bottom: 0;
+  }
 }
 
 .container {

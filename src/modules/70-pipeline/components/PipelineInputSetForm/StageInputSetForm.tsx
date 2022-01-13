@@ -1,7 +1,7 @@
 import React from 'react'
 import { Label, FormInput, MultiTypeInputType, Icon, Layout, Text, getMultiTypeFromValue } from '@wings-software/uicore'
 import { connect } from 'formik'
-import { get, set, isEmpty, pickBy, identity, isNil, noop } from 'lodash-es'
+import { get, set, isEmpty, pickBy, identity, isNil } from 'lodash-es'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
@@ -21,6 +21,7 @@ import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/Mult
 import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelector/MultiTypeDelegateSelector'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { TemplateStepNode } from 'services/pipeline-ng'
+import { TEMPLATE_INPUT_PATH } from '@pipeline/utils/templateUtils'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
@@ -79,6 +80,59 @@ function ServiceDependencyForm({
   )
 }
 
+function StepFormInternal({
+  template,
+  allValues,
+  values,
+  onUpdate,
+  readonly,
+  viewType,
+  path,
+  allowableTypes
+}: {
+  template?: ExecutionWrapperConfig
+  allValues?: ExecutionWrapperConfig
+  values?: ExecutionWrapperConfig
+  onUpdate: (data: any) => void
+  readonly?: boolean
+  viewType?: StepViewType
+  path: string
+  allowableTypes: MultiTypeInputType[]
+}): JSX.Element {
+  const { getString } = useStrings()
+  const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { expressions } = useVariablesExpression()
+  return (
+    <div>
+      <StepWidget<Partial<StepElementConfig>>
+        factory={factory}
+        readonly={readonly}
+        path={path}
+        allowableTypes={allowableTypes}
+        template={template?.step}
+        initialValues={values?.step || {}}
+        allValues={allValues?.step || {}}
+        type={(allValues?.step as StepElementConfig)?.type as StepType}
+        onUpdate={onUpdate}
+        stepViewType={viewType}
+      />
+      {getMultiTypeFromValue((template?.step as StepElementConfig)?.spec?.delegateSelectors) ===
+        MultiTypeInputType.RUNTIME && (
+        <div className={cx(stepCss.formGroup, stepCss.sm)}>
+          <MultiTypeDelegateSelector
+            expressions={expressions}
+            inputProps={{ projectIdentifier, orgIdentifier }}
+            allowableTypes={allowableTypes}
+            label={getString('delegate.DelegateSelector')}
+            name={`${path}.spec.delegateSelectors`}
+            disabled={readonly}
+          />
+        </div>
+      )}
+    </div>
+  )
+}
+
 export function StepForm({
   template,
   allValues,
@@ -101,71 +155,50 @@ export function StepForm({
   hideTitle?: boolean
 }): JSX.Element {
   const { getString } = useStrings()
-  const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { expressions } = useVariablesExpression()
-  if ((allValues?.step as unknown as TemplateStepNode)?.template) {
-    return (
-      <StepForm
-        template={{
-          step: (template?.step as unknown as TemplateStepNode)?.template?.templateInputs as StepElementConfig
-        }}
-        allValues={{
-          step: (allValues?.step as unknown as TemplateStepNode)?.template?.templateInputs as StepElementConfig
-        }}
-        values={{ step: (values?.step as unknown as TemplateStepNode)?.template?.templateInputs as StepElementConfig }}
-        path={`${path}.template.templateInputs`}
+  const isTemplateStep = (allValues?.step as unknown as TemplateStepNode)?.template
+  const type = isTemplateStep
+    ? ((allValues?.step as unknown as TemplateStepNode)?.template.templateInputs as StepElementConfig)?.type
+    : ((allValues?.step as StepElementConfig)?.type as StepType)
+  const iconColor = factory.getStepIconColor(type)
+
+  return (
+    <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
+      {!hideTitle && (
+        <Label>
+          <Icon
+            padding={{ right: 'small' }}
+            {...(iconColor ? { color: iconColor } : {})}
+            style={{ color: iconColor }}
+            name={factory.getStepIcon(type)}
+          />
+          {getString('pipeline.execution.stepTitlePrefix')}
+          {getString('pipeline.stepLabel', allValues?.step)}
+        </Label>
+      )}
+      <StepFormInternal
+        template={
+          isTemplateStep
+            ? { step: (template?.step as unknown as TemplateStepNode)?.template?.templateInputs as StepElementConfig }
+            : template
+        }
+        allValues={
+          isTemplateStep
+            ? { step: (allValues?.step as unknown as TemplateStepNode)?.template?.templateInputs as StepElementConfig }
+            : allValues
+        }
+        values={
+          isTemplateStep
+            ? { step: (values?.step as unknown as TemplateStepNode)?.template?.templateInputs as StepElementConfig }
+            : values
+        }
+        path={isTemplateStep ? `${path}.${TEMPLATE_INPUT_PATH}` : path}
         readonly={readonly}
         viewType={viewType}
         allowableTypes={allowableTypes}
-        onUpdate={noop}
+        onUpdate={onUpdate}
       />
-    )
-  } else {
-    const type = (allValues?.step as StepElementConfig)?.type as StepType
-    return (
-      <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
-        {!hideTitle && (
-          <Label>
-            <Icon
-              padding={{ right: 'small' }}
-              {...(factory.getStepIconColor(type || '') ? { color: factory.getStepIconColor(type || '') } : {})}
-              style={{ color: factory.getStepIconColor(type || '') }}
-              name={factory.getStepIcon(type || /* istanbul ignore next */ '')}
-            />
-            {getString('pipeline.execution.stepTitlePrefix')}
-            {getString('pipeline.stepLabel', allValues?.step)}
-          </Label>
-        )}
-        <div>
-          <StepWidget<Partial<StepElementConfig>>
-            factory={factory}
-            readonly={readonly}
-            path={path}
-            allowableTypes={allowableTypes}
-            template={template?.step}
-            initialValues={values?.step || {}}
-            allValues={allValues?.step || {}}
-            type={type}
-            onUpdate={onUpdate}
-            stepViewType={viewType}
-          />
-          {getMultiTypeFromValue((template?.step as StepElementConfig)?.spec?.delegateSelectors) ===
-            MultiTypeInputType.RUNTIME && (
-            <div className={cx(stepCss.formGroup, stepCss.sm)}>
-              <MultiTypeDelegateSelector
-                expressions={expressions}
-                inputProps={{ projectIdentifier, orgIdentifier }}
-                allowableTypes={allowableTypes}
-                label={getString('delegate.DelegateSelector')}
-                name={`${path}.spec.delegateSelectors`}
-                disabled={readonly}
-              />
-            </div>
-          )}
-        </div>
-      </Layout.Vertical>
-    )
-  }
+    </Layout.Vertical>
+  )
 }
 export interface StageInputSetFormProps {
   deploymentStage?: DeploymentStageConfig

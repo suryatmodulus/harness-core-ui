@@ -7,6 +7,13 @@
   margin-top: var(--spacing-small) !important;
 }
 
+.sectionDivider {
+  height: 1px;
+  background-color: var(--grey-200) !important;
+  border: none;
+  margin-bottom: var(--spacing-large) !important;
+}
+
 .parameterLayout {
   display: flex !important;
   justify-content: flex-start !important;

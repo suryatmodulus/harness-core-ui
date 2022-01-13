@@ -188,26 +188,13 @@ exports[`Validate MapMetricsToServices conponent should render MapMetricsToServi
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--margin-bottom-medium StyledProps--margin-top-medium"
+      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--margin-bottom-small StyledProps--margin-top-medium"
     >
-      cv.customHealthSource.Querymapping.fields.parameter.title
+      cv.customHealthSource.Querymapping.startAndEndTimeTitle
     </p>
-    <div
-      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main parameterLayout StyledProps--margin-bottom-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-bottom"
-    >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
-        style="width: 50%;"
-      >
-        keyLabel
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
-        style="width: 50%;"
-      >
-        valueLabel
-      </p>
-    </div>
+    <hr
+      class="sectionDivider"
+    />
     <div
       class="Layout--vertical StyledProps--main"
     >
@@ -217,6 +204,16 @@ exports[`Validate MapMetricsToServices conponent should render MapMetricsToServi
         <div
           class="bp3-form-group widthHalf"
         >
+          <label
+            class="bp3-label"
+            for="startTime.placeholder"
+          >
+            cv.customHealthSource.Querymapping.startTimeLabel
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
           <div
             class="bp3-form-content"
           >
@@ -236,6 +233,16 @@ exports[`Validate MapMetricsToServices conponent should render MapMetricsToServi
         <div
           class="bp3-form-group widthHalf"
         >
+          <label
+            class="bp3-label"
+            for="startTime.timestampFormat"
+          >
+            cv.unit
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
           <div
             class="bp3-form-content"
           >
@@ -292,6 +299,16 @@ exports[`Validate MapMetricsToServices conponent should render MapMetricsToServi
         <div
           class="bp3-form-group widthHalf"
         >
+          <label
+            class="bp3-label"
+            for="endTime.placeholder"
+          >
+            cv.customHealthSource.Querymapping.endTimeLabel
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
           <div
             class="bp3-form-content"
           >
@@ -311,6 +328,16 @@ exports[`Validate MapMetricsToServices conponent should render MapMetricsToServi
         <div
           class="bp3-form-group widthHalf"
         >
+          <label
+            class="bp3-label"
+            for="endTime.timestampFormat"
+          >
+            cv.unit
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
           <div
             class="bp3-form-content"
           >
@@ -363,7 +390,7 @@ exports[`Validate MapMetricsToServices conponent should render MapMetricsToServi
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main widthHalf StyledProps--margin-top-medium StyledProps--margin-bottom-medium"
+      class="StyledProps--font StyledProps--main StyledProps--margin-top-medium StyledProps--margin-bottom-medium"
     >
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
@@ -963,26 +990,13 @@ exports[`Validate MapMetricsToServices conponent should render MapMetricsToServi
       </div>
     </div>
     <p
-      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--margin-bottom-medium StyledProps--margin-top-medium"
+      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--margin-bottom-small StyledProps--margin-top-medium"
     >
-      cv.customHealthSource.Querymapping.fields.parameter.title
+      cv.customHealthSource.Querymapping.startAndEndTimeTitle
     </p>
-    <div
-      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main parameterLayout StyledProps--margin-bottom-medium StyledProps--padding-bottom-small StyledProps--border StyledProps--border-bottom"
-    >
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
-        style="width: 50%;"
-      >
-        keyLabel
-      </p>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
-        style="width: 50%;"
-      >
-        valueLabel
-      </p>
-    </div>
+    <hr
+      class="sectionDivider"
+    />
     <div
       class="Layout--vertical StyledProps--main"
     >
@@ -992,6 +1006,16 @@ exports[`Validate MapMetricsToServices conponent should render MapMetricsToServi
         <div
           class="bp3-form-group widthHalf"
         >
+          <label
+            class="bp3-label"
+            for="startTime.placeholder"
+          >
+            cv.customHealthSource.Querymapping.startTimeLabel
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
           <div
             class="bp3-form-content"
           >
@@ -1011,6 +1035,16 @@ exports[`Validate MapMetricsToServices conponent should render MapMetricsToServi
         <div
           class="bp3-form-group widthHalf"
         >
+          <label
+            class="bp3-label"
+            for="startTime.timestampFormat"
+          >
+            cv.unit
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
           <div
             class="bp3-form-content"
           >
@@ -1067,6 +1101,16 @@ exports[`Validate MapMetricsToServices conponent should render MapMetricsToServi
         <div
           class="bp3-form-group widthHalf"
         >
+          <label
+            class="bp3-label"
+            for="endTime.placeholder"
+          >
+            cv.customHealthSource.Querymapping.endTimeLabel
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
           <div
             class="bp3-form-content"
           >
@@ -1086,6 +1130,16 @@ exports[`Validate MapMetricsToServices conponent should render MapMetricsToServi
         <div
           class="bp3-form-group widthHalf"
         >
+          <label
+            class="bp3-label"
+            for="endTime.timestampFormat"
+          >
+            cv.unit
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
           <div
             class="bp3-form-content"
           >
@@ -1138,7 +1192,7 @@ exports[`Validate MapMetricsToServices conponent should render MapMetricsToServi
       </div>
     </div>
     <div
-      class="StyledProps--font StyledProps--main widthHalf StyledProps--margin-top-medium StyledProps--margin-bottom-medium"
+      class="StyledProps--font StyledProps--main StyledProps--margin-top-medium StyledProps--margin-bottom-medium"
     >
       <div
         class="StyledProps--font StyledProps--main main"
@@ -1146,7 +1200,7 @@ exports[`Validate MapMetricsToServices conponent should render MapMetricsToServi
         <p
           class="StyledProps--font StyledProps--main labelText"
         >
-          Body
+          common.smtp.labelBody
         </p>
         <div
           class="StyledProps--font StyledProps--main queryContainer"

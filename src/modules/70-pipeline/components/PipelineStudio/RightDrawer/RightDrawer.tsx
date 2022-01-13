@@ -647,7 +647,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.AddStep && selectedStageId && data?.paletteData && (
         <StepPalette
           stepsFactory={stepsFactory}
-          stepPaletteModuleInfos={getStepPaletteModuleInfosFromStage(stageType)}
+          stepPaletteModuleInfos={getStepPaletteModuleInfosFromStage(stageType, selectedStage?.stage)}
           stageType={stageType as StageType}
           onSelect={onStepSelection}
         />
@@ -704,7 +704,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.AddProvisionerStep && selectedStageId && data?.paletteData && (
         <StepPalette
           stepsFactory={stepsFactory}
-          stepPaletteModuleInfos={getStepPaletteModuleInfosFromStage(stageType)}
+          stepPaletteModuleInfos={getStepPaletteModuleInfosFromStage(stageType, undefined, 'Provisioner')}
           stageType={stageType as StageType}
           isProvisioner={true}
           onSelect={async (item: StepData) => {

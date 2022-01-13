@@ -223,22 +223,26 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                       class="bp3-popover-target"
                     >
                       <span
-                        class="bp3-icon bp3-icon-warning-sign StyledProps--main badgeIcon StyledProps--color StyledProps--color-red600"
+                        class="bp3-icon StyledProps--main badgeIcon StyledProps--intent-danger"
+                        data-icon="error-outline"
                         data-testid="invalid-icon"
-                        icon="warning-sign"
                         tabindex="0"
                       >
                         <svg
-                          data-icon="warning-sign"
-                          height="16"
+                          fill="none"
+                          height="20"
                           viewBox="0 0 16 16"
-                          width="16"
+                          width="20"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <desc>
-                            warning-sign
-                          </desc>
                           <path
-                            d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                            d="M7.423 1.631a.667.667 0 011.154 0l6.543 11.333a.667.667 0 01-.577 1H1.457a.667.667 0 01-.577-1L7.423 1.631z"
+                            fill="#fff"
+                          />
+                          <path
+                            clip-rule="evenodd"
+                            d="M7.57 2.253a.5.5 0 01.869 0l5.993 10.5a.5.5 0 01-.434.747H2.011a.5.5 0 01-.434-.748L7.57 2.253zm.407 8.242c.422 0 .763.333.763.744a.754.754 0 01-.763.745.754.754 0 01-.763-.745c0-.411.341-.745.763-.745zm.5-1.498a.5.5 0 11-1 0V5.498a.5.5 0 111 0v3.499z"
+                            fill="currentColor"
                             fill-rule="evenodd"
                           />
                         </svg>
@@ -417,22 +421,26 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                       class="bp3-popover-target"
                     >
                       <span
-                        class="bp3-icon bp3-icon-warning-sign StyledProps--main badgeIcon StyledProps--color StyledProps--color-red600"
+                        class="bp3-icon StyledProps--main badgeIcon StyledProps--intent-danger"
+                        data-icon="error-outline"
                         data-testid="invalid-icon"
-                        icon="warning-sign"
                         tabindex="0"
                       >
                         <svg
-                          data-icon="warning-sign"
-                          height="16"
+                          fill="none"
+                          height="20"
                           viewBox="0 0 16 16"
-                          width="16"
+                          width="20"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <desc>
-                            warning-sign
-                          </desc>
                           <path
-                            d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                            d="M7.423 1.631a.667.667 0 011.154 0l6.543 11.333a.667.667 0 01-.577 1H1.457a.667.667 0 01-.577-1L7.423 1.631z"
+                            fill="#fff"
+                          />
+                          <path
+                            clip-rule="evenodd"
+                            d="M7.57 2.253a.5.5 0 01.869 0l5.993 10.5a.5.5 0 01-.434.747H2.011a.5.5 0 01-.434-.748L7.57 2.253zm.407 8.242c.422 0 .763.333.763.744a.754.754 0 01-.763.745.754.754 0 01-.763-.745c0-.411.341-.745.763-.745zm.5-1.498a.5.5 0 11-1 0V5.498a.5.5 0 111 0v3.499z"
+                            fill="currentColor"
                             fill-rule="evenodd"
                           />
                         </svg>

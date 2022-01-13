@@ -32,6 +32,7 @@ unknown: Unknown
 unexpected: Unexpected
 copyURL: Copy URL
 urlCopied: URL Copied
+unit: Unit
 anomalousMetrics: Anomalous metrics
 proceedToEdit: Proceed to Edit
 filter: Filter
@@ -525,7 +526,7 @@ changeSource:
     selectHarnessAppId: Select Application Id
     selectHarnessService: Select Harness Service
     selectHarnessEnv: Select Harness Environment
-    applicationId: Application
+    applicationId: '{{$.common.application}}'
   changeSourceCard:
     information: Information
     triggred: Triggered
@@ -746,13 +747,15 @@ componentValidations:
   queryType: Query Type is required
   queryTypeLabel: Query Type
 customHealthSource:
+  fetchRecordsButton: Click on Fetch Records to pulll records from provided URL
   Querymapping:
     title: Query specifications and mapping
     label: Customize the query to get our desired output and map to Harness Service
-    fields:
-      parameter:
-        title: Parameter
+    startAndEndTimeTitle: Starttime and Endtime Placeholders
+    startTimeLabel: Starttime Placeholder
+    endTimeLabel: Endtime Placeholder
     validation:
+      body: Body is required.
       path: Please select path
       startTime:
         placeholder: Please select start time placeholder

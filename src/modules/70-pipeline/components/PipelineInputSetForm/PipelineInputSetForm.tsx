@@ -9,7 +9,7 @@ import {
   IconName,
   HarnessDocTooltip
 } from '@wings-software/uicore'
-import { isEmpty, get } from 'lodash-es'
+import { isEmpty, get, defaultTo } from 'lodash-es'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import type {
@@ -27,6 +27,7 @@ import { PubSubPipelineActions } from '@pipeline/factories/PubSubPipelineAction'
 import { PipelineActions } from '@pipeline/factories/PubSubPipelineAction/types'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDeepCompareEffect } from '@common/hooks'
+import { TEMPLATE_INPUT_PATH } from '@pipeline/utils/templateUtils'
 import { StageInputSetForm } from './StageInputSetForm'
 import { CICodebaseInputSetForm } from './CICodebaseInputSetForm'
 import { StepWidget } from '../AbstractSteps/StepWidget'
@@ -57,10 +58,70 @@ export interface PipelineInputSetFormProps {
 
 const stageTypeToIconMap: Record<string, IconName> = {
   Deployment: 'cd-main',
-  ci: 'ci-main',
+  CI: 'ci-main',
   Pipeline: 'pipeline',
   Custom: 'pipeline-custom',
   Approval: 'approval-stage-icon'
+}
+
+export function StageFormInternal({
+  allValues,
+  path,
+  template,
+  readonly,
+  viewType,
+  stageClassName = '',
+  allowableTypes
+}: {
+  allValues?: StageElementWrapperConfig
+  template?: StageElementWrapperConfig
+  path: string
+  readonly?: boolean
+  viewType: StepViewType
+  stageClassName?: string
+  allowableTypes: MultiTypeInputType[]
+}): JSX.Element {
+  const { getString } = useStrings()
+  return (
+    <div className={cx(css.topAccordion, stageClassName)}>
+      {template?.stage?.variables && (
+        <div id={`Stage.${allValues?.stage?.identifier}.Variables`} className={cx(css.accordionSummary)}>
+          <Text font={{ weight: 'semi-bold' }} padding={{ top: 'medium', bottom: 'medium' }}>
+            {getString('variablesText')}
+          </Text>
+          <div className={css.nestedAccordions}>
+            <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
+              factory={factory as unknown as AbstractStepFactory}
+              initialValues={{
+                variables: (allValues?.stage?.variables || []) as AllNGVariables[],
+                canAddVariable: true
+              }}
+              allowableTypes={allowableTypes}
+              type={StepType.CustomVariable}
+              readonly={readonly}
+              stepViewType={viewType}
+              customStepProps={{
+                template: { variables: template?.stage?.variables as AllNGVariables[] },
+                path,
+                allValues: { variables: (allValues?.stage?.variables || []) as AllNGVariables[] }
+              }}
+            />
+          </div>
+        </div>
+      )}
+      {template?.stage?.spec && (
+        <StageInputSetForm
+          stageIdentifier={template?.stage?.identifier}
+          path={`${path}.spec`}
+          deploymentStageTemplate={template?.stage?.spec as DeploymentStageConfig}
+          deploymentStage={allValues?.stage?.spec as DeploymentStageConfig}
+          readonly={readonly}
+          viewType={viewType}
+          allowableTypes={allowableTypes}
+        />
+      )}
+    </div>
+  )
 }
 
 export function StageForm({
@@ -82,72 +143,35 @@ export function StageForm({
   stageClassName?: string
   allowableTypes: MultiTypeInputType[]
 }): JSX.Element {
-  const { getString } = useStrings()
-  if (allValues?.stage?.template) {
-    return (
-      <StageForm
-        template={{ stage: template?.stage?.template?.templateInputs as StageElementConfig }}
-        allValues={{ stage: allValues?.stage?.template?.templateInputs as StageElementConfig }}
-        path={`${path}.template.templateInputs`}
+  const isTemplateStage = !!allValues?.stage?.template
+  const type = isTemplateStage
+    ? (allValues?.stage?.template?.templateInputs as StageElementConfig)?.type
+    : allValues?.stage?.type
+  return (
+    <div id={`Stage.${allValues?.stage?.identifier}`}>
+      {!hideTitle && (
+        <Layout.Horizontal spacing="small" padding={{ top: 'medium', left: 'large', right: 0, bottom: 0 }}>
+          {type && <Icon name={stageTypeToIconMap[type]} size={18} />}
+          <Text color={Color.BLACK_100} font={{ weight: 'semi-bold' }}>
+            Stage: {defaultTo(allValues?.stage?.name, '')}
+          </Text>
+        </Layout.Horizontal>
+      )}
+      <StageFormInternal
+        template={
+          isTemplateStage ? { stage: template?.stage?.template?.templateInputs as StageElementConfig } : template
+        }
+        allValues={
+          isTemplateStage ? { stage: allValues?.stage?.template?.templateInputs as StageElementConfig } : allValues
+        }
+        path={isTemplateStage ? `${path}.${TEMPLATE_INPUT_PATH}` : path}
         readonly={readonly}
         viewType={viewType}
         allowableTypes={allowableTypes}
+        stageClassName={stageClassName}
       />
-    )
-  } else {
-    const icon = stageTypeToIconMap[allValues?.stage?.type || 'Deployment']
-    return (
-      <div id={`Stage.${allValues?.stage?.identifier}`}>
-        {!hideTitle && (
-          <Layout.Horizontal spacing="small" padding={{ top: 'medium', left: 'large', right: 0, bottom: 0 }}>
-            <Icon name={icon} size={18} />
-            <Text color={Color.BLACK_100} font={{ weight: 'semi-bold' }}>
-              Stage: {allValues?.stage?.name || ''}
-            </Text>
-          </Layout.Horizontal>
-        )}
-
-        <div className={cx(css.topAccordion, stageClassName)}>
-          {template?.stage?.variables && (
-            <div id={`Stage.${allValues?.stage?.identifier}.Variables`} className={cx(css.accordionSummary)}>
-              <Text font={{ weight: 'semi-bold' }} padding={{ top: 'medium', bottom: 'medium' }}>
-                {getString('variablesText')}
-              </Text>
-              <div className={css.nestedAccordions}>
-                <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
-                  factory={factory as unknown as AbstractStepFactory}
-                  initialValues={{
-                    variables: (allValues?.stage?.variables || []) as AllNGVariables[],
-                    canAddVariable: true
-                  }}
-                  allowableTypes={allowableTypes}
-                  type={StepType.CustomVariable}
-                  readonly={readonly}
-                  stepViewType={viewType}
-                  customStepProps={{
-                    template: { variables: template?.stage?.variables as AllNGVariables[] },
-                    path,
-                    allValues: { variables: (allValues?.stage?.variables || []) as AllNGVariables[] }
-                  }}
-                />
-              </div>
-            </div>
-          )}
-          {template?.stage?.spec && (
-            <StageInputSetForm
-              stageIdentifier={template?.stage?.identifier}
-              path={`${path}.spec`}
-              deploymentStageTemplate={template?.stage?.spec as DeploymentStageConfig}
-              deploymentStage={allValues?.stage?.spec as DeploymentStageConfig}
-              readonly={readonly}
-              viewType={viewType}
-              allowableTypes={allowableTypes}
-            />
-          )}
-        </div>
-      </div>
-    )
-  }
+    </div>
+  )
 }
 
 const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props => {

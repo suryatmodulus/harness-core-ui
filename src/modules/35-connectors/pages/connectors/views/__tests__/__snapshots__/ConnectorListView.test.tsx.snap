@@ -11923,13 +11923,12 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
                     />
                   </svg>
                 </span>
-                <div
-                  class="name"
-                  color="black"
-                  title="master"
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main name listingGitBranch StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
                 >
                   master
-                </div>
+                </p>
               </div>
             </div>
           </div>
@@ -12203,13 +12202,12 @@ exports[`Connectors List Test Test of listing connectors with git enabled 1`] = 
                     />
                   </svg>
                 </span>
-                <div
-                  class="name"
-                  color="black"
-                  title="dev"
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main name listingGitBranch StyledProps--color StyledProps--color-black"
+                  style="--text-line-clamp: 1;"
                 >
                   dev
-                </div>
+                </p>
               </div>
             </div>
           </div>

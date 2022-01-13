@@ -1,5 +1,5 @@
 import { Intent } from '@blueprintjs/core'
-import { useConfirmationDialog } from '@wings-software/uicore'
+import { useConfirmationDialog } from '@harness/uicore'
 import { useStrings } from 'framework/strings'
 
 export interface UseConfirmActionDialogProps {

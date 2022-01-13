@@ -15,7 +15,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const JSONGeneratorPlugin = require('@wings-software/jarvis/lib/webpack/json-generator-plugin').default
+const JSONGeneratorPlugin = require('@harness/jarvis/lib/webpack/json-generator-plugin').default
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 const GenerateStringTypesPlugin = require('./scripts/webpack/GenerateStringTypesPlugin').GenerateStringTypesPlugin
 const { BugsnagSourceMapUploaderPlugin } = require('webpack-bugsnag-plugins')
@@ -110,7 +110,7 @@ const config = {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: '@wings-software/css-types-loader',
+            loader: '@harness/css-types-loader',
             options: {
               prettierConfig: CONTEXT
             }
@@ -207,7 +207,9 @@ const config = {
   resolve: {
     extensions: ['.mjs', '.js', '.ts', '.tsx', '.json', '.ttf'],
     plugins: [new TsconfigPathsPlugin()],
-    alias: {}
+    alias: {
+      '@wings-software': '@harness'
+    }
   },
   optimization: {
     splitChunks: {
@@ -254,7 +256,7 @@ if (!enableGitOpsUI) {
 
 const devOnlyPlugins = [
   new webpack.WatchIgnorePlugin({
-    paths: [/node_modules(?!\/@wings-software)/, /\.d\.ts$/, /stringTypes\.ts/]
+    paths: [/node_modules(?!\/@harness)/, /\.d\.ts$/, /stringTypes\.ts/]
   }),
   new ForkTsCheckerWebpackPlugin()
   // new BundleAnalyzerPlugin()
@@ -292,7 +294,7 @@ if (BUGSNAG_SOURCEMAPS_UPLOAD && BUGSNAG_TOKEN) {
 }
 config.plugins = commonPlugins.concat(DEV ? devOnlyPlugins : prodOnlyPlugins)
 
-console.log({
+console.table({
   DEV,
   FsEvents: process.env.TSC_WATCHFILE === 'UseFsEvents',
   BUGSNAG_SOURCEMAPS_UPLOAD,

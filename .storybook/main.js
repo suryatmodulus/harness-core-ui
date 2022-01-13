@@ -27,7 +27,7 @@ module.exports = {
             use: 'null-loader'
           },
           {
-            test: /.*\/node_modules\/@wings-software\/monaco-yaml\/.*/,
+            test: /.*\/node_modules\/@harness\/monaco-yaml\/.*/,
             use: 'null-loader'
           },
           ...config.module.rules,
@@ -54,7 +54,7 @@ module.exports = {
             use: [
               MiniCssExtractPlugin.loader,
               {
-                loader: '@wings-software/css-types-loader',
+                loader: '@harness/css-types-loader',
                 options: {
                   prettierConfig: CONTEXT
                 }

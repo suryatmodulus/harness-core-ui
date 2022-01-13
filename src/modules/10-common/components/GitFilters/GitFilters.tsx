@@ -306,7 +306,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
                   onClick={() => handleBranchClick(item)}
                   text={
                     <Layout.Horizontal flex={{ distribution: 'space-between' }}>
-                      <span>{item.label}</span>
+                      <Text lineClamp={1}>{item.label}</Text>
                       {item.branchSyncStatus && getSyncIcon(item.branchSyncStatus)}
                     </Layout.Horizontal>
                   }

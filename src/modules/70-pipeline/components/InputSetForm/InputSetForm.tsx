@@ -351,21 +351,25 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     let response: ResponseInputSetResponse | null = null
     try {
       if (isEdit) {
-        response = await updateInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
-          pathParams: {
-            inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ ''
-          },
-          queryParams: {
-            accountIdentifier: accountId,
-            orgIdentifier,
-            pipelineIdentifier,
-            projectIdentifier,
-            pipelineRepoID: repoIdentifier,
-            pipelineBranch: branch,
-            ...(gitDetails ? { ...gitDetails, lastObjectId: objectId } : {}),
-            ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
-          }
-        })
+        if (inputSetObj.identifier) {
+          response = await updateInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
+            pathParams: {
+              inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ ''
+            },
+            queryParams: {
+              accountIdentifier: accountId,
+              orgIdentifier,
+              pipelineIdentifier,
+              projectIdentifier,
+              pipelineRepoID: repoIdentifier,
+              pipelineBranch: branch,
+              ...(gitDetails ? { ...gitDetails, lastObjectId: objectId } : {}),
+              ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
+            }
+          })
+        } else {
+          throw new Error(getString('pipeline.triggers.validation.identifier'))
+        }
       } else {
         response = await createInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
           queryParams: {

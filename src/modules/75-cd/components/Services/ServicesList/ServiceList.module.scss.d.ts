@@ -7,6 +7,5 @@ declare const styles: {
   readonly statusText: string
   readonly pieChartLabelContainerStyles: string
   readonly pieChartLabelStyles: string
-  readonly hideDeleteButton: string
 }
 export default styles

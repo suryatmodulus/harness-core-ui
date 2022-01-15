@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82% </span>
+                <span class="strong">82.18% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>82/100</span>
+                <span class='fraction'>83/101</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.16% </span>
+                <span class="strong">59.9% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>113/191</span>
+                <span class='fraction'>115/192</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.83% </span>
+                <span class="strong">83% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>82/99</span>
+                <span class='fraction'>83/100</span>
             </div>
         
             
@@ -539,10 +539,7 @@
 <a name='L480'></a><a href='#L480'>480</a>
 <a name='L481'></a><a href='#L481'>481</a>
 <a name='L482'></a><a href='#L482'>482</a>
-<a name='L483'></a><a href='#L483'>483</a>
-<a name='L484'></a><a href='#L484'>484</a>
-<a name='L485'></a><a href='#L485'>485</a>
-<a name='L486'></a><a href='#L486'>486</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L483'></a><a href='#L483'>483</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -600,6 +597,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -896,10 +894,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1092,9 +1086,10 @@ import { CCM_CHART_TYPES, ENFORCEMENT_USAGE_THRESHOLD } from '@ce/constants'
 import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Chart'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useGetUsageAndLimit } from '@auth-settings/hooks/useGetUsageAndLimit'
-import { useFeature } from '@common/hooks/useFeatures'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import FeatureWarningSubscriptionInfoBanner from '@common/components/FeatureWarning/FeatureWarningSubscriptionInfoBanner'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './PerspectiveDetailsPage.module.scss'
 &nbsp;
 const PAGE_SIZE = 10
@@ -1379,11 +1374,7 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
     !chartFetching &amp;&amp;
     !gridFetching
 &nbsp;
-  const { enabled: featureEnabled } = useFeature({
-    featureRequest: {
-      featureName: FeatureIdentifier.PERSPECTIVES
-    }
-  })
+  const featureEnforced = useFeatureFlag(FeatureFlag.FEATURE_ENFORCEMENT_ENABLED)
 &nbsp;
   const { licenseInformation } = useLicenseStore()
   const isFreeEdition = licenseInformation['CE']<span class="branch-1 cbranch-no" title="branch not covered" >?.edition </span>=== ModuleLicenseType.FREE
@@ -1415,12 +1406,12 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
           timeRange={timeRange}
           showHourlyAggr={isClusterOnly}
         /&gt;
-        {!featureEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >usagePercentage &gt; ENFORCEMENT_USAGE_THRESHOLD </span>&amp;&amp; (
-<span class="branch-2 cbranch-no" title="branch not covered" >          &lt;FeatureWarningSubscriptionInfoBanner</span>
+        {featureEnforced &amp;&amp; usagePercentage &gt; ENFORCEMENT_USAGE_THRESHOLD ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;FeatureWarningSubscriptionInfoBanner</span>
             featureName={FeatureIdentifier.PERSPECTIVES}
             message={getString('ce.perspectives.featureWarningSubInfoText', { usagePercentage: usagePercentage })}
           /&gt;
-        )}
+        ) : null}
         &lt;PerspectiveSummary
           data={<span class="branch-1 cbranch-no" title="branch not covered" >summaryData?.perspectiveTrendStats as any}</span>
           fetching={summaryFetching}
@@ -1519,7 +1510,7 @@ export default PerspectiveDetailsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jan 14 2022 13:24:01 GMT+0000 (Greenwich Mean Time)
+                at Sat Jan 15 2022 09:05:18 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

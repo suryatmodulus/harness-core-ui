@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">76% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>54/72</span>
+                <span class='fraction'>57/75</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.29% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/28</span>
+                <span class='fraction'>12/30</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">76% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>54/72</span>
+                <span class='fraction'>57/75</span>
             </div>
         
             
@@ -496,7 +496,11 @@
 <a name='L437'></a><a href='#L437'>437</a>
 <a name='L438'></a><a href='#L438'>438</a>
 <a name='L439'></a><a href='#L439'>439</a>
-<a name='L440'></a><a href='#L440'>440</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L440'></a><a href='#L440'>440</a>
+<a name='L441'></a><a href='#L441'>441</a>
+<a name='L442'></a><a href='#L442'>442</a>
+<a name='L443'></a><a href='#L443'>443</a>
+<a name='L444'></a><a href='#L444'>444</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -514,6 +518,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -681,6 +687,8 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
@@ -955,6 +963,8 @@ import {
 } from '@ce/utils/momentUtils'
 import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './PerspectiveTimeRangePicker.module.scss'
 &nbsp;
 const getDateLabelToDisplayText: (getString: UseStringsReturn['getString']) =&gt; Record&lt;string, string&gt; = getString =&gt; {
@@ -1122,7 +1132,9 @@ const PerspectiveTimeRangePicker: React.FC&lt;PerspectiveTimeRangePickerProps&gt
   const { licenseInformation } = useLicenseStore()
   const isFreeEdition = licenseInformation['CE']<span class="branch-1 cbranch-no" title="branch not covered" >?.edition </span>=== ModuleLicenseType.FREE
 &nbsp;
-  const featureEnabled = !isFreeEdition
+  const isFeatureEnforcementEnabled = useFeatureFlag(FeatureFlag.FEATURE_ENFORCEMENT_ENABLED)
+&nbsp;
+  const featureEnforced = isFreeEdition &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isFeatureEnforcementEnabled</span>
 &nbsp;
   const [isPopoverOpen, setIsPopoverOpen] = useState&lt;boolean | undefined&gt;()
 &nbsp;
@@ -1176,7 +1188,7 @@ const PerspectiveTimeRangePicker: React.FC&lt;PerspectiveTimeRangePickerProps&gt
             bottom: 'small'
           }}
         &gt;
-          {!featureEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;SubscriptionLimitWarning /&gt;}</span>
+          {featureEnforced &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;SubscriptionLimitWarning /&gt;}</span>
           &lt;Layout.Vertical
             margin={{
               bottom: 'medium'
@@ -1219,7 +1231,7 @@ const PerspectiveTimeRangePicker: React.FC&lt;PerspectiveTimeRangePickerProps&gt
                 preventOverflow: { enabled: true }
               }}
               isOpen={isPopoverOpen}
-              disabled={!featureEnabled}
+              disabled={featureEnforced}
               content={
                 &lt;DateRangePicker
                   defaultValue={[fromDate, toDate]}
@@ -1248,7 +1260,7 @@ const PerspectiveTimeRangePicker: React.FC&lt;PerspectiveTimeRangePickerProps&gt
                   left: 'large',
                   right: 'large'
                 }}
-                color={!featureEnabled ? <span class="branch-0 cbranch-no" title="branch not covered" >'grey200' </span>: 'primary7'}
+                color={featureEnforced ? <span class="branch-0 cbranch-no" title="branch not covered" >'grey200' </span>: 'primary7'}
                 className={css.pointerText}
               &gt;
                 {getString('ce.perspectives.timeRange.selectCustomRange')}
@@ -1307,7 +1319,7 @@ const PerspectiveTimeRangePicker: React.FC&lt;PerspectiveTimeRangePickerProps&gt
             {CALENDAR_MONTH_DATES.map(item =&gt; {
               return (
                 &lt;DateLabelRenderer
-                  disable={!featureEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >RESTRICTED_CALENDAR_MONTH_DATES.includes(item)}</span>
+                  disable={featureEnforced &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >RESTRICTED_CALENDAR_MONTH_DATES.includes(item)}</span>
                   key={`recommended-${item.label}`}
                   dateFormat={item.dateFormat}
                   dateRange={item.dateRange}
@@ -1381,7 +1393,7 @@ export default PerspectiveTimeRangePicker
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jan 14 2022 13:24:01 GMT+0000 (Greenwich Mean Time)
+                at Sat Jan 15 2022 09:05:18 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

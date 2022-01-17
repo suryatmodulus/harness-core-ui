@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.74% </span>
+                <span class="strong">93.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/47</span>
+                <span class='fraction'>44/47</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.18% </span>
+                <span class="strong">68.42% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>96/133</span>
+                <span class='fraction'>91/133</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.43% </span>
+                <span class="strong">57.14% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/7</span>
+                <span class='fraction'>4/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.45% </span>
+                <span class="strong">93.18% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>42/44</span>
+                <span class='fraction'>41/44</span>
             </div>
         
             
@@ -200,7 +200,21 @@
 <a name='L141'></a><a href='#L141'>141</a>
 <a name='L142'></a><a href='#L142'>142</a>
 <a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">126x</span>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a>
+<a name='L150'></a><a href='#L150'>150</a>
+<a name='L151'></a><a href='#L151'>151</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">126x</span>
 <span class="cline-any cline-yes">126x</span>
 <span class="cline-any cline-yes">126x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -238,7 +252,7 @@
 <span class="cline-any cline-yes">62x</span>
 <span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-yes">22x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">40x</span>
@@ -343,7 +357,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*
+ * Copyright 2021 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+&nbsp;
+import React, { useState } from 'react'
 import { isPlainObject, get, isNil, escape, defaultTo } from 'lodash-es'
 import cx from 'classnames'
 &nbsp;
@@ -380,8 +401,8 @@ export function VariablesListTable&lt;T&gt;(props: VariableListTableProps&lt;T&g
       )
       if (open === 'false') {
         openNestedPath(accordianId<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eplace('-panel', ''))
-        setTimeout(() =&gt; {
-          document<span class="branch-0 cbranch-no" title="branch not covered" >?.q</span>uerySelector('span.selected-search-text')<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.s</span>crollIntoView({ behavior: 'smooth' })</span>
+        setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >          document?.querySelector('span.selected-search-text')?.scrollIntoView({ behavior: 'smooth' })</span>
         }, 500)
       } else {
         ;(tableRef<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>urrent as any)<span class="branch-0 cbranch-no" title="branch not covered" >?.q</span>uerySelector('span.selected-search-text')<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.s</span>crollIntoView({ behavior: 'smooth' })</span>
@@ -493,7 +514,7 @@ export function VariablesListTable&lt;T&gt;(props: VariableListTableProps&lt;T&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jan 17 2022 11:11:13 GMT+0000 (Greenwich Mean Time)
+                at Mon Jan 17 2022 16:22:51 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

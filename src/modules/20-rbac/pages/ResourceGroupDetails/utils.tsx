@@ -9,12 +9,11 @@ import produce from 'immer'
 import type { SelectOption } from '@wings-software/uicore'
 import { RbacResourceGroupTypes } from '@rbac/constants/utils'
 import type { ResourceType } from '@rbac/interfaces/ResourceType'
-import { isDynamicResourceSelector, SelectionType } from '@rbac/utils/utils'
+import { isDynamicResourceSelector, isScopeResourceSelector, SelectionType } from '@rbac/utils/utils'
 import type {
   ResourceGroupDTO,
   ResourceGroupRequestRequestBody,
   ResourceSelector,
-  ResponseResourceGroupResponse,
   ResponseResourceTypeDTO,
   ResourceType as BEResourceType
 } from 'services/resourcegroups'
@@ -37,11 +36,10 @@ export const getSelectedResourcesMap = (
   resourceSelectorList?: ResourceSelector[]
 ): Map<ResourceType, string[] | string> => {
   const map: Map<ResourceType, string[] | string> = new Map()
-
   resourceSelectorList?.map(resourceSelector => {
     if (isDynamicResourceSelector(resourceSelector.type)) {
       map.set(resourceSelector.resourceType, RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR)
-    } else if (resourceSelector.type === RbacResourceGroupTypes.SCOPE_RESOURCE_SELECTOR) {
+    } else if (isScopeResourceSelector(resourceSelector.type)) {
       resourceTypes.forEach(resourceType => {
         map.set(resourceType, RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR)
       })
@@ -164,6 +162,17 @@ export const getResourceTypes = (data: BEResourceType[]): ResourceType[] => {
   return (data.map(val => val.name) || []) as ResourceType[]
 }
 
+export const getScopeLabelFromApi = (
+  getString: UseStringsReturn['getString'],
+  scope: Scope,
+  resourceSelectors?: ResourceSelector[]
+): string => {
+  const selectorScope = getScopeForResourceGroup(resourceSelectors)
+  const dropDownItems = getScopeDropDownItems(scope, getString)
+  const option = dropDownItems.filter(item => item.value === selectorScope)
+  return option.length ? option[0].label : ''
+}
+
 export const getScopeDropDownItems = (scope: Scope, getString: UseStringsReturn['getString']): SelectOption[] => {
   switch (scope) {
     case Scope.PROJECT:
@@ -182,18 +191,21 @@ export const getScopeDropDownItems = (scope: Scope, getString: UseStringsReturn[
   }
 }
 
-export const getResourceSelectionType = (data: ResponseResourceGroupResponse | null): SelectionType => {
-  if (
-    data?.data?.resourceGroup.resourceSelectors?.find(
-      selector => selector.type === RbacResourceGroupTypes.SCOPE_RESOURCE_SELECTOR
-    )
-  ) {
+export const getResourceSelectionType = (resourceSelectors?: ResourceSelector[]): SelectionType => {
+  if (resourceSelectors?.find(selector => isScopeResourceSelector(selector.type))) {
     return SelectionType.ALL
   } else {
     return SelectionType.SPECIFIED
   }
 }
 
+export const getScopeForResourceGroup = (resourceSelectors?: ResourceSelector[]): SelectorScope => {
+  if (resourceSelectors?.find(selector => selector.includeChildScopes === true)) {
+    return SelectorScope.INCLUDE_CHILD_SCOPES
+  } else {
+    return SelectorScope.CURRENT
+  }
+}
 export const getFormattedDataForApi = (
   data: ResourceGroupDTO,
   selectionType: SelectionType,
@@ -241,12 +253,19 @@ export const getFilteredResourceTypes = (
 
 export const cleanUpResourcesMap = (
   types: ResourceType[],
-  selectedResourcesMap: Map<ResourceType, string | string[]>
+  selectedResourcesMap: Map<ResourceType, string | string[]>,
+  selectionType: SelectionType
 ): Map<ResourceType, string | string[]> => {
   selectedResourcesMap.forEach((_value, key) => {
     if (!types.includes(key)) {
+      types.splice(types.indexOf(key), 1)
       selectedResourcesMap.delete(key)
     }
   })
+  if (selectionType === SelectionType.ALL) {
+    types.map(resourceType => {
+      selectedResourcesMap.set(resourceType, RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR)
+    })
+  }
   return selectedResourcesMap
 }

@@ -216,52 +216,33 @@ exports[`Resource Groups Page render data 1`] = `
               resources
             </p>
             <div
-              class="StyledProps--main"
+              class="Layout--horizontal Layout--layout-spacing-huge StyledProps--main StyledProps--flex"
             >
-              
-              <div
-                class="RadioButtonGroup--inline"
+              <label
+                class="bp3-control bp3-radio StyledProps--font Radio--radio StyledProps--main StyledProps--inline"
               >
-                <label
-                  class="RadioButton--radio StyledProps--main"
-                >
-                  <input
-                    class="RadioButton--input"
-                    name="resource-picker"
-                    type="radio"
-                    value="ALL"
-                  />
-                  <span
-                    class="RadioButton--radioIcon"
-                  />
-                  <span
-                    class="RadioButton--tooltipAlign"
-                    data-tooltip-id="SelectionTypeALL"
-                  >
-                    rbac.resourceGroup.all
-                  </span>
-                </label>
-                <label
-                  class="RadioButton--radio StyledProps--main"
-                >
-                  <input
-                    checked=""
-                    class="RadioButton--input"
-                    name="resource-picker"
-                    type="radio"
-                    value="SPECIFIED"
-                  />
-                  <span
-                    class="RadioButton--radioIcon"
-                  />
-                  <span
-                    class="RadioButton--tooltipAlign"
-                    data-tooltip-id="SelectionTypeSPECIFIED"
-                  >
-                    common.specified
-                  </span>
-                </label>
-              </div>
+                <input
+                  type="radio"
+                  value="ALL"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                rbac.resourceGroup.all
+              </label>
+              <label
+                class="bp3-control bp3-radio StyledProps--font Radio--radio StyledProps--main StyledProps--inline"
+              >
+                <input
+                  checked=""
+                  type="radio"
+                  value="SPECIFIED"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                common.specified
+              </label>
             </div>
           </div>
           <div

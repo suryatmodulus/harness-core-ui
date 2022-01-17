@@ -54,6 +54,7 @@ import {
   getResourceSelectionType,
   getResourceSelectorsfromMap,
   getScopeDropDownItems,
+  getScopeForResourceGroup,
   getSelectedResourcesMap,
   SelectorScope,
   validateResourceSelectors
@@ -109,20 +110,20 @@ const ResourceGroupDetails: React.FC = () => {
   })
 
   useEffect(() => {
-    setResourceCategoryMap(RbacFactory.getResourceCategoryList(resourceTypes))
-    setSelectedResourceMap(cleanUpResourcesMap(resourceTypes, selectedResourcesMap))
-  }, [resourceTypes])
-
-  useEffect(() => {
+    const selectors = resourceGroupDetails?.data?.resourceGroup.resourceSelectors
     setSelectedResourceMap(
       getSelectedResourcesMap(resourceTypes, resourceGroupDetails?.data?.resourceGroup.resourceSelectors)
     )
     setIsUpdated(false)
-    setSelectionType(getResourceSelectionType(resourceGroupDetails))
+    setSelectionType(getResourceSelectionType(selectors))
+    setSelectedScope(getScopeForResourceGroup(selectors))
   }, [resourceGroupDetails?.data?.resourceGroup])
 
   useEffect(() => {
-    setResourceTypes(getFilteredResourceTypes(resourceTypeData, selectedScope))
+    const types = getFilteredResourceTypes(resourceTypeData, selectedScope)
+    setResourceTypes(types)
+    setResourceCategoryMap(_map => RbacFactory.getResourceCategoryList(types))
+    setSelectedResourceMap(_selectedResourcesMap => cleanUpResourcesMap(types, _selectedResourcesMap, selectionType))
   }, [selectedScope, resourceTypeData])
 
   const { mutate: updateResourceGroup, loading: updating } = useUpdateResourceGroup({

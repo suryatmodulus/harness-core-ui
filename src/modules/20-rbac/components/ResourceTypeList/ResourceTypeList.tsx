@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { Card, Layout, Text, Color, Checkbox, RadioButtonGroup, FontVariation } from '@wings-software/uicore'
+import { Card, Layout, Text, Color, Checkbox, FontVariation, Radio } from '@wings-software/uicore'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import type { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
@@ -52,26 +52,27 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
         <Text font={{ variation: FontVariation.H6 }} color={Color.GREY_800}>
           {getString('resources')}
         </Text>
-        <RadioButtonGroup
-          name="resource-picker"
-          inline={true}
-          selectedValue={selectionType}
-          onChange={e => {
-            onSelectionTypeChange(e.currentTarget.value as SelectionType)
-          }}
-          options={[
-            {
-              label: getString('rbac.resourceGroup.all'),
-              value: SelectionType.ALL,
-              tooltipId: `SelectionType${SelectionType.ALL}`
-            },
-            {
-              label: getString('common.specified'),
-              value: SelectionType.SPECIFIED,
-              tooltipId: `SelectionType${SelectionType.SPECIFIED}`
-            }
-          ]}
-        />
+
+        <Layout.Horizontal flex spacing="huge">
+          <Radio
+            label={getString('rbac.resourceGroup.all')}
+            inline={true}
+            value={SelectionType.ALL}
+            checked={selectionType === SelectionType.ALL}
+            onChange={e => {
+              onSelectionTypeChange(e.currentTarget.value as SelectionType)
+            }}
+          />
+          <Radio
+            label={getString('common.specified')}
+            inline={true}
+            value={SelectionType.SPECIFIED}
+            checked={selectionType === SelectionType.SPECIFIED}
+            onChange={e => {
+              onSelectionTypeChange(e.currentTarget.value as SelectionType)
+            }}
+          />
+        </Layout.Horizontal>
       </Layout.Horizontal>
       {resourceCategoryMap?.keys() &&
         Array.from(resourceCategoryMap.keys()).map(resourceCategory => {

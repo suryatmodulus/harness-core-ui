@@ -23,3 +23,19 @@ exports[`CDTrial Modal validation should validate inputs 3`] = `
   />
 </div>
 `;
+
+exports[`CDTrial Modal validation should validate inputs 4`] = `
+<div>
+  <button
+    class="open"
+  />
+</div>
+`;
+
+exports[`CDTrial Modal validation should validate inputs 5`] = `
+<div>
+  <button
+    class="open"
+  />
+</div>
+`;

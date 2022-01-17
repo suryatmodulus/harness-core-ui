@@ -13,6 +13,7 @@ import {
   ButtonVariation,
   PageHeader,
   PageBody,
+  getErrorInfoFromErrorObject,
   VisualYamlSelectedView as SelectedView,
   VisualYamlToggle
 } from '@wings-software/uicore'
@@ -179,7 +180,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       repoIdentifier: inputSetRepoIdentifier,
       branch: inputSetBranch
     },
-    inputSetIdentifier: inputSetIdentifier || '',
+    inputSetIdentifier: defaultTo(inputSetIdentifier, ''),
     lazy: true
   })
 
@@ -242,7 +243,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     if (inputSetResponse?.data) {
       const inputSetObj = inputSetResponse?.data
 
-      const parsedInputSetObj = parse(inputSetObj?.inputSetYaml || '')
+      const parsedInputSetObj = parse(defaultTo(inputSetObj?.inputSetYaml, ''))
       /*
         Context of the below if block
         We need to populate existing values of input set in the form.
@@ -250,7 +251,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         But if the merge API fails (due to invalid input set or any other reason) - we populate the value from the input set response recevied (parsedInputSetObj).
       */
       const parsedPipelineWithValues = mergeTemplate
-        ? parse(mergeTemplate || /* istanbul ignore next */ '')?.pipeline || /* istanbul ignore next */ {}
+        ? defaultTo(parse(defaultTo(mergeTemplate, ''))?.pipeline, '')
         : parsedInputSetObj?.inputSet?.pipeline
 
       if (isGitSyncEnabled && parsedInputSetObj && parsedInputSetObj.inputSet) {
@@ -269,7 +270,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       return {
         name: inputSetObj.name,
         tags: inputSetObj.tags,
-        identifier: inputSetObj.identifier || /* istanbul ignore next */ '',
+        identifier: defaultTo(inputSetObj.identifier, ''),
         description: inputSetObj?.description,
         orgIdentifier,
         projectIdentifier,
@@ -279,7 +280,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       }
     }
     return getDefaultInputSet(
-      clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || /* istanbul ignore next */ '')?.pipeline as any),
+      clearRuntimeInput(parse(defaultTo(template?.data?.inputSetTemplateYaml, ''))?.pipeline as any),
       orgIdentifier,
       projectIdentifier
     )
@@ -315,7 +316,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         })
         .catch(e => {
           setMergeTemplate(undefined)
-          showError(e?.data?.message || e?.message, undefined, 'pipeline.get.template')
+          showError(getErrorInfoFromErrorObject(e), undefined, 'pipeline.get.template')
         })
     } else {
       refetchTemplate()
@@ -326,14 +327,14 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   }, [inputSetIdentifier])
 
   useDocumentTitle([
-    parse(pipeline?.data?.yamlPipeline || '')?.pipeline?.name || getString('pipelines'),
-    isEdit ? inputSetResponse?.data?.name || '' : getString('inputSets.newInputSetLabel')
+    defaultTo(parse(defaultTo(pipeline?.data?.yamlPipeline, ''))?.pipeline?.name, getString('pipelines')),
+    isEdit ? defaultTo(inputSetResponse?.data?.name, '') : getString('inputSets.newInputSetLabel')
   ])
 
   const handleModeSwitch = React.useCallback(
     (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
-        const yaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
+        const yaml = defaultTo(yamlHandler?.getLatestYaml(), '')
         const inputSetYamlVisual = parse(yaml).inputSet as InputSetDTO
         if (inputSetYamlVisual) {
           inputSet.name = inputSetYamlVisual.name
@@ -354,7 +355,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         if (inputSetObj.identifier) {
           response = await updateInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
             pathParams: {
-              inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ ''
+              inputSetIdentifier: defaultTo(inputSetObj.identifier, '')
             },
             queryParams: {
               accountIdentifier: accountId,
@@ -405,7 +406,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
       // This is done because when git sync is enabled, errors are displayed in a modal
       if (!isGitSyncEnabled) {
         showError(
-          e?.data?.message || e?.message || getString('commonError'),
+          defaultTo(getErrorInfoFromErrorObject(e), getString('commonError')),
           undefined,
           'pipeline.update.create.inputset'
         )
@@ -460,8 +461,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         <Formik<InputSetDTO & GitContextProps>
           initialValues={{
             ...omit(inputSet, 'gitDetails', 'entityValidityDetails'),
-            repo: repoIdentifier || '',
-            branch: branch || ''
+            repo: defaultTo(repoIdentifier, ''),
+            branch: defaultTo(branch, '')
           }}
           enableReinitialize={true}
           formName="inputSetForm"
@@ -486,11 +487,9 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
 
               if (isEmpty(errors.pipeline)) delete errors.pipeline
             }
-
             if (!isEmpty(formErrors)) {
               setFormErrors(errors)
             }
-
             return errors
           }}
           onSubmit={values => {
@@ -541,8 +540,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                                 <PipelineInputSetForm
                                   path="pipeline"
                                   readonly={!isEditable}
-                                  originalPipeline={parse(pipeline.data?.yamlPipeline || '').pipeline}
-                                  template={parse(template.data?.inputSetTemplateYaml || '').pipeline}
+                                  originalPipeline={defaultTo(parse(pipeline.data?.yamlPipeline), '').pipeline}
+                                  template={defaultTo(parse(template.data?.inputSetTemplateYaml), '').pipeline}
                                   viewType={StepViewType.InputSet}
                                 />
                               )}
@@ -606,7 +605,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                         disabled={!isEditable}
                         text={getString('save')}
                         onClick={() => {
-                          const latestYaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
+                          const latestYaml = defaultTo(yamlHandler?.getLatestYaml(), '')
                           const inputSetDto: InputSetDTO = parse(latestYaml)?.inputSet
                           handleSubmit(inputSetDto, {
                             repoIdentifier: formikProps.values.repo,
@@ -728,7 +727,7 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
                     branch: pipeline?.data?.gitDetails?.branch,
                     repoIdentifier: pipeline?.data?.gitDetails?.repoIdentifier
                   }),
-                  label: parse(pipeline?.data?.yamlPipeline || '')?.pipeline.name || ''
+                  label: defaultTo(parse(defaultTo(pipeline?.data?.yamlPipeline, ''))?.pipeline.name, '')
                 }
               ]}
             />

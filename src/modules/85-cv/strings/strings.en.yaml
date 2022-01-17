@@ -304,6 +304,7 @@ monitoringSources:
       mappedMetrics: '{{metricCount}} metric(s) mapped to {{serviceCount}} service(s)'
       gcoMetrics: Google Cloud Operation metrics
   datadog:
+    noMetricsWidgets: 'No metrics'
     manualInputQueryModal:
       modalTitle: 'Add your Datadog query'
     selectDashboardsPage:
@@ -747,13 +748,14 @@ componentValidations:
   queryType: Query Type is required
   queryTypeLabel: Query Type
 customHealthSource:
-  fetchRecordsButton: Click on Fetch Records to pulll records from provided URL
+  fetchRecordsButton: Click on Fetch Records to pull records from provided URL
+  addGroupNameTitle: Add New Custom Health Group Name
   Querymapping:
     title: Query specifications and mapping
     label: Customize the query to get our desired output and map to Harness Service
-    startAndEndTimeTitle: Starttime and Endtime Placeholders
-    startTimeLabel: Starttime Placeholder
-    endTimeLabel: Endtime Placeholder
+    startAndEndTimeTitle: Start and End Time Placeholders
+    startTimeLabel: Start time placeholder
+    endTimeLabel: End time placeholder
     validation:
       body: Body is required.
       path: Please select path

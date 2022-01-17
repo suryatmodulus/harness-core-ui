@@ -1,4 +1,12 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import type { FormikErrors } from 'formik'
+import { cloneDeep } from 'lodash-es'
 import type { ConnectionConfigProps } from '@connectors/components/CreateConnector/CommonCVConnector/constants'
 import { ValueType } from '@secrets/components/TextReference/TextReference'
 import { setSecretField } from '@secrets/utils/SecretField'
@@ -10,6 +18,7 @@ import type {
 } from 'services/cd-ng'
 import type { UseStringsReturn } from 'framework/strings'
 import type { BaseCompFields, PlainEntity, EncryptedEntity } from './CustomHealthHeadersAndParams.types'
+import { DefaultHeadersAndParamsInitialValues } from './CustomHealthHeadersAndParams.constants'
 
 function isTypePlainEntity(object: any): object is PlainEntity {
   return object?.value?.fieldType === ValueType.TEXT
@@ -108,16 +117,12 @@ function getSpecHeaderAndEntity(entity: PlainEntity | EncryptedEntity): CustomHe
 }
 
 export async function transformSpecDataToStepData(
-  apiData: ConnectionConfigProps['prevStepData'],
-  scopeQueryParams: GetSecretV2QueryParams
+  apiData?: ConnectionConfigProps['prevStepData'],
+  scopeQueryParams?: GetSecretV2QueryParams
 ): Promise<BaseCompFields> {
-  const baseObj = {
-    headers: [],
-    params: [],
-    baseURL: ''
-  }
+  const baseObj = cloneDeep(DefaultHeadersAndParamsInitialValues)
 
-  if (!apiData?.spec && !apiData?.baseURL) {
+  if ((!apiData?.spec && !apiData?.baseURL) || !scopeQueryParams) {
     return baseObj
   }
 

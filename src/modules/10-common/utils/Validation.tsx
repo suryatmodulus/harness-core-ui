@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import * as Yup from 'yup'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import { illegalIdentifiers, regexEmail, regexIdentifier, regexName } from '@common/utils/StringUtils'
@@ -27,8 +34,8 @@ export function IdentifierSchemaWithOutName(
 ): Yup.Schema<string | undefined> {
   return Yup.string()
     .trim()
-    .required(config?.requiredErrorMsg ? config?.requiredErrorMsg : getString('validation.identifierRequired'))
     .matches(regexIdentifier, config?.regexErrorMsg ? config?.regexErrorMsg : getString('validation.validIdRegex'))
+    .required(config?.requiredErrorMsg ? config?.requiredErrorMsg : getString('validation.identifierRequired'))
     .notOneOf(illegalIdentifiers)
 }
 

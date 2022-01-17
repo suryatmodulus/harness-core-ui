@@ -1,0 +1,166 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
+.plan {
+  width: 33%;
+  min-width: 400px;
+  border-radius: var(--spacing-small) !important;
+}
+
+.currentPlan {
+  padding: unset !important;
+  border: solid 1px !important;
+}
+
+.currentPlanBody {
+  padding: 0px 20px !important;
+}
+
+.currentPlanHeader {
+  width: 100%;
+  padding: var(--spacing-small) var(--spacing-huge);
+  border-top-left-radius: var(--spacing-small) !important;
+  border-top-right-radius: var(--spacing-small) !important;
+}
+
+.icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.desc {
+  text-align: center;
+}
+
+.ul {
+  list-style: none;
+  padding-bottom: var(--spacing-huge);
+}
+
+.li {
+  &::marker {
+    content: '\2022  ';
+  }
+  padding-bottom: var(--spacing-small) !important;
+}
+
+.accordion {
+  :global(.Accordion--summary) {
+    justify-content: center;
+  }
+}
+
+.subCaption {
+  color: var(--black) !important;
+  font-size: large !important;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.support {
+  position: absolute;
+  top: 90%;
+  margin-bottom: var(--spacing-large);
+  text-align: center;
+  max-width: 80%;
+}
+
+.inline {
+  display: inline !important;
+}
+
+.cdColor {
+  color: var(--green-500) !important;
+}
+
+.ciColor {
+  color: var(--primary-5) !important;
+}
+.ccmColor {
+  color: var(--teal-500) !important;
+}
+.ffColor {
+  color: var(--orange-500) !important;
+}
+
+.cdBgColor {
+  background-color: var(--green-500) !important;
+}
+.ciBgColor {
+  background-color: var(--primary-5) !important;
+}
+.ccmBgColor {
+  background-color: var(--teal-500) !important;
+}
+.ffBgColor {
+  background-color: var(--orange-500) !important;
+}
+
+.cdBorder {
+  border: solid 1px var(--green-500) !important;
+}
+.ciBorder {
+  border: solid 1px var(--primary-5) !important;
+}
+.ccmBorder {
+  border: solid 1px var(--teal-500) !important;
+}
+.ffBorder {
+  border: solid 1px var(--orange-500) !important;
+}
+
+.cdFill {
+  > svg {
+    > circle:nth-child(1),
+    > path {
+      fill: var(--green-500) !important;
+    }
+  }
+}
+.ciFill {
+  > svg {
+    > circle:nth-child(1),
+    > path {
+      fill: var(--primary-5) !important;
+    }
+  }
+}
+.ccmFill {
+  > svg {
+    > circle:nth-child(1),
+    > path {
+      fill: var(--teal-500) !important;
+    }
+  }
+}
+.ffFill {
+  > svg {
+    > circle:nth-child(1),
+    > path {
+      fill: var(--orange-500) !important;
+    }
+  }
+}
+
+.noPadding {
+  padding: unset !important;
+}
+
+.tooltip {
+  min-width: 200px !important;
+  text-align: left;
+}
+
+.fontLarge {
+  font-size: large !important;
+}
+
+.btnHeight {
+  height: 32px;
+}

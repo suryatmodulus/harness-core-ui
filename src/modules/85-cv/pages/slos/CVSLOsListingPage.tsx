@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useEffect, useState, useMemo, useReducer } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import {
@@ -9,7 +16,8 @@ import {
   NoDataCard,
   Pagination,
   Layout,
-  FlexExpander
+  FlexExpander,
+  Container
 } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
@@ -43,7 +51,8 @@ import {
   getServiceLevelObjectivesRiskCountParams,
   getUserJourneyParams,
   getMonitoredServicesInitialState,
-  getInitialFilterState
+  getInitialFilterState,
+  getClassNameForMonitoredServicePage
 } from './CVSLOListingPage.utils'
 import SLODashbordFilters from './components/SLODashbordFilters/SLODashbordFilters'
 import SLOCardHeader from './SLOCard/SLOCardHeader'
@@ -139,7 +148,7 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredService 
     }
   }
 
-  const addNewSLO = (
+  const getAddSLOButton = (): JSX.Element => (
     <RbacButton
       icon="plus"
       text={getString('cv.slos.newSLO')}
@@ -147,6 +156,7 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredService 
       onClick={() => {
         history.push(routes.toCVCreateSLOs({ accountId, orgIdentifier, projectIdentifier }))
       }}
+      className={getClassNameForMonitoredServicePage(css.createSloInMonitoredService, monitoredService?.identifier)}
       permission={{
         permission: PermissionIdentifier.EDIT_SLO_SERVICE,
         resource: {
@@ -177,7 +187,7 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredService 
       {!monitoredService?.identifier && (
         <>
           <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('cv.slos.title')} />
-          <Page.Header title={addNewSLO} />
+          <Page.Header title={getAddSLOButton()} />
         </>
       )}
 
@@ -215,12 +225,19 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredService 
         className={css.pageBody}
       >
         <Layout.Vertical height="100%" padding={{ top: 'medium', left: 'xlarge', right: 'xlarge', bottom: 'xlarge' }}>
-          <SLODashbordFilters
-            filterState={filterState}
-            dispatch={dispatch}
-            filterItemsData={filterItemsData}
-            hideMonitoresServicesFilter={Boolean(monitoredService)}
-          />
+          <Layout.Horizontal className={css.sloFiltersRow1}>
+            {monitoredService?.identifier && getAddSLOButton()}
+            <Container
+              className={getClassNameForMonitoredServicePage(css.sloDropdownFilters, monitoredService?.identifier)}
+            >
+              <SLODashbordFilters
+                filterState={filterState}
+                dispatch={dispatch}
+                filterItemsData={filterItemsData}
+                hideMonitoresServicesFilter={Boolean(monitoredService)}
+              />
+            </Container>
+          </Layout.Horizontal>
 
           <CardSelect<SLORiskFilter>
             type={CardSelectType.CardView}

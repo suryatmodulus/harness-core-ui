@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import { matchPath, useParams, useHistory } from 'react-router-dom'
 import { parse } from 'yaml'
@@ -78,8 +85,8 @@ export function TemplateStudio(): React.ReactElement {
 
   const { openDialog: openConfirmBEUpdateError } = useConfirmationDialog({
     cancelButtonText: getString('cancel'),
-    contentText: getString('pipelines-studio.pipelineUpdatedError'),
-    titleText: getString('pipelines-studio.pipelineUpdated'),
+    contentText: getString('templatesLibrary.templateUpdatedError'),
+    titleText: getString('common.template.updateTemplate.templateUpdated'),
     confirmButtonText: getString('update'),
     onCloseDialog: isConfirmed => {
       if (isConfirmed) {

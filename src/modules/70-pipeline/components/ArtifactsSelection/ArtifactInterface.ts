@@ -1,7 +1,24 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import type { MultiTypeInputType } from '@wings-software/uicore'
+import type { FormikValues } from 'formik'
+import type { GetDataError } from 'restful-react'
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
-import type { ArtifactConfig, PrimaryArtifact, PageConnectorResponse, SidecarArtifactWrapper } from 'services/cd-ng'
+import type {
+  ArtifactConfig,
+  PrimaryArtifact,
+  PageConnectorResponse,
+  SidecarArtifactWrapper,
+  DockerBuildDetailsDTO,
+  Failure,
+  Error
+} from 'services/cd-ng'
 
 export interface ArtifactListViewProps {
   isForPredefinedSets?: boolean
@@ -26,7 +43,7 @@ export interface ArtifactsSelectionProps {
   overrideSetIdentifier?: string
 }
 
-export type ArtifactType = 'DockerRegistry' | 'Gcr' | 'Ecr'
+export type ArtifactType = 'DockerRegistry' | 'Gcr' | 'Ecr' | 'Nexus' | 'Artifactory'
 export interface OrganizationCreationType {
   type: ArtifactType
 }
@@ -46,6 +63,7 @@ export interface ImagePathTypes {
   tagType: TagTypes
   registryHostname?: string
   region?: any
+  repositoryPort?: string
 }
 
 export interface ImagePathProps {
@@ -64,4 +82,24 @@ export interface ImagePathProps {
 export interface ConnectorRefLabelType {
   firstStepName: string
   secondStepName: string
+}
+
+export interface ArtifactTagHelperText {
+  imagePath: string
+  region?: string
+  connectorRef: string
+  registryHostname?: string
+}
+export interface ArtifactImagePathTagViewProps {
+  selectedArtifact: ArtifactType
+  formik: FormikValues
+  expressions: string[]
+  isReadonly?: boolean
+  allowableTypes: MultiTypeInputType[]
+  connectorIdValue: string
+  fetchTags: (val: string) => void
+  buildDetailsLoading: boolean
+  tagList: DockerBuildDetailsDTO[] | undefined
+  setTagList: any
+  tagError: GetDataError<Failure | Error> | null
 }

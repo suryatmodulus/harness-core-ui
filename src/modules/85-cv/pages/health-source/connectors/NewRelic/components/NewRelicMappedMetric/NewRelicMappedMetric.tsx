@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useState, useMemo, useCallback, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { Container, Accordion, SelectOption, Utils, Button } from '@wings-software/uicore'
@@ -5,7 +12,6 @@ import type { GetDataError } from 'restful-react'
 import { useStrings } from 'framework/strings'
 import {
   useGetMetricPacks,
-  useGetLabelNames,
   useGetSampleDataForNRQL,
   useFetchParsedSampleData,
   NewRelicMetricDefinition,
@@ -49,14 +55,10 @@ export default function NewRelicMappedMetric({
   setCreatedMetrics: React.Dispatch<any>
 }): JSX.Element {
   const { getString } = useStrings()
-  const labelNameTracingId = useMemo(() => Utils.randomId(), [])
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
 
   const metricPackResponse = useGetMetricPacks({
     queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'NEW_RELIC' }
-  })
-  const labelNamesResponse = useGetLabelNames({
-    queryParams: { projectIdentifier, orgIdentifier, accountId, connectorIdentifier, tracingId: labelNameTracingId }
   })
 
   const [newRelicGroupName, setNewRelicGroupName] = useState<SelectOption[]>(
@@ -302,7 +304,6 @@ export default function NewRelicMappedMetric({
                         continuousVerification: !!formikValues?.continuousVerification
                       }}
                       metricPackResponse={metricPackResponse}
-                      labelNamesResponse={labelNamesResponse}
                       hideServiceIdentifier={true}
                     />
                   </>

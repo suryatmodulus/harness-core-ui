@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 export enum FeatureFlag {
   CDNG_ENABLED = 'CDNG_ENABLED',
   CVNG_ENABLED = 'CVNG_ENABLED',
@@ -29,5 +36,7 @@ export enum FeatureFlag {
   FFM_1859 = 'FFM_1859', // development only flag for epic https://harness.atlassian.net/browse/FFM-1638,
   SERVICENOW_NG_INTEGRATION = 'SERVICENOW_NG_INTEGRATION',
   AUDIT_TRAIL_WEB_INTERFACE = 'AUDIT_TRAIL_WEB_INTERFACE',
-  NG_NATIVE_HELM = 'NG_NATIVE_HELM'
+  NG_NATIVE_HELM = 'NG_NATIVE_HELM',
+  CHI_CUSTOM_HEALTH = 'CHI_CUSTOM_HEALTH',
+  AZURE_SAML_150_GROUPS_SUPPORT = 'AZURE_SAML_150_GROUPS_SUPPORT'
 }

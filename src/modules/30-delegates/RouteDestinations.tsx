@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import { Redirect, useParams } from 'react-router-dom'
 
@@ -22,6 +29,7 @@ import DelegateResourceRenderer from '@delegates/components/DelegateResourceRend
 
 import DelegateListing from '@delegates/pages/delegates/DelegateListing'
 import DelegateConfigurations from '@delegates/pages/delegates/DelegateConfigurations'
+import DelegateTokens from '@delegates/components/DelegateTokens/DelegateTokens'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.DELEGATE, {
@@ -92,6 +100,11 @@ export default (
       path={[routes.toDelegateConfigsDetails({ ...accountPathProps, ...delegateConfigProps })]}
     >
       <DelegateProfileDetails />
+    </RouteWithLayout>
+    <RouteWithLayout sidebarProps={AccountSideNavProps} path={[routes.toDelegateTokens({ ...accountPathProps })]}>
+      <DelegatesPage>
+        <DelegateTokens />
+      </DelegatesPage>
     </RouteWithLayout>
   </>
 )

@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import { isEmpty } from 'lodash-es'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import type { InputSetDTO } from '@pipeline/components/InputSetForm/InputSetForm'
@@ -14,12 +21,12 @@ export enum StageType {
   Template = 'Template'
 }
 
-export const changeEmptyValuesToRunTimeInput = (inputset: any): InputSetDTO => {
+export const changeEmptyValuesToRunTimeInput = (inputset: any, propertyKey: string): InputSetDTO => {
   if (inputset) {
     Object.keys(inputset).map(key => {
       if (typeof inputset[key] === 'object') {
-        changeEmptyValuesToRunTimeInput(inputset[key])
-      } else if (inputset[key] === '') {
+        changeEmptyValuesToRunTimeInput(inputset[key], key)
+      } else if (inputset[key] === '' && ['tags'].indexOf(propertyKey) === -1) {
         inputset[key] = '<+input>'
       }
     })

@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 const webpackConfig = require('../webpack.config')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const MonacoWebpackPlugin = require(require.resolve('monaco-editor-webpack-plugin', { paths: [process.cwd()] }))
@@ -27,7 +34,7 @@ module.exports = {
             use: 'null-loader'
           },
           {
-            test: /.*\/node_modules\/@wings-software\/monaco-yaml\/.*/,
+            test: /.*\/node_modules\/@harness\/monaco-yaml\/.*/,
             use: 'null-loader'
           },
           ...config.module.rules,
@@ -54,7 +61,7 @@ module.exports = {
             use: [
               MiniCssExtractPlugin.loader,
               {
-                loader: '@wings-software/css-types-loader',
+                loader: '@harness/css-types-loader',
                 options: {
                   prettierConfig: CONTEXT
                 }

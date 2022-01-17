@@ -98,6 +98,7 @@ export interface StringsMap {
   'common.channel': string
   'common.clearSelection': string
   'common.clientId': string
+  'common.clientSecret': string
   'common.cluster': string
   'common.comingSoon': string
   'common.comingSoon2': string
@@ -614,6 +615,8 @@ export interface StringsMap {
   'common.userGroup': string
   'common.userGroups': string
   'common.userLabel': string
+  'common.validation.clientIdIsRequired': string
+  'common.validation.clientSecretRequired': string
   'common.validation.email.format': string
   'common.validation.email.required': string
   'common.validation.entityIdIsRequired': string
@@ -629,6 +632,8 @@ export interface StringsMap {
   'common.validation.keyIsRequired': string
   'common.validation.nameIsRequired': string
   'common.validation.namePatternIsNotValid': string
+  'common.validation.provisionerIdentifierIsRequired': string
+  'common.validation.provisionerIdentifierPatternIsNotValid': string
   'common.validation.repositoryName': string
   'common.validation.testRepoIsRequired': string
   'common.validation.typeIsRequired': string
@@ -902,144 +907,6 @@ export interface StringsMap {
   'resourceCenter.ticketmenu.tickets': string
   'resourceCenter.ticketmenu.ticketsDesc': string
   'resourceCenter.title': string
-  'authSettings.SAMLProvider': string
-  'authSettings.WhitelistedDomainsUpdated': string
-  'authSettings.accountOrOAuthLogin': string
-  'authSettings.accountOrOAuthLoginEnabledSuccessfully': string
-  'authSettings.addSAMLProvider': string
-  'authSettings.allowLoginFromTheseDomains': string
-  'authSettings.allowUsersWithEmails': string
-  'authSettings.atLeastNChars': string
-  'authSettings.authenticationSettings': string
-  'authSettings.authorizationEnabledFor': string
-  'authSettings.authorizationNotEnabled': string
-  'authSettings.azure': string
-  'authSettings.cdCommunityPlan.communityLinkText': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item1': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item2': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item3': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item4': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item5': string
-  'authSettings.cdCommunityPlan.communityPrice': string
-  'authSettings.cdCommunityPlan.communityTitle': string
-  'authSettings.cdCommunityPlan.communityTitle2': string
-  'authSettings.cdCommunityPlan.enterpriseLinkText': string
-  'authSettings.cdCommunityPlan.enterprisePlanStrings.item1': string
-  'authSettings.cdCommunityPlan.enterprisePlanStrings.item2': string
-  'authSettings.cdCommunityPlan.enterprisePlanStrings.item3': string
-  'authSettings.cdCommunityPlan.enterprisePlanStrings.item4': string
-  'authSettings.cdCommunityPlan.enterprisePlanStrings.item5': string
-  'authSettings.cdCommunityPlan.enterpriseTitle': string
-  'authSettings.cdCommunityPlan.enterpriseTitle2': string
-  'authSettings.cdCommunityPlan.harnessLinkText': string
-  'authSettings.cdCommunityPlan.planLink': string
-  'authSettings.cdCommunityPlan.saasLinkText': string
-  'authSettings.cdCommunityPlan.saasTitle2': string
-  'authSettings.changeLoginToHarnessAccountOrOauth': string
-  'authSettings.changeLoginToHarnessAccountOrOauthDescription': string
-  'authSettings.chooseFile': string
-  'authSettings.confirmDisableLockoutPolicy': string
-  'authSettings.confirmDisableOAuthLogin': string
-  'authSettings.confirmDisablePasswordExpiration': string
-  'authSettings.confirmDisablePasswordStrength': string
-  'authSettings.confirmDisableUserPasswordLogin': string
-  'authSettings.confirmDisableWhitelistedDomains': string
-  'authSettings.daysBeforePasswordExpires': string
-  'authSettings.daysBeforeUserNotified': string
-  'authSettings.deleteSamlProvider': string
-  'authSettings.deleteSamlProviderDescription': string
-  'authSettings.disableLockoutPolicy': string
-  'authSettings.disableOAuthLogin': string
-  'authSettings.disablePasswordExpiration': string
-  'authSettings.disablePasswordStrength': string
-  'authSettings.disableTwoFAEnforcement': string
-  'authSettings.disableUserPasswordLogin': string
-  'authSettings.disableWhitelistedDomains': string
-  'authSettings.doYouWantToEnforceTwoFAForAllMembers': string
-  'authSettings.domainNameRequired': string
-  'authSettings.editSAMLProvider': string
-  'authSettings.enableAtLeastOneSsoBeforeDisablingUserPasswordLogin': string
-  'authSettings.enableAuthorization': string
-  'authSettings.enableEntityIdLabel': string
-  'authSettings.enableHarnessAccountOrOauthLogin': string
-  'authSettings.enableSamlProvider': string
-  'authSettings.enableSamlProviderDescription': string
-  'authSettings.enablingAuthorization': string
-  'authSettings.enablingAuthorizationDescription': string
-  'authSettings.enforceLockoutPolicy': string
-  'authSettings.enforcePasswordStrength': string
-  'authSettings.enforceTwoFA': string
-  'authSettings.enterSAMLEndPoint': string
-  'authSettings.entityIdLabel': string
-  'authSettings.existingMembersWillReceiveAnEmailWithQRCode': string
-  'authSettings.failedLoginsBeforeLocked': string
-  'authSettings.failedLoginsBeforeLockedAccount': string
-  'authSettings.friendlyReminder': string
-  'authSettings.friendlyReminderDescription': string
-  'authSettings.goToSettings': string
-  'authSettings.groupAttributeName': string
-  'authSettings.haveOneDigit': string
-  'authSettings.haveOneLowercase': string
-  'authSettings.haveOneSpecialChar': string
-  'authSettings.haveOneUppercase': string
-  'authSettings.identityProvider': string
-  'authSettings.keepAtLeastOneProviderEnabled': string
-  'authSettings.lockoutDuration': string
-  'authSettings.lockoutPolicy': string
-  'authSettings.lockoutPolicyDisabled': string
-  'authSettings.lockoutPolicyEnabled': string
-  'authSettings.lockoutPolicyUpdated': string
-  'authSettings.loginSettingsHaveBeenUpdated': string
-  'authSettings.loginViaSAML': string
-  'authSettings.minLength': string
-  'authSettings.multipleOrganizations': string
-  'authSettings.multipleProjects': string
-  'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
-  'authSettings.notifyUsersWhenTheyLocked': string
-  'authSettings.notifyUsersWhenUserLocked': string
-  'authSettings.oauthSettingsHaveBeenUpdated': string
-  'authSettings.oauthSupport': string
-  'authSettings.okta': string
-  'authSettings.oneLogin': string
-  'authSettings.onprem': string
-  'authSettings.passwordExpiration': string
-  'authSettings.passwordExpirationDisabled': string
-  'authSettings.passwordExpirationEnabled': string
-  'authSettings.passwordExpirationUpdated': string
-  'authSettings.passwordMustFulfillReq': string
-  'authSettings.passwordStrength': string
-  'authSettings.passwordStrengthDisabled': string
-  'authSettings.passwordStrengthEnabled': string
-  'authSettings.passwordStrengthUpdated': string
-  'authSettings.periodicallyExpirePassword': string
-  'authSettings.periodicallyExpirePasswordNote': string
-  'authSettings.pleaseRemoveSAMLOrLDAPToEnableOauth': string
-  'authSettings.plusSAMLProvider': string
-  'authSettings.publicOAuthLoginDisabled': string
-  'authSettings.publicOAuthLoginEnabled': string
-  'authSettings.restrictUsersToEmailDomains': string
-  'authSettings.saas': string
-  'authSettings.samlLoginEnabled': string
-  'authSettings.samlProviderAddedSuccessfully': string
-  'authSettings.samlProviderDeleted': string
-  'authSettings.samlProviderUpdatedSuccessfully': string
-  'authSettings.samlSupport': string
-  'authSettings.samlTestFailed': string
-  'authSettings.samlTestSuccessful': string
-  'authSettings.selectSAMLProvider': string
-  'authSettings.sureToDisableTwoFAEnforcement': string
-  'authSettings.testingSSO': string
-  'authSettings.testingSSODescription': string
-  'authSettings.twoFAEnforcementDisabled': string
-  'authSettings.twoFAEnforcementEnabled': string
-  'authSettings.twoFactorAuthSupport': string
-  'authSettings.typeAndPressEnterToAddADomain': string
-  'authSettings.updating': string
-  'authSettings.uploadIdentityProvider': string
-  'authSettings.useHarnessUsernameAndPassword': string
-  'authSettings.usePublicOAuth': string
-  'authSettings.whitelistedDomainsDisabled': string
-  'authSettings.yourAccountWillBeLockedOut': string
   'delegates.GBRam': string
   'delegates.configNameRequired': string
   'delegates.createDelegate': string
@@ -1135,6 +1002,23 @@ export interface StringsMap {
   'delegates.reviewYAML': string
   'delegates.selectors': string
   'delegates.successfullyUpdatedConfig': string
+  'delegates.tokens.createdBySystem': string
+  'delegates.tokens.delegateTokens': string
+  'delegates.tokens.generatedValuePlaceholder': string
+  'delegates.tokens.moreInfo': string
+  'delegates.tokens.moreInfoSubtitle': string
+  'delegates.tokens.moreInfoTitle': string
+  'delegates.tokens.noTokens': string
+  'delegates.tokens.revoke': string
+  'delegates.tokens.revokeToken': string
+  'delegates.tokens.revokeTokenSubtitle': string
+  'delegates.tokens.revoked': string
+  'delegates.tokens.showRevoked': string
+  'delegates.tokens.tokenBySearchNameNotExisting': string
+  'delegates.tokens.tokenNameNotUnique': string
+  'delegates.tokens.tokenNameRequired': string
+  'delegates.tokens.tokenNotUsedByDelegates': string
+  'delegates.tokens.tokenRequired': string
   'delegates.totalMemUnit': string
   'delegates.troubleshootOption': string
   'delegates.usedBy': string
@@ -1213,6 +1097,145 @@ export interface StringsMap {
   'secrets.titleCreate': string
   'secrets.titleSelect': string
   'secrets.typeSSH': string
+  'authSettings.SAMLProvider': string
+  'authSettings.WhitelistedDomainsUpdated': string
+  'authSettings.accountOrOAuthLogin': string
+  'authSettings.accountOrOAuthLoginEnabledSuccessfully': string
+  'authSettings.addSAMLProvider': string
+  'authSettings.allowLoginFromTheseDomains': string
+  'authSettings.allowUsersWithEmails': string
+  'authSettings.atLeastNChars': string
+  'authSettings.authenticationSettings': string
+  'authSettings.authorizationEnabledFor': string
+  'authSettings.authorizationNotEnabled': string
+  'authSettings.azure': string
+  'authSettings.cdCommunityPlan.communityLinkText': string
+  'authSettings.cdCommunityPlan.communityPlanStrings.item1': string
+  'authSettings.cdCommunityPlan.communityPlanStrings.item2': string
+  'authSettings.cdCommunityPlan.communityPlanStrings.item3': string
+  'authSettings.cdCommunityPlan.communityPlanStrings.item4': string
+  'authSettings.cdCommunityPlan.communityPlanStrings.item5': string
+  'authSettings.cdCommunityPlan.communityPrice': string
+  'authSettings.cdCommunityPlan.communityTitle': string
+  'authSettings.cdCommunityPlan.communityTitle2': string
+  'authSettings.cdCommunityPlan.enterpriseLinkText': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item1': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item2': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item3': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item4': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item5': string
+  'authSettings.cdCommunityPlan.enterpriseTitle': string
+  'authSettings.cdCommunityPlan.enterpriseTitle2': string
+  'authSettings.cdCommunityPlan.harnessLinkText': string
+  'authSettings.cdCommunityPlan.planLink': string
+  'authSettings.cdCommunityPlan.saasLinkText': string
+  'authSettings.cdCommunityPlan.saasTitle2': string
+  'authSettings.changeLoginToHarnessAccountOrOauth': string
+  'authSettings.changeLoginToHarnessAccountOrOauthDescription': string
+  'authSettings.chooseFile': string
+  'authSettings.confirmDisableLockoutPolicy': string
+  'authSettings.confirmDisableOAuthLogin': string
+  'authSettings.confirmDisablePasswordExpiration': string
+  'authSettings.confirmDisablePasswordStrength': string
+  'authSettings.confirmDisableUserPasswordLogin': string
+  'authSettings.confirmDisableWhitelistedDomains': string
+  'authSettings.daysBeforePasswordExpires': string
+  'authSettings.daysBeforeUserNotified': string
+  'authSettings.deleteSamlProvider': string
+  'authSettings.deleteSamlProviderDescription': string
+  'authSettings.disableLockoutPolicy': string
+  'authSettings.disableOAuthLogin': string
+  'authSettings.disablePasswordExpiration': string
+  'authSettings.disablePasswordStrength': string
+  'authSettings.disableTwoFAEnforcement': string
+  'authSettings.disableUserPasswordLogin': string
+  'authSettings.disableWhitelistedDomains': string
+  'authSettings.doYouWantToEnforceTwoFAForAllMembers': string
+  'authSettings.domainNameRequired': string
+  'authSettings.editSAMLProvider': string
+  'authSettings.enableAtLeastOneSsoBeforeDisablingUserPasswordLogin': string
+  'authSettings.enableAuthorization': string
+  'authSettings.enableClientIdAndSecret': string
+  'authSettings.enableEntityIdLabel': string
+  'authSettings.enableHarnessAccountOrOauthLogin': string
+  'authSettings.enableSamlProvider': string
+  'authSettings.enableSamlProviderDescription': string
+  'authSettings.enablingAuthorization': string
+  'authSettings.enablingAuthorizationDescription': string
+  'authSettings.enforceLockoutPolicy': string
+  'authSettings.enforcePasswordStrength': string
+  'authSettings.enforceTwoFA': string
+  'authSettings.enterSAMLEndPoint': string
+  'authSettings.entityIdLabel': string
+  'authSettings.existingMembersWillReceiveAnEmailWithQRCode': string
+  'authSettings.failedLoginsBeforeLocked': string
+  'authSettings.failedLoginsBeforeLockedAccount': string
+  'authSettings.friendlyReminder': string
+  'authSettings.friendlyReminderDescription': string
+  'authSettings.goToSettings': string
+  'authSettings.groupAttributeName': string
+  'authSettings.haveOneDigit': string
+  'authSettings.haveOneLowercase': string
+  'authSettings.haveOneSpecialChar': string
+  'authSettings.haveOneUppercase': string
+  'authSettings.identityProvider': string
+  'authSettings.keepAtLeastOneProviderEnabled': string
+  'authSettings.lockoutDuration': string
+  'authSettings.lockoutPolicy': string
+  'authSettings.lockoutPolicyDisabled': string
+  'authSettings.lockoutPolicyEnabled': string
+  'authSettings.lockoutPolicyUpdated': string
+  'authSettings.loginSettingsHaveBeenUpdated': string
+  'authSettings.loginViaSAML': string
+  'authSettings.minLength': string
+  'authSettings.multipleOrganizations': string
+  'authSettings.multipleProjects': string
+  'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
+  'authSettings.notifyUsersWhenTheyLocked': string
+  'authSettings.notifyUsersWhenUserLocked': string
+  'authSettings.oauthSettingsHaveBeenUpdated': string
+  'authSettings.oauthSupport': string
+  'authSettings.okta': string
+  'authSettings.oneLogin': string
+  'authSettings.onprem': string
+  'authSettings.passwordExpiration': string
+  'authSettings.passwordExpirationDisabled': string
+  'authSettings.passwordExpirationEnabled': string
+  'authSettings.passwordExpirationUpdated': string
+  'authSettings.passwordMustFulfillReq': string
+  'authSettings.passwordStrength': string
+  'authSettings.passwordStrengthDisabled': string
+  'authSettings.passwordStrengthEnabled': string
+  'authSettings.passwordStrengthUpdated': string
+  'authSettings.periodicallyExpirePassword': string
+  'authSettings.periodicallyExpirePasswordNote': string
+  'authSettings.pleaseRemoveSAMLOrLDAPToEnableOauth': string
+  'authSettings.plusSAMLProvider': string
+  'authSettings.publicOAuthLoginDisabled': string
+  'authSettings.publicOAuthLoginEnabled': string
+  'authSettings.restrictUsersToEmailDomains': string
+  'authSettings.saas': string
+  'authSettings.samlLoginEnabled': string
+  'authSettings.samlProviderAddedSuccessfully': string
+  'authSettings.samlProviderDeleted': string
+  'authSettings.samlProviderUpdatedSuccessfully': string
+  'authSettings.samlSupport': string
+  'authSettings.samlTestFailed': string
+  'authSettings.samlTestSuccessful': string
+  'authSettings.selectSAMLProvider': string
+  'authSettings.sureToDisableTwoFAEnforcement': string
+  'authSettings.testingSSO': string
+  'authSettings.testingSSODescription': string
+  'authSettings.twoFAEnforcementDisabled': string
+  'authSettings.twoFAEnforcementEnabled': string
+  'authSettings.twoFactorAuthSupport': string
+  'authSettings.typeAndPressEnterToAddADomain': string
+  'authSettings.updating': string
+  'authSettings.uploadIdentityProvider': string
+  'authSettings.useHarnessUsernameAndPassword': string
+  'authSettings.usePublicOAuth': string
+  'authSettings.whitelistedDomainsDisabled': string
+  'authSettings.yourAccountWillBeLockedOut': string
   'connectors.ECR.fullName': string
   'connectors.ECR.name': string
   'connectors.GCP.delegateInClusterInfo': string
@@ -1233,7 +1256,6 @@ export interface StringsMap {
   'connectors.appD.accountName': string
   'connectors.appD.apiClient': string
   'connectors.appD.clientId': string
-  'connectors.appD.clientSecret': string
   'connectors.appD.connectionDetailsHeader': string
   'connectors.appD.controllerURL': string
   'connectors.appD.validation.clientId': string
@@ -1243,6 +1265,7 @@ export interface StringsMap {
   'connectors.appdLabel': string
   'connectors.artifactRepoType': string
   'connectors.artifactRepository': string
+  'connectors.artifactory.artifactoryLabel': string
   'connectors.artifactory.artifactoryServerUrl': string
   'connectors.aws.accessKey': string
   'connectors.aws.assumeIAMRole': string
@@ -1277,7 +1300,6 @@ export interface StringsMap {
   'connectors.azureKeyVault.labels.subscription': string
   'connectors.azureKeyVault.labels.tenantId': string
   'connectors.azureKeyVault.labels.vaultName': string
-  'connectors.azureKeyVault.validation.clientId': string
   'connectors.azureKeyVault.validation.subscription': string
   'connectors.azureKeyVault.validation.tenantId': string
   'connectors.azureKeyVault.validation.vaultName': string
@@ -1733,6 +1755,7 @@ export interface StringsMap {
   'connectors.newRelic.urlValidation': string
   'connectors.newRelicConnectorDetails': string
   'connectors.newRelicLabel': string
+  'connectors.nexus.nexusLabel': string
   'connectors.nexus.nexusServerUrl': string
   'connectors.pagerDutyConnectorDetails': string
   'connectors.parameters': string
@@ -1901,6 +1924,8 @@ export interface StringsMap {
   'gitsync.connectThroughManagerLabel': string
   'gitsync.connectToGitProvider': string
   'gitsync.connectivityModeLabel': string
+  'gitsync.createBranchTitle': string
+  'gitsync.deafaultSyncTitle': string
   'gitsync.defaultBranch': string
   'gitsync.defaultFolder': string
   'gitsync.enterBranchToSync': string
@@ -1926,12 +1951,15 @@ export interface StringsMap {
   'gitsync.rootfolderLabel': string
   'gitsync.seeLess': string
   'gitsync.seeMore': string
+  'gitsync.selectBranchTitle': string
   'gitsync.selectDefaultBranch': string
   'gitsync.selectHarnessFolder': string
   'gitsync.startPullRequest': string
   'gitsync.startSync': string
   'gitsync.successfullCreate': string
   'gitsync.successfullySavedConnectivityMode': string
+  'gitsync.syncBranchTitle': string
+  'gitsync.syncSucessToaster': string
   'dashboards.createFolder.folderDescriptionPlaceholder': string
   'dashboards.createFolder.folderNameValidation': string
   'dashboards.createFolder.folderPlaceholder': string
@@ -2134,8 +2162,11 @@ export interface StringsMap {
   'pipeline.artifactsSelection.existingDocker.imageNamePlaceholder': string
   'pipeline.artifactsSelection.existingDocker.sidecarId': string
   'pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder': string
+  'pipeline.artifactsSelection.repositoryPort': string
+  'pipeline.artifactsSelection.repositoryPortPlaceholder': string
   'pipeline.artifactsSelection.validation.imagePath': string
   'pipeline.artifactsSelection.validation.region': string
+  'pipeline.artifactsSelection.validation.repositoryPort': string
   'pipeline.artifactsSelection.validation.sidecarId': string
   'pipeline.artifactsSelection.validation.tag': string
   'pipeline.artifactsSelection.validation.tagRegex': string
@@ -2511,6 +2542,7 @@ export interface StringsMap {
   'pipeline.newPipelineText': string
   'pipeline.noApprovalInstanceCreated': string
   'pipeline.noBuckets': string
+  'pipeline.noBuildsLabel': string
   'pipeline.noBuildsText': string
   'pipeline.noDeploymentText': string
   'pipeline.noPipelineText': string
@@ -3241,6 +3273,7 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.helpText.step3.description.additionalInfo': string
   'ce.co.autoStoppingRule.helpText.step3.description.info': string
   'ce.co.autoStoppingRule.helpText.step3.title': string
+  'ce.co.autoStoppingRule.limitWarningMessage': string
   'ce.co.autoStoppingRule.providerSelector.description': string
   'ce.co.autoStoppingRule.providerSelector.helpText.selectProvider': string
   'ce.co.autoStoppingRule.review.configDetails': string
@@ -4334,6 +4367,7 @@ export interface StringsMap {
   'cv.customHealthSource.Querymapping.validation.startTime.timestamp': string
   'cv.customHealthSource.ServiceInstance.pathLabel': string
   'cv.customHealthSource.ServiceInstance.pathModalHeader': string
+  'cv.customHealthSource.addGroupNameTitle': string
   'cv.customHealthSource.fetchRecordsButton': string
   'cv.cvChanges.changeTypeFilterDefault': string
   'cv.cvChanges.changesTimeline': string
@@ -4554,6 +4588,7 @@ export interface StringsMap {
   'cv.monitoringSources.buildYourQuery': string
   'cv.monitoringSources.datadog.manualInputQueryModal.modalTitle': string
   'cv.monitoringSources.datadog.newDatadogGroupName': string
+  'cv.monitoringSources.datadog.noMetricsWidgets': string
   'cv.monitoringSources.datadog.selectDashboardsPage.dashboardColumnName': string
   'cv.monitoringSources.datadog.selectDashboardsPage.noDataText': string
   'cv.monitoringSources.datadogLogs.datadogLogsQuery': string

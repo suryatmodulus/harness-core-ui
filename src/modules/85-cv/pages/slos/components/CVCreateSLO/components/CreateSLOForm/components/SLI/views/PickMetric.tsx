@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import {
@@ -34,7 +41,7 @@ import {
 import { SLIProps, SLIMetricTypes, SLOFormFields } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
 import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 
-const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps }) => {
+const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps, ...rest }) => {
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
@@ -201,6 +208,7 @@ const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps }) => {
             <SLOTargetChartWrapper
               monitoredServiceIdentifier={monitoredServiceRef}
               serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}
+              {...rest}
               topLabel={
                 <Text
                   font={{ variation: FontVariation.TINY_SEMI }}
@@ -214,7 +222,6 @@ const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps }) => {
                 chart: { height: isRatioBasedMetric ? 280 : 220 },
                 yAxis: { min: 0, max: 100, tickInterval: 25 }
               }}
-              debounceWait={2000}
             />
           </Container>
         </Layout.Horizontal>

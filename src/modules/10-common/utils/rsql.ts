@@ -1,3 +1,10 @@
+/*
+ * Copyright 2020 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 // This utility toolkip provides functions to generate RSQL strings
 // RSQL grammar and semantics can be found here: https://github.com/jirutka/rsql-parser#grammar-and-semantic
 // eg. usage: and(equals('name', 'john'), includes('age', [20, 30, 40]))) => equivalent to "name is john and age is in (20, 30, 40)"

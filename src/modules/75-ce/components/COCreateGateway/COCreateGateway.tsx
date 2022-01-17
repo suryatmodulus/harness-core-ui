@@ -1,3 +1,10 @@
+/*
+ * Copyright 2021 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useState } from 'react'
 import { Color, Container } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
@@ -8,10 +15,14 @@ import { useQueryParams } from '@common/hooks'
 import COGatewayDetails from '@ce/components/COGatewayDetails/COGatewayDetails'
 import { Utils } from '@ce/common/Utils'
 // import type { Provider } from '@ce/components/COCreateGateway/models'
+import { useFeature } from '@common/hooks/useFeatures'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { useStrings } from 'framework/strings'
 import { GatewayKindType } from '@ce/constants'
+import FeatureWarningBanner from '@common/components/FeatureWarning/FeatureWarningBanner'
 import type { GatewayDetails } from './models'
 
-function getString(val: string | undefined): string {
+function getStringVal(val: string | undefined): string {
   const stringVal = val?.toString()
   if (stringVal != undefined) {
     return stringVal
@@ -19,22 +30,38 @@ function getString(val: string | undefined): string {
   return ''
 }
 
-export const CECODashboardPage: React.FC = () => {
+const COCreateGatewayContainer: React.FC = () => {
+  const { getString } = useStrings()
+  const { enabled, featureDetail } = useFeature({
+    featureRequest: {
+      featureName: FeatureIdentifier.RESTRICTED_AUTOSTOPPING_RULE_CREATION
+    }
+  })
+
+  return (
+    <Container background={Color.WHITE} height="100vh">
+      {!enabled ? (
+        <>
+          <FeatureWarningBanner
+            featureName={FeatureIdentifier.RESTRICTED_AUTOSTOPPING_RULE_CREATION}
+            warningMessage={getString('ce.co.autoStoppingRule.limitWarningMessage', {
+              limit: featureDetail?.limit,
+              count: featureDetail?.count
+            })}
+          />
+        </>
+      ) : (
+        <COCreateGateway />
+      )}
+    </Container>
+  )
+}
+
+const COCreateGateway: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { provider } = useQueryParams<{ provider: string }>()
   const gatewayCreationTabs = ['providerSelector', 'gatewayConfig']
   const [currentTab, setCurrentTab] = useState<string | 'providerSelector'>('providerSelector')
-  // const initialProvider: Provider = provider
-  //   ? {
-  //       name: 'AWS',
-  //       value: 'aws',
-  //       icon: 'service-aws'
-  //     }
-  //   : {
-  //       name: 'Azure',
-  //       value: 'azure',
-  //       icon: 'service-azure'
-  //     }
 
   const initialGatewayDetails: GatewayDetails = {
     name: '',
@@ -46,8 +73,8 @@ export const CECODashboardPage: React.FC = () => {
     fullfilment: '',
     filter: '',
     kind: GatewayKindType.INSTANCE,
-    orgID: getString(orgIdentifier),
-    projectID: getString(projectIdentifier),
+    orgID: getStringVal(orgIdentifier),
+    projectID: getStringVal(projectIdentifier),
     accountID: accountId,
     hostName: '',
     customDomains: [],
@@ -114,4 +141,4 @@ export const CECODashboardPage: React.FC = () => {
   )
 }
 
-export default CECODashboardPage
+export default COCreateGatewayContainer

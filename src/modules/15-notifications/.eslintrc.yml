@@ -7,9 +7,9 @@ rules:
         - modules/20-rbac/*
         - modules/22-resource-center/*
         - modules/25-governance/*
-        - modules/30-auth-settings/*
         - modules/30-delegates/*
         - modules/30-secrets/*
+        - modules/33-auth-settings/*
         - modules/35-connectors/*
         - modules/35-user-profile/*
         - modules/40-gitsync/*
@@ -26,9 +26,9 @@ rules:
         - '@rbac/*'
         - '@resource-center/*'
         - '@governance/*'
-        - '@auth-settings/*'
         - '@delegates/*'
         - '@secrets/*'
+        - '@auth-settings/*'
         - '@connectors/*'
         - '@user-profile/*'
         - '@gitsync/*'

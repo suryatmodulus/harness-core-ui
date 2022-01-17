@@ -1,9 +1,16 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import { Container, Tab, Tabs, Layout } from '@wings-software/uicore'
 import { Expander } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
-import { isEmpty, noop } from 'lodash-es'
+import { isEmpty, noop, omit } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
@@ -18,7 +25,8 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
 import type { TemplateStepNode } from 'services/pipeline-ng'
 import { TemplateBar } from '@pipeline/components/PipelineStudio/TemplateBar/TemplateBar'
-import { StepCommandsProps, StepCommandsViews } from './StepCommandTypes'
+import { getStepDataFromValues } from '@pipeline/utils/stepUtils'
+import { StepCommandsProps, StepCommandsViews, TabTypes, Values } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 
 export type StepFormikRef<T = unknown> = {
@@ -178,6 +186,34 @@ export function StepCommands(
     return <div className={cx(css.stepCommand, css.withoutTabs)}>{getStepWidgetWithFormikRef()}</div>
   }
 
+  const getStepDataForTemplate = async (): Promise<StepElementConfig> => {
+    const stepObj = stepsFactory.getStep((step as StepElementConfig).type) as PipelineStep<any>
+    if (activeTab === StepCommandTabs.StepConfiguration && stepRef.current) {
+      await stepRef.current.validateForm()
+      const errors = omit(stepRef.current.errors, 'name')
+      if (isEmpty(errors)) {
+        return getStepDataFromValues(stepObj.processFormData(stepRef.current.values), step)
+      } else {
+        await stepRef.current.submitForm()
+        throw errors
+      }
+    } else if (activeTab === StepCommandTabs.Advanced && advancedConfRef.current) {
+      await advancedConfRef.current.validateForm()
+      const errors = omit(advancedConfRef.current.errors, 'name')
+      if (isEmpty(errors)) {
+        return getStepDataFromValues(
+          { ...(advancedConfRef.current.values as Partial<Values>), tab: TabTypes.Advanced },
+          step
+        )
+      } else {
+        await advancedConfRef.current.submitForm()
+        throw errors
+      }
+    } else {
+      return step as StepElementConfig
+    }
+  }
+
   return (
     <div className={cx(css.stepCommand, className)}>
       {stepType === StepType.Template && onUseTemplate && onRemoveTemplate ? (
@@ -223,7 +259,7 @@ export function StepCommands(
             {templatesEnabled && !isStepGroup && viewType === StepCommandsViews.Pipeline ? (
               <>
                 <Expander />
-                <SaveTemplateButton data={step} type={'Step'} />
+                <SaveTemplateButton data={getStepDataForTemplate} type={'Step'} />
               </>
             ) : null}
           </Tabs>

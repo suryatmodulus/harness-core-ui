@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useState, useEffect, useMemo } from 'react'
 import noop from 'lodash/noop'
 import { Container, Text, Layout, FontVariation } from '@wings-software/uicore'
@@ -14,7 +21,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { FailedStatus, useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
 import type { Failure } from 'services/cd-ng'
-import NoDeployments from '../images/NoDeployments.svg'
+import NoBuilds from '../images/NoBuilds.svg'
 import styles from './BuildExecutionsChart.module.scss'
 
 export interface ExecutionsChartProps {
@@ -202,8 +209,8 @@ export function ExecutionsChart({
         (failedCount && successCount && abortedCount && expiredCount) ? (
         <Container className={styles.emptyView}>
           <Container className={styles.emptyViewCard}>
-            <img src={NoDeployments} />
-            <Text>{getString('common.noDeployments')}</Text>
+            <img src={NoBuilds} />
+            <Text>{getString('pipeline.noBuildsLabel')}</Text>
           </Container>
         </Container>
       ) : (

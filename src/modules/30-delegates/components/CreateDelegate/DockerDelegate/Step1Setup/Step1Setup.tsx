@@ -1,15 +1,33 @@
-import React, { useState } from 'react'
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
+import React, { useState, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import type { FormikActions } from 'formik'
 import set from 'lodash-es/set'
-import { Layout, Formik, Button, FormikForm, Container, StepProps } from '@wings-software/uicore'
+import {
+  Layout,
+  Formik,
+  Button,
+  FormikForm,
+  Container,
+  StepProps,
+  SelectOption,
+  FormInput
+} from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { validateDockerDelegatePromise } from 'services/portal'
+import { validateDockerDelegatePromise, useGetDelegateTokens } from 'services/portal'
+import type { DelegateTokenDetails } from 'services/portal'
 
 import { useStrings } from 'framework/strings'
 
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import { useCreateTokenModal } from '@delegates/components/DelegateTokens/modals/useCreateTokenModal'
 
 import type { DockerDelegateWizardData } from '../CreateDockerDelegate'
 import css from './Step1Setup.module.scss'
@@ -20,6 +38,16 @@ interface DelegateSetupStepProps {
 
 //this regex is retrieved from kubernetes
 const delegateNameRegex = /^[a-z]([-a-z0-9]*[a-z])?(\.[a-z0-9]([-a-z0-9]*[a-z])?)*$/g
+
+const formatTokenOptions = (data: any): Array<SelectOption> => {
+  const tokens: Array<DelegateTokenDetails> = data?.resource
+
+  return tokens
+    ? tokens.map((item: DelegateTokenDetails) => {
+        return { label: item.name || '', value: item.name || '' }
+      })
+    : []
+}
 
 const Step1Setup: React.FC<StepProps<DockerDelegateWizardData> & DelegateSetupStepProps> = props => {
   const { prevStepData } = props
@@ -36,11 +64,12 @@ const Step1Setup: React.FC<StepProps<DockerDelegateWizardData> & DelegateSetupSt
       name: '',
       identifier: '',
       description: '',
-      tags: {}
+      tags: {},
+      tokenName: ''
     }
   }
 
-  const { accountId } = useParams<ProjectPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
 
   const [formData, setInitValues] = useState<DockerDelegateWizardData>(initialValues as DockerDelegateWizardData)
@@ -52,7 +81,10 @@ const Step1Setup: React.FC<StepProps<DockerDelegateWizardData> & DelegateSetupSt
     const response = (await validateDockerDelegatePromise({
       queryParams: {
         accountId,
-        delegateName: values.name
+        projectIdentifier,
+        orgIdentifier,
+        delegateName: values.name,
+        tokenName: values.tokenName
       }
     })) as any
     const isNameUnique = !response?.responseMessages[0]
@@ -61,7 +93,8 @@ const Step1Setup: React.FC<StepProps<DockerDelegateWizardData> & DelegateSetupSt
       const stepPrevData = {
         name: values.name,
         identifier: values.identifier,
-        description: values.description
+        description: values.description,
+        tokenName: values.tokenName
       }
       const tagsArray = Object.keys(values.tags || {})
       set(stepPrevData, 'tags', tagsArray)
@@ -71,10 +104,31 @@ const Step1Setup: React.FC<StepProps<DockerDelegateWizardData> & DelegateSetupSt
     }
   }
 
+  const { data: tokensResponse, refetch: getTokens } = useGetDelegateTokens({
+    queryParams: {
+      accountId,
+      projectIdentifier,
+      orgIdentifier,
+      status: 'ACTIVE'
+    }
+  })
+  const defaultToken = tokensResponse?.resource?.[0]
+
+  const { openCreateTokenModal } = useCreateTokenModal({ onSuccess: getTokens })
+
+  React.useEffect(() => {
+    if (defaultToken) {
+      formData.tokenName = defaultToken?.name
+      setInitValues({ ...formData })
+    }
+  }, [defaultToken])
+
   const onSubmit = (values: DockerDelegateWizardData, formikActions: FormikActions<DockerDelegateWizardData>) => {
     setInitValues(values)
     validateName(values, formikActions)
   }
+
+  const delegateTokenOptions = useMemo(() => formatTokenOptions(tokensResponse), [tokensResponse])
 
   return (
     <Layout.Vertical padding="xxlarge">
@@ -87,7 +141,8 @@ const Step1Setup: React.FC<StepProps<DockerDelegateWizardData> & DelegateSetupSt
             name: Yup.string()
               .trim()
               .required(getString('delegate.delegateNameRequired'))
-              .matches(delegateNameRegex, getString('delegates.delegateNameRegexIssue'))
+              .matches(delegateNameRegex, getString('delegates.delegateNameRegexIssue')),
+            tokenName: Yup.string().required(getString('delegates.tokens.tokenRequired'))
           })}
         >
           {() => {
@@ -104,6 +159,22 @@ const Step1Setup: React.FC<StepProps<DockerDelegateWizardData> & DelegateSetupSt
                           }}
                         />
                       </div>
+                      <Layout.Horizontal className={css.tokensSelectContainer} spacing="small">
+                        <FormInput.Select
+                          items={delegateTokenOptions}
+                          label={getString('delegates.tokens.delegateTokens')}
+                          name="tokenName"
+                        />
+                        <Button
+                          minimal
+                          icon="plus"
+                          onClick={e => {
+                            e.preventDefault()
+                            openCreateTokenModal()
+                          }}
+                          text={getString('add')}
+                        />
+                      </Layout.Horizontal>
                     </Layout.Vertical>
                     <Layout.Vertical className={css.rightPanel} />
                   </Layout.Horizontal>

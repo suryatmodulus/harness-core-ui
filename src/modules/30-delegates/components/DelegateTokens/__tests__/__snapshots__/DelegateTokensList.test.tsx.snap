@@ -1,0 +1,340 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Delegate Tokens list render delegate token list 1`] = `
+<div>
+  <div
+    class="TableV2--table table"
+  >
+    <div
+      class="TableV2--header"
+      role="row"
+    >
+      <div
+        class="TableV2--cell TableV2--sortable"
+        colspan="1"
+        role="columnheader"
+        style="width: 33%;"
+        title="Toggle SortBy"
+      >
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="TokensListViewname"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            NAME
+          </p>
+        </div>
+        <span
+          class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
+          icon="double-caret-vertical"
+        >
+          <svg
+            data-icon="double-caret-vertical"
+            height="15"
+            viewBox="0 0 16 16"
+            width="15"
+          >
+            <desc>
+              double-caret-vertical
+            </desc>
+            <path
+              d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </div>
+      <div
+        class="TableV2--cell TableV2--sortable"
+        colspan="1"
+        role="columnheader"
+        style="width: 20%;"
+        title="Toggle SortBy"
+      >
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="TokensListViewcreatedAt"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            CREATEDAT
+          </p>
+        </div>
+        <span
+          class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
+          icon="double-caret-vertical"
+        >
+          <svg
+            data-icon="double-caret-vertical"
+            height="15"
+            viewBox="0 0 16 16"
+            width="15"
+          >
+            <desc>
+              double-caret-vertical
+            </desc>
+            <path
+              d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </div>
+      <div
+        class="TableV2--cell TableV2--sortable"
+        colspan="1"
+        role="columnheader"
+        style="width: 20%;"
+        title="Toggle SortBy"
+      >
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="TokensListViewcreatedBy"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            CREATEDBY
+          </p>
+        </div>
+        <span
+          class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
+          icon="double-caret-vertical"
+        >
+          <svg
+            data-icon="double-caret-vertical"
+            height="15"
+            viewBox="0 0 16 16"
+            width="15"
+          >
+            <desc>
+              double-caret-vertical
+            </desc>
+            <path
+              d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </div>
+      <div
+        class="TableV2--cell TableV2--sortable"
+        colspan="1"
+        role="columnheader"
+        style="width: 15%;"
+        title="Toggle SortBy"
+      >
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="TokensListViewactivity"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            STATUS
+          </p>
+        </div>
+        <span
+          class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
+          icon="double-caret-vertical"
+        >
+          <svg
+            data-icon="double-caret-vertical"
+            height="15"
+            viewBox="0 0 16 16"
+            width="15"
+          >
+            <desc>
+              double-caret-vertical
+            </desc>
+            <path
+              d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </div>
+      <div
+        class="TableV2--cell TableV2--sortable"
+        colspan="1"
+        role="columnheader"
+        style="width: 10%;"
+      >
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="TokensListViewactions"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            
+          </p>
+        </div>
+      </div>
+      <div
+        class="TableV2--cell TableV2--sortable"
+        colspan="1"
+        role="columnheader"
+        style="width: 3%;"
+      >
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="TokensListViewmenu"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
+          >
+            
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="TableV2--body"
+    >
+      <div
+        class="TableV2--row TableV2--card TableV2--clickable"
+        role="row"
+      >
+        <div
+          class="TableV2--cell"
+          role="cell"
+          style="width: 33%;"
+        >
+          <span
+            class="tokenNameColumn tokenCellText"
+          >
+            <span
+              class="bp3-icon StyledProps--main StyledProps--margin-right-small"
+              data-icon="key"
+            >
+              <svg
+                height="28"
+                width="28"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  fill-rule="evenodd"
+                  opacity="0.6"
+                >
+                  <circle
+                    cx="14"
+                    cy="14"
+                    fill="#D0E2FF"
+                    r="14"
+                  />
+                  <path
+                    d="M16.488 6.533a4.977 4.977 0 00-4.977 4.978c0 .445.064.874.174 1.285l-5.152 5.151v3.519h3.52l5.151-5.151c.41.11.84.174 1.285.174a4.978 4.978 0 000-9.956zm-6.95 13.69l-1.76-.002v-1.759l4.426-4.426a4.997 4.997 0 001.76 1.76l-4.426 4.426zm6.95-4.979a3.733 3.733 0 110-7.466 3.732 3.732 0 013.734 3.733 3.732 3.732 0 01-3.734 3.733zm2.125-4.613a1.243 1.243 0 11-2.489 0 1.245 1.245 0 112.489 0z"
+                    fill="#0042A9"
+                    fill-rule="nonzero"
+                  />
+                </g>
+              </svg>
+            </span>
+            Token 1
+          </span>
+        </div>
+        <div
+          class="TableV2--cell"
+          role="cell"
+          style="width: 20%;"
+        >
+          <span
+            class="tokenCellText"
+          >
+            dummy date
+          </span>
+        </div>
+        <div
+          class="TableV2--cell"
+          role="cell"
+          style="width: 20%;"
+        >
+          <span
+            class="tokenCellText"
+          >
+            admin
+          </span>
+        </div>
+        <div
+          class="TableV2--cell"
+          role="cell"
+          style="width: 15%;"
+        >
+          <span
+            class="tokenCellText"
+          >
+            active
+          </span>
+        </div>
+        <div
+          class="TableV2--cell"
+          role="cell"
+          style="width: 10%;"
+        >
+          <span
+            class="tokenCellText"
+          >
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--variation Button--variation-secondary"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                delegates.tokens.revoke
+              </span>
+            </button>
+          </span>
+        </div>
+        <div
+          class="TableV2--cell"
+          role="cell"
+          style="width: 3%;"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main menuColumn"
+          >
+            <span
+              class="bp3-popover-wrapper bp3-dark"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="Options"
+                  >
+                    <svg
+                      fill="none"
+                      height="16"
+                      viewBox="0 0 4 16"
+                      width="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

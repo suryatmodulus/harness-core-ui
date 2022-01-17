@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Formik, FormikForm, Utils } from '@wings-software/uicore'
 import { noop } from 'lodash-es'
@@ -49,6 +56,9 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const [selectedMetricId, setSelectedMetricId] = useState<string>()
   const selectedMetricData = metricHealthDetailsData.get(selectedMetricId || '')
+  const initialManualQueries = useMemo(() => {
+    return getManuallyCreatedQueries(data?.selectedMetrics)
+  }, [data?.selectedMetrics])
   const { data: activeMetrics } = useGetDatadogActiveMetrics({
     queryParams: {
       projectIdentifier,
@@ -218,7 +228,7 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
               dashboardDetailMapper={dashboardDetailToMetricWidgetItemMapper}
               dataSourceType={DatasourceTypeEnum.DATADOG_METRICS}
               addManualQueryTitle={'cv.monitoringSources.datadog.manualInputQueryModal.modalTitle'}
-              manualQueries={getManuallyCreatedQueries(metricHealthDetailsData)}
+              manualQueries={initialManualQueries}
               onNextClicked={() => handleOnNext(formikProps)}
               selectedMetricInfo={{
                 query: formikProps.values.query,

@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
 import { Container, Text, Page } from '@wings-software/uicore'
@@ -40,6 +47,9 @@ import { useGetUsageAndLimit } from '@auth-settings/hooks/useGetUsageAndLimit'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import FeatureWarningUpgradeBanner from '@common/components/FeatureWarning/FeatureWarningUpgradeBanner'
 import { ENFORCEMENT_USAGE_THRESHOLD } from '@ce/constants'
+import formatCost from '@ce/utils/formatCost'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import bgImage from './images/CD/overviewBg.png'
 import css from './Overview.module.scss'
 
@@ -105,6 +115,8 @@ const OverviewPage: React.FC = () => {
   const [showBanner, setShowBanner] = useState(true)
 
   const bannerClassName = showBanner ? css.hasBanner : css.hasNoBanner
+
+  const featureEnforced = useFeatureFlag(FeatureFlag.FEATURE_ENFORCEMENT_ENABLED)
 
   const [summaryResult] = useFetchPerspectiveDetailsSummaryQuery({
     variables: {
@@ -188,7 +200,7 @@ const OverviewPage: React.FC = () => {
           content={<PerspectiveTimeRangePicker timeRange={timeRange} setTimeRange={setTimeRange} />}
         />
         <Page.Body>
-          <CEUsageInfo />
+          {featureEnforced ? <CEUsageInfo /> : null}
           <Container padding={{ top: 'medium', right: 'xlarge', bottom: 'medium', left: 'xlarge' }}>
             <div className={css.mainContainer}>
               <div className={css.columnOne}>
@@ -275,7 +287,11 @@ const CEUsageInfo = () => {
   return (
     <FeatureWarningUpgradeBanner
       featureName={FeatureIdentifier.PERSPECTIVES}
-      message={`You have used ${usageCost} / ${limitCost} free cloud spend incuded in your current plan. Consider upgrading to manage higher cloud spend.`}
+      message={`You have used ${formatCost(Number(usageCost), {
+        shortFormat: true
+      })} / ${formatCost(Number(limitCost), {
+        shortFormat: true
+      })} free cloud spend incuded in your current plan. Consider upgrading to manage higher cloud spend.`}
     />
   )
 }

@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import { Color, ButtonVariation, ButtonSize, useModalHook, ButtonProps } from '@wings-software/uicore'
 import produce from 'immer'
@@ -21,7 +28,10 @@ import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import css from './SaveTemplateButton.module.scss'
 
 interface SaveTemplateButtonProps {
-  data: StepOrStepGroupOrTemplateStepData | StageElementConfig
+  data:
+    | StepOrStepGroupOrTemplateStepData
+    | StageElementConfig
+    | (() => Promise<StepOrStepGroupOrTemplateStepData | StageElementConfig>)
   type: 'Step' | 'Stage'
   buttonProps?: ButtonProps
 }
@@ -53,21 +63,26 @@ export const SaveTemplateButton = ({ data, buttonProps, type }: SaveTemplateButt
     isPipelineStudio: true
   })
 
-  const onSaveAsTemplate = () => {
-    setTemplate(
-      produce(DefaultTemplate, draft => {
-        draft.projectIdentifier = projectIdentifier
-        draft.orgIdentifier = orgIdentifier
-        draft.type = type
-        draft.spec = omit(data, 'name', 'identifier') as JsonNode
+  const onSaveAsTemplate = async () => {
+    try {
+      const finalData = typeof data === 'function' ? await data() : data
+      setTemplate(
+        produce(DefaultTemplate, draft => {
+          draft.projectIdentifier = projectIdentifier
+          draft.orgIdentifier = orgIdentifier
+          draft.type = type
+          draft.spec = omit(finalData, 'name', 'identifier') as JsonNode
+        })
+      )
+      setModalProps({
+        title: getString('common.template.saveAsNewTemplateHeading'),
+        promise: saveAndPublish,
+        shouldGetComment: !isGitSyncEnabled
       })
-    )
-    setModalProps({
-      title: getString('common.template.saveAsNewTemplateHeading'),
-      promise: saveAndPublish,
-      shouldGetComment: !isGitSyncEnabled
-    })
-    showConfigModal()
+      showConfigModal()
+    } catch (_error) {
+      //Do not do anything as there are error in the form
+    }
   }
 
   return (

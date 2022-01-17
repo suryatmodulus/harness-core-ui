@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { UseMutateProps, UseMutateReturn, MutateMethod, GetDataError } from 'restful-react'
 import { useState, useCallback, useEffect, Dispatch, SetStateAction } from 'react'
@@ -5,7 +12,7 @@ import { useState, useCallback, useEffect, Dispatch, SetStateAction } from 'reac
 import type { Cancelable, DebounceSettings } from 'lodash' // only type imports
 import { debounce, identity } from 'lodash-es'
 
-import { shouldShowError } from '@wings-software/uicore'
+import { shouldShowError } from '@harness/uicore'
 import { useDeepCompareEffect } from './useDeepCompareEffect'
 
 const isCancellable = <T extends (...args: any[]) => any>(func: T): func is T & Cancelable => {

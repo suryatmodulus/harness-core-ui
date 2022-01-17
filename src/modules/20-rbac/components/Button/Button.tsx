@@ -1,6 +1,13 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { ReactElement } from 'react'
 import { pick } from 'lodash-es'
-import { Button as CoreButton, ButtonProps as CoreButtonProps } from '@wings-software/uicore'
+import { Button as CoreButton, ButtonProps as CoreButtonProps } from '@harness/uicore'
 import { PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import { usePermission, PermissionsRequest } from '@rbac/hooks/usePermission'
@@ -12,7 +19,7 @@ import { FeatureWarningTooltip } from '@common/components/FeatureWarning/Feature
 
 export interface ButtonProps extends CoreButtonProps {
   permission?: Omit<PermissionsRequest, 'permissions'> & { permission: PermissionIdentifier }
-  featuresProps?: FeaturesProps
+  featuresProps?: FeaturesProps & { warningMessage?: string }
 }
 
 export interface BtnProps {
@@ -57,7 +64,12 @@ const RbacButton: React.FC<ButtonProps> = ({
       return {
         disabled: true,
         darkTheme: false,
-        tooltip: <FeatureWarningTooltip featureName={disabledFeatureName as FeatureIdentifier} />
+        tooltip: (
+          <FeatureWarningTooltip
+            featureName={disabledFeatureName as FeatureIdentifier}
+            warningMessage={featuresProps.warningMessage}
+          />
+        )
       }
     }
 

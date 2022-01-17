@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import { render } from 'mustache'
@@ -30,7 +37,8 @@ const strings = {
   common: {
     validation: {
       nameIsRequired: 'common.validation.nameIsRequired',
-      namePatternIsNotValid: 'common.validation.namePatternIsNotValid'
+      namePatternIsNotValid: 'common.validation.namePatternIsNotValid',
+      fieldIsRequired: 'common.validation.fieldIsRequired'
     }
   }
 }

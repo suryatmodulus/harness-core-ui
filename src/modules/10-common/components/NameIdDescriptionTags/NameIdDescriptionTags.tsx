@@ -1,7 +1,14 @@
-import React, { useState } from 'react'
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
+import React, { useEffect, useState } from 'react'
 import { Container, FormInput, Icon, Label, DataTooltipInterface, HarnessDocTooltip } from '@wings-software/uicore'
 import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
-import { isEmpty } from 'lodash-es'
+import { defaultTo, isEmpty } from 'lodash-es'
 import { Classes, IInputGroupProps, ITagInputProps } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
@@ -52,6 +59,10 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
   const [isDescriptionOpen, setDescriptionOpen] = useState<boolean>(hasValue || false)
   const [isDescriptionFocus, setDescriptionFocus] = useState<boolean>(false)
 
+  useEffect(() => {
+    setDescriptionOpen(defaultTo(hasValue, false))
+  }, [hasValue])
+
   return (
     <Container style={{ marginBottom: isDescriptionOpen ? '0' : 'var(--spacing-medium)' }}>
       <Label className={cx(Classes.LABEL, css.descriptionLabel)} data-tooltip-id={props.dataTooltipId}>
@@ -89,6 +100,10 @@ export const Tags = (props: TagsComponentProps): JSX.Element => {
   const { tagsProps, hasValue, isOptional = true } = props
   const { getString } = useStrings()
   const [isTagsOpen, setTagsOpen] = useState<boolean>(hasValue || false)
+
+  useEffect(() => {
+    setTagsOpen(defaultTo(hasValue, false))
+  }, [hasValue])
 
   return (
     <Container>

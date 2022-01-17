@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import { render, act, fireEvent, waitFor } from '@testing-library/react'
 import { InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/pipeline-ng'
@@ -7,7 +14,8 @@ import {
   mockInputSetsList,
   mockInputSetsListEmpty,
   mockInputSetsListError,
-  mockInputSetsListWithGitDetails
+  mockInputSetsListWithGitDetails,
+  mockInputSetsValue
 } from './mocks'
 
 const commonProps: InputSetSelectorProps = {
@@ -144,6 +152,80 @@ describe('INPUT SET SELECTOR', () => {
         }
       ])
     )
+  })
+
+  test('input set displayed', async () => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    useGetInputSetsListForPipeline.mockImplementation(() => mockInputSetsList)
+
+    const onChangeMock = jest.fn()
+    const { getByTestId } = render(
+      <TestWrapper>
+        <InputSetSelector value={mockInputSetsValue} {...commonProps} onChange={onChangeMock} />
+      </TestWrapper>
+    )
+    expect(getByTestId('button-input1')).toBeTruthy()
+  })
+
+  test('input set displayed in popover list', async () => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    useGetInputSetsListForPipeline.mockImplementation(() => mockInputSetsList)
+
+    const onChangeMock = jest.fn()
+    const { getByTestId, getByText, container } = render(
+      <TestWrapper>
+        <InputSetSelector value={mockInputSetsValue} {...commonProps} onChange={onChangeMock} />
+      </TestWrapper>
+    )
+
+    act(() => {
+      fireEvent.click(getByText('pipeline.inputSets.selectPlaceholder'))
+    })
+
+    await waitFor(() => expect(container).toMatchSnapshot('snapshot afteropening the input set list'))
+
+    expect(getByTestId('popover-is1')).toBeTruthy()
+  })
+
+  test('cross button exists when there is a selected inputset', async () => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    useGetInputSetsListForPipeline.mockImplementation(() => mockInputSetsList)
+
+    const onChangeMock = jest.fn()
+    const { container } = render(
+      <TestWrapper>
+        <InputSetSelector value={mockInputSetsValue} {...commonProps} onChange={onChangeMock} />
+      </TestWrapper>
+    )
+    const crossbtn = container.querySelector('.bp3-popover-target .bp3-icon-cross')
+
+    expect(crossbtn).toBeTruthy()
+  })
+
+  test('cross button working fine', async () => {
+    // eslint-disable-next-line
+    // @ts-ignore
+    useGetInputSetsListForPipeline.mockImplementation(() => mockInputSetsList)
+
+    const onChangeMock = jest.fn()
+    const { container } = render(
+      <TestWrapper>
+        <InputSetSelector value={mockInputSetsValue} {...commonProps} onChange={onChangeMock} />
+      </TestWrapper>
+    )
+    const crossbtn = container.querySelector('.bp3-popover-target .bp3-icon-cross')
+
+    await waitFor(() => expect(crossbtn).toBeTruthy())
+
+    if (crossbtn)
+      act(() => {
+        fireEvent.click(crossbtn)
+      })
+
+    expect(onChangeMock).toBeCalled()
   })
 
   test('Input set API return empty', async () => {

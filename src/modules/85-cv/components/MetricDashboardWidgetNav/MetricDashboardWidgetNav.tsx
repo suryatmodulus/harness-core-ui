@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useEffect, useMemo, useState } from 'react'
 import { Color, Container, Link, Text, Utils } from '@wings-software/uicore'
 import { Classes, ITreeNode, PopoverInteractionKind, Tree } from '@blueprintjs/core'
@@ -37,7 +44,8 @@ const NodeType = {
   MANUAL_INPUT_QUERY: 'ManuualyInputQuery',
   DASHBOARD: 'Dashboard',
   WIDGET: 'Widget',
-  METRIC: 'Metric'
+  METRIC: 'Metric',
+  LABEL: 'Label'
 }
 
 const LoadingSkeleton = [
@@ -132,6 +140,14 @@ function generateTreeNode(type: string, data: any, id: string, isExpanded = fals
         nodeData: {
           type: NodeType.MANUAL_INPUT_QUERY
         }
+      }
+    case NodeType.LABEL:
+      return {
+        id: id,
+        label: <TreeNodeLabel width={LabelWidth.SECOND_LEVEL} label={data.label} />,
+        hasCaret: false,
+        isExpanded: false,
+        isSelected: false
       }
     case NodeType.MANUAL_INPUT_METRIC:
     default:
@@ -288,7 +304,7 @@ export default function MetricDashboardWidgetNav<T>(props: MetricDashboardWidget
     if (selectedDashIndex === -1 || loading) {
       return
     }
-    if (error?.data || (!metricWidgets?.length && !isFirstLoad)) {
+    if (error?.data) {
       navContent[selectedDashIndex].isExpanded = false
       navContent[selectedDashIndex].childNodes = []
       setNavContent([...navContent])
@@ -316,6 +332,15 @@ export default function MetricDashboardWidgetNav<T>(props: MetricDashboardWidget
         )
         setIsFirstLoad(false)
       }
+    } else if (dashboardWidgetsData?.data && !metricWidgets.length) {
+      navContent[selectedDashIndex].childNodes = [
+        generateTreeNode(
+          NodeType.LABEL,
+          { label: getString('cv.monitoringSources.datadog.noMetricsWidgets') },
+          'no_data_label_id'
+        )
+      ]
+      setNavContent([...navContent])
     }
   }, [metricWidgets, loading])
 

@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useEffect } from 'react'
 import { cloneDeep } from 'lodash-es'
 import { render } from '@testing-library/react'
@@ -74,7 +81,6 @@ describe('Unit tests for CloudMetricsHealthSource', () => {
     jest.clearAllMocks()
 
     jest.spyOn(cvService, 'useGetMetricPacks').mockReturnValue(mockUseGetReturnData as any)
-    jest.spyOn(cvService, 'useGetLabelNames').mockReturnValue(mockUseGetReturnData as any)
   })
 
   test('Ensure props are passed properly to child component', async () => {
@@ -108,7 +114,6 @@ describe('Unit tests for CloudMetricsHealthSource', () => {
         continuousVerification: mockCloudMetricHealthSourcePropsValue.formikProps.values.continuousVerification
       },
       metricPackResponse: mockUseGetReturnData,
-      labelNamesResponse: mockUseGetReturnData,
       hideServiceIdentifier: true
     })
     expect(mockMonacoEditor).toHaveBeenCalledTimes(0)

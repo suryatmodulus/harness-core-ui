@@ -114,6 +114,8 @@ datePickerShortcuts:
   Last2Months: Last 2 Months
 validation:
   namePatternIsNotValid: 'Name can only contain alphanumerics, _ and -'
+  provisionerIdentifierPatternIsNotValid: 'Provisioner Identifier should not contain special characters and spaces'
+  provisionerIdentifierIsRequired: 'Provisioner Identifier is required'
   harnessFolderNamePatternIsNotValid: 'Harness Folder name can only contain alphanumerics, underscore, hyphen or a whitespace'
   nameIsRequired: '{{$.validation.nameRequired}}'
   valueIsRequired: '{{$.validation.valueRequired}}'
@@ -127,6 +129,8 @@ validation:
   fieldCannotbeLongerThanN: '{{ name }} cannot be longer than {{ n }} characters'
   fieldMustBeAlphanumeric: '{{ name }} can only contain alphanumerics, _ and $'
   groupAttributeIsRequired: Group Attribute is required
+  clientIdIsRequired: Client Id is required
+  clientSecretRequired: Client Secret required
   entityIdIsRequired: Entity Id is required
   valueMustBeGreaterThanOrEqualToN: Value must be greater than or equal to {{ n }}
   valueMustBeLessThanOrEqualToN: Value must be less than or equal to {{ n }}
@@ -722,3 +726,4 @@ resourceGroupLabel: Resource Group
 roleAssignmentLabel: Role Assignment
 triggerLabel: Trigger
 delegateTokenLabel: Delegate Token
+clientSecret: Client Secret

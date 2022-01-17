@@ -79,7 +79,7 @@ exports[`Validate MapMetricsToServices conponent should render MapMetricsToServi
           class="bp3-label"
           for="baseURL"
         >
-          connectors.customHealth.baseURL
+          connectors.baseURL
            
           <span
             class="bp3-text-muted"
@@ -881,7 +881,7 @@ exports[`Validate MapMetricsToServices conponent should render MapMetricsToServi
           class="bp3-label"
           for="baseURL"
         >
-          connectors.customHealth.baseURL
+          connectors.baseURL
            
           <span
             class="bp3-text-muted"

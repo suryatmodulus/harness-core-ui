@@ -33,6 +33,7 @@ co:
     rules: 'AutoStopping Rules'
   noData: 'No data available. Please check after sometime'
   autoStoppingRule:
+    limitWarningMessage: You have used {{count}} / {{limit}} free Autostopping rules included in your current plan. Consider upgrading for unlimited Autostopping rules.
     helpText:
       step1:
         title: 'Idle Time'

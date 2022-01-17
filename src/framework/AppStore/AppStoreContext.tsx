@@ -1,8 +1,15 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { fromPairs } from 'lodash-es'
-import { PageSpinner } from '@wings-software/uicore'
+import { PageSpinner } from '@harness/uicore'
 import { useQueryParams } from '@common/hooks'
 import {
   Project,
@@ -85,7 +92,9 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     },
     lazy: true
   })
-  const { data: userInfo, loading: userInfoLoading } = useGetCurrentUserInfo({})
+  const { data: userInfo, loading: userInfoLoading } = useGetCurrentUserInfo({
+    queryParams: { accountIdentifier: accountId }
+  })
 
   const { source } = useQueryParams<{ source?: string }>()
 

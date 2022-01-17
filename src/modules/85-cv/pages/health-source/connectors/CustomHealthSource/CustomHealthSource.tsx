@@ -1,14 +1,18 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useState, useContext, useMemo, useCallback } from 'react'
 import { Container, Formik, FormikForm, Layout, Utils, Accordion } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
 import { MultiItemsSideNav } from '@cv/components/MultiItemsSideNav/MultiItemsSideNav'
 import { SetupSourceCardHeader } from '@cv/components/CVSetupSourcesView/SetupSourceCardHeader/SetupSourceCardHeader'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
-import { useGetLabelNames } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import {
   initializeCreatedMetrics,
@@ -42,14 +46,9 @@ export interface CustomHealthSourceProps {
 export function CustomHealthSource(props: CustomHealthSourceProps): JSX.Element {
   const { getString } = useStrings()
   const { onPrevious } = useContext(SetupSourceTabsContext)
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
-  const [labelNameTracingId] = useMemo(() => [Utils.randomId()], [])
 
   const { data: sourceData, onSubmit } = props
   const connectorIdentifier = sourceData?.connectorRef || ''
-  const labelNamesResponse = useGetLabelNames({
-    queryParams: { projectIdentifier, orgIdentifier, accountId, connectorIdentifier, tracingId: labelNameTracingId }
-  })
 
   const transformedSourceData = useMemo(() => transformCustomHealthSourceToSetupSource(sourceData), [sourceData])
 
@@ -200,7 +199,6 @@ export function CustomHealthSource(props: CustomHealthSourceProps): JSX.Element 
                           }}
                           hideServiceIdentifier
                           metricPackResponse={metricPacks}
-                          labelNamesResponse={labelNamesResponse}
                           hideCV={formikProps.values?.queryType === QueryType.SERVICE_BASED}
                           hideSLIAndHealthScore={formikProps.values?.queryType === QueryType.HOST_BASED}
                         />

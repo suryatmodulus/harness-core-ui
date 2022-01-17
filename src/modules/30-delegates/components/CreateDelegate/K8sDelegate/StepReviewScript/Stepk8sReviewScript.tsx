@@ -1,11 +1,18 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import set from 'lodash-es/set'
 import { Button, Layout, StepProps, Heading, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { DelegateSetupDetails, GenerateKubernetesYamlQueryParams } from 'services/portal'
+import type { DelegateSetupDetails, GenerateKubernetesYamlUsingNgTokenQueryParams } from 'services/portal'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
-import { useGenerateKubernetesYaml } from 'services/portal'
+import { useGenerateKubernetesYamlUsingNgToken } from 'services/portal'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { K8sDelegateWizardData } from '../DelegateSetupStep/DelegateSetupStep'
 
@@ -14,13 +21,13 @@ import css from '../CreateK8sDelegate.module.scss'
 const Stepk8ReviewScript: React.FC<StepProps<K8sDelegateWizardData>> = props => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
-  const { mutate: downloadYaml } = useGenerateKubernetesYaml({
+  const { mutate: downloadYaml } = useGenerateKubernetesYamlUsingNgToken({
     queryParams: {
       accountId,
       orgId: orgIdentifier,
       projectId: projectIdentifier,
       fileFormat: 'text/plain'
-    } as GenerateKubernetesYamlQueryParams
+    } as GenerateKubernetesYamlUsingNgTokenQueryParams
   })
   const linkRef = React.useRef<HTMLAnchorElement>(null)
   const [generatedYaml, setGeneratedYaml] = React.useState<string>()

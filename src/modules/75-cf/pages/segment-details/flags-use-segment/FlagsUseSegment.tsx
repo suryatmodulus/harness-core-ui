@@ -1,3 +1,10 @@
+/*
+ * Copyright 2021 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { ReactElement, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Container, FlexExpander, Heading, Layout, Text, PageError, useToaster } from '@wings-software/uicore'
@@ -12,7 +19,6 @@ import {
 } from 'services/cf'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { getErrorMessage, EntityAddingMode } from '@cf/utils/CFUtils'
-import { OptionsMenuButton } from '@common/components'
 import {
   SelectedFeatureFlag,
   SelectFeatureFlagsModalButton
@@ -24,7 +30,9 @@ import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitModal'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import { GitSyncFormValues, GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
+import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
 import { DetailHeading } from '../DetailHeading'
+import FlagItemOptionsMenuButton from './flag-item-options-menu-button/FlagItemOptionsMenuButton'
 
 interface FlagsUseSegmentProps {
   gitSync: UseGitSync
@@ -35,6 +43,7 @@ export const FlagsUseSegment = ({ gitSync }: FlagsUseSegmentProps): ReactElement
   const { showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier, segmentIdentifier } = useParams<Record<string, string>>()
   const { activeEnvironment } = useActiveEnvironment()
+
   const queryParams = {
     account: accountId,
     accountIdentifier: accountId,
@@ -227,6 +236,7 @@ const FlagsList: React.FC<{
   flags: SegmentFlagsResponseResponse | null
   onRemoveVariationMapping: (featureFlagIdentifier: string, variationIdentifier: string) => Promise<void>
 }> = ({ flags, onRemoveVariationMapping, gitSync }) => {
+  const { isPlanEnforcementEnabled } = usePlanEnforcement()
   const { getString } = useStrings()
   const directAddedFlags = flags?.filter(flag => flag.type === EntityAddingMode.DIRECT) || []
   const conditionalAddedFlags = flags?.filter(flag => flag.type === EntityAddingMode.CONDITION) || []
@@ -247,6 +257,7 @@ const FlagsList: React.FC<{
                 flag={_flag}
                 gitSync={gitSync}
                 onRemoveVariationMapping={onRemoveVariationMapping}
+                isPlanEnforcementEnabled={isPlanEnforcementEnabled}
               />
             ))}
           </Layout.Vertical>
@@ -257,7 +268,12 @@ const FlagsList: React.FC<{
           <SectionHeader>{getString('cf.segmentDetail.autoAdded')}</SectionHeader>
           <Layout.Vertical spacing="small" style={{ padding: '1px' }}>
             {conditionalAddedFlags.map(_flag => (
-              <FlagItem key={_flag.identifier} flag={_flag} gitSync={gitSync} />
+              <FlagItem
+                key={_flag.identifier}
+                flag={_flag}
+                gitSync={gitSync}
+                isPlanEnforcementEnabled={isPlanEnforcementEnabled}
+              />
             ))}
           </Layout.Vertical>
         </>
@@ -269,6 +285,7 @@ const FlagsList: React.FC<{
 interface FlagItemProps extends ItemContainerProps {
   gitSync: UseGitSync
   flag: SegmentFlag
+  isPlanEnforcementEnabled: boolean
   onRemoveVariationMapping?: (
     featureFlagIdentifier: string,
     variationIdentifier: string,
@@ -276,9 +293,15 @@ interface FlagItemProps extends ItemContainerProps {
   ) => void
 }
 
-const FlagItem: React.FC<FlagItemProps> = ({ gitSync, flag, onRemoveVariationMapping, ...props }) => {
+const FlagItem: React.FC<FlagItemProps> = ({
+  gitSync,
+  flag,
+  onRemoveVariationMapping,
+  isPlanEnforcementEnabled,
+  ...props
+}) => {
   const { name, description, variation } = flag
-  const { getString } = useStrings()
+
   const variationTextWidth = onRemoveVariationMapping ? '88px' : '135px'
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
 
@@ -300,20 +323,14 @@ const FlagItem: React.FC<FlagItemProps> = ({ gitSync, flag, onRemoveVariationMap
         <Text style={{ minWidth: variationTextWidth, maxWidth: variationTextWidth }}>{variation}</Text>
 
         {onRemoveVariationMapping && (
-          <OptionsMenuButton
-            items={[
-              {
-                text: getString('cf.segmentDetail.removeFomFlag'),
-                icon: 'cross',
-                onClick: () => {
-                  if (gitSync?.isGitSyncEnabled && !gitSync?.isAutoCommitEnabled) {
-                    setIsDeleteModalOpen(true)
-                  } else {
-                    onRemoveVariationMapping(flag.identifier, variation)
-                  }
-                }
+          <FlagItemOptionsMenuButton
+            onClick={() => {
+              if (gitSync?.isGitSyncEnabled && !gitSync?.isAutoCommitEnabled) {
+                setIsDeleteModalOpen(true)
+              } else {
+                onRemoveVariationMapping(flag.identifier, variation)
               }
-            ]}
+            }}
           />
         )}
       </Layout.Horizontal>

@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -32,9 +39,6 @@ describe('NewRelicMappedMetric component', () => {
   beforeAll(() => {
     jest
       .spyOn(cvServices, 'useGetMetricPacks')
-      .mockReturnValue({ loading: false, error: null, data: {}, refetch: refetchMock } as any)
-    jest
-      .spyOn(cvServices, 'useGetLabelNames')
       .mockReturnValue({ loading: false, error: null, data: {}, refetch: refetchMock } as any)
 
     jest.spyOn(cvServices, 'useFetchParsedSampleData').mockReturnValue({ mutate: jest.fn() } as any)

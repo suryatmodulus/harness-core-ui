@@ -1,7 +1,14 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { ReactElement } from 'react'
 import { capitalize } from 'lodash-es'
 import { useHistory, useParams } from 'react-router-dom'
-import { Button, ButtonSize, ButtonVariation, Text, Color, FontVariation, Layout } from '@wings-software/uicore'
+import { Button, ButtonSize, ButtonVariation, Text, Color, FontVariation, Layout } from '@harness/uicore'
 import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { LICENSE_STATE_VALUES } from 'framework/LicenseStore/licenseStoreUtil'
 import routes from '@common/RouteDefinitions'

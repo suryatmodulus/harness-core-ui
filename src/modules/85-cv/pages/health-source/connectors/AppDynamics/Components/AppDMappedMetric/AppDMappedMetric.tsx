@@ -1,10 +1,16 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useState, useMemo, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   Container,
   Accordion,
   SelectOption,
-  Utils,
   FormInput,
   Text,
   Color,
@@ -13,12 +19,7 @@ import {
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
-import {
-  useGetMetricPacks,
-  useGetLabelNames,
-  useGetServiceInstanceMetricPath,
-  AppDMetricDefinitions
-} from 'services/cv'
+import { useGetMetricPacks, useGetServiceInstanceMetricPath, AppDMetricDefinitions } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { SetupSourceCardHeader } from '@cv/components/CVSetupSourcesView/SetupSourceCardHeader/SetupSourceCardHeader'
@@ -55,14 +56,10 @@ export default function AppDMappedMetric({
   setCreatedMetrics
 }: AppDMappedMetricInterface): JSX.Element {
   const { getString } = useStrings()
-  const labelNameTracingId = useMemo(() => Utils.randomId(), [])
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
 
   const metricPackResponse = useGetMetricPacks({
     queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'APP_DYNAMICS' }
-  })
-  const labelNamesResponse = useGetLabelNames({
-    queryParams: { projectIdentifier, orgIdentifier, accountId, connectorIdentifier, tracingId: labelNameTracingId }
   })
 
   const { data: serviceInsanceData, refetch: refetchServiceInsance } = useGetServiceInstanceMetricPath({ lazy: true })
@@ -277,7 +274,6 @@ export default function AppDMappedMetric({
                         continuousVerification: !!formikValues?.continuousVerification
                       }}
                       metricPackResponse={metricPackResponse}
-                      labelNamesResponse={labelNamesResponse}
                       hideServiceIdentifier
                     />
                   </>

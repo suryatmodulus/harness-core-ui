@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import {
   Color,
@@ -22,7 +29,7 @@ import { Drawer } from '@blueprintjs/core'
 import isEmpty from 'lodash-es/isEmpty'
 import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { StackdriverDefinition, useGetLabelNames, useGetMetricPacks, useGetStackdriverSampleData } from 'services/cv'
+import { StackdriverDefinition, useGetMetricPacks, useGetStackdriverSampleData } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
@@ -207,16 +214,6 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
   const metricPackResponse = useGetMetricPacks({
     queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'STACKDRIVER' }
   })
-  const labelNameTracingId = useMemo(() => Utils.randomId(), [])
-  const labelNamesResponse = useGetLabelNames({
-    queryParams: {
-      projectIdentifier,
-      orgIdentifier,
-      accountId,
-      connectorIdentifier: data.connectorRef,
-      tracingId: labelNameTracingId
-    }
-  })
 
   const formInitialValues: GCOMetricInfo = updatedData.get(selectedMetric || '') || {}
 
@@ -353,7 +350,6 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                     continuousVerification
                   }}
                   metricPackResponse={metricPackResponse}
-                  labelNamesResponse={labelNamesResponse}
                   hideServiceIdentifier
                 />
 

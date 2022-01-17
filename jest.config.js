@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 process.env.TZ = 'GMT'
 const { pathsToModuleNameMapper } = require('ts-jest/utils')
 const { compilerOptions } = require('./tsconfig')
@@ -51,9 +58,11 @@ module.exports = {
     '\\.s?css$': 'identity-obj-proxy',
     'monaco-editor': '<rootDir>/node_modules/react-monaco-editor',
     'worker-loader!.+': '<rootDir>/scripts/jest/file-mock.js',
+    '@harness/monaco-yaml.*': '<rootDir>/scripts/jest/file-mock.js',
     '@wings-software/monaco-yaml.*': '<rootDir>/scripts/jest/file-mock.js',
     '\\.(jpg|jpeg|png|gif|svg|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
       '<rootDir>/scripts/jest/file-mock.js',
+    '@wings-software/(.*)': '<rootDir>/node_modules/@harness/$1',
     ...pathsToModuleNameMapper(compilerOptions.paths)
   },
   coverageThreshold: {

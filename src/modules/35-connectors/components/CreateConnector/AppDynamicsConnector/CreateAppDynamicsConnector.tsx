@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useMemo } from 'react'
 import { Layout, Button, Text, FormInput, FormikForm, Container, Color } from '@wings-software/uicore'
 import { Formik } from 'formik'
@@ -44,7 +51,7 @@ function UsernamePasswordAndApiClientOption(props: UsernamePasswordAndApiClientO
     authTypeValue === AppDynamicsAuthType.API_CLIENT_TOKEN
       ? [
           { name: 'clientId', label: getString('connectors.appD.clientId'), key: 'clientId' },
-          { name: 'clientSecretRef', label: getString('connectors.appD.clientSecret'), key: 'clientSecretRef' }
+          { name: 'clientSecretRef', label: getString('common.clientSecret'), key: 'clientSecretRef' }
         ]
       : [
           { name: 'username', label: getString('username'), key: 'username' },

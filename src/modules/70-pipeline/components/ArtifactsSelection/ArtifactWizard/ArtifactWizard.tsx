@@ -1,8 +1,14 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
-import { StepWizard, StepProps, Icon, MultiTypeInputType } from '@wings-software/uicore'
+import { StepWizard, Icon, MultiTypeInputType } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { String, StringKeys, useStrings } from 'framework/strings'
-import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { ArtifactoryRepoType } from '../ArtifactRepository/ArtifactoryRepoType'
 import { ArtifactConnector } from '../ArtifactRepository/ArtifactConnector'
 import type { InitialArtifactDataType, ConnectorRefLabelType, ArtifactType } from '../ArtifactInterface'
@@ -18,7 +24,7 @@ interface ArtifactWizardProps {
   handleViewChange: (isConnectorView: boolean) => void
   artifactInitialValue: InitialArtifactDataType
   types: Array<ArtifactType>
-  lastSteps?: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> | null
+  lastSteps: JSX.Element
   newConnectorSteps?: any
   expressions: string[]
   labels: ConnectorRefLabelType
@@ -90,8 +96,7 @@ const ArtifactWizard: React.FC<ArtifactWizardProps> = ({
       />
 
       {newConnectorView ? newConnectorSteps : null}
-
-      {lastSteps?.length ? lastSteps?.map(step => step) : null}
+      {lastSteps}
     </StepWizard>
   )
 }

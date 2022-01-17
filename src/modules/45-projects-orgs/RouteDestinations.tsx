@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import { useParams, Redirect } from 'react-router-dom'
 import AuditTrailsPage from '@audit-trail/pages/AuditTrails/AuditTrailsPage'
@@ -35,6 +42,7 @@ import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
 import DelegateListing from '@delegates/pages/delegates/DelegateListing'
 import DelegateConfigurations from '@delegates/pages/delegates/DelegateConfigurations'
 import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
+import DelegateTokens from '@delegates/components/DelegateTokens/DelegateTokens'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
@@ -259,6 +267,30 @@ export default (
       exact
     >
       <DelegateProfileDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toDelegateTokens({
+        ...accountPathProps,
+        ...projectPathProps
+      })}
+      exact
+    >
+      <DelegatesPage>
+        <DelegateTokens />
+      </DelegatesPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSideNavProps}
+      path={routes.toDelegateTokens({
+        ...accountPathProps,
+        ...orgPathProps
+      })}
+      exact
+    >
+      <DelegatesPage>
+        <DelegateTokens />
+      </DelegatesPage>
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={ProjectDetailsSideNavProps}

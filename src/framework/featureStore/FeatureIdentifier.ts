@@ -1,3 +1,10 @@
+/*
+ * Copyright 2021 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 export enum FeatureIdentifier {
   TEST1 = 'TEST1',
   TEST2 = 'TEST2',
@@ -42,5 +49,6 @@ export enum FeatureIdentifier {
   TEST_INTELLIGENCE = 'TEST_INTELLIGENCE',
   ACTIVE_COMMITTERS = 'ACTIVE_COMMITTERS',
   DEVELOPERS = 'DEVELOPERS',
-  MAUS = 'MAUS'
+  MAUS = 'MAUS',
+  RESTRICTED_AUTOSTOPPING_RULE_CREATION = 'CCM_AUTOSTOPPING_RULES'
 }

@@ -1,5 +1,25 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import type { UseGetMockDataWithMutateAndRefetch } from '@common/utils/testUtils'
 import type { ResponsePageInputSetSummaryResponse } from 'services/pipeline-ng'
+import type { InputSetValue } from '../InputSetSelector'
+
+export const mockInputSetsValue: InputSetValue[] = [
+  {
+    type: 'INPUT_SET',
+    value: 'input1',
+    label: 'input1',
+    gitDetails: {
+      repoIdentifier: 'satyamgitsync',
+      branch: 'main'
+    }
+  }
+]
 
 export const mockInputSetsList: UseGetMockDataWithMutateAndRefetch<ResponsePageInputSetSummaryResponse> = {
   loading: false,

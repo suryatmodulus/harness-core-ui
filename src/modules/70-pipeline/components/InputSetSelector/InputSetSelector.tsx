@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { Dispatch, SetStateAction, useState } from 'react'
 import {
   Checkbox,
@@ -135,6 +142,7 @@ const RenderValue = React.memo(function RenderValue({
         >
           <Button
             key={item.label}
+            data-testid={`button-${item.label}`}
             round={true}
             rightIcon="cross"
             iconProps={{
@@ -179,7 +187,7 @@ const RenderValue = React.memo(function RenderValue({
       <Button
         icon="small-plus"
         className={css.addInputSetButton}
-        onClick={() => setOpenInputSetsList(false)}
+        onClick={() => setOpenInputSetsList(true)}
         color={Color.PRIMARY_7}
         minimal
         variation={ButtonVariation.LINK}
@@ -462,7 +470,12 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                   <Layout.Horizontal flex={{ alignItems: 'center' }} padding={{ left: true }}>
                     <Icon name={getIconByType(inputSet.inputSetType)}></Icon>
                     <Container margin={{ left: true }} className={css.nameIdContainer}>
-                      <Text lineClamp={1} font={{ weight: 'bold' }} color={Color.GREY_800}>
+                      <Text
+                        data-testid={`popover-${inputSet.name}`}
+                        lineClamp={1}
+                        font={{ weight: 'bold' }}
+                        color={Color.GREY_800}
+                      >
                         {inputSet.name}
                       </Text>
                       <Text font="small" lineClamp={1} margin={{ top: 'xsmall' }} color={Color.GREY_450}>
@@ -492,16 +505,25 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
       ))
 
   const [openInputSetsList, setOpenInputSetsList] = useState(false)
+
   return (
     <Popover
       position={Position.BOTTOM}
       usePortal={false}
+      isOpen={openInputSetsList}
       minimal={true}
       className={css.isPopoverParent}
       onOpening={() => {
         refetch()
+        setOpenInputSetsList(true)
+      }}
+      onInteraction={interaction => {
+        if (!interaction) {
+          setOpenInputSetsList(false)
+        }
       }}
       onClosing={() => {
+        setOpenInputSetsList(false)
         onChange?.(selectedInputSets)
       }}
     >
@@ -512,7 +534,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
         setOpenInputSetsList={setOpenInputSetsList}
         selectedValueClass={selectedValueClass}
       />
-      {openInputSetsList ? null : (
+      {openInputSetsList ? (
         <Layout.Vertical spacing="small" className={css.popoverContainer}>
           <div className={!inputSets ? css.loadingSearchContainer : css.searchContainer}>
             <TextInput
@@ -550,7 +572,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
                     variation={ButtonVariation.PRIMARY}
                     disabled={!selectedInputSets?.length}
                     onClick={() => {
-                      setOpenInputSetsList(true)
+                      setOpenInputSetsList(false)
                       onChange?.(selectedInputSets)
                     }}
                   />
@@ -569,7 +591,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
             </Layout.Vertical>
           )}
         </Layout.Vertical>
-      )}
+      ) : null}
     </Popover>
   )
 }

@@ -1,5 +1,13 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useCallback, useMemo } from 'react'
-import { Button, ButtonVariation, Layout, Select, Text } from '@wings-software/uicore'
+import { Button, ButtonVariation, Layout, Select } from '@wings-software/uicore'
+import { defaultTo } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import type { SLODashbordFiltersProps } from './SLODashboardFilters.types'
 import {
@@ -41,11 +49,16 @@ const SLODashbordFilters: React.FC<SLODashbordFiltersProps> = ({
   const { updateUserJourney, updateMonitoredServices, updateTargetType, updateSliType } = SLODashboardFilterActions
 
   return (
-    <Layout.Horizontal margin={{ bottom: 'medium' }} className={css.sloFilters}>
-      <Layout.Vertical width="180px" margin={{ right: 'small' }} data-testid="userJourney-filter">
-        <Text>{getString('cv.slos.userJourney')}</Text>
+    <Layout.Horizontal className={css.sloFilters}>
+      <Layout.Vertical width="240px" margin={{ right: 'small' }} data-testid="userJourney-filter">
         <Select
-          value={filterState.userJourney}
+          value={{
+            label: `${getString('cv.slos.userJourney')}: ${defaultTo(
+              filterState.userJourney?.label,
+              getString('all')
+            )}`,
+            value: defaultTo(filterState.userJourney?.value, getString('all'))
+          }}
           items={getUserJourneyOptionsForFilter(filterItemsData.userJourney?.data?.content, getString)}
           onChange={item => {
             dispatch(updateUserJourney({ userJourney: item }))
@@ -53,10 +66,15 @@ const SLODashbordFilters: React.FC<SLODashbordFiltersProps> = ({
         />
       </Layout.Vertical>
       {!hideMonitoresServicesFilter && (
-        <Layout.Vertical width="180px" margin={{ right: 'small' }} data-testid="monitoredServices-filter">
-          <Text>{getString('cv.monitoredServices.title')}</Text>
+        <Layout.Vertical width="240px" margin={{ right: 'small' }} data-testid="monitoredServices-filter">
           <Select
-            value={filterState.monitoredService}
+            value={{
+              label: `${getString('cv.monitoredServices.title')}: ${defaultTo(
+                filterState.monitoredService?.label,
+                getString('all')
+              )}`,
+              value: defaultTo(filterState.monitoredService?.value, getString('all'))
+            }}
             items={getMonitoredServicesOptionsForFilter(filterItemsData.monitoredServices, getString)}
             onChange={item => {
               dispatch(updateMonitoredServices({ monitoredService: item }))
@@ -64,20 +82,27 @@ const SLODashbordFilters: React.FC<SLODashbordFiltersProps> = ({
           />
         </Layout.Vertical>
       )}
-      <Layout.Vertical width="180px" margin={{ right: 'small' }} data-testid="sloTargetAndBudget-filter">
-        <Text>{getString('cv.slos.sloTargetAndBudget.periodType')}</Text>
+      <Layout.Vertical width="240px" margin={{ right: 'small' }} data-testid="sloTargetAndBudget-filter">
         <Select
-          value={filterState.targetTypes}
+          value={{
+            label: `${getString('cv.slos.sloTargetAndBudget.periodType')}: ${defaultTo(
+              filterState.targetTypes?.label,
+              getString('all')
+            )}`,
+            value: defaultTo(filterState.targetTypes?.value, getString('all'))
+          }}
           items={getPeriodTypeOptionsForFilter(getString)}
           onChange={item => {
             dispatch(updateTargetType({ targetTypes: item }))
           }}
         />
       </Layout.Vertical>
-      <Layout.Vertical width="180px" margin={{ right: 'small' }} data-testid="sliType-filter">
-        <Text>{getString('cv.slos.sliType')}</Text>
+      <Layout.Vertical width="240px" margin={{ right: 'small' }} data-testid="sliType-filter">
         <Select
-          value={filterState.sliTypes}
+          value={{
+            label: `${getString('cv.slos.sliType')}: ${defaultTo(filterState.sliTypes?.label, getString('all'))}`,
+            value: defaultTo(filterState.sliTypes?.value, getString('all'))
+          }}
           items={getSliTypeOptionsForFilter(getString)}
           onChange={item => {
             dispatch(updateSliType({ sliTypes: item }))

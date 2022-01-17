@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import { Route, useParams, Redirect } from 'react-router-dom'
 import { RouteWithLayout } from '@common/router'
@@ -44,6 +51,7 @@ import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
 import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
 import DelegateProfileDetails from '@delegates/pages/delegates/DelegateConfigurationDetailPage'
+import DelegateTokens from '@delegates/components/DelegateTokens/DelegateTokens'
 import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
 import SecretReferences from '@secrets/pages/secretReferences/SecretReferences'
 import SecretDetailsHomePage from '@secrets/pages/secretDetailsHomePage/SecretDetailsHomePage'
@@ -500,6 +508,22 @@ export default (
       ]}
     >
       <DelegateProfileDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CISideNavProps}
+      path={[
+        routes.toDelegateTokens({
+          ...accountPathProps,
+          ...projectPathProps,
+          ...pipelineModuleParams
+        })
+      ]}
+    >
+      <DelegatesPage>
+        <DelegateTokens />
+      </DelegatesPage>
     </RouteWithLayout>
     <RouteWithLayout
       exact

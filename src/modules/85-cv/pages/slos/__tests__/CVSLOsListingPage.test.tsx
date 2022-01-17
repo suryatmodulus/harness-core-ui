@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import userEvent from '@testing-library/user-event'
 import { render, waitFor, screen } from '@testing-library/react'
@@ -104,7 +111,7 @@ describe('CVSLOsListingPage', () => {
     expect(screen.getByText('cv.slos.newSLO')).toBeInTheDocument()
   })
 
-  test('With monitoredServiceIdentifier it should not render with the page header and +New SLO button', () => {
+  test('With monitoredServiceIdentifier it should not render with the page header and render +New SLO button', () => {
     render(
       <ComponentWrapper
         monitoredService={{ identifier: 'monitored_service_identifier', name: 'monitored_service_identifier' }}
@@ -112,7 +119,7 @@ describe('CVSLOsListingPage', () => {
     )
 
     expect(screen.queryByText('cv.slos.title')).not.toBeInTheDocument()
-    expect(screen.queryByText('cv.slos.newSLO')).not.toBeInTheDocument()
+    expect(screen.queryByText('cv.slos.newSLO')).toBeInTheDocument()
   })
 
   test('add new SLO should go to create page', async () => {

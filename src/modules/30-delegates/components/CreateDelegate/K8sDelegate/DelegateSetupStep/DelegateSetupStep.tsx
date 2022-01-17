@@ -1,4 +1,11 @@
-import React from 'react'
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
+import React, { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import set from 'lodash-es/set'
 import {
@@ -20,7 +27,9 @@ import {
   DelegateSizeDetails,
   useGetDelegateSizes,
   useValidateKubernetesYaml,
-  DelegateSetupDetails
+  DelegateSetupDetails,
+  useGetDelegateTokens,
+  DelegateTokenDetails
 } from 'services/portal'
 
 import { useListDelegateProfilesNg } from 'services/cd-ng'
@@ -32,6 +41,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 
 import { DelegateSize } from '@delegates/constants'
+import { useCreateTokenModal } from '@delegates/components/DelegateTokens/modals/useCreateTokenModal'
 import DelegateSizes from '../../components/DelegateSizes/DelegateSizes'
 
 import css from './DelegateSetupStep.module.scss'
@@ -63,8 +73,18 @@ const formatProfileList = (data: any): Array<SelectOption> => {
     ? profiles.map((item: DelegateProfile) => {
         return { label: item.name || '', value: item.uuid || '' }
       })
-    : [{ label: '', value: '' }]
+    : []
   return options
+}
+
+const formatTokenOptions = (data: any): Array<SelectOption> => {
+  const profiles: Array<DelegateTokenDetails> = data?.resource
+
+  return profiles
+    ? profiles.map((item: DelegateTokenDetails) => {
+        return { label: item.name || '', value: item.name || '' }
+      })
+    : []
 }
 
 const getDefaultDelegateConfiguration = (data: any) => {
@@ -94,6 +114,7 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
       description: '',
       size: DelegateSize.LAPTOP,
       sesssionIdentifier: '',
+      tokenName: '',
       k8sConfigDetails: {
         k8sPermissionType: k8sPermissionType.CLUSTER_ADMIN,
         namespace: ''
@@ -118,12 +139,32 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
   const defaultProfile = getDefaultDelegateConfiguration(data)
   const profileOptions: SelectOption[] = formatProfileList(data)
 
+  const { data: tokensResponse, refetch: getTokens } = useGetDelegateTokens({
+    queryParams: {
+      accountId,
+      projectIdentifier,
+      orgIdentifier,
+      status: 'ACTIVE'
+    }
+  })
+
+  const defaultToken = tokensResponse?.resource?.[0]
+
+  const { openCreateTokenModal } = useCreateTokenModal({ onSuccess: getTokens })
+
   React.useEffect(() => {
     if (defaultProfile) {
-      formData['delegateConfigurationId'] = defaultProfile?.uuid
+      formData.delegateConfigurationId = defaultProfile?.uuid
       setInitValues({ ...formData })
     }
   }, [defaultProfile])
+
+  React.useEffect(() => {
+    if (defaultToken) {
+      formData.tokenName = defaultToken?.name
+      setInitValues({ ...formData })
+    }
+  }, [defaultToken])
 
   const delegateSizeMappings: DelegateSizeDetails[] | undefined = delegateSizes?.resource
 
@@ -178,6 +219,8 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
     }
   }
 
+  const delegateTokenOptions = useMemo(() => formatTokenOptions(tokensResponse), [tokensResponse])
+
   return (
     <Layout.Vertical padding="xxlarge">
       <Container padding="small">
@@ -201,7 +244,8 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
                 selectedPermission === k8sPermissionType.NAMESPACE_ADMIN
                   ? Yup.string().trim().required(getString('delegates.delegateNamespaceRequired'))
                   : Yup.string().trim()
-            })
+            }),
+            tokenName: Yup.string().trim().required()
           })}
         >
           {(formikProps: FormikProps<DelegateSetupDetails>) => {
@@ -245,6 +289,22 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
                           </div>
                         </Container>
                       )}
+                      <Layout.Horizontal className={css.tokensSelectContainer} spacing="small">
+                        <FormInput.Select
+                          items={delegateTokenOptions}
+                          label={getString('delegates.tokens.delegateTokens')}
+                          name="tokenName"
+                        />
+                        <Button
+                          minimal
+                          icon="plus"
+                          onClick={e => {
+                            e.preventDefault()
+                            openCreateTokenModal()
+                          }}
+                          text={getString('add')}
+                        />
+                      </Layout.Horizontal>
                     </Layout.Vertical>
                     <Layout.Vertical className={css.rightPanel}>
                       <div className={css.permissionsTitle}>{getString('delegates.delegatePermissions.title')}</div>

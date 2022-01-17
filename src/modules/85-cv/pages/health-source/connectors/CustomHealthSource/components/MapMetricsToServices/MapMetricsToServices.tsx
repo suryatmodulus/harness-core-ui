@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useContext, useState } from 'react'
 import { SelectOption, Container } from '@wings-software/uicore'
 import type { CustomHealthMetricDefinition } from 'services/cv'
@@ -44,7 +51,7 @@ export default function MapMetricsToServices({
         item={formikProps.values?.groupName}
         setGroupNames={setPrometheusGroupName}
         label={getString('cv.monitoringSources.prometheus.groupName')}
-        title={getString('cv.healthSource.connectors.NewRelic.groupName')}
+        title={getString('cv.customHealthSource.addGroupNameTitle')}
         fieldName={CustomHealthSourceFieldNames.GROUP_NAME}
       />
     </Container>

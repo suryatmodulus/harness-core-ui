@@ -78,7 +78,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       props.gatewayDetails.idleTimeMins <= CONFIG_IDLE_TIME_CONSTRAINTS.MAX &&
       (selectedResource === RESOURCES.INSTANCES ? props.gatewayDetails.fullfilment !== '' : true) &&
       (!_isEmpty(props.gatewayDetails.deps)
-        ? props.gatewayDetails.deps.every(_dep => !isNaN(_dep.dep_id) && !isNaN(_dep.delay_secs))
+        ? props.gatewayDetails.deps.every(_dep => !isNaN(_dep.dep_id as number) && !isNaN(_dep.delay_secs as number))
         : true) &&
       (props.gatewayDetails.routing.instance.scale_group
         ? (props.gatewayDetails.routing.instance.scale_group?.on_demand as number) > 0 &&

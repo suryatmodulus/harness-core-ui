@@ -69,7 +69,7 @@ exports[`ConfigureNotifications Email 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-variation-form-label"
                     >
-                      notifications.labelSlackUserGroups
+                      notifications.labelEmailUserGroups
                     </p>
                   </div>
                   <div

@@ -96,7 +96,7 @@ orgAccessControl: Organization Level Access Control
 orgAccessCtrlAndAuditTrail: Organization Level Access Control and Audit Trail
 orgGovernance: Organization Level Governance
 viewAllProjects: View All Projects
-searchProjectPlaceHolder: Search your project by name or ID
+searchProjectPlaceHolder: Search your project by name or Id
 projectsInOrg: projects under <br/> your organization
 createAProject: Create a Project
 manageAProject: Click to manage project

@@ -7,7 +7,7 @@ exports[`open and close the CE Trial Modal Rendering should open  the start tria
   class="bp3-dialog dialog ceTrial"
 >
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-large"
+    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-xxxlarge StyledProps--padding-bottom-xxxlarge"
   >
     <div
       class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
@@ -17,8 +17,8 @@ exports[`open and close the CE Trial Modal Rendering should open  the start tria
         style="background: transparent url(test-file-stub) no-repeat; width: 50%;"
       />
       <div
-        class="StyledProps--font StyledProps--main StyledProps--padding-left-xxxlarge"
-        style="width: 50%; height: 500px;"
+        class="StyledProps--font StyledProps--main setupForm StyledProps--padding-left-xxxlarge"
+        style="width: 50%;"
       >
         <div
           class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"

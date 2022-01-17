@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, FormInput, Icon, Label, DataTooltipInterface, HarnessDocTooltip } from '@wings-software/uicore'
 import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
-import { isEmpty } from 'lodash-es'
+import { defaultTo, isEmpty } from 'lodash-es'
 import { Classes, IInputGroupProps, ITagInputProps } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
@@ -52,6 +52,10 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
   const [isDescriptionOpen, setDescriptionOpen] = useState<boolean>(hasValue || false)
   const [isDescriptionFocus, setDescriptionFocus] = useState<boolean>(false)
 
+  useEffect(() => {
+    setDescriptionOpen(defaultTo(hasValue, false))
+  }, [hasValue])
+
   return (
     <Container style={{ marginBottom: isDescriptionOpen ? '0' : 'var(--spacing-medium)' }}>
       <Label className={cx(Classes.LABEL, css.descriptionLabel)} data-tooltip-id={props.dataTooltipId}>
@@ -89,6 +93,10 @@ export const Tags = (props: TagsComponentProps): JSX.Element => {
   const { tagsProps, hasValue, isOptional = true } = props
   const { getString } = useStrings()
   const [isTagsOpen, setTagsOpen] = useState<boolean>(hasValue || false)
+
+  useEffect(() => {
+    setTagsOpen(defaultTo(hasValue, false))
+  }, [hasValue])
 
   return (
     <Container>

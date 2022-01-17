@@ -7,12 +7,16 @@ import type {
   RestResponseServiceLevelObjectiveResponse,
   ResponsePageUserJourneyResponse,
   ResponseListMonitoredServiceWithHealthSources,
-  RestResponseListMetricDTO
+  RestResponseListMetricDTO,
+  ServiceLevelIndicatorDTO,
+  RatioSLIMetricSpec,
+  ThresholdSLIMetricSpec
 } from 'services/cv'
 import {
   Comparators,
   PeriodTypes,
   SLIEventTypes,
+  SLIForm,
   SLIMetricTypes,
   SLIMissingDataTypes,
   SLITypes,
@@ -39,14 +43,7 @@ export const testWrapperPropsForEdit: TestWrapperProps = {
   pathParams: { ...pathParams, identifier: 'SLO5' }
 }
 
-export const serviceLevelObjective: SLOForm = {
-  name: 'SLO-5-updated',
-  identifier: 'SLO5',
-  description: 'description added',
-  tags: {},
-  userJourneyRef: 'journey2',
-  monitoredServiceRef: 'test1_env1',
-  healthSourceRef: 'Test_gcp',
+export const SLIFormData: SLIForm = {
   SLIType: SLITypes.LATENCY,
   SLIMetricType: SLIMetricTypes.RATIO,
   eventType: SLIEventTypes.GOOD,
@@ -55,6 +52,20 @@ export const serviceLevelObjective: SLOForm = {
   objectiveValue: 10,
   objectiveComparator: Comparators.LESS,
   SLIMissingDataType: SLIMissingDataTypes.GOOD,
+  name: 'SLO-5-updated',
+  identifier: 'SLO5',
+  healthSourceRef: 'Test_gcp'
+}
+
+export const serviceLevelObjective: SLOForm = {
+  name: 'SLO-5-updated',
+  identifier: 'SLO5',
+  description: 'description added',
+  tags: {},
+  userJourneyRef: 'journey2',
+  monitoredServiceRef: 'test1_env1',
+  healthSourceRef: 'Test_gcp',
+  ...SLIFormData,
   periodType: PeriodTypes.ROLLING,
   periodLength: '30',
   periodLengthType: undefined,
@@ -112,4 +123,22 @@ export const monitoredServiceWithHealthSourcesResponse: ResponseListMonitoredSer
 
 export const listMetricDTOResponse: RestResponseListMetricDTO = {
   resource: [{ metricName: 'Metric 1', identifier: 'Metric_1' }]
+}
+
+export const serviceLevelIndicator: ServiceLevelIndicatorDTO = {
+  name: 'SLO-5-updated',
+  identifier: 'SLO5',
+  healthSourceRef: 'Test_gcp',
+  type: SLITypes.LATENCY,
+  sliMissingDataType: SLIMissingDataTypes.GOOD,
+  spec: {
+    type: SLIMetricTypes.RATIO,
+    spec: {
+      eventType: SLIEventTypes.GOOD,
+      metric1: 'metric1',
+      metric2: 'metric2',
+      thresholdType: Comparators.LESS,
+      thresholdValue: 10
+    } as ThresholdSLIMetricSpec & RatioSLIMetricSpec
+  }
 }

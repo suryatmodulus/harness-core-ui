@@ -174,6 +174,12 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
     }
   }
 
+  const handleErrorDisplay = (e: any, fallbackMsgKey?: string) => {
+    if (!Utils.isUserAbortedRequest(e)) {
+      showError(e.data?.message || e.message, undefined, fallbackMsgKey)
+    }
+  }
+
   const clearResourceDetailsFromGateway = (resourceType: RESOURCES) => {
     const resourceToFunctionalityMap: Record<string, () => void> = {
       [RESOURCES.INSTANCES]: () => {
@@ -257,7 +263,7 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
       setAllInstances(instances)
       setFilteredInstances(instances)
     } catch (e) {
-      showError(e.data?.message || e.message, undefined, 'ce.refetch.instance.error')
+      handleErrorDisplay(e, 'ce.refetch.instance.error')
     }
   }
 
@@ -270,7 +276,7 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
         setAsgToShow(filteredAsgs)
       }
     } catch (err) {
-      showError(err.data?.message || err.message, undefined, 'ce.fetchAndSetAsgItems.error')
+      handleErrorDisplay(err, 'ce.fetchAndSetAsgItems.error')
     }
   }
 
@@ -290,7 +296,7 @@ const ManageResources: React.FC<ManageResourcesProps> = props => {
         prevSelectedConnector && setSelectedConnector(prevSelectedConnector)
       }
     } catch (e) {
-      showError(e.data?.message || e.message)
+      handleErrorDisplay(e)
     }
   }
 

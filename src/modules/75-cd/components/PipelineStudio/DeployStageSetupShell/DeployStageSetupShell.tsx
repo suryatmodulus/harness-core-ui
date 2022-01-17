@@ -22,6 +22,8 @@ import { useQueryParams } from '@common/hooks'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
+import { useAddStepTemplate } from '@pipeline/hooks/useAddStepTemplate'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
 import DeployServiceSpecifications from '../DeployServiceSpecifications/DeployServiceSpecifications'
 import DeployStageSpecifications from '../DeployStageSpecifications/DeployStageSpecifications'
@@ -107,7 +109,7 @@ export default function DeployStageSetupShell(): JSX.Element {
 
   React.useEffect(() => {
     if (selectedTabId === DeployTabs.EXECUTION) {
-      if (data?.stage) {
+      if (data?.stage && data?.stage.type === StageType.DEPLOY) {
         if (!data?.stage?.spec?.execution) {
           const stageType = data?.stage?.type
           const openExecutionStrategy = stageType ? stagesMap[stageType].openExecutionStrategy : true
@@ -144,6 +146,8 @@ export default function DeployStageSetupShell(): JSX.Element {
   const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
 
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
+  const { addTemplate } = useAddStepTemplate({ executionRef: executionRef.current })
+
   const navBtns = (
     <Layout.Horizontal className={css.navigationBtns}>
       {selectedTabId !== DeployTabs.OVERVIEW && (
@@ -252,24 +256,28 @@ export default function DeployStageSetupShell(): JSX.Element {
                 if (stageData.stage) updateStage(stageData.stage)
               }}
               onAddStep={(event: ExecutionGraphAddStepEvent) => {
-                updatePipelineView({
-                  ...pipelineView,
-                  isDrawerOpened: true,
-                  drawerData: {
-                    type: DrawerTypes.AddStep,
-                    data: {
-                      paletteData: {
-                        entity: event.entity,
-                        stepsMap: event.stepsMap,
-                        onUpdate: executionRef.current?.stepGroupUpdated,
-                        // isAddStepOverride: true,
-                        isRollback: event.isRollback,
-                        isParallelNodeClicked: event.isParallel,
-                        hiddenAdvancedPanels: [AdvancedPanels.PreRequisites]
+                if (event.isTemplate) {
+                  addTemplate(event)
+                } else {
+                  updatePipelineView({
+                    ...pipelineView,
+                    isDrawerOpened: true,
+                    drawerData: {
+                      type: DrawerTypes.AddStep,
+                      data: {
+                        paletteData: {
+                          entity: event.entity,
+                          stepsMap: event.stepsMap,
+                          onUpdate: executionRef.current?.stepGroupUpdated,
+                          // isAddStepOverride: true,
+                          isRollback: event.isRollback,
+                          isParallelNodeClicked: event.isParallel,
+                          hiddenAdvancedPanels: [AdvancedPanels.PreRequisites]
+                        }
                       }
                     }
-                  }
-                })
+                  })
+                }
               }}
               onEditStep={(event: ExecutionGraphEditStepEvent) => {
                 updatePipelineView({

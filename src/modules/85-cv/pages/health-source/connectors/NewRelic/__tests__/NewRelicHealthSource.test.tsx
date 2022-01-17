@@ -69,9 +69,6 @@ describe('Unit tests for NewRelic health source', () => {
     jest
       .spyOn(cvServices, 'getNewRelicMetricDataPromise')
       .mockImplementation(() => ({ error: null, data: validationData.data } as any))
-    jest
-      .spyOn(cvServices, 'useGetLabelNames')
-      .mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: refetchMock } as any))
   })
 
   test('Test NewRelic healthSource container loads', async () => {

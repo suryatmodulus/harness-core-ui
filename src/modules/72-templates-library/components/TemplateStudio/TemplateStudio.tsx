@@ -78,8 +78,8 @@ export function TemplateStudio(): React.ReactElement {
 
   const { openDialog: openConfirmBEUpdateError } = useConfirmationDialog({
     cancelButtonText: getString('cancel'),
-    contentText: getString('pipelines-studio.pipelineUpdatedError'),
-    titleText: getString('pipelines-studio.pipelineUpdated'),
+    contentText: getString('templatesLibrary.templateUpdatedError'),
+    titleText: getString('common.template.updateTemplate.templateUpdated'),
     confirmButtonText: getString('update'),
     onCloseDialog: isConfirmed => {
       if (isConfirmed) {

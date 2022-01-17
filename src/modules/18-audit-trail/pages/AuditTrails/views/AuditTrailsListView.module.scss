@@ -1,0 +1,19 @@
+.table {
+  padding: var(--spacing-xlarge);
+  .pagination {
+    justify-content: space-between !important;
+  }
+  .notesIcon {
+    cursor: pointer;
+  }
+  .resourceLink p {
+    color: var(--primary-7);
+    margin-bottom: var(--spacing-xsmall);
+  }
+  .navSettingIcon svg path {
+    fill: var(--grey-450) !important;
+  }
+  .avatar {
+    margin-left: 0px;
+  }
+}

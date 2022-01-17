@@ -68,12 +68,8 @@ const UserGroupDetails: React.FC = () => {
           <NGBreadcrumbs
             links={[
               {
-                url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
-                label: getString('accessControl')
-              },
-              {
                 url: routes.toUserGroups({ accountId, orgIdentifier, projectIdentifier, module }),
-                label: getString('common.userGroups')
+                label: `${getString('accessControl')}: ${getString('common.userGroups')}`
               }
             ]}
           />

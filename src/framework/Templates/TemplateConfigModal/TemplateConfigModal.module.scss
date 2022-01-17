@@ -1,10 +1,16 @@
 .basicDetails {
   padding: var(--spacing-10) var(--spacing-11) !important;
+  border-radius: 6px;
+
   .nameIdDescriptionTags {
     margin-bottom: 0px !important;
     > div {
       margin-bottom: var(--spacing-medium) !important;
     }
+  }
+
+  .comment {
+    max-height: 240px !important;
   }
 }
 

@@ -305,7 +305,7 @@ const MockExecutionNode: ExecutionNode = {
   }
 } as ExecutionNode
 
-describe('Unit tests for Deployment metrics', () => {
+describe('Unit tests for Deployment metrics ', () => {
   beforeEach(() => {
     jest.clearAllTimers()
     jest.clearAllMocks()

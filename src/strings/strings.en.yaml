@@ -362,7 +362,7 @@ environment: 'Environment'
 environmentVariables: 'Environment Variables'
 service: 'Service'
 plusAdd: '+ Add'
-idLabel: 'ID: {{id}}'
+idLabel: 'Id: {{id}}'
 nameLabel: 'Name: {{name}}'
 descriptionLabel: 'Description: {{description}}'
 launchStudio: Launch Studio
@@ -488,10 +488,7 @@ inputSets:
   newOverlayInputSet: New Overlay Input Set
   newInputSetLabel: New Input Set
   inputSetSaved: Input Set saved
-  nameIsRequired: Input Set Name is required
   inputSetIsRequired: Input Set field is required
-  inputSetName: Input Set name
-  overlaySetName: Overlay Set name
   overlayInputSetSavedError: 'Error while saving Overlay Input Set'
   selectInputSets: Select Input Sets
   selectInputSetsHelp: Multiple Input Sets can be overlaid together. They are applied in the order specified. The first set is applied first, and subsequent sets are layered in their order and override any previously specified values.
@@ -575,7 +572,7 @@ cdDashboard:
 hours: hours
 gitFetchTypes:
   fromBranch: 'Latest from Branch'
-  fromCommit: 'Specific Commit ID'
+  fromCommit: 'Specific Commit Id'
 snippets:
   copyToClipboard: Copy to Clipboard
   copied: Copied!
@@ -709,7 +706,7 @@ delegate:
   stepOneWizard: 'Create Delegate'
   reviewScript:
     configProxySettings: 'Configure Proxy Settings (optional)'
-    descriptionProxySettings: 'If the connection to Harness is through a proxy, configure the proxy settings PROXY_HOST, PROXY_USER, and PROXY_PASSWORD in harness-delegate.yaml '
+    descriptionProxySettings: 'If the Delegate will connect to Harness using a proxy, configure the proxy settings PROXY_HOST, PROXY_USER, and PROXY_PASSWORD in harness-delegate.yaml.'
   successVerification:
     applyYAMLTitle: ' Apply YAML and verify connection'
     description1: 'Copy the downloaded YAML to a machine with kubectl installed and access to your Kubernetes cluster.'
@@ -749,8 +746,8 @@ delegate:
   deleteDelegateConfigurationQuestion: 'Are you sure you want to delete the configuration?'
   deleteDelegateConfigurationSuccess: 'Delegate Configuration {{ profileName }} deleted'
 execution:
-  pipelineIdentifierTextCI: '(Build ID: {{runSequence}})' # Text for Pipeline Identifier
-  pipelineIdentifierTextCD: '(Execution ID: {{runSequence}})' # Text for Pipeline Identifier
+  pipelineIdentifierTextCI: '(Build Id: {{runSequence}})' # Text for Pipeline Identifier
+  pipelineIdentifierTextCD: '(Execution Id: {{runSequence}})' # Text for Pipeline Identifier
   triggerType: # text for trigger types
     MANUAL: Manually
     WEBHOOK: Webhook
@@ -823,7 +820,7 @@ pipelineSteps:
   connectorLabel: 'Container Registry'
   hostLabel: Host
   hostPlaceholder: us.gcr.io
-  projectIDLabel: Project ID
+  projectIDLabel: Project Id
   cacheFromLabel: 'Cache From'
   autoTagLabel: 'Auto-Tag'
   autoTagSuffixLabel: 'Auto-Tag Suffix'
@@ -1001,16 +998,16 @@ validation:
   OIDCIssuerUrl: 'OIDC Issuer URL is required'
   OIDCUsername: 'OIDC Username is required'
   OIDCPassword: 'OIDC Password is required'
-  OIDCClientId: 'OIDC Client ID is required'
+  OIDCClientId: 'OIDC Client Id is required'
   OIDCSecret: 'OIDC Secret is required'
   clientKey: 'Client Key is required'
   clientKeyPassphrase: 'Client Key passphrase is required'
   clientCertificate: 'Client Certificate is required'
   encryptedKey: 'Encrypted Key is required'
-  installationId: 'GitHub Installation ID is required'
-  applicationId: 'GitHub Application ID is required'
+  installationId: 'GitHub Installation Id is required'
+  applicationId: 'GitHub Application Id is required'
   vaultUrl: Vault URL is required
-  secretId: Secret ID is required
+  secretId: Secret Id is required
   secretEngineName: Secret Engine Name is required
   secretEngine: Secret Engine is required
   engineVersionNumber: Secret Engine Version can only be a positive number
@@ -1018,7 +1015,7 @@ validation:
   renewalNumber: 'Renewal interval can only be a positive number'
   renewalInterval: 'Renewal interval is required'
   authToken: 'Auth Token is required'
-  appRole: 'App Role ID is required'
+  appRole: 'App Role Id is required'
   sshKey: SSH key is required
   kerberosKey: Kerberos key is required
   privateKey: 'GitHub private key is required'
@@ -1039,13 +1036,13 @@ validation:
   imageNameRequired: Image Name is required
   regionRequired: Region is required
   dockerRegistryRequired: Docker Registry is required
-  accountRequired: Account ID is required
+  accountRequired: Account Id is required
   bucketRequired: Bucket is required
   sourcePathRequired: Source Path is required
   targetRequired: Target is required
   sourcePathsRequired: Source Paths is required
   hostRequired: Host is required
-  projectIDRequired: Project ID is required
+  projectIDRequired: Project Id is required
   scriptTypeRequired: Script Type is required
   targethostRequired: 'Target host is required'
   workingDirRequired: 'Working Directory is required'

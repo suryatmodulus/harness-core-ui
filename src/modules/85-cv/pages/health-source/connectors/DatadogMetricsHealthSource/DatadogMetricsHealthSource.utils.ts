@@ -68,7 +68,10 @@ export function mapDatadogMetricHealthSourceToDatadogMetricSetupSource(sourceDat
         id: metricDefinition.dashboardId
       })
     }
-    setupSource.metricDefinition.set(metricDefinition.metricName, {
+    setupSource.metricDefinition.set(metricDefinition.metricPath || '', {
+      identifier: metricDefinition.identifier,
+      dashboardId: metricDefinition.dashboardId,
+      metricPath: metricDefinition.metricPath,
       metricName: metricDefinition.metricName,
       aggregator: metricDefinition.aggregation as DatadogAggregationType,
       metric: metricDefinition.metric,
@@ -81,7 +84,6 @@ export function mapDatadogMetricHealthSourceToDatadogMetricSetupSource(sourceDat
       metricTags: metricDefinition.metricTags?.map(metricTag => {
         return { label: metricTag, value: metricTag }
       }),
-      id: metricDefinition.dashboardId,
       isManualQuery: manualQuery,
       riskCategory:
         metricDefinition?.analysis?.riskProfile?.category && metricDefinition?.analysis?.riskProfile?.metricType
@@ -119,6 +121,7 @@ export function mapDatadogMetricSetupSourceToDatadogHealthSource(
     if (!selectedMetric || !metricInfo) {
       continue
     }
+
     const [category, metricType] = metricInfo.riskCategory?.split('/') || []
 
     const thresholdTypes: RiskProfile['thresholdTypes'] = []
@@ -131,14 +134,16 @@ export function mapDatadogMetricSetupSourceToDatadogHealthSource(
 
     const riskProfile = {
       metricType: metricType as RiskProfile['metricType'],
-      category: category as RiskProfile['category'],
+      category: category?.length ? (category as RiskProfile['category']) : null,
       thresholdTypes
     }
 
     const spec: DatadogMetricHealthSourceSpec = (healthSource.spec as DatadogMetricHealthSourceSpec) || {}
     spec.metricDefinitions?.push({
+      identifier: metricInfo.identifier,
       dashboardName: metricInfo.groupName?.value as string,
-      dashboardId: metricInfo.id,
+      dashboardId: metricInfo.dashboardId,
+      metricPath: metricInfo.metricPath,
       metricName: metricInfo.metricName as string,
       metric: metricInfo.metric,
       metricTags: metricInfo.metricTags?.map(metricTag => metricTag.value as string),
@@ -162,9 +167,26 @@ export function mapDatadogMetricSetupSourceToDatadogHealthSource(
   return healthSource
 }
 
+export function getIsAllIDsUnique(
+  selectedMetrics: Map<string, DatadogMetricInfo>,
+  currentMetric: DatadogMetricInfo
+): boolean {
+  // to prevent error during submit
+  if (!selectedMetrics) {
+    return false
+  }
+
+  return ![...selectedMetrics.values()].find(
+    metricData =>
+      currentMetric.identifier?.trim() === metricData.identifier?.trim() &&
+      currentMetric.metricPath !== metricData.metricPath
+  )
+}
+
 export function validateFormMappings(
   values: DatadogMetricInfo,
-  getString: (key: StringKeys) => string
+  selectedMetrics: Map<string, DatadogMetricInfo>,
+  getString: (key: StringKeys, vars?: Record<string, any> | undefined) => string
 ): Record<string, any> {
   const errors: any = {}
   if (!values?.query?.length) {
@@ -190,6 +212,21 @@ export function validateFormMappings(
     }
   }
 
+  if (!values.identifier?.trim()) {
+    errors[DatadogMetricsHealthSourceFieldNames.METRIC_IDENTIFIER] = getString('validation.identifierRequired')
+  } else {
+    const isAllIDsUnique = getIsAllIDsUnique(selectedMetrics, values)
+
+    if (!isAllIDsUnique) {
+      errors[DatadogMetricsHealthSourceFieldNames.METRIC_IDENTIFIER] = getString(
+        'cv.monitoringSources.uniqueIdentifierValidation',
+        {
+          idName: values.identifier.trim()
+        }
+      )
+    }
+  }
+
   if (!values.metricName?.length) {
     errors[DatadogMetricsHealthSourceFieldNames.METRIC_NAME] = getString('cv.monitoringSources.metricNameValidation')
   }
@@ -210,7 +247,7 @@ export function validate(
   selectedMetrics: Map<string, DatadogMetricInfo>,
   getString: (key: StringKeys) => string
 ): { [key: string]: string } | undefined {
-  const errors = validateFormMappings(values, getString)
+  const errors = validateFormMappings(values, selectedMetrics, getString)
 
   if (selectedMetrics.size === 1) {
     return errors
@@ -221,7 +258,7 @@ export function validate(
     if (metricInfo.metricName === values.metricName) {
       continue
     }
-    if (isEmpty(validateFormMappings(metricInfo, getString))) {
+    if (isEmpty(validateFormMappings(metricInfo, selectedMetrics, getString))) {
       return errors
     }
   }
@@ -245,17 +282,26 @@ export function getSelectedDashboards(data: any): MetricDashboardItem[] {
   )
 }
 
-export function mapDatadogDashboardDetailToMetricWidget(datadogDashboardDetail: DatadogDashboardDetail): MetricWidget {
+export function mapDatadogDashboardDetailToMetricWidget(
+  dashboardId: string,
+  datadogDashboardDetail: DatadogDashboardDetail
+): MetricWidget {
   return {
     widgetName: datadogDashboardDetail.widgetName || '',
     dataSets:
       datadogDashboardDetail.dataSets?.map(dataSet => {
+        const metricPath = generateMetricPath(dashboardId, datadogDashboardDetail, dataSet.name || '')
         return {
-          name: dataSet.name || '',
+          id: metricPath,
+          name: `${dataSet.query}_${datadogDashboardDetail.widgetName}_${dashboardId}`,
           query: dataSet.query || ''
         }
       }) || []
   }
+}
+
+function generateMetricPath(dashboardId: string, dashboardDetail: DatadogDashboardDetail, metricName: string): string {
+  return `${dashboardId}_${dashboardDetail.widgetName}_${metricName}`
 }
 
 export function mapSelectedWidgetDataToDatadogMetricInfo(
@@ -267,6 +313,8 @@ export function mapSelectedWidgetDataToDatadogMetricInfo(
   const queryBuilder = DatadogMetricsQueryBuilder(queryExtractor.activeMetric || '', queryExtractor.aggregation, [])
   return {
     metricName: selectedWidgetMetricData.metricName,
+    identifier: selectedWidgetMetricData.metricName,
+    dashboardId: selectedWidgetMetricData.dashboardId,
     metric: queryExtractor.activeMetric,
     aggregator: queryExtractor.aggregation,
     query: queryBuilder.query || query,
@@ -277,7 +325,8 @@ export function mapSelectedWidgetDataToDatadogMetricInfo(
           value: selectedWidgetMetricData.dashboardTitle
         }
       : undefined,
-    id: selectedWidgetMetricData.dashboardId
+    metricPath: selectedWidgetMetricData.id,
+    isNew: true
   }
 }
 
@@ -287,9 +336,9 @@ export function getManuallyCreatedQueries(selectedMetrics: Map<string, DatadogMe
   }
   const manualQueries: string[] = []
   for (const entry of selectedMetrics) {
-    const [metricName, metricInfo] = entry
-    if (metricName && metricInfo?.isManualQuery) {
-      manualQueries.push(metricName)
+    const [metricPath, metricInfo] = entry
+    if (metricPath && metricInfo?.isManualQuery) {
+      manualQueries.push(metricPath)
     }
   }
   return manualQueries

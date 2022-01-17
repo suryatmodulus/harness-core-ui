@@ -124,7 +124,7 @@ const ResourceGroupListView: React.FC<ResourceGroupListViewProps> = props => {
   const columns: Column<ResourceGroupResponse>[] = useMemo(
     () => [
       {
-        Header: getString('rbac.resourceGroup.resourceGroupColumn'),
+        Header: getString('common.resourceGroupLabel'),
         accessor: row => row?.resourceGroup?.name,
         id: 'name',
         width: '32%',

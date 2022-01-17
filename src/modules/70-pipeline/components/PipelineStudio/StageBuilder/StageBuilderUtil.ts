@@ -19,6 +19,7 @@ import {
 import type { StageType } from '@pipeline/utils/stageHelpers'
 import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import type { TemplateSummaryResponse } from 'services/template-ng'
+import type { SelectorData } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { EmptyStageName } from '../PipelineConstants'
 import type { PipelineContextInterface, StagesMap } from '../PipelineContext/PipelineContext'
 import { getStageFromPipeline } from '../PipelineContext/helpers'
@@ -52,7 +53,7 @@ export interface PopoverData {
   isHoverView?: boolean
   templateTypes: { [key: string]: string }
   setTemplateTypes: (data: { [key: string]: string }) => void
-  openTemplateSelector: (selectorData: any) => void
+  openTemplateSelector: (selectorData: SelectorData) => void
   closeTemplateSelector: () => void
 }
 

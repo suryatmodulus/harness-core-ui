@@ -126,7 +126,13 @@ const PersepectiveExplorerFilters: React.FC<PersepectiveExplorerFiltersProps> = 
 }) => {
   const last7DaysRange = DATE_RANGE_SHORTCUTS['LAST_7_DAYS']
   return (
-    <Container background="white" padding="small">
+    <Container
+      background="white"
+      padding="small"
+      border={{
+        bottom: true
+      }}
+    >
       <Container className={css.mainContainer}>
         <Icon name="ng-filter" size={20} />
         <ExplorerFilters timeRange={timeRange} filters={filters} setFilters={setFilters} />

@@ -8,6 +8,9 @@ import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
 import { useStrings } from 'framework/strings'
 import AppStorage from 'framework/utils/AppStorage'
 import { getLoginPageURL } from 'framework/utils/SessionUtils'
+import RbacButton from '@rbac/components/Button/Button'
+import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
+import { usePermission } from '@rbac/hooks/usePermission'
 
 // Due to some typing complexity, governance/App is lazily imported
 // from a .js file for now
@@ -37,8 +40,13 @@ export const GovernanceRemoteComponentMounter = props => {
               search: returnUrlParams(getLoginPageURL({ returnUrl: window.location.href }))
             })
           }}
+          hooks={{
+            usePermission
+          }}
           components={{
-            NGBreadcrumbs
+            NGBreadcrumbs,
+            RbacButton,
+            RbacOptionsMenuButton
           }}
         >
           {component}

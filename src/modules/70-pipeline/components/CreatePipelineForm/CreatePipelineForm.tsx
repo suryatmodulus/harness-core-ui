@@ -11,6 +11,7 @@ import type { EntityGitDetails } from 'services/pipeline-ng'
 import GitContextForm from '@common/components/GitContextForm/GitContextForm'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import css from './CreatePipelineForm.module.scss'
 
 interface CreatePipelineFormProps {
   handleSubmit: (value: PipelineInfoConfig, gitDetail: EntityGitDetails) => void
@@ -58,10 +59,10 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
             <Text style={{ color: Color.BLACK, paddingBottom: 8, fontWeight: 600, fontSize: 'large' }}>
               {getString('pipeline.createPipeline.setupHeader')}
             </Text>
-            <Text style={{ fontSize: 'normal', color: Color.BLACK, paddingBottom: 40 }}>
+            <Text style={{ fontSize: 'normal', color: Color.BLACK, paddingBottom: 36 }}>
               {getString('pipeline.createPipeline.setupSubtitle')}
             </Text>
-            <NameIdDescriptionTags formikProps={formikProps} />
+            <NameIdDescriptionTags formikProps={formikProps} className={css.createPipelineNameIdDescriptionTags} />
             {isGitSyncEnabled && (
               <GitSyncStoreProvider>
                 <GitContextForm

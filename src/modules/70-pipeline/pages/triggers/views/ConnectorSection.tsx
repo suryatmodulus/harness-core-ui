@@ -1,5 +1,5 @@
 import React from 'react'
-import { FormInput, Text, Color, TextInput, HarnessDocTooltip } from '@wings-software/uicore'
+import { FormInput, Text, Color, TextInput, HarnessDocTooltip, FontVariation } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { Connectors, connectorUrlType } from '@connectors/constants'
@@ -63,13 +63,17 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
     if (connectorURLType === connectorUrlType.REPO) {
       return (
         <>
-          <Text margin={{ bottom: 'xsmall' }} data-tooltip-id="repoUrl">
+          <Text
+            font={{ variation: FontVariation.FORM_INPUT_TEXT, weight: 'semi-bold' }}
+            color={Color.GREY_600}
+            margin={{ bottom: 'xsmall' }}
+            data-tooltip-id="repoUrl"
+          >
             {getString('repositoryUrlLabel')}
           </Text>
           <HarnessDocTooltip tooltipId="repoUrl" useStandAlone={true} />
-
           <TextInput
-            style={{ marginBottom: 'var(--spacing-medium)', borderColor: 'var(--bp3-intent-color, #dddddd)' }}
+            style={{ marginBottom: 'var(--spacing-xsmall)', borderColor: 'var(--bp3-intent-color, #dddddd)' }}
             value={connectorUrl}
             placeholder={getString('pipeline.repositoryUrlPlaceholder')}
             disabled

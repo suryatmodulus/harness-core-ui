@@ -22,6 +22,8 @@ import type {
   StepElementConfig
 } from 'services/cd-ng'
 import type { DependencyElement } from 'services/ci'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import { ExecutionStepModel, GridStyleInterface } from './ExecutionStepModel'
 import { StepType as PipelineStepType } from '../../PipelineSteps/PipelineStepInterface'
 import {
@@ -43,7 +45,8 @@ import {
   updateStepsState,
   updateDependenciesState,
   applyExistingStates,
-  ExecutionWrapper
+  ExecutionWrapper,
+  STATIC_SERVICE_GROUP_NAME
 } from './ExecutionGraphUtil'
 import { EmptyStageName } from '../PipelineConstants'
 import {
@@ -71,14 +74,22 @@ export type ExecutionGraphForwardRef =
   | React.MutableRefObject<ExecutionGraphRefObj | null>
   | null
 
+interface Labels {
+  addStep?: string
+  addStepGroup?: string
+  useTemplate?: string
+}
+
 interface PopoverData {
   event?: DefaultNodeEvent
   isParallelNodeClicked?: boolean
-  labels?: {
-    addStep: string
-    addStepGroup: string
-  }
-  onPopoverSelection?: (isStepGroup: boolean, isParallelNodeClicked: boolean, event?: DefaultNodeEvent) => void
+  labels?: Labels
+  onPopoverSelection?: (
+    isStepGroup: boolean,
+    isParallelNodeClicked: boolean,
+    event?: DefaultNodeEvent,
+    isTemplate?: boolean
+  ) => void
   isHoverView?: boolean
   data?: ExecutionWrapper
 }
@@ -105,20 +116,33 @@ const renderPopover = ({
     return (
       <>
         <Layout.Vertical className={css.addPopover} spacing="small" padding="small">
-          <Button
-            minimal
-            variation={ButtonVariation.PRIMARY}
-            icon="Edit"
-            text={labels.addStep}
-            onClick={() => onPopoverSelection?.(false, isParallelNodeClicked, event)}
-          />
-          <Button
-            minimal
-            variation={ButtonVariation.PRIMARY}
-            icon="step-group"
-            text={labels.addStepGroup}
-            onClick={() => onPopoverSelection?.(true, isParallelNodeClicked, event)}
-          />
+          {labels.addStep && (
+            <Button
+              minimal
+              variation={ButtonVariation.PRIMARY}
+              icon="Edit"
+              text={labels.addStep}
+              onClick={() => onPopoverSelection?.(false, isParallelNodeClicked, event)}
+            />
+          )}
+          {labels.addStepGroup && (
+            <Button
+              minimal
+              variation={ButtonVariation.PRIMARY}
+              icon="step-group"
+              text={labels.addStepGroup}
+              onClick={() => onPopoverSelection?.(true, isParallelNodeClicked, event)}
+            />
+          )}
+          {labels.useTemplate && (
+            <Button
+              minimal
+              variation={ButtonVariation.PRIMARY}
+              icon="template-library"
+              text={labels.useTemplate}
+              onClick={() => onPopoverSelection?.(false, isParallelNodeClicked, event, true)}
+            />
+          )}
         </Layout.Vertical>
       </>
     )
@@ -133,6 +157,7 @@ export interface ExecutionGraphAddStepEvent {
   stepsMap: Map<string, StepState>
   isRollback: boolean
   parentIdentifier?: string
+  isTemplate?: boolean
 }
 
 export interface ExecutionGraphEditStepEvent {
@@ -196,6 +221,8 @@ function ExecutionGraphRef<T extends StageElementConfig>(
     templateTypes
   } = props
 
+  const templatesEnabled: boolean = useFeatureFlag(FeatureFlag.NG_TEMPLATES)
+
   // NOTE: we are using ref as DynamicPopover use memo
   const stageCloneRef = React.useRef<StageElementWrapper<T>>({})
   stageCloneRef.current = cloneDeep(stage)
@@ -241,13 +268,19 @@ function ExecutionGraphRef<T extends StageElementConfig>(
   const model = React.useMemo(() => new ExecutionStepModel(), [])
   model.setGridStyle(gridStyle)
 
-  const onPopoverSelection = (isStepGroup: boolean, isParallelNodeClicked: boolean, event?: DefaultNodeEvent): void => {
+  const onPopoverSelection = (
+    isStepGroup: boolean,
+    isParallelNodeClicked: boolean,
+    event?: DefaultNodeEvent,
+    isTemplate = false
+  ): void => {
     if (!isStepGroup && event) {
       addStep({
         entity: event.entity,
         isRollback: state.isRollback,
         stepsMap: state.states,
-        isParallel: isParallelNodeClicked
+        isParallel: isParallelNodeClicked,
+        isTemplate: isTemplate
       })
     } else if (event?.entity) {
       const node = {
@@ -280,12 +313,19 @@ function ExecutionGraphRef<T extends StageElementConfig>(
   const handleAdd = (
     isParallel: boolean,
     el: Element,
+    showStepGroup: boolean,
     event?: DefaultNodeEvent | undefined,
     onHide?: () => void | undefined
   ): void => {
-    // add step instantly when allowAddGroup is false
-    if (!allowAddGroup) {
-      onPopoverSelection(false, true, event)
+    const options: Labels = { addStep: getString('addStep') }
+    if (allowAddGroup && showStepGroup) {
+      options.addStepGroup = getString('addStepGroup')
+    }
+    if (templatesEnabled) {
+      options.useTemplate = getString('common.useTemplate')
+    }
+    if (Object.keys(options).length === 1 && options.addStep) {
+      onPopoverSelection(false, isParallel, event)
     } else {
       dynamicPopoverHandler?.show(
         el,
@@ -293,10 +333,7 @@ function ExecutionGraphRef<T extends StageElementConfig>(
           event,
           isParallelNodeClicked: isParallel,
           onPopoverSelection,
-          labels: {
-            addStep: getString('addStep'),
-            addStepGroup: getString('addStepGroup')
-          }
+          labels: options
         },
         { useArrows: true, darkMode: true, fixedPosition: false },
         onHide
@@ -382,9 +419,9 @@ function ExecutionGraphRef<T extends StageElementConfig>(
       dynamicPopoverHandler?.hide()
       const nodeRender = document.querySelector(`[data-nodeid="${eventTemp.entity.getID()}"]`)
       const layer = eventTemp.entity.getParent()
+      const parentIdentifier = (event.entity.getParent().getOptions() as StepGroupNodeLayerOptions).identifier
       if (eventTemp.entity.getType() === DiagramType.CreateNew && nodeRender) {
-        // if Node is in Step Group then do not show addstep/addgroup popover
-        if (layer instanceof StepGroupNodeLayerModel) {
+        if (parentIdentifier === STATIC_SERVICE_GROUP_NAME) {
           addStep({
             entity: event.entity,
             isRollback: state.isRollback,
@@ -393,7 +430,7 @@ function ExecutionGraphRef<T extends StageElementConfig>(
             parentIdentifier: (event.entity.getParent().getOptions() as StepGroupNodeLayerOptions).identifier
           })
         } else {
-          handleAdd(false, nodeRender, event)
+          handleAdd(false, nodeRender, !(layer instanceof StepGroupNodeLayerModel), event)
         }
       } else if (stepState && stepState.isStepGroupCollapsed) {
         const stepStates = state.states.set(event.entity.getIdentifier(), {
@@ -445,16 +482,11 @@ function ExecutionGraphRef<T extends StageElementConfig>(
       if (layer instanceof StepGroupNodeLayerModel) {
         const node = getStepFromNode(state.stepsData, eventTemp.entity).node
         if (node) {
-          addStep({
-            entity: eventTemp.entity,
-            isRollback: state.isRollback,
-            stepsMap: state.states,
-            isParallel: true
-          })
+          handleAdd(true, eventTemp.target, false, event, eventTemp.callback)
         }
       } else {
         /* istanbul ignore else */ if (eventTemp.target) {
-          handleAdd(true, eventTemp.target, event, eventTemp.callback)
+          handleAdd(true, eventTemp.target, true, event, eventTemp.callback)
         }
       }
     },
@@ -475,11 +507,12 @@ function ExecutionGraphRef<T extends StageElementConfig>(
       if (
         sourceLayer instanceof StepGroupNodeLayerModel &&
         targetLayer instanceof StepGroupNodeLayerModel &&
-        sourceLayer === targetLayer
+        sourceLayer === targetLayer &&
+        linkRender
       ) {
-        onPopoverSelection(false, false, event)
+        handleAdd(false, linkRender, false, event)
       } else if (linkRender) {
-        handleAdd(false, linkRender, event)
+        handleAdd(false, linkRender, true, event)
       }
     },
     [Event.DropLinkEvent]: (event: any) => {
@@ -546,7 +579,7 @@ function ExecutionGraphRef<T extends StageElementConfig>(
       const eventTemp = event as DefaultNodeEvent
       eventTemp.stopPropagation()
       if (eventTemp.target) {
-        handleAdd(true, eventTemp.target, event, eventTemp.callback)
+        handleAdd(true, eventTemp.target, true, event, eventTemp.callback)
       }
     },
     [Event.DropLinkEvent]: dropNodeListener,

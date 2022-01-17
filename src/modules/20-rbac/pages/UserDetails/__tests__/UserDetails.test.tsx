@@ -53,7 +53,7 @@ describe('UserDetails Test', () => {
     )
     container = renderObj.container
     getAllByText = renderObj.getAllByText
-    await waitFor(() => getAllByText('accessControl'))
+    await waitFor(() => getAllByText('accessControl: users'))
   })
   test('render data', () => {
     expect(container).toMatchSnapshot()

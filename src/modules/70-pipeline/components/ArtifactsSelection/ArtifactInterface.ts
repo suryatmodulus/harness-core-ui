@@ -1,7 +1,17 @@
 import type { MultiTypeInputType } from '@wings-software/uicore'
+import type { FormikValues } from 'formik'
+import type { GetDataError } from 'restful-react'
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
-import type { ArtifactConfig, PrimaryArtifact, PageConnectorResponse, SidecarArtifactWrapper } from 'services/cd-ng'
+import type {
+  ArtifactConfig,
+  PrimaryArtifact,
+  PageConnectorResponse,
+  SidecarArtifactWrapper,
+  DockerBuildDetailsDTO,
+  Failure,
+  Error
+} from 'services/cd-ng'
 
 export interface ArtifactListViewProps {
   isForPredefinedSets?: boolean
@@ -26,7 +36,7 @@ export interface ArtifactsSelectionProps {
   overrideSetIdentifier?: string
 }
 
-export type ArtifactType = 'DockerRegistry' | 'Gcr' | 'Ecr'
+export type ArtifactType = 'DockerRegistry' | 'Gcr' | 'Ecr' | 'Nexus' | 'Artifactory'
 export interface OrganizationCreationType {
   type: ArtifactType
 }
@@ -46,6 +56,7 @@ export interface ImagePathTypes {
   tagType: TagTypes
   registryHostname?: string
   region?: any
+  repositoryPort?: string
 }
 
 export interface ImagePathProps {
@@ -64,4 +75,24 @@ export interface ImagePathProps {
 export interface ConnectorRefLabelType {
   firstStepName: string
   secondStepName: string
+}
+
+export interface ArtifactTagHelperText {
+  imagePath: string
+  region?: string
+  connectorRef: string
+  registryHostname?: string
+}
+export interface ArtifactImagePathTagViewProps {
+  selectedArtifact: ArtifactType
+  formik: FormikValues
+  expressions: string[]
+  isReadonly?: boolean
+  allowableTypes: MultiTypeInputType[]
+  connectorIdValue: string
+  fetchTags: (val: string) => void
+  buildDetailsLoading: boolean
+  tagList: DockerBuildDetailsDTO[] | undefined
+  setTagList: any
+  tagError: GetDataError<Failure | Error> | null
 }

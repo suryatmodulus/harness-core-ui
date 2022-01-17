@@ -69,6 +69,7 @@ const getIconByType = (type: InputSetSummaryResponse['inputSetType']): IconName 
 }
 
 const RenderColumnInputSet: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
+  const { getString } = useStrings()
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
@@ -83,13 +84,13 @@ const RenderColumnInputSet: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
             <Text color={Color.BLACK}>{data.name}</Text>
             {data.tags && Object.keys(data.tags || {}).length ? <TagsPopover tags={data.tags} /> : null}
           </Layout.Horizontal>
-          <Text color={Color.GREY_400}>{data.identifier}</Text>
+          <Text color={Color.GREY_400}>{getString('idLabel', { id: data.identifier })}</Text>
         </div>
         {isInputSetInvalid(data) && (
           <Container padding={{ left: 'large' }}>
             <Badge
               text={'common.invalid'}
-              iconName="warning-sign"
+              iconName="error-outline"
               showTooltip={true}
               entityName={data.name}
               entityType={data.inputSetType === 'INPUT_SET' ? 'Input Set' : 'Overlay Input Set'}
@@ -142,7 +143,12 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
             setMenuOpen(true)
           }}
         />
-        <Menu style={{ minWidth: 'unset' }}>
+        <Menu
+          className={css.listItemMenu}
+          onClick={(e: React.MouseEvent) => {
+            e.stopPropagation()
+          }}
+        >
           <Menu.Item
             icon="edit"
             text={getString('edit')}

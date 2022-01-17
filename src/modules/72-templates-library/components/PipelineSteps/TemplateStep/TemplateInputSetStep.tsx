@@ -10,19 +10,19 @@ import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelector/MultiTypeDelegateSelector'
 import type { StepElementConfig } from 'services/cd-ng'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { TemplateStepNode } from 'services/pipeline-ng'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface TemplateInputSetStepProps {
-  initialValues: TemplateStepData
-  onUpdate?: (data: TemplateStepData) => void
-  onChange?: (data: TemplateStepData) => void
+  initialValues: TemplateStepNode
+  onUpdate?: (data: TemplateStepNode) => void
+  onChange?: (data: TemplateStepNode) => void
   allowableTypes: MultiTypeInputType[]
   stepViewType?: StepViewType
   readonly?: boolean
-  template?: TemplateStepData
+  template?: TemplateStepNode
   path?: string
 }
 
@@ -37,15 +37,15 @@ export default function TemplateInputSetStep(props: TemplateInputSetStepProps): 
     <>
       <StepWidget<Partial<StepElementConfig>>
         factory={factory}
-        initialValues={initialValues.template?.templateInputs || {}}
+        initialValues={initialValues.template?.templateInputs as StepElementConfig}
         template={template?.template.templateInputs as Partial<StepElementConfig>}
         readonly={readonly}
-        type={initialValues.template?.templateInputs?.type as StepType}
+        type={(initialValues.template?.templateInputs as StepElementConfig)?.type as StepType}
         path={`${prefix}template.templateInputs`}
         stepViewType={stepViewType}
         allowableTypes={allowableTypes}
       />
-      {getMultiTypeFromValue(template?.template.templateInputs?.spec?.delegateSelectors) ===
+      {getMultiTypeFromValue((template?.template.templateInputs as StepElementConfig)?.spec?.delegateSelectors) ===
         MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.sm)}>
           <MultiTypeDelegateSelector

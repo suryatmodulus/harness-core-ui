@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, act } from '@testing-library/react'
+import { render, act, fireEvent, waitFor } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -51,12 +51,31 @@ describe('Run Step', () => {
   })
 
   describe('Edit View', () => {
-    test('should render properly', () => {
-      const { container } = render(
+    test('should render properly', async () => {
+      const { container, getByText } = render(
         <TestStepWidget initialValues={{}} type={StepType.Run} stepViewType={StepViewType.Edit} />
       )
-
       expect(container).toMatchSnapshot()
+
+      expect(getByText('pipelineSteps.connectorLabel')).toBeTruthy()
+      expect(getByText('imageLabel')).toBeTruthy()
+      act(() => {
+        fireEvent.click(getByText('common.optionalConfig'))
+      })
+      expect(getByText('pipelineSteps.limitCPULabel')).toBeTruthy()
+      expect(getByText('pipelineSteps.limitCPULabel')).toBeTruthy()
+      expect(getByText('pipeline.stepCommonFields.runAsUser')).toBeTruthy()
+      expect(getByText('ci.privileged')).toBeTruthy()
+      expect(getByText('common.shell')).toBeTruthy()
+      const shellOptionsDropdownSelect = container.querySelectorAll('[icon="chevron-down"]')?.[2]
+      expect(shellOptionsDropdownSelect).toBeTruthy()
+      await waitFor(() => {
+        fireEvent.click(shellOptionsDropdownSelect)
+        const menuItemLabels = container.querySelectorAll('[class*="menuItemLabel"]')
+        expect(menuItemLabels.length).toEqual(2)
+        expect(menuItemLabels[0].innerHTML).toEqual('common.bash')
+        expect(menuItemLabels[1].innerHTML).toEqual('common.shell')
+      })
     })
 
     test('renders runtime inputs', async () => {

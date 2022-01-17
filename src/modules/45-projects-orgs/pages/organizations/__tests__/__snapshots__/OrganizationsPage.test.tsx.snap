@@ -220,7 +220,7 @@ exports[`Org Page List Create New Org 1`] = `
                   bfvbfkbvf
                 </p>
                 <div
-                  class="Layout--horizontal StyledProps--main description"
+                  class="Layout--horizontal StyledProps--main description StyledProps--margin-bottom-xsmall"
                 />
                 <div
                   class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main tags"
@@ -406,7 +406,7 @@ exports[`Org Page List Create New Org 1`] = `
                   Harness
                 </p>
                 <div
-                  class="Layout--horizontal StyledProps--main description"
+                  class="Layout--horizontal StyledProps--main description StyledProps--margin-bottom-xsmall"
                 >
                   <p
                     class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey350"
@@ -422,7 +422,7 @@ exports[`Org Page List Create New Org 1`] = `
                     class="Tag--main"
                   >
                     <span
-                      class="bp3-tag"
+                      class="bp3-tag tagText"
                       style="max-width: 80px;"
                     >
                       <span
@@ -436,7 +436,7 @@ exports[`Org Page List Create New Org 1`] = `
                     class="Tag--main"
                   >
                     <span
-                      class="bp3-tag"
+                      class="bp3-tag tagText"
                       style="max-width: 80px;"
                     >
                       <span
@@ -450,7 +450,7 @@ exports[`Org Page List Create New Org 1`] = `
                     class="Tag--main"
                   >
                     <span
-                      class="bp3-tag"
+                      class="bp3-tag tagText"
                       style="max-width: 80px;"
                     >
                       <span
@@ -566,7 +566,7 @@ exports[`Org Page List Create New Org 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      1 members
+                      1 common.member
                     </p>
                   </div>
                 </div>
@@ -636,7 +636,7 @@ exports[`Org Page List Create New Org 1`] = `
                   Default
                 </p>
                 <div
-                  class="Layout--horizontal StyledProps--main description"
+                  class="Layout--horizontal StyledProps--main description StyledProps--margin-bottom-xsmall"
                 >
                   <p
                     class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey350"
@@ -719,7 +719,7 @@ exports[`Org Page List Create New Org 1`] = `
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--font-small"
                     >
-                      0 members
+                      0 common.member
                     </p>
                   </div>
                 </div>

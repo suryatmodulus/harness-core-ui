@@ -158,12 +158,8 @@ const ResourceGroupDetails: React.FC = () => {
           <NGBreadcrumbs
             links={[
               {
-                url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
-                label: getString('accessControl')
-              },
-              {
                 url: routes.toResourceGroups({ accountId, orgIdentifier, projectIdentifier, module }),
-                label: getString('resourceGroups')
+                label: `${getString('accessControl')}: ${getString('resourceGroups')}`
               }
             ]}
           />

@@ -134,12 +134,8 @@ const RoleDetails: React.FC = () => {
           <NGBreadcrumbs
             links={[
               {
-                url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
-                label: getString('accessControl')
-              },
-              {
                 url: routes.toRoles({ accountId, orgIdentifier, projectIdentifier, module }),
-                label: getString('roles')
+                label: `${getString('accessControl')}: ${getString('roles')}`
               }
             ]}
           />

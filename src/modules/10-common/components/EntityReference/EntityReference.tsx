@@ -16,7 +16,7 @@ import {
   PageError,
   NoDataCard,
   NoDataCardProps
-} from '@wings-software/uicore'
+} from '@harness/uicore'
 import { Classes } from '@blueprintjs/core'
 import { debounce, isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'

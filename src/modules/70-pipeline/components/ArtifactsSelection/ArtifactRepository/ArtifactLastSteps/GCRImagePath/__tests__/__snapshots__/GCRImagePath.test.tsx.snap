@@ -284,7 +284,7 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
             class="imagePathContainer"
           >
             <div
-              class="bp3-form-group bp3-disabled"
+              class="bp3-form-group bp3-disabled tagInputButton"
             >
               <label
                 class="bp3-label"
@@ -388,7 +388,7 @@ exports[`GCR Image Path Artifact tests renders correctly in edit case 1`] = `
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main saveBtn"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
@@ -739,7 +739,7 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
             class="imagePathContainer"
           >
             <div
-              class="bp3-form-group bp3-disabled"
+              class="bp3-form-group bp3-disabled tagInputButton"
             >
               <label
                 class="bp3-label"
@@ -843,7 +843,7 @@ exports[`GCR Image Path Artifact tests renders while adding step first time 1`] 
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main saveBtn"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"
@@ -1194,7 +1194,7 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
             class="imagePathContainer"
           >
             <div
-              class="bp3-form-group bp3-disabled"
+              class="bp3-form-group bp3-disabled tagInputButton"
             >
               <label
                 class="bp3-label"
@@ -1298,7 +1298,7 @@ exports[`GCR Image Path Artifact tests renders without crashing 1`] = `
           </div>
         </div>
         <div
-          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main saveBtn"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
         >
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon Button--variation Button--variation-secondary"

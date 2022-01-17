@@ -16,6 +16,10 @@ import {
   getStartDateTime,
   getEndDateTime
 } from '@ce/utils/momentUtils'
+import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { ModuleLicenseType } from '@common/constants/SubscriptionTypes'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './PerspectiveTimeRangePicker.module.scss'
 
 const getDateLabelToDisplayText: (getString: UseStringsReturn['getString']) => Record<string, string> = getString => {
@@ -152,10 +156,10 @@ const DateLabelRenderer: React.FC<DateLabelRendererProps> = ({ text, dateRange, 
         }}
         spacing="large"
       >
-        <Text className={css.pointerText} color={disable ? Color.GREEN_200 : Color.GREEN_600}>
+        <Text className={css.pointerText} color={disable ? Color.GREY_200 : Color.GREY_600}>
           {labelToTextMapping[text]}
         </Text>
-        <Text className={css.pointerText} color={disable ? Color.GREEN_200 : Color.GREEN_300}>{`${dateRange[0].format(
+        <Text className={css.pointerText} color={disable ? Color.GREY_200 : Color.GREY_300}>{`${dateRange[0].format(
           dateFormat[0]
         )} ${dateFormat[1] ? '- ' + dateRange[1].format(dateFormat[1]) : ''}`}</Text>
       </Layout.Horizontal>
@@ -177,12 +181,15 @@ interface PerspectiveTimeRangePickerProps {
   featureEnabled?: boolean
 }
 
-const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
-  timeRange,
-  setTimeRange,
-  featureEnabled
-}) => {
+const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({ timeRange, setTimeRange }) => {
   const { getString } = useStrings()
+
+  const { licenseInformation } = useLicenseStore()
+  const isFreeEdition = licenseInformation['CE']?.edition === ModuleLicenseType.FREE
+
+  const isFeatureEnforcementEnabled = useFeatureFlag(FeatureFlag.FEATURE_ENFORCEMENT_ENABLED)
+
+  const featureEnforced = isFreeEdition && isFeatureEnforcementEnabled
 
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean | undefined>()
 
@@ -236,7 +243,7 @@ const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
             bottom: 'small'
           }}
         >
-          {!featureEnabled && <SubscriptionLimitWarning />}
+          {featureEnforced && <SubscriptionLimitWarning />}
           <Layout.Vertical
             margin={{
               bottom: 'medium'
@@ -279,7 +286,7 @@ const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
                 preventOverflow: { enabled: true }
               }}
               isOpen={isPopoverOpen}
-              disabled={!featureEnabled}
+              disabled={featureEnforced}
               content={
                 <DateRangePicker
                   defaultValue={[fromDate, toDate]}
@@ -308,7 +315,7 @@ const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
                   left: 'large',
                   right: 'large'
                 }}
-                color={!featureEnabled ? 'grey200' : 'primary7'}
+                color={featureEnforced ? 'grey200' : 'primary7'}
                 className={css.pointerText}
               >
                 {getString('ce.perspectives.timeRange.selectCustomRange')}
@@ -367,7 +374,7 @@ const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
             {CALENDAR_MONTH_DATES.map(item => {
               return (
                 <DateLabelRenderer
-                  disable={!featureEnabled && RESTRICTED_CALENDAR_MONTH_DATES.includes(item)}
+                  disable={featureEnforced && RESTRICTED_CALENDAR_MONTH_DATES.includes(item)}
                   key={`recommended-${item.label}`}
                   dateFormat={item.dateFormat}
                   dateRange={item.dateRange}

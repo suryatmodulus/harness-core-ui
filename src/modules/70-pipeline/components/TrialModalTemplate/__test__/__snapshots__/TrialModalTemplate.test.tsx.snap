@@ -3,7 +3,7 @@
 exports[`Rendering should render 1`] = `
 <div>
   <div
-    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-large"
+    class="Layout--vertical StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-xxxlarge StyledProps--padding-bottom-xxxlarge"
   >
     <div
       class="Layout--horizontal StyledProps--main StyledProps--padding-top-large"
@@ -13,8 +13,8 @@ exports[`Rendering should render 1`] = `
         style="background: transparent url() no-repeat; width: 50%;"
       />
       <div
-        class="StyledProps--font StyledProps--main StyledProps--padding-left-xxxlarge"
-        style="width: 50%; height: 500px;"
+        class="StyledProps--font StyledProps--main setupForm StyledProps--padding-left-xxxlarge"
+        style="width: 50%;"
       />
     </div>
   </div>

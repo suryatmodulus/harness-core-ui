@@ -3,12 +3,11 @@ rules:
     - error
     - patterns:
         - lodash.*
-        - modules/20-audit-trail/*
         - modules/22-resource-center/*
         - modules/25-governance/*
-        - modules/30-auth-settings/*
         - modules/30-delegates/*
         - modules/30-secrets/*
+        - modules/33-auth-settings/*
         - modules/35-connectors/*
         - modules/35-user-profile/*
         - modules/40-gitsync/*
@@ -21,12 +20,11 @@ rules:
         - modules/75-cf/*
         - modules/75-ci/*
         - modules/85-cv/*
-        - '@audit-trail/*'
         - '@resource-center/*'
         - '@governance/*'
-        - '@auth-settings/*'
         - '@delegates/*'
         - '@secrets/*'
+        - '@auth-settings/*'
         - '@connectors/*'
         - '@user-profile/*'
         - '@gitsync/*'

@@ -117,15 +117,15 @@ describe('Git Sync - repo tab', () => {
       gitSyncFolderConfigDTOs: [
         {
           isDefault: false,
-          rootFolder: 'src1/.harness/'
+          rootFolder: '/src1/.harness/'
         },
         {
           isDefault: false,
-          rootFolder: 'src2/.harness/'
+          rootFolder: '/src2/.harness/'
         },
         {
           isDefault: true,
-          rootFolder: 'rootfolder/.harness/'
+          rootFolder: '/rootfolder/.harness/'
         }
       ],
       identifier: 'gitSyncRepoTest',

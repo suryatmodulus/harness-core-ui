@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
-import { Color, Container, Heading, Utils } from '@wings-software/uicore'
+import { Color, Container, Heading } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -15,7 +15,7 @@ import MetricDashboardWidgetNav from '@cv/components/MetricDashboardWidgetNav/Me
 import type { CloudMetricsHealthSourceProps } from '@cv/components/CloudMetricsHealthSource/CloudMetricsHealthSource.type'
 import SelectHealthSourceServices from '@cv/pages/health-source/common/SelectHealthSourceServices/SelectHealthSourceServices'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetLabelNames, useGetMetricPacks } from 'services/cv'
+import { useGetMetricPacks } from 'services/cv'
 import css from '@cv/components/CloudMetricsHealthSource/CloudMetricHealthSource.module.scss'
 
 export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSourceProps<T>): JSX.Element {
@@ -53,16 +53,6 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
   const metricPackResponse = useGetMetricPacks({
     queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: dataSourceType }
   })
-  const labelNameTracingId = useMemo(() => Utils.randomId(), [])
-  const labelNamesResponse = useGetLabelNames({
-    queryParams: {
-      projectIdentifier,
-      orgIdentifier,
-      accountId,
-      connectorIdentifier: connectorRef,
-      tracingId: labelNameTracingId
-    }
-  })
   const { sli = false, healthScore = false, continuousVerification = false } = formikProps?.values
   return (
     <Container>
@@ -76,8 +66,9 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
             manuallyInputQueries={manualQueries}
             dashboards={dashboards}
             showSpinnerOnLoad={!selectedMetricInfo}
-            onSelectMetric={(metricName, query, widget, dashboardTitle, dashboardId) => {
+            onSelectMetric={(id, metricName, query, widget, dashboardId, dashboardTitle) => {
               onWidgetMetricSelected({
+                id,
                 metricName,
                 query,
                 widgetName: widget,
@@ -93,7 +84,20 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
               {getString('cv.monitoringSources.gco.mapMetricsToServicesPage.querySpecifications')}
             </Heading>
             <Container className={css.metricsMappingContent}>
-              <Container className={css.metricsQueryBuilderContainer}>{metricDetailsContent}</Container>
+              <Container className={css.metricsQueryBuilderContainer}>
+                {metricDetailsContent}
+                <Container className={css.healthServicesContainer}>
+                  <SelectHealthSourceServices
+                    values={{
+                      sli,
+                      healthScore,
+                      continuousVerification
+                    }}
+                    metricPackResponse={metricPackResponse}
+                    hideServiceIdentifier
+                  />
+                </Container>
+              </Container>
               <Container className={css.validationContainer}>
                 <QueryContent
                   textAreaProps={{ readOnly: !selectedMetricInfo?.queryEditable }}
@@ -124,16 +128,6 @@ export default function CloudMetricsHealthSource<T>(props: CloudMetricsHealthSou
                 />
               </Container>
             </Container>
-            <SelectHealthSourceServices
-              values={{
-                sli,
-                healthScore,
-                continuousVerification
-              }}
-              metricPackResponse={metricPackResponse}
-              labelNamesResponse={labelNamesResponse}
-              hideServiceIdentifier
-            />
             <DrawerFooter onPrevious={onPrevious} isSubmit onNext={onNextClicked} />
           </Container>
         }

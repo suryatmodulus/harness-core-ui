@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CCMUsageInfo CCMUsageInfo 1`] = `
+<div>
+  <div
+    class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+  >
+    <div
+      class="bp3-card bp3-elevation-0 Card--card innerCard"
+    >
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+            >
+              common.subscriptions.usage.cloudSpend
+            </p>
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target Text--targetClass"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                  tabindex="0"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main Text--icon StyledProps--padding-right-xsmall"
+                    data-icon="deployment-incomplete-legacy"
+                  >
+                    <svg
+                      height="15"
+                      viewBox="0 0 14 14"
+                      width="15"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        cx="7"
+                        cy="7"
+                        fill="#ff8f3f"
+                        r="7"
+                      />
+                      <circle
+                        cx="7"
+                        cy="7"
+                        fill="#fff"
+                        r="5.2"
+                      />
+                      <path
+                        d="M6.1 9.6c0-.5.3-1 .9-1s.9.4.9 1-.3 1-.9 1-.9-.4-.9-1zm.3-4.5l-.1-1.3h1.5v1.3l-.3 3h-1z"
+                        fill="#ff8f3f"
+                      />
+                    </svg>
+                  </span>
+                </p>
+              </span>
+            </span>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+          >
+            
+          </p>
+        </div>
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+        >
+          $
+          200K
+        </p>
+        <div
+          class="StyledProps--font StyledProps--main bar StyledProps--background-grey100 StyledProps--border StyledProps--margin-bottom-small"
+          style="width: 100%; height: 10px;"
+        >
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--background-primary6 StyledProps--border"
+            style="width: 80%; height: 100%;"
+          />
+        </div>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+          >
+            250K
+             
+            common.subscribed
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color"
+          >
+            80
+            % 
+            common.subscribed
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

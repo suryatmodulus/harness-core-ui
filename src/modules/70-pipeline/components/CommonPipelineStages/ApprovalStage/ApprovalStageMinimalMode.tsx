@@ -2,8 +2,6 @@ import React from 'react'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { Button, Color, Container, FormikForm, Intent, Text } from '@wings-software/uicore'
-import { set } from 'lodash-es'
-import produce from 'immer'
 import {
   PipelineContextType,
   usePipelineContext
@@ -13,7 +11,7 @@ import { useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components'
 import type { ApprovalStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import { getNameAndIdentifierSchema } from '@pipeline/utils/tempates'
-import { getScopeBasedTemplateRef, getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
+import { createTemplate, getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import type { ApprovalStageMinimalModeProps, ApprovalStageMinimalValues } from './types'
 import { ApprovalTypeCards } from './ApprovalTypeCards'
@@ -55,15 +53,7 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
           templateTypes[template.identifier] = template.childType
           setTemplateTypes(templateTypes)
         }
-        const newStage = produce({} as ApprovalStageElementConfig, draft => {
-          draft.name = values.name
-          draft.identifier = values.identifier
-          set(draft, 'template.templateRef', getScopeBasedTemplateRef(template))
-          if (template.versionLabel) {
-            set(draft, 'template.versionLabel', template.versionLabel)
-          }
-        })
-        onSubmit?.({ stage: newStage }, values.identifier)
+        onSubmit?.({ stage: createTemplate(values, template) }, values.identifier)
       } else {
         data.stage.identifier = values.identifier
         data.stage.name = values.name

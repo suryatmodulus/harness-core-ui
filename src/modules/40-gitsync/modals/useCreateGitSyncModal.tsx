@@ -37,7 +37,6 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
     enforceFocus: false,
     style: {
       width: 1200,
-      minHeight: 720,
       borderLeft: 0,
       paddingBottom: 0,
       position: 'relative',
@@ -84,7 +83,15 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
             isLastStep={!NG_GIT_FULL_SYNC}
           />
           {NG_GIT_FULL_SYNC ? (
-            <GitFullSyncStep name={getString('gitsync.branchToSync')} onClose={closeHandler} />
+            <GitFullSyncStep
+              name={getString('gitsync.branchToSync')}
+              orgIdentifier={orgIdentifier}
+              projectIdentifier={projectIdentifier}
+              onClose={closeHandler}
+              onSuccess={(data?: GitSyncConfig) => {
+                handleSuccess(data)
+              }}
+            />
           ) : null}
         </StepWizard>
         <Button minimal icon="cross" iconProps={{ size: 18 }} className={css.crossIcon} onClick={closeHandler} />

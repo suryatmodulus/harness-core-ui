@@ -3,23 +3,15 @@ import type { AccessPoint, AccessPointCore } from 'services/lw'
 import type { ConnectionMetadata, GatewayDetails } from '../COCreateGateway/models'
 
 export const getSelectedTabId = (accessDetails: ConnectionMetadata): string => {
-  let tabId = ''
-  if (accessDetails.dnsLink.selected) {
-    tabId = 'dns'
+  const accessDetailsToTabIdMap: Record<string, string> = {
+    dnsLink: 'dns',
+    ssh: 'ssh',
+    ipaddress: 'ip',
+    rdp: 'rdp',
+    backgroundTasks: 'bg'
   }
-  if (accessDetails.ssh.selected) {
-    tabId = 'ssh'
-  }
-  if (accessDetails.ipaddress.selected) {
-    tabId = 'ip'
-  }
-  if (accessDetails.rdp.selected) {
-    tabId = 'rdp'
-  }
-  if (accessDetails.backgroundTasks.selected) {
-    tabId = 'bg'
-  }
-  return tabId
+  const key = Object.entries(accessDetails).find(([, d]) => d.selected)?.[0]
+  return key ? accessDetailsToTabIdMap[key] : ''
 }
 
 export const getValidStatusForDnsLink = (gatewayDetails: GatewayDetails): boolean => {

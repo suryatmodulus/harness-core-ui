@@ -1,6 +1,15 @@
+import produce from 'immer'
+import { isEmpty, set, get } from 'lodash-es'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StageType } from '@pipeline/utils/stageHelpers'
+import type { StageElementConfig, StepElementConfig } from 'services/cd-ng'
 import type { StepPalleteModuleInfo } from 'services/pipeline-ng'
+import {
+  StepOrStepGroupOrTemplateStepData,
+  TabTypes,
+  Values
+} from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import { sanitize } from '@common/utils/JSONUtils'
 
 export enum StepMode {
   STAGE = 'STAGE',
@@ -41,7 +50,21 @@ export function getAllStepPaletteModuleInfos(): StepPalleteModuleInfo[] {
   ]
 }
 
-export function getStepPaletteModuleInfosFromStage(stageType?: string): StepPalleteModuleInfo[] {
+export function getStepPaletteModuleInfosFromStage(
+  stageType?: string,
+  stage?: StageElementConfig,
+  initialCategory?: string
+): StepPalleteModuleInfo[] {
+  const deploymentType = get(stage, 'spec.serviceConfig.serviceDefinition.type', undefined)
+  let category = initialCategory
+  switch (deploymentType) {
+    case 'Kubernetes':
+      category = 'Kubernetes'
+      break
+    case 'NativeHelm':
+      category = 'Helm'
+      break
+  }
   switch (stageType) {
     case StageType.BUILD:
       return [
@@ -64,7 +87,7 @@ export function getStepPaletteModuleInfosFromStage(stageType?: string): StepPall
       return [
         {
           module: 'cd',
-          category: stageType === StageType.APPROVAL ? 'Approval' : undefined,
+          category: stageType === StageType.APPROVAL ? 'Approval' : category,
           shouldShowCommonSteps: true
         },
         {
@@ -73,4 +96,44 @@ export function getStepPaletteModuleInfosFromStage(stageType?: string): StepPall
         }
       ]
   }
+}
+
+export function getStepDataFromValues(
+  item: Partial<Values>,
+  initialValues: StepOrStepGroupOrTemplateStepData
+): StepElementConfig {
+  const processNode = produce(initialValues as StepElementConfig, node => {
+    if (item.tab !== TabTypes.Advanced) {
+      if ((item as StepElementConfig).description) {
+        node.description = (item as StepElementConfig).description
+      } else if (node.description) {
+        delete node.description
+      }
+      if ((item as StepElementConfig).timeout) {
+        node.timeout = (item as StepElementConfig).timeout
+      } else if (node.timeout) {
+        delete node.timeout
+      }
+      if ((item as StepElementConfig).spec) {
+        node.spec = { ...(item as StepElementConfig).spec }
+      }
+    } else {
+      if (item.when) {
+        node.when = item.when
+      }
+      if (!isEmpty(item.delegateSelectors)) {
+        set(node, 'spec.delegateSelectors', item.delegateSelectors)
+      } else if (node.spec?.delegateSelectors) {
+        delete node.spec.delegateSelectors
+      }
+    }
+    // default strategies can be present without having the need to click on Advanced Tab. For eg. in CV step.
+    if (Array.isArray(item.failureStrategies) && !isEmpty(item.failureStrategies)) {
+      node.failureStrategies = item.failureStrategies
+    } else if (node.failureStrategies) {
+      delete node.failureStrategies
+    }
+  })
+  sanitize(processNode, { removeEmptyArray: false, removeEmptyObject: false, removeEmptyString: false })
+  return processNode
 }

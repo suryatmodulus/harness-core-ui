@@ -28,6 +28,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import type { StringKeys } from 'framework/strings'
 import {
   getTriggerIcon,
   GitSourceProviders,
@@ -63,7 +64,7 @@ interface RenderColumnMenuColumn {
   goToEditWizard: ({ triggerIdentifier, triggerType }: GoToEditWizardInterface) => void
   showSuccess: (str: string) => void
   showError: (str: string) => void
-  getString: (str: string) => string
+  getString: (str: StringKeys) => string
   projectIdentifier: string
   orgIdentifier: string
   accountId: string
@@ -91,7 +92,7 @@ const RenderColumnMenu: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
 
   const { openDialog: confirmDelete } = useConfirmationDialog({
     contentText: `${column.getString('pipeline.triggers.confirmDelete')} ${data.name || /* istanbul ignore next */ ''}`,
-    titleText: column.getString('pipeline.triggers.triggerLabel'),
+    titleText: column.getString('common.triggerLabel'),
     confirmButtonText: column.getString('delete'),
     cancelButtonText: column.getString('cancel'),
     intent: Intent.DANGER,
@@ -106,7 +107,7 @@ const RenderColumnMenu: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
           /* istanbul ignore else */
           if (deleted.status === ResponseStatus.SUCCESS) {
             column.showSuccess(
-              `${column.getString('pipeline.triggers.triggerLabel')} ${
+              `${column.getString('common.triggerLabel')} ${
                 data.name || /* istanbul ignore next */ ''
               } ${column.getString('deleted')}`
             )
@@ -543,7 +544,7 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
     // const columns: CustomColumn<NGTriggerDetailsResponse>[] = React.useMemo( // wait for backend to support condition
     () => [
       {
-        Header: getString('pipeline.triggers.triggerLabel').toUpperCase(),
+        Header: getString('common.triggerLabel').toUpperCase(),
         accessor: 'name',
         width: '25%',
         Cell: RenderColumnTrigger,

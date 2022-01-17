@@ -22,7 +22,7 @@ import { Drawer } from '@blueprintjs/core'
 import isEmpty from 'lodash-es/isEmpty'
 import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { StackdriverDefinition, useGetLabelNames, useGetMetricPacks, useGetStackdriverSampleData } from 'services/cv'
+import { StackdriverDefinition, useGetMetricPacks, useGetStackdriverSampleData } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
@@ -207,16 +207,6 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
   const metricPackResponse = useGetMetricPacks({
     queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'STACKDRIVER' }
   })
-  const labelNameTracingId = useMemo(() => Utils.randomId(), [])
-  const labelNamesResponse = useGetLabelNames({
-    queryParams: {
-      projectIdentifier,
-      orgIdentifier,
-      accountId,
-      connectorIdentifier: data.connectorRef,
-      tracingId: labelNameTracingId
-    }
-  })
 
   const formInitialValues: GCOMetricInfo = updatedData.get(selectedMetric || '') || {}
 
@@ -332,6 +322,7 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                       <MonacoEditor
                         language="javascript"
                         value={formatJSON(formikProps.values.query)}
+                        data-testid="monaco-editor"
                         onChange={val => formikProps.setFieldValue(FieldNames.QUERY, val)}
                         options={
                           {
@@ -352,7 +343,6 @@ export function GCOMetricsHealthSource(props: GCOMetricsHealthSourceProps): JSX.
                     continuousVerification
                   }}
                   metricPackResponse={metricPackResponse}
-                  labelNamesResponse={labelNamesResponse}
                   hideServiceIdentifier
                 />
 

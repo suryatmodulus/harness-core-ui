@@ -1,4 +1,5 @@
-import { omit } from 'lodash-es'
+import { omit, isEqual } from 'lodash-es'
+import type { TabId } from '@blueprintjs/core'
 import { Color, SelectOption, Utils } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
 import type { UseStringsReturn, StringKeys } from 'framework/strings'
@@ -177,6 +178,30 @@ export const isFormDataValid = (formikProps: FormikProps<SLOForm>, selectedTabId
   }
 
   return true
+}
+
+export const handleTabChange = (
+  nextTabId: TabId,
+  formik: FormikProps<SLOForm>,
+  setSelectedTabId: (tabId: CreateSLOTabs) => void
+): void => {
+  switch (nextTabId) {
+    case CreateSLOTabs.SLI: {
+      isFormDataValid(formik, CreateSLOTabs.NAME) && setSelectedTabId(CreateSLOTabs.SLI)
+      break
+    }
+    case CreateSLOTabs.SLO_TARGET_BUDGET_POLICY: {
+      if (isFormDataValid(formik, CreateSLOTabs.NAME) && isFormDataValid(formik, CreateSLOTabs.SLI)) {
+        setSelectedTabId(CreateSLOTabs.SLO_TARGET_BUDGET_POLICY)
+      } else if (isFormDataValid(formik, CreateSLOTabs.NAME)) {
+        setSelectedTabId(CreateSLOTabs.SLI)
+      }
+      break
+    }
+    default: {
+      setSelectedTabId(CreateSLOTabs.NAME)
+    }
+  }
 }
 
 // SLO Name
@@ -364,4 +389,37 @@ export const convertSLOFormDataToServiceLevelIndicatorDTO = (values: SLOForm): S
       } as ThresholdSLIMetricSpec & RatioSLIMetricSpec
     }
   }
+}
+
+const getVerifyData = (data: ServiceLevelObjectiveDTO): any => {
+  const { monitoredServiceRef, healthSourceRef, serviceLevelIndicators, target } = data
+
+  const { type: sliType, spec } = serviceLevelIndicators[0]
+
+  return {
+    monitoredServiceRef,
+    healthSourceRef,
+    sliType,
+    specType: spec.type,
+    metric1: spec.spec?.metric1,
+    metric2: spec.spec?.metric2,
+    eventType: spec.spec?.eventType,
+    thresholdValue: spec.spec?.thresholdValue,
+    thresholdType: spec.spec?.thresholdType,
+    targetType: target.type,
+    targetMonthly: target.spec?.type,
+    dayOfMonth: target.spec.spec?.dayOfMonth,
+    dayOfWeek: target.spec.spec?.dayOfWeek,
+    sloTargetPercentage: target.sloTargetPercentage,
+    periodLength: target.spec.periodLength
+  }
+}
+
+export const getIsUserUpdatedSLOData = (
+  existingData: ServiceLevelObjectiveDTO,
+  formData: ServiceLevelObjectiveDTO
+): boolean => {
+  const existingDataToVerify = getVerifyData(existingData)
+  const formDataToVerify = getVerifyData(formData)
+  return isEqual(existingDataToVerify, formDataToVerify)
 }

@@ -49,6 +49,94 @@ describe('test cases for formatcost', () => {
   test('should be able to render cost correctly', () => {
     expect(formatCost(20)).toBe('$20.00')
   })
+
+  test('should be able to render cost correctly with short form', () => {
+    expect(
+      formatCost(20, {
+        shortFormat: true
+      })
+    ).toBe('$20.00')
+  })
+
+  test('should be able to render cost correctly with short form', () => {
+    expect(
+      formatCost(200, {
+        shortFormat: true
+      })
+    ).toBe('$200.00')
+  })
+
+  test('should be able to render cost correctly with short form', () => {
+    expect(
+      formatCost(2000, {
+        shortFormat: true
+      })
+    ).toBe('$2.00K')
+  })
+
+  test('should be able to render cost correctly with short form', () => {
+    expect(
+      formatCost(20000, {
+        shortFormat: true
+      })
+    ).toBe('$20.0K')
+  })
+
+  test('should be able to render cost correctly with short form', () => {
+    expect(
+      formatCost(200000, {
+        shortFormat: true
+      })
+    ).toBe('$200K')
+  })
+
+  test('should be able to render cost correctly with short form', () => {
+    expect(
+      formatCost(2241678, {
+        shortFormat: true
+      })
+    ).toBe('$2.24M')
+  })
+
+  test('should be able to render cost correctly with short form', () => {
+    expect(
+      formatCost(22416781, {
+        shortFormat: true
+      })
+    ).toBe('$22.4M')
+  })
+
+  test('should be able to render cost correctly with short form', () => {
+    expect(
+      formatCost(224167812, {
+        shortFormat: true
+      })
+    ).toBe('$224M')
+  })
+
+  test('should be able to render cost correctly with short form', () => {
+    expect(
+      formatCost(2241678123, {
+        shortFormat: true
+      })
+    ).toBe('$2.24B')
+  })
+
+  test('should be able to render cost correctly with short form', () => {
+    expect(
+      formatCost(22416781234, {
+        shortFormat: true
+      })
+    ).toBe('$22.4B')
+  })
+
+  test('should be able to render cost correctly with short form', () => {
+    expect(
+      formatCost(224167812345, {
+        shortFormat: true
+      })
+    ).toBe('$224B')
+  })
 })
 
 describe('test cases for clusterInfoUtil', () => {

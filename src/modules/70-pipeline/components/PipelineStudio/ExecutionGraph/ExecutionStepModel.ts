@@ -4,9 +4,9 @@ import { Color, Utils } from '@wings-software/uicore'
 import { ExecutionPipelineNodeType } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { UseStringsReturn } from 'framework/strings'
-import type { ExecutionWrapperConfig } from 'services/cd-ng'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
+import type { ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
+import type { TemplateStepNode } from 'services/pipeline-ng'
 import {
   DiagramModel,
   CreateNewModel,
@@ -286,14 +286,17 @@ export class ExecutionStepModel extends DiagramModel {
 
     let { startX, startY, prevNodes } = props
     if (node.step) {
-      const isTemplateStep = !!(node.step as unknown as TemplateStepData)?.template
+      const isTemplateStep = !!(node.step as unknown as TemplateStepNode)?.template
       const stepType = isTemplateStep
         ? get(
             templateTypes,
-            getIdentifierFromValue((node?.step as unknown as TemplateStepData)?.template.templateRef)
+            getIdentifierFromValue((node?.step as unknown as TemplateStepNode)?.template.templateRef)
           ) || ''
-        : node?.step?.type
-      const nodeType = getExecutionPipelineNodeType(node?.step?.type) || ExecutionPipelineNodeType.NORMAL
+        : (node?.step as StepElementConfig)?.type
+      const nodeType = getExecutionPipelineNodeType(stepType)
+      const stepNode = (
+        isTemplateStep ? (node.step as unknown as TemplateStepNode).template.templateInputs : node.step
+      ) as StepElementConfig
       const hasErrors = errorMap && [...errorMap.keys()].some(key => parentPath && key.startsWith(parentPath))
 
       startX += isFirstNode
@@ -320,8 +323,8 @@ export class ExecutionStepModel extends DiagramModel {
               width: 57,
               height: 57,
               isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,
-              conditionalExecutionEnabled: node.step.when
-                ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
+              conditionalExecutionEnabled: stepNode?.when
+                ? stepNode?.when?.stageStatus !== 'Success' || !!stepNode?.when?.condition?.trim()
                 : false,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
               iconStyle: {
@@ -340,8 +343,8 @@ export class ExecutionStepModel extends DiagramModel {
               allowAdd: allowAdd === true && !isReadonly,
               canDelete: !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,
-              conditionalExecutionEnabled: node.step.when
-                ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
+              conditionalExecutionEnabled: stepNode?.when
+                ? stepNode?.when?.stageStatus !== 'Success' || !!stepNode?.when?.condition?.trim()
                 : false,
               draggable: !isReadonly,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
@@ -360,8 +363,8 @@ export class ExecutionStepModel extends DiagramModel {
               },
               allowAdd: allowAdd === true && !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,
-              conditionalExecutionEnabled: node.step.when
-                ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
+              conditionalExecutionEnabled: stepNode?.when
+                ? stepNode?.when?.stageStatus !== 'Success' || !!stepNode?.when?.condition?.trim()
                 : false,
               isTemplate: isTemplateStep,
               draggable: !isReadonly,

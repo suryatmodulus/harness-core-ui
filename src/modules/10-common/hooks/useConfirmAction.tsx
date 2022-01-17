@@ -1,5 +1,5 @@
 import { Intent } from '@blueprintjs/core'
-import { useConfirmationDialog } from '@wings-software/uicore'
+import { useConfirmationDialog } from '@harness/uicore'
 import { useStrings } from 'framework/strings'
 
 export interface UseConfirmActionDialogProps {
@@ -15,6 +15,7 @@ export const useConfirmAction = (props: UseConfirmActionDialogProps) => {
   const { title, message, confirmText, cancelText, intent, action } = props
   const { getString } = useStrings()
   const { openDialog } = useConfirmationDialog({
+    intent,
     titleText: title || getString('confirmation'),
     contentText: message,
     confirmButtonText: confirmText || getString('confirm'),

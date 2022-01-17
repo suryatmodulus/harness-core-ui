@@ -27,10 +27,10 @@
     "paths": {
       "@common/*": ["modules/10-common/*"],
       "@notifications/*": ["modules/15-notifications/*"],
+      "@audit-trail/*": ["modules/18-audit-trail/*"],
       "@rbac/*": ["modules/20-rbac/*"],
-      "@audit-trail/*": ["modules/20-audit-trail/*"],
       "@governance/*": ["modules/25-governance/*"],
-      "@auth-settings/*": ["modules/30-auth-settings/*"],
+      "@auth-settings/*": ["modules/33-auth-settings/*"],
       "@secrets/*": ["modules/30-secrets/*"],
       "@connectors/*": ["modules/35-connectors/*"],
       "@user-profile/*": ["modules/35-user-profile/*"],
@@ -45,7 +45,8 @@
       "@cf/*": ["modules/75-cf/*"],
       "@ci/*": ["modules/75-ci/*"],
       "@cv/*": ["modules/85-cv/*"],
-      "@ce/*": ["modules/75-ce/*"]
+      "@ce/*": ["modules/75-ce/*"],
+      "@wings-software/*": ["../node_modules/@harness/*"]
     }
   },
   "types": ["cypress"],

@@ -55,6 +55,8 @@ describe('GCR Step', () => {
         <TestStepWidget initialValues={{}} type={StepType.GCR} stepViewType={StepViewType.Edit} />
       )
 
+      expect(container.querySelector('input[name="spec.optimize"]')).toBeDefined()
+
       expect(container).toMatchSnapshot()
     })
 

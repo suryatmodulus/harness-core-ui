@@ -81,5 +81,36 @@ export enum PermissionIdentifier {
   TOGGLE_MONITORED_SERVICE = 'chi_monitoredservice_toggle',
   VIEW_SLO_SERVICE = 'chi_slo_view',
   EDIT_SLO_SERVICE = 'chi_slo_edit',
-  DELETE_SLO_SERVICE = 'chi_slo_delete'
+  DELETE_SLO_SERVICE = 'chi_slo_delete',
+
+  // Governance Permissions
+  GOV_VIEW_POLICY = 'core_governancePolicy_view',
+  GOV_EDIT_POLICY = 'core_governancePolicy_edit',
+  GOV_DELETE_POLICY = 'core_governancePolicy_delete',
+  GOV_VIEW_POLICYSET = 'core_governancePolicySets_view',
+  GOV_EDIT_POLICYSET = 'core_governancePolicySets_edit',
+  GOV_DELETE_POLICYSET = 'core_governancePolicySets_delete',
+  GOV_EVALUATE_POLICYSET = 'core_governancePolicySets_evaluate',
+
+  // GitOps Permissions
+  VIEW_GITOPS_AGENT = 'gitops_agent_view',
+  EDIT_GITOPS_AGENT = 'gitops_agent_edit',
+  DELETE_GITOPS_AGENT = 'gitops_agent_delete',
+  VIEW_GITOPS_APPLICATION = 'gitops_application_view',
+  EDIT_GITOPS_APPLICATION = 'gitops_application_edit',
+  DELETE_GITOPS_APPLICATION = 'gitops_application_delete',
+  SYNC_GITOPS_APPLICATION = 'gitops_application_sync',
+  OVERRIDE_GITOPS_APPLICATION = 'gitops_application_override',
+  VIEW_GITOPS_REPOSITORY = 'gitops_repository_view',
+  EDIT_GITOPS_REPOSITORY = 'gitops_repository_edit',
+  DELETE_GITOPS_REPOSITORY = 'gitops_repository_delete',
+  VIEW_GITOPS_CLUSTER = 'gitops_cluster_view',
+  EDIT_GITOPS_CLUSTER = 'gitops_cluster_edit',
+  DELETE_GITOPS_CLUSTER = 'gitops_cluster_delete',
+  VIEW_GITOPS_GPGKEY = 'gitops_gpgkey_view',
+  EDIT_GITOPS_GPGKEY = 'gitops_gpgkey_edit',
+  DELETE_GITOPS_GPGKEY = 'gitops_gpgkey_delete',
+  VIEW_GITOPS_CERT = 'gitops_cert_view',
+  EDIT_GITOPS_CERT = 'gitops_cert_edit',
+  DELETE_GITOPS_CERT = 'gitops_cert_delete'
 }

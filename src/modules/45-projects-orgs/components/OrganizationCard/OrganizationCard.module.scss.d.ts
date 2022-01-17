@@ -9,6 +9,7 @@ declare const styles: {
   readonly flexEnd: string
   readonly overflow: string
   readonly description: string
+  readonly tagText: string
   readonly tags: string
   readonly cardMenu: string
   readonly title: string

@@ -25,8 +25,7 @@ export const getAllowedTemplateTypes = (getString: UseStringsReturn['getString']
   },
   {
     label: getString('templatesLibrary.stageTemplate'),
-    value: TemplateType.Stage,
-    disabled: window.location.origin === 'https://app.harness.io'
+    value: TemplateType.Stage
   },
   {
     label: getString('common.pipeline'),

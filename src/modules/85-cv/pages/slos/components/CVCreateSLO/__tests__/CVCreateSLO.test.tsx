@@ -104,8 +104,46 @@ describe('CVCreateSLO', () => {
       expect(screen.getByText('cv.slos.validations.healthSourceRequired')).toBeInTheDocument()
       expect(screen.getAllByText('cv.required')).toHaveLength(3)
       expect(screen.getAllByText('cv.metricIsRequired')).toHaveLength(2)
-      expect(screen.getByText('cv.slos.selectMonitoredServiceForSlo')).toBeInTheDocument()
+      expect(screen.getByText('connectors.cdng.monitoredService.label')).toBeInTheDocument()
     })
+  })
+
+  test('it should validate form fields for tab change and allow to go back on prev tabs', async () => {
+    const { container } = renderComponent()
+
+    expect(screen.getByText('name')).toHaveAttribute('aria-selected', 'true')
+
+    userEvent.click(screen.getByText('cv.slos.sli'))
+
+    expect(screen.getByText('name')).toHaveAttribute('aria-selected', 'true')
+
+    await waitFor(() => expect(screen.getByText('cv.slos.validations.nameValidation')).toBeInTheDocument())
+
+    userEvent.click(screen.getByText('cv.slos.sloTargetAndBudgetPolicy'))
+
+    expect(screen.getByText('name')).toHaveAttribute('aria-selected', 'true')
+
+    await setFieldValue({ container, type: InputTypes.TEXTFIELD, fieldId: SLOFormFields.NAME, value: 'Text SLO' })
+
+    userEvent.click(screen.getByPlaceholderText('cv.slos.userJourneyPlaceholder'))
+
+    await waitFor(() => {
+      expect(screen.getByText('User Journey 1')).toBeInTheDocument()
+      userEvent.click(screen.getByText('User Journey 1'))
+    })
+
+    userEvent.click(screen.getByText('cv.slos.sli'))
+
+    expect(screen.getByText('cv.slos.sli')).toHaveAttribute('aria-selected', 'true')
+
+    userEvent.click(screen.getByText('name'))
+
+    expect(screen.getByText('name')).toHaveAttribute('aria-selected', 'true')
+
+    userEvent.click(screen.getByText('cv.slos.sloTargetAndBudgetPolicy'))
+
+    expect(screen.getByText('cv.slos.sli')).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByText('connectors.cdng.validations.monitoringServiceRequired')).toBeInTheDocument()
   })
 })
 
@@ -186,11 +224,19 @@ describe('CVCreateSLO - Edit', () => {
 
     expect(screen.getByText('cv.slos.sli')).toHaveAttribute('aria-selected', 'true')
 
-    expect(screen.getByLabelText('cv.slos.slis.metricOptions.ratioBased')).toBeChecked()
+    const ratioMetricRadio = screen.getByRole('radio', {
+      name: /cv.slos.slis.metricOptions.ratioBased/i,
+      hidden: true
+    })
+
+    expect(ratioMetricRadio).toBeChecked()
     expect(screen.getByText('cv.slos.slis.ratioMetricType.eventType')).toBeInTheDocument()
     expect(screen.getByText('cv.slos.slis.ratioMetricType.goodRequestsMetrics')).toBeInTheDocument()
 
-    const thresholdMetricRadio = screen.getByLabelText('cv.slos.slis.metricOptions.thresholdBased')
+    const thresholdMetricRadio = screen.getByRole('radio', {
+      name: /cv.slos.slis.metricOptions.thresholdBased/i,
+      hidden: true
+    })
 
     userEvent.click(thresholdMetricRadio)
 

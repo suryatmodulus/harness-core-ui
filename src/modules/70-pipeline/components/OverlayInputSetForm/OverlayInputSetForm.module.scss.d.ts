@@ -9,5 +9,6 @@ declare const styles: {
   readonly dragOver: string
   readonly inputSetName: string
   readonly inputSetForm: string
+  readonly selectedInputSetsContainer: string
 }
 export default styles

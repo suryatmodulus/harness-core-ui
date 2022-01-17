@@ -1,16 +1,94 @@
-type FormatCost = (value: number, currency?: string, locale?: string, decimalPoints?: number) => string
+interface FormatCostOptions {
+  currency?: string
+  locale?: string
+  decimalPoints?: number
+  shortFormat?: boolean
+}
 
-const formatCost: FormatCost = (value: number, currency = 'USD', locale = 'en-us', decimalPoints = 2) => {
+type FormatCost = (value: number, options?: FormatCostOptions) => string
+
+const defaultOptions = {
+  shortFormat: false,
+  currency: 'USD',
+  locale: 'en-us',
+  decimalPoints: 2
+}
+
+const TOTAL_DIGITS_TO_SHOW = 3
+const POWER_OF_TEN_IN_BILLION = 9
+const POWER_OF_TEN_IN_MILLION = 6
+const POWER_OF_TEN_IN_THOUSANDS = 3
+
+type convertNumberToLocaleStringType = (
+  value: number,
+  locale: string,
+  currency: string,
+  maximumFractionDigits: number,
+  minimumFractionDigits: number
+) => string
+
+const convertNumberToLocaleString: convertNumberToLocaleStringType = (
+  value,
+  locale,
+  currency,
+  maximumFractionDigits,
+  minimumFractionDigits
+) =>
+  value.toLocaleString(locale, {
+    style: 'currency',
+    currency,
+    maximumFractionDigits,
+    minimumFractionDigits
+  })
+
+const formatCost: FormatCost = (value: number, options?: FormatCostOptions) => {
+  const costOptions = { ...defaultOptions, ...options }
   if (isNaN(value)) {
     return ''
   }
 
-  return value.toLocaleString(locale, {
-    style: 'currency',
-    currency: currency,
-    maximumFractionDigits: decimalPoints,
-    minimumFractionDigits: decimalPoints
-  })
+  const getCostInShortFormat = (power: number, cost: number, suffix: string, numberOfDigits: number) => {
+    const decimalPlacesToHave = Math.max(power + TOTAL_DIGITS_TO_SHOW - numberOfDigits, 0)
+    return (
+      convertNumberToLocaleString(
+        cost / Math.pow(10, power),
+        costOptions.locale,
+        costOptions.currency,
+        decimalPlacesToHave,
+        decimalPlacesToHave
+      ) + suffix
+    )
+  }
+
+  /**
+    Option shortFormat will convert the cost as mentioned below -
+    2,345,456 as $2.34M
+    12,345,456 as $12.3M
+    123,456,789 as $123M
+    and so on for thousands and billions
+  */
+  if (costOptions.shortFormat) {
+    const numberOfDigits = value.toFixed(0).length
+    if (numberOfDigits > POWER_OF_TEN_IN_BILLION) {
+      return getCostInShortFormat(POWER_OF_TEN_IN_BILLION, value, 'B', numberOfDigits)
+    }
+
+    if (numberOfDigits > 6) {
+      return getCostInShortFormat(POWER_OF_TEN_IN_MILLION, value, 'M', numberOfDigits)
+    }
+
+    if (numberOfDigits > 3) {
+      return getCostInShortFormat(POWER_OF_TEN_IN_THOUSANDS, value, 'K', numberOfDigits)
+    }
+  }
+
+  return convertNumberToLocaleString(
+    value,
+    costOptions.locale,
+    costOptions.currency,
+    costOptions.decimalPoints,
+    costOptions.decimalPoints
+  )
 }
 
 export default formatCost

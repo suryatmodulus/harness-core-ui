@@ -9,10 +9,9 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 import cx from 'classnames'
-import { isEmpty } from 'lodash-es'
 
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { FieldArray } from 'formik'
+import { FieldArray, FormikValues } from 'formik'
 
 import { String, useStrings } from 'framework/strings'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
@@ -21,17 +20,14 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 
 import { useHelmCmdFlags } from 'services/cd-ng'
 import { useDeepCompareEffect } from '@common/hooks'
-import type { CommandFlags, HelmVersionOptions, HelmWithGITDataType, HelmWithHTTPDataType } from '../ManifestInterface'
+import type { CommandFlags, HelmVersionOptions } from '../ManifestInterface'
 
 import helmcss from './HelmWithGIT/HelmWithGIT.module.scss'
 import css from './ManifestWizardSteps.module.scss'
 interface HelmAdvancedStepProps {
   expressions: string[]
   allowableTypes: MultiTypeInputType[]
-  formik: {
-    setFieldValue: (a: string, b: string) => void
-    values: HelmWithGITDataType | HelmWithHTTPDataType
-  }
+  formik: FormikValues
   isReadonly?: boolean
   deploymentType: string
   helmVersion: HelmVersionOptions
@@ -121,37 +117,18 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
                   {formik.values?.commandFlags?.map((commandFlag: CommandFlags, index: number) => (
                     <Layout.Horizontal key={commandFlag.id} spacing="xxlarge" margin={{ top: 'small' }}>
                       <div className={helmcss.halfWidth}>
-                        <FormInput.MultiTypeInput
+                        <FormInput.Select
                           name={`commandFlags[${index}].commandType`}
                           label={index === 0 ? getString('pipeline.manifestType.helmCommandType') : ''}
-                          selectItems={commandFlagOptions[helmVersion]}
+                          items={commandFlagOptions[helmVersion]}
                           placeholder={getString('pipeline.manifestType.helmCommandTypePlaceholder')}
-                          multiTypeInputProps={{
-                            width: 300,
-                            onChange: value => {
-                              if (isEmpty(value)) {
-                                formik.setFieldValue(`commandFlags[${index}].commandType`, '')
-                                formik.setFieldValue(`commandFlags[${index}].flag`, '')
-                              }
-                            },
-                            expressions,
-                            allowableTypes,
-                            selectProps: {
-                              addClearBtn: true,
-                              items: commandFlagOptions[helmVersion]
-                            }
-                          }}
                         />
                       </div>
                       <div className={helmcss.halfWidth}>
                         <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                          <FormInput.MultiTextInput
+                          <FormInput.Text
                             label={index === 0 ? getString('flag') : ''}
                             name={`commandFlags[${index}].flag`}
-                            multiTextInputProps={{
-                              expressions,
-                              allowableTypes
-                            }}
                           />
                           {getMultiTypeFromValue(formik.values?.commandFlags?.[index]?.flag) ===
                             MultiTypeInputType.RUNTIME && (

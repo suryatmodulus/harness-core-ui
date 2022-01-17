@@ -4,6 +4,7 @@ const reportGenerator = require('lighthouse/lighthouse-core/report/report-genera
 const QA_URL = 'https://qa.harness.io/ng/'
 const PROD_URL = 'https://app.harness.io/ng/'
 const fs = require('fs')
+const PROD_PAGES = ['/home/projects', '/home/get-started']
 const lighthouseRunTimes = 3
 const acceptableChange = process.env.LIGHT_HOUSE_ACCEPTANCE_CHANGE
   ? parseInt(process.env.LIGHT_HOUSE_ACCEPTANCE_CHANGE)
@@ -11,6 +12,7 @@ const acceptableChange = process.env.LIGHT_HOUSE_ACCEPTANCE_CHANGE
 console.log('acceptableChange', acceptableChange)
 const PORT = 8041
 let url = PROD_URL
+let baseUrl = PROD_URL
 let isQA = false
 let passWord = ''
 let emailId = 'ui_perf_test_prod@mailinator.com'
@@ -24,6 +26,25 @@ async function run() {
   }
   if (!url) {
     throw 'Please provide URL as a first argument'
+  }
+
+  const createMap = url => {
+    const scores = {
+      Performance: 0,
+      Accessibility: 0,
+      'Best Practices': 0,
+      SEO: 0,
+      'Time To Interactive': 0,
+      'First ContentFul Paint': 0,
+      'First Meaningful Paint': 0
+    }
+    const map = new Map()
+    if (!isQA) {
+      PROD_PAGES.map(value => {
+        map.set(`${url}${value}`, scores)
+      })
+    }
+    return map
   }
 
   const getScores = resultSupplied => {
@@ -86,6 +107,20 @@ async function run() {
       'First ContentFul Paint': `${getAverageResult(resultsToBeFilterd, 'First ContentFul Paint').toFixed(2)} s`
     }
   }
+
+  const runLightHouseOnPages = async (numberOfTimes, map) => {
+    for (let key of map.keys()) {
+      try {
+        const result = await runLightHouseNtimes(numberOfTimes, key)
+        map.set(key, getFilterResults(result))
+      } catch (e) {
+        console.log(e)
+        process.exit(1)
+      }
+    }
+    return map
+  }
+
   const runLightHouseNtimesAndGetResults = async (numberOfTimes, passedUrl) => {
     const browser = await puppeteer.launch({
       headless: true,
@@ -103,10 +138,19 @@ async function run() {
     await page.$eval('input[type="submit"]', form => form.click())
     await page.waitForNavigation()
     await page.waitForXPath("//span[text()='Main Dashboard']")
-    let results = await runLightHouseNtimes(numberOfTimes, passedUrl)
-    await browser.close()
-    return getFilterResults(results)
+    if (!isQA) {
+      baseUrl = baseUrl.concat(`#${page.url().split('#')[1].split('/dashboard')[0]}`)
+      const map = createMap(baseUrl, isQA)
+      const results = await runLightHouseOnPages(numberOfTimes, map)
+      await browser.close()
+      return results
+    } else {
+      let results = await runLightHouseNtimes(numberOfTimes, passedUrl)
+      await browser.close()
+      return getFilterResults(results)
+    }
   }
+
   const percentageChangeInTwoParams = (dataToBeCompared, benchMarkData, parameter) => {
     const percentageChange = parseFloat(
       ((parseFloat(dataToBeCompared) - parseFloat(benchMarkData)) / parseFloat(benchMarkData)) * 100
@@ -116,10 +160,29 @@ async function run() {
     )
     return percentageChange
   }
-  let finalResults = await runLightHouseNtimesAndGetResults(lighthouseRunTimes, url)
 
-  console.log(`Scores for the ${url} \n`, finalResults)
-  const finalReport = `Lighthouse ran ${lighthouseRunTimes} times on (${url}) and following are the results
+  if (!isQA) {
+    let finalResults = await runLightHouseNtimesAndGetResults(lighthouseRunTimes, url)
+    let finalReport = `| Source | Performance | Accessibility | Best Practices | SEO | Time To Interactive | First ContentFul Paint | First Meaningful Paint |
+|--------|-------------|---------------|----------------|-----|---------------------|------------------------|------------------------|
+`
+
+    for (let key of finalResults.keys()) {
+      const scores = finalResults.get(key)
+      finalReport = `${finalReport}| ${key} | ${scores['Performance']} | ${scores['Accessibility']} | ${scores['Best Practices']} | ${scores['SEO']} | ${scores['Time To Interactive']} | ${scores['First Meaningful Paint']} | ${scores['First ContentFul Paint']} | \n`
+    }
+
+    fs.writeFile('lighthouse.md', finalReport, function (err) {
+      if (err) {
+        console.log(err)
+        process.exit(1)
+      }
+    })
+  } else {
+    let finalResults = await runLightHouseNtimesAndGetResults(lighthouseRunTimes, url)
+
+    console.log(`Scores for the ${url} \n`, finalResults)
+    const finalReport = `Lighthouse ran ${lighthouseRunTimes} times on (${url}) and following are the results
   Name | Value
 ------------ | -------------
 Performance | ${finalResults.Performance}/100
@@ -129,14 +192,6 @@ Best Practices | ${finalResults['Best Practices']}/100
 First ContentFul Paint | ${finalResults['First ContentFul Paint']}
 First Meaningful Paint | ${finalResults['First Meaningful Paint']}
 Time To Interactive | ${finalResults['Time To Interactive']}`
-  if (!isQA) {
-    fs.writeFile('lighthouse.md', finalReport, function (err) {
-      if (err) {
-        console.log(err)
-        process.exit(1)
-      }
-    })
-  } else {
     console.log('Final Report:', finalReport)
 
     console.log(`Starting benchmark results collection using  ${PROD_URL}`)

@@ -77,7 +77,7 @@ describe('<TemplateSelector /> tests', () => {
     await act(async () => {
       fireEvent.click(copyBtn)
     })
-    expect(context.state.templateView.templateDrawerData.data?.selectorData?.onCopyTemplate).toBeCalled()
+    expect(context.state.templateView.templateDrawerData.data?.selectorData?.onUseTemplate).toBeCalled()
 
     const useTemplateBtn = getByRole('button', { name: 'templatesLibrary.useTemplate' })
     await act(async () => {

@@ -17,7 +17,7 @@ export const TrialModalTemplate: React.FC<TrialModalTemplateProps> = ({ imgSrc, 
   const showTrialBadge = !hideTrialBadge && modal === ModuleLicenseType.TRIAL
 
   return (
-    <Layout.Vertical padding={{ top: 'large', right: 'large' }}>
+    <Layout.Vertical padding={{ top: 'large', right: 'xxxlarge', bottom: 'xxxlarge' }}>
       <Layout.Horizontal padding={{ top: 'large' }}>
         <Container
           className={css.left}
@@ -40,7 +40,7 @@ export const TrialModalTemplate: React.FC<TrialModalTemplateProps> = ({ imgSrc, 
             </Text>
           )}
         </Container>
-        <Container padding={{ left: 'xxxlarge' }} height={500} width={'50%'}>
+        <Container padding={{ left: 'xxxlarge' }} width={'50%'} className={css.setupForm}>
           {children}
         </Container>
       </Layout.Horizontal>

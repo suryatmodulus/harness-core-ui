@@ -19,7 +19,7 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
       }
     }
   } = usePipelineContext()
-  const { onUseTemplate, onCopyTemplate, selectedTemplateRef } = data?.selectorData || {}
+  const { onUseTemplate, selectedTemplateRef } = data?.selectorData || {}
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateSummaryResponse | undefined>()
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
@@ -34,17 +34,14 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
     }
   }, [selectedTemplate, setSelectedTemplate])
 
-  const onUseTemplateConfirm = React.useCallback(() => {
-    if (selectedTemplate) {
-      onUseTemplate?.(selectedTemplate)
-    }
-  }, [selectedTemplate, onUseTemplate])
-
-  const onCopyTemplateConfirm = React.useCallback(() => {
-    if (selectedTemplate) {
-      onCopyTemplate?.(selectedTemplate)
-    }
-  }, [selectedTemplate, onCopyTemplate])
+  const onUseTemplateConfirm = React.useCallback(
+    (isCopied = false) => {
+      if (selectedTemplate) {
+        onUseTemplate?.(selectedTemplate, isCopied)
+      }
+    },
+    [selectedTemplate, onUseTemplate]
+  )
 
   const { openDialog: openChangeTemplateDialog } = useConfirmationDialog({
     intent: Intent.WARNING,
@@ -70,7 +67,7 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
     confirmButtonText: getString('confirm'),
     onCloseDialog: async isConfirmed => {
       if (isConfirmed) {
-        onCopyTemplateConfirm()
+        onUseTemplateConfirm(true)
       }
     }
   })
@@ -87,9 +84,9 @@ export const TemplateSelector: React.FC = (): JSX.Element => {
     if (selectedTemplateRef) {
       openCopyTemplateDialog()
     } else {
-      onCopyTemplateConfirm()
+      onUseTemplateConfirm(true)
     }
-  }, [selectedTemplateRef, openCopyTemplateDialog, onCopyTemplateConfirm])
+  }, [selectedTemplateRef, openCopyTemplateDialog, onUseTemplateConfirm])
 
   return (
     <Container height={'100%'} className={css.container}>

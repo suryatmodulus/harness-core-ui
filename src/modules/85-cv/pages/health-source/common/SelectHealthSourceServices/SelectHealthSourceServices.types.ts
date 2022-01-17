@@ -7,7 +7,7 @@ export type SelectHealthSourceServicesProps = {
     continuousVerification: boolean
   }
   metricPackResponse: ReturnType<typeof useGetMetricPacks>
-  labelNamesResponse: ReturnType<typeof useGetLabelNames>
+  labelNamesResponse?: ReturnType<typeof useGetLabelNames>
   hideServiceIdentifier?: boolean
   hideCV?: boolean
   hideSLIAndHealthScore?: boolean

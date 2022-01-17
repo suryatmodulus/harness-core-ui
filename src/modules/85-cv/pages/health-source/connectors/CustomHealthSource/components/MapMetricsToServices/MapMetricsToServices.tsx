@@ -44,7 +44,7 @@ export default function MapMetricsToServices({
         item={formikProps.values?.groupName}
         setGroupNames={setPrometheusGroupName}
         label={getString('cv.monitoringSources.prometheus.groupName')}
-        title={getString('cv.healthSource.connectors.NewRelic.groupName')}
+        title={getString('cv.customHealthSource.addGroupNameTitle')}
         fieldName={CustomHealthSourceFieldNames.GROUP_NAME}
       />
     </Container>

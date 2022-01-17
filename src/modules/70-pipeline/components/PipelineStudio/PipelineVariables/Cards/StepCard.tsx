@@ -7,13 +7,14 @@ import { usePipelineContext } from '@pipeline/components/PipelineStudio/Pipeline
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
-
+import type { TemplateStepNode } from 'services/pipeline-ng'
 import type { PipelineVariablesData } from '../types'
 import VariableAccordionSummary from '../VariableAccordionSummary'
 import css from '../PipelineVariables.module.scss'
+
 export interface StepCardProps {
-  step: StepElementConfig
-  originalStep: StepElementConfig
+  step: StepElementConfig | TemplateStepNode
+  originalStep: StepElementConfig | TemplateStepNode
   stageIdentifier: string
   metadataMap: PipelineVariablesData['metadataMap']
   onUpdateStep(data: StepElementConfig, path: string): void
@@ -28,6 +29,10 @@ export function StepCard(props: StepCardProps): React.ReactElement {
     props
   const { stepsFactory } = usePipelineContext()
 
+  if ((originalStep as TemplateStepNode)?.template) {
+    return <></>
+  }
+
   return (
     <React.Fragment>
       <VariablesListTable
@@ -36,11 +41,11 @@ export function StepCard(props: StepCardProps): React.ReactElement {
         originalData={originalStep}
         metadataMap={metadataMap}
       />
-      <StepWidget<StepElementConfig>
+      <StepWidget<StepElementConfig | TemplateStepNode>
         factory={stepsFactory}
         initialValues={originalStep}
         allowableTypes={allowableTypes}
-        type={originalStep.type as StepType}
+        type={(originalStep as StepElementConfig).type as StepType}
         stepViewType={StepViewType.InputVariable}
         onUpdate={(data: StepElementConfig) => onUpdateStep(data, stepPath)}
         readonly={readonly}
@@ -79,10 +84,14 @@ export function StepCardPanel(props: StepCardProps): React.ReactElement {
 }
 
 export interface StepGroupCardProps {
-  steps: Array<{ step: StepElementConfig; originalStep: StepElementConfig; path: string }>
+  steps: Array<{
+    step: StepElementConfig | TemplateStepNode
+    originalStep: StepElementConfig | TemplateStepNode
+    path: string
+  }>
   stageIdentifier: string
   metadataMap: PipelineVariablesData['metadataMap']
-  onUpdateStep(data: StepElementConfig, path: string): void
+  onUpdateStep(data: StepElementConfig | TemplateStepNode, path: string): void
   stepGroupIdentifier: string
   stepGroupName: string
   stepGroupOriginalName: string

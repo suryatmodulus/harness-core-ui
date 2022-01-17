@@ -27,9 +27,11 @@ export interface StringsMap {
   'common.addAccountName': string
   'common.addVariable': string
   'common.advanced': string
+  'common.agent': string
   'common.allErrors': string
   'common.apiKeys': string
   'common.apikey': string
+  'common.application': string
   'common.apply': string
   'common.approve': string
   'common.artifactTag': string
@@ -87,6 +89,7 @@ export interface StringsMap {
   'common.ce.visibility': string
   'common.ce.visibilityLaunchButton': string
   'common.ce.visibilityWarning': string
+  'common.certificate': string
   'common.cgLaunchText': string
   'common.changeDefaultAccountMessage': string
   'common.changeDefaultAccountTitle': string
@@ -95,6 +98,7 @@ export interface StringsMap {
   'common.channel': string
   'common.clearSelection': string
   'common.clientId': string
+  'common.clientSecret': string
   'common.cluster': string
   'common.comingSoon': string
   'common.comingSoon2': string
@@ -142,7 +146,12 @@ export interface StringsMap {
   'common.default': string
   'common.defaultExperience': string
   'common.delegateForTask': string
+  'common.delegateTokenLabel': string
   'common.delete': string
+  'common.deleteService': string
+  'common.deleteServiceConfirmation': string
+  'common.deleteServiceFailure': string
+  'common.deleteServiceMessage': string
   'common.descriptionPlaceholder': string
   'common.disable': string
   'common.discard': string
@@ -275,6 +284,7 @@ export interface StringsMap {
   'common.gitSync.updateResource': string
   'common.goBack': string
   'common.governance': string
+  'common.gpgkey': string
   'common.harnessClusterHostingAccount': string
   'common.harnessFirstGeneration': string
   'common.harnessFirstGenerationDescription': string
@@ -318,7 +328,11 @@ export interface StringsMap {
   'common.module.ce': string
   'common.module.cf': string
   'common.module.ci': string
+  'common.module.core': string
   'common.module.cv': string
+  'common.module.pms': string
+  'common.module.templateService': string
+  'common.moduleLabel': string
   'common.monthly': string
   'common.moreInfo': string
   'common.moreOptions': string
@@ -467,7 +481,11 @@ export interface StringsMap {
   'common.reportNameRequired': string
   'common.repositoryName': string
   'common.resolveConflict': string
+  'common.resourceGroupLabel': string
+  'common.resourceLabel': string
+  'common.resourceTypeLabel': string
   'common.role': string
+  'common.roleAssignmentLabel': string
   'common.saveAndClose': string
   'common.saveAsTemplate': string
   'common.savedSuccessfully': string
@@ -567,6 +585,7 @@ export interface StringsMap {
   'common.switchAccount': string
   'common.switchAccountError': string
   'common.switchAccountSearch': string
+  'common.sync': string
   'common.template.deleteTemplate.errorWhileDeleting': string
   'common.template.deleteTemplate.templatesDeleted': string
   'common.template.label': string
@@ -580,12 +599,14 @@ export interface StringsMap {
   'common.test.connectionSuccessful': string
   'common.test.inProgress': string
   'common.test.retest': string
+  'common.timePstLabel': string
   'common.tokens': string
   'common.totalHarnessUser': string
   'common.totalLines': string
   'common.totalSelected': string
   'common.trialInProgress': string
   'common.trialInProgressDescription': string
+  'common.triggerLabel': string
   'common.unlimited': string
   'common.unsavedChanges': string
   'common.updating': string
@@ -593,6 +614,9 @@ export interface StringsMap {
   'common.useTemplate': string
   'common.userGroup': string
   'common.userGroups': string
+  'common.userLabel': string
+  'common.validation.clientIdIsRequired': string
+  'common.validation.clientSecretRequired': string
   'common.validation.email.format': string
   'common.validation.email.required': string
   'common.validation.entityIdIsRequired': string
@@ -622,6 +646,7 @@ export interface StringsMap {
   'common.videoNotSupportedError': string
   'common.viewContent': string
   'common.viewLatest': string
+  'common.viewReferences': string
   'common.viewText': string
   'common.viewUsage': string
   'common.webhookURL': string
@@ -673,6 +698,23 @@ export interface StringsMap {
   'notifications.userGroupsPlaceholder': string
   'notifications.validationPDKey': string
   'notifications.validationWebhook': string
+  'auditTrail.actions.added_collaborator': string
+  'auditTrail.actions.added_membership': string
+  'auditTrail.actions.invite_resent': string
+  'auditTrail.actions.invite_revoked': string
+  'auditTrail.actions.invited': string
+  'auditTrail.actions.removed_collaborator': string
+  'auditTrail.actions.removed_membership': string
+  'auditTrail.actions.restored': string
+  'auditTrail.actions.revoke_token': string
+  'auditTrail.actions.updated': string
+  'auditTrail.auditLogAPI': string
+  'auditTrail.emptyStateMessage': string
+  'auditTrail.emptyStateMessageTitle': string
+  'auditTrail.eventSource': string
+  'auditTrail.externalDataText': string
+  'auditTrail.http': string
+  'auditTrail.supplementaryDetails': string
   'rbac.accessControlTitle.resourceGroups': string
   'rbac.accessControlTitle.roles': string
   'rbac.accessControlTitle.serviceAccounts': string
@@ -713,6 +755,7 @@ export interface StringsMap {
   'rbac.permissionLabels.create': string
   'rbac.permissionLabels.createEdit': string
   'rbac.permissionLabels.delete': string
+  'rbac.permissionLabels.evaluate': string
   'rbac.permissionLabels.execute': string
   'rbac.permissionLabels.invite': string
   'rbac.permissionLabels.manage': string
@@ -733,7 +776,6 @@ export interface StringsMap {
   'rbac.resourceGroup.noResourceGroup': string
   'rbac.resourceGroup.noResourceGroupFound': string
   'rbac.resourceGroup.noResourceGroupTypes': string
-  'rbac.resourceGroup.resourceGroupColumn': string
   'rbac.resourceGroup.selectResourceGroup': string
   'rbac.resourceGroup.summary': string
   'rbac.resourceGroup.updateResourceGroupDialogTitle': string
@@ -783,7 +825,6 @@ export interface StringsMap {
   'rbac.token.successMessage': string
   'rbac.unableToEditSCIMMembership': string
   'rbac.updateNotificationSuccess': string
-  'rbac.user': string
   'rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText': string
   'rbac.userDetails.linkToSSOProviderModal.delinkLabel': string
   'rbac.userDetails.linkToSSOProviderModal.delinkText': string
@@ -864,144 +905,6 @@ export interface StringsMap {
   'resourceCenter.ticketmenu.tickets': string
   'resourceCenter.ticketmenu.ticketsDesc': string
   'resourceCenter.title': string
-  'authSettings.SAMLProvider': string
-  'authSettings.WhitelistedDomainsUpdated': string
-  'authSettings.accountOrOAuthLogin': string
-  'authSettings.accountOrOAuthLoginEnabledSuccessfully': string
-  'authSettings.addSAMLProvider': string
-  'authSettings.allowLoginFromTheseDomains': string
-  'authSettings.allowUsersWithEmails': string
-  'authSettings.atLeastNChars': string
-  'authSettings.authenticationSettings': string
-  'authSettings.authorizationEnabledFor': string
-  'authSettings.authorizationNotEnabled': string
-  'authSettings.azure': string
-  'authSettings.cdCommunityPlan.communityLinkText': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item1': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item2': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item3': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item4': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item5': string
-  'authSettings.cdCommunityPlan.communityPlanStrings.item6': string
-  'authSettings.cdCommunityPlan.communityPrice': string
-  'authSettings.cdCommunityPlan.communityPriceText': string
-  'authSettings.cdCommunityPlan.communityTitle': string
-  'authSettings.cdCommunityPlan.communityTitle2': string
-  'authSettings.cdCommunityPlan.enterpriseLinkText': string
-  'authSettings.cdCommunityPlan.enterprisePlanStrings.item1': string
-  'authSettings.cdCommunityPlan.enterprisePlanStrings.item2': string
-  'authSettings.cdCommunityPlan.enterprisePlanStrings.item3': string
-  'authSettings.cdCommunityPlan.enterpriseTitle': string
-  'authSettings.cdCommunityPlan.enterpriseTitle2': string
-  'authSettings.cdCommunityPlan.harnessLinkText': string
-  'authSettings.cdCommunityPlan.planLink': string
-  'authSettings.cdCommunityPlan.saasLinkText': string
-  'authSettings.cdCommunityPlan.saasTitle2': string
-  'authSettings.changeLoginToHarnessAccountOrOauth': string
-  'authSettings.changeLoginToHarnessAccountOrOauthDescription': string
-  'authSettings.chooseFile': string
-  'authSettings.confirmDisableLockoutPolicy': string
-  'authSettings.confirmDisableOAuthLogin': string
-  'authSettings.confirmDisablePasswordExpiration': string
-  'authSettings.confirmDisablePasswordStrength': string
-  'authSettings.confirmDisableUserPasswordLogin': string
-  'authSettings.confirmDisableWhitelistedDomains': string
-  'authSettings.daysBeforePasswordExpires': string
-  'authSettings.daysBeforeUserNotified': string
-  'authSettings.deleteSamlProvider': string
-  'authSettings.deleteSamlProviderDescription': string
-  'authSettings.disableLockoutPolicy': string
-  'authSettings.disableOAuthLogin': string
-  'authSettings.disablePasswordExpiration': string
-  'authSettings.disablePasswordStrength': string
-  'authSettings.disableTwoFAEnforcement': string
-  'authSettings.disableUserPasswordLogin': string
-  'authSettings.disableWhitelistedDomains': string
-  'authSettings.doYouWantToEnforceTwoFAForAllMembers': string
-  'authSettings.domainNameRequired': string
-  'authSettings.editSAMLProvider': string
-  'authSettings.enableAtLeastOneSsoBeforeDisablingUserPasswordLogin': string
-  'authSettings.enableAuthorization': string
-  'authSettings.enableEntityIdLabel': string
-  'authSettings.enableHarnessAccountOrOauthLogin': string
-  'authSettings.enableSamlProvider': string
-  'authSettings.enableSamlProviderDescription': string
-  'authSettings.enablingAuthorization': string
-  'authSettings.enablingAuthorizationDescription': string
-  'authSettings.enforceLockoutPolicy': string
-  'authSettings.enforcePasswordStrength': string
-  'authSettings.enforceTwoFA': string
-  'authSettings.enterSAMLEndPoint': string
-  'authSettings.entityIdLabel': string
-  'authSettings.existingMembersWillReceiveAnEmailWithQRCode': string
-  'authSettings.failedLoginsBeforeLocked': string
-  'authSettings.failedLoginsBeforeLockedAccount': string
-  'authSettings.friendlyReminder': string
-  'authSettings.friendlyReminderDescription': string
-  'authSettings.goToSettings': string
-  'authSettings.groupAttributeName': string
-  'authSettings.haveOneDigit': string
-  'authSettings.haveOneLowercase': string
-  'authSettings.haveOneSpecialChar': string
-  'authSettings.haveOneUppercase': string
-  'authSettings.identityProvider': string
-  'authSettings.keepAtLeastOneProviderEnabled': string
-  'authSettings.lockoutDuration': string
-  'authSettings.lockoutPolicy': string
-  'authSettings.lockoutPolicyDisabled': string
-  'authSettings.lockoutPolicyEnabled': string
-  'authSettings.lockoutPolicyUpdated': string
-  'authSettings.loginSettingsHaveBeenUpdated': string
-  'authSettings.loginViaSAML': string
-  'authSettings.minLength': string
-  'authSettings.multipleOrganizations': string
-  'authSettings.multipleProjects': string
-  'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
-  'authSettings.notifyUsersWhenTheyLocked': string
-  'authSettings.notifyUsersWhenUserLocked': string
-  'authSettings.oauthSettingsHaveBeenUpdated': string
-  'authSettings.oauthSupport': string
-  'authSettings.okta': string
-  'authSettings.oneLogin': string
-  'authSettings.onprem': string
-  'authSettings.passwordExpiration': string
-  'authSettings.passwordExpirationDisabled': string
-  'authSettings.passwordExpirationEnabled': string
-  'authSettings.passwordExpirationUpdated': string
-  'authSettings.passwordMustFulfillReq': string
-  'authSettings.passwordStrength': string
-  'authSettings.passwordStrengthDisabled': string
-  'authSettings.passwordStrengthEnabled': string
-  'authSettings.passwordStrengthUpdated': string
-  'authSettings.periodicallyExpirePassword': string
-  'authSettings.periodicallyExpirePasswordNote': string
-  'authSettings.pleaseRemoveSAMLOrLDAPToEnableOauth': string
-  'authSettings.plusSAMLProvider': string
-  'authSettings.publicOAuthLoginDisabled': string
-  'authSettings.publicOAuthLoginEnabled': string
-  'authSettings.restrictUsersToEmailDomains': string
-  'authSettings.saas': string
-  'authSettings.samlLoginEnabled': string
-  'authSettings.samlProviderAddedSuccessfully': string
-  'authSettings.samlProviderDeleted': string
-  'authSettings.samlProviderUpdatedSuccessfully': string
-  'authSettings.samlSupport': string
-  'authSettings.samlTestFailed': string
-  'authSettings.samlTestSuccessful': string
-  'authSettings.selectSAMLProvider': string
-  'authSettings.sureToDisableTwoFAEnforcement': string
-  'authSettings.testingSSO': string
-  'authSettings.testingSSODescription': string
-  'authSettings.twoFAEnforcementDisabled': string
-  'authSettings.twoFAEnforcementEnabled': string
-  'authSettings.twoFactorAuthSupport': string
-  'authSettings.typeAndPressEnterToAddADomain': string
-  'authSettings.updating': string
-  'authSettings.uploadIdentityProvider': string
-  'authSettings.useHarnessUsernameAndPassword': string
-  'authSettings.usePublicOAuth': string
-  'authSettings.whitelistedDomainsDisabled': string
-  'authSettings.yourAccountWillBeLockedOut': string
   'delegates.GBRam': string
   'delegates.configNameRequired': string
   'delegates.createDelegate': string
@@ -1175,6 +1078,145 @@ export interface StringsMap {
   'secrets.titleCreate': string
   'secrets.titleSelect': string
   'secrets.typeSSH': string
+  'authSettings.SAMLProvider': string
+  'authSettings.WhitelistedDomainsUpdated': string
+  'authSettings.accountOrOAuthLogin': string
+  'authSettings.accountOrOAuthLoginEnabledSuccessfully': string
+  'authSettings.addSAMLProvider': string
+  'authSettings.allowLoginFromTheseDomains': string
+  'authSettings.allowUsersWithEmails': string
+  'authSettings.atLeastNChars': string
+  'authSettings.authenticationSettings': string
+  'authSettings.authorizationEnabledFor': string
+  'authSettings.authorizationNotEnabled': string
+  'authSettings.azure': string
+  'authSettings.cdCommunityPlan.communityLinkText': string
+  'authSettings.cdCommunityPlan.communityPlanStrings.item1': string
+  'authSettings.cdCommunityPlan.communityPlanStrings.item2': string
+  'authSettings.cdCommunityPlan.communityPlanStrings.item3': string
+  'authSettings.cdCommunityPlan.communityPlanStrings.item4': string
+  'authSettings.cdCommunityPlan.communityPlanStrings.item5': string
+  'authSettings.cdCommunityPlan.communityPrice': string
+  'authSettings.cdCommunityPlan.communityTitle': string
+  'authSettings.cdCommunityPlan.communityTitle2': string
+  'authSettings.cdCommunityPlan.enterpriseLinkText': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item1': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item2': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item3': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item4': string
+  'authSettings.cdCommunityPlan.enterprisePlanStrings.item5': string
+  'authSettings.cdCommunityPlan.enterpriseTitle': string
+  'authSettings.cdCommunityPlan.enterpriseTitle2': string
+  'authSettings.cdCommunityPlan.harnessLinkText': string
+  'authSettings.cdCommunityPlan.planLink': string
+  'authSettings.cdCommunityPlan.saasLinkText': string
+  'authSettings.cdCommunityPlan.saasTitle2': string
+  'authSettings.changeLoginToHarnessAccountOrOauth': string
+  'authSettings.changeLoginToHarnessAccountOrOauthDescription': string
+  'authSettings.chooseFile': string
+  'authSettings.confirmDisableLockoutPolicy': string
+  'authSettings.confirmDisableOAuthLogin': string
+  'authSettings.confirmDisablePasswordExpiration': string
+  'authSettings.confirmDisablePasswordStrength': string
+  'authSettings.confirmDisableUserPasswordLogin': string
+  'authSettings.confirmDisableWhitelistedDomains': string
+  'authSettings.daysBeforePasswordExpires': string
+  'authSettings.daysBeforeUserNotified': string
+  'authSettings.deleteSamlProvider': string
+  'authSettings.deleteSamlProviderDescription': string
+  'authSettings.disableLockoutPolicy': string
+  'authSettings.disableOAuthLogin': string
+  'authSettings.disablePasswordExpiration': string
+  'authSettings.disablePasswordStrength': string
+  'authSettings.disableTwoFAEnforcement': string
+  'authSettings.disableUserPasswordLogin': string
+  'authSettings.disableWhitelistedDomains': string
+  'authSettings.doYouWantToEnforceTwoFAForAllMembers': string
+  'authSettings.domainNameRequired': string
+  'authSettings.editSAMLProvider': string
+  'authSettings.enableAtLeastOneSsoBeforeDisablingUserPasswordLogin': string
+  'authSettings.enableAuthorization': string
+  'authSettings.enableClientIdAndSecret': string
+  'authSettings.enableEntityIdLabel': string
+  'authSettings.enableHarnessAccountOrOauthLogin': string
+  'authSettings.enableSamlProvider': string
+  'authSettings.enableSamlProviderDescription': string
+  'authSettings.enablingAuthorization': string
+  'authSettings.enablingAuthorizationDescription': string
+  'authSettings.enforceLockoutPolicy': string
+  'authSettings.enforcePasswordStrength': string
+  'authSettings.enforceTwoFA': string
+  'authSettings.enterSAMLEndPoint': string
+  'authSettings.entityIdLabel': string
+  'authSettings.existingMembersWillReceiveAnEmailWithQRCode': string
+  'authSettings.failedLoginsBeforeLocked': string
+  'authSettings.failedLoginsBeforeLockedAccount': string
+  'authSettings.friendlyReminder': string
+  'authSettings.friendlyReminderDescription': string
+  'authSettings.goToSettings': string
+  'authSettings.groupAttributeName': string
+  'authSettings.haveOneDigit': string
+  'authSettings.haveOneLowercase': string
+  'authSettings.haveOneSpecialChar': string
+  'authSettings.haveOneUppercase': string
+  'authSettings.identityProvider': string
+  'authSettings.keepAtLeastOneProviderEnabled': string
+  'authSettings.lockoutDuration': string
+  'authSettings.lockoutPolicy': string
+  'authSettings.lockoutPolicyDisabled': string
+  'authSettings.lockoutPolicyEnabled': string
+  'authSettings.lockoutPolicyUpdated': string
+  'authSettings.loginSettingsHaveBeenUpdated': string
+  'authSettings.loginViaSAML': string
+  'authSettings.minLength': string
+  'authSettings.multipleOrganizations': string
+  'authSettings.multipleProjects': string
+  'authSettings.newMembersWillNeedToSetUpTwoFADuringSignup': string
+  'authSettings.notifyUsersWhenTheyLocked': string
+  'authSettings.notifyUsersWhenUserLocked': string
+  'authSettings.oauthSettingsHaveBeenUpdated': string
+  'authSettings.oauthSupport': string
+  'authSettings.okta': string
+  'authSettings.oneLogin': string
+  'authSettings.onprem': string
+  'authSettings.passwordExpiration': string
+  'authSettings.passwordExpirationDisabled': string
+  'authSettings.passwordExpirationEnabled': string
+  'authSettings.passwordExpirationUpdated': string
+  'authSettings.passwordMustFulfillReq': string
+  'authSettings.passwordStrength': string
+  'authSettings.passwordStrengthDisabled': string
+  'authSettings.passwordStrengthEnabled': string
+  'authSettings.passwordStrengthUpdated': string
+  'authSettings.periodicallyExpirePassword': string
+  'authSettings.periodicallyExpirePasswordNote': string
+  'authSettings.pleaseRemoveSAMLOrLDAPToEnableOauth': string
+  'authSettings.plusSAMLProvider': string
+  'authSettings.publicOAuthLoginDisabled': string
+  'authSettings.publicOAuthLoginEnabled': string
+  'authSettings.restrictUsersToEmailDomains': string
+  'authSettings.saas': string
+  'authSettings.samlLoginEnabled': string
+  'authSettings.samlProviderAddedSuccessfully': string
+  'authSettings.samlProviderDeleted': string
+  'authSettings.samlProviderUpdatedSuccessfully': string
+  'authSettings.samlSupport': string
+  'authSettings.samlTestFailed': string
+  'authSettings.samlTestSuccessful': string
+  'authSettings.selectSAMLProvider': string
+  'authSettings.sureToDisableTwoFAEnforcement': string
+  'authSettings.testingSSO': string
+  'authSettings.testingSSODescription': string
+  'authSettings.twoFAEnforcementDisabled': string
+  'authSettings.twoFAEnforcementEnabled': string
+  'authSettings.twoFactorAuthSupport': string
+  'authSettings.typeAndPressEnterToAddADomain': string
+  'authSettings.updating': string
+  'authSettings.uploadIdentityProvider': string
+  'authSettings.useHarnessUsernameAndPassword': string
+  'authSettings.usePublicOAuth': string
+  'authSettings.whitelistedDomainsDisabled': string
+  'authSettings.yourAccountWillBeLockedOut': string
   'connectors.ECR.fullName': string
   'connectors.ECR.name': string
   'connectors.GCP.delegateInClusterInfo': string
@@ -1195,7 +1237,6 @@ export interface StringsMap {
   'connectors.appD.accountName': string
   'connectors.appD.apiClient': string
   'connectors.appD.clientId': string
-  'connectors.appD.clientSecret': string
   'connectors.appD.connectionDetailsHeader': string
   'connectors.appD.controllerURL': string
   'connectors.appD.validation.clientId': string
@@ -1205,6 +1246,7 @@ export interface StringsMap {
   'connectors.appdLabel': string
   'connectors.artifactRepoType': string
   'connectors.artifactRepository': string
+  'connectors.artifactory.artifactoryLabel': string
   'connectors.artifactory.artifactoryServerUrl': string
   'connectors.aws.accessKey': string
   'connectors.aws.assumeIAMRole': string
@@ -1239,7 +1281,6 @@ export interface StringsMap {
   'connectors.azureKeyVault.labels.subscription': string
   'connectors.azureKeyVault.labels.tenantId': string
   'connectors.azureKeyVault.labels.vaultName': string
-  'connectors.azureKeyVault.validation.clientId': string
   'connectors.azureKeyVault.validation.subscription': string
   'connectors.azureKeyVault.validation.tenantId': string
   'connectors.azureKeyVault.validation.vaultName': string
@@ -1483,6 +1524,8 @@ export interface StringsMap {
   'connectors.ceGcp.billingExport.followInstruction': string
   'connectors.ceGcp.billingExport.heading': string
   'connectors.ceGcp.billingExport.launchTemplate': string
+  'connectors.ceGcp.billingExport.tableIdLabel': string
+  'connectors.ceGcp.billingExport.tableIdTooltipDesc': string
   'connectors.ceGcp.billingExport.tooltipDescription': string
   'connectors.ceGcp.billingExtention.heading': string
   'connectors.ceGcp.billingExtention.link1': string
@@ -1627,6 +1670,7 @@ export interface StringsMap {
   'connectors.hashiCorpVault.readOnlyVault': string
   'connectors.hashiCorpVault.renewal': string
   'connectors.hashiCorpVault.root': string
+  'connectors.hashiCorpVault.saveInProgress': string
   'connectors.hashiCorpVault.secretEngine': string
   'connectors.hashiCorpVault.secretId': string
   'connectors.hashiCorpVault.setupEngine': string
@@ -1692,6 +1736,7 @@ export interface StringsMap {
   'connectors.newRelic.urlValidation': string
   'connectors.newRelicConnectorDetails': string
   'connectors.newRelicLabel': string
+  'connectors.nexus.nexusLabel': string
   'connectors.nexus.nexusServerUrl': string
   'connectors.pagerDutyConnectorDetails': string
   'connectors.parameters': string
@@ -1860,6 +1905,8 @@ export interface StringsMap {
   'gitsync.connectThroughManagerLabel': string
   'gitsync.connectToGitProvider': string
   'gitsync.connectivityModeLabel': string
+  'gitsync.createBranchTitle': string
+  'gitsync.deafaultSyncTitle': string
   'gitsync.defaultBranch': string
   'gitsync.defaultFolder': string
   'gitsync.enterBranchToSync': string
@@ -1885,12 +1932,15 @@ export interface StringsMap {
   'gitsync.rootfolderLabel': string
   'gitsync.seeLess': string
   'gitsync.seeMore': string
+  'gitsync.selectBranchTitle': string
   'gitsync.selectDefaultBranch': string
   'gitsync.selectHarnessFolder': string
   'gitsync.startPullRequest': string
   'gitsync.startSync': string
   'gitsync.successfullCreate': string
   'gitsync.successfullySavedConnectivityMode': string
+  'gitsync.syncBranchTitle': string
+  'gitsync.syncSucessToaster': string
   'dashboards.createFolder.folderDescriptionPlaceholder': string
   'dashboards.createFolder.folderNameValidation': string
   'dashboards.createFolder.folderPlaceholder': string
@@ -2093,8 +2143,11 @@ export interface StringsMap {
   'pipeline.artifactsSelection.existingDocker.imageNamePlaceholder': string
   'pipeline.artifactsSelection.existingDocker.sidecarId': string
   'pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder': string
+  'pipeline.artifactsSelection.repositoryPort': string
+  'pipeline.artifactsSelection.repositoryPortPlaceholder': string
   'pipeline.artifactsSelection.validation.imagePath': string
   'pipeline.artifactsSelection.validation.region': string
+  'pipeline.artifactsSelection.validation.repositoryPort': string
   'pipeline.artifactsSelection.validation.sidecarId': string
   'pipeline.artifactsSelection.validation.tag': string
   'pipeline.artifactsSelection.validation.tagRegex': string
@@ -2341,6 +2394,7 @@ export interface StringsMap {
   'pipeline.inputSets.inputSetPlaceholder': string
   'pipeline.inputSets.noRuntimeInputsCurrently': string
   'pipeline.inputSets.noRuntimeInputsWhileExecution': string
+  'pipeline.inputSets.overlayISHelperText': string
   'pipeline.inputSets.selectPlaceholder': string
   'pipeline.jiraApprovalStep.connectToJira': string
   'pipeline.jiraApprovalStep.connectorRef': string
@@ -2644,7 +2698,6 @@ export interface StringsMap {
   'pipeline.testsReports.numberOfSelectedTests': string
   'pipeline.testsReports.onlyUncoveredFiles': string
   'pipeline.testsReports.poweredByTI': string
-  'pipeline.testsReports.resource': string
   'pipeline.testsReports.result': string
   'pipeline.testsReports.resultLabel': string
   'pipeline.testsReports.selectedTestMethods': string
@@ -2804,7 +2857,6 @@ export interface StringsMap {
   'pipeline.triggers.triggerConfigurationPanel.payloadType': string
   'pipeline.triggers.triggerConfigurationPanel.title': string
   'pipeline.triggers.triggerConfigurationPanel.triggerName': string
-  'pipeline.triggers.triggerLabel': string
   'pipeline.triggers.triggerOverviewPanel.title': string
   'pipeline.triggers.triggersLabel': string
   'pipeline.triggers.triggersSubLabel': string
@@ -2943,6 +2995,7 @@ export interface StringsMap {
   'cd.duplicateGitOpsServerIdError': string
   'cd.duplicateIdError': string
   'cd.dynamicProvisioning': string
+  'cd.enterpriseGitOps': string
   'cd.environmentCreated': string
   'cd.environmentUpdated': string
   'cd.filePathPlaceholder': string
@@ -3042,6 +3095,7 @@ export interface StringsMap {
   'cd.workloadRequired': string
   'ce.allClusters': string
   'ce.allRegions': string
+  'ce.budgets.addNewBudget': string
   'ce.budgets.budgetDeletedTxt': string
   'ce.budgets.confirmDeleteBudgetMsg': string
   'ce.budgets.confirmDeleteBudgetTitle': string
@@ -3056,6 +3110,7 @@ export interface StringsMap {
   'ce.budgets.detailsPage.monthToDateCost': string
   'ce.budgets.detailsPage.tableHeaders.actualCost': string
   'ce.budgets.detailsPage.tableHeaders.budgetCost': string
+  'ce.budgets.detailsPage.tableHeaders.budgetPeriod': string
   'ce.budgets.detailsPage.tableHeaders.budgetVariance': string
   'ce.budgets.detailsPage.tableHeaders.budgetVariancePercentage': string
   'ce.budgets.detailsPage.tableHeaders.month': string
@@ -3316,6 +3371,7 @@ export interface StringsMap {
   'ce.co.sshSetup': string
   'ce.common.budget': string
   'ce.common.newBudget': string
+  'ce.common.spendTillDate': string
   'ce.connector.AWS.crossAccountRole.arn': string
   'ce.connector.AWS.crossAccountRole.externalID': string
   'ce.connector.AWS.crossAccountRole.instructionLabel': string
@@ -3423,6 +3479,8 @@ export interface StringsMap {
   'ce.perspectives.budgets.addBudget': string
   'ce.perspectives.budgets.budgetMonthlyTxt': string
   'ce.perspectives.budgets.budgetSmallTxt': string
+  'ce.perspectives.budgets.budgetText': string
+  'ce.perspectives.budgets.budgetTextWithGrowthRate': string
   'ce.perspectives.budgets.configureAlerts.actual': string
   'ce.perspectives.budgets.configureAlerts.basedOn': string
   'ce.perspectives.budgets.configureAlerts.budgetAmount': string
@@ -3430,6 +3488,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.configureAlerts.exceeds': string
   'ce.perspectives.budgets.configureAlerts.forecasted': string
   'ce.perspectives.budgets.configureAlerts.percent': string
+  'ce.perspectives.budgets.configureAlerts.sendAlertTo': string
   'ce.perspectives.budgets.configureAlerts.subTitle': string
   'ce.perspectives.budgets.configureAlerts.title': string
   'ce.perspectives.budgets.createNew': string
@@ -3441,6 +3500,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.desc': string
   'ce.perspectives.budgets.forecastedCost': string
   'ce.perspectives.budgets.monthToDateSpend': string
+  'ce.perspectives.budgets.perspectiveCreateBudgetTitle': string
   'ce.perspectives.budgets.sendAlerts': string
   'ce.perspectives.budgets.setBudgetAmount.budgetPeriod': string
   'ce.perspectives.budgets.setBudgetAmount.budgetPeriods.monthly': string
@@ -3489,6 +3549,7 @@ export interface StringsMap {
   'ce.perspectives.createPerspective.validationErrors.nameError': string
   'ce.perspectives.createPerspective.validationErrors.nameLengthError': string
   'ce.perspectives.createPerspective.validationErrors.ruleError': string
+  'ce.perspectives.featureWarningSubInfoText': string
   'ce.perspectives.newPerspective': string
   'ce.perspectives.newPerspectiveLimitWarning': string
   'ce.perspectives.nodeDetails.aggregation.average': string
@@ -3502,6 +3563,7 @@ export interface StringsMap {
   'ce.perspectives.recommendations.perMonth': string
   'ce.perspectives.recommendations.recommendationCountTxt': string
   'ce.perspectives.recommendations.viewText': string
+  'ce.perspectives.reports.addReportSchedule': string
   'ce.perspectives.reports.createNew': string
   'ce.perspectives.reports.cronLabel': string
   'ce.perspectives.reports.desc': string
@@ -3591,7 +3653,6 @@ export interface StringsMap {
   'ce.recommendation.listPage.filters.minSaving': string
   'ce.recommendation.listPage.filters.name': string
   'ce.recommendation.listPage.filters.namespace': string
-  'ce.recommendation.listPage.filters.resourceType': string
   'ce.recommendation.listPage.forecatedCostSubText': string
   'ce.recommendation.listPage.listTableHeaders.details': string
   'ce.recommendation.listPage.listTableHeaders.monthlyCost': string
@@ -3897,6 +3958,7 @@ export interface StringsMap {
   'cf.onboarding.readme.java': string
   'cf.onboarding.readme.javascript': string
   'cf.onboarding.readme.nodejs': string
+  'cf.onboarding.readme.python': string
   'cf.onboarding.sdkButtonLabel': string
   'cf.onboarding.sdkKeyLabel': string
   'cf.onboarding.secret': string
@@ -3990,9 +4052,16 @@ export interface StringsMap {
   'cf.segmentDetail.addSegmentToFlag': string
   'cf.segmentDetail.addToFlag': string
   'cf.segmentDetail.autoAdded': string
+  'cf.segmentDetail.criteria': string
   'cf.segmentDetail.directlyAdded': string
+  'cf.segmentDetail.excludeTheFollowing': string
+  'cf.segmentDetail.includeTheFollowing': string
+  'cf.segmentDetail.noConditionDefined': string
   'cf.segmentDetail.noFlagsUseThisSegment': string
+  'cf.segmentDetail.noTargetDefined': string
   'cf.segmentDetail.removeFomFlag': string
+  'cf.segmentDetail.specificTargets': string
+  'cf.segmentDetail.targetBasedOnCondition': string
   'cf.segments.create': string
   'cf.segments.delete.message': string
   'cf.segments.delete.title': string
@@ -4264,9 +4333,12 @@ export interface StringsMap {
   'cv.continuous': string
   'cv.copyURL': string
   'cv.currentProductionRisk': string
-  'cv.customHealthSource.Querymapping.fields.parameter.title': string
+  'cv.customHealthSource.Querymapping.endTimeLabel': string
   'cv.customHealthSource.Querymapping.label': string
+  'cv.customHealthSource.Querymapping.startAndEndTimeTitle': string
+  'cv.customHealthSource.Querymapping.startTimeLabel': string
   'cv.customHealthSource.Querymapping.title': string
+  'cv.customHealthSource.Querymapping.validation.body': string
   'cv.customHealthSource.Querymapping.validation.endTime.placeholder': string
   'cv.customHealthSource.Querymapping.validation.endTime.timestamp': string
   'cv.customHealthSource.Querymapping.validation.path': string
@@ -4274,6 +4346,8 @@ export interface StringsMap {
   'cv.customHealthSource.Querymapping.validation.startTime.timestamp': string
   'cv.customHealthSource.ServiceInstance.pathLabel': string
   'cv.customHealthSource.ServiceInstance.pathModalHeader': string
+  'cv.customHealthSource.addGroupNameTitle': string
+  'cv.customHealthSource.fetchRecordsButton': string
   'cv.cvChanges.changeTypeFilterDefault': string
   'cv.cvChanges.changesTimeline': string
   'cv.cvChanges.monitoredSVC': string
@@ -4288,6 +4362,7 @@ export interface StringsMap {
   'cv.dependenciesHealthWithCount': string
   'cv.errorBudget': string
   'cv.errorBudgetBurnDown': string
+  'cv.errorBudgetRecalculationInProgress': string
   'cv.errorBudgetRemaining': string
   'cv.evaluationPeriod': string
   'cv.failures': string
@@ -4492,6 +4567,7 @@ export interface StringsMap {
   'cv.monitoringSources.buildYourQuery': string
   'cv.monitoringSources.datadog.manualInputQueryModal.modalTitle': string
   'cv.monitoringSources.datadog.newDatadogGroupName': string
+  'cv.monitoringSources.datadog.noMetricsWidgets': string
   'cv.monitoringSources.datadog.selectDashboardsPage.dashboardColumnName': string
   'cv.monitoringSources.datadog.selectDashboardsPage.noDataText': string
   'cv.monitoringSources.datadogLogs.datadogLogsQuery': string
@@ -4737,7 +4813,27 @@ export interface StringsMap {
   'cv.showYAMLChange': string
   'cv.sliMissingDataTypeIsRequired': string
   'cv.sloRecalculationInProgress': string
+  'cv.slos.configureSLIQueries': string
   'cv.slos.confirmDeleteSLO': string
+  'cv.slos.contextualHelp.sli.availabilityDescription': string
+  'cv.slos.contextualHelp.sli.healthSource': string
+  'cv.slos.contextualHelp.sli.intro': string
+  'cv.slos.contextualHelp.sli.latencyDescription': string
+  'cv.slos.contextualHelp.sli.ratioBasedDescription': string
+  'cv.slos.contextualHelp.sli.sliDefinition': string
+  'cv.slos.contextualHelp.sli.sliDefinition2': string
+  'cv.slos.contextualHelp.sli.thresholdDescription': string
+  'cv.slos.contextualHelp.sli.whatIsSli': string
+  'cv.slos.contextualHelp.target.calendarBased': string
+  'cv.slos.contextualHelp.target.calendarBasedDefinition': string
+  'cv.slos.contextualHelp.target.calendarBasedDefinition2': string
+  'cv.slos.contextualHelp.target.compliance': string
+  'cv.slos.contextualHelp.target.complianceDefinition': string
+  'cv.slos.contextualHelp.target.complianceDefinition2': string
+  'cv.slos.contextualHelp.target.complianceDefinition3': string
+  'cv.slos.contextualHelp.target.rollingWindowBased': string
+  'cv.slos.contextualHelp.target.rollingWindowDefinition': string
+  'cv.slos.contextualHelp.target.rollingWindowDefinition2': string
   'cv.slos.createSLO': string
   'cv.slos.deleteSLO': string
   'cv.slos.editSLO': string
@@ -4747,11 +4843,13 @@ export interface StringsMap {
   'cv.slos.newSLO': string
   'cv.slos.noData': string
   'cv.slos.pickMetricsSLI': string
+  'cv.slos.reviewChanges': string
   'cv.slos.selectHealthsource': string
   'cv.slos.selectMonitoredService': string
   'cv.slos.selectMonitoredServiceForSlo': string
   'cv.slos.sli': string
   'cv.slos.sliType': string
+  'cv.slos.sliTypeChooseMetric': string
   'cv.slos.slis.metricOptions.ratioBased': string
   'cv.slos.slis.metricOptions.thresholdBased': string
   'cv.slos.slis.ratioMetricType.eventType': string
@@ -4762,8 +4860,11 @@ export interface StringsMap {
   'cv.slos.slis.type.availability': string
   'cv.slos.slis.type.latency': string
   'cv.slos.sloCreated': string
+  'cv.slos.sloDefinition': string
   'cv.slos.sloDeleted': string
+  'cv.slos.sloEditWarningMessage': string
   'cv.slos.sloName': string
+  'cv.slos.sloTargetAndBudget.complianceTimePeriodTitle': string
   'cv.slos.sloTargetAndBudget.periodType': string
   'cv.slos.sloTargetAndBudget.periodTypeOptions.calendar': string
   'cv.slos.sloTargetAndBudget.periodTypeOptions.rolling': string
@@ -4771,6 +4872,7 @@ export interface StringsMap {
   'cv.slos.sloTargetAndBudgetPolicy': string
   'cv.slos.sloUpdated': string
   'cv.slos.title': string
+  'cv.slos.totalServices': string
   'cv.slos.userJourney': string
   'cv.slos.userJourneyCreated': string
   'cv.slos.userJourneyPlaceholder': string
@@ -4794,6 +4896,7 @@ export interface StringsMap {
   'cv.tuesday': string
   'cv.turnService': string
   'cv.unexpected': string
+  'cv.unit': string
   'cv.unknown': string
   'cv.urlCopied': string
   'cv.verificationErrored': string
@@ -6278,19 +6381,11 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'inputSets.inputSetName': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'inputSets.inputSetSaved': string
   /**
    * @deprecated migrate this string to module level file
    */
   'inputSets.inputSetSavedError': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'inputSets.nameIsRequired': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6319,10 +6414,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'inputSets.overlayInputSetSavedError': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'inputSets.overlaySetName': string
   /**
    * @deprecated migrate this string to module level file
    */

@@ -5,6 +5,7 @@ import { Color, FontVariation, MultiTypeInputType, NestedAccordionPanel, Text } 
 import cx from 'classnames'
 import type { ExecutionElementConfig, ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
 
+import type { TemplateStepNode } from 'services/pipeline-ng'
 import type { PipelineVariablesData } from '../types'
 import { StepCardPanel, StepGroupCardPanel } from './StepCard'
 import VariableAccordionSummary from '../VariableAccordionSummary'
@@ -17,8 +18,8 @@ export interface AddStepsParams {
 }
 
 export interface StepRenderData {
-  step: StepElementConfig
-  originalStep: StepElementConfig
+  step: StepElementConfig | TemplateStepNode
+  originalStep: StepElementConfig | TemplateStepNode
   path: string
   type: 'StepRenderData'
 }

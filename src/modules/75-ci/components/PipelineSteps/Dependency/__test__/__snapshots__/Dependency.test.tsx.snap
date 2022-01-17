@@ -368,9 +368,7 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
           <div
             class="StyledProps--font StyledProps--main formGroup lg bottomMargin5"
           >
-            <div
-              style="padding: 0px; margin: 0px;"
-            >
+            <div>
               <div
                 class="Text--withDocsTooltip"
                 data-tooltip-id="image"
@@ -849,9 +847,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
           <div
             class="StyledProps--font StyledProps--main formGroup lg bottomMargin5"
           >
-            <div
-              style="padding: 0px; margin: 0px;"
-            >
+            <div>
               <div
                 class="Text--withDocsTooltip"
                 data-tooltip-id="image"
@@ -1330,9 +1326,7 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
           <div
             class="StyledProps--font StyledProps--main formGroup lg bottomMargin5"
           >
-            <div
-              style="padding: 0px; margin: 0px;"
-            >
+            <div>
               <div
                 class="Text--withDocsTooltip"
                 data-tooltip-id="image"
@@ -1820,9 +1814,7 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
           <div
             class="StyledProps--font StyledProps--main formGroup lg bottomMargin5"
           >
-            <div
-              style="padding: 0px; margin: 0px;"
-            >
+            <div>
               <div
                 class="Text--withDocsTooltip"
                 data-tooltip-id="image"
@@ -2285,9 +2277,7 @@ exports[`Dependency Edit view should render properly 1`] = `
           <div
             class="StyledProps--font StyledProps--main formGroup lg bottomMargin5"
           >
-            <div
-              style="padding: 0px; margin: 0px;"
-            >
+            <div>
               <div
                 class="Text--withDocsTooltip"
                 data-tooltip-id="image"
@@ -2582,9 +2572,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
         <div
           class="StyledProps--font StyledProps--main formGroup lg bottomMargin5"
         >
-          <div
-            style="padding: 0px; margin: 0px;"
-          >
+          <div>
             <div
               class="Text--withDocsTooltip"
               data-tooltip-id="image"
@@ -3072,6 +3060,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                             autocomplete="off"
                             class="bp3-input"
                             name="spec.entrypoint[0].value"
+                            placeholder=""
                             type="text"
                             value=""
                           />
@@ -3264,6 +3253,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                             autocomplete="off"
                             class="bp3-input"
                             name="spec.args[0].value"
+                            placeholder=""
                             type="text"
                             value=""
                           />

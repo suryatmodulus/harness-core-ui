@@ -1,0 +1,103 @@
+.modalContainer {
+  padding: var(--spacing-xxlarge) !important;
+
+  .modalBody {
+    :global {
+      .bp3-label {
+        color: var(--grey-600) !important;
+      }
+
+      .bp3-input-group input {
+        width: 400px;
+      }
+
+      .bp3-disabled input {
+        background-color: var(--grey-100) !important;
+      }
+    }
+
+    .formBody {
+      min-height: 480px;
+
+      .formRow {
+        display: flex;
+      }
+    }
+
+    .branchSection {
+      .branchInput {
+        width: 280px !important;
+        margin-left: var(--spacing-huge);
+      }
+
+      :global {
+        .bp3-form-group {
+          margin-top: var(--spacing-xsmall);
+          margin-bottom: 0;
+
+          .bp3-form-content {
+            font-size: var(--font-size-normal);
+            color: var(--grey-600) !important;
+
+            .bp3-control-indicator {
+              margin-left: 45px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.branchSelector {
+  padding-top: var(--spacing-xsmall);
+  padding-left: var(--spacing-small);
+  padding-bottom: var(--spacing-xsmall);
+
+  :global {
+    input[type='text'] {
+      width: 300px !important;
+      background: var(--primary-2);
+    }
+  }
+}
+
+.gitBranchSelectorPopover {
+  :global {
+    width: 300px !important;
+
+    .bp3-menu {
+      padding: 0;
+      li {
+        height: 32px;
+        cursor: pointer;
+        padding: var(--spacing-xsmall) var(--spacing-small);
+
+        &:hover {
+          background-color: var(--primary-2) !important;
+          color: var(--grey-900) !important;
+        }
+      }
+    }
+
+    .Select--active {
+      background-color: var(--primary-2) !important;
+      color: var(--grey-900) !important;
+    }
+  }
+}
+
+.prTitle {
+  margin-left: 45px;
+}
+
+.tooltip {
+  :global {
+    .bp3-popover-arrow-fill {
+      fill: var(--red-100) !important;
+    }
+    .bp3-popover-content {
+      background-color: var(--red-100);
+    }
+  }
+}

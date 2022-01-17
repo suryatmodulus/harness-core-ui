@@ -302,11 +302,11 @@ export interface GetAccessPointResponse {
 
 export interface HealthCheck {
   path?: string
-  port?: any
+  port?: number
   protocol?: string
   status_code_from?: number
   status_code_to?: number
-  timeout?: any
+  timeout?: number
 }
 
 export interface HostedZone {
@@ -504,9 +504,9 @@ export interface ServiceDefinitionByIDResponse {
 }
 
 export interface ServiceDep {
-  delay_secs?: any
-  dep_id?: any
-  service_id?: any
+  delay_secs?: number
+  dep_id?: number
+  service_id?: number
 }
 
 export interface ServiceDepTree {
@@ -520,8 +520,15 @@ export interface ServiceDependency {
   service_id?: number
 }
 
+export interface ServiceDiagnostics {
+  message?: string
+  name?: string
+  success?: boolean
+  type?: string
+}
+
 export interface ServiceDiagnosticsResponse {
-  response?: any[]
+  response?: ServiceDiagnostics[]
 }
 
 export interface ServiceError {
@@ -1827,8 +1834,6 @@ export const useGetServiceStats = ({ account_id, rule_id, ...props }: UseGetServ
     { base: getConfig('lw/api'), pathParams: { account_id, rule_id }, ...props }
   )
 
-export interface ToggleAutostoppingRuleResponse {}
-
 export interface ToggleAutostoppingRuleQueryParams {
   disable: boolean
   accountIdentifier: string
@@ -1840,13 +1845,7 @@ export interface ToggleAutostoppingRulePathParams {
 }
 
 export type ToggleAutostoppingRuleProps = Omit<
-  MutateProps<
-    ToggleAutostoppingRuleResponse,
-    void,
-    ToggleAutostoppingRuleQueryParams,
-    void,
-    ToggleAutostoppingRulePathParams
-  >,
+  MutateProps<ServicesResponse, void, ToggleAutostoppingRuleQueryParams, void, ToggleAutostoppingRulePathParams>,
   'path' | 'verb'
 > &
   ToggleAutostoppingRulePathParams
@@ -1857,13 +1856,7 @@ export type ToggleAutostoppingRuleProps = Omit<
  * Toggle state of Autostopping Rule
  */
 export const ToggleAutostoppingRule = ({ account_id, rule_id, ...props }: ToggleAutostoppingRuleProps) => (
-  <Mutate<
-    ToggleAutostoppingRuleResponse,
-    void,
-    ToggleAutostoppingRuleQueryParams,
-    void,
-    ToggleAutostoppingRulePathParams
-  >
+  <Mutate<ServicesResponse, void, ToggleAutostoppingRuleQueryParams, void, ToggleAutostoppingRulePathParams>
     verb="PUT"
     path={`/accounts/${account_id}/autostopping/rules/${rule_id}/toggle_state`}
     base={getConfig('lw/api')}
@@ -1872,13 +1865,7 @@ export const ToggleAutostoppingRule = ({ account_id, rule_id, ...props }: Toggle
 )
 
 export type UseToggleAutostoppingRuleProps = Omit<
-  UseMutateProps<
-    ToggleAutostoppingRuleResponse,
-    void,
-    ToggleAutostoppingRuleQueryParams,
-    void,
-    ToggleAutostoppingRulePathParams
-  >,
+  UseMutateProps<ServicesResponse, void, ToggleAutostoppingRuleQueryParams, void, ToggleAutostoppingRulePathParams>,
   'path' | 'verb'
 > &
   ToggleAutostoppingRulePathParams
@@ -1889,13 +1876,7 @@ export type UseToggleAutostoppingRuleProps = Omit<
  * Toggle state of Autostopping Rule
  */
 export const useToggleAutostoppingRule = ({ account_id, rule_id, ...props }: UseToggleAutostoppingRuleProps) =>
-  useMutate<
-    ToggleAutostoppingRuleResponse,
-    void,
-    ToggleAutostoppingRuleQueryParams,
-    void,
-    ToggleAutostoppingRulePathParams
-  >(
+  useMutate<ServicesResponse, void, ToggleAutostoppingRuleQueryParams, void, ToggleAutostoppingRulePathParams>(
     'PUT',
     (paramsInPath: ToggleAutostoppingRulePathParams) =>
       `/accounts/${paramsInPath.account_id}/autostopping/rules/${paramsInPath.rule_id}/toggle_state`,
@@ -2525,8 +2506,6 @@ export const useAllRegions = ({ account_id, ...props }: UseAllRegionsProps) =>
     { base: getConfig('lw/api'), pathParams: { account_id }, ...props }
   )
 
-export interface GatewaySessionReportResponse {}
-
 export interface GatewaySessionReportQueryParams {
   accountIdentifier: string
 }
@@ -2641,8 +2620,6 @@ export const useAllResourceGroups = ({ account_id, ...props }: UseAllResourceGro
     (paramsInPath: AllResourceGroupsPathParams) => `/accounts/${paramsInPath.account_id}/resource_groups`,
     { base: getConfig('lw/api'), pathParams: { account_id }, ...props }
   )
-
-export interface AllResourcesOfAccountResponse {}
 
 export interface AllResourcesOfAccountQueryParams {
   cloud_account_id: string

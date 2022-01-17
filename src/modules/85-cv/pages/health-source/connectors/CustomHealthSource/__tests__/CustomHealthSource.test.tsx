@@ -25,9 +25,6 @@ describe('Verify CustomHealthSource', () => {
       .spyOn(cdServices, 'useGetConnector')
       .mockImplementation(() => ({ loading: false, error: null, data: {} } as any))
     jest
-      .spyOn(cvServices, 'useGetLabelNames')
-      .mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: getSampleData } as any))
-    jest
       .spyOn(cvServices, 'useGetMetricPacks')
       .mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: getSampleData } as any))
   })

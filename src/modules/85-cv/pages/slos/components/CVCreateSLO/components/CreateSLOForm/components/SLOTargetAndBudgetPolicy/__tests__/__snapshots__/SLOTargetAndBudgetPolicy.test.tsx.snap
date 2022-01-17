@@ -16,30 +16,168 @@ exports[`Test SLOTargetAndBudgetPolicy component should render SLOTargetAndBudge
         class="bp3-card bp3-elevation-0 Card--card card"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
         >
           <div
-            class="bp3-form-group"
-            data-id="periodType-0"
+            class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-right"
+            style="width: 50%;"
           >
-            <label
-              class="bp3-label"
-              for="periodType"
-            >
-              cv.slos.sloTargetAndBudget.periodType
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
             <div
-              class="bp3-form-content"
+              class="Layout--vertical StyledProps--main"
+              style="width: 100%;"
             >
+              <h4
+                class="StyledProps--font StyledProps--font-h4 StyledProps--main StyledProps--font-variation-form-sub-section StyledProps--margin-top-small StyledProps--margin-bottom-medium"
+                level="4"
+              >
+                cv.slos.sloTargetAndBudget.complianceTimePeriodTitle
+              </h4>
               <div
-                class="bp3-popover-wrapper Select--main bp3-fill"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
                 <div
-                  class="bp3-popover-target"
+                  class="bp3-form-group"
+                  data-id="periodType-0"
+                >
+                  <label
+                    class="bp3-label"
+                    for="periodType"
+                  >
+                    cv.slos.sloTargetAndBudget.periodType
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-popover-wrapper Select--main bp3-fill"
+                    >
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="periodType"
+                            placeholder="- Select -"
+                            style="padding-right: 0px;"
+                            type="text"
+                            value="cv.slos.sloTargetAndBudget.periodTypeOptions.rolling"
+                          />
+                          <span
+                            class="bp3-input-action"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                              icon="chevron-down"
+                            >
+                              <svg
+                                data-icon="chevron-down"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  chevron-down
+                                </desc>
+                                <path
+                                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="periodLength-1"
+                >
+                  <label
+                    class="bp3-label"
+                    for="periodLength"
+                  >
+                    cv.periodLengthDays
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-popover-wrapper Select--main bp3-fill"
+                    >
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="periodLength"
+                            placeholder="- Select -"
+                            style="padding-right: 0px;"
+                            type="text"
+                            value=""
+                          />
+                          <span
+                            class="bp3-input-action"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                              icon="chevron-down"
+                            >
+                              <svg
+                                data-icon="chevron-down"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  chevron-down
+                                </desc>
+                                <path
+                                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group sloTarget"
+                data-id="SLOTargetPercentage-2"
+              >
+                <label
+                  class="bp3-label"
+                  for="SLOTargetPercentage"
+                >
+                  cv.SLOTarget
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
                 >
                   <div
                     class="bp3-input-group"
@@ -47,30 +185,31 @@ exports[`Test SLOTargetAndBudgetPolicy component should render SLOTargetAndBudge
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      name="periodType"
-                      placeholder="- Select -"
+                      max="100"
+                      min="0"
+                      name="SLOTargetPercentage"
                       style="padding-right: 0px;"
-                      type="text"
-                      value="cv.slos.sloTargetAndBudget.periodTypeOptions.rolling"
+                      type="number"
+                      value="99"
                     />
                     <span
                       class="bp3-input-action"
                     >
                       <span
-                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                        icon="chevron-down"
+                        class="bp3-icon bp3-icon-percentage StyledProps--main StyledProps--padding-small"
+                        icon="percentage"
                       >
                         <svg
-                          data-icon="chevron-down"
-                          height="14"
+                          data-icon="percentage"
+                          height="16"
                           viewBox="0 0 16 16"
-                          width="14"
+                          width="16"
                         >
                           <desc>
-                            chevron-down
+                            percentage
                           </desc>
                           <path
-                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                            d="M6 6V4c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h1c1.1 0 2-.9 2-2zM3.5 6c-.28 0-.5-.22-.5-.5v-1c0-.28.22-.5.5-.5s.5.22.5.5v1c0 .28-.22.5-.5.5zM13 8h-1c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h1c1.1 0 2-.9 2-2v-2c0-1.1-.9-2-2-2zm0 3.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5v-1c0-.28.22-.5.5-.5s.5.22.5.5v1zM12 3a1.003 1.003 0 00-1.87-.5l-5.99 9.98c-.09.15-.14.33-.14.52a1.003 1.003 0 001.87.5l5.99-9.98c.09-.15.14-.33.14-.52z"
                             fill-rule="evenodd"
                           />
                         </svg>
@@ -79,159 +218,95 @@ exports[`Test SLOTargetAndBudgetPolicy component should render SLOTargetAndBudge
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div
-            class="bp3-form-group"
-            data-id="periodLength-1"
-          >
-            <label
-              class="bp3-label"
-              for="periodLength"
-            >
-              cv.periodLengthDays
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
-            <div
-              class="bp3-form-content"
-            >
               <div
-                class="bp3-popover-wrapper Select--main bp3-fill"
+                class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start StyledProps--flex-justifyContent-flex-start"
               >
                 <div
-                  class="bp3-popover-target"
+                  class="StyledProps--font StyledProps--main"
+                  style="width: 450px;"
                 >
-                  <div
-                    class="bp3-input-group"
+                  <span
+                    data-testid="SLO-target-chart"
+                  />
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main errorBudget StyledProps--background-grey100 StyledProps--padding-medium"
+                  style="height: 180px;"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-grey600"
                   >
-                    <input
-                      autocomplete="off"
-                      class="bp3-input"
-                      name="periodLength"
-                      placeholder="- Select -"
-                      style="padding-right: 0px;"
-                      type="text"
-                      value=""
-                    />
-                    <span
-                      class="bp3-input-action"
-                    >
-                      <span
-                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                        icon="chevron-down"
-                      >
-                        <svg
-                          data-icon="chevron-down"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
-                        >
-                          <desc>
-                            chevron-down
-                          </desc>
-                          <path
-                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </span>
-                  </div>
+                    cv.errorBudget
+                  </p>
+                  <h1
+                    class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--inline StyledProps--font-variation-display2"
+                    level="1"
+                  >
+                    0
+                  </h1>
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-variation-form-sub-section"
+                  >
+                    cv.mins
+                  </span>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          class="bp3-form-group sloTarget"
-          data-id="SLOTargetPercentage-2"
-        >
-          <label
-            class="bp3-label"
-            for="SLOTargetPercentage"
-          >
-            cv.SLOTarget
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
           <div
-            class="bp3-form-content"
-          >
-            <div
-              class="bp3-input-group"
-            >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                max="100"
-                min="0"
-                name="SLOTargetPercentage"
-                style="padding-right: 0px;"
-                type="number"
-                value="99"
-              />
-              <span
-                class="bp3-input-action"
-              >
-                <span
-                  class="bp3-icon bp3-icon-percentage StyledProps--main StyledProps--padding-small"
-                  icon="percentage"
-                >
-                  <svg
-                    data-icon="percentage"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    width="16"
-                  >
-                    <desc>
-                      percentage
-                    </desc>
-                    <path
-                      d="M6 6V4c0-1.1-.9-2-2-2H3c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h1c1.1 0 2-.9 2-2zM3.5 6c-.28 0-.5-.22-.5-.5v-1c0-.28.22-.5.5-.5s.5.22.5.5v1c0 .28-.22.5-.5.5zM13 8h-1c-1.1 0-2 .9-2 2v2c0 1.1.9 2 2 2h1c1.1 0 2-.9 2-2v-2c0-1.1-.9-2-2-2zm0 3.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5v-1c0-.28.22-.5.5-.5s.5.22.5.5v1zM12 3a1.003 1.003 0 00-1.87-.5l-5.99 9.98c-.09.15-.14.33-.14.52a1.003 1.003 0 001.87.5l5.99-9.98c.09-.15.14-.33.14-.52z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div
-          class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start StyledProps--flex-justifyContent-flex-start"
-        >
-          <div
-            class="StyledProps--font StyledProps--main"
-            style="width: 450px;"
-          >
-            <span
-              data-testid="SLO-target-chart"
-            />
-          </div>
-          <div
-            class="StyledProps--font StyledProps--main errorBudget StyledProps--background-grey100 StyledProps--padding-medium"
-            style="height: 180px;"
+            class="StyledProps--font StyledProps--main contextualHelp StyledProps--padding-left-large StyledProps--padding-right-large"
+            style="width: 50%;"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-variation-body2 StyledProps--color StyledProps--color-grey600"
+              class="StyledProps--font StyledProps--main title"
             >
-              cv.errorBudget
+              cv.slos.contextualHelp.target.compliance
             </p>
-            <h1
-              class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--inline StyledProps--font-variation-display2"
-              level="1"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
             >
-              0
-            </h1>
-            <span
-              class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-variation-form-sub-section"
+              cv.slos.contextualHelp.target.complianceDefinition
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
             >
-              cv.mins
-            </span>
+              cv.slos.contextualHelp.target.complianceDefinition2
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
+            >
+              cv.slos.contextualHelp.target.complianceDefinition3
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main title"
+            >
+              cv.slos.contextualHelp.target.rollingWindowBased
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
+            >
+              cv.slos.contextualHelp.target.rollingWindowDefinition
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
+            >
+              cv.slos.contextualHelp.target.rollingWindowDefinition2
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main title"
+            >
+              cv.slos.contextualHelp.target.calendarBased
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-bottom-large"
+            >
+              cv.slos.contextualHelp.target.calendarBasedDefinition
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              cv.slos.contextualHelp.target.calendarBasedDefinition2
+            </p>
           </div>
         </div>
       </div>

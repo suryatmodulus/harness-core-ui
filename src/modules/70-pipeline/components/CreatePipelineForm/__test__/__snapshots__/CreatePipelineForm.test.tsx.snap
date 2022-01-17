@@ -17,12 +17,12 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
         </p>
         <p
           class="StyledProps--font StyledProps--main"
-          style="color: black; padding-bottom: 40px;"
+          style="color: black; padding-bottom: 36px;"
         >
           pipeline.createPipeline.setupSubtitle
         </p>
         <div
-          class="StyledProps--font StyledProps--main main"
+          class="StyledProps--font StyledProps--main main createPipelineNameIdDescriptionTags"
         >
           <div
             class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -275,12 +275,12 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
         </p>
         <p
           class="StyledProps--font StyledProps--main"
-          style="color: black; padding-bottom: 40px;"
+          style="color: black; padding-bottom: 36px;"
         >
           pipeline.createPipeline.setupSubtitle
         </p>
         <div
-          class="StyledProps--font StyledProps--main main"
+          class="StyledProps--font StyledProps--main main createPipelineNameIdDescriptionTags"
         >
           <div
             class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -533,12 +533,12 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
         </p>
         <p
           class="StyledProps--font StyledProps--main"
-          style="color: black; padding-bottom: 40px;"
+          style="color: black; padding-bottom: 36px;"
         >
           pipeline.createPipeline.setupSubtitle
         </p>
         <div
-          class="StyledProps--font StyledProps--main main"
+          class="StyledProps--font StyledProps--main main createPipelineNameIdDescriptionTags"
         >
           <div
             class="InputWithIdentifier--txtNameContainer TextInput--main"

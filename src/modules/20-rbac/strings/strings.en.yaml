@@ -50,6 +50,7 @@ permissionLabels:
   execute: '{{$.common.execute}}'
   manage: '{{$.common.manage}}'
   invite: Invite
+  evaluate: Evaluate
 categoryLabels:
   sharedResources: Shared Resources
 roleBinding: Role Bindings (Role - Resource Group)
@@ -151,7 +152,6 @@ project: project
 org: organization
 account: account
 accountScope: Account scope
-user: User
 forUser: For User
 generateToken: Generate Token
 myApiKeys: My {{$.common.apiKeys}}
@@ -173,7 +173,6 @@ resourceGroup:
   updateResourceGroupDialogTitle: 'Update Resource Group'
   color: '{{ $.color}}'
   dragAndDropData: Please select or drag and drop the type of resources, you would like to add to your group.
-  resourceGroupColumn: 'Resource Group'
   summary: '{{ $.summary }}'
   createSuccess: 'Resource Group created successfully'
   updateSuccess: 'Resource Group updated successfully'
@@ -189,7 +188,7 @@ resourceGroup:
   noResourceGroup: 'No Resource Group available'
   noResourceGroupFound: 'No Resource Group Found'
 updateNotificationSuccess: Notification preferences updated successfully
-userRequired: User is Required
+userRequired: User is required
 userUpperLimit: Addition of more than 15 users is not allowed
 resourceSelectorErrorMessage: Add atleast one specific resource for the following types [{{resources}}]
 accessControlTitle:

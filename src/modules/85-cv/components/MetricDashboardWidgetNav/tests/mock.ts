@@ -19,14 +19,17 @@ export const MockWidgetsResponse: MetricWidget[] = [
     widgetName: 'widget_1',
     dataSets: [
       {
+        id: 'id_1',
         name: 'metric_1',
         query: 'test query 1'
       },
       {
+        id: 'id_2',
         name: 'metric_2',
         query: 'test query 2'
       },
       {
+        id: 'id_3',
         name: 'metric_3',
         query: '7578768678'
       }
@@ -40,6 +43,7 @@ export const MockWidgetsResponse: MetricWidget[] = [
     widgetName: 'widget_2',
     dataSets: [
       {
+        id: 'id_7',
         name: 'metric_4',
         query: '5654grt46'
       }

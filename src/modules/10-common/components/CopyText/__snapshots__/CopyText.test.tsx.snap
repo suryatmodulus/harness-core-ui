@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<CopyText /> tests snapshot test 1`] = `
+exports[`<CopyText /> tests snapshot test with explicit secure context true 1`] = `
 <div>
   <div
     class="main"
@@ -19,6 +19,7 @@ exports[`<CopyText /> tests snapshot test 1`] = `
         <button
           class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
           data-name="copy-alt"
+          data-testid="copy-btn"
           tabindex="0"
           type="button"
         >
@@ -43,6 +44,20 @@ exports[`<CopyText /> tests snapshot test 1`] = `
           </span>
         </button>
       </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<CopyText /> tests snapshot test with secure context falsy (undefined) 1`] = `
+<div>
+  <div
+    class="main"
+  >
+    <div
+      class="text"
+    >
+      Hello World
     </div>
   </div>
 </div>

@@ -9,7 +9,7 @@ const Wrapped = (): React.ReactElement => {
   const { openTemplateSelector, closeTemplateSelector } = useTemplateSelector()
   return (
     <>
-      <button onClick={() => openTemplateSelector({})}>Open Template Selector</button>
+      <button onClick={() => openTemplateSelector({ templateType: 'Step' })}>Open Template Selector</button>
       <button onClick={closeTemplateSelector}>Close Template Selector</button>
     </>
   )

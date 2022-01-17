@@ -1,7 +1,9 @@
 import React from 'react'
 import { Color, Container, Text, Layout } from '@wings-software/uicore'
+import { defaultTo } from 'lodash-es'
 import MonacoEditor from '@common/components/MonacoEditor/MonacoEditor'
 
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import css from './TemplateYaml.module.scss'
 
 export interface TemplateYamlProps {
@@ -9,9 +11,16 @@ export interface TemplateYamlProps {
 }
 
 export const TemplateYaml: React.FC<TemplateYamlProps> = ({ templateYaml }) => {
+  const [height, setHeight] = React.useState<number>()
+
+  React.useEffect(() => {
+    const stringifiedYaml = yamlStringify(templateYaml) as string
+    setHeight((defaultTo(stringifiedYaml.match(/\n/g)?.length, 0) + 1) * 20)
+  }, [templateYaml])
+
   return (
-    <Container height={'100%'} className={css.container}>
-      <Layout.Vertical height={'100%'} spacing={'medium'}>
+    <Container className={css.container}>
+      <Layout.Vertical spacing={'medium'}>
         <Container
           padding={{ top: 'large', right: 'xxlarge', bottom: 'large', left: 'xxlarge' }}
           border={{ bottom: true }}
@@ -25,16 +34,19 @@ export const TemplateYaml: React.FC<TemplateYamlProps> = ({ templateYaml }) => {
           <MonacoEditor
             value={templateYaml}
             language={'yaml'}
-            height={'100%'}
+            height={height}
             options={
               {
-                classNames: css.editor,
                 fontFamily: "'Roboto Mono', monospace",
                 fontSize: 13,
                 minimap: {
                   enabled: false
                 },
                 readOnly: true,
+                scrollbar: {
+                  handleMouseWheel: false
+                },
+                overviewRulerLanes: 0,
                 scrollBeyondLastLine: false
               } as any
             }

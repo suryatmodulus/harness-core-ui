@@ -10055,6 +10055,61 @@ export const saveSLODataPromise = (
     void
   >('POST', getConfig('cv/api'), `/slo`, props, signal)
 
+export interface GetServiceLevelObjectivesRiskCountQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  userJourneyIdentifiers?: string[]
+  monitoredServiceIdentifier?: string
+  sliTypes?: ('Availability' | 'Latency')[]
+  targetTypes?: ('Rolling' | 'Calender')[]
+  errorBudgetRisks?: ('HEALTHY' | 'OBSERVE' | 'NEED_ATTENTION' | 'UNHEALTHY' | 'EXHAUSTED')[]
+}
+
+export type GetServiceLevelObjectivesRiskCountProps = Omit<
+  GetProps<ResponseSLORiskCountResponse, unknown, GetServiceLevelObjectivesRiskCountQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all service level objectives count by risk
+ */
+export const GetServiceLevelObjectivesRiskCount = (props: GetServiceLevelObjectivesRiskCountProps) => (
+  <Get<ResponseSLORiskCountResponse, unknown, GetServiceLevelObjectivesRiskCountQueryParams, void>
+    path={`/slo-dashboard/risk-count`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceLevelObjectivesRiskCountProps = Omit<
+  UseGetProps<ResponseSLORiskCountResponse, unknown, GetServiceLevelObjectivesRiskCountQueryParams, void>,
+  'path'
+>
+
+/**
+ * get all service level objectives count by risk
+ */
+export const useGetServiceLevelObjectivesRiskCount = (props: UseGetServiceLevelObjectivesRiskCountProps) =>
+  useGet<ResponseSLORiskCountResponse, unknown, GetServiceLevelObjectivesRiskCountQueryParams, void>(
+    `/slo-dashboard/risk-count`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+/**
+ * get all service level objectives count by risk
+ */
+export const getServiceLevelObjectivesRiskCountPromise = (
+  props: GetUsingFetchProps<ResponseSLORiskCountResponse, unknown, GetServiceLevelObjectivesRiskCountQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseSLORiskCountResponse, unknown, GetServiceLevelObjectivesRiskCountQueryParams, void>(
+    getConfig('cv/api'),
+    `/slo-dashboard/risk-count`,
+    props,
+    signal
+  )
+
 export interface GetSLODashboardWidgetsQueryParams {
   accountId: string
   orgIdentifier: string

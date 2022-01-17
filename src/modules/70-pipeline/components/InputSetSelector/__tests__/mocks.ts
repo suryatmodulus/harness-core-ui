@@ -1,5 +1,18 @@
 import type { UseGetMockDataWithMutateAndRefetch } from '@common/utils/testUtils'
 import type { ResponsePageInputSetSummaryResponse } from 'services/pipeline-ng'
+import type { InputSetValue } from '../InputSetSelector'
+
+export const mockInputSetsValue: InputSetValue[] = [
+  {
+    type: 'INPUT_SET',
+    value: 'input1',
+    label: 'input1',
+    gitDetails: {
+      repoIdentifier: 'satyamgitsync',
+      branch: 'main'
+    }
+  }
+]
 
 export const mockInputSetsList: UseGetMockDataWithMutateAndRefetch<ResponsePageInputSetSummaryResponse> = {
   loading: false,

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect, useParams } from 'react-router-dom'
-import AuditTrailFactory from '@audit-trail/factories/AuditTrailFactory'
+import AuditTrailFactory, { ResourceScope } from '@audit-trail/factories/AuditTrailFactory'
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, secretPathProps } from '@common/utils/routeUtils'
@@ -18,7 +18,7 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import SecretResourceRenderer from '@secrets/components/SecretResourceRenderer/SecretResourceRenderer'
 import { AccountSideNavProps } from '@common/RouteDestinations'
-import type { ResourceDTO, ResourceScopeDTO } from 'services/audit'
+import type { ResourceDTO } from 'services/audit'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.SECRET, {
   icon: 'res-secrets',
@@ -38,20 +38,17 @@ RbacFactory.registerResourceTypeHandler(ResourceType.SECRET, {
 
 AuditTrailFactory.registerResourceHandler('SECRET', {
   moduleIcon: {
-    name: 'nav-settings',
-    size: 30
+    name: 'nav-settings'
   },
-  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScopeDTO) => {
+  resourceUrl: (resource: ResourceDTO, resourceScope: ResourceScope) => {
     const { orgIdentifier, accountIdentifier, projectIdentifier } = resourceScope
-    if (accountIdentifier) {
-      return routes.toSecretDetails({
-        orgIdentifier,
-        accountId: accountIdentifier,
-        projectIdentifier,
-        secretId: resource.identifier
-      })
-    }
-    return undefined
+
+    return routes.toSecretDetails({
+      orgIdentifier,
+      accountId: accountIdentifier,
+      projectIdentifier,
+      secretId: resource.identifier
+    })
   }
 })
 

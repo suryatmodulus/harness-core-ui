@@ -298,7 +298,7 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
                   <Text font={{ variation: FontVariation.SMALL }}>
                     {getString('rbac.manageSCIMText', {
                       action: getString('delete').toLowerCase(),
-                      target: getString('rbac.user').toLowerCase()
+                      target: getString('common.userLabel').toLowerCase()
                     })}
                   </Text>
                 </div>

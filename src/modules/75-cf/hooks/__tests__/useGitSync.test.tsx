@@ -34,7 +34,11 @@ const setUseGitRepoMock = (repoDetails: Partial<GitRepo> = {}, repoSet = false):
 
 const renderHookUnderTest = () => {
   const wrapper: FC = ({ children }) => {
-    return <ModalProvider>{children}</ModalProvider>
+    return (
+      <div>
+        <ModalProvider>{children}</ModalProvider>
+      </div>
+    )
   }
   return renderHook(() => useGitSync(), { wrapper })
 }

@@ -1,4 +1,15 @@
+import React from 'react'
+import userEvent from '@testing-library/user-event'
+import { render, screen, waitFor } from '@testing-library/react'
 import type { Point } from 'services/cv'
+import { TestWrapper } from '@common/utils/testUtils'
+import {
+  serviceLevelIndicator,
+  testWrapperProps,
+  errorMessage
+} from '@cv/pages/slos/components/CVCreateSLO/__tests__/CVCreateSLO.mock'
+import { SLIMetricEnum } from '@cv/pages/slos/components/CVCreateSLO/components/CreateSLOForm/components/SLI/SLI.constants'
+import SLOTargetChartWrapper from '../SLOTargetChart'
 import { getDataPointsWithMinMaxXLimit } from '../SLOTargetChart.utils'
 
 describe('SLOTargetChart Utils', () => {
@@ -76,5 +87,97 @@ describe('SLOTargetChart Utils', () => {
       minXLimit: 0,
       maxXLimit: 90
     })
+  })
+})
+
+describe('SLOTargetChartWrapper', () => {
+  test('it should render empty state for Ratio based with objective value > 100', () => {
+    render(
+      <TestWrapper {...testWrapperProps}>
+        <SLOTargetChartWrapper
+          monitoredServiceIdentifier="Service_1_Environment_1"
+          retryOnError={jest.fn()}
+          serviceLevelIndicator={{
+            ...serviceLevelIndicator,
+            spec: {
+              ...serviceLevelIndicator.spec,
+              spec: {
+                ...serviceLevelIndicator.spec.spec,
+                thresholdValue: 101
+              }
+            }
+          }}
+        />
+      </TestWrapper>
+    )
+
+    expect(screen.getByText('cv.pleaseFillTheRequiredFieldsToSeeTheSLIData')).toBeInTheDocument()
+  })
+
+  test('it should not render empty state for Threshold based with objective value > 100', async () => {
+    const debounceFetchSliGraphData = jest.fn()
+    const serviceLevelIndicatorThreshold = {
+      ...serviceLevelIndicator,
+      spec: {
+        type: SLIMetricEnum.THRESHOLD,
+        spec: {
+          ...serviceLevelIndicator.spec.spec,
+          thresholdValue: 101
+        }
+      }
+    }
+
+    render(
+      <TestWrapper {...testWrapperProps}>
+        <SLOTargetChartWrapper
+          monitoredServiceIdentifier="Service_1_Environment_1"
+          serviceLevelIndicator={serviceLevelIndicatorThreshold}
+          retryOnError={jest.fn()}
+          debounceFetchSliGraphData={debounceFetchSliGraphData}
+        />
+      </TestWrapper>
+    )
+
+    expect(screen.queryByText('cv.pleaseFillTheRequiredFieldsToSeeTheSLIData')).not.toBeInTheDocument()
+    await waitFor(() => {
+      expect(debounceFetchSliGraphData).toHaveBeenCalledTimes(1)
+      expect(debounceFetchSliGraphData).toBeCalledWith(serviceLevelIndicatorThreshold, 'Service_1_Environment_1')
+    })
+  })
+
+  test('it should render loader', () => {
+    const { container } = render(
+      <TestWrapper {...testWrapperProps}>
+        <SLOTargetChartWrapper
+          monitoredServiceIdentifier="Service_1_Environment_1"
+          serviceLevelIndicator={serviceLevelIndicator}
+          loading
+          retryOnError={jest.fn()}
+        />
+      </TestWrapper>
+    )
+
+    expect(container.querySelector('[data-icon="steps-spinner"]')).toBeInTheDocument()
+  })
+
+  test('it should render error message', async () => {
+    const retryOnError = jest.fn()
+
+    render(
+      <TestWrapper {...testWrapperProps}>
+        <SLOTargetChartWrapper
+          monitoredServiceIdentifier="Service_1_Environment_1"
+          serviceLevelIndicator={serviceLevelIndicator}
+          error={errorMessage}
+          retryOnError={retryOnError}
+        />
+      </TestWrapper>
+    )
+
+    expect(screen.getByText(errorMessage)).toBeInTheDocument()
+
+    userEvent.click(screen.getByText('Retry'))
+
+    await waitFor(() => expect(retryOnError).toBeCalledWith(serviceLevelIndicator, 'Service_1_Environment_1'))
   })
 })

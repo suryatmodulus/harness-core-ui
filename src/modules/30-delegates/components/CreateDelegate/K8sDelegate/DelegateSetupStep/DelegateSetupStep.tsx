@@ -225,7 +225,7 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
                           }}
                         />
                       )}
-                      {profileOptions && profileOptions.length && (
+                      {profileOptions?.length > 0 && (
                         <div className={`${css.formGroup} ${css.profileSelect}`}>
                           <FormInput.Select
                             items={profileOptions}

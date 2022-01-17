@@ -2,7 +2,7 @@
 
 exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 1`] = `
 <div
-  class="bp3-dialog dialog"
+  class="bp3-dialog referenceSelect dialog"
 >
   <div
     class="bp3-dialog-header"

@@ -492,6 +492,367 @@ exports[`ServicesList render 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="TableV2--row TableV2--card TableV2--clickable"
+          role="row"
+        >
+          <div
+            class="TableV2--cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--vertical StyledProps--main"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey700 StyledProps--margin-bottom-xsmall"
+                  style="--text-line-clamp: 1;"
+                >
+                  service one
+                </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main"
+                        data-icon="main-tags"
+                      >
+                        <svg
+                          height="15"
+                          viewBox="0 0 14 14"
+                          width="15"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M7 0h-.2c-.2 0-.4.1-.6.3l-6 6c-.3.3-.3.8 0 1.1L2 9.1l4.6 4.6c.3.3.8.3 1.1 0l6-6c.2-.1.3-.3.3-.5v-.7-.3-1.3-2c0-.5-.4-1-1-1h-.9V1c0-.5-.4-1-1-1H7zm0 .6h4.2c.2 0 .4.2.4.4v.9h-1.1c-.3-.3-.5-.4-.8-.4s-.4.1-.6.3h-.5c-.2.1-.4.1-.6.3l-6 6s-.1.1-.1.2L.7 6.9c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1c0 .1.1.1.1.1zm1.9 1.8H13c.2 0 .4.2.4.4v4.3s0 .2-.1.2l-6 6c-.1.1-.2.1-.3 0L2.5 8.8c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1zm2.7.9c-.2 0-.5.1-.6.3-.4.4-.4.9 0 1.3s.9.4 1.3 0 .4-.9 0-1.3c-.3-.2-.5-.3-.7-.3zm0 .7c.1 0 .2 0 .2.1.1.1.1.3 0 .4s-.3.1-.4 0-.1-.3 0-.4c0-.1.1-.1.2-.1z"
+                            fill="#4d5969"
+                          />
+                        </svg>
+                      </span>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        1
+                      </p>
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
+                style="--text-line-clamp: 1;"
+              >
+                idLabel
+              </p>
+            </div>
+          </div>
+          <div
+            class="TableV2--cell"
+            role="cell"
+            style="width: 10%;"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center"
+            >
+              <span
+                class="bp3-icon StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
+                data-icon="app-kubernetes"
+              >
+                <svg
+                  height="18"
+                  viewBox="0 0 32 30"
+                  width="18"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    fill="none"
+                  >
+                    <path
+                      d="M15.94.023c-.228 0-.457 0-.685.229L4.512 5.28c-.457.229-.915.686-1.143 1.372L.626 18.08c-.229.457 0 1.143.229 1.6l.228.229 7.314 9.143c.458.457.915.685 1.6.685h11.886c.686 0 1.143-.228 1.6-.685l7.314-9.143c.458-.457.458-1.143.458-1.6L28.512 6.88c-.229-.685-.457-1.143-1.143-1.371L16.626.48c0-.228-.457-.457-.686-.457z"
+                      fill="#326CE5"
+                    />
+                    <path
+                      d="M15.94 3.909c-.457 0-.685.228-.685.686v2.057c0 .228-.229.228-.229.228v.229c-.457 0-.686 0-1.143.228-1.6.458-3.2 1.143-4.114 2.286l-.229-.228h-.457c-.228-.23-.457-.458-.914-.686l-.457-.457h-.229c-.228 0-.228-.229-.457-.229s-.457 0-.457.229c-.229.228-.229.685.228.914h.23c.228.229.456.229.456.229.457.228.686.457.914.685 0 0 .23.229.23.457l.228.229c-1.143 1.6-1.6 3.657-1.372 5.714h-.228l-.229.229c-.229 0-.686.228-1.143.228H4.97c-.457 0-.686.458-.457.686 0 .229.457.457.914.457h.229c.228 0 .457-.228.685-.228.457-.229.686-.229 1.143-.229.229 0 .229 0 .457.229h.229c.686 2.057 2.057 3.657 3.657 4.571l-.229.229v.457c-.228.228-.228.686-.685 1.143-.229.228-.229.228-.229.457v.228c-.228.458 0 .686.229.915.228.228.685 0 .914-.457v-.23c0-.228.229-.456.229-.685.228-.457.228-.914.457-1.143 0 0 .228 0 .228-.228l.229-.229c1.371.457 3.2.686 4.8.457.457 0 .686-.228 1.143-.228l.228.228s.229 0 .229.229c.228.229.228.686.457 1.143 0 .228 0 .457.229.686v.228c.228.457.457.457.914.457.228-.228.457-.457.228-.914v-.229c0-.228-.228-.228-.228-.457-.229-.457-.457-.685-.457-.914v-.686c1.828-1.143 2.971-2.743 3.657-4.571h.228s.23-.229.458-.229.685.229 1.142.229c.23 0 .458.228.686.228h.229c.457 0 .685-.228.914-.457 0-.228-.229-.685-.457-.685h-.914c-.458 0-.915 0-1.143-.23-.229 0-.229-.228-.229-.228h-.228c.228-.914 0-2.057-.229-2.971-.229-.914-.686-2.057-1.143-2.743l.229-.228c0-.23 0-.23.228-.458.229-.228.457-.457.915-.685.228 0 .457-.229.457-.229h.228c.229-.228.457-.686.229-.914-.229-.229-.686-.229-.914 0h-.229l-.457.457c-.229.229-.686.686-.914.686h-.458l-.228.228a8.778 8.778 0 00-5.257-2.514v-.229l-.229-.228V5.052c-.457-.686-.686-1.143-1.143-1.143zm-.685 5.028l-.229 3.429a.492.492 0 01-.457.457h-.229l-2.743-2.057c.915-.914 1.83-1.371 3.2-1.829h.458zm1.6 0c1.371.229 2.742.915 3.885 1.829l-2.743 1.829c-.228.228-.685.228-.685 0l-.229-.23-.228-3.428zm-6.4 3.2l2.514 2.286c.228.229.228.457 0 .686l-.229.228-3.2.915c-.228-1.6 0-2.972.915-4.115zm11.2 0c.457.686.685 1.372.914 2.058.228.685.228 1.37.228 2.057l-3.2-.915c-.228 0-.457-.457-.457-.685 0-.229 0-.229.229-.229l2.286-2.286zm-6.172 2.286h.914l.686.686-.228.914-.915.457-.914-.457-.229-.914.686-.686zm3.2 2.743c.229 0 .229 0 0 0l3.429.457c-.457 1.372-1.372 2.514-2.743 3.429l-1.372-3.2c.23-.229.23-.457.686-.686h0zm-5.486 0c.23 0 .458.229.458.457v.457l-1.372 3.2c-1.143-.685-2.057-1.828-2.743-3.428l3.657-.686zm2.743 1.371h.229l.228.229 1.6 2.971c-.228 0-.457.229-.685.229-1.143.229-2.515.229-3.657-.229l1.6-2.971c.457 0 .457-.229.685-.229h0z"
+                      fill="#FFF"
+                      stroke="#FFF"
+                      stroke-width="0.25"
+                    />
+                  </g>
+                </svg>
+              </span>
+            </div>
+          </div>
+          <div
+            class="TableV2--cell"
+            role="cell"
+            style="width: 15%;"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <p
+                class="StyledProps--font StyledProps--main tickerContainer StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-right-xsmall StyledProps--padding-left-medium StyledProps--padding-top-medium StyledProps--padding-right-medium StyledProps--padding-bottom-medium"
+              >
+                0
+              </p>
+            </div>
+          </div>
+          <div
+            class="TableV2--cell"
+            role="cell"
+            style="width: 10%;"
+          >
+            <div
+              class="Layout--vertical StyledProps--main tickerContainer StyledProps--padding-small"
+            >
+              <div
+                class="tickerContainer tickerContainerStyles"
+                data-test="ticker"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-right-xsmall"
+                >
+                  3
+                </p>
+                <div
+                  class="ticker"
+                >
+                  <div
+                    class="iconContainer"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green500"
+                      data-icon="main-caret-up"
+                    >
+                      <svg
+                        height="6"
+                        viewBox="0 0 14 9"
+                        width="6"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                          fill="#4d5969"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="tickerValue"
+                    data-test="tickerValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--font-size-small"
+                    >
+                      1%
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="TableV2--cell"
+            role="cell"
+            style="width: 10%;"
+          >
+            <div
+              class="Layout--vertical StyledProps--main tickerContainer StyledProps--padding-small"
+            >
+              <div
+                class="tickerContainer tickerContainerStyles"
+                data-test="ticker"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-right-xsmall"
+                >
+                  1
+                </p>
+                <div
+                  class="ticker"
+                >
+                  <div
+                    class="iconContainer"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+                      data-icon="main-caret-up"
+                    >
+                      <svg
+                        height="6"
+                        viewBox="0 0 14 9"
+                        width="6"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                          fill="#4d5969"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="tickerValue"
+                    data-test="tickerValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--font-size-small"
+                    >
+                      1%
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="TableV2--cell"
+            role="cell"
+            style="width: 10%;"
+          >
+            <div
+              class="Layout--vertical StyledProps--main tickerContainer StyledProps--padding-small"
+            >
+              <div
+                class="tickerContainer tickerContainerStyles"
+                data-test="ticker"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-weight-semi-bold StyledProps--font-size-medium StyledProps--margin-right-xsmall"
+                >
+                  1
+                </p>
+                <div
+                  class="ticker"
+                >
+                  <div
+                    class="iconContainer"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-green500"
+                      data-icon="main-caret-up"
+                    >
+                      <svg
+                        height="6"
+                        viewBox="0 0 14 9"
+                        width="6"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                          fill="#4d5969"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="tickerValue"
+                    data-test="tickerValue"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--font-size-small"
+                    >
+                      0%
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="TableV2--cell"
+            role="cell"
+            style="width: 22%;"
+          >
+            <div
+              class="Layout--vertical StyledProps--main StyledProps--margin-right-large StyledProps--flex StyledProps--flex-alignItems-flex-start"
+            >
+              <div
+                class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-xsmall StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                style="width: 100%;"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main lastDeploymentText StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey700 StyledProps--margin-right-xsmall"
+                >
+                  Test
+                </p>
+                <p
+                  class="StyledProps--font StyledProps--main lastDeploymentText StyledProps--font-size-small StyledProps--color StyledProps--color-grey500"
+                >
+                  (cd.serviceDashboard.executionId)
+                </p>
+              </div>
+              dummy date
+            </div>
+          </div>
+          <div
+            class="TableV2--cell"
+            role="cell"
+            style="width: 5%;"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-end"
+            >
+              <p
+                class="StyledProps--font StyledProps--main statusText StyledProps--background-green600 StyledProps--color StyledProps--color-white StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall"
+              >
+                SUCCESS
+              </p>
+            </div>
+          </div>
+          <div
+            class="TableV2--cell"
+            role="cell"
+            style="width: 3%;"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main"
+            >
+              <span
+                class="bp3-popover-wrapper bp3-dark"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="Options"
+                    >
+                      <svg
+                        fill="none"
+                        height="16"
+                        viewBox="0 0 4 16"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                          fill="currentColor"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
       <div
         class="Layout--horizontal StyledProps--main TableV2--pagination Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"
@@ -499,9 +860,9 @@ exports[`ServicesList render 1`] = `
         <span
           class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-variation-small-semi"
         >
-          1
+          2
            of 
-          1
+          2
         </span>
         <div
           class="Layout--horizontal StyledProps--main"

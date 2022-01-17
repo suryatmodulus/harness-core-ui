@@ -43,7 +43,7 @@ import { useQueryParams } from '@common/hooks'
 import { useGitScope } from '@ci/services/CIUtils'
 import type { BuildStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import type { TemplateSummaryResponse } from 'services/template-ng'
-import { getScopeBasedTemplateRef, getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
+import { createTemplate, getTemplateNameWithLabel } from '@pipeline/utils/templateUtils'
 import css from './EditStageView.module.scss'
 
 export interface EditStageView {
@@ -196,15 +196,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, template, onSubmi
           templateTypes[template.identifier] = template.childType
           setTemplateTypes(templateTypes)
         }
-        const newStage = produce({} as BuildStageElementConfig, draft => {
-          draft.name = values.name
-          draft.identifier = values.identifier
-          set(draft, 'template.templateRef', getScopeBasedTemplateRef(template))
-          if (template.versionLabel) {
-            set(draft, 'template.versionLabel', template.versionLabel)
-          }
-        })
-        onSubmit?.({ stage: newStage }, values.identifier, pipelineData)
+        onSubmit?.({ stage: createTemplate(values, template) }, values.identifier, pipelineData)
       } else {
         data.stage.identifier = values.identifier
         data.stage.name = values.name

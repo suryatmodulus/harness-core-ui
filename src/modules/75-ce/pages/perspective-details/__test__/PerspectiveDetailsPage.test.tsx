@@ -20,6 +20,22 @@ import ViewFieldResponseData from './ViewFieldResponse.json'
 import PerspectiveResponseData from './PerspectiveData.json'
 import ReportResponseData from './ReportResponseData.json'
 
+jest.mock('services/cd-ng', () => ({
+  ...(jest.requireActual('services/cd-ng') as any),
+  useGetLicensesAndSummary: jest.fn().mockImplementation(() => ({
+    data: {
+      edition: 'FREE',
+      licenseType: 'TRIAL',
+      moduleType: 'CE',
+      maxExpiryTime: 1642680031232,
+      totalSpendLimit: 2500
+    },
+    refetch: jest.fn(),
+    error: null,
+    loading: false
+  }))
+}))
+
 jest.mock('services/ce', () => ({
   ...(jest.requireActual('services/ce') as any),
   useGetLastMonthCost: jest.fn().mockImplementation(() => ({
@@ -39,6 +55,20 @@ jest.mock('services/ce', () => ({
   }),
   useGetReportSetting: jest.fn().mockImplementation(() => {
     return { data: ReportResponseData, refetch: jest.fn(), error: null, loading: false }
+  }),
+  useGetCCMLicenseUsage: jest.fn().mockImplementation(() => {
+    return {
+      data: {
+        className: '.CELicenseUsageDTO',
+        accountIdentifier: 'ACCOUNT_ID',
+        module: 'CE',
+        timestamp: 1641370431232,
+        activeSpend: { count: 22, displayName: '' }
+      },
+      refetch: jest.fn(),
+      error: null,
+      loading: false
+    }
   })
 }))
 

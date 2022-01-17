@@ -1,7 +1,7 @@
 import { changeEmptyValuesToRunTimeInput } from '../stageHelpers'
 import inputSetPipeline from './inputset-pipeline.json'
-test('if empty values are being replaced with <+input>', () => {
-  const outputCriteria = changeEmptyValuesToRunTimeInput(inputSetPipeline)
+test('if empty values are being replaced with <+input> except for tags', () => {
+  const outputCriteria = changeEmptyValuesToRunTimeInput(inputSetPipeline, '')
 
   expect(
     (outputCriteria as any).pipeline.stages[0].stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary.spec
@@ -11,4 +11,5 @@ test('if empty values are being replaced with <+input>', () => {
     (outputCriteria as any).pipeline.stages[1].stage.spec.serviceConfig.serviceDefinition.spec.manifests[0].manifest
       .spec.store.spec.branch
   ).toBe('<+input>')
+  expect((outputCriteria as any).tags.Test1).toBe('')
 })

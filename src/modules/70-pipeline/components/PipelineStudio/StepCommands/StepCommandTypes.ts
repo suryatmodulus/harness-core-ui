@@ -8,7 +8,7 @@ import type {
 } from 'services/cd-ng'
 import type { StageType } from '@pipeline/utils/stageHelpers'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
+import type { TemplateStepNode, TemplateLinkConfig } from 'services/pipeline-ng'
 
 export enum AdvancedPanels {
   PreRequisites = 'preRequisites',
@@ -26,8 +26,8 @@ export interface StepCommandsProps {
   step: StepOrStepGroupOrTemplateStepData
   onChange?: (step: Partial<Values>) => void
   onUpdate: (step: Partial<Values>) => void
-  onUseTemplate?: (step: StepOrStepGroupOrTemplateStepData) => void
-  onRemoveTemplate?: () => void
+  onUseTemplate?: () => void
+  onRemoveTemplate?: () => Promise<void>
   stepsFactory: AbstractStepFactory
   isStepGroup: boolean
   isReadonly: boolean
@@ -47,7 +47,7 @@ export enum TabTypes {
   Advanced = 'ADVANCED'
 }
 
-export type StepOrStepGroupOrTemplateStepData = StepElementConfig | StepGroupElementConfig | TemplateStepData
+export type StepOrStepGroupOrTemplateStepData = StepElementConfig | StepGroupElementConfig | TemplateStepNode
 
 export type Values = StepOrStepGroupOrTemplateStepData & {
   tab?: TabTypes
@@ -55,9 +55,5 @@ export type Values = StepOrStepGroupOrTemplateStepData & {
   delegateSelectors?: string[]
   when?: StepWhenCondition
   failureStrategies?: FailureStrategyConfig[]
-  template?: {
-    templateRef: string
-    versionLabel: string
-    templateInputs: Omit<StepElementConfig, 'name' | 'identifier'>
-  }
+  template?: TemplateLinkConfig
 }

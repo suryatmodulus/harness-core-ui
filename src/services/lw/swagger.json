@@ -546,9 +546,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "schema": {
-                "$ref": "#/definitions/ServicesResponse"
-              }
+              "$ref": "#/definitions/ServicesResponse"
             }
           },
           "400": {
@@ -1029,9 +1027,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "schema": {
-                "$ref": "#/definitions/AllResourcesOfAccountResponse"
-              }
+              "$ref": "#/definitions/AllResourcesOfAccountResponse"
             }
           },
           "400": {
@@ -1123,9 +1119,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "schema": {
-                "$ref": "#/definitions/GatewaySessionReportResponse"
-              }
+              "$ref": "#/definitions/GatewaySessionReportResponse"
             }
           },
           "400": {
@@ -1136,12 +1130,6 @@
     },
     "/accounts/{account_id}/regions": {
       "parameters": [
-        {
-          "name": "account_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
         {
           "name": "account_id",
           "in": "path",
@@ -1189,12 +1177,6 @@
           "type": "string"
         },
         {
-          "name": "account_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
           "name": "cloud_account_id",
           "in": "query",
           "required": true,
@@ -1228,12 +1210,6 @@
     },
     "/accounts/{account_id}/virtual_networks": {
       "parameters": [
-        {
-          "name": "account_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
         {
           "name": "account_id",
           "in": "path",
@@ -1299,12 +1275,6 @@
           "type": "string"
         },
         {
-          "name": "account_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
           "name": "region",
           "in": "query",
           "required": true,
@@ -1363,12 +1333,6 @@
           "type": "string"
         },
         {
-          "name": "account_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
           "name": "region",
           "in": "query",
           "required": true,
@@ -1423,12 +1387,6 @@
         {
           "name": "cloud_account_id",
           "in": "query",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "account_id",
-          "in": "path",
           "required": true,
           "type": "string"
         },
@@ -2161,7 +2119,9 @@
           "type": "object",
           "$ref": "#/definitions/ServiceMetadata"
         },
-        "status": { "type": "string" }
+        "status": {
+          "type": "string"
+        }
       }
     },
     "ServiceMetadata": {
@@ -2208,15 +2168,15 @@
       "type": "object",
       "properties": {
         "service_id": {
-          "type": "int",
+          "type": "integer",
           "format": "int64"
         },
         "dep_id": {
-          "type": "int",
+          "type": "integer",
           "format": "int64"
         },
         "delay_secs": {
-          "type": "int"
+          "type": "integer"
         }
       }
     },
@@ -2631,10 +2591,10 @@
           "type": "string"
         },
         "port": {
-          "type": "int"
+          "type": "integer"
         },
         "timeout": {
-          "type": "int"
+          "type": "integer"
         },
         "status_code_from": {
           "type": "number"
@@ -2779,17 +2739,29 @@
     "RDSDatabase": {
       "type": "object",
       "properties": {
-        "id": { "type": "string" },
-        "region": { "type": "string" }
+        "id": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        }
       }
     },
     "ContainerSvc": {
       "type": "object",
       "properties": {
-        "cluster": { "type": "string" },
-        "service": { "type": "string" },
-        "region": { "type": "string" },
-        "task_count": { "type": "number" }
+        "cluster": {
+          "type": "string"
+        },
+        "service": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "task_count": {
+          "type": "number"
+        }
       }
     },
     "ServiceSavings": {
@@ -2900,8 +2872,12 @@
     "AccessPointMeta": {
       "type": "object",
       "properties": {
-        "error": { "type": "string" },
-        "certificate_id": { "type": "string" },
+        "error": {
+          "type": "string"
+        },
+        "certificate_id": {
+          "type": "string"
+        },
         "security_groups": {
           "type": "array",
           "items": {
@@ -2942,8 +2918,12 @@
         "app_gateway_id": {
           "type": "string"
         },
-        "subnet_name": { "type": "string" },
-        "fe_ip_name": { "type": "string" },
+        "subnet_name": {
+          "type": "string"
+        },
+        "fe_ip_name": {
+          "type": "string"
+        },
         "certificate": {
           "type": "object",
           "$ref": "#/definitions/CertificateData"
@@ -3376,19 +3356,25 @@
         "response": {
           "type": "array",
           "items": {
-            "name": {
-              "type": "string"
-            },
-            "success": {
-              "type": "string"
-            },
-            "type": {
-              "type": "string"
-            },
-            "message": {
-              "type": "string"
-            }
+            "$ref": "#/definitions/ServiceDiagnostics"
           }
+        }
+      }
+    },
+    "ServiceDiagnostics": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
         }
       }
     },
@@ -3419,16 +3405,36 @@
         "id": {
           "type": "string"
         },
-        "fe_ip_id": { "type": "string" },
-        "fe_ip_name": { "type": "string" },
-        "region": { "type": "string" },
-        "resource_group": { "type": "string" },
-        "size": { "type": "string" },
-        "size_name": { "type": "string" },
-        "subnet_id": { "type": "string" },
-        "subnet_name": { "type": "string" },
-        "vpc": { "type": "string" },
-        "vpc_name": { "type": "string" }
+        "fe_ip_id": {
+          "type": "string"
+        },
+        "fe_ip_name": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "resource_group": {
+          "type": "string"
+        },
+        "size": {
+          "type": "string"
+        },
+        "size_name": {
+          "type": "string"
+        },
+        "subnet_id": {
+          "type": "string"
+        },
+        "subnet_name": {
+          "type": "string"
+        },
+        "vpc": {
+          "type": "string"
+        },
+        "vpc_name": {
+          "type": "string"
+        }
       }
     },
     "AccessPointCore": {
@@ -3483,7 +3489,9 @@
         "response": {
           "type": "object",
           "properties": {
-            "app_id": { "type": "string" }
+            "app_id": {
+              "type": "string"
+            }
           }
         }
       }
@@ -3545,7 +3553,7 @@
       }
     },
     "TargetGroupMinimal": {
-      "typ": "object",
+      "type": "object",
       "properties": {
         "id": {
           "type": "string"

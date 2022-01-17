@@ -67,7 +67,7 @@ export function TemplateCard(props: TemplateCardProps): JSX.Element {
             {(template as TemplateSummaryResponse).entityValidityDetails?.valid === false && (
               <Badge
                 text={'common.invalid'}
-                iconName="warning-sign"
+                iconName="error-outline"
                 showTooltip={true}
                 entityName={template.name}
                 entityType={'Template'}

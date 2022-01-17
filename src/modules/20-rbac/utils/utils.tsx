@@ -1,17 +1,5 @@
 import React, { ReactNode } from 'react'
-import { Menu } from '@blueprintjs/core'
-import type { ItemRenderer } from '@blueprintjs/select'
-import {
-  IconName,
-  Layout,
-  MultiSelectOption,
-  Text,
-  Avatar,
-  Color,
-  ModalErrorHandlerBinding,
-  getErrorInfoFromErrorObject,
-  SelectOption
-} from '@wings-software/uicore'
+import { IconName, ModalErrorHandlerBinding, getErrorInfoFromErrorObject, SelectOption } from '@wings-software/uicore'
 import { defaultTo } from 'lodash-es'
 import type { StringsMap } from 'stringTypes'
 import type { AccessControlCheckError, RoleAssignmentMetadataDTO, UserMetadataDTO } from 'services/cd-ng'
@@ -21,7 +9,6 @@ import type {
   RoleOption,
   ResourceGroupOption
 } from '@rbac/modals/RoleAssignmentModal/views/UserRoleAssigment'
-import { isEmail } from '@common/utils/Validation'
 import { RbacResourceGroupTypes } from '@rbac/constants/utils'
 import RBACTooltip from '@rbac/components/RBACTooltip/RBACTooltip'
 import type { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -31,10 +18,6 @@ import type { PermissionsRequest } from '@rbac/hooks/usePermission'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 import type { UseStringsReturn } from 'framework/strings'
 import css from './utils.module.scss'
-
-export interface UserItem extends MultiSelectOption {
-  email?: string
-}
 
 export enum PrincipalType {
   USER = 'USER',
@@ -58,31 +41,6 @@ export const getRoleIcon = (roleIdentifier: string): IconName => {
       return 'customRole'
   }
 }
-
-export const UserTagRenderer = (item: UserItem, validate = false): React.ReactNode => (
-  <Layout.Horizontal key={item.value.toString()} flex spacing="small">
-    <Avatar name={item.label} email={item.value.toString()} size="xsmall" hoverCard={false} />
-    <Text color={validate && !isEmail(item.value.toString().toLowerCase()) ? Color.RED_500 : Color.BLACK}>
-      {item.label}
-    </Text>
-  </Layout.Horizontal>
-)
-
-export const UserItemRenderer: ItemRenderer<UserItem> = (item, { handleClick }) => (
-  <Menu.Item
-    key={item.value.toString()}
-    text={
-      <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-        <Avatar name={item.label} email={item.email || item.value.toString()} size="small" hoverCard={false} />
-        <Layout.Vertical padding={{ left: 'small' }}>
-          <Text color={Color.BLACK}>{item.label}</Text>
-          <Text color={Color.GREY_700}>{item.email || item.value}</Text>
-        </Layout.Vertical>
-      </Layout.Horizontal>
-    }
-    onClick={handleClick}
-  />
-)
 
 export enum InvitationStatus {
   USER_INVITED_SUCCESSFULLY = 'USER_INVITED_SUCCESSFULLY',

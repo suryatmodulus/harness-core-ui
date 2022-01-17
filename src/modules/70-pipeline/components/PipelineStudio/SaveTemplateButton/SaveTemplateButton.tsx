@@ -17,10 +17,14 @@ import { useSaveTemplate } from '@pipeline/utils/useSaveTemplate'
 import type { JsonNode, StageElementConfig } from 'services/cd-ng'
 import type { StepOrStepGroupOrTemplateStepData } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import css from './SaveTemplateButton.module.scss'
 
 interface SaveTemplateButtonProps {
-  data: StepOrStepGroupOrTemplateStepData | StageElementConfig
+  data:
+    | StepOrStepGroupOrTemplateStepData
+    | StageElementConfig
+    | (() => Promise<StepOrStepGroupOrTemplateStepData | StageElementConfig>)
   type: 'Step' | 'Stage'
   buttonProps?: ButtonProps
 }
@@ -31,6 +35,7 @@ export const SaveTemplateButton = ({ data, buttonProps, type }: SaveTemplateButt
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [template, setTemplate] = React.useState<NGTemplateInfoConfig>()
   const [modalProps, setModalProps] = React.useState<ModalProps>()
+  const { isGitSyncEnabled } = React.useContext(AppStoreContext)
   const [showConfigModal, hideConfigModal] = useModalHook(
     () => (
       <Dialog enforceFocus={false} isOpen={true} className={css.configDialog}>
@@ -45,29 +50,32 @@ export const SaveTemplateButton = ({ data, buttonProps, type }: SaveTemplateButt
     ),
     [template, modalProps, repoIdentifier, branch]
   )
-  const { saveAndPublish } = useSaveTemplate(
-    {
-      template: template as NGTemplateInfoConfig,
-      gitDetails: { repoIdentifier, branch },
-      isPipelineStudio: true
-    },
-    hideConfigModal
-  )
+  const { saveAndPublish } = useSaveTemplate({
+    template: template as NGTemplateInfoConfig,
+    gitDetails: { repoIdentifier, branch },
+    isPipelineStudio: true
+  })
 
-  const onSaveAsTemplate = () => {
-    setTemplate(
-      produce(DefaultTemplate, draft => {
-        draft.projectIdentifier = projectIdentifier
-        draft.orgIdentifier = orgIdentifier
-        draft.type = type
-        draft.spec = omit(data, 'name', 'identifier') as JsonNode
+  const onSaveAsTemplate = async () => {
+    try {
+      const finalData = typeof data === 'function' ? await data() : data
+      setTemplate(
+        produce(DefaultTemplate, draft => {
+          draft.projectIdentifier = projectIdentifier
+          draft.orgIdentifier = orgIdentifier
+          draft.type = type
+          draft.spec = omit(finalData, 'name', 'identifier') as JsonNode
+        })
+      )
+      setModalProps({
+        title: getString('common.template.saveAsNewTemplateHeading'),
+        promise: saveAndPublish,
+        shouldGetComment: !isGitSyncEnabled
       })
-    )
-    setModalProps({
-      title: getString('common.template.saveAsNewTemplateHeading'),
-      promise: saveAndPublish
-    })
-    showConfigModal()
+      showConfigModal()
+    } catch (_error) {
+      //Do not do anything as there are error in the form
+    }
   }
 
   return (

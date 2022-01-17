@@ -574,17 +574,29 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font StyledProps--main label StyledProps--font-small StyledProps--color StyledProps--color-grey700"
                     style="width: 80px;"
                   >
                     services
                   </p>
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-black"
-                    style="--text-line-clamp: 1;"
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
                   >
-                    nginx service
-                  </p>
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="entityContainer"
+                        tabindex="0"
+                      >
+                        <div
+                          class="firstEntity"
+                        >
+                          nginx service
+                        </div>
+                      </div>
+                    </span>
+                  </span>
                 </div>
               </div>
               <div
@@ -972,17 +984,29 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font StyledProps--main label StyledProps--font-small StyledProps--color StyledProps--color-grey700"
                     style="width: 80px;"
                   >
                     services
                   </p>
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-black"
-                    style="--text-line-clamp: 1;"
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
                   >
-                    nginx service
-                  </p>
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="entityContainer"
+                        tabindex="0"
+                      >
+                        <div
+                          class="firstEntity"
+                        >
+                          nginx service
+                        </div>
+                      </div>
+                    </span>
+                  </span>
                 </div>
               </div>
               <div
@@ -1379,7 +1403,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    class="StyledProps--font StyledProps--main label StyledProps--font-small StyledProps--color StyledProps--color-grey700"
                     style="width: 80px;"
                   >
                     services
@@ -2325,7 +2349,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                       </span>
                     </div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
                     >
                       idLabel
                     </p>
@@ -2345,7 +2369,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             >
               <div>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                  class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey600"
                   style="--text-line-clamp: 2;"
                 >
                   executionsText
@@ -2360,7 +2384,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 </p>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-medium"
               >
                 1
               </p>
@@ -2702,7 +2726,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                       </span>
                     </div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
                     >
                       idLabel
                     </p>
@@ -2722,7 +2746,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             >
               <div>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                  class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey600"
                   style="--text-line-clamp: 2;"
                 >
                   executionsText
@@ -2737,7 +2761,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 </p>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-medium"
               >
                 9
               </p>
@@ -3079,7 +3103,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                       </span>
                     </div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
                     >
                       idLabel
                     </p>
@@ -3099,7 +3123,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             >
               <div>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey400 StyledProps--font-small"
+                  class="StyledProps--font Text--lineclamp StyledProps--main clickable StyledProps--color StyledProps--color-grey600"
                   style="--text-line-clamp: 2;"
                 >
                   executionsText
@@ -3114,7 +3138,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
                 </p>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-medium"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-medium"
               >
                 1
               </p>

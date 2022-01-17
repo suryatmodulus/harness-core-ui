@@ -1,6 +1,8 @@
 {
   "name": "aaaa",
-  "tags": {},
+  "tags": {
+    "Test1": ""
+  },
   "identifier": "aaaa",
   "pipeline": {
     "identifier": "pipnewe",

@@ -1,0 +1,21 @@
+.layout {
+  flex-basis: 100%;
+  display: grid;
+  grid-template-columns: 470px 1fr;
+
+  > :global(.bp3-tabs) {
+    background-color: var(--white);
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: var(--spacing-medium);
+
+    > :global(.bp3-tab-list) {
+      padding: var(--spacing-medium) var(--spacing-xlarge) 0;
+      border-bottom: 1px solid var(--grey-200);
+    }
+
+    > :global(.bp3-tab-panel) {
+      margin-top: 0;
+    }
+  }
+}

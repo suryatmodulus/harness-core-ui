@@ -1,6 +1,6 @@
 import React from 'react'
 import { IconName, getMultiTypeFromValue, MultiTypeInputType, Color } from '@wings-software/uicore'
-import { isEmpty, set, get } from 'lodash-es'
+import { isEmpty, set, get, isArray } from 'lodash-es'
 import * as Yup from 'yup'
 import { FormikErrors, yupToFormErrors } from 'formik'
 import { v4 as uuid } from 'uuid'
@@ -19,7 +19,7 @@ import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import type { StringsMap } from 'stringTypes'
 import { shellScriptType } from './BaseShellScript'
 
-import type { ShellScriptData, ShellScriptFormData } from './shellScriptTypes'
+import { ShellScriptData, ShellScriptFormData, variableSchema } from './shellScriptTypes'
 import ShellScriptInputSetStep from './ShellScriptInputSetStep'
 import { ShellScriptWidgetWithRef } from './ShellScriptWidget'
 import { ShellScriptVariablesView, ShellScriptVariablesViewProps } from './ShellScriptVariablesView'
@@ -135,6 +135,30 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
 
     /* istanbul ignore else */
     if (
+      (isArray(template?.spec?.environmentVariables) || isArray(template?.spec?.outputVariables)) &&
+      isRequired &&
+      getString
+    ) {
+      try {
+        const schema = Yup.object().shape({
+          spec: Yup.object().shape({
+            environmentVariables: variableSchema(getString),
+            outputVariables: variableSchema(getString)
+          })
+        })
+        schema.validateSync(data)
+      } catch (e) {
+        /* istanbul ignore else */
+        if (e instanceof Yup.ValidationError) {
+          const err = yupToFormErrors(e)
+
+          Object.assign(errors, err)
+        }
+      }
+    }
+
+    /* istanbul ignore else */
+    if (
       getMultiTypeFromValue(template?.spec?.source?.spec?.script) === MultiTypeInputType.RUNTIME &&
       isRequired &&
       isEmpty(data?.spec?.source?.spec?.script)
@@ -172,7 +196,6 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
     ) {
       set(errors, 'spec.executionTarget.workingDirectory', getString?.('fieldRequired', { field: 'Working Directory' }))
     }
-
     return errors
   }
 

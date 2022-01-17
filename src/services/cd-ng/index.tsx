@@ -4,7 +4,7 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
-export const SPEC_VERSION = '2.0'
+export const SPEC_VERSION = '1.0'
 export interface ACLAggregateFilter {
   resourceGroupIdentifiers?: string[]
   roleIdentifiers?: string[]
@@ -275,6 +275,7 @@ export interface AccessControlCheckError {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -309,6 +310,7 @@ export interface AccessControlCheckError {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   failedPermissionChecks?: PermissionCheck[]
@@ -595,6 +597,10 @@ export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
   username?: string
 }
 
+export type AppFilter = Filter & {
+  filterType?: string
+}
+
 export interface AppPermission {
   actions?: (
     | 'ALL'
@@ -608,7 +614,7 @@ export interface AppPermission {
     | 'EXECUTE_WORKFLOW_ROLLBACK'
     | 'DEFAULT'
   )[]
-  appFilter?: GenericEntityFilter
+  appFilter?: AppFilter
   entityFilter?: Filter
   permissionType?:
     | 'ACCOUNT'
@@ -1456,7 +1462,7 @@ export type CountInstanceSelection = InstanceSelectionBase & {
 
 export interface CreateInvite {
   inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE' | 'SCIM_INITIATED_INVITE'
-  roleBindings: RoleBinding[]
+  roleBindings?: RoleBinding[]
   userGroups?: string[]
   users: string[]
 }
@@ -1603,7 +1609,7 @@ export type DeleteReleaseNameSpec = DeleteResourcesBaseSpec & {
 }
 
 export type DeleteResourceNameSpec = DeleteResourcesBaseSpec & {
-  resourceNames?: string[]
+  resourceNames: string[]
 }
 
 export interface DeleteResourcesBaseSpec {
@@ -1895,6 +1901,8 @@ export interface EntityDetail {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -1926,6 +1934,7 @@ export interface EntityGitDetails {
   filePath?: string
   objectId?: string
   repoIdentifier?: string
+  repoName?: string
   rootFolder?: string
 }
 
@@ -2293,6 +2302,7 @@ export interface Error {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -2327,6 +2337,7 @@ export interface Error {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -2650,6 +2661,7 @@ export interface Failure {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -2684,6 +2696,7 @@ export interface Failure {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -2747,6 +2760,8 @@ export interface FeatureRestrictionDetailListRequestDTO {
     | 'TERRAFORM_DESTROY'
     | 'TERRAFORM_ROLLBACK'
     | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
+    | 'DEVELOPERS'
+    | 'MONTHLY_ACTIVE_USERS'
   )[]
 }
 
@@ -2797,6 +2812,8 @@ export interface FeatureRestrictionDetailRequestDTO {
     | 'TERRAFORM_DESTROY'
     | 'TERRAFORM_ROLLBACK'
     | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
+    | 'DEVELOPERS'
+    | 'MONTHLY_ACTIVE_USERS'
 }
 
 export interface FeatureRestrictionDetailsDTO {
@@ -2849,6 +2866,8 @@ export interface FeatureRestrictionDetailsDTO {
     | 'TERRAFORM_DESTROY'
     | 'TERRAFORM_ROLLBACK'
     | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
+    | 'DEVELOPERS'
+    | 'MONTHLY_ACTIVE_USERS'
   restriction?: RestrictionDTO
   restrictionType?:
     | 'AVAILABILITY'
@@ -2909,6 +2928,8 @@ export interface FeatureRestrictionMetadataDTO {
     | 'TERRAFORM_DESTROY'
     | 'TERRAFORM_ROLLBACK'
     | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
+    | 'DEVELOPERS'
+    | 'MONTHLY_ACTIVE_USERS'
   restrictionMetadata?: {
     [key: string]: RestrictionMetadataDTO
   }
@@ -2977,6 +2998,7 @@ export interface GatewayAccountRequestDTO {
 
 export interface GcpBillingExportSpec {
   datasetId: string
+  tableId: string
 }
 
 export type GcpCloudCostConnector = ConnectorConfigDTO & {
@@ -3098,6 +3120,8 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -3134,6 +3158,8 @@ export interface GitEntityFilterProperties {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -3174,18 +3200,24 @@ export interface GitFullSyncConfigDTO {
   baseBranch?: string
   branch?: string
   createPullRequest?: boolean
-  message?: string
+  newBranch?: boolean
   orgIdentifier?: string
+  prTitle?: string
   projectIdentifier?: string
   repoIdentifier?: string
+  rootFolder?: string
+  targetBranch?: string
 }
 
 export interface GitFullSyncConfigRequestDTO {
   baseBranch?: string
   branch: string
   createPullRequest?: boolean
-  message?: string
+  newBranch?: boolean
+  prTitle?: string
   repoIdentifier: string
+  rootFolder: string
+  targetBranch?: string
 }
 
 export interface GitFullSyncEntityInfoDTO {
@@ -3197,6 +3229,8 @@ export interface GitFullSyncEntityInfoDTO {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -3324,6 +3358,8 @@ export interface GitSyncEntityDTO {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -3362,6 +3398,8 @@ export interface GitSyncEntityListDTO {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -3417,6 +3455,8 @@ export interface GitSyncErrorDTO {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -3898,7 +3938,7 @@ export interface Invite {
   name: string
   orgIdentifier?: string
   projectIdentifier?: string
-  roleBindings: RoleBinding[]
+  roleBindings?: RoleBinding[]
   userGroups?: string[]
 }
 
@@ -4542,10 +4582,9 @@ export type NumberNGVariable = NGVariable & {
   value: number
 }
 
-export interface OAuthSettings {
+export type OAuthSettings = NGAuthSettings & {
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
   filter?: string
-  settingsType?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
 }
 
 export interface OAuthSignupDTO {
@@ -5127,6 +5166,7 @@ export type PipelineFilterProperties = FilterProperties & {
 }
 
 export interface PipelineInfoConfig {
+  allowStageExecutions?: boolean
   description?: string
   flowControl?: FlowControlConfig
   identifier: string
@@ -5312,7 +5352,28 @@ export interface ResourceDTO {
   labels?: {
     [key: string]: string
   }
-  type: string
+  type:
+    | 'ORGANIZATION'
+    | 'PROJECT'
+    | 'USER_GROUP'
+    | 'SECRET'
+    | 'RESOURCE_GROUP'
+    | 'USER'
+    | 'ROLE'
+    | 'ROLE_ASSIGNMENT'
+    | 'PIPELINE'
+    | 'TRIGGER'
+    | 'TEMPLATE'
+    | 'INPUT_SET'
+    | 'DELEGATE_CONFIGURATION'
+    | 'SERVICE'
+    | 'ENVIRONMENT'
+    | 'DELEGATE'
+    | 'SERVICE_ACCOUNT'
+    | 'CONNECTOR'
+    | 'API_KEY'
+    | 'TOKEN'
+    | 'DELEGATE_TOKEN'
 }
 
 export interface ResourceGroup {
@@ -5833,6 +5894,13 @@ export interface ResponseListModuleLicenseDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseListPartialSchemaDTO {
+  correlationId?: string
+  data?: PartialSchemaDTO[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseListProject {
   correlationId?: string
   data?: Project[]
@@ -6214,6 +6282,7 @@ export interface ResponseMessage {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -6248,6 +6317,7 @@ export interface ResponseMessage {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -6504,13 +6574,6 @@ export interface ResponsePageUserGroupDTO {
 export interface ResponsePageUserMetadataDTO {
   correlationId?: string
   data?: PageUserMetadataDTO
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponsePartialSchemaDTO {
-  correlationId?: string
-  data?: PartialSchemaDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -6785,6 +6848,13 @@ export interface ResponseValidationResultDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseYamlSchemaDetailsWrapper {
+  correlationId?: string
+  data?: YamlSchemaDetailsWrapper
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseYamlSnippets {
   correlationId?: string
   data?: YamlSnippets
@@ -7006,12 +7076,15 @@ export type S3StoreConfig = StoreConfig & {
 
 export type SAMLSettings = NGAuthSettings & {
   authorizationEnabled?: boolean
+  clientId?: string
+  clientSecret?: string
   displayName?: string
   entityIdentifier?: string
   groupMembershipAttr?: string
   identifier: string
   logoutUrl?: string
   origin: string
+  samlProviderType?: string
 }
 
 export interface SSHAuthDTO {
@@ -7092,11 +7165,90 @@ export interface SamlLinkGroupRequest {
 export type SamlSettings = SSOSettings & {
   accountId: string
   authorizationEnabled?: boolean
+  clientId?: string
+  clientSecret?: string[]
+  encryptedClientSecret?: string
   entityIdentifier?: string
   groupMembershipAttr?: string
   logoutUrl?: string
   metaDataFile?: string
   origin: string
+  samlProviderType?: 'AZURE' | 'OKTA' | 'ONELOGIN' | 'OTHER'
+  settingType?:
+    | 'HOST_CONNECTION_ATTRIBUTES'
+    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
+    | 'SMTP'
+    | 'SFTP'
+    | 'JENKINS'
+    | 'BAMBOO'
+    | 'STRING'
+    | 'SPLUNK'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'APM_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'LOG_VERIFICATION'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'DYNA_TRACE'
+    | 'INSTANA'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'SCALYR'
+    | 'ELB'
+    | 'SLACK'
+    | 'AWS'
+    | 'GCS'
+    | 'GCP'
+    | 'AZURE'
+    | 'PCF'
+    | 'DIRECT'
+    | 'KUBERNETES_CLUSTER'
+    | 'DOCKER'
+    | 'ECR'
+    | 'GCR'
+    | 'ACR'
+    | 'PHYSICAL_DATA_CENTER'
+    | 'KUBERNETES'
+    | 'NEXUS'
+    | 'ARTIFACTORY'
+    | 'SMB'
+    | 'AMAZON_S3'
+    | 'GIT'
+    | 'SSH_SESSION_CONFIG'
+    | 'SERVICE_VARIABLE'
+    | 'CONFIG_FILE'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'JIRA'
+    | 'SERVICENOW'
+    | 'SECRET_TEXT'
+    | 'YAML_GIT_SYNC'
+    | 'VAULT'
+    | 'VAULT_SSH'
+    | 'AWS_SECRETS_MANAGER'
+    | 'CYBERARK'
+    | 'WINRM_CONNECTION_ATTRIBUTES'
+    | 'WINRM_SESSION_CONFIG'
+    | 'PROMETHEUS'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'HTTP_HELM_REPO'
+    | 'AMAZON_S3_HELM_REPO'
+    | 'GCS_HELM_REPO'
+    | 'SPOT_INST'
+    | 'AZURE_ARTIFACTS_PAT'
+    | 'CUSTOM'
+    | 'CE_AWS'
+    | 'CE_GCP'
+    | 'CE_AZURE'
+    | 'AZURE_VAULT'
+    | 'KUBERNETES_CLUSTER_NG'
+    | 'GIT_NG'
+    | 'SSO_SAML'
+    | 'GCP_SECRETS_MANAGER'
+    | 'TRIGGER'
 }
 
 export type SampleErrorMetadataDTO = ErrorMetadataDTO & {
@@ -8418,6 +8570,30 @@ export interface WorkloadDeploymentInfo {
   workload?: WorkloadDateCountInfo[]
 }
 
+export interface YamlGroup {
+  group?: string
+}
+
+export interface YamlSchemaDetailsWrapper {
+  yamlSchemaWithDetailsList?: YamlSchemaWithDetails[]
+}
+
+export interface YamlSchemaMetadata {
+  featureFlags?: string[]
+  modulesSupported?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE')[]
+  yamlGroup: YamlGroup
+}
+
+export interface YamlSchemaWithDetails {
+  availableAtAccountLevel?: boolean
+  availableAtOrgLevel?: boolean
+  availableAtProjectLevel?: boolean
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
+  schema?: JsonNode
+  schemaClassName?: string
+  yamlSchemaMetadata?: YamlSchemaMetadata
+}
+
 export interface YamlSnippetMetaData {
   description?: string
   iconTag?: string
@@ -8497,9 +8673,11 @@ export type UserFilterRequestBody = UserFilter
 
 export type UserGroupDTORequestBody = UserGroupDTO
 
+export type YamlSchemaDetailsWrapperRequestBody = YamlSchemaDetailsWrapper
+
 export type GetBuildDetailsForEcrWithYamlBodyRequestBody = string
 
-export type ProcessPollingResultNgBodyRequestBody = string[]
+export type UnsubscribeBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
@@ -8725,6 +8903,8 @@ export interface ListActivitiesQueryParams {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -8755,6 +8935,8 @@ export interface ListActivitiesQueryParams {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -8889,6 +9071,8 @@ export interface GetActivitiesSummaryQueryParams {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -8919,6 +9103,8 @@ export interface GetActivitiesSummaryQueryParams {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -14827,6 +15013,8 @@ export interface FetchFeatureRestrictionMetadataPathParams {
     | 'TERRAFORM_DESTROY'
     | 'TERRAFORM_ROLLBACK'
     | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
+    | 'DEVELOPERS'
+    | 'MONTHLY_ACTIVE_USERS'
 }
 
 export type FetchFeatureRestrictionMetadataProps = Omit<
@@ -14947,6 +15135,8 @@ export const fetchFeatureRestrictionMetadataPromise = (
       | 'TERRAFORM_DESTROY'
       | 'TERRAFORM_ROLLBACK'
       | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
+      | 'DEVELOPERS'
+      | 'MONTHLY_ACTIVE_USERS'
   },
   signal?: RequestInit['signal']
 ) =>
@@ -14970,6 +15160,8 @@ export interface ListReferredByEntitiesQueryParams {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -16765,6 +16957,8 @@ export interface ListFullSyncFilesQueryParams {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -16846,6 +17040,8 @@ export interface CountFullSyncFilesWithFilterQueryParams {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -17414,6 +17610,8 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -17512,6 +17710,8 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'PipelineSteps'
       | 'Http'
       | 'JiraCreate'
+      | 'JiraUpdate'
+      | 'JiraApproval'
       | 'ShellScript'
       | 'K8sCanaryDeploy'
       | 'Connectors'
@@ -20666,7 +20866,7 @@ export interface GetPartialYamlSchemaQueryParams {
 }
 
 export type GetPartialYamlSchemaProps = Omit<
-  GetProps<ResponsePartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>,
+  GetProps<ResponseListPartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>,
   'path'
 >
 
@@ -20674,7 +20874,7 @@ export type GetPartialYamlSchemaProps = Omit<
  * Get Partial Yaml Schema
  */
 export const GetPartialYamlSchema = (props: GetPartialYamlSchemaProps) => (
-  <Get<ResponsePartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>
+  <Get<ResponseListPartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>
     path={`/partial-yaml-schema`}
     base={getConfig('ng/api')}
     {...props}
@@ -20682,7 +20882,7 @@ export const GetPartialYamlSchema = (props: GetPartialYamlSchemaProps) => (
 )
 
 export type UseGetPartialYamlSchemaProps = Omit<
-  UseGetProps<ResponsePartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>,
+  UseGetProps<ResponseListPartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>,
   'path'
 >
 
@@ -20690,7 +20890,7 @@ export type UseGetPartialYamlSchemaProps = Omit<
  * Get Partial Yaml Schema
  */
 export const useGetPartialYamlSchema = (props: UseGetPartialYamlSchemaProps) =>
-  useGet<ResponsePartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>(`/partial-yaml-schema`, {
+  useGet<ResponseListPartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>(`/partial-yaml-schema`, {
     base: getConfig('ng/api'),
     ...props
   })
@@ -20699,15 +20899,256 @@ export const useGetPartialYamlSchema = (props: UseGetPartialYamlSchemaProps) =>
  * Get Partial Yaml Schema
  */
 export const getPartialYamlSchemaPromise = (
-  props: GetUsingFetchProps<ResponsePartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>,
+  props: GetUsingFetchProps<ResponseListPartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponsePartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>(
+  getUsingFetch<ResponseListPartialSchemaDTO, Failure | Error, GetPartialYamlSchemaQueryParams, void>(
     getConfig('ng/api'),
     `/partial-yaml-schema`,
     props,
     signal
   )
+
+export interface GetStepYamlSchemaQueryParams {
+  accountIdentifier: string
+  projectIdentifier?: string
+  orgIdentifier?: string
+  scope?: 'account' | 'org' | 'project' | 'unknown'
+  entityType?:
+    | 'Projects'
+    | 'Pipelines'
+    | 'PipelineSteps'
+    | 'Http'
+    | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
+    | 'Connectors'
+    | 'Secrets'
+    | 'Service'
+    | 'Environment'
+    | 'InputSets'
+    | 'CvConfig'
+    | 'Delegates'
+    | 'DelegateConfigurations'
+    | 'CvVerificationJob'
+    | 'IntegrationStage'
+    | 'IntegrationSteps'
+    | 'CvKubernetesActivitySource'
+    | 'DeploymentSteps'
+    | 'DeploymentStage'
+    | 'ApprovalStage'
+    | 'FeatureFlagStage'
+    | 'Template'
+    | 'Triggers'
+    | 'MonitoredService'
+    | 'GitRepositories'
+    | 'FeatureFlags'
+    | 'ServiceNowApproval'
+  yamlGroup?: string
+}
+
+export type GetStepYamlSchemaProps = Omit<
+  MutateProps<
+    ResponseJsonNode,
+    Failure | Error,
+    GetStepYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get step YAML schema
+ */
+export const GetStepYamlSchema = (props: GetStepYamlSchemaProps) => (
+  <Mutate<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, YamlSchemaDetailsWrapperRequestBody, void>
+    verb="POST"
+    path={`/partial-yaml-schema`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetStepYamlSchemaProps = Omit<
+  UseMutateProps<
+    ResponseJsonNode,
+    Failure | Error,
+    GetStepYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get step YAML schema
+ */
+export const useGetStepYamlSchema = (props: UseGetStepYamlSchemaProps) =>
+  useMutate<ResponseJsonNode, Failure | Error, GetStepYamlSchemaQueryParams, YamlSchemaDetailsWrapperRequestBody, void>(
+    'POST',
+    `/partial-yaml-schema`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get step YAML schema
+ */
+export const getStepYamlSchemaPromise = (
+  props: MutateUsingFetchProps<
+    ResponseJsonNode,
+    Failure | Error,
+    GetStepYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseJsonNode,
+    Failure | Error,
+    GetStepYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/partial-yaml-schema`, props, signal)
+
+export interface GetPartialYamlSchemaWithDetailsQueryParams {
+  accountIdentifier: string
+  projectIdentifier?: string
+  orgIdentifier?: string
+  scope?: 'account' | 'org' | 'project' | 'unknown'
+}
+
+export type GetPartialYamlSchemaWithDetailsProps = Omit<
+  GetProps<ResponseYamlSchemaDetailsWrapper, Failure | Error, GetPartialYamlSchemaWithDetailsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Partial Yaml Schema with details
+ */
+export const GetPartialYamlSchemaWithDetails = (props: GetPartialYamlSchemaWithDetailsProps) => (
+  <Get<ResponseYamlSchemaDetailsWrapper, Failure | Error, GetPartialYamlSchemaWithDetailsQueryParams, void>
+    path={`/partial-yaml-schema/details`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetPartialYamlSchemaWithDetailsProps = Omit<
+  UseGetProps<ResponseYamlSchemaDetailsWrapper, Failure | Error, GetPartialYamlSchemaWithDetailsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Partial Yaml Schema with details
+ */
+export const useGetPartialYamlSchemaWithDetails = (props: UseGetPartialYamlSchemaWithDetailsProps) =>
+  useGet<ResponseYamlSchemaDetailsWrapper, Failure | Error, GetPartialYamlSchemaWithDetailsQueryParams, void>(
+    `/partial-yaml-schema/details`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get Partial Yaml Schema with details
+ */
+export const getPartialYamlSchemaWithDetailsPromise = (
+  props: GetUsingFetchProps<
+    ResponseYamlSchemaDetailsWrapper,
+    Failure | Error,
+    GetPartialYamlSchemaWithDetailsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseYamlSchemaDetailsWrapper, Failure | Error, GetPartialYamlSchemaWithDetailsQueryParams, void>(
+    getConfig('ng/api'),
+    `/partial-yaml-schema/details`,
+    props,
+    signal
+  )
+
+export interface GetMergedPartialYamlSchemaQueryParams {
+  accountIdentifier: string
+  projectIdentifier?: string
+  orgIdentifier?: string
+  scope?: 'account' | 'org' | 'project' | 'unknown'
+}
+
+export type GetMergedPartialYamlSchemaProps = Omit<
+  MutateProps<
+    ResponseListPartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Merged Partial Yaml Schema
+ */
+export const GetMergedPartialYamlSchema = (props: GetMergedPartialYamlSchemaProps) => (
+  <Mutate<
+    ResponseListPartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/partial-yaml-schema/merged`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetMergedPartialYamlSchemaProps = Omit<
+  UseMutateProps<
+    ResponseListPartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get Merged Partial Yaml Schema
+ */
+export const useGetMergedPartialYamlSchema = (props: UseGetMergedPartialYamlSchemaProps) =>
+  useMutate<
+    ResponseListPartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >('POST', `/partial-yaml-schema/merged`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Get Merged Partial Yaml Schema
+ */
+export const getMergedPartialYamlSchemaPromise = (
+  props: MutateUsingFetchProps<
+    ResponseListPartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseListPartialSchemaDTO,
+    Failure | Error,
+    GetMergedPartialYamlSchemaQueryParams,
+    YamlSchemaDetailsWrapperRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/partial-yaml-schema/merged`, props, signal)
 
 export type GetProvisionerStepsProps = Omit<GetProps<ResponseStepCategory, Failure | Error, void, void>, 'path'>
 
@@ -20991,7 +21432,7 @@ export type ProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -21003,7 +21444,7 @@ export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPol
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >
     verb="POST"
@@ -21018,7 +21459,7 @@ export type UseProcessPollingResultNgProps = Omit<
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -21030,7 +21471,7 @@ export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProc
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >(
     'POST',
@@ -21046,7 +21487,7 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
@@ -21055,17 +21496,17 @@ export const processPollingResultNgPromise = (
     void,
     Failure | Error,
     ProcessPollingResultNgQueryParams,
-    ProcessPollingResultNgBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  MutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
+  <Mutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -21074,28 +21515,22 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  UseMutateProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  useMutate<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     `/polling/subscribe`,
     { base: getConfig('ng/api'), ...props }
   )
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<
-    ResponsePollingResponseDTO,
-    Failure | Error,
-    void,
-    ProcessPollingResultNgBodyRequestBody,
-    void
-  >,
+  props: MutateUsingFetchProps<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  mutateUsingFetch<ResponsePollingResponseDTO, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -21104,12 +21539,12 @@ export const subscribePromise = (
   )
 
 export type UnsubscribeProps = Omit<
-  MutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  MutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Unsubscribe = (props: UnsubscribeProps) => (
-  <Mutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>
+  <Mutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/unsubscribe`}
     base={getConfig('ng/api')}
@@ -21118,22 +21553,21 @@ export const Unsubscribe = (props: UnsubscribeProps) => (
 )
 
 export type UseUnsubscribeProps = Omit<
-  UseMutateProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  UseMutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useUnsubscribe = (props: UseUnsubscribeProps) =>
-  useMutate<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
-    'POST',
-    `/polling/unsubscribe`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
 
 export const unsubscribePromise = (
-  props: MutateUsingFetchProps<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>,
+  props: MutateUsingFetchProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<boolean, Failure | Error, void, ProcessPollingResultNgBodyRequestBody, void>(
+  mutateUsingFetch<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/unsubscribe`,
@@ -21251,6 +21685,67 @@ export const postProjectPromise = (
     'POST',
     getConfig('ng/api'),
     `/projects`,
+    props,
+    signal
+  )
+
+export interface GetProjectListWithMultiOrgFilterQueryParams {
+  accountIdentifier: string
+  orgIdentifiers?: string[]
+  hasModule?: boolean
+  identifiers?: string[]
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
+  searchTerm?: string
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+}
+
+export type GetProjectListWithMultiOrgFilterProps = Omit<
+  GetProps<ResponsePageProjectResponse, Failure | Error, GetProjectListWithMultiOrgFilterQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Project list
+ */
+export const GetProjectListWithMultiOrgFilter = (props: GetProjectListWithMultiOrgFilterProps) => (
+  <Get<ResponsePageProjectResponse, Failure | Error, GetProjectListWithMultiOrgFilterQueryParams, void>
+    path={`/projects/list`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetProjectListWithMultiOrgFilterProps = Omit<
+  UseGetProps<ResponsePageProjectResponse, Failure | Error, GetProjectListWithMultiOrgFilterQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Project list
+ */
+export const useGetProjectListWithMultiOrgFilter = (props: UseGetProjectListWithMultiOrgFilterProps) =>
+  useGet<ResponsePageProjectResponse, Failure | Error, GetProjectListWithMultiOrgFilterQueryParams, void>(
+    `/projects/list`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Get Project list
+ */
+export const getProjectListWithMultiOrgFilterPromise = (
+  props: GetUsingFetchProps<
+    ResponsePageProjectResponse,
+    Failure | Error,
+    GetProjectListWithMultiOrgFilterQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageProjectResponse, Failure | Error, GetProjectListWithMultiOrgFilterQueryParams, void>(
+    getConfig('ng/api'),
+    `/projects/list`,
     props,
     signal
   )
@@ -26830,35 +27325,53 @@ export const getUsersPromise = (
     signal
   )
 
-export type GetCurrentUserInfoProps = Omit<GetProps<ResponseUserInfo, Failure | Error, void, void>, 'path'>
+export interface GetCurrentUserInfoQueryParams {
+  accountIdentifier: string
+}
+
+export type GetCurrentUserInfoProps = Omit<
+  GetProps<ResponseUserInfo, Failure | Error, GetCurrentUserInfoQueryParams, void>,
+  'path'
+>
 
 /**
  * get current user information
  */
 export const GetCurrentUserInfo = (props: GetCurrentUserInfoProps) => (
-  <Get<ResponseUserInfo, Failure | Error, void, void>
+  <Get<ResponseUserInfo, Failure | Error, GetCurrentUserInfoQueryParams, void>
     path={`/user/currentUser`}
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
-export type UseGetCurrentUserInfoProps = Omit<UseGetProps<ResponseUserInfo, Failure | Error, void, void>, 'path'>
+export type UseGetCurrentUserInfoProps = Omit<
+  UseGetProps<ResponseUserInfo, Failure | Error, GetCurrentUserInfoQueryParams, void>,
+  'path'
+>
 
 /**
  * get current user information
  */
 export const useGetCurrentUserInfo = (props: UseGetCurrentUserInfoProps) =>
-  useGet<ResponseUserInfo, Failure | Error, void, void>(`/user/currentUser`, { base: getConfig('ng/api'), ...props })
+  useGet<ResponseUserInfo, Failure | Error, GetCurrentUserInfoQueryParams, void>(`/user/currentUser`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
 
 /**
  * get current user information
  */
 export const getCurrentUserInfoPromise = (
-  props: GetUsingFetchProps<ResponseUserInfo, Failure | Error, void, void>,
+  props: GetUsingFetchProps<ResponseUserInfo, Failure | Error, GetCurrentUserInfoQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseUserInfo, Failure | Error, void, void>(getConfig('ng/api'), `/user/currentUser`, props, signal)
+  getUsingFetch<ResponseUserInfo, Failure | Error, GetCurrentUserInfoQueryParams, void>(
+    getConfig('ng/api'),
+    `/user/currentUser`,
+    props,
+    signal
+  )
 
 export interface GetCurrentGenUsersQueryParams {
   accountIdentifier: string
@@ -29213,6 +29726,8 @@ export interface GetYamlSchemaQueryParams {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'

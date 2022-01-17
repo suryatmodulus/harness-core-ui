@@ -1,0 +1,13 @@
+.listing {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-medium);
+
+  > li + li {
+    padding-top: var(--spacing-medium);
+    border-top: 1px solid var(--grey-200);
+  }
+}

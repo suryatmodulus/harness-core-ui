@@ -110,44 +110,47 @@ const SLOCardHeader: React.FC<SLOCardHeaderProps> = ({ serviceLevelObjective, on
       <Container flex={{ alignItems: 'flex-start' }}>
         <Layout.Vertical height={130} spacing="xsmall">
           <Layout.Horizontal spacing="xsmall">
-            <Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}>
+            <Text width={100} font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}>
               {getString('connectors.cdng.monitoredService.label')}:
             </Text>
             <Link to={monitoredServicePathname}>
               <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.PRIMARY_6}>
-                {serviceLevelObjective.monitoredServiceName}
+                {serviceLevelObjective.serviceName}
+              </Text>
+              <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.PRIMARY_6}>
+                {serviceLevelObjective.environmentName}
               </Text>
             </Link>
           </Layout.Horizontal>
           <Layout.Horizontal spacing="xsmall">
-            <Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}>
+            <Text width={100} font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}>
               {getString('cv.slos.sliType')}:
             </Text>
-            <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.PRIMARY_6}>
+            <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.GREY_700}>
               {serviceLevelObjective.type}
             </Text>
           </Layout.Horizontal>
           <Layout.Horizontal spacing="xsmall">
-            <Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}>
+            <Text width={100} font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}>
               {getString('cv.slos.healthSource')}:
             </Text>
-            <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.PRIMARY_6}>
+            <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.GREY_700}>
               {serviceLevelObjective.healthSourceName}
             </Text>
           </Layout.Horizontal>
           <Layout.Horizontal spacing="xsmall">
-            <Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}>
+            <Text width={100} font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}>
               {getString('cv.slos.sloTargetAndBudget.periodType')}:
             </Text>
-            <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.PRIMARY_6}>
+            <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.GREY_700}>
               {serviceLevelObjective.sloTargetType}
             </Text>
           </Layout.Horizontal>
           <Layout.Horizontal spacing="xsmall">
-            <Text font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}>
+            <Text width={100} font={{ variation: FontVariation.SMALL }} color={Color.GREY_400}>
               {getString('cv.periodLength')}:
             </Text>
-            <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.PRIMARY_6}>
+            <Text font={{ variation: FontVariation.SMALL_BOLD }} color={Color.GREY_700}>
               {serviceLevelObjective.currentPeriodLengthDays === 1
                 ? getString('cv.oneDay')
                 : getString('cv.nDays', { n: serviceLevelObjective.currentPeriodLengthDays })}

@@ -3,16 +3,14 @@
 exports[`<TemplateInputs /> tests snapshot test 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main container StyledProps--padding-top-xlarge StyledProps--padding-left-xxlarge StyledProps--padding-bottom-xlarge StyledProps--padding-right-xxlarge"
-    style="overflow: auto; height: 100%;"
+    class="StyledProps--font StyledProps--main container StyledProps--padding-top-xlarge StyledProps--padding-left-xxlarge StyledProps--padding-right-xxlarge"
+    style="overflow: auto;"
   >
     <div
-      class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-      style="height: 100%;"
+      class="Layout--vertical StyledProps--main"
     >
       <div
         class="StyledProps--font StyledProps--main inputsContainer"
-        style="width: 100%; height: 100%;"
       >
         <div
           class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main"

@@ -5,7 +5,6 @@
   .dashboardCard {
     width: 240px;
     box-shadow: 0px 0px 2px rgba(40, 41, 61, 0.04), 0px 4px 8px rgba(96, 97, 112, 0.16);
-    padding: 0px;
     &:hover {
       cursor: pointer;
       // box-shadow: 0 0 4px 0px var(--primary-8) !important;
@@ -27,10 +26,6 @@
       width: 100% !important;
       height: 42px !important;
     }
-  }
-
-  div[class*='Pagination--container'] {
-    justify-content: flex-end !important;
   }
 
   .customSelect {
@@ -75,11 +70,6 @@
     }
   }
 
-  .pagination {
-    span[class*='Pagination--text'] {
-      display: none !important;
-    }
-  }
   .table {
     padding: 0 var(--spacing-9);
   }
@@ -117,7 +107,7 @@
     right: 0;
     top: 146px;
     overflow: scroll;
-    height: calc(100vh - 204px);
+    height: calc(100vh - 294px);
   }
 
   .predefinedTags {

@@ -28,12 +28,7 @@ export default function MetricChartsValue({
     () => ({
       accountId,
       orgIdentifier,
-      projectIdentifier,
-      jsonResponse: JSON.stringify(recordsData),
-      groupName: formikValues?.groupName?.value as string,
-      metricValueJSONPath: formikValues?.metricValue as string,
-      timestampJSONPath: formikValues?.timestamp as string,
-      timestampFormat: formikValues?.timestampFormat as string
+      projectIdentifier
     }),
 
     [accountId, orgIdentifier, projectIdentifier]
@@ -50,7 +45,7 @@ export default function MetricChartsValue({
   const handleBuildChart = useCallback(() => {
     fetchNewRelicTimeSeriesData({
       groupName: formikValues?.groupName?.value as string,
-      jsonResponse: recordsData as string,
+      jsonResponse: JSON.stringify(recordsData),
       timestampFormat: formikValues?.timestampFormat,
       metricValueJSONPath: formikValues?.metricValue as string,
       timestampJSONPath: formikValues?.timestamp as string
@@ -58,12 +53,13 @@ export default function MetricChartsValue({
       setCustomTimeSeriesData(data.data)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [queryParamsForTimeSeriesData])
+  }, [queryParamsForTimeSeriesData, formikValues, recordsData])
 
   const options = useMemo(() => {
     return customTimeSeriesData ? getOptionsForChart(customTimeSeriesData) : []
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customTimeSeriesData])
+  const sampleRecord = recordsData || null
 
   return (
     <Container className={css.widthHalf}>
@@ -72,7 +68,7 @@ export default function MetricChartsValue({
         fieldValue={formikValues?.metricValue || ''}
         isQueryExecuted={isQueryExecuted}
         isDisabled={isSelectingJsonPathDisabled}
-        sampleRecord={[recordsData]}
+        sampleRecord={sampleRecord}
         inputName={CustomHealthSourceFieldNames.METRIC_VALUE}
         inputLabel={getString('cv.healthSource.connectors.NewRelic.metricFields.metricValueJsonPath.label')}
         recordsModalHeader={getString(
@@ -85,7 +81,7 @@ export default function MetricChartsValue({
         fieldValue={formikValues?.timestamp || ''}
         isQueryExecuted={isQueryExecuted}
         isDisabled={isSelectingJsonPathDisabled}
-        sampleRecord={[recordsData]}
+        sampleRecord={sampleRecord}
         inputName={CustomHealthSourceFieldNames.TIMESTAMP_LOCATOR}
         inputLabel={getString('cv.healthSource.connectors.NewRelic.metricFields.timestampJsonPath.label')}
         noRecordInputLabel={'noRecordInputLabel'}
@@ -100,7 +96,7 @@ export default function MetricChartsValue({
           fieldValue={formikValues?.serviceInstanceIdentifier || ''}
           isQueryExecuted={isQueryExecuted}
           isDisabled={isSelectingJsonPathDisabled}
-          sampleRecord={[recordsData]}
+          sampleRecord={sampleRecord}
           inputName={CustomHealthSourceFieldNames.SERVICE_INSTANCE}
           inputLabel={getString('cv.customHealthSource.ServiceInstance.pathLabel')}
           recordsModalHeader={getString('cv.customHealthSource.ServiceInstance.pathModalHeader')}

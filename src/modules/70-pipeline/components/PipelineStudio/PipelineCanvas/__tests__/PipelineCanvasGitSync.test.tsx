@@ -133,7 +133,7 @@ describe('PipelineCanvas tests', () => {
         act(() => {
           fireEvent.mouseEnter(gitPopoverIcon)
         })
-        await waitFor(() => expect(getElementByText('rootFolderTest/.harness/test_pipeline.yaml')).toBeInTheDocument())
+        await waitFor(() => expect(getElementByText('/rootFolderTest/.harness/test_pipeline.yaml')).toBeInTheDocument())
 
         const branchSelector = document.querySelector('input[name="branch"]') as HTMLInputElement
         expect(branchSelector.value).toBe('feature')
@@ -182,7 +182,7 @@ describe('PipelineCanvas tests', () => {
 
             const folderInput = document.querySelector('input[name="rootFolder"]')
             expect(folderInput).toBeDisabled()
-            expect(folderInput?.getAttribute('value')).toBe('rootFolderTest/.harness/')
+            expect(folderInput?.getAttribute('value')).toBe('/rootFolderTest/.harness/')
 
             const filePathInput = document.querySelector('input[name="filePath"]')
             expect(filePathInput).toBeDisabled()
@@ -279,7 +279,7 @@ describe('PipelineCanvas tests', () => {
 
             const folderInput = document.querySelector('input[name="rootFolder"]')
             expect(folderInput).not.toBeDisabled()
-            expect(folderInput?.getAttribute('value')).toBe('rootFolderTest/.harness/')
+            expect(folderInput?.getAttribute('value')).toBe('/rootFolderTest/.harness/')
 
             const filePathInput = document.querySelector('input[name="filePath"]')
             expect(filePathInput).not.toBeDisabled()

@@ -101,7 +101,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
         setSelectedTemplate(templates.find(item => item.versionLabel === version))
       }
     },
-    [templateData?.data?.content]
+    [templates]
   )
 
   React.useEffect(() => {
@@ -136,10 +136,6 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
     setTemplates(allVersions)
     setSelectedTemplate(allVersions.find(item => item.versionLabel === template.versionLabel))
   }, [templateData?.data?.content])
-
-  React.useEffect(() => {
-    reloadTemplates()
-  }, [template.identifier])
 
   const goToTemplateStudio = () => {
     if (selectedTemplate) {
@@ -220,7 +216,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
                     id={ParentTemplateTabs.BASIC}
                     title={getString('details')}
                     panel={
-                      <Layout.Vertical height={'100%'}>
+                      <Layout.Vertical>
                         <Container>
                           <Layout.Vertical
                             className={css.topContainer}
@@ -285,7 +281,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
                             </Container>
                           </Layout.Vertical>
                         </Container>
-                        <Container border={{ top: true }} className={css.tabsContainer}>
+                        <Container className={css.innerTabsContainer}>
                           <Tabs id="template-details" selectedTabId={selectedTab} onChange={handleTabChange}>
                             <Tab
                               id={TemplateTabs.INPUTS}

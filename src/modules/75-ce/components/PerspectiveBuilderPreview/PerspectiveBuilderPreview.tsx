@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Text, Layout, FlexExpander, Icon, TextInput } from '@wings-software/uicore'
+import { Container, Text, Layout, FlexExpander, Icon, TextInput, FontVariation } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
 import type moment from 'moment'
@@ -304,7 +304,9 @@ const PerspectiveBuilderPreview: React.FC<PerspectiveBuilderPreviewProps> = ({
     <Container padding="xxlarge" background="white" className={css.previewMainContainer}>
       <Layout.Vertical spacing="xlarge">
         <Container>
-          <Text color="grey900">{getString('ce.perspectives.createPerspective.preview.title')}</Text>
+          <Text font={{ variation: FontVariation.H4 }} margin={{ bottom: 'medium' }}>
+            {getString('ce.perspectives.createPerspective.preview.title')}
+          </Text>
           <GroupByView setGroupBy={setGroupBy} groupBy={groupBy} chartType={chartType} setChartType={setChartType} />
 
           <CloudCostInsightChart

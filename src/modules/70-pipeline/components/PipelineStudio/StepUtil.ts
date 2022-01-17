@@ -8,7 +8,6 @@ import reduce from 'lodash-es/reduce'
 import isObject from 'lodash-es/isObject'
 import memoize from 'lodash-es/memoize'
 import get from 'lodash-es/get'
-import { defaultTo } from 'lodash-es'
 import type {
   StageElementConfig,
   ExecutionWrapperConfig,
@@ -21,7 +20,7 @@ import type {
 
 import type { UseStringsReturn } from 'framework/strings'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
+import type { TemplateStepNode } from 'services/pipeline-ng'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 // eslint-disable-next-line no-restricted-imports
@@ -76,24 +75,23 @@ export function getStageFromPipeline(
 }
 
 export interface ValidateStepProps {
-  step: StepElementConfig
-  template?: StepElementConfig
-  originalSteps?: ExecutionWrapperConfig[]
+  step: StepElementConfig | TemplateStepNode
+  template?: StepElementConfig | TemplateStepNode
+  originalStep?: ExecutionWrapperConfig
   getString?: UseStringsReturn['getString']
   viewType: StepViewType
 }
 
-const validateStep = ({
+export const validateStep = ({
   step,
   template,
-  originalSteps,
+  originalStep,
   getString,
   viewType
 }: ValidateStepProps): FormikErrors<StepElementConfig> => {
   const errors = {}
-  const originalStep = getStepFromStage(defaultTo(step.identifier, ''), originalSteps)
-  const isTemplateStep = !!(originalStep?.step as unknown as TemplateStepData)?.template
-  const stepType = isTemplateStep ? StepType.Template : originalStep?.step?.type
+  const isTemplateStep = !!(originalStep?.step as unknown as TemplateStepNode)?.template
+  const stepType = isTemplateStep ? StepType.Template : (originalStep?.step as StepElementConfig)?.type
   const pipelineStep = factory.getStep(stepType)
   const errorResponse = pipelineStep?.validateInputSet({
     data: step,
@@ -129,7 +127,7 @@ const validateSteps = ({
       const errorResponse = validateStep({
         step: stepObj.step,
         template: template?.[index].step,
-        originalSteps,
+        originalStep: getStepFromStage(stepObj.step.identifier, originalSteps),
         getString,
         viewType
       })
@@ -142,7 +140,7 @@ const validateSteps = ({
           const errorResponse = validateStep({
             step: stepParallel.step,
             template: template?.[index]?.parallel?.[indexP]?.step,
-            originalSteps,
+            originalStep: getStepFromStage(stepParallel.step.identifier, originalSteps),
             getString,
             viewType
           })
@@ -341,9 +339,9 @@ export const validateCICodebase = ({
   getString
 }: ValidatePipelineProps): FormikErrors<PipelineInfoConfig> => {
   const errors = {}
-  const shouldValidateCICodebase =
-    originalPipeline?.stages?.some(stage => get(stage, 'stage.spec.cloneCodebase')) ||
-    !isEmpty(get(originalPipeline, 'properties.ci.codebase'))
+  const shouldValidateCICodebase = originalPipeline?.stages?.some(stage =>
+    Object.is(get(stage, 'stage.spec.cloneCodebase'), true)
+  )
 
   if (
     shouldValidateCICodebase &&

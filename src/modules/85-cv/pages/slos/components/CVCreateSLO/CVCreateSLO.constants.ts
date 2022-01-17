@@ -1,5 +1,6 @@
 import type { IOptionProps } from '@blueprintjs/core'
 import type { SelectOption } from '@wings-software/uicore'
+import type { RadioButtonProps } from '@wings-software/uicore/dist/components/RadioButton/RadioButton'
 import * as Yup from 'yup'
 import type { UseStringsReturn } from 'framework/strings'
 import {
@@ -55,7 +56,9 @@ export const defaultOption: SelectOption = {
   value: ''
 }
 
-export const getSLITypeOptions = (getString: UseStringsReturn['getString']): IOptionProps[] => {
+export const getSLITypeOptions = (
+  getString: UseStringsReturn['getString']
+): Pick<RadioButtonProps, 'value' | 'label'>[] => {
   return [
     { label: getString('cv.slos.slis.type.availability'), value: SLITypes.AVAILABILITY },
     { label: getString('cv.slos.slis.type.latency'), value: SLITypes.LATENCY }

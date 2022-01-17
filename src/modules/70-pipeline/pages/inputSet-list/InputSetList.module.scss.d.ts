@@ -7,5 +7,6 @@ declare const styles: {
   readonly actionButton: string
   readonly gitDetails: string
   readonly menuList: string
+  readonly listItemMenu: string
 }
 export default styles

@@ -256,7 +256,7 @@ exports[`Save to git form rendering form to git save form without git credential
                             placeholder="- Select -"
                             style="padding-right: 0px;"
                             type="text"
-                            value="src1/.harness/"
+                            value="/src1/.harness/"
                           />
                           <span
                             class="bp3-input-action"
@@ -792,7 +792,7 @@ exports[`Save to git form rendering form to save resouces 1`] = `
                             placeholder="- Select -"
                             style="padding-right: 0px;"
                             type="text"
-                            value="src1/.harness/"
+                            value="/src1/.harness/"
                           />
                           <span
                             class="bp3-input-action"
@@ -1326,7 +1326,7 @@ exports[`Save to git form rendering form to save resouces 2`] = `
                             placeholder="- Select -"
                             style="padding-right: 0px;"
                             type="text"
-                            value="src1/.harness/"
+                            value="/src1/.harness/"
                           />
                           <span
                             class="bp3-input-action"

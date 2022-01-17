@@ -14,7 +14,7 @@ import {
 import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import type { StepElementConfig, StepGroupElementConfig } from 'services/cd-ng'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
+import type { TemplateStepNode } from 'services/pipeline-ng'
 import DelegateSelectorPanel from './DelegateSelectorPanel/DelegateSelectorPanel'
 import FailureStrategyPanel, { AllFailureStrategyConfig } from './FailureStrategyPanel/FailureStrategyPanel'
 import { getFailureStrategiesValidationSchema } from './FailureStrategyPanel/validation'
@@ -26,7 +26,7 @@ export type FormValues = Pick<Values, 'delegateSelectors' | 'when'> & {
   failureStrategies: AllFailureStrategyConfig[]
 }
 
-export interface AdvancedStepsProps extends StepCommandsProps {
+export interface AdvancedStepsProps extends Omit<StepCommandsProps, 'onUseTemplate' | 'onRemoveTemplate'> {
   stepType?: StepType
 }
 
@@ -42,15 +42,15 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
   )
 
   const failureStrategies =
-    (step as TemplateStepData)?.template?.templateInputs?.failureStrategies ||
+    ((step as TemplateStepNode)?.template?.templateInputs as StepElementConfig)?.failureStrategies ||
     (step as StepElementConfig | StepGroupElementConfig)?.failureStrategies
 
   const delegateSelectors =
-    (step as TemplateStepData)?.template?.templateInputs?.spec?.delegateSelectors ||
+    ((step as TemplateStepNode)?.template?.templateInputs as StepElementConfig)?.spec?.delegateSelectors ||
     (step as StepElementConfig)?.spec?.delegateSelectors
 
   const when =
-    (step as TemplateStepData)?.template?.templateInputs?.when ||
+    ((step as TemplateStepNode)?.template?.templateInputs as StepElementConfig)?.when ||
     (step as StepElementConfig | StepGroupElementConfig)?.when
 
   return (

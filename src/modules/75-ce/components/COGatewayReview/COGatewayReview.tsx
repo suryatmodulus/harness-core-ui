@@ -87,8 +87,8 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
 
   const getViewDependencies = (): DependencyView[] => {
     const list = props.gatewayDetails.deps.map(d => ({
-      name: _defaultTo(serviceIdToNameMap[d.dep_id], d.dep_id),
-      delay: d.delay_secs
+      name: _defaultTo(serviceIdToNameMap[d.dep_id as number], d.dep_id) as string,
+      delay: d.delay_secs as number
     }))
     return _defaultTo(list, [])
   }

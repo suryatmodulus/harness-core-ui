@@ -60,7 +60,7 @@ exports[`Organization Card test initializes ok  1`] = `
           bfvbfkbvf
         </p>
         <div
-          class="Layout--horizontal StyledProps--main description"
+          class="Layout--horizontal StyledProps--main description StyledProps--margin-bottom-xsmall"
         >
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey350"
@@ -76,7 +76,7 @@ exports[`Organization Card test initializes ok  1`] = `
             class="Tag--main"
           >
             <span
-              class="bp3-tag"
+              class="bp3-tag tagText"
               style="max-width: 80px;"
             >
               <span
@@ -90,7 +90,7 @@ exports[`Organization Card test initializes ok  1`] = `
             class="Tag--main"
           >
             <span
-              class="bp3-tag"
+              class="bp3-tag tagText"
               style="max-width: 80px;"
             >
               <span
@@ -104,7 +104,7 @@ exports[`Organization Card test initializes ok  1`] = `
             class="Tag--main"
           >
             <span
-              class="bp3-tag"
+              class="bp3-tag tagText"
               style="max-width: 80px;"
             >
               <span

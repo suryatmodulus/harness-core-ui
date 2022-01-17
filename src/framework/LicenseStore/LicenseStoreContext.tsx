@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { isEqual } from 'lodash-es'
 
 import isEmpty from 'lodash/isEmpty'
-import { PageSpinner } from '@wings-software/uicore'
+import { PageSpinner } from '@harness/uicore'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 

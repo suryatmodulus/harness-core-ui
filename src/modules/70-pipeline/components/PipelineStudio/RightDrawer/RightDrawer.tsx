@@ -10,7 +10,7 @@ import {
   ButtonVariation,
   ButtonSize
 } from '@wings-software/uicore'
-import { cloneDeep, defaultTo, get, isEmpty, isNil, set } from 'lodash-es'
+import { cloneDeep, defaultTo, get, isEmpty, isEqual, isNil, set } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
 import { parse } from 'yaml'
@@ -22,13 +22,13 @@ import { StageType } from '@pipeline/utils/stageHelpers'
 import type { BuildStageElementConfig, DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { DependencyElement } from 'services/ci'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
 import type { TemplateSummaryResponse } from 'services/template-ng'
 import { PipelineGovernanceView } from '@governance/PipelineGovernanceView'
 import { getStepPaletteModuleInfosFromStage } from '@pipeline/utils/stepUtils'
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import { useTemplateSelector } from '@pipeline/utils/useTemplateSelector'
-import { getScopeBasedTemplateRef } from '@pipeline/utils/templateUtils'
+import { createTemplate } from '@pipeline/utils/templateUtils'
+import type { TemplateStepNode } from 'services/pipeline-ng'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -146,7 +146,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   let stepData = (data?.stepConfig?.node as StepElementConfig)?.type
     ? stepsFactory.getStepData((data?.stepConfig?.node as StepElementConfig)?.type || '')
     : null
-  const templateStepTemplate = (data?.stepConfig?.node as TemplateStepData)?.template
+  const templateStepTemplate = (data?.stepConfig?.node as TemplateStepNode)?.template
   const formikRef = React.useRef<StepFormikRef | null>(null)
   const executionStrategyRef = React.useRef<ExecutionStrategyRefInterface | null>(null)
   const { getString } = useStrings()
@@ -291,7 +291,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
 
   const onSubmitStep = async (item: Partial<Values>, drawerType: DrawerTypes): Promise<void> => {
     if (data?.stepConfig?.node) {
-      const processNode = produce(data.stepConfig.node as StepElementConfig & TemplateStepData, node => {
+      const processNode = produce(data.stepConfig.node as StepElementConfig & TemplateStepNode, node => {
         // Add/replace values only if they are presented
         if (item.name && item.tab !== TabTypes.Advanced) node.name = item.name
         if (item.identifier && item.tab !== TabTypes.Advanced) node.identifier = item.identifier
@@ -517,7 +517,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
   }
 
-  const updateNode = async (processNode: StepElementConfig | TemplateStepData) => {
+  const updateNode = async (processNode: StepElementConfig | TemplateStepNode) => {
     const newPipelineView = produce(pipelineView, draft => {
       set(draft, 'drawerData.data.stepConfig.node', processNode)
     })
@@ -534,43 +534,35 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     drawerData.data?.stepConfig?.onUpdate?.(processNode)
   }
 
-  const onUseTemplate = (_step: StepOrStepGroupOrTemplateStepData) => {
+  const onUseTemplate = () => {
     const stepType =
       (data?.stepConfig?.node as StepElementConfig)?.type ||
-      get(templateTypes, getIdentifierFromValue((data?.stepConfig?.node as TemplateStepData).template.templateRef))
+      get(templateTypes, getIdentifierFromValue((data?.stepConfig?.node as TemplateStepNode).template.templateRef))
     openTemplateSelector({
       templateType: 'Step',
       childTypes: [stepType],
       selectedTemplateRef: getIdentifierFromValue(
-        defaultTo((data?.stepConfig?.node as TemplateStepData)?.template?.templateRef, '')
+        defaultTo((data?.stepConfig?.node as TemplateStepNode)?.template?.templateRef, '')
       ),
-      onCopyTemplate: async (copiedTemplate: TemplateSummaryResponse) => {
+      onUseTemplate: async (template: TemplateSummaryResponse, isCopied = false) => {
         closeTemplateSelector()
         const node = drawerData.data?.stepConfig?.node as StepOrStepGroupOrTemplateStepData
-        const processNode = produce(
-          defaultTo(parse(copiedTemplate?.yaml || '').template.spec, {}) as StepElementConfig,
-          draft => {
-            draft.name = defaultTo(node?.name, '')
-            draft.identifier = defaultTo(node?.identifier, '')
-          }
-        )
+        if (
+          !isCopied &&
+          isEqual((node as TemplateStepNode)?.template?.templateRef, template.identifier) &&
+          isEqual((node as TemplateStepNode)?.template?.versionLabel, template.versionLabel)
+        ) {
+          return
+        }
+        const processNode = isCopied
+          ? produce(defaultTo(parse(template?.yaml || '').template.spec, {}) as StepElementConfig, draft => {
+              draft.name = defaultTo(node?.name, '')
+              draft.identifier = defaultTo(node?.identifier, '')
+            })
+          : createTemplate<TemplateStepNode>(node as unknown as TemplateStepNode, template)
         await updateNode(processNode)
-        formikRef.current?.resetForm()
-      },
-      onUseTemplate: async (templateSummary: TemplateSummaryResponse) => {
-        closeTemplateSelector()
-        const node = drawerData.data?.stepConfig?.node
-        const processNode = produce({} as TemplateStepData, draft => {
-          draft.name = defaultTo(node?.name, '')
-          draft.identifier = defaultTo(node?.identifier, '')
-          set(draft, 'template.templateRef', getScopeBasedTemplateRef(templateSummary))
-          if (templateSummary.versionLabel) {
-            set(draft, 'template.versionLabel', templateSummary.versionLabel)
-          }
-        })
-        await updateNode(processNode)
-        if (templateSummary?.identifier && templateSummary?.childType) {
-          templateTypes[templateSummary.identifier] = templateSummary.childType
+        if (!isCopied && template?.identifier && template?.childType) {
+          templateTypes[template.identifier] = template.childType
           setTemplateTypes(templateTypes)
         }
       }
@@ -578,7 +570,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   }
 
   const onRemoveTemplate = async () => {
-    const node = drawerData.data?.stepConfig?.node as TemplateStepData
+    const node = drawerData.data?.stepConfig?.node as TemplateStepNode
     const processNode = produce({} as StepElementConfig, draft => {
       draft.name = node.name
       draft.identifier = node.identifier
@@ -655,7 +647,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.AddStep && selectedStageId && data?.paletteData && (
         <StepPalette
           stepsFactory={stepsFactory}
-          stepPaletteModuleInfos={getStepPaletteModuleInfosFromStage(stageType)}
+          stepPaletteModuleInfos={getStepPaletteModuleInfosFromStage(stageType, selectedStage?.stage)}
           stageType={stageType as StageType}
           onSelect={onStepSelection}
         />
@@ -712,7 +704,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.AddProvisionerStep && selectedStageId && data?.paletteData && (
         <StepPalette
           stepsFactory={stepsFactory}
-          stepPaletteModuleInfos={getStepPaletteModuleInfosFromStage(stageType)}
+          stepPaletteModuleInfos={getStepPaletteModuleInfosFromStage(stageType, undefined, 'Provisioner')}
           stageType={stageType as StageType}
           isProvisioner={true}
           onSelect={async (item: StepData) => {

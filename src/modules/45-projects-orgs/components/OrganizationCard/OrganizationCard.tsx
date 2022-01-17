@@ -153,14 +153,14 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
           <Text font="medium" color={Color.BLACK} lineClamp={1}>
             {data?.name || getString('projectsOrgs.orgName')}
           </Text>
-          <Layout.Horizontal className={css.description}>
+          <Layout.Horizontal className={css.description} margin={{ bottom: 'xsmall' }}>
             {data?.description ? (
               <Text color={Color.GREY_350} lineClamp={2}>
                 {data.description}
               </Text>
             ) : null}
           </Layout.Horizontal>
-          <TagsRenderer tags={data.tags || {}} className={css.tags} />
+          <TagsRenderer tags={data.tags || {}} className={css.tags} tagClassName={css.tagText} />
           <Layout.Horizontal padding={{ top: 'xlarge' }}>
             <Layout.Vertical spacing="small">
               <Layout.Horizontal spacing="small" flex={{ align: 'center-center' }}>
@@ -184,7 +184,9 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
                   }
                 }}
               />
-              <Text font="small">{`${orgMembers?.length || 0} ${getString('members')}`}</Text>
+              <Text font="small">{`${orgMembers?.length || 0} ${
+                orgMembers && orgMembers?.length > 1 ? getString('members') : getString('common.member')
+              }`}</Text>
             </Layout.Vertical>
           </Layout.Horizontal>
         </Layout.Vertical>

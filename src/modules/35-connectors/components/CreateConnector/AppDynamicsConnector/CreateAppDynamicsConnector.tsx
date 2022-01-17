@@ -44,7 +44,7 @@ function UsernamePasswordAndApiClientOption(props: UsernamePasswordAndApiClientO
     authTypeValue === AppDynamicsAuthType.API_CLIENT_TOKEN
       ? [
           { name: 'clientId', label: getString('connectors.appD.clientId'), key: 'clientId' },
-          { name: 'clientSecretRef', label: getString('connectors.appD.clientSecret'), key: 'clientSecretRef' }
+          { name: 'clientSecretRef', label: getString('common.clientSecret'), key: 'clientSecretRef' }
         ]
       : [
           { name: 'username', label: getString('username'), key: 'username' },

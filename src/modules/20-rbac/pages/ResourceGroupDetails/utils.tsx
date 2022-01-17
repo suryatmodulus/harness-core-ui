@@ -16,7 +16,6 @@ export const getSelectedResourcesMap = (
       map.set(resourceSelector.resourceType, resourceSelector.identifiers)
     }
   })
-
   return map
 }
 

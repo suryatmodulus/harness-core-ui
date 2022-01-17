@@ -94,16 +94,17 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
   }
 }
 
+export interface SelectorData {
+  templateType: TemplateType
+  childTypes?: string[]
+  selectedTemplateRef?: string
+  onUseTemplate?: (template: TemplateSummaryResponse, isCopied?: boolean) => void
+}
+
 export interface TemplateDrawerData extends Omit<IDrawerProps, 'isOpen'> {
   type: TemplateDrawerTypes
   data?: {
-    selectorData?: {
-      templateType: TemplateType
-      childTypes?: string[]
-      onCopyTemplate?: (template: TemplateSummaryResponse) => void
-      onUseTemplate?: (template: TemplateSummaryResponse) => void
-      selectedTemplateRef?: string
-    }
+    selectorData?: SelectorData
   }
 }
 

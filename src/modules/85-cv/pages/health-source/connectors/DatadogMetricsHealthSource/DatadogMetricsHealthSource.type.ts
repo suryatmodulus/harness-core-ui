@@ -10,8 +10,10 @@ export type DatadogAggregation = {
 export type DatadogAggregationType = 'avg' | 'max' | 'min' | 'sum'
 
 export interface DatadogMetricInfo {
+  identifier?: string
   groupName?: SelectOption
-  id?: string
+  dashboardId?: string
+  metricPath?: string
   metricName?: string
   metric?: string
   aggregator?: DatadogAggregationType
@@ -27,6 +29,7 @@ export interface DatadogMetricInfo {
   sli?: boolean
   continuousVerification?: boolean
   healthScore?: boolean
+  isNew?: boolean
 }
 
 export interface DatadogMetricSetupSource {

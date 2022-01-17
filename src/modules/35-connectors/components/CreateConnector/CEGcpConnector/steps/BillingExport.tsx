@@ -10,6 +10,7 @@ import {
   FormInput,
   Text
 } from '@wings-software/uicore'
+import { get } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { DialogExtensionContext } from '@connectors/common/ConnectorExtention/DialogExtention'
 import LabelWithTooltip from '@connectors/common/LabelWithTooltip/LabelWithTooltip'
@@ -31,7 +32,8 @@ const BillingExport: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
       featuresEnabled: ['BILLING'],
       ...prevStepData?.spec,
       billingExportSpec: {
-        datasetId: formData.datasetId
+        datasetId: formData.datasetId,
+        tableId: formData.tableId || ''
       },
       serviceAccountEmail: ''
     }
@@ -84,7 +86,8 @@ const BillingExport: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
       <div style={{ flex: 1 }}>
         <Formik<GcpBillingExportSpec>
           initialValues={{
-            datasetId: prevStepData?.spec.billingExportSpec?.datasetId || ''
+            datasetId: prevStepData?.spec.billingExportSpec?.datasetId || '',
+            tableId: get(prevStepData, 'spec.billingExportSpec.tableId', '')
           }}
           onSubmit={formData => handleSubmit(formData)}
           formName="ceGcpBillingExport"
@@ -99,6 +102,18 @@ const BillingExport: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
                       label={getString('connectors.ceGcp.billingExport.datasetIdLabel')}
                       extentionComponent={BillingExportExtention}
                       toolTipContent={getString('connectors.ceGcp.billingExport.tooltipDescription')}
+                    />
+                  }
+                  className={css.dataFields}
+                />
+
+                <FormInput.Text
+                  name={'tableId'}
+                  label={
+                    <LabelWithTooltip
+                      label={getString('connectors.ceGcp.billingExport.tableIdLabel')}
+                      extentionComponent={BillingExportExtention}
+                      toolTipContent={getString('connectors.ceGcp.billingExport.tableIdTooltipDesc')}
                     />
                   }
                   className={css.dataFields}

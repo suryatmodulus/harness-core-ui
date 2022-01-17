@@ -14,11 +14,12 @@ jest.mock('@pipeline/utils/useTemplateSelector', () => ({
 }))
 
 const Wrapped = (): React.ReactElement => {
-  const { onUseTemplate, onCopyTemplate, onRemoveTemplate, onOpenTemplateSelector } = useStageTemplateActions()
+  const { onUseTemplate, onRemoveTemplate, onOpenTemplateSelector } = useStageTemplateActions()
   return (
     <>
-      <button onClick={() => onUseTemplate({ templateRef: 'templateRef' })}>Use Template</button>
-      <button onClick={() => onCopyTemplate({})}>Copy Template</button>
+      <button onClick={() => onUseTemplate({ identifier: 'identifier', versionLabel: 'versionLabel' })}>
+        Use Template
+      </button>
       <button onClick={onRemoveTemplate}>Remove Template</button>
       <button onClick={onOpenTemplateSelector}>Open Template Selector</button>
     </>
@@ -38,13 +39,6 @@ describe('useStageTemplateAction Test', () => {
     const useTemplateBtn = getByText('Use Template')
     await act(async () => {
       fireEvent.click(useTemplateBtn)
-    })
-    expect(useTemplateSelector().closeTemplateSelector).toBeCalled()
-    expect(pipelineContextMock.updateStage).toBeCalled()
-
-    const copyTemplateBtn = getByText('Copy Template')
-    await act(async () => {
-      fireEvent.click(copyTemplateBtn)
     })
     expect(useTemplateSelector().closeTemplateSelector).toBeCalled()
     expect(pipelineContextMock.updateStage).toBeCalled()

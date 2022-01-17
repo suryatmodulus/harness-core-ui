@@ -1,14 +1,11 @@
 import React, { useState, useContext, useMemo, useCallback } from 'react'
 import { Container, Formik, FormikForm, Layout, Utils, Accordion } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SetupSourceLayout } from '@cv/components/CVSetupSourcesView/SetupSourceLayout/SetupSourceLayout'
 import { MultiItemsSideNav } from '@cv/components/MultiItemsSideNav/MultiItemsSideNav'
 import { SetupSourceCardHeader } from '@cv/components/CVSetupSourcesView/SetupSourceCardHeader/SetupSourceCardHeader'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
-import { TimeSeriesSampleDTO, useGetLabelNames, useGetMetricPacks } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import {
   initializeCreatedMetrics,
@@ -16,7 +13,8 @@ import {
   updateSelectedMetricsMap,
   transformCustomHealthSourceToSetupSource,
   validateMappings,
-  onSubmitCustomHealthSource
+  onSubmitCustomHealthSource,
+  generateCustomMetricPack
 } from './CustomHealthSource.utils'
 import type {
   CreatedMetricsWithSelectedIndex,
@@ -41,18 +39,9 @@ export interface CustomHealthSourceProps {
 export function CustomHealthSource(props: CustomHealthSourceProps): JSX.Element {
   const { getString } = useStrings()
   const { onPrevious } = useContext(SetupSourceTabsContext)
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
-  const [labelNameTracingId] = useMemo(() => [Utils.randomId()], [])
 
   const { data: sourceData, onSubmit } = props
   const connectorIdentifier = sourceData?.connectorRef || ''
-
-  const metricPackResponse = useGetMetricPacks({
-    queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'CUSTOM_HEALTH' }
-  })
-  const labelNamesResponse = useGetLabelNames({
-    queryParams: { projectIdentifier, orgIdentifier, accountId, connectorIdentifier, tracingId: labelNameTracingId }
-  })
 
   const transformedSourceData = useMemo(() => transformCustomHealthSourceToSetupSource(sourceData), [sourceData])
 
@@ -65,11 +54,13 @@ export function CustomHealthSource(props: CustomHealthSourceProps): JSX.Element 
     initializeCreatedMetrics(defaultMetricName, selectedMetric, mappedMetrics)
   )
 
+  const metricPacks = useMemo(() => generateCustomMetricPack(), [])
+
   const [isQueryExecuted, setIsQueryExecuted] = useState(false)
   const [sampleDataLoading, setSampleDataLoading] = useState(false)
-  const [recordsData, setrecordsData] = useState<TimeSeriesSampleDTO | undefined>()
+  const [recordsData, setrecordsData] = useState<Record<string, unknown> | undefined>()
 
-  const onFetchRecordsSuccess = useCallback((data: TimeSeriesSampleDTO | undefined): void => {
+  const onFetchRecordsSuccess = useCallback((data: Record<string, unknown> | undefined): void => {
     setrecordsData(data)
     setIsQueryExecuted(true)
   }, [])
@@ -200,8 +191,7 @@ export function CustomHealthSource(props: CustomHealthSourceProps): JSX.Element 
                             continuousVerification: !!formikProps?.values?.continuousVerification
                           }}
                           hideServiceIdentifier
-                          metricPackResponse={metricPackResponse}
-                          labelNamesResponse={labelNamesResponse}
+                          metricPackResponse={metricPacks}
                           hideCV={formikProps.values?.queryType === QueryType.SERVICE_BASED}
                           hideSLIAndHealthScore={formikProps.values?.queryType === QueryType.HOST_BASED}
                         />

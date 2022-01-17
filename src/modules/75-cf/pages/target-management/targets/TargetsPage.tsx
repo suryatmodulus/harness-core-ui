@@ -40,6 +40,8 @@ import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
+import UsageLimitBanner from '@cf/components/UsageLimitBanner/UsageLimitBanner'
 import { NoTargetsView } from './NoTargetsView'
 import { NewTargets } from './NewTarget'
 
@@ -96,6 +98,8 @@ export const TargetsPage: React.FC = () => {
   const noTargetExists = targetsData?.targets?.length === 0
   const noEnvironmentExists = !loadingEnvironments && environments?.length === 0
   const title = getString('cf.shared.targets')
+
+  const { isPlanEnforcementEnabled } = usePlanEnforcement()
 
   const toolbar = (
     <Layout.Horizontal spacing="medium">
@@ -323,15 +327,18 @@ export const TargetsPage: React.FC = () => {
       hasEnvironment={!!environments?.length}
     />
   ) : (
-    <Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}>
-      <TableV2<Target>
-        columns={columns}
-        data={targetsData?.targets || []}
-        onRowClick={target => {
-          gotoTargetDetailPage(target.identifier as string)
-        }}
-      />
-    </Container>
+    <>
+      {isPlanEnforcementEnabled && <UsageLimitBanner />}
+      <Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}>
+        <TableV2<Target>
+          columns={columns}
+          data={targetsData?.targets || []}
+          onRowClick={target => {
+            gotoTargetDetailPage(target.identifier as string)
+          }}
+        />
+      </Container>
+    </>
   )
 
   return (

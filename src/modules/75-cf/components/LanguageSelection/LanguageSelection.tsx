@@ -11,6 +11,7 @@ import ios from './icons/ios.svg'
 import java from './icons/java.svg'
 import javascript from './icons/javascript.svg'
 import nodejs from './icons/nodejs.svg'
+import python from './icons/python.svg'
 import css from './LanguageSelection.module.scss'
 
 export enum PlatformEntryType {
@@ -61,6 +62,12 @@ export const SupportPlatforms = [
     icon: dotnet,
     type: PlatformEntryType.SERVER,
     readmeStringId: 'cf.onboarding.readme.dotnet'
+  },
+  {
+    name: 'Python',
+    icon: python,
+    type: PlatformEntryType.SERVER,
+    readmeStringId: 'cf.onboarding.readme.python'
   },
   {
     name: 'JavaScript',

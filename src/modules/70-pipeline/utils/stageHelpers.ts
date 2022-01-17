@@ -14,12 +14,12 @@ export enum StageType {
   Template = 'Template'
 }
 
-export const changeEmptyValuesToRunTimeInput = (inputset: any): InputSetDTO => {
+export const changeEmptyValuesToRunTimeInput = (inputset: any, propertyKey: string): InputSetDTO => {
   if (inputset) {
     Object.keys(inputset).map(key => {
       if (typeof inputset[key] === 'object') {
-        changeEmptyValuesToRunTimeInput(inputset[key])
-      } else if (inputset[key] === '') {
+        changeEmptyValuesToRunTimeInput(inputset[key], key)
+      } else if (inputset[key] === '' && ['tags'].indexOf(propertyKey) === -1) {
         inputset[key] = '<+input>'
       }
     })

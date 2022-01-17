@@ -27,9 +27,6 @@ describe('AppDMappedMetric component', () => {
       .spyOn(cvServices, 'useGetMetricPacks')
       .mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: refetchMock } as any))
     jest
-      .spyOn(cvServices, 'useGetLabelNames')
-      .mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: refetchMock } as any))
-    jest
       .spyOn(cvServices, 'getAppDynamicsMetricDataPromise')
       .mockImplementation(() => ({ error: null, data: validationData.data } as any))
     jest

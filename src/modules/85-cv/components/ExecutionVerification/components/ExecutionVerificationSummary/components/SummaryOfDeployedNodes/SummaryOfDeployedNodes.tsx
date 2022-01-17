@@ -17,12 +17,13 @@ interface SummaryTextProps {
   numerator: number
   denominator: number
   titleText: string
+  tabId: string
 }
 
 function SummaryText(props: SummaryTextProps): JSX.Element {
-  const { numerator, denominator, titleText } = props
+  const { numerator, denominator, titleText, tabId } = props
   const { getString } = useStrings()
-  const { updateQueryParams } = useUpdateQueryParams<ExecutionQueryParams>()
+  const { updateQueryParams } = useUpdateQueryParams<ExecutionQueryParams & { type: string }>()
   return (
     <Container className={css.summaryContent}>
       <Container className={css.violations}>
@@ -39,7 +40,7 @@ function SummaryText(props: SummaryTextProps): JSX.Element {
       </Text>
       <Text
         intent="primary"
-        onClick={() => updateQueryParams({ view: 'log' })}
+        onClick={() => updateQueryParams({ view: 'log', type: tabId })}
         rightIcon="arrow-right"
         className={css.viewDetails}
       >
@@ -61,11 +62,13 @@ export function SummaryOfDeployedNodes(props: SummaryOfDeployedNodesProps): JSX.
           numerator={metricsInViolation}
           denominator={totalMetrics}
           titleText={getString('pipeline.verification.metricsInViolation')}
+          tabId={getString('pipeline.verification.analysisTab.metrics')}
         />
         <SummaryText
           numerator={logClustersInViolation}
           denominator={totalLogClusters}
           titleText={getString('pipeline.verification.logClustersInViolation')}
+          tabId={getString('pipeline.verification.analysisTab.logs')}
         />
       </Container>
     </Container>

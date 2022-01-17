@@ -28,6 +28,7 @@ import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { K8sDirectInfraYaml, UseFromStageInfraYaml, VmInfraYaml, VmPoolYaml } from 'services/ci'
 import { FeatureFlag } from '@common/featureFlags'
 import { SaveTemplateButton } from '@pipeline/components/PipelineStudio/SaveTemplateButton/SaveTemplateButton'
+import { useAddStepTemplate } from '@pipeline/hooks/useAddStepTemplate'
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
 import BuildAdvancedSpecifications from '../BuildAdvancedSpecifications/BuildAdvancedSpecifications'
@@ -142,6 +143,7 @@ export default function BuildStageSetupShell(): JSX.Element {
   }, [selectedTabId])
 
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
+  const { addTemplate } = useAddStepTemplate({ executionRef: executionRef.current })
   const selectedStage = getStageFromPipeline<BuildStageElementConfig>(selectedStageId).stage
   const originalStage = getStageFromPipeline<BuildStageElementConfig>(selectedStageId, originalPipeline).stage
   const infraHasWarning = !filledUpStages.infra
@@ -327,24 +329,28 @@ export default function BuildStageSetupShell(): JSX.Element {
                       }
                     })
                   } else {
-                    updatePipelineView({
-                      ...pipelineView,
-                      isDrawerOpened: true,
-                      drawerData: {
-                        type: DrawerTypes.AddStep,
-                        data: {
-                          paletteData: {
-                            entity: event.entity,
-                            stepsMap: event.stepsMap,
-                            onUpdate: executionRef.current?.stepGroupUpdated,
-                            // isAddStepOverride: true,
-                            isRollback: event.isRollback,
-                            isParallelNodeClicked: event.isParallel,
-                            hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
+                    if (event.isTemplate) {
+                      addTemplate(event)
+                    } else {
+                      updatePipelineView({
+                        ...pipelineView,
+                        isDrawerOpened: true,
+                        drawerData: {
+                          type: DrawerTypes.AddStep,
+                          data: {
+                            paletteData: {
+                              entity: event.entity,
+                              stepsMap: event.stepsMap,
+                              onUpdate: executionRef.current?.stepGroupUpdated,
+                              // isAddStepOverride: true,
+                              isRollback: event.isRollback,
+                              isParallelNodeClicked: event.isParallel,
+                              hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
+                            }
                           }
                         }
-                      }
-                    })
+                      })
+                    }
                   }
                 }}
                 onEditStep={(event: ExecutionGraphEditStepEvent) => {

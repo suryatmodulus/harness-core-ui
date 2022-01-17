@@ -89,7 +89,7 @@ describe('UserGroupDetails Test', () => {
     )
     container = renderObj.container
     getAllByText = renderObj.getAllByText
-    await waitFor(() => getAllByText('accessControl'))
+    await waitFor(() => getAllByText('accessControl: common.userGroups'))
   })
   test('render data', () => {
     expect(container).toMatchSnapshot()
@@ -146,7 +146,7 @@ describe('UserGroupDetails Test', () => {
         <UserGroupDetails />
       </TestWrapper>
     )
-    await waitFor(() => getAllByTextLinked('accessControl'))
+    await waitFor(() => getAllByTextLinked('accessControl: common.userGroups'))
     const unLinkSSOButton = getAllByTextLinked('rbac.userDetails.linkToSSOProviderModal.delinkLabel')[0]
     fireEvent.click(unLinkSSOButton)
     await act(async () => {

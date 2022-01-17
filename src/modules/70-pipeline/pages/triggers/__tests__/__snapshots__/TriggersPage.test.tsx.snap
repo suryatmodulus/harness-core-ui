@@ -72,7 +72,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <p
               class="StyledProps--font StyledProps--main StyledProps--font-variation-table-headers"
             >
-              PIPELINE.TRIGGERS.TRIGGERLABEL
+              COMMON.TRIGGERLABEL
             </p>
           </div>
           <div

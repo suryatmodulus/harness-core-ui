@@ -7,7 +7,6 @@ import { CompletionItemKind } from 'vscode-languageserver-types'
 import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
 import TemplateInputSetStep from '@templates-library/components/PipelineSteps/TemplateStep/TemplateInputSetStep'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { loggerFor } from 'framework/logging/logging'
@@ -17,6 +16,9 @@ import { getTemplateListPromise, TemplateSummaryResponse } from 'services/templa
 import { TemplateListType } from '@templates-library/pages/TemplatesPage/TemplatesPageUtils'
 import { TemplateType } from '@templates-library/utils/templatesUtils'
 import stepFactory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
+import type { TemplateStepNode } from 'services/pipeline-ng'
+import type { StepElementConfig } from 'services/cd-ng'
+import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { TemplateStepWidgetWithRef } from './TemplateStepWidget/TemplateStepWidget'
 
 const logger = loggerFor(ModuleName.TEMPLATES)
@@ -45,7 +47,7 @@ const getTemplateName = (template: TemplateSummaryResponse): string => {
   }
 }
 
-export class TemplateStep extends PipelineStep<TemplateStepData> {
+export class TemplateStep extends PipelineStep<TemplateStepNode> {
   protected invocationMap: Map<
     RegExp,
     (path: string, yaml: string, params: Record<string, unknown>) => Promise<CompletionItemInterface[]>
@@ -61,7 +63,7 @@ export class TemplateStep extends PipelineStep<TemplateStepData> {
   protected stepName = 'Template step'
   protected stepIcon: IconName = 'template-library'
 
-  protected defaultValues: TemplateStepData = {
+  protected defaultValues: TemplateStepNode = {
     identifier: '',
     name: '',
     template: {} as any
@@ -145,8 +147,8 @@ export class TemplateStep extends PipelineStep<TemplateStepData> {
     template: template,
     getString: getString,
     viewType: viewType
-  }: ValidateInputSetProps<TemplateStepData>): FormikErrors<TemplateStepData> {
-    const stepType = data.template.templateInputs?.type
+  }: ValidateInputSetProps<TemplateStepNode>): FormikErrors<TemplateStepNode> {
+    const stepType = (data.template.templateInputs as StepElementConfig)?.type
     const step = stepFactory.getStep(stepType)
     if (step) {
       return step.validateInputSet({
@@ -159,11 +161,11 @@ export class TemplateStep extends PipelineStep<TemplateStepData> {
     return {}
   }
 
-  processFormData(values: TemplateStepData): TemplateStepData {
+  processFormData(values: TemplateStepNode): TemplateStepNode {
     return values //processFormData(values)
   }
 
-  renderStep(this: TemplateStep, props: StepProps<TemplateStepData>): JSX.Element {
+  renderStep(this: TemplateStep, props: StepProps<TemplateStepNode>): JSX.Element {
     const {
       initialValues,
       onUpdate,
@@ -173,7 +175,8 @@ export class TemplateStep extends PipelineStep<TemplateStepData> {
       readonly,
       factory,
       inputSetData,
-      allowableTypes
+      allowableTypes,
+      customStepProps
     } = props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
@@ -189,7 +192,18 @@ export class TemplateStep extends PipelineStep<TemplateStepData> {
         />
       )
     } else if (stepViewType === StepViewType.InputVariable) {
-      return <div />
+      return (
+        <StepWidget<StepElementConfig>
+          factory={factory}
+          initialValues={initialValues.template?.templateInputs as StepElementConfig}
+          allowableTypes={allowableTypes}
+          type={(initialValues.template?.templateInputs as StepElementConfig)?.type as StepType}
+          stepViewType={stepViewType}
+          onUpdate={onUpdate}
+          readonly={readonly}
+          customStepProps={customStepProps}
+        />
+      )
     }
     return (
       <TemplateStepWidgetWithRef

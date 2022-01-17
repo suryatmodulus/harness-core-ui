@@ -43,10 +43,10 @@ const EntityUsage: React.FC<EntityUsageProps> = props => {
       <PageHeader
         className={css.secondHeader}
         size="standard"
-        title={getString('common.references')}
+        title={undefined}
         toolbar={
           <Container>
-            <Layout.Horizontal spacing="small">
+            <Layout.Horizontal>
               <ExpandingSearchInput
                 alwaysExpanded
                 onChange={text => {

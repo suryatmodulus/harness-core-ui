@@ -56,41 +56,38 @@ export const TemplateInputs: React.FC<TemplateInputsProps> = props => {
   })
 
   React.useEffect(() => {
-    if (!loading) {
-      try {
-        const templateInput = parse(templateInputYaml?.data || '')
-        setCount((JSON.stringify(templateInput).match(/<\+input>/g) || []).length)
-        setInputSetTemplate(templateInput)
-      } catch (error) {
-        showError(error.message, undefined, 'template.parse.inputSet.error')
-      }
+    try {
+      const templateInput = parse(templateInputYaml?.data || '')
+      setCount((JSON.stringify(templateInput).match(/<\+input>/g) || []).length)
+      setInputSetTemplate(templateInput)
+    } catch (error) {
+      showError(error.message, undefined, 'template.parse.inputSet.error')
     }
-  }, [loading, templateInputYaml?.data])
-
-  React.useEffect(() => {
-    refetch()
-  }, [template])
+  }, [templateInputYaml?.data])
 
   return (
     <Container
       style={{ overflow: 'auto' }}
-      height={'100%'}
-      padding={{ top: 'xlarge', left: 'xxlarge', bottom: 'xlarge', right: 'xxlarge' }}
+      padding={{ top: 'xlarge', left: 'xxlarge', right: 'xxlarge' }}
       className={css.container}
     >
-      <Layout.Vertical flex={{ align: 'center-center' }} height={'100%'}>
+      <Layout.Vertical>
         {loading && <PageSpinner />}
         {!loading && inputSetError && (
-          <PageError
-            message={defaultTo((inputSetError.data as Error)?.message, inputSetError.message)}
-            onClick={() => refetch()}
-          />
+          <Container height={300}>
+            <PageError
+              message={defaultTo((inputSetError.data as Error)?.message, inputSetError.message)}
+              onClick={() => refetch()}
+            />
+          </Container>
         )}
         {!loading && !inputSetError && !inputSetTemplate && (
-          <NoResultsView minimal={true} text={getString('templatesLibrary.noInputsRequired')} />
+          <Container height={300}>
+            <NoResultsView minimal={true} text={getString('templatesLibrary.noInputsRequired')} />
+          </Container>
         )}
         {!loading && !inputSetError && inputSetTemplate && (
-          <Container height={'100%'} width={'100%'} className={css.inputsContainer}>
+          <Container className={css.inputsContainer}>
             <Layout.Vertical spacing={'xlarge'}>
               <Container>
                 <Layout.Horizontal flex={{ alignItems: 'center' }} spacing={'xxxlarge'}>

@@ -79,7 +79,7 @@ const getDefaultInputSet = (
   orgIdentifier: string,
   projectIdentifier: string
 ): InputSetDTO => ({
-  name: undefined,
+  name: '',
   identifier: '',
   description: undefined,
   orgIdentifier,
@@ -104,7 +104,7 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
 
 const clearNullUndefined = /* istanbul ignore next */ (data: InputSetDTO): InputSetDTO => {
   const omittedInputset = omitBy(omitBy(data, isUndefined), isNull)
-  return changeEmptyValuesToRunTimeInput(cloneDeep(omittedInputset))
+  return changeEmptyValuesToRunTimeInput(cloneDeep(omittedInputset), '')
 }
 
 export interface InputSetFormProps {
@@ -261,7 +261,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           description: parsedInputSetObj.inputSet.description,
           orgIdentifier: parsedInputSetObj.inputSet.orgIdentifier,
           projectIdentifier: parsedInputSetObj.inputSet.projectIdentifier,
-          pipeline: clearRuntimeInput(parsedInputSetObj.inputSet.pipeline),
+          pipeline: clearRuntimeInput(parsedPipelineWithValues),
           gitDetails: defaultTo(inputSetObj.gitDetails, {}),
           entityValidityDetails: defaultTo(inputSetObj.entityValidityDetails, {})
         }
@@ -351,21 +351,25 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
     let response: ResponseInputSetResponse | null = null
     try {
       if (isEdit) {
-        response = await updateInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
-          pathParams: {
-            inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ ''
-          },
-          queryParams: {
-            accountIdentifier: accountId,
-            orgIdentifier,
-            pipelineIdentifier,
-            projectIdentifier,
-            pipelineRepoID: repoIdentifier,
-            pipelineBranch: branch,
-            ...(gitDetails ? { ...gitDetails, lastObjectId: objectId } : {}),
-            ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
-          }
-        })
+        if (inputSetObj.identifier) {
+          response = await updateInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
+            pathParams: {
+              inputSetIdentifier: inputSetObj.identifier || /* istanbul ignore next */ ''
+            },
+            queryParams: {
+              accountIdentifier: accountId,
+              orgIdentifier,
+              pipelineIdentifier,
+              projectIdentifier,
+              pipelineRepoID: repoIdentifier,
+              pipelineBranch: branch,
+              ...(gitDetails ? { ...gitDetails, lastObjectId: objectId } : {}),
+              ...(gitDetails && gitDetails.isNewBranch ? { baseBranch: initialGitDetails.branch } : {})
+            }
+          })
+        } else {
+          throw new Error(getString('pipeline.triggers.validation.identifier'))
+        }
       } else {
         response = await createInputSet(yamlStringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
           queryParams: {
@@ -483,7 +487,10 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
               if (isEmpty(errors.pipeline)) delete errors.pipeline
             }
 
-            setFormErrors(errors)
+            if (!isEmpty(formErrors)) {
+              setFormErrors(errors)
+            }
+
             return errors
           }}
           onSubmit={values => {
@@ -503,7 +510,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                             <NameIdDescriptionTags
                               className={css.nameiddescription}
                               identifierProps={{
-                                inputLabel: getString('inputSets.inputSetName'),
+                                inputLabel: getString('name'),
                                 isIdentifierEditable: !isEdit && isEditable,
                                 inputGroupProps: {
                                   disabled: !isEditable
@@ -547,7 +554,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
                             type="submit"
                             onClick={e => {
                               e.preventDefault()
-                              formikProps.validateForm().then(() => {
+                              formikProps.validateForm().then(errors => {
+                                setFormErrors(errors)
                                 if (
                                   formikProps?.values?.name?.length &&
                                   formikProps?.values?.identifier?.length &&

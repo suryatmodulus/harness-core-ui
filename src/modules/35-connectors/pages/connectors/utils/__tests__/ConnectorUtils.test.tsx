@@ -591,7 +591,8 @@ describe('Connector Utils', () => {
           name: 'secretdevxDDUx',
           referenceString: 'account.secretdevxDDUx'
         },
-        apiAuthType: 'Token'
+        apiAuthType: 'Token',
+        connectivityMode: 'Delegate'
       })
 
       expect(
@@ -625,7 +626,8 @@ describe('Connector Utils', () => {
           name: 'secretdevxDDUx',
           referenceString: 'account.secret_p024_ssh_password'
         },
-        enableAPIAccess: false
+        enableAPIAccess: false,
+        connectivityMode: 'Delegate'
       })
     }),
     test('test buildGithubPayload', () => {

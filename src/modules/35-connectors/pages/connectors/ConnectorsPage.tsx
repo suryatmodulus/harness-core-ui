@@ -58,6 +58,8 @@ import type { FilterInterface, FilterDataInterface } from '@common/components/Fi
 import type { CrudOperation } from '@common/components/Filter/FilterCRUD/FilterCRUD'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
+import { FeatureFlag } from '@common/featureFlags'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
@@ -129,6 +131,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   }
   const history = useHistory()
   useDocumentTitle(getString('connectorsLabel'))
+  const isCustomHealthEnabled = useFeatureFlag(FeatureFlag.CHI_CUSTOM_HEALTH)
 
   const ConnectorCatalogueNames = new Map<ConnectorCatalogueItem['category'], string>()
   // This list will control which categories will be displayed in UI and its order
@@ -341,6 +344,11 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
               items:
                 item.connectors
                   ?.sort((a, b) => (getConnectorDisplayName(a) < getConnectorDisplayName(b) ? -1 : 1))
+                  .filter(entry => {
+                    const name = entry.valueOf() || ''
+                    if (name !== 'CustomHealth') return true
+                    return isCustomHealthEnabled !== false
+                  })
                   .map(entry => {
                     const name = entry.valueOf() || ''
                     return {

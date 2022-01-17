@@ -8,6 +8,7 @@ import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import { useAddStepTemplate } from '@pipeline/hooks/useAddStepTemplate'
 
 export const ApprovalStageExecution: React.FC = () => {
   const {
@@ -28,6 +29,7 @@ export const ApprovalStageExecution: React.FC = () => {
   const selectedStage = getStageFromPipeline(selectedStageId).stage
   const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
+  const { addTemplate } = useAddStepTemplate({ executionRef: executionRef.current })
   const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
   return (
     <ExecutionGraph
@@ -46,23 +48,27 @@ export const ApprovalStageExecution: React.FC = () => {
         if (stageData.stage) updateStage(stageData.stage)
       }}
       onAddStep={(event: ExecutionGraphAddStepEvent) => {
-        updatePipelineView({
-          ...pipelineView,
-          isDrawerOpened: true,
-          drawerData: {
-            type: DrawerTypes.AddStep,
-            data: {
-              paletteData: {
-                entity: event.entity,
-                stepsMap: event.stepsMap,
-                onUpdate: executionRef.current?.stepGroupUpdated,
-                isRollback: false,
-                isParallelNodeClicked: event.isParallel,
-                hiddenAdvancedPanels: [AdvancedPanels.PreRequisites]
+        if (event.isTemplate) {
+          addTemplate(event)
+        } else {
+          updatePipelineView({
+            ...pipelineView,
+            isDrawerOpened: true,
+            drawerData: {
+              type: DrawerTypes.AddStep,
+              data: {
+                paletteData: {
+                  entity: event.entity,
+                  stepsMap: event.stepsMap,
+                  onUpdate: executionRef.current?.stepGroupUpdated,
+                  isRollback: false,
+                  isParallelNodeClicked: event.isParallel,
+                  hiddenAdvancedPanels: [AdvancedPanels.PreRequisites]
+                }
               }
             }
-          }
-        })
+          })
+        }
       }}
       onEditStep={(event: ExecutionGraphEditStepEvent) => {
         updatePipelineView({

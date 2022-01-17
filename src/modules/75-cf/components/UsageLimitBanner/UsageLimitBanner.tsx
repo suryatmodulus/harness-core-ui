@@ -27,8 +27,8 @@ const UsageLimitBanner = (): ReactElement => {
   const clientMauUsagePercentage = Math.trunc((clientMauUsageCount / clientMauPlanLimit) * 100)
   const clientMauPlanLimitFormatted = formatToCompactNumber(clientMauPlanLimit)
 
-  const showInfoBanner = clientMauUsagePercentage >= 90 && clientMauUsagePercentage < 100
-  const showWarningBanner = clientMauUsagePercentage >= 100
+  const showInfoBanner = clientMauPlanLimit > 0 && clientMauUsagePercentage >= 90 && clientMauUsagePercentage < 100
+  const showWarningBanner = clientMauPlanLimit > 0 && clientMauUsagePercentage >= 100
 
   return (
     <>

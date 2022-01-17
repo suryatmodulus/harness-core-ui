@@ -7,6 +7,7 @@ import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { DeploymentTypeItem } from './DeploymentInterface'
 import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 
@@ -21,6 +22,7 @@ export default function SelectDeploymentType(props: SelectServiceDeploymentTypeP
   const { getString } = useStrings()
   const formikRef = React.useRef<FormikProps<unknown> | null>(null)
   const { subscribeForm, unSubscribeForm } = React.useContext(StageErrorContext)
+  const { NG_NATIVE_HELM } = useFeatureFlags()
 
   const supportedDeploymentTypes: DeploymentTypeItem[] = [
     {
@@ -32,7 +34,7 @@ export default function SelectDeploymentType(props: SelectServiceDeploymentTypeP
       label: getString('pipeline.nativeHelm'),
       icon: 'service-helm',
       value: 'NativeHelm',
-      disabled: !localStorage.getItem('nativeHelm')
+      disabled: !NG_NATIVE_HELM
     },
     {
       label: getString('serviceDeploymentTypes.amazonEcs'),

@@ -6,7 +6,9 @@ declare const styles: {
   readonly tabHeading: string
   readonly tabSubHeading: string
   readonly sectionCard: string
+  readonly templateBar: string
   readonly inputsContainer: string
+  readonly error: string
   readonly stageCard: string
 }
 export default styles

@@ -94,9 +94,7 @@ const ExecutionStrategyRef = (
     return get(selectedStage, 'stage.spec.serviceConfig.serviceDefinition.type', null)
   }, [getStageFromPipeline, selectedStage])
 
-  const [selectedStrategy, setSelectedStrategy] = useState<StrategyType>(
-    serviceDefinitionType() === 'Kubernetes' ? 'Rolling' : 'Basic'
-  )
+  const [selectedStrategy, setSelectedStrategy] = useState<StrategyType>('Rolling')
 
   const infoByType: { [key: string]: string } = {
     BlueGreen: getString('pipeline.executionStrategy.strategies.blueGreen.description'),

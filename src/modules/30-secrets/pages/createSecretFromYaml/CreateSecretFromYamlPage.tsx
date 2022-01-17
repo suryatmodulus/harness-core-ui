@@ -6,7 +6,8 @@ import {
   ButtonVariation,
   PageHeader,
   useConfirmationDialog,
-  useToaster
+  useToaster,
+  getErrorInfoFromErrorObject
 } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
@@ -85,7 +86,7 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
           })
         )
       } catch (err) {
-        showError(err.data?.message || err.message)
+        showError(getErrorInfoFromErrorObject(err, true))
       }
     } else {
       showError(getString('createSecretYAML.invalidSecret'))

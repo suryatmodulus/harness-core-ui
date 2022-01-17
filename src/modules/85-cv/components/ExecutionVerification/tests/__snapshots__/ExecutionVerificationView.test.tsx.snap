@@ -1,5 +1,137 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Unit tests for ExecutionVerificationView unit tests Ensure correct tabs are rendered via queryParams 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main main"
+  >
+    <div
+      class="summary"
+    />
+    <div
+      class="bp3-tabs Tabs--main Tabs--horizontal"
+    >
+      <div
+        class="bp3-tab-list"
+        role="tablist"
+      >
+        <div
+          class="bp3-tab-indicator-wrapper"
+          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+        >
+          <div
+            class="bp3-tab-indicator"
+          />
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_AnalysisTypeTabs_pipeline.verification.analysisTab.metrics"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-selected="false"
+          class="bp3-tab"
+          data-tab-id="pipeline.verification.analysisTab.metrics"
+          id="bp3-tab-title_AnalysisTypeTabs_pipeline.verification.analysisTab.metrics"
+          role="tab"
+          tabindex="0"
+        >
+          pipeline.verification.analysisTab.metrics
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_AnalysisTypeTabs_pipeline.verification.analysisTab.logs"
+          aria-disabled="false"
+          aria-expanded="true"
+          aria-selected="true"
+          class="bp3-tab"
+          data-tab-id="pipeline.verification.analysisTab.logs"
+          id="bp3-tab-title_AnalysisTypeTabs_pipeline.verification.analysisTab.logs"
+          role="tab"
+          tabindex="0"
+        >
+          pipeline.verification.analysisTab.logs
+        </div>
+      </div>
+      <div
+        aria-hidden="false"
+        aria-labelledby="bp3-tab-title_AnalysisTypeTabs_pipeline.verification.analysisTab.logs"
+        class="bp3-tab-panel"
+        id="bp3-tab-panel_AnalysisTypeTabs_pipeline.verification.analysisTab.logs"
+        role="tabpanel"
+      >
+        <div
+          class="LogAnalysisContainer"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Unit tests for ExecutionVerificationView unit tests Ensure correct tabs are rendered via queryParams 2`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main main"
+  >
+    <div
+      class="summary"
+    />
+    <div
+      class="bp3-tabs Tabs--main Tabs--horizontal"
+    >
+      <div
+        class="bp3-tab-list"
+        role="tablist"
+      >
+        <div
+          class="bp3-tab-indicator-wrapper"
+          style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+        >
+          <div
+            class="bp3-tab-indicator"
+          />
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_AnalysisTypeTabs_pipeline.verification.analysisTab.metrics"
+          aria-disabled="false"
+          aria-expanded="true"
+          aria-selected="true"
+          class="bp3-tab"
+          data-tab-id="pipeline.verification.analysisTab.metrics"
+          id="bp3-tab-title_AnalysisTypeTabs_pipeline.verification.analysisTab.metrics"
+          role="tab"
+          tabindex="0"
+        >
+          pipeline.verification.analysisTab.metrics
+        </div>
+        <div
+          aria-controls="bp3-tab-panel_AnalysisTypeTabs_pipeline.verification.analysisTab.logs"
+          aria-disabled="false"
+          aria-expanded="false"
+          aria-selected="false"
+          class="bp3-tab"
+          data-tab-id="pipeline.verification.analysisTab.logs"
+          id="bp3-tab-title_AnalysisTypeTabs_pipeline.verification.analysisTab.logs"
+          role="tab"
+          tabindex="0"
+        >
+          pipeline.verification.analysisTab.logs
+        </div>
+      </div>
+      <div
+        aria-hidden="false"
+        aria-labelledby="bp3-tab-title_AnalysisTypeTabs_pipeline.verification.analysisTab.metrics"
+        class="bp3-tab-panel"
+        id="bp3-tab-panel_AnalysisTypeTabs_pipeline.verification.analysisTab.metrics"
+        role="tabpanel"
+      >
+        <div
+          class="deploymentMetrics"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Unit tests for ExecutionVerificationView unit tests Ensure no analysis state is rendered when activity id does not exist 1`] = `
 <div>
   <div

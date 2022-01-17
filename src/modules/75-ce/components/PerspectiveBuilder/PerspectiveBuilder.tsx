@@ -7,9 +7,10 @@ import {
   Layout,
   FlexExpander,
   Button,
-  Heading,
+  Text,
   PageSpinner,
-  useToaster
+  useToaster,
+  FontVariation
 } from '@wings-software/uicore'
 import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
@@ -64,6 +65,7 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: (resource
     }
   })
 
+  /* istanbul ignore next */
   const makeCreateCall: (value: CEView) => void = async values => {
     const apiObject = {
       ...CREATE_CALL_OBJECT,
@@ -155,6 +157,7 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: (resource
       {loading && <PageSpinner />}
       <Formik<CEView>
         formName="createPerspective"
+        /* istanbul ignore next */
         initialValues={{
           name: perspectiveData?.name,
           viewVisualization: {
@@ -181,9 +184,9 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: (resource
                   className={css.builderContainer}
                   padding={{ left: 'large', right: 'xxlarge', bottom: 'xxlarge', top: 'xxlarge' }}
                 >
-                  <Heading color="grey800" margin={{ bottom: 'large' }} level={5}>
+                  <Text font={{ variation: FontVariation.H4 }} margin={{ bottom: 'large' }}>
                     {getString('ce.perspectives.createPerspective.title')}
-                  </Heading>
+                  </Text>
                   <Layout.Horizontal>
                     <FormInput.Text
                       name="name"
@@ -285,8 +288,8 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: (resource
                     formikProps.setFieldValue('viewVisualization.groupBy', groupBy)
                   }}
                   formValues={formikProps.values}
-                  groupBy={formikProps?.values?.viewVisualization?.groupBy as any}
-                  chartType={formikProps?.values?.viewVisualization?.chartType as any}
+                  groupBy={formikProps.values.viewVisualization?.groupBy as any}
+                  chartType={formikProps.values.viewVisualization?.chartType as any}
                   setChartType={(type: ViewChartType) => {
                     formikProps.setFieldValue('viewVisualization.chartType', type)
                   }}

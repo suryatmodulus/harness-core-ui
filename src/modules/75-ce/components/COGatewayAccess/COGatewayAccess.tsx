@@ -12,7 +12,7 @@ import {
   HarnessDocTooltip
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import { isEmpty as _isEmpty, map as _map, defaultTo as _defaultTo } from 'lodash-es'
+import { isEmpty as _isEmpty, map as _map, defaultTo as _defaultTo, omit as _omit } from 'lodash-es'
 import { Drawer } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
@@ -46,7 +46,6 @@ interface COGatewayAccessProps {
 const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
-  const { showSuccess } = useToaster()
   const { trackEvent } = useTelemetry()
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const [accessDetails, setAccessDetails] = useState<ConnectionMetadata>(
@@ -60,9 +59,6 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   const [selectedHelpText, setSelectedHelpText] = useState<string>('')
   const [selectedHelpTextSections, setSelectedHelpTextSections] = useState<string[]>([])
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
-  const [yamlData, setYamlData] = useState<Record<any, any>>(
-    props.gatewayDetails.routing.k8s?.RuleJson ? JSON.parse(props.gatewayDetails.routing.k8s.RuleJson) : undefined
-  )
 
   const { data: serviceDescribeData, loading: serviceDataLoading } = useDescribeServiceInContainerServiceCluster({
     account_id: accountId,
@@ -89,7 +85,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
       validStatus = getValidStatusForDnsLink(props.gatewayDetails)
     } else {
       validStatus =
-        (isK8sRule && !_isEmpty(yamlData)) ||
+        (isK8sRule && !_isEmpty(props.gatewayDetails.routing.k8s?.RuleJson)) ||
         accessDetails.ipaddress.selected ||
         accessDetails.ssh.selected ||
         accessDetails.backgroundTasks.selected ||
@@ -99,106 +95,35 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
 
     props.setGatewayDetails({
       ...props.gatewayDetails,
+      ...(!accessDetails.dnsLink.selected && !_isEmpty(props.gatewayDetails.customDomains) && { customDomains: [] }),
       ...(!accessDetails.dnsLink.selected &&
         !_isEmpty(props.gatewayDetails.accessPointData) && { accessPointData: undefined, accessPointID: '' }), // remove Access point details on deselection of dnslink option
       opts: { ...props.gatewayDetails.opts, access_details: accessDetails },
       routing: {
-        ...props.gatewayDetails.routing,
+        ...(!accessDetails.dnsLink.selected
+          ? _omit(props.gatewayDetails.routing, 'custom_domain_providers')
+          : props.gatewayDetails.routing),
         ...(!accessDetails.dnsLink.selected && !_isEmpty(props.gatewayDetails.routing.ports) && { ports: [] }) // empty the ports on deselection of dnslink option & if there were already saved values
       }
     })
-
-    setSelectedTabId(getSelectedTabId(accessDetails))
   }, [
     accessDetails,
     props.gatewayDetails.customDomains,
     props.gatewayDetails.accessPointID,
     props.gatewayDetails.routing.ports,
-    yamlData,
+    props.gatewayDetails.routing.k8s?.RuleJson,
     props.gatewayDetails.routing.container_svc,
     serviceDescribeData?.response,
     props.gatewayDetails.routing.database
   ])
 
   useEffect(() => {
-    setSelectedHelpText(getHelpText(selectedTabId))
-  }, [selectedTabId])
+    setSelectedTabId(getSelectedTabId(accessDetails))
+  }, [accessDetails])
 
   useEffect(() => {
-    yamlData && syncYamlAndGatewayDetails(yamlData, 'gateway', true)
-  }, [
-    props.gatewayDetails.name,
-    props.gatewayDetails.idleTimeMins,
-    props.gatewayDetails.opts.hide_progress_page,
-    props.gatewayDetails.deps
-  ])
-
-  /**
-   * function to update yaml & gatewayDetails with correct information
-   * @param _data yaml Data Object
-   * @param resourceToUpdateWith name to pick for updation
-   * @param disableSuccessMsg enable/disable success message (optional)
-   */
-  const syncYamlAndGatewayDetails = (
-    _data: Record<any, any>,
-    resourceToUpdateWith: 'yaml' | 'gateway' = 'yaml',
-    disableSuccessMsg?: boolean
-  ) => {
-    const yamlRuleName = _data?.metadata?.name
-    const updatedName = Utils.getHyphenSpacedString(props.gatewayDetails.name)
-    const nameToReplace = Utils.getConditionalResult(resourceToUpdateWith === 'yaml', yamlRuleName, updatedName)
-    const namespace = _data.metadata?.namespace || 'default'
-    const yamlToSave = {
-      ..._data,
-      metadata: {
-        ..._data.metadata,
-        name: nameToReplace,
-        namespace,
-        annotations: {
-          ..._data.metadata.annotations,
-          'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${namespace}-${nameToReplace}";`
-        }
-      },
-      spec: {
-        ..._data?.spec,
-        ...(resourceToUpdateWith === 'gateway' && {
-          dependencies: Utils.fromServiceToYamlDependencies(props.allServices, props.gatewayDetails.deps)
-        })
-      }
-    }
-    setYamlData(yamlToSave)
-    const updatedGatewayDetails: GatewayDetails = {
-      ...props.gatewayDetails,
-      ...(yamlRuleName !== updatedName && { name: Utils.hyphenatedToSpacedString(nameToReplace) }),
-      ...(resourceToUpdateWith === 'yaml' && { idleTimeMins: _data?.spec?.idleTimeMins }),
-      routing: {
-        ...props.gatewayDetails.routing,
-        k8s: {
-          RuleJson: JSON.stringify(yamlToSave),
-          ConnectorID: props.gatewayDetails.metadata.kubernetes_connector_id as string,
-          Namespace: namespace
-        }
-      },
-      ...(resourceToUpdateWith === 'yaml' && {
-        deps: Utils.fromYamlToServiceDependencies(props.allServices, _data?.spec?.dependencies)
-      })
-    }
-    props.setGatewayDetails(updatedGatewayDetails)
-    !disableSuccessMsg && showSuccess(getString('ce.savedYamlSuccess'))
-  }
-
-  const getYamlExistingData = () => {
-    return (
-      yamlData ||
-      getK8sIngressTemplate({
-        name: props.gatewayDetails.name,
-        idleTime: props.gatewayDetails.idleTimeMins,
-        cloudConnectorId: props.gatewayDetails.cloudAccount.id,
-        hideProgressPage: props.gatewayDetails.opts.hide_progress_page,
-        deps: Utils.fromServiceToYamlDependencies(props.allServices, props.gatewayDetails.deps)
-      })
-    )
-  }
+    setSelectedHelpText(getHelpText(selectedTabId))
+  }, [selectedTabId])
 
   const isAccessSetupNotRequired = () => {
     return (
@@ -302,20 +227,11 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
             {getString('ce.co.gatewayAccess.subtitle')}
           </Heading> */}
         </Layout.Vertical>
-        {isK8sRule && (
-          <Container>
-            <Text className={css.titleHelpTextDescription}>
-              {getString('ce.co.gatewayConfig.k8sroutingDescription')}
-            </Text>
-            <KubernetesRuleYamlEditor
-              existingData={getYamlExistingData()}
-              fileName={
-                props.gatewayDetails.name && `${props.gatewayDetails.name.split(' ').join('-')}-autostopping.yaml`
-              }
-              handleSave={syncYamlAndGatewayDetails}
-            />
-          </Container>
-        )}
+        <K8sRuleAccessDetails
+          gatewayDetails={props.gatewayDetails}
+          setGatewayDetails={props.setGatewayDetails}
+          allServices={props.allServices}
+        />
         {!isK8sRule && (
           <Layout.Vertical spacing="small" padding="medium">
             <Layout.Horizontal spacing="small">
@@ -347,26 +263,6 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                   />
                 )}
               </Layout.Vertical>
-              {/* <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-xxlarge)' }}>
-              <Checkbox
-                label="Background Tasks"
-                className={css.checkbox}
-                onChange={val => {
-                  accessDetails.backgroundTasks.selected = val.currentTarget.checked
-                  setAccessDetails(Object.assign({}, accessDetails))
-                }}
-                defaultChecked={accessDetails.backgroundTasks.selected}
-              />
-              <Checkbox
-                label="IP address"
-                className={css.checkbox}
-                defaultChecked={accessDetails.ipaddress.selected}
-                onChange={val => {
-                  accessDetails.ipaddress.selected = val.currentTarget.checked
-                  setAccessDetails(Object.assign({}, accessDetails))
-                }}
-              />
-            </Layout.Vertical> */}
             </Layout.Horizontal>
           </Layout.Vertical>
         )}
@@ -406,6 +302,120 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   )
 }
 
+interface K8sRuleAccessDetailsProps {
+  gatewayDetails: GatewayDetails
+  setGatewayDetails: (details: GatewayDetails) => void
+  allServices: Service[]
+}
+
+const K8sRuleAccessDetails: React.FC<K8sRuleAccessDetailsProps> = ({
+  gatewayDetails,
+  setGatewayDetails,
+  allServices
+}) => {
+  const { getString } = useStrings()
+  const { showSuccess } = useToaster()
+
+  const [yamlData, setYamlData] = useState<Record<any, any>>(
+    gatewayDetails.routing.k8s?.RuleJson ? JSON.parse(gatewayDetails.routing.k8s.RuleJson) : undefined
+  )
+
+  const isK8sRule = Utils.isK8sRule(gatewayDetails)
+
+  useEffect(() => {
+    yamlData && syncYamlAndGatewayDetails(yamlData, 'gateway', true)
+  }, [gatewayDetails.name, gatewayDetails.idleTimeMins, gatewayDetails.opts.hide_progress_page, gatewayDetails.deps])
+
+  /**
+   * function to update yaml & gatewayDetails with correct information
+   * @param _data yaml Data Object
+   * @param resourceToUpdateWith name to pick for updation
+   * @param disableSuccessMsg enable/disable success message (optional)
+   */
+  const syncYamlAndGatewayDetails = (
+    _data: Record<any, any>,
+    resourceToUpdateWith: 'yaml' | 'gateway' = 'yaml',
+    disableSuccessMsg = false
+  ) => {
+    const yamlRuleName = _data?.metadata?.name
+    const updatedName = Utils.getHyphenSpacedString(gatewayDetails.name)
+    const nameToReplace = Utils.getConditionalResult(resourceToUpdateWith === 'yaml', yamlRuleName, updatedName)
+    const namespace = _data.metadata?.namespace || 'default'
+    const hideProgressPage =
+      resourceToUpdateWith === 'gateway' ? gatewayDetails.opts.hide_progress_page : _data.spec.hideProgressPage
+    const yamlToSave = {
+      ..._data,
+      metadata: {
+        ..._data.metadata,
+        name: nameToReplace,
+        namespace,
+        annotations: {
+          ..._data.metadata.annotations,
+          'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${namespace}-${nameToReplace}";`
+        }
+      },
+      spec: {
+        ..._data?.spec,
+        hideProgressPage,
+        ...(resourceToUpdateWith === 'gateway' && {
+          dependencies: Utils.fromServiceToYamlDependencies(allServices, gatewayDetails.deps)
+        })
+      }
+    }
+    setYamlData(yamlToSave)
+    const updatedGatewayDetails: GatewayDetails = {
+      ...gatewayDetails,
+      ...(yamlRuleName !== updatedName && { name: nameToReplace }),
+      ...(resourceToUpdateWith === 'yaml' && { idleTimeMins: _data?.spec?.idleTimeMins }),
+      routing: {
+        ...gatewayDetails.routing,
+        k8s: {
+          RuleJson: JSON.stringify(yamlToSave),
+          ConnectorID: gatewayDetails.metadata.kubernetes_connector_id as string,
+          Namespace: namespace
+        }
+      },
+      ...(resourceToUpdateWith === 'yaml' && {
+        deps: Utils.fromYamlToServiceDependencies(allServices, _data?.spec?.dependencies)
+      }),
+      opts: {
+        ...gatewayDetails.opts,
+        hide_progress_page: hideProgressPage
+      }
+    }
+    setGatewayDetails(updatedGatewayDetails)
+    !disableSuccessMsg && showSuccess(getString('ce.savedYamlSuccess'))
+  }
+
+  const getYamlExistingData = () => {
+    return (
+      yamlData ||
+      getK8sIngressTemplate({
+        name: gatewayDetails.name,
+        idleTime: gatewayDetails.idleTimeMins,
+        cloudConnectorId: gatewayDetails.cloudAccount.id,
+        hideProgressPage: gatewayDetails.opts.hide_progress_page,
+        deps: Utils.fromServiceToYamlDependencies(allServices, gatewayDetails.deps)
+      })
+    )
+  }
+
+  if (!isK8sRule) {
+    return null
+  }
+
+  return (
+    <Container>
+      <Text className={css.titleHelpTextDescription}>{getString('ce.co.gatewayConfig.k8sroutingDescription')}</Text>
+      <KubernetesRuleYamlEditor
+        existingData={getYamlExistingData()}
+        fileName={gatewayDetails.name && `${gatewayDetails.name.split(' ').join('-')}-autostopping.yaml`}
+        handleSave={syncYamlAndGatewayDetails}
+      />
+    </Container>
+  )
+}
+
 interface SetupAccessTabsProps {
   gatewayDetails: GatewayDetails
   accessDetails: ConnectionMetadata
@@ -416,6 +426,7 @@ interface SetupAccessTabsProps {
 
 const SetupAccessTabs: React.FC<SetupAccessTabsProps> = props => {
   const { selectedTabId, setSelectedTabId, tabComponentsMap, accessDetails } = props
+
   return (
     <Container className={css.setupTab}>
       <Tabs id="setupTabs" selectedTabId={selectedTabId} onChange={setSelectedTabId}>

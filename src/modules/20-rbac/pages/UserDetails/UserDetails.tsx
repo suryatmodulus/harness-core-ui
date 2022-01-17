@@ -54,12 +54,8 @@ const UserDetails: React.FC = () => {
           <NGBreadcrumbs
             links={[
               {
-                url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
-                label: getString('accessControl')
-              },
-              {
                 url: routes.toUsers({ accountId, orgIdentifier, projectIdentifier, module }),
-                label: getString('users')
+                label: `${getString('accessControl')}: ${getString('users')}`
               }
             ]}
           />

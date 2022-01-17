@@ -41,3 +41,8 @@ startPullRequest: Start a pull request
 baseBranch: Base branch
 PRTitle: Pull request title
 startSync: Start sync
+syncBranchTitle: Select Branch to sync resources
+deafaultSyncTitle: Syncing Harness entities
+createBranchTitle: Create a new branch
+selectBranchTitle: Select an existing branch
+syncSucessToaster: Sync started for existing Harness entities

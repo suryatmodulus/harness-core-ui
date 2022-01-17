@@ -10,11 +10,11 @@
     "gitConnectorType": "Github",
     "gitSyncFolderConfigDTOs": [
       {
-        "rootFolder": "src1/.harness/",
+        "rootFolder": "/src1/.harness/",
         "isDefault": true
       },
       {
-        "rootFolder": "src2/.harness/",
+        "rootFolder": "/src2/.harness/",
         "isDefault": false
       }
     ]
@@ -30,11 +30,11 @@
     "gitConnectorType": "Github",
     "gitSyncFolderConfigDTOs": [
       {
-        "rootFolder": "rootFolder1/.harness/",
+        "rootFolder": "/rootFolder1/.harness/",
         "isDefault": true
       },
       {
-        "rootFolder": "rootFolderTest/.harness/",
+        "rootFolder": "/rootFolderTest/.harness/",
         "isDefault": false
       }
     ]

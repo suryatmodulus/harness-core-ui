@@ -32,6 +32,7 @@
       .bp3-tab-panel {
         margin-top: 0px !important;
         height: calc(100% - 43px);
+        overflow: auto;
       }
       .bp3-tab-list {
         background-color: var(--white);
@@ -42,6 +43,19 @@
       .bp3-tab {
         font-size: 12px !important;
         margin-right: var(--spacing-5) !important;
+      }
+    }
+  }
+  .innerTabsContainer {
+    :global {
+      .bp3-tab-panel {
+        overflow: unset;
+        height: auto;
+      }
+      .bp3-tab-list {
+        border-top: 1px solid var(--grey-200);
+        position: sticky;
+        top: 0;
       }
     }
   }

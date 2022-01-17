@@ -1568,6 +1568,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'gcp-kms'
     case Connectors.SERVICE_NOW:
       return 'service-servicenow'
+    case Connectors.CUSTOM_HEALTH:
+      return 'service-custom-connector'
     default:
       return 'cog'
   }

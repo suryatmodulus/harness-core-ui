@@ -6,3 +6,13 @@
     }
   }
 }
+
+.select-branch-input {
+  flex-grow: 1;
+
+  :global {
+    .Select--main .bp3-menu {
+      max-height: 240px !important;
+    }
+  }
+}

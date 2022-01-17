@@ -24,12 +24,12 @@ import {
 } from 'services/ti-service'
 import { PageSpinner } from '@common/components'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { BuildZeroState } from './BuildZeroState'
 import { TestsExecution } from './TestsExecution'
 import { TestsOverview } from './TestsOverview'
 import { TestsExecutionResult } from './TestsExecutionResult'
 import { TestsSelectionBreakdown } from './TestsSelectionBreakdown'
-import { TestsReportOverview } from './TestsReportOverview'
 import { TICallToAction } from './TICallToAction'
 // import { TestsCoverage } from './TestsCoverage'
 import css from './BuildTests.module.scss'
@@ -46,8 +46,6 @@ interface BuildTestsProps {
   reportSummaryMock?: TestReportSummary
   testOverviewMock?: SelectionOverview
 }
-
-const enableReportsWithCTA = false // ui feature flag
 
 const renderTestsOverview = ({
   testOverviewData,
@@ -167,8 +165,10 @@ export const Reports = ({
   stepId?: string
   serviceToken?: string | null
   testsCountDiff?: number
-}): JSX.Element =>
-  enableReportsWithCTA ? (
+}): JSX.Element => {
+  const { NG_LICENSES_ENABLED } = useFeatureFlags()
+
+  return (
     <>
       {header}
       <Layout.Horizontal spacing="large" margin={{ bottom: 'xlarge' }}>
@@ -196,7 +196,7 @@ export const Reports = ({
               skippedTests={reportSummaryData.skipped_tests}
             />
           )}
-        <TICallToAction />
+        {NG_LICENSES_ENABLED && <TICallToAction />}
       </Layout.Horizontal>
       <Layout.Horizontal spacing="large">
         {/* <TestsCoverage /> */}
@@ -206,31 +206,8 @@ export const Reports = ({
         )}
       </Layout.Horizontal>
     </>
-  ) : (
-    <>
-      {header}
-      <Layout.Horizontal spacing="large">
-        {typeof reportSummaryData?.total_tests !== 'undefined' &&
-          typeof reportSummaryData?.failed_tests !== 'undefined' &&
-          typeof reportSummaryData?.successful_tests !== 'undefined' &&
-          typeof reportSummaryData?.skipped_tests !== 'undefined' &&
-          typeof reportSummaryData?.duration_ms !== 'undefined' && (
-            <TestsReportOverview
-              totalTests={reportSummaryData.total_tests}
-              failedTests={reportSummaryData.failed_tests}
-              successfulTests={reportSummaryData.successful_tests}
-              skippedTests={reportSummaryData.skipped_tests}
-              durationMS={reportSummaryData.duration_ms}
-            />
-          )}
-        {/* Overview and Reports split the width  */}
-        {stageId && stepId && serviceToken && (
-          <TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} />
-        )}
-      </Layout.Horizontal>
-    </>
   )
-
+}
 const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverviewMock }) => {
   const context = useExecutionContext()
   const { getString } = useStrings()

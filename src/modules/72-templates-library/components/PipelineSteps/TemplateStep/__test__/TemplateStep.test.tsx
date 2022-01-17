@@ -2,7 +2,6 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
-import type { TemplateStepData } from '@pipeline/utils/tempates'
 import {
   TemplateRegex,
   TemplateStep,
@@ -11,8 +10,9 @@ import {
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { getTemplateListPromise } from 'services/template-ng'
 import type { TemplateInputSetStepProps } from '@templates-library/components/PipelineSteps/TemplateStep/TemplateInputSetStep'
+import type { JsonNode, TemplateStepNode } from 'services/pipeline-ng'
 
-const getDefaultStepValues = (): TemplateStepData => {
+const getDefaultStepValues = (): TemplateStepNode => {
   return {
     name: 's1',
     identifier: 's1',
@@ -25,7 +25,7 @@ const getDefaultStepValues = (): TemplateStepData => {
           url: '<+input>',
           requestBody: '<+input>'
         }
-      }
+      } as JsonNode
     }
   }
 }

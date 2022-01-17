@@ -30,21 +30,25 @@ export function CopyText(props: CopyTextProps): React.ReactElement {
   return (
     <div className={cx(css.main, props.className)}>
       <div className={cx(css.text, props.valueClassName)}>{props.children}</div>
-      <Button
-        data-name={icon}
-        icon={copied ? 'execution-success' : icon}
-        minimal
-        intent="primary"
-        small
-        className={cx(css.copyIcon, copied && css.successIcon)}
-        tooltip={<String className={css.tooltip} stringID={copied ? 'copiedToClipboard' : 'clickToCopy'} />}
-        tooltipProps={{
-          wrapperTagName: 'div',
-          className: iconAlwaysVisible ? cx(css.alwaysVisible, Classes.DARK) : css.btnWrapper,
-          onClosed
-        }}
-        onClick={handleClick}
-      />
+      {window.isSecureContext && (
+        <Button
+          data-testid="copy-btn"
+          disabled={!window.isSecureContext}
+          data-name={icon}
+          icon={copied ? 'execution-success' : icon}
+          minimal
+          intent="primary"
+          small
+          className={cx(css.copyIcon, copied && css.successIcon)}
+          tooltip={<String className={css.tooltip} stringID={copied ? 'copiedToClipboard' : 'clickToCopy'} />}
+          tooltipProps={{
+            wrapperTagName: 'div',
+            className: iconAlwaysVisible ? cx(css.alwaysVisible, Classes.DARK) : css.btnWrapper,
+            onClosed
+          }}
+          onClick={handleClick}
+        />
+      )}
     </div>
   )
 }

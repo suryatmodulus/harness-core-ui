@@ -12,7 +12,7 @@ import css from './RiskProfile.module.scss'
 
 interface RiskProfileProps {
   metricPackResponse: ReturnType<typeof useGetMetricPacks>
-  labelNamesResponse: ReturnType<typeof useGetLabelNames>
+  labelNamesResponse?: ReturnType<typeof useGetLabelNames>
   continuousVerificationEnabled?: boolean
 }
 

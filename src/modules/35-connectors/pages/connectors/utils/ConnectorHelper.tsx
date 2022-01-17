@@ -1,4 +1,5 @@
 import type { IconName } from '@wings-software/uicore'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { Connectors } from '@connectors/constants'
 import { StringUtils } from '@common/exports'
 import type { StringKeys } from 'framework/strings'
@@ -202,6 +203,15 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'service-custom-connector'
     default:
       return 'placeholder'
+  }
+}
+
+export const getConnectorIconPropsByType = (type: string): Omit<IconProps, 'name'> => {
+  switch (type) {
+    case Connectors.CUSTOM_HEALTH:
+      return { size: 37, background: 'white' }
+    default:
+      return { size: 37 }
   }
 }
 

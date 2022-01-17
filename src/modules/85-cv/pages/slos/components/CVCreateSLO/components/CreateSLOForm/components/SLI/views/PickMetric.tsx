@@ -13,11 +13,13 @@ import {
   SelectOption,
   Icon
 } from '@wings-software/uicore'
+import type { RadioButtonProps } from '@wings-software/uicore/dist/components/RadioButton/RadioButton'
 import { useGetSloMetrics } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import SLOTargetChart from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
+import SLOTargetChartWrapper from '@cv/pages/slos/components/SLOTargetChart/SLOTargetChart'
+import CVRadioLabelTextAndDescription from '@cv/components/CVRadioLabelTextAndDescription'
 import {
   getSLOMetricOptions,
   getComparatorSuffixLabelId,
@@ -26,14 +28,13 @@ import {
 import {
   comparatorOptions,
   defaultOption,
-  getSLIMetricOptions,
   getEventTypeOptions,
   getMissingDataTypeOptions
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.constants'
-import { SLOPanelProps, SLIMetricTypes, SLOFormFields } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
+import { SLIProps, SLIMetricTypes, SLOFormFields } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
 import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 
-const PickMetric: React.FC<Omit<SLOPanelProps, 'children'>> = ({ formikProps }) => {
+const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps, ...rest }) => {
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
@@ -87,19 +88,45 @@ const PickMetric: React.FC<Omit<SLOPanelProps, 'children'>> = ({ formikProps }) 
     [SLOMetricOptions, validRequestMetric]
   )
 
+  const radioItems: Pick<RadioButtonProps, 'label' | 'value'>[] = useMemo(() => {
+    const { THRESHOLD, RATIO } = SLIMetricTypes
+    return [
+      {
+        label: (
+          <CVRadioLabelTextAndDescription
+            label="cv.slos.slis.metricOptions.thresholdBased"
+            description="cv.slos.contextualHelp.sli.thresholdDescription"
+          />
+        ),
+        value: THRESHOLD
+      },
+      {
+        label: (
+          <CVRadioLabelTextAndDescription
+            label="cv.slos.slis.metricOptions.ratioBased"
+            description="cv.slos.contextualHelp.sli.ratioBasedDescription"
+          />
+        ),
+        value: RATIO
+      }
+    ]
+  }, [])
+
   return (
     <>
-      <Heading level={2} font={{ variation: FontVariation.FORM_TITLE }} margin={{ top: 'xxlarge', bottom: 'xsmall' }}>
-        {getString('cv.slos.pickMetricsSLI')}
-      </Heading>
       <Card className={css.cardPickMetric}>
-        <FormInput.RadioGroup
-          name={SLOFormFields.SLI_METRIC_TYPE}
-          radioGroup={{ inline: true }}
-          items={getSLIMetricOptions(getString)}
-        />
+        <Heading level={2} font={{ variation: FontVariation.FORM_TITLE }} margin={{ top: 'xlarge', bottom: 'large' }}>
+          {getString('cv.slos.pickMetricsSLI')}
+        </Heading>
         <Layout.Horizontal spacing="xxlarge">
-          <Container padding={{ right: 'xxlarge' }} border={{ right: true }}>
+          <Container width="50%" padding={{ right: 'xxlarge' }} border={{ right: true }}>
+            <Layout.Vertical width="80%">
+              <FormInput.RadioGroup
+                name={SLOFormFields.SLI_METRIC_TYPE}
+                className={css.radioGroup}
+                items={radioItems}
+              />
+            </Layout.Vertical>
             {isRatioBasedMetric && (
               <Layout.Horizontal spacing="xlarge">
                 <FormInput.Select
@@ -170,10 +197,11 @@ const PickMetric: React.FC<Omit<SLOPanelProps, 'children'>> = ({ formikProps }) 
             />
           </Container>
 
-          <Container height="inherit" width="100%" margin={{ left: 'xxlarge' }}>
-            <SLOTargetChart
+          <Container height="inherit" width="50%" className={css.graphContainer} padding={{ left: 'xxlarge' }}>
+            <SLOTargetChartWrapper
               monitoredServiceIdentifier={monitoredServiceRef}
               serviceLevelIndicator={convertSLOFormDataToServiceLevelIndicatorDTO(formikProps.values)}
+              {...rest}
               topLabel={
                 <Text
                   font={{ variation: FontVariation.TINY_SEMI }}
@@ -187,7 +215,6 @@ const PickMetric: React.FC<Omit<SLOPanelProps, 'children'>> = ({ formikProps }) 
                 chart: { height: isRatioBasedMetric ? 280 : 220 },
                 yAxis: { min: 0, max: 100, tickInterval: 25 }
               }}
-              debounceWait={2000}
             />
           </Container>
         </Layout.Horizontal>

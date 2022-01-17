@@ -56,6 +56,7 @@ exports[`SLOCardHeader Render sample card 1`] = `
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-small StyledProps--color StyledProps--color-grey400"
+          style="width: 100px;"
         >
           connectors.cdng.monitoredService.label
           :
@@ -66,7 +67,12 @@ exports[`SLOCardHeader Render sample card 1`] = `
           <p
             class="StyledProps--font StyledProps--main StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-primary6"
           >
-            Monitored Service Name
+            serviceName
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-primary6"
+          >
+            env
           </p>
         </a>
       </div>
@@ -75,12 +81,13 @@ exports[`SLOCardHeader Render sample card 1`] = `
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-small StyledProps--color StyledProps--color-grey400"
+          style="width: 100px;"
         >
           cv.slos.sliType
           :
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-primary6"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-grey700"
         >
           Availability
         </p>
@@ -90,12 +97,13 @@ exports[`SLOCardHeader Render sample card 1`] = `
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-small StyledProps--color StyledProps--color-grey400"
+          style="width: 100px;"
         >
           cv.slos.healthSource
           :
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-primary6"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-grey700"
         >
           Health Source Name
         </p>
@@ -105,12 +113,13 @@ exports[`SLOCardHeader Render sample card 1`] = `
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-small StyledProps--color StyledProps--color-grey400"
+          style="width: 100px;"
         >
           cv.slos.sloTargetAndBudget.periodType
           :
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-primary6"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-grey700"
         >
           Rolling
         </p>
@@ -120,12 +129,13 @@ exports[`SLOCardHeader Render sample card 1`] = `
       >
         <p
           class="StyledProps--font StyledProps--main StyledProps--font-variation-small StyledProps--color StyledProps--color-grey400"
+          style="width: 100px;"
         >
           cv.periodLength
           :
         </p>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-primary6"
+          class="StyledProps--font StyledProps--main StyledProps--font-variation-small-bold StyledProps--color StyledProps--color-grey700"
         >
           cv.nDays
         </p>

@@ -125,12 +125,6 @@ jest.mock('@cv/hooks/IndexedDBHook/IndexedDBHook', () => ({
   CVObjectStoreNames: {}
 }))
 
-jest.mock('react-monaco-editor', () => (props: any) => (
-  <Container className="monaco-editor">
-    <button className="monaco-editor-onChangebutton" onClick={() => props.onChange('{ "sdfsdffdf": "2132423" }')} />
-  </Container>
-))
-
 const MockValidationResponse = {
   metaData: {},
   data: [
@@ -343,7 +337,6 @@ const initialData = {
 describe('Unit tests for MapGCOMetricsToServices', () => {
   beforeAll(() => {
     jest.useFakeTimers()
-    jest.spyOn(cvService, 'useGetLabelNames').mockReturnValue({ data: { data: [] } } as any)
     jest.spyOn(cvService, 'useGetMetricNames').mockReturnValue({ data: { data: [] } } as any)
     jest.spyOn(cvService, 'useGetMetricPacks').mockReturnValue({ data: { data: [] } } as any)
   })
@@ -470,14 +463,7 @@ describe('Unit tests for MapGCOMetricsToServices', () => {
     act(() => {
       fireEvent.click(container.querySelector('[data-icon="fullscreen"]')!)
     })
-    await waitFor(() => expect(document.body.querySelector('[class*="monaco-editor"]')).not.toBeNull())
-    const changeButton = document.body.querySelector('button.monaco-editor-onChangebutton')
-    if (!changeButton) {
-      throw Error('button did not render.')
-    }
-
-    fireEvent.click(changeButton)
-    await waitFor(() => expect(container.querySelector('textarea')?.innerHTML).toEqual('{ "sdfsdffdf": "2132423" }'))
+    await waitFor(() => expect(document.body.querySelector('[data-testid="monaco-editor"]')).not.toBeNull())
     await waitFor(() => expect(mutateMock).toHaveBeenCalledTimes(1))
   })
 

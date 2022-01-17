@@ -83,7 +83,9 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
-      orgIdentifier
+      orgIdentifier,
+      repoIdentifier,
+      branch
     },
     requestOptions: { headers: { 'content-type': 'application/json' } }
   })
@@ -226,10 +228,7 @@ export const TemplateStudioSubHeaderLeftView: (props: TemplateStudioSubHeaderLef
       hideConfigModal()
       setModalProps({
         title: getString('templatesLibrary.createNewModal.heading', { entity: template.type }),
-        promise: onSubmit,
-        onSuccess: () => {
-          hideConfigModal()
-        }
+        promise: onSubmit
       })
       showConfigModal()
     }

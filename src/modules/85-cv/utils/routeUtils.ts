@@ -1,5 +1,6 @@
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { PipelineInfoConfig } from 'services/cd-ng'
+import { getStepType } from '@pipeline/utils/templateUtils'
 
 export const ActivitySourceSetupRoutePaths = {
   KUBERNETES: 'kubernetes',
@@ -39,6 +40,12 @@ export const editParams = {
 
 export const isVerifyStepPresent = (pipeline: PipelineInfoConfig): boolean => {
   return !!pipeline?.stages?.some(el =>
-    el?.stage?.spec?.execution?.steps?.some(step => step?.step?.type === StepType.Verify)
+    el?.stage?.spec?.execution?.steps?.some(step => {
+      if (step?.step) {
+        return getStepType(step?.step) === StepType.Verify
+      } else {
+        return false
+      }
+    })
   )
 }

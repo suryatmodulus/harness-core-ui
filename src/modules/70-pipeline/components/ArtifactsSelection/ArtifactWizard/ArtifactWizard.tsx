@@ -1,8 +1,7 @@
 import React from 'react'
-import { StepWizard, StepProps, Icon, MultiTypeInputType } from '@wings-software/uicore'
+import { StepWizard, Icon, MultiTypeInputType } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { String, StringKeys, useStrings } from 'framework/strings'
-import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { ArtifactoryRepoType } from '../ArtifactRepository/ArtifactoryRepoType'
 import { ArtifactConnector } from '../ArtifactRepository/ArtifactConnector'
 import type { InitialArtifactDataType, ConnectorRefLabelType, ArtifactType } from '../ArtifactInterface'
@@ -18,7 +17,7 @@ interface ArtifactWizardProps {
   handleViewChange: (isConnectorView: boolean) => void
   artifactInitialValue: InitialArtifactDataType
   types: Array<ArtifactType>
-  lastSteps?: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> | null
+  lastSteps: JSX.Element
   newConnectorSteps?: any
   expressions: string[]
   labels: ConnectorRefLabelType
@@ -90,8 +89,7 @@ const ArtifactWizard: React.FC<ArtifactWizardProps> = ({
       />
 
       {newConnectorView ? newConnectorSteps : null}
-
-      {lastSteps?.length ? lastSteps?.map(step => step) : null}
+      {lastSteps}
     </StepWizard>
   )
 }

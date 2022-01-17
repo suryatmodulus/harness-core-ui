@@ -93,7 +93,7 @@ describe('Service Account Details Page Test', () => {
     container = renderObj.container
     getAllByText = renderObj.getAllByText
     getByTestId = renderObj.getByTestId
-    await waitFor(() => getAllByText('accessControl'))
+    await waitFor(() => getAllByText('accessControl: rbac.serviceAccounts.label'))
   })
   test('render data', () => {
     expect(container).toMatchSnapshot()

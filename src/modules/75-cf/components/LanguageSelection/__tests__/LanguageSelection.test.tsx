@@ -27,6 +27,7 @@ describe('LanguageSelection', () => {
     expect(screen.getByText('Java')).toBeInTheDocument()
     expect(screen.getByText('JavaScript')).toBeInTheDocument()
     expect(screen.getByText('NodeJS')).toBeInTheDocument()
+    expect(screen.getByText('Python')).toBeInTheDocument()
   })
 
   test('should call onSelectMock and the class of the selected button is changed when NodeJS SDK language button is clicked', async () => {

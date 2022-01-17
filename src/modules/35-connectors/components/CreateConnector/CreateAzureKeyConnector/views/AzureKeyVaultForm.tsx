@@ -62,7 +62,7 @@ const AzureKeyVaultForm: React.FC<StepProps<StepDetailsProps> & ConnectorDetails
         enableReinitialize
         initialValues={{ ...initialValues, ...prevStepData }}
         validationSchema={Yup.object().shape({
-          clientId: Yup.string().required(getString('connectors.azureKeyVault.validation.clientId')),
+          clientId: Yup.string().required(getString('common.validation.clientIdIsRequired')),
           tenantId: Yup.string().required(getString('connectors.azureKeyVault.validation.tenantId')),
           subscription: Yup.string().required(getString('connectors.azureKeyVault.validation.subscription')),
           secretKey: Yup.string().when('vaultName', {

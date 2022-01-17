@@ -61,12 +61,8 @@ const ServiceAccountDetails: React.FC = () => {
           <NGBreadcrumbs
             links={[
               {
-                url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
-                label: getString('accessControl')
-              },
-              {
                 url: routes.toServiceAccounts({ accountId, orgIdentifier, projectIdentifier, module }),
-                label: getString('rbac.serviceAccounts.label')
+                label: `${getString('accessControl')}: ${getString('rbac.serviceAccounts.label')}`
               }
             ]}
           />

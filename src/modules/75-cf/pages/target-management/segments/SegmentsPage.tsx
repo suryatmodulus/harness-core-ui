@@ -38,6 +38,8 @@ import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
+import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
+import UsageLimitBanner from '@cf/components/UsageLimitBanner/UsageLimitBanner'
 import { NoSegmentsView } from './NoSegmentsView'
 import { NewSegmentButton } from './NewSegmentButton'
 
@@ -94,6 +96,8 @@ export const SegmentsPage: React.FC = () => {
   const noSegmentExists = segmentsData?.segments?.length === 0
   const noEnvironmentExists = !loadingEnvironments && environments?.length === 0
   const title = getString('cf.shared.segments')
+
+  const { isPlanEnforcementEnabled } = usePlanEnforcement()
 
   const gotoSegmentDetailPage = useCallback(
     (identifier: string): void => {
@@ -283,15 +287,18 @@ export const SegmentsPage: React.FC = () => {
       }}
     />
   ) : (
-    <Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}>
-      <TableV2<Segment>
-        columns={columns}
-        data={segmentsData?.segments || []}
-        onRowClick={segment => {
-          gotoSegmentDetailPage(segment.identifier as string)
-        }}
-      />
-    </Container>
+    <>
+      {isPlanEnforcementEnabled && <UsageLimitBanner />}
+      <Container padding={{ top: 'medium', right: 'xxlarge', left: 'xxlarge' }}>
+        <TableV2<Segment>
+          columns={columns}
+          data={segmentsData?.segments || []}
+          onRowClick={segment => {
+            gotoSegmentDetailPage(segment.identifier as string)
+          }}
+        />
+      </Container>
+    </>
   )
 
   return (

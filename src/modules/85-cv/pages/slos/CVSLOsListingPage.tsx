@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo, useReducer } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import {
-  Text,
   useToaster,
   ButtonVariation,
-  FontVariation,
   CardSelect,
   CardSelectType,
   Card,
@@ -19,52 +17,91 @@ import { useStrings } from 'framework/strings'
 import { PermissionIdentifier, ResourceType } from 'microfrontends'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
-import { useDeleteSLOData, useGetAllJourneys, useGetSLODashboardWidgets, UserJourneyDTO } from 'services/cv'
+import {
+  useDeleteSLOData,
+  useGetAllJourneys,
+  useGetAllMonitoredServicesWithTimeSeriesHealthSources,
+  useGetSLODashboardWidgets,
+  useGetServiceLevelObjectivesRiskCount,
+  RiskCount
+} from 'services/cv'
 import RbacButton from '@rbac/components/Button/Button'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
+import SLOCardSelect from './components/SLOCardSelect/SLOCardSelect'
+import type { CVSLOsListingPageProps, SLORiskFilter } from './CVSLOsListingPage.types'
 import {
-  PAGE_SIZE_DASHBOARD_WIDGETS,
-  LIST_USER_JOURNEYS_OFFSET,
-  LIST_USER_JOURNEYS_PAGESIZE
-} from './CVSLOsListingPage.constants'
-import type { CVSLOsListingPageProps } from './CVSLOsListingPage.types'
-import { getUserJourneys } from './CVSLOListingPage.utils'
+  getErrorObject,
+  getIsSLODashboardAPIsLoading,
+  getSLORiskTypeFilter,
+  getIsWidgetDataEmpty,
+  getIsDataEmpty,
+  getIsSetPreviousPage,
+  sloFilterReducer,
+  SLODashboardFilterActions,
+  getInitialFilterStateLazy,
+  getSLODashboardWidgetsParams,
+  getServiceLevelObjectivesRiskCountParams,
+  getUserJourneyParams,
+  getMonitoredServicesInitialState,
+  getInitialFilterState
+} from './CVSLOListingPage.utils'
+import SLODashbordFilters from './components/SLODashbordFilters/SLODashbordFilters'
 import SLOCardHeader from './SLOCard/SLOCardHeader'
 import SLOCardContent from './SLOCard/SLOCardContent'
 import css from './CVSLOsListingPage.module.scss'
 
-const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceIdentifier }) => {
+const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredService }) => {
   const history = useHistory()
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
 
-  const [selectedUserJourney, setSelectedUserJourney] = useState<UserJourneyDTO>()
+  const [filterState, dispatch] = useReducer(sloFilterReducer, getInitialFilterState(getString), passedInitialState =>
+    getInitialFilterStateLazy(passedInitialState, monitoredService)
+  )
+
+  useEffect(() => {
+    if (monitoredService?.identifier) {
+      dispatch(SLODashboardFilterActions.updateMonitoredServices(getMonitoredServicesInitialState(monitoredService)))
+    }
+  }, [monitoredService])
   const [pageNumber, setPageNumber] = useState(0)
 
   useEffect(() => {
     setPageNumber(0)
-    setSelectedUserJourney(undefined)
   }, [projectIdentifier])
+
+  const pathParams = useMemo(() => {
+    return {
+      accountId,
+      orgIdentifier,
+      projectIdentifier
+    }
+  }, [accountId, orgIdentifier, projectIdentifier])
 
   const {
     data: dashboardWidgetsResponse,
     loading: dashboardWidgetsLoading,
     refetch: refetchDashboardWidgets,
     error: dashboardWidgetsError
-  } = useGetSLODashboardWidgets({
-    queryParams: {
-      accountId,
-      orgIdentifier,
-      projectIdentifier,
-      monitoredServiceIdentifier,
-      userJourneyIdentifiers: selectedUserJourney?.identifier ? [selectedUserJourney.identifier] : undefined,
-      pageNumber,
-      pageSize: PAGE_SIZE_DASHBOARD_WIDGETS
-    },
-    queryParamStringifyOptions: {
-      arrayFormat: 'repeat'
-    }
+  } = useGetSLODashboardWidgets(getSLODashboardWidgetsParams(pathParams, getString, filterState, pageNumber))
+
+  const {
+    data: riskCountResponse,
+    loading: riskCountLoading,
+    refetch: refetchRiskCount,
+    error: dashboardRiskCountError
+  } = useGetServiceLevelObjectivesRiskCount(
+    getServiceLevelObjectivesRiskCountParams(pathParams, getString, filterState)
+  )
+
+  const {
+    data: monitoredServicesData,
+    loading: monitoredServicesLoading,
+    error: monitoredServicesDataError,
+    refetch: refetchMonitoredServicesData
+  } = useGetAllMonitoredServicesWithTimeSeriesHealthSources({
+    queryParams: pathParams
   })
 
   const {
@@ -81,34 +118,21 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
     loading: userJourneysLoading,
     error: userJourneysError,
     refetch: refetchUserJourneys
-  } = useGetAllJourneys({
-    queryParams: {
-      accountId,
-      orgIdentifier,
-      projectIdentifier,
-      offset: LIST_USER_JOURNEYS_OFFSET,
-      pageSize: LIST_USER_JOURNEYS_PAGESIZE
-    }
-  })
+  } = useGetAllJourneys(getUserJourneyParams(pathParams))
 
   const { mutate: deleteSLO, loading: deleteSLOLoading } = useDeleteSLOData({
-    queryParams: {
-      accountId,
-      orgIdentifier,
-      projectIdentifier
-    }
+    queryParams: pathParams
   })
 
   const onDelete = async (identifier: string, name: string): Promise<void> => {
     try {
       await deleteSLO(identifier)
-
-      if (pageIndex && pageItemCount === 1) {
+      if (getIsSetPreviousPage(pageIndex, pageItemCount)) {
         setPageNumber(prevPageNumber => prevPageNumber - 1)
       } else {
         await refetchDashboardWidgets()
       }
-
+      await refetchRiskCount()
       showSuccess(getString('cv.slos.sloDeleted', { name }))
     } catch (e) {
       showError(getErrorMessage(e))
@@ -133,18 +157,24 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
     />
   )
 
-  const onFilter = (userJourney: UserJourneyDTO): void => {
+  const onFilter = (currentRiskFilter: SLORiskFilter): void => {
     setPageNumber(0)
-    if (selectedUserJourney?.identifier === userJourney.identifier) {
-      setSelectedUserJourney(undefined)
+    const { updateSloRiskType } = SLODashboardFilterActions
+    if (filterState.sloRiskFilter?.identifier === currentRiskFilter.identifier) {
+      dispatch(updateSloRiskType({ sloRiskFilter: null }))
     } else {
-      setSelectedUserJourney(userJourney)
+      dispatch(updateSloRiskType({ sloRiskFilter: currentRiskFilter }))
     }
   }
 
+  const filterItemsData = useMemo(
+    () => ({ userJourney: userJourneysData, monitoredServices: monitoredServicesData }),
+    [userJourneysData, monitoredServicesData]
+  )
+
   return (
     <>
-      {!monitoredServiceIdentifier && (
+      {!monitoredService?.identifier && (
         <>
           <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('cv.slos.title')} />
           <Page.Header title={addNewSLO} />
@@ -152,8 +182,16 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
       )}
 
       <Page.Body
-        loading={userJourneysLoading || dashboardWidgetsLoading || deleteSLOLoading}
-        error={getErrorMessage(dashboardWidgetsError || userJourneysError)}
+        loading={getIsSLODashboardAPIsLoading(
+          userJourneysLoading,
+          dashboardWidgetsLoading,
+          deleteSLOLoading,
+          monitoredServicesLoading,
+          riskCountLoading
+        )}
+        error={getErrorMessage(
+          getErrorObject(dashboardWidgetsError, userJourneysError, dashboardRiskCountError, monitoredServicesDataError)
+        )}
         retryOnError={() => {
           if (dashboardWidgetsError) {
             refetchDashboardWidgets()
@@ -161,23 +199,43 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
           if (userJourneysError) {
             refetchUserJourneys()
           }
+          if (monitoredServicesDataError) {
+            refetchMonitoredServicesData()
+          }
+
+          if (dashboardRiskCountError) {
+            refetchRiskCount()
+          }
         }}
         noData={{
-          when: () => !content?.length && !selectedUserJourney,
+          when: () => getIsDataEmpty(content?.length, riskCountResponse?.data?.riskCounts?.length),
           message: getString('cv.slos.noData'),
           icon: 'join-table'
         }}
         className={css.pageBody}
       >
         <Layout.Vertical height="100%" padding={{ top: 'medium', left: 'xlarge', right: 'xlarge', bottom: 'xlarge' }}>
-          <CardSelect
+          <SLODashbordFilters
+            filterState={filterState}
+            dispatch={dispatch}
+            filterItemsData={filterItemsData}
+            hideMonitoresServicesFilter={Boolean(monitoredService)}
+          />
+
+          <CardSelect<SLORiskFilter>
             type={CardSelectType.CardView}
-            data={getUserJourneys(userJourneysData?.data?.content)}
-            cardClassName={css.userJourney}
-            renderItem={({ name }) => <Text font={{ variation: FontVariation.FORM_HELP }}>{name}</Text>}
-            selected={selectedUserJourney}
+            data={getSLORiskTypeFilter(
+              getString,
+              riskCountResponse?.data?.riskCounts as RiskCount[] | undefined,
+              riskCountResponse?.data?.totalCount
+            )}
+            cardClassName={css.sloRiskFilterCard}
+            renderItem={({ ...props }) => <SLOCardSelect key={props.identifier} {...props} />}
+            selected={filterState.sloRiskFilter as SLORiskFilter}
             onChange={onFilter}
           />
+
+          <hr />
 
           {!!content?.length && (
             <>
@@ -187,7 +245,7 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
                     <SLOCardHeader
                       onDelete={onDelete}
                       serviceLevelObjective={serviceLevelObjective}
-                      monitoredServiceIdentifier={monitoredServiceIdentifier}
+                      monitoredServiceIdentifier={monitoredService?.identifier}
                     />
                     <SLOCardContent serviceLevelObjective={serviceLevelObjective} />
                   </Card>
@@ -204,7 +262,7 @@ const CVSLOsListingPage: React.FC<CVSLOsListingPageProps> = ({ monitoredServiceI
             </>
           )}
 
-          {!content?.length && !dashboardWidgetsLoading && (
+          {getIsWidgetDataEmpty(content?.length, dashboardWidgetsLoading) && (
             <NoDataCard icon="join-table" message={getString('cv.slos.noData')} />
           )}
         </Layout.Vertical>

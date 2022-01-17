@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, act } from '@testing-library/react'
+import { render, act, fireEvent } from '@testing-library/react'
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
 import { StepViewType, StepFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -51,10 +51,15 @@ describe('ECR Step', () => {
 
   describe('Edit View', () => {
     test('should render properly', () => {
-      const { container } = render(
+      const { container, getByText } = render(
         <TestStepWidget initialValues={{}} type={StepType.ECR} stepViewType={StepViewType.Edit} />
       )
 
+      act(() => {
+        fireEvent.click(getByText('common.optionalConfig'))
+      })
+
+      expect(getByText('ci.remoteCacheImage.label')).toBeTruthy()
       expect(container).toMatchSnapshot()
     })
 

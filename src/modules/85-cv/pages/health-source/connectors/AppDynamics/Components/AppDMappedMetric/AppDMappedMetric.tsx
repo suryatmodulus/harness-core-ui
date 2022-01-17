@@ -5,7 +5,6 @@ import {
   Container,
   Accordion,
   SelectOption,
-  Utils,
   FormInput,
   Text,
   Color,
@@ -14,12 +13,7 @@ import {
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
-import {
-  useGetMetricPacks,
-  useGetLabelNames,
-  useGetServiceInstanceMetricPath,
-  AppDMetricDefinitions
-} from 'services/cv'
+import { useGetMetricPacks, useGetServiceInstanceMetricPath, AppDMetricDefinitions } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { SetupSourceCardHeader } from '@cv/components/CVSetupSourcesView/SetupSourceCardHeader/SetupSourceCardHeader'
@@ -57,14 +51,10 @@ export default function AppDMappedMetric({
   setCreatedMetrics
 }: AppDMappedMetricInterface): JSX.Element {
   const { getString } = useStrings()
-  const labelNameTracingId = useMemo(() => Utils.randomId(), [])
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
 
   const metricPackResponse = useGetMetricPacks({
     queryParams: { projectIdentifier, orgIdentifier, accountId, dataSourceType: 'APP_DYNAMICS' }
-  })
-  const labelNamesResponse = useGetLabelNames({
-    queryParams: { projectIdentifier, orgIdentifier, accountId, connectorIdentifier, tracingId: labelNameTracingId }
   })
 
   const { data: serviceInsanceData, refetch: refetchServiceInsance } = useGetServiceInstanceMetricPath({ lazy: true })
@@ -309,7 +299,6 @@ export default function AppDMappedMetric({
                         continuousVerification: !!formikValues?.continuousVerification
                       }}
                       metricPackResponse={metricPackResponse}
-                      labelNamesResponse={labelNamesResponse}
                       hideServiceIdentifier
                     />
                   </>

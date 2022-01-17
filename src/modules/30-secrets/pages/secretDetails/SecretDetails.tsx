@@ -11,7 +11,8 @@ import {
   VisualYamlSelectedView as SelectedView,
   VisualYamlToggle,
   useConfirmationDialog,
-  useToaster
+  useToaster,
+  getErrorInfoFromErrorObject
 } from '@wings-software/uicore'
 
 import {
@@ -157,7 +158,7 @@ const YAMLSecretDetails: React.FC<YAMLSecretDetailsProps> = ({ refetch, secretDa
         setEdit(false)
         refetch?.()
       } catch (err) {
-        showError(defaultTo(err.data?.message, err.message))
+        showError(getErrorInfoFromErrorObject(err, true))
       }
     }
   }

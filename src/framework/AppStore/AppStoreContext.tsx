@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { fromPairs } from 'lodash-es'
-import { PageSpinner } from '@wings-software/uicore'
+import { PageSpinner } from '@harness/uicore'
 import { useQueryParams } from '@common/hooks'
 import {
   Project,
@@ -85,7 +85,9 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
     },
     lazy: true
   })
-  const { data: userInfo, loading: userInfoLoading } = useGetCurrentUserInfo({})
+  const { data: userInfo, loading: userInfoLoading } = useGetCurrentUserInfo({
+    queryParams: { accountIdentifier: accountId }
+  })
 
   const { source } = useQueryParams<{ source?: string }>()
 

@@ -3,6 +3,7 @@ import { defaultTo } from 'lodash-es'
 import { useDeepCompareEffect } from '@common/hooks'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import type { TemplateSummaryResponse } from 'services/template-ng'
+import type { SelectorData } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { AddStageView } from './views/AddStageView'
 import type { PipelineStageProps } from './PipelineStage'
 
@@ -19,7 +20,7 @@ export interface PipelineStagesProps<T = Record<string, unknown>> {
   contextType?: string
   templateTypes: { [key: string]: string }
   setTemplateTypes: (data: { [key: string]: string }) => void
-  openTemplateSelector: (selectorData: any) => void
+  openTemplateSelector: (selectorData: SelectorData) => void
   closeTemplateSelector: () => void
 }
 
@@ -83,27 +84,17 @@ export function PipelineStages<T = Record<string, unknown>>({
   }, [selected])
 
   const onUseTemplate = React.useCallback(
-    (templateSummary: TemplateSummaryResponse) => {
-      closeTemplateSelector?.()
-      if (getNewStageFromType) {
-        setTemplate(templateSummary)
-        setShowMenu(false)
-        setType(templateSummary.childType)
-        setStageData(getNewStageFromType?.(templateSummary.childType || '', true))
-      } else {
-        onSelectStage?.(defaultTo(templateSummary.childType, ''))
-      }
-    },
-    [closeTemplateSelector, onSelectStage]
-  )
-
-  const onCopyTemplate = React.useCallback(
-    (templateSummary: TemplateSummaryResponse) => {
+    (templateSummary: TemplateSummaryResponse, isCopied = false) => {
       closeTemplateSelector?.()
       if (getNewStageFromType) {
         setShowMenu(false)
         setType(templateSummary.childType)
-        setStageData(getNewStageFromTemplate?.(templateSummary, true))
+        if (isCopied) {
+          setStageData(getNewStageFromTemplate?.(templateSummary, true))
+        } else {
+          setStageData(getNewStageFromType?.(templateSummary.childType || '', true))
+          setTemplate(templateSummary)
+        }
       } else {
         onSelectStage?.(defaultTo(templateSummary.childType, ''))
       }
@@ -114,10 +105,9 @@ export function PipelineStages<T = Record<string, unknown>>({
   const onOpenTemplateSelector = React.useCallback(() => {
     openTemplateSelector?.({
       templateType: 'Stage',
-      onUseTemplate,
-      onCopyTemplate
+      onUseTemplate
     })
-  }, [openTemplateSelector, onUseTemplate, onCopyTemplate])
+  }, [openTemplateSelector, onUseTemplate])
 
   const selectedStageIndex = selected?.index || 0
   const stage = React.Children.toArray(children)[selectedStageIndex] as React.ReactElement<PipelineStageProps>

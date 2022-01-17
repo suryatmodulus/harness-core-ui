@@ -15,7 +15,8 @@ import {
   FormikForm,
   Layout,
   NestedAccordionProvider,
-  Heading,
+  FontVariation,
+  Text,
   Color,
   ButtonVariation,
   PageHeader,
@@ -697,13 +698,14 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
     <React.Fragment>
       <GitSyncStoreProvider>
         <PageHeader
+          className={css.pageHeaderStyles}
           title={
-            <Layout.Horizontal>
-              <Heading level={2} color={Color.GREY_800} font={{ weight: 'bold' }}>
+            <Layout.Horizontal width="42%">
+              <Text lineClamp={1} color={Color.GREY_800} font={{ weight: 'bold', variation: FontVariation.H4 }}>
                 {isEdit
                   ? getString('inputSets.editTitle', { name: inputSet.name })
                   : getString('inputSets.newInputSetLabel')}
-              </Heading>
+              </Text>
               {isGitSyncEnabled && isEdit && (
                 <GitPopover data={inputSet.gitDetails || {}} iconProps={{ margin: { left: 'small', top: 'xsmall' } }} />
               )}

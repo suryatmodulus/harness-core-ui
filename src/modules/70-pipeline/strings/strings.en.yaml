@@ -665,6 +665,7 @@ testsReports:
     requiresEnterprisePlan: Requires Enterprise Plan to access Test Intelligence
 uniqueIdentifier: Identifier must be unique
 inputSets:
+  inputSetNameLabel: Input Set Name
   applyInputSet: Apply Input Set
   applyInputSets: Apply Input Sets
   applyingInputSets: Applying Input Sets

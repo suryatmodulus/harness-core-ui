@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Layout, Text } from '@wings-software/uicore'
@@ -28,7 +35,7 @@ export default function UserNav(): React.ReactElement {
     try {
       await logout()
       AppStorage.clear()
-      history.push({ pathname: routes.toRedirect(), search: returnUrlParams(getLoginPageURL({})) })
+      history.push({ pathname: routes.toRedirect(), search: returnUrlParams(getLoginPageURL({ action: 'signout' })) })
       return
     } catch (err) {
       showError(get(err, 'responseMessages[0].message', getString('somethingWentWrong')))

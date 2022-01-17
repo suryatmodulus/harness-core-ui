@@ -224,8 +224,10 @@ hashiCorpVault:
   sinkPath: Sink Path
   sinkPathIsRequired: Sink Path is required
 nexus:
+  nexusLabel: Nexus
   nexusServerUrl: 'Nexus Repository URL'
 artifactory:
+  artifactoryLabel: Artifactory
   artifactoryServerUrl: 'Artifactory Repository URL'
 GCP:
   delegateOutClusterInfo: 'Specify credentials here'

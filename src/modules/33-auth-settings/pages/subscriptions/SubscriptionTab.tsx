@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { ReactElement, useState, useEffect } from 'react'
 import cx from 'classnames'
 
@@ -14,6 +21,7 @@ import type { AccountPathProps, Module } from '@common/interfaces/RouteInterface
 
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { StringsMap } from 'stringTypes'
+import { useCommunity } from 'framework/LicenseStore/useCommunity'
 
 import SubscriptionOverview from './overview/SubscriptionOverview'
 import SubscriptionBanner from './SubscriptionBanner'
@@ -67,6 +75,7 @@ const SubscriptionTab = ({
   refetchGetLicense
 }: SubscriptionTabProps): ReactElement => {
   const { PLANS_ENABLED } = useFeatureFlags()
+  const isCommunity = useCommunity()
 
   const [selectedSubscriptionTab, setSelectedSubscriptionTab] = useState<SubscriptionTabInfo>(SUBSCRIPTION_TABS[0])
   const { getString } = useStrings()
@@ -116,8 +125,8 @@ const SubscriptionTab = ({
       )
     })
 
-    // show Plans tab only when feature flag is on
-    if (!PLANS_ENABLED) {
+    // show Plans tab only when feature flag is on, always show for community edition
+    if (!isCommunity && !PLANS_ENABLED) {
       tabs.splice(1, 1)
     }
 

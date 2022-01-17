@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useState, useEffect, useRef } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import cronstrue from 'cronstrue'
@@ -63,9 +70,10 @@ import { CCM_CHART_TYPES, ENFORCEMENT_USAGE_THRESHOLD } from '@ce/constants'
 import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Chart'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useGetUsageAndLimit } from '@auth-settings/hooks/useGetUsageAndLimit'
-import { useFeature } from '@common/hooks/useFeatures'
 import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import FeatureWarningSubscriptionInfoBanner from '@common/components/FeatureWarning/FeatureWarningSubscriptionInfoBanner'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './PerspectiveDetailsPage.module.scss'
 
 const PAGE_SIZE = 10
@@ -350,11 +358,7 @@ const PerspectiveDetailsPage: React.FC = () => {
     !chartFetching &&
     !gridFetching
 
-  const { enabled: featureEnabled } = useFeature({
-    featureRequest: {
-      featureName: FeatureIdentifier.PERSPECTIVES
-    }
-  })
+  const featureEnforced = useFeatureFlag(FeatureFlag.FEATURE_ENFORCEMENT_ENABLED)
 
   const { licenseInformation } = useLicenseStore()
   const isFreeEdition = licenseInformation['CE']?.edition === ModuleLicenseType.FREE
@@ -386,12 +390,12 @@ const PerspectiveDetailsPage: React.FC = () => {
           timeRange={timeRange}
           showHourlyAggr={isClusterOnly}
         />
-        {!featureEnabled && usagePercentage > ENFORCEMENT_USAGE_THRESHOLD && (
+        {featureEnforced && usagePercentage > ENFORCEMENT_USAGE_THRESHOLD ? (
           <FeatureWarningSubscriptionInfoBanner
             featureName={FeatureIdentifier.PERSPECTIVES}
             message={getString('ce.perspectives.featureWarningSubInfoText', { usagePercentage: usagePercentage })}
           />
-        )}
+        ) : null}
         <PerspectiveSummary
           data={summaryData?.perspectiveTrendStats as any}
           fetching={summaryFetching}

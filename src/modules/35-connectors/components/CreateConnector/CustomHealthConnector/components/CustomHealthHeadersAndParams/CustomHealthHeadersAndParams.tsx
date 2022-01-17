@@ -1,4 +1,12 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useEffect, useState } from 'react'
+import { cloneDeep } from 'lodash-es'
 import {
   Container,
   FormikForm,
@@ -14,7 +22,7 @@ import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { CustomHealthKeyValueMapper } from '../CustomHealthKeyValueMapper/CustomHealthKeyValueMapper'
 import type { BaseCompFields, CustomHealthHeadersAndParamsProps } from './CustomHealthHeadersAndParams.types'
-import { FieldNames } from './CustomHealthHeadersAndParams.constants'
+import { DefaultHeadersAndParamsInitialValues, FieldNames } from './CustomHealthHeadersAndParams.constants'
 import { transformSpecDataToStepData, validateHeadersAndParams } from './CustomHealthHeadersAndParams.utils'
 import css from './CustomHealthHeadersAndParams.module.scss'
 
@@ -33,7 +41,7 @@ export function CustomHealthHeadersAndParams(props: CustomHealthHeadersAndParams
 
   const { getString } = useStrings()
   const [loading, setLoading] = useState<boolean>(true)
-  const [initialValues, setInitialValues] = useState<BaseCompFields>({ headers: [], params: [], baseURL: '' })
+  const [initialValues, setInitialValues] = useState<BaseCompFields>(cloneDeep(DefaultHeadersAndParamsInitialValues))
 
   useEffect(() => {
     transformSpecDataToStepData(prevStepData, {

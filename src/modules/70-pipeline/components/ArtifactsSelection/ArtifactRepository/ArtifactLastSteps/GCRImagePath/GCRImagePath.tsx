@@ -1,5 +1,11 @@
-import React from 'react'
-import { Menu } from '@blueprintjs/core'
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
+import React, { useState, useEffect } from 'react'
 import {
   Formik,
   FormInput,
@@ -14,35 +20,24 @@ import {
   ButtonVariation,
   FontVariation
 } from '@wings-software/uicore'
+import { Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { Form } from 'formik'
-import memoize from 'lodash-es/memoize'
 import * as Yup from 'yup'
-import { get } from 'lodash-es'
+import { get, memoize } from 'lodash-es'
 import { ArtifactConfig, ConnectorConfigDTO, useGetBuildDetailsForGcr } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
-import { EXPRESSION_STRING } from '@pipeline/utils/constants'
-import { getHelpeTextForTags } from '@pipeline/utils/stageHelpers'
-import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
-import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
-import css from '../../GCRArtifact.module.scss'
-
-export enum RegistryHostNames {
-  GCR_URL = 'gcr.io',
-  US_GCR_URL = 'us.gcr.io',
-  ASIA_GCR_URL = 'asia.gcr.io',
-  EU_GCR_URL = 'eu.gcr.io',
-  MIRROR_GCR_URL = 'mirror.gcr.io',
-  K8S_GCR_URL = 'k8s.gcr.io',
-  LAUNCHER_GCR_URL = 'launcher.gcr.io'
-}
+import { getConnectorIdValue, RegistryHostNames, resetTag } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
+import { ArtifactType, ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
+import { ArtifactIdentifierValidation } from '../../../ArtifactHelper'
+import ArtifactImagePathTagView from '../ArtifactImagePathTagView'
+import css from '../../ArtifactConnector.module.scss'
 
 export const gcrUrlList: SelectOption[] = Object.values(RegistryHostNames).map(item => ({ label: item, value: item }))
-
 export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
   context,
   expressions,
@@ -84,11 +79,11 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-  const [tagList, setTagList] = React.useState([])
-  const [lastQueryData, setLastQueryData] = React.useState({ imagePath: '', registryHostname: '' })
+  const [tagList, setTagList] = useState([])
+  const [lastQueryData, setLastQueryData] = useState({ imagePath: '', registryHostname: '' })
   const {
     data,
-    loading,
+    loading: gcrBuildDetailsLoading,
     refetch,
     error: gcrTagError
   } = useGetBuildDetailsForGcr({
@@ -107,7 +102,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
     lazy: true
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (gcrTagError) {
       setTagList([])
     } else if (Array.isArray(data?.data?.buildDetailsList)) {
@@ -115,12 +110,12 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
     }
   }, [data, gcrTagError])
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       lastQueryData.registryHostname.length &&
       lastQueryData.imagePath.length &&
-      getConnectorIdValue().length &&
-      getMultiTypeFromValue(getConnectorIdValue()) === MultiTypeInputType.FIXED &&
+      getConnectorIdValue(prevStepData).length &&
+      getMultiTypeFromValue(getConnectorIdValue(prevStepData)) === MultiTypeInputType.FIXED &&
       getMultiTypeFromValue(lastQueryData.registryHostname) === MultiTypeInputType.FIXED &&
       getMultiTypeFromValue(lastQueryData.imagePath) === MultiTypeInputType.FIXED
     ) {
@@ -128,23 +123,16 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
     }
   }, [lastQueryData, refetch])
 
-  const getSelectItems = React.useCallback(() => {
-    const list = tagList?.map(({ tag }: { tag: string }) => ({ label: tag, value: tag }))
-    return list
-  }, [tagList])
-  const tags = loading ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }] : getSelectItems()
-
   const defaultStepValues = (): ImagePathTypes => {
     return {
       identifier: '',
       imagePath: '',
-      tag: RUNTIME_INPUT_VALUE as string,
+      tag: RUNTIME_INPUT_VALUE,
       tagType: TagTypes.Value,
-      tagRegex: '',
+      tagRegex: RUNTIME_INPUT_VALUE,
       registryHostname: ''
     }
   }
-
   const getInitialValues = (): ImagePathTypes => {
     const specValues = get(initialValues, 'spec', null)
     if (selectedArtifact !== (initialValues as any)?.type || !specValues) {
@@ -168,7 +156,6 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
       setLastQueryData({ imagePath, registryHostname })
     }
   }
-
   const canFetchTags = (imagePath: string, registryHostname: string): boolean =>
     !!(
       imagePath.length &&
@@ -176,16 +163,6 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
       registryHostname.length &&
       (lastQueryData.imagePath !== imagePath || lastQueryData.registryHostname !== registryHostname)
     )
-
-  const getConnectorIdValue = (): string => {
-    if (getMultiTypeFromValue(prevStepData?.connectorId) !== MultiTypeInputType.FIXED) {
-      return prevStepData?.connectorId
-    }
-    if (prevStepData?.connectorId?.value) {
-      return prevStepData?.connectorId?.value
-    }
-    return prevStepData?.identifier || ''
-  }
 
   const submitFormData = (formData: ImagePathTypes & { connectorId?: string }): void => {
     const tagData =
@@ -207,7 +184,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
     handleSubmit(artifactObj)
   }
 
-  const itemRenderer = memoize((item: { label: string }, { handleClick }) => (
+  const registryHostNameRenderer = memoize((item: { label: string }, { handleClick }) => (
     <div key={item.label.toString()}>
       <Menu.Item
         text={
@@ -215,17 +192,11 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
             <Text>{item.label}</Text>
           </Layout.Horizontal>
         }
-        disabled={loading}
+        disabled={gcrBuildDetailsLoading}
         onClick={handleClick}
       />
     </div>
   ))
-  const resetTag = (formik: any): void => {
-    formik.values.tagType === 'value' &&
-      getMultiTypeFromValue(formik.values.tag?.value) === MultiTypeInputType.FIXED &&
-      formik.values.tag?.value?.length &&
-      formik.setFieldValue('tag', '')
-  }
   return (
     <Layout.Vertical spacing="medium" className={css.firstep}>
       <Text font={{ variation: FontVariation.H3 }} margin={{ bottom: 'medium' }}>
@@ -241,7 +212,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
             ...prevStepData,
             ...formData,
             tag: formData?.tag?.value ? formData?.tag?.value : formData?.tag,
-            connectorId: getConnectorIdValue()
+            connectorId: getConnectorIdValue(prevStepData)
           })
         }}
       >
@@ -275,7 +246,7 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                       allowCreatingNewItems: true,
                       addClearBtn: true,
                       items: gcrUrlList,
-                      itemRenderer: itemRenderer
+                      itemRenderer: registryHostNameRenderer
                     }
                   }}
                 />
@@ -296,133 +267,21 @@ export const GCRImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPro
                   </div>
                 )}
               </div>
-              <div className={css.imagePathContainer}>
-                <FormInput.MultiTextInput
-                  label={getString('pipeline.imagePathLabel')}
-                  name="imagePath"
-                  placeholder={getString('pipeline.artifactsSelection.existingDocker.imageNamePlaceholder')}
-                  multiTextInputProps={{ expressions, allowableTypes }}
-                  onChange={() => {
-                    tagList.length && setTagList([])
-                    resetTag(formik)
-                  }}
-                />
-                {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
-                  <div className={css.configureOptions}>
-                    <ConfigureOptions
-                      value={formik.values.imagePath as string}
-                      type="String"
-                      variableName="imagePath"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        formik.setFieldValue('imagePath', value)
-                      }}
-                      isReadonly={isReadonly}
-                    />
-                  </div>
-                )}
-              </div>
-
-              <div className={css.tagGroup}>
-                <FormInput.RadioGroup
-                  name="tagType"
-                  radioGroup={{ inline: true }}
-                  items={tagOptions}
-                  className={css.radioGroup}
-                />
-              </div>
-              {formik.values.tagType === 'value' ? (
-                <div className={css.imagePathContainer}>
-                  <FormInput.MultiTypeInput
-                    selectItems={tags}
-                    disabled={!formik.values?.imagePath?.length}
-                    helperText={
-                      getMultiTypeFromValue(formik.values?.tag) === MultiTypeInputType.FIXED &&
-                      getHelpeTextForTags(
-                        {
-                          imagePath: formik.values?.imagePath,
-                          registryHostname: formik.values?.registryHostname || '',
-                          connectorRef: getConnectorIdValue()
-                        },
-                        getString
-                      )
-                    }
-                    multiTypeInputProps={{
-                      expressions,
-                      allowableTypes,
-                      selectProps: {
-                        defaultSelectedItem: formik.values?.tag,
-                        noResults: (
-                          <Text lineClamp={1}>
-                            {get(gcrTagError, 'data.message', null) || getString('pipelineSteps.deploy.errors.notags')}
-                          </Text>
-                        ),
-                        items: tags,
-                        itemRenderer: itemRenderer,
-                        allowCreatingNewItems: true
-                      },
-                      onFocus: (e: any) => {
-                        if (
-                          e?.target?.type !== 'text' ||
-                          (e?.target?.type === 'text' && e?.target?.placeholder === EXPRESSION_STRING)
-                        ) {
-                          return
-                        }
-                        fetchTags(formik.values.imagePath, formik.values?.registryHostname)
-                      }
-                    }}
-                    label={getString('tagLabel')}
-                    name="tag"
-                  />
-                  {getMultiTypeFromValue(formik.values.tag) === MultiTypeInputType.RUNTIME && (
-                    <div className={css.configureOptions}>
-                      <ConfigureOptions
-                        value={formik.values.tag as string}
-                        type="String"
-                        variableName="tag"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => {
-                          formik.setFieldValue('tag', value)
-                        }}
-                        isReadonly={isReadonly}
-                      />
-                    </div>
-                  )}
-                </div>
-              ) : null}
-
-              {formik.values.tagType === 'regex' ? (
-                <div className={css.imagePathContainer}>
-                  <FormInput.MultiTextInput
-                    label={getString('tagRegex')}
-                    name="tagRegex"
-                    placeholder={getString('pipeline.artifactsSelection.existingDocker.enterTagRegex')}
-                    multiTextInputProps={{ expressions, allowableTypes }}
-                  />
-                  {getMultiTypeFromValue(formik.values.tagRegex) === MultiTypeInputType.RUNTIME && (
-                    <div className={css.configureOptions}>
-                      <ConfigureOptions
-                        value={formik.values.tagRegex as string}
-                        type="String"
-                        variableName="tagRegex"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => {
-                          formik.setFieldValue('tagRegex', value)
-                        }}
-                        isReadonly={isReadonly}
-                      />
-                    </div>
-                  )}
-                </div>
-              ) : null}
+              <ArtifactImagePathTagView
+                selectedArtifact={selectedArtifact as ArtifactType}
+                formik={formik}
+                expressions={expressions}
+                allowableTypes={allowableTypes}
+                isReadonly={isReadonly}
+                connectorIdValue={getConnectorIdValue(prevStepData)}
+                fetchTags={imagePath => fetchTags(imagePath, formik.values?.registryHostname)}
+                buildDetailsLoading={gcrBuildDetailsLoading}
+                tagError={gcrTagError}
+                tagList={tagList}
+                setTagList={setTagList}
+              />
             </div>
-            <Layout.Horizontal spacing="medium" className={css.saveBtn}>
+            <Layout.Horizontal spacing="medium">
               <Button
                 variation={ButtonVariation.SECONDARY}
                 text={getString('back')}

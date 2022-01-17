@@ -1,0 +1,32 @@
+{
+  "status": "SUCCESS",
+  "resource": {
+    "serviceLevelObjective": {
+      "name": "SLO-1",
+      "identifier": "SLO1",
+      "tags": {},
+      "userJourneyRef": "newone",
+      "monitoredServiceRef": "cvng_prod",
+      "healthSourceRef": "appd_cvng_prod",
+      "orgIdentifier": "default",
+      "projectIdentifier": "project1",
+      "serviceLevelIndicators": [
+        {
+          "type": "Latency",
+          "sliMissingDataType": "Good",
+          "spec": {
+            "type": "Ratio",
+            "spec": {
+              "eventType": "Good",
+              "metric1": "https_errors_per_min",
+              "metric2": "number_of_slow_calls",
+              "thresholdValue": 20,
+              "thresholdType": "<="
+            }
+          }
+        }
+      ],
+      "target": { "type": "Rolling", "sloTargetPercentage": 90, "spec": { "periodLength": "30d", "spec": {} } }
+    }
+  }
+}

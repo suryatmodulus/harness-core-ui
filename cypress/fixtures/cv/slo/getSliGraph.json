@@ -1,0 +1,11 @@
+{
+  "status": "SUCCESS",
+  "resource": {
+    "dataPoints": [
+      { "value": 100, "timeStamp": 1641904860000 },
+      { "value": 100, "timeStamp": 1641991200000 }
+    ],
+    "endTime": 1641991260000,
+    "startTime": 1641904860000
+  }
+}

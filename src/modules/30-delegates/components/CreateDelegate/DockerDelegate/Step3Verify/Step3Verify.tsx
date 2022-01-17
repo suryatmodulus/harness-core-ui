@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
@@ -44,7 +51,8 @@ const Step3Verify: React.FC<StepProps<DockerDelegateWizardData> & StepSuccessVer
         name: prevStepData?.name,
         identifier: prevStepData?.identifier,
         description: prevStepData?.description,
-        tags: prevStepData?.tags
+        tags: prevStepData?.tags,
+        tokenName: prevStepData?.tokenName
       } as any
       const response = (await createDelegateGroup(dockerData)) as any
       if (response?.ok) {

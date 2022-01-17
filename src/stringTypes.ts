@@ -636,6 +636,8 @@ export interface StringsMap {
   'common.validation.keyIsRequired': string
   'common.validation.nameIsRequired': string
   'common.validation.namePatternIsNotValid': string
+  'common.validation.provisionerIdentifierIsRequired': string
+  'common.validation.provisionerIdentifierPatternIsNotValid': string
   'common.validation.repositoryName': string
   'common.validation.testRepoIsRequired': string
   'common.validation.typeIsRequired': string
@@ -1004,6 +1006,23 @@ export interface StringsMap {
   'delegates.reviewYAML': string
   'delegates.selectors': string
   'delegates.successfullyUpdatedConfig': string
+  'delegates.tokens.createdBySystem': string
+  'delegates.tokens.delegateTokens': string
+  'delegates.tokens.generatedValuePlaceholder': string
+  'delegates.tokens.moreInfo': string
+  'delegates.tokens.moreInfoSubtitle': string
+  'delegates.tokens.moreInfoTitle': string
+  'delegates.tokens.noTokens': string
+  'delegates.tokens.revoke': string
+  'delegates.tokens.revokeToken': string
+  'delegates.tokens.revokeTokenSubtitle': string
+  'delegates.tokens.revoked': string
+  'delegates.tokens.showRevoked': string
+  'delegates.tokens.tokenBySearchNameNotExisting': string
+  'delegates.tokens.tokenNameNotUnique': string
+  'delegates.tokens.tokenNameRequired': string
+  'delegates.tokens.tokenNotUsedByDelegates': string
+  'delegates.tokens.tokenRequired': string
   'delegates.totalMemUnit': string
   'delegates.troubleshootOption': string
   'delegates.usedBy': string
@@ -1250,6 +1269,7 @@ export interface StringsMap {
   'connectors.appdLabel': string
   'connectors.artifactRepoType': string
   'connectors.artifactRepository': string
+  'connectors.artifactory.artifactoryLabel': string
   'connectors.artifactory.artifactoryServerUrl': string
   'connectors.aws.accessKey': string
   'connectors.aws.assumeIAMRole': string
@@ -1740,6 +1760,7 @@ export interface StringsMap {
   'connectors.newRelic.urlValidation': string
   'connectors.newRelicConnectorDetails': string
   'connectors.newRelicLabel': string
+  'connectors.nexus.nexusLabel': string
   'connectors.nexus.nexusServerUrl': string
   'connectors.pagerDutyConnectorDetails': string
   'connectors.parameters': string
@@ -1908,6 +1929,8 @@ export interface StringsMap {
   'gitsync.connectThroughManagerLabel': string
   'gitsync.connectToGitProvider': string
   'gitsync.connectivityModeLabel': string
+  'gitsync.createBranchTitle': string
+  'gitsync.deafaultSyncTitle': string
   'gitsync.defaultBranch': string
   'gitsync.defaultFolder': string
   'gitsync.enterBranchToSync': string
@@ -1933,12 +1956,15 @@ export interface StringsMap {
   'gitsync.rootfolderLabel': string
   'gitsync.seeLess': string
   'gitsync.seeMore': string
+  'gitsync.selectBranchTitle': string
   'gitsync.selectDefaultBranch': string
   'gitsync.selectHarnessFolder': string
   'gitsync.startPullRequest': string
   'gitsync.startSync': string
   'gitsync.successfullCreate': string
   'gitsync.successfullySavedConnectivityMode': string
+  'gitsync.syncBranchTitle': string
+  'gitsync.syncSucessToaster': string
   'dashboards.createFolder.folderDescriptionPlaceholder': string
   'dashboards.createFolder.folderNameValidation': string
   'dashboards.createFolder.folderPlaceholder': string
@@ -2141,8 +2167,11 @@ export interface StringsMap {
   'pipeline.artifactsSelection.existingDocker.imageNamePlaceholder': string
   'pipeline.artifactsSelection.existingDocker.sidecarId': string
   'pipeline.artifactsSelection.existingDocker.sidecarIdPlaceholder': string
+  'pipeline.artifactsSelection.repositoryPort': string
+  'pipeline.artifactsSelection.repositoryPortPlaceholder': string
   'pipeline.artifactsSelection.validation.imagePath': string
   'pipeline.artifactsSelection.validation.region': string
+  'pipeline.artifactsSelection.validation.repositoryPort': string
   'pipeline.artifactsSelection.validation.sidecarId': string
   'pipeline.artifactsSelection.validation.tag': string
   'pipeline.artifactsSelection.validation.tagRegex': string
@@ -2518,6 +2547,7 @@ export interface StringsMap {
   'pipeline.newPipelineText': string
   'pipeline.noApprovalInstanceCreated': string
   'pipeline.noBuckets': string
+  'pipeline.noBuildsLabel': string
   'pipeline.noBuildsText': string
   'pipeline.noDeploymentText': string
   'pipeline.noPipelineText': string
@@ -3248,6 +3278,7 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.helpText.step3.description.additionalInfo': string
   'ce.co.autoStoppingRule.helpText.step3.description.info': string
   'ce.co.autoStoppingRule.helpText.step3.title': string
+  'ce.co.autoStoppingRule.limitWarningMessage': string
   'ce.co.autoStoppingRule.providerSelector.description': string
   'ce.co.autoStoppingRule.providerSelector.helpText.selectProvider': string
   'ce.co.autoStoppingRule.review.configDetails': string
@@ -4341,6 +4372,7 @@ export interface StringsMap {
   'cv.customHealthSource.Querymapping.validation.startTime.timestamp': string
   'cv.customHealthSource.ServiceInstance.pathLabel': string
   'cv.customHealthSource.ServiceInstance.pathModalHeader': string
+  'cv.customHealthSource.addGroupNameTitle': string
   'cv.customHealthSource.fetchRecordsButton': string
   'cv.cvChanges.changeTypeFilterDefault': string
   'cv.cvChanges.changesTimeline': string

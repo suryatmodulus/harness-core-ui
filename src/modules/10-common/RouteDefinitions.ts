@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import qs from 'qs'
 import { getScopeBasedRoute, withAccountId } from '@common/utils/routeUtils'
 import type {
@@ -327,6 +334,19 @@ const routes = {
       module
     }: Partial<ProjectPathProps & ModulePathParams & DelegateConfigProps>) => {
       const path = `resources/delegates/configs/${delegateConfigIdentifier}`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toDelegateTokens: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = 'resources/delegates/tokens'
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -841,14 +861,6 @@ const routes = {
       module
     }: PipelineType<ExecutionPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/policy-evaluations`
-  ),
-  toCDTemplateLibrary: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/template-library`
-  ),
-  toCDGeneralSettings: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/`
   ),
   /********************************************************************************************************************/
   toTemplates: withAccountId(

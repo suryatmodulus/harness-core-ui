@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useState } from 'react'
 import { useModalHook, Button, StepWizard } from '@wings-software/uicore'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
@@ -37,7 +44,6 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
     enforceFocus: false,
     style: {
       width: 1200,
-      minHeight: 720,
       borderLeft: 0,
       paddingBottom: 0,
       position: 'relative',
@@ -84,7 +90,15 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
             isLastStep={!NG_GIT_FULL_SYNC}
           />
           {NG_GIT_FULL_SYNC ? (
-            <GitFullSyncStep name={getString('gitsync.branchToSync')} onClose={closeHandler} />
+            <GitFullSyncStep
+              name={getString('gitsync.branchToSync')}
+              orgIdentifier={orgIdentifier}
+              projectIdentifier={projectIdentifier}
+              onClose={closeHandler}
+              onSuccess={(data?: GitSyncConfig) => {
+                handleSuccess(data)
+              }}
+            />
           ) : null}
         </StepWizard>
         <Button minimal icon="cross" iconProps={{ size: 18 }} className={css.crossIcon} onClick={closeHandler} />

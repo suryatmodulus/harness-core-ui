@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useCallback, useContext, useMemo } from 'react'
 import {
   Color,
@@ -16,6 +23,8 @@ import cx from 'classnames'
 import { FormConnectorReferenceField } from '@connectors/components/ConnectorReferenceField/FormConnectorReferenceField'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import { BGColorWrapper } from '@cv/pages/health-source/common/StyledComponents'
 import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
 import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFooter'
@@ -51,6 +60,8 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const isCustomEnabled = useFeatureFlag(FeatureFlag.CHI_CUSTOM_HEALTH)
 
   return (
     <BGColorWrapper>
@@ -89,6 +100,9 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                           {HEALTHSOURCE_LIST.map(({ name, icon }) => {
                             const connectorTypeName =
                               name === HealthSourceTypes.GoogleCloudOperations ? Connectors.GCP : name
+                            if (isCustomEnabled === false && name === HealthSourceTypes.CustomHealth) {
+                              return null
+                            }
                             return (
                               <div key={name} className={cx(css.squareCardContainer, isEdit && css.disabled)}>
                                 <Card

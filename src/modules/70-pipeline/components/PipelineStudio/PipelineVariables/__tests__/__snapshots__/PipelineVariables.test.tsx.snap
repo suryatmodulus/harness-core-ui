@@ -1633,12 +1633,12 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           <div
                             class="Accordion--panel panel"
                             data-open="true"
-                            data-testid="pipeline.stage_1.Infrastructure-panel"
-                            id="pipeline.stage_1.Infrastructure-panel"
+                            data-testid="pipeline.stage_1.Environment-panel"
+                            id="pipeline.stage_1.Environment-panel"
                           >
                             <div
                               class="Accordion--summary accordianSummaryL1"
-                              data-testid="pipeline.stage_1.Infrastructure-summary"
+                              data-testid="pipeline.stage_1.Environment-summary"
                             >
                               <div
                                 class=""
@@ -1708,7 +1708,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     <p
                                       class="StyledProps--font StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-black"
                                     >
-                                      infrastructureText
+                                      environment
                                     </p>
                                   </p>
                                 </div>
@@ -1728,17 +1728,40 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               >
                                 <div
                                   class="Accordion--details"
-                                  data-testid="pipeline.stage_1.Infrastructure-details"
+                                  data-testid="pipeline.stage_1.Environment-details"
                                 >
+                                  <div
+                                    class="variablesListTable variablePaddingL0"
+                                  >
+                                    <div
+                                      class="variableListRow variable-list-row"
+                                    >
+                                      <span
+                                        class="nameSection"
+                                      >
+                                        environmentRef
+                                      </span>
+                                      <p
+                                        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
+                                        style="--text-line-clamp: 1;"
+                                      >
+                                        <span
+                                          class=""
+                                        >
+                                          test
+                                        </span>
+                                      </p>
+                                    </div>
+                                  </div>
                                   <div
                                     class="Accordion--panel panel"
                                     data-open="true"
-                                    data-testid="pipeline.stage_1.Infrastructure.Provisioner-panel"
-                                    id="pipeline.stage_1.Infrastructure.Provisioner-panel"
+                                    data-testid="pipeline.stage_1.Infrastructure-panel"
+                                    id="pipeline.stage_1.Infrastructure-panel"
                                   >
                                     <div
-                                      class="Accordion--summary variableBorderBottom accordianSummaryL1"
-                                      data-testid="pipeline.stage_1.Infrastructure.Provisioner-summary"
+                                      class="Accordion--summary accordianSummaryL1"
+                                      data-testid="pipeline.stage_1.Infrastructure-summary"
                                     >
                                       <div
                                         class=""
@@ -1808,7 +1831,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             <p
                                               class="StyledProps--font StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-black"
                                             >
-                                              common.provisioner
+                                              infrastructureText
                                             </p>
                                           </p>
                                         </div>
@@ -1828,7 +1851,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                       >
                                         <div
                                           class="Accordion--details"
-                                          data-testid="pipeline.stage_1.Infrastructure.Provisioner-details"
+                                          data-testid="pipeline.stage_1.Infrastructure-details"
                                         />
                                       </div>
                                     </div>
@@ -2929,12 +2952,12 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           <div
                             class="Accordion--panel panel"
                             data-open="true"
-                            data-testid="pipeline.stage_2.Infrastructure-panel"
-                            id="pipeline.stage_2.Infrastructure-panel"
+                            data-testid="pipeline.stage_2.Environment-panel"
+                            id="pipeline.stage_2.Environment-panel"
                           >
                             <div
                               class="Accordion--summary accordianSummaryL1"
-                              data-testid="pipeline.stage_2.Infrastructure-summary"
+                              data-testid="pipeline.stage_2.Environment-summary"
                             >
                               <div
                                 class=""
@@ -3004,7 +3027,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     <p
                                       class="StyledProps--font StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-black"
                                     >
-                                      infrastructureText
+                                      environment
                                     </p>
                                   </p>
                                 </div>
@@ -3024,17 +3047,40 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               >
                                 <div
                                   class="Accordion--details"
-                                  data-testid="pipeline.stage_2.Infrastructure-details"
+                                  data-testid="pipeline.stage_2.Environment-details"
                                 >
+                                  <div
+                                    class="variablesListTable variablePaddingL0"
+                                  >
+                                    <div
+                                      class="variableListRow variable-list-row"
+                                    >
+                                      <span
+                                        class="nameSection"
+                                      >
+                                        environmentRef
+                                      </span>
+                                      <p
+                                        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
+                                        style="--text-line-clamp: 1;"
+                                      >
+                                        <span
+                                          class=""
+                                        >
+                                          test
+                                        </span>
+                                      </p>
+                                    </div>
+                                  </div>
                                   <div
                                     class="Accordion--panel panel"
                                     data-open="true"
-                                    data-testid="pipeline.stage_2.Infrastructure.Provisioner-panel"
-                                    id="pipeline.stage_2.Infrastructure.Provisioner-panel"
+                                    data-testid="pipeline.stage_2.Infrastructure-panel"
+                                    id="pipeline.stage_2.Infrastructure-panel"
                                   >
                                     <div
-                                      class="Accordion--summary variableBorderBottom accordianSummaryL1"
-                                      data-testid="pipeline.stage_2.Infrastructure.Provisioner-summary"
+                                      class="Accordion--summary accordianSummaryL1"
+                                      data-testid="pipeline.stage_2.Infrastructure-summary"
                                     >
                                       <div
                                         class=""
@@ -3104,7 +3150,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             <p
                                               class="StyledProps--font StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-black"
                                             >
-                                              common.provisioner
+                                              infrastructureText
                                             </p>
                                           </p>
                                         </div>
@@ -3124,7 +3170,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                       >
                                         <div
                                           class="Accordion--details"
-                                          data-testid="pipeline.stage_2.Infrastructure.Provisioner-details"
+                                          data-testid="pipeline.stage_2.Infrastructure-details"
                                         />
                                       </div>
                                     </div>
@@ -3782,12 +3828,12 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           <div
                             class="Accordion--panel panel"
                             data-open="true"
-                            data-testid="pipeline.parallel_stage_.Infrastructure-panel"
-                            id="pipeline.parallel_stage_.Infrastructure-panel"
+                            data-testid="pipeline.parallel_stage_.Environment-panel"
+                            id="pipeline.parallel_stage_.Environment-panel"
                           >
                             <div
                               class="Accordion--summary accordianSummaryL1"
-                              data-testid="pipeline.parallel_stage_.Infrastructure-summary"
+                              data-testid="pipeline.parallel_stage_.Environment-summary"
                             >
                               <div
                                 class=""
@@ -3857,7 +3903,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     <p
                                       class="StyledProps--font StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-black"
                                     >
-                                      infrastructureText
+                                      environment
                                     </p>
                                   </p>
                                 </div>
@@ -3877,17 +3923,40 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               >
                                 <div
                                   class="Accordion--details"
-                                  data-testid="pipeline.parallel_stage_.Infrastructure-details"
+                                  data-testid="pipeline.parallel_stage_.Environment-details"
                                 >
+                                  <div
+                                    class="variablesListTable variablePaddingL0"
+                                  >
+                                    <div
+                                      class="variableListRow variable-list-row"
+                                    >
+                                      <span
+                                        class="nameSection"
+                                      >
+                                        environmentRef
+                                      </span>
+                                      <p
+                                        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
+                                        style="--text-line-clamp: 1;"
+                                      >
+                                        <span
+                                          class=""
+                                        >
+                                          test
+                                        </span>
+                                      </p>
+                                    </div>
+                                  </div>
                                   <div
                                     class="Accordion--panel panel"
                                     data-open="true"
-                                    data-testid="pipeline.parallel_stage_.Infrastructure.Provisioner-panel"
-                                    id="pipeline.parallel_stage_.Infrastructure.Provisioner-panel"
+                                    data-testid="pipeline.parallel_stage_.Infrastructure-panel"
+                                    id="pipeline.parallel_stage_.Infrastructure-panel"
                                   >
                                     <div
-                                      class="Accordion--summary variableBorderBottom accordianSummaryL1"
-                                      data-testid="pipeline.parallel_stage_.Infrastructure.Provisioner-summary"
+                                      class="Accordion--summary accordianSummaryL1"
+                                      data-testid="pipeline.parallel_stage_.Infrastructure-summary"
                                     >
                                       <div
                                         class=""
@@ -3957,7 +4026,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             <p
                                               class="StyledProps--font StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-black"
                                             >
-                                              common.provisioner
+                                              infrastructureText
                                             </p>
                                           </p>
                                         </div>
@@ -3977,7 +4046,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                       >
                                         <div
                                           class="Accordion--details"
-                                          data-testid="pipeline.parallel_stage_.Infrastructure.Provisioner-details"
+                                          data-testid="pipeline.parallel_stage_.Infrastructure-details"
                                         />
                                       </div>
                                     </div>
@@ -4635,12 +4704,12 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                           <div
                             class="Accordion--panel panel"
                             data-open="true"
-                            data-testid="pipeline.parallel_stage_2.Infrastructure-panel"
-                            id="pipeline.parallel_stage_2.Infrastructure-panel"
+                            data-testid="pipeline.parallel_stage_2.Environment-panel"
+                            id="pipeline.parallel_stage_2.Environment-panel"
                           >
                             <div
                               class="Accordion--summary accordianSummaryL1"
-                              data-testid="pipeline.parallel_stage_2.Infrastructure-summary"
+                              data-testid="pipeline.parallel_stage_2.Environment-summary"
                             >
                               <div
                                 class=""
@@ -4710,7 +4779,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     <p
                                       class="StyledProps--font StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-black"
                                     >
-                                      infrastructureText
+                                      environment
                                     </p>
                                   </p>
                                 </div>
@@ -4730,17 +4799,40 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                               >
                                 <div
                                   class="Accordion--details"
-                                  data-testid="pipeline.parallel_stage_2.Infrastructure-details"
+                                  data-testid="pipeline.parallel_stage_2.Environment-details"
                                 >
+                                  <div
+                                    class="variablesListTable variablePaddingL0"
+                                  >
+                                    <div
+                                      class="variableListRow variable-list-row"
+                                    >
+                                      <span
+                                        class="nameSection"
+                                      >
+                                        environmentRef
+                                      </span>
+                                      <p
+                                        class="StyledProps--font Text--lineclamp StyledProps--main valueSection StyledProps--font-variation-body StyledProps--font-weight-semi-bold StyledProps--padding-left-medium StyledProps--color StyledProps--color-black100"
+                                        style="--text-line-clamp: 1;"
+                                      >
+                                        <span
+                                          class=""
+                                        >
+                                          test
+                                        </span>
+                                      </p>
+                                    </div>
+                                  </div>
                                   <div
                                     class="Accordion--panel panel"
                                     data-open="true"
-                                    data-testid="pipeline.parallel_stage_2.Infrastructure.Provisioner-panel"
-                                    id="pipeline.parallel_stage_2.Infrastructure.Provisioner-panel"
+                                    data-testid="pipeline.parallel_stage_2.Infrastructure-panel"
+                                    id="pipeline.parallel_stage_2.Infrastructure-panel"
                                   >
                                     <div
-                                      class="Accordion--summary variableBorderBottom accordianSummaryL1"
-                                      data-testid="pipeline.parallel_stage_2.Infrastructure.Provisioner-summary"
+                                      class="Accordion--summary accordianSummaryL1"
+                                      data-testid="pipeline.parallel_stage_2.Infrastructure-summary"
                                     >
                                       <div
                                         class=""
@@ -4810,7 +4902,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             <p
                                               class="StyledProps--font StyledProps--main StyledProps--font-variation-small-semi StyledProps--color StyledProps--color-black"
                                             >
-                                              common.provisioner
+                                              infrastructureText
                                             </p>
                                           </p>
                                         </div>
@@ -4830,7 +4922,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                       >
                                         <div
                                           class="Accordion--details"
-                                          data-testid="pipeline.parallel_stage_2.Infrastructure.Provisioner-details"
+                                          data-testid="pipeline.parallel_stage_2.Infrastructure-details"
                                         />
                                       </div>
                                     </div>

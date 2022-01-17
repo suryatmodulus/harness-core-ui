@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import { Color, Container, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -17,12 +24,13 @@ interface SummaryTextProps {
   numerator: number
   denominator: number
   titleText: string
+  tabId: string
 }
 
 function SummaryText(props: SummaryTextProps): JSX.Element {
-  const { numerator, denominator, titleText } = props
+  const { numerator, denominator, titleText, tabId } = props
   const { getString } = useStrings()
-  const { updateQueryParams } = useUpdateQueryParams<ExecutionQueryParams>()
+  const { updateQueryParams } = useUpdateQueryParams<ExecutionQueryParams & { type: string }>()
   return (
     <Container className={css.summaryContent}>
       <Container className={css.violations}>
@@ -39,7 +47,7 @@ function SummaryText(props: SummaryTextProps): JSX.Element {
       </Text>
       <Text
         intent="primary"
-        onClick={() => updateQueryParams({ view: 'log' })}
+        onClick={() => updateQueryParams({ view: 'log', type: tabId })}
         rightIcon="arrow-right"
         className={css.viewDetails}
       >
@@ -61,11 +69,13 @@ export function SummaryOfDeployedNodes(props: SummaryOfDeployedNodesProps): JSX.
           numerator={metricsInViolation}
           denominator={totalMetrics}
           titleText={getString('pipeline.verification.metricsInViolation')}
+          tabId={getString('pipeline.verification.analysisTab.metrics')}
         />
         <SummaryText
           numerator={logClustersInViolation}
           denominator={totalLogClusters}
           titleText={getString('pipeline.verification.logClustersInViolation')}
+          tabId={getString('pipeline.verification.analysisTab.logs')}
         />
       </Container>
     </Container>

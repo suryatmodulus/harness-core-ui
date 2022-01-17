@@ -1,4 +1,11 @@
-import React, { useLayoutEffect, useMemo, useCallback, useRef, useState, useEffect } from 'react'
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
+import React, { useLayoutEffect, useMemo, useRef, useState, useEffect } from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import Draggable from 'react-draggable'
 import cx from 'classnames'
@@ -42,6 +49,8 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
   const { getString } = useStrings()
   const [containerWidth, setContainerWidth] = useState<number>(0)
   const sliderContainerRef = useRef<HTMLDivElement>(null)
+  const [parentClickEvent, setParentClickEvent] = useState<MouseEvent>()
+  const [isDragging, setIsDragging] = useState(false)
   const [{ width, leftOffset, rightHandlePosition, leftHandlePosition, onClickTransition }, setSliderAspects] =
     useState<SliderAspects>({
       width: initialSliderWidth,
@@ -50,23 +59,26 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
       leftHandlePosition: LEFT_SLIDER_OFFSET
     })
 
-  const onClick = useCallback(
-    e => {
-      if (!sliderContainerRef.current) return
-      const updatedSliderAspects = determineSliderPlacementForClick({
-        clickEventX: e.clientX,
-        containerOffset: sliderContainerRef.current.getBoundingClientRect().x,
-        containerWidth,
-        sliderAspects: { width, leftOffset, rightHandlePosition, leftHandlePosition },
-        isSliderHidden: hideSlider
-      })
-      if (updatedSliderAspects) {
-        setSliderAspects(updatedSliderAspects)
-        onSliderDragEnd?.(calculateSliderDragEndData(updatedSliderAspects, e, containerWidth))
-      }
-    },
-    [width, leftOffset, rightHandlePosition, leftHandlePosition, containerWidth, hideSlider, onSliderDragEnd]
-  )
+  useEffect(() => {
+    if (!sliderContainerRef.current || !parentClickEvent) return
+    if (isDragging) {
+      setIsDragging(false)
+      return
+    }
+
+    const updatedSliderAspects = determineSliderPlacementForClick({
+      clickEventX: parentClickEvent.clientX,
+      containerOffset: sliderContainerRef.current.getBoundingClientRect().x,
+      containerWidth,
+      sliderAspects: { width, leftOffset, rightHandlePosition, leftHandlePosition },
+      isSliderHidden: hideSlider
+    })
+
+    if (updatedSliderAspects) {
+      setSliderAspects(updatedSliderAspects)
+      onSliderDragEnd?.(calculateSliderDragEndData(updatedSliderAspects, parentClickEvent, containerWidth))
+    }
+  }, [parentClickEvent, onSliderDragEnd])
 
   useLayoutEffect(() => {
     if (!sliderContainerRef.current) return
@@ -81,10 +93,11 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
 
   useLayoutEffect(() => {
     if (!sliderContainerRef.current) return
-    sliderContainerRef.current.parentNode?.addEventListener('click', onClick, false)
+    sliderContainerRef.current.parentNode?.addEventListener('click', setParentClickEvent as EventListener, false)
 
-    return () => sliderContainerRef.current?.parentNode?.removeEventListener('click', onClick, false)
-  }, [sliderContainerRef.current, onClick])
+    return () =>
+      sliderContainerRef.current?.parentNode?.removeEventListener('click', setParentClickEvent as EventListener, false)
+  }, [sliderContainerRef.current])
 
   useEffect(() => {
     if (hideSlider) {
@@ -112,7 +125,7 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
         className={css.sliderContainer}
         width={width}
         style={{ left: leftOffset, transition: onClickTransition }}
-        onClick={e => e.stopPropagation()}
+        onClick={() => false}
       >
         {infoCard ? (
           <Container flex>
@@ -142,12 +155,10 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
                 containerWidth
               )
             )
-            // re-attach after delay so that unwanted click event is not handled
-            setTimeout(() => sliderContainerRef?.current?.parentNode?.addEventListener('click', onClick, false))
           }}
           onDrag={e => {
-            sliderContainerRef?.current?.parentNode?.removeEventListener('click', onClick, false)
             e.stopPropagation()
+            setIsDragging(true)
             const draggableEvent = e as MouseEvent
             if (isLeftHandleWithinBounds({ draggableEvent, leftOffset, minSliderWidth, width, maxSliderWidth })) {
               setSliderAspects(currAspects => calculateSliderAspectsOnLeftHandleDrag(currAspects, draggableEvent))
@@ -167,7 +178,6 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
             )
           }}
           onDrag={e => {
-            sliderContainerRef?.current?.parentNode?.removeEventListener('click', onClick, false)
             e.stopPropagation()
             const draggableEvent = e as MouseEvent
             if (isSliderWithinBounds({ draggableEvent, leftOffset, width, containerWidth })) {
@@ -194,12 +204,10 @@ export default function TimelineSlider(props: TimelineSliderProps): JSX.Element 
                 containerWidth
               )
             )
-            // re-attach after delay so that unwanted click event is not handled
-            setTimeout(() => sliderContainerRef?.current?.parentNode?.addEventListener('click', onClick, false))
           }}
           onDrag={(e, dragData) => {
-            sliderContainerRef?.current?.parentNode?.removeEventListener('click', onClick, false)
             e.stopPropagation()
+            setIsDragging(true)
             const draggableEvent = e as MouseEvent
             if (draggableEvent.movementX === 0) return
             setSliderAspects(currAspects => calculateSliderAspectsOnRightHandleDrag(currAspects, dragData))

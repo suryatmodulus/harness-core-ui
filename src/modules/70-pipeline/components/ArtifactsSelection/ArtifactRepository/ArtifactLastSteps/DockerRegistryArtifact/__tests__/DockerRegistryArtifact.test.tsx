@@ -1,9 +1,16 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import { act, fireEvent, queryByAttribute, render, waitFor } from '@testing-library/react'
 import { MultiTypeInputType } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ArtifactType, TagTypes } from '@pipeline/components/ArtifactsSelection/ArtifactInterface'
-import { ImagePath } from '../ImagePath'
+import { DockerRegistryArtifact } from '../DockerRegistryArtifact'
 
 const props = {
   name: 'Artifact details',
@@ -32,7 +39,7 @@ describe('DockerRegistry Image Path Artifact tests', () => {
 
     const { container } = render(
       <TestWrapper>
-        <ImagePath key={'key'} initialValues={initialValues} {...props} />
+        <DockerRegistryArtifact key={'key'} initialValues={initialValues} {...props} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -49,7 +56,7 @@ describe('DockerRegistry Image Path Artifact tests', () => {
 
     const { container } = render(
       <TestWrapper>
-        <ImagePath key={'key'} initialValues={initialValues} {...props} />
+        <DockerRegistryArtifact key={'key'} initialValues={initialValues} {...props} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -66,7 +73,7 @@ describe('DockerRegistry Image Path Artifact tests', () => {
 
     const { container } = render(
       <TestWrapper>
-        <ImagePath key={'key'} initialValues={initialValues} {...props} />
+        <DockerRegistryArtifact key={'key'} initialValues={initialValues} {...props} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
@@ -87,7 +94,7 @@ describe('DockerRegistry Image Path Artifact tests', () => {
 
     const { container } = render(
       <TestWrapper>
-        <ImagePath key={'key'} initialValues={initialValues} {...props} />
+        <DockerRegistryArtifact key={'key'} initialValues={initialValues} {...props} />
       </TestWrapper>
     )
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
@@ -125,7 +132,7 @@ describe('DockerRegistry Image Path Artifact tests', () => {
 
     const { container } = render(
       <TestWrapper>
-        <ImagePath key={'key'} initialValues={initialValues} {...props} />
+        <DockerRegistryArtifact key={'key'} initialValues={initialValues} {...props} />
       </TestWrapper>
     )
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)

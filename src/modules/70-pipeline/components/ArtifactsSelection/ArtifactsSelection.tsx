@@ -1,5 +1,12 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useCallback, useState } from 'react'
-import { Color, useModalHook, StepWizard, StepProps, useToaster } from '@wings-software/uicore'
+import { Color, useModalHook, StepWizard, useToaster } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 
@@ -9,14 +16,17 @@ import set from 'lodash-es/set'
 
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
+import { merge } from 'lodash-es'
 import {
   useGetConnectorListV2,
   PageConnectorResponse,
   ConnectorInfoDTO,
-  ConnectorConfigDTO,
   SidecarArtifactWrapper,
   PrimaryArtifact,
-  StageElementConfig
+  StageElementConfig,
+  ArtifactConfig,
+  SidecarArtifact,
+  ArtifactOverrideSetWrapper
 } from 'services/cd-ng'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
@@ -29,16 +39,24 @@ import StepDockerAuthentication from '@connectors/components/CreateConnector/Doc
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import GcrAuthentication from '@connectors/components/CreateConnector/GcrConnector/StepAuth/GcrAuthentication'
 import StepAWSAuthentication from '@connectors/components/CreateConnector/AWSConnector/StepAuth/StepAWSAuthentication'
-import { buildAWSPayload, buildDockerPayload, buildGcpPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import {
+  buildArtifactoryPayload,
+  buildAWSPayload,
+  buildDockerPayload,
+  buildGcpPayload,
+  buildNexusPayload
+} from '@connectors/pages/connectors/utils/ConnectorUtils'
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import { useDeepCompareEffect, useQueryParams } from '@common/hooks'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { ArtifactActions } from '@common/constants/TrackingConstants'
-import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
+import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import StepNexusAuthentication from '@connectors/components/CreateConnector/NexusConnector/StepAuth/StepNexusAuthentication'
+import StepArtifactoryAuthentication from '@connectors/components/CreateConnector/ArtifactoryConnector/StepAuth/StepArtifactoryAuthentication'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import ArtifactWizard from './ArtifactWizard/ArtifactWizard'
-import { ImagePath } from './ArtifactRepository/ArtifactLastSteps/ImagePath/ImagePath'
+import { DockerRegistryArtifact } from './ArtifactRepository/ArtifactLastSteps/DockerRegistryArtifact/DockerRegistryArtifact'
 import { ECRArtifact } from './ArtifactRepository/ArtifactLastSteps/ECRArtifact/ECRArtifact'
 import { GCRImagePath } from './ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
 import ArtifactListView, { ModalViewFor } from './ArtifactListView/ArtifactListView'
@@ -53,16 +71,13 @@ import {
   ArtifactToConnectorMap,
   ENABLED_ARTIFACT_TYPES,
   ArtifactIconByType,
-  ArtifactTitleIdByType
+  ArtifactTitleIdByType,
+  allowedArtifactTypes
 } from './ArtifactHelper'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
+import NexusArtifact from './ArtifactRepository/ArtifactLastSteps/NexusArtifact/NexusArtifact'
+import Artifactory from './ArtifactRepository/ArtifactLastSteps/Artifactory/Artifactory'
 import css from './ArtifactsSelection.module.scss'
-
-const allowedArtifactTypes: Array<ArtifactType> = [
-  ENABLED_ARTIFACT_TYPES.DockerRegistry,
-  ENABLED_ARTIFACT_TYPES.Gcr,
-  ENABLED_ARTIFACT_TYPES.Ecr
-]
 
 export default function ArtifactsSelection({
   isForOverrideSets = false,
@@ -92,6 +107,9 @@ export default function ArtifactsSelection({
   const { showError } = useToaster()
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
+  const { expressions } = useVariablesExpression()
+
+  const stepWizardTitle = getString('connectors.createNewConnector')
 
   const getPrimaryArtifactByIdentifier = (): PrimaryArtifact => {
     return artifacts
@@ -129,17 +147,11 @@ export default function ArtifactsSelection({
     if (isForOverrideSets) {
       return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifactOverrideSets', [])
     }
-    if (overrideSetIdentifier && overrideSetIdentifier.length) {
+    if (overrideSetIdentifier?.length) {
       const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
       const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
       const { stages } = getFlattenedStages(pipeline)
-      const overrideSets = get(
-        stages[index],
-        'stage.spec.serviceConfig.serviceDefinition.spec.artifactOverrideSets',
-        []
-      )
-
-      return overrideSets
+      return get(stages[index], 'stage.spec.serviceConfig.serviceDefinition.spec.artifactOverrideSets', [])
     }
     if (isForPredefinedSets || isPropagating) {
       return get(stage, 'stage.spec.serviceConfig.stageOverrides.artifacts', [])
@@ -147,24 +159,23 @@ export default function ArtifactsSelection({
     return get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts', {})
   }
 
+  const getOverrideSetArtifact = (): ArtifactOverrideSetWrapper => {
+    const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
+    const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
+    const { stages } = getFlattenedStages(pipeline)
+    const overrideSets = get(stages[index], 'stage.spec.serviceConfig.serviceDefinition.spec.artifactOverrideSets', [])
+
+    const selectedOverrideSet = overrideSets.find(
+      ({ overrideSet }: { overrideSet: { identifier: string } }) => overrideSet.identifier === overrideSetIdentifier
+    )
+    return selectedOverrideSet
+  }
   const getPrimaryArtifactPath = useCallback((): PrimaryArtifact => {
     if (isForOverrideSets) {
       return getPrimaryArtifactByIdentifier()
     }
-    if (overrideSetIdentifier && overrideSetIdentifier.length) {
-      const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
-      const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
-      const { stages } = getFlattenedStages(pipeline)
-      const overrideSets = get(
-        stages[index],
-        'stage.spec.serviceConfig.serviceDefinition.spec.artifactOverrideSets',
-        []
-      )
-
-      const selectedOverrideSet = overrideSets.find(
-        ({ overrideSet }: { overrideSet: { identifier: string } }) => overrideSet.identifier === overrideSetIdentifier
-      )
-
+    if (overrideSetIdentifier?.length) {
+      const selectedOverrideSet = getOverrideSetArtifact()
       return get(selectedOverrideSet, 'overrideSet.artifacts.primary', null)
     }
     if (isForPredefinedSets || isPropagating) {
@@ -178,19 +189,8 @@ export default function ArtifactsSelection({
     if (isForOverrideSets) {
       return getSidecarArtifactByIdentifier()
     }
-    if (overrideSetIdentifier && overrideSetIdentifier.length) {
-      const parentStageName = stage?.stage?.spec?.serviceConfig?.useFromStage?.stage
-      const { index } = getStageIndexFromPipeline(pipeline, parentStageName)
-      const { stages } = getFlattenedStages(pipeline)
-      const overrideSets = get(
-        stages[index],
-        'stage.spec.serviceConfig.serviceDefinition.spec.artifactOverrideSets',
-        []
-      )
-
-      const selectedOverrideSet = overrideSets.find(
-        ({ overrideSet }: { overrideSet: { identifier: string } }) => overrideSet.identifier === overrideSetIdentifier
-      )
+    if (overrideSetIdentifier?.length) {
+      const selectedOverrideSet = getOverrideSetArtifact()
 
       return get(selectedOverrideSet, 'overrideSet.artifacts.sidecars', [])
     }
@@ -237,7 +237,25 @@ export default function ArtifactsSelection({
     queryParams: defaultQueryParams
   })
 
-  const getPrimaryConnectorList = (): Array<{ scope: Scope; identifier: string }> => {
+  const [showConnectorModal, hideConnectorModal] = useModalHook(
+    () => (
+      <Dialog
+        onClose={() => {
+          hideConnectorModal()
+          setConnectorView(false)
+          setIsEditMode(false)
+          setSelectedArtifact(null)
+        }}
+        {...DIALOG_PROPS}
+        className={cx(css.modal, Classes.DIALOG)}
+      >
+        {renderExistingArtifact()}
+      </Dialog>
+    ),
+    [context, selectedArtifact, connectorView, primaryArtifact, sidecarIndex, expressions, allowableTypes, isEditMode]
+  )
+
+  const getPrimaryConnectorList = useCallback((): Array<{ scope: Scope; identifier: string }> => {
     return primaryArtifact?.type
       ? [
           {
@@ -246,18 +264,18 @@ export default function ArtifactsSelection({
           }
         ]
       : []
-  }
+  }, [primaryArtifact?.spec?.connectorRef, primaryArtifact?.type])
 
-  const getSidecarConnectorList = (): Array<{ scope: Scope; identifier: string }> => {
+  const getSidecarConnectorList = useCallback((): Array<{ scope: Scope; identifier: string }> => {
     return sideCarArtifact?.length
       ? sideCarArtifact.map((data: SidecarArtifactWrapper) => ({
           scope: getScopeFromValue(data?.sidecar?.spec?.connectorRef),
           identifier: getIdentifierFromValue(data?.sidecar?.spec?.connectorRef)
         }))
       : []
-  }
+  }, [sideCarArtifact])
 
-  const refetchConnectorList = async (): Promise<void> => {
+  const refetchConnectorList = useCallback(async (): Promise<void> => {
     try {
       const primaryConnectorList = getPrimaryConnectorList()
       const sidecarConnectorList = getSidecarConnectorList()
@@ -271,20 +289,32 @@ export default function ArtifactsSelection({
     } catch (e) {
       showError(e.message)
     }
-  }
+  }, [fetchConnectors, getPrimaryConnectorList, getSidecarConnectorList, showError])
 
   useDeepCompareEffect(() => {
     refetchConnectorList()
   }, [stage])
 
-  const addArtifact = (artifactObj: any): void => {
+  const setTelemetryEvent = useCallback((): void => {
     const isCreateMode = context === ModalViewFor.PRIMARY ? !primaryArtifact : sidecarIndex === sideCarArtifact.length
-    artifactObj = {
-      type: ENABLED_ARTIFACT_TYPES[selectedArtifact as ArtifactType],
-      ...artifactObj
-    }
 
-    if (context === ModalViewFor.PRIMARY) {
+    let telemetryEventName
+    if (isCreateMode) {
+      telemetryEventName =
+        context === ModalViewFor.PRIMARY
+          ? ArtifactActions.SavePrimaryArtifactOnPipelinePage
+          : ArtifactActions.SaveSidecarArtifactOnPipelinePage
+    } else {
+      telemetryEventName =
+        context === ModalViewFor.PRIMARY
+          ? ArtifactActions.UpdatePrimaryArtifactOnPipelinePage
+          : ArtifactActions.UpdateSidecarArtifactOnPipelinePage
+    }
+    trackEvent(telemetryEventName, {})
+  }, [context, primaryArtifact, sideCarArtifact.length, sidecarIndex, trackEvent])
+
+  const setPrimaryArtifactData = useCallback(
+    (artifactObj: PrimaryArtifact): void => {
       if (isPropagating) {
         artifacts['primary'] = { ...artifactObj }
       } else {
@@ -305,7 +335,12 @@ export default function ArtifactsSelection({
           artifacts['primary'] = { ...artifactObj }
         }
       }
-    } else {
+    },
+    [artifacts, identifierName, isForOverrideSets, isPropagating]
+  )
+
+  const setSidecarArtifactData = useCallback(
+    (artifactObj: SidecarArtifact): void => {
       if (isForOverrideSets) {
         artifacts.map(
           (artifact: {
@@ -333,9 +368,12 @@ export default function ArtifactsSelection({
           sideCarArtifact.push({ sidecar: artifactObj })
         }
       }
-    }
+    },
+    [artifacts, identifierName, isForOverrideSets, sideCarArtifact, sidecarIndex]
+  )
 
-    const updatedStage = produce(stage, draft => {
+  const updateStageData = useCallback((): StageElementWrapper<DeploymentStageElementConfig> | undefined => {
+    return produce(stage, draft => {
       if (context === ModalViewFor.PRIMARY) {
         if (isPropagating && draft?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts) {
           set(draft, 'stage.spec.serviceConfig.stageOverrides.artifacts', artifacts)
@@ -351,35 +389,47 @@ export default function ArtifactsSelection({
         }
       }
     })
+  }, [artifacts, context, isPropagating, sideCarArtifact, stage])
 
-    updateStage(updatedStage?.stage as StageElementConfig)
-    hideConnectorModal()
-    setSelectedArtifact(null)
-    refetchConnectorList()
-    let telemetryEventName
-    if (isCreateMode) {
-      telemetryEventName =
-        context === ModalViewFor.PRIMARY
-          ? ArtifactActions.SavePrimaryArtifactOnPipelinePage
-          : ArtifactActions.SaveSidecarArtifactOnPipelinePage
-    } else {
-      telemetryEventName =
-        context === ModalViewFor.PRIMARY
-          ? ArtifactActions.UpdatePrimaryArtifactOnPipelinePage
-          : ArtifactActions.UpdateSidecarArtifactOnPipelinePage
-    }
-    trackEvent(telemetryEventName, {})
-  }
+  const addArtifact = useCallback(
+    (artifactObj: ArtifactConfig): void => {
+      merge(artifactObj, { type: ENABLED_ARTIFACT_TYPES[selectedArtifact as ArtifactType] })
 
-  const getLastStepInitialData = (): any => {
+      if (context === ModalViewFor.PRIMARY) {
+        setPrimaryArtifactData(artifactObj as PrimaryArtifact)
+      } else {
+        setSidecarArtifactData(artifactObj as SidecarArtifact)
+      }
+      const updatedStage = updateStageData()
+
+      setTelemetryEvent()
+      updateStage(updatedStage?.stage as StageElementConfig)
+      hideConnectorModal()
+      setSelectedArtifact(null)
+      refetchConnectorList()
+    },
+    [
+      context,
+      hideConnectorModal,
+      refetchConnectorList,
+      selectedArtifact,
+      setPrimaryArtifactData,
+      setSidecarArtifactData,
+      setTelemetryEvent,
+      updateStage,
+      updateStageData
+    ]
+  )
+
+  const getLastStepInitialData = useCallback((): any => {
     if (context === ModalViewFor.PRIMARY) {
       return primaryArtifact
     } else {
       return sideCarArtifact?.[sidecarIndex]?.sidecar
     }
-  }
+  }, [context, primaryArtifact, sideCarArtifact, sidecarIndex])
 
-  const getArtifactInitialValues = (): InitialArtifactDataType => {
+  const getArtifactInitialValues = useCallback((): InitialArtifactDataType => {
     let spec, artifactType
     if (context === ModalViewFor.PRIMARY) {
       artifactType = primaryArtifact?.type
@@ -398,7 +448,7 @@ export default function ArtifactsSelection({
       submittedArtifact: artifactType,
       connectorId: spec?.connectorRef
     }
-  }
+  }, [context, primaryArtifact?.spec, primaryArtifact?.type, selectedArtifact, sideCarArtifact, sidecarIndex])
 
   const addNewArtifact = (viewType: number): void => {
     setModalContext(viewType)
@@ -461,7 +511,7 @@ export default function ArtifactsSelection({
     updateStage(updatedStage?.stage as StageElementConfig)
   }
 
-  const getIconProps = (): IconProps | undefined => {
+  const getIconProps = useCallback((): IconProps | undefined => {
     if (selectedArtifact) {
       const iconProps: IconProps = {
         name: ArtifactIconByType[selectedArtifact]
@@ -471,9 +521,9 @@ export default function ArtifactsSelection({
       }
       return iconProps
     }
-  }
+  }, [selectedArtifact])
 
-  const artifactLastStepProps = (): ImagePathProps => {
+  const artifactLastStepProps = useCallback((): ImagePathProps => {
     return {
       key: getString('connectors.stepFourName'),
       name: getString('connectors.stepFourName'),
@@ -488,143 +538,133 @@ export default function ArtifactsSelection({
       isReadonly: isReadonly,
       selectedArtifact
     }
-  }
+  }, [
+    addArtifact,
+    allowableTypes,
+    context,
+    expressions,
+    getLastStepInitialData,
+    isReadonly,
+    selectedArtifact,
+    sideCarArtifact,
+    getString
+  ])
 
-  const getLabels = (): ConnectorRefLabelType => {
+  const getLabels = useCallback((): ConnectorRefLabelType => {
     return {
       firstStepName: getString('connectors.specifyArtifactRepoType'),
       secondStepName: `${selectedArtifact && getString(ArtifactTitleIdByType[selectedArtifact])} ${getString(
         'repository'
       )}`
     }
-  }
+  }, [selectedArtifact])
 
+  const connectorDetailStepProps = {
+    name: getString('overview'),
+    isEditMode,
+    gitDetails: { repoIdentifier, branch, getDefaultFromOtherRepo: true }
+  }
+  const authenticationStepProps = {
+    identifier: CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
+    isEditMode,
+    setIsEditMode,
+    accountId,
+    orgIdentifier,
+    projectIdentifier,
+    connectorInfo: undefined
+  }
+  const delegateStepProps = {
+    name: getString('delegate.DelegateselectionLabel'),
+    isEditMode,
+    setIsEditMode,
+    connectorInfo: undefined
+  }
+  const verifyOutofClusterDelegateProps = {
+    name: getString('connectors.stepThreeName'),
+    connectorInfo: undefined,
+    isStep: true,
+    isLastStep: false
+  }
   const getNewConnectorSteps = useCallback((): JSX.Element => {
     switch (selectedArtifact) {
+      case ENABLED_ARTIFACT_TYPES.DockerRegistry:
+        return (
+          <StepWizard title={stepWizardTitle}>
+            <ConnectorDetailsStep type={ArtifactToConnectorMap[selectedArtifact]} {...connectorDetailStepProps} />
+            <StepDockerAuthentication name={getString('details')} {...authenticationStepProps} />
+            <DelegateSelectorStep buildPayload={buildDockerPayload} {...delegateStepProps} />
+            <VerifyOutOfClusterDelegate
+              type={ArtifactToConnectorMap[selectedArtifact]}
+              {...verifyOutofClusterDelegateProps}
+            />
+          </StepWizard>
+        )
       case ENABLED_ARTIFACT_TYPES.Gcr:
         return (
-          <StepWizard title={getString('connectors.createNewConnector')}>
-            <ConnectorDetailsStep
-              type={'Gcr' as unknown as ConnectorInfoDTO['type']}
-              name={getString('overview')}
-              isEditMode={isEditMode}
-              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
-            />
-            <GcrAuthentication
-              name={getString('details')}
-              identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
-              isEditMode={isEditMode}
-              setIsEditMode={setIsEditMode}
-            />
-            <DelegateSelectorStep
-              name={getString('delegate.DelegateselectionLabel')}
-              isEditMode={isEditMode}
-              setIsEditMode={setIsEditMode}
-              buildPayload={buildGcpPayload}
-              connectorInfo={undefined}
-            />
-            <VerifyOutOfClusterDelegate
-              name={getString('connectors.stepThreeName')}
-              connectorInfo={undefined}
-              isStep={true}
-              isLastStep={false}
-              type={'Gcr'}
-            />
+          <StepWizard title={stepWizardTitle}>
+            <ConnectorDetailsStep type={'Gcr' as unknown as ConnectorInfoDTO['type']} {...connectorDetailStepProps} />
+            <GcrAuthentication name={getString('details')} {...authenticationStepProps} />
+            <DelegateSelectorStep {...delegateStepProps} buildPayload={buildGcpPayload} />
+            <VerifyOutOfClusterDelegate {...verifyOutofClusterDelegateProps} type={'Gcr'} />
           </StepWizard>
         )
       case ENABLED_ARTIFACT_TYPES.Ecr:
         return (
-          <StepWizard iconProps={{ size: 37 }} title={getString('connectors.createNewConnector')}>
-            <ConnectorDetailsStep
-              type={ArtifactToConnectorMap[selectedArtifact]}
-              name={getString('overview')}
-              isEditMode={isEditMode}
-              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
-            />
-            <StepAWSAuthentication
-              name={getString('credentials')}
-              identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
-              isEditMode={isEditMode}
-              setIsEditMode={setIsEditMode}
-              accountId={accountId}
-              orgIdentifier={orgIdentifier}
-              projectIdentifier={projectIdentifier}
-              connectorInfo={undefined}
-              onConnectorCreated={() => {
-                //TO BE Removed
-              }}
-            />
-            <DelegateSelectorStep
-              name={getString('delegate.DelegateselectionLabel')}
-              isEditMode={isEditMode}
-              setIsEditMode={setIsEditMode}
-              buildPayload={buildAWSPayload}
-              connectorInfo={undefined}
-            />
+          <StepWizard iconProps={{ size: 37 }} title={stepWizardTitle}>
+            <ConnectorDetailsStep type={ArtifactToConnectorMap[selectedArtifact]} {...connectorDetailStepProps} />
+            <StepAWSAuthentication name={getString('credentials')} {...authenticationStepProps} />
+            <DelegateSelectorStep {...delegateStepProps} buildPayload={buildAWSPayload} />
             <VerifyOutOfClusterDelegate
-              name={getString('connectors.stepThreeName')}
-              connectorInfo={undefined}
-              isStep={true}
-              isLastStep={false}
+              {...verifyOutofClusterDelegateProps}
               type={ArtifactToConnectorMap[selectedArtifact]}
             />
           </StepWizard>
         )
-      case ENABLED_ARTIFACT_TYPES.DockerRegistry:
-      default:
+      case ENABLED_ARTIFACT_TYPES.Nexus:
         return (
-          <StepWizard title={getString('connectors.createNewConnector')}>
-            <ConnectorDetailsStep
-              type={ArtifactToConnectorMap[selectedArtifact as ArtifactType]}
-              name={getString('overview')}
-              isEditMode={isEditMode}
-              gitDetails={{ repoIdentifier, branch, getDefaultFromOtherRepo: true }}
-            />
-            <StepDockerAuthentication
-              name={getString('details')}
-              identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
-              accountId={accountId}
-              orgIdentifier={orgIdentifier}
-              projectIdentifier={projectIdentifier}
-              isEditMode={isEditMode}
-              setIsEditMode={setIsEditMode}
-            />
-            <DelegateSelectorStep
-              name={getString('delegate.DelegateselectionLabel')}
-              isEditMode={isEditMode}
-              setIsEditMode={setIsEditMode}
-              buildPayload={buildDockerPayload}
-              connectorInfo={undefined}
-            />
+          <StepWizard title={stepWizardTitle}>
+            <ConnectorDetailsStep type={ArtifactToConnectorMap[selectedArtifact]} {...connectorDetailStepProps} />
+            <StepNexusAuthentication name={getString('details')} {...authenticationStepProps} />
+            <DelegateSelectorStep {...delegateStepProps} buildPayload={buildNexusPayload} />
             <VerifyOutOfClusterDelegate
-              name={getString('connectors.stepThreeName')}
-              connectorInfo={undefined}
-              isStep={true}
-              isLastStep={false}
-              type={ArtifactToConnectorMap[selectedArtifact as ArtifactType]}
+              {...verifyOutofClusterDelegateProps}
+              type={ArtifactToConnectorMap[selectedArtifact]}
             />
           </StepWizard>
         )
+      case ENABLED_ARTIFACT_TYPES.Artifactory:
+        return (
+          <StepWizard title={stepWizardTitle}>
+            <ConnectorDetailsStep type={ArtifactToConnectorMap[selectedArtifact]} {...connectorDetailStepProps} />
+            <StepArtifactoryAuthentication name={getString('details')} {...authenticationStepProps} />
+            <DelegateSelectorStep {...delegateStepProps} buildPayload={buildArtifactoryPayload} />
+            <VerifyOutOfClusterDelegate
+              {...verifyOutofClusterDelegateProps}
+              type={ArtifactToConnectorMap[selectedArtifact]}
+            />
+          </StepWizard>
+        )
+
+      default:
+        return <></>
     }
   }, [connectorView, selectedArtifact, isEditMode])
 
-  const getLastSteps = (): Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> => {
-    const arr: Array<React.ReactElement<StepProps<ConnectorConfigDTO>>> = []
-
+  const getLastSteps = useCallback((): JSX.Element => {
     switch (selectedArtifact) {
       case ENABLED_ARTIFACT_TYPES.Gcr:
-        arr.push(<GCRImagePath {...artifactLastStepProps()} />)
-        break
+        return <GCRImagePath {...artifactLastStepProps()} />
       case ENABLED_ARTIFACT_TYPES.Ecr:
-        arr.push(<ECRArtifact {...artifactLastStepProps()} />)
-        break
+        return <ECRArtifact {...artifactLastStepProps()} />
+      case ENABLED_ARTIFACT_TYPES.Nexus:
+        return <NexusArtifact {...artifactLastStepProps()} />
+      case ENABLED_ARTIFACT_TYPES.Artifactory:
+        return <Artifactory {...artifactLastStepProps()} />
       case ENABLED_ARTIFACT_TYPES.DockerRegistry:
       default:
-        arr.push(<ImagePath {...artifactLastStepProps()} />)
-        break
+        return <DockerRegistryArtifact {...artifactLastStepProps()} />
     }
-    return arr
-  }
+  }, [artifactLastStepProps, selectedArtifact])
 
   const changeArtifactType = useCallback((selected: ArtifactType | null): void => {
     setSelectedArtifact(selected)
@@ -635,7 +675,6 @@ export default function ArtifactsSelection({
     setIsEditMode(false)
   }, [])
 
-  const { expressions } = useVariablesExpression()
   const renderExistingArtifact = (): JSX.Element => {
     return (
       <div>
@@ -657,24 +696,6 @@ export default function ArtifactsSelection({
       </div>
     )
   }
-
-  const [showConnectorModal, hideConnectorModal] = useModalHook(
-    () => (
-      <Dialog
-        onClose={() => {
-          hideConnectorModal()
-          setConnectorView(false)
-          setIsEditMode(false)
-          setSelectedArtifact(null)
-        }}
-        {...DIALOG_PROPS}
-        className={cx(css.modal, Classes.DIALOG)}
-      >
-        {renderExistingArtifact()}
-      </Dialog>
-    ),
-    [context, selectedArtifact, connectorView, primaryArtifact, sidecarIndex, expressions, allowableTypes, isEditMode]
-  )
 
   return (
     <ArtifactListView

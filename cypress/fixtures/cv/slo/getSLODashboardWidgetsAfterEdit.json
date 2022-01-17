@@ -1,0 +1,49 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "totalPages": 1,
+    "totalItems": 1,
+    "pageItemCount": 1,
+    "pageSize": 4,
+    "content": [
+      {
+        "title": "SLO-1",
+        "sloIdentifier": "SLO1",
+        "monitoredServiceIdentifier": "cvng_prod",
+        "monitoredServiceName": "cvng_prod",
+        "healthSourceIdentifier": "appd_cvng_prod",
+        "healthSourceName": "appd_cvng_prod",
+        "serviceIdentifier": "cvng",
+        "environmentIdentifier": "prod",
+        "environmentName": "prod",
+        "serviceName": "cvng",
+        "tags": {},
+        "type": "Latency",
+        "burnRate": {
+          "currentRatePercentage": 138.44167025398193
+        },
+        "timeRemainingDays": 6,
+        "errorBudgetRemainingPercentage": 100,
+        "errorBudgetRemaining": 104,
+        "totalErrorBudget": 104,
+        "sloTargetType": "Rolling",
+        "currentPeriodLengthDays": 7,
+        "currentPeriodStartTime": 1641364526709,
+        "currentPeriodEndTime": 1641450926709,
+        "sloTargetPercentage": 99,
+        "errorBudgetBurndown": [
+          { "timestamp": 1641407726709, "value": 100 },
+          { "timestamp": 1641450926709, "value": 100 }
+        ],
+        "sloPerformanceTrend": [
+          { "timestamp": 1641407726709, "value": 100 },
+          { "timestamp": 1641450926709, "value": 100 }
+        ],
+        "errorBudgetRisk": "HEALTHY",
+        "recalculatingSLI": true
+      }
+    ],
+    "pageIndex": 0,
+    "empty": false
+  }
+}

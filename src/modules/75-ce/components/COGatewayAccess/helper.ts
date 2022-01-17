@@ -1,25 +1,24 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import { isEmpty as _isEmpty } from 'lodash-es'
 import type { AccessPoint, AccessPointCore } from 'services/lw'
 import type { ConnectionMetadata, GatewayDetails } from '../COCreateGateway/models'
 
 export const getSelectedTabId = (accessDetails: ConnectionMetadata): string => {
-  let tabId = ''
-  if (accessDetails.dnsLink.selected) {
-    tabId = 'dns'
+  const accessDetailsToTabIdMap: Record<string, string> = {
+    dnsLink: 'dns',
+    ssh: 'ssh',
+    ipaddress: 'ip',
+    rdp: 'rdp',
+    backgroundTasks: 'bg'
   }
-  if (accessDetails.ssh.selected) {
-    tabId = 'ssh'
-  }
-  if (accessDetails.ipaddress.selected) {
-    tabId = 'ip'
-  }
-  if (accessDetails.rdp.selected) {
-    tabId = 'rdp'
-  }
-  if (accessDetails.backgroundTasks.selected) {
-    tabId = 'bg'
-  }
-  return tabId
+  const key = Object.entries(accessDetails).find(([, d]) => d.selected)?.[0]
+  return key ? accessDetailsToTabIdMap[key] : ''
 }
 
 export const getValidStatusForDnsLink = (gatewayDetails: GatewayDetails): boolean => {

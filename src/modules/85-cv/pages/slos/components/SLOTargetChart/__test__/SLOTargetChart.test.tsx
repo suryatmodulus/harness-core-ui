@@ -1,6 +1,14 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
+import userEvent from '@testing-library/user-event'
 import { render, screen, waitFor } from '@testing-library/react'
-import * as cvServices from 'services/cv'
+import type { Point } from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
 import {
   serviceLevelIndicator,
@@ -13,7 +21,7 @@ import { getDataPointsWithMinMaxXLimit } from '../SLOTargetChart.utils'
 
 describe('SLOTargetChart Utils', () => {
   test('Should return min and max values without rounding', () => {
-    const dataPoints: cvServices.Point[] = [
+    const dataPoints: Point[] = [
       {
         timestamp: 101,
         value: 90
@@ -40,7 +48,7 @@ describe('SLOTargetChart Utils', () => {
   })
 
   test('Should return min and max values by rounding', () => {
-    const dataPoints: cvServices.Point[] = [
+    const dataPoints: Point[] = [
       {
         timestamp: 101,
         value: 98
@@ -62,7 +70,7 @@ describe('SLOTargetChart Utils', () => {
   })
 
   test('Should handle NaN and string types', () => {
-    const dataPoints: cvServices.Point[] = [
+    const dataPoints: Point[] = [
       {
         timestamp: NaN,
         value: NaN
@@ -89,18 +97,13 @@ describe('SLOTargetChart Utils', () => {
   })
 })
 
-const getSLIGraph = jest.fn().mockReturnValue({ resource: {} })
-
-jest.mock('services/cv', () => ({
-  useGetSliGraph: jest.fn().mockImplementation(() => ({ mutate: getSLIGraph, loading: false, error: null }))
-}))
-
 describe('SLOTargetChartWrapper', () => {
   test('it should render empty state for Ratio based with objective value > 100', () => {
     render(
       <TestWrapper {...testWrapperProps}>
         <SLOTargetChartWrapper
           monitoredServiceIdentifier="Service_1_Environment_1"
+          retryOnError={jest.fn()}
           serviceLevelIndicator={{
             ...serviceLevelIndicator,
             spec: {
@@ -119,6 +122,7 @@ describe('SLOTargetChartWrapper', () => {
   })
 
   test('it should not render empty state for Threshold based with objective value > 100', async () => {
+    const debounceFetchSliGraphData = jest.fn()
     const serviceLevelIndicatorThreshold = {
       ...serviceLevelIndicator,
       spec: {
@@ -135,25 +139,27 @@ describe('SLOTargetChartWrapper', () => {
         <SLOTargetChartWrapper
           monitoredServiceIdentifier="Service_1_Environment_1"
           serviceLevelIndicator={serviceLevelIndicatorThreshold}
+          retryOnError={jest.fn()}
+          debounceFetchSliGraphData={debounceFetchSliGraphData}
         />
       </TestWrapper>
     )
 
     expect(screen.queryByText('cv.pleaseFillTheRequiredFieldsToSeeTheSLIData')).not.toBeInTheDocument()
     await waitFor(() => {
-      expect(getSLIGraph).toHaveBeenCalledTimes(1)
-      expect(getSLIGraph).toBeCalledWith(serviceLevelIndicatorThreshold)
+      expect(debounceFetchSliGraphData).toHaveBeenCalledTimes(1)
+      expect(debounceFetchSliGraphData).toBeCalledWith(serviceLevelIndicatorThreshold, 'Service_1_Environment_1')
     })
   })
 
   test('it should render loader', () => {
-    jest.spyOn(cvServices, 'useGetSliGraph').mockReturnValue({ mutate: jest.fn(), loading: true, error: null } as any)
-
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
         <SLOTargetChartWrapper
           monitoredServiceIdentifier="Service_1_Environment_1"
           serviceLevelIndicator={serviceLevelIndicator}
+          loading
+          retryOnError={jest.fn()}
         />
       </TestWrapper>
     )
@@ -161,20 +167,24 @@ describe('SLOTargetChartWrapper', () => {
     expect(container.querySelector('[data-icon="steps-spinner"]')).toBeInTheDocument()
   })
 
-  test('it should render error message', () => {
-    jest
-      .spyOn(cvServices, 'useGetSliGraph')
-      .mockReturnValue({ mutate: jest.fn(), loading: false, error: { message: errorMessage } } as any)
+  test('it should render error message', async () => {
+    const retryOnError = jest.fn()
 
     render(
       <TestWrapper {...testWrapperProps}>
         <SLOTargetChartWrapper
           monitoredServiceIdentifier="Service_1_Environment_1"
           serviceLevelIndicator={serviceLevelIndicator}
+          error={errorMessage}
+          retryOnError={retryOnError}
         />
       </TestWrapper>
     )
 
     expect(screen.getByText(errorMessage)).toBeInTheDocument()
+
+    userEvent.click(screen.getByText('Retry'))
+
+    await waitFor(() => expect(retryOnError).toBeCalledWith(serviceLevelIndicator, 'Service_1_Environment_1'))
   })
 })

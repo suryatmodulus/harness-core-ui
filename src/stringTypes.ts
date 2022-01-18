@@ -3095,6 +3095,13 @@ export interface StringsMap {
   'cd.workloadRequired': string
   'ce.allClusters': string
   'ce.allRegions': string
+  'ce.anomalyDetection.settingsBtn': string
+  'ce.anomalyDetection.sideNavText': string
+  'ce.anomalyDetection.summary.cloudProvidersWise': string
+  'ce.anomalyDetection.summary.costImpacted': string
+  'ce.anomalyDetection.summary.perspectiveWise': string
+  'ce.anomalyDetection.summary.statusWise': string
+  'ce.anomalyDetection.summary.totalCountText': string
   'ce.budgets.addNewBudget': string
   'ce.budgets.budgetDeletedTxt': string
   'ce.budgets.confirmDeleteBudgetMsg': string

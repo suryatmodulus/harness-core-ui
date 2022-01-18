@@ -123,6 +123,8 @@ const SideNavItems = () => {
   const { accountId } = useParams<PipelinePathProps>()
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
+  const showAnomalies = localStorage.getItem('showAnomalies')
+
   return (
     <Layout.Vertical spacing="small">
       <React.Fragment>
@@ -130,6 +132,12 @@ const SideNavItems = () => {
         <SidebarLink label={getString('ce.perspectives.sideNavText')} to={routes.toCEPerspectives({ accountId })} />
         <SidebarLink label={getString('ce.budgets.sideNavText')} to={routes.toCEBudgets({ accountId })} />
 
+        {showAnomalies && (
+          <SidebarLink
+            label={getString('ce.anomalyDetection.sideNavText')}
+            to={routes.toCEAnomalyDetection({ accountId })}
+          />
+        )}
         <SidebarLink
           label={getString('ce.recommendation.sideNavText')}
           to={routes.toCERecommendations({ accountId })}

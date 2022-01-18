@@ -34,6 +34,7 @@ import OverviewPage from './pages/overview/OverviewPage'
 import NodeRecommendationDetailsPage from './pages/node-recommendation-details/NodeRecommendationDetailsPage'
 import BudgetDetails from './pages/budget-details/BudgetDetails'
 import NodeDetailsPage from './pages/node-details/NodeDetailsPage'
+import AnomaliesOverviewPage from './pages/anomalies-overview/AnomaliesOverviewPage'
 
 const CESideNavProps: SidebarContext = {
   navComponent: CESideNav,
@@ -307,6 +308,16 @@ const CERoutes: React.FC = () => {
           exact
         >
           <NodeDetailsPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={CESideNavProps}
+          path={routes.toCEAnomalyDetection({
+            ...accountPathProps
+          })}
+          exact
+        >
+          <AnomaliesOverviewPage />
         </RouteWithLayout>
         <RouteWithLayout
           licenseRedirectData={licenseRedirectData}

@@ -737,3 +737,12 @@ budgets:
     monthToDateCost: '{{ $.ce.common.spendTillDate }}'
     budgetAmount: Budget amount
     alertsAt: Alerts at
+anomalyDetection:
+  sideNavText: Anomalies
+  settingsBtn: settings
+  summary:
+    totalCountText: ANOMALIES DETECTED
+    costImpacted: TOTAL COST IMPACT
+    perspectiveWise: Top 3 perspectives by anomalies
+    cloudProvidersWise: ANOMALIES BY ClOUD PROVIDERS
+    statusWise: ANOMALIES BY STATUS

@@ -1,0 +1,36 @@
+.searchInput {
+  flex-grow: 1;
+  margin-right: 16px;
+}
+
+.header {
+  padding: var(--spacing-medium) var(--spacing-large) !important;
+  border-bottom: 1px solid var(--grey-200);
+  background: var(--white) !important;
+}
+
+.groupbyFilter {
+  color: var(--primary-7);
+}
+
+.summaryCharts {
+  background-color: var(--grey-0);
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 3px rgba(96, 97, 112, 0.12);
+  width: 100%;
+  padding: var(--spacing-medium);
+  border-radius: 4px;
+
+  .cols {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    padding-top: var(--spacing-medium);
+    align-items: center;
+    column-gap: var(--spacing-medium);
+    overflow-x: auto;
+  }
+}
+
+.tableView {
+  width: 100%;
+  padding-top: var(--spacing-medium);
+}

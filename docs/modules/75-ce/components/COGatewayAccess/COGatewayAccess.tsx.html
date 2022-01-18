@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93% </span>
+                <span class="strong">91.51% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>93/100</span>
+                <span class='fraction'>97/106</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.33% </span>
+                <span class="strong">71.78% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>115/159</span>
+                <span class='fraction'>117/163</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93% </span>
+                <span class="strong">91.51% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>93/100</span>
+                <span class='fraction'>97/106</span>
             </div>
         
             
@@ -551,7 +551,15 @@
 <a name='L492'></a><a href='#L492'>492</a>
 <a name='L493'></a><a href='#L493'>493</a>
 <a name='L494'></a><a href='#L494'>494</a>
-<a name='L495'></a><a href='#L495'>495</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L495'></a><a href='#L495'>495</a>
+<a name='L496'></a><a href='#L496'>496</a>
+<a name='L497'></a><a href='#L497'>497</a>
+<a name='L498'></a><a href='#L498'>498</a>
+<a name='L499'></a><a href='#L499'>499</a>
+<a name='L500'></a><a href='#L500'>500</a>
+<a name='L501'></a><a href='#L501'>501</a>
+<a name='L502'></a><a href='#L502'>502</a>
+<a name='L503'></a><a href='#L503'>503</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -580,6 +588,7 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -876,7 +885,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -902,6 +911,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -946,6 +959,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
@@ -1078,6 +1094,7 @@ import { PageSpinner } from '@common/components'
 import { Service, useDescribeServiceInContainerServiceCluster } from 'services/lw'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
+import { useGatewayContext } from '@ce/context/GatewayContext'
 import DNSLinkSetup from './DNSLinkSetup'
 import SSHSetup from './SSHSetup'
 import IPSetup from './IPAddressSetup'
@@ -1369,8 +1386,8 @@ const K8sRuleAccessDetails: React.FC&lt;K8sRuleAccessDetailsProps&gt; = ({
   allServices
 }) =&gt; {
   const { getString } = useStrings()
-  const { showSuccess } = useToaster()
-&nbsp;
+  const { showSuccess, showError } = useToaster()
+  const { isEditFlow } = useGatewayContext()
   const [yamlData, setYamlData] = useState&lt;Record&lt;any, any&gt;&gt;(
     gatewayDetails.routing.k8s?.RuleJson ? JSON.parse(gatewayDetails.routing.k8s.RuleJson) : undefined
   )
@@ -1392,54 +1409,61 @@ const K8sRuleAccessDetails: React.FC&lt;K8sRuleAccessDetailsProps&gt; = ({
     resourceToUpdateWith: 'yaml' | 'gateway' = <span class="branch-0 cbranch-no" title="branch not covered" >'yaml',</span>
     disableSuccessMsg = <span class="branch-0 cbranch-no" title="branch not covered" >false</span>
   ) =&gt; {
-    const yamlRuleName = _data<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etadata<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame
-    const updatedName = Utils.getHyphenSpacedString(gatewayDetails.name)
-    const nameToReplace = Utils.getConditionalResult(resourceToUpdateWith === 'yaml', yamlRuleName, updatedName)
-    const namespace = _data.metadata<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>amespace || <span class="branch-1 cbranch-no" title="branch not covered" >'default'</span>
-    const hideProgressPage =
-      resourceToUpdateWith === 'gateway' ? gatewayDetails.opts.hide_progress_page : <span class="branch-1 cbranch-no" title="branch not covered" >_data.spec.hideProgressPage</span>
-    const yamlToSave = {
-      ..._data,
-      metadata: {
-        ..._data.metadata,
-        name: nameToReplace,
-        namespace,
-        annotations: {
-          ..._data.metadata.annotations,
-          'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${namespace}-${nameToReplace}";`
-        }
-      },
-      spec: {
-        ..._data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec,
-        hideProgressPage,
-        ...(resourceToUpdateWith === 'gateway' &amp;&amp; {
-          dependencies: Utils.fromServiceToYamlDependencies(allServices, gatewayDetails.deps)
-        })
+    try {
+      const yamlRuleName = _data<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etadata<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame
+      const updatedName = Utils.getHyphenSpacedString(gatewayDetails.name)
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (isEditFlow &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >yamlRuleName !== updatedName)</span> {
+<span class="cstat-no" title="statement not covered" >        throw new Error('Name cannot be edited')</span>
       }
-    }
-    setYamlData(yamlToSave)
-    const updatedGatewayDetails: GatewayDetails = {
-      ...gatewayDetails,
-      ...(yamlRuleName !== updatedName &amp;&amp; { name: nameToReplace }),
-      ...(resourceToUpdateWith === 'yaml' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >{ idleTimeMins: _data?.spec?.idleTimeMins })</span>,
-      routing: {
-        ...gatewayDetails.routing,
-        k8s: {
-          RuleJson: JSON.stringify(yamlToSave),
-          ConnectorID: gatewayDetails.metadata.kubernetes_connector_id as string,
-          Namespace: namespace
+      const nameToReplace = Utils.getConditionalResult(resourceToUpdateWith === 'yaml', yamlRuleName, updatedName)
+      const namespace = _data.metadata<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>amespace || <span class="branch-1 cbranch-no" title="branch not covered" >'default'</span>
+      const hideProgressPage =
+        resourceToUpdateWith === 'gateway' ? gatewayDetails.opts.hide_progress_page : <span class="branch-1 cbranch-no" title="branch not covered" >_data.spec.hideProgressPage</span>
+      const yamlToSave = {
+        ..._data,
+        metadata: {
+          ..._data.metadata,
+          name: nameToReplace,
+          namespace,
+          annotations: {
+            ..._data.metadata.annotations,
+            'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${namespace}-${nameToReplace}";`
+          }
+        },
+        spec: {
+          ..._data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec,
+          hideProgressPage,
+          ...(resourceToUpdateWith === 'gateway' &amp;&amp; {
+            dependencies: Utils.fromServiceToYamlDependencies(allServices, gatewayDetails.deps)
+          })
         }
-      },
-      ...(resourceToUpdateWith === 'yaml' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >{</span>
-        deps: Utils.fromYamlToServiceDependencies(allServices, _data?.spec?.dependencies)
-      }),
-      opts: {
-        ...gatewayDetails.opts,
-        hide_progress_page: hideProgressPage
       }
+      setYamlData(yamlToSave)
+      const updatedGatewayDetails: GatewayDetails = {
+        ...gatewayDetails,
+        ...(yamlRuleName !== updatedName &amp;&amp; { name: nameToReplace }),
+        ...(resourceToUpdateWith === 'yaml' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >{ idleTimeMins: _data?.spec?.idleTimeMins })</span>,
+        routing: {
+          ...gatewayDetails.routing,
+          k8s: {
+            RuleJson: JSON.stringify(yamlToSave),
+            ConnectorID: gatewayDetails.metadata.kubernetes_connector_id as string,
+            Namespace: namespace
+          }
+        },
+        ...(resourceToUpdateWith === 'yaml' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >{</span>
+          deps: Utils.fromYamlToServiceDependencies(allServices, _data?.spec?.dependencies)
+        }),
+        opts: {
+          ...gatewayDetails.opts,
+          hide_progress_page: hideProgressPage
+        }
+      }
+      setGatewayDetails(updatedGatewayDetails)
+      !disableSuccessMsg &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >showSuccess(getString('ce.savedYamlSuccess'))</span>
+    } catch (e) {
+<span class="cstat-no" title="statement not covered" >      showError(e.message)</span>
     }
-    setGatewayDetails(updatedGatewayDetails)
-    !disableSuccessMsg &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >showSuccess(getString('ce.savedYamlSuccess'))</span>
   }
 &nbsp;
   const getYamlExistingData = () =&gt; {
@@ -1546,7 +1570,7 @@ export default COGatewayAccess
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 18 2022 11:36:55 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 18 2022 13:03:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -1,3 +1,10 @@
+/*
+ * Copyright 2021 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import type { IconName } from '@wings-software/uicore'
 import { getRiskColorValue } from '@cv/utils/CommonUtils'
 import type { HostTestData } from './DeploymentMetricsAnalysisRow.constants'
@@ -37,9 +44,11 @@ export function transformControlAndTestDataToHighChartsSeries(
         data: controlData[index] || [],
         color: 'var(--grey-200)',
         name: testData[index].name,
+        connectNulls: true,
         marker: {
-          enabled: controlData[index]?.length === 1,
+          enabled: true,
           lineWidth: 1,
+          symbol: 'circle',
           fillColor: 'var(--white)',
           lineColor: 'var(--grey-200)'
         }
@@ -49,9 +58,11 @@ export function transformControlAndTestDataToHighChartsSeries(
         data: testData[index].points || [],
         color: testDataLineColor,
         name: testData[index].name,
+        connectNulls: true,
         marker: {
-          enabled: testData[index]?.points?.length === 1,
+          enabled: true,
           lineWidth: 1,
+          symbol: 'circle',
           fillColor: 'var(--white)',
           lineColor: testDataLineColor
         }

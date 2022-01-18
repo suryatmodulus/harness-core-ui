@@ -10,7 +10,6 @@ import { Button, Container, Utils } from '@wings-software/uicore'
 import { PopoverInteractionKind } from '@blueprintjs/core'
 import type { GroupedCreatedMetrics } from '@cv/pages/health-source/connectors/AppDynamics/Components/AppDMappedMetric/AppDMappedMetric.types'
 import { SelectedAppsSideNav } from './components/SelectedAppsSideNav/SelectedAppsSideNav'
-import { onRemoveGroupAndItem } from './MultiItemsSideNav.utils'
 import css from './MultiItemsSideNav.module.scss'
 
 export interface MultiItemsSideNavProps {
@@ -80,6 +79,11 @@ export function MultiItemsSideNav(props: MultiItemsSideNavProps): JSX.Element {
       : createdMetrics
   }, [filter, createdMetrics])
 
+  const createdMetricsLength =
+    groupedCreatedMetrics && Object.keys(groupedCreatedMetrics).length > 1
+      ? Object.keys(groupedCreatedMetrics || {}).length
+      : createdMetrics.length
+
   return (
     <Container className={css.main}>
       <Button
@@ -110,31 +114,20 @@ export function MultiItemsSideNav(props: MultiItemsSideNavProps): JSX.Element {
         selectedItem={selectedMetric}
         selectedApps={metricsToRender}
         groupedSelectedApps={groupedCreatedMetrics}
-        onRemoveItem={(removedItem, index) => {
-          if (groupedCreatedMetrics) {
-            Object.keys(groupedCreatedMetrics).length > 1
-              ? onRemoveGroupAndItem({
-                  removedItem,
-                  index,
-                  setCreatedMetrics,
-                  groupedCreatedMetrics,
-                  setSelectedMetric,
-                  onRemoveMetric
+        onRemoveItem={
+          createdMetricsLength > 1
+            ? (removedItem, index) => {
+                setCreatedMetrics(oldMetrics => {
+                  oldMetrics.splice(index, 1)
+                  const updateIndex = index === 0 ? 0 : index - 1
+                  const updatedMetric = oldMetrics[updateIndex]
+                  setSelectedMetric(updatedMetric)
+                  onRemoveMetric(removedItem, updatedMetric, [...oldMetrics], updateIndex)
+                  return [...oldMetrics]
                 })
-              : undefined
-          } else {
-            createdMetrics.length > 1
-              ? onRemoveGroupAndItem({
-                  removedItem,
-                  index,
-                  setCreatedMetrics,
-                  groupedCreatedMetrics,
-                  setSelectedMetric,
-                  onRemoveMetric
-                })
-              : undefined
-          }
-        }}
+              }
+            : undefined
+        }
         filterProps={{
           onFilter: setFilter,
           className: css.metricsFilter

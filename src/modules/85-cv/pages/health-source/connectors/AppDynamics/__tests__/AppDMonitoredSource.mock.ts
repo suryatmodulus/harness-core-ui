@@ -604,7 +604,8 @@ export const validateMappingWithMetricPathError = {
   continuousVerification: false,
   healthScore: true,
   sli: false,
-  showCustomMetric: true
+  showCustomMetric: true,
+  pathType: 'dropdownPath'
 }
 
 export const validateMappingWithErrors = {
@@ -630,7 +631,8 @@ export const validateMappingWithErrors = {
   continuousVerification: true,
   healthScore: true,
   sli: false,
-  showCustomMetric: true
+  showCustomMetric: true,
+  pathType: 'dropdownPath'
 }
 
 export const createAppDynamicsDataValue = {

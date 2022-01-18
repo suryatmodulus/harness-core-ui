@@ -205,3 +205,5 @@ communityErrorMessages:
 group: Group
 manageSCIMText: 'Unable to {{action}} this {{target}} because it is managed using SCIM by your identity provider.'
 unableToEditSCIMMembership: Unable to edit membership to this group because it is managed using SCIM by your identity provider.
+copyGroupTitle: 'Copy group: {{name}}'
+copyGroupSuccess: User group copied successfully

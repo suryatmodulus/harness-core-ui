@@ -42,6 +42,7 @@ import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/Manage
 import RbacMenuItem from '@rbac/components/MenuItem/MenuItem'
 import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
 import { isCDCommunity, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import CopyMenuItem from '../CopyMenuItem/CopyMenuItem'
 import css from './UserGroupsListView.module.scss'
 
 interface UserGroupsListViewProps {
@@ -313,6 +314,7 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
               target: getString('rbac.group').toLowerCase()
             })
           )}
+          <CopyMenuItem userGroupName={data.name} />
         </Menu>
       </Popover>
     </Layout.Horizontal>

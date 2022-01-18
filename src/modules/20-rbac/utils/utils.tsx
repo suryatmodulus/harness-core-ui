@@ -6,10 +6,23 @@
  */
 
 import React, { ReactNode } from 'react'
-import { IconName, ModalErrorHandlerBinding, getErrorInfoFromErrorObject, SelectOption } from '@wings-software/uicore'
+import {
+  IconName,
+  ModalErrorHandlerBinding,
+  getErrorInfoFromErrorObject,
+  SelectOption,
+  MultiSelectOption
+} from '@wings-software/uicore'
 import { defaultTo } from 'lodash-es'
 import type { StringsMap } from 'stringTypes'
-import type { AccessControlCheckError, RoleAssignmentMetadataDTO, UserMetadataDTO } from 'services/cd-ng'
+import type {
+  AccessControlCheckError,
+  OrganizationAggregateDTO,
+  ProjectResponse,
+  RoleAssignmentMetadataDTO,
+  UserMetadataDTO,
+  Scope as CDScope
+} from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type {
   Assignment,
@@ -24,6 +37,7 @@ import type { FeatureRequest } from 'framework/featureStore/featureStoreUtil'
 import type { PermissionsRequest } from '@rbac/hooks/usePermission'
 import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
 import type { UseStringsReturn } from 'framework/strings'
+import type { ProjectSelectOption } from '@audit-trail/components/FilterDrawer/FilterDrawer'
 import css from './utils.module.scss'
 
 export enum PrincipalType {
@@ -296,4 +310,50 @@ export function getTooltip({
 
 export const getUserName = (user: UserMetadataDTO): string => {
   return defaultTo(user.name, user.email)
+}
+
+export const getOrgList = (list: OrganizationAggregateDTO[]): MultiSelectOption[] => {
+  return list.map(org => ({
+    label: org.organizationResponse.organization.name,
+    value: org.organizationResponse.organization.identifier
+  }))
+}
+
+export const getProjectList = (list: ProjectResponse[]): ProjectSelectOption[] => {
+  return list.map(project => ({
+    label: project.project.name,
+    value: project.project.identifier,
+    orgIdentifier: project.project.orgIdentifier as string
+  }))
+}
+
+export const getScopeList = (
+  orgs: MultiSelectOption[],
+  projects: ProjectSelectOption[],
+  accountId: string
+): CDScope[] => {
+  const scopeList: CDScope[] = []
+  if (orgs.length > 0) {
+    orgs.forEach(org => {
+      const index = projects.findIndex(project => project.orgIdentifier === org.value)
+      if (index === -1) {
+        scopeList.push({
+          accountIdentifier: accountId,
+          orgIdentifier: org.value as string
+        })
+      }
+    })
+  }
+
+  if (projects.length > 0) {
+    projects.forEach(project => {
+      scopeList.push({
+        accountIdentifier: accountId,
+        orgIdentifier: project.orgIdentifier,
+        projectIdentifier: project.value as string
+      })
+    })
+  }
+
+  return scopeList
 }

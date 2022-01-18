@@ -41,3 +41,12 @@ export const onRemoveGroupAndItem = ({
     }
   })
 }
+
+export const getCreatedMetricLength = (
+  createdMetrics: string[],
+  groupedCreatedMetrics?: GroupedCreatedMetrics
+): number => {
+  return groupedCreatedMetrics && Object.keys(groupedCreatedMetrics).length > 1
+    ? Object.keys(groupedCreatedMetrics || {}).length
+    : createdMetrics.length
+}

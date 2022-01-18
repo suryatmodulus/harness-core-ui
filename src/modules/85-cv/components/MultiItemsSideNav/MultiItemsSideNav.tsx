@@ -10,6 +10,7 @@ import { Button, Container, Utils } from '@wings-software/uicore'
 import { PopoverInteractionKind } from '@blueprintjs/core'
 import type { GroupedCreatedMetrics } from '@cv/pages/health-source/connectors/AppDynamics/Components/AppDMappedMetric/AppDMappedMetric.types'
 import { SelectedAppsSideNav } from './components/SelectedAppsSideNav/SelectedAppsSideNav'
+import { getCreatedMetricLength } from './MultiItemsSideNav.utils'
 import css from './MultiItemsSideNav.module.scss'
 
 export interface MultiItemsSideNavProps {
@@ -79,10 +80,10 @@ export function MultiItemsSideNav(props: MultiItemsSideNavProps): JSX.Element {
       : createdMetrics
   }, [filter, createdMetrics])
 
-  const createdMetricsLength =
-    groupedCreatedMetrics && Object.keys(groupedCreatedMetrics).length > 1
-      ? Object.keys(groupedCreatedMetrics || {}).length
-      : createdMetrics.length
+  const createdMetricsLength = useMemo(
+    () => getCreatedMetricLength(createdMetrics, groupedCreatedMetrics),
+    [groupedCreatedMetrics, createdMetrics]
+  )
 
   return (
     <Container className={css.main}>

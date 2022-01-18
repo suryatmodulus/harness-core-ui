@@ -278,6 +278,7 @@ exports[`SegmentsPage No environment view should be rendered 1`] = `
           </p>
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--padding-top-small StyledProps--padding-bottom-small StyledProps--padding-left-huge StyledProps--padding-right-huge Button--with-current-color"
+            data-testid="create-environment-button"
             type="button"
           >
             <span
@@ -397,6 +398,7 @@ exports[`SegmentsPage No environment view should be rendered 2`] = `
           </p>
           <button
             class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--padding-top-small StyledProps--padding-bottom-small StyledProps--padding-left-huge StyledProps--padding-right-huge Button--with-current-color"
+            data-testid="create-environment-button"
             type="button"
           >
             <span

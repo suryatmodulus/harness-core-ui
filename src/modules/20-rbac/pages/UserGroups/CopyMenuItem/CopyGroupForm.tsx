@@ -27,8 +27,8 @@ import {
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { getOrgList, getProjectList, getScopeList } from '@rbac/utils/utils'
-import css from './CopyMenuItem.module.scss'
 import type { CopyGroupFormType } from './CopyMenuItem'
+import css from './CopyMenuItem.module.scss'
 
 interface CopyGroupFormProps {
   handleFormClose: () => void

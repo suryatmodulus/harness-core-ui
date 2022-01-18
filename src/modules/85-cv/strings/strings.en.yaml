@@ -606,6 +606,7 @@ healthSource:
         basePath: Please select base path
         metricPath: Please select metric path
         metricPathWithoutLeafNode: Please select metric in metric path
+        fullPath: Please provide full metric path
       metricPathType:
         text: Specify a complete metric path
         dropdown: Select the path from the AppD metric

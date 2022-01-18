@@ -103,18 +103,31 @@ export function MultiItemsSideNav(props: MultiItemsSideNavProps): JSX.Element {
         selectedItem={selectedMetric}
         selectedApps={metricsToRender}
         groupedSelectedApps={groupedCreatedMetrics}
-        onRemoveItem={(removedItem, index) =>
-          createdMetrics.length > 1
-            ? onRemoveGroupAndItem({
-                removedItem,
-                index,
-                setCreatedMetrics,
-                groupedCreatedMetrics,
-                setSelectedMetric,
-                onRemoveMetric
-              })
-            : undefined
-        }
+        onRemoveItem={(removedItem, index) => {
+          if (groupedCreatedMetrics) {
+            Object.keys(groupedCreatedMetrics).length > 1
+              ? onRemoveGroupAndItem({
+                  removedItem,
+                  index,
+                  setCreatedMetrics,
+                  groupedCreatedMetrics,
+                  setSelectedMetric,
+                  onRemoveMetric
+                })
+              : undefined
+          } else {
+            createdMetrics.length > 1
+              ? onRemoveGroupAndItem({
+                  removedItem,
+                  index,
+                  setCreatedMetrics,
+                  groupedCreatedMetrics,
+                  setSelectedMetric,
+                  onRemoveMetric
+                })
+              : undefined
+          }
+        }}
         filterProps={{
           onFilter: setFilter,
           className: css.metricsFilter

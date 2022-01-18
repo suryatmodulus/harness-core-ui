@@ -4387,6 +4387,7 @@ export interface StringsMap {
   'cv.healthSource.connectors.AppDynamics.trierLabel': string
   'cv.healthSource.connectors.AppDynamics.validation.application': string
   'cv.healthSource.connectors.AppDynamics.validation.basePath': string
+  'cv.healthSource.connectors.AppDynamics.validation.fullPath': string
   'cv.healthSource.connectors.AppDynamics.validation.metricPath': string
   'cv.healthSource.connectors.AppDynamics.validation.metricPathWithoutLeafNode': string
   'cv.healthSource.connectors.AppDynamics.validation.tier': string

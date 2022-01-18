@@ -26,7 +26,6 @@ export default function GroupedSideNav({
         return (
           <CollapseList key={label}>
             <CollapseListPanel
-              isOpen
               collapseHeaderProps={{
                 heading: (
                   <Text

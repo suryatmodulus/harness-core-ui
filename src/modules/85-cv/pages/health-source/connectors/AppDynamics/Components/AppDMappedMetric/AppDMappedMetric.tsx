@@ -132,7 +132,7 @@ export default function AppDMappedMetric({
 
   useEffect(() => {
     if (formikValues.pathType === PATHTYPE.DropdownPath) {
-      formikSetField('fullPath', '')
+      formikSetField(PATHTYPE.FullPath, '')
     }
   }, [formikValues.pathType])
 
@@ -226,7 +226,7 @@ export default function AppDMappedMetric({
                       checked={formikValues?.pathType === PATHTYPE.FullPath}
                       onChange={() => formikSetField('pathType', PATHTYPE.FullPath)}
                     />
-                    <FormInput.Text name={'fullPath'} disabled={formikValues?.pathType !== PATHTYPE.FullPath} />
+                    <FormInput.Text name={PATHTYPE.FullPath} disabled={formikValues?.pathType !== PATHTYPE.FullPath} />
                     <Radio
                       padding={{ bottom: 'medium', left: 'xlarge' }}
                       label={getString('cv.healthSource.connectors.AppDynamics.metricPathType.dropdown')}

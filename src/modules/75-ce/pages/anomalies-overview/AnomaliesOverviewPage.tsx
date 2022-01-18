@@ -18,7 +18,6 @@ import {
 import { useStrings } from 'framework/strings'
 
 import PerspectiveTimeRangePicker from '@ce/components/PerspectiveTimeRangePicker/PerspectiveTimeRangePicker'
-// import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import { CE_DATE_FORMAT_INTERNAL, DATE_RANGE_SHORTCUTS } from '@ce/utils/momentUtils'
 import css from './AnomaliesOverviewPage.module.scss'
 
@@ -84,28 +83,18 @@ const AnomalyFilters: React.FC = () => {
         ]}
       />
       <Icon name="ng-filter" size={24} color="primary7" />
-      {/* <FilterSelector<FilterDTO>
-				appliedFilter={appliedFilter}
-				filters={filters}
-				onFilterBtnClick={openFilterDrawer}
-				onFilterSelect={handleFilterSelection}
-				fieldToLabelMapping={fieldToLabelMapping}
-				filterWithValidFields={removeNullAndEmpty(
-					pick(flattenObject(appliedFilter?.filterProperties || {}), ...fieldToLabelMapping.keys())
-				)}
-			/> */}
       <Text border={{ right: true, color: 'grey300' }} />
       <PerspectiveTimeRangePicker timeRange={timeRange} setTimeRange={setTimeRange} />
     </Layout.Horizontal>
   )
 }
 
-interface searchProps {
+interface SearchProps {
   searchText: string
   onChange: React.Dispatch<React.SetStateAction<string>>
 }
 
-const AnomaliesSearch: React.FC<searchProps> = ({ searchText, onChange }) => {
+const AnomaliesSearch: React.FC<SearchProps> = ({ searchText, onChange }) => {
   const { getString } = useStrings()
 
   return (
@@ -212,25 +201,25 @@ const AnomaliesListGridView: React.FC = () => {
           age: 20,
           name: 'User 1',
           col3: 'aws',
-          col4: 'jyoti.arora@harness.io'
+          col4: 'jyoti.arora1@harness.io'
         },
         {
           age: 25,
           name: 'User 2',
           col3: 'aws',
-          col4: 'jyoti.arora@harness.io'
+          col4: 'jyoti.arora2@harness.io'
         },
         {
           age: 25,
           name: 'User 3',
           col3: 'aws',
-          col4: 'jyoti.arora@harness.io'
+          col4: 'jyoti.arora3@harness.io'
         },
         {
           age: 25,
           name: 'User 4',
           col3: 'aws',
-          col4: 'jyoti.arora@harness.io'
+          col4: 'jyoti.arora4@harness.io'
         }
       ]}
       pagination={{

@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import produce from 'immer'
 import { defaultTo, isEmpty, lowerCase, set } from 'lodash-es'
@@ -18,8 +25,8 @@ import type { AllNGVariables } from '@pipeline/utils/types'
 
 import VariableListTagRow from '@pipeline/components/VariablesListTable/VariableListTagRow'
 import { ServiceCardPanel } from './ServiceCard'
-import { InfrastructureCardPanel } from './InfrastructureCard'
 import { ExecutionCardPanel } from './ExecutionCard'
+import { EnvironmentCardPanel } from './EnvironmentCard'
 import VariableAccordionSummary from '../VariableAccordionSummary'
 import type { PipelineVariablesData } from '../types'
 import css from '../PipelineVariables.module.scss'
@@ -137,31 +144,14 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                   }}
                 />
               ) : /* istanbul ignore next */ null}
-              {stageSpec.infrastructure && originalSpec.infrastructure ? (
-                <InfrastructureCardPanel
-                  infrastructure={stageSpec.infrastructure}
-                  originalInfrastructure={originalSpec.infrastructure}
-                  metadataMap={metadataMap}
-                  stageIdentifier={originalStage.identifier}
-                  readonly={readonly}
-                  allowableTypes={allowableTypes}
-                  path={`${path}.${originalStage.identifier}.Infrastructure`}
-                  onUpdateInfrastructure={infrastructure => {
-                    updateStage(
-                      produce(originalStage, draft => {
-                        set(draft, 'spec.infrastructure', infrastructure)
-                      })
-                    )
-                  }}
-                  onUpdateInfrastructureProvisioner={provisioner => {
-                    updateStage(
-                      produce(originalStage, draft => {
-                        set(draft, 'spec.infrastructure.infrastructureDefinition.provisioner', provisioner)
-                      })
-                    )
-                  }}
-                />
-              ) : /* istanbul ignore next */ null}
+              <EnvironmentCardPanel
+                stage={stage}
+                originalStage={originalStage}
+                metadataMap={metadataMap}
+                readonly={readonly}
+                allowableTypes={allowableTypes}
+                path={path}
+              />
               {stageSpec.execution && originalSpec.execution ? (
                 <ExecutionCardPanel
                   id={`${path}.${originalStage.identifier}.Execution`}

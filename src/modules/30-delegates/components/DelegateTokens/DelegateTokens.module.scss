@@ -1,0 +1,106 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
+.listBody {
+  height: 100%;
+}
+
+.search {
+  margin-bottom: var(--spacing-large) !important;
+}
+
+.header {
+  padding: var(--spacing-large) var(--spacing-xlarge) !important;
+  border-bottom: 1px solid var(--grey-200);
+  height: 72px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 !important;
+  background-color: var(--white) !important;
+}
+
+.delegateListContainer {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-xlarge) !important;
+  background: var(--primary-bg) !important;
+}
+
+.table {
+  width: 100%;
+}
+
+.menuColumn {
+  justify-self: end;
+}
+
+.addTokenModalContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tokenField {
+  border: 1px solid var(--grey-200) !important;
+  border-radius: 4px !important;
+}
+
+.delegateItemContainer {
+  min-height: 64px;
+  align-items: center;
+  display: flex !important;
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16);
+  border-radius: 4px;
+}
+
+.troubleshootLink {
+  color: var(--blue-500);
+  margin-left: var(--spacing-large);
+  font-size: x-small;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.tokenListDelegateContainer {
+  padding: 1px !important;
+  height: 290px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.moreInfoActionsContainer {
+  margin-top: var(--spacing-large) !important;
+}
+
+.revokeCheckbox {
+  align-items: center;
+  margin-right: var(--spacing-large) !important;
+}
+
+.addTokenModalForm {
+  height: 100%;
+}
+
+.addTokenModalActionContainer {
+  margin-top: 40px !important;
+}
+
+.tokenNameColumn {
+  align-items: center;
+  display: flex;
+}
+
+.tokenCellText {
+  color: var(--black);
+}
+
+.tokenItemColumn {
+  width: calc(50% - 30px);
+}

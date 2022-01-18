@@ -114,6 +114,12 @@ exports[`Delegates Page render data 1`] = `
       >
         delegate.delegates
       </a>
+      <a
+        class="TabNavigation--tags TabNavigation--small"
+        href="/account/dummy/settings/resources/delegates/tokens"
+      >
+        common.tokens
+      </a>
     </div>
   </div>
   <div

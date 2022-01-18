@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React, { useState, useMemo, ReactNode, useEffect } from 'react'
 import cronstrue from 'cronstrue'
 import { isEmpty } from 'lodash-es'
@@ -270,7 +277,12 @@ const Budgets = ({ perspectiveName }: { perspectiveName: string }): JSX.Element 
 
   const handleDeleteBudget: (budget: Budget) => void = async budget => {
     try {
-      const deleted = await (budget?.uuid && deleteBudget(budget.uuid))
+      const deleted = await (budget?.uuid &&
+        deleteBudget(budget.uuid, {
+          headers: {
+            'content-type': 'application/json'
+          }
+        }))
       if (deleted) {
         showSuccess(
           getString('ce.budgets.budgetDeletedTxt', {

@@ -1,0 +1,33 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "totalCount": 0,
+    "riskCounts": [
+      {
+        "count": 0,
+        "displayName": "Healthy",
+        "identifier": "HEALTHY"
+      },
+      {
+        "count": 0,
+        "displayName": "Observe",
+        "identifier": "OBSERVE"
+      },
+      {
+        "count": 0,
+        "displayName": "Need Attention",
+        "identifier": "NEED_ATTENTION"
+      },
+      {
+        "count": 0,
+        "displayName": "Unhealthy",
+        "identifier": "UNHEALTHY"
+      },
+      {
+        "count": 0,
+        "displayName": "Exhausted",
+        "identifier": "EXHAUSTED"
+      }
+    ]
+  }
+}

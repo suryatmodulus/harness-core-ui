@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 const projectIdentifier = 'project1'
 const orgIdentifier = 'default'
 const healthSource = 'appd_cvng_prod'
@@ -7,6 +14,11 @@ export const getUserJourneysCall = `/cv/api/user-journey?routingId=${accountId}&
 export const listSLOsCall = `/cv/api/slo-dashboard/widgets?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}&pageNumber=0&pageSize=4`
 export const listMonitoredServices = `/cv/api/monitored-service/all/time-series-health-sources?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
 export const getSLOMetrics = `/cv/api/monitored-service/cvng_prod/health-source/${healthSource}/slo-metrics?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
+export const getSliGraph = `/cv/api/monitored-service/cvng_prod/sli/onboarding-graph?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
+export const getServiceLevelObjective = `/cv/api/slo/SLO1?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
+export const getServiceLevelObjectivesRiskCount = `/cv/api/slo-dashboard/risk-count?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
+export const getMonitoredService = `/cv/api/monitored-service/cvng_prod?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
+export const deleteSLOData = `/cv/api/slo?routingId=${accountId}&accountId=${accountId}&orgIdentifier=${orgIdentifier}&projectIdentifier=${projectIdentifier}`
 
 export const listSLOsCallResponse = {
   status: 'SUCCESS',
@@ -27,6 +39,11 @@ export const listUserJourneysCallResponse = {
         createdAt: 1641461279691,
         lastModifiedAt: 1641461279691,
         userJourney: { identifier: 'newone', name: 'new-one' }
+      },
+      {
+        createdAt: 1641461279691,
+        lastModifiedAt: 1641461279691,
+        userJourney: { identifier: 'Second_Journey', name: 'Second Journey' }
       }
     ],
     pageIndex: 0,
@@ -47,6 +64,11 @@ export const listMonitoredServicesCallResponse = {
         { name: 'appd_cvng_prod', identifier: 'appd_cvng_prod' },
         { name: 'New Relic Health source', identifier: 'New_Relic_Health_source' }
       ]
+    },
+    {
+      identifier: 'cvng_dev',
+      name: 'cvng_dev',
+      healthSources: [{ name: 'appd_cvng_dev', identifier: 'appd_cvng_dev' }]
     }
   ],
   metaData: null,
@@ -86,18 +108,24 @@ export const updatedListSLOsCallResponse = {
         burnRate: {
           currentRatePercentage: 138.44167025398193
         },
-        timeRemainingDays: 0,
-        errorBudgetRemainingPercentage: -32.67326732673267,
-        errorBudgetRemaining: -33,
-        totalErrorBudget: 101,
+        timeRemainingDays: 6,
+        errorBudgetRemainingPercentage: 100,
+        errorBudgetRemaining: 104,
+        totalErrorBudget: 104,
         sloTargetType: 'Rolling',
         currentPeriodLengthDays: 7,
-        currentPeriodStartTime: 1640864583676,
-        currentPeriodEndTime: 1641469383676,
+        currentPeriodStartTime: 1641364526709,
+        currentPeriodEndTime: 1641450926709,
         sloTargetPercentage: 99,
-        errorBudgetBurndown: [],
-        sloPerformanceTrend: [],
-        errorBudgetRisk: 'EXHAUSTED',
+        errorBudgetBurndown: [
+          { timestamp: 1641407726709, value: 100 },
+          { timestamp: 1641450926709, value: 100 }
+        ],
+        sloPerformanceTrend: [
+          { timestamp: 1641407726709, value: 100 },
+          { timestamp: 1641450926709, value: 100 }
+        ],
+        errorBudgetRisk: 'HEALTHY',
         recalculatingSLI: false
       }
     ],

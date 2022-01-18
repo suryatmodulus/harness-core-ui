@@ -632,6 +632,8 @@ export interface StringsMap {
   'common.validation.keyIsRequired': string
   'common.validation.nameIsRequired': string
   'common.validation.namePatternIsNotValid': string
+  'common.validation.provisionerIdentifierIsRequired': string
+  'common.validation.provisionerIdentifierPatternIsNotValid': string
   'common.validation.repositoryName': string
   'common.validation.testRepoIsRequired': string
   'common.validation.typeIsRequired': string
@@ -1000,6 +1002,23 @@ export interface StringsMap {
   'delegates.reviewYAML': string
   'delegates.selectors': string
   'delegates.successfullyUpdatedConfig': string
+  'delegates.tokens.createdBySystem': string
+  'delegates.tokens.delegateTokens': string
+  'delegates.tokens.generatedValuePlaceholder': string
+  'delegates.tokens.moreInfo': string
+  'delegates.tokens.moreInfoSubtitle': string
+  'delegates.tokens.moreInfoTitle': string
+  'delegates.tokens.noTokens': string
+  'delegates.tokens.revoke': string
+  'delegates.tokens.revokeToken': string
+  'delegates.tokens.revokeTokenSubtitle': string
+  'delegates.tokens.revoked': string
+  'delegates.tokens.showRevoked': string
+  'delegates.tokens.tokenBySearchNameNotExisting': string
+  'delegates.tokens.tokenNameNotUnique': string
+  'delegates.tokens.tokenNameRequired': string
+  'delegates.tokens.tokenNotUsedByDelegates': string
+  'delegates.tokens.tokenRequired': string
   'delegates.totalMemUnit': string
   'delegates.troubleshootOption': string
   'delegates.usedBy': string
@@ -2523,6 +2542,7 @@ export interface StringsMap {
   'pipeline.newPipelineText': string
   'pipeline.noApprovalInstanceCreated': string
   'pipeline.noBuckets': string
+  'pipeline.noBuildsLabel': string
   'pipeline.noBuildsText': string
   'pipeline.noDeploymentText': string
   'pipeline.noPipelineText': string
@@ -3253,6 +3273,7 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.helpText.step3.description.additionalInfo': string
   'ce.co.autoStoppingRule.helpText.step3.description.info': string
   'ce.co.autoStoppingRule.helpText.step3.title': string
+  'ce.co.autoStoppingRule.limitWarningMessage': string
   'ce.co.autoStoppingRule.providerSelector.description': string
   'ce.co.autoStoppingRule.providerSelector.helpText.selectProvider': string
   'ce.co.autoStoppingRule.review.configDetails': string

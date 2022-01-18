@@ -1,0 +1,36 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "createdAt": 1625571657044,
+    "lastModifiedAt": 1625627957333,
+    "monitoredService": {
+      "orgIdentifier": "default",
+      "projectIdentifier": "project1",
+      "identifier": "cvng_prod",
+      "name": "cvng_prod",
+      "type": "Application",
+      "serviceRef": "cvng",
+      "environmentRef": "prod",
+      "sources": {
+        "healthSources": [
+          {
+            "name": "appd_cvng_prod",
+            "identifier": "appd_cvng_prod",
+            "type": "AppDynamics",
+            "spec": {
+              "connectorRef": "AppD_Connector_102",
+              "feature": "Application Monitoring",
+              "appdApplicationName": "700712",
+              "appdTierName": "1181911",
+              "metricPacks": [
+                {
+                  "identifier": "Errors"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

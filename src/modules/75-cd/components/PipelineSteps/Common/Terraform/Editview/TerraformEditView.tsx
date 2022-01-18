@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 import React from 'react'
 import {
   Accordion,
@@ -33,10 +40,10 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
-
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { useQueryParams } from '@common/hooks'
+import { IdentifierSchemaWithOutName } from '@common/utils/Validation'
 
 import { getNameAndIdentifierSchema } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { TFMonaco } from './TFMonacoEditor'
@@ -64,7 +71,10 @@ export default function TerraformEditView(
     ...getNameAndIdentifierSchema(getString, stepViewType),
     timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
     spec: Yup.object().shape({
-      provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')),
+      provisionerIdentifier: IdentifierSchemaWithOutName(getString, {
+        requiredErrorMsg: getString('common.validation.provisionerIdentifierIsRequired'),
+        regexErrorMsg: getString('common.validation.provisionerIdentifierPatternIsNotValid')
+      }),
       configuration: Yup.object().shape({
         command: Yup.string().required(getString('pipelineSteps.commandRequired'))
       })
@@ -74,7 +84,10 @@ export default function TerraformEditView(
     ...getNameAndIdentifierSchema(getString, stepViewType),
     timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
     spec: Yup.object().shape({
-      provisionerIdentifier: Yup.string().required(getString('pipelineSteps.provisionerIdentifierRequired')).nullable(),
+      provisionerIdentifier: IdentifierSchemaWithOutName(getString, {
+        requiredErrorMsg: getString('common.validation.provisionerIdentifierIsRequired'),
+        regexErrorMsg: getString('common.validation.provisionerIdentifierPatternIsNotValid')
+      }),
       configuration: Yup.object().shape({
         type: Yup.string().required(getString('pipelineSteps.configurationTypeRequired'))
       })

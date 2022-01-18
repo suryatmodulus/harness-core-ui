@@ -224,7 +224,7 @@ const PerspectiveDetailsPage: React.FC = () => {
   })
 
   useEffect(() => {
-    trackPage(PAGE_EVENTS.PERSPECTIVE_LIST, {})
+    trackPage(PAGE_EVENTS.PERSPECTIVE_DETAILS_PAGE, {})
   }, [])
 
   useEffect(() => {

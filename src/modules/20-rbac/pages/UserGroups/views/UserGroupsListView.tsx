@@ -314,7 +314,7 @@ const RenderColumnMenu: Renderer<CellProps<UserGroupAggregateDTO>> = ({ row, col
               target: getString('rbac.group').toLowerCase()
             })
           )}
-          <CopyMenuItem userGroupName={data.name} />
+          {data.externallyManaged ? <CopyMenuItem userGroupName={data.name} /> : undefined}
         </Menu>
       </Popover>
     </Layout.Horizontal>

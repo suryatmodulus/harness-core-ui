@@ -2322,7 +2322,6 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                         class="RadioButton--radio StyledProps--main"
                       >
                         <input
-                          checked=""
                           class="RadioButton--input"
                           name="filterVisibility"
                           type="radio"

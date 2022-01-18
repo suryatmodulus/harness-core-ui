@@ -30,6 +30,8 @@ import { EnvironmentType } from '@common/constants/EnvironmentType'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import css from './EnvironmentDialog.module.scss'
 
 const collapseProps = {
@@ -104,6 +106,18 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
         showError(getErrorMessage(error), 0, 'cf.create.env.error')
       })
   }
+
+  const { isPlanEnforcementEnabled } = usePlanEnforcement()
+
+  const planEnforcementProps = isPlanEnforcementEnabled
+    ? {
+        featuresProps: {
+          featuresRequest: {
+            featureNames: [FeatureIdentifier.MAUS]
+          }
+        }
+      }
+    : undefined
 
   const [openModal, hideModal] = useModalHook(() => {
     return (
@@ -214,6 +228,7 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
 
   return (
     <RbacButton
+      data-testid="create-environment-button"
       disabled={disabled}
       onClick={openModal}
       text={`+ ${getString('environment')}`}
@@ -229,6 +244,7 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
         permission: PermissionIdentifier.EDIT_ENVIRONMENT
       }}
       {...buttonProps}
+      {...planEnforcementProps}
     />
   )
 }

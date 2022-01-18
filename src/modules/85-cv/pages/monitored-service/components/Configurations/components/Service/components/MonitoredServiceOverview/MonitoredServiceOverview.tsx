@@ -6,7 +6,15 @@
  */
 
 import React, { useMemo, useState } from 'react'
-import { Layout, FormInput, Utils, Intent, useConfirmationDialog } from '@wings-software/uicore'
+import {
+  Layout,
+  FormInput,
+  Utils,
+  Intent,
+  useConfirmationDialog,
+  SelectOption,
+  MultiSelectOption
+} from '@wings-software/uicore'
 import { NameIdDescriptionTags } from '@common/components'
 import { useStrings } from 'framework/strings'
 import type { MonitoredServiceDTO } from 'services/cv'
@@ -25,6 +33,19 @@ import {
 import type { MonitoredServiceOverviewProps } from './MonitoredSourceOverview.types'
 import css from './MonitoredServiceOverview.module.scss'
 
+const getItemsByMonitoredServiceType = (
+  items: SelectOption[] | MultiSelectOption[],
+  mappers: string | string[],
+  serviceType?: string
+): SelectOption | MultiSelectOption[] | undefined => {
+  console.log('dadsddddddddddddffgggg', mappers, items)
+  if (serviceType === 'Infrastructure' && mappers) {
+    return (items as MultiSelectOption[]).filter(it => mappers.includes(it.value as string))
+  }
+  return (items as SelectOption[]).find(item => item?.value === mappers)
+  //
+}
+
 export default function MonitoredServiceOverview(props: MonitoredServiceOverviewProps): JSX.Element {
   const { formikProps, isEdit, onChangeMonitoredServiceType } = props
   const { getString } = useStrings()
@@ -33,7 +54,7 @@ export default function MonitoredServiceOverview(props: MonitoredServiceOverview
   const { environmentOptions, setEnvironmentOptions } = useGetHarnessEnvironments()
   const values = formikProps.values || {}
   const keys = useMemo(() => [Utils.randomId(), Utils.randomId()], [values.serviceRef, values.environmentRef])
-
+  console.log('fffffffffffff', formikProps.values)
   const { openDialog } = useConfirmationDialog({
     contentText: getString('cv.monitoredServices.changeMonitoredServiceTypeMessage'),
     titleText: getString('cv.monitoredServices.changeMonitoredServiceType'),
@@ -96,17 +117,24 @@ export default function MonitoredServiceOverview(props: MonitoredServiceOverview
                 name: 'environmentRef',
                 label: getString('cv.healthSource.environmentLabel')
               }}
+              monitoredServiceType={formikProps.values?.type}
               environmentProps={{
                 className: css.dropdown,
                 disabled: isEdit,
-                item: environmentOptions.find(item => item?.value === values.environmentRef),
+                // environmentOptions.find(item => item?.value === values.environmentRef)
+                item: getItemsByMonitoredServiceType(
+                  environmentOptions,
+                  values.environmentRef,
+                  formikProps.values?.type
+                ),
                 options: environmentOptions,
-                onSelect: environment => updatedMonitoredServiceNameForEnv(formikProps, environment),
+                onSelect: environment =>
+                  updatedMonitoredServiceNameForEnv(formikProps, environment, formikProps.values?.type),
                 onNewCreated: newOption => {
                   if (newOption?.identifier && newOption.name) {
                     const newEnvOption = { label: newOption.name, value: newOption.identifier }
                     setEnvironmentOptions([newEnvOption, ...environmentOptions])
-                    updatedMonitoredServiceNameForEnv(formikProps, newEnvOption)
+                    updatedMonitoredServiceNameForEnv(formikProps, newEnvOption, formikProps.values?.type)
                   }
                 }
               }}

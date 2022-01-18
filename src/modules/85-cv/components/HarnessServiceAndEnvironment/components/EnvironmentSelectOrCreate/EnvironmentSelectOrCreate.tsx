@@ -7,17 +7,21 @@
 
 import React, { useMemo } from 'react'
 import { noop } from 'lodash-es'
-import { Container, Select, SelectOption } from '@wings-software/uicore'
+import { Container, MultiSelectDropDown, MultiSelectOption, Select, SelectOption } from '@wings-software/uicore'
+// eslint-disable-next-line no-restricted-imports
+//import _ from 'lodash'
+
 import type { EnvironmentResponseDTO } from 'services/cd-ng'
 import { useHarnessEnvironmentModal } from '@common/modals/HarnessEnvironmentModal/HarnessEnvironmentModal'
 import { useStrings } from 'framework/strings'
 
 export interface EnvironmentSelectOrCreateProps {
-  item?: SelectOption
-  options: Array<SelectOption>
-  onSelect(value: SelectOption): void
+  item?: SelectOption | MultiSelectOption[]
+  options: Array<SelectOption | MultiSelectOption>
+  onSelect(value: SelectOption | MultiSelectOption[]): void
   disabled?: boolean
   className?: string
+  monitoredServiceType?: string
   onNewCreated(value: EnvironmentResponseDTO): void
 }
 
@@ -48,6 +52,7 @@ export function EnvironmentSelectOrCreate({
   onSelect,
   disabled,
   onNewCreated,
+  monitoredServiceType,
   className
 }: EnvironmentSelectOrCreateProps): JSX.Element {
   const { getString } = useStrings()
@@ -80,8 +85,8 @@ export function EnvironmentSelectOrCreate({
     onCreateOrUpdate: onSubmit
   })
 
-  const onSelectChange = (val: SelectOption): void => {
-    if (val.value === ADD_NEW_VALUE) {
+  const onSelectChange = (val: SelectOption | MultiSelectOption[]): void => {
+    if (Array.isArray(val) ? val.find(it => it.value === ADD_NEW_VALUE) : val.value === ADD_NEW_VALUE) {
       openHarnessEnvironmentModal()
     } else {
       onSelect(val)
@@ -90,15 +95,27 @@ export function EnvironmentSelectOrCreate({
 
   return (
     <Container onClick={e => e.stopPropagation()}>
-      <Select
-        name={'environment'}
-        value={item}
-        className={className}
-        disabled={disabled}
-        items={selectOptions}
-        inputProps={{ placeholder: getString('cv.selectOrCreateEnv') }}
-        onChange={onSelectChange}
-      />
+      {monitoredServiceType && monitoredServiceType === 'Infrastructure' ? (
+        <MultiSelectDropDown
+          placeholder={getString('cv.selectOrCreateEnv')}
+          value={item as MultiSelectOption[]}
+          items={selectOptions}
+          className={className}
+          disabled={disabled}
+          onChange={onSelectChange}
+          buttonTestId={'sourceFilter'}
+        />
+      ) : (
+        <Select
+          name={'environment'}
+          value={item as SelectOption}
+          className={className}
+          disabled={disabled}
+          items={selectOptions}
+          inputProps={{ placeholder: getString('cv.selectOrCreateEnv') }}
+          onChange={onSelectChange}
+        />
+      )}
     </Container>
   )
 }

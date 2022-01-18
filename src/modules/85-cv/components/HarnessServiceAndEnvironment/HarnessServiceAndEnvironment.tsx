@@ -139,15 +139,22 @@ export function HarnessServiceAsFormField(props: {
 export function HarnessEnvironmentAsFormField(props: {
   customRenderProps: Omit<CustomRenderProps, 'render'>
   environmentProps: EnvironmentSelectOrCreateProps
+  monitoredServiceType?: string
 }): JSX.Element {
-  const { customRenderProps, environmentProps } = props
-
+  const { customRenderProps, environmentProps, monitoredServiceType } = props
+  console.log('CCccccccccccccc', customRenderProps, environmentProps)
+  console.log('dsadasdasds', monitoredServiceType)
   return (
     <FormInput.CustomRender
       {...customRenderProps}
-      key={`${environmentProps.item?.value as string}`}
+      key={`${
+        Array.isArray(environmentProps.item)
+          ? (environmentProps.item?.[0].value as string)
+          : (environmentProps.item?.value as string)
+      }`}
       render={formikProps => (
         <EnvironmentSelectOrCreate
+          monitoredServiceType={monitoredServiceType}
           {...environmentProps}
           onSelect={selectedOption => {
             formikProps.setFieldValue(customRenderProps.name, selectedOption)

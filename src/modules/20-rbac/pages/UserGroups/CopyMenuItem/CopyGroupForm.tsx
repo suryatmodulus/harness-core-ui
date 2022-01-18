@@ -25,10 +25,10 @@ import {
   useCopyUserGroup
 } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import type { CopyGroupFormType } from './CopyMenuItem'
 import { useStrings } from 'framework/strings'
-import css from './CopyMenuItem.module.scss'
 import { getOrgList, getProjectList, getScopeList } from '@rbac/utils/utils'
+import css from './CopyMenuItem.module.scss'
+import type { CopyGroupFormType } from './CopyMenuItem'
 
 interface CopyGroupFormProps {
   handleFormClose: () => void

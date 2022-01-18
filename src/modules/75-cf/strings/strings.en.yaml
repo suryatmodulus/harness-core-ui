@@ -455,6 +455,15 @@ segmentDetail:
   includeTheFollowing: Include the following
   excludeTheFollowing: Exclude the following
   noConditionDefined: No Condition defined
+  targetGroupCriteria: Target Group Criteria
+  specifyIndividualTargets: Specify individual Targets
+  removeRule: Remove Rule
+  addRule: Add Rule
+  attribute: Select attribute
+  operator: Select operator
+  values: Enter value(s)
+  updated: Target Group updated successfully
+  searchTarget: Search Target
 selectFlagsModal:
   empty: No feature flags found.
   searchPlaceholder: Search for Flag by name or description

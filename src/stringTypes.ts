@@ -4082,8 +4082,10 @@ export interface StringsMap {
   'cf.rbac.targetgroup.delete': string
   'cf.rbac.targetgroup.edit': string
   'cf.rbac.targetgroup.label': string
+  'cf.segmentDetail.addRule': string
   'cf.segmentDetail.addSegmentToFlag': string
   'cf.segmentDetail.addToFlag': string
+  'cf.segmentDetail.attribute': string
   'cf.segmentDetail.autoAdded': string
   'cf.segmentDetail.criteria': string
   'cf.segmentDetail.directlyAdded': string
@@ -4092,9 +4094,16 @@ export interface StringsMap {
   'cf.segmentDetail.noConditionDefined': string
   'cf.segmentDetail.noFlagsUseThisSegment': string
   'cf.segmentDetail.noTargetDefined': string
+  'cf.segmentDetail.operator': string
   'cf.segmentDetail.removeFomFlag': string
+  'cf.segmentDetail.removeRule': string
+  'cf.segmentDetail.searchTarget': string
   'cf.segmentDetail.specificTargets': string
+  'cf.segmentDetail.specifyIndividualTargets': string
   'cf.segmentDetail.targetBasedOnCondition': string
+  'cf.segmentDetail.targetGroupCriteria': string
+  'cf.segmentDetail.updated': string
+  'cf.segmentDetail.values': string
   'cf.segments.create': string
   'cf.segments.delete.message': string
   'cf.segments.delete.title': string

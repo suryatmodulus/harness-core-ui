@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.29% </span>
+                <span class="strong">72.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>60/83</span>
+                <span class='fraction'>61/84</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.94% </span>
+                <span class="strong">60.77% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>78/128</span>
+                <span class='fraction'>79/130</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.75% </span>
+                <span class="strong">74.07% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>59/80</span>
+                <span class='fraction'>60/81</span>
             </div>
         
             
@@ -459,7 +459,12 @@
 <a name='L400'></a><a href='#L400'>400</a>
 <a name='L401'></a><a href='#L401'>401</a>
 <a name='L402'></a><a href='#L402'>402</a>
-<a name='L403'></a><a href='#L403'>403</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L403'></a><a href='#L403'>403</a>
+<a name='L404'></a><a href='#L404'>404</a>
+<a name='L405'></a><a href='#L405'>405</a>
+<a name='L406'></a><a href='#L406'>406</a>
+<a name='L407'></a><a href='#L407'>407</a>
+<a name='L408'></a><a href='#L408'>408</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -668,12 +673,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">50x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -846,6 +845,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1054,13 +1064,7 @@ export const EditVariationsModal: React.FC&lt;EditVariationsModalProps&gt; = ({
     }
 &nbsp;
     return (
-      &lt;Dialog
-        isOpen
-        onClose={hideModal}
-        enforceFocus={false}
-        title=""
-        style={{ width: 800, minHeight: 'fit-content', maxHeight: '90vh' }}
-      &gt;
+      &lt;Dialog isOpen onClose={hideModal} enforceFocus={false} title="" style={{ width: 800, minHeight: 'fit-content' }}&gt;
         &lt;Formik
           initialValues={initialValues}
           formName="editVariations"
@@ -1247,6 +1251,16 @@ export const EditVariationsModal: React.FC&lt;EditVariationsModalProps&gt; = ({
     gitSync.isAutoCommitEnabled
   ])
 &nbsp;
+  const planEnforcementProps = isPlanEnforcementEnabled
+    ? <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
+        featuresProps: {
+          featuresRequest: {
+            featureNames: [FeatureIdentifier.MAUS]
+          }
+        }
+      }
+    : undefined
+&nbsp;
   return isPlanEnforcementEnabled ? (
 <span class="branch-0 cbranch-no" title="branch not covered" >    &lt;RbacButton</span>
       permission={permission}
@@ -1255,6 +1269,7 @@ export const EditVariationsModal: React.FC&lt;EditVariationsModalProps&gt; = ({
           featureNames: [FeatureIdentifier.MAUS]
         }
       }}
+      {...planEnforcementProps}
       onClick={openModal}
       {...props}
       data-testid="open-edit-variations-modal"
@@ -1270,7 +1285,7 @@ export const EditVariationsModal: React.FC&lt;EditVariationsModalProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 18 2022 13:03:21 GMT+0000 (Greenwich Mean Time)
+                at Tue Jan 18 2022 14:38:22 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

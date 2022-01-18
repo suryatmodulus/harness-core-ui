@@ -26,7 +26,9 @@ const renderComponent = (props: Partial<EnvironmentDialogProps> = {}): RenderRes
 }
 
 describe('CreateEnvironmentButton', () => {
-  beforeEach(() => jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: true }))
+  beforeEach(() =>
+    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: true, isFreePlan: false })
+  )
 
   test('it should display plan enforcement tooltip when limits reached', async () => {
     jest
@@ -41,7 +43,9 @@ describe('CreateEnvironmentButton', () => {
   })
 
   test('it should hide tooltip and render button when plan enforcement disabled and feature disabled', async () => {
-    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: false })
+    jest
+      .spyOn(usePlanEnforcementMock, 'default')
+      .mockReturnValue({ isPlanEnforcementEnabled: false, isFreePlan: false })
     jest.spyOn(useFeaturesMock, 'useFeature').mockReturnValue({ enabled: false })
 
     renderComponent()

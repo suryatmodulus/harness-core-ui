@@ -256,7 +256,7 @@ const RecommendationList: React.FC = () => {
 
   useEffect(() => {
     trackPage(PAGE_EVENTS.RECOMMENDATIONS_PAGE, {})
-  })
+  }, [])
 
   const modifiedCostFilters = costFilters['minSaving'] ? costFilters : { ...costFilters, minSaving: 0 }
 

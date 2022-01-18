@@ -489,7 +489,7 @@ const PerspectiveListPage: React.FC = () => {
 
   useEffect(() => {
     trackPage(PAGE_EVENTS.PERSPECTIVE_LIST, {})
-  })
+  }, [])
 
   useMemo(() => {
     pespectiveList.sort(perspectiveSortFunction)

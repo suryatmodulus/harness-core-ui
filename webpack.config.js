@@ -30,8 +30,8 @@ const moduleFederationConfig = require('./configs/modulefederation.config.js')
 const ExternalRemotesPlugin = require('external-remotes-plugin')
 
 const DEV = process.env.NODE_ENV === 'development'
-const HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER = process.env.HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER
-  ? process.env.HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER === 'true'
+const HARNESS_ENABLE_NG_AUTH_UI = process.env.HARNESS_ENABLE_NG_AUTH_UI
+  ? process.env.HARNESS_ENABLE_NG_AUTH_UI === 'true'
   : true
 // this BUGSNAG_TOKEN needs to be same which is passed in the docker file
 const BUGSNAG_TOKEN = process.env.BUGSNAG_TOKEN
@@ -246,7 +246,7 @@ const commonPlugins = [
     'process.env': '{}', // required for @blueprintjs/core
     __DEV__: DEV,
     __BUGSNAG_RELEASE_VERSION__: buildVersion,
-    HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER: HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER
+    HARNESS_ENABLE_NG_AUTH_UI: HARNESS_ENABLE_NG_AUTH_UI
   }),
   new MonacoWebpackPlugin({
     // available options are documented at https://github.com/Microsoft/monaco-editor-webpack-plugin#options

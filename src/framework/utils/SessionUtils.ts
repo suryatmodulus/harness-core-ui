@@ -12,7 +12,7 @@ interface GetLoginPageURL {
 
 export const getLoginPageURL = ({ returnUrl, action }: GetLoginPageURL): string => {
   // pick current path, but remove `/ng/`
-  const basePath = window.HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER
+  const basePath = window.HARNESS_ENABLE_NG_AUTH_UI
     ? '/auth/#/signin'
     : `${window.location.pathname.replace(/\/ng\//, '/')}#/login`
   return returnUrl
@@ -21,7 +21,7 @@ export const getLoginPageURL = ({ returnUrl, action }: GetLoginPageURL): string 
 }
 
 export const getForgotPasswordURL = (): string => {
-  return window.HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER
+  return window.HARNESS_ENABLE_NG_AUTH_UI
     ? '/auth/#/forgot-password'
     : `${window.location.pathname.replace(/\/ng\//, '/')}#/forgot-password`
 }

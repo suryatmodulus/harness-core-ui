@@ -9,7 +9,7 @@ import { getLoginPageURL } from '../SessionUtils'
 
 describe('Session Utils', () => {
   test('getLoginPageUrl with CG login', () => {
-    window.HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER = false
+    window.HARNESS_ENABLE_NG_AUTH_UI = false
     expect(getLoginPageURL({ returnUrl: window.location.href })).toBe('/#/login?returnUrl=http%3A%2F%2Flocalhost%2F')
     expect(getLoginPageURL({})).toBe('/#/login')
     expect(getLoginPageURL({ action: 'signout' })).toBe('/#/login?action=signout')
@@ -19,7 +19,7 @@ describe('Session Utils', () => {
   })
 
   test('getLoginPageUrl with NG Auth UI', () => {
-    window.HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER = true
+    window.HARNESS_ENABLE_NG_AUTH_UI = true
     expect(getLoginPageURL({ returnUrl: window.location.href })).toBe(
       '/auth/#/signin?returnUrl=http%3A%2F%2Flocalhost%2F'
     )

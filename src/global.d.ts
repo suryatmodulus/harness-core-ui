@@ -50,7 +50,7 @@ declare module '*.gql' {
 declare interface Window {
   apiUrl: string
   segmentToken: string
-  HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER: boolean
+  HARNESS_ENABLE_NG_AUTH_UI: boolean
   bugsnagClient: any
   bugsnagToken: string
   Harness: {

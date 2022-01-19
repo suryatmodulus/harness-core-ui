@@ -37,7 +37,7 @@
     <% } %>
 
     <script>
-      window.HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER = 'HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER' === 'true'
+      window.HARNESS_ENABLE_NG_AUTH_UI = 'HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER' === 'true'
       window.HARNESS_ENABLE_FULL_STORY = 'HARNESS_ENABLE_FULL_STORY_PLACEHOLDER' === 'true'
       window.HARNESS_ENABLE_APPDY_EUM = 'HARNESS_ENABLE_APPDY_EUM_PLACEHOLDER' === 'true'
     </script>
@@ -45,9 +45,9 @@
     <script>
       window.deploymentType = 'SAAS'
     </script>
-    <% } %> <% if (HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER) { %>
+    <% } %> <% if (HARNESS_ENABLE_NG_AUTH_UI) { %>
     <script>
-      window.HARNESS_ENABLE_NG_AUTH_UI_PLACEHOLDER = true
+      window.HARNESS_ENABLE_NG_AUTH_UI = true
     </script>
     <% } %>
     <script src="//go.harness.io/js/forms2/js/forms2.min.js"></script>

@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react'
-import { parse } from 'yaml'
+import { parse, stringify } from 'yaml'
 import {
   Layout,
   getMultiTypeFromValue,
@@ -28,12 +28,10 @@ import type {
 } from 'services/cd-ng'
 import { useGetYamlWithTemplateRefsResolved } from 'services/template-ng'
 import { useStrings } from 'framework/strings'
-import { ModuleName } from 'framework/types/ModuleName'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
-import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { PubSubPipelineActions } from '@pipeline/factories/PubSubPipelineAction'
 import { PipelineActions } from '@pipeline/factories/PubSubPipelineAction/types'
 import type { AccountPathProps, ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -206,19 +204,17 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
       projectIdentifier
     },
     body: {
-      originalEntityYaml: originalPipeline ? yamlStringify(originalPipeline) : ''
+      originalEntityYaml: stringify(originalPipeline)
     },
     lazy: true
   })
 
   useEffect(() => {
-    // Limiting api call for CI Build Stage Templates only for now
+    // Limiting api call for a pipeline having atleast one stage template ref
     const shouldResolveTemplateRefs = originalPipeline?.stages?.some(
       stage =>
-        Object.is(get(stage, 'stage.template.templateInputs.type'), ModuleName.CI) ||
-        stage.parallel?.some(parallelStage =>
-          Object.is(get(parallelStage, 'template.templateInputs.type'), ModuleName.CI)
-        )
+        !isEmpty(get(stage, 'stage.template.templateRef')) ||
+        stage.parallel?.some(parallelStage => !isEmpty(get(parallelStage, 'template.templateRef')))
     )
     if (shouldResolveTemplateRefs) {
       ;(async function () {

@@ -27,8 +27,9 @@ import {
 } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { getOrgList, getProjectList, getScopeList } from '@rbac/utils/utils'
+import { generateScopeList } from '@rbac/utils/utils'
 import type { ProjectSelectOption } from '@audit-trail/components/FilterDrawer/FilterDrawer'
+import { getOrgDropdownList, getProjectDropdownList } from '@audit-trail/utils/RequestUtil'
 import css from './CopyGroupForm.module.scss'
 
 export interface CopyGroupFormType {
@@ -74,13 +75,13 @@ const CopyGroupForm: React.FC<CopyGroupFormProps> = ({ closeModal, identifier })
   })
   const { showSuccess } = useToaster()
 
-  const orgList = data?.data?.content ? getOrgList(data?.data?.content) : []
-  const projects = projectData?.data?.content ? getProjectList(projectData?.data?.content) : []
+  const orgList = data?.data?.content ? getOrgDropdownList(data?.data?.content) : []
+  const projects = projectData?.data?.content ? getProjectDropdownList(projectData?.data?.content) : []
 
   const onSave = async (values: CopyGroupFormType) => {
     modalErrorHandler?.hide()
     const { organizations: selectedOrgs, projects: selectedProjects } = values
-    const scopeList = getScopeList(selectedOrgs, selectedProjects, accountId)
+    const scopeList = generateScopeList(selectedOrgs, selectedProjects, accountId)
     try {
       const response = await copyUserGroup(scopeList)
       if (response) {

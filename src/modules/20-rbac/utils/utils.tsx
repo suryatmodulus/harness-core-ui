@@ -17,8 +17,6 @@ import { defaultTo } from 'lodash-es'
 import type { StringsMap } from 'stringTypes'
 import type {
   AccessControlCheckError,
-  OrganizationAggregateDTO,
-  ProjectResponse,
   RoleAssignmentMetadataDTO,
   UserMetadataDTO,
   Scope as CDScope
@@ -312,22 +310,7 @@ export const getUserName = (user: UserMetadataDTO): string => {
   return defaultTo(user.name, user.email)
 }
 
-export const getOrgList = (list: OrganizationAggregateDTO[]): MultiSelectOption[] => {
-  return list.map(org => ({
-    label: org.organizationResponse.organization.name,
-    value: org.organizationResponse.organization.identifier
-  }))
-}
-
-export const getProjectList = (list: ProjectResponse[]): ProjectSelectOption[] => {
-  return list.map(project => ({
-    label: project.project.name,
-    value: project.project.identifier,
-    orgIdentifier: project.project.orgIdentifier as string
-  }))
-}
-
-export const getScopeList = (
+export const generateScopeList = (
   orgs: MultiSelectOption[],
   projects: ProjectSelectOption[],
   accountId: string

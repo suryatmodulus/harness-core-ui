@@ -6,8 +6,21 @@
  */
 
 import React from 'react'
-import { act, render, waitFor, getByText, fireEvent, getAllByPlaceholderText } from '@testing-library/react'
+import {
+  act,
+  render,
+  waitFor,
+  getByText,
+  fireEvent,
+  getAllByPlaceholderText,
+  RenderResult,
+  screen
+} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
+import * as useFeaturesMock from '@common/hooks/useFeatures'
+import * as usePlanEnforcementMock from '@cf/hooks/usePlanEnforcement'
+
 import CreateTargetModal from '../CreateTargetModal'
 
 describe('CreateTargetModal', () => {
@@ -146,5 +159,56 @@ describe('CreateTargetModal', () => {
     })
 
     expect(getAllByPlaceholderText(modal, 'cf.targets.enterName').length).toBeDefined
+  })
+
+  test('+ Target(s) button should show CreateTargetModal when user is within MAU limit', async () => {
+    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: true, isFreePlan: true })
+    jest.spyOn(useFeaturesMock, 'useFeature').mockReturnValue({ enabled: false })
+
+    const renderComponent = (): RenderResult => {
+      return render(
+        <TestWrapper
+          path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/feature-flags"
+          pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
+        >
+          <CreateTargetModal loading={false} onSubmitTargets={jest.fn()} onSubmitUpload={jest.fn()} />
+        </TestWrapper>
+      )
+    }
+
+    renderComponent()
+    const createTargetButton = screen.getByRole('button', { name: 'cf.targets.create' })
+    userEvent.click(createTargetButton)
+
+    const createTargetModal = screen.findByTitle('cf.targets.addTargetsLabel')
+
+    expect(createTargetModal).toBeDefined()
+    await waitFor(() =>
+      expect(screen.queryByText('common.feature.upgradeRequired.pleaseUpgrade')).not.toBeInTheDocument()
+    )
+  })
+
+  test('+ Target(s) button should show plan enforcement tooltip when user exceeds MAU limit', async () => {
+    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: true, isFreePlan: true })
+    jest.spyOn(useFeaturesMock, 'useFeature').mockReturnValue({ enabled: false })
+
+    const renderComponent = (): RenderResult => {
+      return render(
+        <TestWrapper
+          path="/account/:accountId/cf/orgs/:orgIdentifier/projects/:projectIdentifier/feature-flags"
+          pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}
+        >
+          <CreateTargetModal loading={false} onSubmitTargets={jest.fn()} onSubmitUpload={jest.fn()} />
+        </TestWrapper>
+      )
+    }
+
+    renderComponent()
+
+    const createTargetButton = screen.getByRole('button', { name: 'cf.targets.create' })
+    fireEvent.mouseOver(createTargetButton)
+
+    await waitFor(() => expect(screen.queryByText('common.feature.upgradeRequired.pleaseUpgrade')).toBeInTheDocument())
+    expect(createTargetButton.closest('a')).toHaveClass('bp3-disabled')
   })
 })

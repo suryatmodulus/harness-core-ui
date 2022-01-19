@@ -117,6 +117,7 @@ import {
 import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
 import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
 import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
+import GitSyncConfigTab from '@gitsync/pages/config/GitSyncConfigTab'
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
 
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
@@ -911,6 +912,16 @@ export default (
     >
       <GitSyncPage>
         <GitSyncErrors />
+      </GitSyncPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CDSideNavProps}
+      path={routes.toGitSyncConfig({ ...accountPathProps, ...pipelineModuleParams, ...projectPathProps })}
+      exact
+    >
+      <GitSyncPage>
+        <GitSyncConfigTab />
       </GitSyncPage>
     </RouteWithLayout>
     <RouteWithLayout

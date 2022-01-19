@@ -16,6 +16,7 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 import type { ProjectPathProps, ModulePathParams } from '@common/interfaces/RouteInterfaces'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import NewUserView from './newUser/NewUserView'
 
 interface GitSyncPageProps {
@@ -26,7 +27,7 @@ export const GitSyncLandingView: React.FC<GitSyncPageProps> = ({ children }) => 
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
   const { isGitSyncEnabled } = useAppStore()
   const { getString } = useStrings()
-
+  const { NG_GIT_FULL_SYNC } = useFeatureFlags()
   useDocumentTitle(getString('gitManagement'))
 
   return (
@@ -50,7 +51,15 @@ export const GitSyncLandingView: React.FC<GitSyncPageProps> = ({ children }) => 
                 {
                   label: getString('errors'),
                   to: routes.toGitSyncErrors({ projectIdentifier, orgIdentifier, accountId, module })
-                }
+                },
+                ...(NG_GIT_FULL_SYNC
+                  ? [
+                      {
+                        label: 'Config',
+                        to: routes.toGitSyncConfig({ projectIdentifier, orgIdentifier, accountId, module })
+                      }
+                    ]
+                  : [])
               ]}
             />
           ) : null

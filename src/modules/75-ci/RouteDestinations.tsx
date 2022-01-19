@@ -100,6 +100,7 @@ import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
 import TemplatesPage from '@templates-library/pages/TemplatesPage/TemplatesPage'
 import { TemplateStudioWrapper } from '@templates-library/components/TemplateStudio/TemplateStudioWrapper'
 import ExecutionPolicyEvaluationsView from '@pipeline/pages/execution/ExecutionPolicyEvaluationsView/ExecutionPolicyEvaluationsView'
+import GitSyncConfigTab from '@gitsync/pages/config/GitSyncConfigTab'
 import CIHomePage from './pages/home/CIHomePage'
 import CIDashboardPage from './pages/dashboard/CIDashboardPage'
 import CIPipelineStudio from './pages/pipeline-studio/CIPipelineStudio'
@@ -356,6 +357,16 @@ export default (
     >
       <GitSyncPage>
         <GitSyncErrors />
+      </GitSyncPage>
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CISideNavProps}
+      path={routes.toGitSyncConfig({ ...accountPathProps, ...pipelineModuleParams, ...projectPathProps })}
+    >
+      <GitSyncPage>
+        <GitSyncConfigTab />
       </GitSyncPage>
     </RouteWithLayout>
     <RouteWithLayout

@@ -30,6 +30,7 @@ export interface CICodebaseInputSetFormProps {
   readonly?: boolean
   formik?: FormikContext<any>
   originalPipeline: PipelineInfoConfig
+  loadingPipelineDetails?: boolean
 }
 
 type CodeBaseType = 'branch' | 'tag' | 'PR'
@@ -56,7 +57,8 @@ const CICodebaseInputSetFormInternal = ({
   path,
   readonly,
   formik,
-  originalPipeline
+  originalPipeline,
+  loadingPipelineDetails
 }: CICodebaseInputSetFormProps): JSX.Element => {
   const { triggerIdentifier, accountId, projectIdentifier, orgIdentifier } = useParams<Record<string, string>>()
 
@@ -184,7 +186,7 @@ const CICodebaseInputSetFormInternal = ({
 
   return (
     <Layout.Vertical spacing="small">
-      {loadingConnectorDetails ? (
+      {loadingPipelineDetails || loadingConnectorDetails ? (
         <Container flex={{ justifyContent: 'end' }}>
           <Icon name="steps-spinner" size={25} />
         </Container>

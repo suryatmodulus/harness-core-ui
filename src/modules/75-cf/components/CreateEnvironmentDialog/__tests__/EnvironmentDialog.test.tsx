@@ -37,9 +37,12 @@ describe('CreateEnvironmentButton', () => {
 
     renderComponent()
 
-    fireEvent.mouseOver(screen.getByText('+ environment'))
+    const createEnvironmentButton = screen.getByTestId('create-environment-button')
+    fireEvent.mouseOver(createEnvironmentButton)
 
-    await waitFor(() => expect(screen.getByText('common.feature.upgradeRequired.pleaseUpgrade')).toBeInTheDocument())
+    await waitFor(() => {
+      expect(screen.getByText('common.feature.upgradeRequired.pleaseUpgrade')).toBeInTheDocument()
+    })
   })
 
   test('it should hide tooltip and render button when plan enforcement disabled and feature disabled', async () => {
@@ -50,11 +53,12 @@ describe('CreateEnvironmentButton', () => {
 
     renderComponent()
 
-    fireEvent.mouseOver(screen.getByText('+ environment'))
+    const createEnvironmentButton = screen.getByTestId('create-environment-button')
+    fireEvent.mouseOver(createEnvironmentButton)
 
-    await waitFor(() =>
+    await waitFor(() => {
       expect(screen.queryByText('common.feature.upgradeRequired.pleaseUpgrade')).not.toBeInTheDocument()
-    )
-    await waitFor(() => expect(screen.getByTestId('create-environment-button')).not.toBeDisabled())
+      expect(createEnvironmentButton).not.toBeDisabled()
+    })
   })
 })

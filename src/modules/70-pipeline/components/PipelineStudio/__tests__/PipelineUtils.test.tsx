@@ -97,8 +97,8 @@ describe('Test Pipeline Utils', () => {
           }
         ]
       } as any,
-      {},
-      str => str
+      str => str,
+      {}
     )
     const { container } = render(<Tree contents={response} />)
     expect(container).toMatchSnapshot()

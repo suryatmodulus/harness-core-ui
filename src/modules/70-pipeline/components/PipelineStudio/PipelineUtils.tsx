@@ -21,8 +21,8 @@ export interface NodeClasses {
 
 const getStageTree = (
   stage: StageElementConfig,
-  classes: NodeClasses = {},
   getString: UseStringsReturn['getString'],
+  classes: NodeClasses = {},
   {
     hideNonRuntimeFields = false,
     template = {}
@@ -43,13 +43,14 @@ const getStageTree = (
   // common to ci and cd stage
   if (hideNonRuntimeFields) {
     const hasVariables = get(template, 'variables', null)
-    hasVariables &&
+    if (hasVariables) {
       stageNode.childNodes?.push({
         id: `Stage.${stage.identifier}.Variables`,
         hasCaret: false,
         label: <Text>{getString('customVariables.title')}</Text>,
         className: classes.secondary
       })
+    }
   } else {
     stageNode.childNodes?.push({
       id: `Stage.${stage.identifier}.Variables`,
@@ -187,8 +188,8 @@ const getStageTree = (
 
 export const getPipelineTree = (
   pipeline: PipelineInfoConfig,
-  classes: NodeClasses = {},
   getString: UseStringsReturn['getString'],
+  classes: NodeClasses = {},
   options: { hideNonRuntimeFields?: boolean; template?: { stages: [{ stage: Record<string, never> }] } } = {}
 ): ITreeNode[] => {
   const returnNodes: ITreeNode[] = [
@@ -246,14 +247,14 @@ export const getPipelineTree = (
     pipeline.stages.forEach((data, index) => {
       if (data.parallel && data.parallel.length > 0) {
         data.parallel.forEach(nodeP => {
-          nodeP.stage && stages.childNodes?.push(getStageTree(nodeP.stage, classes, getString))
+          nodeP.stage && stages.childNodes?.push(getStageTree(nodeP.stage, getString, classes))
         })
       } /* istanbul ignore else */ else if (
         data.stage &&
         (!options.template || options.template?.stages?.[index]?.stage)
       ) {
         stages.childNodes?.push(
-          getStageTree(data.stage, classes, getString, {
+          getStageTree(data.stage, getString, classes, {
             ...options,
             template: options.template?.stages?.[index]?.stage
           })

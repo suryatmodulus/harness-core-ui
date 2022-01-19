@@ -7,9 +7,10 @@
 
 import React from 'react'
 import { Classes } from '@blueprintjs/core'
-import { render, waitFor } from '@testing-library/react'
+import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { SelectedAppsSideNav, SelectedAppsSideNavProps } from '../SelectedAppsSideNav'
+import { act } from 'react-test-renderer'
 
 function WrapperComponent(props: SelectedAppsSideNavProps): JSX.Element {
   return (
@@ -33,6 +34,42 @@ describe('Unit tests for SelectedAppsSideNav', () => {
       />
     )
     await waitFor(() => expect(container.querySelectorAll(`[class*="selectedApp"]`).length).toBe(50))
+    expect(container).toMatchSnapshot()
+  })
+
+  test('Ensure that when groupedSelectedApps is provided, the grouped list is rendered', async () => {
+    const { container } = render(
+      <WrapperComponent
+        selectedApps={['appdMetric 102', 'appdMetric 101']}
+        groupedSelectedApps={{
+          'Group 2': [{ groupName: { label: 'Group 2', value: 'Group 2' }, metricName: 'appdMetric 102 ' }],
+          'Group 1': [{ groupName: { label: 'Group 1', value: 'Group 1' }, metricName: 'appdMetric 101' }]
+        }}
+      />
+    )
+    await waitFor(() => expect(container.querySelectorAll(`[class*="collapsePanel"]`).length).toBe(2))
+    await waitFor(() => expect(container.querySelectorAll(`[class*="selectedApp"]`).length).toBe(2))
+    // Collapsed
+    await waitFor(() =>
+      expect(container.querySelectorAll('.bp3-collapse-body')[0]).toHaveStyle(`transform: translateY(-undefinedpx);`)
+    )
+    await waitFor(() =>
+      expect(container.querySelectorAll('.bp3-collapse-body')[1]).toHaveStyle(`transform: translateY(-undefinedpx);`)
+    )
+
+    act(() => {
+      fireEvent.click(container.querySelectorAll(`[class*="selectedApp"]`)[1])
+      fireEvent.click(container.querySelectorAll(`[class*="selectedApp"]`)[0])
+    })
+
+    // Expanded
+    await waitFor(() =>
+      expect(container.querySelectorAll('.bp3-collapse-body')[0]).toHaveStyle(`transform: translateY(0);`)
+    )
+    await waitFor(() =>
+      expect(container.querySelectorAll('.bp3-collapse-body')[1]).toHaveStyle(`transform: translateY(0);`)
+    )
+
     expect(container).toMatchSnapshot()
   })
 })

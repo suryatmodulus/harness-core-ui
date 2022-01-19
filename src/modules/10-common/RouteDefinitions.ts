@@ -44,7 +44,7 @@ import type {
   GovernancePathProps
 } from '@common/interfaces/RouteInterfaces'
 
-const CV_HOME = `/cv/home`
+const CV_HOME = `/:module(cv)/home`
 
 const routes = {
   toHome: withAccountId(() => '/home'),
@@ -611,8 +611,8 @@ const routes = {
   ),
 
   /********************************************************************************************************************/
-  toCD: withAccountId(() => `/cd`),
-  toCDDashboard: withAccountId(() => `/cd`),
+  toCD: withAccountId(() => `/:module(cd)`),
+  toCDDashboard: withAccountId(() => `/:module(cd)`),
   toModuleHome: withAccountId(({ module, source }: ModuleHomeParams) => {
     if (source) {
       return `/${module}/home?source=${source}`
@@ -625,7 +625,7 @@ const routes = {
     }
     return `/${module}/home/trial`
   }),
-  toCDHome: withAccountId(() => `/cd/home`),
+  toCDHome: withAccountId(() => `/:module(cd)/home`),
   toCDProject: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}`
@@ -904,61 +904,61 @@ const routes = {
     }
   ),
   /********************************************************************************************************************/
-  toCI: withAccountId(() => `/ci`),
-  toCIHome: withAccountId(() => `/ci/home`),
+  toCI: withAccountId(() => `/:module(ci)`),
+  toCIHome: withAccountId(() => `/:module(ci)/home`),
   toCIProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}`
+      `/:module(ci)/orgs/${orgIdentifier}/projects/${projectIdentifier}`
   ),
   toCIPipelineDeploymentList: withAccountId(
     ({ projectIdentifier, orgIdentifier, pipelineIdentifier }: PipelinePathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions`
+      `/:module(ci)/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions`
   ),
   toCIBuilds: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds`
+      `/:module(ci)/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds`
   ),
   toCIBuildPipelineGraph: withAccountId(
     ({ orgIdentifier, projectIdentifier, buildIdentifier }: BuildPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/pipeline/graph`
+      `/:module(ci)/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/pipeline/graph`
   ),
   toCIBuildPipelineLog: withAccountId(
     ({ orgIdentifier, projectIdentifier, buildIdentifier }: BuildPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/pipeline/log`
+      `/:module(ci)/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/pipeline/log`
   ),
   toCIBuildInputs: withAccountId(
     ({ orgIdentifier, projectIdentifier, buildIdentifier }: BuildPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/inputs`
+      `/:module(ci)/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/inputs`
   ),
 
   toCIBuildCommits: withAccountId(
     ({ orgIdentifier, projectIdentifier, buildIdentifier }: BuildPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/commits`
+      `/:module(ci)/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/commits`
   ),
 
   toCIBuildTests: withAccountId(
     ({ orgIdentifier, projectIdentifier, buildIdentifier }: BuildPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/tests`
+      `/:module(ci)/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/tests`
   ),
   toCIBuildArtifacts: withAccountId(
     ({ orgIdentifier, projectIdentifier, buildIdentifier }: BuildPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/artifacts`
+      `/:module(ci)/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/artifacts`
   ),
   toCIBuild: withAccountId(
     ({ orgIdentifier, projectIdentifier, buildIdentifier }: BuildPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}`
+      `/:module(ci)/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}`
   ),
   toCIAdmin: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup`
+      `/:module(ci)/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup`
   ),
   toCIAdminBuildSettings: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/build-settings`
+      `/:module(ci)/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/build-settings`
   ),
   toCIAdminGovernance: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/governance`
+      `/:module(ci)/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/governance`
   ),
   //git-sync at project scope
   toGitSyncAdmin: withAccountId(
@@ -1018,86 +1018,86 @@ const routes = {
     params.orgIdentifier && params.projectIdentifier
       ? routes.toCFProject(params as ProjectPathProps)
       : routes.toCFDashboard(params as AccountPathProps),
-  toCFDashboard: withAccountId(() => `/cf`),
-  toCFHome: withAccountId(() => `/cf/home`),
+  toCFDashboard: withAccountId(() => `/:module(cf)`),
+  toCFHome: withAccountId(() => `/:module(cf)/home`),
   toCFProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}`
   ),
   toCFProjectOverview: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toCFFeatureFlags: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/feature-flags`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}/feature-flags`
   ),
   toCFFeatureFlagsDetail: withAccountId(
     ({ orgIdentifier, projectIdentifier, featureFlagIdentifier }: ProjectPathProps & FeatureFlagPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/feature-flags/${featureFlagIdentifier}`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}/feature-flags/${featureFlagIdentifier}`
   ),
   toCFTargetManagement: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/target-management`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}/target-management`
   ),
   toCFSegments: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/target-management/target-groups`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}/target-management/target-groups`
   ),
   toCFTargets: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/target-management/targets`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}/target-management/targets`
   ),
   toCFSegmentDetails: withAccountId(
     ({ orgIdentifier, projectIdentifier, segmentIdentifier }: ProjectPathProps & SegmentPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/target-management/target-groups/${segmentIdentifier}`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}/target-management/target-groups/${segmentIdentifier}`
   ),
   toCFTargetDetails: withAccountId(
     ({ orgIdentifier, projectIdentifier, targetIdentifier }: ProjectPathProps & TargetPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/target-management/targets/${targetIdentifier}`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}/target-management/targets/${targetIdentifier}`
   ),
   toCFEnvironments: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/environments`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}/environments`
   ),
   toCFEnvironmentDetails: withAccountId(
     ({ orgIdentifier, projectIdentifier, environmentIdentifier }: ProjectPathProps & EnvironmentPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/environments/${environmentIdentifier}`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}/environments/${environmentIdentifier}`
   ),
   toCFWorkflows: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/workflows`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}/workflows`
   ),
   toCFAdmin: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup`
   ),
   toCFAdminGovernance: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/governance`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/governance`
   ),
   toCFOnboarding: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding`
   ),
   toCFOnboardingDetail: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cf/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/detail`
+      `/:module(cf)/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/detail`
   ),
   /********************************************************************************************************************/
   toCV: (params: Partial<ProjectPathProps>): string =>
     params.orgIdentifier && params.projectIdentifier
       ? routes.toCVProject(params as ProjectPathProps)
       : routes.toCVDashboard(params as AccountPathProps),
-  toCVDashboard: withAccountId(() => `/cv`),
-  toCVHome: withAccountId(() => `/cv/home`),
+  toCVDashboard: withAccountId(() => `/:module(cv)`),
+  toCVHome: withAccountId(() => `/:module(cv)/home`),
   toCVProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}`
   ),
   toCVProjectOverview: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
+      `:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toCVDeploymentPage: withAccountId(
     ({
@@ -1110,22 +1110,22 @@ const routes = {
       !projectIdentifier || !orgIdentifier
         ? CV_HOME
         : activityId
-        ? `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard/deployment/${deploymentTag}/service/${serviceIdentifier}?activityId=${activityId}`
-        : `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard/deployment/${deploymentTag}/service/${serviceIdentifier}`
+        ? `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard/deployment/${deploymentTag}/service/${serviceIdentifier}?activityId=${activityId}`
+        : `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard/deployment/${deploymentTag}/service/${serviceIdentifier}`
   ),
   toCVActivityChangesPage: withAccountId(
     ({ activityId, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & { activityId: string }>) =>
       !activityId || !projectIdentifier || !orgIdentifier
         ? CV_HOME
-        : `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard/activity-changes/${activityId}`
+        : `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard/activity-changes/${activityId}`
   ),
   toCVDataSources: withAccountId(
     ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/datasources`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/datasources`
   ),
   toCVServices: withAccountId(
     ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/services`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/services`
   ),
 
   toCVChanges: withAccountId(
@@ -1159,7 +1159,7 @@ const routes = {
   ),
   toCVAddMonitoringServicesSetup: withAccountId(
     ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & { identifier: string }>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices/setup`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices/setup`
   ),
   toCVAddMonitoringServicesEdit: withAccountId(
     ({
@@ -1172,11 +1172,11 @@ const routes = {
   ),
   toCVOnBoardingSetup: withAccountId(
     ({ dataSourceType, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & CVDataSourceTypePathProps>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/setup`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/setup`
   ),
   toCVActivitySourceSetup: withAccountId(
     ({ activitySource, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & { activitySource?: string }>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/activity-source-setup/${activitySource}`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/activity-source-setup/${activitySource}`
   ),
   toCVActivitySourceEditSetup: withAccountId(
     ({
@@ -1185,47 +1185,47 @@ const routes = {
       orgIdentifier,
       activitySourceId
     }: Partial<ProjectPathProps & { activitySource?: string; activitySourceId: string }>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/activity-source-setup/${activitySource}/activity-sourceId/${activitySourceId}`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/activity-source-setup/${activitySource}/activity-sourceId/${activitySourceId}`
   ),
   toCVActivityDashboard: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/activities/dashboard`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/activities/dashboard`
   ),
   toCVAdminActivitySources: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/activity-sources`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/activity-sources`
   ),
   toCVAdminMonitoringSources: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/monitoring-sources`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/monitoring-sources`
   ),
   toCVAdminVerificationJobs: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/verification-jobs`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/verification-jobs`
   ),
   toCVActivityDetails: withAccountId(
     ({ activityType, orgIdentifier, projectIdentifier }: ProjectPathProps & { activityType: string }) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/activities/admin/${activityType}`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/activities/admin/${activityType}`
   ),
   toCVAdminGeneralSettings: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/general-settings`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/general-settings`
   ),
   toCVAdminGovernance: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/governance`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/governance`
   ),
   toCVAdminSetup: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup`
   ),
   toCVAdminSetupMonitoringSource: withAccountId(
     ({ projectIdentifier, orgIdentifier, monitoringSource }: ProjectPathProps & { monitoringSource: string }) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/monitoring-source/${monitoringSource}`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/monitoring-source/${monitoringSource}`
   ),
   toCVAdmin: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin`
   ),
   toCVAdminSetupMonitoringSourceEdit: withAccountId(
     ({
@@ -1234,23 +1234,23 @@ const routes = {
       monitoringSource,
       identifier
     }: ProjectPathProps & { monitoringSource: string; identifier: string }) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/monitoring-source/${monitoringSource}/${identifier}`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/monitoring-source/${monitoringSource}/${identifier}`
   ),
   toCVAdminSetupVerificationJob: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/verification-job`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/verification-job`
   ),
   toCVAdminSetupVerificationJobEdit: withAccountId(
     ({ projectIdentifier, orgIdentifier, verificationId }: ProjectPathProps & { verificationId: string }) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/verification-job/verificationId/${verificationId}`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/verification-job/verificationId/${verificationId}`
   ),
   toCVAdminAccessControl: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/access-control`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/setup/access-control`
   ),
   toCVAdminNotifications: withAccountId(
     ({ projectIdentifier, orgIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/notifications`
+      `/:module(cv)/orgs/${orgIdentifier}/projects/${projectIdentifier}/admin/notifications`
   ),
   /********************************************************************************************************************/
   toProjectDetails: withAccountId(
@@ -1264,28 +1264,29 @@ const routes = {
     params.orgIdentifier && params.projectIdentifier
       ? routes.toCECORules(params as ProjectPathProps)
       : routes.toCEDashboard(params as AccountPathProps),
-  toCEDashboard: withAccountId(() => `/ce`),
-  toCEHome: withAccountId(() => '/ce/home'),
+  toCEDashboard: withAccountId(() => `/:module(ce)`),
+  toCEHome: withAccountId(() => '/:module(ce)/home'),
   // toCEProject: withAccountId(
   //   ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-  //     `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}`
+  //     `/:module(ce)/orgs/${orgIdentifier}/projects/${projectIdentifier}`
   // ),
-  toCEProjectOverview: withAccountId(() => `/ce/dashboard`),
-  toCECODashboard: withAccountId(() => `/ce/dashboard`),
-  toCECOCreateGateway: withAccountId(() => `/ce/autostopping-rules/create`),
+  toCEProjectOverview: withAccountId(() => `/:module(ce)/dashboard`),
+  toCECODashboard: withAccountId(() => `/:module(ce)/dashboard`),
+  toCECOCreateGateway: withAccountId(() => `/:module(ce)/autostopping-rules/create`),
   toCECOEditGateway: withAccountId(
-    ({ gatewayIdentifier }: { gatewayIdentifier: string }) => `/ce/autostopping-rules/edit/${gatewayIdentifier}`
+    ({ gatewayIdentifier }: { gatewayIdentifier: string }) =>
+      `/:module(ce)/autostopping-rules/edit/${gatewayIdentifier}`
   ),
-  toCECOAccessPoints: withAccountId(() => `/ce/access-points`),
-  toCECORules: withAccountId(() => `/ce/autostopping-rules`),
-  toCERecommendations: withAccountId(() => `/ce/recommendations`),
+  toCECOAccessPoints: withAccountId(() => `/:module(ce)/access-points`),
+  toCECORules: withAccountId(() => `/:module(ce)/autostopping-rules`),
+  toCERecommendations: withAccountId(() => `/:module(ce)/recommendations`),
   toCERecommendationDetails: withAccountId(
     ({ recommendation, recommendationName }: { recommendation: string; recommendationName: string }) =>
-      `/ce/recommendations/${recommendation}/name/${recommendationName}/details`
+      `/:module(ce)/recommendations/${recommendation}/name/${recommendationName}/details`
   ),
   toCENodeRecommendationDetails: withAccountId(
     ({ recommendation, recommendationName }: { recommendation: string; recommendationName: string }) =>
-      `/ce/node-recommendations/${recommendation}/name/${recommendationName}/details`
+      `/:module(ce)/node-recommendations/${recommendation}/name/${recommendationName}/details`
   ),
   toCERecommendationWorkloadDetails: withAccountId(
     ({
@@ -1301,17 +1302,18 @@ const routes = {
       namespace: string
       recommendationName: string
     }) =>
-      `/ce/recommendations/${recommendation}/name/${recommendationName}/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
+      `/:module(ce)/recommendations/${recommendation}/name/${recommendationName}/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
   ),
   toPerspectiveDetails: withAccountId(
     ({ perspectiveId, perspectiveName }: AccountPathProps & { perspectiveId: string; perspectiveName: string }) =>
-      `/ce/perspectives/${perspectiveId}/name/${perspectiveName}`
+      `/:module(ce)/perspectives/${perspectiveId}/name/${perspectiveName}`
   ),
   toCECreatePerspective: withAccountId(
-    ({ perspectiveId }: AccountPathProps & { perspectiveId: string }) => `/ce/perspectives/${perspectiveId}/create`
+    ({ perspectiveId }: AccountPathProps & { perspectiveId: string }) =>
+      `/:module(ce)/perspectives/${perspectiveId}/create`
   ),
-  toCEPerspectives: withAccountId(() => `/ce/perspectives`),
-  toCEBudgets: withAccountId(() => '/ce/budgets'),
+  toCEPerspectives: withAccountId(() => `/:module(ce)/perspectives`),
+  toCEBudgets: withAccountId(() => '/:module(ce)/budgets'),
   toCEBudgetDetails: withAccountId(
     ({
       budgetId,
@@ -1319,7 +1321,7 @@ const routes = {
     }: AccountPathProps & {
       budgetId: string
       budgetName: string
-    }) => `/ce/budget/${budgetId}/${budgetName}`
+    }) => `/:module(ce)/budget/${budgetId}/${budgetName}`
   ),
   toCEPerspectiveWorkloadDetails: withAccountId(
     ({
@@ -1335,7 +1337,7 @@ const routes = {
       namespace: string
       workloadName: string
     }) =>
-      `/ce/perspectives/${perspectiveId}/name/${perspectiveName}/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
+      `/:module(ce)/perspectives/${perspectiveId}/name/${perspectiveName}/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
   ),
   toCEPerspectiveNodeDetails: withAccountId(
     ({
@@ -1348,10 +1350,11 @@ const routes = {
       perspectiveName: string
       clusterName: string
       nodeId: string
-    }) => `/ce/perspectives/${perspectiveId}/name/${perspectiveName}/cluster/${clusterName}/node/${nodeId}/details`
+    }) =>
+      `/:module(ce)/perspectives/${perspectiveId}/name/${perspectiveName}/cluster/${clusterName}/node/${nodeId}/details`
   ),
-  toCEOverview: withAccountId(() => '/ce/overview'),
-  toCEPerspectiveDashboard: withAccountId(() => `/ce/perspective`),
+  toCEOverview: withAccountId(() => '/:module(ce)/overview'),
+  toCEPerspectiveDashboard: withAccountId(() => `/:module(ce)/perspective`),
   /********************************************************************************************************************/
   toCustomDashboard: withAccountId(() => '/dashboards'),
   toCustomDashboardHome: withAccountId(

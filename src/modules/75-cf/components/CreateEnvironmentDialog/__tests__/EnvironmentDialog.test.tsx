@@ -37,11 +37,12 @@ describe('CreateEnvironmentButton', () => {
 
     renderComponent()
 
-    const createEnvironmentButton = screen.getByTestId('create-environment-button')
+    const createEnvironmentButton = screen.getByRole('button', { name: '+ environment' })
     fireEvent.mouseOver(createEnvironmentButton)
 
     await waitFor(() => {
       expect(screen.getByText('common.feature.upgradeRequired.pleaseUpgrade')).toBeInTheDocument()
+      expect(createEnvironmentButton.closest('a')).toHaveClass('bp3-disabled')
     })
   })
 
@@ -53,7 +54,7 @@ describe('CreateEnvironmentButton', () => {
 
     renderComponent()
 
-    const createEnvironmentButton = screen.getByTestId('create-environment-button')
+    const createEnvironmentButton = screen.getByRole('button', { name: '+ environment' })
     fireEvent.mouseOver(createEnvironmentButton)
 
     await waitFor(() => {

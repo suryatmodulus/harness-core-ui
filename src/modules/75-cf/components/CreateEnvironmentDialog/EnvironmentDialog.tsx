@@ -228,7 +228,6 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
 
   return (
     <RbacButton
-      data-testid="create-environment-button"
       disabled={disabled}
       onClick={openModal}
       text={`+ ${getString('environment')}`}

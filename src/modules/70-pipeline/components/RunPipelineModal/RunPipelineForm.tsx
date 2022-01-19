@@ -30,7 +30,7 @@ import {
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
 import { parse } from 'yaml'
-import { pick, merge, isEmpty, isEqual, defaultTo, keyBy } from 'lodash-es'
+import { pick, merge, isEmpty, isEqual, defaultTo, keyBy, get } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import type { PipelineInfoConfig, ResponseJsonNode } from 'services/cd-ng'
 import {
@@ -95,6 +95,7 @@ import ReplacedExpressionInputForm from './ReplacedExpressionInputForm'
 import type { KVPair } from '../PipelineVariablesContext/PipelineVariablesContext'
 import { ApprovalStageInfo, ExpressionsInfo, RequiredStagesInfo } from './RunStageInfoComponents'
 import css from './RunPipelineForm.module.scss'
+import { getYamlWithTemplateRefsResolvedPromise, ResponseTemplateMergeResponse } from 'services/template-ng'
 
 export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & GitQueryParams> {
   inputSetSelected?: InputSetSelectorProps['value']
@@ -1060,7 +1061,36 @@ function RunPipelineFormBasic({
         validate={async values => {
           const latestPipeline = { ...currentPipeline, pipeline: values as PipelineInfoConfig }
           setCurrentPipeline(latestPipeline)
-          const runPipelineFormErrors = await getFormErrors(latestPipeline, yamlTemplate, pipeline)
+
+          const shouldResolveTemplateRefs = pipeline?.stages?.some(
+            stage =>
+              !isEmpty(get(stage, 'stage.template.templateRef')) ||
+              stage.parallel?.some(parallelStage => !isEmpty(get(parallelStage, 'template.templateRef')))
+          )
+
+          let pipelineYamlWithTemplateRefsResolved
+          if (shouldResolveTemplateRefs) {
+            const response = (await getYamlWithTemplateRefsResolvedPromise({
+              queryParams: {
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
+              },
+              body: {
+                originalEntityYaml: yamlStringify(pipeline)
+              }
+            })) as ResponseTemplateMergeResponse
+
+            if (response?.data?.mergedPipelineYaml) {
+              pipelineYamlWithTemplateRefsResolved = parse(response?.data?.mergedPipelineYaml)
+            }
+          }
+
+          const runPipelineFormErrors = await getFormErrors(
+            latestPipeline,
+            yamlTemplate,
+            shouldResolveTemplateRefs ? pipelineYamlWithTemplateRefsResolved : pipeline
+          )
           // https://github.com/formium/formik/issues/1392
           throw runPipelineFormErrors
         }}

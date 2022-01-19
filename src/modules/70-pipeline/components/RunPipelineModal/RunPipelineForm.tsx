@@ -47,6 +47,7 @@ import {
   useRunStagesWithRuntimeInputYaml,
   useRerunStagesWithRuntimeInputYaml
 } from 'services/pipeline-ng'
+import { getYamlWithTemplateRefsResolvedPromise, ResponseTemplateMergeResponse } from 'services/template-ng'
 import { useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
@@ -95,7 +96,6 @@ import ReplacedExpressionInputForm from './ReplacedExpressionInputForm'
 import type { KVPair } from '../PipelineVariablesContext/PipelineVariablesContext'
 import { ApprovalStageInfo, ExpressionsInfo, RequiredStagesInfo } from './RunStageInfoComponents'
 import css from './RunPipelineForm.module.scss'
-import { getYamlWithTemplateRefsResolvedPromise, ResponseTemplateMergeResponse } from 'services/template-ng'
 
 export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & GitQueryParams> {
   inputSetSelected?: InputSetSelectorProps['value']

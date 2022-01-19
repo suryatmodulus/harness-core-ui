@@ -23,7 +23,7 @@ const Stepk8ReviewScript: React.FC<StepProps<K8sDelegateWizardData>> = props => 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { mutate: downloadYaml } = useGenerateKubernetesYamlUsingNgToken({
     queryParams: {
-      accountIdentifier: accountId,
+      accountId,
       orgIdentifier: orgIdentifier,
       projectIdentifier: projectIdentifier,
       fileFormat: 'text/plain'

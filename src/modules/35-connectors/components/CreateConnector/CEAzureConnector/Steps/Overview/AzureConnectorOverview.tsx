@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Layout,
   Button,
@@ -38,6 +38,8 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitContextForm, { GitContextProps, IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { CE_AZURE_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
 import ShowConnectorError from '../ShowConnectorError'
 import css from '../../CreateCeAzureConnector_new.module.scss'
 
@@ -79,6 +81,11 @@ const Overview: React.FC<StepProps<CEAzureDTO> & OverviewProps> = props => {
   const [isUniqueConnector, setIsUniqueConnector] = useState(true)
   const [existingConnectorDetails, setExistingConnectorDetails] = useState<ConnectorResponse | undefined>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+  const { trackEvent } = useTelemetry()
+
+  useEffect(() => {
+    trackEvent(CE_AZURE_CONNECTOR_CREATION_EVENTS.LOAD_OVERVIEW_STEP, {})
+  }, [])
 
   const { accountId } = useParams<Params>()
   const { isGitSyncEnabled } = useAppStore()

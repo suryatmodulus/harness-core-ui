@@ -22,12 +22,19 @@ import { useStrings } from 'framework/strings'
 import { DialogExtensionContext } from '@connectors/common/ConnectorExtention/DialogExtention'
 import LabelWithTooltip from '@connectors/common/LabelWithTooltip/LabelWithTooltip'
 import type { GcpBillingExportSpec, GcpCloudCostConnector } from 'services/cd-ng'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { CE_GCP_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
 import type { CEGcpConnectorDTO } from './OverviewStep'
 import BillingExportExtention from './BillingExportExtention'
 import css from '../CreateCeGcpConnector.module.scss'
 
 const BillingExport: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
+
+  useEffect(() => {
+    trackEvent(CE_GCP_CONNECTOR_CREATION_EVENTS.LOAD_BILLING_EXPORT_SETUP, {})
+  }, [])
 
   const { prevStepData, nextStep, previousStep } = props
 

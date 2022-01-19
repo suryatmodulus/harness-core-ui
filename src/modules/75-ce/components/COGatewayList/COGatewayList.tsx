@@ -15,7 +15,6 @@ import {
   Button,
   Icon,
   Link,
-  ExpandingSearchInput,
   Popover,
   HarnessDocTooltip,
   Heading,
@@ -57,6 +56,7 @@ import spotIcon from './images/spotIcon.svg'
 import { getInstancesLink, getRelativeTime, getStateTag, getRiskGaugeChartOptions } from './Utils'
 import useToggleRuleState from './useToggleRuleState'
 import TextWithToolTip, { textWithToolTipStatus } from '../TextWithTooltip/TextWithToolTip'
+import AutostoppingRulesSearch from './AutostoppingRulesSearch'
 import landingPageSVG from './images/AutostoppingRuleIllustration.svg'
 import spotDisableIcon from './images/spotDisabled.svg'
 import onDemandDisableIcon from './images/onDemandDisabled.svg'
@@ -588,13 +588,14 @@ const COGatewayList: React.FC = () => {
                   </Layout.Horizontal>
                   <Layout.Horizontal spacing="small" width="45%" className={css.headerLayout}>
                     <Layout.Horizontal flex>
-                      <ExpandingSearchInput
-                        placeholder="search"
-                        // onChange={text => {
-                        //   // console.log(text)
-                        //   // setSearchParam(text.trim())
-                        // }}
-                        className={css.search}
+                      <AutostoppingRulesSearch
+                        onSearch={par => {
+                          // eslint-disable-next-line
+                          console.log({ par })
+                          if (!par.error && par.data) {
+                            setTableData(par.data)
+                          }
+                        }}
                       />
                     </Layout.Horizontal>
                   </Layout.Horizontal>

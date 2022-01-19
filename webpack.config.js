@@ -75,7 +75,8 @@ const config = {
     publicPath: DEV ? '/' : '',
     filename: DEV ? 'static/[name].js' : 'static/[name].[contenthash:6].js',
     chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js',
-    pathinfo: false
+    pathinfo: false,
+    assetModuleFilename: 'static/images/[hash:6][ext][query]'
   },
   devtool: DEV ? 'cheap-module-source-map' : 'hidden-source-map',
   devServer: DEV
@@ -170,15 +171,12 @@ const config = {
       },
       {
         test: /\.(jpg|jpeg|png|svg|gif)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 2000,
-              fallback: 'file-loader'
-            }
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 2000
           }
-        ]
+        }
       },
       {
         test: /\.css$/,
@@ -186,7 +184,7 @@ const config = {
       },
       {
         test: /\.ttf$/,
-        loader: 'file-loader'
+        type: 'asset/resource'
       },
       {
         test: /\.ya?ml$/,
@@ -203,11 +201,7 @@ const config = {
       },
       {
         test: /\.(mp4)$/,
-        use: [
-          {
-            loader: 'file-loader'
-          }
-        ]
+        type: 'asset/resource'
       }
     ]
   },

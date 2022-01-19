@@ -192,6 +192,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } =
     useParams<PipelineType<ExecutionPathProps>>()
   const [shouldRenderCodebaseForm, setShouldRenderCodebaseForm] = useState<boolean>()
+  const CLONE_CODEBASE_JSON_PATH = 'stage.spec.cloneCodebase'
 
   const {
     data: pipelineYamlWithTemplateRefsResolved,
@@ -231,15 +232,15 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
     } else {
       setShouldRenderCodebaseForm(
         originalPipeline?.stages?.some(stage => {
-          Object.is(get(stage, 'stage.spec.cloneCodebase'), true)
+          Object.is(get(stage, CLONE_CODEBASE_JSON_PATH), true)
           return (
-            Object.is(get(stage, 'stage.spec.cloneCodebase'), true) ||
-            stage.parallel?.some(parallelStage => Object.is(get(parallelStage, 'stage.spec.cloneCodebase'), true))
+            Object.is(get(stage, CLONE_CODEBASE_JSON_PATH), true) ||
+            stage.parallel?.some(parallelStage => Object.is(get(parallelStage, CLONE_CODEBASE_JSON_PATH), true))
           )
         })
       )
     }
-  }, [originalPipeline])
+  }, [originalPipeline?.stages])
 
   useEffect(() => {
     if (pipelineYamlWithTemplateRefsResolved) {
@@ -250,8 +251,8 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
           setShouldRenderCodebaseForm(
             pipelineJSONWithoutRefs?.stages?.some(
               stage =>
-                Object.is(get(stage, 'stage.spec.cloneCodebase'), true) ||
-                stage.parallel?.some(parallelStage => Object.is(get(parallelStage, 'stage.spec.cloneCodebase'), true))
+                Object.is(get(stage, CLONE_CODEBASE_JSON_PATH), true) ||
+                stage.parallel?.some(parallelStage => Object.is(get(parallelStage, CLONE_CODEBASE_JSON_PATH), true))
             )
           )
         } catch (e) {

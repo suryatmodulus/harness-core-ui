@@ -6,7 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react'
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import {
   Layout,
   getMultiTypeFromValue,
@@ -30,7 +30,7 @@ import { useGetYamlWithTemplateRefsResolved } from 'services/template-ng'
 import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
-
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { PubSubPipelineActions } from '@pipeline/factories/PubSubPipelineAction'
 import { PipelineActions } from '@pipeline/factories/PubSubPipelineAction/types'
@@ -204,7 +204,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
       projectIdentifier
     },
     body: {
-      originalEntityYaml: stringify(originalPipeline)
+      originalEntityYaml: yamlStringify(originalPipeline)
     },
     lazy: true
   })

@@ -55,6 +55,7 @@ import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
 import GitSyncErrors from '@gitsync/pages/errors/GitSyncErrors'
+import { GovernanceRouteDestinations } from '@governance/RouteDestinations'
 import { TargetsPage } from './pages/target-management/targets/TargetsPage'
 import { TargetDetailPage } from './pages/target-details/TargetDetailPage'
 import { SegmentsPage } from './pages/target-management/segments/SegmentsPage'
@@ -420,6 +421,11 @@ const CFRoutes: FC = () => {
 
       <AdminRouteDestinations />
       <PipelineRouteDestinations />
+
+      {GovernanceRouteDestinations({
+        sidebarProps: CFSideNavProps,
+        pathProps: { ...accountPathProps, ...projectPathProps, ...pipelineModuleParams }
+      })}
     </>
   )
 }

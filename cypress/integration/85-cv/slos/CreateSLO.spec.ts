@@ -56,7 +56,7 @@ describe('Create SLO', () => {
     cy.contains('p', 'new-one').click({ force: true })
 
     cy.wait(2000)
-    cy.contains('span', 'Continue').click()
+    cy.contains('span', 'Continue').click({ force: true })
 
     // selecting monitored service
     cy.get('input[placeholder="- Select Monitored Service -"]').click()
@@ -88,13 +88,13 @@ describe('Create SLO', () => {
     cy.contains('p', '<').click({ force: true })
 
     cy.wait(2000)
-    cy.contains('span', 'Continue').click()
+    cy.contains('span', 'Continue').click({ force: true })
 
     // selecting condition for SLI value
     cy.get('input[name="periodLength"]').click()
     cy.contains('p', '7').click({ force: true })
 
-    cy.contains('span', 'Save').click()
+    cy.contains('span', 'Save').click({ force: true })
 
     cy.intercept('GET', listSLOsCall, updatedListSLOsCallResponse)
 
@@ -129,7 +129,7 @@ describe('Create SLO', () => {
     cy.get('input[name="name"]').should('have.value', 'SLO-1')
     cy.get('input[name="User Journey"]').should('have.value', 'new-one')
 
-    cy.contains('span', 'Continue').click()
+    cy.contains('span', 'Continue').click({ force: true })
     cy.contains('h2', 'Configure SLI queries').should('be.visible')
 
     cy.get('input[name="monitoredServiceRef"]').should('have.value', 'cvng_prod')
@@ -144,7 +144,7 @@ describe('Create SLO', () => {
     cy.get('input[name="objectiveComparator"]').should('have.value', '<=')
     cy.get('input[name="SLIMissingDataType"]').should('have.value', 'Good')
 
-    cy.contains('span', 'Continue').click()
+    cy.contains('span', 'Continue').click({ force: true })
     cy.contains('h2', 'Set the SLO time window and target').should('be.visible')
 
     cy.get('input[name="periodType"]').should('have.value', 'Rolling')
@@ -154,16 +154,17 @@ describe('Create SLO', () => {
     cy.get('input[name="periodLength"]').click()
     cy.contains('p', '28').click({ force: true })
 
-    cy.contains('span', 'Save').click()
+    cy.contains('span', 'Save').click({ force: true })
 
     cy.contains('h2', 'Review changes').should('be.visible')
 
-    cy.contains('span', 'OK').click()
-
     cy.intercept('GET', listSLOsCall, getSLODashboardWidgetsAfterEdit)
 
+    cy.contains('span', 'OK').click()
+
+    cy.wait(2000)
     cy.contains('span', 'SLO updated successfully').should('be.visible')
-    cy.contains('p', 'SLO recalculation in progress').should('be.visible')
+    cy.contains('p', 'SLO recalculation in progress', { timeout: 6000 }).should('be.visible')
   })
 
   it('should validate all form field errors and default values', () => {
@@ -177,7 +178,7 @@ describe('Create SLO', () => {
 
     cy.contains('h2', 'Create SLO').should('be.visible')
 
-    cy.contains('span', 'Continue').click()
+    cy.contains('span', 'Continue').click({ force: true })
 
     cy.contains('span', 'SLO name is required').should('be.visible')
     cy.fillName('SLO-1')
@@ -188,8 +189,9 @@ describe('Create SLO', () => {
     cy.contains('p', 'new-one').click({ force: true })
     cy.contains('span', 'User journey is required').should('not.exist')
 
-    cy.contains('span', 'Continue').click()
-    cy.contains('span', 'Continue').click()
+    cy.contains('span', 'Continue').click({ force: true })
+    cy.wait(1000)
+    cy.contains('span', 'Continue').click({ force: true })
 
     cy.contains('h2', 'Configure SLI queries').scrollIntoView()
 
@@ -256,11 +258,11 @@ describe('Create SLO', () => {
 
     cy.contains('span', 'Retry').click()
 
-    cy.contains('span', 'Continue').click()
+    cy.contains('span', 'Continue').click({ force: true })
 
     cy.contains('h2', 'Set the SLO time window and target').should('be.visible')
 
-    cy.contains('span', 'Back').click()
+    cy.contains('span', 'Back').click({ force: true })
 
     cy.contains('Ratio based').click()
     cy.get('input[name="SLIMetricType"][value="Ratio"]').should('be.checked')
@@ -298,8 +300,9 @@ describe('Create SLO', () => {
     cy.get('input[name="objectiveComparator"]').click({ force: true })
     cy.contains('p', '<').click({ force: true })
 
-    cy.contains('span', 'Continue').click()
-    cy.contains('span', 'Save').click()
+    cy.contains('span', 'Continue').click({ force: true })
+    cy.wait(1000)
+    cy.contains('span', 'Save').click({ force: true })
 
     cy.get('input[name="periodType"]').should('have.value', 'Rolling')
     cy.get('input[name="SLOTargetPercentage"]').should('have.value', '99')
@@ -340,7 +343,7 @@ describe('Create SLO', () => {
 
     cy.contains('h1', '1296').should('be.visible')
 
-    cy.contains('span', 'Save').click()
+    cy.contains('span', 'Save').click({ force: true })
     cy.intercept('GET', listSLOsCall, updatedListSLOsCallResponse)
     cy.intercept('GET', getSLORiskCount, getSLORiskCountResponse)
 
@@ -365,7 +368,7 @@ describe('Create SLO', () => {
     cy.get('input[placeholder="Select or create user journey"]').click()
     cy.contains('p', 'new-one').click({ force: true })
 
-    cy.contains('span', 'Continue').click()
+    cy.contains('span', 'Continue').click({ force: true })
 
     cy.get('input[placeholder="- Select Monitored Service -"]').click()
     cy.contains('p', 'cvng_prod').click({ force: true })
@@ -388,12 +391,12 @@ describe('Create SLO', () => {
     cy.get('input[name="objectiveComparator"]').click({ force: true })
     cy.contains('p', '<').click({ force: true })
 
-    cy.contains('span', 'Continue').click()
+    cy.contains('span', 'Continue').click({ force: true })
 
     cy.get('input[name="periodLength"]').click()
     cy.contains('p', '7').click({ force: true })
 
-    cy.contains('span', 'Save').click()
+    cy.contains('span', 'Save').click({ force: true })
 
     cy.contains('span', 'SLO with identifier SLO1 is already exist.').should('be.visible')
   })

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { Color, Icon, Layout, TableV2, Text } from '@harness/uicore'
 import type { IconProps } from '@harness/uicore/dist/icons/Icon'
@@ -17,22 +17,23 @@ const RenderEntityStatus = (prop: Record<'status', GitFullSyncEntityInfoDTO['syn
   const icontProp: IconProps =
     status === 'FAILED'
       ? { name: 'warning-sign', color: Color.RED_900 }
-      : status === 'PUSHED'
+      : status === 'SUCCESS'
       ? { name: 'success-tick' }
       : { name: 'queued' }
-  const statusBackground =
-    status === 'FAILED' ? Color.ORANGE_200 : status === 'PUSHED' ? Color.GREEN_100 : Color.GREY_200
-  const highlightedColor = status === 'FAILED' ? Color.RED_900 : status === 'PUSHED' ? Color.GREEN_700 : Color.GREY_700
+  const statusBackground = status === 'FAILED' ? Color.RED_100 : status === 'SUCCESS' ? Color.GREEN_100 : Color.GREY_100
+  const highlightedColor = status === 'FAILED' ? Color.RED_900 : status === 'SUCCESS' ? Color.GREEN_700 : Color.GREY_900
 
   return (
     <Layout.Horizontal
       spacing="small"
       background={statusBackground}
       style={{ width: 'fit-content', borderRadius: '5px' }}
-      padding="small"
+      padding={{ top: 'small', right: 'small', bottom: 'small', left: 'small' }}
     >
       <Icon {...icontProp}></Icon>
-      <Text color={highlightedColor}> {status} </Text>
+      <Text font={{ size: 'normal' }} color={highlightedColor}>
+        {status}
+      </Text>
     </Layout.Horizontal>
   )
 }
@@ -41,10 +42,17 @@ const RenderEntityDetails: Renderer<CellProps<GitFullSyncEntityInfoDTO>> = ({ ro
   const data = row.original
   const { getString } = useStrings()
   return (
-    <Layout.Horizontal spacing="small">
-      <Icon name={getEntityIconName(data.entityType)} size={35}></Icon>
+    <Layout.Horizontal>
+      <Icon
+        name={getEntityIconName(data.entityType)}
+        size={20}
+        flex={{ alignItems: 'center' }}
+        margin={{ right: 'medium' }}
+      ></Icon>
       <Layout.Vertical spacing="small">
-        <Text> {data.name} </Text>
+        <Text color={Color.GREY_900} font={{ weight: 'semi-bold' }}>
+          {data.name}
+        </Text>
         <Text> {`${getString('common.ID')}: ${data.name}`} </Text>
       </Layout.Vertical>
     </Layout.Horizontal>
@@ -78,66 +86,71 @@ const RenderColumnBranch: Renderer<CellProps<GitFullSyncEntityInfoDTO>> = ({ row
 const RenderColumnFilePath: Renderer<CellProps<GitFullSyncEntityInfoDTO>> = ({ row }) => {
   const data = row.original
 
-  return <Text> {data.filePath} </Text>
+  return (
+    <a href={data.filePath} target="_blank" rel="noopener noreferrer">
+      <Text color={Color.PRIMARY_7} lineClamp={1}>
+        {data.filePath}
+      </Text>
+    </a>
+  )
 }
 
 const GitFullSyncEntityList: React.FC<GitFullSyncEntityListProps> = props => {
   const { data, gotoPage } = props
   //const { getString } = useStrings()
 
-  const listData: GitFullSyncEntityInfoDTO[] = useMemo(() => data?.content || [], [data?.content])
-  const columns: Column<GitFullSyncEntityInfoDTO>[] = useMemo(
-    () => [
-      {
-        Header: 'Entity Name',
-        accessor: row => row.name,
-        id: 'name',
-        width: '20%',
-        Cell: RenderEntityDetails
-      },
-      {
-        Header: 'Status',
-        accessor: row => row.syncStatus,
-        width: '10%',
-        Cell: RenderColumnEntityStatus
-      },
-      {
-        Header: 'Type',
-        accessor: row => row.entityType,
-        id: 'type',
-        width: '10%',
-        Cell: RenderColumnEntityType
-      },
-      {
-        Header: 'Repository',
-        accessor: row => row.repo,
-        id: 'repository',
-        width: '12%',
-        Cell: RenderColumnRepo
-      },
-      {
-        Header: 'Branch',
-        accessor: row => row.branch,
-        id: 'branch',
-        width: '13%',
-        Cell: RenderColumnBranch
-      },
-      {
-        Header: 'Path',
-        accessor: row => row.filePath,
-        id: 'path',
-        width: '35%',
-        Cell: RenderColumnFilePath
-      }
-    ],
-    []
-  )
+  const listData: GitFullSyncEntityInfoDTO[] = data?.content || []
+  const columns: Column<GitFullSyncEntityInfoDTO>[] = [
+    {
+      Header: 'Entity Name',
+      accessor: row => row.name,
+      id: 'name',
+      width: '20%',
+      Cell: RenderEntityDetails
+    },
+    {
+      Header: 'Status',
+      accessor: row => row.syncStatus,
+      width: '10%',
+      Cell: RenderColumnEntityStatus
+    },
+    {
+      Header: 'Type',
+      accessor: row => row.entityType,
+      id: 'type',
+      width: '10%',
+      Cell: RenderColumnEntityType
+    },
+    {
+      Header: 'Repository',
+      accessor: row => row.repo,
+      id: 'repository',
+      width: '12%',
+      Cell: RenderColumnRepo
+    },
+    {
+      Header: 'Branch',
+      accessor: row => row.branch,
+      id: 'branch',
+      width: '13%',
+      Cell: RenderColumnBranch
+    },
+    {
+      Header: 'Path',
+      accessor: row => row.filePath,
+      id: 'path',
+      width: '35%',
+      Cell: RenderColumnFilePath,
+      disableSortBy: true
+    }
+  ]
 
   return (
     <TableV2<GitFullSyncEntityInfoDTO>
       columns={columns}
       data={listData}
       name="GitFullSyncEntityList"
+      sortable={true}
       pagination={{
         itemCount: data?.totalItems || 0,
         pageSize: data?.pageSize || 10,

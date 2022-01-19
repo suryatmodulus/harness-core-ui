@@ -18,10 +18,14 @@ export const getEntityIconName = (entityType: string | undefined): IconName => {
       return 'nav-project-selected'
     case Entities.PIPELINES:
       return 'pipeline-ng'
+    case Entities.INPUT_SETS:
+      return 'yaml-builder-input-sets'
+    case Entities.TEMPLATE:
+      return 'templates-icon'
     case Entities.FEATURE_FLAGS:
       return 'cf-main'
     case Entities.CONNECTORS:
-      return 'resources-icon'
+      return 'connectors-icon'
     case Entities.SECRETS:
       return 'secret-manager'
     default:

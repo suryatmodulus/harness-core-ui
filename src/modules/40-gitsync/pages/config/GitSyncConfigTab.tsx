@@ -6,7 +6,15 @@
  */
 
 import React, { useEffect } from 'react'
-import { Container, Layout, Page, Button, ButtonVariation, PageSpinner } from '@wings-software/uicore'
+import {
+  Container,
+  Layout,
+  Page,
+  Button,
+  ButtonVariation,
+  PageSpinner,
+  ExpandingSearchInput
+} from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { GitFullSyncEntityInfoDTO, useListFullSyncFiles } from 'services/cd-ng'
@@ -26,20 +34,32 @@ const GitSyncConfigTab: React.FC = () => {
       accountIdentifier: accountId,
       branch: 'master',
       entityType: 'Connectors',
-      filePath: 'dummy.yaml',
+      filePath: 'connectors/dummy.yaml',
       name: 'dummy',
       orgIdentifier,
       projectIdentifier,
       repo: 'repoOne',
       retryCount: 0,
-      syncStatus: 'PUSHED'
+      syncStatus: 'SUCCESS'
     },
     {
       accountIdentifier: accountId,
       branch: 'master',
       entityType: 'Pipelines',
-      filePath: 'abc.yaml',
+      filePath: 'pipelines/abc.yaml',
       name: 'abc',
+      orgIdentifier,
+      projectIdentifier,
+      repo: 'repoOne',
+      retryCount: 0,
+      syncStatus: 'SUCCESS'
+    },
+    {
+      accountIdentifier: accountId,
+      branch: 'master',
+      entityType: 'Template',
+      filePath: 'template.yaml',
+      name: 'template',
       orgIdentifier,
       projectIdentifier,
       repo: 'repoOne',
@@ -57,15 +77,27 @@ const GitSyncConfigTab: React.FC = () => {
       repo: 'repoOne',
       retryCount: 0,
       syncStatus: 'QUEUED'
+    },
+    {
+      accountIdentifier: accountId,
+      branch: 'dev',
+      entityType: 'InputSets',
+      filePath: 'inputSet.yaml',
+      name: 'inputSet',
+      orgIdentifier,
+      projectIdentifier,
+      repo: 'repoOne',
+      retryCount: 0,
+      syncStatus: 'FAILED'
     }
   ]
   const mockResponse = {
     content: mockData,
     empty: false,
     pageIndex: 0,
-    pageItemCount: 3,
+    pageItemCount: 4,
     pageSize: 10,
-    totalItems: 3,
+    totalItems: 5,
     totalPages: 1
   }
 
@@ -80,9 +112,20 @@ const GitSyncConfigTab: React.FC = () => {
   return (
     <>
       <Page.SubHeader>
-        <Layout.Horizontal spacing="medium">
-          <Button variation={ButtonVariation.SECONDARY} text={'Resync Failed Entities'}></Button>
-          <Button variation={ButtonVariation.SECONDARY} text={'Edit Config'}></Button>
+        <Layout.Horizontal flex={{ justifyContent: 'space-between' }} width={'100%'}>
+          <Layout.Horizontal spacing="medium">
+            <Button variation={ButtonVariation.SECONDARY} text={'Resync Failed Entities'}></Button>
+            <Button variation={ButtonVariation.SECONDARY} text={'Edit Config'}></Button>
+          </Layout.Horizontal>
+          <ExpandingSearchInput
+            alwaysExpanded
+            width={250}
+            placeholder={getString('search')}
+            throttle={200}
+            onChange={text => {
+              console.log('SearchingText', text)
+            }}
+          />
         </Layout.Horizontal>
       </Page.SubHeader>
       <Page.Body>

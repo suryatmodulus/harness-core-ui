@@ -16,7 +16,8 @@ import {
   ModalErrorHandlerBinding,
   FormikForm as Form,
   useToaster,
-  ModalErrorHandler
+  ModalErrorHandler,
+  MultiSelectOption
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import {
@@ -27,14 +28,20 @@ import {
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { getOrgList, getProjectList, getScopeList } from '@rbac/utils/utils'
-import type { CopyGroupFormType } from './CopyMenuItem'
-import css from './CopyMenuItem.module.scss'
+import type { ProjectSelectOption } from '@audit-trail/components/FilterDrawer/FilterDrawer'
+import css from './CopyGroupForm.module.scss'
 
-interface CopyGroupFormProps {
-  handleFormClose: () => void
+export interface CopyGroupFormType {
+  organizations: MultiSelectOption[]
+  projects: ProjectSelectOption[]
 }
 
-const CopyGroupForm: React.FC<CopyGroupFormProps> = ({ handleFormClose }) => {
+interface CopyGroupFormProps {
+  closeModal: () => void
+  identifier: string
+}
+
+const CopyGroupForm: React.FC<CopyGroupFormProps> = ({ closeModal, identifier }) => {
   const [orgQuery, setOrgQuery] = useState('')
   const [projectsQuery, setProjectsQuery] = useState('')
   const { accountId } = useParams<ProjectPathProps>()
@@ -62,7 +69,9 @@ const CopyGroupForm: React.FC<CopyGroupFormProps> = ({ handleFormClose }) => {
     debounce: 300
   })
 
-  const { mutate: copyUserGroup } = useCopyUserGroup({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: copyUserGroup, loading } = useCopyUserGroup({
+    queryParams: { accountIdentifier: accountId, groupIdentifier: identifier }
+  })
   const { showSuccess } = useToaster()
 
   const orgList = data?.data?.content ? getOrgList(data?.data?.content) : []
@@ -77,6 +86,7 @@ const CopyGroupForm: React.FC<CopyGroupFormProps> = ({ handleFormClose }) => {
       if (response) {
         showSuccess(getString('rbac.copyGroupSuccess'))
       }
+      closeModal()
     } catch (e) {
       modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
@@ -136,12 +146,12 @@ const CopyGroupForm: React.FC<CopyGroupFormProps> = ({ handleFormClose }) => {
               </Container>
               <Layout.Horizontal spacing="small">
                 <Button
-                  disabled={selectedOrgs.length === 0}
+                  disabled={selectedOrgs.length === 0 || loading}
                   type="submit"
                   variation={ButtonVariation.PRIMARY}
                   text={getString('save')}
                 />
-                <Button variation={ButtonVariation.TERTIARY} onClick={handleFormClose} text={getString('cancel')} />
+                <Button variation={ButtonVariation.TERTIARY} onClick={closeModal} text={getString('cancel')} />
               </Layout.Horizontal>
             </Form>
           )

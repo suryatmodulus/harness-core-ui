@@ -13,7 +13,7 @@ describe('Copy group form test', () => {
   test('render', () => {
     const renderObj = (
       <TestWrapper>
-        <CopyGroupForm handleFormClose={jest.fn} />
+        <CopyGroupForm closeModal={jest.fn} identifier="dummy_identifier" />
       </TestWrapper>
     )
     expect(renderObj).toMatchSnapshot()

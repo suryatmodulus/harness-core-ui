@@ -5,11 +5,9 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-.copyGroupForm {
-  min-height: 250px;
-  :global {
-    .bp3-menu {
-      max-height: 200px !important;
-    }
-  }
+/* eslint-disable */
+// this is an auto-generated file
+declare const styles: {
+  readonly copyGroupForm: string
 }
+export default styles

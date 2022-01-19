@@ -876,6 +876,15 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
                                     </div>
                                   </form>
                                 </div>
+                                <div
+                                  class="StyledProps--font StyledProps--main rowItem"
+                                >
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    ce.co.gatewayConfig.addPortLabel
+                                  </p>
+                                </div>
                               </div>
                             </div>
                           </div>

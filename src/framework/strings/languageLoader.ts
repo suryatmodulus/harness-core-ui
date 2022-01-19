@@ -1,3 +1,10 @@
+/*
+ * Copyright 2022 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ */
+
 /* eslint-disable */
 /**
  * This file is auto-generated. Please do not modify this file manually.
@@ -9,6 +16,7 @@ import auditTrail from '@audit-trail/strings/strings.en.yaml'
 import rbac from '@rbac/strings/strings.en.yaml'
 import resourceCenter from '@resource-center/strings/strings.en.yaml'
 import governance from '@governance/strings/strings.en.yaml'
+import sto from '@sto/strings/strings.en.yaml'
 import delegates from '@delegates/strings/strings.en.yaml'
 import secrets from '@secrets/strings/strings.en.yaml'
 import authSettings from '@auth-settings/strings/strings.en.yaml'
@@ -33,6 +41,7 @@ export default function languageLoader() {
     rbac,
     resourceCenter,
     governance,
+    sto,
     delegates,
     secrets,
     authSettings,

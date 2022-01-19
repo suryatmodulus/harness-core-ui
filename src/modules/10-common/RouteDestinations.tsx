@@ -45,6 +45,8 @@ const justAccountPath = withAccountId(() => '/')
 export default (
   <>
     {__DEV__ && (
+      // Redirecting users whose default experience is CG from CG dashboard route to NG home page.
+      // This will happen when auth pages are fetched from prod URL (default experience in DEV now)
       <Route path="/account/:accountId/dashboard">
         <Redirect to={routes.toHome({ accountId: SessionToken.accountId() })} />
       </Route>

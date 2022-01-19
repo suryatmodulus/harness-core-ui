@@ -1129,22 +1129,22 @@ const routes = {
   ),
 
   toCVChanges: withAccountId(
-    ({ projectIdentifier, orgIdentifier, module = 'cv' }: Partial<ProjectPathProps & { module?: string }>) =>
+    ({ projectIdentifier, orgIdentifier, module = ':module(cv)' }: Partial<ProjectPathProps & { module?: string }>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/changes`
   ),
 
   toCVMonitoringServices: withAccountId(
-    ({ orgIdentifier, projectIdentifier, module = 'cv' }: Partial<ProjectPathProps & { module?: string }>) => {
+    ({ orgIdentifier, projectIdentifier, module = ':module(cv)' }: Partial<ProjectPathProps & { module?: string }>) => {
       return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices`
     }
   ),
   toCVSLOs: withAccountId(
-    ({ orgIdentifier, projectIdentifier, module = 'cv' }: Partial<ProjectPathProps & { module?: string }>) => {
+    ({ orgIdentifier, projectIdentifier, module = ':module(cv)' }: Partial<ProjectPathProps & { module?: string }>) => {
       return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/slos`
     }
   ),
   toCVCreateSLOs: withAccountId(
-    ({ orgIdentifier, projectIdentifier, module = 'cv' }: Partial<ProjectPathProps & { module?: string }>) => {
+    ({ orgIdentifier, projectIdentifier, module = ':module(cv)' }: Partial<ProjectPathProps & { module?: string }>) => {
       return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/slos/create`
     }
   ),

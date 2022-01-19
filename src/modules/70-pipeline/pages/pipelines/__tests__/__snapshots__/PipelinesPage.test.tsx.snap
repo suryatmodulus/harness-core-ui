@@ -579,24 +579,16 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   >
                     services
                   </p>
-                  <span
-                    class="bp3-popover-wrapper bp3-dark"
+                  <div
+                    class="Layout--horizontal StyledProps--main"
                   >
-                    <span
-                      class="bp3-popover-target"
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main firstEntity StyledProps--font-small"
+                      style="--text-line-clamp: 1;"
                     >
-                      <div
-                        class="entityContainer"
-                        tabindex="0"
-                      >
-                        <div
-                          class="firstEntity"
-                        >
-                          nginx service
-                        </div>
-                      </div>
-                    </span>
-                  </span>
+                      nginx service
+                    </p>
+                  </div>
                 </div>
               </div>
               <div
@@ -989,24 +981,16 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   >
                     services
                   </p>
-                  <span
-                    class="bp3-popover-wrapper bp3-dark"
+                  <div
+                    class="Layout--horizontal StyledProps--main"
                   >
-                    <span
-                      class="bp3-popover-target"
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main firstEntity StyledProps--font-small"
+                      style="--text-line-clamp: 1;"
                     >
-                      <div
-                        class="entityContainer"
-                        tabindex="0"
-                      >
-                        <div
-                          class="firstEntity"
-                        >
-                          nginx service
-                        </div>
-                      </div>
-                    </span>
-                  </span>
+                      nginx service
+                    </p>
+                  </div>
                 </div>
               </div>
               <div

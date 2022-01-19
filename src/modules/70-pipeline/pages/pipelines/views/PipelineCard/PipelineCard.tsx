@@ -184,20 +184,43 @@ const renderEntityWithAdditionalCountInfo = (entityList: string[], iconName?: Ic
   if (!entityList?.length) {
     return null
   }
+  const [firstElement, ...otherElements] = entityList
 
   return (
-    <Popover
-      interactionKind={PopoverInteractionKind.HOVER}
-      position={Position.RIGHT}
-      usePortal={true}
-      className={Classes.DARK}
-      content={<AdditionalEntitiesCountPopUp entityList={entityList} iconName={iconName} />}
-    >
-      <div className={css.entityContainer}>
-        <div className={css.firstEntity}>{entityList[0]}</div>
-        {entityList.length > 1 && <div className={css.additionalEntitiesCount}>{`+${entityList.length - 1}`}</div>}
-      </div>
-    </Popover>
+    <Layout.Horizontal>
+      {firstElement && (
+        <Text
+          font="small"
+          className={css.firstEntity}
+          lineClamp={1}
+          tooltip={
+            <Container style={{ padding: 'var(--spacing-4)' }}>
+              <Text font="small" color={Color.WHITE} style={{ lineHeight: '22px' }}>
+                {firstElement}
+              </Text>
+            </Container>
+          }
+          tooltipProps={{ isDark: true }}
+        >
+          {firstElement}
+        </Text>
+      )}
+      {otherElements && otherElements.length > 0 && (
+        <Popover
+          interactionKind={PopoverInteractionKind.HOVER}
+          position={Position.RIGHT}
+          usePortal={true}
+          className={Classes.DARK}
+          content={<AdditionalEntitiesCountPopUp entityList={otherElements} iconName={iconName} />}
+        >
+          <Text
+            font="small"
+            color={Color.GREY_600}
+            style={{ marginLeft: 'var(--spacing-4)' }}
+          >{`+${otherElements.length}`}</Text>
+        </Popover>
+      )}
+    </Layout.Horizontal>
   )
 }
 

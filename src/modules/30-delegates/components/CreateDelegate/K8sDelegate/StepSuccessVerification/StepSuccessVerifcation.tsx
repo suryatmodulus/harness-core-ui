@@ -6,12 +6,13 @@
  */
 
 import React from 'react'
-
+import { useParams } from 'react-router-dom'
 import { Button, Layout, StepProps, Heading, Text, Container } from '@wings-software/uicore'
-
+import { useCreateDelegateGroup } from 'services/portal'
 import { useStrings } from 'framework/strings'
+import { useToaster } from '@common/exports'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
-
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { K8sDelegateWizardData } from '../DelegateSetupStep/DelegateSetupStep'
 import StepProcessing from '../../components/StepProcessing/StepProcessing'
 
@@ -21,14 +22,43 @@ interface StepSuccessVerifcationProps {
   onClose?: any
 }
 const StepSuccessVerification: React.FC<StepProps<K8sDelegateWizardData> & StepSuccessVerifcationProps> = props => {
-  const { previousStep } = props
+  const { previousStep, prevStepData, onClose } = props
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
+  const { showError } = useToaster()
 
   const onClickBack = (): void => {
     if (previousStep) {
-      previousStep(props?.prevStepData)
+      previousStep(prevStepData)
     }
   }
+
+  const { mutate: createDelegateGroup } = useCreateDelegateGroup({
+    queryParams: {
+      accountId
+    }
+  })
+
+  const onDone = async () => {
+    const dockerData = {
+      delegateType: 'KUBERNETES',
+      orgIdentifier,
+      projectIdentifier,
+      name: prevStepData?.name,
+      identifier: prevStepData?.identifier,
+      description: prevStepData?.description,
+      tags: prevStepData?.tags,
+      tokenName: prevStepData?.tokenName
+    } as any
+    const response = (await createDelegateGroup(dockerData)) as any
+    if (response?.ok) {
+      onClose()
+    } else {
+      const err = (response as any)?.responseMessages?.[0]?.message
+      showError(err)
+    }
+  }
+
   return (
     <>
       <Layout.Horizontal className={css.verificationBody}>
@@ -80,14 +110,7 @@ const StepSuccessVerification: React.FC<StepProps<K8sDelegateWizardData> & StepS
           icon="chevron-left"
           margin={{ right: 'small' }}
         />
-        <Button
-          text={getString('done')}
-          intent="primary"
-          padding="small"
-          onClick={() => {
-            props?.onClose()
-          }}
-        />
+        <Button text={getString('done')} intent="primary" padding="small" onClick={onDone} />
       </Layout.Horizontal>
     </>
   )

@@ -55,6 +55,10 @@ export interface K8sDelegateWizardData {
   delegateYaml?: DelegateSetupDetails
   name: string
   replicas?: number
+  identifier?: string
+  description?: string
+  tags?: string[]
+  tokenName?: string
 }
 
 enum k8sPermissionType {

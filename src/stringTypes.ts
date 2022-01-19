@@ -4708,6 +4708,7 @@ export interface StringsMap {
   'cv.monitoringSources.prometheus.validation.filterOnEnvironment': string
   'cv.monitoringSources.prometheus.validation.filterOnService': string
   'cv.monitoringSources.prometheus.validation.groupName': string
+  'cv.monitoringSources.prometheus.validation.metricIdentifierUnique': string
   'cv.monitoringSources.prometheus.validation.metricNameUnique': string
   'cv.monitoringSources.prometheus.validation.promethusMetric': string
   'cv.monitoringSources.prometheus.validation.recordCount': string

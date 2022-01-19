@@ -1,4 +1,4 @@
-import React, { useState, useContext, useMemo } from 'react'
+import React, { useState, useContext, useMemo, useEffect } from 'react'
 import { Container, Formik, FormikForm, Text, Layout, SelectOption, Utils, Accordion } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { noop } from 'lodash-es'
@@ -84,15 +84,30 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
   const [prometheusGroupNames, setPrometheusGroupName] = useState<SelectOption[]>(
     initializePrometheusGroupNames(mappedMetrics, getString)
   )
-  const [{ createdMetrics, selectedMetricIndex }, setCreatedMetrics] = useState<CreatedMetricsWithSelectedIndex>(
-    initializeCreatedMetrics(
-      getString('cv.monitoringSources.prometheus.prometheusMetric'),
-      selectedMetric,
-      mappedMetrics
+  const [{ createdMetrics, selectedMetricIndex, createdMetricsIdentifiers }, setCreatedMetrics] =
+    useState<CreatedMetricsWithSelectedIndex>(
+      initializeCreatedMetrics(
+        getString('cv.monitoringSources.prometheus.prometheusMetric'),
+        selectedMetric,
+        mappedMetrics
+      )
     )
-  )
+
+  useEffect(() => {
+    setCreatedMetrics(oldMetrics => {
+      return {
+        ...oldMetrics,
+        createdMetricsIdentifiers: Array.from(mappedMetrics.values()).map(metric => metric.identifier)
+      }
+    })
+  }, [mappedMetrics])
+
+  // console.log('mappedMetrics *****> top:', mappedMetrics)
 
   const initialFormValues: MapPrometheusQueryToService | undefined = mappedMetrics.get(selectedMetric || '')
+
+  console.log('mappedMetrics', mappedMetrics)
+  console.log('initialFormValues', initialFormValues)
 
   return (
     <Formik<MapPrometheusQueryToService | undefined>
@@ -100,12 +115,20 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
       initialValues={initialFormValues}
       key={rerenderKey}
       isInitialValid={(args: any) =>
-        Object.keys(validateMappings(getString, createdMetrics, selectedMetricIndex, args.initialValues)).length === 0
+        Object.keys(
+          validateMappings(
+            getString,
+            createdMetrics,
+            createdMetricsIdentifiers,
+            selectedMetricIndex,
+            args.initialValues
+          )
+        ).length === 0
       }
       onSubmit={noop}
       enableReinitialize={true}
       validate={values => {
-        return validateMappings(getString, createdMetrics, selectedMetricIndex, values)
+        return validateMappings(getString, createdMetrics, createdMetricsIdentifiers, selectedMetricIndex, values)
       }}
     >
       {formikProps => {
@@ -148,19 +171,31 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
                         setRerenderKey(Utils.randomId())
                       }
 
-                      setCreatedMetrics({ selectedMetricIndex: smIndex, createdMetrics: updatedList })
+                      setCreatedMetrics({
+                        selectedMetricIndex: smIndex,
+                        createdMetrics: updatedList,
+                        createdMetricsIdentifiers: Array.from(updatedMap.values()).map(metric => metric.identifier)
+                      })
                       return { selectedMetric: updatedMetric, mappedMetrics: updatedMap }
                     })
                   }}
                   onSelectMetric={(newMetric, updatedList, smIndex) => {
-                    setCreatedMetrics({ selectedMetricIndex: smIndex, createdMetrics: updatedList })
                     setMappedMetrics(oldState => {
-                      return updateSelectedMetricsMap({
+                      const updatedMetricsMap = updateSelectedMetricsMap({
                         updatedMetric: newMetric,
                         oldMetric: oldState.selectedMetric,
                         mappedMetrics: oldState.mappedMetrics,
                         formikProps
                       })
+                      setCreatedMetrics({
+                        selectedMetricIndex: smIndex,
+                        createdMetrics: updatedList,
+                        createdMetricsIdentifiers: Array.from(updatedMetricsMap.mappedMetrics.values()).map(
+                          metric => metric.identifier
+                        )
+                      })
+
+                      return updatedMetricsMap
                     })
                     setRerenderKey(Utils.randomId())
                   }}
@@ -287,7 +322,9 @@ export function PrometheusHealthSource(props: PrometheusHealthSourceProps): JSX.
                   ...formikProps.touched,
                   [PrometheusMonitoringSourceFieldNames.SLI]: true,
                   [PrometheusMonitoringSourceFieldNames.RISK_CATEGORY]: true,
-                  [PrometheusMonitoringSourceFieldNames.LOWER_BASELINE_DEVIATION]: true
+                  [PrometheusMonitoringSourceFieldNames.LOWER_BASELINE_DEVIATION]: true,
+                  [PrometheusMonitoringSourceFieldNames.METRIC_IDENTIFIER]: true,
+                  [PrometheusMonitoringSourceFieldNames.METRIC_NAME]: true
                 })
 
                 if (Object.keys(formikProps.errors || {})?.length > 0) {

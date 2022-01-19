@@ -359,6 +359,7 @@ monitoringSources:
       serviceInstanceIdentifier: Service Instance Identifier is required.
       deviation: Deviation Compared to Baseline is required.
       metricNameUnique: Metric name must be unique.
+      metricIdentifierUnique: Metric identifier must be unique.
       groupName: Group Name is required.
       uniqueName: '{{existingName}} already exists. Provide a unique name.'
       recordCount: Current query yields too many records. Please change query to yield one record.

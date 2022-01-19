@@ -20,6 +20,8 @@ export interface SelectedAppsSideNavProps {
 
 export function SelectedAppsSideNav(props: SelectedAppsSideNavProps): JSX.Element {
   const { selectedApps, loading, filterProps, error, headerText, onSelect, selectedItem, onRemoveItem } = props
+  console.log('selectedApps', selectedApps)
+
   let content
   if (error?.message) {
     content = <PageError {...error} />

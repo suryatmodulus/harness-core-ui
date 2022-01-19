@@ -39,7 +39,7 @@ export function updateSelectedMetricsMap({
   // if newly created metric create form object
   if (!updatedMap.has(updatedMetric)) {
     updatedMap.set(updatedMetric, {
-      identifier: formikProps?.values?.identifier as string,
+      identifier: updatedMetric.split(' ').join('_'),
       metricName: updatedMetric,
       query: '',
       isManualQuery: false
@@ -77,7 +77,8 @@ export function initializeCreatedMetrics(
 ): CreatedMetricsWithSelectedIndex {
   return {
     createdMetrics: Array.from(mappedMetrics.keys()) || [defaultSelectedMetricName],
-    selectedMetricIndex: Array.from(mappedMetrics.keys()).findIndex(metric => metric === selectedMetric)
+    selectedMetricIndex: Array.from(mappedMetrics.keys()).findIndex(metric => metric === selectedMetric),
+    createdMetricsIdentifiers: Array.from(mappedMetrics.values()).map(metric => metric.identifier)
   }
 }
 
@@ -112,6 +113,7 @@ export function validateAssginComponent(
 export function validateMappings(
   getString: UseStringsReturn['getString'],
   createdMetrics: string[],
+  createdMetricsIdentifiers: string[],
   selectedMetricIndex: number,
   values?: MapPrometheusQueryToService
 ): { [fieldName: string]: string } {
@@ -165,6 +167,19 @@ export function validateMappings(
     }
     return metricName === values.metricName
   })
+
+  const duplicateIdentifier = createdMetricsIdentifiers?.reverse().filter((identifier, index) => {
+    if (index === selectedMetricIndex) {
+      return false
+    }
+    return identifier === values.identifier
+  })
+
+  if (values.identifier && duplicateIdentifier.length) {
+    requiredFieldErrors[PrometheusMonitoringSourceFieldNames.METRIC_IDENTIFIER] = getString(
+      'cv.monitoringSources.prometheus.validation.metricIdentifierUnique'
+    )
+  }
 
   if (values.metricName && duplicateNames.length) {
     requiredFieldErrors[PrometheusMonitoringSourceFieldNames.METRIC_NAME] = getString(

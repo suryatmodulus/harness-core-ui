@@ -62,6 +62,7 @@ export type SelectedAndMappedMetrics = {
 export type CreatedMetricsWithSelectedIndex = {
   createdMetrics: string[]
   selectedMetricIndex: number
+  createdMetricsIdentifiers: string[]
 }
 
 export const PrometheusProductNames = {

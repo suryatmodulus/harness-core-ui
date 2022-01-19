@@ -45,7 +45,9 @@
     <script>
       window.deploymentType = 'SAAS'
     </script>
-    <% } %> <% if (HARNESS_ENABLE_NG_AUTH_UI) { %>
+    <% } %>
+    <!-- Enabling ng-auth-ui -->
+    <% if (HARNESS_ENABLE_NG_AUTH_UI) { %>
     <script>
       window.HARNESS_ENABLE_NG_AUTH_UI = true
     </script>

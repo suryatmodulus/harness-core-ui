@@ -3,9 +3,6 @@ rules:
     - error
     - patterns:
         - lodash.*
-        - modules/22-resource-center/*
-        - modules/25-governance/*
-        - modules/27-sto/*
         - modules/30-delegates/*
         - modules/30-secrets/*
         - modules/33-auth-settings/*
@@ -21,9 +18,6 @@ rules:
         - modules/75-cf/*
         - modules/75-ci/*
         - modules/85-cv/*
-        - '@resource-center/*'
-        - '@governance/*'
-        - '@sto/*'
         - '@delegates/*'
         - '@secrets/*'
         - '@auth-settings/*'

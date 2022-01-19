@@ -4,6 +4,7 @@ rules:
     - patterns:
         - lodash.*
         - modules/25-governance/*
+        - modules/27-sto/*
         - modules/30-delegates/*
         - modules/30-secrets/*
         - modules/33-auth-settings/*
@@ -20,6 +21,7 @@ rules:
         - modules/75-ci/*
         - modules/85-cv/*
         - '@governance/*'
+        - '@sto/*'
         - '@delegates/*'
         - '@secrets/*'
         - '@auth-settings/*'

@@ -104,7 +104,14 @@ export function roundNumber(value: number, precision = 2) {
 }
 
 export function getErrorMessage(errorObj?: any): string | undefined {
-  return get(errorObj, 'data.detailedMessage') || get(errorObj, 'data.message') || get(errorObj, 'message')
+  if (get(errorObj, 'data')) {
+    return (
+      get(errorObj, 'data.detailedMessage') ||
+      get(errorObj, 'data.message') ||
+      JSON.stringify(get(errorObj, 'data'), null, '\t')
+    )
+  }
+  return get(errorObj, 'message')
 }
 
 export const getEnvironmentOptions = (

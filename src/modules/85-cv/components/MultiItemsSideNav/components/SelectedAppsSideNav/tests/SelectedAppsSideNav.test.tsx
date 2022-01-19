@@ -6,11 +6,11 @@
  */
 
 import React from 'react'
+import { act } from 'react-test-renderer'
 import { Classes } from '@blueprintjs/core'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { SelectedAppsSideNav, SelectedAppsSideNavProps } from '../SelectedAppsSideNav'
-import { act } from 'react-test-renderer'
 
 function WrapperComponent(props: SelectedAppsSideNavProps): JSX.Element {
   return (

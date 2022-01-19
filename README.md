@@ -2,7 +2,7 @@ This repo contains code used in the [Harness CD Community Edition](https://githu
 
 # Harness Next Gen UI
 
-Grouped Code Coverage report for master branch: [Coverage Report](https://github.com/wings-software/nextgenui/wiki/Coverage)
+Grouped Code Coverage report for master branch: [Coverage Report](https://github.com/harness/harness-core-ui/wiki/Coverage)
 
 ## Important Links
 
@@ -65,8 +65,6 @@ $ yarn dev
 
 </details>
 
-[NextGen Setup and Onboarding Slides (With Troubleshoot section)](https://docs.google.com/presentation/d/1xGl8JJPzEVDz1yew6cz7ADOZ7J-geI0dXk159EgAauA/edit?usp=sharing)
-
 ### Publishing
 
 ```
@@ -98,7 +96,7 @@ proxy: {
 
 ### Auto-generating services
 
-See [src/services/README.md](https://github.com/wings-software/nextgenui/blob/master/src/services/README.md)
+See [src/services/README.md](https://github.com/harness/harness-core-ui/blob/master/src/services/README.md)
 
 ### Local development against remote environments
 
@@ -163,7 +161,3 @@ Example:-
 2. To run shell script "setup-github-registry": "sh scripts/setup-github-registry.sh", just change it to "setup-github-registry": "cross-env scripts/setup-github-registry.sh"
 
 > Note: Similary you can update the scripts part wherever needed as per above to run in windows environment.
-
-#### Running cypress tests in local
-
-https://harness.atlassian.net/wiki/spaces/CDNG/pages/21009563753/How+to+run+Cypress+tests+in+local

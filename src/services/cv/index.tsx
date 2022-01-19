@@ -33,29 +33,6 @@ export interface AdditionalInfo {
   type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
 }
 
-export interface AlertCondition {
-  allEnvironments?: boolean
-  allServices?: boolean
-  enabledRisk?: boolean
-  enabledVerifications?: boolean
-  environments?: string[]
-  notify?: RiskNotify
-  services?: string[]
-  verificationsNotify?: VerificationsNotify
-}
-
-export interface AlertRuleDTO {
-  accountId?: string
-  alertCondition?: AlertCondition
-  enabled?: boolean
-  identifier?: string
-  name?: string
-  notificationMethod?: NotificationMethod
-  orgIdentifier?: string
-  projectIdentifier?: string
-  uuid?: string
-}
-
 export interface AnalysisDTO {
   deploymentVerification?: DeploymentVerificationDTO
   liveMonitoring?: LiveMonitoringDTO
@@ -1192,6 +1169,7 @@ export interface Error {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -1505,6 +1483,7 @@ export interface Failure {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -1524,6 +1503,7 @@ export interface FrequencyDTO {
 
 export interface GcpBillingExportSpec {
   datasetId: string
+  tableId: string
 }
 
 export type GcpCloudCostConnector = ConnectorConfigDTO & {
@@ -2381,14 +2361,6 @@ export type NexusUsernamePasswordAuth = NexusAuthCredentials & {
   usernameRef?: string
 }
 
-export interface NotificationMethod {
-  emails?: string[]
-  notificationSettingType?: 'Slack' | 'PagerDuty' | 'MicrosoftTeams' | 'Email'
-  pagerDutyKey?: string
-  slackChannelName?: string
-  slackWebhook?: string
-}
-
 export interface OnboardingRequestDTO {
   accountId?: string
   connectorIdentifier?: string
@@ -2409,16 +2381,6 @@ export interface OnboardingResponseDTO {
 
 export interface Page {
   content?: { [key: string]: any }[]
-  empty?: boolean
-  pageIndex?: number
-  pageItemCount?: number
-  pageSize?: number
-  totalItems?: number
-  totalPages?: number
-}
-
-export interface PageAlertRuleDTO {
-  content?: AlertRuleDTO[]
   empty?: boolean
   pageIndex?: number
   pageItemCount?: number
@@ -2815,6 +2777,13 @@ export interface ResponseListNewRelicApplication {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseListPartialSchemaDTO {
+  correlationId?: string
+  data?: PartialSchemaDTO[]
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface ResponseListPrometheusSampleData {
   correlationId?: string
   data?: PrometheusSampleData[]
@@ -3139,6 +3108,7 @@ export interface ResponseMessage {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -3252,13 +3222,6 @@ export interface ResponsePageUserJourneyResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponsePartialSchemaDTO {
-  correlationId?: string
-  data?: PartialSchemaDTO
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
 export interface ResponseSLORiskCountResponse {
   correlationId?: string
   data?: SLORiskCountResponse
@@ -3307,14 +3270,6 @@ export interface RestResponseActivityVerificationResultDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: ActivityVerificationResultDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseAlertRuleDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AlertRuleDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -3395,14 +3350,6 @@ export interface RestResponseLearningEngineTask {
     [key: string]: { [key: string]: any }
   }
   resource?: LearningEngineTask
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListActivityType {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ('DEPLOYMENT' | 'CONFIG' | 'KUBERNETES' | 'HARNESS_CD' | 'PAGER_DUTY' | 'HARNESS_CD_CURRENT_GEN')[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3670,14 +3617,6 @@ export interface RestResponseOptionalDataCollectionTaskDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponsePageAlertRuleDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PageAlertRuleDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponsePageAnalyzedLogDataDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3852,10 +3791,6 @@ export interface RiskData {
   timeRangeParams?: TimeRangeParams
 }
 
-export interface RiskNotify {
-  threshold?: number
-}
-
 export interface RiskProfile {
   category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
   metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX' | 'OTHER'
@@ -3892,6 +3827,7 @@ export interface SLODashboardWidget {
   currentPeriodLengthDays: number
   currentPeriodStartTime: number
   environmentIdentifier: string
+  environmentName: string
   errorBudgetBurndown: Point[]
   errorBudgetRemaining: number
   errorBudgetRemainingPercentage: number
@@ -3902,6 +3838,7 @@ export interface SLODashboardWidget {
   monitoredServiceName: string
   recalculatingSLI?: boolean
   serviceIdentifier: string
+  serviceName: string
   sloIdentifier: string
   sloPerformanceTrend: Point[]
   sloTargetPercentage: number
@@ -4426,6 +4363,9 @@ export interface TransactionMetricInfo {
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
     | 'CUSTOM_HEALTH'
+  nodeCountByRiskStatusMap?: {
+    [key: string]: number
+  }
   nodes?: HostData[]
   transactionMetric?: TransactionMetric
 }
@@ -4487,13 +4427,6 @@ export type VaultConnectorDTO = ConnectorConfigDTO & {
   vaultUrl?: string
 }
 
-export interface VerificationsNotify {
-  activityTypes?: ('DEPLOYMENT' | 'CONFIG' | 'KUBERNETES' | 'HARNESS_CD' | 'PAGER_DUTY' | 'HARNESS_CD_CURRENT_GEN')[]
-  allActivityTpe?: boolean
-  allVerificationStatuses?: boolean
-  verificationStatuses?: ('VERIFICATION_PASSED' | 'VERIFICATION_FAILED')[]
-}
-
 export interface VerifyStepSummary {
   name?: string
   verificationStatus?:
@@ -4523,6 +4456,8 @@ export interface YamlSchemaDetailsWrapper {
 }
 
 export interface YamlSchemaMetadata {
+  featureFlags?: string[]
+  featureRestrictions?: string[]
   modulesSupported?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE')[]
   yamlGroup: YamlGroup
 }
@@ -4537,8 +4472,6 @@ export interface YamlSchemaWithDetails {
   yamlSchemaMetadata?: YamlSchemaMetadata
 }
 
-export type AlertRuleDTORequestBody = AlertRuleDTO
-
 export type ChangeEventDTORequestBody = ChangeEventDTO
 
 export type LogSampleRequestDTORequestBody = LogSampleRequestDTO
@@ -4552,6 +4485,8 @@ export type ServiceGuardTimeSeriesAnalysisDTORequestBody = ServiceGuardTimeSerie
 export type ServiceLevelIndicatorDTORequestBody = ServiceLevelIndicatorDTO
 
 export type ServiceLevelObjectiveDTORequestBody = ServiceLevelObjectiveDTO
+
+export type YamlSchemaDetailsWrapperRequestBody = YamlSchemaDetailsWrapper
 
 export interface ChangeEventListQueryParams {
   serviceIdentifiers?: string[]
@@ -5512,316 +5447,6 @@ export const getHealthSourcesPromise = (
     signal
   )
 
-export interface GetAlertRuleQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  identifier: string
-}
-
-export type GetAlertRuleProps = Omit<GetProps<RestResponseAlertRuleDTO, unknown, GetAlertRuleQueryParams, void>, 'path'>
-
-/**
- * gets the alert rule for an identifier
- */
-export const GetAlertRule = (props: GetAlertRuleProps) => (
-  <Get<RestResponseAlertRuleDTO, unknown, GetAlertRuleQueryParams, void>
-    path={`/alert`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetAlertRuleProps = Omit<
-  UseGetProps<RestResponseAlertRuleDTO, unknown, GetAlertRuleQueryParams, void>,
-  'path'
->
-
-/**
- * gets the alert rule for an identifier
- */
-export const useGetAlertRule = (props: UseGetAlertRuleProps) =>
-  useGet<RestResponseAlertRuleDTO, unknown, GetAlertRuleQueryParams, void>(`/alert`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * gets the alert rule for an identifier
- */
-export const getAlertRulePromise = (
-  props: GetUsingFetchProps<RestResponseAlertRuleDTO, unknown, GetAlertRuleQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseAlertRuleDTO, unknown, GetAlertRuleQueryParams, void>(
-    getConfig('cv/api'),
-    `/alert`,
-    props,
-    signal
-  )
-
-export interface CreateAlertQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-export type CreateAlertProps = Omit<
-  MutateProps<RestResponseAlertRuleDTO, unknown, CreateAlertQueryParams, AlertRuleDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * create alert
- */
-export const CreateAlert = (props: CreateAlertProps) => (
-  <Mutate<RestResponseAlertRuleDTO, unknown, CreateAlertQueryParams, AlertRuleDTORequestBody, void>
-    verb="POST"
-    path={`/alert`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseCreateAlertProps = Omit<
-  UseMutateProps<RestResponseAlertRuleDTO, unknown, CreateAlertQueryParams, AlertRuleDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * create alert
- */
-export const useCreateAlert = (props: UseCreateAlertProps) =>
-  useMutate<RestResponseAlertRuleDTO, unknown, CreateAlertQueryParams, AlertRuleDTORequestBody, void>(
-    'POST',
-    `/alert`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
-/**
- * create alert
- */
-export const createAlertPromise = (
-  props: MutateUsingFetchProps<
-    RestResponseAlertRuleDTO,
-    unknown,
-    CreateAlertQueryParams,
-    AlertRuleDTORequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<RestResponseAlertRuleDTO, unknown, CreateAlertQueryParams, AlertRuleDTORequestBody, void>(
-    'POST',
-    getConfig('cv/api'),
-    `/alert`,
-    props,
-    signal
-  )
-
-export interface UpdateAlertQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-export type UpdateAlertProps = Omit<
-  MutateProps<void, void, UpdateAlertQueryParams, AlertRuleDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * update alert
- */
-export const UpdateAlert = (props: UpdateAlertProps) => (
-  <Mutate<void, void, UpdateAlertQueryParams, AlertRuleDTORequestBody, void>
-    verb="PUT"
-    path={`/alert`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseUpdateAlertProps = Omit<
-  UseMutateProps<void, void, UpdateAlertQueryParams, AlertRuleDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * update alert
- */
-export const useUpdateAlert = (props: UseUpdateAlertProps) =>
-  useMutate<void, void, UpdateAlertQueryParams, AlertRuleDTORequestBody, void>('PUT', `/alert`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * update alert
- */
-export const updateAlertPromise = (
-  props: MutateUsingFetchProps<void, void, UpdateAlertQueryParams, AlertRuleDTORequestBody, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<void, void, UpdateAlertQueryParams, AlertRuleDTORequestBody, void>(
-    'PUT',
-    getConfig('cv/api'),
-    `/alert`,
-    props,
-    signal
-  )
-
-export interface GetActivityTypesQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-export type GetActivityTypesProps = Omit<
-  GetProps<RestResponseListActivityType, unknown, GetActivityTypesQueryParams, void>,
-  'path'
->
-
-/**
- * gets activity types
- */
-export const GetActivityTypes = (props: GetActivityTypesProps) => (
-  <Get<RestResponseListActivityType, unknown, GetActivityTypesQueryParams, void>
-    path={`/alert/activityTypes`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetActivityTypesProps = Omit<
-  UseGetProps<RestResponseListActivityType, unknown, GetActivityTypesQueryParams, void>,
-  'path'
->
-
-/**
- * gets activity types
- */
-export const useGetActivityTypes = (props: UseGetActivityTypesProps) =>
-  useGet<RestResponseListActivityType, unknown, GetActivityTypesQueryParams, void>(`/alert/activityTypes`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * gets activity types
- */
-export const getActivityTypesPromise = (
-  props: GetUsingFetchProps<RestResponseListActivityType, unknown, GetActivityTypesQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseListActivityType, unknown, GetActivityTypesQueryParams, void>(
-    getConfig('cv/api'),
-    `/alert/activityTypes`,
-    props,
-    signal
-  )
-
-export interface RetrieveAlertQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  offset: number
-  pageSize: number
-}
-
-export type RetrieveAlertProps = Omit<
-  GetProps<RestResponsePageAlertRuleDTO, unknown, RetrieveAlertQueryParams, void>,
-  'path'
->
-
-/**
- * get list of alerts
- */
-export const RetrieveAlert = (props: RetrieveAlertProps) => (
-  <Get<RestResponsePageAlertRuleDTO, unknown, RetrieveAlertQueryParams, void>
-    path={`/alert/list`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseRetrieveAlertProps = Omit<
-  UseGetProps<RestResponsePageAlertRuleDTO, unknown, RetrieveAlertQueryParams, void>,
-  'path'
->
-
-/**
- * get list of alerts
- */
-export const useRetrieveAlert = (props: UseRetrieveAlertProps) =>
-  useGet<RestResponsePageAlertRuleDTO, unknown, RetrieveAlertQueryParams, void>(`/alert/list`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * get list of alerts
- */
-export const retrieveAlertPromise = (
-  props: GetUsingFetchProps<RestResponsePageAlertRuleDTO, unknown, RetrieveAlertQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponsePageAlertRuleDTO, unknown, RetrieveAlertQueryParams, void>(
-    getConfig('cv/api'),
-    `/alert/list`,
-    props,
-    signal
-  )
-
-export interface DeleteAlertQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-export type DeleteAlertProps = Omit<MutateProps<void, void, DeleteAlertQueryParams, string, void>, 'path' | 'verb'>
-
-/**
- * deletes alert
- */
-export const DeleteAlert = (props: DeleteAlertProps) => (
-  <Mutate<void, void, DeleteAlertQueryParams, string, void>
-    verb="DELETE"
-    path={`/alert`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseDeleteAlertProps = Omit<
-  UseMutateProps<void, void, DeleteAlertQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * deletes alert
- */
-export const useDeleteAlert = (props: UseDeleteAlertProps) =>
-  useMutate<void, void, DeleteAlertQueryParams, string, void>('DELETE', `/alert`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * deletes alert
- */
-export const deleteAlertPromise = (
-  props: MutateUsingFetchProps<void, void, DeleteAlertQueryParams, string, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<void, void, DeleteAlertQueryParams, string, void>(
-    'DELETE',
-    getConfig('cv/api'),
-    `/alert`,
-    props,
-    signal
-  )
-
 export interface GetAppDynamicsApplicationsQueryParams {
   accountId: string
   connectorIdentifier: string
@@ -5882,12 +5507,13 @@ export const getAppDynamicsApplicationsPromise = (
   )
 
 export interface GetAppdynamicsBaseFoldersQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
   connectorIdentifier: string
   appName: string
   path?: string
+  routingId?: string
 }
 
 export type GetAppdynamicsBaseFoldersProps = Omit<
@@ -5935,14 +5561,15 @@ export const getAppdynamicsBaseFoldersPromise = (
   )
 
 export interface GetAppdynamicsMetricDataByPathQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
   connectorIdentifier: string
   appName: string
   baseFolder: string
   tier: string
   metricPath: string
+  routingId?: string
 }
 
 export type GetAppdynamicsMetricDataByPathProps = Omit<
@@ -6078,14 +5705,15 @@ export const getAppDynamicsMetricDataPromise = (
   >('POST', getConfig('cv/api'), `/appdynamics/metric-data`, props, signal)
 
 export interface GetAppdynamicsMetricStructureQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
   connectorIdentifier: string
   appName: string
   baseFolder: string
   tier: string
   metricPath: string
+  routingId?: string
 }
 
 export type GetAppdynamicsMetricStructureProps = Omit<
@@ -6138,14 +5766,15 @@ export const getAppdynamicsMetricStructurePromise = (
   )
 
 export interface GetServiceInstanceMetricPathQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
   connectorIdentifier: string
   appName: string
   baseFolder: string
   tier: string
   metricPath: string
+  routingId?: string
 }
 
 export type GetServiceInstanceMetricPathProps = Omit<
@@ -6463,9 +6092,9 @@ export const saveCVNGLogRecordsPromise = (
   )
 
 export interface GetDatadogLogIndexesQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
   connectorIdentifier: string
   tracingId: string
 }
@@ -6515,9 +6144,9 @@ export const getDatadogLogIndexesPromise = (
   )
 
 export interface GetDatadogLogSampleDataQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
   connectorIdentifier: string
   tracingId: string
 }
@@ -6596,9 +6225,9 @@ export const getDatadogLogSampleDataPromise = (
   >('POST', getConfig('cv/api'), `/datadog-logs/sample-data`, props, signal)
 
 export interface GetDatadogActiveMetricsQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
   connectorIdentifier: string
   tracingId: string
 }
@@ -6648,9 +6277,9 @@ export const getDatadogActiveMetricsPromise = (
   )
 
 export interface GetDatadogDashboardDetailsQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
   connectorIdentifier: string
   dashboardId: string
   tracingId: string
@@ -6706,9 +6335,9 @@ export const getDatadogDashboardDetailsPromise = (
   )
 
 export interface GetDatadogDashboardsQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
   connectorIdentifier: string
   pageSize: number
   offset: number
@@ -6761,9 +6390,9 @@ export const getDatadogDashboardsPromise = (
   )
 
 export interface GetDatadogMetricTagsListQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
   connectorIdentifier: string
   metric: string
   tracingId: string
@@ -6814,9 +6443,9 @@ export const getDatadogMetricTagsListPromise = (
   )
 
 export interface GetDatadogSampleDataQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
   connectorIdentifier: string
   tracingId: string
   query: string
@@ -8517,9 +8146,9 @@ export const getMonitoredServiceScoresFromServiceAndEnvironmentPromise = (
 export interface GetMonitoredServiceDetailsQueryParams {
   serviceIdentifier?: string
   environmentIdentifier?: string
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
 }
 
 export type GetMonitoredServiceDetailsProps = Omit<
@@ -9139,9 +8768,9 @@ export const getMonitoredServiceOverAllHealthScorePromise = (
   >(getConfig('cv/api'), `/monitored-service/${identifier}/overall-health-score`, props, signal)
 
 export interface GetSloMetricsQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
 }
 
 export interface GetSloMetricsPathParams {
@@ -9208,9 +8837,9 @@ export const getSloMetricsPromise = (
   )
 
 export interface GetSliGraphQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
 }
 
 export interface GetSliGraphPathParams {

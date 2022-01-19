@@ -2931,6 +2931,7 @@ export interface StringsMap {
   'pipeline.verification.metricViewPlaceholder': string
   'pipeline.verification.metricsInViolation': string
   'pipeline.verification.noMetrics': string
+  'pipeline.verification.predicted': string
   'pipeline.verification.refreshViewForNewData': string
   'pipeline.verification.testHostName': string
   'pipeline.verification.testsRan': string

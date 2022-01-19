@@ -756,6 +756,8 @@ verification:
   testHostName: Test Hostname
   expandAll: Expand All
   collapseAll: Collapse All
+  predicted: Predicted
+
   logs:
     logCluster: Log cluster
     filterByClusterType: Filter by cluster type

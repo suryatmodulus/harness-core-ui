@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useRef } from 'react'
 import {
   Color,
   Container,
-  ExpandingSearchInput,
   Select,
   Text,
   Icon,
@@ -14,7 +13,8 @@ import {
   Checkbox,
   Layout,
   Button,
-  ButtonVariation
+  ButtonVariation,
+  FontVariation
 } from '@wings-software/uicore'
 import { isEqual } from 'lodash-es'
 import { useParams } from 'react-router-dom'
@@ -36,10 +36,11 @@ import {
   DeploymentMetricsAnalysisRow,
   DeploymentMetricsAnalysisRowProps
 } from './components/DeploymentMetricsAnalysisRow/DeploymentMetricsAnalysisRow'
-import { transformMetricData, getErrorMessage } from './DeploymentMetrics.utils'
+import { transformMetricData, getErrorMessage, getAccordionIds } from './DeploymentMetrics.utils'
 import MetricsAccordionPanelSummary from './components/DeploymentAccordionPanel/MetricsAccordionPanelSummary'
 import { HealthSourceDropDown } from '../HealthSourcesDropdown/HealthSourcesDropdown'
 import css from './DeploymentMetrics.module.scss'
+import DeploymentMetricsLables from './components/DeploymentMetricsLables'
 
 interface DeploymentMetricsProps {
   step: ExecutionNode
@@ -83,6 +84,12 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
       arrayFormat: 'repeat'
     }
   })
+
+  const accordionIdsRef = useRef<string[]>([])
+
+  useEffect(() => {
+    accordionIdsRef.current = getAccordionIds(currentViewData)
+  }, [currentViewData])
 
   const {
     data: healthSourcesData,
@@ -199,7 +206,7 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
 
     return (
       <>
-        {/* <button onClick={() => accordionRef.current?.open(['1', '2'])}>Open</button> */}
+        <DeploymentMetricsLables />
         <Accordion
           allowMultiOpen
           panelClassName={css.deploymentMetricsAccordionPanel}
@@ -278,10 +285,23 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
       </Container>
       <Layout.Horizontal className={css.filterSecondRow} border={{ bottom: true }} margin={{ bottom: 'large' }}>
         <Container className={css.accordionToggleButtons}>
-          <Button variation={ButtonVariation.LINK} border={{ right: true }}>
-            {getString('pipeline.verification.expandAll')}
-          </Button>
-          <Button variation={ButtonVariation.LINK}>{getString('pipeline.verification.collapseAll')}</Button>
+          {currentViewData.length && (
+            <>
+              <Button
+                onClick={() => accordionRef.current?.open(accordionIdsRef.current)}
+                variation={ButtonVariation.LINK}
+                border={{ right: true }}
+              >
+                {getString('pipeline.verification.expandAll')}
+              </Button>
+              <Button
+                onClick={() => accordionRef.current?.close(accordionIdsRef.current)}
+                variation={ButtonVariation.LINK}
+              >
+                {getString('pipeline.verification.collapseAll')}
+              </Button>
+            </>
+          )}
         </Container>
         <Container>
           {pollingIntervalId !== -1 && hasNewData && (
@@ -296,7 +316,16 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
               }}
             />
           )}
-          <Layout.Horizontal className={css.legend}></Layout.Horizontal>
+          <Layout.Horizontal className={css.legend}>
+            <span className={css.predicted} />
+            <Text font={{ variation: FontVariation.SMALL }}> {getString('pipeline.verification.predicted')}</Text>
+            <span className={css.actualFail} />
+            <span className={css.actualWarning} />
+            <span className={css.actualHealthy} />
+            <Text font={{ variation: FontVariation.SMALL }}>
+              {getString('ce.perspectives.budgets.configureAlerts.actual')}
+            </Text>
+          </Layout.Horizontal>
         </Container>
       </Layout.Horizontal>
       <Container className={css.content}>{renderContent()}</Container>

@@ -2,8 +2,9 @@ import React, { useRef, useState, useLayoutEffect, useMemo } from 'react'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import cx from 'classnames'
-import { useStrings } from 'framework/strings'
 import { Color, Container, Text, Icon, Button, Layout } from '@wings-software/uicore'
+import type { TransactionMetric } from 'services/cv'
+import { useStrings } from 'framework/strings'
 import { chartsConfig } from './DeeploymentMetricsChartConfig'
 import {
   healthSourceTypeToLogo,
@@ -19,13 +20,13 @@ export interface DeploymentMetricsAnalysisRowProps {
   controlData?: Highcharts.SeriesLineOptions['data'][]
   testData?: HostTestData[]
   className?: string
+  risk?: TransactionMetric['risk']
 }
 
 export function DeploymentMetricsAnalysisRow(props: DeploymentMetricsAnalysisRowProps): JSX.Element {
   const { healthSourceType, transactionName, metricName, controlData, testData, className } = props
   const graphContainerRef = useRef<HTMLDivElement>(null)
   const [graphWidth, setGraphWidth] = useState(0)
-  const [indxOfLastVisibleGraph, setIndexOfLastVisibleGraph] = useState(3)
   const charts: Highcharts.SeriesAreasplineOptions[][] = useMemo(() => {
     return transformControlAndTestDataToHighChartsSeries(controlData || [], testData || [])
   }, [controlData, testData])
@@ -39,8 +40,6 @@ export function DeploymentMetricsAnalysisRow(props: DeploymentMetricsAnalysisRow
     const containerWidth = graphContainerRef.current.getBoundingClientRect().width
     setGraphWidth(containerWidth / 4)
   }, [graphContainerRef])
-
-  console.log('graphWidth', graphWidth)
 
   return (
     <Container className={cx(css.main, className)}>

@@ -51,7 +51,8 @@ export function transformMetricData(
       testData: testPoints,
       transactionName: transactionMetric.transactionName,
       metricName: transactionMetric.metricName,
-      healthSourceType: dataSourceType
+      healthSourceType: dataSourceType,
+      risk: transactionMetric.risk
     })
   }
 
@@ -79,4 +80,13 @@ export function dataSourceTypeToLabel(dataSourceType: DatasourceTypeDTO['dataSou
 
 export function getErrorMessage(errorObj?: any): string | undefined {
   return get(errorObj, 'data.detailedMessage') || get(errorObj, 'data.message')
+}
+
+export const getAccordionIds = (data: DeploymentMetricsAnalysisRowProps[]): string[] => {
+  if (data.length) {
+    return data?.map(
+      analysisRow => `${analysisRow.transactionName}-${analysisRow.metricName}-${analysisRow.healthSourceType}`
+    )
+  }
+  return []
 }

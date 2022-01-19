@@ -14,8 +14,14 @@ declare const styles: {
   readonly filterSecondRow: string
   readonly accordionToggleButtons: string
   readonly legend: string
+  readonly predicted: string
+  readonly actualHealthy: string
+  readonly actualWarning: string
+  readonly actualFail: string
   readonly maxDropDownWidth: string
   readonly deploymentMetricsAccordionPanel: string
   readonly deploymentMetricsAccordionSummary: string
+  readonly metricName: string
+  readonly deploymentMetricsLables: string
 }
 export default styles

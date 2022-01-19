@@ -54,3 +54,30 @@
     }
   }
 }
+
+.metricRisk {
+  color: var(--risk-color) !important;
+  border: 1px solid var(--risk-color);
+  padding: var(--spacing-xsmall) !important;
+  width: fit-content;
+  border-radius: 4px;
+
+  &Healthy {
+    --risk-color: var(--green-500);
+  }
+  &Warning {
+    --risk-color: var(--orange-600);
+  }
+  &NoAnalysis {
+    --risk-color: var(--grey-500);
+  }
+  &NoData {
+    --risk-color: var(--grey-500);
+  }
+  &Observe {
+    --risk-color: var(--yellow-800);
+  }
+  &Unhealthy {
+    --risk-color: var(--red-600);
+  }
+}

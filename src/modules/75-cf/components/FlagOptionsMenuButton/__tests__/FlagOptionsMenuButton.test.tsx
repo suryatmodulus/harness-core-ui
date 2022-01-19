@@ -113,7 +113,7 @@ describe('FlagOptionsButton', () => {
     expect(document.querySelector('#save-flag-to-git-modal-body')).toBeInTheDocument()
   })
 
-  test('it should open close Git Modal when cancel button clicked', async () => {
+  test('it should close Git Modal when cancel button clicked', async () => {
     jest.spyOn(gitSync, 'useGitSync').mockReturnValue(mockGitSync)
     const deleteFlagMock = jest.fn()
 

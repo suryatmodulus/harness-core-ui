@@ -9,7 +9,7 @@ import { getK8sIngressTemplate, getK8sYamlSchema } from '../GetK8sYamlSchema'
 
 describe('K8s Yaml tests', () => {
   test('should fetch k8s yaml schema', () => {
-    const schema = getK8sYamlSchema()
+    const schema = getK8sYamlSchema({ isEdit: false })
     expect(schema).toBeDefined()
   })
 

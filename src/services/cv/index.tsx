@@ -564,6 +564,7 @@ export interface ConnectorInfoDTO {
     | 'PagerDuty'
     | 'CustomHealth'
     | 'ServiceNow'
+    | 'ErrorTracking'
 }
 
 export interface ControlClusterSummary {
@@ -769,6 +770,7 @@ export interface DatasourceTypeDTO {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'ERROR_TRACKING'
     | 'CUSTOM_HEALTH'
   verificationType?: 'TIME_SERIES' | 'LOG'
 }
@@ -1209,6 +1211,17 @@ export interface Error {
 
 export interface ErrorMetadataDTO {
   type?: string
+}
+
+export type ErrorTrackingConnectorDTO = ConnectorConfigDTO & {
+  apiKeyRef: string
+  delegateSelectors?: string[]
+  sid: string
+  url: string
+}
+
+export type ErrorTrackingHealthSourceSpec = HealthSourceSpec & {
+  feature: string
 }
 
 export interface ExceptionInfo {
@@ -1780,6 +1793,7 @@ export interface HealthSource {
     | 'DatadogMetrics'
     | 'DatadogLog'
     | 'CustomHealth'
+    | 'ErrorTracking'
 }
 
 export interface HealthSourceDTO {
@@ -1795,6 +1809,7 @@ export interface HealthSourceDTO {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'ERROR_TRACKING'
     | 'CUSTOM_HEALTH'
   verificationType?: 'TIME_SERIES' | 'LOG'
 }
@@ -2228,6 +2243,7 @@ export interface MetricPack {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'ERROR_TRACKING'
     | 'CUSTOM_HEALTH'
   identifier?: string
   lastUpdatedAt?: number
@@ -2250,6 +2266,7 @@ export interface MetricPackDTO {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'ERROR_TRACKING'
     | 'CUSTOM_HEALTH'
   identifier?: string
   metrics?: MetricDefinitionDTO[]
@@ -4263,6 +4280,7 @@ export interface TimeSeriesMetricDataDTO {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'ERROR_TRACKING'
     | 'CUSTOM_HEALTH'
   environmentIdentifier?: string
   groupName?: string
@@ -4352,6 +4370,7 @@ export interface TimeSeriesThreshold {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'ERROR_TRACKING'
     | 'CUSTOM_HEALTH'
   lastUpdatedAt?: number
   metricGroupName?: string
@@ -4384,6 +4403,7 @@ export interface TimeSeriesThresholdDTO {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'ERROR_TRACKING'
     | 'CUSTOM_HEALTH'
   metricGroupName?: string
   metricName?: string
@@ -4432,6 +4452,7 @@ export interface TransactionMetricInfo {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'ERROR_TRACKING'
     | 'CUSTOM_HEALTH'
   nodes?: HostData[]
   transactionMetric?: TransactionMetric
@@ -7791,6 +7812,7 @@ export interface GetMetricPacksQueryParams {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'ERROR_TRACKING'
     | 'CUSTOM_HEALTH'
 }
 
@@ -7852,6 +7874,7 @@ export interface SaveMetricPacksQueryParams {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'ERROR_TRACKING'
     | 'CUSTOM_HEALTH'
 }
 
@@ -10853,6 +10876,7 @@ export interface GetAnomalousMetricDashboardDataQueryParams {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'ERROR_TRACKING'
     | 'CUSTOM_HEALTH'
 }
 
@@ -10928,6 +10952,7 @@ export interface GetMetricDataQueryParams {
     | 'PROMETHEUS'
     | 'DATADOG_METRICS'
     | 'DATADOG_LOG'
+    | 'ERROR_TRACKING'
     | 'CUSTOM_HEALTH'
 }
 

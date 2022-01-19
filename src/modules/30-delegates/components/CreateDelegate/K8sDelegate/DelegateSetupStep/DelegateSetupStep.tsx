@@ -175,7 +175,7 @@ const DelegateSetup: React.FC<StepProps<K8sDelegateWizardData> & DelegateSetupSt
   )
 
   const onSubmit = async (values: DelegateSetupDetails, formikActions: FormikActions<DelegateSetupDetails>) => {
-    const createParams = values
+    const createParams = { ...values }
     if (createParams.tags) {
       const tagsArray = Object.keys(values.tags || {})
       set(createParams, 'tags', tagsArray)

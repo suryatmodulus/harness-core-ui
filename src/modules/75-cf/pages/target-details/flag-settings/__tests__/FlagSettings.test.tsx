@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { render, RenderResult } from '@testing-library/react'
+import { fireEvent, render, RenderResult, waitFor, screen } from '@testing-library/react'
 import { cloneDeep } from 'lodash-es'
 
 import { TestWrapper } from '@common/utils/testUtils'
@@ -15,7 +15,8 @@ import mockGitSync from '@cf/utils/testData/data/mockGitSync'
 import mockTarget from '@cf/utils/testData/data/mockTarget'
 import mockFeature from '@cf/utils/testData/data/mockFeature'
 import * as cfServices from 'services/cf'
-
+import * as useFeaturesMock from '@common/hooks/useFeatures'
+import * as usePlanEnforcementMock from '@cf/hooks/usePlanEnforcement'
 import { FlagSettings } from '../FlagSettings'
 
 jest.mock('@cf/hooks/useEnvironmentSelectV2', () => ({
@@ -49,6 +50,30 @@ describe('FlagSettings', () => {
     const { container } = renderComponent()
 
     expect(container).toMatchSnapshot()
+  })
+
+  test('it should render plan enforcement popover when limits reached for free plans', async () => {
+    jest.spyOn(useFeaturesMock, 'useFeature').mockReturnValue({ enabled: false })
+    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: true, isFreePlan: true })
+
+    renderComponent()
+
+    fireEvent.mouseOver(screen.getByPlaceholderText('- Select -'))
+
+    await waitFor(() => expect(screen.getByText('common.feature.upgradeRequired.pleaseUpgrade')).toBeInTheDocument())
+  })
+
+  test('it should not render plan enforcement popover when limits reached for non-free plans', async () => {
+    jest.spyOn(useFeaturesMock, 'useFeature').mockReturnValue({ enabled: false })
+    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: true, isFreePlan: false })
+
+    renderComponent()
+
+    fireEvent.mouseOver(screen.getByPlaceholderText('- Select -'))
+
+    await waitFor(() =>
+      expect(screen.queryByText('common.feature.upgradeRequired.pleaseUpgrade')).not.toBeInTheDocument()
+    )
   })
 
   test('it should disable variation drop downs when the flag is disabled', async () => {

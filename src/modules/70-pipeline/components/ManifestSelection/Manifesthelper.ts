@@ -129,7 +129,7 @@ export enum GitFetchTypes {
 
 export const gitFetchTypeList = [
   { label: 'Latest from Branch', value: 'Branch' },
-  { label: 'Specific Commit ID', value: 'Commit' }
+  { label: 'Specific Commit Id / Git Tag ', value: 'Commit' }
 ]
 
 export const ManifestIdentifierValidation = (

@@ -76,10 +76,11 @@ import { clearRuntimeInput, getErrorsList, validatePipeline } from '../PipelineS
 
 import SaveAsInputSet from '../RunPipelineModal/SaveAsInputSet'
 import type { InputSetDTO } from '../InputSetForm/InputSetForm'
-import { InputSetSelector, InputSetSelectorProps, InputSetValue } from '../InputSetSelector/InputSetSelector'
+import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import SelectExistingInputsOrProvideNew from '../RunPipelineModal/SelectExistingOrProvide'
 import { PreFlightCheckModal } from '../PreFlightCheckModal/PreFlightCheckModal'
 import type { Values } from '../PipelineStudio/StepCommands/StepCommandTypes'
+import type { InputSetValue } from '../InputSetSelector/utils'
 import css from './RetryPipeline.module.scss'
 
 export interface ParallelStageOption extends SelectOption {

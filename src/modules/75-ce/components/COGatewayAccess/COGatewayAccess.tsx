@@ -31,6 +31,7 @@ import { PageSpinner } from '@common/components'
 import { Service, useDescribeServiceInContainerServiceCluster } from 'services/lw'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
+import { useGatewayContext } from '@ce/context/GatewayContext'
 import DNSLinkSetup from './DNSLinkSetup'
 import SSHSetup from './SSHSetup'
 import IPSetup from './IPAddressSetup'
@@ -39,6 +40,7 @@ import type { ConnectionMetadata, GatewayDetails } from '../COCreateGateway/mode
 import KubernetesRuleYamlEditor from '../COGatewayConfig/KubernetesRuleYamlEditor'
 import { getK8sIngressTemplate } from '../COGatewayConfig/GetK8sYamlSchema'
 import { getHelpText, getSelectedTabId, getValidStatusForDnsLink } from './helper'
+import KubernetesYamlEditorDescription from './KubernetesYamlEditorDescription'
 import css from './COGatewayAccess.module.scss'
 
 interface COGatewayAccessProps {
@@ -321,8 +323,8 @@ const K8sRuleAccessDetails: React.FC<K8sRuleAccessDetailsProps> = ({
   allServices
 }) => {
   const { getString } = useStrings()
-  const { showSuccess } = useToaster()
-
+  const { showSuccess, showError } = useToaster()
+  const { isEditFlow } = useGatewayContext()
   const [yamlData, setYamlData] = useState<Record<any, any>>(
     gatewayDetails.routing.k8s?.RuleJson ? JSON.parse(gatewayDetails.routing.k8s.RuleJson) : undefined
   )
@@ -344,54 +346,61 @@ const K8sRuleAccessDetails: React.FC<K8sRuleAccessDetailsProps> = ({
     resourceToUpdateWith: 'yaml' | 'gateway' = 'yaml',
     disableSuccessMsg = false
   ) => {
-    const yamlRuleName = _data?.metadata?.name
-    const updatedName = Utils.getHyphenSpacedString(gatewayDetails.name)
-    const nameToReplace = Utils.getConditionalResult(resourceToUpdateWith === 'yaml', yamlRuleName, updatedName)
-    const namespace = _data.metadata?.namespace || 'default'
-    const hideProgressPage =
-      resourceToUpdateWith === 'gateway' ? gatewayDetails.opts.hide_progress_page : _data.spec.hideProgressPage
-    const yamlToSave = {
-      ..._data,
-      metadata: {
-        ..._data.metadata,
-        name: nameToReplace,
-        namespace,
-        annotations: {
-          ..._data.metadata.annotations,
-          'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${namespace}-${nameToReplace}";`
-        }
-      },
-      spec: {
-        ..._data?.spec,
-        hideProgressPage,
-        ...(resourceToUpdateWith === 'gateway' && {
-          dependencies: Utils.fromServiceToYamlDependencies(allServices, gatewayDetails.deps)
-        })
+    try {
+      const yamlRuleName = _data?.metadata?.name
+      const updatedName = Utils.getHyphenSpacedString(gatewayDetails.name)
+      if (isEditFlow && yamlRuleName !== updatedName) {
+        throw new Error('Name cannot be edited')
       }
-    }
-    setYamlData(yamlToSave)
-    const updatedGatewayDetails: GatewayDetails = {
-      ...gatewayDetails,
-      ...(yamlRuleName !== updatedName && { name: nameToReplace }),
-      ...(resourceToUpdateWith === 'yaml' && { idleTimeMins: _data?.spec?.idleTimeMins }),
-      routing: {
-        ...gatewayDetails.routing,
-        k8s: {
-          RuleJson: JSON.stringify(yamlToSave),
-          ConnectorID: gatewayDetails.metadata.kubernetes_connector_id as string,
-          Namespace: namespace
+      const nameToReplace = Utils.getConditionalResult(resourceToUpdateWith === 'yaml', yamlRuleName, updatedName)
+      const namespace = _data.metadata?.namespace || 'default'
+      const hideProgressPage =
+        resourceToUpdateWith === 'gateway' ? gatewayDetails.opts.hide_progress_page : _data.spec.hideProgressPage
+      const yamlToSave = {
+        ..._data,
+        metadata: {
+          ..._data.metadata,
+          name: nameToReplace,
+          namespace,
+          annotations: {
+            ..._data.metadata.annotations,
+            'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${namespace}-${nameToReplace}";`
+          }
+        },
+        spec: {
+          ..._data?.spec,
+          hideProgressPage,
+          ...(resourceToUpdateWith === 'gateway' && {
+            dependencies: Utils.fromServiceToYamlDependencies(allServices, gatewayDetails.deps)
+          })
         }
-      },
-      ...(resourceToUpdateWith === 'yaml' && {
-        deps: Utils.fromYamlToServiceDependencies(allServices, _data?.spec?.dependencies)
-      }),
-      opts: {
-        ...gatewayDetails.opts,
-        hide_progress_page: hideProgressPage
       }
+      setYamlData(yamlToSave)
+      const updatedGatewayDetails: GatewayDetails = {
+        ...gatewayDetails,
+        ...(yamlRuleName !== updatedName && { name: nameToReplace }),
+        ...(resourceToUpdateWith === 'yaml' && { idleTimeMins: _data?.spec?.idleTimeMins }),
+        routing: {
+          ...gatewayDetails.routing,
+          k8s: {
+            RuleJson: JSON.stringify(yamlToSave),
+            ConnectorID: gatewayDetails.metadata.kubernetes_connector_id as string,
+            Namespace: namespace
+          }
+        },
+        ...(resourceToUpdateWith === 'yaml' && {
+          deps: Utils.fromYamlToServiceDependencies(allServices, _data?.spec?.dependencies)
+        }),
+        opts: {
+          ...gatewayDetails.opts,
+          hide_progress_page: hideProgressPage
+        }
+      }
+      setGatewayDetails(updatedGatewayDetails)
+      !disableSuccessMsg && showSuccess(getString('ce.savedYamlSuccess'))
+    } catch (e) {
+      showError(e.message)
     }
-    setGatewayDetails(updatedGatewayDetails)
-    !disableSuccessMsg && showSuccess(getString('ce.savedYamlSuccess'))
   }
 
   const getYamlExistingData = () => {
@@ -414,6 +423,7 @@ const K8sRuleAccessDetails: React.FC<K8sRuleAccessDetailsProps> = ({
   return (
     <Container>
       <Text className={css.titleHelpTextDescription}>{getString('ce.co.gatewayConfig.k8sroutingDescription')}</Text>
+      <KubernetesYamlEditorDescription />
       <KubernetesRuleYamlEditor
         existingData={getYamlExistingData()}
         fileName={gatewayDetails.name && `${gatewayDetails.name.split(' ').join('-')}-autostopping.yaml`}

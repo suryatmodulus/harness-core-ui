@@ -69,7 +69,7 @@ const Step3Verify: React.FC<StepProps<DockerDelegateWizardData> & StepSuccessVer
   return (
     <>
       <Layout.Horizontal className={css.baseContainer}>
-        <Layout.Vertical>
+        <Layout.Vertical className={css.leftPanel}>
           <StepProcessing
             name={props?.prevStepData?.name}
             replicas={1}

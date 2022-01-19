@@ -104,6 +104,7 @@ title:
   sumologic: 'SumoLogic'
   ceAws: 'AWS Connector '
   gcpKms: GCP Key Management Service
+  errorTracking: 'Error Tracking'
 name_labels:
   Kubernetes: 'Kubernetes Connector Name'
   HttpHelmRepo: 'Helm Http Connector Name'
@@ -295,6 +296,10 @@ datadog:
   encryptedAPPKeyLabel: Encrypted APP Key
   urlValidation: Datadog URL is required.
   encryptedAPPKeyValidation: Encrypted APP Key is required.
+errorTracking:
+  urlValidation: Error Tracking URL is required.
+  sidValidation: Error Tracking SID is required.
+  sidLabel: SID
 dynatrace:
   apiToken: API Token
   apiTokenValidation: API Token is required.

@@ -45,6 +45,8 @@ import {
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 
 import { GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
+import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import patch from '../../utils/instructions'
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
 import css from './FlagActivationDetails.module.scss'
@@ -117,6 +119,8 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
       org: orgIdentifier
     } as PatchFeatureQueryParams
   })
+
+  const { isPlanEnforcementEnabled } = usePlanEnforcement()
 
   const handlePrerequisiteInteraction = (action: 'edit' | 'delete', prereq: Prerequisite) => () => {
     if (action === 'delete') {
@@ -372,6 +376,16 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
     permission: PermissionIdentifier.EDIT_FF_FEATUREFLAG
   }
 
+  const planEnforcementProps = isPlanEnforcementEnabled
+    ? {
+        featuresProps: {
+          featuresRequest: {
+            featureNames: [FeatureIdentifier.MAUS]
+          }
+        }
+      }
+    : undefined
+
   return (
     <Container className={cx(css.collapseFeatures, css.module)}>
       <Collapse {...editCardCollapsedProps} heading={prerequisitesTitle}>
@@ -394,14 +408,16 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
                       text: getString('edit'),
                       onClick: handlePrerequisiteInteraction('edit', elem),
                       disabled: featureFlag.archived,
-                      permission: rbacPermission
+                      permission: rbacPermission,
+                      ...planEnforcementProps
                     },
                     {
                       icon: 'cross',
                       text: getString('delete'),
                       onClick: handlePrerequisiteInteraction('delete', elem),
                       disabled: featureFlag.archived,
-                      permission: rbacPermission
+                      permission: rbacPermission,
+                      ...planEnforcementProps
                     }
                   ]}
                 />
@@ -419,6 +435,7 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
             }}
             disabled={featureFlag.archived}
             permission={rbacPermission}
+            {...planEnforcementProps}
           />
         </Layout.Vertical>
       </Collapse>

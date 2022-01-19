@@ -1,38 +1,37 @@
-/*
- * Copyright 2021 Harness Inc. All rights reserved.
- * Use of this source code is governed by the PolyForm Free Trial 1.0.0 license
- * that can be found in the licenses directory at the root of this repository, also available at
- * https://polyformproject.org/wp-content/uploads/2020/05/PolyForm-Free-Trial-1.0.0.txt.
- */
-
 /* eslint-disable */
-// this is an auto-generated file
+/**
+ * Copyright 2021 Harness Inc. All rights reserved.
+ * Use of this source code is governed by the PolyForm Shield 1.0.0 license
+ * that can be found in the licenses directory at the root of this repository, also available at
+ * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
+ **/
+// this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly card: string
-  readonly radioSelect: string
-  readonly customselect: string
-  readonly radioSelectPurpose: string
-  readonly halfWidth: string
-  readonly button: string
-  readonly preview: string
-  readonly desc: string
-  readonly clone: string
   readonly align: string
-  readonly toEnd: string
-  readonly manageUsers: string
-  readonly invites: string
+  readonly button: string
+  readonly card: string
+  readonly clone: string
   readonly collaboratorForm: string
-  readonly pendingList: string
-  readonly roleButton: string
   readonly colorBar: string
-  readonly pending: string
-  readonly request: string
-  readonly input: string
-  readonly pendingUser: string
-  readonly name: string
-  readonly email: string
-  readonly role: string
-  readonly img: string
   readonly copy: string
+  readonly customselect: string
+  readonly desc: string
+  readonly email: string
+  readonly halfWidth: string
+  readonly img: string
+  readonly input: string
+  readonly invites: string
+  readonly manageUsers: string
+  readonly name: string
+  readonly pending: string
+  readonly pendingList: string
+  readonly pendingUser: string
+  readonly preview: string
+  readonly radioSelect: string
+  readonly radioSelectPurpose: string
+  readonly request: string
+  readonly role: string
+  readonly roleButton: string
+  readonly toEnd: string
 }
 export default styles

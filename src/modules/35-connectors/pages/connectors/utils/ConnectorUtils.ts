@@ -1265,6 +1265,14 @@ export interface DatadogInitialValue {
   loading?: boolean
 }
 
+export interface ErrorTrackingInitialValue {
+  apiKeyRef?: SecretReferenceInterface | void
+  accountId?: string
+  projectIdentifier?: string
+  orgIdentifier?: string
+  loading?: boolean
+}
+
 export interface PagerDutyInitialValue {
   apiTokenRef?: SecretReferenceInterface | void
   accountId?: string | undefined
@@ -1327,6 +1335,38 @@ export const buildDatadogPayload = (formData: FormData) => {
         url,
         apiKeyRef: apiReferenceKey,
         applicationKeyRef: appReferenceKey,
+        delegateSelectors: delegateSelectors || {}
+      }
+    }
+  }
+}
+
+export const buildErrorTrackingPayload = (formData: FormData) => {
+  const {
+    name,
+    identifier,
+    projectIdentifier,
+    orgIdentifier,
+    delegateSelectors,
+    url,
+    sid,
+    apiKeyRef: { referenceString: apiReferenceKey },
+    description,
+    tags
+  } = formData
+  return {
+    connector: {
+      name,
+      identifier,
+      type: Connectors.ERROR_TRACKING,
+      projectIdentifier,
+      orgIdentifier,
+      description,
+      tags,
+      spec: {
+        url,
+        sid,
+        apiKeyRef: apiReferenceKey,
         delegateSelectors: delegateSelectors || {}
       }
     }

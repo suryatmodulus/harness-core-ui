@@ -45,6 +45,7 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
   const { onNext, sourceData } = useContext(SetupSourceTabsContext)
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps & { identifier: string }>()
   const { isEdit } = sourceData
+  const isErrorTrackingEnabled = useFeatureFlag(FeatureFlag.ERROR_TRACKING_ENABLED)
 
   const initialValues = useMemo(() => {
     return getInitialValues(sourceData)
@@ -97,7 +98,9 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
                           height={120}
                           margin={{ left: 'xxxlarge', right: 'xxxlarge' }}
                         >
-                          {HEALTHSOURCE_LIST.map(({ name, icon }) => {
+                          {HEALTHSOURCE_LIST.filter(({ name }) =>
+                            name === HealthSourceTypes.ErrorTracking ? isErrorTrackingEnabled : true
+                          ).map(({ name, icon }) => {
                             const connectorTypeName =
                               name === HealthSourceTypes.GoogleCloudOperations ? Connectors.GCP : name
                             if (isCustomEnabled === false && name === HealthSourceTypes.CustomHealth) {

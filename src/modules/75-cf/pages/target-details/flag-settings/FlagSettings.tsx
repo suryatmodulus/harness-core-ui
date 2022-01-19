@@ -39,6 +39,10 @@ import SaveFlagToGitModal from '@cf/components/SaveFlagToGitModal/SaveFlagToGitM
 
 import { GitSyncFormValues, GIT_SYNC_ERROR_CODE, UseGitSync } from '@cf/hooks/useGitSync'
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
+import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
+import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
+import { FeatureWarningTooltip } from '@common/components/FeatureWarning/FeatureWarningWithTooltip'
+import { useFeature } from '@common/hooks/useFeatures'
 import { DetailHeading } from '../DetailHeading'
 import css from './FlagSettings.module.scss'
 
@@ -335,6 +339,13 @@ export const VariationSelect: React.FC<VariationSelectProps> = ({
   })
   const [isGitSyncModalOpen, setIsGitSyncModalOpen] = useState(false)
 
+  const { isPlanEnforcementEnabled, isFreePlan } = usePlanEnforcement()
+  const { enabled } = useFeature({
+    featureRequest: {
+      featureName: FeatureIdentifier.MAUS
+    }
+  })
+
   const { showError } = useToaster()
 
   const { gitSyncInitialValues } = gitSync.getGitSyncFormMeta(AUTO_COMMIT_MESSAGES.UPDATED_FLAG_VARIATIONS)
@@ -386,27 +397,31 @@ export const VariationSelect: React.FC<VariationSelectProps> = ({
     }
   }
 
+  const selectDisabled = isPlanEnforcementEnabled && isFreePlan && !enabled
+
   const getFeatureRowTooltip = (): ReactElement | undefined => {
     if (!canEdit) {
       return (
         <RBACTooltip resourceType={ResourceType.ENVIRONMENT} permission={PermissionIdentifier.EDIT_FF_FEATUREFLAG} />
       )
-    }
-
-    if (feature.envProperties?.state === 'off') {
+    } else if (selectDisabled) {
+      return <FeatureWarningTooltip featureName={FeatureIdentifier.MAUS} />
+    } else if (feature.envProperties?.state === 'off') {
       return (
         <Container padding="small" width={300}>
           {getString('cf.targetDetail.flagDisabled')}
         </Container>
       )
     }
+
+    return undefined
   }
 
   return (
     <>
       <Text data-testid={`variation_select_${rowIndex}`} tooltip={getFeatureRowTooltip()}>
         <Select
-          disabled={!canEdit || feature.envProperties?.state === 'off'}
+          disabled={!canEdit || feature.envProperties?.state === 'off' || selectDisabled}
           items={variations.map<SelectOption>((variation, _index) => ({
             label: variation.name as string,
             value: variation.identifier as string,

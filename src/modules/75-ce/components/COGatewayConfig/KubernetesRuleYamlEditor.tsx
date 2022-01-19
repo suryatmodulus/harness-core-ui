@@ -11,6 +11,7 @@ import { Button } from '@wings-software/uicore'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { useToaster } from '@common/exports'
+import { useGatewayContext } from '@ce/context/GatewayContext'
 import { getK8sYamlSchema } from './GetK8sYamlSchema'
 import css from './COGatewayConfig.module.scss'
 
@@ -23,6 +24,7 @@ interface KubernetesRuleYamlEditorProps {
 
 const KubernetesRuleYamlEditor: React.FC<KubernetesRuleYamlEditorProps> = props => {
   const { showError } = useToaster()
+  const { isEditFlow } = useGatewayContext()
   const [yamlHandler, setYamlHandler] = useState<YamlBuilderHandlerBinding | undefined>()
   const [hasYamlEditorChanged, setHasYamlEditorChanged] = useState<boolean>(false)
   const isReadMode = props.mode === 'read'
@@ -46,7 +48,7 @@ const KubernetesRuleYamlEditor: React.FC<KubernetesRuleYamlEditorProps> = props 
   return (
     <div className={css.yamlEditorContainer}>
       <YAMLBuilder
-        schema={getK8sYamlSchema()}
+        schema={getK8sYamlSchema({ isEdit: isEditFlow })}
         showSnippetSection={false}
         fileName={props.fileName || 'harness-ccm-autostopping-connector.yaml'}
         entityType="Service"

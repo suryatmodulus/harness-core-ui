@@ -20,7 +20,7 @@ const renderComponent = (props: Partial<AddToFlagButtonProps> = {}): RenderResul
 
 describe('AddToFlagButton', () => {
   beforeEach(() => {
-    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: false })
+    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: false, isFreePlan: true })
     jest.spyOn(useFeaturesMock, 'useGetFirstDisabledFeature').mockReturnValue({ featureEnabled: true })
   })
 
@@ -46,7 +46,7 @@ describe('AddToFlagButton', () => {
       .spyOn(useFeaturesMock, 'useGetFirstDisabledFeature')
       .mockReturnValue({ featureEnabled: false, disabledFeatureName: FeatureIdentifier.MAUS })
 
-    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: true })
+    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: true, isFreePlan: true })
 
     renderComponent()
 

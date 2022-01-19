@@ -20,6 +20,7 @@ import DatadogMetricsHealthSource from '@cv/pages/health-source/connectors/Datad
 import { DatadogProduct } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.utils'
 import { CustomHealthSource } from '@cv/pages/health-source/connectors/CustomHealthSource/CustomHealthSource'
 import { DatadogLogsHealthSource } from '@cv/pages/health-source/connectors/DatadogLogsHealthSource/DatadogLogsHealthSource'
+import ErrorTrackingHealthSource from '@cv/pages/health-source/connectors/ErrorTrackingHealthSource/ErrorTrackingHealthSource'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawerContent.types'
 
 export const LoadSourceByType = ({
@@ -62,6 +63,8 @@ export const LoadSourceByType = ({
       return <SplunkHealthSource data={data} onSubmit={onSubmit} />
     case Connectors.CUSTOM_HEALTH:
       return <CustomHealthSource data={data} onSubmit={onSubmit} />
+    case Connectors.ERROR_TRACKING:
+      return <ErrorTrackingHealthSource data={data} onSubmit={onSubmit} />
     default:
       return <></>
   }

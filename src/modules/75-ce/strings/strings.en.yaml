@@ -158,6 +158,15 @@ co:
       selectLbHelpText: 'The rule requires a Load balancer to direct traffic/shut down appropriate instances. Multiple instances and rules can use a single Load balancer. It identifies instances based on hostnames and directs the HTTP traffic appropriately.'
       chooseLbText: '- Choose from existing Load balancers -'
       erroredAccessPointSelectionText: 'Access point in error state can not be selected'
+      kubernetesDesc:
+        resourceDefinition: The following is the resource definition YAML of the Kubernetes AutoStopping Rule that will be applied to the cluster. The specification here is the same as a Kubernetes Ingress with additional metadata.
+        params:
+          description: Update the following parameters with the correct HTTP/HTTPS service details. These are the configurations to the Ingress that the AutoStopping Rule will create for your Service.
+          host: '(Optional) host: Enter the domain name. If a host is provided (for example, qa.harness.com), the rule applies to that host. If you do not specify the domain name, the ingress created will match requests to all the domains.'
+          name: 'name: Enter the name of your Kubernetes service. For example, test.'
+          port: 'port: Enter the port number. For example, 80.'
+          learnMore: 'Learn More (The Ingress resource https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource)'
+        validate: 'Once you have updated the YAML file with all the details, validate it to proceed.'
       helpText:
         dns:
           info: 'Select DNS Link if the underlying application running on the resources managed by this AutoStopping Rule is currently accessed by an HTTP or HTTPS URL.'

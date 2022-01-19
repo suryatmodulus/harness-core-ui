@@ -1,26 +1,25 @@
-/*
+/* eslint-disable */
+/**
  * Copyright 2021 Harness Inc. All rights reserved.
  * Use of this source code is governed by the PolyForm Shield 1.0.0 license
  * that can be found in the licenses directory at the root of this repository, also available at
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
- */
-
-/* eslint-disable */
-// this is an auto-generated file
+ **/
+// this is an auto-generated file, do not update this manually
 declare const styles: {
   readonly card: string
   readonly environmentType: string
-  readonly stack: string
-  readonly typeContainer: string
-  readonly typeSelected: string
-  readonly stackTickerContainer: string
-  readonly tickerContainer: string
-  readonly tickerValueStyles: string
-  readonly tickerValueRed: string
-  readonly tickerValueGreen: string
-  readonly weightedStackContainer: string
-  readonly progressBar: string
   readonly label: string
   readonly mostActiveServicesWidgetEmpty: string
+  readonly progressBar: string
+  readonly stack: string
+  readonly stackTickerContainer: string
+  readonly tickerContainer: string
+  readonly tickerValueGreen: string
+  readonly tickerValueRed: string
+  readonly tickerValueStyles: string
+  readonly typeContainer: string
+  readonly typeSelected: string
+  readonly weightedStackContainer: string
 }
 export default styles

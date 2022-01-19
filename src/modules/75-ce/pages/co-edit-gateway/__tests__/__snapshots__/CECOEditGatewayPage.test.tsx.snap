@@ -283,7 +283,7 @@ exports[`Edit rule page render edit rule page successfully 1`] = `
                                   AutoStopping Rule Name
                                 </p>
                                 <div
-                                  class="bp3-form-group"
+                                  class="bp3-form-group bp3-disabled"
                                   data-id="gatewayName-0"
                                 >
                                   <label
@@ -305,11 +305,12 @@ exports[`Edit rule page render edit rule page successfully 1`] = `
                                     class="bp3-form-content"
                                   >
                                     <div
-                                      class="bp3-input-group"
+                                      class="bp3-input-group bp3-disabled"
                                     >
                                       <input
                                         autocomplete="off"
                                         class="bp3-input"
+                                        disabled=""
                                         name="gatewayName"
                                         placeholder="ce.co.autoStoppingRule.configuration.step1.nameInputPlaceholder"
                                         type="text"

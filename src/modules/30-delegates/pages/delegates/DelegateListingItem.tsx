@@ -225,7 +225,7 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
   const isConnected = delegate.activelyConnected
   const text = isConnected ? getString('connected') : getString('delegate.notConnected')
   const color: Color = isConnected ? Color.GREEN_600 : Color.GREY_400
-  const allSelectors = Object.keys(delegate.groupImplicitSelectors || {})
+  const allSelectors = Object.keys(delegate.groupImplicitSelectors || {}).concat(delegate.groupCustomSelectors || [])
 
   return (
     <Card elevation={2} interactive={true} onClick={onDelegateClick} className={css.delegateItemContainer}>

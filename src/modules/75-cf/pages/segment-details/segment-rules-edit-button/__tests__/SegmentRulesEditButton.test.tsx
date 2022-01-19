@@ -21,7 +21,7 @@ const renderComponent = (props: Partial<SegmentRulesEditButtonProps> = {}): Rend
 describe('SegmentRulesEditButton', () => {
   beforeEach(() => {
     jest.spyOn(useFeaturesMock, 'useGetFirstDisabledFeature').mockReturnValue({ featureEnabled: true })
-    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: false })
+    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: false, isFreePlan: true })
   })
 
   test('it should render button correctly when options button clicked', async () => {
@@ -47,7 +47,7 @@ describe('SegmentRulesEditButton', () => {
       .spyOn(useFeaturesMock, 'useGetFirstDisabledFeature')
       .mockReturnValue({ featureEnabled: false, disabledFeatureName: FeatureIdentifier.MAUS })
 
-    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: true })
+    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: true, isFreePlan: true })
 
     renderComponent()
 

@@ -33,7 +33,7 @@ const renderComponent = (props: Partial<SelectFeatureFlagsModalButtonProps> = {}
 
 describe('AddToFlagButton', () => {
   beforeEach(() => {
-    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: false })
+    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: false, isFreePlan: true })
     jest.spyOn(useFeaturesMock, 'useGetFirstDisabledFeature').mockReturnValue({ featureEnabled: true })
 
     jest.spyOn(cfServicesMock, 'useGetAllFeatures').mockReturnValue({

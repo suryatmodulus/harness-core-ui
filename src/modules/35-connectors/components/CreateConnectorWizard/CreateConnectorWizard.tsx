@@ -11,6 +11,7 @@ import { Connectors } from '@connectors/constants'
 import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import type { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import CreateGitConnector from '../CreateConnector/GitConnector/CreateGitConnector'
 import CreateGithubConnector from '../CreateConnector/GithubConnector/CreateGithubConnector'
 import CreateGitlabConnector from '../CreateConnector/GitlabConnector/CreateGitlabConnector'
@@ -43,6 +44,7 @@ import CreateSumoLogicConnector from '../CreateConnector/SumoLogicConnector/Crea
 import CENGAwsConnector from '../CreateConnector/CENGAwsConnector/CreateCeAwsConnector'
 import CreateCeGcpConnector from '../CreateConnector/CEGcpConnector/CreateCeGcpConnector'
 import CreateCustomHealthConnector from '../CreateConnector/CustomHealthConnector/CreateCustomHealthConnector'
+import CreateErrorTrackingConnector from '../CreateConnector/ErrorTrackingConnector/CreateErrorTrackingConnector'
 import css from './CreateConnectorWizard.module.scss'
 
 interface CreateConnectorWizardProps {
@@ -75,6 +77,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
     'connectivityMode',
     'setConnectivityMode'
   ])
+  const { ERROR_TRACKING_ENABLED } = useFeatureFlags()
   switch (type) {
     case Connectors.CUSTOM:
       return <CreateCustomHealthConnector {...commonProps} />
@@ -140,6 +143,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <CreatePagerDutyConnector {...commonProps} />
     case Connectors.SERVICE_NOW:
       return <ServiceNowConnector {...commonProps} />
+    case Connectors.ERROR_TRACKING:
+      return ERROR_TRACKING_ENABLED ? <CreateErrorTrackingConnector {...commonProps} /> : null
     default:
       return null
   }

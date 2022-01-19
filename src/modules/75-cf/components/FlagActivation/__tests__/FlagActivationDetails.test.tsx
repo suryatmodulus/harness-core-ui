@@ -74,7 +74,6 @@ describe('FlagActivationDetails', () => {
     userEvent.click(document.querySelectorAll("[data-icon='Options']")[0])
 
     await waitFor(() => expect(document.getElementsByTagName('li')[0]).toHaveTextContent(/edit/i))
-    await waitFor(() => expect(document.getElementsByTagName('li')[1]).toHaveTextContent(/archive/i))
   })
 
   test('it should render edit flag modal correctly', async () => {

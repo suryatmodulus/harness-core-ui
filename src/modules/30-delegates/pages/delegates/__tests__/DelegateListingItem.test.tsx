@@ -6,7 +6,8 @@
  */
 
 import React from 'react'
-import { render, fireEvent, act } from '@testing-library/react'
+import { render, fireEvent, act, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { TestWrapper } from '@common/utils/testUtils'
 import DelegatesListingItem, { DelegateListingHeader } from '../DelegateListingItem'
 import { delegateGroupsMock } from './DelegateGroupsMock'
@@ -58,7 +59,35 @@ describe('Delegates Listing With Groups', () => {
         <DelegatesListingItem delegate={delegateGroupsMock[1]} setOpenTroubleshoter={setOpenTroubleshoterFn} />
       </TestWrapper>
     )
-    fireEvent.click(getAllByText('delegates.troubleshootOption')[0]!)
-    expect(container).toMatchSnapshot()
+    const menuBtn = container.querySelector('button') as HTMLButtonElement
+    userEvent.click(menuBtn!)
+    userEvent.click(getAllByText('delegates.troubleshootOption')[0]!)
+    expect(document.body.innerHTML).toContain('troubleshoot')
+  })
+  test('click on delegate item delete action', async () => {
+    const { getAllByText, container, queryAllByText } = render(
+      <TestWrapper>
+        <DelegatesListingItem delegate={delegateGroupsMock[1]} setOpenTroubleshoter={setOpenTroubleshoterFn} />
+      </TestWrapper>
+    )
+    const menuBtn = container.querySelector('button') as HTMLButtonElement
+    act(() => {
+      fireEvent.click(menuBtn!)
+    })
+    await waitFor(() => {
+      expect(getAllByText('delete')[0]).toBeDefined()
+    })
+    const deleteBtn = getAllByText('delete')[0]
+    act(() => {
+      fireEvent.click(deleteBtn!)
+    })
+    expect(document.body.querySelector('[class*="useConfirmationDialog"]')).toBeDefined()
+    const modalDeleteBtn = queryAllByText('delete')[1]
+    act(() => {
+      fireEvent.click(modalDeleteBtn!)
+    })
+    waitFor(() => {
+      expect(document.body.innerHTML).not.toContain('useConfirmationDialog')
+    })
   })
 })

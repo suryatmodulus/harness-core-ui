@@ -135,8 +135,7 @@ exports[`FlagActivation it should render correctly 1`] = `
                       </label>
                     </p>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--padding-left-small"
-                      style="font-size: 12px; color: rgb(107, 109, 133);"
+                      class="StyledProps--font StyledProps--main StyledProps--font-variation-form-input-text StyledProps--padding-left-small"
                     >
                       cf.featureFlags.flagOn
                     </p>

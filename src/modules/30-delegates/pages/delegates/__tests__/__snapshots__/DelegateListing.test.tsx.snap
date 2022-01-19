@@ -525,7 +525,26 @@ exports[`Test delegate buttons click on filter 1`] = `
                 <div
                   class="StyledProps--font StyledProps--main"
                   style="display: inline-flex; flex-wrap: wrap;"
-                />
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: inline-block; border-radius: 4px; font-size: 10px;"
+                  >
+                    implicitSelector1
+                  </p>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: inline-block; border-radius: 4px; font-size: 10px;"
+                  >
+                    customtag1
+                  </p>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: inline-block; border-radius: 4px; font-size: 10px;"
+                  >
+                    customtag2
+                  </p>
+                </div>
                 <span />
               </div>
               <div
@@ -949,7 +968,26 @@ exports[`Test delegate buttons click on new delegate 1`] = `
                 <div
                   class="StyledProps--font StyledProps--main"
                   style="display: inline-flex; flex-wrap: wrap;"
-                />
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: inline-block; border-radius: 4px; font-size: 10px;"
+                  >
+                    implicitSelector1
+                  </p>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: inline-block; border-radius: 4px; font-size: 10px;"
+                  >
+                    customtag1
+                  </p>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: inline-block; border-radius: 4px; font-size: 10px;"
+                  >
+                    customtag2
+                  </p>
+                </div>
                 <span />
               </div>
               <div

@@ -620,7 +620,7 @@ export default function ArtifactsSelection({
             />
           </StepWizard>
         )
-      case ENABLED_ARTIFACT_TYPES.Nexus:
+      case ENABLED_ARTIFACT_TYPES.NexusRegistry:
         return (
           <StepWizard title={stepWizardTitle}>
             <ConnectorDetailsStep type={ArtifactToConnectorMap[selectedArtifact]} {...connectorDetailStepProps} />
@@ -632,7 +632,7 @@ export default function ArtifactsSelection({
             />
           </StepWizard>
         )
-      case ENABLED_ARTIFACT_TYPES.Artifactory:
+      case ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry:
         return (
           <StepWizard title={stepWizardTitle}>
             <ConnectorDetailsStep type={ArtifactToConnectorMap[selectedArtifact]} {...connectorDetailStepProps} />
@@ -656,9 +656,9 @@ export default function ArtifactsSelection({
         return <GCRImagePath {...artifactLastStepProps()} />
       case ENABLED_ARTIFACT_TYPES.Ecr:
         return <ECRArtifact {...artifactLastStepProps()} />
-      case ENABLED_ARTIFACT_TYPES.Nexus:
+      case ENABLED_ARTIFACT_TYPES.NexusRegistry:
         return <NexusArtifact {...artifactLastStepProps()} />
-      case ENABLED_ARTIFACT_TYPES.Artifactory:
+      case ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry:
         return <Artifactory {...artifactLastStepProps()} />
       case ENABLED_ARTIFACT_TYPES.DockerRegistry:
       default:

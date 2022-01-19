@@ -22,47 +22,47 @@ export const ArtifactIconByType: Record<ArtifactType, IconName> = {
   DockerRegistry: 'service-dockerhub',
   Gcr: 'service-gcp',
   Ecr: 'ecr-step',
-  Nexus: 'service-nexus',
-  Artifactory: 'service-artifactory'
+  NexusRegistry: 'service-nexus',
+  ArtifactoryRegistry: 'service-artifactory'
 }
 export const ArtifactTitleIdByType: Record<ArtifactType, StringKeys> = {
   DockerRegistry: 'dockerRegistry',
   Gcr: 'connectors.GCR.name',
   Ecr: 'connectors.ECR.name',
-  Nexus: 'connectors.nexus.nexusLabel',
-  Artifactory: 'connectors.artifactory.artifactoryLabel'
+  NexusRegistry: 'connectors.nexus.nexusLabel',
+  ArtifactoryRegistry: 'connectors.artifactory.artifactoryLabel'
 }
 
 export const ENABLED_ARTIFACT_TYPES: { [key: string]: ArtifactType } = {
   DockerRegistry: 'DockerRegistry',
   Gcr: 'Gcr',
   Ecr: 'Ecr',
-  Nexus: 'Nexus',
-  Artifactory: 'Artifactory'
+  NexusRegistry: 'NexusRegistry',
+  ArtifactoryRegistry: 'ArtifactoryRegistry'
 }
 
 export const ArtifactToConnectorMap: Record<string, ConnectorInfoDTO['type']> = {
   DockerRegistry: Connectors.DOCKER,
   Gcr: Connectors.GCP,
   Ecr: Connectors.AWS,
-  Nexus: Connectors.NEXUS,
-  Artifactory: Connectors.ARTIFACTORY
+  NexusRegistry: Connectors.NEXUS,
+  ArtifactoryRegistry: Connectors.ARTIFACTORY
 }
 
 export const ArtifactConnectorLabelMap: Record<string, string> = {
   DockerRegistry: 'Docker Registry',
   Gcr: 'GCP',
   Ecr: 'AWS',
-  Nexus: 'Nexus',
-  Artifactory: 'Artifactory'
+  NexusRegistry: 'Nexus',
+  ArtifactoryRegistry: 'Artifactory'
 }
 
 export const allowedArtifactTypes: Array<ArtifactType> = [
   ENABLED_ARTIFACT_TYPES.DockerRegistry,
   ENABLED_ARTIFACT_TYPES.Gcr,
-  ENABLED_ARTIFACT_TYPES.Ecr
-  // ENABLED_ARTIFACT_TYPES.Nexus,
-  // ENABLED_ARTIFACT_TYPES.Artifactory
+  ENABLED_ARTIFACT_TYPES.Ecr,
+  ENABLED_ARTIFACT_TYPES.NexusRegistry,
+  ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry
 ]
 
 export const tagOptions: IOptionProps[] = [

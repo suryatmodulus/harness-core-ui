@@ -27,7 +27,12 @@ import { useStrings } from 'framework/strings'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 
-import { ArtifactConfig, ConnectorConfigDTO, DockerBuildDetailsDTO, useGetBuildDetailsForDocker } from 'services/cd-ng'
+import {
+  ArtifactConfig,
+  ConnectorConfigDTO,
+  DockerBuildDetailsDTO,
+  useGetBuildDetailsForArtifactoryArtifact
+} from 'services/cd-ng'
 import { getConnectorIdValue } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
 import { ArtifactType, ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation } from '../../../ArtifactHelper'
@@ -90,10 +95,10 @@ const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
 
   const {
     data,
-    loading: dockerBuildDetailsLoading,
-    refetch: refetchDockerTag,
-    error: dockerTagError
-  } = useGetBuildDetailsForDocker({
+    loading: artifactoryBuildDetailsLoading,
+    refetch: refetchArtifactoryTag,
+    error: artifactoryTagError
+  } = useGetBuildDetailsForArtifactoryArtifact({
     queryParams: {
       imagePath: lastImagePath,
       connectorRef: getConnectorRefQueryData(),
@@ -109,16 +114,16 @@ const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
 
   useEffect(() => {
     if (getMultiTypeFromValue(lastImagePath) === MultiTypeInputType.FIXED) {
-      refetchDockerTag()
+      refetchArtifactoryTag()
     }
-  }, [lastImagePath, refetchDockerTag])
+  }, [lastImagePath, refetchArtifactoryTag])
   useEffect(() => {
-    if (dockerTagError) {
+    if (artifactoryTagError) {
       setTagList([])
     } else if (Array.isArray(data?.data?.buildDetailsList)) {
       setTagList(data?.data?.buildDetailsList)
     }
-  }, [data?.data?.buildDetailsList, dockerTagError])
+  }, [data?.data?.buildDetailsList, artifactoryTagError])
 
   const canFetchTags = useCallback(
     (imagePath: string): boolean => {
@@ -218,8 +223,8 @@ const Artifactory: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps> = ({
                 isReadonly={isReadonly}
                 connectorIdValue={getConnectorIdValue(prevStepData)}
                 fetchTags={fetchTags}
-                buildDetailsLoading={dockerBuildDetailsLoading}
-                tagError={dockerTagError}
+                buildDetailsLoading={artifactoryBuildDetailsLoading}
+                tagError={artifactoryTagError}
                 tagList={tagList}
                 setTagList={setTagList}
               />

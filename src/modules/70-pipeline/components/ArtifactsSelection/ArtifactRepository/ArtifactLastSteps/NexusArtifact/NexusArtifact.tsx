@@ -27,7 +27,12 @@ import { useStrings } from 'framework/strings'
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 
-import { ArtifactConfig, ConnectorConfigDTO, DockerBuildDetailsDTO, useGetBuildDetailsForDocker } from 'services/cd-ng'
+import {
+  ArtifactConfig,
+  ConnectorConfigDTO,
+  DockerBuildDetailsDTO,
+  useGetBuildDetailsForNexusArtifact
+} from 'services/cd-ng'
 import { getConnectorIdValue } from '@pipeline/components/ArtifactsSelection/ArtifactUtils'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { ArtifactType, ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
@@ -55,7 +60,7 @@ export const NexusArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPr
 
   const schemaObject = {
     imagePath: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.imagePath')),
-    repositoryPort: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.repositoryPort')),
+    repositoryPort: Yup.number().required(getString('pipeline.artifactsSelection.validation.repositoryPort')),
     tagType: Yup.string().required(),
     tagRegex: Yup.string().when('tagType', {
       is: 'regex',
@@ -93,10 +98,10 @@ export const NexusArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPr
 
   const {
     data,
-    loading: dockerBuildDetailsLoading,
-    refetch: refetchDockerTag,
-    error: dockerTagError
-  } = useGetBuildDetailsForDocker({
+    loading: nexusBuildDetailsLoading,
+    refetch: refetchNexusTag,
+    error: nexusTagError
+  } = useGetBuildDetailsForNexusArtifact({
     queryParams: {
       imagePath: lastImagePath,
       connectorRef: getConnectorRefQueryData(),
@@ -112,17 +117,17 @@ export const NexusArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPr
 
   useEffect(() => {
     if (getMultiTypeFromValue(lastImagePath) === MultiTypeInputType.FIXED) {
-      refetchDockerTag()
+      refetchNexusTag()
     }
-  }, [lastImagePath, refetchDockerTag])
+  }, [lastImagePath, refetchNexusTag])
 
   useEffect(() => {
-    if (dockerTagError) {
+    if (nexusTagError) {
       setTagList([])
     } else if (Array.isArray(data?.data?.buildDetailsList)) {
       setTagList(data?.data?.buildDetailsList)
     }
-  }, [data?.data?.buildDetailsList, dockerTagError])
+  }, [data?.data?.buildDetailsList, nexusTagError])
 
   const canFetchTags = useCallback(
     (imagePath: string): boolean => {
@@ -220,7 +225,13 @@ export const NexusArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPr
                   label={getString('pipeline.artifactsSelection.repositoryPort')}
                   name="repositoryPort"
                   placeholder={getString('pipeline.artifactsSelection.repositoryPortPlaceholder')}
-                  multiTextInputProps={{ expressions, allowableTypes }}
+                  multiTextInputProps={{
+                    expressions,
+                    allowableTypes,
+                    textProps: {
+                      type: 'number'
+                    }
+                  }}
                 />
 
                 {getMultiTypeFromValue(formik.values.repositoryPort) === MultiTypeInputType.RUNTIME && (
@@ -228,7 +239,7 @@ export const NexusArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPr
                     <ConfigureOptions
                       style={{ alignSelf: 'center' }}
                       value={formik.values?.repositoryPort as string}
-                      type="String"
+                      type="Number"
                       variableName="repositoryPort"
                       showRequiredField={false}
                       showDefaultField={false}
@@ -249,8 +260,8 @@ export const NexusArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathPr
                 isReadonly={isReadonly}
                 connectorIdValue={getConnectorIdValue(prevStepData)}
                 fetchTags={fetchTags}
-                buildDetailsLoading={dockerBuildDetailsLoading}
-                tagError={dockerTagError}
+                buildDetailsLoading={nexusBuildDetailsLoading}
+                tagError={nexusTagError}
                 tagList={tagList}
                 setTagList={setTagList}
               />

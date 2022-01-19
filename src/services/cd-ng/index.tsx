@@ -11,7 +11,7 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
-export const SPEC_VERSION = '2.0'
+export const SPEC_VERSION = '1.0'
 export interface ACLAggregateFilter {
   resourceGroupIdentifiers?: string[]
   roleIdentifiers?: string[]
@@ -721,10 +721,32 @@ export interface ArtifactoryAuthentication {
   type: 'UsernamePassword' | 'Anonymous'
 }
 
+export interface ArtifactoryBuildDetailsDTO {
+  buildUrl?: string
+  imagePath?: string
+  labels?: {
+    [key: string]: string
+  }
+  metadata?: {
+    [key: string]: string
+  }
+  tag?: string
+}
+
 export type ArtifactoryConnector = ConnectorConfigDTO & {
   artifactoryServerUrl: string
   auth?: ArtifactoryAuthentication
   delegateSelectors?: string[]
+}
+
+export interface ArtifactoryRequestDTO {
+  tag?: string
+  tagRegex?: string
+  tagsList?: string[]
+}
+
+export interface ArtifactoryResponseDTO {
+  buildDetailsList?: ArtifactoryBuildDetailsDTO[]
 }
 
 export type ArtifactoryUsernamePasswordAuth = ArtifactoryAuthCredentials & {
@@ -4538,11 +4560,33 @@ export interface NexusAuthentication {
   type: 'UsernamePassword' | 'Anonymous'
 }
 
+export interface NexusBuildDetailsDTO {
+  buildUrl?: string
+  imagePath?: string
+  labels?: {
+    [key: string]: string
+  }
+  metadata?: {
+    [key: string]: string
+  }
+  tag?: string
+}
+
 export type NexusConnector = ConnectorConfigDTO & {
   auth?: NexusAuthentication
   delegateSelectors?: string[]
   nexusServerUrl: string
   version: string
+}
+
+export interface NexusRequestDTO {
+  tag?: string
+  tagRegex?: string
+  tagsList?: string[]
+}
+
+export interface NexusResponseDTO {
+  buildDetailsList?: NexusBuildDetailsDTO[]
 }
 
 export type NexusUsernamePasswordAuth = NexusAuthCredentials & {
@@ -5265,7 +5309,7 @@ export interface PollingResponseDTO {
 
 export interface PrimaryArtifact {
   spec: ArtifactConfig
-  type: 'DockerRegistry' | 'Gcr' | 'Ecr'
+  type: 'DockerRegistry' | 'Gcr' | 'Ecr' | 'NexusRegistry' | 'ArtifactoryRegistry'
 }
 
 export interface Principal {
@@ -5491,6 +5535,20 @@ export interface ResponseApiKeyAggregateDTO {
 export interface ResponseApiKeyDTO {
   correlationId?: string
   data?: ApiKeyDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseArtifactoryBuildDetailsDTO {
+  correlationId?: string
+  data?: ArtifactoryBuildDetailsDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseArtifactoryResponseDTO {
+  correlationId?: string
+  data?: ArtifactoryResponseDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -6372,6 +6430,20 @@ export interface ResponseMessage {
 export interface ResponseModuleLicenseDTO {
   correlationId?: string
   data?: ModuleLicenseDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseNexusBuildDetailsDTO {
+  correlationId?: string
+  data?: NexusBuildDetailsDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseNexusResponseDTO {
+  correlationId?: string
+  data?: NexusResponseDTO
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -7819,7 +7891,7 @@ export type ShellScriptStepInfo = StepSpecType & {
 export interface SidecarArtifact {
   identifier: string
   spec: ArtifactConfig
-  type: 'DockerRegistry' | 'Gcr' | 'Ecr'
+  type: 'DockerRegistry' | 'Gcr' | 'Ecr' | 'NexusRegistry' | 'ArtifactoryRegistry'
 }
 
 export interface SidecarArtifactWrapper {
@@ -8648,6 +8720,8 @@ export type AccountDTORequestBody = AccountDTO
 
 export type ApiKeyDTORequestBody = ApiKeyDTO
 
+export type ArtifactoryRequestDTORequestBody = ArtifactoryRequestDTO
+
 export type ConnectorRequestBody = Connector
 
 export type DelegateProfileDetailsNgRequestBody = DelegateProfileDetailsNg
@@ -8672,6 +8746,8 @@ export type GitSyncSettingsDTORequestBody = GitSyncSettingsDTO
 
 export type LandingDashboardRequestCDRequestBody = LandingDashboardRequestCD
 
+export type NexusRequestDTORequestBody = NexusRequestDTO
+
 export type NgSmtpDTORequestBody = NgSmtpDTO
 
 export type OrganizationRequestRequestBody = OrganizationRequest
@@ -8688,9 +8764,9 @@ export type ScimUserRequestBody = ScimUser
 
 export type ScopingRuleDetailsNgArrayRequestBody = ScopingRuleDetailsNg[]
 
-export type SecretRequestWrapperRequestBody = void
+export type SecretRequestWrapperRequestBody = SecretRequestWrapper
 
-export type SecretRequestWrapper2RequestBody = SecretRequestWrapper
+export type SecretRequestWrapper2RequestBody = void
 
 export type ServiceAccountDTORequestBody = ServiceAccountDTO
 
@@ -8711,6 +8787,8 @@ export type UserFilterRequestBody = UserFilter
 export type UserGroupDTORequestBody = UserGroupDTO
 
 export type YamlSchemaDetailsWrapperRequestBody = YamlSchemaDetailsWrapper
+
+export type GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody = string
 
 export type GetBuildDetailsForEcrWithYamlBodyRequestBody = string
 
@@ -10115,6 +10193,515 @@ export const updateApiKeyPromise = (
     signal
   )
 
+export interface GetBuildDetailsForArtifactoryArtifactQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export type GetBuildDetailsForArtifactoryArtifactProps = Omit<
+  GetProps<ResponseArtifactoryResponseDTO, Failure | Error, GetBuildDetailsForArtifactoryArtifactQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets artifactory artifact build details
+ */
+export const GetBuildDetailsForArtifactoryArtifact = (props: GetBuildDetailsForArtifactoryArtifactProps) => (
+  <Get<ResponseArtifactoryResponseDTO, Failure | Error, GetBuildDetailsForArtifactoryArtifactQueryParams, void>
+    path={`/artifacts/artifactory/getBuildDetails`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetBuildDetailsForArtifactoryArtifactProps = Omit<
+  UseGetProps<ResponseArtifactoryResponseDTO, Failure | Error, GetBuildDetailsForArtifactoryArtifactQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets artifactory artifact build details
+ */
+export const useGetBuildDetailsForArtifactoryArtifact = (props: UseGetBuildDetailsForArtifactoryArtifactProps) =>
+  useGet<ResponseArtifactoryResponseDTO, Failure | Error, GetBuildDetailsForArtifactoryArtifactQueryParams, void>(
+    `/artifacts/artifactory/getBuildDetails`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets artifactory artifact build details
+ */
+export const getBuildDetailsForArtifactoryArtifactPromise = (
+  props: GetUsingFetchProps<
+    ResponseArtifactoryResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForArtifactoryArtifactQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseArtifactoryResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForArtifactoryArtifactQueryParams,
+    void
+  >(getConfig('ng/api'), `/artifacts/artifactory/getBuildDetails`, props, signal)
+
+export interface GetBuildDetailsForArtifactoryArtifactWithYamlQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string
+  fqnPath: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export type GetBuildDetailsForArtifactoryArtifactWithYamlProps = Omit<
+  MutateProps<
+    ResponseArtifactoryResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForArtifactoryArtifactWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets artifactory artifact build details with yaml input for expression resolution
+ */
+export const GetBuildDetailsForArtifactoryArtifactWithYaml = (
+  props: GetBuildDetailsForArtifactoryArtifactWithYamlProps
+) => (
+  <Mutate<
+    ResponseArtifactoryResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForArtifactoryArtifactWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/artifacts/artifactory/getBuildDetailsV2`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetBuildDetailsForArtifactoryArtifactWithYamlProps = Omit<
+  UseMutateProps<
+    ResponseArtifactoryResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForArtifactoryArtifactWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets artifactory artifact build details with yaml input for expression resolution
+ */
+export const useGetBuildDetailsForArtifactoryArtifactWithYaml = (
+  props: UseGetBuildDetailsForArtifactoryArtifactWithYamlProps
+) =>
+  useMutate<
+    ResponseArtifactoryResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForArtifactoryArtifactWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >('POST', `/artifacts/artifactory/getBuildDetailsV2`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Gets artifactory artifact build details with yaml input for expression resolution
+ */
+export const getBuildDetailsForArtifactoryArtifactWithYamlPromise = (
+  props: MutateUsingFetchProps<
+    ResponseArtifactoryResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForArtifactoryArtifactWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseArtifactoryResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForArtifactoryArtifactWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/artifactory/getBuildDetailsV2`, props, signal)
+
+export interface GetLabelsForArtifactoryArtifactQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetLabelsForArtifactoryArtifactProps = Omit<
+  MutateProps<
+    ResponseArtifactoryResponseDTO,
+    Failure | Error,
+    GetLabelsForArtifactoryArtifactQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets artifactory artifact labels
+ */
+export const GetLabelsForArtifactoryArtifact = (props: GetLabelsForArtifactoryArtifactProps) => (
+  <Mutate<
+    ResponseArtifactoryResponseDTO,
+    Failure | Error,
+    GetLabelsForArtifactoryArtifactQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >
+    verb="POST"
+    path={`/artifacts/artifactory/getLabels`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetLabelsForArtifactoryArtifactProps = Omit<
+  UseMutateProps<
+    ResponseArtifactoryResponseDTO,
+    Failure | Error,
+    GetLabelsForArtifactoryArtifactQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets artifactory artifact labels
+ */
+export const useGetLabelsForArtifactoryArtifact = (props: UseGetLabelsForArtifactoryArtifactProps) =>
+  useMutate<
+    ResponseArtifactoryResponseDTO,
+    Failure | Error,
+    GetLabelsForArtifactoryArtifactQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >('POST', `/artifacts/artifactory/getLabels`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Gets artifactory artifact labels
+ */
+export const getLabelsForArtifactoryArtifactPromise = (
+  props: MutateUsingFetchProps<
+    ResponseArtifactoryResponseDTO,
+    Failure | Error,
+    GetLabelsForArtifactoryArtifactQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseArtifactoryResponseDTO,
+    Failure | Error,
+    GetLabelsForArtifactoryArtifactQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/artifactory/getLabels`, props, signal)
+
+export interface GetLastSuccessfulBuildForArtifactoryArtifactQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetLastSuccessfulBuildForArtifactoryArtifactProps = Omit<
+  MutateProps<
+    ResponseArtifactoryBuildDetailsDTO,
+    Failure | Error,
+    GetLastSuccessfulBuildForArtifactoryArtifactQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets artifactory artifact last successful build
+ */
+export const GetLastSuccessfulBuildForArtifactoryArtifact = (
+  props: GetLastSuccessfulBuildForArtifactoryArtifactProps
+) => (
+  <Mutate<
+    ResponseArtifactoryBuildDetailsDTO,
+    Failure | Error,
+    GetLastSuccessfulBuildForArtifactoryArtifactQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >
+    verb="POST"
+    path={`/artifacts/artifactory/getLastSuccessfulBuild`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetLastSuccessfulBuildForArtifactoryArtifactProps = Omit<
+  UseMutateProps<
+    ResponseArtifactoryBuildDetailsDTO,
+    Failure | Error,
+    GetLastSuccessfulBuildForArtifactoryArtifactQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets artifactory artifact last successful build
+ */
+export const useGetLastSuccessfulBuildForArtifactoryArtifact = (
+  props: UseGetLastSuccessfulBuildForArtifactoryArtifactProps
+) =>
+  useMutate<
+    ResponseArtifactoryBuildDetailsDTO,
+    Failure | Error,
+    GetLastSuccessfulBuildForArtifactoryArtifactQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >('POST', `/artifacts/artifactory/getLastSuccessfulBuild`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Gets artifactory artifact last successful build
+ */
+export const getLastSuccessfulBuildForArtifactoryArtifactPromise = (
+  props: MutateUsingFetchProps<
+    ResponseArtifactoryBuildDetailsDTO,
+    Failure | Error,
+    GetLastSuccessfulBuildForArtifactoryArtifactQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseArtifactoryBuildDetailsDTO,
+    Failure | Error,
+    GetLastSuccessfulBuildForArtifactoryArtifactQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/artifactory/getLastSuccessfulBuild`, props, signal)
+
+export interface ValidateArtifactForArtifactoryQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ValidateArtifactForArtifactoryProps = Omit<
+  MutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactForArtifactoryQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validate artifactory artifact with tag/tagregx if given
+ */
+export const ValidateArtifactForArtifactory = (props: ValidateArtifactForArtifactoryProps) => (
+  <Mutate<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactForArtifactoryQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >
+    verb="POST"
+    path={`/artifacts/artifactory/validateArtifact`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateArtifactForArtifactoryProps = Omit<
+  UseMutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactForArtifactoryQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validate artifactory artifact with tag/tagregx if given
+ */
+export const useValidateArtifactForArtifactory = (props: UseValidateArtifactForArtifactoryProps) =>
+  useMutate<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactForArtifactoryQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >('POST', `/artifacts/artifactory/validateArtifact`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Validate artifactory artifact with tag/tagregx if given
+ */
+export const validateArtifactForArtifactoryPromise = (
+  props: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactForArtifactoryQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactForArtifactoryQueryParams,
+    ArtifactoryRequestDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/artifactory/validateArtifact`, props, signal)
+
+export interface ValidateArtifactServerForArtifactoryQueryParams {
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ValidateArtifactServerForArtifactoryProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForArtifactoryQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate artifactory artifact server
+ */
+export const ValidateArtifactServerForArtifactory = (props: ValidateArtifactServerForArtifactoryProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateArtifactServerForArtifactoryQueryParams, void>
+    path={`/artifacts/artifactory/validateArtifactServer`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateArtifactServerForArtifactoryProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForArtifactoryQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate artifactory artifact server
+ */
+export const useValidateArtifactServerForArtifactory = (props: UseValidateArtifactServerForArtifactoryProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateArtifactServerForArtifactoryQueryParams, void>(
+    `/artifacts/artifactory/validateArtifactServer`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Validate artifactory artifact server
+ */
+export const validateArtifactServerForArtifactoryPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForArtifactoryQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactServerForArtifactoryQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/artifactory/validateArtifactServer`,
+    props,
+    signal
+  )
+
+export interface ValidateArtifactImageForArtifactoryArtifactQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ValidateArtifactImageForArtifactoryArtifactProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForArtifactoryArtifactQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate artifactory artifact image
+ */
+export const ValidateArtifactImageForArtifactoryArtifact = (
+  props: ValidateArtifactImageForArtifactoryArtifactProps
+) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateArtifactImageForArtifactoryArtifactQueryParams, void>
+    path={`/artifacts/artifactory/validateArtifactSource`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateArtifactImageForArtifactoryArtifactProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForArtifactoryArtifactQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate artifactory artifact image
+ */
+export const useValidateArtifactImageForArtifactoryArtifact = (
+  props: UseValidateArtifactImageForArtifactoryArtifactProps
+) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateArtifactImageForArtifactoryArtifactQueryParams, void>(
+    `/artifacts/artifactory/validateArtifactSource`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Validate artifactory artifact image
+ */
+export const validateArtifactImageForArtifactoryArtifactPromise = (
+  props: GetUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactImageForArtifactoryArtifactQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactImageForArtifactoryArtifactQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/artifactory/validateArtifactSource`,
+    props,
+    signal
+  )
+
 export interface GetBuildDetailsForDockerQueryParams {
   imagePath?: string
   connectorRef?: string
@@ -10184,7 +10771,13 @@ export interface GetBuildDetailsForDockerWithYamlQueryParams {
 }
 
 export type GetBuildDetailsForDockerWithYamlProps = Omit<
-  MutateProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, string, void>,
+  MutateProps<
+    ResponseDockerResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForDockerWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -10192,7 +10785,13 @@ export type GetBuildDetailsForDockerWithYamlProps = Omit<
  * Gets docker build details with yaml input for expression resolution
  */
 export const GetBuildDetailsForDockerWithYaml = (props: GetBuildDetailsForDockerWithYamlProps) => (
-  <Mutate<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, string, void>
+  <Mutate<
+    ResponseDockerResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForDockerWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >
     verb="POST"
     path={`/artifacts/docker/getBuildDetailsV2`}
     base={getConfig('ng/api')}
@@ -10201,7 +10800,13 @@ export const GetBuildDetailsForDockerWithYaml = (props: GetBuildDetailsForDocker
 )
 
 export type UseGetBuildDetailsForDockerWithYamlProps = Omit<
-  UseMutateProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, string, void>,
+  UseMutateProps<
+    ResponseDockerResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForDockerWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -10209,11 +10814,13 @@ export type UseGetBuildDetailsForDockerWithYamlProps = Omit<
  * Gets docker build details with yaml input for expression resolution
  */
 export const useGetBuildDetailsForDockerWithYaml = (props: UseGetBuildDetailsForDockerWithYamlProps) =>
-  useMutate<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerWithYamlQueryParams, string, void>(
-    'POST',
-    `/artifacts/docker/getBuildDetailsV2`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<
+    ResponseDockerResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForDockerWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >('POST', `/artifacts/docker/getBuildDetailsV2`, { base: getConfig('ng/api'), ...props })
 
 /**
  * Gets docker build details with yaml input for expression resolution
@@ -10223,7 +10830,7 @@ export const getBuildDetailsForDockerWithYamlPromise = (
     ResponseDockerResponseDTO,
     Failure | Error,
     GetBuildDetailsForDockerWithYamlQueryParams,
-    string,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -10232,7 +10839,7 @@ export const getBuildDetailsForDockerWithYamlPromise = (
     ResponseDockerResponseDTO,
     Failure | Error,
     GetBuildDetailsForDockerWithYamlQueryParams,
-    string,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
     void
   >('POST', getConfig('ng/api'), `/artifacts/docker/getBuildDetailsV2`, props, signal)
 
@@ -11400,6 +12007,484 @@ export const validateArtifactImageForGcrPromise = (
   getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactImageForGcrQueryParams, void>(
     getConfig('ng/api'),
     `/artifacts/gcr/validateArtifactSource`,
+    props,
+    signal
+  )
+
+export interface GetBuildDetailsForNexusArtifactQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export type GetBuildDetailsForNexusArtifactProps = Omit<
+  GetProps<ResponseNexusResponseDTO, Failure | Error, GetBuildDetailsForNexusArtifactQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets nexus artifact build details
+ */
+export const GetBuildDetailsForNexusArtifact = (props: GetBuildDetailsForNexusArtifactProps) => (
+  <Get<ResponseNexusResponseDTO, Failure | Error, GetBuildDetailsForNexusArtifactQueryParams, void>
+    path={`/artifacts/nexus/getBuildDetails`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetBuildDetailsForNexusArtifactProps = Omit<
+  UseGetProps<ResponseNexusResponseDTO, Failure | Error, GetBuildDetailsForNexusArtifactQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets nexus artifact build details
+ */
+export const useGetBuildDetailsForNexusArtifact = (props: UseGetBuildDetailsForNexusArtifactProps) =>
+  useGet<ResponseNexusResponseDTO, Failure | Error, GetBuildDetailsForNexusArtifactQueryParams, void>(
+    `/artifacts/nexus/getBuildDetails`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets nexus artifact build details
+ */
+export const getBuildDetailsForNexusArtifactPromise = (
+  props: GetUsingFetchProps<
+    ResponseNexusResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForNexusArtifactQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseNexusResponseDTO, Failure | Error, GetBuildDetailsForNexusArtifactQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/nexus/getBuildDetails`,
+    props,
+    signal
+  )
+
+export interface GetBuildDetailsForNexusArtifactWithYamlQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string
+  fqnPath: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
+}
+
+export type GetBuildDetailsForNexusArtifactWithYamlProps = Omit<
+  MutateProps<
+    ResponseNexusResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForNexusArtifactWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets nexus artifact build details with yaml input for expression resolution
+ */
+export const GetBuildDetailsForNexusArtifactWithYaml = (props: GetBuildDetailsForNexusArtifactWithYamlProps) => (
+  <Mutate<
+    ResponseNexusResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForNexusArtifactWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >
+    verb="POST"
+    path={`/artifacts/nexus/getBuildDetailsV2`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetBuildDetailsForNexusArtifactWithYamlProps = Omit<
+  UseMutateProps<
+    ResponseNexusResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForNexusArtifactWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets nexus artifact build details with yaml input for expression resolution
+ */
+export const useGetBuildDetailsForNexusArtifactWithYaml = (props: UseGetBuildDetailsForNexusArtifactWithYamlProps) =>
+  useMutate<
+    ResponseNexusResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForNexusArtifactWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >('POST', `/artifacts/nexus/getBuildDetailsV2`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Gets nexus artifact build details with yaml input for expression resolution
+ */
+export const getBuildDetailsForNexusArtifactWithYamlPromise = (
+  props: MutateUsingFetchProps<
+    ResponseNexusResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForNexusArtifactWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseNexusResponseDTO,
+    Failure | Error,
+    GetBuildDetailsForNexusArtifactWithYamlQueryParams,
+    GetBuildDetailsForArtifactoryArtifactWithYamlBodyRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/nexus/getBuildDetailsV2`, props, signal)
+
+export interface GetLabelsForNexusArtifactQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetLabelsForNexusArtifactProps = Omit<
+  MutateProps<
+    ResponseNexusResponseDTO,
+    Failure | Error,
+    GetLabelsForNexusArtifactQueryParams,
+    NexusRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets nexus artifact labels
+ */
+export const GetLabelsForNexusArtifact = (props: GetLabelsForNexusArtifactProps) => (
+  <Mutate<
+    ResponseNexusResponseDTO,
+    Failure | Error,
+    GetLabelsForNexusArtifactQueryParams,
+    NexusRequestDTORequestBody,
+    void
+  >
+    verb="POST"
+    path={`/artifacts/nexus/getLabels`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetLabelsForNexusArtifactProps = Omit<
+  UseMutateProps<
+    ResponseNexusResponseDTO,
+    Failure | Error,
+    GetLabelsForNexusArtifactQueryParams,
+    NexusRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets nexus artifact labels
+ */
+export const useGetLabelsForNexusArtifact = (props: UseGetLabelsForNexusArtifactProps) =>
+  useMutate<
+    ResponseNexusResponseDTO,
+    Failure | Error,
+    GetLabelsForNexusArtifactQueryParams,
+    NexusRequestDTORequestBody,
+    void
+  >('POST', `/artifacts/nexus/getLabels`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Gets nexus artifact labels
+ */
+export const getLabelsForNexusArtifactPromise = (
+  props: MutateUsingFetchProps<
+    ResponseNexusResponseDTO,
+    Failure | Error,
+    GetLabelsForNexusArtifactQueryParams,
+    NexusRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseNexusResponseDTO,
+    Failure | Error,
+    GetLabelsForNexusArtifactQueryParams,
+    NexusRequestDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/nexus/getLabels`, props, signal)
+
+export interface GetLastSuccessfulBuildForNexusArtifactQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetLastSuccessfulBuildForNexusArtifactProps = Omit<
+  MutateProps<
+    ResponseNexusBuildDetailsDTO,
+    Failure | Error,
+    GetLastSuccessfulBuildForNexusArtifactQueryParams,
+    NexusRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets nexus artifact last successful build
+ */
+export const GetLastSuccessfulBuildForNexusArtifact = (props: GetLastSuccessfulBuildForNexusArtifactProps) => (
+  <Mutate<
+    ResponseNexusBuildDetailsDTO,
+    Failure | Error,
+    GetLastSuccessfulBuildForNexusArtifactQueryParams,
+    NexusRequestDTORequestBody,
+    void
+  >
+    verb="POST"
+    path={`/artifacts/nexus/getLastSuccessfulBuild`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetLastSuccessfulBuildForNexusArtifactProps = Omit<
+  UseMutateProps<
+    ResponseNexusBuildDetailsDTO,
+    Failure | Error,
+    GetLastSuccessfulBuildForNexusArtifactQueryParams,
+    NexusRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Gets nexus artifact last successful build
+ */
+export const useGetLastSuccessfulBuildForNexusArtifact = (props: UseGetLastSuccessfulBuildForNexusArtifactProps) =>
+  useMutate<
+    ResponseNexusBuildDetailsDTO,
+    Failure | Error,
+    GetLastSuccessfulBuildForNexusArtifactQueryParams,
+    NexusRequestDTORequestBody,
+    void
+  >('POST', `/artifacts/nexus/getLastSuccessfulBuild`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Gets nexus artifact last successful build
+ */
+export const getLastSuccessfulBuildForNexusArtifactPromise = (
+  props: MutateUsingFetchProps<
+    ResponseNexusBuildDetailsDTO,
+    Failure | Error,
+    GetLastSuccessfulBuildForNexusArtifactQueryParams,
+    NexusRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseNexusBuildDetailsDTO,
+    Failure | Error,
+    GetLastSuccessfulBuildForNexusArtifactQueryParams,
+    NexusRequestDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/nexus/getLastSuccessfulBuild`, props, signal)
+
+export interface ValidateArtifactForNexusQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ValidateArtifactForNexusProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, ValidateArtifactForNexusQueryParams, NexusRequestDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Validate nexus artifact with tag/tagregx if given
+ */
+export const ValidateArtifactForNexus = (props: ValidateArtifactForNexusProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, ValidateArtifactForNexusQueryParams, NexusRequestDTORequestBody, void>
+    verb="POST"
+    path={`/artifacts/nexus/validateArtifact`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateArtifactForNexusProps = Omit<
+  UseMutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactForNexusQueryParams,
+    NexusRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validate nexus artifact with tag/tagregx if given
+ */
+export const useValidateArtifactForNexus = (props: UseValidateArtifactForNexusProps) =>
+  useMutate<ResponseBoolean, Failure | Error, ValidateArtifactForNexusQueryParams, NexusRequestDTORequestBody, void>(
+    'POST',
+    `/artifacts/nexus/validateArtifact`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Validate nexus artifact with tag/tagregx if given
+ */
+export const validateArtifactForNexusPromise = (
+  props: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactForNexusQueryParams,
+    NexusRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactForNexusQueryParams,
+    NexusRequestDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/nexus/validateArtifact`, props, signal)
+
+export interface ValidateArtifactServerForNexusQueryParams {
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ValidateArtifactServerForNexusProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForNexusQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate nexus artifact server
+ */
+export const ValidateArtifactServerForNexus = (props: ValidateArtifactServerForNexusProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateArtifactServerForNexusQueryParams, void>
+    path={`/artifacts/nexus/validateArtifactServer`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateArtifactServerForNexusProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForNexusQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate nexus artifact server
+ */
+export const useValidateArtifactServerForNexus = (props: UseValidateArtifactServerForNexusProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateArtifactServerForNexusQueryParams, void>(
+    `/artifacts/nexus/validateArtifactServer`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Validate nexus artifact server
+ */
+export const validateArtifactServerForNexusPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactServerForNexusQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactServerForNexusQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/nexus/validateArtifactServer`,
+    props,
+    signal
+  )
+
+export interface ValidateArtifactImageForNexusArtifactQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type ValidateArtifactImageForNexusArtifactProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForNexusArtifactQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate nexus artifact image
+ */
+export const ValidateArtifactImageForNexusArtifact = (props: ValidateArtifactImageForNexusArtifactProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateArtifactImageForNexusArtifactQueryParams, void>
+    path={`/artifacts/nexus/validateArtifactSource`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateArtifactImageForNexusArtifactProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForNexusArtifactQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate nexus artifact image
+ */
+export const useValidateArtifactImageForNexusArtifact = (props: UseValidateArtifactImageForNexusArtifactProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateArtifactImageForNexusArtifactQueryParams, void>(
+    `/artifacts/nexus/validateArtifactSource`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Validate nexus artifact image
+ */
+export const validateArtifactImageForNexusArtifactPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForNexusArtifactQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactImageForNexusArtifactQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/nexus/validateArtifactSource`,
     props,
     signal
   )
@@ -28909,7 +29994,7 @@ export type PostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -28919,7 +30004,7 @@ export type PostSecretProps = Omit<
  * Create a secret
  */
 export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
     verb="POST"
     path={`/v2/secrets`}
     base={getConfig('ng/api')}
@@ -28932,7 +30017,7 @@ export type UsePostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -28946,7 +30031,7 @@ export const usePostSecret = (props: UsePostSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
 
@@ -28958,7 +30043,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -28967,7 +30052,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
 
@@ -29360,7 +30445,7 @@ export type PostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -29374,7 +30459,7 @@ export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >
     verb="POST"
@@ -29389,7 +30474,7 @@ export type UsePostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -29403,7 +30488,7 @@ export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
 
@@ -29415,7 +30500,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -29424,7 +30509,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 
@@ -29559,7 +30644,7 @@ export type PutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -29574,7 +30659,7 @@ export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >
     verb="PUT"
@@ -29589,7 +30674,7 @@ export type UsePutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -29604,7 +30689,7 @@ export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -29623,7 +30708,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -29632,7 +30717,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
 
@@ -29651,7 +30736,7 @@ export type PutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -29666,7 +30751,7 @@ export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >
     verb="PUT"
@@ -29681,7 +30766,7 @@ export type UsePutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -29696,7 +30781,7 @@ export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYam
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
     base: getConfig('ng/api'),
@@ -29715,7 +30800,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -29724,7 +30809,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretViaYamlPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
 

@@ -45,6 +45,8 @@ export const helperTextData = (
 ): ArtifactTagHelperText => {
   switch (selectedArtifact) {
     case ENABLED_ARTIFACT_TYPES.DockerRegistry:
+    case ENABLED_ARTIFACT_TYPES.NexusRegistry:
+    case ENABLED_ARTIFACT_TYPES.ArtifactoryRegistry:
       return {
         imagePath: formik.values?.imagePath,
         connectorRef: connectorIdValue

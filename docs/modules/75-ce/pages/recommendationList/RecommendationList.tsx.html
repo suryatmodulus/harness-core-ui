@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.96% </span>
+                <span class="strong">92.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>66/71</span>
+                <span class='fraction'>72/78</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">69.23% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>8/12</span>
+                <span class='fraction'>9/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.29% </span>
+                <span class="strong">93.51% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>66/70</span>
+                <span class='fraction'>72/77</span>
             </div>
         
             
@@ -434,7 +434,17 @@
 <a name='L375'></a><a href='#L375'>375</a>
 <a name='L376'></a><a href='#L376'>376</a>
 <a name='L377'></a><a href='#L377'>377</a>
-<a name='L378'></a><a href='#L378'>378</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a>
+<a name='L381'></a><a href='#L381'>381</a>
+<a name='L382'></a><a href='#L382'>382</a>
+<a name='L383'></a><a href='#L383'>383</a>
+<a name='L384'></a><a href='#L384'>384</a>
+<a name='L385'></a><a href='#L385'>385</a>
+<a name='L386'></a><a href='#L386'>386</a>
+<a name='L387'></a><a href='#L387'>387</a>
+<a name='L388'></a><a href='#L388'>388</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -468,6 +478,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -507,6 +519,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -619,6 +632,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -680,9 +694,15 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -818,7 +838,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 &nbsp;
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Card, Text, Layout, Container, Color, Icon, Button, ButtonVariation, TableV2 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
@@ -842,6 +862,8 @@ import formatCost from '@ce/utils/formatCost'
 import { getViewFilterForId } from '@ce/utils/perspectiveUtils'
 import EmptyView from '@ce/images/empty-state.svg'
 import OverviewAddCluster from '@ce/components/OverviewPage/OverviewAddCluster'
+import { PAGE_EVENTS, USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import RecommendationSavingsCard from '../../components/RecommendationSavingsCard/RecommendationSavingsCard'
 import RecommendationFilters from '../../components/RecommendationFilters'
 import css from './RecommendationList.module.scss'
@@ -885,6 +907,7 @@ const RecommendationsList: React.FC&lt;RecommendationListProps&gt; = ({
   onAddClusterSuccess
 }) =&gt; {
   const history = useHistory()
+  const { trackEvent } = useTelemetry()
   const { accountId } = useParams&lt;{ accountId: string }&gt;()
 &nbsp;
   const { getString } = useStrings()
@@ -995,6 +1018,7 @@ const RecommendationsList: React.FC&lt;RecommendationListProps&gt; = ({
         {data.length ? (
           &lt;TableV2&lt;RecommendationItemDto&gt;
             onRowClick={<span class="fstat-no" title="function not covered" >({</span> id, resourceType, resourceName }) =&gt; {
+<span class="cstat-no" title="statement not covered" >              trackEvent(USER_JOURNEY_EVENTS.RECOMMENDATION_CLICK, {})</span>
 <span class="cstat-no" title="statement not covered" >              history.push(</span>
                 resourceTypeToRoute[resourceType]({
                   accountId,
@@ -1057,9 +1081,15 @@ const RecommendationList: React.FC = () =&gt; {
   const [filters, setFilters] = useState&lt;Record&lt;string, string[]&gt;&gt;({})
   const [costFilters, setCostFilters] = useState&lt;Record&lt;string, number&gt;&gt;({})
   const [page, setPage] = useState(0)
+&nbsp;
+  const { trackPage } = useTelemetry()
   const history = useHistory()
   const { accountId } = useParams&lt;{ accountId: string }&gt;()
   const { perspectiveId, perspectiveName } = useQueryParams&lt;{ perspectiveId: string; perspectiveName: string }&gt;()
+&nbsp;
+  useEffect(() =&gt; {
+    trackPage(PAGE_EVENTS.RECOMMENDATIONS_PAGE, {})
+  }, [])
 &nbsp;
   const modifiedCostFilters = costFilters['minSaving'] ? <span class="branch-0 cbranch-no" title="branch not covered" >costFilters </span>: { ...costFilters, minSaving: 0 }
 &nbsp;
@@ -1195,7 +1225,7 @@ export default RecommendationList
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 19 2022 07:46:08 GMT+0000 (Greenwich Mean Time)
+                at Wed Jan 19 2022 10:09:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

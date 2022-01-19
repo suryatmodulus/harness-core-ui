@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.21% </span>
+                <span class="strong">83.91% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>144/171</span>
+                <span class='fraction'>146/174</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.47% </span>
+                <span class="strong">58.51% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>248/417</span>
+                <span class='fraction'>244/417</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.93% </span>
+                <span class="strong">83.63% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>141/168</span>
+                <span class='fraction'>143/171</span>
             </div>
         
             
@@ -813,7 +813,16 @@
 <a name='L754'></a><a href='#L754'>754</a>
 <a name='L755'></a><a href='#L755'>755</a>
 <a name='L756'></a><a href='#L756'>756</a>
-<a name='L757'></a><a href='#L757'>757</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L757'></a><a href='#L757'>757</a>
+<a name='L758'></a><a href='#L758'>758</a>
+<a name='L759'></a><a href='#L759'>759</a>
+<a name='L760'></a><a href='#L760'>760</a>
+<a name='L761'></a><a href='#L761'>761</a>
+<a name='L762'></a><a href='#L762'>762</a>
+<a name='L763'></a><a href='#L763'>763</a>
+<a name='L764'></a><a href='#L764'>764</a>
+<a name='L765'></a><a href='#L765'>765</a>
+<a name='L766'></a><a href='#L766'>766</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1110,6 +1119,8 @@
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1163,6 +1174,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1320,6 +1337,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1596,7 +1614,7 @@ import {
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { parse } from 'yaml'
-import type { FormikErrors } from 'formik'
+import type { FormikErrors, FormikProps } from 'formik'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import {
   useGetTemplateFromPipeline,
@@ -1865,6 +1883,8 @@ export const InputSetForm: React.FC&lt;InputSetFormProps&gt; = (props): JSX.Elem
 &nbsp;
   const [disableVisualView, setDisableVisualView] = React.useState(inputSet.entityValidityDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alid === false)
 &nbsp;
+  const formikRef = React.useRef&lt;FormikProps&lt;InputSetDTO &amp; GitContextProps&gt;&gt;()
+&nbsp;
   React.useEffect(() =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (inputSet.entityValidityDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alid === false || selectedView === SelectedView.YAML) {
 <span class="cstat-no" title="statement not covered" >      setSelectedView(SelectedView.YAML)</span>
@@ -1918,6 +1938,12 @@ export const InputSetForm: React.FC&lt;InputSetFormProps&gt; = (props): JSX.Elem
 <span class="cstat-no" title="statement not covered" >          inputSet.identifier = inputSetYamlVisual.identifier</span>
 <span class="cstat-no" title="statement not covered" >          inputSet.description = inputSetYamlVisual.description</span>
 <span class="cstat-no" title="statement not covered" >          inputSet.pipeline = inputSetYamlVisual.pipeline</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >          formikRef.current?.setValues({</span>
+            ...omit(inputSet, 'gitDetails', 'entityValidityDetails'),
+            repo: defaultTo(repoIdentifier, ''),
+            branch: defaultTo(branch, '')
+          })
         }
       }
       setSelectedView(view)
@@ -2038,8 +2064,8 @@ export const InputSetForm: React.FC&lt;InputSetFormProps&gt; = (props): JSX.Elem
         &lt;Formik&lt;InputSetDTO &amp; GitContextProps&gt;
           initialValues={{
             ...omit(inputSet, 'gitDetails', 'entityValidityDetails'),
-            repo: repoIdentifier || '',
-            branch: branch || ''
+            repo: defaultTo(repoIdentifier, ''),
+            branch: defaultTo(branch, '')
           }}
           enableReinitialize={true}
           formName="inputSetForm"
@@ -2076,6 +2102,7 @@ export const InputSetForm: React.FC&lt;InputSetFormProps&gt; = (props): JSX.Elem
           }}
         &gt;
           {formikProps =&gt; {
+            formikRef.current = formikProps
             return (
               &lt;&gt;
                 {selectedView === SelectedView.VISUAL ? (
@@ -2332,7 +2359,7 @@ export const EnhancedInputSetForm: React.FC&lt;InputSetFormProps&gt; = props =&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jan 19 2022 10:09:23 GMT+0000 (Greenwich Mean Time)
+                at Wed Jan 19 2022 13:37:52 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

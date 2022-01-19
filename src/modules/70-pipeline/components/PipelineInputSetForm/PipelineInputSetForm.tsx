@@ -209,7 +209,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
     lazy: true
   })
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     // Limiting api call for a pipeline having atleast one stage template ref
     const shouldResolveTemplateRefs = originalPipeline?.stages?.some(
       stage =>

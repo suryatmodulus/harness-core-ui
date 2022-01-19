@@ -213,14 +213,13 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
 
   useEffect(() => {
     // Limiting api call for CI Build Stage Templates only for now
-    const shouldResolveTemplateRefs = originalPipeline?.stages?.some(stage => {
-      return (
+    const shouldResolveTemplateRefs = originalPipeline?.stages?.some(
+      stage =>
         Object.is(get(stage, 'stage.template.templateInputs.type'), ModuleName.CI) ||
         stage.parallel?.some(parallelStage =>
           Object.is(get(parallelStage, 'template.templateInputs.type'), ModuleName.CI)
         )
-      )
-    })
+    )
     if (shouldResolveTemplateRefs) {
       ;(async function () {
         try {
@@ -231,16 +230,14 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
       })()
     } else {
       setShouldRenderCodebaseForm(
-        originalPipeline?.stages?.some(stage => {
-          Object.is(get(stage, CLONE_CODEBASE_JSON_PATH), true)
-          return (
+        originalPipeline?.stages?.some(
+          stage =>
             Object.is(get(stage, CLONE_CODEBASE_JSON_PATH), true) ||
             stage.parallel?.some(parallelStage => Object.is(get(parallelStage, CLONE_CODEBASE_JSON_PATH), true))
-          )
-        })
+        )
       )
     }
-  }, [originalPipeline?.stages])
+  }, [originalPipeline])
 
   useEffect(() => {
     if (pipelineYamlWithTemplateRefsResolved) {

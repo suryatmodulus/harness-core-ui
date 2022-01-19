@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   Container,
@@ -33,6 +33,8 @@ import {
   AwsCurAttributes
 } from 'services/cd-ng'
 import { Description, Tags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { CE_AWS_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
 import css from '../CreateCeAwsConnector.module.scss'
 
 interface OverviewDetails {
@@ -61,6 +63,11 @@ interface OverviewProps extends StepProps<CEAwsConnectorDTO> {
 
 const OverviewStep: React.FC<OverviewProps> = props => {
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
+
+  useEffect(() => {
+    trackEvent(CE_AWS_CONNECTOR_CREATION_EVENTS.LOAD_OVERVIEW_STEP, {})
+  }, [])
 
   const { connectorInfo, isEditMode, nextStep, prevStepData } = props
   const { accountId } = useParams<{

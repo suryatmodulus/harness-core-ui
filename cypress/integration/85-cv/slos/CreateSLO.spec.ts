@@ -16,7 +16,14 @@ import {
   listUserJourneysCallResponse,
   updatedListSLOsCallResponse,
   getServiceLevelObjective,
-  getServiceLevelObjectivesRiskCount
+  getSLORiskCount,
+  errorResponse,
+  saveSLo,
+  errorResponseSLODuplication,
+  getSliGraph,
+  getSLORiskCountResponse,
+  getServiceLevelObjectiveResponse,
+  getSLODashboardWidgetsAfterEdit
 } from '../../../support/85-cv/slos/constants'
 
 describe('Create SLO', () => {
@@ -99,17 +106,23 @@ describe('Create SLO', () => {
     cy.contains('p', '7 days').should('be.visible')
   })
 
-  it.skip('should render all the edit steps and update the SLO', () => {
+  it('should render all the edit steps and update the SLO', () => {
     cy.intercept('GET', listSLOsCall, updatedListSLOsCallResponse)
     cy.intercept('GET', getUserJourneysCall, listUserJourneysCallResponse)
-    cy.intercept('GET', getServiceLevelObjectivesRiskCount, { fixture: 'cv/slo/getSLORiskCount' })
+    cy.intercept('GET', getSLORiskCount, getSLORiskCountResponse)
     cy.intercept('GET', listMonitoredServices, listMonitoredServicesCallResponse)
     cy.intercept('GET', getSLOMetrics, listSLOMetricsCallResponse)
-    cy.intercept('GET', getServiceLevelObjective, { fixture: 'cv/slo/getServiceLevelObjective' })
+    cy.intercept('GET', getServiceLevelObjective, errorResponse)
 
     cy.contains('p', 'SLOs').click()
     cy.get('[data-icon="Options"]').click()
     cy.get('[icon="edit"]').click()
+
+    cy.contains('p', 'Oops, something went wrong on our end. Please contact Harness Support.').should('be.visible')
+
+    cy.intercept('GET', getServiceLevelObjective, getServiceLevelObjectiveResponse)
+
+    cy.contains('span', 'Retry').click()
 
     cy.contains('Edit SLO: SLO-1').should('be.visible')
 
@@ -138,7 +151,8 @@ describe('Create SLO', () => {
     cy.get('input[name="periodLength"]').should('have.value', '30')
     cy.get('input[name="SLOTargetPercentage"]').should('have.value', '90')
 
-    cy.fillField('SLOTargetPercentage', '95')
+    cy.get('input[name="periodLength"]').click()
+    cy.contains('p', '28').click({ force: true })
 
     cy.contains('span', 'Save').click()
 
@@ -146,16 +160,17 @@ describe('Create SLO', () => {
 
     cy.contains('span', 'OK').click()
 
-    cy.intercept('GET', listSLOsCall, { fixture: 'cv/slo/getSLODashboardWidgetsAfterEdit' })
+    cy.intercept('GET', listSLOsCall, getSLODashboardWidgetsAfterEdit)
 
     cy.contains('span', 'SLO updated successfully').should('be.visible')
     cy.contains('p', 'SLO recalculation in progress').should('be.visible')
   })
 
-  it.skip('should validate all form field errors and default values', () => {
+  it('should validate all form field errors and default values', () => {
     cy.intercept('GET', getUserJourneysCall, listUserJourneysCallResponse)
     cy.intercept('GET', listMonitoredServices, listMonitoredServicesCallResponse)
     cy.intercept('GET', getSLOMetrics, listSLOMetricsCallResponse)
+    cy.intercept('POST', getSliGraph, errorResponse)
 
     cy.contains('p', 'SLOs').click()
     cy.contains('span', 'New SLO').click()
@@ -235,6 +250,12 @@ describe('Create SLO', () => {
     cy.contains('p', 'Please fill the required fields to see the SLI data').should('not.exist')
     cy.get('[data-icon="steps-spinner"]').should('be.visible')
 
+    cy.contains('p', 'Oops, something went wrong on our end. Please contact Harness Support.').should('be.visible')
+
+    cy.intercept('POST', getSliGraph, { statusCode: 200 })
+
+    cy.contains('span', 'Retry').click()
+
     cy.contains('span', 'Continue').click()
 
     cy.contains('h2', 'Set the SLO time window and target').should('be.visible')
@@ -274,11 +295,19 @@ describe('Create SLO', () => {
     cy.contains('p', 'Please fill the required fields to see the SLI data').should('not.exist')
     cy.get('[data-icon="steps-spinner"]').should('be.visible')
 
+    cy.get('input[name="objectiveComparator"]').click({ force: true })
+    cy.contains('p', '<').click({ force: true })
+
     cy.contains('span', 'Continue').click()
     cy.contains('span', 'Save').click()
 
     cy.get('input[name="periodType"]').should('have.value', 'Rolling')
     cy.get('input[name="SLOTargetPercentage"]').should('have.value', '99')
+
+    cy.get('input[name="SLOTargetPercentage"]').clear()
+    cy.contains('Required').should('be.visible')
+    cy.fillField('SLOTargetPercentage', '99')
+    cy.contains('Required').should('not.exist')
 
     cy.contains('span', 'Period Length is required').should('be.visible')
     cy.get('input[name="periodLength"]').click()
@@ -309,16 +338,63 @@ describe('Create SLO', () => {
     cy.contains('h1', '1296').should('be.visible')
     cy.contains('span', 'Window Ends').should('not.exist')
 
-    cy.get('input[name="SLOTargetPercentage"]').clear()
-    cy.contains('Required').should('be.visible')
-    cy.fillField('SLOTargetPercentage', '90')
-    cy.contains('Required').should('not.exist')
-    cy.contains('h1', '12960').should('be.visible')
+    cy.contains('h1', '1296').should('be.visible')
 
     cy.contains('span', 'Save').click()
     cy.intercept('GET', listSLOsCall, updatedListSLOsCallResponse)
-    cy.intercept('GET', getServiceLevelObjectivesRiskCount, { fixture: 'cv/slo/getSLORiskCount' })
+    cy.intercept('GET', getSLORiskCount, getSLORiskCountResponse)
 
     cy.contains('span', 'SLO created successfully').should('be.visible')
+  })
+
+  it('should throw duplication error for the same SLO identifier', () => {
+    cy.intercept('GET', listSLOsCall, updatedListSLOsCallResponse)
+    cy.intercept('GET', getSLORiskCount, getSLORiskCountResponse)
+    cy.intercept('GET', getUserJourneysCall, listUserJourneysCallResponse)
+    cy.intercept('GET', listMonitoredServices, listMonitoredServicesCallResponse)
+    cy.intercept('GET', getSLOMetrics, listSLOMetricsCallResponse)
+    cy.intercept('POST', saveSLo, errorResponseSLODuplication)
+
+    cy.contains('p', 'SLOs').click()
+
+    cy.contains('h2', 'SLO-1').should('be.visible')
+
+    cy.contains('span', 'New SLO').click()
+
+    cy.fillName('SLO-1')
+    cy.get('input[placeholder="Select or create user journey"]').click()
+    cy.contains('p', 'new-one').click({ force: true })
+
+    cy.contains('span', 'Continue').click()
+
+    cy.get('input[placeholder="- Select Monitored Service -"]').click()
+    cy.contains('p', 'cvng_prod').click({ force: true })
+
+    cy.get('input[placeholder="- Select Health Source -"]').click()
+    cy.contains('p', 'appd_cvng_prod').click({ force: true })
+
+    cy.get('input[name="eventType"]').click()
+    cy.contains('p', 'Bad').click({ force: true })
+
+    cy.get('input[name="goodRequestMetric"]').click()
+    cy.contains('p', 'number_of_slow_calls').click({ force: true })
+
+    cy.wait(1000)
+    cy.get('input[name="validRequestMetric"]').click()
+    cy.contains('p', 'https_errors_per_min').click({ force: true })
+
+    cy.get('input[name="objectiveValue"]').type('2')
+
+    cy.get('input[name="objectiveComparator"]').click({ force: true })
+    cy.contains('p', '<').click({ force: true })
+
+    cy.contains('span', 'Continue').click()
+
+    cy.get('input[name="periodLength"]').click()
+    cy.contains('p', '7').click({ force: true })
+
+    cy.contains('span', 'Save').click()
+
+    cy.contains('span', 'SLO with identifier SLO1 is already exist.').should('be.visible')
   })
 })

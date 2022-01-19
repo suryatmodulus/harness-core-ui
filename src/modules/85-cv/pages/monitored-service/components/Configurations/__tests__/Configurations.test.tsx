@@ -116,4 +116,33 @@ describe('Unit tests for Configuration', () => {
 
     await waitFor(() => expect(getByText('mock error')).not.toBeNull())
   })
+
+  test('Ensure that error messages is displayed for error code 400', async () => {
+    const errorData = JSON.stringify([
+      { field: 'metricDefinitions', message: 'same identifier is used by multiple entities' }
+    ])
+
+    jest.spyOn(configUtils, 'onSubmit').mockImplementation(() => {
+      throw new Error(errorData)
+    })
+
+    jest.spyOn(dbHook, 'useIndexedDBHook').mockReturnValue({
+      dbInstance: {
+        put: jest.fn(),
+        get: jest.fn().mockReturnValue(Promise.resolve({ currentData: cachedData }))
+      } as any,
+      isInitializingDB: false
+    })
+
+    const { container, getByText } = render(
+      <TestWrapper>
+        <Configurations />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('input[value="Application"]')).toBeTruthy())
+    fireEvent.click(container.querySelector('button [data-icon*="send-data"]')!)
+
+    await waitFor(() => expect(getByText(errorData)).toBeInTheDocument())
+  })
 })

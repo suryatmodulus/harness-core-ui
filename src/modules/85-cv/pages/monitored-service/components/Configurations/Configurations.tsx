@@ -210,6 +210,10 @@ export default function Configurations(): JSX.Element {
           )
         )
       } catch (e) {
+        if (Array.isArray(e.data)) {
+          showError(JSON.stringify(e.data, null, '\t'), 15000)
+          return e
+        }
         showError(getErrorMessage(e))
         return e
       }

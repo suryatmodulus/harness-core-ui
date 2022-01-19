@@ -6,7 +6,7 @@
  */
 
 import React from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, Link } from 'react-router-dom'
 import cx from 'classnames'
 import {
   Card,
@@ -20,6 +20,7 @@ import {
   Layout,
   ButtonVariation,
   Container,
+  Heading,
   useConfirmationDialog
 } from '@wings-software/uicore'
 import { Intent } from '@blueprintjs/core'
@@ -174,7 +175,29 @@ const BudgetDetails: () => JSX.Element | null = () => {
   return (
     <>
       <PageHeader
-        title={budgetName}
+        title={
+          <Layout.Horizontal flex={{ alignItems: 'baseline' }} spacing="xsmall">
+            <Heading level={2} color={Color.GREY_800} font={{ weight: 'bold' }}>
+              {budgetName}
+            </Heading>
+            {summaryData?.perspectiveId ? (
+              <>
+                <Text font={{ variation: FontVariation.BODY2_SEMI }}>{getString('common.on')}</Text>
+                <Link
+                  to={routes.toPerspectiveDetails({
+                    accountId: accountId,
+                    perspectiveId: summaryData.perspectiveId,
+                    perspectiveName: summaryData.perspectiveName
+                  })}
+                >
+                  <Text color={Color.PRIMARY_7} font={{ variation: FontVariation.BODY2_SEMI }}>
+                    {summaryData.perspectiveName}
+                  </Text>
+                </Link>
+              </>
+            ) : null}
+          </Layout.Horizontal>
+        }
         toolbar={
           <Layout.Horizontal spacing="medium">
             <Button

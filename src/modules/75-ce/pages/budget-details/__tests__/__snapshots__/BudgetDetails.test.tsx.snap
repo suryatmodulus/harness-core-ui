@@ -45,6 +45,14 @@ exports[`test cases for Budgets List Page should be able to render the budget li
           </div>
         </div>
       </div>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+          level="2"
+        />
+      </div>
     </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"

@@ -9,5 +9,7 @@
   "actualCostAlerts": [90, 80, 70, 75, 96, 60],
   "forecastCostAlerts": [70, 90, 75, 55],
   "forecastCost": 1614.786,
-  "__typename": "BudgetSummary"
+  "__typename": "BudgetSummary",
+  "perspectiveId": "sdsaw32e2w",
+  "perspectiveName": "Name"
 }

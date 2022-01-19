@@ -190,6 +190,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } =
     useParams<PipelineType<ExecutionPathProps>>()
   const [shouldRenderCodebaseForm, setShouldRenderCodebaseForm] = useState<boolean>()
+  const [pipeline, setPipeline] = useState<PipelineInfoConfig>(originalPipeline)
   const CLONE_CODEBASE_JSON_PATH = 'stage.spec.cloneCodebase'
 
   const {
@@ -232,25 +233,26 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
             stage.parallel?.some(parallelStage => Object.is(get(parallelStage, CLONE_CODEBASE_JSON_PATH), true))
         )
       )
+      setPipeline(originalPipeline)
     }
   }, [originalPipeline])
 
   useEffect(() => {
-    if (pipelineYamlWithTemplateRefsResolved) {
-      const yaml = pipelineYamlWithTemplateRefsResolved?.data?.mergedPipelineYaml
-      if (yaml) {
-        try {
-          const pipelineJSONWithoutRefs = parse(yaml) as PipelineInfoConfig
-          setShouldRenderCodebaseForm(
-            pipelineJSONWithoutRefs?.stages?.some(
-              stage =>
-                Object.is(get(stage, CLONE_CODEBASE_JSON_PATH), true) ||
-                stage.parallel?.some(parallelStage => Object.is(get(parallelStage, CLONE_CODEBASE_JSON_PATH), true))
-            )
+    if (pipelineYamlWithTemplateRefsResolved?.data?.mergedPipelineYaml) {
+      try {
+        const pipelineJSONWithoutRefs = parse(
+          pipelineYamlWithTemplateRefsResolved?.data?.mergedPipelineYaml
+        ) as PipelineInfoConfig
+        setShouldRenderCodebaseForm(
+          pipelineJSONWithoutRefs?.stages?.some(
+            stage =>
+              Object.is(get(stage, CLONE_CODEBASE_JSON_PATH), true) ||
+              stage.parallel?.some(parallelStage => Object.is(get(parallelStage, CLONE_CODEBASE_JSON_PATH), true))
           )
-        } catch (e) {
-          //Ignore error
-        }
+        )
+        setPipeline(pipelineJSONWithoutRefs)
+      } catch (e) {
+        //Ignore error
       }
     }
   }, [pipelineYamlWithTemplateRefsResolved])
@@ -325,7 +327,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
                     <CICodebaseInputSetForm
                       path={path}
                       readonly={readonly}
-                      originalPipeline={props.originalPipeline}
+                      originalPipeline={pipeline}
                       loadingPipelineDetails={loadingPipelineYamlWithTemplateRefsResolved}
                     />
                   </div>

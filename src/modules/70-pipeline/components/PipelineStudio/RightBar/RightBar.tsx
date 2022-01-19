@@ -59,7 +59,6 @@ import {
   generateSchemaForLimitMemory
 } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { useQueryParams } from '@common/hooks'
-import { StageType } from '@pipeline/utils/stageHelpers'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
@@ -212,19 +211,15 @@ export const RightBar = (): JSX.Element => {
 
   const pipelineStages = flatten(pipeline?.stages?.map(s => s?.parallel || s))
 
-  const ciStageExists = pipelineStages?.some?.(stage => {
-    if (stage?.stage?.type) {
-      return stage?.stage?.type === StageType.BUILD
-    } else {
-      return false
-    }
-  })
+  const ciCodebasePropertiesExist =
+    !isEmpty(get(pipeline, 'properties.ci.codebase.connectorRef')) &&
+    !isEmpty(get(pipeline, 'properties.ci.codebase.build'))
 
   const isCodebaseEnabled =
     typeof codebaseStatus !== 'undefined' &&
     selectedProject?.modules &&
     selectedProject.modules.indexOf?.('CI') > -1 &&
-    ciStageExists
+    ciCodebasePropertiesExist
 
   const atLeastOneCloneCodebaseEnabled = pipelineStages?.some?.(stage => (stage?.stage?.spec as any)?.cloneCodebase)
 

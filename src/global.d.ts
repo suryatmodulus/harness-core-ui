@@ -9,7 +9,6 @@
 declare const __DEV__: boolean
 declare const Bugsnag: any
 declare const __BUGSNAG_RELEASE_VERSION__: string
-declare const __ENABLE_NG_AUTH_DEV__: boolean
 declare module '*.png' {
   const value: string
   export default value

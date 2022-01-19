@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.43% </span>
+                <span class="strong">71.6% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>55/77</span>
+                <span class='fraction'>58/81</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">30.56% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/33</span>
+                <span class='fraction'>11/36</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.67% </span>
+                <span class="strong">70.89% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>53/75</span>
+                <span class='fraction'>56/79</span>
             </div>
         
             
@@ -211,7 +211,12 @@
 <a name='L152'></a><a href='#L152'>152</a>
 <a name='L153'></a><a href='#L153'>153</a>
 <a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L155'></a><a href='#L155'>155</a>
+<a name='L156'></a><a href='#L156'>156</a>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -224,6 +229,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">160x</span>
+<span class="cline-any cline-yes">160x</span>
 <span class="cline-any cline-yes">160x</span>
 <span class="cline-any cline-yes">160x</span>
 <span class="cline-any cline-yes">160x</span>
@@ -288,6 +295,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -356,6 +364,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">160x</span>
@@ -378,6 +388,7 @@ import { Connectors } from '@connectors/constants'
 import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import type { ConnectivityModeType } from '@common/components/ConnectivityMode/ConnectivityMode'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import CreateGitConnector from '../CreateConnector/GitConnector/CreateGitConnector'
 import CreateGithubConnector from '../CreateConnector/GithubConnector/CreateGithubConnector'
 import CreateGitlabConnector from '../CreateConnector/GitlabConnector/CreateGitlabConnector'
@@ -410,6 +421,7 @@ import CreateSumoLogicConnector from '../CreateConnector/SumoLogicConnector/Crea
 import CENGAwsConnector from '../CreateConnector/CENGAwsConnector/CreateCeAwsConnector'
 import CreateCeGcpConnector from '../CreateConnector/CEGcpConnector/CreateCeGcpConnector'
 import CreateCustomHealthConnector from '../CreateConnector/CustomHealthConnector/CreateCustomHealthConnector'
+import CreateErrorTrackingConnector from '../CreateConnector/ErrorTrackingConnector/CreateErrorTrackingConnector'
 import css from './CreateConnectorWizard.module.scss'
 &nbsp;
 interface CreateConnectorWizardProps {
@@ -442,6 +454,7 @@ export const ConnectorWizard: React.FC&lt;CreateConnectorWizardProps&gt; = props
     'connectivityMode',
     'setConnectivityMode'
   ])
+  const { ERROR_TRACKING_ENABLED } = useFeatureFlags()
   switch (type) {
 <span class="branch-0 cbranch-no" title="branch not covered" >    case Connectors.CUSTOM:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;CreateCustomHealthConnector {...commonProps} /&gt;</span>
@@ -507,7 +520,9 @@ export const ConnectorWizard: React.FC&lt;CreateConnectorWizardProps&gt; = props
 <span class="cstat-no" title="statement not covered" >      return &lt;CreatePagerDutyConnector {...commonProps} /&gt;</span>
 <span class="branch-31 cbranch-no" title="branch not covered" >    case Connectors.SERVICE_NOW:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;ServiceNowConnector {...commonProps} /&gt;</span>
-<span class="branch-32 cbranch-no" title="branch not covered" >    default:</span>
+<span class="branch-32 cbranch-no" title="branch not covered" >    case Connectors.ERROR_TRACKING:</span>
+<span class="cstat-no" title="statement not covered" >      return ERROR_TRACKING_ENABLED ? &lt;CreateErrorTrackingConnector {...commonProps} /&gt; : null</span>
+<span class="branch-33 cbranch-no" title="branch not covered" >    default:</span>
 <span class="cstat-no" title="statement not covered" >      return null</span>
   }
 }
@@ -526,7 +541,7 @@ export const CreateConnectorWizard: React.FC&lt;CreateConnectorWizardProps&gt; =
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 18 2022 23:21:55 GMT+0000 (Greenwich Mean Time)
+                at Wed Jan 19 2022 05:58:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

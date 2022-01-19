@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.82% </span>
+                <span class="strong">74.47% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>69/91</span>
+                <span class='fraction'>70/94</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.73% </span>
+                <span class="strong">72.03% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>87/123</span>
+                <span class='fraction'>85/118</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.47% </span>
+                <span class="strong">68.42% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>13/17</span>
+                <span class='fraction'>13/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.28% </span>
+                <span class="strong">73.91% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>67/89</span>
+                <span class='fraction'>68/92</span>
             </div>
         
             
@@ -320,7 +320,18 @@
 <a name='L261'></a><a href='#L261'>261</a>
 <a name='L262'></a><a href='#L262'>262</a>
 <a name='L263'></a><a href='#L263'>263</a>
-<a name='L264'></a><a href='#L264'>264</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a>
+<a name='L271'></a><a href='#L271'>271</a>
+<a name='L272'></a><a href='#L272'>272</a>
+<a name='L273'></a><a href='#L273'>273</a>
+<a name='L274'></a><a href='#L274'>274</a>
+<a name='L275'></a><a href='#L275'>275</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -409,7 +420,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -454,12 +465,23 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -535,7 +557,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -545,6 +566,7 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -603,7 +625,7 @@ import type {
 } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.type'
 import {
   validateFormMappings,
-  getManuallyCreatedQueries,
+  getCustomCreatedMetrics,
   mapDatadogMetricHealthSourceToDatadogMetricSetupSource,
   validate,
   mapSelectedWidgetDataToDatadogMetricInfo,
@@ -641,9 +663,9 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
   const { projectIdentifier, orgIdentifier, accountId } = useParams&lt;ProjectPathProps&gt;()
   const [selectedMetricId, setSelectedMetricId] = useState&lt;string&gt;()
   const selectedMetricData = metricHealthDetailsData.get(selectedMetricId || '')
-  const initialManualQueries = useMemo(() =&gt; {
-    return getManuallyCreatedQueries(data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedMetrics)
-  }, [data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedMetrics])
+  const initialCustomCreatedMetrics = useMemo(() =&gt; {
+    return getCustomCreatedMetrics(data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedMetrics || transformedData.metricDefinition)
+  }, [data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedMetrics, transformedData.metricDefinition])
   const { data: activeMetrics } = useGetDatadogActiveMetrics({
     queryParams: {
       projectIdentifier,
@@ -672,7 +694,7 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
     lazy: true
   })
   useEffect(() =&gt; {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (<span class="branch-1 cbranch-no" title="branch not covered" >selectedMetricData?.metric)</span> {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedMetricData?.metric) {
 <span class="cstat-no" title="statement not covered" >      refetchMetricTags({</span>
         queryParams: {
           projectIdentifier,
@@ -698,8 +720,8 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
     return getSelectedDashboards(data)
   }, [data])
 &nbsp;
-  const handleOnTimeseriesFetch = (): void =&gt; {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (selectedMetricData<span class="branch-0 cbranch-no" title="branch not covered" >?.q</span>uery) {
+  const handleOnTimeseriesFetch = (query: string): void =&gt; {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (query) {
       timeseriesRefech({
         queryParams: {
           orgIdentifier,
@@ -707,7 +729,7 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
           accountId,
           tracingId: Utils.randomId(),
           connectorIdentifier: data.connectorRef as string,
-          query: selectedMetricData<span class="branch-0 cbranch-no" title="branch not covered" >?.q</span>uery
+          query: query
         }
       })
     }
@@ -716,14 +738,25 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!activeMetrics<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata) {
 <span class="cstat-no" title="statement not covered" >      return</span>
     }
-    if (selectedMetricData &amp;&amp; selectedMetricData.metricName &amp;&amp; !selectedMetricData.metric) {
+    if (
+      selectedMetricData &amp;&amp;
+      selectedMetricData.metricPath &amp;&amp;
+      !selectedMetricData.metric &amp;&amp;
+      !selectedMetricData.isCustomCreatedMetric
+    ) {
       const queryExtractor = DatadogMetricsQueryExtractor(selectedMetricData.query || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span> activeMetrics<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>
-      metricHealthDetailsData.set(selectedMetricData.metricName, {
+      metricHealthDetailsData.set(selectedMetricData.metricPath, {
         ...selectedMetricData,
-        metric: queryExtractor.activeMetric
+        metric: queryExtractor.activeMetric,
+        metricTags: queryExtractor.metricTags,
+        groupingTags: queryExtractor.groupingTags,
+        aggregator: queryExtractor.aggregation
       })
     }
   }, [activeMetrics<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata, selectedMetricData, metricHealthDetailsData])
+  const handleOnChangeManualEditQuery = <span class="fstat-no" title="function not covered" >(f</span>ormikProps: FormikProps&lt;DatadogMetricInfo&gt;, enabled: boolean): void =&gt; {
+<span class="cstat-no" title="statement not covered" >    formikProps.setFieldValue(DatadogMetricsHealthSourceFieldNames.IS_MANUAL_QUERY, enabled)</span>
+  }
   const handleOnMetricSelected = (
     selectedWidgetMetricData: SelectedWidgetMetricData,
     formikProps: FormikProps&lt;DatadogMetricInfo&gt;
@@ -798,7 +831,6 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
     &gt;
       {formikProps =&gt; {
         const shouldShowIdentifierPlaceholder = !selectedMetricData?.identifier &amp;&amp; !formikProps.values<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
-&nbsp;
         if (shouldShowIdentifierPlaceholder) {
           formikProps.setFieldValue(
             FieldNames.IDENTIFIER,
@@ -808,16 +840,17 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
         return (
           &lt;FormikForm&gt;
             &lt;CloudMetricsHealthSource
+              onChangeManualEditQuery={<span class="fstat-no" title="function not covered" >enabled </span>=&gt; <span class="cstat-no" title="statement not covered" >handleOnChangeManualEditQuery(formikProps, enabled)}</span>
               formikProps={formikProps}
               dashboardDetailRequest={dashboardRequest}
               dashboardDetailMapper={dashboardDetailToMetricWidgetItemMapper}
               dataSourceType={DatasourceTypeEnum.DATADOG_METRICS}
               addManualQueryTitle={'cv.monitoringSources.datadog.manualInputQueryModal.modalTitle'}
-              manualQueries={initialManualQueries}
+              manualQueries={initialCustomCreatedMetrics}
               onNextClicked={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >handleOnNext(formikProps)}</span>
               selectedMetricInfo={{
                 query: formikProps.values.query,
-                queryEditable: false,
+                queryEditable: formikProps.values.isManualQuery,
                 timeseriesData: currentTimeseriesData
               }}
               onFetchTimeseriesData={handleOnTimeseriesFetch}
@@ -853,7 +886,7 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jan 18 2022 23:21:55 GMT+0000 (Greenwich Mean Time)
+                at Wed Jan 19 2022 05:58:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

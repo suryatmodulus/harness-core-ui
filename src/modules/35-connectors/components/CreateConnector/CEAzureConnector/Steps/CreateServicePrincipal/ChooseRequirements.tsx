@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import {
   Button,
   Formik,
@@ -22,6 +22,8 @@ import {
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { CEAzureConnector } from 'services/cd-ng'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { CE_AZURE_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
 import type { CEAzureDTO } from '../Overview/AzureConnectorOverview'
 import css from '../../CreateCeAzureConnector_new.module.scss'
 
@@ -105,6 +107,11 @@ const ChooseRequirements: React.FC<StepProps<CEAzureDTO>> = props => {
   const featuresEnabled = prevStepData?.spec?.featuresEnabled || []
   const { selectedCards, setSelectedCards, FeatureCards } = useSelectedCards(featuresEnabled)
   const includesBilling = !!prevStepData?.spec?.featuresEnabled?.includes('BILLING')
+  const { trackEvent } = useTelemetry()
+
+  useEffect(() => {
+    trackEvent(CE_AZURE_CONNECTOR_CREATION_EVENTS.LOAD_CHOOSE_REQUIREMENT, {})
+  }, [])
 
   const handleSubmit = () => {
     const features = selectedCards.map(c => c.value)

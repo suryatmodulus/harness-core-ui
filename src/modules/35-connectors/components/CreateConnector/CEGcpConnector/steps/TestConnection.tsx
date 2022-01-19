@@ -20,6 +20,8 @@ import {
 import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { useGetTestConnectionResult } from 'services/cd-ng'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { CE_GCP_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
 import css from '../CreateCeGcpConnector.module.scss'
 
 enum Status {
@@ -34,6 +36,11 @@ interface TestConnectionProps extends StepProps<ConnectorInfoDTO> {
 
 const TestConnection: React.FC<TestConnectionProps> = props => {
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
+
+  useEffect(() => {
+    trackEvent(CE_GCP_CONNECTOR_CREATION_EVENTS.LOAD_CONNECTION_TEST, {})
+  }, [])
 
   const { prevStepData } = props
   const { accountId } = useParams<{
@@ -92,6 +99,7 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
         text={getString('finish')}
         className={css.submitBtn}
         onClick={() => {
+          trackEvent(CE_GCP_CONNECTOR_CREATION_EVENTS.CONNECTOR_FINISH_CLICK, {})
           props.onClose?.()
         }}
       />

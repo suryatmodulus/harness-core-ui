@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Button,
   Container,
@@ -31,6 +31,8 @@ import {
   Failure
 } from 'services/cd-ng'
 import { Description, Tags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { CE_GCP_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
 import css from '../CreateCeGcpConnector.module.scss'
 
 interface OverviewDetails {
@@ -60,6 +62,11 @@ const OverviewStep: React.FC<OverviewProps> = props => {
   const [existingConnectorName, setExistingConnectorName] = useState<string>('')
   const [projectId, setProjectId] = useState<string>('')
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+  const { trackEvent } = useTelemetry()
+
+  useEffect(() => {
+    trackEvent(CE_GCP_CONNECTOR_CREATION_EVENTS.LOAD_OVERVIEW_STEP, {})
+  }, [])
 
   const { prevStepData, nextStep, isEditMode, connectorInfo } = props
   const { accountId } = useParams<{

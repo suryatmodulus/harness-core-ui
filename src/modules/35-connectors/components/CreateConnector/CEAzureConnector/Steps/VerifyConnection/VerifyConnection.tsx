@@ -11,6 +11,8 @@ import { Button, Layout, StepProps, StepsProgress, Intent, Heading } from '@wing
 import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { useGetTestConnectionResult } from 'services/cd-ng'
+import { CE_AZURE_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import ShowConnectorError from '../ShowConnectorError'
 import type { CEAzureDTO } from '../Overview/AzureConnectorOverview'
 import css from '../../CreateCeAzureConnector_new.module.scss'
@@ -33,6 +35,11 @@ export interface TestConnectionProps extends ConnectorConfigDTO {
 const TestConnection: React.FC<StepProps<CEAzureDTO> & TestConnectionProps> = props => {
   const { prevStepData } = props
   const { accountId } = useParams<{ accountId: string }>()
+  const { trackEvent } = useTelemetry()
+
+  useEffect(() => {
+    trackEvent(CE_AZURE_CONNECTOR_CREATION_EVENTS.LOAD_CONNECTION_TEST, {})
+  }, [])
 
   const [error, setError] = useState<Error>()
   const [currentStatus, setCurrentStatus] = useState<Status>(Status.ERROR)
@@ -91,7 +98,10 @@ const TestConnection: React.FC<StepProps<CEAzureDTO> & TestConnectionProps> = pr
         text={getString('finish')}
         rightIcon="chevron-right"
         className={css.continueAndPreviousBtns}
-        onClick={() => props.onClose?.()}
+        onClick={() => {
+          trackEvent(CE_AZURE_CONNECTOR_CREATION_EVENTS.CONNECTOR_FINISH_CLICK, {})
+          props.onClose?.()
+        }}
       />
     </Layout.Vertical>
   )

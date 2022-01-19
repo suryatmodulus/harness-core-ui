@@ -22,6 +22,8 @@ import { useStrings } from 'framework/strings'
 import type { AwsCurAttributes, CEAwsConnector } from 'services/cd-ng'
 import { DialogExtensionContext } from '@connectors/common/ConnectorExtention/DialogExtention'
 import LabelWithTooltip from '@connectors/common/LabelWithTooltip/LabelWithTooltip'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { CE_AWS_CONNECTOR_CREATION_EVENTS } from '@connectors/trackingConstants'
 import CostUsageReportExtention from './CostUsageReportExtenstion'
 import CostUsageReportExisting from './CostUsageReportExisting'
 import type { CEAwsConnectorDTO } from './OverviewStep'
@@ -29,6 +31,11 @@ import css from '../CreateCeAwsConnector.module.scss'
 
 const CostUsageStep: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
+
+  useEffect(() => {
+    trackEvent(CE_AWS_CONNECTOR_CREATION_EVENTS.LOAD_CUR_STEP, {})
+  }, [])
 
   const { prevStepData, nextStep, previousStep } = props
   const { triggerExtension, closeExtension } = useContext(DialogExtensionContext)

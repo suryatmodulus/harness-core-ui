@@ -30,9 +30,7 @@ const moduleFederationConfig = require('./configs/modulefederation.config.js')
 const ExternalRemotesPlugin = require('external-remotes-plugin')
 
 const DEV = process.env.NODE_ENV === 'development'
-const HARNESS_ENABLE_NG_AUTH_UI = process.env.HARNESS_ENABLE_NG_AUTH_UI
-  ? process.env.HARNESS_ENABLE_NG_AUTH_UI === 'true'
-  : true
+const HARNESS_ENABLE_NG_AUTH_UI = process.env.HARNESS_ENABLE_NG_AUTH_UI !== 'false'
 // this BUGSNAG_TOKEN needs to be same which is passed in the docker file
 const BUGSNAG_TOKEN = process.env.BUGSNAG_TOKEN
 const BUGSNAG_SOURCEMAPS_UPLOAD = `${process.env.BUGSNAG_SOURCEMAPS_UPLOAD}` === 'true'
@@ -309,7 +307,8 @@ console.table({
   DEV,
   FsEvents: process.env.TSC_WATCHFILE === 'UseFsEvents',
   BUGSNAG_SOURCEMAPS_UPLOAD,
-  BugsnagTokenPresent: !!BUGSNAG_TOKEN
+  BugsnagTokenPresent: !!BUGSNAG_TOKEN,
+  HARNESS_ENABLE_NG_AUTH_UI
 })
 
 module.exports = config

@@ -50,4 +50,16 @@
       margin-bottom: var(--spacing-large) !important;
     }
   }
+  .manualQueryWarning {
+    display: flex;
+    border: 1px solid var(--grey-400);
+    padding: var(--spacing-medium) !important;
+    color: var(--black) !important;
+    margin: var(--spacing-large) !important;
+    border-radius: 5px;
+
+    p:last-child {
+      cursor: pointer;
+    }
+  }
 }

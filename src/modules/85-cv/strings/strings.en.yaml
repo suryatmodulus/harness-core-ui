@@ -311,6 +311,8 @@ monitoringSources:
       noDataText: 'No Datadog dashboards found.'
       dashboardColumnName: 'Datadog Dashboards'
     newDatadogGroupName: 'Add new Datadog group name'
+    validation:
+      queryContains: 'Query must contain '
   datadogLogs:
     submitQueryToSeeRecords: Submit query to see records from Dataodog Logs
     datadogLogsQuery: Datadog Logs Query

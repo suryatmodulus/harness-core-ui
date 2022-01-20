@@ -1160,7 +1160,7 @@ exports[`Manifest Details tests renders form in edit mode - when gitfetchtype is
                             placeholder="- Select -"
                             style="padding-right: 0px;"
                             type="text"
-                            value="Specific Commit ID"
+                            value="Specific Commit Id / Git Tag "
                           />
                           <span
                             class="bp3-input-action"
@@ -2116,7 +2116,7 @@ exports[`Manifest Details tests runtime value for connector should make runtime 
                             placeholder="- Select -"
                             style="padding-right: 0px;"
                             type="text"
-                            value="Specific Commit ID"
+                            value="Specific Commit Id / Git Tag "
                           />
                           <span
                             class="bp3-input-action"
@@ -3072,7 +3072,7 @@ exports[`Manifest Details tests when connectionType is of repo 1`] = `
                             placeholder="- Select -"
                             style="padding-right: 0px;"
                             type="text"
-                            value="Specific Commit ID"
+                            value="Specific Commit Id / Git Tag "
                           />
                           <span
                             class="bp3-input-action"
@@ -3550,7 +3550,7 @@ exports[`Manifest Details tests when scope is of account 1`] = `
                             placeholder="- Select -"
                             style="padding-right: 0px;"
                             type="text"
-                            value="Specific Commit ID"
+                            value="Specific Commit Id / Git Tag "
                           />
                           <span
                             class="bp3-input-action"

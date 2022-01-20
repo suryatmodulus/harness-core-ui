@@ -42,10 +42,12 @@ export const delegateGroupsMock: DelegateGroupDetails[] = [
     delegateInsightsDetails: insightsMock,
     delegateInstanceDetails: [],
     delegateType: 'KUBERNETES',
-    groupCustomSelectors: [],
+    groupCustomSelectors: ['customtag1', 'customtag2'],
     groupHostName: 'groupHostName1',
     groupId: 'dsadsadsad22',
-    groupImplicitSelectors: {},
+    groupImplicitSelectors: {
+      implicitSelector1: 'GROUP_SELECTORS'
+    },
     groupName: 'delegate-1',
     lastHeartBeat: 1616541640941,
     sizeDetails: {

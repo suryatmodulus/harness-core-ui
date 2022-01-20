@@ -131,6 +131,8 @@ export const getConnectorTitleIdByType = (type: string): StringKeys => {
       return 'connectors.title.sumologic'
     case Connectors.AZURE_KEY_VAULT:
       return 'connectors.title.azureKeyVault'
+    case Connectors.ERROR_TRACKING:
+      return 'connectors.title.errorTracking'
     default:
       return 'connector'
   }
@@ -208,6 +210,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'harness'
     case Connectors.CUSTOM_HEALTH:
       return 'service-custom-connector'
+    case Connectors.ERROR_TRACKING:
+      return 'placeholder'
     default:
       return 'placeholder'
   }

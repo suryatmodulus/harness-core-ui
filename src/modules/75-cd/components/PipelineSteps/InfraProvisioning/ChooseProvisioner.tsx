@@ -9,6 +9,7 @@ import React from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
 import { Layout, Card, Icon, Text, IconName, Button, useModalHook, ButtonVariation } from '@wings-software/uicore'
+import { merge } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 
 import { ProvisionerTypes } from '../Common/ProvisionerConstants'
@@ -52,7 +53,7 @@ const useChooseProvisioner = (props: ChooseProvisionerProps) => {
     canEscapeKeyClose: true,
     canOutsideClickClose: true
   }
-  const ProvDialog = () => (
+  const ProvDialog = (): JSX.Element => (
     <Dialog
       onClose={hideModal}
       enforceFocus={false}
@@ -62,28 +63,37 @@ const useChooseProvisioner = (props: ChooseProvisionerProps) => {
       <Layout.Vertical spacing="large">
         <div className={css.provisionerText}>{getString('cd.chooseProvisionerText')}</div>
         <Layout.Horizontal height={120}>
-          {provisionerTypes.map((type: { name: string; icon: IconName; enabled: boolean; iconColor?: string }) => (
-            <div key={type.name} className={css.squareCardContainer}>
-              <Card
-                disabled={!type.enabled}
-                interactive={true}
-                selected={type.name === ProvisionerTypes.Terraform ? true : false}
-                cornerSelected={type.name === ProvisionerTypes.Terraform ? true : false}
-                className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
-              >
-                <Icon name={type.icon as IconName} color={type.iconColor} size={26} height={26} />
-              </Card>
-              <Text
-                style={{
-                  fontSize: '12px',
-                  color: type.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
-                  textAlign: 'center'
-                }}
-              >
-                {type.name}
-              </Text>
-            </div>
-          ))}
+          {provisionerTypes.map((type: { name: string; icon: IconName; enabled: boolean; iconColor?: string }) => {
+            const iconProps = {
+              name: type.icon as IconName,
+              size: 26
+            }
+            if (type.iconColor) {
+              merge(iconProps, { color: type.iconColor })
+            }
+            return (
+              <div key={type.name} className={css.squareCardContainer}>
+                <Card
+                  disabled={!type.enabled}
+                  interactive={true}
+                  selected={type.name === ProvisionerTypes.Terraform}
+                  cornerSelected={type.name === ProvisionerTypes.Terraform}
+                  className={cx({ [css.disabled]: !type.enabled }, css.squareCard)}
+                >
+                  <Icon {...iconProps} />
+                </Card>
+                <Text
+                  style={{
+                    fontSize: '12px',
+                    color: type.enabled ? 'var(--grey-900)' : 'var(--grey-350)',
+                    textAlign: 'center'
+                  }}
+                >
+                  {type.name}
+                </Text>
+              </div>
+            )
+          })}
         </Layout.Horizontal>
         <Button
           variation={ButtonVariation.PRIMARY}

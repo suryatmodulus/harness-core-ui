@@ -20,3 +20,5 @@ export const DatadogMetricsHealthSourceFieldNames = {
   LOWER_BASELINE_DEVIATION: 'lowerBaselineDeviation',
   SLI: 'sli'
 }
+
+export const QUERY_CONTAINS_VALIDATION_PARAM = '.rollup(avg, 60)'

@@ -206,7 +206,10 @@ export default function MetricsDashboardList<T>(props: MetricsDashboardListProps
                 if (!propsData.selectedMetrics) {
                   propsData.selectedMetrics = new Map()
                 }
-                propsData.selectedMetrics.set(values.metricName, { isManualQuery: true, metricName: values.metricName })
+                propsData.selectedMetrics.set(values.metricName, {
+                  isCustomCreatedMetric: true,
+                  metricName: values.metricName
+                })
                 onNext({ ...propsData, selectedDashboards: Array.from(selectedDashboards.values()) })
               }}
               closeModal={() => setIsModalOpen(false)}

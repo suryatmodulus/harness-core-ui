@@ -6,16 +6,22 @@
  */
 
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 
 interface UsePlanEnforcement {
   isPlanEnforcementEnabled: boolean
+  isFreePlan: boolean
 }
 
 const usePlanEnforcement = (): UsePlanEnforcement => {
   const { FFM_1859, FEATURE_ENFORCEMENT_ENABLED } = useFeatureFlags()
+  const license = useLicenseStore()
+
+  const isFreePlan = license.licenseInformation.CF?.edition === 'FREE'
 
   return {
-    isPlanEnforcementEnabled: !!(FFM_1859 && FEATURE_ENFORCEMENT_ENABLED)
+    isPlanEnforcementEnabled: !!(FFM_1859 && FEATURE_ENFORCEMENT_ENABLED),
+    isFreePlan
   }
 }
 

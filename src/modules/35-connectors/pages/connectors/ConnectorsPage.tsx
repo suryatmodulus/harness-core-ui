@@ -139,6 +139,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
   const history = useHistory()
   useDocumentTitle(getString('connectorsLabel'))
   const isCustomHealthEnabled = useFeatureFlag(FeatureFlag.CHI_CUSTOM_HEALTH)
+  const isErrorTrackingEnabled = useFeatureFlag(FeatureFlag.ERROR_TRACKING_ENABLED)
 
   const ConnectorCatalogueNames = new Map<ConnectorCatalogueItem['category'], string>()
   // This list will control which categories will be displayed in UI and its order
@@ -350,7 +351,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
               },
               items:
                 item.connectors
-                  ?.sort((a, b) => (getConnectorDisplayName(a) < getConnectorDisplayName(b) ? -1 : 1))
+                  ?.filter(connector => (connector === 'ErrorTracking' ? isErrorTrackingEnabled : true))
+                  .sort((a, b) => (getConnectorDisplayName(a) < getConnectorDisplayName(b) ? -1 : 1))
                   .filter(entry => {
                     const name = entry.valueOf() || ''
                     if (name !== 'CustomHealth') return true

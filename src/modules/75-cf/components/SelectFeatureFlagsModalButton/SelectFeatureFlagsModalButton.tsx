@@ -29,15 +29,13 @@ import { CF_DEFAULT_PAGE_SIZE, getErrorMessage, SegmentsSortByField, SortOrder }
 import { useStrings } from 'framework/strings'
 import { Feature, useGetAllFeatures } from 'services/cf'
 import { useToaster } from '@common/exports'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-import RbacButton from '@rbac/components/Button/Button'
 
 import { AUTO_COMMIT_MESSAGES } from '@cf/constants/GitSyncConstants'
 import type { GitSyncFormValues, UseGitSync } from '@cf/hooks/useGitSync'
 import { FeatureFlagRow } from './FeatureFlagRow'
 import { NoDataFoundRow } from '../NoDataFoundRow/NoDataFoundRow'
 import SaveFlagToGitSubForm from '../SaveFlagToGitSubForm/SaveFlagToGitSubForm'
+import AddToFlagButton from './add-to-flag-butotn/AddToFlagButton'
 
 export interface SelectedFeatureFlag {
   feature: Feature
@@ -68,8 +66,8 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
   accountId,
   orgIdentifier,
   projectIdentifier,
-  environmentIdentifier,
   targetIdentifier,
+  environmentIdentifier,
   modalTitle,
   submitButtonTitle,
   cancelButtonTitle,
@@ -227,8 +225,9 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
                   style={{ paddingLeft: '1px' }}
                 >
                   {!!data?.features?.length &&
-                    data?.features?.map(feature => (
+                    data?.features?.map((feature, index) => (
                       <FeatureFlagRow
+                        id={`flag_row_${index}`}
                         key={feature.identifier}
                         feature={feature}
                         checked={false}
@@ -299,15 +298,5 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
 
   const [openModal, hideModal] = useModalHook(ModalComponent, [onSubmit, shouldDisableItem])
 
-  return (
-    <RbacButton
-      data-testid="add-feature-flags-button"
-      onClick={openModal}
-      {...props}
-      permission={{
-        resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: environmentIdentifier },
-        permission: PermissionIdentifier.EDIT_FF_TARGETGROUP
-      }}
-    />
-  )
+  return <AddToFlagButton handleClick={openModal} {...props} />
 }

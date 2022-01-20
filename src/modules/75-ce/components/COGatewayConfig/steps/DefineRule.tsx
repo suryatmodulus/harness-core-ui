@@ -13,6 +13,7 @@ import { Utils } from '@ce/common/Utils'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import { CONFIG_IDLE_TIME_CONSTRAINTS, CONFIG_STEP_IDS } from '@ce/constants'
 import { useStrings } from 'framework/strings'
+import { useGatewayContext } from '@ce/context/GatewayContext'
 import COGatewayConfigStep from '../COGatewayConfigStep'
 import css from '../COGatewayConfig.module.scss'
 
@@ -25,7 +26,7 @@ interface DefineRuleProps {
 
 const DefineRule: React.FC<DefineRuleProps> = props => {
   const { getString } = useStrings()
-
+  const { isEditFlow } = useGatewayContext()
   const { totalStepsCount } = props
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
@@ -65,7 +66,8 @@ const DefineRule: React.FC<DefineRuleProps> = props => {
                       const updatedGatewayDetails = { ...props.gatewayDetails }
                       updatedGatewayDetails.name = e.target.value
                       props.setGatewayDetails(updatedGatewayDetails)
-                    }
+                    },
+                    disabled: isK8sRule && isEditFlow
                   }}
                 />
                 <InputDataContainer

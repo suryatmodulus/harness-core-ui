@@ -55,7 +55,7 @@ const ArtifactImagePathTagView = ({
   const { getString } = useStrings()
 
   const getSelectItems = useCallback(() => {
-    return tagList?.map(tag => ({ label: tag, value: tag })) as SelectOption[]
+    return tagList?.map(tag => ({ label: tag.tag, value: tag.tag })) as SelectOption[]
   }, [tagList])
 
   const tags = buildDetailsLoading ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }] : getSelectItems()

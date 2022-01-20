@@ -10,7 +10,7 @@ import * as Yup from 'yup'
 import type { FormikErrors } from 'formik'
 import type { MutateMethod } from 'restful-react'
 import { omit } from 'lodash-es'
-import { Button, ButtonVariation, Formik, Layout, Popover } from '@wings-software/uicore'
+import { Text, Button, ButtonVariation, Formik, Layout, Popover } from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import type {
@@ -161,7 +161,6 @@ const SaveAsInputSet = ({
     },
     [createInputSet, showSuccess, showError, isGitSyncEnabled, pipeline]
   )
-
   if (pipeline && currentPipeline && template) {
     return (
       <Popover
@@ -247,6 +246,11 @@ const SaveAsInputSet = ({
               resourceType: ResourceType.PIPELINE
             }
           }}
+          tooltip={
+            disabled ? (
+              <Text padding="medium">{getString('pipeline.runPipelineForm.disallowStageExecution')}</Text>
+            ) : undefined
+          }
         />
       </Popover>
     )

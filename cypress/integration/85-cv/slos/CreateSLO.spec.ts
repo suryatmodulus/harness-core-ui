@@ -99,7 +99,7 @@ describe('Create SLO', () => {
     cy.contains('p', '7 days').should('be.visible')
   })
 
-  it('should render all the edit steps and update the SLO', () => {
+  it.skip('should render all the edit steps and update the SLO', () => {
     cy.intercept('GET', listSLOsCall, updatedListSLOsCallResponse)
     cy.intercept('GET', getUserJourneysCall, listUserJourneysCallResponse)
     cy.intercept('GET', getServiceLevelObjectivesRiskCount, { fixture: 'cv/slo/getSLORiskCount' })
@@ -152,7 +152,7 @@ describe('Create SLO', () => {
     cy.contains('p', 'SLO recalculation in progress').should('be.visible')
   })
 
-  it('should validate all form field errors and default values', () => {
+  it.skip('should validate all form field errors and default values', () => {
     cy.intercept('GET', getUserJourneysCall, listUserJourneysCallResponse)
     cy.intercept('GET', listMonitoredServices, listMonitoredServicesCallResponse)
     cy.intercept('GET', getSLOMetrics, listSLOMetricsCallResponse)

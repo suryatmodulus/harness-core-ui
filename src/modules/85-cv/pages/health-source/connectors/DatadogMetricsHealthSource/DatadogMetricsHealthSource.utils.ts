@@ -32,7 +32,10 @@ import {
   DatadogMetricsQueryBuilder,
   DatadogMetricsQueryExtractor
 } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/components/DatadogMetricsDetailsContent/DatadogMetricsDetailsContent.utils'
-import { DatadogMetricsHealthSourceFieldNames } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.constants'
+import {
+  DatadogMetricsHealthSourceFieldNames,
+  QUERY_CONTAINS_VALIDATION_PARAM
+} from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.constants'
 
 export const DatadogProduct = {
   CLOUD_METRICS: 'Datadog Cloud Metrics',
@@ -61,10 +64,9 @@ export function mapDatadogMetricHealthSourceToDatadogMetricSetupSource(sourceDat
   const datadogMetricSpec: DatadogMetricHealthSourceSpec = (healthSource.spec as DatadogMetricHealthSourceSpec) || {}
 
   for (const metricDefinition of datadogMetricSpec.metricDefinitions || []) {
-    const manualQuery = metricDefinition?.isManualQuery
     if (
       !metricDefinition?.metricName ||
-      ((!metricDefinition.dashboardName || !metricDefinition.dashboardId) && !manualQuery)
+      ((!metricDefinition.dashboardName || !metricDefinition.dashboardId) && !metricDefinition.isCustomCreatedMetric)
     ) {
       continue
     }
@@ -91,7 +93,8 @@ export function mapDatadogMetricHealthSourceToDatadogMetricSetupSource(sourceDat
       metricTags: metricDefinition.metricTags?.map(metricTag => {
         return { label: metricTag, value: metricTag }
       }),
-      isManualQuery: manualQuery,
+      isManualQuery: metricDefinition?.isManualQuery,
+      isCustomCreatedMetric: metricDefinition.isCustomCreatedMetric,
       riskCategory:
         metricDefinition?.analysis?.riskProfile?.category && metricDefinition?.analysis?.riskProfile?.metricType
           ? `${metricDefinition?.analysis?.riskProfile?.category}/${metricDefinition?.analysis?.riskProfile?.metricType}`
@@ -156,6 +159,7 @@ export function mapDatadogMetricSetupSourceToDatadogHealthSource(
       metricTags: metricInfo.metricTags?.map(metricTag => metricTag.value as string),
       aggregation: metricInfo.aggregator,
       isManualQuery: metricInfo.isManualQuery,
+      isCustomCreatedMetric: metricInfo.isCustomCreatedMetric,
       serviceInstanceIdentifierTag: metricInfo.serviceInstanceIdentifierTag,
       groupingQuery: metricInfo.groupingQuery,
       query: metricInfo.query,
@@ -196,8 +200,13 @@ export function validateFormMappings(
   getString: (key: StringKeys, vars?: Record<string, any> | undefined) => string
 ): Record<string, any> {
   const errors: any = {}
+
   if (!values?.query?.length) {
     errors.query = getString('cv.monitoringSources.gco.manualInputQueryModal.validation.query')
+  } else if (!values?.query?.includes(QUERY_CONTAINS_VALIDATION_PARAM)) {
+    errors.query = `${getString(
+      'cv.monitoringSources.datadog.validation.queryContains'
+    )}${QUERY_CONTAINS_VALIDATION_PARAM}`
   }
 
   if (![values.sli, values.continuousVerification, values.healthScore].some(i => i)) {
@@ -293,8 +302,17 @@ export function mapDatadogDashboardDetailToMetricWidget(
   dashboardId: string,
   datadogDashboardDetail: DatadogDashboardDetail
 ): MetricWidget {
+  const widgetName =
+    datadogDashboardDetail.widgetName ||
+    (datadogDashboardDetail?.dataSets?.length
+      ? datadogDashboardDetail?.dataSets
+          ?.map(dataSet => dataSet.query)
+          ?.reduce((previous, next) => {
+            return `${previous}, ${next}`
+          })
+      : '')
   return {
-    widgetName: datadogDashboardDetail.widgetName || '',
+    widgetName: widgetName || '',
     dataSets:
       datadogDashboardDetail.dataSets?.map(dataSet => {
         const metricPath = generateMetricPath(dashboardId, datadogDashboardDetail, dataSet.name || '')
@@ -317,15 +335,21 @@ export function mapSelectedWidgetDataToDatadogMetricInfo(
   activeMetrics: string[]
 ): DatadogMetricInfo {
   const queryExtractor = DatadogMetricsQueryExtractor(query, activeMetrics || [])
-  const queryBuilder = DatadogMetricsQueryBuilder(queryExtractor.activeMetric || '', queryExtractor.aggregation, [])
+  const queryBuilder = DatadogMetricsQueryBuilder(
+    queryExtractor.activeMetric || '',
+    queryExtractor.aggregation,
+    queryExtractor.metricTags.map(option => option.value as string),
+    queryExtractor.groupingTags
+  )
   return {
     metricName: selectedWidgetMetricData.metricName,
     identifier: selectedWidgetMetricData.metricName,
     dashboardId: selectedWidgetMetricData.dashboardId,
     metric: queryExtractor.activeMetric,
     aggregator: queryExtractor.aggregation,
+    metricTags: queryExtractor.metricTags,
     query: queryBuilder.query || query,
-    isManualQuery: selectedWidgetMetricData.query === MANUAL_INPUT_QUERY,
+    isCustomCreatedMetric: selectedWidgetMetricData.query === MANUAL_INPUT_QUERY,
     groupName: selectedWidgetMetricData?.dashboardTitle
       ? {
           label: selectedWidgetMetricData.dashboardTitle,
@@ -337,14 +361,14 @@ export function mapSelectedWidgetDataToDatadogMetricInfo(
   }
 }
 
-export function getManuallyCreatedQueries(selectedMetrics: Map<string, DatadogMetricInfo>): string[] {
+export function getCustomCreatedMetrics(selectedMetrics: Map<string, DatadogMetricInfo>): string[] {
   if (!selectedMetrics?.size) {
     return []
   }
   const manualQueries: string[] = []
   for (const entry of selectedMetrics) {
     const [metricPath, metricInfo] = entry
-    if (metricPath && metricInfo?.isManualQuery) {
+    if (metricPath && metricInfo?.isCustomCreatedMetric) {
       manualQueries.push(metricPath)
     }
   }

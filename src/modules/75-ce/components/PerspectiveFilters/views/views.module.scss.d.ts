@@ -1,23 +1,22 @@
-/*
+/* eslint-disable */
+/**
  * Copyright 2021 Harness Inc. All rights reserved.
  * Use of this source code is governed by the PolyForm Shield 1.0.0 license
  * that can be found in the licenses directory at the root of this repository, also available at
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
- */
-
-/* eslint-disable */
-// this is an auto-generated file
+ **/
+// this is an auto-generated file, do not update this manually
 declare const styles: {
+  readonly checkbox: string
+  readonly labelNames: string
+  readonly loadingContainer: string
+  readonly namesContainer: string
   readonly providerDropDown: string
   readonly providerList: string
   readonly radioValue: string
-  readonly valueSelectorContainer: string
-  readonly loadingContainer: string
-  readonly valueListContainer: string
-  readonly checkbox: string
   readonly searchInput: string
-  readonly namesContainer: string
-  readonly labelNames: string
   readonly spinner: string
+  readonly valueListContainer: string
+  readonly valueSelectorContainer: string
 }
 export default styles

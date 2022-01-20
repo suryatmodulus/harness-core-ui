@@ -24,7 +24,10 @@ export const actionToLabelMap: Record<AuditEventDTO['action'], StringKeys> = {
   REMOVE_COLLABORATOR: 'auditTrail.actions.removed_collaborator',
   ADD_MEMBERSHIP: 'auditTrail.actions.added_membership',
   REMOVE_MEMBERSHIP: 'auditTrail.actions.removed_membership',
-  REVOKE_TOKEN: 'auditTrail.actions.revoke_token'
+  REVOKE_TOKEN: 'auditTrail.actions.revoke_token',
+  LOGIN: 'auditTrail.actions.login',
+  LOGIN2FA: 'auditTrail.actions.login2fa',
+  UNSUCCESSFUL_LOGIN: 'auditTrail.actions.unsuccessfullLogin'
 }
 
 export const moduleToLabelMap: Record<AuditEventDTO['module'], StringKeys> = {

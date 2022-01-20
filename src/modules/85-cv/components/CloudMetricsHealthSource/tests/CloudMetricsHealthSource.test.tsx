@@ -153,10 +153,22 @@ describe('Unit tests for CloudMetricsHealthSource', () => {
   })
   test("Should not call onFetchTimeseriesData when retry button is clicked and query doesn't exist", async () => {
     const mockOnFetchTimeseriesData = jest.fn()
+    const mockProps = mockCloudMetricHealthSourceProps(<></>)
+    const mockPropsWithNoQuery = {
+      ...mockProps,
+      formikProps: {
+        ...mockProps.formikProps,
+        values: {
+          sli: true,
+          healthScore: false,
+          continuousVerification: false
+        }
+      }
+    }
     render(
       WrapperComponent(
         <CloudMetricsHealthSource
-          {...mockCloudMetricHealthSourceProps(<></>)}
+          {...mockPropsWithNoQuery}
           selectedMetricInfo={{ query: undefined }}
           onFetchTimeseriesData={mockOnFetchTimeseriesData}
         />

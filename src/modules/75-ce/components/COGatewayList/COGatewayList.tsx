@@ -280,7 +280,7 @@ const COGatewayList: React.FC = () => {
                 </Text>
                 {!resourcesLoading && resources?.response ? (
                   <Link
-                    href={getInstancesLink(resources as AllResourcesOfAccountResponse)}
+                    href={getInstancesLink(tableProps.row.original, resources as AllResourcesOfAccountResponse)}
                     target="_blank"
                     style={{
                       textOverflow: 'ellipsis',

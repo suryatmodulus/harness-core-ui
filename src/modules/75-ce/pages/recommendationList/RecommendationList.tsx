@@ -5,7 +5,7 @@
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
  */
 
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { Card, Text, Layout, Container, Color, Icon, Button, ButtonVariation, TableV2 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
@@ -29,6 +29,8 @@ import formatCost from '@ce/utils/formatCost'
 import { getViewFilterForId } from '@ce/utils/perspectiveUtils'
 import EmptyView from '@ce/images/empty-state.svg'
 import OverviewAddCluster from '@ce/components/OverviewPage/OverviewAddCluster'
+import { PAGE_EVENTS, USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
+import { useTelemetry } from '@common/hooks/useTelemetry'
 import RecommendationSavingsCard from '../../components/RecommendationSavingsCard/RecommendationSavingsCard'
 import RecommendationFilters from '../../components/RecommendationFilters'
 import css from './RecommendationList.module.scss'
@@ -72,6 +74,7 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
   onAddClusterSuccess
 }) => {
   const history = useHistory()
+  const { trackEvent } = useTelemetry()
   const { accountId } = useParams<{ accountId: string }>()
 
   const { getString } = useStrings()
@@ -182,6 +185,7 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
         {data.length ? (
           <TableV2<RecommendationItemDto>
             onRowClick={({ id, resourceType, resourceName }) => {
+              trackEvent(USER_JOURNEY_EVENTS.RECOMMENDATION_CLICK, {})
               history.push(
                 resourceTypeToRoute[resourceType]({
                   accountId,
@@ -244,9 +248,15 @@ const RecommendationList: React.FC = () => {
   const [filters, setFilters] = useState<Record<string, string[]>>({})
   const [costFilters, setCostFilters] = useState<Record<string, number>>({})
   const [page, setPage] = useState(0)
+
+  const { trackPage } = useTelemetry()
   const history = useHistory()
   const { accountId } = useParams<{ accountId: string }>()
   const { perspectiveId, perspectiveName } = useQueryParams<{ perspectiveId: string; perspectiveName: string }>()
+
+  useEffect(() => {
+    trackPage(PAGE_EVENTS.RECOMMENDATIONS_PAGE, {})
+  }, [])
 
   const modifiedCostFilters = costFilters['minSaving'] ? costFilters : { ...costFilters, minSaving: 0 }
 

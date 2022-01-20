@@ -35,7 +35,7 @@ export interface SelectedMetricInfo {
 export interface CloudMetricsHealthSourceProps<T> {
   metricDetailsContent: ReactNode
   selectedMetricInfo: SelectedMetricInfo
-  onFetchTimeseriesData: () => void
+  onFetchTimeseriesData: (query: string) => void
   timeseriesDataLoading: boolean
   timeseriesDataError?: string
   dashboards: MetricDashboardItem[]
@@ -48,4 +48,5 @@ export interface CloudMetricsHealthSourceProps<T> {
   dashboardDetailRequest: UseGetReturn<any, any, any>
   dashboardDetailMapper: (dashboardId: string, detail: T) => MetricWidget
   formikProps: FormikProps<DatadogMetricInfo>
+  onChangeManualEditQuery?: (enabled: boolean) => void
 }

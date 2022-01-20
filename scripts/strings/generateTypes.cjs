@@ -65,7 +65,16 @@ async function generateTypes() {
     keys: flattenKeys(yaml.parse(oldStrings))
   })
 
+  const licenseTxt = await fs.promises.readFile(
+    path.resolve(process.cwd(), 'scripts/license/.license-header-polyform-free-trial.txt'),
+    'utf8'
+  )
+
   let content = `
+/**
+ * ${licenseTxt.replace('<YEAR>', '2022').split('\n').join('\n * ')}
+ */
+
 /**
   * This file is auto-generated. Please do not modify this file manually.
   * Use the command \`yarn strings\` to regenerate this file.

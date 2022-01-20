@@ -37,6 +37,10 @@ export const HEALTHSOURCE_LIST = [
   {
     name: HealthSourceTypes.CustomHealth,
     icon: getConnectorIconByType(Connectors.CUSTOM_HEALTH)
+  },
+  {
+    name: HealthSourceTypes.ErrorTracking,
+    icon: getConnectorIconByType(Connectors.ERROR_TRACKING)
   }
 ]
 

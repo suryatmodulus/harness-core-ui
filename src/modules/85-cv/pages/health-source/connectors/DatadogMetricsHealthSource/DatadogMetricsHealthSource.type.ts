@@ -27,10 +27,12 @@ export interface DatadogMetricInfo {
   query?: string
   groupingQuery?: string
   metricTags?: SelectOption[]
+  groupingTags?: string[]
   serviceInstanceIdentifierTag?: string
   riskCategory?: string
   higherBaselineDeviation?: boolean
   lowerBaselineDeviation?: boolean
+  isCustomCreatedMetric?: boolean
   isManualQuery?: boolean
   tooManyMetrics?: boolean
   sli?: boolean

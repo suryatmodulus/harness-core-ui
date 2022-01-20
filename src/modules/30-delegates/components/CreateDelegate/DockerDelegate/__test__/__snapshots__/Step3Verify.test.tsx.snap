@@ -6,7 +6,7 @@ exports[`Create Docker Step3Verify render data and go back 1`] = `
     class="Layout--horizontal StyledProps--main baseContainer"
   >
     <div
-      class="Layout--vertical StyledProps--main"
+      class="Layout--vertical StyledProps--main leftPanel"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main"

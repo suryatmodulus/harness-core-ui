@@ -9,7 +9,7 @@ import React, { useState } from 'react'
 import { DateRangePickerButton, Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
-import { useGetAuditList } from 'services/audit'
+import { useGetAuditEventList } from 'services/audit'
 import { useStrings } from 'framework/strings'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
@@ -51,7 +51,7 @@ const AuditTrailsPage: React.FC = () => {
     loading,
     error,
     refetch
-  } = useMutateAsGet(useGetAuditList, {
+  } = useMutateAsGet(useGetAuditEventList, {
     queryParams: {
       accountIdentifier: accountId,
       pageSize: 10,

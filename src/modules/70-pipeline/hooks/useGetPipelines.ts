@@ -32,18 +32,19 @@ export function useGetPipelines({
   projectIdentifier,
   orgIdentifier,
   module,
-  lazy = false,
+  lazy,
   size
 }: GetPipelinesProps): GetPipelinesReturns {
   const { data, loading, refetch, error } = useMutateAsGet(useGetPipelineList, {
-    body: {
+    queryParams: {
       accountIdentifier,
       projectIdentifier,
       orgIdentifier,
       module,
       size
     },
-    lazy
+    body: { filterType: 'PipelineSetup' },
+    lazy: lazy || /* istanbul ignore next */ false
   })
 
   return {

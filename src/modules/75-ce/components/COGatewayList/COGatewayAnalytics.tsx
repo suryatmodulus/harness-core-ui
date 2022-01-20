@@ -293,9 +293,9 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
             <Container className={css.serviceDetailsItemContainer}>
               <Text className={css.detailItemHeader}>Resources managed</Text>
               <Layout.Horizontal spacing="medium" className={css.detailItemValue}>
-                {!resourcesLoading && resources ? (
+                {!resourcesLoading && resources && props.service?.data ? (
                   <Link
-                    href={getInstancesLink(resources as AllResourcesOfAccountResponse)}
+                    href={getInstancesLink(props.service?.data as Service, resources as AllResourcesOfAccountResponse)}
                     target="_blank"
                     style={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
                   >

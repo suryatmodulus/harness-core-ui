@@ -572,7 +572,7 @@ cdDashboard:
 hours: hours
 gitFetchTypes:
   fromBranch: 'Latest from Branch'
-  fromCommit: 'Specific Commit Id'
+  fromCommit: 'Specific Commit Id / Git Tag'
 snippets:
   copyToClipboard: Copy to Clipboard
   copied: Copied!

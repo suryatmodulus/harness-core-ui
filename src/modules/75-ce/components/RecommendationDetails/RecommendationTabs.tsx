@@ -11,6 +11,8 @@ import cx from 'classnames'
 
 import { useStrings } from 'framework/strings'
 import formatCost from '@ce/utils/formatCost'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import { RecommendationType } from './constants'
 
 import css from './RecommendationDetails.module.scss'
@@ -41,6 +43,7 @@ const RecommendationTabs: React.FC<RecommendationTabsProps> = ({
   isCostOptimizedCustomized
 }) => {
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
 
   return (
     <Container padding="small" className={css.recommendationTypeContainer}>
@@ -51,6 +54,9 @@ const RecommendationTabs: React.FC<RecommendationTabsProps> = ({
           })}
           spacing="xsmall"
           onClick={() => {
+            trackEvent(USER_JOURNEY_EVENTS.RECOMMENDATION_COST_PERFORMANCE_OPTIMISED_CLICK, {
+              type: RecommendationType.CostOptimized
+            })
             setCPUReqVal(50)
             setMemReqVal(50)
             setMemLimitVal(95)
@@ -98,6 +104,9 @@ const RecommendationTabs: React.FC<RecommendationTabsProps> = ({
           })}
           spacing="xsmall"
           onClick={() => {
+            trackEvent(USER_JOURNEY_EVENTS.RECOMMENDATION_COST_PERFORMANCE_OPTIMISED_CLICK, {
+              type: RecommendationType.PerformanceOptimized
+            })
             setCPUReqVal(95)
             setMemReqVal(95)
             setMemLimitVal(95)

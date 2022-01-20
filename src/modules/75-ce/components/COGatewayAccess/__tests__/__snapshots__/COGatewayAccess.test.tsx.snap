@@ -1240,6 +1240,55 @@ exports[`Testing COGatewayAccess render yaml editor for k8s rule: k8s rule setup
           ce.co.gatewayConfig.k8sroutingDescription
         </p>
         <div
+          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-left-medium StyledProps--padding-right-medium"
+        >
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            ce.co.autoStoppingRule.setupAccess.kubernetesDesc.resourceDefinition
+          </p>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            ce.co.autoStoppingRule.setupAccess.kubernetesDesc.params.description
+          </p>
+          <ul>
+            <li>
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ce.co.autoStoppingRule.setupAccess.kubernetesDesc.params.host
+              </p>
+            </li>
+            <li>
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ce.co.autoStoppingRule.setupAccess.kubernetesDesc.params.name
+              </p>
+            </li>
+            <li>
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ce.co.autoStoppingRule.setupAccess.kubernetesDesc.params.port
+              </p>
+            </li>
+            <li>
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ce.co.autoStoppingRule.setupAccess.kubernetesDesc.params.learnMore
+              </p>
+            </li>
+          </ul>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            ce.co.autoStoppingRule.setupAccess.kubernetesDesc.validate
+          </p>
+        </div>
+        <div
           class="yamlEditorContainer"
         >
           <div />

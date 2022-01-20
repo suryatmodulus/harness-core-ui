@@ -25,6 +25,8 @@ depth: Depth
 advancedOptions: Advanced Options
 pipelineTimeoutSettings: Pipeline Timeout Settings
 pipelineTimeoutHelpText: Enter a timeout for the entire Pipeline. You can change this setting at any time.
+stageExecutionSettings: Stage Execution Settings
+stageExecutionsHelperText: Allow selective stage(s) executions?
 sslVerify: SSL Verify
 noPipelineText: There are no pipelines in your project
 noDeploymentText: There are no deployments in your project
@@ -887,7 +889,8 @@ runAllParallelstages: Run all parallel stages
 runFailedStages: Run only failed stages
 runPipelineForm:
   notifyOnlyMe: Notify only me about execution status
-singleStageExecution: 'SINGLE STAGE EXECUTION:'
+  disallowStageExecution: Not allowed for Individual Stage executions
+singleStageExecution: 'SELECTIVE STAGE EXECUTION:'
 multiStageExecution: 'MULTIPLE STAGES EXECUTION'
 allStages: All Stages
 retryHistory: Retry History

@@ -7,6 +7,7 @@
 
 import { renderHook } from '@testing-library/react-hooks'
 import * as useFeatureFlagMock from '@common/hooks/useFeatureFlag'
+import * as licenseStoreContextMock from 'framework/LicenseStore/LicenseStoreContext'
 import usePlanEnforcement from '../usePlanEnforcement'
 
 describe('usePlanEnforcement', () => {
@@ -29,4 +30,28 @@ describe('usePlanEnforcement', () => {
       expect(result.current.isPlanEnforcementEnabled).toBe(expectedResult)
     }
   )
+
+  test.each([
+    [false, 'COMMUNITY'],
+    [false, 'TEAM'],
+    [false, 'ENTERPRISE']
+  ])('it should return FALSE for isFreePlan if license store returns %p', async (expectedResult, isFreePlan) => {
+    jest
+      .spyOn(licenseStoreContextMock, 'useLicenseStore')
+      .mockReturnValue({ licenseInformation: { CF: { edition: isFreePlan } } } as any)
+
+    const { result } = renderHook(() => usePlanEnforcement())
+
+    expect(result.current.isFreePlan).toBe(expectedResult)
+  })
+
+  test('it should return TRUE for isFreePlan is license store returns true', async () => {
+    jest
+      .spyOn(licenseStoreContextMock, 'useLicenseStore')
+      .mockReturnValue({ licenseInformation: { CF: { edition: 'FREE' } } } as any)
+
+    const { result } = renderHook(() => usePlanEnforcement())
+
+    expect(result.current.isFreePlan).toBe(true)
+  })
 })

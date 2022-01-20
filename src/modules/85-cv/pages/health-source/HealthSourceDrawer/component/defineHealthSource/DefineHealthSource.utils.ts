@@ -13,6 +13,7 @@ import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/Step
 import { GCOProduct } from '@cv/pages/health-source/connectors/GCOLogsMonitoringSource/GoogleCloudOperationsMonitoringSourceUtils'
 import { PrometheusProductNames } from '@cv/pages/health-source/connectors/PrometheusHealthSource/PrometheusHealthSource.constants'
 import { DatadogProduct } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.utils'
+import { ErrorTrackingProductNames } from '@cv/pages/health-source/connectors/ErrorTrackingHealthSource/ErrorTrackingHealthSource.utils'
 import { NewRelicProductNames, ConnectorRefFieldName, SplunkProduct } from './DefineHealthSource.constant'
 import type { DefineHealthSourceFormInterface } from './DefineHealthSource.types'
 
@@ -101,6 +102,13 @@ export const getFeatureOption = (type: string, getString: UseStringsReturn['getS
         {
           label: getString('connectors.customLabel'),
           value: getString('connectors.customLabel')
+        }
+      ]
+    case Connectors.ERROR_TRACKING:
+      return [
+        {
+          value: ErrorTrackingProductNames.LOGS,
+          label: getString('cv.monitoringSources.gco.product.logs')
         }
       ]
     default:

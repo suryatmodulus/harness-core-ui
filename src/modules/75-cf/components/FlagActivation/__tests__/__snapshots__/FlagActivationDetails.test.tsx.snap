@@ -44,7 +44,7 @@ exports[`FlagActivationDetails it should render edit flag modal correctly 1`] = 
               class="bp3-input"
               name="name"
               type="text"
-              value="new flag "
+              value="new flag"
             />
           </div>
         </div>

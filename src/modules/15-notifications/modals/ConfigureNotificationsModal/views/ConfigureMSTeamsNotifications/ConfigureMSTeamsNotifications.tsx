@@ -68,7 +68,7 @@ export const TestMSTeamsNotifications: React.FC<{
       const resp = await testNotificationSetting({
         accountId,
         type: 'MSTEAMS',
-        recipient: testData.msTeamKeys.join(','),
+        recipient: testData.msTeamKeys?.join(','),
         notificationId: 'MSTeams'
       } as MSTeamSettingDTO)
       if (resp.status === 'SUCCESS' && resp.data) {

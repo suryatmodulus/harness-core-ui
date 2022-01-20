@@ -26,7 +26,9 @@ const renderComponent = (props: Partial<CreateFlagButtonProps> = {}): RenderResu
 }
 
 describe('CreateFlagButton', () => {
-  beforeEach(() => jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: true }))
+  beforeEach(() =>
+    jest.spyOn(usePlanEnforcementMock, 'default').mockReturnValue({ isPlanEnforcementEnabled: true, isFreePlan: true })
+  )
 
   test('it should display plan enforcement popup when limits reached', async () => {
     jest

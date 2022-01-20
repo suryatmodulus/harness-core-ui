@@ -18,7 +18,7 @@ import type {
 } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.type'
 import {
   validateFormMappings,
-  getManuallyCreatedQueries,
+  getCustomCreatedMetrics,
   mapDatadogMetricHealthSourceToDatadogMetricSetupSource,
   validate,
   mapSelectedWidgetDataToDatadogMetricInfo,
@@ -56,9 +56,9 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const [selectedMetricId, setSelectedMetricId] = useState<string>()
   const selectedMetricData = metricHealthDetailsData.get(selectedMetricId || '')
-  const initialManualQueries = useMemo(() => {
-    return getManuallyCreatedQueries(data?.selectedMetrics)
-  }, [data?.selectedMetrics])
+  const initialCustomCreatedMetrics = useMemo(() => {
+    return getCustomCreatedMetrics(data?.selectedMetrics || transformedData.metricDefinition)
+  }, [data?.selectedMetrics, transformedData.metricDefinition])
   const { data: activeMetrics } = useGetDatadogActiveMetrics({
     queryParams: {
       projectIdentifier,
@@ -113,8 +113,8 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
     return getSelectedDashboards(data)
   }, [data])
 
-  const handleOnTimeseriesFetch = (): void => {
-    if (selectedMetricData?.query) {
+  const handleOnTimeseriesFetch = (query: string): void => {
+    if (query) {
       timeseriesRefech({
         queryParams: {
           orgIdentifier,
@@ -122,7 +122,7 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
           accountId,
           tracingId: Utils.randomId(),
           connectorIdentifier: data.connectorRef as string,
-          query: selectedMetricData?.query
+          query: query
         }
       })
     }
@@ -131,14 +131,25 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
     if (!activeMetrics?.data) {
       return
     }
-    if (selectedMetricData && selectedMetricData.metricName && !selectedMetricData.metric) {
+    if (
+      selectedMetricData &&
+      selectedMetricData.metricPath &&
+      !selectedMetricData.metric &&
+      !selectedMetricData.isCustomCreatedMetric
+    ) {
       const queryExtractor = DatadogMetricsQueryExtractor(selectedMetricData.query || '', activeMetrics?.data || [])
-      metricHealthDetailsData.set(selectedMetricData.metricName, {
+      metricHealthDetailsData.set(selectedMetricData.metricPath, {
         ...selectedMetricData,
-        metric: queryExtractor.activeMetric
+        metric: queryExtractor.activeMetric,
+        metricTags: queryExtractor.metricTags,
+        groupingTags: queryExtractor.groupingTags,
+        aggregator: queryExtractor.aggregation
       })
     }
   }, [activeMetrics?.data, selectedMetricData, metricHealthDetailsData])
+  const handleOnChangeManualEditQuery = (formikProps: FormikProps<DatadogMetricInfo>, enabled: boolean): void => {
+    formikProps.setFieldValue(DatadogMetricsHealthSourceFieldNames.IS_MANUAL_QUERY, enabled)
+  }
   const handleOnMetricSelected = (
     selectedWidgetMetricData: SelectedWidgetMetricData,
     formikProps: FormikProps<DatadogMetricInfo>
@@ -213,7 +224,6 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
     >
       {formikProps => {
         const shouldShowIdentifierPlaceholder = !selectedMetricData?.identifier && !formikProps.values?.identifier
-
         if (shouldShowIdentifierPlaceholder) {
           formikProps.setFieldValue(
             FieldNames.IDENTIFIER,
@@ -223,16 +233,17 @@ export default function DatadogMetricsHealthSource(props: DatadogMetricsHealthSo
         return (
           <FormikForm>
             <CloudMetricsHealthSource
+              onChangeManualEditQuery={enabled => handleOnChangeManualEditQuery(formikProps, enabled)}
               formikProps={formikProps}
               dashboardDetailRequest={dashboardRequest}
               dashboardDetailMapper={dashboardDetailToMetricWidgetItemMapper}
               dataSourceType={DatasourceTypeEnum.DATADOG_METRICS}
               addManualQueryTitle={'cv.monitoringSources.datadog.manualInputQueryModal.modalTitle'}
-              manualQueries={initialManualQueries}
+              manualQueries={initialCustomCreatedMetrics}
               onNextClicked={() => handleOnNext(formikProps)}
               selectedMetricInfo={{
                 query: formikProps.values.query,
-                queryEditable: false,
+                queryEditable: formikProps.values.isManualQuery,
                 timeseriesData: currentTimeseriesData
               }}
               onFetchTimeseriesData={handleOnTimeseriesFetch}

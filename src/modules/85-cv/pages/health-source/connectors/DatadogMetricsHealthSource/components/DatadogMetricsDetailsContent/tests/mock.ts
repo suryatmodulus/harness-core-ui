@@ -38,7 +38,7 @@ export const MockDatadogMetricsHealthSource = {
   product: { label: DatadogProduct.CLOUD_METRICS, value: DatadogProduct.CLOUD_METRICS }
 }
 
-export const MOCK_QUERY_OUTPUT = 'avg:system.cpu.user{*}.rollup(avg,60)'
+export const MOCK_QUERY_OUTPUT = 'avg:system.cpu.user{version}.rollup(avg, 60)'
 export const MOCK_GROUPING_QUERY_OUTPUT = 'avg:system.cpu.user{*} by {host}.rollup(avg, 60)'
 
 export const MOCK_ACTIVE_METRIC = 'system.cpu.user'
@@ -68,6 +68,6 @@ export const MockDatadogMetricInfo: DatadogMetricInfo = {
   serviceInstanceIdentifierTag: 'host',
   aggregator: MOCK_AGGREGATION,
   sli: false,
-  isManualQuery: false,
+  isCustomCreatedMetric: false,
   continuousVerification: true
 }

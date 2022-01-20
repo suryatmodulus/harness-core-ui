@@ -61,7 +61,8 @@ const entitySubTypeToTagMap: {
   Dynatrace: 'dynatrace',
   AwsSecretManager: 'awssecretmanager',
   PagerDuty: 'pagerduty',
-  CustomHealth: 'customhealth'
+  CustomHealth: 'customhealth',
+  ErrorTracking: 'errortracking'
 }
 
 export const getSnippetTags = (

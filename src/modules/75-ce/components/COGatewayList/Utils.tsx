@@ -6,6 +6,7 @@
  */
 
 import React from 'react'
+import { defaultTo as _defaultTo, isEmpty as _isEmpty } from 'lodash-es'
 import moment from 'moment'
 import { getColorValue } from '@common/components/HeatMap/ColorUtils'
 import {
@@ -13,7 +14,8 @@ import {
   RunningStatusIndicator,
   StoppedStatusIndicator
 } from '@ce/common/InstanceStatusIndicator/InstanceStatusIndicator'
-import type { AllResourcesOfAccountResponse } from 'services/lw'
+import type { AllResourcesOfAccountResponse, Service } from 'services/lw'
+import { GatewayKindType } from '@ce/constants'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
 
@@ -21,13 +23,34 @@ export function getRelativeTime(t: string, format: string): string {
   return moment(t, format).fromNow()
 }
 
-export function getInstancesLink(resources: AllResourcesOfAccountResponse): string {
-  const instanceIDs = resources.response?.map(x => x.id)
-  const region = resources.response?.length ? resources.response[0].region : ''
-  return `https://console.aws.amazon.com/ec2/v2/home?region=${region}#Instances:search=${instanceIDs?.join(
-    ','
-  )};sort=instanceId`
+const getAwsConsoleInstancesLink = (region: string, instances: string) => {
+  return `https://console.aws.amazon.com/ec2/v2/home?region=${region}#Instances:search=${instances};sort=instanceId`
 }
+
+const getAwsConsoleDatabaseLink = (region: string, db: string) => {
+  return `https://console.aws.amazon.com/rds/home?region=${region}#database:id=${db};is-cluster=false`
+}
+
+const getAzureInstancesLink = () =>
+  'https://portal.azure.com/#blade/HubsExtension/BrowseResource/resourceType/Microsoft.Compute%2FVirtualMachines'
+
+export function getInstancesLink(service: Service, resources: AllResourcesOfAccountResponse): string {
+  if (!_isEmpty(resources.response) && resources.response?.[0].provider_type === 'azure') {
+    return getAzureInstancesLink()
+  } else {
+    const region = resources.response?.length ? resources.response[0].region : ''
+    if (service.kind === GatewayKindType.DATABASE) {
+      return getAwsConsoleDatabaseLink(_defaultTo(region, ''), _defaultTo(resources.response?.[0].id, ''))
+    } else {
+      const instanceIDs = _defaultTo(
+        resources.response?.map(x => x.id),
+        []
+      )
+      return getAwsConsoleInstancesLink(_defaultTo(region, ''), instanceIDs?.join(','))
+    }
+  }
+}
+
 const gatewayStateMap: { [key: string]: JSX.Element } = {
   down: <StoppedStatusIndicator />,
   active: <RunningStatusIndicator />,

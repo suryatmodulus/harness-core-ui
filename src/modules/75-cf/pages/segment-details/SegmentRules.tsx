@@ -41,10 +41,8 @@ import {
 } from 'services/cf'
 import { getErrorMessage } from '@cf/utils/CFUtils'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
-import RbacButton from '@rbac/components/Button/Button'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import patch, { getDiff } from '../../utils/instructions'
+import SegmentRulesEditButton from './segment-rules-edit-button/SegmentRulesEditButton'
 import css from './SegmentDetailsPage.module.scss'
 
 const AddTargetAvatar: React.FC<{ onAdd: () => void }> = ({ onAdd }) => (
@@ -222,6 +220,7 @@ const RulesTab: React.FC<RulesTabProps> = ({
   const [operators, isSingleValued] = useOperatorsFromYaml()
 
   const [tempIncluded, setTempIncluded] = useState(included.map(toOption))
+
   const [openIncluded, hideIncluded] = useModalHook(() => {
     const handleTempIncludedChange = (newData: any) => {
       setTempIncluded(newData.map((x: any) => (typeof x === 'string' ? toOption(x) : x)))
@@ -313,8 +312,6 @@ const RulesTab: React.FC<RulesTabProps> = ({
     )
   }, [tempExcluded, availableTargets])
 
-  const { activeEnvironment } = useActiveEnvironment()
-
   const [includedAvatars, excludedAvatars] = [included, excluded].map(x => x.map(toAvatar))
 
   const handleClauseChange =
@@ -351,17 +348,7 @@ const RulesTab: React.FC<RulesTabProps> = ({
   return (
     <Layout.Vertical spacing="medium" padding="large">
       <Layout.Horizontal style={{ alignItems: 'center', justifyContent: 'flex-end' }}>
-        {!editing && (
-          <RbacButton
-            text={getString('cf.featureFlags.rules.editRules')}
-            icon="edit"
-            onClick={onEdit}
-            permission={{
-              resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
-              permission: PermissionIdentifier.EDIT_FF_TARGETGROUP
-            }}
-          />
-        )}
+        {!editing && <SegmentRulesEditButton onEdit={onEdit} />}
       </Layout.Horizontal>
       <Card style={{ width: '100%', padding: 'var(--spacing-medium)' }}>
         <Layout.Vertical spacing="small">

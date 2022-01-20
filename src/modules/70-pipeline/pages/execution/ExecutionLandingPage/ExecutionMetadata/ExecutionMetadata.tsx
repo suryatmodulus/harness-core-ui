@@ -69,14 +69,11 @@ export default function ExecutionMetadata(): React.ReactElement {
 
   const { RUN_INDIVIDUAL_STAGE } = useFeatureFlags()
   const renderSingleStageExecutionInfo = (): React.ReactElement | null => {
-    return RUN_INDIVIDUAL_STAGE &&
-      pipelineExecutionSummary?.stagesExecution &&
-      pipelineExecutionSummary.stagesExecuted?.length === 1 ? (
-      <Tag className={css.singleExecutionTag}>{`${getString('pipeline.singleStageExecution')} ${
-        pipelineExecutionSummary?.stagesExecutedNames?.[pipelineExecutionSummary?.stagesExecuted?.[0]]
+    return RUN_INDIVIDUAL_STAGE && pipelineExecutionSummary?.stagesExecuted?.length ? (
+      <Tag className={css.singleExecutionTag}>{`${getString('pipeline.singleStageExecution')}   ${
+        !!pipelineExecutionSummary.stagesExecutedNames &&
+        Object.values(pipelineExecutionSummary.stagesExecutedNames).join(', ')
       }`}</Tag>
-    ) : pipelineExecutionSummary?.stagesExecution ? (
-      <Tag className={css.singleExecutionTag}>{getString('pipeline.multiStageExecution')}</Tag>
     ) : null
   }
   return (

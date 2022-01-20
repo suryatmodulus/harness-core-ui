@@ -134,10 +134,19 @@ const SideNavItems = () => {
     <Layout.Vertical spacing="small">
       <React.Fragment>
         <SidebarLink label={getString('overview')} to={routes.toCEOverview({ accountId })} />
-        <SidebarLink label={getString('ce.perspectives.sideNavText')} to={routes.toCEPerspectives({ accountId })} />
+        <SidebarLink
+          onClick={() => {
+            trackEvent(USER_JOURNEY_EVENTS.PERSPECTIVE_NAV_CLICK, {})
+          }}
+          label={getString('ce.perspectives.sideNavText')}
+          to={routes.toCEPerspectives({ accountId })}
+        />
         <SidebarLink label={getString('ce.budgets.sideNavText')} to={routes.toCEBudgets({ accountId })} />
 
         <SidebarLink
+          onClick={() => {
+            trackEvent(USER_JOURNEY_EVENTS.RECOMMENDATIONS_NAV_CLICK, {})
+          }}
           label={getString('ce.recommendation.sideNavText')}
           to={routes.toCERecommendations({ accountId })}
         />

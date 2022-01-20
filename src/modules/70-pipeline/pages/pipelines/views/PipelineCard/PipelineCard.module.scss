@@ -17,6 +17,7 @@
   .entityContainer {
     display: flex;
     color: var(--black);
+    font-size: var(--font-size-small);
   }
   .firstEntity {
     max-width: 80px;
@@ -25,7 +26,8 @@
     text-overflow: ellipsis;
   }
   .additionalEntitiesCount {
-    margin-left: 4px;
+    margin-left: var(--spacing-4);
+    color: var(--grey-600);
   }
   :global {
     .bp3-popover-wrapper {

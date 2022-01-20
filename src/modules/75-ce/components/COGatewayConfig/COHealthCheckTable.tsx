@@ -80,6 +80,14 @@ const COHealthCheckTable: React.FC<COHealthCheckTableProps> = props => {
     />
   )
 
+  const getNumericInput: Field['renderer'] = (value, _rowIndex, handleChange) => (
+    <TextInput
+      defaultValue={value}
+      style={{ border: 'none' }}
+      onChange={e => handleChange(Number((e.currentTarget as HTMLInputElement).value))}
+    />
+  )
+
   const fields: Field[] = [
     {
       name: 'protocol',
@@ -101,12 +109,12 @@ const COHealthCheckTable: React.FC<COHealthCheckTableProps> = props => {
     {
       name: 'port',
       label: 'PORT',
-      renderer: getTextInputEl
+      renderer: getNumericInput
     },
     {
       name: 'timeout',
       label: 'TIMEOUT',
-      renderer: getTextInputEl
+      renderer: getNumericInput
     },
     {
       name: 'status',

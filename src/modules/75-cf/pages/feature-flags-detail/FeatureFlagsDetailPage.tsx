@@ -47,7 +47,7 @@ const FeatureFlagsDetailPage: React.FC = () => {
 
   const gitSync = useGitSync()
 
-  if ((loading || gitSync.gitSyncLoading) && !skipLoading) {
+  if (loading && !skipLoading) {
     return (
       <Container
         style={{

@@ -7,7 +7,7 @@
 
 import type { UseGetMockDataWithMutateAndRefetch } from '@common/utils/testUtils'
 import type { ResponsePageInputSetSummaryResponse } from 'services/pipeline-ng'
-import type { InputSetValue } from '../InputSetSelector'
+import type { InputSetValue } from '../utils'
 
 export const mockInputSetsValue: InputSetValue[] = [
   {

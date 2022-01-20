@@ -19,15 +19,13 @@ import { useConfirmAction } from '@common/hooks'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { DetailPageTemplate } from '@cf/components/DetailPageTemplate/DetailPageTemplate'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
-import RbacOptionsMenuButton from '@rbac/components/RbacOptionsMenuButton/RbacOptionsMenuButton'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import TargetManagementToolbar from '@cf/components/TargetManagementToolbar/TargetManagementToolbar'
 import { useGitSync } from '@cf/hooks/useGitSync'
 import UsageLimitBanner from '@cf/components/UsageLimitBanner/UsageLimitBanner'
 import usePlanEnforcement from '@cf/hooks/usePlanEnforcement'
 import { FlagsUseSegment } from './flags-use-segment/FlagsUseSegment'
 import { SegmentSettings } from './segment-settings/SegmentSettings'
+import SegmentDetailsPageOptionsMenu from './segment-details-page-options-menu/SegmentDetailsPageOptionsMenu'
 import css from './SegmentDetailPage.module.scss'
 
 export const fullSizeContentStyle: React.CSSProperties = {
@@ -180,18 +178,9 @@ export const SegmentDetailPage: React.FC = () => {
       headerExtras={
         <>
           <Container style={{ position: 'absolute', top: '15px', right: '25px' }}>
-            <RbacOptionsMenuButton
-              items={[
-                {
-                  icon: 'cross',
-                  text: getString('delete'),
-                  onClick: deleteSegmentConfirm,
-                  permission: {
-                    resource: { resourceType: ResourceType.ENVIRONMENT, resourceIdentifier: activeEnvironment },
-                    permission: PermissionIdentifier.DELETE_FF_TARGETGROUP
-                  }
-                }
-              ]}
+            <SegmentDetailsPageOptionsMenu
+              deleteSegmentConfirm={deleteSegmentConfirm}
+              activeEnvironment={activeEnvironment}
             />
           </Container>
           <Text style={{ position: 'absolute', top: '76px', right: '30px' }}>

@@ -91,7 +91,8 @@ export const Connectors: ConnectorType = {
   AWS_SECRET_MANAGER: 'AwsSecretManager',
   PAGER_DUTY: 'PagerDuty',
   SERVICE_NOW: 'ServiceNow',
-  CUSTOM_HEALTH: 'CustomHealth'
+  CUSTOM_HEALTH: 'CustomHealth',
+  ERROR_TRACKING: 'ErrorTracking'
 }
 
 export const ConnectorInfoText = {

@@ -13,6 +13,8 @@ import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { CEView } from 'services/ce/'
 import { QlceViewFieldIdentifierData, useFetchViewFieldsQuery, QlceViewFilterWrapperInput } from 'services/ce/services'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { USER_JOURNEY_EVENTS } from '@ce/TrackingEventsConstants'
 import PerspectiveBuilderFilters from '../PerspectiveBuilderFilters/PerspectiveBuilderFilters'
 import css from './PerspectiveFilters.module.scss'
 
@@ -23,6 +25,7 @@ interface PerspectiveFiltersProps {
 const PerspectiveFiltersNew: React.FC<PerspectiveFiltersProps> = ({ formikProps }) => {
   const { perspectiveId } = useParams<{ perspectiveId: string }>()
   const { getString } = useStrings()
+  const { trackEvent } = useTelemetry()
 
   const [result] = useFetchViewFieldsQuery({
     variables: {
@@ -107,6 +110,7 @@ const PerspectiveFiltersNew: React.FC<PerspectiveFiltersProps> = ({ formikProps 
                 <div
                   className={css.addFilters}
                   onClick={() => {
+                    trackEvent(USER_JOURNEY_EVENTS.ADD_PERSPECTIVE_RULE, {})
                     arrayHelper.push({
                       viewConditions: [
                         {

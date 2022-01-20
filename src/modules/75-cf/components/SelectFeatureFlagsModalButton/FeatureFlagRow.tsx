@@ -15,13 +15,14 @@ import { useStrings } from 'framework/strings'
 import { ItemContainer } from '../ItemContainer/ItemContainer'
 
 export interface FeatureRowProps {
+  id: string
   feature: Feature
   checked: boolean
   disabled: boolean // Disable selection
   onChecked: (checked: boolean, feature: Feature, variationIdentifier: string) => void
 }
 
-export const FeatureFlagRow: React.FC<FeatureRowProps> = ({ feature, checked, disabled, onChecked }) => {
+export const FeatureFlagRow: React.FC<FeatureRowProps> = ({ feature, checked, disabled, onChecked, id }) => {
   const { getString } = useStrings()
   const [isChecked, setIsChecked] = useState(checked)
   const { showWarning } = useToaster()
@@ -60,6 +61,7 @@ export const FeatureFlagRow: React.FC<FeatureRowProps> = ({ feature, checked, di
     >
       <Container flex style={{ alignItems: 'center', width: '25px', justifyContent: 'center' }}>
         <input
+          data-testid={`${id}_input`}
           type="checkbox"
           checked={isChecked}
           style={{ cursor: disabled ? 'not-allowed' : 'pointer' }}
@@ -76,7 +78,12 @@ export const FeatureFlagRow: React.FC<FeatureRowProps> = ({ feature, checked, di
         padding="none"
       />
       <Container width={175}>
-        <Select items={variationSelectItems} onChange={onSelectChanged} disabled={disabled} />
+        <Select
+          data-testid={`${id}_select`}
+          items={variationSelectItems}
+          onChange={onSelectChanged}
+          disabled={disabled}
+        />
       </Container>
     </ItemContainer>
   )

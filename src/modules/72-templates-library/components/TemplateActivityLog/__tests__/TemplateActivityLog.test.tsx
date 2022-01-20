@@ -8,25 +8,22 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { useMutateAsGet } from '@common/hooks'
 import { mockTemplates } from '@templates-library/TemplatesTestHelper'
-import { mockApiErrorResponse, mockApiFetchingResponse, mockApiSuccessResponse } from './TemplateActivityLogTestHelper'
+import * as infiniteScrollHook from '../InfiniteScroll'
 import { TemplateActivityLog } from '../TemplateActivityLog'
-
-jest.mock('@common/hooks', () => ({
-  ...(jest.requireActual('@common/hooks') as any),
-  useMutateAsGet: jest.fn()
-}))
+import { mockActivityLogs } from './TemplateActivityLogTestHelper'
 
 describe('API ERROR', () => {
-  beforeAll(() => {
-    // eslint-disable-next-line
-    // @ts-ignore
-    useMutateAsGet.mockImplementation(() => {
-      return mockApiErrorResponse
-    })
-  })
   test('if error message is displayed', () => {
+    jest.spyOn(infiniteScrollHook, 'useInfiniteScroll').mockReturnValue({
+      items: [],
+      error: 'someerror',
+      fetching: false,
+      attachRefToLastElement: jest.fn(),
+      hasMore: { current: false },
+      loadItems: jest.fn(),
+      offsetToFetch: { current: 0 }
+    })
     const { queryByText } = render(<TemplateActivityLog template={mockTemplates?.data?.content?.[0] || {}} />)
 
     expect(queryByText('someerror')).toBeTruthy()
@@ -34,33 +31,38 @@ describe('API ERROR', () => {
 })
 
 describe('API FETCHING', () => {
-  beforeAll(() => {
-    // eslint-disable-next-line
-    // @ts-ignore
-    useMutateAsGet.mockImplementation(() => {
-      return mockApiFetchingResponse
-    })
-  })
   test('if loading message is displayed', () => {
+    jest.spyOn(infiniteScrollHook, 'useInfiniteScroll').mockReturnValue({
+      items: [],
+      error: '',
+      fetching: true,
+      attachRefToLastElement: jest.fn(),
+      hasMore: { current: false },
+      loadItems: jest.fn(),
+      offsetToFetch: { current: 0 }
+    })
     const { queryByText } = render(
       <TestWrapper>
         <TemplateActivityLog template={mockTemplates?.data?.content?.[0] || {}} />
       </TestWrapper>
     )
 
-    expect(queryByText('Loading, please wait...')).toBeTruthy()
+    expect(queryByText('templatesLibrary.fetchingActivityLogs')).toBeTruthy()
   })
 })
 
 describe('API SUCCESS', () => {
-  beforeAll(() => {
-    // eslint-disable-next-line
-    // @ts-ignore
-    useMutateAsGet.mockImplementation(() => {
-      return mockApiSuccessResponse
-    })
-  })
   test('if content is displayed', () => {
+    jest.spyOn(infiniteScrollHook, 'useInfiniteScroll').mockReturnValue({
+      items: mockActivityLogs,
+      error: '',
+      fetching: false,
+      attachRefToLastElement: jest.fn(),
+      hasMore: { current: false },
+      loadItems: jest.fn(),
+      offsetToFetch: { current: 0 }
+    })
+
     const { container } = render(
       <TestWrapper>
         <TemplateActivityLog template={mockTemplates?.data?.content?.[0] || {}} />
@@ -68,5 +70,45 @@ describe('API SUCCESS', () => {
     )
 
     expect(container).toMatchSnapshot('response data')
+  })
+
+  test('if content is displayed and next batch is fetching', () => {
+    jest.spyOn(infiniteScrollHook, 'useInfiniteScroll').mockReturnValue({
+      items: mockActivityLogs,
+      error: '',
+      fetching: true,
+      attachRefToLastElement: jest.fn(),
+      hasMore: { current: false },
+      loadItems: jest.fn(),
+      offsetToFetch: { current: 1 }
+    })
+
+    const { queryByText } = render(
+      <TestWrapper>
+        <TemplateActivityLog template={mockTemplates?.data?.content?.[0] || {}} />
+      </TestWrapper>
+    )
+
+    expect(queryByText('templatesLibrary.fetchingActivityLogs')).toBeTruthy()
+  })
+
+  test('if empty content is displayed', () => {
+    jest.spyOn(infiniteScrollHook, 'useInfiniteScroll').mockReturnValue({
+      items: [],
+      error: '',
+      fetching: false,
+      attachRefToLastElement: jest.fn(),
+      hasMore: { current: false },
+      loadItems: jest.fn(),
+      offsetToFetch: { current: 0 }
+    })
+
+    const { queryByText } = render(
+      <TestWrapper>
+        <TemplateActivityLog template={mockTemplates?.data?.content?.[0] || {}} />
+      </TestWrapper>
+    )
+
+    expect(queryByText('templatesLibrary.noActivityLogs')).toBeTruthy()
   })
 })

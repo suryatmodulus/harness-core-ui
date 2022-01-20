@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Harness Inc. All rights reserved.
+ * Copyright 2022 Harness Inc. All rights reserved.
  * Use of this source code is governed by the PolyForm Shield 1.0.0 license
  * that can be found in the licenses directory at the root of this repository, also available at
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
@@ -68,11 +68,11 @@ export interface ApprovalInstanceResponse {
   createdAt?: number
   deadline?: number
   details: ApprovalInstanceDetailsDTO
+  errorMessage?: string
   id?: string
   lastModifiedAt?: number
   status: 'WAITING' | 'APPROVED' | 'REJECTED' | 'FAILED' | 'EXPIRED'
   type: 'HarnessApproval' | 'JiraApproval' | 'ServiceNowApproval'
-  errorMessage?: string
 }
 
 export interface ApproverInput {
@@ -151,6 +151,9 @@ export type AuditFilterProperties = FilterProperties & {
     | 'ADD_COLLABORATOR'
     | 'REMOVE_COLLABORATOR'
     | 'REVOKE_TOKEN'
+    | 'LOGIN'
+    | 'LOGIN2FA'
+    | 'UNSUCCESSFUL_LOGIN'
     | 'ADD_MEMBERSHIP'
     | 'REMOVE_MEMBERSHIP'
   )[]
@@ -454,6 +457,7 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'PagerDuty'
     | 'CustomHealth'
     | 'ServiceNow'
+    | 'ErrorTracking'
   )[]
 }
 
@@ -543,6 +547,7 @@ export interface EntityGitDetails {
   filePath?: string
   objectId?: string
   repoIdentifier?: string
+  repoName?: string
   rootFolder?: string
 }
 
@@ -878,6 +883,7 @@ export interface Error {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -912,6 +918,7 @@ export interface Error {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -1126,7 +1133,7 @@ export interface ExecutionPrincipalInfo {
   parserForType?: ParserExecutionPrincipalInfo
   principal?: string
   principalBytes?: ByteString
-  principalType?: 'UNKNOWN' | 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE' | 'UNRECOGNIZED'
+  principalType?: 'UNKNOWN' | 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE' | 'SERVICE_ACCOUNT' | 'UNRECOGNIZED'
   principalTypeValue?: number
   serializedSize?: number
   shouldValidateRbac?: boolean
@@ -1143,7 +1150,7 @@ export interface ExecutionPrincipalInfoOrBuilder {
   initialized?: boolean
   principal?: string
   principalBytes?: ByteString
-  principalType?: 'UNKNOWN' | 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE' | 'UNRECOGNIZED'
+  principalType?: 'UNKNOWN' | 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE' | 'SERVICE_ACCOUNT' | 'UNRECOGNIZED'
   principalTypeValue?: number
   shouldValidateRbac?: boolean
   unknownFields?: UnknownFieldSet
@@ -1482,6 +1489,7 @@ export interface Failure {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1516,6 +1524,7 @@ export interface Failure {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -3300,7 +3309,28 @@ export interface ResourceDTO {
   labels?: {
     [key: string]: string
   }
-  type: string
+  type:
+    | 'ORGANIZATION'
+    | 'PROJECT'
+    | 'USER_GROUP'
+    | 'SECRET'
+    | 'RESOURCE_GROUP'
+    | 'USER'
+    | 'ROLE'
+    | 'ROLE_ASSIGNMENT'
+    | 'PIPELINE'
+    | 'TRIGGER'
+    | 'TEMPLATE'
+    | 'INPUT_SET'
+    | 'DELEGATE_CONFIGURATION'
+    | 'SERVICE'
+    | 'ENVIRONMENT'
+    | 'DELEGATE'
+    | 'SERVICE_ACCOUNT'
+    | 'CONNECTOR'
+    | 'API_KEY'
+    | 'TOKEN'
+    | 'DELEGATE_TOKEN'
 }
 
 export interface ResourceScopeDTO {
@@ -3807,6 +3837,7 @@ export interface ResponseMessage {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -3841,6 +3872,7 @@ export interface ResponseMessage {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -4059,6 +4091,13 @@ export interface ResponseWebhookEventProcessingDetails {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
+export interface ResponseYamlSchemaResponse {
+  correlationId?: string
+  data?: YamlSchemaResponse
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface RestResponse {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -4232,6 +4271,10 @@ export type ScheduledTriggerConfig = NGTriggerSpecV2 & {
 
 export interface ScheduledTriggerSpec {
   [key: string]: any
+}
+
+export interface SchemaErrorResponse {
+  message?: string
 }
 
 export interface ServiceDescriptor {
@@ -4409,6 +4452,8 @@ export interface StepData {
     | 'TERRAFORM_DESTROY'
     | 'TERRAFORM_ROLLBACK'
     | 'INTEGRATED_APPROVALS_WITH_SERVICE_NOW'
+    | 'DEVELOPERS'
+    | 'MONTHLY_ACTIVE_USERS'
   name?: string
   type?: string
 }
@@ -4923,6 +4968,11 @@ export interface YamlProperties {
   parserForType?: ParserYamlProperties
   serializedSize?: number
   unknownFields?: UnknownFieldSet
+}
+
+export interface YamlSchemaResponse {
+  schema?: JsonNode
+  schemaErrorResponse?: SchemaErrorResponse
 }
 
 export interface ExecutionSummaryInfo {
@@ -7055,44 +7105,6 @@ export const getPreflightCheckResponsePromise = (
   getUsingFetch<ResponsePreFlightDTO, Failure | Error, GetPreflightCheckResponseQueryParams, void>(
     getConfig('pipeline/api'),
     `/pipeline/execute/getPreflightCheckResponse`,
-    props,
-    signal
-  )
-
-export type RunSchemaOnDbProps = Omit<GetProps<ResponseString, Failure | Error, void, void>, 'path'>
-
-/**
- * Run a schema on db.
- */
-export const RunSchemaOnDb = (props: RunSchemaOnDbProps) => (
-  <Get<ResponseString, Failure | Error, void, void>
-    path={`/pipeline/execute/internal/runSchema`}
-    base={getConfig('pipeline/api')}
-    {...props}
-  />
-)
-
-export type UseRunSchemaOnDbProps = Omit<UseGetProps<ResponseString, Failure | Error, void, void>, 'path'>
-
-/**
- * Run a schema on db.
- */
-export const useRunSchemaOnDb = (props: UseRunSchemaOnDbProps) =>
-  useGet<ResponseString, Failure | Error, void, void>(`/pipeline/execute/internal/runSchema`, {
-    base: getConfig('pipeline/api'),
-    ...props
-  })
-
-/**
- * Run a schema on db.
- */
-export const runSchemaOnDbPromise = (
-  props: GetUsingFetchProps<ResponseString, Failure | Error, void, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseString, Failure | Error, void, void>(
-    getConfig('pipeline/api'),
-    `/pipeline/execute/internal/runSchema`,
     props,
     signal
   )
@@ -11529,6 +11541,10 @@ export interface GetSchemaYamlQueryParams {
     | 'PipelineSteps'
     | 'Http'
     | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
+    | 'HarnessApproval'
+    | 'Barrier'
     | 'ShellScript'
     | 'K8sCanaryDeploy'
     | 'Connectors'
@@ -11600,6 +11616,92 @@ export const getSchemaYamlPromise = (
   getUsingFetch<ResponseJsonNode, Failure | Error, GetSchemaYamlQueryParams, void>(
     getConfig('pipeline/api'),
     `/yaml-schema`,
+    props,
+    signal
+  )
+
+export interface GetStepYamlSchemaQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  yamlGroup?: string
+  entityType?:
+    | 'Projects'
+    | 'Pipelines'
+    | 'PipelineSteps'
+    | 'Http'
+    | 'JiraCreate'
+    | 'JiraUpdate'
+    | 'JiraApproval'
+    | 'HarnessApproval'
+    | 'Barrier'
+    | 'ShellScript'
+    | 'K8sCanaryDeploy'
+    | 'Connectors'
+    | 'Secrets'
+    | 'Service'
+    | 'Environment'
+    | 'InputSets'
+    | 'CvConfig'
+    | 'Delegates'
+    | 'DelegateConfigurations'
+    | 'CvVerificationJob'
+    | 'IntegrationStage'
+    | 'IntegrationSteps'
+    | 'CvKubernetesActivitySource'
+    | 'DeploymentSteps'
+    | 'DeploymentStage'
+    | 'ApprovalStage'
+    | 'FeatureFlagStage'
+    | 'Template'
+    | 'Triggers'
+    | 'MonitoredService'
+    | 'GitRepositories'
+    | 'FeatureFlags'
+    | 'ServiceNowApproval'
+  scope?: 'account' | 'org' | 'project' | 'unknown'
+}
+
+export type GetStepYamlSchemaProps = Omit<
+  GetProps<ResponseYamlSchemaResponse, Failure | Error, GetStepYamlSchemaQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get step YAML schema
+ */
+export const GetStepYamlSchema = (props: GetStepYamlSchemaProps) => (
+  <Get<ResponseYamlSchemaResponse, Failure | Error, GetStepYamlSchemaQueryParams, void>
+    path={`/yaml-schema/get`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetStepYamlSchemaProps = Omit<
+  UseGetProps<ResponseYamlSchemaResponse, Failure | Error, GetStepYamlSchemaQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get step YAML schema
+ */
+export const useGetStepYamlSchema = (props: UseGetStepYamlSchemaProps) =>
+  useGet<ResponseYamlSchemaResponse, Failure | Error, GetStepYamlSchemaQueryParams, void>(`/yaml-schema/get`, {
+    base: getConfig('pipeline/api'),
+    ...props
+  })
+
+/**
+ * Get step YAML schema
+ */
+export const getStepYamlSchemaPromise = (
+  props: GetUsingFetchProps<ResponseYamlSchemaResponse, Failure | Error, GetStepYamlSchemaQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseYamlSchemaResponse, Failure | Error, GetStepYamlSchemaQueryParams, void>(
+    getConfig('pipeline/api'),
+    `/yaml-schema/get`,
     props,
     signal
   )

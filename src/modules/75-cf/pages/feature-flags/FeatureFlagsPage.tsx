@@ -91,7 +91,6 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({
 
   const [status, setStatus] = useState(isFeatureFlagOn(data))
   const { getString } = useStrings()
-
   const { showError } = useToaster()
   const [flagNameTextSize, setFlagNameTextSize] = useState(300)
   const ref = useRef<HTMLDivElement>(null)

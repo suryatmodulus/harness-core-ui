@@ -74,6 +74,8 @@ import { FeatureIdentifier } from 'framework/featureStore/FeatureIdentifier'
 import FeatureWarningSubscriptionInfoBanner from '@common/components/FeatureWarning/FeatureWarningSubscriptionInfoBanner'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { FeatureFlag } from '@common/featureFlags'
+import { useTelemetry } from '@common/hooks/useTelemetry'
+import { PAGE_EVENTS } from '@ce/TrackingEventsConstants'
 import css from './PerspectiveDetailsPage.module.scss'
 
 const PAGE_SIZE = 10
@@ -191,6 +193,8 @@ const PerspectiveDetailsPage: React.FC = () => {
   const { perspectiveId, accountId } = useParams<PerspectiveParams>()
   const { getString } = useStrings()
 
+  const { trackPage } = useTelemetry()
+
   const { limitData, usageData } = useGetUsageAndLimit(ModuleName.CE)
 
   const { data: perspectiveRes, loading } = useGetPerspective({
@@ -218,6 +222,10 @@ const PerspectiveDetailsPage: React.FC = () => {
     to: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[1].format(CE_DATE_FORMAT_INTERNAL),
     from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].format(CE_DATE_FORMAT_INTERNAL)
   })
+
+  useEffect(() => {
+    trackPage(PAGE_EVENTS.PERSPECTIVE_DETAILS_PAGE, {})
+  }, [])
 
   useEffect(() => {
     if (perspectiveData) {

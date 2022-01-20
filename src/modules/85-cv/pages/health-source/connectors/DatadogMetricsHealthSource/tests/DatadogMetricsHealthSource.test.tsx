@@ -57,7 +57,10 @@ jest.mock(
           className="selectMetricContainer"
           onClick={() => props.onWidgetMetricSelected(mockWidgetSelectedData)}
         />
-        <Container className="timeseriesDataContainer" onClick={() => props.onFetchTimeseriesData()} />
+        <Container
+          className="timeseriesDataContainer"
+          onClick={() => props.onFetchTimeseriesData(mockWidgetSelectedData.query)}
+        />
         <Container>{props.selectedMetricInfo?.query}</Container>
         <Container>{props.timeseriesDataError}</Container>
       </>

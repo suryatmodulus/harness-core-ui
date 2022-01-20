@@ -44,9 +44,11 @@ export function transformControlAndTestDataToHighChartsSeries(
         data: controlData[index] || [],
         color: 'var(--grey-200)',
         name: testData[index].name,
+        connectNulls: true,
         marker: {
-          enabled: controlData[index]?.length === 1,
+          enabled: true,
           lineWidth: 1,
+          symbol: 'circle',
           fillColor: 'var(--white)',
           lineColor: 'var(--grey-200)'
         }
@@ -56,9 +58,11 @@ export function transformControlAndTestDataToHighChartsSeries(
         data: testData[index].points || [],
         color: testDataLineColor,
         name: testData[index].name,
+        connectNulls: true,
         marker: {
-          enabled: testData[index]?.points?.length === 1,
+          enabled: true,
           lineWidth: 1,
+          symbol: 'circle',
           fillColor: 'var(--white)',
           lineColor: testDataLineColor
         }

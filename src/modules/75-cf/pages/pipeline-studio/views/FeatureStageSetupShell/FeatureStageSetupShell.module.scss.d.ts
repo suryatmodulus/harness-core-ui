@@ -1,18 +1,17 @@
-/*
+/* eslint-disable */
+/**
  * Copyright 2021 Harness Inc. All rights reserved.
  * Use of this source code is governed by the PolyForm Shield 1.0.0 license
  * that can be found in the licenses directory at the root of this repository, also available at
  * https://polyformproject.org/wp-content/uploads/2020/06/PolyForm-Shield-1.0.0.txt.
- */
-
-/* eslint-disable */
-// this is an auto-generated file
+ **/
+// this is an auto-generated file, do not update this manually
 declare const styles: {
-  readonly setupShell: string
-  readonly tabsFullHeight: string
-  readonly fullHeight: string
-  readonly tabExecution: string
-  readonly tab: string
   readonly footer: string
+  readonly fullHeight: string
+  readonly setupShell: string
+  readonly tab: string
+  readonly tabExecution: string
+  readonly tabsFullHeight: string
 }
 export default styles

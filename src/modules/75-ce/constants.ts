@@ -101,7 +101,7 @@ export const CONFIG_STEP_IDS = ['configStep1', 'configStep2', 'configStep3', 'co
 
 export const CONFIG_IDLE_TIME_CONSTRAINTS = {
   MIN: 5,
-  MAX: 480
+  MAX: 600
 }
 
 export enum RESOURCES {

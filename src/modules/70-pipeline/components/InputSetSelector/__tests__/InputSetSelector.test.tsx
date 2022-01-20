@@ -9,7 +9,7 @@ import React from 'react'
 import { render, act, fireEvent, waitFor } from '@testing-library/react'
 import { InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/pipeline-ng'
 import { TestWrapper } from '@common/utils/testUtils'
-import { InputSetSelector, InputSetSelectorProps, InputSetValue } from '../InputSetSelector'
+import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector'
 import {
   mockInputSetsList,
   mockInputSetsListEmpty,
@@ -17,6 +17,7 @@ import {
   mockInputSetsListWithGitDetails,
   mockInputSetsValue
 } from './mocks'
+import type { InputSetValue } from '../utils'
 
 const commonProps: InputSetSelectorProps = {
   pipelineIdentifier: 'pipId'

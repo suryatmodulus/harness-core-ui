@@ -12,6 +12,7 @@ import type {
   DatadogMetricInfo
 } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.type'
 import type { StringKeys, UseStringsReturn } from 'framework/strings'
+import { QUERY_CONTAINS_VALIDATION_PARAM } from '@cv/pages/health-source/connectors/DatadogMetricsHealthSource/DatadogMetricsHealthSource.constants'
 
 const datadogAggregations: DatadogAggregationType[] = ['avg', 'max', 'min', 'sum']
 export const datadogAggregationOptions: DatadogAggregation[] = [
@@ -39,12 +40,51 @@ export const DatadogMetricsQueryExtractor = (
 ): {
   aggregation?: DatadogAggregationType
   activeMetric?: string
+  metricTags: SelectOption[]
+  groupingTags: string[]
 } => {
-  const activeMetric = activeMetricValues.find(metric => query.includes(metric))
   const aggregation = aggregations.find(aggregationItem => query.startsWith(aggregationItem))
+  let activeMetric = activeMetricValues.find(metric => query.includes(metric))
+  if (!activeMetric) {
+    if (aggregation) {
+      activeMetric = query.substring(query.indexOf(':') + 1, query.indexOf('{'))
+    } else {
+      if (query.indexOf('(') < query.indexOf('{')) {
+        // this indicates that query contains function which starts with (
+        activeMetric = query.substring(query.indexOf('(') + 1, query.indexOf('{'))
+      } else {
+        // there is no function and there is no aggregation, so metric starts from 0
+        activeMetric = query.substring(0, query.indexOf('{'))
+      }
+    }
+  }
+  // extracting metricTags from query
+  let metricTags: SelectOption[] = []
+  const tagsString = query.substring(query.indexOf('{') + 1, query.indexOf('}'))
+  if (tagsString !== '*') {
+    metricTags = (tagsString.includes(',') ? tagsString.split(',') : [tagsString]).map(tag => {
+      return {
+        label: tag,
+        value: tag
+      }
+    })
+  }
+  // extracting grouping tags from query
+  let groupingTags: string[] = []
+  const hostGroupingSearchString = 'by {'
+  const hostGroupingIndex = query.indexOf(hostGroupingSearchString)
+  if (hostGroupingIndex !== -1) {
+    const groupingTagsString = query.substring(
+      hostGroupingIndex + hostGroupingSearchString.length,
+      query.indexOf('}', hostGroupingIndex + hostGroupingSearchString.length)
+    )
+    groupingTags = groupingTagsString.includes(',') ? groupingTagsString.split(',') : [groupingTagsString]
+  }
   return {
     aggregation,
-    activeMetric
+    activeMetric,
+    metricTags,
+    groupingTags
   }
 }
 
@@ -52,6 +92,7 @@ export const DatadogMetricsQueryBuilder = (
   activeMetric: string,
   aggregation?: DatadogAggregationType,
   tags: string[] = [],
+  groupingTags: string[] = [],
   serviceInstanceIdentifier?: string
 ): {
   query?: string
@@ -59,7 +100,7 @@ export const DatadogMetricsQueryBuilder = (
 } => {
   if (activeMetric?.length === 0) {
     return {
-      query: undefined
+      query: ''
     }
   }
   let query: string
@@ -81,11 +122,22 @@ export const DatadogMetricsQueryBuilder = (
     query = `${query}{*}`
   }
 
-  let groupedQuery = query
-  if (serviceInstanceIdentifier) {
-    groupedQuery = `${query} by {${serviceInstanceIdentifier}}.rollup(avg, 60)`
+  if (groupingTags.length > 0) {
+    const groupsQueryPart = groupingTags.reduce((prev, next) => {
+      return `${prev},${next}`
+    })
+    query = `${query} by {${groupsQueryPart}}`
   }
-  query = `${query}.rollup(avg,60)`
+
+  let groupedQuery = query
+  // if there is serviceInstanceIdentifier selected and existing datadog query doesn't have grouping,
+  // we should create groupedQuery to use it for CV
+  if (serviceInstanceIdentifier && !groupingTags.length) {
+    groupedQuery = `${query} by {${serviceInstanceIdentifier}}${QUERY_CONTAINS_VALIDATION_PARAM}`
+  } else {
+    groupedQuery = `${groupedQuery}${QUERY_CONTAINS_VALIDATION_PARAM}`
+  }
+  query = `${query}${QUERY_CONTAINS_VALIDATION_PARAM}`
 
   return {
     query,
@@ -94,10 +146,13 @@ export const DatadogMetricsQueryBuilder = (
 }
 
 export function mapMetricTagsHostIdentifierKeysOptions(metricTags: string[]): SelectOption[] {
-  return Array.from(new Set(metricTags.concat('host')))
-    .map(metricTag => {
-      return metricTag.split(':')?.[0]
-    })
+  return Array.from(
+    new Set(
+      metricTags.concat('host').map(metricTag => {
+        return metricTag.split(':')?.[0]
+      })
+    )
+  )
     .filter(tagKey => !!tagKey)
     .map(tagKey => {
       return {

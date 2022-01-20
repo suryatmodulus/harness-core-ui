@@ -32,6 +32,7 @@ export const mockCloudMetricHealthSourceProps = (
   return {
     formikProps: {
       values: {
+        query: 'test_query',
         sli: true,
         healthScore: false,
         continuousVerification: false

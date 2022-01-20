@@ -85,7 +85,7 @@ describe('DatadogMetricsDetailsContent unit tests', () => {
     expect(container.querySelector('input[name="serviceInstanceIdentifierTag"]')).toHaveValue('host')
   })
   test('Ensure that fields are enabled when manual query provided', async () => {
-    const mockDatadogMetricInfo: DatadogMetricInfo = { ...MockDatadogMetricInfo, isManualQuery: true }
+    const mockDatadogMetricInfo: DatadogMetricInfo = { ...MockDatadogMetricInfo, isCustomCreatedMetric: true }
     const mockFormikProps: any = {
       initialValues: {
         ...mockDatadogMetricInfo
@@ -105,7 +105,7 @@ describe('DatadogMetricsDetailsContent unit tests', () => {
   })
 
   test('should validate that NameId is rendered', async () => {
-    const mockDatadogMetricInfo: DatadogMetricInfo = { ...MockDatadogMetricInfo, isManualQuery: true }
+    const mockDatadogMetricInfo: DatadogMetricInfo = { ...MockDatadogMetricInfo, isCustomCreatedMetric: true }
     const mockFormikProps: any = {
       initialValues: {
         ...mockDatadogMetricInfo

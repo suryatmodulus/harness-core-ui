@@ -64,7 +64,7 @@ export function useStageTemplateActions(): TemplateActionsReturnType {
   const onOpenTemplateSelector = useCallback(() => {
     openTemplateSelector({
       templateType: 'Stage',
-      childTypes: [getStageType(stage?.stage, templateTypes)],
+      selectedChildType: getStageType(stage?.stage, templateTypes),
       selectedTemplateRef: getIdentifierFromValue(defaultTo(stage?.stage?.template?.templateRef, '')),
       onUseTemplate
     })

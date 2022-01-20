@@ -103,7 +103,8 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
 
 export interface SelectorData {
   templateType: TemplateType
-  childTypes?: string[]
+  selectedChildType?: string
+  allChildTypes?: string[]
   selectedTemplateRef?: string
   onUseTemplate?: (template: TemplateSummaryResponse, isCopied?: boolean) => void
 }

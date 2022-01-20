@@ -8,6 +8,8 @@
 import produce from 'immer'
 import { cloneDeep, defaultTo, isNil, set } from 'lodash-es'
 import { parse } from 'yaml'
+import React from 'react'
+import { useParams } from 'react-router-dom'
 import type {
   ExecutionGraphAddStepEvent,
   ExecutionGraphRefObj
@@ -19,10 +21,14 @@ import {
   addStepOrGroup,
   generateRandomString
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
-import type { TemplateStepNode } from 'services/pipeline-ng'
+import type { StepCategory, TemplateStepNode } from 'services/pipeline-ng'
 import { getScopeBasedTemplateRef } from '@pipeline/utils/templateUtils'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { useMutateAsGet } from '@common/hooks'
+import { useGetStepsV2 } from 'services/pipeline-ng'
+import { getStepPaletteModuleInfosFromStage } from '@pipeline/utils/stepUtils'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 interface AddStepTemplateReturnType {
   addTemplate: (event: ExecutionGraphAddStepEvent) => void
@@ -34,6 +40,7 @@ interface AddStepTemplate {
 
 export function useAddStepTemplate(props: AddStepTemplate): AddStepTemplateReturnType {
   const { executionRef } = props
+  const { accountId } = useParams<ProjectPathProps>()
   const pipelineContext = usePipelineContext()
   const {
     state: {
@@ -47,6 +54,37 @@ export function useAddStepTemplate(props: AddStepTemplate): AddStepTemplateRetur
     updateTemplateView,
     setTemplateTypes
   } = pipelineContext
+  const { stage: selectedStage } = getStageFromPipeline(defaultTo(selectedStageId, ''))
+  const [allChildTypes, setAllChildTypes] = React.useState<string[]>([])
+
+  const { data: stepsData } = useMutateAsGet(useGetStepsV2, {
+    queryParams: { accountId },
+    body: {
+      stepPalleteModuleInfos: getStepPaletteModuleInfosFromStage(selectedStage?.stage?.type, selectedStage?.stage)
+    }
+  })
+
+  const getStepTypesFromCategories = (stepCategories: StepCategory[]): string[] => {
+    const validStepTypes: string[] = []
+    stepCategories.forEach(category => {
+      if (category.stepCategories?.length) {
+        validStepTypes.push(...getStepTypesFromCategories(category.stepCategories))
+      } else if (category.stepsData?.length) {
+        category.stepsData.forEach(stepData => {
+          if (stepData.type) {
+            validStepTypes.push(stepData.type)
+          }
+        })
+      }
+    })
+    return validStepTypes
+  }
+
+  React.useEffect(() => {
+    if (stepsData?.data?.stepCategories) {
+      setAllChildTypes(getStepTypesFromCategories(stepsData.data.stepCategories))
+    }
+  }, [stepsData?.data?.stepCategories])
 
   const addTemplate = (event: ExecutionGraphAddStepEvent) => {
     updateTemplateView({
@@ -56,6 +94,7 @@ export function useAddStepTemplate(props: AddStepTemplate): AddStepTemplateRetur
         data: {
           selectorData: {
             templateType: 'Step',
+            allChildTypes,
             onUseTemplate: async (template: TemplateSummaryResponse, isCopied = false) => {
               const processNode = (isCopied
                 ? produce(defaultTo(parse(template?.yaml || '').template.spec, {}) as StepElementConfig, draft => {

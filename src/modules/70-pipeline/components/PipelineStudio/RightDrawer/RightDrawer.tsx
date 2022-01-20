@@ -547,7 +547,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       get(templateTypes, getIdentifierFromValue((data?.stepConfig?.node as TemplateStepNode).template.templateRef))
     openTemplateSelector({
       templateType: 'Step',
-      childTypes: [stepType],
+      selectedChildType: stepType,
       selectedTemplateRef: getIdentifierFromValue(
         defaultTo((data?.stepConfig?.node as TemplateStepNode)?.template?.templateRef, '')
       ),

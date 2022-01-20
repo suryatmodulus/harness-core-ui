@@ -62,7 +62,7 @@ export const mockActivityLogs: AuditEventDTO[] = [
       // eslint-disable-next-line
       // @ts-ignore
       comments: 'someauditactivity',
-      type: ''
+      type: 'USER_INVITE'
     },
     module: 'TEMPLATESERVICE',
     resource: {

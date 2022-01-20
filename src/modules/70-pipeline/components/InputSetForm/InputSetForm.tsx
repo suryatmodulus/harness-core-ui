@@ -25,7 +25,7 @@ import {
 } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { parse } from 'yaml'
-import type { FormikErrors } from 'formik'
+import type { FormikErrors, FormikProps } from 'formik'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import {
   useGetTemplateFromPipeline,
@@ -294,6 +294,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
 
   const [disableVisualView, setDisableVisualView] = React.useState(inputSet.entityValidityDetails?.valid === false)
 
+  const formikRef = React.useRef<FormikProps<InputSetDTO & GitContextProps>>()
+
   React.useEffect(() => {
     if (inputSet.entityValidityDetails?.valid === false || selectedView === SelectedView.YAML) {
       setSelectedView(SelectedView.YAML)
@@ -347,6 +349,12 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           inputSet.identifier = inputSetYamlVisual.identifier
           inputSet.description = inputSetYamlVisual.description
           inputSet.pipeline = inputSetYamlVisual.pipeline
+
+          formikRef.current?.setValues({
+            ...omit(inputSet, 'gitDetails', 'entityValidityDetails'),
+            repo: defaultTo(repoIdentifier, ''),
+            branch: defaultTo(branch, '')
+          })
         }
       }
       setSelectedView(view)
@@ -467,8 +475,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         <Formik<InputSetDTO & GitContextProps>
           initialValues={{
             ...omit(inputSet, 'gitDetails', 'entityValidityDetails'),
-            repo: repoIdentifier || '',
-            branch: branch || ''
+            repo: defaultTo(repoIdentifier, ''),
+            branch: defaultTo(branch, '')
           }}
           enableReinitialize={true}
           formName="inputSetForm"
@@ -505,6 +513,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           }}
         >
           {formikProps => {
+            formikRef.current = formikProps
             return (
               <>
                 {selectedView === SelectedView.VISUAL ? (

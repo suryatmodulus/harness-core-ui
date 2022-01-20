@@ -273,6 +273,7 @@ export interface AccessControlCheckError {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -307,6 +308,7 @@ export interface AccessControlCheckError {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   failedPermissionChecks?: PermissionCheck[]
@@ -339,6 +341,9 @@ export interface AuditEventDTO {
     | 'ADD_COLLABORATOR'
     | 'REMOVE_COLLABORATOR'
     | 'REVOKE_TOKEN'
+    | 'LOGIN'
+    | 'LOGIN2FA'
+    | 'UNSUCCESSFUL_LOGIN'
     | 'ADD_MEMBERSHIP'
     | 'REMOVE_MEMBERSHIP'
   auditEventData?: AuditEventData
@@ -359,7 +364,12 @@ export interface AuditEventDTO {
 }
 
 export interface AuditEventData {
-  type: string
+  type:
+    | 'UserInvitationAuditEventData'
+    | 'AddCollaboratorAuditEventData'
+    | 'TemplateAuditEventData'
+    | 'USER_INVITE'
+    | 'USER_MEMBERSHIP'
 }
 
 export interface AuditFilterProperties {
@@ -375,6 +385,9 @@ export interface AuditFilterProperties {
     | 'ADD_COLLABORATOR'
     | 'REMOVE_COLLABORATOR'
     | 'REVOKE_TOKEN'
+    | 'LOGIN'
+    | 'LOGIN2FA'
+    | 'UNSUCCESSFUL_LOGIN'
     | 'ADD_MEMBERSHIP'
     | 'REMOVE_MEMBERSHIP'
   )[]
@@ -411,6 +424,7 @@ export interface AuthenticationInfoDTO {
 }
 
 export type DynamicResourceSelector = ResourceSelector & {
+  includeChildScopes?: boolean
   resourceType: string
 }
 
@@ -685,6 +699,7 @@ export interface Error {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -719,6 +734,7 @@ export interface Error {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   correlationId?: string
   detailedMessage?: string
   message?: string
@@ -992,6 +1008,7 @@ export interface Failure {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1026,6 +1043,7 @@ export interface Failure {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   correlationId?: string
   errors?: ValidationError[]
   message?: string
@@ -1232,6 +1250,11 @@ export interface ResourceScopeDTO {
 
 export interface ResourceSelector {
   [key: string]: any
+}
+
+export type ResourceSelectorByScope = ResourceSelector & {
+  includeChildScopes?: boolean
+  scope?: Scope
 }
 
 export interface ResourceSelectorFilter {
@@ -1544,6 +1567,7 @@ export interface ResponseMessage {
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
     | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'SECRET_MANAGER_ID_NOT_FOUND'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1578,6 +1602,7 @@ export interface ResponseMessage {
     | 'BUCKET_SERVER_ERROR'
     | 'GIT_SYNC_ERROR'
     | 'TEMPLATE_EXCEPTION'
+    | 'ENTITY_REFERENCE_EXCEPTION'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -1770,7 +1795,7 @@ export type FilterDTORequestBody = FilterDTO
 
 export type ResourceGroupRequestRequestBody = ResourceGroupRequest
 
-export type PutTemplateRequestBody = void
+export type InsertOrUpdateTemplateRequestBody = void
 
 export interface PutAuditSettingsQueryParams {
   accountIdentifier: string
@@ -1878,23 +1903,23 @@ export const getYamlDiffPromise = (
     signal
   )
 
-export interface GetAuditListQueryParams {
+export interface GetAuditEventListQueryParams {
   accountIdentifier: string
   pageIndex?: number
   pageSize?: number
   sortOrders?: string[]
 }
 
-export type GetAuditListProps = Omit<
-  MutateProps<ResponsePageAuditEventDTO, Failure | Error, GetAuditListQueryParams, AuditFilterProperties, void>,
+export type GetAuditEventListProps = Omit<
+  MutateProps<ResponsePageAuditEventDTO, Failure | Error, GetAuditEventListQueryParams, AuditFilterProperties, void>,
   'path' | 'verb'
 >
 
 /**
- * Get Audit list
+ * Get Audit Event list
  */
-export const GetAuditList = (props: GetAuditListProps) => (
-  <Mutate<ResponsePageAuditEventDTO, Failure | Error, GetAuditListQueryParams, AuditFilterProperties, void>
+export const GetAuditEventList = (props: GetAuditEventListProps) => (
+  <Mutate<ResponsePageAuditEventDTO, Failure | Error, GetAuditEventListQueryParams, AuditFilterProperties, void>
     verb="POST"
     path={`/audits/list`}
     base={getConfig('audit/api')}
@@ -1902,41 +1927,41 @@ export const GetAuditList = (props: GetAuditListProps) => (
   />
 )
 
-export type UseGetAuditListProps = Omit<
-  UseMutateProps<ResponsePageAuditEventDTO, Failure | Error, GetAuditListQueryParams, AuditFilterProperties, void>,
+export type UseGetAuditEventListProps = Omit<
+  UseMutateProps<ResponsePageAuditEventDTO, Failure | Error, GetAuditEventListQueryParams, AuditFilterProperties, void>,
   'path' | 'verb'
 >
 
 /**
- * Get Audit list
+ * Get Audit Event list
  */
-export const useGetAuditList = (props: UseGetAuditListProps) =>
-  useMutate<ResponsePageAuditEventDTO, Failure | Error, GetAuditListQueryParams, AuditFilterProperties, void>(
+export const useGetAuditEventList = (props: UseGetAuditEventListProps) =>
+  useMutate<ResponsePageAuditEventDTO, Failure | Error, GetAuditEventListQueryParams, AuditFilterProperties, void>(
     'POST',
     `/audits/list`,
     { base: getConfig('audit/api'), ...props }
   )
 
 /**
- * Get Audit list
+ * Get Audit Event list
  */
-export const getAuditListPromise = (
+export const getAuditEventListPromise = (
   props: MutateUsingFetchProps<
     ResponsePageAuditEventDTO,
     Failure | Error,
-    GetAuditListQueryParams,
+    GetAuditEventListQueryParams,
     AuditFilterProperties,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponsePageAuditEventDTO, Failure | Error, GetAuditListQueryParams, AuditFilterProperties, void>(
-    'POST',
-    getConfig('audit/api'),
-    `/audits/list`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponsePageAuditEventDTO,
+    Failure | Error,
+    GetAuditEventListQueryParams,
+    AuditFilterProperties,
+    void
+  >('POST', getConfig('audit/api'), `/audits/list`, props, signal)
 
 export type TestNotificationSettingProps = Omit<
   MutateProps<ResponseBoolean, Failure | Error, void, NotificationSettingDTO, void>,
@@ -2702,7 +2727,7 @@ export type GetResourceGroupProps = Omit<
   GetResourceGroupPathParams
 
 /**
- * Get a resource group by identifier
+ * Get a resource group by Identifier
  */
 export const GetResourceGroup = ({ identifier, ...props }: GetResourceGroupProps) => (
   <Get<
@@ -2729,7 +2754,7 @@ export type UseGetResourceGroupProps = Omit<
   GetResourceGroupPathParams
 
 /**
- * Get a resource group by identifier
+ * Get a resource group by Identifier
  */
 export const useGetResourceGroup = ({ identifier, ...props }: UseGetResourceGroupProps) =>
   useGet<
@@ -2744,7 +2769,7 @@ export const useGetResourceGroup = ({ identifier, ...props }: UseGetResourceGrou
   })
 
 /**
- * Get a resource group by identifier
+ * Get a resource group by Identifier
  */
 export const getResourceGroupPromise = (
   {
@@ -3139,7 +3164,13 @@ export interface InsertOrUpdateTemplateQueryParams {
 }
 
 export type InsertOrUpdateTemplateProps = Omit<
-  MutateProps<ResponseTemplateDTO, Failure | Error, InsertOrUpdateTemplateQueryParams, PutTemplateRequestBody, void>,
+  MutateProps<
+    ResponseTemplateDTO,
+    Failure | Error,
+    InsertOrUpdateTemplateQueryParams,
+    InsertOrUpdateTemplateRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -3147,7 +3178,13 @@ export type InsertOrUpdateTemplateProps = Omit<
  * Update a template if exists else create
  */
 export const InsertOrUpdateTemplate = (props: InsertOrUpdateTemplateProps) => (
-  <Mutate<ResponseTemplateDTO, Failure | Error, InsertOrUpdateTemplateQueryParams, PutTemplateRequestBody, void>
+  <Mutate<
+    ResponseTemplateDTO,
+    Failure | Error,
+    InsertOrUpdateTemplateQueryParams,
+    InsertOrUpdateTemplateRequestBody,
+    void
+  >
     verb="PUT"
     path={`/templates/insertOrUpdate`}
     base={getConfig('audit/api')}
@@ -3156,7 +3193,13 @@ export const InsertOrUpdateTemplate = (props: InsertOrUpdateTemplateProps) => (
 )
 
 export type UseInsertOrUpdateTemplateProps = Omit<
-  UseMutateProps<ResponseTemplateDTO, Failure | Error, InsertOrUpdateTemplateQueryParams, PutTemplateRequestBody, void>,
+  UseMutateProps<
+    ResponseTemplateDTO,
+    Failure | Error,
+    InsertOrUpdateTemplateQueryParams,
+    InsertOrUpdateTemplateRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -3164,11 +3207,13 @@ export type UseInsertOrUpdateTemplateProps = Omit<
  * Update a template if exists else create
  */
 export const useInsertOrUpdateTemplate = (props: UseInsertOrUpdateTemplateProps) =>
-  useMutate<ResponseTemplateDTO, Failure | Error, InsertOrUpdateTemplateQueryParams, PutTemplateRequestBody, void>(
-    'PUT',
-    `/templates/insertOrUpdate`,
-    { base: getConfig('audit/api'), ...props }
-  )
+  useMutate<
+    ResponseTemplateDTO,
+    Failure | Error,
+    InsertOrUpdateTemplateQueryParams,
+    InsertOrUpdateTemplateRequestBody,
+    void
+  >('PUT', `/templates/insertOrUpdate`, { base: getConfig('audit/api'), ...props })
 
 /**
  * Update a template if exists else create
@@ -3178,7 +3223,7 @@ export const insertOrUpdateTemplatePromise = (
     ResponseTemplateDTO,
     Failure | Error,
     InsertOrUpdateTemplateQueryParams,
-    PutTemplateRequestBody,
+    InsertOrUpdateTemplateRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -3187,7 +3232,7 @@ export const insertOrUpdateTemplatePromise = (
     ResponseTemplateDTO,
     Failure | Error,
     InsertOrUpdateTemplateQueryParams,
-    PutTemplateRequestBody,
+    InsertOrUpdateTemplateRequestBody,
     void
   >('PUT', getConfig('audit/api'), `/templates/insertOrUpdate`, props, signal)
 
@@ -3313,7 +3358,7 @@ export type PutTemplateProps = Omit<
     ResponseTemplateDTO,
     Failure | Error,
     PutTemplateQueryParams,
-    PutTemplateRequestBody,
+    InsertOrUpdateTemplateRequestBody,
     PutTemplatePathParams
   >,
   'path' | 'verb'
@@ -3324,7 +3369,13 @@ export type PutTemplateProps = Omit<
  * Update a template
  */
 export const PutTemplate = ({ identifier, ...props }: PutTemplateProps) => (
-  <Mutate<ResponseTemplateDTO, Failure | Error, PutTemplateQueryParams, PutTemplateRequestBody, PutTemplatePathParams>
+  <Mutate<
+    ResponseTemplateDTO,
+    Failure | Error,
+    PutTemplateQueryParams,
+    InsertOrUpdateTemplateRequestBody,
+    PutTemplatePathParams
+  >
     verb="PUT"
     path={`/templates/${identifier}`}
     base={getConfig('audit/api')}
@@ -3337,7 +3388,7 @@ export type UsePutTemplateProps = Omit<
     ResponseTemplateDTO,
     Failure | Error,
     PutTemplateQueryParams,
-    PutTemplateRequestBody,
+    InsertOrUpdateTemplateRequestBody,
     PutTemplatePathParams
   >,
   'path' | 'verb'
@@ -3352,7 +3403,7 @@ export const usePutTemplate = ({ identifier, ...props }: UsePutTemplateProps) =>
     ResponseTemplateDTO,
     Failure | Error,
     PutTemplateQueryParams,
-    PutTemplateRequestBody,
+    InsertOrUpdateTemplateRequestBody,
     PutTemplatePathParams
   >('PUT', (paramsInPath: PutTemplatePathParams) => `/templates/${paramsInPath.identifier}`, {
     base: getConfig('audit/api'),
@@ -3371,7 +3422,7 @@ export const putTemplatePromise = (
     ResponseTemplateDTO,
     Failure | Error,
     PutTemplateQueryParams,
-    PutTemplateRequestBody,
+    InsertOrUpdateTemplateRequestBody,
     PutTemplatePathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -3380,6 +3431,6 @@ export const putTemplatePromise = (
     ResponseTemplateDTO,
     Failure | Error,
     PutTemplateQueryParams,
-    PutTemplateRequestBody,
+    InsertOrUpdateTemplateRequestBody,
     PutTemplatePathParams
   >('PUT', getConfig('audit/api'), `/templates/${identifier}`, props, signal)

@@ -12,7 +12,7 @@ import { Button, Color, Container, Heading, Icon, Layout, PageError, Text } from
 import { isEmpty } from 'lodash-es'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
-import { AuditEventDTO, AuditFilterProperties, getAuditListPromise } from 'services/audit'
+import { AuditEventDTO, AuditFilterProperties, getAuditEventListPromise } from 'services/audit'
 import type { TemplateSummaryResponse } from 'services/template-ng'
 
 import { useInfiniteScroll } from './InfiniteScroll'
@@ -132,7 +132,7 @@ export const TemplateActivityLog = (props: TemplateActivityLogProps) => {
     offsetToFetch
   } = useInfiniteScroll({
     getItems: options => {
-      return getAuditListPromise({
+      return getAuditEventListPromise({
         queryParams: { accountIdentifier: accountId || '', pageIndex: options.offset, pageSize: options.limit },
         body: postCallRequestBody
       })

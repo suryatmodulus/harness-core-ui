@@ -38,7 +38,12 @@ import {
   getEventTypeOptions,
   getMissingDataTypeOptions
 } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.constants'
-import { SLIProps, SLIMetricTypes, SLOFormFields } from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
+import {
+  SLIProps,
+  SLIMetricTypes,
+  SLOFormFields,
+  SLIEventTypes
+} from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.types'
 import css from '@cv/pages/slos/components/CVCreateSLO/CVCreateSLO.module.scss'
 
 const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps, ...rest }) => {
@@ -48,6 +53,7 @@ const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps, ...rest
   const {
     monitoredServiceRef,
     healthSourceRef,
+    eventType,
     goodRequestMetric,
     validRequestMetric,
     SLIMetricType,
@@ -119,6 +125,11 @@ const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps, ...rest
     ]
   }, [])
 
+  const goodOrBadRequestMetricLabel =
+    eventType === SLIEventTypes.BAD
+      ? getString('cv.slos.slis.ratioMetricType.badRequestsMetrics')
+      : getString('cv.slos.slis.ratioMetricType.goodRequestsMetrics')
+
   return (
     <>
       <Card className={css.cardPickMetric}>
@@ -144,7 +155,7 @@ const PickMetric: React.FC<Omit<SLIProps, 'children'>> = ({ formikProps, ...rest
                 />
                 <FormInput.Select
                   name={SLOFormFields.GOOD_REQUEST_METRIC}
-                  label={getString('cv.slos.slis.ratioMetricType.goodRequestsMetrics')}
+                  label={goodOrBadRequestMetricLabel}
                   placeholder={SLOMetricsLoading ? getString('loading') : undefined}
                   disabled={!healthSourceRef}
                   items={SLOMetricOptions}

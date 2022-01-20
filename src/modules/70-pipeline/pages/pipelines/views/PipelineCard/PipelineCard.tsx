@@ -167,11 +167,11 @@ const LEFT_COLUMN_WIDTH = 80
 const AdditionalEntitiesCountPopUp = (props: { entityList: string[]; iconName?: IconName }) => {
   const { entityList, iconName } = props
   return (
-    <Layout.Vertical padding="small">
+    <Layout.Vertical style={{ padding: 'var(--spacing-4)' }}>
       {entityList.map(entity => (
         <Container key={entity} flex={{ justifyContent: 'flex-start' }}>
-          {iconName && <Icon name={iconName} style={{ height: 'var(--spacing-5)' }} />}
-          <Text font="xsmall" margin={{ left: 'xsmall' }} color={Color.WHITE}>
+          {iconName && <Icon name={iconName} style={{ height: 'var(--spacing-5)', marginRight: 'var(--spacing-3)' }} />}
+          <Text font="small" color={Color.WHITE} style={{ lineHeight: '22px' }}>
             {entity}
           </Text>
         </Container>

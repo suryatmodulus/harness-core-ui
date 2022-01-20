@@ -712,10 +712,13 @@ export interface StringsMap {
   'auditTrail.actions.invite_resent': string
   'auditTrail.actions.invite_revoked': string
   'auditTrail.actions.invited': string
+  'auditTrail.actions.login': string
+  'auditTrail.actions.login2fa': string
   'auditTrail.actions.removed_collaborator': string
   'auditTrail.actions.removed_membership': string
   'auditTrail.actions.restored': string
   'auditTrail.actions.revoke_token': string
+  'auditTrail.actions.unsuccessfullLogin': string
   'auditTrail.actions.updated': string
   'auditTrail.auditLogAPI': string
   'auditTrail.emptyStateMessage': string
@@ -4896,6 +4899,7 @@ export interface StringsMap {
   'cv.slos.sliTypeChooseMetric': string
   'cv.slos.slis.metricOptions.ratioBased': string
   'cv.slos.slis.metricOptions.thresholdBased': string
+  'cv.slos.slis.ratioMetricType.badRequestsMetrics': string
   'cv.slos.slis.ratioMetricType.eventType': string
   'cv.slos.slis.ratioMetricType.goodRequestsMetrics': string
   'cv.slos.slis.ratioMetricType.selectMetric1': string

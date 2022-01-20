@@ -69,7 +69,7 @@ const getK8sYamlSchema = ({ isEdit }: K8sYamlSchemaProps) => ({
           type: 'integer',
           title: 'The idleTimeMins schema',
           description: '',
-          maximum: 360
+          maximum: 600
         },
         hideProgressPage: {
           $id: '#/properties/spec/properties/hideProgressPage',

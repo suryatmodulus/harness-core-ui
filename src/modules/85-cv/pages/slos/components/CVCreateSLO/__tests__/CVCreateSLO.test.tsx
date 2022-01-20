@@ -152,6 +152,36 @@ describe('CVCreateSLO', () => {
     expect(screen.getByText('cv.slos.sli')).toHaveAttribute('aria-selected', 'true')
     expect(screen.getByText('connectors.cdng.validations.monitoringServiceRequired')).toBeInTheDocument()
   })
+
+  test('it should render correct labels based on event type Good or Bad', async () => {
+    const { container } = renderComponent()
+
+    await setFieldValue({ container, type: InputTypes.TEXTFIELD, fieldId: SLOFormFields.NAME, value: 'Text SLO' })
+
+    userEvent.click(screen.getByPlaceholderText('cv.slos.userJourneyPlaceholder'))
+
+    await waitFor(() => {
+      expect(screen.getByText('User Journey 1')).toBeInTheDocument()
+      userEvent.click(screen.getByText('User Journey 1'))
+    })
+
+    userEvent.click(screen.getByText('continue'))
+
+    expect(screen.getByText('cv.slos.sli')).toHaveAttribute('aria-selected', 'true')
+
+    expect(screen.getByText('cv.slos.slis.ratioMetricType.eventType')).toBeInTheDocument()
+    expect(screen.getByText('cv.slos.slis.ratioMetricType.goodRequestsMetrics')).toBeInTheDocument()
+
+    userEvent.click(container.querySelector('input[name="eventType"]')!)
+    userEvent.click(screen.getByText('cv.bad'))
+
+    expect(screen.getByText('cv.slos.slis.ratioMetricType.badRequestsMetrics')).toBeInTheDocument()
+
+    userEvent.click(container.querySelector('input[name="eventType"]')!)
+    userEvent.click(screen.getByText('cv.good'))
+
+    expect(screen.getByText('cv.slos.slis.ratioMetricType.goodRequestsMetrics')).toBeInTheDocument()
+  })
 })
 
 const renderEditComponent = (): RenderResult => {

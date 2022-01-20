@@ -570,10 +570,10 @@ export const getTertiaryIconProps = <T>(stage: ExecutionPipelineItem<T>): { tert
   return tertiaryIconProps
 }
 
-export const getConditionalExecutionFlag = (when: NodeRunInfo): boolean => {
+export const getConditionalExecutionFlag = (when?: NodeRunInfo): boolean => {
   if (!when) return false
-  const conditionArr = when.whenCondition!.split(' && ')
-  const status = statusToStatusMapping[conditionArr.shift()!.replace(/[^a-zA-Z]/g, '')]
-  const condition = conditionArr.join(' && ')
+  const conditionArr = when.whenCondition?.split(' && ') ?? []
+  const status = statusToStatusMapping[conditionArr.shift()?.replace(/[^a-zA-Z]/g, '') || '']
+  const condition = conditionArr?.join(' && ')
   return !(status === PipelineOrStageStatus.SUCCESS && !condition?.trim())
 }

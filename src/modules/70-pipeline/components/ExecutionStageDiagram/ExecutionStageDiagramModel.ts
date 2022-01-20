@@ -185,7 +185,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         icon: stage.icon,
         skipCondition: stage?.skipCondition,
         defaultSelected: isSelected,
-        conditionalExecutionEnabled: getConditionalExecutionFlag(stage.when!),
+        conditionalExecutionEnabled: getConditionalExecutionFlag(stage.when),
         disableClick: stage.disableClick
       }
       if (!nodeRender) {
@@ -422,7 +422,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           containerCss: node.group.containerCss,
           textCss: node.group.textCss,
           skipCondition: node.group.skipCondition,
-          conditionalExecutionEnabled: getConditionalExecutionFlag(node.group.when!),
+          conditionalExecutionEnabled: getConditionalExecutionFlag(node.group.when),
           showRollback: false,
           disableCollapseButton: disableCollapseButton
           //hideOutPort: !outLineStatus.displayLines
@@ -528,7 +528,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             icon: node.group.icon,
             secondaryIcon: 'plus',
             skipCondition: node.group.skipCondition,
-            conditionalExecutionEnabled: getConditionalExecutionFlag(node.group.when!),
+            conditionalExecutionEnabled: getConditionalExecutionFlag(node.group.when),
             customNodeStyle: node.group.cssProps
           })
         this.addNode(nodeRender)

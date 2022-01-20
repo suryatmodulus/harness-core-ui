@@ -13,6 +13,7 @@
   :global {
     .bp3-collapse-body {
       max-height: calc(100vh - 250px);
+      background-color: var(--grey-0) !important;
     }
   }
   .header {
@@ -47,11 +48,6 @@
       padding-right: var(--spacing-small);
     }
   }
-  :global {
-    .bp3-collapse-body {
-      background-color: #fff !important;
-    }
-  }
   .addLink {
     color: var(--pipeline-select-blue);
     padding: var(--spacing-small);
@@ -75,7 +71,6 @@
     grid-template-columns: 1fr 1fr 100px;
     align-items: center;
     padding: var(--spacing-medium);
-    border-radius: 4px;
 
     .rowHeader {
       color: #22272d !important;

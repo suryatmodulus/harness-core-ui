@@ -112,7 +112,7 @@ const getStageTree = (
       )
     }
     if (hideNonRuntimeFields) {
-      Object.keys(get(template, 'spec', {})).includes('serviceConfig') &&
+      if (Object.keys(get(template, 'spec', {})).includes('serviceConfig')) {
         stageNode.childNodes?.push({
           id: `Stage.${stage.identifier}.Service`,
           hasCaret: false,
@@ -121,6 +121,7 @@ const getStageTree = (
           isExpanded: true,
           childNodes
         })
+      }
     } else {
       stageNode.childNodes?.push({
         id: `Stage.${stage.identifier}.Service`,
@@ -151,21 +152,22 @@ const getStageTree = (
   if (stage.type === 'Deployment') {
     if (hideNonRuntimeFields) {
       const enabledChildList = Object.keys(get(template, 'spec', {}))
-      enabledChildList.includes('infrastructure') &&
+      if (enabledChildList.includes('infrastructure')) {
         stageNode.childNodes?.push({
           id: `Stage.${stage.identifier}.Infrastructure`,
           hasCaret: false,
           label: <Text>{getString('infrastructureText')}</Text>,
           className: classes.secondary
         })
-
-      enabledChildList.includes('execution') &&
+      }
+      if (enabledChildList.includes('execution')) {
         stageNode.childNodes?.push({
           id: `Stage.${stage.identifier}.Execution`,
           hasCaret: false,
           label: <Text>{getString('executionText')}</Text>,
           className: classes.secondary
         })
+      }
     } else {
       stageNode.childNodes?.push(
         {
@@ -247,7 +249,9 @@ export const getPipelineTree = (
     pipeline.stages.forEach((data, index) => {
       if (data.parallel && data.parallel.length > 0) {
         data.parallel.forEach(nodeP => {
-          nodeP.stage && stages.childNodes?.push(getStageTree(nodeP.stage, getString, classes))
+          if (nodeP.stage) {
+            stages.childNodes?.push(getStageTree(nodeP.stage, getString, classes))
+          }
         })
       } /* istanbul ignore else */ else if (
         data.stage &&

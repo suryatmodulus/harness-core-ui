@@ -59,7 +59,7 @@ export const useNotificationModal = ({
         onClose={() => {
           setView(Views.CREATE)
           hideModal()
-          onCloseModal ? onCloseModal() : null
+          onCloseModal?.()
         }}
         className={cx(Classes.DIALOG, css.dialog)}
       >
@@ -88,7 +88,7 @@ export const useNotificationModal = ({
           onClick={() => {
             setView(Views.CREATE)
             hideModal()
-            onCloseModal ? onCloseModal() : null
+            onCloseModal?.()
           }}
         />
       </Dialog>

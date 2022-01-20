@@ -75,8 +75,8 @@ export const handleCommandFlagsSubmitData = (
     const filteredCommandFlags = manifestObj?.manifest?.spec?.commandFlags.filter(
       (currFlag: CommandFlags) => !isEmpty(currFlag)
     )
-    if (filteredCommandFlags.length === 0) {
-      delete manifestObj?.manifest?.spec?.commandFlags
+    if (filteredCommandFlags.length === 0 && manifestObj?.manifest?.spec) {
+      delete manifestObj.manifest.spec.commandFlags
     }
   }
 }

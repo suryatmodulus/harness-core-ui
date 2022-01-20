@@ -58,14 +58,11 @@
       color: var(--grey-400);
       margin-top: var(--spacing-xlarge) !important;
       .categoryName {
-        color: var(--grey-400);
+        color: var(--grey-900);
+        font-weight: bold;
         margin-bottom: var(--spacing-medium);
         font-size: 14px;
         line-height: 17px;
-        /* identical to box height */
-
-        color: #000000;
-        font-weight: bold;
       }
       .steps {
         display: grid;
@@ -139,7 +136,7 @@
     width: 280px;
     height: 100vh;
 
-    font-family: Inter;
+    font-family: var(--font-family);
     font-style: normal;
 
     background: #00467b;
@@ -201,10 +198,9 @@
         padding: var(--spacing-small) var(--spacing-small) var(--spacing-small) 6px;
         display: inline-flex;
         cursor: pointer;
-        color: var(--grey-800);
-        align-items: end;
+        align-items: center;
         font-size: 12px;
-        color: #fff;
+        color: var(--grey-0);
         opacity: 0.9;
         font-weight: 500;
         height: 32px;

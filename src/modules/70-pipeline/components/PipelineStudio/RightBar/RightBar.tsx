@@ -71,8 +71,8 @@ interface CodebaseValues {
   depth?: string
   sslVerify?: number
   prCloneStrategy?: MultiTypeSelectOption
-  memoryLimit?: any
-  cpuLimit?: any
+  memoryLimit?: string
+  cpuLimit?: string
 }
 
 enum CodebaseStatuses {
@@ -122,7 +122,7 @@ export const RightBar = (): JSX.Element => {
     updatePipeline,
     updatePipelineView
   } = usePipelineContext()
-  const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
+  const codebase = pipeline?.properties?.ci?.codebase
   const [codebaseStatus, setCodebaseStatus] = React.useState<CodebaseStatuses>(CodebaseStatuses.ZeroState)
   const enableGovernanceSidebar = useFeatureFlag(FeatureFlag.OPA_PIPELINE_GOVERNANCE)
 

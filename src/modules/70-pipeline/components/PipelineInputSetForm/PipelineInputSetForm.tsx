@@ -189,7 +189,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
   const allowableTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } =
     useParams<PipelineType<ExecutionPathProps>>()
-  const [shouldRenderCodebaseForm, setShouldRenderCodebaseForm] = useState<boolean>()
+  const [shouldRenderCodebaseForm, setShouldRenderCodebaseForm] = useState<boolean>(true)
   const [pipeline, setPipeline] = useState<PipelineInfoConfig>(originalPipeline)
   const CLONE_CODEBASE_JSON_PATH = 'stage.spec.cloneCodebase'
 
@@ -231,7 +231,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
           stage =>
             Object.is(get(stage, CLONE_CODEBASE_JSON_PATH), true) ||
             stage.parallel?.some(parallelStage => Object.is(get(parallelStage, CLONE_CODEBASE_JSON_PATH), true))
-        )
+        ) || false
       )
       setPipeline(originalPipeline)
     }
@@ -248,7 +248,7 @@ const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props 
             stage =>
               Object.is(get(stage, CLONE_CODEBASE_JSON_PATH), true) ||
               stage.parallel?.some(parallelStage => Object.is(get(parallelStage, CLONE_CODEBASE_JSON_PATH), true))
-          )
+          ) || false
         )
         setPipeline(pipelineJSONWithoutRefs)
       } catch (e) {

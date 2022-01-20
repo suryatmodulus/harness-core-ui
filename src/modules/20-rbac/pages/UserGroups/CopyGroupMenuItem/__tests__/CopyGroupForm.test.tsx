@@ -6,16 +6,17 @@
  */
 
 import React from 'react'
+import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import CopyGroupForm from '../CopyGroupForm'
 
 describe('Copy group form test', () => {
   test('render', () => {
-    const renderObj = (
+    const renderObj = render(
       <TestWrapper>
         <CopyGroupForm closeModal={jest.fn} identifier="dummy_identifier" />
       </TestWrapper>
     )
-    expect(renderObj).toMatchSnapshot()
+    expect(renderObj.container).toMatchSnapshot()
   })
 })
